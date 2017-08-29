@@ -1,63 +1,60 @@
-######################
-CodeIgniter User Guide
-######################
+#############################
+CodeIgniter 4 中文手册翻译计划
+#############################
 
 ******************
-Setup Instructions
+安装步骤
 ******************
 
-The CodeIgniter user guide uses Sphinx to manage the documentation and
-output it to various formats.  Pages are written in human-readable
-`ReStructured Text <http://sphinx.pocoo.org/rest.html>`_ format.
+CodeIgniter 的用户指南是使用 Sphinx 软件进行管理，并可以生成各种不同的格式。
+所有的页面都是采用 `ReStructured Text <http://sphinx.pocoo.org/rest.html>`_
+格式书写，这种格式非常方便人们阅读。
 
-Prerequisites
+安装条件
 =============
 
-Sphinx requires Python, which is already installed if you are running OS X.
-You can confirm in a Terminal window by executing the ``python`` command
-without any parameters.  It should load up and tell you which version you have
-installed.  If you're not on 2.7+, go ahead and install 2.7.2 from
+Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已经自带 Python 了。
+你可以在终端中执行不带参数的 ``python`` 命令，以确认你的系统是否已安装 Python 。
+如果你已安装，会显示出你当前所使用的版本。
+如果显示的不是2.7以上版本，你可以去这里下载并安装2.7.2
 http://python.org/download/releases/2.7.2/
 
-Installation
+安装
 ============
 
-1. Install `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install>`_
+1. 安装 `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install>`_
 2. ``easy_install "sphinx==1.4.5"``
 3. ``easy_install sphinxcontrib-phpdomain``
-4. Install the CI Lexer which allows PHP, HTML, CSS, and JavaScript syntax highlighting in code examples (see *cilexer/README*)
-5. ``cd user_guide_src``
+4. 安装 CI Lexer，它可以高亮文档中的 PHP, HTML, CSS, 和 JavaScript 代码 (参见 *cilexer/README*)
+5. 返回代码库根目录
 6. ``make html``
 
-Editing and Creating Documentation
+译注：
+
+1. Ubuntu 系统上安装 easy_install 可以直接：``sudo apt-get install python-setuptools``
+2. easy_install 需要 root 权限，前面加上 sudo
+
+编辑并创建文档
 ==================================
 
-All of the source files exist under *source/* and is where you will add new
-documentation or modify existing documentation.  Just as with code changes,
-we recommend working from feature branches and making pull requests to
-the *develop* branch of this repo.
+所有的源文件都在 *source/* 目录下，在这里你可以添加新的文档或修改已有的文档。
 
-So where's the HTML?
-====================
+那么，HTML 文档在哪里？
+======================
 
-Obviously, the HTML documentation is what we care most about, as it is the
-primary documentation that our users encounter.  Since revisions to the built
-files are not of value, they are not under source control.  This also allows
-you to regenerate as necessary if you want to "preview" your work.  Generating
-the HTML is very simple.  From the root directory of your user guide repo
-fork issue the command you used at the end of the installation instructions::
+很显然，HTML 文档才是我们最关心的，因为这毕竟才是用户最终看到的。
+由于对自动生成的文件进行版本控制没有意义，所以它们并不在版本控制之下。
+你如果想要预览 HTML 文档，你可以重新生成它们。生成 HTML 文档非常简单，
+首先进入你的用户指南目录，然后执行上面安装步骤中的最后一步::
 
 	make html
 
-You will see it do a whiz-bang compilation, at which point the fully rendered
-user guide and images will be in *build/html/*.  After the HTML has been built,
-each successive build will only rebuild files that have changed, saving
-considerable time.  If for any reason you want to "reset" your build files,
-simply delete the *build* folder's contents and rebuild.
+你将会看到正在编译中的信息，编译成功后，生成的用户指南和图片都位于 *build/html/* 目录下。
+在 HTML 第一次编译之后，后面将只会针对修改的文件进行重编译，这将大大的节约我们的时间。
+如果你想再重新全部编译一次，只需删除 *build* 目录然后编译即可。
 
 ***************
-Style Guideline
+风格指南
 ***************
 
-Please refer to source/documentation/index.rst for general guidelines for
-using Sphinx to document CodeIgniter.
+使用 Sphinx 为 CodeIgniter 编写文档，请参考 source/documentation/index.rst 的一般准则。
