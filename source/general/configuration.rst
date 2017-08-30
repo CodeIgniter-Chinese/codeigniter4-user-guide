@@ -1,41 +1,43 @@
 ################################
-Working With Configuration Files
+利用配置文件开始你的工作
 ################################
 
-Every application needs a way to define various settings that affect the application.
-These are handled through configuration files. Configuration files simply
-hold a class that contains its settings as public properties. Unlike in many other frameworks,
-there is no single class that you need to use to access your settings. Instead, you simply
-create an instance of the class and all your settings are there for you.
+每一个项目，都需要一种方法来定义不同的全局配置项，而这一过程是通常通过配置文件来实现的。
+而配置文件一般来说是通过声明一个类，而这个类将所有的配置项作为公开属性，从而实现这一配置过程。
+不同于许多其他的框架，在CI4中，不需要访问某个类来修改你的配置项信息。
+取而代之的是，你仅仅需要创建一个配置类的实例，从而轻而易举的实现配置流程。
 
-Accessing Config Files
+访问配置文件
 ======================
 
-You can access config files within your classes by creating a new instance. All of the properties
-are public, so you access the settings like any other property::
+
+你可以通过创建一个新的实例，来访问你的类中的配置文件。
+所有的这些属性都是公开的，故而你可以像其他属性一样调用你的配置项::
 
 	$config = new \Config\EmailConfig();
 	
-	// Access settings as class properties
+	// 像类属性一样调用配置项
 	$protocol = $config->protocol;
 	$mailpath = $config->mailpath;
 
-If no namespace is provided, it will look for the files in all available namespaces that have
-been defined, as well as **/application/Config/**. All of the configuration files
-that ship with CodeIgniter are namespaced with ``Config``. Using this namespace in your
-application will provide the best performance since it knows exactly what directory to find the
-files in and doesn't have to scan several locations in the filesystem to get there.
 
-You can locate the configuration files any place on your server by using a different namespace.
-This allows you to pull configuration files on the production server to a folder that is not in
-the web-accessible space at all, while keeping it under **/application** for ease of access during development.
 
-Creating Configuration Files
+若没有给出namespace(命名空间），框架会在所有可用的、已被定义的命名空间中搜寻所需的文件，就如同 **/application/Config/** 一样。
+所以Codeigniter里所有的配置文件都应当在 ``Config`` 这一命名空间下。
+由于框架可以确切地了解配置文件的目录位置，从而不必扫描文件系统中的不同区域。
+故而在你的项目中，使用这一命名空间将会有效地提升性能。
+
+
+你也可以通过使用一个不同的命名空间，从而在你的服务器的任意位置上部署所需的配置文件。
+这一举措可以允许你将生产环境的服务器中的配置文件移动到一个不能通过Web访问的位置；而在开发环境中，将其放置在 **/application** 目录下以便访问。
+
+
+创建配置文件
 ============================
 
-If you need to create a new configuration file you would create a new file at your desired location,
-**/application/Config** by default. Then create the class and fill it with public properties that
-represent your settings::
+
+当你需要创建一个新的配置文件时，你需要在指定位置创建一个新的文件，例如在默认的 **/aplication/Config** 目录下。然后创建一个带有公开属性的类，从而放置你的配置信息::
+
 
 	<?php namespace Config;
 	
@@ -48,8 +50,9 @@ represent your settings::
 
 The class should extend ``\CodeIgniter\Config\BaseConfig`` to ensure that it can receive environment-specific
 settings.
+这个类应当继承 ``\CodeIgniter\Config\BaseConfig`` 从而保证框架可以得到具体环境中的配置信息。
 
-Handling Different Environments
+面对不同的环境情况
 ===============================
 
 Because your site can operate within multiple environments, such as the developer's local machine or
