@@ -7,7 +7,7 @@
 - [ ] ./source/general/cli.rst
 - [ ] ./source/general/cli_commands.rst
 - [ ] ./source/general/common_functions.rst
-- [-] ./source/general/configuration.rst
+- [*] ./source/general/configuration.rst
 - [ ] ./source/general/controllers.rst
 - [ ] ./source/general/core_classes.rst
 - [ ] ./source/general/debugging.rst
@@ -63,13 +63,13 @@
 - [ ] ./source/libraries/encryption.rst
 - [ ] ./source/libraries/files.rst
 - [ ] ./source/libraries/images.rst
-- [-] ./source/libraries/incomingrequest.rst
+- [*] ./source/libraries/incomingrequest.rst
 - [ ] ./source/libraries/index.rst
 - [ ] ./source/libraries/localization.rst
 - [ ] ./source/libraries/message.rst
 - [ ] ./source/libraries/pagination.rst
 - [ ] ./source/libraries/request.rst
-- [-] ./source/libraries/response.rst
+- [*] ./source/libraries/response.rst
 - [ ] ./source/libraries/security.rst
 - [ ] ./source/libraries/sessions.rst
 - [ ] ./source/libraries/throttler.rst
@@ -92,7 +92,7 @@
 - [ ] ./source/tutorial/create_news_items.rst
 - [ ] ./source/tutorial/index.rst
 - [ ] ./source/tutorial/news_section.rst
-- [-] ./source/tutorial/static_pages.rst
+- [*] ./source/tutorial/static_pages.rst
 - [ ] ./source/concepts/autoloader.rst
 - [ ] ./source/concepts/http.rst
 - [ ] ./source/concepts/index.rst
