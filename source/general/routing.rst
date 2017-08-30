@@ -1,8 +1,8 @@
 ###########
-URI Routing
+URI 路由
 ###########
 
-.. contents:: Page Contents
+.. contents:: 本页内容
 
 Typically there is a one-to-one relationship between a URL string and its corresponding
 controller class/method. The segments in a URI normally follow this pattern::
