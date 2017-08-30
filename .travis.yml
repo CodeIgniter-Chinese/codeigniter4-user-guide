@@ -1,0 +1,49 @@
+language: python
+python:
+  - "2.7"
+
+#env:
+#  global:
+#    - GH_REF: github.com/CodeIgniter-Chinese/codeigniter-user-guide.git
+#    - secure: rLGHJqNPSYi9tyAXQIIUyiETbi8USNzsKeIudMOXUt42xjphnyn8rfPow0pGq1QMnr0XRRtTSuhNaSHHusqhIgjovCY/RabzdmUYl1ZeZ6x6Z5bwjtecm/P1IJUxX/Sy7ps+x2xugfeDU6vgHT9apActJJSYZHwYWBj/AW7IErCkWE3sgwn9IPpGqqbLK0mVGBvRlBP3wssuzBt7PiEvrZ+MKSgBNiYb8zP4A9D7GDDl7VPHC/ggkhzRZBCT+uAFH3yFRo38jNU9+MkUkMIwKjWJRrPwOz7epwjRIF2Ch5IMzkokB45QVZgO9ZfbyyvkTrG/381bzeVMTjhEImsvjfJMmrip+9QaRx5pfqaWcIPrRTl9oegUFEIweR9Edx24yAqVXvuMl6v5nNOiZcGcO6RJx5+341la/MogN8HWtkBtU++Ya4bHJPclj2hAmNYXmR+F/iKFrPz6oc7UCbF5+NHEPTvW/3wdPI/XAvCsI1x+8PvLI22Pjcy/7u4odsXzEzl1gDwUunVMW0gG2OgbsDx4Ma3zJmJK6En0vJmRgtIbaqZcwH5DsHNV0ituxxuALRG9aC8JwXj5CtDwOwoupiEs2GYkg6j+fgzCHiWi27LhJXWtPXY4pR1aX3rtgjsdVf/jWqmLjsVa6RGDsqJhcXenO+nhcoUNcvpZS0gozLw=
+
+cache:
+  directories:
+  - $HOME/.cache/pip
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+    - texlive-xetex
+    - texlive-latex-recommended
+    - texlive-fonts-recommended
+    - texlive-latex-extra
+    - lmodern
+
+install:
+  - pip install --upgrade pip
+  - pip install "sphinx==1.4.5"
+  - pip install sphinxcontrib-phpdomain
+  - cd cilexer && python setup.py install && cd ..
+
+script:
+  - make html
+#  - wget http://codeigniter-chinese.github.io/codeigniter-user-guide/_fonts/fonts.tar.gz
+#  - mkdir $HOME/.fonts && tar xzf fonts.tar.gz && cp *.ttf $HOME/.fonts/
+#  - make latexpdf
+
+# after_success:
+#  - bash ./deploy-gh-pages.sh
+
+# Flags used here, not in `make html`:
+#  -n   Run in nit-picky mode. Currently, this generates warnings for all missing references.
+#  -W   Turn warnings into errors. This means that the build stops at the first warning and sphinx-build exits with exit status 1.
+
+git:
+  depth: 10
+
+branches:
+  only:
+    - master
