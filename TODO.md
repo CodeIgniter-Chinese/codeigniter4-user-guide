@@ -34,7 +34,7 @@
 - [ ] ./source/database/events.rst
 - [ ] ./source/database/examples.rst
 - [ ] ./source/database/forge.rst
-- [ ] ./source/database/helpers.rst
+- [x] ./source/database/helpers.rst
 - [ ] ./source/database/index.rst
 - [ ] ./source/database/metadata.rst
 - [ ] ./source/database/migration.rst
@@ -77,7 +77,7 @@
 - [ ] ./source/libraries/typography.rst
 - [ ] ./source/libraries/uploaded_files.rst
 - [ ] ./source/libraries/uri.rst
-- [ ] ./source/libraries/validation.rst
+- [x] ./source/libraries/validation.rst
 - [ ] ./source/helpers/cookie_helper.rst
 - [ ] ./source/helpers/filesystem_helper.rst
 - [ ] ./source/helpers/form_helper.rst
