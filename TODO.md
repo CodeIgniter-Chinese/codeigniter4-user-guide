@@ -22,7 +22,7 @@
 - [ ] ./source/general/modules.rst
 - [ ] ./source/general/routing.rst
 - [ ] ./source/general/testing.rst
-- [ ] ./source/general/urls.rst
+- [x] ./source/general/urls.rst
 - [ ] ./source/general/view_cells.rst
 - [ ] ./source/general/view_parser.rst
 - [ ] ./source/general/view_renderer.rst
