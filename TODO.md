@@ -52,9 +52,9 @@
 - [ ] ./source/installation/upgrading.rst
 - [ ] ./source/intro/credits.rst
 - [ ] ./source/intro/index.rst
-- [ ] ./source/intro/psr.rst
+- [x] ./source/intro/psr.rst
 - [ ] ./source/intro/requirements.rst
-- [ ] ./source/libraries/api_responses.rst
+- [x] ./source/libraries/api_responses.rst
 - [ ] ./source/libraries/benchmark.rst
 - [ ] ./source/libraries/caching.rst
 - [ ] ./source/libraries/cli.rst
