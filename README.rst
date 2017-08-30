@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master
+    :target: https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide
+
 #############################
 CodeIgniter 4 中文手册翻译计划
 #############################
