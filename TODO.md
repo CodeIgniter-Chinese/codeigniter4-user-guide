@@ -1,3 +1,7 @@
+# 翻译进度跟踪
+
+选中状态为已认领文档
+
 - [ ] ./source/general/alternative_php.rst
 - [ ] ./source/general/caching.rst
 - [ ] ./source/general/cli.rst
