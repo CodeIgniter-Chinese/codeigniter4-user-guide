@@ -1,6 +1,11 @@
 # 翻译进度跟踪
 
-选中状态为已认领文档
+```
+- [x] 表示已认领
+- [ ] 表示未认领
+```
+
+----
 
 - [ ] ./source/general/alternative_php.rst
 - [ ] ./source/general/caching.rst
