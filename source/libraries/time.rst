@@ -206,14 +206,14 @@ The exact time displayed is determined in the following manner:
 =============================== =================================
 Time difference                  Result
 =============================== =================================
-$time > 1 year && < 2 years      in 1 year / 1 year ago
-$time > 1 month && < 1 year      in 6 months / 6 months ago
-$time > 7 days && < 1 month      in 3 weeks / 3 weeks ago
-$time > today && < 7 days        in 4 days / 4 days ago
-$time == tomorrow / yesterday    Tomorrow / Yesterday
-$time > 59 minutes && < 1 day    1:37pm
-$time > now && < 1 hour          in 35 minutes / 35 minutes ago
-$time == now                     Now
+$time > 1 year && < 2 years     in 1 year / 1 year ago
+$time > 1 month && < 1 year     in 6 months / 6 months ago
+$time > 7 days && < 1 month     in 3 weeks / 3 weeks ago
+$time > today && < 7 days       in 4 days / 4 days ago
+$time == tomorrow / yesterday   Tomorrow / Yesterday
+$time > 59 minutes && < 1 day   1:37pm
+$time > now && < 1 hour         in 35 minutes / 35 minutes ago
+$time == now                    Now
 
 The exact language used is controlled through the language file, Time.php.
 
@@ -515,12 +515,12 @@ The exact time displayed is determined in the following manner:
 =============================== =================================
 Time difference                  Result
 =============================== =================================
-$time > 1 year && < 2 years      in 1 year / 1 year ago
-$time > 1 month && < 1 year      in 6 months / 6 months ago
-$time > 7 days && < 1 month      in 3 weeks / 3 weeks ago
-$time > today && < 7 days        in 4 days / 4 days ago
-$time > 1 hour && < 1 day        in 8 hours / 8 hours ago
-$time > 1 minute && < 1 hour     in 35 minutes / 35 minutes ago
-$time < 1 minute                 Now
+$time > 1 year && < 2 years     in 1 year / 1 year ago
+$time > 1 month && < 1 year     in 6 months / 6 months ago
+$time > 7 days && < 1 month     in 3 weeks / 3 weeks ago
+$time > today && < 7 days       in 4 days / 4 days ago
+$time > 1 hour && < 1 day       in 8 hours / 8 hours ago
+$time > 1 minute && < 1 hour    in 35 minutes / 35 minutes ago
+$time < 1 minute                Now
 
 The exact language used is controlled through the language file, Time.php.
