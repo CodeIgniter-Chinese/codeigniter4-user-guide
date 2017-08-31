@@ -7,6 +7,8 @@ CodeIgniter 4 中文手册翻译计划
 
 `文档翻译进度 <TODO.md>`_
 
+`预览最新文档 <https://codeigniter-chinese.github.io/codeigniter4-user-guide/>`_
+
 ******************
 安装步骤
 ******************
