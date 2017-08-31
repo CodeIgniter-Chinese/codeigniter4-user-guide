@@ -482,13 +482,13 @@ running by removing it from the <code class="docutils literal"><span class="pre"
 can easily make your own to customize the toolbar. To determine which collectors are shown, again head over to
 the App configuration file:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$toolbarCollectors</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Timers&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Database&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Logs&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Views&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Cache&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Files&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Routes&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Timers&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Database&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Logs&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Views&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Cache&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Files&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Routes&#39;</span><span class="p">,</span>
 <span class="p">];</span>
 </pre></div>
 </div>
@@ -524,13 +524,13 @@ the Collector to work</p>
 
 <span class="k">class</span> <span class="nc">MyCollector</span> <span class="k">extends</span> <span class="nx">BaseCollector</span>
 <span class="p">{</span>
-    <span class="k">protected</span> <span class="nv">$hasTimeline</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="k">protected</span> <span class="nv">$hasTimeline</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
 
-    <span class="k">protected</span> <span class="nv">$hasTabContent</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="k">protected</span> <span class="nv">$hasTabContent</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
 
-    <span class="k">protected</span> <span class="nv">$hasVarData</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="k">protected</span> <span class="nv">$hasVarData</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
 
-    <span class="k">protected</span> <span class="nv">$title</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+        <span class="k">protected</span> <span class="nv">$title</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -569,10 +569,10 @@ number of queries across all connections, while the Files tab displays the total
 <p>The <code class="docutils literal"><span class="pre">formatTimelineData()</span></code> method must return an array of arrays formatted in a way that the timeline can use
 it to sort it correctly and display the correct information. The inner arrays must include the following information:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;name&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>     <span class="c1">// Name displayed on the left of the timeline</span>
-    <span class="s1">&#39;component&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>     <span class="c1">// Name of the Component listed in the middle of timeline</span>
-    <span class="s1">&#39;start&#39;</span>     <span class="o">=&gt;</span> <span class="mf">0.00</span><span class="p">,</span>   <span class="c1">// start time, like microtime(true)</span>
-    <span class="s1">&#39;duration&#39;</span>  <span class="o">=&gt;</span> <span class="mf">0.00</span>    <span class="c1">// duration, like mircrotime(true) - microtime(true)</span>
+        <span class="s1">&#39;name&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>     <span class="c1">// Name displayed on the left of the timeline</span>
+        <span class="s1">&#39;component&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>     <span class="c1">// Name of the Component listed in the middle of timeline</span>
+        <span class="s1">&#39;start&#39;</span>     <span class="o">=&gt;</span> <span class="mf">0.00</span><span class="p">,</span>   <span class="c1">// start time, like microtime(true)</span>
+        <span class="s1">&#39;duration&#39;</span>  <span class="o">=&gt;</span> <span class="mf">0.00</span>    <span class="c1">// duration, like mircrotime(true) - microtime(true)</span>
 <span class="p">];</span>
 </pre></div>
 </div>
@@ -587,14 +587,14 @@ it to sort it correctly and display the correct information. The inner arrays mu
 <p>The <code class="docutils literal"><span class="pre">getVarData()</span></code> method should return an array containing arrays of key/value pairs to display. The name of the
 outer array's key is the name of the section on the Vars tab:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;section 1&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-        <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;bar&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;baz&#39;</span>
-    <span class="p">],</span>
-    <span class="s1">&#39;section 2&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-        <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;bar&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;baz&#39;</span>
-    <span class="p">]</span>
+        <span class="s1">&#39;section 1&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;bar&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;baz&#39;</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;section 2&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;bar&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;baz&#39;</span>
+        <span class="p">]</span>
  <span class="p">];</span>
 </pre></div>
 </div>

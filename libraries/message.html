@@ -492,9 +492,8 @@ likely choosing a JPEG image to return.</p>
 <p>Scans and parses the headers found in the SERVER data and stores it for later access.
 This is used by the <a class="reference internal" href="incomingrequest.html"><span class="doc">IncomingRequest Class</span></a> to make
 the current request's headers available.</p>
-<blockquote>
-<div>The headers are any SERVER data that starts with <code class="docutils literal"><span class="pre">HTTP_</span></code>, like <code class="docutils literal"><span class="pre">HTTP_HOST</span></code>. Each message</div></blockquote>
-<p>is converted from it's standard uppercase and underscore format to a ucwords and dash format.
+<p>The headers are any SERVER data that starts with <code class="docutils literal"><span class="pre">HTTP_</span></code>, like <code class="docutils literal"><span class="pre">HTTP_HOST</span></code>. Each message
+is converted from it's standard uppercase and underscore format to a ucwords and dash format.
 The preceeding <code class="docutils literal"><span class="pre">HTTP_</span></code> is removed from the string. So <code class="docutils literal"><span class="pre">HTTP_ACCEPT_LANGUAGE</span></code> becomes
 <code class="docutils literal"><span class="pre">Accept-Language</span></code>.</p>
 </dd></dl>
@@ -550,8 +549,8 @@ method to retrieve the values as a string:</p>
 
 <span class="c1">// Outputs something like:</span>
 <span class="p">[</span>
-    <span class="s1">&#39;en&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;en-US&#39;</span>
+        <span class="s1">&#39;en&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;en-US&#39;</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -742,9 +741,9 @@ are <code class="docutils literal"><span class="pre">1.0</span></code> and <code
 the best match. Returns the appropriate media type. The first parameter is an array of application supported
 media types that should be compared against header values:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;image/jpg&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;image/gif&#39;</span>
+        <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;image/jpg&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;image/gif&#39;</span>
 <span class="p">];</span>
 <span class="nv">$imageType</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateMedia</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>
@@ -787,8 +786,8 @@ For more details, please read the <a class="reference external" href="http://too
 <p>This is used identically to the <code class="docutils literal"><span class="pre">negotiateMedia()</span></code> method, except that it matches against the <code class="docutils literal"><span class="pre">Accept-Charset</span></code>
 header string:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;iso-8895-9&#39;</span>
+        <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;iso-8895-9&#39;</span>
 <span class="p">];</span>
 <span class="nv">$charset</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateCharset</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>
@@ -819,8 +818,8 @@ header string:</p>
 <p>Determines the best match between the application-supported values and the <code class="docutils literal"><span class="pre">Accept-Encoding</span></code> header value.
 If no match is found, will return the first element of the <code class="docutils literal"><span class="pre">$supported</span></code> array:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;gzip&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;compress&#39;</span>
+        <span class="s1">&#39;gzip&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;compress&#39;</span>
 <span class="p">];</span>
 <span class="nv">$encoding</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateEncoding</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>
@@ -850,9 +849,9 @@ If no match is found, will return the first element of the <code class="docutils
 <p>Determines the best match between the application-supported languages and the <code class="docutils literal"><span class="pre">Accept-Language</span></code> header value.
 If no match is found, will return the first element of the <code class="docutils literal"><span class="pre">$supported</span></code> array:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;en&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;fr&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;x-pig-latin&#39;</span>
+        <span class="s1">&#39;en&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;fr&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;x-pig-latin&#39;</span>
 <span class="p">];</span>
 <span class="nv">$language</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateLanguage</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>

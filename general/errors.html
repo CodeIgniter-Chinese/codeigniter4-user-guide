@@ -422,11 +422,11 @@ execution is then sent to the error handler which displays the appropriate error
 </div>
 <p>If you are calling a method that might throw an exception, you can catch that exception using a <code class="docutils literal"><span class="pre">try/catch</span> <span class="pre">block</span></code>:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">die</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">());</span>
+        <span class="k">die</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">());</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -437,7 +437,7 @@ a UnknownFileException, we can specify that in the catch parameter. Any other ex
 not child classes of the caught exception will be passed on to the error handler:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">catch</span> <span class="p">(</span><span class="nx">\CodeIgniter\UnknownFileException</span> <span class="nv">$e</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="c1">// do something here...</span>
+        <span class="c1">// do something here...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -445,9 +445,9 @@ not child classes of the caught exception will be passed on to the error handler
 the error handler to function as normal, you can throw a new exception within the catch block:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">catch</span> <span class="p">(</span><span class="nx">\CodeIgniter\UnknownFileException</span> <span class="nv">$e</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="c1">// do something here...</span>
+        <span class="c1">// do something here...</span>
 
-    <span class="k">throw</span> <span class="k">new</span> <span class="nx">\RuntimeException</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">(),</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getCode</span><span class="p">(),</span> <span class="nv">$e</span><span class="p">);</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">\RuntimeException</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">(),</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getCode</span><span class="p">(),</span> <span class="nv">$e</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -473,7 +473,7 @@ If, in <code class="docutils literal"><span class="pre">Config/Routes.php</span>
 404 page:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$pageModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">))</span>
 <span class="p">{</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\PageNotFoundException</span><span class="p">();</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\PageNotFoundException</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>
