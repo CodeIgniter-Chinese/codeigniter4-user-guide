@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Throttler &mdash; CodeIgniter4 4.0.0-dev 文档</title>
+  <title>Throttler &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="CodeIgniter4 4.0.0-dev 文档" href="../index.html"/>
+    <link rel="top" title="CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档" href="../index.html"/>
         <link rel="up" title="Library Reference" href="index.html"/>
         <link rel="next" title="Typography" href="typography.html"/>
         <link rel="prev" title="Session Library" href="sessions.html"/> 
@@ -155,7 +155,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter's Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/entities.html">Using Entity Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/migration.html">Database Migrations</a></li>
@@ -187,7 +187,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer's Certificate of Origin 1.1</a></li>
 </ul>
 </li>
 </ul>
@@ -332,7 +332,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter's Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/entities.html">Using Entity Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/migration.html">Database Migrations</a></li>
@@ -364,7 +364,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer's Certificate of Origin 1.1</a></li>
 </ul>
 </li>
 </ul>
@@ -421,7 +421,7 @@
 </ul>
 </div>
 <p>The Throttler class provides a very simple way to limit an activity to be performed a certain amount of attempts
-within a set time limit. This is most often used for performing rate limiting on API&#8217;s, or restricting the number
+within a set time limit. This is most often used for performing rate limiting on API's, or restricting the number
 of attempts a user can make against a form to help prevent brute force attacks. The class itself can be used
 for anything that you need to throttle based on actions within a set time interval.</p>
 <div class="section" id="overview">
@@ -429,17 +429,17 @@ for anything that you need to throttle based on actions within a set time interv
 <p>The Throttler implements a simplified version of the <a class="reference external" href="https://en.wikipedia.org/wiki/Token_bucket">Token Bucket</a>
 algorithm. This basically treats each action that you want as a bucket. When you call the <code class="docutils literal"><span class="pre">check()</span></code> method,
 you tell it how large the bucket is, and how many tokens it can hold and the time interval. Each <code class="docutils literal"><span class="pre">check()</span></code> call uses
-1 of the available tokens, by default. Let&#8217;s walk through an example to make this clear.</p>
-<p>Let&#8217;s say we want an action to happen once every second. The first call to the Throttler would look like the following,
+1 of the available tokens, by default. Let's walk through an example to make this clear.</p>
+<p>Let's say we want an action to happen once every second. The first call to the Throttler would look like the following,
 with the first parameter being the bucket name, the second parameter the number of tokens the bucket holds, and
 the third being the amount of time it takes for the bucket to refill:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$throttler</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">throttler</span><span class="p">();</span>
 <span class="nv">$throttler</span><span class="o">-&gt;</span><span class="na">check</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="nx">MINUTE</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Here we&#8217;re using one of the <a class="reference internal" href="../general/common_functions.html"><span class="doc">global constants</span></a> for the time, to make it a little
+<p>Here we're using one of the <a class="reference internal" href="../general/common_functions.html"><span class="doc">global constants</span></a> for the time, to make it a little
 more readable. This says that the bucket allows 60 actions every minute, or 1 action every second.</p>
-<p>Let&#8217;s say that a third-party script was trying to hit a URL repeatedly. At first, it would be able to use all 60
+<p>Let's say that a third-party script was trying to hit a URL repeatedly. At first, it would be able to use all 60
 of those tokens in less than a second. However, after that the Throttler would only allow one action per second,
 potentially slowing down the requests enough that they attack is no longer worth it.</p>
 <div class="admonition note">
@@ -479,8 +479,8 @@ made to the site, not per page.</p>
 </div>
 <div class="section" id="applying-the-filter">
 <h3><a class="toc-backref" href="#id4">Applying the Filter</a><a class="headerlink" href="#applying-the-filter" title="永久链接至标题">¶</a></h3>
-<p>We don&#8217;t necessarily need to throttle every page on the site. For many web applications this makes the most sense
-to apply only to POST requests, though API&#8217;s might want to limit to every request made by a user. In order to apply
+<p>We don't necessarily need to throttle every page on the site. For many web applications this makes the most sense
+to apply only to POST requests, though API's might want to limit to every request made by a user. In order to apply
 this to incoming requests, you need to edit <strong>/application/Config/Filters.php</strong> and first add an alias to the
 filter:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$aliases</span> <span class="o">=</span> <span class="p">[</span>
@@ -496,7 +496,7 @@ filter:</p>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>And that&#8217;s all there is to it. Now all POST requests made on the site will have be rate limited.</p>
+<p>And that's all there is to it. Now all POST requests made on the site will have be rate limited.</p>
 <div class="section" id="class-reference">
 <h4><a class="toc-backref" href="#id5">Class Reference</a><a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h4>
 <dl class="method">
@@ -507,10 +507,10 @@ filter:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$key</strong> (<em>string</em>) &#8211; The name of the bucket</li>
-<li><strong>$capacity</strong> (<em>int</em>) &#8211; The number of tokens the bucket holds</li>
-<li><strong>$seconds</strong> (<em>int</em>) &#8211; The number of seconds it takes for a bucket to completely fill</li>
-<li><strong>$cost</strong> (<em>int</em>) &#8211; The number of tokens that are spent for this action</li>
+<li><strong>$key</strong> (<em>string</em>) -- The name of the bucket</li>
+<li><strong>$capacity</strong> (<em>int</em>) -- The number of tokens the bucket holds</li>
+<li><strong>$seconds</strong> (<em>int</em>) -- The number of seconds it takes for a bucket to completely fill</li>
+<li><strong>$cost</strong> (<em>int</em>) -- The number of tokens that are spent for this action</li>
 </ul>
 </td>
 </tr>
@@ -569,8 +569,8 @@ tried again.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; 版权所有 2014-2017 British Columbia Institute of Technology.
-       Last updated on 8月 31, 2017.
+        &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院.
+       Last updated on 2017-08-31.
     </p>
   </div>
 

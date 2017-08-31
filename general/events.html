@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Events - Extending the Framework Core &mdash; CodeIgniter4 4.0.0-dev 文档</title>
+  <title>Events - Extending the Framework Core &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="CodeIgniter4 4.0.0-dev 文档" href="../index.html"/>
+    <link rel="top" title="CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档" href="../index.html"/>
         <link rel="up" title="General Topics" href="index.html"/>
         <link rel="next" title="Global Functions and Constants" href="common_functions.html"/>
         <link rel="prev" title="Creating Core System Classes" href="core_classes.html"/> 
@@ -155,7 +155,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter's Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/entities.html">Using Entity Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/migration.html">Database Migrations</a></li>
@@ -187,7 +187,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer's Certificate of Origin 1.1</a></li>
 </ul>
 </li>
 </ul>
@@ -332,7 +332,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter's Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/entities.html">Using Entity Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/migration.html">Database Migrations</a></li>
@@ -364,7 +364,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer's Certificate of Origin 1.1</a></li>
 </ul>
 </li>
 </ul>
@@ -407,13 +407,13 @@
             
   <div class="section" id="events-extending-the-framework-core">
 <h1>Events - Extending the Framework Core<a class="headerlink" href="#events-extending-the-framework-core" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter&#8217;s Events feature provides a means to tap into and modify the inner workings of the framework without hacking
-core files. When CodeIgniter runs it follows a specific execution process. There may be instances, however, when you&#8217;d
+<p>CodeIgniter's Events feature provides a means to tap into and modify the inner workings of the framework without hacking
+core files. When CodeIgniter runs it follows a specific execution process. There may be instances, however, when you'd
 like to cause some action to take place at a particular stage in the execution process. For example, you might want to run
 a script right before your controllers get loaded, or right after, or you might want to trigger one of your own scripts
 in some other location.</p>
 <p>Events work on a <em>publish/subscribe</em> pattern, where an event, is triggered at some point during the script execution.
-Other scripts can &#8220;subscribe&#8221; to that event by registering with the Events class to let it know they want to perform an
+Other scripts can &quot;subscribe&quot; to that event by registering with the Events class to let it know they want to perform an
 action when that event is triggered.</p>
 <div class="section" id="enabling-events">
 <h2>Enabling Events<a class="headerlink" href="#enabling-events" title="永久链接至标题">¶</a></h2>
@@ -422,7 +422,7 @@ action when that event is triggered.</p>
 <div class="section" id="defining-an-event">
 <h2>Defining an Event<a class="headerlink" href="#defining-an-event" title="永久链接至标题">¶</a></h2>
 <p>Most events are defined within the <strong>application/Config/Events.php</strong> file. You can subscribe an action to an event with
-the Events class&#8217; <code class="docutils literal"><span class="pre">on()</span></code> method. The first parameter is the name of the event to subscribe to. The second parameter is
+the Events class' <code class="docutils literal"><span class="pre">on()</span></code> method. The first parameter is the name of the event to subscribe to. The second parameter is
 a callable that will be run when that event is triggered:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
 
@@ -515,8 +515,8 @@ given the arguments in the same order as defined:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; 版权所有 2014-2017 British Columbia Institute of Technology.
-       Last updated on 8月 31, 2017.
+        &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院.
+       Last updated on 2017-08-31.
     </p>
   </div>
 
