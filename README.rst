@@ -5,6 +5,12 @@
 CodeIgniter 4 中文手册翻译计划
 #############################
 
+***********
+翻译准则
+***********
+
+中文翻译请遵守 `中文文案排版指北 <http://mazhuang.org/wiki/chinese-copywriting-guidelines/>`_
+
 `文档翻译进度 <TODO.md>`_
 
 `预览最新文档 <https://codeigniter-chinese.github.io/codeigniter4-user-guide/>`_
