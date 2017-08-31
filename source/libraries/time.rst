@@ -416,7 +416,7 @@ a timezone string in as the second parameter. If no timezone is given, the syste
     $time1->equals('January 11, 2017 03:50:00', 'Europe/London');  // true
 
 sameAs()
-------
+--------
 
 This is identical to the **equals** method, except that it only returns true when the date, time, AND timezone are
 all identical::
