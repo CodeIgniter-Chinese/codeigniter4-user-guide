@@ -1,7 +1,7 @@
 # 翻译进度跟踪
 
-> - [x] 表示已认领
 > - [ ] 表示未认领
+> - [x] 表示已认领
 > - [x] ~~表示已完成~~
 
 - [ ] ./source/general/alternative_php.rst
