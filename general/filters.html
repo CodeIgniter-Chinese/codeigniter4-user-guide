@@ -49,30 +49,12 @@
     
       <div id="pulldown-menu" class="ciNav">
         <ul>
-<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
-</ul>
-</li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/local_server.html">Local Development Server</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -226,30 +208,12 @@
           
           
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
-</ul>
-</li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/local_server.html">Local Development Server</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -509,11 +473,11 @@ different authentication system since you only change the filter's class and you
 You should take care with how many you use here, since it could have performance implications to have too many
 run on every request. Filters can be specified by adding their alias to either the before or after array:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$globals</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                    <span class="s1">&#39;csrf&#39;</span>
-            <span class="p">],</span>
-            <span class="s1">&#39;after&#39;</span>  <span class="o">=&gt;</span> <span class="p">[]</span>
-    <span class="p">];</span>
+    <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;csrf&#39;</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;after&#39;</span>  <span class="o">=&gt;</span> <span class="p">[]</span>
+<span class="p">];</span>
 </pre></div>
 </div>
 <p>There are times where you want to apply a filter to almost every request, but have a few that should be left alone.
@@ -521,11 +485,11 @@ One common example is if you need to exclude a few URI's from the CSRF protectio
 third-party websites to hit one or two specific URI's, while keeping the rest of them protected. To do this, add
 an array with the 'except' key and a uri to match as the value alongside the alias:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$globals</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                    <span class="s1">&#39;csrf&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;api/*&#39;</span><span class="p">]</span>
-            <span class="p">],</span>
-            <span class="s1">&#39;after&#39;</span>  <span class="o">=&gt;</span> <span class="p">[]</span>
-    <span class="p">];</span>
+    <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;csrf&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;api/*&#39;</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;after&#39;</span>  <span class="o">=&gt;</span> <span class="p">[]</span>
+<span class="p">];</span>
 </pre></div>
 </div>
 <p>Any place you can use a URI in the filter settings, you can use a regular expression or, like in this example, use
@@ -533,11 +497,11 @@ an asterisk for a wildcard that will match all characters after that. In this ex
 would be exempted from CSRF protection, but the site's forms would all be protected. If you need to specify multiple
 URI's you can use an array of URI patterns:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$globals</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                    <span class="s1">&#39;csrf&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;foo/*&#39;</span><span class="p">,</span> <span class="s1">&#39;bar/*&#39;</span><span class="p">]]</span>
-            <span class="p">],</span>
-            <span class="s1">&#39;after&#39;</span>  <span class="o">=&gt;</span> <span class="p">[]</span>
-    <span class="p">];</span>
+    <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;csrf&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;foo/*&#39;</span><span class="p">,</span> <span class="s1">&#39;bar/*&#39;</span><span class="p">]]</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;after&#39;</span>  <span class="o">=&gt;</span> <span class="p">[]</span>
+<span class="p">];</span>
 </pre></div>
 </div>
 </div>
