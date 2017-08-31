@@ -215,7 +215,6 @@ $time > 59 minutes && < 1 day   1:37pm
 $time > now && < 1 hour         in 35 minutes / 35 minutes ago
 $time == now                    Now
 =============================== =================================
-=============================== =================================
 
 The exact language used is controlled through the language file, Time.php.
 
