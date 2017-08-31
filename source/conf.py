@@ -286,3 +286,7 @@ epub_copyright = u'2014-2017 不列颠哥伦比亚理工学院'
 
 # Allow duplicate toc entries.
 #epub_tocdup = True
+
+from sphinx.environment import default_settings
+
+default_settings['tab_width'] = 4
