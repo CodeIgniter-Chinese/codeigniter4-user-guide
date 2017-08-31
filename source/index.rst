@@ -15,9 +15,9 @@ CodeIgniter4 用户指南
 
 .. toctree::
 	:includehidden:
-        :titlesonly:
+	:titlesonly:
 
-        intro/index
+	intro/index
 
 ************
 安装
@@ -38,7 +38,7 @@ CodeIgniter4 用户指南
 	:includehidden:
 	:titlesonly:
 
-    	tutorial/index
+	tutorial/index
 
 *********************
 CodeIgniter4 介绍
