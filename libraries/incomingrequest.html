@@ -1,0 +1,1102 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IncomingRequest Class &mdash; CodeIgniter4 4.0.0-dev 文档</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="CodeIgniter4 4.0.0-dev 文档" href="../index.html"/>
+        <link rel="up" title="Library Reference" href="index.html"/>
+        <link rel="next" title="Localization" href="localization.html"/>
+        <link rel="prev" title="Working with Files" href="files.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div id="nav">
+  <div id="nav_inner">
+    
+    
+    
+      <div id="pulldown-menu" class="ciNav">
+        <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/local_server.html">Local Development Server</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">Application Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">Models, Views, and Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">Autoloading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">Working With HTTP Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">Security Guidelines</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">Working With Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/views.html">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_cells.html">View Cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_renderer.html">View Renderer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_parser.html">View Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/core_classes.html">Creating Core System Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/events.html">Events - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">Global Functions and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/routing.html">URI Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/filters.html">Controller Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">Logging Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/errors.html">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/debugging.html">Debugging Your Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/caching.html">Web Page Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/cli.html">Running via the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/cli_commands.html">Custom CLI Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/modules.html">Code Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">Handling Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/testing.html">Testing</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Library Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api_responses.html">API Response Trait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmark.html">Benchmarking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content_negotiation.html">Content Negotiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="images.html">Image Manipulation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encryption.html">Encryption Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Working with Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IncomingRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="message.html">HTTP Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pagination.html">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="request.html">Request Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="response.html">HTTP Responses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sessions.html">Session Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="throttler.html">Throttler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typography.html">Typography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploaded_files.html">Working with Uploaded Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uri.html">Working with URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html">Validation</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">Quick Start: Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">Connecting to a Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">Query Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/entities.html">Using Entity Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/migration.html">Database Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/seeds.html">Database Seeding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/events.html">Database Events</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">Filesystem Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">Form Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">Number Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">Security Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL Helper</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/workflow.html">Contribution Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/signing.html">Contribution Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/roadmap.html">CodeIgniter4 Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    
+      
+  </div>
+</div>
+<div id="nav2">
+  <a href="#" id="openToc">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAARgAA/+4ADkFkb2JlAGTAAAAAAf/bAIQABAMDAwMDBAMDBAYEAwQGBwUEBAUHCAYGBwYGCAoICQkJCQgKCgwMDAwMCgwMDQ0MDBERERERFBQUFBQUFBQUFAEEBQUIBwgPCgoPFA4ODhQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU/8AAEQgAKwCaAwERAAIRAQMRAf/EAHsAAQAABwEBAAAAAAAAAAAAAAABAwQFBgcIAgkBAQAAAAAAAAAAAAAAAAAAAAAQAAEDAwICBwYEAgsAAAAAAAIBAwQAEQUSBiEHkROTVNQWGDFBUVIUCHEiMtOUFWGBobHRQlMkZIRVEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDSC+ygkOOaUoKigUCgUCgUCgUCgUCgUCgUCgkuGguIP9FBMFb0Hqg7We+3jlmIqqYFf4ub+/QYlnOR/LqIBKGFUbf8qWv971BytQXXE7Y3Lnm3HsFhp2TaZJAdchRXpIgSpdEJWxJEW3xoKV7F5OMy7JkQn2o7D6w33XGjEAkoiqrJEqIiOIiKuhePCgqp22dyYyS3CyWHnQ5joG61HkRnmnTbaFSMhExRVQRRVJU9iUHjE7ez+fJ0MFipmUNhBV8YUd2SoIV9KkjQla9ltegttBdPLW4/qocL+UTfrMiHW4+P9M71shuyrqaHTcxsl7jegpsji8nh5ZwMvDfgTm0RTjSmjYdFCS6KoOIipdFunCgmNYTMv457MMY6U7iI6oMieDDhRm1VbIhuoOkbqtuK0Hpzb+eZcYZexUxt6UyUqK2cd0SdjtgrhOgijcgERUlJOCIl6CpgbP3blRI8XgMjNARAyKNDfeRBdFDBVUAXgQrqH4pxoJTu2NysY97LP4ac1io5q1InHFeGO24LnVKJuKOkSQ/yKir+rh7aCLG1dzypZQI2FnvTgccYOM3FeN0XWERXAUEFVQgQkUktdLpegm+Td3/Xli/L+S/mYNJIOF9G/wBeLKrZHFb0akG6W1WtQWSg3Dyg5e7V3fipE3O4/wCrktyzYA+ufas2LbZIlmnAT2kvuoN1wft95augilglX/tzP3qCu9O3LL/wV/i5v79BvmTADq14UGu91467Z6U9y0HzH/ncj/U/sT/CgynZG7I2NezpZGUjIycJkYkZSG+uQ81pbBNKLxJfjwoMqZ3/ALYHl35AJ7/cuwHcu5k7r1Q5pHetBjquqVVJWGxj9Zrtcl/Ggy3dHMvauR3HFZj5nHNxSyW5JISYDMoIwx8tFIGHZhPNaykGapr6rUAiicEoMG21lMRj8buPAz8xhJrr7uOeiPTCyAwXUaGR1mgozbTusOsFLEiJ7fbQa/h7gcjy2H3V6xppwDNtUSxCJIqp7valBuWVzJ22xuCROXNNZiJkMtms0DbjUkAZjzoDrTMd9dDRI44ZC2YsrYdKWP2WDT2S3N9dNdlRYrGMYc06IURXSYb0igrpWS485xVNS6nF4rwslkoMwnbpgZLB7bmt5uMweAhDEl4B5uSLzzqTnnyVpW2jaJHRMSIjdDiiotvy3DOE5rYTEbkl5yFn28k7JyG4c7AU2HtLH1uKfaiMPI40CdYbpNtmLdwTSn5rewLNld+7TLdeal4WarWBkbVKBjgdElMJJwAAY5fl4kB3b1fp4XvagsGS3FjJfLzDNtS8aeXx7LzT7TyzByQE5PccRGRC0ZRUDRV6y62vbjagzLmJzS2vuPK43JY6aP1TW6Jz+RIWyFtyC06y3EkiiinAo7YCqfq1AqqnGgsOH3lhZO8d1pmcpB8j5XIm9OYlBJSQ/FSS4427DKO0RC8AlcEMhFdViRR1WDWR5t3WXVuL1d106kG9vdeye2g60+1FDyW0shIcXVpyroXt8I8dfd+NB1vioAdWnD3UF1+gD4UFc6CEKpagxXN43rwJLUHz7yX2c8zokt9uHlsPIhA4aRnnHJTLptIS6CNsY7iASpxUUMkReGpfbQW0vtN5pitvrsN28rwtBD0nc0+/Yft5XhaB6TuaXfsP28rwtA9J3NPv2H7eV4Wgek7mn37D9vK8LQPSdzT79h+3leFoHpO5pd+w/byvC0D0nc0u/Yft5XhaB6TuaXfsP28rwtA9J3NLv2H7eV4Wgek7ml37D9vK8LQPSdzS79h+3leFoHpO5p9+w/byvC0E9r7Reazy2HIYVPxkS/CUHVn26cosxyv2g7h89LYmZSXOenvLEQ1YaQ222RATcQCP8rSGqqA8S02W2pQ6FhMoAIlqCtsnwoCpdKClejI4i3Sgtb+GBxVuNBSFt1pV/RQefLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8utJ/koJ7WCbBU/LQXOPAFq1koK8B0pag90CggtBBf6qB0UDooHRQOigdFA6KB0UDooHRQOigdFA6KB0UDooI0EaBQf//Z" title="Toggle Table of Contents" alt="Toggle Table of Contents" />
+  </a>
+</div>
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> CodeIgniter4</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/local_server.html">Local Development Server</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">Application Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">Models, Views, and Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">Autoloading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">Working With HTTP Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">Security Guidelines</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">Working With Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/views.html">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_cells.html">View Cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_renderer.html">View Renderer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_parser.html">View Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/core_classes.html">Creating Core System Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/events.html">Events - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">Global Functions and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/routing.html">URI Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/filters.html">Controller Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">Logging Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/errors.html">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/debugging.html">Debugging Your Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/caching.html">Web Page Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/cli.html">Running via the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/cli_commands.html">Custom CLI Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/modules.html">Code Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">Handling Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/testing.html">Testing</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Library Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api_responses.html">API Response Trait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="benchmark.html">Benchmarking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">CLI Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content_negotiation.html">Content Negotiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="images.html">Image Manipulation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encryption.html">Encryption Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">Working with Files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IncomingRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="message.html">HTTP Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pagination.html">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="request.html">Request Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="response.html">HTTP Responses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Security Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sessions.html">Session Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="throttler.html">Throttler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typography.html">Typography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploaded_files.html">Working with Uploaded Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uri.html">Working with URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html">Validation</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">Quick Start: Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">Connecting to a Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">Query Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/entities.html">Using Entity Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/migration.html">Database Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/seeds.html">Database Seeding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/events.html">Database Events</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">Filesystem Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">Form Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">Number Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">Security Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL Helper</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/workflow.html">Contribution Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/signing.html">Contribution Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/roadmap.html">CodeIgniter4 Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CodeIgniter4</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+        <li><a href="index.html">Library Reference</a> &raquo;</li>
+      
+    <li>IncomingRequest Class</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+    <div style="float:right;margin-left:5px;" id="closeMe">
+      <img title="Classic Layout" alt="classic layout" src="data:image/gif;base64,R0lGODlhFAAUAJEAAAAAADMzM////wAAACH5BAUUAAIALAAAAAAUABQAAAImlI+py+0PU5gRBRDM3DxbWoXis42X13USOLauUIqnlsaH/eY6UwAAOw==" />
+    </div>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="incomingrequest-class">
+<h1><a class="toc-backref" href="#id15">IncomingRequest Class</a><a class="headerlink" href="#incomingrequest-class" title="永久链接至标题">¶</a></h1>
+<p>The IncomingRequest class provides an object-oriented representation of an HTTP request from a client, like a browser.
+It extends from, and has access to all the methods of the <a class="reference internal" href="request.html"><span class="doc">Request</span></a> and <a class="reference internal" href="message.html"><span class="doc">Message</span></a>
+classes, in addition to the methods listed below.</p>
+<div class="contents topic" id="page-contents">
+<p class="topic-title first">Page Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#incomingrequest-class" id="id15">IncomingRequest Class</a><ul>
+<li><a class="reference internal" href="#accessing-the-request" id="id16">Accessing the Request</a></li>
+<li><a class="reference internal" href="#determining-request-type" id="id17">Determining Request Type</a></li>
+<li><a class="reference internal" href="#retrieving-input" id="id18">Retrieving Input</a><ul>
+<li><a class="reference internal" href="#filtering-input-data" id="id19">Filtering Input Data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#retrieving-headers" id="id20">Retrieving Headers</a></li>
+<li><a class="reference internal" href="#the-request-url" id="id21">The Request URL</a></li>
+<li><a class="reference internal" href="#uploaded-files" id="id22">Uploaded Files</a></li>
+<li><a class="reference internal" href="#content-negotiation" id="id23">Content Negotiation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="accessing-the-request">
+<h2><a class="toc-backref" href="#id16">Accessing the Request</a><a class="headerlink" href="#accessing-the-request" title="永久链接至标题">¶</a></h2>
+<p>An instance of the request class already populated for you if the current class is a descendant of
+<code class="docutils literal"><span class="pre">CodeIgniter\Controller</span></code> and can be accessed as a class property:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UserController</span> <span class="k">extends</span> <span class="nx">CodeIgniter\Controller</span>
+<span class="p">{</span>
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">isAJAX</span><span class="p">())</span>
+                <span class="p">{</span>
+                        <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you are not within a controller, but still need access to the application&#8217;s Request object, you can
+get a copy of it through the <a class="reference internal" href="../concepts/services.html"><span class="doc">Services class</span></a>:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">request</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>It&#8217;s preferable, though, to pass the request in as a dependency if the class is anything other than
+the controller, where you can save it as a class property:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\HTTP\RequestInterface</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">SomeClass</span>
+<span class="p">{</span>
+        <span class="k">protected</span> <span class="nv">$request</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">RequestInterface</span> <span class="nv">$request</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$someClass</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SomeClass</span><span class="p">(</span><span class="nx">\Config\Services</span><span class="o">::</span><span class="na">request</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="determining-request-type">
+<h2><a class="toc-backref" href="#id17">Determining Request Type</a><a class="headerlink" href="#determining-request-type" title="永久链接至标题">¶</a></h2>
+<p>A request could be of several types, including an AJAX request or a request from the command line. This can
+be checked with the <code class="docutils literal"><span class="pre">isAJAX()</span></code> and <code class="docutils literal"><span class="pre">isCLI()</span></code> methods:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Check for AJAX request.</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isAJAX</span><span class="p">())</span>
+<span class="p">{</span>
+        <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+<span class="p">}</span>
+
+<span class="c1">// Check for CLI Request</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isCLI</span><span class="p">())</span>
+<span class="p">{</span>
+        <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can check the HTTP method that this request represents with the <code class="docutils literal"><span class="pre">method()</span></code> method:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Returns &#39;post&#39;</span>
+<span class="nv">$method</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>By default, the method is returned as a lower-case string (i.e. &#8216;get&#8217;, &#8216;post&#8217;, etc). You can get an
+uppercase version by passing in <code class="docutils literal"><span class="pre">true</span></code> as the only parameter:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Returns &#39;GET&#39;</span>
+<span class="nv">$method</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can also check if the request was made through and HTTPS connection with the <code class="docutils literal"><span class="pre">isSecure()</span></code> method:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">())</span>
+<span class="p">{</span>
+        <span class="nx">force_https</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieving-input">
+<h2><a class="toc-backref" href="#id18">Retrieving Input</a><a class="headerlink" href="#retrieving-input" title="永久链接至标题">¶</a></h2>
+<p>You can retrieve input from $_SERVER, $_GET, $_POST, $_ENV, and $_SESSION through the Request object.
+The data is not automatically filtered and returns the raw input data as passed in the request. The main
+advantages to using these methods instead of accessing them directly ($_POST[&#8216;something&#8217;]), is that they
+will return null if the item doesn&#8217;t exist, and you can have the data filtered. This lets you conveniently
+use data without having to test whether an item exists first. In other words, normally you might do something
+like this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$something</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="k">NULL</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>With CodeIgniter’s built in methods you can simply do this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$something</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">getVar()</span></code> method will pull from $_REQUEST, so will return any data from $_GET, $POST, or $_COOKIE. While this
+is convenient, you will often need to use a more specific method, like:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">$request-&gt;getGet()</span></code></li>
+<li><code class="docutils literal"><span class="pre">$request-&gt;getPost()</span></code></li>
+<li><code class="docutils literal"><span class="pre">$request-&gt;getServer()</span></code></li>
+<li><code class="docutils literal"><span class="pre">$request-&gt;getCookie()</span></code></li>
+</ul>
+<p>In addition, there are a few utility methods for retrieving information from either $_GET or $_POST, while
+maintaining the ability to control the order you look for it:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">$request-&gt;getPostGet()</span></code> - checks $_POST first, then $_GET</li>
+<li><code class="docutils literal"><span class="pre">$request-&gt;getGetPost()</span></code> - checks $_GET first, then $_POST</li>
+</ul>
+<p><strong>Getting JSON data</strong></p>
+<p>You can grab the contents of php://input as a JSON stream with <code class="docutils literal"><span class="pre">getJSON()</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">This has no way of checking if the incoming data is valid JSON or not, you should only use this
+method if you know that you&#8217;re expecting JSON.</p>
+</div>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$json</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getJSON</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>By default, this will return any objects in the JSON data as objects. If you want that converted to associative
+arrays, pass in <code class="docutils literal"><span class="pre">true</span></code> as the first parameter.</p>
+<p>The second and third parameters match up to the <code class="docutils literal"><span class="pre">depth</span></code> and <code class="docutils literal"><span class="pre">options</span></code> arguments of the
+<a class="reference external" href="http://php.net/manual/en/function.json-decode.php">json_decode</a> PHP function.</p>
+<p><strong>Retrieving Raw data (PUT, PATCH, DELETE)</strong></p>
+<p>Finally, you can grab the contents of php://input as a raw stream with <code class="docutils literal"><span class="pre">getRawInput()</span></code>.</p>
+<blockquote>
+<div>$data = $request-&gt;getRawInput();</div></blockquote>
+<p>This will retrieve data and convert it to an array. Like this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getRawInput</span><span class="p">());</span>
+
+<span class="p">[</span>
+        <span class="s1">&#39;Param1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Value1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Param2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Value2&#39;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="filtering-input-data">
+<h3><a class="toc-backref" href="#id19">Filtering Input Data</a><a class="headerlink" href="#filtering-input-data" title="永久链接至标题">¶</a></h3>
+<p>To maintain security of your application, you will want to filter all input as you access it. You can
+pass the type of filter to use in as the last parameter of any of these methods. The native <code class="docutils literal"><span class="pre">filter_var()</span></code>
+function is used for the filtering. Head over to the PHP manual for a list of <a class="reference external" href="http://php.net/manual/en/filter.filters.php">valid
+filter types</a>.</p>
+<p>Filtering a POST variable would look like this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$email</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_EMAIL</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>All of the methods mentioned above support the filter type passed in as the last parameter, with the
+exception of <code class="docutils literal"><span class="pre">getJSON()</span></code>.</p>
+</div>
+</div>
+<div class="section" id="retrieving-headers">
+<h2><a class="toc-backref" href="#id20">Retrieving Headers</a><a class="headerlink" href="#retrieving-headers" title="永久链接至标题">¶</a></h2>
+<p>You can get access to any header that was sent with the request with the <code class="docutils literal"><span class="pre">getHeaders()</span></code> method, which returns
+an array of all headers, with the key as the name of the header, and the value being an instance of
+<code class="docutils literal"><span class="pre">CodeIgniter\HTTP\Header</span></code>:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeaders</span><span class="p">());</span>
+
+<span class="p">[</span>
+        <span class="s1">&#39;Host&#39;</span> <span class="o">=&gt;</span> <span class="nx">CodeIgniter\HTTP\Header</span><span class="p">,</span>
+        <span class="s1">&#39;Cache-Control&#39;</span> <span class="o">=&gt;</span> <span class="nx">CodeIgniter\HTTP\Header</span><span class="p">,</span>
+        <span class="s1">&#39;Accept&#39;</span> <span class="o">=&gt;</span> <span class="nx">CodeIgniter\HTTP\Header</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>If you only need a single header, you can pass the name into the <code class="docutils literal"><span class="pre">getHeader()</span></code> method. This will grab the
+specified header object in a case-insensitive manner if it exists. If not, then it will return <code class="docutils literal"><span class="pre">null</span></code>:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// these are all equivalent</span>
+<span class="nv">$host</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">);</span>
+<span class="nv">$host</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">);</span>
+<span class="nv">$host</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;HOST&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can always use <code class="docutils literal"><span class="pre">hasHeader()</span></code> to see if the header existed in this request:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">hasHeader</span><span class="p">(</span><span class="s1">&#39;DNT&#39;</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="c1">// Don&#39;t track something...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you need the value of header as a string with all values on one line, you can use the <code class="docutils literal"><span class="pre">getHeaderLine()</span></code> method:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span>    <span class="c1">// Accept-Encoding: gzip, deflate, sdch</span>
+<span class="k">echo</span> <span class="s1">&#39;Accept-Encoding: &#39;</span><span class="o">.</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeaderLine</span><span class="p">(</span><span class="s1">&#39;accept-encoding&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If you need the entire header, with the name and values in a single string, simply cast the header as a string:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$header</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-request-url">
+<h2><a class="toc-backref" href="#id21">The Request URL</a><a class="headerlink" href="#the-request-url" title="永久链接至标题">¶</a></h2>
+<p>You can retrieve a <a class="reference internal" href="uri.html"><span class="doc">URI</span></a> object that represents the current URI for this request through the
+<code class="docutils literal"><span class="pre">$request-&gt;uri</span></code> property. You can cast this object as a string to get a full URL for the current request:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$uri</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The object gives you full abilities to grab any part of the request on it&#8217;s own:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$uri</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">;</span>
+
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getScheme</span><span class="p">();</span>         <span class="c1">// http</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getAuthority</span><span class="p">();</span>      <span class="c1">// snoopy:password@example.com:88</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getUserInfo</span><span class="p">();</span>       <span class="c1">// snoopy:password</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getHost</span><span class="p">();</span>           <span class="c1">// example.com</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getPort</span><span class="p">();</span>           <span class="c1">// 88</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getPath</span><span class="p">();</span>           <span class="c1">// /path/to/page</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">();</span>          <span class="c1">// foo=bar&amp;bar=baz</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getSegments</span><span class="p">();</span>       <span class="c1">// [&#39;path&#39;, &#39;to&#39;, &#39;page&#39;]</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>       <span class="c1">// &#39;path&#39;</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getTotalSegments</span><span class="p">();</span>  <span class="c1">// 3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uploaded-files">
+<h2><a class="toc-backref" href="#id22">Uploaded Files</a><a class="headerlink" href="#uploaded-files" title="永久链接至标题">¶</a></h2>
+<p>Information about all uploaded files can be retrieved through <code class="docutils literal"><span class="pre">$request-&gt;getFiles()</span></code>, which returns a
+<a class="reference internal" href="uploaded_files.html"><span class="doc">FileCollection</span></a> instance. This helps to ease the pain of working with uploaded files,
+and uses best practices to minimize any security risks.</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$files</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">();</span>
+
+<span class="c1">// Grab the file by name given in HTML form</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$files</span><span class="o">-&gt;</span><span class="na">hasFile</span><span class="p">(</span><span class="s1">&#39;uploadedFile&#39;</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="nv">$file</span> <span class="o">=</span> <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;uploadedfile&#39;</span><span class="p">);</span>
+
+        <span class="c1">// Generate a new secure name</span>
+        <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getRandomName</span><span class="p">();</span>
+
+        <span class="c1">// Move the file to it&#39;s new home</span>
+        <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="s1">&#39;/path/to/dir&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+
+        <span class="k">echo</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSize</span><span class="p">(</span><span class="s1">&#39;mb&#39;</span><span class="p">);</span>      <span class="c1">// 1.23</span>
+        <span class="k">echo</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getExtension</span><span class="p">();</span>     <span class="c1">// jpg</span>
+        <span class="k">echo</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getType</span><span class="p">();</span>          <span class="c1">// image/jpg</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can also retrieve a single file based on the filename given in the HTML file input:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;uploadedfile&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="content-negotiation">
+<h2><a class="toc-backref" href="#id23">Content Negotiation</a><a class="headerlink" href="#content-negotiation" title="永久链接至标题">¶</a></h2>
+<p>You can easily negotiate content types with the request through the <code class="docutils literal"><span class="pre">negotiate()</span></code> method:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$language</span>    <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="s1">&#39;en-GB&#39;</span><span class="p">,</span> <span class="s1">&#39;fr&#39;</span><span class="p">,</span> <span class="s1">&#39;es-mx&#39;</span><span class="p">]);</span>
+<span class="nv">$imageType</span>   <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span> <span class="s1">&#39;image/jpg&#39;</span><span class="p">]);</span>
+<span class="nv">$charset</span>     <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;charset&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">,</span> <span class="s1">&#39;UTF-16&#39;</span><span class="p">]);</span>
+<span class="nv">$contentType</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;text/html&#39;</span><span class="p">,</span> <span class="s1">&#39;text/xml&#39;</span><span class="p">]);</span>
+<span class="nv">$encoding</span>    <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gzip&#39;</span><span class="p">,</span> <span class="s1">&#39;compress&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="content_negotiation.html"><span class="doc">Content Negotiation</span></a> page for more details.</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">In addition to the methods listed here, this class inherits the methods from the
+<a class="reference internal" href="request.html"><span class="doc">Request Class</span></a> and the <a class="reference internal" href="message.html"><span class="doc">Message Class</span></a>.</p>
+</div>
+<p>The methods provided by the parent classes that are available are:</p>
+<ul class="simple">
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getIPAddress()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::validIP()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getMethod()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getServer()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::body()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setBody()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::populateHeaders()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::headers()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::header()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::headerLine()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setHeader()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::removeHeader()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::appendHeader()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::protocolVersion()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setProtocolVersion()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateMedia()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateCharset()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateEncoding()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></li>
+</ul>
+<dl class="class">
+<dt>
+<code class="descname">CodeIgniter\HTTP\IncomingRequest</code></dt>
+<dd><dl class="method">
+<dt id="isCLI">
+<code class="descname">isCLI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isCLI" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">True if the request was initiated from the command line, otherwise false.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="isAJAX">
+<code class="descname">isAJAX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isAJAX" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">True if the request is an AJAX request, otherwise false.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="isSecure">
+<code class="descname">isSecure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isSecure" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">True if the request is an HTTPS request, otherwise false.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="getVar">
+<code class="descname">getVar</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getVar" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$index</strong> (<em>string</em>) &#8211; The name of the variable/key to look for.</li>
+<li><strong>$filter</strong> (<em>int</em>) &#8211; The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</li>
+<li><strong>$flags</strong> (<em>int</em>) &#8211; <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_REQUEST if no parameters supplied, otherwise the REQUEST value if found, or null if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The first parameter will contain the name of the REQUEST item you are looking for:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The method returns null if the item you are attempting to retrieve
+does not exist.</p>
+<p>The second optional parameter lets you run the data through the PHP&#8217;s
+filters. Pass in the desired filter type as the second parameter:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To return an array of all POST items call without any parameters.</p>
+<p>To return all POST items and pass them through the filter, set the
+first parameter to null while setting the second parameter to the filter
+you want to use:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span> <span class="c1">// returns all POST items with string sanitation</span>
+</pre></div>
+</div>
+<p>To return an array of multiple  POST parameters, pass all the required keys as an array:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">([</span><span class="s1">&#39;field1&#39;</span><span class="p">,</span> <span class="s1">&#39;field2&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>Same rule applied here, to retrieve the parameters with filtering, set the second parameter to
+the filter type to apply:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">([</span><span class="s1">&#39;field1&#39;</span><span class="p">,</span> <span class="s1">&#39;field2&#39;</span><span class="p">],</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="getGet">
+<code class="descname">getGet</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getGet" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$index</strong> (<em>string</em>) &#8211; The name of the variable/key to look for.</li>
+<li><strong>$filter</strong> (<em>int</em>) &#8211; <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+</li>
+<li><strong>$flags</strong> (<em>int</em>) &#8211; <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_GET if no parameters supplied, otherwise the GET value if found, or null if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This method is identical to <code class="docutils literal"><span class="pre">getVar()</span></code>, only it fetches GET data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="getPost">
+<code class="descname">getPost</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getPost" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$index</strong> (<em>string</em>) &#8211; The name of the variable/key to look for.</li>
+<li><strong>$filter</strong> (<em>int</em>) &#8211; <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+</li>
+<li><strong>$flags</strong> (<em>int</em>) &#8211; <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_POST if no parameters supplied, otherwise the POST value if found, or null if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><p>mixed|null</p>
+<p>This method is identical to <code class="docutils literal"><span class="pre">getVar()</span></code>, only it fetches POST data.</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="getPostGet">
+<code class="descname">getPostGet</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getPostGet" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$index</strong> (<em>string</em>) &#8211; The name of the variable/key to look for.</li>
+<li><strong>$filter</strong> (<em>int</em>) &#8211; <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+</li>
+<li><strong>$flags</strong> (<em>int</em>) &#8211; <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_POST if no parameters supplied, otherwise the POST value if found, or null if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This method works pretty much the same way as <code class="docutils literal"><span class="pre">getPost()</span></code> and <code class="docutils literal"><span class="pre">getGet()</span></code>, only combined.
+It will search through both POST and GET streams for data, looking first in POST, and
+then in GET:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPostGet</span><span class="p">(</span><span class="s1">&#39;field1&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="getGetPost">
+<code class="descname">getGetPost</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getGetPost" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$index</strong> (<em>string</em>) &#8211; The name of the variable/key to look for.</li>
+<li><strong>$filter</strong> (<em>int</em>) &#8211; <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+</li>
+<li><strong>$flags</strong> (<em>int</em>) &#8211; <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_POST if no parameters supplied, otherwise the POST value if found, or null if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This method works pretty much the same way as <code class="docutils literal"><span class="pre">getPost()</span></code> and <code class="docutils literal"><span class="pre">getGet()</span></code>, only combined.
+It will search through both POST and GET streams for data, looking first in GET, and
+then in POST:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getGetPost</span><span class="p">(</span><span class="s1">&#39;field1&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="getCookie">
+<code class="descname">getCookie</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getCookie" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$index</strong> (<em>mixed</em>) &#8211; COOKIE name</li>
+<li><strong>$filter</strong> (<em>int</em>) &#8211; <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+</li>
+<li><strong>$flags</strong> (<em>int</em>) &#8211; <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_COOKIE if no parameters supplied, otherwise the COOKIE value if found or null if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This method is identical to <code class="docutils literal"><span class="pre">getPost()</span></code> and <code class="docutils literal"><span class="pre">getGet()</span></code>, only it fetches cookie data:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="s1">&#39;some_cookie&#39;</span><span class="p">);</span>
+<span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="s1">&#39;some_cookie&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span> <span class="c1">// with filter</span>
+</pre></div>
+</div>
+<p>To return an array of multiple cookie values, pass all the required keys as an array:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;some_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;some_cookie2&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">Unlike the <a class="reference internal" href="../helpers/cookie_helper.html"><span class="doc">Cookie Helper</span></a>
+function <a class="reference internal" href="../helpers/cookie_helper.html#get_cookie" title="get_cookie"><code class="xref php php-func docutils literal"><span class="pre">get_cookie()</span></code></a>, this method does NOT prepend
+your configured <code class="docutils literal"><span class="pre">$config['cookie_prefix']</span></code> value.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="getServer">
+<code class="descname">getServer</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getServer" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$index</strong> (<em>mixed</em>) &#8211; Value name</li>
+<li><strong>$filter</strong> (<em>int</em>) &#8211; <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+</li>
+<li><strong>$flags</strong> (<em>int</em>) &#8211; <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_SERVER item value if found, NULL if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This method is identical to the <code class="docutils literal"><span class="pre">getPost()</span></code>, <code class="docutils literal"><span class="pre">getGet()</span></code> and <code class="docutils literal"><span class="pre">getCookie()</span></code>
+methods, only it fetches getServer data (<code class="docutils literal"><span class="pre">$_SERVER</span></code>):</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To return an array of multiple <code class="docutils literal"><span class="pre">$_SERVER</span></code> values, pass all the required keys
+as an array.</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">([</span><span class="s1">&#39;SERVER_PROTOCOL&#39;</span><span class="p">,</span> <span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="getUserAgent">
+<code class="descname">getUserAgent</code><span class="sig-paren">(</span><span class="optional">[</span><em>$filter = null</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getUserAgent" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$filter</strong> (<em>int</em>) &#8211; <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The User Agent string, as found in the SERVER data, or null if not found.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This method returns the User Agent string from the SERVER data:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getUserAgent</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="localization.html" class="btn btn-neutral float-right" title="Localization">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="files.html" class="btn btn-neutral" title="Working with Files"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; 版权所有 2014-2017 British Columbia Institute of Technology.
+       Last updated on 8月 31, 2017.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0.0-dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

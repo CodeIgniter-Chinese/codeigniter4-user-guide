@@ -1,0 +1,674 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Working With Configuration Files &mdash; CodeIgniter4 4.0.0-dev 文档</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="CodeIgniter4 4.0.0-dev 文档" href="../index.html"/>
+        <link rel="up" title="General Topics" href="index.html"/>
+        <link rel="next" title="CodeIgniter URLs" href="urls.html"/>
+        <link rel="prev" title="General Topics" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div id="nav">
+  <div id="nav_inner">
+    
+    
+    
+      <div id="pulldown-menu" class="ciNav">
+        <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/local_server.html">Local Development Server</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">Application Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">Models, Views, and Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">Autoloading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">Working With HTTP Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">Security Guidelines</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Working With Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_cells.html">View Cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_renderer.html">View Renderer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_parser.html">View Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_classes.html">Creating Core System Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Events - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_functions.html">Global Functions and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html">Controller Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Your Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Web Page Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_commands.html">Custom CLI Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Code Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/api_responses.html">API Response Trait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">Benchmarking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cli.html">CLI Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/content_negotiation.html">Content Negotiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">Image Manipulation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">Working with Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/incomingrequest.html">IncomingRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/message.html">HTTP Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/request.html">Request Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/response.html">HTTP Responses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">Security Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">Throttler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">Working with Uploaded Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">Working with URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">Validation</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">Quick Start: Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">Connecting to a Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">Query Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/entities.html">Using Entity Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/migration.html">Database Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/seeds.html">Database Seeding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/events.html">Database Events</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">Filesystem Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">Form Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">Number Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">Security Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL Helper</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/workflow.html">Contribution Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/signing.html">Contribution Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/roadmap.html">CodeIgniter4 Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    
+      
+  </div>
+</div>
+<div id="nav2">
+  <a href="#" id="openToc">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAARgAA/+4ADkFkb2JlAGTAAAAAAf/bAIQABAMDAwMDBAMDBAYEAwQGBwUEBAUHCAYGBwYGCAoICQkJCQgKCgwMDAwMCgwMDQ0MDBERERERFBQUFBQUFBQUFAEEBQUIBwgPCgoPFA4ODhQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU/8AAEQgAKwCaAwERAAIRAQMRAf/EAHsAAQAABwEBAAAAAAAAAAAAAAABAwQFBgcIAgkBAQAAAAAAAAAAAAAAAAAAAAAQAAEDAwICBwYEAgsAAAAAAAIBAwQAEQUSBiEHkROTVNQWGDFBUVIUCHEiMtOUFWGBobHRQlMkZIRVEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDSC+ygkOOaUoKigUCgUCgUCgUCgUCgUCgUCgkuGguIP9FBMFb0Hqg7We+3jlmIqqYFf4ub+/QYlnOR/LqIBKGFUbf8qWv971BytQXXE7Y3Lnm3HsFhp2TaZJAdchRXpIgSpdEJWxJEW3xoKV7F5OMy7JkQn2o7D6w33XGjEAkoiqrJEqIiOIiKuhePCgqp22dyYyS3CyWHnQ5joG61HkRnmnTbaFSMhExRVQRRVJU9iUHjE7ez+fJ0MFipmUNhBV8YUd2SoIV9KkjQla9ltegttBdPLW4/qocL+UTfrMiHW4+P9M71shuyrqaHTcxsl7jegpsji8nh5ZwMvDfgTm0RTjSmjYdFCS6KoOIipdFunCgmNYTMv457MMY6U7iI6oMieDDhRm1VbIhuoOkbqtuK0Hpzb+eZcYZexUxt6UyUqK2cd0SdjtgrhOgijcgERUlJOCIl6CpgbP3blRI8XgMjNARAyKNDfeRBdFDBVUAXgQrqH4pxoJTu2NysY97LP4ac1io5q1InHFeGO24LnVKJuKOkSQ/yKir+rh7aCLG1dzypZQI2FnvTgccYOM3FeN0XWERXAUEFVQgQkUktdLpegm+Td3/Xli/L+S/mYNJIOF9G/wBeLKrZHFb0akG6W1WtQWSg3Dyg5e7V3fipE3O4/wCrktyzYA+ufas2LbZIlmnAT2kvuoN1wft95augilglX/tzP3qCu9O3LL/wV/i5v79BvmTADq14UGu91467Z6U9y0HzH/ncj/U/sT/CgynZG7I2NezpZGUjIycJkYkZSG+uQ81pbBNKLxJfjwoMqZ3/ALYHl35AJ7/cuwHcu5k7r1Q5pHetBjquqVVJWGxj9Zrtcl/Ggy3dHMvauR3HFZj5nHNxSyW5JISYDMoIwx8tFIGHZhPNaykGapr6rUAiicEoMG21lMRj8buPAz8xhJrr7uOeiPTCyAwXUaGR1mgozbTusOsFLEiJ7fbQa/h7gcjy2H3V6xppwDNtUSxCJIqp7valBuWVzJ22xuCROXNNZiJkMtms0DbjUkAZjzoDrTMd9dDRI44ZC2YsrYdKWP2WDT2S3N9dNdlRYrGMYc06IURXSYb0igrpWS485xVNS6nF4rwslkoMwnbpgZLB7bmt5uMweAhDEl4B5uSLzzqTnnyVpW2jaJHRMSIjdDiiotvy3DOE5rYTEbkl5yFn28k7JyG4c7AU2HtLH1uKfaiMPI40CdYbpNtmLdwTSn5rewLNld+7TLdeal4WarWBkbVKBjgdElMJJwAAY5fl4kB3b1fp4XvagsGS3FjJfLzDNtS8aeXx7LzT7TyzByQE5PccRGRC0ZRUDRV6y62vbjagzLmJzS2vuPK43JY6aP1TW6Jz+RIWyFtyC06y3EkiiinAo7YCqfq1AqqnGgsOH3lhZO8d1pmcpB8j5XIm9OYlBJSQ/FSS4427DKO0RC8AlcEMhFdViRR1WDWR5t3WXVuL1d106kG9vdeye2g60+1FDyW0shIcXVpyroXt8I8dfd+NB1vioAdWnD3UF1+gD4UFc6CEKpagxXN43rwJLUHz7yX2c8zokt9uHlsPIhA4aRnnHJTLptIS6CNsY7iASpxUUMkReGpfbQW0vtN5pitvrsN28rwtBD0nc0+/Yft5XhaB6TuaXfsP28rwtA9J3NPv2H7eV4Wgek7mn37D9vK8LQPSdzT79h+3leFoHpO5pd+w/byvC0D0nc0u/Yft5XhaB6TuaXfsP28rwtA9J3NLv2H7eV4Wgek7ml37D9vK8LQPSdzS79h+3leFoHpO5p9+w/byvC0E9r7Reazy2HIYVPxkS/CUHVn26cosxyv2g7h89LYmZSXOenvLEQ1YaQ222RATcQCP8rSGqqA8S02W2pQ6FhMoAIlqCtsnwoCpdKClejI4i3Sgtb+GBxVuNBSFt1pV/RQefLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8utJ/koJ7WCbBU/LQXOPAFq1koK8B0pag90CggtBBf6qB0UDooHRQOigdFA6KB0UDooHRQOigdFA6KB0UDooI0EaBQf//Z" title="Toggle Table of Contents" alt="Toggle Table of Contents" />
+  </a>
+</div>
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> CodeIgniter4</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/local_server.html">Local Development Server</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">Application Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">Models, Views, and Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">Autoloading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">Working With HTTP Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">Security Guidelines</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Working With Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_cells.html">View Cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_renderer.html">View Renderer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_parser.html">View Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core_classes.html">Creating Core System Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Events - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common_functions.html">Global Functions and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html">Controller Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Your Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">Web Page Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_commands.html">Custom CLI Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html">Code Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/api_responses.html">API Response Trait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">Benchmarking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cli.html">CLI Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/content_negotiation.html">Content Negotiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">Image Manipulation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">Working with Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/incomingrequest.html">IncomingRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/message.html">HTTP Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/request.html">Request Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/response.html">HTTP Responses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">Security Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">Throttler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">Working with Uploaded Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">Working with URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">Validation</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">Quick Start: Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">Connecting to a Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">Query Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">Getting MetaData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">Custom Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/entities.html">Using Entity Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/forge.html">Database Manipulation with Database Forge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/migration.html">Database Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/seeds.html">Database Seeding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/events.html">Database Events</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">Filesystem Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">Form Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">Number Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">Security Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL Helper</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/workflow.html">Contribution Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/signing.html">Contribution Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/roadmap.html">CodeIgniter4 Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CodeIgniter4</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+        <li><a href="index.html">General Topics</a> &raquo;</li>
+      
+    <li>Working With Configuration Files</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+    <div style="float:right;margin-left:5px;" id="closeMe">
+      <img title="Classic Layout" alt="classic layout" src="data:image/gif;base64,R0lGODlhFAAUAJEAAAAAADMzM////wAAACH5BAUUAAIALAAAAAAUABQAAAImlI+py+0PU5gRBRDM3DxbWoXis42X13USOLauUIqnlsaH/eY6UwAAOw==" />
+    </div>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="working-with-configuration-files">
+<h1>Working With Configuration Files<a class="headerlink" href="#working-with-configuration-files" title="永久链接至标题">¶</a></h1>
+<p>Every application needs a way to define various settings that affect the application.
+These are handled through configuration files. Configuration files simply
+hold a class that contains its settings as public properties. Unlike in many other frameworks,
+there is no single class that you need to use to access your settings. Instead, you simply
+create an instance of the class and all your settings are there for you.</p>
+<div class="section" id="accessing-config-files">
+<h2>Accessing Config Files<a class="headerlink" href="#accessing-config-files" title="永久链接至标题">¶</a></h2>
+<p>You can access config files within your classes by creating a new instance. All of the properties
+are public, so you access the settings like any other property:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Config\EmailConfig</span><span class="p">();</span>
+
+<span class="c1">// Access settings as class properties</span>
+<span class="nv">$protocol</span> <span class="o">=</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">protocol</span><span class="p">;</span>
+<span class="nv">$mailpath</span> <span class="o">=</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">mailpath</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If no namespace is provided, it will look for the files in all available namespaces that have
+been defined, as well as <strong>/application/Config/</strong>. All of the configuration files
+that ship with CodeIgniter are namespaced with <code class="docutils literal"><span class="pre">Config</span></code>. Using this namespace in your
+application will provide the best performance since it knows exactly what directory to find the
+files in and doesn&#8217;t have to scan several locations in the filesystem to get there.</p>
+<p>You can locate the configuration files any place on your server by using a different namespace.
+This allows you to pull configuration files on the production server to a folder that is not in
+the web-accessible space at all, while keeping it under <strong>/application</strong> for ease of access during development.</p>
+</div>
+<div class="section" id="creating-configuration-files">
+<h2>Creating Configuration Files<a class="headerlink" href="#creating-configuration-files" title="永久链接至标题">¶</a></h2>
+<p>If you need to create a new configuration file you would create a new file at your desired location,
+<strong>/application/Config</strong> by default. Then create the class and fill it with public properties that
+represent your settings:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">App</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Config\BaseConfig</span> <span class="p">{</span>
+
+        <span class="k">public</span> <span class="nv">$siteName</span> <span class="o">=</span> <span class="s1">&#39;My Great Site&#39;</span><span class="p">;</span>
+        <span class="k">public</span> <span class="nv">$siteEmail</span> <span class="o">=</span> <span class="s1">&#39;webmaster@example.com&#39;</span><span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The class should extend <code class="docutils literal"><span class="pre">\CodeIgniter\Config\BaseConfig</span></code> to ensure that it can receive environment-specific
+settings.</p>
+</div>
+<div class="section" id="handling-different-environments">
+<h2>Handling Different Environments<a class="headerlink" href="#handling-different-environments" title="永久链接至标题">¶</a></h2>
+<p>Because your site can operate within multiple environments, such as the developer&#8217;s local machine or
+the server used for the production site, you can modify your values based on the environment.  Within these
+you will have settings that might change depending on the server it&#8217;s running on.This can include
+database settings, API credentials, and other settings that will vary between deploys.</p>
+<p>You can store values in a <strong>.env</strong> file in the root directory, alongside the system and application directories.
+It is simply a collection of name/value pairs separated by an equal sign, much like a .ini file:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">S3_BUCKET</span><span class="o">=</span><span class="s2">&quot;dotenv&quot;</span>
+<span class="nx">SECRET_KEY</span><span class="o">=</span><span class="s2">&quot;super_secret_key&quot;</span>
+</pre></div>
+</div>
+<p>If the variable exists in the environment already, it will NOT be overwritten.</p>
+<div class="admonition important">
+<p class="first admonition-title">重要</p>
+<p class="last">Make sure the <strong>.env</strong> file is added to <strong>.gitignore</strong> (or your version control system&#8217;s equivalent)
+so it is not checked in the code. Failure to do so could result in sensitive credentials being stored in the
+repository for anyone to find.</p>
+</div>
+<p>You are encouraged to create a template file, like <strong>env.example</strong>, that has all of the variables your project
+needs with empty or dummy data. In each environment, you can then copy the file to <strong>.env</strong> and fill in the
+appropriate data.</p>
+<p>When your application runs, this file will be automatically loaded and the variables will be put into
+the environment. This will work in any environment except for production, where the variables should be
+set in the environment through whatever means your getServer supports, such as .htaccess files, etc. These
+variables are then available through <code class="docutils literal"><span class="pre">getenv()</span></code>, <code class="docutils literal"><span class="pre">$_SERVER</span></code>, and <code class="docutils literal"><span class="pre">$_ENV</span></code>. Of the three, <code class="docutils literal"><span class="pre">getenv()</span></code> function
+is recommended since it is not case-sensitive:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">);</span>
+<span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nv">$_ENV</span><span class="p">[</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">];</span>
+<span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nesting-variables">
+<h2>Nesting Variables<a class="headerlink" href="#nesting-variables" title="永久链接至标题">¶</a></h2>
+<p>To save on typing, you can reuse variables that you&#8217;ve already specified in the file by wrapping the
+variable name within <code class="docutils literal"><span class="pre">${...}</span></code>:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">BASE_DIR</span><span class="o">=</span><span class="s2">&quot;/var/webroot/project-root&quot;</span>
+<span class="nx">CACHE_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_DIR</span><span class="si">}</span><span class="s2">/cache&quot;</span>
+<span class="nx">TMP_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_DIR</span><span class="si">}</span><span class="s2">/tmp&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="namespaced-variables">
+<h2>Namespaced Variables<a class="headerlink" href="#namespaced-variables" title="永久链接至标题">¶</a></h2>
+<p>There will be times when you will have several variables of the same name. When this happens, the
+system has no way of knowing what the correct value should be. You can protect against this by
+&#8220;namespacing&#8221; the variables.</p>
+<p>Namespaced variables use a dot notation to qualify variable names when those variables
+get incorporated into configuration files. This is done by including a distinguishing
+prefix, followed by a dot (.), and then the variable name itself:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// not namespaced variables</span>
+<span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;George&quot;</span>
+<span class="nx">db</span><span class="o">=</span><span class="nx">my_db</span>
+
+<span class="c1">// namespaced variables</span>
+<span class="nx">address</span><span class="o">.</span><span class="nx">city</span> <span class="o">=</span> <span class="s2">&quot;Berlin&quot;</span>
+<span class="nx">address</span><span class="o">.</span><span class="nx">country</span> <span class="o">=</span> <span class="s2">&quot;Germany&quot;</span>
+<span class="nx">frontend</span><span class="o">.</span><span class="nx">db</span> <span class="o">=</span> <span class="nx">sales</span>
+<span class="nx">backend</span><span class="o">.</span><span class="nx">db</span> <span class="o">=</span> <span class="nx">admin</span>
+<span class="nx">BackEnd</span><span class="o">.</span><span class="nx">db</span> <span class="o">=</span> <span class="nx">admin</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="incorporating-environment-variables-into-a-configuration">
+<h2>Incorporating Environment Variables Into a Configuration<a class="headerlink" href="#incorporating-environment-variables-into-a-configuration" title="永久链接至标题">¶</a></h2>
+<p>When you instantiate a configuration file, any namespaced environment variables
+are considered for merging into the a configuration objects&#8217; properties.</p>
+<p>If the prefix of a namespaced variable matches the configuration class name exactly,
+case-sensitive, then the trailing part of the variable name (after the dot) is
+treated as a configuration property name. If it matches an existing configuration
+property, the environment variable&#8217;s value will override the corresponding one
+in the configuration file. If there is no match, the configuration properties are left unchanged.</p>
+<p>The same holds for a &#8220;short prefix&#8221;, which is the name given to the case when the
+environment variable prefix matches the configuration class name converted to lower case.</p>
+</div>
+<div class="section" id="treating-environment-variables-as-arrays">
+<h2>Treating Environment Variables as Arrays<a class="headerlink" href="#treating-environment-variables-as-arrays" title="永久链接至标题">¶</a></h2>
+<p>A namespaced environment variable can be further treated as an array.
+If the prefix matches the configuration class, then the remainder of the
+environment variable name is treated as an array reference if it also
+contains a dot:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// regular namespaced variable</span>
+<span class="nx">SimpleConfig</span><span class="o">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">George</span>
+
+<span class="c1">// array namespaced variables</span>
+<span class="nx">SimpleConfig</span><span class="o">.</span><span class="nx">address</span><span class="o">.</span><span class="nx">city</span> <span class="o">=</span> <span class="s2">&quot;Berlin&quot;</span>
+<span class="nx">SimpleConfig</span><span class="o">.</span><span class="nx">address</span><span class="o">.</span><span class="nx">country</span> <span class="o">=</span> <span class="s2">&quot;Germany&quot;</span>
+</pre></div>
+</div>
+<p>If this was referring to a SimpleConfig configuration object, the above example would be treated as:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$address</span><span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Berlin&quot;</span><span class="p">;</span>
+<span class="nv">$address</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Germany&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Any other elements of the <code class="docutils literal"><span class="pre">$address</span></code> property would be unchanged.</p>
+<p>You can also use the array property name as a prefix. If the environment file
+held instead:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// array namespaced variables</span>
+<span class="nx">SimpleConfig</span><span class="o">.</span><span class="nx">address</span><span class="o">.</span><span class="nx">city</span> <span class="o">=</span> <span class="s2">&quot;Berlin&quot;</span>
+<span class="nx">address</span><span class="o">.</span><span class="nx">country</span> <span class="o">=</span> <span class="s2">&quot;Germany&quot;</span>
+</pre></div>
+</div>
+<p>then the result would be the same as above.</p>
+</div>
+<div class="section" id="registrars">
+<h2>Registrars<a class="headerlink" href="#registrars" title="永久链接至标题">¶</a></h2>
+<p>A configuration file can also specify any number of &#8220;registrars&#8221;, which are any
+other clases which might provide additional configuration properties.
+This is done by adding a <code class="docutils literal"><span class="pre">registrars</span></code> property to your configuration file,
+holding an array of the names of candidate registrars.:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="nv">$registrars</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">SupportingPackageRegistrar</span><span class="o">::</span><span class="na">class</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>In order to act as a &#8220;registrar&#8221; the classes so identified must have a
+static function named the same as the configuration class, and it should return an associative
+array of property settings.</p>
+<p>When your configuration object is instantiated, it will loop over the
+designated classes in <code class="docutils literal"><span class="pre">$registrars</span></code>. For each of these classes, which contains a method name matching
+the configuration class, it will invoke that method, and incorporate any returned properties
+the same way as described for namespaced variables.</p>
+<p>A sample configuration class setup for this:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Config</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MySalesConfig</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Config\BaseConfig</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$target</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$campaign</span> <span class="o">=</span> <span class="s2">&quot;Winter Wonderland&quot;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$registrars</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;\App\Models\RegionalSales&#39;</span><span class="p">;</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>... and the associated regional sales model might look like:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">RegionalSales</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">MySalesConfig</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;target&#39;</span> <span class="o">=&gt;</span> <span class="mi">45</span><span class="p">,</span> <span class="s1">&#39;actual&#39;</span> <span class="o">=&gt;</span> <span class="mi">72</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With the above example, when <cite>MySalesConfig</cite> is instantiated, it will end up with
+the two properties declared, but the value of the <cite>$target</cite> property will be over-ridden
+by treating <cite>RegionalSalesModel</cite> as a &#8220;registrar&#8221;. The resulting configuration properties:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$target</span> <span class="o">=</span> <span class="mi">45</span><span class="p">;</span>
+<span class="nv">$campaign</span> <span class="o">=</span> <span class="s2">&quot;Winter Wonderland&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="urls.html" class="btn btn-neutral float-right" title="CodeIgniter URLs">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="General Topics"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; 版权所有 2014-2017 British Columbia Institute of Technology.
+       Last updated on 8月 31, 2017.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0.0-dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

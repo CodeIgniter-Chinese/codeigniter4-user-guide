@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Database Migrations &mdash; CodeIgniter4 4.0.0-dev 文档</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="CodeIgniter4 4.0.0-dev 文档" href="../index.html"/>
+        <link rel="up" title="Database Reference" href="index.html"/>
+        <link rel="next" title="Database Seeding" href="seeds.html"/>
+        <link rel="prev" title="Database Forge Class" href="forge.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div id="nav">
+  <div id="nav_inner">
+    
+    
+    
+      <div id="pulldown-menu" class="ciNav">
+        <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/local_server.html">Local Development Server</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">Application Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">Models, Views, and Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">Autoloading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">Working With HTTP Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">Security Guidelines</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">Working With Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/views.html">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_cells.html">View Cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_renderer.html">View Renderer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_parser.html">View Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/core_classes.html">Creating Core System Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/events.html">Events - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">Global Functions and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/routing.html">URI Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/filters.html">Controller Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">Logging Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/errors.html">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/debugging.html">Debugging Your Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/caching.html">Web Page Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/cli.html">Running via the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/cli_commands.html">Custom CLI Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/modules.html">Code Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">Handling Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/testing.html">Testing</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/api_responses.html">API Response Trait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">Benchmarking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cli.html">CLI Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/content_negotiation.html">Content Negotiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">Image Manipulation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">Working with Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/incomingrequest.html">IncomingRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/message.html">HTTP Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/request.html">Request Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/response.html">HTTP Responses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">Security Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">Throttler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">Working with Uploaded Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">Working with URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">Validation</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Database Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Quick Start: Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connecting.html">Connecting to a Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Query Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html">Getting MetaData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="call_function.html">Custom Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html">Using Entity Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forge.html">Database Manipulation with Database Forge</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Database Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seeds.html">Database Seeding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Database Events</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">Filesystem Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">Form Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">Number Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">Security Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL Helper</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/workflow.html">Contribution Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/signing.html">Contribution Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/roadmap.html">CodeIgniter4 Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    
+      
+  </div>
+</div>
+<div id="nav2">
+  <a href="#" id="openToc">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAARgAA/+4ADkFkb2JlAGTAAAAAAf/bAIQABAMDAwMDBAMDBAYEAwQGBwUEBAUHCAYGBwYGCAoICQkJCQgKCgwMDAwMCgwMDQ0MDBERERERFBQUFBQUFBQUFAEEBQUIBwgPCgoPFA4ODhQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU/8AAEQgAKwCaAwERAAIRAQMRAf/EAHsAAQAABwEBAAAAAAAAAAAAAAABAwQFBgcIAgkBAQAAAAAAAAAAAAAAAAAAAAAQAAEDAwICBwYEAgsAAAAAAAIBAwQAEQUSBiEHkROTVNQWGDFBUVIUCHEiMtOUFWGBobHRQlMkZIRVEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDSC+ygkOOaUoKigUCgUCgUCgUCgUCgUCgUCgkuGguIP9FBMFb0Hqg7We+3jlmIqqYFf4ub+/QYlnOR/LqIBKGFUbf8qWv971BytQXXE7Y3Lnm3HsFhp2TaZJAdchRXpIgSpdEJWxJEW3xoKV7F5OMy7JkQn2o7D6w33XGjEAkoiqrJEqIiOIiKuhePCgqp22dyYyS3CyWHnQ5joG61HkRnmnTbaFSMhExRVQRRVJU9iUHjE7ez+fJ0MFipmUNhBV8YUd2SoIV9KkjQla9ltegttBdPLW4/qocL+UTfrMiHW4+P9M71shuyrqaHTcxsl7jegpsji8nh5ZwMvDfgTm0RTjSmjYdFCS6KoOIipdFunCgmNYTMv457MMY6U7iI6oMieDDhRm1VbIhuoOkbqtuK0Hpzb+eZcYZexUxt6UyUqK2cd0SdjtgrhOgijcgERUlJOCIl6CpgbP3blRI8XgMjNARAyKNDfeRBdFDBVUAXgQrqH4pxoJTu2NysY97LP4ac1io5q1InHFeGO24LnVKJuKOkSQ/yKir+rh7aCLG1dzypZQI2FnvTgccYOM3FeN0XWERXAUEFVQgQkUktdLpegm+Td3/Xli/L+S/mYNJIOF9G/wBeLKrZHFb0akG6W1WtQWSg3Dyg5e7V3fipE3O4/wCrktyzYA+ufas2LbZIlmnAT2kvuoN1wft95augilglX/tzP3qCu9O3LL/wV/i5v79BvmTADq14UGu91467Z6U9y0HzH/ncj/U/sT/CgynZG7I2NezpZGUjIycJkYkZSG+uQ81pbBNKLxJfjwoMqZ3/ALYHl35AJ7/cuwHcu5k7r1Q5pHetBjquqVVJWGxj9Zrtcl/Ggy3dHMvauR3HFZj5nHNxSyW5JISYDMoIwx8tFIGHZhPNaykGapr6rUAiicEoMG21lMRj8buPAz8xhJrr7uOeiPTCyAwXUaGR1mgozbTusOsFLEiJ7fbQa/h7gcjy2H3V6xppwDNtUSxCJIqp7valBuWVzJ22xuCROXNNZiJkMtms0DbjUkAZjzoDrTMd9dDRI44ZC2YsrYdKWP2WDT2S3N9dNdlRYrGMYc06IURXSYb0igrpWS485xVNS6nF4rwslkoMwnbpgZLB7bmt5uMweAhDEl4B5uSLzzqTnnyVpW2jaJHRMSIjdDiiotvy3DOE5rYTEbkl5yFn28k7JyG4c7AU2HtLH1uKfaiMPI40CdYbpNtmLdwTSn5rewLNld+7TLdeal4WarWBkbVKBjgdElMJJwAAY5fl4kB3b1fp4XvagsGS3FjJfLzDNtS8aeXx7LzT7TyzByQE5PccRGRC0ZRUDRV6y62vbjagzLmJzS2vuPK43JY6aP1TW6Jz+RIWyFtyC06y3EkiiinAo7YCqfq1AqqnGgsOH3lhZO8d1pmcpB8j5XIm9OYlBJSQ/FSS4427DKO0RC8AlcEMhFdViRR1WDWR5t3WXVuL1d106kG9vdeye2g60+1FDyW0shIcXVpyroXt8I8dfd+NB1vioAdWnD3UF1+gD4UFc6CEKpagxXN43rwJLUHz7yX2c8zokt9uHlsPIhA4aRnnHJTLptIS6CNsY7iASpxUUMkReGpfbQW0vtN5pitvrsN28rwtBD0nc0+/Yft5XhaB6TuaXfsP28rwtA9J3NPv2H7eV4Wgek7mn37D9vK8LQPSdzT79h+3leFoHpO5pd+w/byvC0D0nc0u/Yft5XhaB6TuaXfsP28rwtA9J3NLv2H7eV4Wgek7ml37D9vK8LQPSdzS79h+3leFoHpO5p9+w/byvC0E9r7Reazy2HIYVPxkS/CUHVn26cosxyv2g7h89LYmZSXOenvLEQ1YaQ222RATcQCP8rSGqqA8S02W2pQ6FhMoAIlqCtsnwoCpdKClejI4i3Sgtb+GBxVuNBSFt1pV/RQefLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8uM/JQPLjPyUDy4z8lA8utJ/koJ7WCbBU/LQXOPAFq1koK8B0pag90CggtBBf6qB0UDooHRQOigdFA6KB0UDooHRQOigdFA6KB0UDooI0EaBQf//Z" title="Toggle Table of Contents" alt="Toggle Table of Contents" />
+  </a>
+</div>
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> CodeIgniter4</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/downloads.html">Downloading CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">Upgrading From a Previous Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/local_server.html">Local Development Server</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">Static pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">News section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">Create news items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">Application Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">Models, Views, and Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">Autoloading Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">Working With HTTP Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">Security Guidelines</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">Working With Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/controllers.html">Controllers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/views.html">Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_cells.html">View Cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_renderer.html">View Renderer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/view_parser.html">View Parser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/core_classes.html">Creating Core System Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/events.html">Events - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">Global Functions and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/routing.html">URI Routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/filters.html">Controller Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">Logging Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/errors.html">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/debugging.html">Debugging Your Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/caching.html">Web Page Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/cli.html">Running via the CLI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/cli_commands.html">Custom CLI Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/modules.html">Code Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">Managing your Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">Handling Multiple Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/testing.html">Testing</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/api_responses.html">API Response Trait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">Benchmarking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cli.html">CLI Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/content_negotiation.html">Content Negotiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">Image Manipulation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">Working with Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/incomingrequest.html">IncomingRequest Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/message.html">HTTP Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">Pagination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/request.html">Request Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/response.html">HTTP Responses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">Security Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">Throttler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">Working with Uploaded Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">Working with URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">Validation</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Database Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Quick Start: Usage Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Database Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connecting.html">Connecting to a Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Query Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html">Getting MetaData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="call_function.html">Custom Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html">Using CodeIgniter&#8217;s Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html">Using Entity Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forge.html">Database Manipulation with Database Forge</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Database Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seeds.html">Database Seeding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Database Events</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">Filesystem Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">Form Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">Number Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">Security Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL Helper</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing to CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/guidelines.html">Contribution Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/workflow.html">Contribution Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/signing.html">Contribution Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/roadmap.html">CodeIgniter4 Roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/internals.html">CodeIgniter Internals Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/documentation.html">Writing CodeIgniter Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/styleguide.html">PHP Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DCO.html">Developer&#8217;s Certificate of Origin 1.1</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">CodeIgniter4</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+        <li><a href="index.html">Database Reference</a> &raquo;</li>
+      
+    <li>Database Migrations</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+    <div style="float:right;margin-left:5px;" id="closeMe">
+      <img title="Classic Layout" alt="classic layout" src="data:image/gif;base64,R0lGODlhFAAUAJEAAAAAADMzM////wAAACH5BAUUAAIALAAAAAAUABQAAAImlI+py+0PU5gRBRDM3DxbWoXis42X13USOLauUIqnlsaH/eY6UwAAOw==" />
+    </div>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="database-migrations">
+<h1>Database Migrations<a class="headerlink" href="#database-migrations" title="永久链接至标题">¶</a></h1>
+<p>Migrations are a convenient way for you to alter your database in a
+structured and organized manner. You could edit fragments of SQL by hand
+but you would then be responsible for telling other developers that they
+need to go and run them. You would also have to keep track of which changes
+need to be run against the production machines next time you deploy.</p>
+<p>The database table <strong>migration</strong> tracks which migrations have already been
+run so all you have to do is update your application files and
+call <code class="docutils literal"><span class="pre">$migration-&gt;current()</span></code> to work out which migrations should be run.
+The current version is found in <strong>application/Config/Migrations.php</strong>.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#migration-file-names" id="id1">Migration file names</a></li>
+<li><a class="reference internal" href="#create-a-migration" id="id2">Create a Migration</a><ul>
+<li><a class="reference internal" href="#using-currentversion" id="id3">Using $currentVersion</a></li>
+<li><a class="reference internal" href="#database-groups" id="id4">Database Groups</a></li>
+<li><a class="reference internal" href="#namespaces" id="id5">Namespaces</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage-example" id="id6">Usage Example</a></li>
+<li><a class="reference internal" href="#commnand-line-tools" id="id7">Commnand-Line Tools</a></li>
+<li><a class="reference internal" href="#migration-preferences" id="id8">Migration Preferences</a></li>
+<li><a class="reference internal" href="#class-reference" id="id9">Class Reference</a></li>
+</ul>
+</div>
+<div class="custom-index container"></div><div class="section" id="migration-file-names">
+<h2><a class="toc-backref" href="#id1">Migration file names</a><a class="headerlink" href="#migration-file-names" title="永久链接至标题">¶</a></h2>
+<p>Each Migration is run in numeric order forward or backwards depending on the
+method taken. Two numbering styles are available:</p>
+<ul class="simple">
+<li><strong>Sequential:</strong> each migration is numbered in sequence, starting with <strong>001</strong>.
+Each number must be three digits, and there must not be any gaps in the
+sequence. (This was the numbering scheme prior to CodeIgniter 3.0.)</li>
+<li><strong>Timestamp:</strong> each migration is numbered using the timestamp when the migration
+was created, in <strong>YYYYMMDDHHIISS</strong> format (e.g. <strong>20121031100537</strong>). This
+helps prevent numbering conflicts when working in a team environment, and is
+the preferred scheme in CodeIgniter 3.0 and later.</li>
+</ul>
+<p>The desired style may be selected using the <code class="docutils literal"><span class="pre">$type</span></code> setting in your
+<em>application/Config/Migrations.php</em> file. The default setting is timestamp.</p>
+<p>Regardless of which numbering style you choose to use, prefix your migration
+files with the migration number followed by an underscore and a descriptive
+name for the migration. For example:</p>
+<ul class="simple">
+<li>001_add_blog.php (sequential numbering)</li>
+<li>20121031100537_add_blog.php (timestamp numbering)</li>
+</ul>
+</div>
+<div class="section" id="create-a-migration">
+<h2><a class="toc-backref" href="#id2">Create a Migration</a><a class="headerlink" href="#create-a-migration" title="永久链接至标题">¶</a></h2>
+<p>This will be the first migration for a new site which has a blog. All
+migrations go in the <strong>application/Database/Migrations/</strong> directory and have names such
+as <em>20121031100537_Add_blog.php</em>.</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">class</span> <span class="nc">Migration_Add_blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Database\Migration</span> <span class="p">{</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">([</span>
+                        <span class="s1">&#39;blog_id&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                                <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;INT&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;constraint&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+                                <span class="s1">&#39;unsigned&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">,</span>
+                                <span class="s1">&#39;auto_increment&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span>
+                        <span class="p">],</span>
+                        <span class="s1">&#39;blog_title&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                                <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;constraint&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
+                        <span class="p">],</span>
+                        <span class="s1">&#39;blog_description&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                                <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;null&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">,</span>
+                        <span class="p">],</span>
+                <span class="p">]);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">dropTable</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then in <strong>application/Config/Migrations.php</strong> set <code class="docutils literal"><span class="pre">$currentVersion</span> <span class="pre">=</span> <span class="pre">20121031100537;</span></code>.</p>
+<p>The database connection and the database Forge class are both available to you through
+<code class="docutils literal"><span class="pre">$this-&gt;db</span></code> and <code class="docutils literal"><span class="pre">$this-&gt;forge</span></code>, respectively.</p>
+<p>Alternatively, you can use a command-line call to generate a skeleton migration file. See
+below for more details.</p>
+<div class="section" id="using-currentversion">
+<h3><a class="toc-backref" href="#id3">Using $currentVersion</a><a class="headerlink" href="#using-currentversion" title="永久链接至标题">¶</a></h3>
+<p>The $currentVersion setting allows you to mark a location that your main application namespace should be set at.
+This is especially helpful for use in a production setting. In your application, you can always
+update the migration to the current version, and not latest to ensure your production and staging
+servers are running the correct schema. On your development servers, you can add additional migrations
+for code that is not ready for production, yet. By using the <code class="docutils literal"><span class="pre">latest()</span></code> method, you can be assured
+that your development machines are always running the bleeding edge schema.</p>
+</div>
+<div class="section" id="database-groups">
+<h3><a class="toc-backref" href="#id4">Database Groups</a><a class="headerlink" href="#database-groups" title="永久链接至标题">¶</a></h3>
+<p>A migration will only be ran against a single database group. If you have multiple groups defined in
+<strong>application/Config/Database.php</strong>, then it will run against the <code class="docutils literal"><span class="pre">$defaultGroup</span></code> as specified
+in that same configuration file. There may be times when you need different schemas for different
+database groups. Perhaps you have one database that is used for all general site information, while
+another database is used for mission critical data. You can ensure that migrations are run only
+against the proper group by setting the <code class="docutils literal"><span class="pre">$DBGroup</span></code> property on your migration. This name must
+match the name of the database group exactly:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Migration_Add_blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Database\Migration</span>
+<span class="p">{</span>
+  <span class="k">protected</span> <span class="nv">$DBGroup</span> <span class="o">=</span> <span class="s1">&#39;alternate_db_group&#39;</span><span class="p">;</span>
+
+  <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span> <span class="p">{</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">}</span>
+
+  <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span> <span class="p">{</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="namespaces">
+<h3><a class="toc-backref" href="#id5">Namespaces</a><a class="headerlink" href="#namespaces" title="永久链接至标题">¶</a></h3>
+<p>The migration library can automatically scan all namespaces you have defined within
+<strong>application/Config/Autoload.php</strong> and its <code class="docutils literal"><span class="pre">$psr4</span></code> property for matching directory
+names. It will include all migrations it finds in Database/Migrations.</p>
+<p>Each namespace has it&#8217;s own version sequence, this will help you upgrade and downgrade each module (namespace) without affecting other namespaces.</p>
+<p>For example, assume that we have the the following namespaces defined in our Autoload
+configuration file:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$psr4</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;App&#39;</span> <span class="o">=&gt;</span> <span class="nx">APPPATH</span><span class="p">,</span>
+        <span class="s1">&#39;MyCompany&#39;</span> <span class="o">=&gt;</span> <span class="nx">ROOTPATH</span><span class="o">.</span><span class="s1">&#39;MyCompany&#39;</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>This will look for any migrations located at both <strong>APPPATH/Database/Migrations</strong> and
+<strong>ROOTPATH/Database/Migrations</strong>. This makes it simple to include migrations in your
+re-usable, modular code suites.</p>
+</div>
+</div>
+<div class="section" id="usage-example">
+<h2><a class="toc-backref" href="#id6">Usage Example</a><a class="headerlink" href="#usage-example" title="永久链接至标题">¶</a></h2>
+<p>In this example some simple code is placed in <strong>application/Controllers/Migrate.php</strong>
+to update the schema:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">class</span> <span class="nc">Migrate</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
+<span class="p">{</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="nv">$migrate</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">migrations</span><span class="p">();</span>
+
+                <span class="k">try</span>
+                <span class="p">{</span>
+                  <span class="nv">$migrate</span><span class="o">-&gt;</span><span class="na">current</span><span class="p">();</span>
+                <span class="p">}</span>
+                <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span>
+                <span class="p">{</span>
+                  <span class="c1">// Do something with the error here...</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="commnand-line-tools">
+<h2><a class="toc-backref" href="#id7">Commnand-Line Tools</a><a class="headerlink" href="#commnand-line-tools" title="永久链接至标题">¶</a></h2>
+<p>CodeIgniter ships with several <a class="reference internal" href="../general/cli_commands.html"><span class="doc">commands</span></a> that are available from the command line to help
+you work with migrations. These tools are not required to use migrations but might make things easier for those of you
+that wish to use them. The tools primarily provide access to the same methods that are available within the MigrationRunner class.</p>
+<p><strong>latest</strong></p>
+<p>Migrates all database groups to the latest available migrations:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">latest</span>
+</pre></div>
+</div>
+<p>You can use (latest) with the following options:</p>
+<ul class="simple">
+<li>(-g) to chose database group, otherwise default database group will be used.</li>
+<li>(-n) to choose namespace, otherwise (App) namespace will be used.</li>
+<li>(all) to migrate all namespaces to the latest migration</li>
+</ul>
+<p>This example will migrate Blog namespace to latest:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">latest</span> <span class="o">-</span><span class="nx">g</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">n</span> <span class="nx">Blog</span>
+</pre></div>
+</div>
+<p><strong>current</strong></p>
+<p>Migrates the (App) namespace to match the version set in <code class="docutils literal"><span class="pre">$currentVersion</span></code>. This will migrate both
+up and down as needed to match the specified version:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nb">current</span>
+</pre></div>
+</div>
+<p>You can use (current) with the following options:</p>
+<ul class="simple">
+<li>(-g) to chose database group, otherwise default database group will be used.</li>
+</ul>
+<p><strong>version</strong></p>
+<p>Migrates to the specified version. If no version is provided, you will be prompted
+for the version.</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Asks you for the version...</span>
+<span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">version</span>
+<span class="o">&gt;</span> <span class="nx">Version</span><span class="o">:</span>
+
+<span class="c1">// Sequential</span>
+<span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">version</span> <span class="mo">007</span>
+
+<span class="c1">// Timestamp</span>
+<span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">version</span> <span class="mi">20161426211300</span>
+</pre></div>
+</div>
+<p>You can use (version) with the following options:</p>
+<ul class="simple">
+<li>(-g) to chose database group, otherwise default database group will be used.</li>
+<li>(-n) to choose namespace, , otherwise (App) namespace will be used.</li>
+</ul>
+<p><strong>rollback</strong></p>
+<p>Rolls back all migrations, taking all database groups to a blank slate, effectively migration 0:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">rollback</span>
+</pre></div>
+</div>
+<p>You can use (rollback) with the following options:</p>
+<ul class="simple">
+<li>(-g) to chose database group, otherwise default database group will be used.</li>
+<li>(-n) to choose namespace, otherwise (App) namespace will be used.</li>
+<li>(all) to migrate all namespaces to the latest migration</li>
+</ul>
+<p><strong>refresh</strong></p>
+<p>Refreshes the database state by first rolling back all migrations, and then migrating to the latest version:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">refresh</span>
+</pre></div>
+</div>
+<p>You can use (refresh) with the following options:</p>
+<ul class="simple">
+<li>(-g) to chose database group, otherwise default database group will be used.</li>
+<li>(-n) to choose namespace, otherwise (App) namespace will be used.</li>
+<li>(all) to migrate all namespaces to the latest migration</li>
+</ul>
+<p><strong>status</strong></p>
+<p>Displays a list of all migrations and the date and time they were ran, or &#8216;&#8211;&#8217; if they have not be ran:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">status</span>
+<span class="nx">Filename</span>               <span class="nx">Migrated</span> <span class="nx">On</span>
+<span class="nx">First_migration</span><span class="o">.</span><span class="nx">php</span>    <span class="mi">2016</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">25</span> <span class="mo">04</span><span class="o">:</span><span class="mi">44</span><span class="o">:</span><span class="mi">22</span>
+</pre></div>
+</div>
+<p>You can use (refresh) with the following options:</p>
+<ul class="simple">
+<li>(-g) to chose database group, otherwise default database group will be used.</li>
+</ul>
+<p><strong>create</strong></p>
+<p>Creates a skeleton migration file in <strong>application/Database/Migrations</strong> using the timestamp format:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">create</span> <span class="p">[</span><span class="nx">filename</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can use (create) with the following options:</p>
+<ul class="simple">
+<li>(-n) to choose namespace, otherwise (App) namespace will be used.</li>
+</ul>
+</div>
+<div class="section" id="migration-preferences">
+<h2><a class="toc-backref" href="#id8">Migration Preferences</a><a class="headerlink" href="#migration-preferences" title="永久链接至标题">¶</a></h2>
+<p>The following is a table of all the config options for migrations, available in <strong>application/Config/Migrations.php</strong>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="16%" />
+<col width="19%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Preference</th>
+<th class="head">Default</th>
+<th class="head">Options</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>enabled</strong></td>
+<td>FALSE</td>
+<td>TRUE / FALSE</td>
+<td>Enable or disable migrations.</td>
+</tr>
+<tr class="row-odd"><td><strong>path</strong></td>
+<td>&#8216;Database/Migrations/&#8217;</td>
+<td>None</td>
+<td>The path to your migrations folder.</td>
+</tr>
+<tr class="row-even"><td><strong>currentVersion</strong></td>
+<td>0</td>
+<td>None</td>
+<td>The current version your database should use.</td>
+</tr>
+<tr class="row-odd"><td><strong>table</strong></td>
+<td>migrations</td>
+<td>None</td>
+<td>The table name for storing the schema version number.</td>
+</tr>
+<tr class="row-even"><td><strong>type</strong></td>
+<td>&#8216;timestamp&#8217;</td>
+<td>&#8216;timestamp&#8217; / &#8216;sequential&#8217;</td>
+<td>The type of numeric identifier used to name migration files.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="class-reference">
+<h2><a class="toc-backref" href="#id9">Class Reference</a><a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h2>
+<dl class="class">
+<dt id="CodeIgniterDatabaseMigrationRunner">
+<em class="property">class </em><code class="descname">CodeIgniterDatabaseMigrationRunner</code><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner" title="永久链接至目标">¶</a></dt>
+<dd><dl class="method">
+<dt id="CodeIgniterDatabaseMigrationRunner::current">
+<code class="descname">current</code><span class="sig-paren">(</span><em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::current" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$group</strong> (<em>mixed</em>) &#8211; database group name, if null (App) namespace will be used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE if no migrations are found, current version string on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Migrates up to the current version (whatever is set for
+<code class="docutils literal"><span class="pre">$currentVersion</span></code> in <em>application/Config/Migrations.php</em>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeIgniterDatabaseMigrationRunner::findMigrations">
+<code class="descname">findMigrations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::findMigrations" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">An array of migration files</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">array</td>
+</tr>
+</tbody>
+</table>
+<p>An array of migration filenames are returned that are found in the <strong>path</strong> property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeIgniterDatabaseMigrationRunner::latest">
+<code class="descname">latest</code><span class="sig-paren">(</span><em>$namespace</em>, <em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::latest" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$namespace</strong> (<em>mixed</em>) &#8211; application namespace, if null (App) namespace will be used.</li>
+<li><strong>$group</strong> (<em>mixed</em>) &#8211; database group name, if null default database group will be used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Current version string on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This works much the same way as <code class="docutils literal"><span class="pre">current()</span></code> but instead of looking for
+the <code class="docutils literal"><span class="pre">$currentVersion</span></code> the Migration class will use the very
+newest migration found in the filesystem.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeIgniterDatabaseMigrationRunner::latestAll">
+<code class="descname">latestAll</code><span class="sig-paren">(</span><em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::latestAll" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$group</strong> (<em>mixed</em>) &#8211; database group name, if null default database group will be used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This works much the same way as <code class="docutils literal"><span class="pre">latest()</span></code> but instead of looking for
+one namespace, the Migration class will use the very
+newest migration found for all namespaces.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeIgniterDatabaseMigrationRunner::version">
+<code class="descname">version</code><span class="sig-paren">(</span><em>$target_version</em>, <em>$namespace</em>, <em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::version" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$namespace</strong> (<em>mixed</em>) &#8211; application namespace, if null (App) namespace will be used.</li>
+<li><strong>$group</strong> (<em>mixed</em>) &#8211; database group name, if null default database group will be used.</li>
+<li><strong>$target_version</strong> (<em>mixed</em>) &#8211; Migration version to process</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE if no migrations are found, current version string on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Version can be used to roll back changes or step forwards programmatically to
+specific versions. It works just like <code class="docutils literal"><span class="pre">current()</span></code> but ignores <code class="docutils literal"><span class="pre">$currentVersion</span></code>.</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$migration</span><span class="o">-&gt;</span><span class="na">version</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeIgniterDatabaseMigrationRunner::setNamespace">
+<code class="descname">setNamespace</code><span class="sig-paren">(</span><em>$namespace</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::setNamespace" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$namespace</strong> (<em>string</em>) &#8211; application namespace.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The current MigrationRunner instance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">CodeIgniterDatabaseMigrationRunner</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the path the library should look for migration files:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$migration</span><span class="o">-&gt;</span><span class="na">setNamespace</span><span class="p">(</span><span class="nv">$path</span><span class="p">)</span>
+          <span class="o">-&gt;</span><span class="na">latest</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="CodeIgniterDatabaseMigrationRunner::setGroup">
+<code class="descname">setGroup</code><span class="sig-paren">(</span><em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::setGroup" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$group</strong> (<em>string</em>) &#8211; database group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The current MigrationRunner instance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">CodeIgniterDatabaseMigrationRunner</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the path the library should look for migration files:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$migration</span><span class="o">-&gt;</span><span class="na">setNamespace</span><span class="p">(</span><span class="nv">$path</span><span class="p">)</span>
+          <span class="o">-&gt;</span><span class="na">latest</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="seeds.html" class="btn btn-neutral float-right" title="Database Seeding">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="forge.html" class="btn btn-neutral" title="Database Forge Class"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; 版权所有 2014-2017 British Columbia Institute of Technology.
+       Last updated on 8月 31, 2017.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0.0-dev',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
