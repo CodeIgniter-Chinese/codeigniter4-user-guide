@@ -1,16 +1,16 @@
 #######################
-CodeIgniter4 User Guide
+CodeIgniter4 用户指南
 #######################
 
-- :doc:`License Agreement <license>`
-- :doc:`Change Log <changelog>`
+- :doc:`许可协议 <license>`
+- :doc:`变更记录 <changelog>`
 
 .. contents::
    :local:
    :depth: 2
 
 *******
-Welcome
+欢迎
 *******
 
 .. toctree::
@@ -20,7 +20,7 @@ Welcome
         intro/index
 
 ************
-Installation
+安装
 ************
 
 .. toctree::
@@ -31,7 +31,7 @@ Installation
 	installation/index
 
 ********
-Tutorial
+教程
 ********
 
 .. toctree::
@@ -41,7 +41,7 @@ Tutorial
     	tutorial/index
 
 *********************
-CodeIgniter4 Overview
+CodeIgniter4 介绍
 *********************
 .. toctree::
    :titlesonly:
@@ -49,7 +49,7 @@ CodeIgniter4 Overview
    concepts/index
 
 **************
-General Topics
+常规主题
 **************
 
 .. toctree::
@@ -58,7 +58,7 @@ General Topics
 	general/index
 
 *****************
-Library Reference
+类库参考
 *****************
 
 .. toctree::
@@ -67,7 +67,7 @@ Library Reference
 	libraries/index
 
 ******************
-Database Reference
+数据库参考
 ******************
 
 .. toctree::
@@ -76,7 +76,7 @@ Database Reference
 	database/index
 
 ****************
-Helper Reference
+辅助函数参考
 ****************
 
 .. toctree::
@@ -86,7 +86,7 @@ Helper Reference
 
 
 ***************************
-Contributing to CodeIgniter
+贡献 CodeIgniter
 ***************************
 
 .. toctree::
