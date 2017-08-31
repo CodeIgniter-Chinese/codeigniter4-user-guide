@@ -64,4 +64,4 @@ http://python.org/download/releases/2.7.2/
 风格指南
 ***************
 
-使用 Sphinx 为 CodeIgniter 编写文档，请参考 source/documentation/index.rst 的一般准则。
+使用 Sphinx 为 CodeIgniter 编写文档，请参考 `source/contributing/documentation.rst <source/contributing/documentation.rst>`_ 的一般准则。
