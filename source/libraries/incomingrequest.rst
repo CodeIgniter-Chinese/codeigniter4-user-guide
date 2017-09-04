@@ -6,7 +6,7 @@ IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的�
 基于它可以访问所有 :doc:`Request </libraries/request>` 和 :doc:`Message </libraries/message>` 中的方法， 以及以下列出的方法。
 
 
-.. contents:: 页面索引
+.. contents:: 目录
 
 获得请求
 =====================
