@@ -116,4 +116,4 @@ CodeIgniter 读取路由的规则为从上到下，并将请求映射到第一�
 
 	$routes->add('/', 'Home::index');
 
-现在访问 ``index.php/about``。路由规则是不是正确的将你带到了控制器中的 ``view()`` 方法？实在太棒了！
+现在访问 ``index.php/about``。路由规则是不是正确的将你带到了控制器中的 ``view()`` 方法？太酷了！
