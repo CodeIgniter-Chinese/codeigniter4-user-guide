@@ -4,8 +4,6 @@
 
 控制器是你整个应用的核心，因为它们决定了 HTTP 请求将被如何处理。
 
-.. contents:: Page Contents
-
 .. contents:: 目录
 
 
@@ -41,7 +39,8 @@
 
 然后将文件保存到 **/application/controllers/** 目录下。
 
-.. 重要:: 文件名必须是大写字母开头，如：'Blog.php' 。
+
+.. important:: 文件名必须是大写字母开头，如：'Blog.php' 。
 
 
 现在使用类似下面的 URL 来访问你的站点:：
@@ -53,7 +52,8 @@
 
 	Hello World!
 
-.. 重要:: 类名必须以大写字母开头。
+
+.. important:: 类名必须以大写字母开头。
 
 
 这是有效的::
@@ -132,7 +132,7 @@
 	}
 
 
-.. 重要:: 如果你使用了 `URI 路由` ，传递到你的方法的参数将是路由后的参数。	
+.. important:: 如果你使用了 `URI 路由` ，传递到你的方法的参数将是路由后的参数。	
 
 
 定义默认控制器
@@ -145,8 +145,7 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 
 其中，“Blog”是你想加载的控制器类名，如果你现在通过不带任何参数的 index.php 访问你的站点，你将看到你的“Hello World”消息。
 
-
-想要了解更多信息，请参阅 :doc:`./source/general/routing.rst`部分文档。
+想要了解更多信息，请参阅 :doc:`./source/general/routing.rst` 部分文档。
 
 
 重映射方法
@@ -161,7 +160,7 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 	}
 
 
-.. 重要:: 如果你的控制包含一个 _remap() 方法，那么无论 URI 中包含什么参数时都会调用该方法。 它允许你定义你自己的路由规则，重写默认的使用 URI 中的分段来决定调用哪个方法这种行为。
+.. important:: 如果你的控制包含一个 _remap() 方法，那么无论 URI 中包含什么参数时都会调用该方法。 它允许你定义你自己的路由规则，重写默认的使用 URI 中的分段来决定调用哪个方法这种行为。
 
 
 被重写的方法（通常是 URI 的第二段）将被作为参数传递到 ``_remap()`` 方法::
@@ -216,7 +215,7 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 
 你只需要简单的在 *application/controllers/* 目录下创建新的目录，并将控制器文件放到子目录下。
 
-.. 注解::当使用该功能时，URI 的第一段必须指定目录，例如，假设你在如下位置有一个控制器::
+.. note:: 当使用该功能时，URI 的第一段必须指定目录，例如，假设你在如下位置有一个控制器::
 
 		application/controllers/products/Shoes.php
 
@@ -261,12 +260,12 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 
 Request 对象
 --------------
-``$this->request`` 作为应用程序的主要属性 :doc:` ./source/libraries/request.rst` 是可以一直被使用的类属性。
+``$this->request`` 作为应用程序的主要属性 :doc:`./source/libraries/request.rst` 是可以一直被使用的类属性。
 
 
 Response 对象
 ---------------
-``$this->response`` 作为应用程序的主要属性 :doc:` ./source/libraries/response.rst` 是可以一直被使用的类属性。
+``$this->response`` 作为应用程序的主要属性 :doc:`./source/libraries/response.rst` 是可以一直被使用的类属性。
 
 Logger 对象
 -------------
@@ -274,9 +273,6 @@ Logger 对象
 
 forceHTTPS
 ----------
-A convenience method for forcing a method to be accessed via HTTPS is available within all
-controllers::
-
 一种强制通过HTTPS访问方法的便捷方法，在所有控制器中都是可用的::
 
 	if (! $this->request->isSecure())
@@ -291,9 +287,8 @@ controllers::
 		$this->forceHTTPS(31536000);    // one year
 	}
 
-.. note:: A number of :doc:`time-based constants </general/common_functions>` are always available for you to use, including YEAR, MONTH, and more.
 
-.. 注意 :: 你可以使用更多全局变量和函数 :doc:`./source/general/common_functions.rst` ，包括 年、月等等。
+.. note:: 你可以使用更多全局变量和函数 :doc:`./source/general/common_functions.rst` ，包括 年、月等等。
 
 
 辅助函数
@@ -327,9 +322,6 @@ controllers::
         // do something here if successful...
     }
 
-If you find it simpler to keep the rules in the configuration file, you can replace the $rules array with the
-name of the group, as defined in ``Config\Validation.php``::
-
 如果你觉得在配置文件中保存规则更简单，你可以通过在 ``Config\Validation.php`` 中定义代替 $rules 数组 ::
 
     public function updateUser(int $userID)
@@ -344,8 +336,7 @@ name of the group, as defined in ``Config\Validation.php``::
         // do something here if successful...
     }
 
-.. 注意 :: 验证也可以在模型中自动处理。你可以在任何地方处理，你会发现控制器中的一些情况比模型简单，反之亦然。
-
+.. note:: 验证也可以在模型中自动处理。你可以在任何地方处理，你会发现控制器中的一些情况比模型简单，反之亦然。
 
 就这样了！
 ==========
