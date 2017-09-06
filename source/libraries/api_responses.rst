@@ -4,7 +4,7 @@ API 响应特性
 
 现代化的 PHP开发都需要构建 API ，不管它只是为了给 javascript 单页应用提供数据还是作为独立的产品。CodeIgniter 都是一个可以提供 API响应特性并与任何控制器一起使用，使常见的响应类型变得更简单，不需要记住任何 HTTP状态码和需要返回响应类型。
 
-.. contents:: 页面内容
+.. contents:: 目录
     :local:
 
 *************
@@ -32,6 +32,7 @@ API 响应特性
     }
 
 在这个例子中，响应了 201 的HTTP状态码，并使用“创建”的通用状态消息返回。方法存在于最常见的用例中 ::
+
     // 通用响应方式
     respond($data, 200);
     // 通用错误响应
@@ -80,7 +81,7 @@ API 响应特性
         'application/xml'  => \CodeIgniter\API\XMLFormatter::class
     ];
 
-因此，如果您的请求在 **Accept** 头中请求 JSON 格式的数据，那么您传递的数据数组就可以通过其中任何一个``respond*``或``fail*``方法将由**CodeIgniter\API\JSONFormatter** 格式化。由此产生的 JSON 数据将被发送回客户端。
+因此，如果您的请求在 **Accept** 头中请求 JSON 格式的数据，那么您传递的数据数组就可以通过其中任何一个 ``respond*`` 或 ``fail*`` 方法将由 **CodeIgniter\API\JSONFormatter** 格式化。由此产生的 JSON 数据将被发送回客户端。
 
 ===============
 引用类
@@ -93,9 +94,9 @@ API 响应特性
 
     这是该特征中所有其他方法用于将响应返回给客户端的方法。
 
-     ``$data``元素可以是字符串或数组。 默认情况下，一个字符串将作为 HTML 返回，而数组将通过 json_encode 运行并返回为 JSON，除非 :doc:`Content Negotiation </libraries/content_negotiation>` 确定它应该以不同的格式返回。
+     ``$data`` 元素可以是字符串或数组。 默认情况下，一个字符串将作为 HTML 返回，而数组将通过 json_encode 运行并返回为 JSON，除非 :doc:`Content Negotiation </libraries/content_negotiation>` 确定它应该以不同的格式返回。
 
-    如果一个``$message``字符串被传递，它将被用来替代标准的 IANA 标准码回应状态。但不是每个客户端都会遵守自定义代码，并将使用 IANA 标准
+    如果一个 ``$message`` 字符串被传递，它将被用来替代标准的 IANA 标准码回应状态。但不是每个客户端都会遵守自定义代码，并将使用 IANA 标准
      匹配状态码。
 
     .. note:: 由于它在活动的响应实例上设置状态码和正文，所以应该一直作为脚本执行中的最终方法。
@@ -113,11 +114,11 @@ API 响应特性
     该 ``$messages`` 元素可以是字符串或字符串数​​组。
     该 ``$status`` 参数是应返回的HTTP状态码。
 
-    由于使用自定义错误代码更好地提供了许多 API，因此可以在第三个参数中传递自定义错误代码。如果没有值，它将是一样的 ``$status`【状态码】。
+    由于使用自定义错误代码更好地提供了许多 API，因此可以在第三个参数中传递自定义错误代码。如果没有值，它将是一样的 ``$status`` 【状态码】。
 
-    如果一个``$message``字符串被传递，它将被用于代替响应状态的标准 IANA 码。不是每个客户端都会遵守自定义代码，并且将使用与状态代码相匹配的 IANA 标准。
+    如果一个 ``$message`` 字符串被传递，它将被用于代替响应状态的标准 IANA 码。不是每个客户端都会遵守自定义代码，并且将使用与状态代码相匹配的 IANA 标准。
 
-    这个响应是一个包含两个元素的数组： ``error``和``messages``。``error`` 元素包含错误的状态代码。``messages``元素包含一组错误消息。它看起来像：
+    这个响应是一个包含两个元素的数组： ``error`` 和 ``messages`` 。 ``error`` 元素包含错误的状态代码。``messages`` 元素包含一组错误消息。它看起来像::
 
         $response = [
             'status' => 400,
@@ -134,14 +135,14 @@ API 响应特性
     :param string $message: 返回的自定义“reason”消息。
     :returns: Response 对象的 send()方法的值。
 
-    设置创建新资源时使用的相应状态代码，通常为201：
+    设置创建新资源时使用的相应状态代码，通常为201::
 
         $user = $userModel->insert($data);
         return $this->respondCreated($user);
 
 .. php:method:: respondDeleted($data[, string $message = ''])
 
-    :param mixed  $data:返回给客户端的数据。字符串或数组
+    :param mixed  $data: 返回给客户端的数据。字符串或数组
     :param string $message: 自定义的“原因”消息返回。
     :returns: Response 对象的 send()方法的值。
 
@@ -167,12 +168,8 @@ API 响应特性
 
     :param mixed  $description: 显示用户的错误信息。
     :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message:返回的自定义“reason”消息。
+    :param string $message: 返回的自定义“reason”消息。
     :returns: Response 对象的 send()方法的值。
-
-    Unlike ``failUnauthorized``, this method should be used when the requested API endpoint is never allowed.
-    Unauthorized implies the client is encouraged to try again with different credentials. Forbidden means
-    the client should not try again because it won't help. Status code is 403.
 
     不像 ``failUnauthorized``，当请求 API 路径决不允许采用这种方法。未经授权意味着客户端被鼓励再次尝试使用不同的凭据。禁止意味着客户端不应该再次尝试，因为它不会有帮助。状态码为403。
 
@@ -182,10 +179,9 @@ API 响应特性
 
 .. php:method:: failNotFound(string $description[, string $code=null[, string $message = '']])
 
-
     :param mixed  $description: 显示用户的错误信息。
     :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message:返回的自定义“reason”消息。
+    :param string $message: 返回的自定义“reason”消息。
     :returns: Response 对象的 send()方法的值。
 
     设置于在找不到请求的资源时使用的状态码。状态码为404。
@@ -197,11 +193,9 @@ API 响应特性
 
     :param mixed  $description: 显示用户的错误信息。
     :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message:返回的自定义“reason”消息。
+    :param string $message: 返回的自定义“reason”消息。
     :returns: Response 对象的 send()方法的值。
 
-    Sets the appropriate status code to use when data the client sent did not pass validation rules.
-    Status code is typically 400.
     设置于客户端发送的数据未通过验证规则时使用的状态码。状态码通常为400。
 
     ::
@@ -212,7 +206,7 @@ API 响应特性
 
     :param mixed  $description: 显示用户的错误信息。
     :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message:返回的自定义“reason”消息。
+    :param string $message: 返回的自定义“reason”消息。
     :returns: Response 对象的 send()方法的值。
 
     设置于当客户端尝试创建的资源已经存在时使用的状态码。状态码通常为409。
@@ -225,11 +219,10 @@ API 响应特性
 
     :param mixed  $description: 显示用户的错误信息。
     :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message:返回的自定义“reason”消息。
+    :param string $message: 返回的自定义“reason”消息。
     :returns: Response 对象的 send()方法的值。
 
     设置于当请求的资源先前被删除并且不再使用时使用的状态码。状态码通常为410。
-
 
     ::
 
@@ -239,11 +232,8 @@ API 响应特性
 
     :param mixed  $description: 显示用户的错误信息。
     :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message:返回的自定义“reason”消息。
+    :param string $message: 返回的自定义“reason”消息。
     :returns: Response 对象的 send()方法的值。
-
-    Sets the appropriate status code to use when the client has called an API endpoint too many times.
-    This might be due to some form of throttling or rate limiting. Status code is typically 400.
 
     设置于当客户端调用 API路径次数过多时使用的状态码。这可能是由于某种形式的节流或速率限制。状态码通常为400。
     ::
@@ -254,7 +244,7 @@ API 响应特性
 
     :param mixed  $description: 显示用户的错误信息。
     :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message:返回的自定义“reason”消息。
+    :param string $message: 返回的自定义“reason”消息。
     :returns: Response 对象的 send()方法的值。
 
     设置于当存在服务器错误时使用的状态码。
