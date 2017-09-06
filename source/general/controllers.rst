@@ -40,7 +40,7 @@
 然后将文件保存到 **/application/controllers/** 目录下。
 
 
-.. important:: 文件名必须是大写字母开头，如：'Blog.php' 。
+.. 重点:: 文件名必须是大写字母开头，如：'Blog.php' 。
 
 
 现在使用类似下面的 URL 来访问你的站点:：
@@ -53,7 +53,7 @@
 	Hello World!
 
 
-.. important:: 类名必须以大写字母开头。
+.. 重点:: 类名必须以大写字母开头。
 
 
 这是有效的::
@@ -132,7 +132,7 @@
 	}
 
 
-.. important:: 如果你使用了 `URI 路由` ，传递到你的方法的参数将是路由后的参数。	
+.. 重点:: 如果你使用了 `URI 路由` ，传递到你的方法的参数将是路由后的参数。	
 
 
 定义默认控制器
@@ -160,7 +160,7 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 	}
 
 
-.. important:: 如果你的控制包含一个 _remap() 方法，那么无论 URI 中包含什么参数时都会调用该方法。 它允许你定义你自己的路由规则，重写默认的使用 URI 中的分段来决定调用哪个方法这种行为。
+.. 重点:: 如果你的控制包含一个 _remap() 方法，那么无论 URI 中包含什么参数时都会调用该方法。 它允许你定义你自己的路由规则，重写默认的使用 URI 中的分段来决定调用哪个方法这种行为。
 
 
 被重写的方法（通常是 URI 的第二段）将被作为参数传递到 ``_remap()`` 方法::
@@ -179,7 +179,7 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 
 方法名之后的所有其他段将作为 ``_remap()`` 方法的第二个参数，它是可选的。这个参数可以使用 PHP 的 call_user_func_array() 函数来模拟 CodeIgniter 的默认行为。
 
-例如：:
+例如::
 
 	public function _remap($method, ...$params)
 	{
@@ -215,7 +215,7 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 
 你只需要简单的在 *application/controllers/* 目录下创建新的目录，并将控制器文件放到子目录下。
 
-.. note:: 当使用该功能时，URI 的第一段必须指定目录，例如，假设你在如下位置有一个控制器::
+.. 注意:: 当使用该功能时，URI 的第一段必须指定目录，例如，假设你在如下位置有一个控制器::
 
 		application/controllers/products/Shoes.php
 
@@ -280,7 +280,7 @@ forceHTTPS
 		$this->forceHTTPS();
 	}
 
-默认情况下，在支持HTTP严格传输安全报头的现代浏览器中，此调用应强制浏览器将非HTTPS调用转换为一年的HTTPS调用。你可以通过将持续时间（以秒为单位）作为第一个参数来修改。:
+默认情况下，在支持HTTP严格传输安全报头的现代浏览器中，此调用应强制浏览器将非HTTPS调用转换为一年的HTTPS调用。你可以通过将持续时间（以秒为单位）作为第一个参数来修改。 ::
 
 	if (! $this->request->isSecure())
 	{
@@ -288,14 +288,14 @@ forceHTTPS
 	}
 
 
-.. note:: 你可以使用更多全局变量和函数 :doc:`./source/general/common_functions.rst` ，包括 年、月等等。
+.. 注意:: 你可以使用更多全局变量和函数 :doc:`./source/general/common_functions.rst` ，包括 年、月等等。
 
 
 辅助函数
 -------
 
 你可以定义一个辅助文件数组作为类属性。每当控制器被加载时，
-这些辅助文件将自动加载到内存中，这样就可以在控制器的任何地方使用它们的方法。
+这些辅助文件将自动加载到内存中，这样就可以在控制器的任何地方使用它们的方法。::
 
 	class MyController extends \CodeIgniter\Controller
 	{
@@ -305,7 +305,7 @@ forceHTTPS
 验证 $_POST 数据
 ======================
 
-控制器还提供了一个简单方便的方法来验证 $_POST 数据，将一组规则作为第一个参数进行验证，如果验证不通过，可以选择显示一组自定义错误消息。你可以通过 **$this->request** 这个用法获取 POST 数据。 :doc:`Validation Library docs <./source/libraries/validation.rst>` 是有关规则和消息数组的格式以及可用规则的详细信息 ::
+控制器还提供了一个简单方便的方法来验证 $_POST 数据，将一组规则作为第一个参数进行验证，如果验证不通过，可以选择显示一组自定义错误消息。你可以通过 **$this->request** 这个用法获取 POST 数据。 :doc:`Validation Library docs <./source/libraries/validation.rst>` 是有关规则和消息数组的格式以及可用规则的详细信息。 ::
 
     public function updateUser(int $userID)
     {
@@ -336,7 +336,7 @@ forceHTTPS
         // do something here if successful...
     }
 
-.. note:: 验证也可以在模型中自动处理。你可以在任何地方处理，你会发现控制器中的一些情况比模型简单，反之亦然。
+.. 注意:: 验证也可以在模型中自动处理。你可以在任何地方处理，你会发现控制器中的一些情况比模型简单，反之亦然。
 
 就这样了！
 ==========
