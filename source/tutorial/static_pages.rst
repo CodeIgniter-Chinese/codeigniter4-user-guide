@@ -11,7 +11,7 @@
 	http://example.com/news/latest/10
 
 根据此 URL 我们可以推测出有一个名称为 "news" 的控制器，被调用的方法为 "latest"，"latest" 方法的作用应该是查询10条新闻条目并展示在页面上。
-在MVC模式里，你会经常看到下面格式的 URL :
+在MVC模式里，你会经常看到下面格式的 URL:
 
 	http://example.com/[controller-class]/[controller-method]/[arguments]
 
