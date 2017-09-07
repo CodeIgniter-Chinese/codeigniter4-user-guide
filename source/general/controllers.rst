@@ -52,9 +52,7 @@
 
 	Hello World!
 
-
 .. important:: 类名必须以大写字母开头。
-
 
 这是有效的::
 
