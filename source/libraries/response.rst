@@ -363,3 +363,4 @@ HTTP 缓存
 		如果您愿意，也可以使用单个参数传递数据来设置 Cookie。 ::
 
 			$response->setCookie($name, $value, $expire, $domain, $path, $prefix, $secure);
+
