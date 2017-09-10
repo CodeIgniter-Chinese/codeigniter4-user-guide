@@ -70,7 +70,7 @@
 - [ ] [./source/libraries/localization.rst](source/libraries/localization.rst)
 - [ ] [./source/libraries/message.rst](source/libraries/message.rst)
 - [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
-- [ ] [./source/libraries/request.rst](source/libraries/request.rst)
+- [x] [./source/libraries/request.rst](source/libraries/request.rst)
 - [x] [./source/libraries/response.rst](source/libraries/response.rst)
 - [ ] [./source/libraries/security.rst](source/libraries/security.rst)
 - [ ] [./source/libraries/sessions.rst](source/libraries/sessions.rst)
