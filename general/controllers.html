@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Controllers &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>控制器 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -91,7 +91,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Working With Configuration Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URLs</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Controllers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_cells.html">View Cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_renderer.html">View Renderer</a></li>
@@ -268,7 +268,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Working With Configuration Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URLs</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Controllers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_cells.html">View Cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_renderer.html">View Renderer</a></li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">General Topics</a> &raquo;</li>
       
-    <li>Controllers</li>
+    <li>控制器</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,50 +405,49 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="controllers">
-<h1><a class="toc-backref" href="#id1">Controllers</a><a class="headerlink" href="#controllers" title="永久链接至标题">¶</a></h1>
-<p>Controllers are the heart of your application, as they determine how HTTP requests should be handled.</p>
-<div class="contents topic" id="page-contents">
-<p class="topic-title first">Page Contents</p>
+  <div class="section" id="id1">
+<h1><a class="toc-backref" href="#id13">控制器</a><a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>控制器是你整个应用的核心，因为它们决定了 HTTP 请求将被如何处理。</p>
+<div class="contents topic" id="id2">
+<p class="topic-title first">目录</p>
 <ul class="simple">
-<li><a class="reference internal" href="#controllers" id="id1">Controllers</a><ul>
-<li><a class="reference internal" href="#what-is-a-controller" id="id2">What is a Controller?</a></li>
-<li><a class="reference internal" href="#let-s-try-it-hello-world" id="id3">Let's try it: Hello World!</a></li>
-<li><a class="reference internal" href="#methods" id="id4">Methods</a></li>
-<li><a class="reference internal" href="#passing-uri-segments-to-your-methods" id="id5">Passing URI Segments to your methods</a></li>
-<li><a class="reference internal" href="#defining-a-default-controller" id="id6">Defining a Default Controller</a></li>
-<li><a class="reference internal" href="#remapping-method-calls" id="id7">Remapping Method Calls</a></li>
-<li><a class="reference internal" href="#private-methods" id="id8">Private methods</a></li>
-<li><a class="reference internal" href="#organizing-your-controllers-into-sub-directories" id="id9">Organizing Your Controllers into Sub-directories</a></li>
-<li><a class="reference internal" href="#class-constructors" id="id10">Class Constructors</a></li>
-<li><a class="reference internal" href="#included-properties" id="id11">Included Properties</a><ul>
-<li><a class="reference internal" href="#request-object" id="id12">Request Object</a></li>
-<li><a class="reference internal" href="#response-object" id="id13">Response Object</a></li>
-<li><a class="reference internal" href="#logger-object" id="id14">Logger Object</a></li>
-<li><a class="reference internal" href="#forcehttps" id="id15">forceHTTPS</a></li>
-<li><a class="reference internal" href="#helpers" id="id16">helpers</a></li>
+<li><a class="reference internal" href="#id1" id="id13">控制器</a><ul>
+<li><a class="reference internal" href="#id3" id="id14">什么是控制器?</a></li>
+<li><a class="reference internal" href="#hello-world" id="id15">让我们试试看：Hello World！</a></li>
+<li><a class="reference internal" href="#id4" id="id16">方法</a></li>
+<li><a class="reference internal" href="#uri" id="id17">通过 URI 分段向你的方法传递参数</a></li>
+<li><a class="reference internal" href="#id5" id="id18">定义默认控制器</a></li>
+<li><a class="reference internal" href="#id6" id="id19">重映射方法</a></li>
+<li><a class="reference internal" href="#id7" id="id20">私有方法</a></li>
+<li><a class="reference internal" href="#id8" id="id21">将控制器放入子目录中</a></li>
+<li><a class="reference internal" href="#id9" id="id22">构造函数</a></li>
+<li><a class="reference internal" href="#id10" id="id23">包含属性</a><ul>
+<li><a class="reference internal" href="#request" id="id24">Request 对象</a></li>
+<li><a class="reference internal" href="#response" id="id25">Response 对象</a></li>
+<li><a class="reference internal" href="#logger" id="id26">Logger 对象</a></li>
+<li><a class="reference internal" href="#forcehttps" id="id27">forceHTTPS</a></li>
+<li><a class="reference internal" href="#id11" id="id28">辅助函数</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#validating-post-data" id="id17">Validating $_POST data</a></li>
-<li><a class="reference internal" href="#that-s-it" id="id18">That's it!</a></li>
+<li><a class="reference internal" href="#post" id="id29">验证 $_POST 数据</a></li>
+<li><a class="reference internal" href="#id12" id="id30">就这样了！</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="what-is-a-controller">
-<h2><a class="toc-backref" href="#id2">What is a Controller?</a><a class="headerlink" href="#what-is-a-controller" title="永久链接至标题">¶</a></h2>
-<p>A Controller is simply a class file that is named in a way that it can be associated with a URI.</p>
-<p>Consider this URI:</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id14">什么是控制器?</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>简而言之，一个控制器就是一个类文件，是以一种能够和 URI 关联在一起的方式来命名的。</p>
+<p>考虑下面的 URI:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>In the above example, CodeIgniter would attempt to find a controller named Blog.php and load it.</p>
-<p><strong>When a controller's name matches the first segment of a URI, it will be loaded.</strong></p>
+<p>上例中，CodeIgniter 将会尝试查询一个名为 Blog.php 的控制器并加载它。</p>
+<p><strong>当控制器的名称和 URI 的第一段匹配上时，它将会被加载。</strong></p>
 </div>
-<div class="section" id="let-s-try-it-hello-world">
-<h2><a class="toc-backref" href="#id3">Let's try it: Hello World!</a><a class="headerlink" href="#let-s-try-it-hello-world" title="永久链接至标题">¶</a></h2>
-<p>Let's create a simple controller so you can see it in action. Using your text editor, create a file called Blog.php,
-and put the following code in it:</p>
+<div class="section" id="hello-world">
+<h2><a class="toc-backref" href="#id15">让我们试试看：Hello World！</a><a class="headerlink" href="#hello-world" title="永久链接至标题">¶</a></h2>
+<p>接下来你会看到如何创建一个简单的控制器，打开你的文本编辑器，新建一个文件 Blog.php ， 然后放入以下代码:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
 <span class="p">{</span>
@@ -459,51 +458,45 @@ and put the following code in it:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Then save the file to your <strong>/application/Controllers/</strong> directory.</p>
+<p>然后将文件保存到 <strong>/application/controllers/</strong> 目录下。</p>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">The file must be called 'Blog.php', with a capital 'B'.</p>
+<p class="last">文件名必须是大写字母开头，如：'Blog.php' 。</p>
 </div>
-<p>Now visit your site using a URL similar to this:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span>
-</pre></div>
-</div>
-<p>If you did it right, you should see:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">!</span>
-</pre></div>
-</div>
+<p>现在使用类似下面的 URL 来访问你的站点:：</p>
+<blockquote>
+<div>example.com/index.php/blog</div></blockquote>
+<p>如果一切正常，你将看到：:</p>
+<blockquote>
+<div>Hello World!</div></blockquote>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">Class names must start with an uppercase letter.</p>
+<p class="last">类名必须以大写字母开头。</p>
 </div>
-<p>This is valid:</p>
+<p>这是有效的:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span> <span class="p">{</span>
 
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This is <strong>not</strong> valid:</p>
+<p>这是 <strong>无效</strong> 的:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span> <span class="p">{</span>
 
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Also, always make sure your controller extends the parent controller
-class so that it can inherit all its methods.</p>
+<p>另外，一定要确保你的控制器继承了父控制器类，这样它才能使用父类的方法。</p>
 </div>
-<div class="section" id="methods">
-<h2><a class="toc-backref" href="#id4">Methods</a><a class="headerlink" href="#methods" title="永久链接至标题">¶</a></h2>
-<p>In the above example the method name is <code class="docutils literal"><span class="pre">index()</span></code>. The &quot;index&quot; method
-is always loaded by default if the <strong>second segment</strong> of the URI is
-empty. Another way to show your &quot;Hello World&quot; message would be this:</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id16">方法</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>上例中，方法名为 <code class="docutils literal"><span class="pre">index()</span></code> 。&quot;index&quot; 方法总是在 URI 的 <strong>第二段</strong> 为空时被调用。 另一种显示 &quot;Hello World&quot; 消息的方法是:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">index</span><span class="o">/</span>
 </pre></div>
 </div>
-<p><strong>The second segment of the URI determines which method in the
-controller gets called.</strong></p>
-<p>Let's try it. Add a new method to your controller:</p>
+<p><strong>URI 中的第二段用于决定调用控制器中的哪个方法。</strong></p>
+<p>让我们试一下，向你的控制器添加一个新的方法:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span> <span class="p">{</span>
 
@@ -519,21 +512,20 @@ controller gets called.</strong></p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Now load the following URL to see the comment method:</p>
+<p>现在，通过下面的 URL 来调用 comments 方法:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">comments</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>You should see your new message.</p>
+<p>你应该能看到你的新消息了。</p>
 </div>
-<div class="section" id="passing-uri-segments-to-your-methods">
-<h2><a class="toc-backref" href="#id5">Passing URI Segments to your methods</a><a class="headerlink" href="#passing-uri-segments-to-your-methods" title="永久链接至标题">¶</a></h2>
-<p>If your URI contains more than two segments they will be passed to your
-method as parameters.</p>
-<p>For example, let's say you have a URI like this:</p>
+<div class="section" id="uri">
+<h2><a class="toc-backref" href="#id17">通过 URI 分段向你的方法传递参数</a><a class="headerlink" href="#uri" title="永久链接至标题">¶</a></h2>
+<p>如果你的 URI 多于两个段，多余的段将作为参数传递到你的方法中。</p>
+<p>例如，假设你的 URI 是这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">sandals</span><span class="o">/</span><span class="mi">123</span>
 </pre></div>
 </div>
-<p>Your method will be passed URI segments 3 and 4 (&quot;sandals&quot; and &quot;123&quot;):</p>
+<p>你的方法将会收到第三段和第四段两个参数（&quot;sandals&quot; 和 &quot;123&quot;）:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Products</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span> <span class="p">{</span>
 
@@ -547,31 +539,21 @@ method as parameters.</p>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">If you are using the <a class="reference internal" href="routing.html"><span class="doc">URI Routing</span></a>
-feature, the segments passed to your method will be the re-routed
-ones.</p>
+<p class="last">如果你使用了 <cite>URI 路由</cite> ，传递到你的方法的参数将是路由后的参数。</p>
 </div>
 </div>
-<div class="section" id="defining-a-default-controller">
-<h2><a class="toc-backref" href="#id6">Defining a Default Controller</a><a class="headerlink" href="#defining-a-default-controller" title="永久链接至标题">¶</a></h2>
-<p>CodeIgniter can be told to load a default controller when a URI is not
-present, as will be the case when only your site root URL is requested.
-To specify a default controller, open your <strong>application/Config/Routes.php</strong>
-file and set this variable:</p>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id18">定义默认控制器</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时加载，例如当用户直接访问你网站的首页时。 打开 <strong>application/config/routes.php</strong> 文件，通过下面的参数指定一个默认的控制器:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">setDefaultController</span><span class="p">(</span><span class="s1">&#39;Blog&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Where 'Blog' is the name of the controller class you want used. If you now
-load your main index.php file without specifying any URI segments you'll
-see your &quot;Hello World&quot; message by default.</p>
-<p>For more information, please refer to the &quot;Routes Configuration Options&quot; section of the
-<a class="reference internal" href="routing.html"><span class="doc">URI Routing</span></a> documentation.</p>
+<p>其中，“Blog”是你想加载的控制器类名，如果你现在通过不带任何参数的 index.php 访问你的站点，你将看到你的“Hello World”消息。</p>
+<p>想要了解更多信息，请参阅 <span class="xref doc">./source/general/routing.rst</span> 部分文档。</p>
 </div>
-<div class="section" id="remapping-method-calls">
-<h2><a class="toc-backref" href="#id7">Remapping Method Calls</a><a class="headerlink" href="#remapping-method-calls" title="永久链接至标题">¶</a></h2>
-<p>As noted above, the second segment of the URI typically determines which
-method in the controller gets called. CodeIgniter permits you to override
-this behavior through the use of the <code class="docutils literal"><span class="pre">_remap()</span></code> method:</p>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id19">重映射方法</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>正如上文所说，URI 的第二段通常决定控制器的哪个方法被调用。CodeIgniter 允许你使用 <code class="docutils literal"><span class="pre">_remap()</span></code> 方法来重写该规则:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="c1">// Some code here...</span>
@@ -580,13 +562,9 @@ this behavior through the use of the <code class="docutils literal"><span class=
 </div>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">If your controller contains a method named _remap(),
-it will <strong>always</strong> get called regardless of what your URI contains. It
-overrides the normal behavior in which the URI determines which method
-is called, allowing you to define your own method routing rules.</p>
+<p class="last">如果你的控制包含一个 _remap() 方法，那么无论 URI 中包含什么参数时都会调用该方法。 它允许你定义你自己的路由规则，重写默认的使用 URI 中的分段来决定调用哪个方法这种行为。</p>
 </div>
-<p>The overridden method call (typically the second segment of the URI) will
-be passed as a parameter to the <code class="docutils literal"><span class="pre">_remap()</span></code> method:</p>
+<p>被重写的方法（通常是 URI 的第二段）将被作为参数传递到 <code class="docutils literal"><span class="pre">_remap()</span></code> 方法:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">(</span><span class="nv">$method</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nv">$method</span> <span class="o">===</span> <span class="s1">&#39;some_method&#39;</span><span class="p">)</span>
@@ -600,9 +578,8 @@ be passed as a parameter to the <code class="docutils literal"><span class="pre"
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Any extra segments after the method name are passed into <code class="docutils literal"><span class="pre">_remap()</span></code>. These parameters can be passed to the method
-to emulate CodeIgniter's default behavior.</p>
-<p>Example:</p>
+<p>方法名之后的所有其他段将作为 <code class="docutils literal"><span class="pre">_remap()</span></code> 方法的第二个参数，它是可选的。这个参数可以使用 PHP 的 call_user_func_array() 函数来模拟 CodeIgniter 的默认行为。</p>
+<p>例如:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="o">...</span><span class="nv">$params</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="nv">$method</span> <span class="o">=</span> <span class="s1">&#39;process_&#39;</span><span class="o">.</span><span class="nv">$method</span><span class="p">;</span>
@@ -615,60 +592,45 @@ to emulate CodeIgniter's default behavior.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="private-methods">
-<h2><a class="toc-backref" href="#id8">Private methods</a><a class="headerlink" href="#private-methods" title="永久链接至标题">¶</a></h2>
-<p>In some cases you may want certain methods hidden from public access.
-In order to achieve this, simply declare the method as being private
-or protected and it will not be served via a URL request. For example,
-if you were to have a method like this:</p>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id20">私有方法</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>有时候你可能希望某些方法不能被公开访问，要实现这点，只要简单的将方法声明为 private 或 protected ， 这样这个方法就不能被 URL 访问到了。例如，如果你有一个下面这个方法:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="k">function</span> <span class="nf">utility</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="c1">// some code</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Trying to access it via the URL, like this, will not work:</p>
+<p>使用下面的 URL 尝试访问它，你会发现是无法访问的:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">utility</span><span class="o">/</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="organizing-your-controllers-into-sub-directories">
-<h2><a class="toc-backref" href="#id9">Organizing Your Controllers into Sub-directories</a><a class="headerlink" href="#organizing-your-controllers-into-sub-directories" title="永久链接至标题">¶</a></h2>
-<p>If you are building a large application you might want to hierarchically
-organize or structure your controllers into sub-directories. CodeIgniter
-permits you to do this.</p>
-<p>Simply create sub-directories under the main <em>application/Controllers/</em>
-one and place your controller classes within them.</p>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id21">将控制器放入子目录中</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<p>如果你正在构建一个比较大的应用，那么将控制器放到子目录下进行组织可能会方便一点。CodeIgniter 也可以实现这一点。</p>
+<p>你只需要简单的在 <em>application/controllers/</em> 目录下创建新的目录，并将控制器文件放到子目录下。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p>When using this feature the first segment of your URI must
-specify the folder. For example, let's say you have a controller located
-here:</p>
+<p>当使用该功能时，URI 的第一段必须指定目录，例如，假设你在如下位置有一个控制器:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">application</span><span class="o">/</span><span class="nx">controllers</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">Shoes</span><span class="o">.</span><span class="nx">php</span>
 </pre></div>
 </div>
-<p>To call the above controller your URI will look something like this:</p>
+<p>为了调用该控制器，你的 URI 应该像下面这样:</p>
 <div class="last highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">show</span><span class="o">/</span><span class="mi">123</span>
 </pre></div>
 </div>
 </div>
-<p>Each of your sub-directories may contain a default controller which will be
-called if the URL contains <em>only</em> the sub-directory. Simply put a controller
-in there that matches the name of your 'default_controller' as specified in
-your <em>application/Config/Routes.php</em> file.</p>
-<p>CodeIgniter also permits you to remap your URIs using its <a class="reference internal" href="routing.html"><span class="doc">URI Routing</span></a> feature.</p>
+<p>每个子目录包含一个默认控制器，将在 URL 只包含子目录的时候被调用。默认控制器在 <em>application/Config/Routes.php</em> 中定义。</p>
+<p>你也可以使用 CodeIgniter 的 <span class="xref doc">./source/general/routing.rst</span> 功能来重定向 URI。</p>
 </div>
-<div class="section" id="class-constructors">
-<h2><a class="toc-backref" href="#id10">Class Constructors</a><a class="headerlink" href="#class-constructors" title="永久链接至标题">¶</a></h2>
-<p>If you intend to use a constructor in any of your Controllers, you
-<strong>MUST</strong> place the following line of code in it:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="o">...</span><span class="nv">$params</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>The reason this line is necessary is because your local constructor will
-be overriding the one in the parent controller class so we need to
-manually call it.</p>
-<p>Example:</p>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id22">构造函数</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<p>如果你打算在你的控制器中使用构造函数，你 <strong>必须</strong> 将下面这行代码放在里面:：</p>
+<blockquote>
+<div>parent::__construct(...$params);</div></blockquote>
+<p>原因是你的构造函数将会覆盖父类的构造函数，所以我们要手工的调用它。</p>
+<p>例如:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
 <span class="p">{</span>
@@ -681,42 +643,33 @@ manually call it.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Constructors are useful if you need to set some default values, or run a
-default process when your class is instantiated. Constructors can't
-return a value, but they can do some default work.</p>
+<p>如果你需要在你的类被初始化时设置一些默认值，或者进行一些默认处理，构造函数将很有用。 构造函数没有返回值，但是可以执行一些默认操作。</p>
 </div>
-<div class="section" id="included-properties">
-<h2><a class="toc-backref" href="#id11">Included Properties</a><a class="headerlink" href="#included-properties" title="永久链接至标题">¶</a></h2>
-<p>Every controller you create should extend <code class="docutils literal"><span class="pre">CodeIgniter\Controller</span></code> class.
-This class provides several features that are available to all of your controllers.</p>
-<div class="section" id="request-object">
-<h3><a class="toc-backref" href="#id12">Request Object</a><a class="headerlink" href="#request-object" title="永久链接至标题">¶</a></h3>
-<p>The application's main <a class="reference internal" href="../libraries/request.html"><span class="doc">Request Instance</span></a> is always available
-as a class property, <code class="docutils literal"><span class="pre">$this-&gt;request</span></code>.</p>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id23">包含属性</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<p>你创建的每一个 controller 都应该继承 <code class="docutils literal"><span class="pre">CodeIgniter\Controller</span></code> 类。这个类提供了适合所有控制器的几个属性。</p>
+<div class="section" id="request">
+<h3><a class="toc-backref" href="#id24">Request 对象</a><a class="headerlink" href="#request" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$this-&gt;request</span></code> 作为应用程序的主要属性 <span class="xref doc">./source/libraries/request.rst</span> 是可以一直被使用的类属性。</p>
 </div>
-<div class="section" id="response-object">
-<h3><a class="toc-backref" href="#id13">Response Object</a><a class="headerlink" href="#response-object" title="永久链接至标题">¶</a></h3>
-<p>The application's main <a class="reference internal" href="../libraries/response.html"><span class="doc">Response Instance</span></a> is always available
-as a class property, <code class="docutils literal"><span class="pre">$this-&gt;response</span></code>.</p>
+<div class="section" id="response">
+<h3><a class="toc-backref" href="#id25">Response 对象</a><a class="headerlink" href="#response" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$this-&gt;response</span></code> 作为应用程序的主要属性 <span class="xref doc">./source/libraries/response.rst</span> 是可以一直被使用的类属性。</p>
 </div>
-<div class="section" id="logger-object">
-<h3><a class="toc-backref" href="#id14">Logger Object</a><a class="headerlink" href="#logger-object" title="永久链接至标题">¶</a></h3>
-<p>An instance of the <a class="reference internal" href="logging.html"><span class="doc">Logger</span></a> class is available as a class property,
-<code class="docutils literal"><span class="pre">$this-&gt;logger</span></code>.</p>
+<div class="section" id="logger">
+<h3><a class="toc-backref" href="#id26">Logger 对象</a><a class="headerlink" href="#logger" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$this-&gt;logger</span></code> 类实例 <span class="xref doc">./source/general/logging.rst</span> 是可以一直被使用的类属性。</p>
 </div>
 <div class="section" id="forcehttps">
-<h3><a class="toc-backref" href="#id15">forceHTTPS</a><a class="headerlink" href="#forcehttps" title="永久链接至标题">¶</a></h3>
-<p>A convenience method for forcing a method to be accessed via HTTPS is available within all
-controllers:</p>
+<h3><a class="toc-backref" href="#id27">forceHTTPS</a><a class="headerlink" href="#forcehttps" title="永久链接至标题">¶</a></h3>
+<p>一种强制通过 HTTPS 访问方法的便捷方法，在所有控制器中都是可用的:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">())</span>
 <span class="p">{</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forceHTTPS</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>By default, and in modern browsers that support the HTTP Strict Transport Security header, this
-call should force the browser to convert non-HTTPS calls to HTTPS calls for one year. You can
-modify this by passing the duration (in seconds) as the first parameter:</p>
+<p>默认情况下，在支持 HTTP 严格传输安全报头的现代浏览器中，此调用应强制浏览器将非 HTTPS 调用转换为一年的 HTTPS 调用。你可以通过将持续时间（以秒为单位）作为第一个参数来修改。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">())</span>
 <span class="p">{</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forceHTTPS</span><span class="p">(</span><span class="mi">31536000</span><span class="p">);</span>    <span class="c1">// one year</span>
@@ -725,14 +678,13 @@ modify this by passing the duration (in seconds) as the first parameter:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">A number of <a class="reference internal" href="common_functions.html"><span class="doc">time-based constants</span></a> are always available for you to use, including YEAR, MONTH, and more.</p>
+<p class="last">你可以使用更多全局变量和函数 <span class="xref doc">./source/general/common_functions.rst</span> ，包括 年、月等等。</p>
 </div>
 </div>
-<div class="section" id="helpers">
-<h3><a class="toc-backref" href="#id16">helpers</a><a class="headerlink" href="#helpers" title="永久链接至标题">¶</a></h3>
-<p>You can define an array of helper files as a class property. Whenever the controller is loaded,
-these helper files will be automatically loaded into memory so that you can use their methods anywhere
-inside the controller:</p>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id28">辅助函数</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p>你可以定义一个辅助文件数组作为类属性。每当控制器被加载时，
+这些辅助文件将自动加载到内存中，这样就可以在控制器的任何地方使用它们的方法。:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyController</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
 <span class="p">{</span>
         <span class="k">protected</span> <span class="nv">$helpers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;form&#39;</span><span class="p">];</span>
@@ -741,13 +693,9 @@ inside the controller:</p>
 </div>
 </div>
 </div>
-<div class="section" id="validating-post-data">
-<h2><a class="toc-backref" href="#id17">Validating $_POST data</a><a class="headerlink" href="#validating-post-data" title="永久链接至标题">¶</a></h2>
-<p>The controller also provides a convenience method to make validating $_POST data a little simpler, <code class="docutils literal"><span class="pre">validate()</span></code> that
-takes an array of rules to test against as the first parameter, and, optionally,
-an array of custom error messages to display if the items don't pass. Internally, this uses the controller's
-<strong>$this-&gt;request</strong> instance to get the POST data through. The <a class="reference internal" href="../libraries/validation.html"><span class="doc">Validation Library docs</span></a>
-has details on the format of the rules and messages arrays, as well as available rules.:</p>
+<div class="section" id="post">
+<h2><a class="toc-backref" href="#id29">验证 $_POST 数据</a><a class="headerlink" href="#post" title="永久链接至标题">¶</a></h2>
+<p>控制器还提供了一个简单方便的方法来验证 $_POST 数据，将一组规则作为第一个参数进行验证，如果验证不通过，可以选择显示一组自定义错误消息。你可以通过 <strong>$this-&gt;request</strong> 这个用法获取 POST 数据。 <span class="xref doc">Validation Library docs</span> 是有关规则和消息数组的格式以及可用规则的详细信息。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">updateUser</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$userID</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([</span>
@@ -764,8 +712,7 @@ has details on the format of the rules and messages arrays, as well as available
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If you find it simpler to keep the rules in the configuration file, you can replace the $rules array with the
-name of the group, as defined in <code class="docutils literal"><span class="pre">Config\Validation.php</span></code>:</p>
+<p>如果你觉得在配置文件中保存规则更简单，你可以通过在 <code class="docutils literal"><span class="pre">Config\Validation.php</span></code> 中定义代替 $rules 数组</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">updateUser</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$userID</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">(</span><span class="s1">&#39;userRules&#39;</span><span class="p">))</span>
@@ -781,13 +728,12 @@ name of the group, as defined in <code class="docutils literal"><span class="pre
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">Validation can also be handled automatically in the model. Where you handle validation is up to you,
-and you will find that some situations are simpler in the controller than then model, and vice versa.</p>
+<p class="last">验证也可以在模型中自动处理。你可以在任何地方处理，你会发现控制器中的一些情况比模型简单，反之亦然。</p>
 </div>
 </div>
-<div class="section" id="that-s-it">
-<h2><a class="toc-backref" href="#id18">That's it!</a><a class="headerlink" href="#that-s-it" title="永久链接至标题">¶</a></h2>
-<p>That, in a nutshell, is all there is to know about controllers.</p>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id30">就这样了！</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
+<p>OK，总的来说，这就是关于控制器的所有内容了。</p>
 </div>
 </div>
 
