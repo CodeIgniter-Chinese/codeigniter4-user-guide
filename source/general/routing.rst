@@ -1,28 +1,25 @@
 ###########
-URI Routing
+URI 路由
 ###########
 
-.. contents:: Page Contents
+.. contents:: 本页内容
 
-Typically there is a one-to-one relationship between a URL string and its corresponding
-controller class/method. The segments in a URI normally follow this pattern::
+一般情况下，一个 URL 字符串和它对应的控制器中类和方法是一一对应的关系。 URL 中的每一段通常遵循下面的规则::
 
     example.com/class/function/id/
 
-In some instances, however, you may want to remap this relationship so that a different
-class/method can be called instead of the one corresponding to the URL.
+但是有时候，你可能想改变这种映射关系，调用一个不同的类和方法，而不是 URL 中对应的那样。
 
-For example, let’s say you want your URLs to have this prototype::
+例如，假设你希望你的 URL 变成下面这样::
 
     example.com/product/1/
     example.com/product/2/
     example.com/product/3/
     example.com/product/4/
 
-Normally the second segment of the URL is reserved for the method name, but in the example
-above it instead has a product ID. To overcome this, CodeIgniter allows you to remap the URI handler.
+URL 的第二段通常表示方法的名称，但在上面的例子中，第二段是一个商品 ID ， 为了实现这一点，CodeIgniter 允许你重新定义 URL 的处理流程。
 
-Setting your own routing rules
+设置你自己的路由规则
 ==============================
 
 Routing rules are defined in the **application/config/Routes.php** file. In it you'll see that
