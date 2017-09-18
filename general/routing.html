@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>URI Routing &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>URI 路由 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -89,7 +89,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="configuration.html">Working With Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">利用配置文件开始工作</a></li>
 <li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URLs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
@@ -100,7 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="core_classes.html">Creating Core System Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="events.html">Events - Extending the Framework Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">Global Functions and Constants</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">URI Routing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filters.html">Controller Filters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging Information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
@@ -266,7 +266,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="configuration.html">Working With Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">利用配置文件开始工作</a></li>
 <li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URLs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
@@ -277,7 +277,7 @@
 <li class="toctree-l2"><a class="reference internal" href="core_classes.html">Creating Core System Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="events.html">Events - Extending the Framework Core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">Global Functions and Constants</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">URI Routing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filters.html">Controller Filters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging Information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">General Topics</a> &raquo;</li>
       
-    <li>URI Routing</li>
+    <li>URI 路由</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,71 +405,68 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="uri-routing">
-<h1><a class="toc-backref" href="#id1">URI Routing</a><a class="headerlink" href="#uri-routing" title="永久链接至标题">¶</a></h1>
-<div class="contents topic" id="page-contents">
-<p class="topic-title first">Page Contents</p>
+  <div class="section" id="uri">
+<h1><a class="toc-backref" href="#id3">URI 路由</a><a class="headerlink" href="#uri" title="永久链接至标题">¶</a></h1>
+<div class="contents topic" id="id1">
+<p class="topic-title first">本页内容</p>
 <ul class="simple">
-<li><a class="reference internal" href="#uri-routing" id="id1">URI Routing</a><ul>
-<li><a class="reference internal" href="#setting-your-own-routing-rules" id="id2">Setting your own routing rules</a></li>
-<li><a class="reference internal" href="#placeholders" id="id3">Placeholders</a></li>
-<li><a class="reference internal" href="#examples" id="id4">Examples</a></li>
-<li><a class="reference internal" href="#custom-placeholders" id="id5">Custom Placeholders</a></li>
-<li><a class="reference internal" href="#regular-expressions" id="id6">Regular Expressions</a></li>
-<li><a class="reference internal" href="#closures" id="id7">Closures</a></li>
-<li><a class="reference internal" href="#mapping-multiple-routes" id="id8">Mapping multiple routes</a></li>
-<li><a class="reference internal" href="#redirecting-routes" id="id9">Redirecting Routes</a></li>
-<li><a class="reference internal" href="#grouping-routes" id="id10">Grouping Routes</a></li>
-<li><a class="reference internal" href="#environment-restrictions" id="id11">Environment Restrictions</a></li>
-<li><a class="reference internal" href="#reverse-routing" id="id12">Reverse Routing</a></li>
-<li><a class="reference internal" href="#using-named-routes" id="id13">Using Named Routes</a></li>
-<li><a class="reference internal" href="#using-http-verbs-in-routes" id="id14">Using HTTP verbs in routes</a></li>
-<li><a class="reference internal" href="#command-line-only-routes" id="id15">Command-Line only Routes</a></li>
-<li><a class="reference internal" href="#resource-routes" id="id16">Resource Routes</a><ul>
-<li><a class="reference internal" href="#change-the-controller-used" id="id17">Change the Controller Used</a></li>
-<li><a class="reference internal" href="#change-the-placeholder-used" id="id18">Change the Placeholder Used</a></li>
-<li><a class="reference internal" href="#limit-the-routes-made" id="id19">Limit the Routes Made</a></li>
+<li><a class="reference internal" href="#uri" id="id3">URI 路由</a><ul>
+<li><a class="reference internal" href="#id2" id="id4">设置你自己的路由规则</a></li>
+<li><a class="reference internal" href="#placeholders" id="id5">Placeholders</a></li>
+<li><a class="reference internal" href="#examples" id="id6">Examples</a></li>
+<li><a class="reference internal" href="#custom-placeholders" id="id7">Custom Placeholders</a></li>
+<li><a class="reference internal" href="#regular-expressions" id="id8">Regular Expressions</a></li>
+<li><a class="reference internal" href="#closures" id="id9">Closures</a></li>
+<li><a class="reference internal" href="#mapping-multiple-routes" id="id10">Mapping multiple routes</a></li>
+<li><a class="reference internal" href="#redirecting-routes" id="id11">Redirecting Routes</a></li>
+<li><a class="reference internal" href="#grouping-routes" id="id12">Grouping Routes</a></li>
+<li><a class="reference internal" href="#environment-restrictions" id="id13">Environment Restrictions</a></li>
+<li><a class="reference internal" href="#reverse-routing" id="id14">Reverse Routing</a></li>
+<li><a class="reference internal" href="#using-named-routes" id="id15">Using Named Routes</a></li>
+<li><a class="reference internal" href="#using-http-verbs-in-routes" id="id16">Using HTTP verbs in routes</a></li>
+<li><a class="reference internal" href="#command-line-only-routes" id="id17">Command-Line only Routes</a></li>
+<li><a class="reference internal" href="#resource-routes" id="id18">Resource Routes</a><ul>
+<li><a class="reference internal" href="#change-the-controller-used" id="id19">Change the Controller Used</a></li>
+<li><a class="reference internal" href="#change-the-placeholder-used" id="id20">Change the Placeholder Used</a></li>
+<li><a class="reference internal" href="#limit-the-routes-made" id="id21">Limit the Routes Made</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#global-options" id="id20">Global Options</a><ul>
-<li><a class="reference internal" href="#assigning-namespace" id="id21">Assigning Namespace</a></li>
-<li><a class="reference internal" href="#limit-to-hostname" id="id22">Limit to Hostname</a></li>
-<li><a class="reference internal" href="#limit-to-subdomains" id="id23">Limit to Subdomains</a></li>
-<li><a class="reference internal" href="#offsetting-the-matched-parameters" id="id24">Offsetting the Matched Parameters</a></li>
+<li><a class="reference internal" href="#global-options" id="id22">Global Options</a><ul>
+<li><a class="reference internal" href="#assigning-namespace" id="id23">Assigning Namespace</a></li>
+<li><a class="reference internal" href="#limit-to-hostname" id="id24">Limit to Hostname</a></li>
+<li><a class="reference internal" href="#limit-to-subdomains" id="id25">Limit to Subdomains</a></li>
+<li><a class="reference internal" href="#offsetting-the-matched-parameters" id="id26">Offsetting the Matched Parameters</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#routes-configuration-options" id="id25">Routes Configuration Options</a><ul>
-<li><a class="reference internal" href="#default-namespace" id="id26">Default Namespace</a></li>
-<li><a class="reference internal" href="#default-controller" id="id27">Default Controller</a></li>
-<li><a class="reference internal" href="#default-method" id="id28">Default Method</a></li>
-<li><a class="reference internal" href="#translate-uri-dashes" id="id29">Translate URI Dashes</a></li>
-<li><a class="reference internal" href="#use-defined-routes-only" id="id30">Use Defined Routes Only</a></li>
-<li><a class="reference internal" href="#override" id="id31">404 Override</a></li>
-<li><a class="reference internal" href="#discovering-module-routes" id="id32">Discovering Module Routes</a></li>
+<li><a class="reference internal" href="#routes-configuration-options" id="id27">Routes Configuration Options</a><ul>
+<li><a class="reference internal" href="#default-namespace" id="id28">Default Namespace</a></li>
+<li><a class="reference internal" href="#default-controller" id="id29">Default Controller</a></li>
+<li><a class="reference internal" href="#default-method" id="id30">Default Method</a></li>
+<li><a class="reference internal" href="#translate-uri-dashes" id="id31">Translate URI Dashes</a></li>
+<li><a class="reference internal" href="#use-defined-routes-only" id="id32">Use Defined Routes Only</a></li>
+<li><a class="reference internal" href="#override" id="id33">404 Override</a></li>
+<li><a class="reference internal" href="#discovering-module-routes" id="id34">Discovering Module Routes</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </div>
-<p>Typically there is a one-to-one relationship between a URL string and its corresponding
-controller class/method. The segments in a URI normally follow this pattern:</p>
+<p>一般情况下，一个 URL 字符串和它对应的控制器中类和方法是一一对应的关系。 URL 中的每一段通常遵循下面的规则:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">class</span><span class="o">/</span><span class="nx">function</span><span class="o">/</span><span class="nx">id</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>In some instances, however, you may want to remap this relationship so that a different
-class/method can be called instead of the one corresponding to the URL.</p>
-<p>For example, let’s say you want your URLs to have this prototype:</p>
+<p>但是有时候，你可能想改变这种映射关系，调用一个不同的类和方法，而不是 URL 中对应的那样。</p>
+<p>例如，假设你希望你的 URL 变成下面这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">product</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
 <span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">product</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span>
 <span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">product</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span>
 <span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">product</span><span class="o">/</span><span class="mi">4</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>Normally the second segment of the URL is reserved for the method name, but in the example
-above it instead has a product ID. To overcome this, CodeIgniter allows you to remap the URI handler.</p>
-<div class="section" id="setting-your-own-routing-rules">
-<h2><a class="toc-backref" href="#id2">Setting your own routing rules</a><a class="headerlink" href="#setting-your-own-routing-rules" title="永久链接至标题">¶</a></h2>
+<p>URL 的第二段通常表示方法的名称，但在上面的例子中，第二段是一个商品 ID ， 为了实现这一点，CodeIgniter 允许你重新定义 URL 的处理流程。</p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id4">设置你自己的路由规则</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>Routing rules are defined in the <strong>application/config/Routes.php</strong> file. In it you'll see that
 it creates an instance of the RouteCollection class that permits you to specify your own routing criteria.
 Routes can be specified using placeholders or Regular Expressions.</p>
@@ -486,7 +483,7 @@ passed to it, then they would be listed after the method name, separated by forw
 </div>
 </div>
 <div class="section" id="placeholders">
-<h2><a class="toc-backref" href="#id3">Placeholders</a><a class="headerlink" href="#placeholders" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Placeholders</a><a class="headerlink" href="#placeholders" title="永久链接至标题">¶</a></h2>
 <p>A typical route might look something like this:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;product/:num&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Catalog::productLookup&#39;</span><span class="p">);</span>
 </pre></div>
@@ -514,7 +511,7 @@ in <a class="reference internal" href="../libraries/localization.html"><span cla
 </div>
 </div>
 <div class="section" id="examples">
-<h2><a class="toc-backref" href="#id4">Examples</a><a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Examples</a><a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>
 <p>Here are a few basic routing examples:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;journals&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Blogs&#39;</span><span class="p">);</span>
 </pre></div>
@@ -545,7 +542,7 @@ when trying to find a match.</p>
 </div>
 </div>
 <div class="section" id="custom-placeholders">
-<h2><a class="toc-backref" href="#id5">Custom Placeholders</a><a class="headerlink" href="#custom-placeholders" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Custom Placeholders</a><a class="headerlink" href="#custom-placeholders" title="永久链接至标题">¶</a></h2>
 <p>You can create your own placeholders that can be used in your routes file to fully customize the experience
 and readability.</p>
 <p>You add new placeholders with the <code class="docutils literal"><span class="pre">addPlaceholder</span></code> method. The first parameter is the string to be used as
@@ -557,7 +554,7 @@ This must be called before you add the route:</p>
 </div>
 </div>
 <div class="section" id="regular-expressions">
-<h2><a class="toc-backref" href="#id6">Regular Expressions</a><a class="headerlink" href="#regular-expressions" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Regular Expressions</a><a class="headerlink" href="#regular-expressions" title="永久链接至标题">¶</a></h2>
 <p>If you prefer you can use regular expressions to define your routing rules. Any valid regular expression
 is allowed, as are back-references.</p>
 <p>In the above example, a URI similar to products/shirts/123 would instead call the “Shirts” controller class
@@ -577,7 +574,7 @@ redirect them back to the same page after they log in, you may find this example
 </div>
 </div>
 <div class="section" id="closures">
-<h2><a class="toc-backref" href="#id7">Closures</a><a class="headerlink" href="#closures" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Closures</a><a class="headerlink" href="#closures" title="永久链接至标题">¶</a></h2>
 <p>You can use an anonymous function, or Closure, as the destination that a route maps to. This function will be
 executed when the user visits that URI. This is handy for quickly executing small tasks, or even just showing
 a simple view:</p>
@@ -591,7 +588,7 @@ a simple view:</p>
 </div>
 </div>
 <div class="section" id="mapping-multiple-routes">
-<h2><a class="toc-backref" href="#id8">Mapping multiple routes</a><a class="headerlink" href="#mapping-multiple-routes" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Mapping multiple routes</a><a class="headerlink" href="#mapping-multiple-routes" title="永久链接至标题">¶</a></h2>
 <p>While the add() method is simple to use, it is often handier to work with multiple routes at once, using
 the <code class="docutils literal"><span class="pre">map()</span></code> method. Instead of calling the <code class="docutils literal"><span class="pre">add()</span></code> method for each route that you need to add, you can
 define an array of routes and then pass it as the first parameter to the <cite>map()</cite> method:</p>
@@ -604,7 +601,7 @@ define an array of routes and then pass it as the first parameter to the <cite>m
 </div>
 </div>
 <div class="section" id="redirecting-routes">
-<h2><a class="toc-backref" href="#id9">Redirecting Routes</a><a class="headerlink" href="#redirecting-routes" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Redirecting Routes</a><a class="headerlink" href="#redirecting-routes" title="永久链接至标题">¶</a></h2>
 <p>Any site that lives long enough is bound to have pages that move. You can specify routes that should redirect
 to other routes with the <code class="docutils literal"><span class="pre">addRedirect()</span></code> method. The first parameter is the URI pattern for the old route. The
 second parameter is either the new URI to redirect to, or the name of a named route. The third parameter is
@@ -622,7 +619,7 @@ redirect and is recommended in most cases:</p>
 controller can be loaded.</p>
 </div>
 <div class="section" id="grouping-routes">
-<h2><a class="toc-backref" href="#id10">Grouping Routes</a><a class="headerlink" href="#grouping-routes" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Grouping Routes</a><a class="headerlink" href="#grouping-routes" title="永久链接至标题">¶</a></h2>
 <p>You can group your routes under a common name with the <code class="docutils literal"><span class="pre">group()</span></code> method. The group name becomes a segment that
 appears prior to the routes defined inside of the group. This allows you to reduce the typing needed to build out an
 extensive set of routes that all share the opening string, like when building an admin area:</p>
@@ -648,7 +645,7 @@ It is possible to nest groups within groups for finer organization if you need i
 <p>This would handle the URL at <code class="docutils literal"><span class="pre">admin/users/list</span></code>.</p>
 </div>
 <div class="section" id="environment-restrictions">
-<h2><a class="toc-backref" href="#id11">Environment Restrictions</a><a class="headerlink" href="#environment-restrictions" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Environment Restrictions</a><a class="headerlink" href="#environment-restrictions" title="永久链接至标题">¶</a></h2>
 <p>You can create a set of routes that will only be viewable under a certain environment. This allows you to create
 tools that only the developer can use on their local machines that are not reachable on testing or production servers.
 This can be done with the <code class="docutils literal"><span class="pre">environment()</span></code> method. The first parameter is the name of the environment. Any
@@ -661,7 +658,7 @@ routes defined within this closure are only accessible from the given environmen
 </div>
 </div>
 <div class="section" id="reverse-routing">
-<h2><a class="toc-backref" href="#id12">Reverse Routing</a><a class="headerlink" href="#reverse-routing" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">Reverse Routing</a><a class="headerlink" href="#reverse-routing" title="永久链接至标题">¶</a></h2>
 <p>Reverse routing allows you to define the controller and method, as well as any parameters, that a link should go
 to, and have the router lookup the current route to it. This allows route definitions to change without you having
 to update your application code. This is typically used within views to create links.</p>
@@ -679,7 +676,7 @@ should be passed to the route are passed in next:</p>
 </div>
 </div>
 <div class="section" id="using-named-routes">
-<h2><a class="toc-backref" href="#id13">Using Named Routes</a><a class="headerlink" href="#using-named-routes" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">Using Named Routes</a><a class="headerlink" href="#using-named-routes" title="永久链接至标题">¶</a></h2>
 <p>You can name routes to make your application less fragile. This applies a name to a route that can be called
 later, and even if the route definition changes, all of the links in your application built with <code class="docutils literal"><span class="pre">route_to</span></code>
 will still work without you having to make any changes. A route is named by passing in the <code class="docutils literal"><span class="pre">as</span></code> option
@@ -695,7 +692,7 @@ with the name of the route:</p>
 <p>This has the added benefit of making the views more readable, too.</p>
 </div>
 <div class="section" id="using-http-verbs-in-routes">
-<h2><a class="toc-backref" href="#id14">Using HTTP verbs in routes</a><a class="headerlink" href="#using-http-verbs-in-routes" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">Using HTTP verbs in routes</a><a class="headerlink" href="#using-http-verbs-in-routes" title="永久链接至标题">¶</a></h2>
 <p>It is possible to use HTTP verbs (request method) to define your routing rules. This is particularly
 useful when building RESTFUL applications. You can use any standard HTTP verb (GET, POST, PUT, DELETE, etc).
 Each verb has its own method you can use:</p>
@@ -711,7 +708,7 @@ Each verb has its own method you can use:</p>
 </div>
 </div>
 <div class="section" id="command-line-only-routes">
-<h2><a class="toc-backref" href="#id15">Command-Line only Routes</a><a class="headerlink" href="#command-line-only-routes" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">Command-Line only Routes</a><a class="headerlink" href="#command-line-only-routes" title="永久链接至标题">¶</a></h2>
 <p>You can create routes that work only from the command-line, and are inaccessible from the web browser, with the
 <code class="docutils literal"><span class="pre">cli()</span></code> method. This is great for building cronjobs or CLI-only tools. Any route created by any of the HTTP-verb-based
 route methods will also be inaccessible from the CLI, but routes created by the <code class="docutils literal"><span class="pre">any()</span></code> method will still be
@@ -721,7 +718,7 @@ available from the command line:</p>
 </div>
 </div>
 <div class="section" id="resource-routes">
-<h2><a class="toc-backref" href="#id16">Resource Routes</a><a class="headerlink" href="#resource-routes" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">Resource Routes</a><a class="headerlink" href="#resource-routes" title="永久链接至标题">¶</a></h2>
 <p>You can quickly create a handful of RESTful routes for a single resource with the <code class="docutils literal"><span class="pre">resource()</span></code> method. This
 creates the five most common routes needed for full CRUD of a resource: create a new resource, update an existing one,
 list all of that resource, show a single resource, and delete a single resource. The first parameter is the resource
@@ -756,7 +753,7 @@ generate update and delete methods that work with HTML forms:</p>
 </pre></div>
 </div>
 <div class="section" id="change-the-controller-used">
-<h3><a class="toc-backref" href="#id17">Change the Controller Used</a><a class="headerlink" href="#change-the-controller-used" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">Change the Controller Used</a><a class="headerlink" href="#change-the-controller-used" title="永久链接至标题">¶</a></h3>
 <p>You can specify the controller that should be used by passing in the <code class="docutils literal"><span class="pre">controller</span></code> option with the name of
 the controller that should be used:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resources</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span><span class="s1">&#39;App\Gallery&#39;</span><span class="p">]);</span>
@@ -767,7 +764,7 @@ the controller that should be used:</p>
 </div>
 </div>
 <div class="section" id="change-the-placeholder-used">
-<h3><a class="toc-backref" href="#id18">Change the Placeholder Used</a><a class="headerlink" href="#change-the-placeholder-used" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">Change the Placeholder Used</a><a class="headerlink" href="#change-the-placeholder-used" title="永久链接至标题">¶</a></h3>
 <p>By default, the <code class="docutils literal"><span class="pre">segment</span></code> placeholder is used when a resource ID is needed. You can change this by passing
 in the <code class="docutils literal"><span class="pre">placeholder</span></code> option with the new string to use:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resources</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;(:id)&#39;</span><span class="p">]);</span>
@@ -778,7 +775,7 @@ in the <code class="docutils literal"><span class="pre">placeholder</span></code
 </div>
 </div>
 <div class="section" id="limit-the-routes-made">
-<h3><a class="toc-backref" href="#id19">Limit the Routes Made</a><a class="headerlink" href="#limit-the-routes-made" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">Limit the Routes Made</a><a class="headerlink" href="#limit-the-routes-made" title="永久链接至标题">¶</a></h3>
 <p>You can restrict the routes generated with the <code class="docutils literal"><span class="pre">only</span></code> option. This should be an array of method names that should
 be created. Only routes that match one of these methods will be created. The rest will be ignored:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resources</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;only&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;show&#39;</span><span class="p">]]);</span>
@@ -788,7 +785,7 @@ be created. Only routes that match one of these methods will be created. The res
 </div>
 </div>
 <div class="section" id="global-options">
-<h2><a class="toc-backref" href="#id20">Global Options</a><a class="headerlink" href="#global-options" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id22">Global Options</a><a class="headerlink" href="#global-options" title="永久链接至标题">¶</a></h2>
 <p>All of the methods for creating a route (add, get, post, resources, etc) can take an array of options that
 can modify the generated routes, or further restrict them. The <code class="docutils literal"><span class="pre">$options</span></code> array is always the last parameter:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
@@ -806,7 +803,7 @@ can modify the generated routes, or further restrict them. The <code class="docu
 </pre></div>
 </div>
 <div class="section" id="assigning-namespace">
-<h3><a class="toc-backref" href="#id21">Assigning Namespace</a><a class="headerlink" href="#assigning-namespace" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">Assigning Namespace</a><a class="headerlink" href="#assigning-namespace" title="永久链接至标题">¶</a></h3>
 <p>While a default namespace will be prepended to the generated controllers (see below), you can also specify
 a different namespace to be used in any options array, with the <code class="docutils literal"><span class="pre">namespace</span></code> option. The value should be the
 namespace you want modified:</p>
@@ -819,7 +816,7 @@ For any methods that create multiple routes, the new namespace is attached to al
 or, in the case of <code class="docutils literal"><span class="pre">group()</span></code>, all routes generated while in the closure.</p>
 </div>
 <div class="section" id="limit-to-hostname">
-<h3><a class="toc-backref" href="#id22">Limit to Hostname</a><a class="headerlink" href="#limit-to-hostname" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">Limit to Hostname</a><a class="headerlink" href="#limit-to-hostname" title="永久链接至标题">¶</a></h3>
 <p>You can restrict groups of routes to function only in certain domain or sub-domains of your application
 by passing the &quot;hostname&quot; option along with the desired domain to allow it on as part of the options array:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$collection</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;accounts.example.com&#39;</span><span class="p">]);</span>
@@ -829,7 +826,7 @@ by passing the &quot;hostname&quot; option along with the desired domain to allo
 It would not work under the main site at &quot;example.com&quot;.</p>
 </div>
 <div class="section" id="limit-to-subdomains">
-<h3><a class="toc-backref" href="#id23">Limit to Subdomains</a><a class="headerlink" href="#limit-to-subdomains" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">Limit to Subdomains</a><a class="headerlink" href="#limit-to-subdomains" title="永久链接至标题">¶</a></h3>
 <p>When the <code class="docutils literal"><span class="pre">subdomain</span></code> option is present, the system will restrict the routes to only be available on that
 sub-domain. The route will only be matched if the subdomain is the one the application is being viewed through:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Limit to media.example.com</span>
@@ -850,7 +847,7 @@ to separate suffixes or www) can potentially lead to false positives.</p>
 </div>
 </div>
 <div class="section" id="offsetting-the-matched-parameters">
-<h3><a class="toc-backref" href="#id24">Offsetting the Matched Parameters</a><a class="headerlink" href="#offsetting-the-matched-parameters" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">Offsetting the Matched Parameters</a><a class="headerlink" href="#offsetting-the-matched-parameters" title="永久链接至标题">¶</a></h3>
 <p>You can offset the matched parameters in your route by any numeric value with the <code class="docutils literal"><span class="pre">offset</span></code> option, with the
 value being the number of segments to offset.</p>
 <p>This can be beneficial when developing API's with the first URI segment being the version number. It can also
@@ -864,11 +861,11 @@ be used when the first parameter is a language string:</p>
 </div>
 </div>
 <div class="section" id="routes-configuration-options">
-<h2><a class="toc-backref" href="#id25">Routes Configuration Options</a><a class="headerlink" href="#routes-configuration-options" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id27">Routes Configuration Options</a><a class="headerlink" href="#routes-configuration-options" title="永久链接至标题">¶</a></h2>
 <p>The RoutesCollection class provides several options that affect all routes, and can be modified to meet your
 application's needs. These options are available at the top of <cite>/application/Config/Routes.php</cite>.</p>
 <div class="section" id="default-namespace">
-<h3><a class="toc-backref" href="#id26">Default Namespace</a><a class="headerlink" href="#default-namespace" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">Default Namespace</a><a class="headerlink" href="#default-namespace" title="永久链接至标题">¶</a></h3>
 <p>When matching a controller to a route, the router will add the default namespace value to the front of the controller
 specified by the route. By default, this value is empty, which leaves each route to specify the fully namespaced
 controller:</p>
@@ -894,7 +891,7 @@ then you can change this value to save typing:</p>
 </div>
 </div>
 <div class="section" id="default-controller">
-<h3><a class="toc-backref" href="#id27">Default Controller</a><a class="headerlink" href="#default-controller" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">Default Controller</a><a class="headerlink" href="#default-controller" title="永久链接至标题">¶</a></h3>
 <p>When a user visits the root of your site (i.e. example.com) the controller to use is determined by the value set by
 the <code class="docutils literal"><span class="pre">setDefaultController()</span></code> method, unless a route exists for it explicitly. The default value for this is <code class="docutils literal"><span class="pre">Home</span></code>
 which matches the controller at <code class="docutils literal"><span class="pre">/application/Controllers/Home.php</span></code>:</p>
@@ -907,7 +904,7 @@ in the controllers directory. For example, if the user visits <code class="docut
 <code class="docutils literal"><span class="pre">/application/Controllers/admin/Home.php</span></code> it would be used.</p>
 </div>
 <div class="section" id="default-method">
-<h3><a class="toc-backref" href="#id28">Default Method</a><a class="headerlink" href="#default-method" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">Default Method</a><a class="headerlink" href="#default-method" title="永久链接至标题">¶</a></h3>
 <p>This works similar to the default controller setting, but is used to determine the default method that is used
 when a controller is found that matches the URI, but no segment exists for the method. The default value is
 <code class="docutils literal"><span class="pre">index</span></code>:</p>
@@ -918,7 +915,7 @@ when a controller is found that matches the URI, but no segment exists for the m
 <code class="docutils literal"><span class="pre">Products::listAll()</span></code> method would be executed.</p>
 </div>
 <div class="section" id="translate-uri-dashes">
-<h3><a class="toc-backref" href="#id29">Translate URI Dashes</a><a class="headerlink" href="#translate-uri-dashes" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">Translate URI Dashes</a><a class="headerlink" href="#translate-uri-dashes" title="永久链接至标题">¶</a></h3>
 <p>This option enables you to automatically replace dashes (‘-‘) with underscores in the controller and method
 URI segments, thus saving you additional route entries if you need to do that. This is required, because the
 dash isn’t a valid class or method name character and would cause a fatal error if you try to use it:</p>
@@ -927,7 +924,7 @@ dash isn’t a valid class or method name character and would cause a fatal erro
 </div>
 </div>
 <div class="section" id="use-defined-routes-only">
-<h3><a class="toc-backref" href="#id30">Use Defined Routes Only</a><a class="headerlink" href="#use-defined-routes-only" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id32">Use Defined Routes Only</a><a class="headerlink" href="#use-defined-routes-only" title="永久链接至标题">¶</a></h3>
 <p>When no defined route is found that matches the URI, the system will attempt to match that URI against the
 controllers and methods as described above. You can disable this automatic matching, and restrict routes
 to only those defined by you, by setting the <code class="docutils literal"><span class="pre">setAutoRoute()</span></code> option to false:</p>
@@ -936,7 +933,7 @@ to only those defined by you, by setting the <code class="docutils literal"><spa
 </div>
 </div>
 <div class="section" id="override">
-<h3><a class="toc-backref" href="#id31">404 Override</a><a class="headerlink" href="#override" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id33">404 Override</a><a class="headerlink" href="#override" title="永久链接至标题">¶</a></h3>
 <p>When a page is not found that matches the current URI, the system will show a generic 404 view. You can change
 what happens by specifying an action to happen with the <code class="docutils literal"><span class="pre">set404Override()</span></code> option. The value can be either
 a valid class/method pair, just like you would show in any route, or a Closure:</p>
@@ -951,7 +948,7 @@ a valid class/method pair, just like you would show in any route, or a Closure:<
 </div>
 </div>
 <div class="section" id="discovering-module-routes">
-<h3><a class="toc-backref" href="#id32">Discovering Module Routes</a><a class="headerlink" href="#discovering-module-routes" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">Discovering Module Routes</a><a class="headerlink" href="#discovering-module-routes" title="永久链接至标题">¶</a></h3>
 <p>If you are using <a class="reference internal" href="modules.html"><span class="doc">modular code</span></a>, then this setting will specify whether or not additional
 Routes files should be scanned for within each of the PSR4 namespaces defined in <strong>/application/Config/Autoload.php</strong>.</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">discoverLocal</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
