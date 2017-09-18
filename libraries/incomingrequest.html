@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>IncomingRequest Class &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>IncomingRequest 类 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -127,7 +127,7 @@
 <li class="toctree-l2"><a class="reference internal" href="images.html">Image Manipulation Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encryption.html">Encryption Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Working with Files</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">IncomingRequest Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IncomingRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="message.html">HTTP Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pagination.html">Pagination</a></li>
@@ -304,7 +304,7 @@
 <li class="toctree-l2"><a class="reference internal" href="images.html">Image Manipulation Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encryption.html">Encryption Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">Working with Files</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">IncomingRequest Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IncomingRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="message.html">HTTP Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pagination.html">Pagination</a></li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">Library Reference</a> &raquo;</li>
       
-    <li>IncomingRequest Class</li>
+    <li>IncomingRequest 类</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,33 +405,31 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="incomingrequest-class">
-<h1><a class="toc-backref" href="#id15">IncomingRequest Class</a><a class="headerlink" href="#incomingrequest-class" title="永久链接至标题">¶</a></h1>
-<p>The IncomingRequest class provides an object-oriented representation of an HTTP request from a client, like a browser.
-It extends from, and has access to all the methods of the <a class="reference internal" href="request.html"><span class="doc">Request</span></a> and <a class="reference internal" href="message.html"><span class="doc">Message</span></a>
-classes, in addition to the methods listed below.</p>
-<div class="contents topic" id="page-contents">
-<p class="topic-title first">Page Contents</p>
+  <div class="section" id="incomingrequest">
+<h1><a class="toc-backref" href="#id25">IncomingRequest 类</a><a class="headerlink" href="#incomingrequest" title="永久链接至标题">¶</a></h1>
+<p>IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的面向对象封装。
+基于它可以访问所有 <a class="reference internal" href="request.html"><span class="doc">Request</span></a> 和 <a class="reference internal" href="message.html"><span class="doc">Message</span></a> 中的方法， 以及以下列出的方法。</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
 <ul class="simple">
-<li><a class="reference internal" href="#incomingrequest-class" id="id15">IncomingRequest Class</a><ul>
-<li><a class="reference internal" href="#accessing-the-request" id="id16">Accessing the Request</a></li>
-<li><a class="reference internal" href="#determining-request-type" id="id17">Determining Request Type</a></li>
-<li><a class="reference internal" href="#retrieving-input" id="id18">Retrieving Input</a><ul>
-<li><a class="reference internal" href="#filtering-input-data" id="id19">Filtering Input Data</a></li>
+<li><a class="reference internal" href="#incomingrequest" id="id25">IncomingRequest 类</a><ul>
+<li><a class="reference internal" href="#id2" id="id26">获得请求</a></li>
+<li><a class="reference internal" href="#id3" id="id27">判断请求类型</a></li>
+<li><a class="reference internal" href="#id4" id="id28">数据读取</a><ul>
+<li><a class="reference internal" href="#id5" id="id29">数据过滤</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#retrieving-headers" id="id20">Retrieving Headers</a></li>
-<li><a class="reference internal" href="#the-request-url" id="id21">The Request URL</a></li>
-<li><a class="reference internal" href="#uploaded-files" id="id22">Uploaded Files</a></li>
-<li><a class="reference internal" href="#content-negotiation" id="id23">Content Negotiation</a></li>
+<li><a class="reference internal" href="#id6" id="id30">获取数据头</a></li>
+<li><a class="reference internal" href="#id7" id="id31">请求地址</a></li>
+<li><a class="reference internal" href="#id8" id="id32">上传文件</a></li>
+<li><a class="reference internal" href="#id9" id="id33">内容协商</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="accessing-the-request">
-<h2><a class="toc-backref" href="#id16">Accessing the Request</a><a class="headerlink" href="#accessing-the-request" title="永久链接至标题">¶</a></h2>
-<p>An instance of the request class already populated for you if the current class is a descendant of
-<code class="docutils literal"><span class="pre">CodeIgniter\Controller</span></code> and can be accessed as a class property:</p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id26">获得请求</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>如果当前控制器继承了 <code class="docutils literal"><span class="pre">CodeIgniter\Controller</span></code>，则一个 Request 类的实例已被初始化并可作为属性被使用:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UserController</span> <span class="k">extends</span> <span class="nx">CodeIgniter\Controller</span>
 <span class="p">{</span>
         <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
@@ -444,13 +442,11 @@ classes, in addition to the methods listed below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If you are not within a controller, but still need access to the application's Request object, you can
-get a copy of it through the <a class="reference internal" href="../concepts/services.html"><span class="doc">Services class</span></a>:</p>
+<p>如果在控制器外使用 Request 对象，可以通过 <a class="reference internal" href="../concepts/services.html"><span class="doc">Services class</span></a> 获得实例:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">request</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>It's preferable, though, to pass the request in as a dependency if the class is anything other than
-the controller, where you can save it as a class property:</p>
+<p>推荐将 Request 对象作为一个依赖注入到当前类中并保存为一个属性:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\HTTP\RequestInterface</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">SomeClass</span>
@@ -467,10 +463,9 @@ the controller, where you can save it as a class property:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="determining-request-type">
-<h2><a class="toc-backref" href="#id17">Determining Request Type</a><a class="headerlink" href="#determining-request-type" title="永久链接至标题">¶</a></h2>
-<p>A request could be of several types, including an AJAX request or a request from the command line. This can
-be checked with the <code class="docutils literal"><span class="pre">isAJAX()</span></code> and <code class="docutils literal"><span class="pre">isCLI()</span></code> methods:</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id27">判断请求类型</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>请求有多种来源，包含使用 AJAX 发起和使用 CLI 发起的。可通过 <code class="docutils literal"><span class="pre">isAJAX()</span></code> and <code class="docutils literal"><span class="pre">isCLI()</span></code> 来检测:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Check for AJAX request.</span>
 <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isAJAX</span><span class="p">())</span>
 <span class="p">{</span>
@@ -484,18 +479,17 @@ be checked with the <code class="docutils literal"><span class="pre">isAJAX()</s
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can check the HTTP method that this request represents with the <code class="docutils literal"><span class="pre">method()</span></code> method:</p>
+<p>你可以检测请求的 HTTP 类型</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Returns &#39;post&#39;</span>
 <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>By default, the method is returned as a lower-case string (i.e. 'get', 'post', etc). You can get an
-uppercase version by passing in <code class="docutils literal"><span class="pre">true</span></code> as the only parameter:</p>
+<p>该方法默认返回类型是小写的字符串 （比如 'get', 'post' 等等），你可以通过传递 <code class="docutils literal"><span class="pre">true</span></code> 参数来获得大写的返回结果:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Returns &#39;GET&#39;</span>
 <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>You can also check if the request was made through and HTTPS connection with the <code class="docutils literal"><span class="pre">isSecure()</span></code> method:</p>
+<p>还可以通过 <code class="docutils literal"><span class="pre">isSecure()</span></code> 方法检测请求是否是 HTTPS:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">())</span>
 <span class="p">{</span>
         <span class="nx">force_https</span><span class="p">();</span>
@@ -503,54 +497,45 @@ uppercase version by passing in <code class="docutils literal"><span class="pre"
 </pre></div>
 </div>
 </div>
-<div class="section" id="retrieving-input">
-<h2><a class="toc-backref" href="#id18">Retrieving Input</a><a class="headerlink" href="#retrieving-input" title="永久链接至标题">¶</a></h2>
-<p>You can retrieve input from $_SERVER, $_GET, $_POST, $_ENV, and $_SESSION through the Request object.
-The data is not automatically filtered and returns the raw input data as passed in the request. The main
-advantages to using these methods instead of accessing them directly ($_POST['something']), is that they
-will return null if the item doesn't exist, and you can have the data filtered. This lets you conveniently
-use data without having to test whether an item exists first. In other words, normally you might do something
-like this:</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id28">数据读取</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>你可以通过 Request 对象读取 $_SERVER, $_GET, $_POST, $_ENV, $_SESSION 内的信息。
+因为输入数据不会自动过滤，只会返回请求时的原始数据。而使用这些方法去替代直接获取数据的（比如 $_POST['something']）主要优点是当参数不存在时会返回 null ，而且你还能做数据过滤。这可以使你很方便的直接使用 数据而不需要先去判断某个参数是否存在。换句话说，一般情况下你以前会这么做:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$something</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="k">NULL</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>With CodeIgniter’s built in methods you can simply do this:</p>
+<p>而使用 CodeIgniter 的内建方法你可以很简单的做到同样的事:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$something</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">getVar()</span></code> method will pull from $_REQUEST, so will return any data from $_GET, $POST, or $_COOKIE. While this
-is convenient, you will often need to use a more specific method, like:</p>
-<ul class="simple">
-<li><code class="docutils literal"><span class="pre">$request-&gt;getGet()</span></code></li>
-<li><code class="docutils literal"><span class="pre">$request-&gt;getPost()</span></code></li>
-<li><code class="docutils literal"><span class="pre">$request-&gt;getServer()</span></code></li>
-<li><code class="docutils literal"><span class="pre">$request-&gt;getCookie()</span></code></li>
-</ul>
-<p>In addition, there are a few utility methods for retrieving information from either $_GET or $_POST, while
-maintaining the ability to control the order you look for it:</p>
-<ul class="simple">
-<li><code class="docutils literal"><span class="pre">$request-&gt;getPostGet()</span></code> - checks $_POST first, then $_GET</li>
-<li><code class="docutils literal"><span class="pre">$request-&gt;getGetPost()</span></code> - checks $_GET first, then $_POST</li>
-</ul>
-<p><strong>Getting JSON data</strong></p>
-<p>You can grab the contents of php://input as a JSON stream with <code class="docutils literal"><span class="pre">getJSON()</span></code>.</p>
+<p>因为 <code class="docutils literal"><span class="pre">getVar()</span></code> 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getGet</span><span class="p">()</span><span class="sb">``</span>
+<span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">()</span><span class="sb">``</span>
+<span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">()</span><span class="sb">``</span>
+<span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">()</span><span class="sb">``</span>
+</pre></div>
+</div>
+<p>另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPostGet</span><span class="p">()</span><span class="sb">``</span> <span class="o">-</span> <span class="nx">先</span> <span class="nv">$_POST</span><span class="p">,</span> <span class="nx">后</span> <span class="nv">$_GET</span>
+<span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getGetPost</span><span class="p">()</span><span class="sb">``</span> <span class="o">-</span> <span class="nx">先</span> <span class="nv">$_GET</span><span class="p">,</span> <span class="nx">后</span> <span class="nv">$_POST</span>
+</pre></div>
+</div>
+<p><strong>获取JSON数据</strong></p>
+<p>你可以使用 <code class="docutils literal"><span class="pre">getJSON()</span></code> 去获取 php://input 传递的 JSON 格式的数据。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">This has no way of checking if the incoming data is valid JSON or not, you should only use this
-method if you know that you're expecting JSON.</p>
+<p class="last">因为无法检测来源数据是否具有有效的JSON格式，所以只有当你确认数据来源格式是JSON后才可使用。</p>
 </div>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$json</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getJSON</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>By default, this will return any objects in the JSON data as objects. If you want that converted to associative
-arrays, pass in <code class="docutils literal"><span class="pre">true</span></code> as the first parameter.</p>
-<p>The second and third parameters match up to the <code class="docutils literal"><span class="pre">depth</span></code> and <code class="docutils literal"><span class="pre">options</span></code> arguments of the
-<a class="reference external" href="http://php.net/manual/en/function.json-decode.php">json_decode</a> PHP function.</p>
-<p><strong>Retrieving Raw data (PUT, PATCH, DELETE)</strong></p>
-<p>Finally, you can grab the contents of php://input as a raw stream with <code class="docutils literal"><span class="pre">getRawInput()</span></code>.</p>
+<p>默认情况下，这会返回一个 JSON 数据对象。如果你需要一个数据，请传递 <code class="docutils literal"><span class="pre">true</span></code> 作为第一个参数。</p>
+<p>该方法的第二和第三个参数则分别对应 <a class="reference external" href="http://php.net/manual/en/function.json-decode.php">json_decode</a> 方法的 <code class="docutils literal"><span class="pre">depth</span></code> 和 <code class="docutils literal"><span class="pre">options</span></code> 参数.</p>
+<p><strong>获取原始数据 （获取 Method 为 PUT, PATCH, DELETE 传递的数据）</strong></p>
+<p>最后，你可以通过 <code class="docutils literal"><span class="pre">getRawInput()</span></code> 去获取 php://input 传递的原始数据。</p>
 <blockquote>
 <div>$data = $request-&gt;getRawInput();</div></blockquote>
-<p>This will retrieve data and convert it to an array. Like this:</p>
+<p>这会返回数据并转换为数组。比如:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getRawInput</span><span class="p">());</span>
 
 <span class="p">[</span>
@@ -559,25 +544,20 @@ arrays, pass in <code class="docutils literal"><span class="pre">true</span></co
 <span class="p">]</span>
 </pre></div>
 </div>
-<div class="section" id="filtering-input-data">
-<h3><a class="toc-backref" href="#id19">Filtering Input Data</a><a class="headerlink" href="#filtering-input-data" title="永久链接至标题">¶</a></h3>
-<p>To maintain security of your application, you will want to filter all input as you access it. You can
-pass the type of filter to use in as the last parameter of any of these methods. The native <code class="docutils literal"><span class="pre">filter_var()</span></code>
-function is used for the filtering. Head over to the PHP manual for a list of <a class="reference external" href="http://php.net/manual/en/filter.filters.php">valid
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id29">数据过滤</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>为了保证应用程序的安全，必须过滤所有输入的数据。你可以传递过滤类型到方法的最后一个参数里。会调用系统方法 <code class="docutils literal"><span class="pre">filter_var()</span></code> 去过滤。具体过滤类型可以参考 PHP 手册里的列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">valid
 filter types</a>.</p>
-<p>Filtering a POST variable would look like this:</p>
+<p>过滤一个 POST 变量可以这么做:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$email</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_EMAIL</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>All of the methods mentioned above support the filter type passed in as the last parameter, with the
-exception of <code class="docutils literal"><span class="pre">getJSON()</span></code>.</p>
+<p>以上提到的方法中除了 <code class="docutils literal"><span class="pre">getJSON()</span></code> 和 <code class="docutils literal"><span class="pre">getRawInput()</span></code> ，都支持给最后一个参数传递类型来实现过滤。</p>
 </div>
 </div>
-<div class="section" id="retrieving-headers">
-<h2><a class="toc-backref" href="#id20">Retrieving Headers</a><a class="headerlink" href="#retrieving-headers" title="永久链接至标题">¶</a></h2>
-<p>You can get access to any header that was sent with the request with the <code class="docutils literal"><span class="pre">getHeaders()</span></code> method, which returns
-an array of all headers, with the key as the name of the header, and the value being an instance of
-<code class="docutils literal"><span class="pre">CodeIgniter\HTTP\Header</span></code>:</p>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id30">获取数据头</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>你可以通过 <code class="docutils literal"><span class="pre">getHeaders()</span></code> 方法获得请求的数据头，该方法会以数组形式返回所有的数据头信息，数据的键值为数据头名称，值则为一个 <code class="docutils literal"><span class="pre">CodeIgniter\HTTP\Header</span></code> 的实例:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeaders</span><span class="p">());</span>
 
 <span class="p">[</span>
@@ -587,39 +567,37 @@ an array of all headers, with the key as the name of the header, and the value b
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>If you only need a single header, you can pass the name into the <code class="docutils literal"><span class="pre">getHeader()</span></code> method. This will grab the
-specified header object in a case-insensitive manner if it exists. If not, then it will return <code class="docutils literal"><span class="pre">null</span></code>:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// these are all equivalent</span>
+<p>如果你只是想获得某个头的信息，你可以将数据头名称作为参数传递给 <code class="docutils literal"><span class="pre">getHeader()</span></code> 方法。数据头名称无视大小写，如果存在则返回指定头信息。如果不存在则返回 <code class="docutils literal"><span class="pre">null</span></code></p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// 以下这些效果一样</span>
 <span class="nv">$host</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">);</span>
 <span class="nv">$host</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">);</span>
 <span class="nv">$host</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;HOST&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>You can always use <code class="docutils literal"><span class="pre">hasHeader()</span></code> to see if the header existed in this request:</p>
+<p>你可以使用 <code class="docutils literal"><span class="pre">hasHeader()</span></code> 去判断请求头是否存在:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">hasHeader</span><span class="p">(</span><span class="s1">&#39;DNT&#39;</span><span class="p">))</span>
 <span class="p">{</span>
         <span class="c1">// Don&#39;t track something...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If you need the value of header as a string with all values on one line, you can use the <code class="docutils literal"><span class="pre">getHeaderLine()</span></code> method:</p>
+<p>如果你需要某个头的值并在一行字符串内输出，可以使用 <code class="docutils literal"><span class="pre">getHeaderLine()</span></code> 方法:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span>    <span class="c1">// Accept-Encoding: gzip, deflate, sdch</span>
 <span class="k">echo</span> <span class="s1">&#39;Accept-Encoding: &#39;</span><span class="o">.</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeaderLine</span><span class="p">(</span><span class="s1">&#39;accept-encoding&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>If you need the entire header, with the name and values in a single string, simply cast the header as a string:</p>
+<p>如果你需要完整头信息，输出包括全部名称和值的字符串，可以使用如下方法做转换:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$header</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="the-request-url">
-<h2><a class="toc-backref" href="#id21">The Request URL</a><a class="headerlink" href="#the-request-url" title="永久链接至标题">¶</a></h2>
-<p>You can retrieve a <a class="reference internal" href="uri.html"><span class="doc">URI</span></a> object that represents the current URI for this request through the
-<code class="docutils literal"><span class="pre">$request-&gt;uri</span></code> property. You can cast this object as a string to get a full URL for the current request:</p>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id31">请求地址</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>你可以通过访问 <code class="docutils literal"><span class="pre">$request-&gt;uri</span></code> 属性获取代表当前访问信息的 doc:<cite>URI &lt;uri&gt;</cite> 对象。通过以下方法获取当前请求的完整访问地址:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$uri</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>The object gives you full abilities to grab any part of the request on it's own:</p>
+<p>该对象赋予了你访问全部请求信息的能力:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$uri</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">;</span>
 
 <span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getScheme</span><span class="p">();</span>         <span class="c1">// http</span>
@@ -635,11 +613,9 @@ specified header object in a case-insensitive manner if it exists. If not, then 
 </pre></div>
 </div>
 </div>
-<div class="section" id="uploaded-files">
-<h2><a class="toc-backref" href="#id22">Uploaded Files</a><a class="headerlink" href="#uploaded-files" title="永久链接至标题">¶</a></h2>
-<p>Information about all uploaded files can be retrieved through <code class="docutils literal"><span class="pre">$request-&gt;getFiles()</span></code>, which returns a
-<a class="reference internal" href="uploaded_files.html"><span class="doc">FileCollection</span></a> instance. This helps to ease the pain of working with uploaded files,
-and uses best practices to minimize any security risks.</p>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id32">上传文件</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<p>所有上传文件的信息可以通过 <code class="docutils literal"><span class="pre">$request-&gt;getFiles()</span></code> 方法获得，该方法会返回一个 <a class="reference internal" href="uploaded_files.html"><span class="doc">FileCollection</span></a> 实例。这会有助于减少处理文件上传的工作量，以及使用最佳方案去降低安全风险。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$files</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">();</span>
 
 <span class="c1">// Grab the file by name given in HTML form</span>
@@ -659,14 +635,14 @@ and uses best practices to minimize any security risks.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can also retrieve a single file based on the filename given in the HTML file input:</p>
+<p>你也可以通过HTML中提交的文件名去获取单个上传文件:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;uploadedfile&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="content-negotiation">
-<h2><a class="toc-backref" href="#id23">Content Negotiation</a><a class="headerlink" href="#content-negotiation" title="永久链接至标题">¶</a></h2>
-<p>You can easily negotiate content types with the request through the <code class="docutils literal"><span class="pre">negotiate()</span></code> method:</p>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id33">内容协商</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<p>你可以很轻松的通过 <code class="docutils literal"><span class="pre">negotiate()</span></code> 方法来完成信息内容类型的协商:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$language</span>    <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="s1">&#39;en-GB&#39;</span><span class="p">,</span> <span class="s1">&#39;fr&#39;</span><span class="p">,</span> <span class="s1">&#39;es-mx&#39;</span><span class="p">]);</span>
 <span class="nv">$imageType</span>   <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span> <span class="s1">&#39;image/jpg&#39;</span><span class="p">]);</span>
 <span class="nv">$charset</span>     <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;charset&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">,</span> <span class="s1">&#39;UTF-16&#39;</span><span class="p">]);</span>
@@ -674,35 +650,34 @@ and uses best practices to minimize any security risks.</p>
 <span class="nv">$encoding</span>    <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gzip&#39;</span><span class="p">,</span> <span class="s1">&#39;compress&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>See the <a class="reference internal" href="content_negotiation.html"><span class="doc">Content Negotiation</span></a> page for more details.</p>
+<p>查看 <a class="reference internal" href="content_negotiation.html"><span class="doc">Content Negotiation</span></a> 获得更多细节。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">In addition to the methods listed here, this class inherits the methods from the
-<a class="reference internal" href="request.html"><span class="doc">Request Class</span></a> and the <a class="reference internal" href="message.html"><span class="doc">Message Class</span></a>.</p>
+<p class="last">除了这里列出的，本类还继承了 <a class="reference internal" href="request.html"><span class="doc">Request Class</span></a>  和 <a class="reference internal" href="message.html"><span class="doc">Message Class</span></a> 的方法。</p>
 </div>
-<p>The methods provided by the parent classes that are available are:</p>
-<ul class="simple">
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getIPAddress()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::validIP()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getMethod()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getServer()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::body()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setBody()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::populateHeaders()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::headers()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::header()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::headerLine()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setHeader()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::removeHeader()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::appendHeader()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::protocolVersion()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setProtocolVersion()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateMedia()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateCharset()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateEncoding()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></li>
-<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></li>
-</ul>
+<p>以下方法由父类提供:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Request::getIPAddress`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Request::validIP`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Request::getMethod`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Request::getServer`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::body`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::setBody`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::populateHeaders`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::headers`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::header`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::headerLine`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::setHeader`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::removeHeader`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::appendHeader`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::protocolVersion`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::setProtocolVersion`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateMedia`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateCharset`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateEncoding`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateLanguage`</span>
+<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateLanguage`</span>
+</pre></div>
+</div>
 <dl class="class">
 <dt>
 <code class="descname">CodeIgniter\HTTP\IncomingRequest</code></dt>
@@ -713,7 +688,7 @@ and uses best practices to minimize any security risks.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">True if the request was initiated from the command line, otherwise false.</td>
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">由命令行发起的请求会返回 true ，其他返回 false。</td>
 </tr>
 <tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
 </tr>
@@ -728,7 +703,7 @@ and uses best practices to minimize any security risks.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">True if the request is an AJAX request, otherwise false.</td>
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">AJAX请求返回 true ，其他返回 false。</td>
 </tr>
 <tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
 </tr>
@@ -743,7 +718,7 @@ and uses best practices to minimize any security risks.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">True if the request is an HTTPS request, otherwise false.</td>
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">HTTPS请求返回 true ，其他返回 false。</td>
 </tr>
 <tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
 </tr>
@@ -759,14 +734,14 @@ and uses best practices to minimize any security risks.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) -- The name of the variable/key to look for.</li>
-<li><strong>$filter</strong> (<em>int</em>) -- The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</li>
-<li><strong>$flags</strong> (<em>int</em>) -- <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+<li><strong>$index</strong> (<em>string</em>) -- 需要查找的数据名。</li>
+<li><strong>$filter</strong> (<em>int</em>) -- 过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</li>
+<li><strong>$flags</strong> (<em>int</em>) -- <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_REQUEST if no parameters supplied, otherwise the REQUEST value if found, or null if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 REQUEST 中的所有元素，传参并且参数存在则返回对应的 REQUEST 值，不存在返回 null</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
@@ -774,30 +749,25 @@ and uses best practices to minimize any security risks.</p>
 </tr>
 </tbody>
 </table>
-<p>The first parameter will contain the name of the REQUEST item you are looking for:</p>
+<p>第一个参数包含需要查找的数据名</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The method returns null if the item you are attempting to retrieve
-does not exist.</p>
-<p>The second optional parameter lets you run the data through the PHP's
-filters. Pass in the desired filter type as the second parameter:</p>
+<p>如数据不存在则返回 null 。</p>
+<p>只需传递期望的过滤类型到第二个参数，就可以帮助你完成数据过滤</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>To return an array of all POST items call without any parameters.</p>
-<p>To return all POST items and pass them through the filter, set the
-first parameter to null while setting the second parameter to the filter
-you want to use:</p>
+<p>不传任何参数会得到一个包含全部 REQUEST 数据的数组。</p>
+<p>第一个参数 null ，第二个参数设置过滤类型，可获得一个被过滤的包涵全部 REQUEST 数据的数组</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span> <span class="c1">// returns all POST items with string sanitation</span>
 </pre></div>
 </div>
-<p>To return an array of multiple  POST parameters, pass all the required keys as an array:</p>
+<p>获取多个键值的信息，可以将需要的键值以数组形式传递给第一个参数</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">([</span><span class="s1">&#39;field1&#39;</span><span class="p">,</span> <span class="s1">&#39;field2&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>Same rule applied here, to retrieve the parameters with filtering, set the second parameter to
-the filter type to apply:</p>
+<p>与之前一样，此时传递过滤类型给第二个参数，也可获得过滤后的数据</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">([</span><span class="s1">&#39;field1&#39;</span><span class="p">,</span> <span class="s1">&#39;field2&#39;</span><span class="p">],</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -811,15 +781,15 @@ the filter type to apply:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) -- The name of the variable/key to look for.</li>
-<li><strong>$filter</strong> (<em>int</em>) -- <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+<li><strong>$index</strong> (<em>string</em>) -- 需要查找的数据名。</li>
+<li><strong>$filter</strong> (<em>int</em>) -- <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
 </li>
-<li><strong>$flags</strong> (<em>int</em>) -- <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+<li><strong>$flags</strong> (<em>int</em>) -- <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_GET if no parameters supplied, otherwise the GET value if found, or null if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 GET 中的所有元素，传参并且参数存在则返回对应的 GET 值，不存在返回 null</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
@@ -827,7 +797,7 @@ the filter type to apply:</p>
 </tr>
 </tbody>
 </table>
-<p>This method is identical to <code class="docutils literal"><span class="pre">getVar()</span></code>, only it fetches GET data.</p>
+<p>该方法与 <code class="docutils literal"><span class="pre">getVar()</span></code> 类似, 只返回 GET 的数据。</p>
 </dd></dl>
 
 <dl class="method">
@@ -838,24 +808,23 @@ the filter type to apply:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) -- The name of the variable/key to look for.</li>
-<li><strong>$filter</strong> (<em>int</em>) -- <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+<li><strong>$index</strong> (<em>string</em>) -- 需要查找的数据名。</li>
+<li><strong>$filter</strong> (<em>int</em>) -- <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
 </li>
-<li><strong>$flags</strong> (<em>int</em>) -- <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+<li><strong>$flags</strong> (<em>int</em>) -- <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_POST if no parameters supplied, otherwise the POST value if found, or null if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 POST 中的所有元素，传参并且参数存在则返回对应的 POST 值，不存在返回 null</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><p>mixed|null</p>
-<p>This method is identical to <code class="docutils literal"><span class="pre">getVar()</span></code>, only it fetches POST data.</p>
-</p>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>该方法与 <code class="docutils literal"><span class="pre">getVar()</span></code> 类似, 只返回 POST 的数据。</p>
 </dd></dl>
 
 <dl class="method">
@@ -866,15 +835,15 @@ the filter type to apply:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) -- The name of the variable/key to look for.</li>
-<li><strong>$filter</strong> (<em>int</em>) -- <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+<li><strong>$index</strong> (<em>string</em>) -- 需要查找的数据名。</li>
+<li><strong>$filter</strong> (<em>int</em>) -- <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
 </li>
-<li><strong>$flags</strong> (<em>int</em>) -- <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+<li><strong>$flags</strong> (<em>int</em>) -- <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_POST if no parameters supplied, otherwise the POST value if found, or null if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 POST／GET 中的所有元素，传参并且参数存在则返回对应的 POST／GET 值，不存在返回 null</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
@@ -882,9 +851,7 @@ the filter type to apply:</p>
 </tr>
 </tbody>
 </table>
-<p>This method works pretty much the same way as <code class="docutils literal"><span class="pre">getPost()</span></code> and <code class="docutils literal"><span class="pre">getGet()</span></code>, only combined.
-It will search through both POST and GET streams for data, looking first in POST, and
-then in GET:</p>
+<p>该方法和 <code class="docutils literal"><span class="pre">getPost()</span></code>，<code class="docutils literal"><span class="pre">getGet()</span></code> 类似，它会同时查找 POST 和 GET 两个数组来获取数据， 先查找 POST ，再查找 GET:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPostGet</span><span class="p">(</span><span class="s1">&#39;field1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -898,15 +865,15 @@ then in GET:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) -- The name of the variable/key to look for.</li>
-<li><strong>$filter</strong> (<em>int</em>) -- <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+<li><strong>$index</strong> (<em>string</em>) -- 需要查找的数据名。</li>
+<li><strong>$filter</strong> (<em>int</em>) -- <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
 </li>
-<li><strong>$flags</strong> (<em>int</em>) -- <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+<li><strong>$flags</strong> (<em>int</em>) -- <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_POST if no parameters supplied, otherwise the POST value if found, or null if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 POST／GET 中的所有元素，传参并且参数存在则返回对应的 POST／GET 值，不存在返回 null</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
@@ -914,9 +881,7 @@ then in GET:</p>
 </tr>
 </tbody>
 </table>
-<p>This method works pretty much the same way as <code class="docutils literal"><span class="pre">getPost()</span></code> and <code class="docutils literal"><span class="pre">getGet()</span></code>, only combined.
-It will search through both POST and GET streams for data, looking first in GET, and
-then in POST:</p>
+<p>该方法和 <code class="docutils literal"><span class="pre">getPost()</span></code>，<code class="docutils literal"><span class="pre">getGet()</span></code> 类似，它会同时查找 POST 和 GET 两个数组来获取数据， 先查找 GET ，再查找 POST:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getGetPost</span><span class="p">(</span><span class="s1">&#39;field1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -930,15 +895,15 @@ then in POST:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>mixed</em>) -- COOKIE name</li>
-<li><strong>$filter</strong> (<em>int</em>) -- <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+<li><strong>$index</strong> (<em>string</em>) -- COOKIE 名。</li>
+<li><strong>$filter</strong> (<em>int</em>) -- <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
 </li>
-<li><strong>$flags</strong> (<em>int</em>) -- <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+<li><strong>$flags</strong> (<em>int</em>) -- <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_COOKIE if no parameters supplied, otherwise the COOKIE value if found or null if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 COOKIE 中的所有元素，传参并且参数存在则返回对应的 COOKIE 值，不存在返回 null</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -946,20 +911,19 @@ then in POST:</p>
 </tr>
 </tbody>
 </table>
-<p>This method is identical to <code class="docutils literal"><span class="pre">getPost()</span></code> and <code class="docutils literal"><span class="pre">getGet()</span></code>, only it fetches cookie data:</p>
+<p>该方法与 <code class="docutils literal"><span class="pre">getPost()</span></code>，<code class="docutils literal"><span class="pre">getGet()</span></code> 类似, 只返回 COOKIE 的数据</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="s1">&#39;some_cookie&#39;</span><span class="p">);</span>
 <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="s1">&#39;some_cookie&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span> <span class="c1">// with filter</span>
 </pre></div>
 </div>
-<p>To return an array of multiple cookie values, pass all the required keys as an array:</p>
+<p>获取多个键值的信息，可以将需要的键值以数组形式传递给第一个参数</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;some_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;some_cookie2&#39;</span><span class="p">));</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">Unlike the <a class="reference internal" href="../helpers/cookie_helper.html"><span class="doc">Cookie Helper</span></a>
-function <a class="reference internal" href="../helpers/cookie_helper.html#get_cookie" title="get_cookie"><code class="xref php php-func docutils literal"><span class="pre">get_cookie()</span></code></a>, this method does NOT prepend
-your configured <code class="docutils literal"><span class="pre">$config['cookie_prefix']</span></code> value.</p>
+<p class="last">与 <a class="reference internal" href="../helpers/cookie_helper.html"><span class="doc">Cookie Helper</span></a>
+function <a class="reference internal" href="../helpers/cookie_helper.html#get_cookie" title="get_cookie"><code class="xref php php-func docutils literal"><span class="pre">get_cookie()</span></code></a> 不同, 该方法不会自动添加配置中 <code class="docutils literal"><span class="pre">$config['cookie_prefix']</span></code> 的值。</p>
 </div>
 </dd></dl>
 
@@ -971,15 +935,15 @@ your configured <code class="docutils literal"><span class="pre">$config['cookie
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>mixed</em>) -- Value name</li>
-<li><strong>$filter</strong> (<em>int</em>) -- <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+<li><strong>$index</strong> (<em>string</em>) -- 服务器信息名。</li>
+<li><strong>$filter</strong> (<em>int</em>) -- <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
 </li>
-<li><strong>$flags</strong> (<em>int</em>) -- <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+<li><strong>$flags</strong> (<em>int</em>) -- <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_SERVER item value if found, NULL if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 SERVER 中的所有元素，传参并且参数存在则返回对应的 SERVER 值，不存在返回 null</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -987,13 +951,11 @@ your configured <code class="docutils literal"><span class="pre">$config['cookie
 </tr>
 </tbody>
 </table>
-<p>This method is identical to the <code class="docutils literal"><span class="pre">getPost()</span></code>, <code class="docutils literal"><span class="pre">getGet()</span></code> and <code class="docutils literal"><span class="pre">getCookie()</span></code>
-methods, only it fetches getServer data (<code class="docutils literal"><span class="pre">$_SERVER</span></code>):</p>
+<p>该方法与 <code class="docutils literal"><span class="pre">getPost()</span></code>，<code class="docutils literal"><span class="pre">getGet()</span></code> ，<code class="docutils literal"><span class="pre">getCookie()</span></code> 类似, 只返回 SERVER 的数据</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>To return an array of multiple <code class="docutils literal"><span class="pre">$_SERVER</span></code> values, pass all the required keys
-as an array.</p>
+<p>获取多个键值的信息，可以将需要的键值以数组形式传递给第一个参数</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">([</span><span class="s1">&#39;SERVER_PROTOCOL&#39;</span><span class="p">,</span> <span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
@@ -1007,12 +969,12 @@ as an array.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$filter</strong> (<em>int</em>) -- <p>The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</p>
+<li><strong>$filter</strong> (<em>int</em>) -- <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The User Agent string, as found in the SERVER data, or null if not found.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">包含 User Agent 信息的字符串，不存在返回 null</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -1020,7 +982,7 @@ as an array.</p>
 </tr>
 </tbody>
 </table>
-<p>This method returns the User Agent string from the SERVER data:</p>
+<p>该方法从服务器信息哪查找并以字符串形式返回 User Agent</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getUserAgent</span><span class="p">();</span>
 </pre></div>
 </div>
