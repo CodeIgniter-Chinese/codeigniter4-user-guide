@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Response Trait &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>API 响应特性 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -53,7 +53,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 规范</a></li>
 </ul>
 </li>
 </ul>
@@ -118,7 +118,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Library Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">API Response Trait</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API 响应特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="benchmark.html">Benchmarking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Caching Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI Library</a></li>
@@ -230,7 +230,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">Welcome to CodeIgniter4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">Server Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">Credits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR Compliance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 规范</a></li>
 </ul>
 </li>
 </ul>
@@ -295,7 +295,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Library Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">API Response Trait</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API 响应特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="benchmark.html">Benchmarking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Caching Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI Library</a></li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">Library Reference</a> &raquo;</li>
       
-    <li>API Response Trait</li>
+    <li>API 响应特性</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,25 +405,22 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="api-response-trait">
-<h1>API Response Trait<a class="headerlink" href="#api-response-trait" title="永久链接至标题">¶</a></h1>
-<p>Much of modern PHP development requires building API's, whether simply to provide data for a javascript-heavy
-single page application, or as a standalone product. CodeIgniter provides an API Response trait that can be
-used with any controller to make common response types simple, with no need to remember which HTTP status code
-should be returned for which response types.</p>
-<div class="contents local topic" id="page-contents">
-<p class="topic-title first">Page Contents</p>
+  <div class="section" id="api">
+<h1>API 响应特性<a class="headerlink" href="#api" title="永久链接至标题">¶</a></h1>
+<p>现代化的 PHP开发都需要构建 API ，不管它只是为了给 javascript 单页应用提供数据还是作为独立的产品。CodeIgniter 都是一个可以提供 API响应特性并与任何控制器一起使用，使常见的响应类型变得更简单，不需要记住任何 HTTP状态码和需要返回响应类型。</p>
+<div class="contents local topic" id="id1">
+<p class="topic-title first">目录</p>
 <ul class="simple">
-<li><a class="reference internal" href="#example-usage" id="id1">Example Usage</a></li>
-<li><a class="reference internal" href="#handling-response-types" id="id2">Handling Response Types</a><ul>
-<li><a class="reference internal" href="#class-reference" id="id3">Class Reference</a></li>
+<li><a class="reference internal" href="#id2" id="id5">使用事例</a></li>
+<li><a class="reference internal" href="#id3" id="id6">处理响应类型</a><ul>
+<li><a class="reference internal" href="#id4" id="id7">引用类</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="example-usage">
-<h2><a class="toc-backref" href="#id1">Example Usage</a><a class="headerlink" href="#example-usage" title="永久链接至标题">¶</a></h2>
-<p>The following example shows a common usage pattern within your controllers.</p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id5">使用事例</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>下面的示例显示了控制器中常见的使用模式。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">Users</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
@@ -435,77 +432,63 @@ should be returned for which response types.</p>
         <span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UserModel</span><span class="p">();</span>
         <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">());</span>
 
-        <span class="c1">// Respond with 201 status code</span>
+        <span class="c1">// 响应 201 状态码</span>
         <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">respondCreated</span><span class="p">();</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example, an HTTP status code of 201 is returned, with the generic status message, 'Created'. Methods
-exist for the most common use cases:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Generic response method</span>
+<p>在这个例子中，响应了 201 的HTTP状态码，并使用“创建”的通用状态消息返回。方法存在于最常见的用例中</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// 通用响应方式</span>
 <span class="nx">respond</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
-<span class="c1">// Generic failure response</span>
+<span class="c1">// 通用错误响应</span>
 <span class="nx">fail</span><span class="p">(</span><span class="nv">$errors</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
-<span class="c1">// Item created response</span>
+<span class="c1">// 项目创建响应</span>
 <span class="nx">respondCreated</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
-<span class="c1">// Item successfully deleted</span>
+<span class="c1">// 项目成功删除</span>
 <span class="nx">respondDeleted</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
-<span class="c1">// Client isn&#39;t authorized</span>
+<span class="c1">// 客户端未授权</span>
 <span class="nx">failUnauthorized</span><span class="p">(</span><span class="nv">$description</span><span class="p">);</span>
-<span class="c1">// Forbidden action</span>
+<span class="c1">// 禁止动作</span>
 <span class="nx">failForbidden</span><span class="p">(</span><span class="nv">$description</span><span class="p">);</span>
-<span class="c1">// Resource Not Found</span>
+<span class="c1">// 找不到资源</span>
 <span class="nx">failNotFound</span><span class="p">(</span><span class="nv">$description</span><span class="p">);</span>
-<span class="c1">// Data did not validate</span>
+<span class="c1">// Data 数据没有验证</span>
 <span class="nx">failValidationError</span><span class="p">(</span><span class="nv">$description</span><span class="p">);</span>
-<span class="c1">// Resource already exists</span>
+<span class="c1">// 资源已存在</span>
 <span class="nx">failResourceExists</span><span class="p">(</span><span class="nv">$description</span><span class="p">);</span>
-<span class="c1">// Resource previously deleted</span>
+<span class="c1">// 资源早已被删除</span>
 <span class="nx">failResourceGone</span><span class="p">(</span><span class="nv">$description</span><span class="p">);</span>
-<span class="c1">// Client made too many requests</span>
+<span class="c1">// 客户端请求数过多</span>
 <span class="nx">failTooManyRequests</span><span class="p">(</span><span class="nv">$description</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="handling-response-types">
-<h2><a class="toc-backref" href="#id2">Handling Response Types</a><a class="headerlink" href="#handling-response-types" title="永久链接至标题">¶</a></h2>
-<p>When you pass your data in any of these methods, they will determine the data type to format the results as based on
-the following criteria:</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">处理响应类型</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>当您通过以下任何一种方法传递数据时，它们将决定基于数据类型来格式化结果:</p>
 <ul class="simple">
-<li>If $data is a string, it will be treated as HTML to send back to the client.</li>
-<li><dl class="first docutils">
-<dt>If $data is an array, it will try to negotiate the content type with what the client asked for, defaulting to JSON</dt>
-<dd>if nothing else has been specified within ConfigAPI.php, the <code class="docutils literal"><span class="pre">$supportedResponseFormats</span></code> property.</dd>
-</dl>
-</li>
+<li>如果 $data 是一个字符串，它将被当作 HTML 发送回客户端。</li>
+<li>如果 $data 是一个数组，它将尝试请求内容类型与客户端进行协商，默认为 JSON。如果没有在 ConfigAPI.php 中配置内容。默认使用``$supportedResponseFormats`` 属性。</li>
 </ul>
-<p>To define the formatter that is used, edit <strong>Config/Format.php</strong>. The <code class="docutils literal"><span class="pre">$supportedResponseFormats</span></code> contains a list of
-mime types that your application can automatically format the response for. By default, the system knows how to
-format both XML and JSON responses:</p>
+<p>需要使用格式化，请修改 <strong>Config/Format.php</strong> 文件配置。<code class="docutils literal"><span class="pre">$supportedResponseFormats</span></code> 包含了一个格式化响应类型列表。默认情况下，系统将会自动判断并响应 XML 和 JSON 格式:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$supportedResponseFormats</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
     <span class="s1">&#39;application/xml&#39;</span>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>This is the array that is used during <a class="reference internal" href="content_negotiation.html"><span class="doc">Content Negotiation</span></a> to determine which
-type of response to return. If no matches are found between what the client requested and what you support, the first
-format in this array is what will be returned.</p>
-<p>Next, you need to define the class that is used to format the array of data. This must be a fully qualified class
-name, and the class must implement <strong>CodeIgniterAPIFormatterInterface</strong>. Formatters come out of the box that
-support both JSON and XML:</p>
+<p>这是在 <a class="reference internal" href="content_negotiation.html"><span class="doc">Content Negotiation</span></a> 中使用的数组，以确定返回的响应类型。如果在客户端请求的内容和您支持的内容之间没有匹配，则返回第一个该数组中的格式。</p>
+<p>接下来，需要定义用于格式化数据数组的类。这必须是一个完全合格的类名，类名必须实现 <strong>CodeIgniterAPIFormatterInterface</strong>。格式化支持 JSON 和 XML</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$formatters</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;application/json&#39;</span> <span class="o">=&gt;</span> <span class="nx">\CodeIgniter\API\JSONFormatter</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
     <span class="s1">&#39;application/xml&#39;</span>  <span class="o">=&gt;</span> <span class="nx">\CodeIgniter\API\XMLFormatter</span><span class="o">::</span><span class="na">class</span>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>So, if your request asks for JSON formatted data in an <strong>Accept</strong> header, the data array you pass any of the
-<code class="docutils literal"><span class="pre">respond*</span></code> or <code class="docutils literal"><span class="pre">fail*</span></code> methods will be formatted by the <strong>CodeIgniterAPIJSONFormatter</strong> class. The resulting
-JSON data will be sent back to the client.</p>
-<div class="section" id="class-reference">
-<h3><a class="toc-backref" href="#id3">Class Reference</a><a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h3>
+<p>因此，如果您的请求在 <strong>Accept</strong> 头中请求 JSON 格式的数据，那么您传递的数据数组就可以通过其中任何一个 <code class="docutils literal"><span class="pre">respond*</span></code> 或 <code class="docutils literal"><span class="pre">fail*</span></code> 方法将由 <strong>CodeIgniterAPIJSONFormatter</strong> 格式化。由此产生的 JSON 数据将被发送回客户端。</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id7">引用类</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <dl class="method">
 <dt id="respond">
 <code class="descname">respond</code><span class="sig-paren">(</span><em>$data</em><span class="optional">[</span>, <em>$statusCode=200</em><span class="optional">[</span>, <em>$message=''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#respond" title="永久链接至目标">¶</a></dt>
@@ -514,28 +497,27 @@ JSON data will be sent back to the client.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$data</strong> (<em>mixed</em>) -- The data to return to the client. Either string or array.</li>
-<li><strong>$statusCode</strong> (<em>int</em>) -- The HTTP status code to return. Defaults to 200</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$data</strong> (<em>mixed</em>) -- 返回客户端的数据。字符串或数组。</li>
+<li><strong>$statusCode</strong> (<em>int</em>) -- 返回的HTTP状态码。默认为 200。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义 &quot;reason&quot; 消息。</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>This is the method used by all other methods in this trait to return a response to the client.</p>
-<p>The <code class="docutils literal"><span class="pre">$data</span></code> element can be either a string or an array. By default, a string will be returned as HTML,
-while an array will be run through json_encode and returned as JSON, unless <a class="reference internal" href="content_negotiation.html"><span class="doc">Content Negotiation</span></a>
-determines it should be returned in a different format.</p>
-<p>If a <code class="docutils literal"><span class="pre">$message</span></code> string is passed, it will be used in place of the standard IANA reason codes for the
-response status. Not every client will respect the custom codes, though, and will use the IANA standards
-that match the status code.</p>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">Since it sets the status code and body on the active Response instance, this should always
-be the final method in the script execution.</p>
-</div>
+<p>这是该特征中所有其他方法用于将响应返回给客户端的方法。</p>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">$data</span></code> 元素可以是字符串或数组。 默认情况下，一个字符串将作为 HTML 返回，而数组将通过 json_encode 运行并返回为 JSON，除非 <a class="reference internal" href="content_negotiation.html"><span class="doc">Content Negotiation</span></a> 确定它应该以不同的格式返回。</div></blockquote>
+<p>如果一个 <code class="docutils literal"><span class="pre">$message</span></code> 字符串被传递，它将被用来替代标准的 IANA 标准码回应状态。但不是每个客户端都会遵守自定义代码，并将使用 IANA 标准</p>
 </dd></dl>
 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 匹配状态码。</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">由于它在活动的响应实例上设置状态码和正文，所以应该一直作为脚本执行中的最终方法。</p>
+</div>
+</div></blockquote>
 <dl class="method">
 <dt id="fail">
 <code class="descname">fail</code><span class="sig-paren">(</span><em>$messages</em><span class="optional">[</span>, <em>int $status=400</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message=''</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#fail" title="永久链接至目标">¶</a></dt>
@@ -544,28 +526,24 @@ be the final method in the script execution.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$messages</strong> (<em>mixed</em>) -- A string or array of strings that contain error messages encountered.</li>
-<li><strong>$status</strong> (<em>int</em>) -- The HTTP status code to return. Defaults to 400.</li>
-<li><strong>$code</strong> (<em>string</em>) -- A custom, API-specific, error code.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$messages</strong> (<em>mixed</em>) -- 包含遇到错误消息的字符串或字符串数组。</li>
+<li><strong>$status</strong> (<em>int</em>) -- 返回的HTTP状态码。 默认为400。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">A multi-part response in the client's preferred format.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">以客户端的首选格式进行多部分响应。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>The is the generic method used to represent a failed response, and is used by all of the other &quot;fail&quot; methods.</p>
-<p>The <code class="docutils literal"><span class="pre">$messages</span></code> element can be either a string or an array of strings.</p>
-<p>The <code class="docutils literal"><span class="pre">$status</span></code> parameter is the HTTP status code that should be returned.</p>
-<p>Since many APIs are better served using custom error codes, a custom error code can be passed in the third
-parameter. If no value is present, it will be the same as <code class="docutils literal"><span class="pre">$status</span></code>.</p>
-<p>If a <code class="docutils literal"><span class="pre">$message</span></code> string is passed, it will be used in place of the standard IANA reason codes for the
-response status. Not every client will respect the custom codes, though, and will use the IANA standards
-that match the status code.</p>
-<p>The response is an array with two elements: <code class="docutils literal"><span class="pre">error</span></code> and <code class="docutils literal"><span class="pre">messages</span></code>. The <code class="docutils literal"><span class="pre">error</span></code> element contains the status
-code of the error. The <code class="docutils literal"><span class="pre">messages</span></code> element contains an array of error messages. It would look something like:</p>
+<p>这是用于表示失败的响应的通用方法，并被所有其他“fail”方法使用。</p>
+<p>该 <code class="docutils literal"><span class="pre">$messages</span></code> 元素可以是字符串或字符串数​​组。
+该 <code class="docutils literal"><span class="pre">$status</span></code> 参数是应返回的HTTP状态码。</p>
+<p>由于使用自定义错误代码更好地提供了许多 API，因此可以在第三个参数中传递自定义错误代码。如果没有值，它将是一样的 <code class="docutils literal"><span class="pre">$status</span></code> 【状态码】。</p>
+<p>如果一个 <code class="docutils literal"><span class="pre">$message</span></code> 字符串被传递，它将被用于代替响应状态的标准 IANA 码。不是每个客户端都会遵守自定义代码，并且将使用与状态代码相匹配的 IANA 标准。</p>
+<p>这个响应是一个包含两个元素的数组： <code class="docutils literal"><span class="pre">error</span></code> 和 <code class="docutils literal"><span class="pre">messages</span></code> 。 <code class="docutils literal"><span class="pre">error</span></code> 元素包含错误的状态代码。<code class="docutils literal"><span class="pre">messages</span></code> 元素包含一组错误消息。它看起来像:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$response</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="mi">400</span><span class="p">,</span>
     <span class="s1">&#39;code&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;321a&#39;</span><span class="p">,</span>
@@ -586,17 +564,17 @@ code of the error. The <code class="docutils literal"><span class="pre">messages
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<em>mixed</em>) -- The data to return to the client. Either string or array.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$data</strong> (<em>mixed</em>) -- 返回给客户端的数据。字符串或数组。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">The value of the Response object's send() method.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when a new resource was created, typically 201.:</p>
+<p>设置创建新资源时使用的相应状态代码，通常为201:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">respondCreated</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
 </pre></div>
@@ -610,16 +588,18 @@ code of the error. The <code class="docutils literal"><span class="pre">messages
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$data</strong> (<em>mixed</em>) -- The data to return to the client. Either string or array.
-:param string $message: A custom &quot;reason&quot; message to return.
-:returns: The value of the Response object's send() method.</li>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$data</strong> (<em>mixed</em>) -- 返回给客户端的数据。字符串或数组</li>
+<li><strong>$message</strong> (<em>string</em>) -- 自定义的“原因”消息返回。</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when a new resource was deleted as the result of this API call, typically 200.</p>
+<p>设置当通过此API调用的结果删除新资源时使用的相应状态代码（通常为200）。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">respondDeleted</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">]);</span>
 </pre></div>
@@ -634,19 +614,18 @@ code of the error. The <code class="docutils literal"><span class="pre">messages
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$description</strong> (<em>mixed</em>) -- The error message to show the user.</li>
-<li><strong>$code</strong> (<em>string</em>) -- A custom, API-specific, error code.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$description</strong> (<em>mixed</em>) -- 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">The value of the Response object's send() method.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when the user either has not been authorized,
-or has incorrect authorization. Status code is 401.</p>
+<p>设置当用户未被授权或授权不正确时使用的相应状态代码。状态码为401。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failUnauthorized</span><span class="p">(</span><span class="s1">&#39;Invalid Auth token&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -660,20 +639,18 @@ or has incorrect authorization. Status code is 401.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$description</strong> (<em>mixed</em>) -- The error message to show the user.</li>
-<li><strong>$code</strong> (<em>string</em>) -- A custom, API-specific, error code.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$description</strong> (<em>mixed</em>) -- 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">The value of the Response object's send() method.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Unlike <code class="docutils literal"><span class="pre">failUnauthorized</span></code>, this method should be used when the requested API endpoint is never allowed.
-Unauthorized implies the client is encouraged to try again with different credentials. Forbidden means
-the client should not try again because it won't help. Status code is 403.</p>
+<p>不像 <code class="docutils literal"><span class="pre">failUnauthorized</span></code>，当请求 API 路径决不允许采用这种方法。未经授权意味着客户端被鼓励再次尝试使用不同的凭据。禁止意味着客户端不应该再次尝试，因为它不会有帮助。状态码为403。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failForbidden</span><span class="p">(</span><span class="s1">&#39;Invalid API endpoint.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -686,17 +663,19 @@ the client should not try again because it won't help. Status code is 403.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$description</strong> (<em>mixed</em>) -- The error message to show the user.
-:param string $code: A custom, API-specific, error code.
-:param string $message: A custom &quot;reason&quot; message to return.
-:returns: The value of the Response object's send() method.</li>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) -- 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when the requested resource cannot be found. Status code is 404.</p>
+<p>设置于在找不到请求的资源时使用的状态码。状态码为404。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failNotFound</span><span class="p">(</span><span class="s1">&#39;User 13 cannot be found.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -710,19 +689,18 @@ the client should not try again because it won't help. Status code is 403.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$description</strong> (<em>mixed</em>) -- The error message to show the user.</li>
-<li><strong>$code</strong> (<em>string</em>) -- A custom, API-specific, error code.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$description</strong> (<em>mixed</em>) -- 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">The value of the Response object's send() method.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when data the client sent did not pass validation rules.
-Status code is typically 400.</p>
+<p>设置于客户端发送的数据未通过验证规则时使用的状态码。状态码通常为400。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failValidationError</span><span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">());</span>
 </pre></div>
 </div>
@@ -736,19 +714,18 @@ Status code is typically 400.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$description</strong> (<em>mixed</em>) -- The error message to show the user.</li>
-<li><strong>$code</strong> (<em>string</em>) -- A custom, API-specific, error code.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$description</strong> (<em>mixed</em>) -- 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">The value of the Response object's send() method.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when the resource the client is trying to create already exists.
-Status code is typically 409.</p>
+<p>设置于当客户端尝试创建的资源已经存在时使用的状态码。状态码通常为409。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failResourceExists</span><span class="p">(</span><span class="s1">&#39;A user already exists with that email.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -762,19 +739,18 @@ Status code is typically 409.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$description</strong> (<em>mixed</em>) -- The error message to show the user.</li>
-<li><strong>$code</strong> (<em>string</em>) -- A custom, API-specific, error code.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$description</strong> (<em>mixed</em>) -- 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">The value of the Response object's send() method.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when the requested resource was previously deleted and
-is no longer available. Status code is typically 410.</p>
+<p>设置于当请求的资源先前被删除并且不再使用时使用的状态码。状态码通常为410。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failResourceGone</span><span class="p">(</span><span class="s1">&#39;That user has been previously deleted.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -788,19 +764,18 @@ is no longer available. Status code is typically 410.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$description</strong> (<em>mixed</em>) -- The error message to show the user.</li>
-<li><strong>$code</strong> (<em>string</em>) -- A custom, API-specific, error code.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$description</strong> (<em>mixed</em>) -- 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">The value of the Response object's send() method.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when the client has called an API endpoint too many times.
-This might be due to some form of throttling or rate limiting. Status code is typically 400.</p>
+<p>设置于当客户端调用 API路径次数过多时使用的状态码。这可能是由于某种形式的节流或速率限制。状态码通常为400。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failTooManyRequests</span><span class="p">(</span><span class="s1">&#39;You must wait 15 seconds before making another request.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -814,18 +789,18 @@ This might be due to some form of throttling or rate limiting. Status code is ty
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$description</strong> (<em>string</em>) -- The error message to show the user.</li>
-<li><strong>$code</strong> (<em>string</em>) -- A custom, API-specific, error code.</li>
-<li><strong>$message</strong> (<em>string</em>) -- A custom &quot;reason&quot; message to return.</li>
+<li><strong>$description</strong> (<em>mixed</em>) -- 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) -- 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) -- 返回的自定义“reason”消息。</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">The value of the Response object's send() method.</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Sets the appropriate status code to use when there is a server error.</p>
+<p>设置于当存在服务器错误时使用的状态码。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failServerError</span><span class="p">(</span><span class="s1">&#39;Server error.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
