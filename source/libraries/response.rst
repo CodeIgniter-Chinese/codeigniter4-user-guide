@@ -9,7 +9,7 @@ HTTP 响应
 使用响应类
 =========================
 
-响应类被实例化并传递到控制器。可以通过 ``$this->response`` 访问它。很多时候不需要直接使用它，因为 CodeIgniter 会为您发送标头和正文。
+响应类被实例化并传递到控制器。可以通过 ``$this->response`` 访问它。很多时候不需要直接使用它，因为 CodeIgniter 会为你发送标头和正文。
 如果一切正常，页面会成功创建被请求的内容。
 但是当出现问题时，或者当你需要发送指定的状态码，或者想要使用强大的 HTTP 缓存，可以立即使用它。
 
@@ -79,11 +79,11 @@ HTTP 缓存
 
 正确使用它，可以为应用程序带来巨大的性能提升，因为它会告诉客户端不需要联系服务器，因为没有任何改变。你不会比这更快。
 
-这些都通过 ``Cache-Control`` 和 ``Etag`` 头来处理。本指南并不适合完整介绍缓存的功能，但您可以在 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_ 和 `Mobify Blog <https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/>`_ 中了解更多。
+这些都通过 ``Cache-Control`` 和 ``Etag`` 头来处理。本指南并不适合完整介绍缓存的功能，但你可以在 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_ 和 `Mobify Blog <https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/>`_ 中了解更多。
 
 默认情况下，所有通过 CodeIgniter 发送的响应都是关闭了 HTTP 缓存的。
 但在实际应用中，情况千变万化，无法简单的设置一个合适的默认值，除非关闭它，
-不过，可以通过 ``setCache()`` 方法设置您需要的缓存的值。这非常简单 ::
+不过，可以通过 ``setCache()`` 方法设置你需要的缓存的值。这非常简单 ::
 
 	$options = [
 		'max-age'  => 300,
@@ -92,7 +92,7 @@ HTTP 缓存
 	];
 	$this->response->setCache($options);
 
-``$options`` 是一个简单的键值对数组，它们被分配给 ``Cache-Control`` 头。您也可以根据具体情况自由设定所有选项。
+``$options`` 是一个简单的键值对数组，它们被分配给 ``Cache-Control`` 头。你也可以根据具体情况自由设定所有选项。
 
 虽然大多数选项都应用于 ``Cache-Control`` 头，但它会智能地处理 ``etag`` 和 ``last-modified`` 选项到适当的头。
 
@@ -101,11 +101,11 @@ HTTP 缓存
 
 对XSS攻击的最佳保护方式之一是在站点上实施内容安全策略。
 
-这迫使您将从您网站的 HTML 中载入的每一个内容来源列入白名单中，包括图片，样式表，JavaScript文件等。浏览器将拒绝白名单外的的内容。这个白名单在响应的 ``Content-Security-Policy`` 标头中创建，并且有多种配置方式。
+这迫使你将从你网站的 HTML 中载入的每一个内容来源列入白名单中，包括图片，样式表，JavaScript文件等。浏览器将拒绝白名单外的的内容。这个白名单在响应的 ``Content-Security-Policy`` 标头中创建，并且有多种配置方式。
 
 这听起来很复杂，在某些网站上肯定会有挑战性。对于很多简单的网站，所有的内容由相同的域名(http://example.com)提供，整合起来非常简单。
 
-由于这是一个复杂的主题，本用户指南将不会覆盖所有细节。有关更多信息，您应该访问以下网站:
+由于这是一个复杂的主题，本用户指南将不会覆盖所有细节。有关更多信息，你应该访问以下网站:
 
 * `Content Security Policy main site <http://content-security-policy.com/>`_
 * `W3C Specification <https://www.w3.org/TR/CSP>`_
@@ -152,9 +152,9 @@ HTTP 缓存
 --------------
 
 可以设置一个网站不保护自己的页面上的内联脚本和样式，因为这可能是用户生成的内容的结果。
-为了防止这种情况，CSP 允许您再 <style> 和 <script> 标记中指定一个随机数，并将这些值添加到响应头中。
+为了防止这种情况，CSP 允许你再 <style> 和 <script> 标记中指定一个随机数，并将这些值添加到响应头中。
 这样处理很痛苦，但是却是最安全的。
-为了简单起见，您可以在代码中包含 {csp-style-nonce} 或 {csp-script-nonce} 占位符，程序将会自动为您处理 ::
+为了简单起见，你可以在代码中包含 {csp-style-nonce} 或 {csp-script-nonce} 占位符，程序将会自动为你处理 ::
 
 	// Original
 	<script {csp-script-nonce}>
@@ -218,7 +218,7 @@ HTTP 缓存
 
 		    $response->setStatusCode(404);
 
-		原因短语将会根据协议规定自动的生成。如果您需要为自定义状态码设置自己的愿意短语，您可以将原因短语作为第二个参数传递 ::
+		原因短语将会根据协议规定自动的生成。如果你需要为自定义状态码设置自己的愿意短语，你可以将原因短语作为第二个参数传递 ::
 
 			$response->setStatusCode(230, "Tardis initiated");
 
@@ -255,7 +255,7 @@ HTTP 缓存
 			$response->setContentType('text/html');
 			$response->setContentType('application/json');
 
-		默认情况下，该方法将字符集设置为 ``UTF-8``。如果您需要修改，可以将字符集作为第二个参数传递 ::
+		默认情况下，该方法将字符集设置为 ``UTF-8``。如果你需要修改，可以将字符集作为第二个参数传递 ::
 
 			$response->setContentType('text/plain', 'x-pig-latin');
 
@@ -307,7 +307,7 @@ HTTP 缓存
 		:returns: 当前的响应类实例
 		:rtype: CodeIgniter\\HTTP\\Response
 
-		通知响应类发送内容给客户端。这将首先发送 HTTP 头，然后是响应的主体内容。对于主应用程序的响应，您不需要调用它，因为它由 CodeIgniter 自动处理。
+		通知响应类发送内容给客户端。这将首先发送 HTTP 头，然后是响应的主体内容。对于主应用程序的响应，你不需要调用它，因为它由 CodeIgniter 自动处理。
 
 	.. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = FALSE[, $httponly = FALSE]]]]]]])
 
@@ -321,7 +321,7 @@ HTTP 缓存
 		:param	bool	$httponly: 是否只允许 HTTP 请求读取cookie，JavaScript不可以读取
 		:rtype:	void
 
-		设置一个包含您指定的值的 Cookie 。有两种将信息传递给该方法的方式:数组和独立参数:
+		设置一个包含你指定的值的 Cookie 。有两种将信息传递给该方法的方式:数组和独立参数:
 
 		**数组方式**
 
@@ -349,18 +349,18 @@ HTTP 缓存
 
 		如果过期时间设置为零，Cookie 将只在浏览器打开时有效，浏览器关闭时则被清除。
 
-		对于整站的 Cookie ， 无论您的网站是被如何请求的，请将您的网址添加到到 **domain** 中并且以 . 开始，例如:
+		对于整站的 Cookie ， 无论你的网站是被如何请求的，请将你的网址添加到到 **domain** 中并且以 . 开始，例如:
 		.your-domain.com
 
 		通常不需要该路径，因为默认已经设置了根目录。
 
-		仅当您需要避免与服务器的其他相同命名的 Cookie 冲突时，才需要前缀。
+		仅当你需要避免与服务器的其他相同命名的 Cookie 冲突时，才需要前缀。
 
-		仅当您想要加密 Cookie 时才需要设置 secure 项为 TRUE。
+		仅当你想要加密 Cookie 时才需要设置 secure 项为 TRUE。
 
 		**独立参数**
 
-		如果您愿意，也可以使用单个参数传递数据来设置 Cookie。 ::
+		如果你愿意，也可以使用单个参数传递数据来设置 Cookie。 ::
 
 			$response->setCookie($name, $value, $expire, $domain, $path, $prefix, $secure);
 
