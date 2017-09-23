@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Request Class &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>请求类 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -131,7 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="message.html">HTTP Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pagination.html">Pagination</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Request Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session Library</a></li>
@@ -308,7 +308,7 @@
 <li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="message.html">HTTP Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pagination.html">Pagination</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Request Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Security Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session Library</a></li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">Library Reference</a> &raquo;</li>
       
-    <li>Request Class</li>
+    <li>请求类</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,17 +405,13 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="request-class">
-<h1>Request Class<a class="headerlink" href="#request-class" title="永久链接至标题">¶</a></h1>
-<p>The request class is an object-oriented representation of an HTTP request. This is meant to
-work for both incoming, such as a request to the application from a browser, and outgoing requests,
-like would be used to send a request from the application to a third-party application. This class
-provides the common functionality they both need, but both cases have custom classes that extend
-from the Request class to add specific functionality.</p>
-<p>See the documentation for the <a class="reference internal" href="incomingrequest.html"><span class="doc">IncomingRequest Class</span></a> and
-<a class="reference internal" href="curlrequest.html"><span class="doc">CURLRequest Class</span></a> for more usage details.</p>
-<div class="section" id="class-reference">
-<h2>Class Reference<a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h2>
+  <div class="section" id="id1">
+<h1>请求类<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>请求类是 HTTP 请求的面向对象表现形式。这意味着它可以用于传入请求，例如来自浏览器的请求，以及将请求从应用程序发到到第三方应用的传出请求。</p>
+<p>这个类提供了它们需要的共同的功能，但是这两种情况都有自定义的类，它们继承请求类，然后添加特定的功能。</p>
+<p>从 <a class="reference internal" href="incomingrequest.html"><span class="doc">传入请求类</span></a> 和 <a class="reference internal" href="curlrequest.html"><span class="doc">CURL请求类</span></a> 了解更多信息。</p>
+<div class="section" id="id2">
+<h2>类参考<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <dl class="class">
 <dt>
 <code class="descname">CodeIgniter\HTTP\IncomingRequest</code></dt>
@@ -426,23 +422,19 @@ from the Request class to add specific functionality.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">The user's IP Address, if it can be detected, or null. If the IP address
-is not a valid IP addresss, then will return 0.0.0.0</td>
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">可以检测到的用户 IP 地址，否则为 NULL ，如果 IP 地址无效，则返回 0.0.0.0</td>
 </tr>
 <tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>Returns the IP address for the current user. If the IP address is not valid, the method
-will return '0.0.0.0':</p>
+<p>返回当前用户的 IP 地址。如果 IP 地址无效，返回 '0.0.0.0'</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getIPAddress</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">This method takes into account the <code class="docutils literal"><span class="pre">App-&gt;proxy_ips</span></code> setting and will
-return the reported HTTP_X_FORWARDED_FOR, HTTP_CLIENT_IP, HTTP_X_CLIENT_IP, or
-HTTP_X_CLUSTER_CLIENT_IP address for the allowed IP address.</p>
+<p class="last">此方法会根据 <code class="docutils literal"><span class="pre">App-&gt;proxy_ips</span></code> 的配置，来返回 HTTP_X_FORWARDED_FOR、 HTTP_CLIENT_IP、HTTP_X_CLIENT_IP 或 HTTP_X_CLUSTER_CLIENT_IP 。</p>
 </div>
 </dd></dl>
 
@@ -454,12 +446,12 @@ HTTP_X_CLUSTER_CLIENT_IP address for the allowed IP address.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$ip</strong> (<em>string</em>) -- IP address</li>
-<li><strong>$which</strong> (<em>string</em>) -- IP protocol ('ipv4' or 'ipv6')</li>
+<li><strong>$ip</strong> (<em>string</em>) -- IP 地址</li>
+<li><strong>$which</strong> (<em>string</em>) -- IP 协议 ('ipv4' 或 'ipv6')</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">true if the address is valid, false if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">IP 有效返回 true，否则返回 false</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
@@ -467,11 +459,10 @@ HTTP_X_CLUSTER_CLIENT_IP address for the allowed IP address.</p>
 </tr>
 </tbody>
 </table>
-<p>Takes an IP address as input and returns true or false (boolean) depending
-on whether it is valid or not.</p>
+<p>传入一个 IP 地址，根据 IP 是否有效返回 true 或 false</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">The $request-&gt;getIPAddress() method above automatically validates the IP address.</p>
+<p class="last">$request-&gt;getIPAddress() 自动检测 IP 地址是否有效</p>
 </div>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">validIP</span><span class="p">(</span><span class="nv">$ip</span><span class="p">))</span>
 <span class="p">{</span>
@@ -483,8 +474,7 @@ on whether it is valid or not.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Accepts an optional second string parameter of 'ipv4' or 'ipv6' to specify
-an IP format. The default checks for both formats.</p>
+<p>第二个参数可选，可以为 'ipv4' 或 'ipv6'。默认这两种格式会全部检查。</p>
 </dd></dl>
 
 <dl class="method">
@@ -495,11 +485,11 @@ an IP format. The default checks for both formats.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$upper</strong> (<em>bool</em>) -- Whether to return the request method name in upper or lower case</li>
+<li><strong>$upper</strong> (<em>bool</em>) -- 以大写还是小写返回方法名，TRUE 表示大写</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">HTTP request method</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">HTTP 请求方法</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -507,8 +497,7 @@ an IP format. The default checks for both formats.</p>
 </tr>
 </tbody>
 </table>
-<p>Returns the <code class="docutils literal"><span class="pre">$_SERVER['REQUEST_METHOD']</span></code>, with the option to set it
-in uppercase or lowercase.</p>
+<p>返回 <code class="docutils literal"><span class="pre">$_SERVER['REQUEST_METHOD']</span></code>, 并且转换字母到指定大写或小写</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="k">TRUE</span><span class="p">);</span> <span class="c1">// Outputs: POST</span>
 <span class="k">echo</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="k">FALSE</span><span class="p">);</span> <span class="c1">// Outputs: post</span>
 <span class="k">echo</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">();</span> <span class="c1">// Outputs: post</span>
@@ -524,14 +513,14 @@ in uppercase or lowercase.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>mixed</em>) -- Value name</li>
-<li><strong>$filter</strong> (<em>int</em>) -- The type of filter to apply. A list of filters can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.php">here</a>.</li>
-<li><strong>$flags</strong> (<em>int</em>) -- <p>Flags to apply. A list of flags can be found <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">here</a>.</p>
+<li><strong>$index</strong> (<em>mixed</em>) -- 要过滤的变量</li>
+<li><strong>$filter</strong> (<em>int</em>) -- 要过滤的类型，过滤类型列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">见此</a>.</li>
+<li><strong>$flags</strong> (<em>int</em>) -- <p>过滤器ID. 完整列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">见此</a>.</p>
 </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_SERVER item value if found, NULL if not</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_SERVER 值，如果不存在则返回NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -539,13 +528,11 @@ in uppercase or lowercase.</p>
 </tr>
 </tbody>
 </table>
-<p>This method is identical to the <code class="docutils literal"><span class="pre">post()</span></code>, <code class="docutils literal"><span class="pre">get()</span></code> and <code class="docutils literal"><span class="pre">cookie()</span></code> methods from the
-<a class="reference internal" href="incomingrequest.html"><span class="doc">IncomingRequest Class</span></a>, only it fetches getServer data (<code class="docutils literal"><span class="pre">$_SERVER</span></code>):</p>
+<p>该方法与  <a class="reference internal" href="incomingrequest.html"><span class="doc">IncomingRequest 类</span></a> 中的 <code class="docutils literal"><span class="pre">post()</span></code>， <code class="docutils literal"><span class="pre">get()</span></code> 和 <code class="docutils literal"><span class="pre">cookie()</span></code> 方法相同。只是它只获取 getServer 数据(<code class="docutils literal"><span class="pre">$_SERVER</span></code>)</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>To return an array of multiple <code class="docutils literal"><span class="pre">$_SERVER</span></code> values, pass all the required keys
-as an array.</p>
+<p>要返回多个 <code class="docutils literal"><span class="pre">$_SERVER</span></code> 值的数组，请将所有键作为数组传递。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$require</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;SERVER_PROTOCOL&#39;</span><span class="p">,</span> <span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">));</span>
 </pre></div>
 </div>
