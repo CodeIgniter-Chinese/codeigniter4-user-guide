@@ -1,41 +1,38 @@
 ################################
-Working With Configuration Files
+利用配置文件开始工作
 ################################
 
-Every application needs a way to define various settings that affect the application.
-These are handled through configuration files. Configuration files simply
-hold a class that contains its settings as public properties. Unlike in many other frameworks,
-there is no single class that you need to use to access your settings. Instead, you simply
-create an instance of the class and all your settings are there for you.
+每一个项目，都需要一种方法来定义不同的全局配置项，而这通常是借助配置文件来实现的。
+而配置文件，一般来说，是通过声明一个将所有的配置项作为公开属性的类，来实现这一配置过程的。
+不同于许多其他的框架，在CI4中，不需要访问某个具体的类来修改我们的配置项信息。
+取而代之的是，我们仅仅需要创建一个配置类的实例，从而轻而易举的实现配置流程。 
 
-Accessing Config Files
+访问配置文件
 ======================
 
-You can access config files within your classes by creating a new instance. All of the properties
-are public, so you access the settings like any other property::
+我们可以通过创建一个新的配置类实例，来访问类中的配置项。
+配置类中所有的这些属性都是公开的，故而可以如调用其他属性一样调用相应的配置项::
 
 	$config = new \Config\EmailConfig();
 	
-	// Access settings as class properties
+	// 如类属性一样调用配置项
 	$protocol = $config->protocol;
 	$mailpath = $config->mailpath;
 
-If no namespace is provided, it will look for the files in all available namespaces that have
-been defined, as well as **/application/Config/**. All of the configuration files
-that ship with CodeIgniter are namespaced with ``Config``. Using this namespace in your
-application will provide the best performance since it knows exactly what directory to find the
-files in and doesn't have to scan several locations in the filesystem to get there.
 
-You can locate the configuration files any place on your server by using a different namespace.
-This allows you to pull configuration files on the production server to a folder that is not in
-the web-accessible space at all, while keeping it under **/application** for ease of access during development.
+若没有给定namespace(命名空间），框架会在所有可用的、已被定义的命名空间中搜寻所需的文件，就如同 **/application/Config/** 一样。
+所以Codeigniter里所有的配置文件都应当被放置在 ``Config`` 这一命名空间下。
+由于框架可以确切地了解配置文件所在目录的的位置，从而不必扫描文件系统中的不同区域；故而在我们的项目中，使用命名空间将会有效地提升性能。
 
-Creating Configuration Files
+我们也可以通过使用一个不同的命名空间，从而在服务器的任意位置上部署所需的配置文件。
+这一举措可以让我们将生产环境的服务器中的配置文件移动到一个不能通过Web访问的位置；而在开发环境中，将其放置在 **/application** 目录下以便访问。
+
+创建配置文件
 ============================
 
-If you need to create a new configuration file you would create a new file at your desired location,
-**/application/Config** by default. Then create the class and fill it with public properties that
-represent your settings::
+
+当我们需要创建一个新的配置文件时，需要在指定位置创建一个新的文件，例如在默认的 **/aplication/Config** 目录下。然后创建一个带有公开属性的类，从而放置相应的配置信息::
+
 
 	<?php namespace Config;
 	
@@ -46,144 +43,124 @@ represent your settings::
 		
 	}
 
-The class should extend ``\CodeIgniter\Config\BaseConfig`` to ensure that it can receive environment-specific
-settings.
 
-Handling Different Environments
+
+这个类应当继承 ``\CodeIgniter\Config\BaseConfig`` 从而保证框架可以得到具体环境下的配置信息。
+
+针对不同的环境
 ===============================
 
-Because your site can operate within multiple environments, such as the developer's local machine or
-the server used for the production site, you can modify your values based on the environment.  Within these
-you will have settings that might change depending on the server it's running on.This can include
-database settings, API credentials, and other settings that will vary between deploys.
+由于我们的站点将会在不同的环境中运行，例如开发者的本地机器上，或是用于部署的远端服务器上，我们可以基于环境来修改配置信息。
+在这基础上，我们将能够根据站点所运行的服务器，来使用不同的配置信息。这些包括并不限于数据库配置信息，API认证信息，以及其他的根据部署环境而改变的配置信息。
 
-You can store values in a **.env** file in the root directory, alongside the system and application directories.
-It is simply a collection of name/value pairs separated by an equal sign, much like a .ini file::
+我们可以将这些值保存在根目录下的一个 **.env** 文件中，就如system和application目录一样。这个文件就如一个.ini配置文件一样，由许多对被等号分割的键/值对所组成::
 
 	S3_BUCKET="dotenv"
 	SECRET_KEY="super_secret_key"
 
-If the variable exists in the environment already, it will NOT be overwritten. 
 
-.. important:: Make sure the **.env** file is added to **.gitignore** (or your version control system's equivalent)
-	so it is not checked in the code. Failure to do so could result in sensitive credentials being stored in the
-	repository for anyone to find.
+当这些变量已经在环境中被定义时，它们将不会被重复定义。
 
-You are encouraged to create a template file, like **env.example**, that has all of the variables your project
-needs with empty or dummy data. In each environment, you can then copy the file to **.env** and fill in the
-appropriate data.
+.. important:: 确保 **.env** 类型的文件已经添加到 **.gitignore** （或是相同类型的其他版本控制系统）中，从而保证在代码中不会被上传。
+    若这一举措未能成功，则可能会导致该目录中的相关敏感认证信息能够被任何人随意访问。
 
-When your application runs, this file will be automatically loaded and the variables will be put into
-the environment. This will work in any environment except for production, where the variables should be
-set in the environment through whatever means your getServer supports, such as .htaccess files, etc. These
-variables are then available through ``getenv()``, ``$_SERVER``, and ``$_ENV``. Of the three, ``getenv()`` function
-is recommended since it is not case-sensitive::
+创建一个类似于 **.env.example** 的，其中包含了所有我们的项目所需的，仅设置了配置项的空值或默认值的模板文件，是一个不错的方法。
+在不同的环境里，我们可以把这个文件复制到 **.env** 目录下并填充这个环境相对应的配置项的值。
+
+当应用开始运行时，这个文件将会被自动加载，同时这些变量也会被运行环境所调用——这一过程适用于除生产环境外的其他环境的部署：在这些环境中变量应当被通过类似于.htaceess一样的文件所设置的getServer方法所支持。
+在这之后，这些变量将通过 ``getenv()``, ``$_SERVER``, and ``$_ENV`` 的方式被调用。在这三者中， ``getenv()`` 方法由于其大小写不敏感而被推荐使用::
 
 	$s3_bucket = getenv('S3_BUCKET');
 	$s3_bucket = $_ENV['S3_BUCKET'];
 	$s3_bucket = $_SERVER['S3_BUCKET'];
 
-Nesting Variables
+嵌套变量
 =================
 
-To save on typing, you can reuse variables that you've already specified in the file by wrapping the
-variable name within ``${...}``::
+为了减少输入，我们也可以用将变量名包裹在 ``${...}`` 的形式，来重用先前定义过的变量::
 
 	BASE_DIR="/var/webroot/project-root"
 	CACHE_DIR="${BASE_DIR}/cache"
 	TMP_DIR="${BASE_DIR}/tmp" 
 
 
-Namespaced Variables
+命名空间中的变量
 ====================
 
-There will be times when you will have several variables of the same name. When this happens, the
-system has no way of knowing what the correct value should be. You can protect against this by
-"namespacing" the variables.
+有时候，我们会遇到多个变量具有相同名字的情况。当这种情况发生时，系统将没有办法获知这个变量所对应的确切的值。
+我们可以通过将这些变量放入”命名空间“中，来放置这一情况的出现。
 
-Namespaced variables use a dot notation to qualify variable names when those variables
-get incorporated into configuration files. This is done by including a distinguishing
-prefix, followed by a dot (.), and then the variable name itself::
+在配置文件中，点号(.)通常被用来表示一个变量是命名空间变量。这种变量通常是由一个独立前缀，后接一个点号(.)然后才是变量名称本身所组成的::
 
-    // not namespaced variables
+
+
+    // 非命名空间变量
     name = "George"
     db=my_db
 
-    // namespaced variables
+    // 命名空间变量
     address.city = "Berlin"
     address.country = "Germany"
     frontend.db = sales
     backend.db = admin
     BackEnd.db = admin
 
-Incorporating Environment Variables Into a Configuration
+
+将环境变量并入配置中
 ========================================================
+当实例化一个配置文件时，所有的命名空间中的环境变量都将会被并入到这个实例对象的属性中。
 
-When you instantiate a configuration file, any namespaced environment variables
-are considered for merging into the a configuration objects' properties.
+如果一个命名空间变量的前缀（以大小写敏感的方式）可以正确匹配到配置类的名称，那么这个变量名的剩余部分（点号后面的部分）将会被当做一个配置项属性。
+如果这个变量能够匹配到一个已经存在的配置项属性，那么相对应的配置项属性值将会被覆盖。当没有匹配到时，配置项属性值将不会被更改。
 
-If the prefix of a namespaced variable matches the configuration class name exactly,
-case-sensitive, then the trailing part of the variable name (after the dot) is
-treated as a configuration property name. If it matches an existing configuration
-property, the environment variable's value will override the corresponding one
-in the configuration file. If there is no match, the configuration properties are left unchanged.
+对于”短前缀“而言也是如此，当环境变量的前缀匹配到一个被转换到小写的配置类名时，首字母也将被替换成相对应的大小写情况。
 
-The same holds for a "short prefix", which is the name given to the case when the
-environment variable prefix matches the configuration class name converted to lower case.
 
-Treating Environment Variables as Arrays
+以数组的方式调用环境变量
 ========================================
 
-A namespaced environment variable can be further treated as an array.
-If the prefix matches the configuration class, then the remainder of the 
-environment variable name is treated as an array reference if it also
-contains a dot::
+从更长远的角度来看，一个命名空间环境变量也可以以数组的方式被调用。
+如果一个命名空间环境变量的前缀与某个配置类所匹配，那么这个变量的剩余部分，若同样包含点号，则将会被当做一个数组的引用来调用::
 
-    // regular namespaced variable
+    // 常规的命名空间变量
     SimpleConfig.name = George
 
-    // array namespaced variables
+    // 数组化的命名空间变量
     SimpleConfig.address.city = "Berlin"
     SimpleConfig.address.country = "Germany"
 
-If this was referring to a SimpleConfig configuration object, the above example would be treated as:: 
+
+如果这个变量是对SimpleConfig配置类的成员的引用，上述例子将会如下图所示::
 
     $address['city'] = "Berlin";
     $address['country'] = "Germany";
 
-Any other elements of the ``$address`` property would be unchanged.
+而 ``$address`` 属性的其他部分将不会被改动。
 
-You can also use the array property name as a prefix. If the environment file
-held instead::
+我们同样可以将数组属性名作为前缀来使用，当配置文件如下所示时::
 
     // array namespaced variables
     SimpleConfig.address.city = "Berlin"
     address.country = "Germany"
 
-then the result would be the same as above.
+结果与原来的相同
 
-Registrars
+注册器
 ==========
 
-A configuration file can also specify any number of "registrars", which are any 
-other clases which might provide additional configuration properties.
-This is done by adding a ``registrars`` property to your configuration file,
-holding an array of the names of candidate registrars.::
+一个配置文件可以指定任意数量的”注册器“；这里所指的注册器为其他类可能提供的额外的配置属性。
+这一行为通常通过在配置文件中增加一个 ``registrars`` 属性来实现，这一属性存有一个可选的注册器数组。::
 
     protected $registrars = [
         SupportingPackageRegistrar::class
     ];
 
-In order to act as a "registrar" the classes so identified must have a
-static function named the same as the configuration class, and it should return an associative
-array of property settings.
+为了实现”注册器“的功能，这些类中必须声明一个与配置类同名的静态方法，而这一方法应当返回一个包含有属性配置项的关联数组。
 
-When your configuration object is instantiated, it will loop over the 
-designated classes in ``$registrars``. For each of these classes, which contains a method name matching
-the configuration class, it will invoke that method, and incorporate any returned properties
-the same way as described for namespaced variables.
+当我们实例化了一个配置类的对象后，系统将自动循环搜索在 ``$registrars`` 中指定的类。
+对于这些类而言，当其中包含有与该配置类同名的方法时，框架将调用这一方法，并将其返回的所有属性，如同上节所述的命名空间变量一样，并入到配置项中。
 
-A sample configuration class setup for this::
+配置类举例如下::
 
     namespace App\Config;
     class MySalesConfig extends \CodeIgniter\Config\BaseConfig {
@@ -194,7 +171,7 @@ A sample configuration class setup for this::
         ];
     }
 
-... and the associated regional sales model might look like::
+... 所关联的地区销售模型将如下所示::
 
     namespace App\Models;
     class RegionalSales {   
@@ -203,9 +180,8 @@ A sample configuration class setup for this::
         }
     }
 
-With the above example, when `MySalesConfig` is instantiated, it will end up with
-the two properties declared, but the value of the `$target` property will be over-ridden
-by treating `RegionalSalesModel` as a "registrar". The resulting configuration properties::
+如上所示，当 `MySalesConfig` 被实例化后，它将以两个属性的被声明而结束，然而 `$target` 属性将会被 `RegionalSalesModel` 的注册器所覆盖，故而最终的配置属性为::
+
 
     $target = 45;
     $campaign = "Winter Wonderland";

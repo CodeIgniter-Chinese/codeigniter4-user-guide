@@ -168,47 +168,47 @@ Explanation of Values:
 ======================  ===========================================================================================================
  Name Config             Description
 ======================  ===========================================================================================================
-**dsn**			The DSN connect string (an all-in-one configuration sequence).
-**hostname** 		The hostname of your database server. Often this is 'localhost'.
-**username**		The username used to connect to the database.
-**password**		The password used to connect to the database.
-**database**		The name of the database you want to connect to.
-**DBDriver**		The database type. eg: MySQLi, Postgre, etc. The case must match the driver name
-**DBPrefix**		An optional table prefix which will added to the table name when running
-			:doc:`Query Builder <query_builder>` queries. This permits multiple CodeIgniter
-			installations to share one database.
-**pConnect**		TRUE/FALSE (boolean) - Whether to use a persistent connection.
-**DBDebug**		TRUE/FALSE (boolean) - Whether database errors should be displayed.
-**cacheOn**		TRUE/FALSE (boolean) - Whether database query caching is enabled.
-**cacheDir**		The absolute server path to your database query cache directory.
-**charset**	    	The character set used in communicating with the database.
-**DBCollat**		The character collation used in communicating with the database
+**dsn**                 The DSN connect string (an all-in-one configuration sequence).
+**hostname**            The hostname of your database server. Often this is 'localhost'.
+**username**            The username used to connect to the database.
+**password**            The password used to connect to the database.
+**database**            The name of the database you want to connect to.
+**DBDriver**            The database type. eg: MySQLi, Postgre, etc. The case must match the driver name
+**DBPrefix**            An optional table prefix which will added to the table name when running
+                        :doc:`Query Builder <query_builder>` queries. This permits multiple CodeIgniter
+                        installations to share one database.
+**pConnect**            TRUE/FALSE (boolean) - Whether to use a persistent connection.
+**DBDebug**             TRUE/FALSE (boolean) - Whether database errors should be displayed.
+**cacheOn**             TRUE/FALSE (boolean) - Whether database query caching is enabled.
+**cacheDir**            The absolute server path to your database query cache directory.
+**charset**             The character set used in communicating with the database.
+**DBCollat**            The character collation used in communicating with the database
 
-			.. note:: Only used in the 'MySQLi' driver.
+                        .. note:: Only used in the 'MySQLi' driver.
 
-**swapPre**		A default table prefix that should be swapped with dbprefix. This is useful for distributed
-			applications where you might run manually written queries, and need the prefix to still be
-			customizable by the end user.
-**schema**		The database schema, defaults to 'public'. Used by PostgreSQL and ODBC drivers.
-**encrypt**		Whether or not to use an encrypted connection.
+**swapPre**             A default table prefix that should be swapped with dbprefix. This is useful for distributed
+                        applications where you might run manually written queries, and need the prefix to still be
+                        customizable by the end user.
+**schema**              The database schema, defaults to 'public'. Used by PostgreSQL and ODBC drivers.
+**encrypt**             Whether or not to use an encrypted connection.
 
-			  - 'sqlsrv' and 'pdo/sqlsrv' drivers accept TRUE/FALSE
-			  - 'MySQLi' and 'pdo/mysql' drivers accept an array with the following options:
+                        - 'sqlsrv' and 'pdo/sqlsrv' drivers accept TRUE/FALSE
+                        - 'MySQLi' and 'pdo/mysql' drivers accept an array with the following options:
 
-			    - 'ssl_key'    - Path to the private key file
-			    - 'ssl_cert'   - Path to the public key certificate file
-			    - 'ssl_ca'     - Path to the certificate authority file
-			    - 'ssl_capath' - Path to a directory containing trusted CA certificats in PEM format
-			    - 'ssl_cipher' - List of *allowed* ciphers to be used for the encryption, separated by colons (':')
-			    - 'ssl_verify' - TRUE/FALSE; Whether to verify the server certificate or not ('MySQLi' only)
+                        - 'ssl_key'    - Path to the private key file
+                        - 'ssl_cert'   - Path to the public key certificate file
+                        - 'ssl_ca'     - Path to the certificate authority file
+                        - 'ssl_capath' - Path to a directory containing trusted CA certificats in PEM format
+                        - 'ssl_cipher' - List of *allowed* ciphers to be used for the encryption, separated by colons (':')
+                        - 'ssl_verify' - TRUE/FALSE; Whether to verify the server certificate or not ('MySQLi' only)
 
-**compress**		Whether or not to use client compression (MySQL only).
-**strictOn**		TRUE/FALSE (boolean) - Whether to force "Strict Mode" connections, good for ensuring strict SQL
-		    	while developing an application.
-**port**		The database port number. To use this value you have to add a line to the database config array.
-			::
+**compress**            Whether or not to use client compression (MySQL only).
+**strictOn**            TRUE/FALSE (boolean) - Whether to force "Strict Mode" connections, good for ensuring strict SQL
+                        while developing an application.
+**port**                The database port number. To use this value you have to add a line to the database config array.
+                        ::
 
-				$default['port'] = 5432;
+                        $default['port'] = 5432;
 
 ======================  ===========================================================================================================
 
