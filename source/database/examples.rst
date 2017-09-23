@@ -1,25 +1,21 @@
 ##################################
-Database Quick Start: Example Code
+数据库快速入门: 示例代码
 ##################################
 
-The following page contains example code showing how the database class
-is used. For complete details please read the individual pages
-describing each function.
+这个页面包含的示例代码将简单介绍如何使用数据库类。更详细的信息请参考每个函数单独的介绍页面。
 
-Initializing the Database Class
+初始化数据库类
 ===============================
 
-The following code loads and initializes the database class based on
-your :doc:`configuration <configuration>` settings::
+下面的代码将根据你的 :doc:`数据库配置 <configuration>` 加载并初始化数据库类 ::
 
 	$db = \Config\Database::connect();
 
-Once loaded the class is ready to be used as described below.
+数据库类一旦载入，你就可以像下面介绍的那样使用它。
 
-Note: If all your pages require database access you can connect
-automatically. See the :doc:`connecting <connecting>` page for details.
+注意：如果你所有的页面都需要连接数据库，你可以让其自动加载。参见 :doc:`数据库连接 <connecting>`。
 
-Standard Query With Multiple Results (Object Version)
+多结果标准查询（对象形式）
 =====================================================
 
 ::
@@ -36,10 +32,9 @@ Standard Query With Multiple Results (Object Version)
 	
 	echo 'Total Results: ' . count($results);
 
-The above getResult() function returns an array of **objects**. Example:
-$row->title
+上面的 getResult() 函数返回一个 **对象数组** 。例如：$row->title
 
-Standard Query With Multiple Results (Array Version)
+多结果标准查询（数组形式）
 ====================================================
 
 ::
@@ -54,10 +49,9 @@ Standard Query With Multiple Results (Array Version)
 		echo $row['email'];
 	}
 
-The above getResultArray() function returns an array of standard array
-indexes. Example: $row['title']
+上面的 getResultArray() 函数返回一个 **数组的数组** 。例如：$row['title']
 
-Standard Query With Single Result
+单结果标准查询（对象形式）
 =================================
 
 ::
@@ -66,9 +60,9 @@ Standard Query With Single Result
 	$row = $query->getRow();
 	echo $row->name;
 
-The above getRow() function returns an **object**. Example: $row->name
+上面的 getRow() 函数返回一个 **对象** 。例如：$row->name
 
-Standard Query With Single Result (Array version)
+单结果标准查询（数组形式）
 =================================================
 
 ::
@@ -77,10 +71,9 @@ Standard Query With Single Result (Array version)
 	$row = $query->getRowArray();
 	echo $row['name'];
 
-The above getRowArray() function returns an **array**. Example:
-$row['name']
+上面的 getRowArray() 函数返回一个 **数组** 。例如：$row['name']
 
-Standard Insert
+标准插入
 ===============
 
 ::
@@ -89,11 +82,10 @@ Standard Insert
 	$db->query($sql);
 	echo $db->getAffectedRows();
 
-Query Builder Query
-===================
+使用查询构造器查询数据
+===========================
 
-The :doc:`Query Builder Pattern <query_builder>` gives you a simplified
-means of retrieving data::
+ :doc:`查询构造器模式 <query_builder>` 提供给我们一种简单的查询数据的途径 ::
 
 	$query = $db->table('table_name')->get();
 	
@@ -102,12 +94,10 @@ means of retrieving data::
 		echo $row->title;
 	}
 
-The above get() function retrieves all the results from the supplied
-table. The :doc:`Query Builder <query_builder>` class contains a full
-compliment of functions for working with data.
+上面的 get() 函数从给定的表中查询出所有的结果。:doc:`查询构造器 <query_builder>` 提供了所有数据库操作的快捷函数。
 
-Query Builder Insert
-====================
+使用查询构造器插入数据
+============================
 
 ::
 
