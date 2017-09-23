@@ -34,7 +34,7 @@
 - [x] [./source/database/connecting.rst](source/database/connecting.rst)
 - [ ] [./source/database/entities.rst](source/database/entities.rst)
 - [ ] [./source/database/events.rst](source/database/events.rst)
-- [ ] [./source/database/examples.rst](source/database/examples.rst)
+- [x] [./source/database/examples.rst](source/database/examples.rst)
 - [ ] [./source/database/forge.rst](source/database/forge.rst)
 - [x] [./source/database/helpers.rst](source/database/helpers.rst)
 - [ ] [./source/database/index.rst](source/database/index.rst)
