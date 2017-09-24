@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Database Quick Start: Example Code &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据库快速入门: 示例代码 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">Database Reference</a> &raquo;</li>
       
-    <li>Database Quick Start: Example Code</li>
+    <li>数据库快速入门: 示例代码</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,24 +405,20 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="database-quick-start-example-code">
-<h1>Database Quick Start: Example Code<a class="headerlink" href="#database-quick-start-example-code" title="永久链接至标题">¶</a></h1>
-<p>The following page contains example code showing how the database class
-is used. For complete details please read the individual pages
-describing each function.</p>
-<div class="section" id="initializing-the-database-class">
-<h2>Initializing the Database Class<a class="headerlink" href="#initializing-the-database-class" title="永久链接至标题">¶</a></h2>
-<p>The following code loads and initializes the database class based on
-your <a class="reference internal" href="configuration.html"><span class="doc">configuration</span></a> settings:</p>
+  <div class="section" id="id1">
+<h1>数据库快速入门: 示例代码<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>这个页面包含的示例代码将简单介绍如何使用数据库类。更详细的信息请参考每个函数单独的介绍页面。</p>
+<div class="section" id="id2">
+<h2>初始化数据库类<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>下面的代码将根据你的 <a class="reference internal" href="configuration.html"><span class="doc">数据库配置</span></a> 加载并初始化数据库类</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>Once loaded the class is ready to be used as described below.</p>
-<p>Note: If all your pages require database access you can connect
-automatically. See the <a class="reference internal" href="connecting.html"><span class="doc">connecting</span></a> page for details.</p>
+<p>数据库类一旦载入，你就可以像下面介绍的那样使用它。</p>
+<p>注意：如果你所有的页面都需要连接数据库，你可以让其自动加载。参见 <a class="reference internal" href="connecting.html"><span class="doc">数据库连接</span></a>。</p>
 </div>
-<div class="section" id="standard-query-with-multiple-results-object-version">
-<h2>Standard Query With Multiple Results (Object Version)<a class="headerlink" href="#standard-query-with-multiple-results-object-version" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h2>多结果标准查询（对象形式）<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT name, title, email FROM my_table&#39;</span><span class="p">);</span>
 <span class="nv">$results</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">();</span>
 
@@ -436,11 +432,10 @@ automatically. See the <a class="reference internal" href="connecting.html"><spa
 <span class="k">echo</span> <span class="s1">&#39;Total Results: &#39;</span> <span class="o">.</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$results</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The above getResult() function returns an array of <strong>objects</strong>. Example:
-$row-&gt;title</p>
+<p>上面的 getResult() 函数返回一个 <strong>对象数组</strong> 。例如：$row-&gt;title</p>
 </div>
-<div class="section" id="standard-query-with-multiple-results-array-version">
-<h2>Standard Query With Multiple Results (Array Version)<a class="headerlink" href="#standard-query-with-multiple-results-array-version" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h2>多结果标准查询（数组形式）<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT name, title, email FROM my_table&#39;</span><span class="p">);</span>
 <span class="nv">$results</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResultArray</span><span class="p">();</span>
 
@@ -452,40 +447,38 @@ $row-&gt;title</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above getResultArray() function returns an array of standard array
-indexes. Example: $row['title']</p>
+<p>上面的 getResultArray() 函数返回一个 <strong>数组的数组</strong> 。例如：$row['title']</p>
 </div>
-<div class="section" id="standard-query-with-single-result">
-<h2>Standard Query With Single Result<a class="headerlink" href="#standard-query-with-single-result" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id5">
+<h2>单结果标准查询（对象形式）<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM my_table LIMIT 1&#39;</span><span class="p">);</span>
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">();</span>
 <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>The above getRow() function returns an <strong>object</strong>. Example: $row-&gt;name</p>
+<p>上面的 getRow() 函数返回一个 <strong>对象</strong> 。例如：$row-&gt;name</p>
 </div>
-<div class="section" id="standard-query-with-single-result-array-version">
-<h2>Standard Query With Single Result (Array version)<a class="headerlink" href="#standard-query-with-single-result-array-version" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h2>单结果标准查询（数组形式）<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM my_table LIMIT 1&#39;</span><span class="p">);</span>
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRowArray</span><span class="p">();</span>
 <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>The above getRowArray() function returns an <strong>array</strong>. Example:
-$row['name']</p>
+<p>上面的 getRowArray() 函数返回一个 <strong>数组</strong> 。例如：$row['name']</p>
 </div>
-<div class="section" id="standard-insert">
-<h2>Standard Insert<a class="headerlink" href="#standard-insert" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id7">
+<h2>标准插入<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO mytable (title, name) VALUES (&quot;</span><span class="o">.</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">escape</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">escape</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;)&quot;</span><span class="p">;</span>
 <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getAffectedRows</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="query-builder-query">
-<h2>Query Builder Query<a class="headerlink" href="#query-builder-query" title="永久链接至标题">¶</a></h2>
-<p>The <a class="reference internal" href="query_builder.html"><span class="doc">Query Builder Pattern</span></a> gives you a simplified
-means of retrieving data:</p>
+<div class="section" id="id8">
+<h2>使用查询构造器查询数据<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><p><a class="reference internal" href="query_builder.html"><span class="doc">查询构造器模式</span></a> 提供给我们一种简单的查询数据的途径</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
@@ -494,12 +487,11 @@ means of retrieving data:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above get() function retrieves all the results from the supplied
-table. The <a class="reference internal" href="query_builder.html"><span class="doc">Query Builder</span></a> class contains a full
-compliment of functions for working with data.</p>
+</div></blockquote>
+<p>上面的 get() 函数从给定的表中查询出所有的结果。<a class="reference internal" href="query_builder.html"><span class="doc">查询构造器</span></a> 提供了所有数据库操作的快捷函数。</p>
 </div>
-<div class="section" id="query-builder-insert">
-<h2>Query Builder Insert<a class="headerlink" href="#query-builder-insert" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id9">
+<h2>使用查询构造器插入数据<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
         <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
@@ -531,7 +523,7 @@ compliment of functions for working with data.</p>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2017-09-23。
+       最后修改：2017-09-24。
     </p>
   </div>
 
