@@ -1,89 +1,69 @@
 ###########################
-Connecting to your Database
+连接你的数据库
 ###########################
 
-
-You can connect to your database by adding this line of code in any
-function where it is needed, or in your class constructor to make the
-database available globally in that class.
+你可以在任意你需要的方法中添加以下代码来连接你的数据库，或者在你类的构造函数中去设置一个可用的全局参数。
 
 ::
 
 	$db = \Config\Database::connect();
 
-If the above function does **not** contain any information in the first
-parameter it will connect to the default group specified in your database config
-file. For most people, this is the preferred method of use.
+如果上面的函数没有指定第一个参数，它将使用数据库配置文件中指定的组来链接数据库。对于大多数人而言，这是首选的方案。
 
-Available Parameters
+可用的参数
 --------------------
 
-#. The database group name, a string that must match the config class' property name. Default value is $config->defaultGroup.
-#. TRUE/FALSE (boolean). Whether to return the a shared connection (see
-   Connecting to Multiple Databases below).
+#. 数据库组名，一个必须与配置类的属性名匹配的字符串。默认值为 $config->defaultGroup；
+#. TRUE/FALSE (boolean). 是否返回共享连接（参考下文的连接多个数据库）。
 
-Manually Connecting to a Database
+手动连接数据库
 ---------------------------------
 
-The first parameter of this function can **optionally** be used to
-specify a particular database group from your config file. Examples:
+这个函数的第一个参数是 **可选的**，被用来从你的配置文件中指定一个特定的数据库组。例如:
 
-To choose a specific group from your config file you can do this::
+从你的配置文件中选择一个特定的组::
 
 	$db = \Config\Database::connect('group_name');
 
-Where group_name is the name of the connection group from your config
-file.
+其中 group_name 是你配置文件中连接组的名字。
 
-Multiple Connections to Same Database
+连接多个数据库
 -------------------------------------
 
-By default, the ``connect()`` method will return the same instance of the
-database connection every time. If you need to have a separate connection
-to the same database, send ``false`` as the second parameter::
+默认情况下，``connect()`` 方法每次返回数据库连接的同一实例。若你需要一个单独的连接到同一数据库，发送 ``false`` 作为第二个参数::
 
 	$db = \Config\Database::connect('group_name', false);
 
 
-Connecting to Multiple Databases
+连接到多个数据库
 ================================
 
-If you need to connect to more than one database simultaneously you can
-do so as follows::
+如果你需要同时连接到多个不同的数据库，你可以这样::
 
 	$db1 = \Config\Database::connect('group_one');
 	$db = \Config\Database::connect('group_two');
 
-Note: Change the words "group_one" and "group_two" to the specific
-group names you are connecting to.
+注意: 将 "group_one" 和 "group_two" 修改为你想要的连接的组名称
 
-.. note:: You don't need to create separate database configurations if you
-	only need to use a different database on the same connection. You
-	can switch to a different database when you need to, like this:
+.. 注解:: 如果只需要在同一连接上使用不同的数据库，则不需要创建单独的数据库配置。当你需要时，可以切换到不同的数据库，例如:
 
 	| $db->dbSelect($database2_name);
 
-Reconnecting / Keeping the Connection Alive
+重新连接/保持连接有效
 ===========================================
 
-If the database server's idle timeout is exceeded while you're doing
-some heavy PHP lifting (processing an image, for instance), you should
-consider pinging the server by using the reconnect() method before
-sending further queries, which can gracefully keep the connection alive
-or re-establish it.
+当你在处理一些重量级的 PHP 操作时（例如处理图像），若超过了数据库的超时值，你应该考虑在执行后续查询前先调用 reconnect() 方法向数据库发送 ping 命令，这样可以优雅的保持连接有效或重新建立起连接。
 
-.. important:: If you are using MySQLi database driver, the reconnect() method
-	does not ping the server but it closes the connection then connects again.
+.. 重要:: 若你使用 MySQLi 数据库驱动，reconnect() 方法不能 ping 通服务器但可以关闭连接然后再次连接。
 
 ::
 
 	$db->reconnect();
 
-Manually closing the Connection
+手动关闭连接
 ===============================
 
-While CodeIgniter intelligently takes care of closing your database
-connections, you can explicitly close the connection.
+虽然 CodeIgniter 可以智能的管理并自动关闭数据库连接，你仍可以用下面的方式来关闭连接。
 
 ::
 
