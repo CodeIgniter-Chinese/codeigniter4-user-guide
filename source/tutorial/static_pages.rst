@@ -1,31 +1,23 @@
 ############
-Static pages
+加载静态页
 ############
 
-**Note:** This tutorial assumes you've downloaded CodeIgniter and
-:doc:`installed the framework <../installation/index>` in your
-development environment.
+**Note:** 本教程假设你已经下载好 CodeIgniter，并将其 :doc:`安装 <../installation/index>` 到你的开发环境。
 
-The first thing you're going to do is set up a **controller** to handle
-static pages. A controller is simply a class that helps delegate work.
-It is the glue of your web application.
+首先你需要新建一个 **控制器** 来处理静态页。控制器就是用来帮助你完成工作的一个简单的类，它是你整个 Web 应用程序的"粘合剂"。
 
-For example, when a call is made to:
-
+例如，当访问下面这个 URL 时:
+	
 	http://example.com/news/latest/10
 
-We might imagine that there is a controller named "news". The method
-being called on news would be "latest". The news method's job could be to
-grab 10 news items, and render them on the page. Very often in MVC,
-you'll see URL patterns that match:
+根据此 URL 我们可以推测出有一个名称为 "news" 的控制器，被调用的方法为 "latest"，"latest" 方法的作用应该是查询10条新闻条目并展示在页面上。
+在MVC模式里，你会经常看到下面格式的 URL:
 
 	http://example.com/[controller-class]/[controller-method]/[arguments]
 
-As URL schemes become more complex, this may change. But for now, this
-is all we will need to know.
+在正式环境下 URL 的格式可能会更复杂，但现在，我们只需要知道这些就够了。
 
-Create a file at *application/Controllers/Pages.php* with the following
-code.
+新建一个文件 *application/Controllers/Pages.php*，然后添加如下代码：
 
 ::
 
@@ -37,22 +29,13 @@ code.
 	    }
 	}
 
-You have created a class named ``Pages``, with a view method that accepts
-one argument named ``$page``. The ``Pages`` class is extending the
-``CodeIgniter\Controller`` class. This means that the new Pages class can access the
-methods and variables defined in the ``CodeIgniter\Controller`` class
-(*system/Controller.php*).
+你刚创建了一个 ``Pages`` 类，有一个方法 view 并可接受一个 $page 的参数。``Pages`` 类继承自 ``CodeIgniter\Controller`` 类，这意味着它可以访问 ``CodeIgniter\Controller`` 类 (*system/Controller.php*) 中定义的方法和变量。
 
-The **controller is what will become the center of every request** to
-your web application. Like any php class, you refer to
-it within your controllers as ``$this``.
+控制器将是你 Web 应用程序中处理请求的核心。和其他的 PHP 类一样，可以在你的控制器中使用 ``$this`` 来访问它。
 
-Now that you've created your first method, it's time to make some basic page
-templates. We will be creating two "views" (page templates) that act as
-our page footer and header.
+现在，你已经创建了你的第一个方法，是时候创建一些基本的页面模板了。我们将新建两个 "views" (页面模板) 分别作为我们的页头和页脚。
 
-Create the header at *application/Views/Templates/Header.php* and add
-the following code:
+新建页头文件 *application/Views/Templates/Header.php* 并添加以下代码：
 
 ::
 
@@ -65,11 +48,8 @@ the following code:
 
 		<h1><?= $title; ?></h1>
 
-The header contains the basic HTML code that you'll want to display
-before loading the main view, together with a heading. It will also
-output the ``$title`` variable, which we'll define later in the controller.
-Now, create a footer at *application/Views/Templates/Footer.php* that
-includes the following code:
+页头包含了一些基本的 HTML 代码，用于展示页面主视图之前的内容。同时，它还打印出了 ``$title`` 变量，这个我们之后讲控制器的时候再细说。
+现在，再新建个页脚文件 *application/Views/Templates/Footer.php*，然后添加以下代码：
 
 ::
 
@@ -77,20 +57,14 @@ includes the following code:
 		</body>
 	</html>
 
-Adding logic to the controller
+在控制器中添加逻辑
 ------------------------------
 
-Earlier you set up a controller with a ``view()`` method. The method
-accepts one parameter, which is the name of the page to be loaded. The
-static page templates will be located in the *application/Views/Pages/*
-directory.
+你刚新建的控制器中有一个 ``view()`` 方法，这个方法可接受一个用于指定要加载页面的参数。静态页面的模板目录为：*application/Views/Pages/*。
 
-In that directory, create two files named *Home.php* and *About.php*.
-Within those files, type some text − anything you'd like − and save them.
-If you like to be particularly un-original, try "Hello World!".
+在该目录中，新建 *Home.php* 和 *About.php* 模板文件。在每个文件中任意输入一些文本然后保存它们。如果你不知道写什么，那就写 "Hello World!" 吧。
 
-In order to load those pages, you'll have to check whether the requested
-page actually exists:
+为了加载这些界面，你需要检查下请求的页面是否存在：
 
 ::
 
@@ -109,69 +83,37 @@ page actually exists:
 		echo view('Templates/Footer', $data);
 	}
 
-Now, when the page does exist, it is loaded, including the header and
-footer, and displayed to the user. If the page doesn't exist, a "404
-Page not found" error is shown.
+当请求的页面存在时，将给用户加载并展示出一个包含页头页脚的页面。如果不存在，会显示 "404 Page not found" 的错误页面。
 
-The first line in this method checks whether the page actually exists.
-PHP's native ``file_exists()`` function is used to check whether the file
-is where it's expected to be. The ``PageNotFoundException`` is a CodeIgniter
-exception that causes the default error page to show.
+此事例方法中，第一行用以检查界面是否存在，``file_exists()`` 是原生的 PHP 函数，用于检查某个文件是否存在。``PageNotFoundException`` 是 CodeIgniter 的内置函数，用来展示默认的错误页面。
 
-In the header template, the ``$title`` variable was used to customize the
-page title. The value of title is defined in this method, but instead of
-assigning the value to a variable, it is assigned to the title element
-in the ``$data`` array.
+在页头模板文件中，``$title`` 变量代表页面的自定义标题，它是在方法中被赋值的，但并不是直接赋值给 title 变量，而是赋值给 ``$data`` 数组中的 title 元素。
 
-The last thing that has to be done is loading the views in the order
-they should be displayed. The second parameter in the ``view()`` method is
-used to pass values to the view. Each value in the ``$data`` array is
-assigned to a variable with the name of its key. So the value of
-``$data['title']`` in the controller is equivalent to ``$title`` in the
-view.
+最后要做的就是按顺序加载所需的视图，``view()`` 方法中的参数代表要展示的视图文件名称。``$data`` 数组中的每一个元素将被赋值给一个变量，这个变量的名字就是数组的键值。所以控制器中 ``$data['title']`` 的值，就等于视图中 ``$title`` 的值。
 
-Routing
+路由
 -------
 
-The controller is now functioning! Point your browser to
-``[your-site-url]index.php/pages/view`` to see your page. When you visit
-``index.php/pages/view/about`` you'll see the about page, again including
-the header and footer.
+控制器已经开始工作了！在你的浏览器中输入 ``[your-site-url]index.php/pages/view`` 来查看你的页面。当你访问 ``index.php/pages/view/about`` 时你将看到包含页头和页脚的 about 页面。
 
-Using custom routing rules, you have the power to map any URI to any
-controller and method, and break free from the normal convention:
+使用自定义的路由规则，你可以将任意的 URL 映射到任意的控制器和方法上，从而打破默认的规则：
 ``http://example.com/[controller-class]/[controller-method]/[arguments]``
 
-Let's do that. Open the routing file located at
-*application/Config/Routes.php* and add the following two lines.
-Remove all other code that adds any element in the ``$route`` items.
+让我们来试试。打开路由文件 *application/Config/Routes.php* 然后添加如下两行代码，并删除掉其它对 ``$route`` 数组赋值的代码。
 
 ::
 
 	$routes->setDefaultController('Pages/view');
 	$routes->add('(:any)', 'Pages::view/$1');
 
-CodeIgniter reads its routing rules from top to bottom and routes the
-request to the first matching rule. Each rule is a regular expression
-(left-side) mapped to a controller and method name separated by slashes
-(right-side). When a request comes in, CodeIgniter looks for the first
-match, and calls the appropriate controller and method, possibly with
-arguments.
+CodeIgniter 读取路由的规则为从上到下，并将请求映射到第一个匹配的规则。每个规则都是一个正则表达式（左侧）映射到一个控制器和方法（右侧）。当获取到请求时，CodeIgniter 首先查找能匹配到的第一条规则，然后调用相应的可能存在参数的控制器和方法。
 
-More information about routing can be found in the URI Routing
-:doc:`documentation <../general/routing>`.
+你可以在关于 :doc:`URL路由的文档 <../general/routing>` 中找到更多信息。
 
-Here, the second rule in the ``$routes`` array matches **any** request
-using the wildcard string ``(:any)``. and passes the parameter to the
-``view()`` method of the ``Pages`` class.
+路由事例的第二条规则 ``$routes`` 数组中使用了通配符 ``(:any)`` 来匹配所有的请求，然后将参数传递给 ``Pages`` 类的 ``view()`` 方法。
 
-In order for the default controller to be used, though, you have to make
-sure that no other routes are defined that handle the route. By default,
-the Routes file **does** have a route that handles the site root (/).
-Delete the following route to make sure that the Pages controller handles
-our home page::
+为请求默认的控制器，你必须确定当前路由未被定义或重新编写过。默认的路由文件 **does** 下存在一个处理网站根目录的路由 (/) 规则.删除以下的路由来确保 Pages 控制器可以访问到我们的 home 页面：
 
 	$routes->add('/', 'Home::index');
 
-Now visit ``index.php/about``. Did it get routed correctly to the ``view()``
-method in the pages controller? Awesome!
+现在访问 ``index.php/about``。路由规则是不是正确的将你带到了控制器中的 ``view()`` 方法？太酷了！

@@ -1,110 +1,112 @@
-# 翻译进度跟踪
+# 翻译进度
 
-选中状态为已认领文档
+> - [ ] 表示未认领
+> - [x] 表示已认领
+> - [x] ~~表示已完成~~
 
-- [ ] ./source/general/alternative_php.rst
-- [ ] ./source/general/caching.rst
-- [ ] ./source/general/cli.rst
-- [ ] ./source/general/cli_commands.rst
-- [ ] ./source/general/common_functions.rst
-- [x] ./source/general/configuration.rst
-- [ ] ./source/general/controllers.rst
-- [ ] ./source/general/core_classes.rst
-- [ ] ./source/general/debugging.rst
-- [ ] ./source/general/environments.rst
-- [ ] ./source/general/errors.rst
-- [ ] ./source/general/events.rst
-- [ ] ./source/general/filters.rst
-- [ ] ./source/general/helpers.rst
-- [ ] ./source/general/index.rst
-- [ ] ./source/general/logging.rst
-- [ ] ./source/general/managing_apps.rst
-- [ ] ./source/general/modules.rst
-- [x] ./source/general/routing.rst
-- [ ] ./source/general/testing.rst
-- [x] ./source/general/urls.rst
-- [ ] ./source/general/view_cells.rst
-- [ ] ./source/general/view_parser.rst
-- [ ] ./source/general/view_renderer.rst
-- [ ] ./source/general/views.rst
-- [ ] ./source/database/call_function.rst
-- [ ] ./source/database/configuration.rst
-- [ ] ./source/database/connecting.rst
-- [ ] ./source/database/entities.rst
-- [ ] ./source/database/events.rst
-- [ ] ./source/database/examples.rst
-- [ ] ./source/database/forge.rst
-- [ ] ./source/database/helpers.rst
-- [ ] ./source/database/index.rst
-- [ ] ./source/database/metadata.rst
-- [ ] ./source/database/migration.rst
-- [ ] ./source/database/model.rst
-- [ ] ./source/database/queries.rst
-- [ ] ./source/database/query_builder.rst
-- [ ] ./source/database/results.rst
-- [ ] ./source/database/seeds.rst
-- [ ] ./source/database/transactions.rst
-- [ ] ./source/installation/downloads.rst
-- [ ] ./source/installation/index.rst
-- [ ] ./source/installation/local_server.rst
-- [ ] ./source/installation/troubleshooting.rst
-- [ ] ./source/installation/upgrade_4xx.rst
-- [ ] ./source/installation/upgrading.rst
-- [ ] ./source/intro/credits.rst
-- [ ] ./source/intro/index.rst
-- [x] ./source/intro/psr.rst
-- [ ] ./source/intro/requirements.rst
-- [x] ./source/libraries/api_responses.rst
-- [ ] ./source/libraries/benchmark.rst
-- [ ] ./source/libraries/caching.rst
-- [ ] ./source/libraries/cli.rst
-- [ ] ./source/libraries/content_negotiation.rst
-- [ ] ./source/libraries/curlrequest.rst
-- [ ] ./source/libraries/encryption.rst
-- [ ] ./source/libraries/files.rst
-- [ ] ./source/libraries/images.rst
-- [x] ./source/libraries/incomingrequest.rst
-- [ ] ./source/libraries/index.rst
-- [ ] ./source/libraries/localization.rst
-- [ ] ./source/libraries/message.rst
-- [ ] ./source/libraries/pagination.rst
-- [ ] ./source/libraries/request.rst
-- [x] ./source/libraries/response.rst
-- [ ] ./source/libraries/security.rst
-- [ ] ./source/libraries/sessions.rst
-- [ ] ./source/libraries/throttler.rst
-- [ ] ./source/libraries/time.rst
-- [ ] ./source/libraries/typography.rst
-- [ ] ./source/libraries/uploaded_files.rst
-- [ ] ./source/libraries/uri.rst
-- [ ] ./source/libraries/validation.rst
-- [ ] ./source/helpers/cookie_helper.rst
-- [ ] ./source/helpers/filesystem_helper.rst
-- [ ] ./source/helpers/form_helper.rst
-- [ ] ./source/helpers/html_helper.rst
-- [ ] ./source/helpers/index.rst
-- [ ] ./source/helpers/inflector_helper.rst
-- [ ] ./source/helpers/number_helper.rst
-- [ ] ./source/helpers/security_helper.rst
-- [ ] ./source/helpers/text_helper.rst
-- [ ] ./source/helpers/url_helper.rst
-- [ ] ./source/tutorial/conclusion.rst
-- [ ] ./source/tutorial/create_news_items.rst
-- [ ] ./source/tutorial/index.rst
-- [ ] ./source/tutorial/news_section.rst
-- [x] ./source/tutorial/static_pages.rst
-- [ ] ./source/concepts/autoloader.rst
-- [ ] ./source/concepts/http.rst
-- [ ] ./source/concepts/index.rst
-- [ ] ./source/concepts/mvc.rst
-- [ ] ./source/concepts/security.rst
-- [ ] ./source/concepts/services.rst
-- [ ] ./source/concepts/structure.rst
-- [ ] ./source/contributing/documentation.rst
-- [ ] ./source/contributing/guidelines.rst
-- [ ] ./source/contributing/index.rst
-- [ ] ./source/contributing/internals.rst
-- [ ] ./source/contributing/roadmap.rst
-- [ ] ./source/contributing/signing.rst
-- [ ] ./source/contributing/styleguide.rst
-- [ ] ./source/contributing/workflow.rst
+- [ ] [./source/general/alternative_php.rst](source/general/alternative_php.rst)
+- [ ] [./source/general/caching.rst](source/general/caching.rst)
+- [ ] [./source/general/cli.rst](source/general/cli.rst)
+- [ ] [./source/general/cli_commands.rst](source/general/cli_commands.rst)
+- [ ] [./source/general/common_functions.rst](source/general/common_functions.rst)
+- [x] [./source/general/configuration.rst](source/general/configuration.rst)
+- [x] [./source/general/controllers.rst](source/general/controllers.rst)
+- [ ] [./source/general/core_classes.rst](source/general/core_classes.rst)
+- [ ] [./source/general/debugging.rst](source/general/debugging.rst)
+- [ ] [./source/general/environments.rst](source/general/environments.rst)
+- [ ] [./source/general/errors.rst](source/general/errors.rst)
+- [ ] [./source/general/events.rst](source/general/events.rst)
+- [ ] [./source/general/filters.rst](source/general/filters.rst)
+- [ ] [./source/general/helpers.rst](source/general/helpers.rst)
+- [ ] [./source/general/index.rst](source/general/index.rst)
+- [ ] [./source/general/logging.rst](source/general/logging.rst)
+- [ ] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
+- [ ] [./source/general/modules.rst](source/general/modules.rst)
+- [x] [./source/general/routing.rst](source/general/routing.rst)
+- [ ] [./source/general/testing.rst](source/general/testing.rst)
+- [x] [./source/general/urls.rst](source/general/urls.rst)
+- [ ] [./source/general/view_cells.rst](source/general/view_cells.rst)
+- [ ] [./source/general/view_parser.rst](source/general/view_parser.rst)
+- [ ] [./source/general/view_renderer.rst](source/general/view_renderer.rst)
+- [ ] [./source/general/views.rst](source/general/views.rst)
+- [ ] [./source/database/call_function.rst](source/database/call_function.rst)
+- [x] [./source/database/configuration.rst](source/database/configuration.rst)
+- [x] [./source/database/connecting.rst](source/database/connecting.rst)
+- [ ] [./source/database/entities.rst](source/database/entities.rst)
+- [ ] [./source/database/events.rst](source/database/events.rst)
+- [x] [./source/database/examples.rst](source/database/examples.rst)
+- [ ] [./source/database/forge.rst](source/database/forge.rst)
+- [x] [./source/database/helpers.rst](source/database/helpers.rst)
+- [ ] [./source/database/index.rst](source/database/index.rst)
+- [ ] [./source/database/metadata.rst](source/database/metadata.rst)
+- [ ] [./source/database/migration.rst](source/database/migration.rst)
+- [ ] [./source/database/model.rst](source/database/model.rst)
+- [ ] [./source/database/queries.rst](source/database/queries.rst)
+- [ ] [./source/database/query_builder.rst](source/database/query_builder.rst)
+- [ ] [./source/database/results.rst](source/database/results.rst)
+- [x] [./source/database/seeds.rst](source/database/seeds.rst)
+- [ ] [./source/database/transactions.rst](source/database/transactions.rst)
+- [ ] [./source/installation/downloads.rst](source/installation/downloads.rst)
+- [ ] [./source/installation/index.rst](source/installation/index.rst)
+- [ ] [./source/installation/local_server.rst](source/installation/local_server.rst)
+- [ ] [./source/installation/troubleshooting.rst](source/installation/troubleshooting.rst)
+- [ ] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
+- [ ] [./source/installation/upgrading.rst](source/installation/upgrading.rst)
+- [ ] [./source/intro/credits.rst](source/intro/credits.rst)
+- [ ] [./source/intro/index.rst](source/intro/index.rst)
+- [x] [./source/intro/psr.rst](source/intro/psr.rst)
+- [ ] [./source/intro/requirements.rst](source/intro/requirements.rst)
+- [x] [./source/libraries/api_responses.rst](source/libraries/api_responses.rst)
+- [x] [./source/libraries/benchmark.rst](source/libraries/benchmark.rst)
+- [x] [./source/libraries/caching.rst](source/libraries/caching.rst)
+- [ ] [./source/libraries/cli.rst](source/libraries/cli.rst)
+- [ ] [./source/libraries/content_negotiation.rst](source/libraries/content_negotiation.rst)
+- [ ] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
+- [ ] [./source/libraries/encryption.rst](source/libraries/encryption.rst)
+- [x] [./source/libraries/files.rst](source/libraries/files.rst)
+- [ ] [./source/libraries/images.rst](source/libraries/images.rst)
+- [x] [./source/libraries/incomingrequest.rst](source/libraries/incomingrequest.rst)
+- [ ] [./source/libraries/index.rst](source/libraries/index.rst)
+- [ ] [./source/libraries/localization.rst](source/libraries/localization.rst)
+- [ ] [./source/libraries/message.rst](source/libraries/message.rst)
+- [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
+- [x] [./source/libraries/request.rst](source/libraries/request.rst)
+- [x] [./source/libraries/response.rst](source/libraries/response.rst)
+- [ ] [./source/libraries/security.rst](source/libraries/security.rst)
+- [ ] [./source/libraries/sessions.rst](source/libraries/sessions.rst)
+- [ ] [./source/libraries/throttler.rst](source/libraries/throttler.rst)
+- [ ] [./source/libraries/time.rst](source/libraries/time.rst)
+- [ ] [./source/libraries/typography.rst](source/libraries/typography.rst)
+- [ ] [./source/libraries/uploaded_files.rst](source/libraries/uploaded_files.rst)
+- [ ] [./source/libraries/uri.rst](source/libraries/uri.rst)
+- [x] [./source/libraries/validation.rst](source/libraries/validation.rst)
+- [ ] [./source/helpers/cookie_helper.rst](source/helpers/cookie_helper.rst)
+- [ ] [./source/helpers/filesystem_helper.rst](source/helpers/filesystem_helper.rst)
+- [ ] [./source/helpers/form_helper.rst](source/helpers/form_helper.rst)
+- [ ] [./source/helpers/html_helper.rst](source/helpers/html_helper.rst)
+- [ ] [./source/helpers/index.rst](source/helpers/index.rst)
+- [ ] [./source/helpers/inflector_helper.rst](source/helpers/inflector_helper.rst)
+- [ ] [./source/helpers/number_helper.rst](source/helpers/number_helper.rst)
+- [ ] [./source/helpers/security_helper.rst](source/helpers/security_helper.rst)
+- [ ] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
+- [ ] [./source/helpers/url_helper.rst](source/helpers/url_helper.rst)
+- [ ] [./source/tutorial/conclusion.rst](source/tutorial/conclusion.rst)
+- [ ] [./source/tutorial/create_news_items.rst](source/tutorial/create_news_items.rst)
+- [ ] [./source/tutorial/index.rst](source/tutorial/index.rst)
+- [ ] [./source/tutorial/news_section.rst](source/tutorial/news_section.rst)
+- [x] [./source/tutorial/static_pages.rst](source/tutorial/static_pages.rst)
+- [ ] [./source/concepts/autoloader.rst](source/concepts/autoloader.rst)
+- [ ] [./source/concepts/http.rst](source/concepts/http.rst)
+- [ ] [./source/concepts/index.rst](source/concepts/index.rst)
+- [x] [./source/concepts/mvc.rst](source/concepts/mvc.rst)
+- [x] [./source/concepts/security.rst](source/concepts/security.rst)
+- [ ] [./source/concepts/services.rst](source/concepts/services.rst)
+- [ ] [./source/concepts/structure.rst](source/concepts/structure.rst)
+- [ ] [./source/contributing/documentation.rst](source/contributing/documentation.rst)
+- [ ] [./source/contributing/guidelines.rst](source/contributing/guidelines.rst)
+- [ ] [./source/contributing/index.rst](source/contributing/index.rst)
+- [ ] [./source/contributing/internals.rst](source/contributing/internals.rst)
+- [ ] [./source/contributing/roadmap.rst](source/contributing/roadmap.rst)
+- [ ] [./source/contributing/signing.rst](source/contributing/signing.rst)
+- [ ] [./source/contributing/styleguide.rst](source/contributing/styleguide.rst)
+- [ ] [./source/contributing/workflow.rst](source/contributing/workflow.rst)
