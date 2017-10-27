@@ -8,8 +8,8 @@
 
 ### 注意事项：
 
-* 我们严格遵循 中文文档格式规范
-* 尽量参考 CI3 的翻译(https://github.com/CodeIgniter-Chinese/codeigniter-user-guide)
+* 我们严格遵循[中文文案排版指北](http://mazhuang.org/wiki/chinese-copywriting-guidelines/)
+* 尽量参考 CodeIgniter 3 的翻译(https://github.com/CodeIgniter-Chinese/codeigniter-user-guide)
 
 ## 贡献签名
 
