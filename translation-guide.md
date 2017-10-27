@@ -9,7 +9,7 @@
 ### 注意事项：
 
 * 我们严格遵循[中文文案排版指北](http://mazhuang.org/wiki/chinese-copywriting-guidelines/)
-* 尽量参考 CodeIgniter 3 的翻译(https://github.com/CodeIgniter-Chinese/codeigniter-user-guide)
+* 尽量参考 CodeIgniter 3 的翻译（https://github.com/CodeIgniter-Chinese/codeigniter-user-guide）
 
 ## 贡献签名
 
@@ -22,7 +22,7 @@ $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com`
 ```
 
-一旦完成，你只需要在您的分支的提交上使用-signoff。
+一旦完成，你只需要在您的分支的提交上使用 --signoff。
 
 ```
 $ git commit --signoff
