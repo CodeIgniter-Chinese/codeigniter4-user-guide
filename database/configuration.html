@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Database Configuration &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据库配置 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -32,7 +32,7 @@
   
     <link rel="top" title="CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档" href="../index.html"/>
         <link rel="up" title="Database Reference" href="index.html"/>
-        <link rel="next" title="Connecting to your Database" href="connecting.html"/>
+        <link rel="next" title="连接你的数据库" href="connecting.html"/>
         <link rel="prev" title="数据库快速入门: 示例代码" href="examples.html"/> 
 
   
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">Database Reference</a> &raquo;</li>
       
-    <li>Database Configuration</li>
+    <li>数据库配置</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,14 +405,10 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="database-configuration">
-<h1>Database Configuration<a class="headerlink" href="#database-configuration" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter has a config file that lets you store your database
-connection values (username, password, database name, etc.). The config
-file is located at application/Config/Database.php. You can also set
-database connection values in the .env file. See below for more details.</p>
-<p>The config settings are stored in a class property that is an array with this
-prototype:</p>
+  <div class="section" id="id1">
+<h1>数据库配置<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>CodeIgniter 中有一个用来保存数据库配置（用户名，密码，数据库名等）的文件，这个配置文件位于 application/Config/Database.php。你也可以在 .env 文件中配置数据库连接参数。接下来让我们详细看下配置信息。</p>
+<p>数据库配置信息存放在数组中:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$default</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;DSN&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
@@ -435,12 +431,8 @@ prototype:</p>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>The name of the class property is the connection name, and can be used
-while connecting to specify a group name.</p>
-<p>Some database drivers (such as PDO, PostgreSQL, Oracle, ODBC) might
-require a full DSN string to be provided. If that is the case, you
-should use the 'DSN' configuration setting, as if you're using the
-driver's underlying native PHP extension, like this:</p>
+<p>类属性的名称就是连接名称，并且可以使用特殊的组名连接。</p>
+<p>有些数据库驱动（例如：PDO，PostgreSQL，Oracle，ODBC）可能需要提供完整的 DNS 信息。在这种情况下，你需要使用 DNS 配置参数，就像是使用该驱动的原生 PHP 扩展一样，例如:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// PDO</span>
 <span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;DSN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;pgsql:host=localhost;port=5432;dbname=database_name&#39;</span><span class="p">;</span>
 
@@ -448,19 +440,7 @@ driver's underlying native PHP extension, like this:</p>
 <span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;DSN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;//localhost/XE&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">If you do not specify a DSN string for a driver that requires it, CodeIgniter
-will try to build it with the rest of the provided settings.</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">If you provide a DSN string and it is missing some valid settings (e.g. the
-database character set), which are present in the rest of the configuration
-fields, CodeIgniter will append them.</p>
-</div>
-<p>You can also specify failovers for the situation when the main connection cannot connect for some reason.
-These failovers can be specified by setting the failover for a connection like this:</p>
+<p>当主数据库由于某些原因无法连接时，你可以配置故障转移。例如可以像下面这样为一个连接配置故障转移:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;failover&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="p">[</span>
                         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost1&#39;</span><span class="p">,</span>
@@ -501,12 +481,8 @@ These failovers can be specified by setting the failover for a connection like t
         <span class="p">];</span>
 </pre></div>
 </div>
-<p>You can specify as many failovers as you like.</p>
-<p>You may optionally store multiple sets of connection
-values. If, for example, you run multiple environments (development,
-production, test, etc.) under a single installation, you can set up a
-connection group for each, then switch between groups as needed. For
-example, to set up a &quot;test&quot; environment you would do this:</p>
+<p>你可以指定任意多个你喜欢的故障转移配置。</p>
+<p>你可以选择存储多组连接值的信息。例如，若你运行多个环境（开发、生产、测试等），你可以为每个环境单独建立连接组，并在组之间进行切换。举个例子：若要设置一个 'test' 环境，你可以这么做:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$test</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;DSN&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
@@ -529,20 +505,11 @@ example, to set up a &quot;test&quot; environment you would do this:</p>
 <span class="p">);</span>
 </pre></div>
 </div>
-<p>Then, to globally tell the system to use that group you would set this
-variable located in the config file:</p>
+<p>然后，设置配置文件中的变量并告诉系统要使用该组信息:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$defaultGroup</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">The name 'test' is arbitrary. It can be anything you want. By
-default we've used the word &quot;default&quot; for the primary connection,
-but it too can be renamed to something more relevant to your project.</p>
-</div>
-<p>You could modify the config file to detect the environment and automatically
-update the <cite>defaultGroup</cite> value to the correct one by adding the required logic
-within the class' constructor:</p>
+<p>你可以修改配置文件来检测环境并且在类的构造函数中添加所需的逻辑来自动更新正确的 'defaultGroup' 值:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Database</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nv">$development</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">];</span>
@@ -556,124 +523,18 @@ within the class' constructor:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="configuring-with-env-file">
-<h2>Configuring With .env File<a class="headerlink" href="#configuring-with-env-file" title="永久链接至标题">¶</a></h2>
-<p>You can also save your configuration values within a <code class="docutils literal"><span class="pre">.env</span></code> file with the current server's
-database settings. You only need to enter the values that change from what is in the
-default group's configuration settings. The values should be name following this format, where
-<code class="docutils literal"><span class="pre">default</span></code> is the group name:</p>
+<div class="section" id="id2">
+<h2>配置文件<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你可以将配置值保存在当前服务器数据库配置文件 <code class="docutils literal"><span class="pre">.env</span></code> 中。你只需要在默认组配置设置中输入你想要改变的值。该值在 <code class="docutils literal"><span class="pre">default</span></code> 组中的格式为:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">database</span> <span class="o">=</span> <span class="s1">&#39;ci4&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>As with all other</p>
+<p>其它信息</p>
 </div>
-<div class="section" id="explanation-of-values">
-<h2>Explanation of Values:<a class="headerlink" href="#explanation-of-values" title="永久链接至标题">¶</a></h2>
-<table border="1" class="docutils">
-<colgroup>
-<col width="17%" />
-<col width="83%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name Config</th>
-<th class="head">Description</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><strong>dsn</strong></td>
-<td>The DSN connect string (an all-in-one configuration sequence).</td>
-</tr>
-<tr class="row-odd"><td><strong>hostname</strong></td>
-<td>The hostname of your database server. Often this is 'localhost'.</td>
-</tr>
-<tr class="row-even"><td><strong>username</strong></td>
-<td>The username used to connect to the database.</td>
-</tr>
-<tr class="row-odd"><td><strong>password</strong></td>
-<td>The password used to connect to the database.</td>
-</tr>
-<tr class="row-even"><td><strong>database</strong></td>
-<td>The name of the database you want to connect to.</td>
-</tr>
-<tr class="row-odd"><td><strong>DBDriver</strong></td>
-<td>The database type. eg: MySQLi, Postgre, etc. The case must match the driver name</td>
-</tr>
-<tr class="row-even"><td><strong>DBPrefix</strong></td>
-<td>An optional table prefix which will added to the table name when running
-<a class="reference internal" href="query_builder.html"><span class="doc">Query Builder</span></a> queries. This permits multiple CodeIgniter
-installations to share one database.</td>
-</tr>
-<tr class="row-odd"><td><strong>pConnect</strong></td>
-<td>TRUE/FALSE (boolean) - Whether to use a persistent connection.</td>
-</tr>
-<tr class="row-even"><td><strong>DBDebug</strong></td>
-<td>TRUE/FALSE (boolean) - Whether database errors should be displayed.</td>
-</tr>
-<tr class="row-odd"><td><strong>cacheOn</strong></td>
-<td>TRUE/FALSE (boolean) - Whether database query caching is enabled.</td>
-</tr>
-<tr class="row-even"><td><strong>cacheDir</strong></td>
-<td>The absolute server path to your database query cache directory.</td>
-</tr>
-<tr class="row-odd"><td><strong>charset</strong></td>
-<td>The character set used in communicating with the database.</td>
-</tr>
-<tr class="row-even"><td><strong>DBCollat</strong></td>
-<td><p class="first">The character collation used in communicating with the database</p>
-<div class="last admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">Only used in the 'MySQLi' driver.</p>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><strong>swapPre</strong></td>
-<td>A default table prefix that should be swapped with dbprefix. This is useful for distributed
-applications where you might run manually written queries, and need the prefix to still be
-customizable by the end user.</td>
-</tr>
-<tr class="row-even"><td><strong>schema</strong></td>
-<td>The database schema, defaults to 'public'. Used by PostgreSQL and ODBC drivers.</td>
-</tr>
-<tr class="row-odd"><td><strong>encrypt</strong></td>
-<td><p class="first">Whether or not to use an encrypted connection.</p>
-<ul class="last simple">
-<li>'sqlsrv' and 'pdo/sqlsrv' drivers accept TRUE/FALSE</li>
-<li>'MySQLi' and 'pdo/mysql' drivers accept an array with the following options:</li>
-<li>'ssl_key'    - Path to the private key file</li>
-<li>'ssl_cert'   - Path to the public key certificate file</li>
-<li>'ssl_ca'     - Path to the certificate authority file</li>
-<li>'ssl_capath' - Path to a directory containing trusted CA certificats in PEM format</li>
-<li>'ssl_cipher' - List of <em>allowed</em> ciphers to be used for the encryption, separated by colons (':')</li>
-<li>'ssl_verify' - TRUE/FALSE; Whether to verify the server certificate or not ('MySQLi' only)</li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><strong>compress</strong></td>
-<td>Whether or not to use client compression (MySQL only).</td>
-</tr>
-<tr class="row-odd"><td><strong>strictOn</strong></td>
-<td>TRUE/FALSE (boolean) - Whether to force &quot;Strict Mode&quot; connections, good for ensuring strict SQL
-while developing an application.</td>
-</tr>
-<tr class="row-even"><td><strong>port</strong></td>
-<td><p class="first">The database port number. To use this value you have to add a line to the database config array.</p>
-<div class="last highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5432</span><span class="p">;</span>
-</pre></div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">Depending on what database platform you are using (MySQL, PostgreSQL,
-etc.) not all values will be needed. For example, when using SQLite you
-will not need to supply a username or password, and the database name
-will be the path to your database file. The information above assumes
-you are using MySQL.</p>
-</div>
+<div class="section" id="id3">
+<h2>参数解释:<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
@@ -683,7 +544,7 @@ you are using MySQL.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="connecting.html" class="btn btn-neutral float-right" title="Connecting to your Database">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="connecting.html" class="btn btn-neutral float-right" title="连接你的数据库">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="examples.html" class="btn btn-neutral" title="数据库快速入门: 示例代码"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
@@ -696,7 +557,7 @@ you are using MySQL.</p>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2017-10-27。
+       最后修改：2017-10-30。
     </p>
   </div>
 

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Connecting to your Database &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>连接你的数据库 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -33,7 +33,7 @@
     <link rel="top" title="CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档" href="../index.html"/>
         <link rel="up" title="Database Reference" href="index.html"/>
         <link rel="next" title="Queries" href="queries.html"/>
-        <link rel="prev" title="Database Configuration" href="configuration.html"/> 
+        <link rel="prev" title="数据库配置" href="configuration.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">Database Reference</a> &raquo;</li>
       
-    <li>Connecting to your Database</li>
+    <li>连接你的数据库</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,84 +405,54 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="connecting-to-your-database">
-<h1>Connecting to your Database<a class="headerlink" href="#connecting-to-your-database" title="永久链接至标题">¶</a></h1>
-<p>You can connect to your database by adding this line of code in any
-function where it is needed, or in your class constructor to make the
-database available globally in that class.</p>
+  <div class="section" id="id1">
+<h1>连接你的数据库<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>你可以在任意你需要的方法中添加以下代码来连接你的数据库，或者在你类的构造函数中去设置一个可用的全局参数。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>If the above function does <strong>not</strong> contain any information in the first
-parameter it will connect to the default group specified in your database config
-file. For most people, this is the preferred method of use.</p>
-<div class="section" id="available-parameters">
-<h2>Available Parameters<a class="headerlink" href="#available-parameters" title="永久链接至标题">¶</a></h2>
+<p>如果上面的函数没有指定第一个参数，它将使用数据库配置文件中指定的组来链接数据库。对于大多数人而言，这是首选的方案。</p>
+<div class="section" id="id2">
+<h2>可用的参数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
-<li>The database group name, a string that must match the config class' property name. Default value is $config-&gt;defaultGroup.</li>
-<li>TRUE/FALSE (boolean). Whether to return the a shared connection (see
-Connecting to Multiple Databases below).</li>
+<li>数据库组名，一个必须与配置类的属性名匹配的字符串。默认值为 $config-&gt;defaultGroup；</li>
+<li>TRUE/FALSE (boolean). 是否返回共享连接（参考下文的连接多个数据库）。</li>
 </ol>
 </div>
-<div class="section" id="manually-connecting-to-a-database">
-<h2>Manually Connecting to a Database<a class="headerlink" href="#manually-connecting-to-a-database" title="永久链接至标题">¶</a></h2>
-<p>The first parameter of this function can <strong>optionally</strong> be used to
-specify a particular database group from your config file. Examples:</p>
-<p>To choose a specific group from your config file you can do this:</p>
+<div class="section" id="id3">
+<h2>手动连接数据库<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>这个函数的第一个参数是 <strong>可选的</strong>，被用来从你的配置文件中指定一个特定的数据库组。例如:</p>
+<p>从你的配置文件中选择一个特定的组:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;group_name&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Where group_name is the name of the connection group from your config
-file.</p>
+<p>其中 group_name 是你配置文件中连接组的名字。</p>
 </div>
-<div class="section" id="multiple-connections-to-same-database">
-<h2>Multiple Connections to Same Database<a class="headerlink" href="#multiple-connections-to-same-database" title="永久链接至标题">¶</a></h2>
-<p>By default, the <code class="docutils literal"><span class="pre">connect()</span></code> method will return the same instance of the
-database connection every time. If you need to have a separate connection
-to the same database, send <code class="docutils literal"><span class="pre">false</span></code> as the second parameter:</p>
+<div class="section" id="id4">
+<h2>连接多个数据库<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>默认情况下，<code class="docutils literal"><span class="pre">connect()</span></code> 方法每次返回数据库连接的同一实例。若你需要一个单独的连接到同一数据库，发送 <code class="docutils literal"><span class="pre">false</span></code> 作为第二个参数:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;group_name&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="section" id="connecting-to-multiple-databases">
-<h3>Connecting to Multiple Databases<a class="headerlink" href="#connecting-to-multiple-databases" title="永久链接至标题">¶</a></h3>
-<p>If you need to connect to more than one database simultaneously you can
-do so as follows:</p>
+<div class="section" id="id5">
+<h3>连接到多个数据库<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>如果你需要同时连接到多个不同的数据库，你可以这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$db1</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;group_one&#39;</span><span class="p">);</span>
 <span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;group_two&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Note: Change the words &quot;group_one&quot; and &quot;group_two&quot; to the specific
-group names you are connecting to.</p>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p>You don't need to create separate database configurations if you
-only need to use a different database on the same connection. You
-can switch to a different database when you need to, like this:</p>
-<div class="last line-block">
-<div class="line">$db-&gt;dbSelect($database2_name);</div>
+<p>注意: 将 &quot;group_one&quot; 和 &quot;group_two&quot; 修改为你想要的连接的组名称</p>
 </div>
-</div>
-</div>
-<div class="section" id="reconnecting-keeping-the-connection-alive">
-<h3>Reconnecting / Keeping the Connection Alive<a class="headerlink" href="#reconnecting-keeping-the-connection-alive" title="永久链接至标题">¶</a></h3>
-<p>If the database server's idle timeout is exceeded while you're doing
-some heavy PHP lifting (processing an image, for instance), you should
-consider pinging the server by using the reconnect() method before
-sending further queries, which can gracefully keep the connection alive
-or re-establish it.</p>
-<div class="admonition important">
-<p class="first admonition-title">重要</p>
-<p class="last">If you are using MySQLi database driver, the reconnect() method
-does not ping the server but it closes the connection then connects again.</p>
-</div>
+<div class="section" id="id6">
+<h3>重新连接/保持连接有效<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>当你在处理一些重量级的 PHP 操作时（例如处理图像），若超过了数据库的超时值，你应该考虑在执行后续查询前先调用 reconnect() 方法向数据库发送 ping 命令，这样可以优雅的保持连接有效或重新建立起连接。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">reconnect</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="manually-closing-the-connection">
-<h3>Manually closing the Connection<a class="headerlink" href="#manually-closing-the-connection" title="永久链接至标题">¶</a></h3>
-<p>While CodeIgniter intelligently takes care of closing your database
-connections, you can explicitly close the connection.</p>
+<div class="section" id="id7">
+<h3>手动关闭连接<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>虽然 CodeIgniter 可以智能的管理并自动关闭数据库连接，你仍可以用下面的方式来关闭连接。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -499,7 +469,7 @@ connections, you can explicitly close the connection.</p>
         <a href="queries.html" class="btn btn-neutral float-right" title="Queries">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="configuration.html" class="btn btn-neutral" title="Database Configuration"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="configuration.html" class="btn btn-neutral" title="数据库配置"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
       
     </div>
   
@@ -509,7 +479,7 @@ connections, you can explicitly close the connection.</p>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2017-10-27。
+       最后修改：2017-10-30。
     </p>
   </div>
 
