@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Database Seeding &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据填充 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -119,8 +119,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/api_responses.html">API 响应特性</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">Benchmarking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">基准测试类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cli.html">CLI Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/content_negotiation.html">Content Negotiation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest Class</a></li>
@@ -296,8 +296,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Library Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/api_responses.html">API 响应特性</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">Benchmarking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">Caching Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/benchmark.html">基准测试类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cli.html">CLI Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/content_negotiation.html">Content Negotiation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest Class</a></li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">Database Reference</a> &raquo;</li>
       
-    <li>Database Seeding</li>
+    <li>数据填充</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,16 +405,10 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="database-seeding">
-<h1>Database Seeding<a class="headerlink" href="#database-seeding" title="永久链接至标题">¶</a></h1>
-<p>Database seeding is a simple way to add data into your database. It is especially useful during development where
-you need to populate the database with sample data that you can develop against, but it is not limited to that.
-Seeds can contain static data that you don't want to include in a migration, like countries, or geo-coding tables,
-event or setting information, and more.</p>
-<p>Database seeds are simple classes that must have a <strong>run()</strong> method, and extend <strong>CodeIgniterDatabaseSeeder</strong>.
-Within the <strong>run()</strong> the class can create any form of data that it needs to. It has access to the database
-connection and the forge through <code class="docutils literal"><span class="pre">$this-&gt;db</span></code> and <code class="docutils literal"><span class="pre">$this-&gt;forge</span></code>, respectively. Seed files must be
-stored within the <strong>application/Database/Seeds</strong> directory. The name of the file must match the name of the class.</p>
+  <div class="section" id="id1">
+<h1>数据填充<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>数据填充是一种简单的将数据添加到数据库的方式。这在开发的过程中特别有用，你只需要准备开发中所需要的示例数据填充到数据库中，而且不仅如此，这些数据可以包括你不想要包括的迁移的静态数据，例如国家/地区，地理编码表，事件或设置信息等等。</p>
+<p>数据填充是必须有 <strong>run()</strong> 方法的简单类，并继承于 <strong>CodeIgniterDatabaseSeeder</strong> 。在 <strong>run()</strong> 中，该类可以创建你所需要的任何类型的数据。该类可以创建需要的任何形式的数据。它可以分别通过建立 $this-&gt;db 和 $this-&gt;forge 访问数据库连接。填充文件必须存储在 <strong>application/Database/Seeds</strong> 目录中。文件名和类名必须保持一致。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// application/Database/Seeds/SimpleSeeder.php</span>
 <span class="k">class</span> <span class="nc">SimpleSeeder</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Database\Seeder</span>
 <span class="p">{</span>
@@ -436,10 +430,9 @@ stored within the <strong>application/Database/Seeds</strong> directory. The nam
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="nesting-seeders">
-<h2>Nesting Seeders<a class="headerlink" href="#nesting-seeders" title="永久链接至标题">¶</a></h2>
-<p>Seeders can call other seeders, with the <strong>call()</strong> method. This allows you to easily organize a central seeder,
-but organize the tasks into separate seeder files:</p>
+<div class="section" id="id2">
+<h2>嵌套数据填充<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>你可以使用 <strong>call()</strong> 方法来运行其他的 seed 类。这允许你更容易使用 seeder，而且同时也将任务分发到各个 seeder 文件当中:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TestSeeder</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Database\Seeder</span>
 <span class="p">{</span>
         <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span>
@@ -451,8 +444,7 @@ but organize the tasks into separate seeder files:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can also use a fully-qualified class name in the <strong>call()</strong> method, allowing you to keep your seeders
-anywhere the autoloader can find them. This is great for more modular code bases:</p>
+<p>你也可以在 <strong>call()</strong> 方法中使用完全合格的类名，使你的 seeder 在任何地方都可以更好的加载。这对于更多模块化代码库来说非常方便:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">call</span><span class="p">(</span><span class="s1">&#39;UserSeeder&#39;</span><span class="p">);</span>
@@ -461,17 +453,15 @@ anywhere the autoloader can find them. This is great for more modular code bases
 </pre></div>
 </div>
 </div>
-<div class="section" id="using-seeders">
-<h2>Using Seeders<a class="headerlink" href="#using-seeders" title="永久链接至标题">¶</a></h2>
-<p>You can grab a copy of the main seeder through the database config class:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$seeder</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">seeder</span><span class="p">();</span>
-<span class="nv">$seeder</span><span class="o">-&gt;</span><span class="na">call</span><span class="p">(</span><span class="s1">&#39;TestSeeder&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-<div class="section" id="command-line-seeding">
-<h3>Command Line Seeding<a class="headerlink" href="#command-line-seeding" title="永久链接至标题">¶</a></h3>
-<p>You can also seed data from the command line, as part of the Migrations CLI tools, if you don't want to create
-a dedicated controller:</p>
+<div class="section" id="seeders">
+<h2>使用 Seeders<a class="headerlink" href="#seeders" title="永久链接至标题">¶</a></h2>
+<p>你可以通过数据库配置类获取主 seeder</p>
+<blockquote>
+<div>$seeder = ConfigDatabase::seeder();
+$seeder-&gt;call('TestSeeder');</div></blockquote>
+<div class="section" id="id3">
+<h3>命令行填充数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>如果不想创建专用控制器，也可以从命令行填充数据，作为 Migrations CLI 工具的一部分:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">index</span><span class="o">.</span><span class="nx">php</span> <span class="nx">migrations</span> <span class="nx">seed</span> <span class="nx">TestSeeder</span>
 </pre></div>
 </div>

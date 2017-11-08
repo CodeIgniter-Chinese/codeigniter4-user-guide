@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Benchmarking &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>基准测试类 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -32,7 +32,7 @@
   
     <link rel="top" title="CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档" href="../index.html"/>
         <link rel="up" title="Library Reference" href="index.html"/>
-        <link rel="next" title="Caching Driver" href="caching.html"/>
+        <link rel="next" title="缓存驱动器" href="caching.html"/>
         <link rel="prev" title="API 响应特性" href="api_responses.html"/> 
 
   
@@ -119,8 +119,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Library Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="api_responses.html">API 响应特性</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Benchmarking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching Driver</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">基准测试类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">缓存驱动器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="content_negotiation.html">Content Negotiation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest Class</a></li>
@@ -296,8 +296,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Library Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="api_responses.html">API 响应特性</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Benchmarking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="caching.html">Caching Driver</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">基准测试类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="caching.html">缓存驱动器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">CLI Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="content_negotiation.html">Content Negotiation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest Class</a></li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">Library Reference</a> &raquo;</li>
       
-    <li>Benchmarking</li>
+    <li>基准测试类</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,47 +405,39 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="benchmarking">
-<h1>Benchmarking<a class="headerlink" href="#benchmarking" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter provides two separate tools to help you benchmark your code and test different options:
-the Timer and the Iterator. The Timer allows you to easily calculate the time between two points in the
-execution of your script. The Iterator allows you to setup several variations and run those tests, recording
-performance and memory statistics to help you decide which version is the best.</p>
-<p>The Timer class is always active, being started from the moment the framework is invoked until right before
-sending the output to the user, enabling a very accurate timing of the entire system execution.</p>
-<div class="contents local topic" id="page-contents">
-<p class="topic-title first">Page Contents</p>
+  <div class="section" id="id1">
+<h1>基准测试类<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>CodeIgniter 提供了两个独立的工具来帮助你对代码进行基准测试，并测试不同的选项：Timer 和 Iterator。Timer 允许你轻松计算脚本执行中两点之间的时间。迭代器允许你设置多个变量并运行这些测试，记录性能和内存统计信息，以帮助你确定哪个版本是最佳的。</p>
+<p>Timer类始终处于活动状态，从框架被调用的那一刻开始，直到发送输出到用户之前，才能使整个系统执行的时间非常准确。</p>
+<div class="contents local topic" id="id2">
+<p class="topic-title first">目录</p>
 <ul class="simple">
-<li><a class="reference internal" href="#using-the-timer" id="id1">Using the Timer</a><ul>
-<li><a class="reference internal" href="#viewing-your-benchmark-points" id="id2">Viewing Your Benchmark Points</a></li>
-<li><a class="reference internal" href="#displaying-execution-time" id="id3">Displaying Execution Time</a></li>
+<li><a class="reference internal" href="#id3" id="id11">使用定时器</a><ul>
+<li><a class="reference internal" href="#id4" id="id12">查看你的基准点</a></li>
+<li><a class="reference internal" href="#id5" id="id13">显示执行时间</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#using-the-iterator" id="id4">Using the Iterator</a><ul>
-<li><a class="reference internal" href="#creating-tasks-to-run" id="id5">Creating Tasks To Run</a></li>
-<li><a class="reference internal" href="#running-the-tasks" id="id6">Running the Tasks</a></li>
+<li><a class="reference internal" href="#id8" id="id14">使用迭代器</a><ul>
+<li><a class="reference internal" href="#id9" id="id15">创建任务运行</a></li>
+<li><a class="reference internal" href="#id10" id="id16">运行任务</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="using-the-timer">
-<h2><a class="toc-backref" href="#id1">Using the Timer</a><a class="headerlink" href="#using-the-timer" title="永久链接至标题">¶</a></h2>
-<p>With the Timer, you can measure the time between two moments in the execution of your application. This makes
-it simple to measure the performance of different aspects of your application. All measurement is done using
-the <code class="docutils literal"><span class="pre">start()</span></code> and <code class="docutils literal"><span class="pre">stop()</span></code> methods.</p>
-<p>The <code class="docutils literal"><span class="pre">start()</span></code> methods takes a single parameter: the name of this timer. You can use any string as the name
-of the timer. It is only used for you to reference later to know which measurement is which:</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id11">使用定时器</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>使用Timer，你可以测量执行应用程序的两个时刻之间的时间。这样可以轻松测量应用程序的不同方面的性能。所有测量都是使用 <code class="docutils literal"><span class="pre">start()</span></code> 和 <code class="docutils literal"><span class="pre">stop()</span></code> 方法完成的。</p>
+<p>该 <code class="docutils literal"><span class="pre">start()</span></code> 方法采用单个参数：此定时器的名称。你可以使用任何字符串作为计时器的名称。它仅用于你以后参考以了解哪个测量是:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$benchmark</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">timer</span><span class="p">();</span>
 <span class="nv">$benchmark</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">(</span><span class="s1">&#39;render view&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">stop()</span></code> method takes the name of the timer that you want to stop as the only parameter, also:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$benchmark</span><span class="o">-&gt;</span><span class="na">stop</span><span class="p">(</span><span class="s1">&#39;render view&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>The name is not case-sensitive, but otherwise must match the name you gave it when you started the timer.</p>
-<p>Alternatively, you can use the <a class="reference internal" href="../general/common_functions.html"><span class="doc">global function</span></a> <code class="docutils literal"><span class="pre">timer()</span></code> to start
-and stop timers:</p>
+<dl class="docutils">
+<dt>该 <code class="docutils literal"><span class="pre">stop()</span></code> 方法将要停止的计时器的名称作为唯一的参数，也是::</dt>
+<dd>$benchmark-&gt;stop('render view');</dd>
+</dl>
+<p>该名称不区分大小写，但除此之外必须与你在启动计时器时给出的名称相匹配。</p>
+<p>或者，你可以使用 <a class="reference internal" href="../general/common_functions.html"><span class="doc">全局函数</span></a> <code class="docutils literal"><span class="pre">timer()</span></code> 来启动和停止定时器:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Start the timer</span>
 <span class="nx">timer</span><span class="p">(</span><span class="s1">&#39;render view&#39;</span><span class="p">);</span>
 <span class="c1">// Stop a running timer,</span>
@@ -453,11 +445,9 @@ and stop timers:</p>
 <span class="nx">timer</span><span class="p">(</span><span class="s1">&#39;render view&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="section" id="viewing-your-benchmark-points">
-<h3><a class="toc-backref" href="#id2">Viewing Your Benchmark Points</a><a class="headerlink" href="#viewing-your-benchmark-points" title="永久链接至标题">¶</a></h3>
-<p>When your application runs, all of the timers that you have set are collected by the Timer class. It does
-not automatically display them, though. You can retrieve all of your timers by calling the <code class="docutils literal"><span class="pre">getTimers()</span></code> method.
-This returns an array of benchmark information, including start, end, and duration:</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id12">查看你的基准点</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>当你的应用程序运行时，你设置的所有定时器都将由Timer类收集。它不会自动显示它们。你可以通过调用 <code class="docutils literal"><span class="pre">getTimers()</span></code> 方法检索所有的计时器。该方法返回一组基准信息，包括开始，结束和持续时间:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$timers</span> <span class="o">=</span> <span class="nv">$benchmark</span><span class="o">-&gt;</span><span class="na">getTimers</span><span class="p">();</span>
 
 <span class="c1">// Timers =</span>
@@ -470,35 +460,27 @@ This returns an array of benchmark information, including start, end, and durati
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>You can change the precision of the calculated duration by passing in the number of decimal places you want shown as
-the only parameter. The default value is 4 numbers behind the decimal point:</p>
+<p>你可以通过传递要显示的小数位数作为唯一参数来更改计算持续时间的精度。默认值为小数点后面的 4 个数字:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$timers</span> <span class="o">=</span> <span class="nv">$benchmark</span><span class="o">-&gt;</span><span class="na">getTimers</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The timers are automatically displayed in the <a class="reference internal" href="../general/debugging.html"><span class="doc">Debub Toolbar</span></a>.</p>
+<p>计时器会自动显示在 <a class="reference internal" href="../general/debugging.html"><span class="doc">Debub 工具栏中</span></a>。</p>
 </div>
-<div class="section" id="displaying-execution-time">
-<h3><a class="toc-backref" href="#id3">Displaying Execution Time</a><a class="headerlink" href="#displaying-execution-time" title="永久链接至标题">¶</a></h3>
-<p>While the <code class="docutils literal"><span class="pre">getTimers()</span></code> method will give you the raw data for all of the timers in your project, you can retrieve
-the duration of a single timer, in seconds, with the <cite>getElapsedTime()</cite> method. The first parameter is the name of
-the timer to display. The second is the number of decimal places to display. This defaults to 4:</p>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id13">显示执行时间</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>该 <code class="docutils literal"><span class="pre">getTimers()</span></code> 方法将为你的项目中的所有计时器提供原始数据，你可以使用 <a href="#id6"><span class="problematic" id="id7">`</span></a>getElapsedTime()`方法检索单个计时器的持续时间（以秒为单位）。第一个参数是要显示的定时器的名称。第二个是要显示的小数位数。默认为4:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">timer</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getElapsedTime</span><span class="p">(</span><span class="s1">&#39;render view&#39;</span><span class="p">);</span>
 <span class="c1">// Displays: 0.0234</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="using-the-iterator">
-<h2><a class="toc-backref" href="#id4">Using the Iterator</a><a class="headerlink" href="#using-the-iterator" title="永久链接至标题">¶</a></h2>
-<p>The Iterator is a simple tool that is designed to allow you to try out multiple variations on a solution to
-see the speed differences and different memory usage patterns. You can add any number of &quot;tasks&quot; for it to
-run and the class will run the task hundreds or thousands of times to get a clearer picture of performance.
-The results can then be retrieved and used by your script, or displayed as an HTML table.</p>
-<div class="section" id="creating-tasks-to-run">
-<h3><a class="toc-backref" href="#id5">Creating Tasks To Run</a><a class="headerlink" href="#creating-tasks-to-run" title="永久链接至标题">¶</a></h3>
-<p>Tasks are defined within Closures. Any output the task creates will be discarded automatically. They are
-added to the Iterator class through the <cite>add()</cite> method. The first parameter is a name you want to refer to
-this test by. The second parameter is the Closure, itself:</p>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id14">使用迭代器</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<p>Iterator是一个简单的工具，旨在让你尝试解决方案中的多个变体，以查看速度差异和不同内存使用模式。你可以添加任何数量的 “任务”，以便运行，该类将运行任务数百或数千次以获得更清晰的性能。然后，你的脚本可以检索和使用结果，或显示为HTML表格。</p>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id15">创建任务运行</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>任务在 Closures 内定义。任务创建的任何输出将被自动丢弃。它们通过 <cite>add()</cite> 方法添加到 Iterator 类中。第一个参数是您想要引用这个测试的名称;第二个参数是 Closure，它自己本身:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$iterator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Benchmark\Iterator</span><span class="p">();</span>
 
 <span class="c1">// Add a new task</span>
@@ -517,17 +499,14 @@ this test by. The second parameter is the Closure, itself:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="running-the-tasks">
-<h3><a class="toc-backref" href="#id6">Running the Tasks</a><a class="headerlink" href="#running-the-tasks" title="永久链接至标题">¶</a></h3>
-<p>Once you've added the tasks to run, you can use the <code class="docutils literal"><span class="pre">run()</span></code> method to loop over the tasks many times.
-By default, it will run each task 1000 times. This is probably sufficient for most simple tests. If you need
-to run the tests more times than that, you can pass the number as the first parameter:</p>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id16">运行任务</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>你一旦添加了要运行的任务，你可以使用 <code class="docutils literal"><span class="pre">run()</span></code> 方法多次循环任务。默认情况下，它将循环运行 1000 次。这对大多数简单的测试来说可能就足够了，如果你需要运行测试多次，你可以将你希望运行数字作为第一个参数传递值:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Run the tests 3000 times.</span>
 <span class="nv">$iterator</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Once it has ran, it will return an HTML table with the results of the test. If you don't want the results
-displayed, you can pass in <cite>false</cite> as the second parameter:</p>
+<p>一旦运行，它将返回带有测试结果的 HTML 表格。如果你不希望显示结果，可以通过传递第二个参数为 false:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Don&#39;t display the results.</span>
 <span class="nv">$iterator</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
 </pre></div>
@@ -542,7 +521,7 @@ displayed, you can pass in <cite>false</cite> as the second parameter:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="caching.html" class="btn btn-neutral float-right" title="Caching Driver">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="caching.html" class="btn btn-neutral float-right" title="缓存驱动器">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="api_responses.html" class="btn btn-neutral" title="API 响应特性"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
