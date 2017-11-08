@@ -198,7 +198,7 @@ $handler 处理器是启动引擎时应用作主处理程序。可用的名称�
 Memcached 缓存
 =================
 
-可以在缓存配置文件中指定多个Memcached服务器。
+可以在缓存配置文件中指定多个 Memcached 服务器。
 
 关于 Memcached 的更多信息，请参阅 `http://php.net/memcached <http://php.net/memcached>`_。
 
