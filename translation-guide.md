@@ -19,7 +19,7 @@
 
 ```
 $ git config --global user.name "John Doe"
-$ git config --global user.email johndoe@example.com`
+$ git config --global user.email "johndoe@example.com"
 ```
 
 一旦完成，你只需要在您的分支的提交上使用 --signoff。
