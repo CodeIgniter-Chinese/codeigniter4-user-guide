@@ -35,20 +35,20 @@
 		}
 	}
 
-然后将这个文件保存在你的 **application/Controllers/** 目录下。
+然后将这个文件保存在 **application/Controllers/** 目录下。
 
 通常你会使用如下的URL访问你的网站::
 
 	example.com/index.php/tools/message/to
 
-然而，我们现在要打开 Mac/Linux 下的 Terminal 或者在 Windows 下点击 运行并输入“cmd”之后进入我们 CodeIgniter 项目的 web 根目录。
+然而，我们现在要打开 Mac/Linux 下的 Terminal 或者在 Windows 下点击 运行并输入“cmd”之后进入我们 CodeIgniter 项目的 web 根目录，并执行以下命令：
 
 .. code-block:: bash
 
 	$ cd /path/to/project/public
 	$ php index.php tools message
 
-如果你的操作正确，你将会看到这个输出 *Hello World!* 。
+如果你的操作正确，你将会看到这个输出 *Hello World!* 
 
 .. code-block:: bash
 
@@ -73,7 +73,7 @@ CLI-Only 路由
 
     $routes->cli('tools/message/(:segment)', 'Tools::message/$1');
 
-更多的信息，可以查看这里 :doc:`Routes </general/routing>` 。
+更多信息，可以查看这里 :doc:`Routes </general/routing>` 。
 
 CLI 库
 ---------------
