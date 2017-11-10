@@ -80,4 +80,4 @@ CLI 库
 
 CLI 库让我们的 CLI工作变得简单。它提供了简单的方法然我们将多种颜色的文本输出在终端上。它还可以让你给用户输出提示信息，构建出一个更加智能的工具。
 
-更多信息，可以查看这里 :doc:`CLI Library </libraries/cli>` page for detailed information.
+更多信息，可以查看这里 :doc:`CLI Library </libraries/cli>` 。
