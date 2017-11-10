@@ -69,7 +69,7 @@ CLI-Only 路由
 ----------------
 
 在 **Routes.php** 文件中你可以像创建其他路由的方式轻松新建只能通过 CLI 方式访问的路由，这些路由并不是使用类似 ``get()`` 、
-``post()``， 或者其他类似的方法，你需要使用 ``cli()`` 方法::
+``post()`` ，或者其他类似的方法，你需要使用 ``cli()`` 方法::
 
     $routes->cli('tools/message/(:segment)', 'Tools::message/$1');
 
