@@ -29,7 +29,7 @@ $(document).ready(function () {
             $('#nav2').show();
             $('#topMenu').remove();
             $('body').css({background: 'none'});
-            $('.wy-nav-content-wrap').css({background: 'none', 'margin-left': 0});
+            $('.wy-nav-content-wrap').css({background: 'none'});
             $('.wy-breadcrumbs').append('<div style="float:right;"><div style="float:left;" id="topMenu">' + $('.wy-form').parent().html() + '</div></div>');
             $('.wy-nav-side').toggle();
         },
@@ -40,7 +40,7 @@ $(document).ready(function () {
             $('#nav').hide();
             $('#nav2').hide();
             $('body').css({background: '#edf0f2;'});
-            $('.wy-nav-content-wrap').css({background: 'none repeat scroll 0 0 #fcfcfc;', 'margin-left': '300px'});
+            $('.wy-nav-content-wrap').css({background: 'none repeat scroll 0 0 #fcfcfc;'});
             $('.wy-nav-side').show();
         }
     );

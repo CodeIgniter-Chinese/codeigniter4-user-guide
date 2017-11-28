@@ -1,86 +1,57 @@
 ##############################
-Models, Views, and Controllers
+模型，视图和控制器
 ##############################
 
-Whenever you create an application, you have to find a way to organize the code to make it simple to locate
-the proper files and make it simple to maintain. Like most of the web frameworks, CodeIgniter uses the Model,
-View, Controller (MVC) pattern to organize the files. This keeps the data, the presentation, and flow through the
-application as separate parts. It should be noted that there are many views on the exact roles of each element,
-but this document describes our take on it. If you think of it differently, you're free to modify how you use
-each piece as you need.
+当创建一个应用的时候，我们需要有一种便捷的代码结构。和很多 Web 框架类似， CodeIgnite 框架也使用了模型、视图、控制器结构，即 MVC 模式，来组织接着代码文件。这种方式可以将数据，展示部分和流程部分分别作为单独的部分存放在我们的应用中。需要注意的是，可能每个人会对某个元素所担任的角色有不同的看法，那么，下面我们就通过这个文档说明这些元素所担任的角色。
 
-**Models** manage the data of the application, and help to enforce any special business rules the application might need.
+**模型** 主要用来管理应用的数据, 根据应用的特殊业务规则获取数据。
 
-**Views** are simple files, with little to no logic, that display the information to the user.
+**视图** 是一个没有或者少量逻辑的简单的文件, 它只负责将数据展示给用户。
 
-**Controllers** act as glue code, marshalling data back and forth between the view (or the user that's seeing it) and
-the data storage.
+**控制器** 主要承担了胶水代码的功能, 它主要在视图层和数据存储之间来回的处理并整合数据。
 
-At their most basic, controllers and models are simply classes that have a specific job. They are not the only class
-types that you can use, obviously, but the make up the core of how this framework is designed to be used. They even
-have designated directories in the **/application** directory for their storage, though you're free to store them
-wherever you desire, as long as they are properly namespaced. We will discuss that in more detail below.
+在最简单的情况下，控制器和模型只是一个完成特定工作的类。他们虽然不是你可以使用的唯一类的类型，但他们是构成整个框架的核心。你也可以将控制器和模型文件存储在任何你需要的位置，但是 CodeIgnite 框架在 **/application** 目录中为我们指定了存储目录。我们将在之后进行详细讨论。
 
-Let's take a closer look at each of these three main components.
+下面我们就来看一下这三个主要组成部分。
 
 
 **************
-The Components
+组成
 **************
 
-Views
+视图
 =====
 
-Views are the simplest files and are typically HTML with very small amounts of PHP. The PHP should be very simple,
-usually just displaying a variable's contents, or looping over some items and displaying their information in a table.
+视图是最简单的文件，一个视图文件通常是一个HTML文件加入少量的PHP代码。视图中的PHP代码应该尽可能的简单，一般只是显示一个变量内容，或者通过循环语句将数据输出在表格中展示出来。
 
-Views get the data to display from the controllers, who pass it to the views as variables that can be displayed
-with simple ``echo`` calls. You can also display other views within a view, making it pretty simple to display a
-common header or footer on every page.
+视图从控制器中获取数据并展示——控制器将数据发送给视图，视图通过简单的 ``echo`` 调用将数据展示出来。你也可以在一个视图中插入展示其他视图，这样可以很简单的在每个页面上展示出公共的页眉和页脚。
 
-Views are generally stored in **/application/Views**, but can quickly become unwieldy if not organized in some fashion.
-CodeIgniter does not enforce any type of organization, but a good rule of thumb would be to create a new directory in
-the **Views** directory for each controller. Then, name views by the method name. This makes them very easy find later
-on. For example, a user's profile might be displayed in a controller named ``User``, and a method named ``profile``.
-You might store the view file for this method in **/application/Views/User/Profile.php**.
+视图文件通常存放在 **/application/Views** 目录下，如果在创建文件时不按照一定的规则创建的话，会显得我们的代码杂乱无章。 CodeIgnite 框架虽然没有规定任何的规则，但通过经验我们规定在 **Views** 目录下创建一个新的目录对应每个控制器。然后通过方法名来命名视图。这样就会使我们之后查找起来更加容易。例如：``用户配置`` 可能会显示在一个名为 ``User`` 的控制器中,并且方法名称为 ``profile`` ，你就可以将该视图文件保存在 **/application/Views/User/Profile.php** 这个路径下，并这样命名。
 
-That type of organization works great as a base habit to get into. At times you might need to organize it differently.
-That's not a problem. As long as CodeIgniter can find the file, it can display it.
+这种良好的组织代码方式建议养成一个习惯。可能有些时候，你有一些其他需求需要以其他方式来组织代码，没关系，只要CodeIgnite框架可以找到这个文件，这个视图就会被显示。
 
-:doc:`Find out more about views </general/views>`
+:doc:`想要了解更多关于视图的内容可以查阅相关内容 </general/views>`
 
 
-Models
+模型
 ======
 
-A model's job is to maintain a single type of data for the application. This might be users, blog posts, transactions, etc.
-In this case, the model's job has two parts: enforce business rules on the data as it is pulled from, or put into, the
-database; and handle the actual saving and retrieval of the data from the database.
+模型的主要任务是给应用维护单一类型的数据。比如：用户，博客内容，交易信息等。所以，模型的工作有以下两种，对数据进行采集或者放入数据库中执行业务规则；检索数据并将数据库中的数据读取出来。也就是进行数据的增删改查的操作。
 
-For many developers, the confusion comes in when determining what business rules are enforced. It simply means that
-any restrictions or requirements on the data is handled by the model. This might include normalizing raw data before
-it's saved to meet company standards, or formatting a column in a certain way before handing it to the controller.
-By keeping these business requirements in the model, you won't repeat code throughout several controllers and accidentally
-miss updating an area.
+数据的任何限制和要求都由模型层承担，包括在保存数据前将原始数据初始化，或者在数据传给控制器前将数据格式化。这样可以保证你可以不用在多个控制器中出现重复代码，或者出错。
 
-Models are typically stored in **/application/Models**, though they can use a namespace to be grouped however you need.
+模型类型的文件保存在 **/application/Models** 这个目录下，虽然他们也可以使用一个命名空间分组，但是还是建议你将模型文件放在这个目录下。
 
-:doc:`Find out more about models </database/model>`
+:doc:`想要了解更多有关模型的内容可以查阅 </database/model>`
 
 
-Controllers
+控制器
 ===========
 
-Controllers have a couple of different roles to play. The most obvious one is that they receive input from the user and
-then determine what to do with it. This often involves passing the data to a model to save it, or requesting data from
-the model that is then passed on to the view to be displayed. This also includes loading up other utility classes,
-if needed, to handle specialized tasks that is outside of the purview of the model.
+控制器主要承担了几个不同的角色。最常见的就是他们会接收用户的请求，然后判断这个请求应该执行什么样的操作。而这一过程通常会涉及到将数据发送给模型层保存，或者去请求模型层的数据返回给视图。控制器也会用来加载其他应用程序请求的除模型参与的任务。
 
-The other responsibility of the controller is to handles everything that pertains to HTTP requests - redirects,
-authentication, web safety, encoding, etc. In short, the controller is where you make sure that people are allowed to
-be there, and they get the data they need in a format they can use.
+控制器的林外的任务就是用来处理和 HTTP 请求相关的所有事情——重定向、认证， Web 安全，编码等。总之，控制器是你的应用程序的入口，通过控制器访问你的应用的用户才可以到达指定的地方并获取他们想要的数据使用格式。
 
-Controllers are typically stored in **/application/Controllers**, though they can use a namespace to be grouped however
-you need.
+控制器通常会保存在 **/application/Controllers** 这个路径下, 虽然你也可以使用命名空间分组，但是还是建议你将控制器存放在该目录下。
 
-:doc:`Find out more about controllers </general/controllers>`
+:doc:`想了解更多关于控制性的信息可以查阅 </general/controllers>`
