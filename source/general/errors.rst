@@ -66,53 +66,53 @@ PageNotFoundException
 ConfigException
 ---------------
 
-当配置文件中的值无效或 class 类不是正确类型等情况时，请使用此异常捕获::
+当配置文件中的值无效或 class 类不是正确类型等情况时，请使用此异常::
 
 	throw new \CodeIgniter\ConfigException();
 
-它将 HTTP 状态码置为 500，退出状态码被置位 3.
+它将 HTTP 状态码置为 500，退出状态码被置为 3.
 
 UnknownFileException
 --------------------
 
-在文件没有被找到时，请使用此异常捕获::
+在文件没有被找到时，请使用此异常::
 
 	throw new \CodeIgniter\UnknownFileException();
 
-它将 HTTP 状态码置为 500，退出状态码被置位 4.
+它将 HTTP 状态码置为 500，退出状态码被置为 4.
 
 UnknownClassException
 ---------------------
 
-当一个类没有被找到时，请使用此异常捕获::
+当一个类没有被找到时，请使用此异常::
 
 	throw new \CodeIgniter\UnknownClassException($className);
 
-它将 HTTP 状态码置为 500，退出状态码被置位 5.
+它将 HTTP 状态码置为 500，退出状态码被置为 5.
 
 UnknownMethodException
 ----------------------
 
-当一个类的方法不存在时，请使用此异常捕获::
+当一个类的方法不存在时，请使用此异常::
 
 	throw new \CodeIgniter\UnknownMethodException();
 
-它将 HTTP 状态码置为 500，退出状态码被置位 6.
+它将 HTTP 状态码置为 500，退出状态码被置为 6.
 
 UserInputException
 ------------------
 
-当用户的输入无效时，请使用此异常捕获::
+当用户的输入无效时，请使用此异常::
 
 	throw new \CodeIgniter\UserInputException();
 
-它将 HTTP 状态码置为 500，退出状态码被置位 7.	
+它将 HTTP 状态码置为 500，退出状态码被置为 7.	
 
 DatabaseException
 -----------------
 
-当产生如连接不能建立或连接临时丢失的数据库错误时，请使用此异常捕获::
+当产生如连接不能建立或连接临时丢失的数据库错误时，请使用此异常::
 
 	throw new \CodeIgniter\DatabaseException();
 
-它将 HTTP 状态码置为 500，退出状态码被置位 8.
+它将 HTTP 状态码置为 500，退出状态码被置为 8.
