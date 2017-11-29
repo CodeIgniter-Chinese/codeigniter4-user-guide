@@ -1,7 +1,7 @@
 ##############
 错误处理
 ##############
-CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>`_和一些框架内自定义异常来生成系统错误报告。错误处理的行为取决于你部署环境的设置，当一个错误或异常被抛出的时，只要应用不是在 ``production`` 环境下运行，就会默认展示出详细的错误报告。在这种情况下，应为用户显示一个更为通用的信息来保证最佳的用户体验。
+CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>`_ 和一些框架内自定义异常来生成系统错误报告。错误处理的行为取决于你部署环境的设置，当一个错误或异常被抛出的时，只要应用不是在 ``production`` 环境下运行，就会默认展示出详细的错误报告。在这种情况下，应为用户显示一个更为通用的信息来保证最佳的用户体验。
 
 使用异常处理
 ================
@@ -42,7 +42,7 @@ CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>
 配置
 =============
 
-默认情况下，CodeIgniter 将在``开发``和``测试``环境中展示所有的错误，而在``生产``环境中不展示任何错误。你可以在主 ``index.php`` 文件的顶部找到环境配置部分来更改此设置。
+默认情况下，CodeIgniter 将在 ``development`` 和 ``testing`` 环境中展示所有的错误，而在 ``production`` 环境中不展示任何错误。你可以在主 ``index.php`` 文件的顶部找到环境配置部分来更改此设置。
 
 .. important:: 如果发生错误，禁用错误报告将不会阻止日志的写入。
 
