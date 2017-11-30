@@ -14,7 +14,7 @@
 - [x] [./source/general/core_classes.rst](source/general/core_classes.rst)
 - [ ] [./source/general/debugging.rst](source/general/debugging.rst)
 - [ ] [./source/general/environments.rst](source/general/environments.rst)
-- [ ] [./source/general/errors.rst](source/general/errors.rst)
+- [x] [./source/general/errors.rst](source/general/errors.rst)
 - [ ] [./source/general/events.rst](source/general/events.rst)
 - [ ] [./source/general/filters.rst](source/general/filters.rst)
 - [ ] [./source/general/helpers.rst](source/general/helpers.rst)
