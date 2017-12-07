@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Error Handling &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>错误处理 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -103,7 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filters.html">Controller Filters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging Information</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Error Handling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">错误处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Your Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Web Page Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
@@ -111,7 +111,7 @@
 <li class="toctree-l2"><a class="reference internal" href="modules.html">Code Modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">在视图文件中使用PHP替代语法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
 </ul>
 </li>
@@ -280,7 +280,7 @@
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filters.html">Controller Filters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging Information</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Error Handling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">错误处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Your Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="caching.html">Web Page Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
@@ -288,7 +288,7 @@
 <li class="toctree-l2"><a class="reference internal" href="modules.html">Code Modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">Alternate PHP Syntax for View Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alternative_php.html">在视图文件中使用PHP替代语法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
 </ul>
 </li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">常规主题</a> &raquo;</li>
       
-    <li>Error Handling</li>
+    <li>错误处理</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,22 +405,17 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="error-handling">
-<h1>Error Handling<a class="headerlink" href="#error-handling" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter builds error reporting into your system through Exceptions, both the <a class="reference external" href="http://php.net/manual/en/spl.exceptions.php">SPL collection</a>, as
-well as a few custom exceptions that are provided by the framework. Depending on your environment's setup, the
-default action when an error or exception is thrown is to display a detailed error report, unless the application
-is running under the <code class="docutils literal"><span class="pre">production</span></code> environment. In this case, a more generic  message is displayed to
-keep the best user experience for your users.</p>
-<div class="section" id="using-exceptions">
-<h2>Using Exceptions<a class="headerlink" href="#using-exceptions" title="永久链接至标题">¶</a></h2>
-<p>This section is a quick overview for newer programmers, or developers who are not experienced with using exceptions.</p>
-<p>Exceptions are simply events that happen when the exception is &quot;thrown&quot;. This halts the current flow of the script, and
-execution is then sent to the error handler which displays the appropriate error page:</p>
+  <div class="section" id="id1">
+<h1>错误处理<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>CodeIgniter 通过 <a class="reference external" href="http://php.net/manual/en/spl.exceptions.php">SPL collection</a> 和一些框架内自定义异常来生成系统错误报告。错误处理的行为取决于你部署环境的设置，当一个错误或异常被抛出时，只要应用不是在 <code class="docutils literal"><span class="pre">production</span></code> 环境下运行，就会默认展示出详细的错误报告。在这种情况下，应为用户显示一个更为通用的信息来保证最佳的用户体验。</p>
+<div class="section" id="id2">
+<h2>使用异常处理<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>本节为新手程序员或没有多少异常处理使用经验的开发人员做一个简单概述。</p>
+<p>异常处理是在异常被&quot;抛出&quot;的时候产生的事件。它会暂停当前脚本的执行，并将捕获到的异常发送到错误处理程序后显示适当的错误提示页:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\Exception</span><span class="p">(</span><span class="s2">&quot;Some message goes here&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>If you are calling a method that might throw an exception, you can catch that exception using a <code class="docutils literal"><span class="pre">try/catch</span> <span class="pre">block</span></code>:</p>
+<p>如果你调用了一个可能会产生异常的方法，你可以使用  <code class="docutils literal"><span class="pre">try/catch</span> <span class="pre">block</span></code> 去捕获异常:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
         <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
 <span class="p">}</span>
@@ -430,104 +425,94 @@ execution is then sent to the error handler which displays the appropriate error
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If the <code class="docutils literal"><span class="pre">$userModel</span></code> throws an exception, it is caught and the code within the catch block is executed. In this example,
-the scripts dies, echoing the error message that the <code class="docutils literal"><span class="pre">UserModel</span></code> defined.</p>
-<p>In this example, we catch any type of Exception. If we only want to watch for specific types of exceptions, like
-a UnknownFileException, we can specify that in the catch parameter. Any other exceptions that are thrown and are
-not child classes of the caught exception will be passed on to the error handler:</p>
+<p>如果 <code class="docutils literal"><span class="pre">$userModel</span></code> 抛出了一个异常，那么它就会被捕获，并执行 catch 代码块内的语句。在这个样例中，脚本终止并输出了 <code class="docutils literal"><span class="pre">UserModel</span></code> 定义的错误信息。</p>
+<p>在这个例子中，我们可以捕捉任意类型的异常。如果我们仅仅想要监视特定类型的异常，比如 UnknownFileException，我们就可以把它在 catch 参数中指定出来。这样一来，其它异常和非监视类型子类的异常都会被传递给错误处理程序:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">catch</span> <span class="p">(</span><span class="nx">\CodeIgniter\UnknownFileException</span> <span class="nv">$e</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="c1">// do something here...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This can be handy for handling the error yourself, or for performaing cleanup before the script ends. If you want
-the error handler to function as normal, you can throw a new exception within the catch block:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">catch</span> <span class="p">(</span><span class="nx">\CodeIgniter\UnknownFileException</span> <span class="nv">$e</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="c1">// do something here...</span>
-
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">\RuntimeException</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">(),</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getCode</span><span class="p">(),</span> <span class="nv">$e</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
+<p>这便于你自己进行错误处理或是在脚本结束前做好清理工作。如果你希望错误处理程序正常运行，可以在 catch 语句块中再抛出一个新的异常。</p>
+<blockquote>
+<div><p>catch (CodeIgniterUnknownFileException $e)
+{</p>
+<blockquote>
+<div><p>// do something here...</p>
+<p>throw new RuntimeException($e-&gt;getMessage(), $e-&gt;getCode(), $e);</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
 </div>
-</div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="永久链接至标题">¶</a></h2>
-<p>By default, CodeIgniter will display all errors in the <code class="docutils literal"><span class="pre">development</span></code> and <code class="docutils literal"><span class="pre">testing</span></code> environments, and will not
-display any errors in the <code class="docutils literal"><span class="pre">production</span></code> environment. You can change this by locating the environment configuration
-portion at the top of the main <code class="docutils literal"><span class="pre">index.php</span></code> file.</p>
+<div class="section" id="id3">
+<h2>配置<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>默认情况下，CodeIgniter 将在 <code class="docutils literal"><span class="pre">development</span></code> 和 <code class="docutils literal"><span class="pre">testing</span></code> 环境中展示所有的错误，而在 <code class="docutils literal"><span class="pre">production</span></code> 环境中不展示任何错误。你可以在主 <code class="docutils literal"><span class="pre">index.php</span></code> 文件的顶部找到环境配置部分来更改此设置。</p>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">Disabling error reporting DOES NOT stop logs from being written if there are errors.</p>
+<p class="last">如果发生错误，禁用错误报告将不会阻止日志的写入。</p>
 </div>
 </div>
-<div class="section" id="custom-exceptions">
-<h2>Custom Exceptions<a class="headerlink" href="#custom-exceptions" title="永久链接至标题">¶</a></h2>
-<p>The following custom exceptions are available:</p>
+<div class="section" id="id4">
+<h2>自定义异常<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>下列是可用的自定义异常:</p>
 <div class="section" id="pagenotfoundexception">
 <h3>PageNotFoundException<a class="headerlink" href="#pagenotfoundexception" title="永久链接至标题">¶</a></h3>
-<p>This is used to signal a 404, Page Not Found error. When thrown, the system will show the view found at
-<code class="docutils literal"><span class="pre">/application/views/errors/html/error_404.php</span></code>. You should customize all of the error views for your site.
-If, in <code class="docutils literal"><span class="pre">Config/Routes.php</span></code>, you have specified a 404 Override, that will be called instead of the standard
-404 page:</p>
+<p>这是用来声明 404 ，页面无法找到的错误。当异常被抛出时，系统将显示后面的错误模板 <code class="docutils literal"><span class="pre">/application/views/errors/html/error_404.php</span></code>。你应为你的站点自定义所有错误视图。如果在 <code class="docutils literal"><span class="pre">Config/Routes.php</span></code> 中，你指定了404 的重写规则，那么它将代替标准的 404 页来被调用:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$pageModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">))</span>
 <span class="p">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\PageNotFoundException</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can pass a message into the exception that will be displayed in place of the default message on the 404 page.</p>
+<p>你可以通过异常传递消息，它将在 404 页默认消息位置被展示。</p>
 </div>
 <div class="section" id="configexception">
 <h3>ConfigException<a class="headerlink" href="#configexception" title="永久链接至标题">¶</a></h3>
-<p>This exception should be used when the values from the configuration class are invalid, or when the config class
-is not the right type, etc:</p>
+<p>当配置文件中的值无效或 class 类不是正确类型等情况时，请使用此异常:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\ConfigException</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>This provides an HTTP status code of 500, and an exit code of 3.</p>
+<p>它将 HTTP 状态码置为 500，退出状态码被置为 3.</p>
 </div>
 <div class="section" id="unknownfileexception">
 <h3>UnknownFileException<a class="headerlink" href="#unknownfileexception" title="永久链接至标题">¶</a></h3>
-<p>Use this exception when a file cannot be found:</p>
+<p>在文件没有被找到时，请使用此异常:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\UnknownFileException</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>This provides an HTTP status code of 500, and an exit code of 4.</p>
+<p>它将 HTTP 状态码置为 500，退出状态码被置为 4.</p>
 </div>
 <div class="section" id="unknownclassexception">
 <h3>UnknownClassException<a class="headerlink" href="#unknownclassexception" title="永久链接至标题">¶</a></h3>
-<p>Use this exception when a class cannot be found:</p>
+<p>当一个类没有被找到时，请使用此异常:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\UnknownClassException</span><span class="p">(</span><span class="nv">$className</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>This provides an HTTP status code of 500, and an exit code of 5.</p>
+<p>它将 HTTP 状态码置为 500，退出状态码被置为 5.</p>
 </div>
 <div class="section" id="unknownmethodexception">
 <h3>UnknownMethodException<a class="headerlink" href="#unknownmethodexception" title="永久链接至标题">¶</a></h3>
-<p>Use this exception when a class' method does not exist:</p>
+<p>当一个类的方法不存在时，请使用此异常:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\UnknownMethodException</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>This provides an HTTP status code of 500, and an exit code of 6.</p>
+<p>它将 HTTP 状态码置为 500，退出状态码被置为 6.</p>
 </div>
 <div class="section" id="userinputexception">
 <h3>UserInputException<a class="headerlink" href="#userinputexception" title="永久链接至标题">¶</a></h3>
-<p>Use this exception when the user's input is not valid:</p>
+<p>当用户的输入无效时，请使用此异常:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\UserInputException</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>This provides an HTTP status code of 500, and an exit code of 7.</p>
+<p>它将 HTTP 状态码置为 500，退出状态码被置为 7.</p>
 </div>
 <div class="section" id="databaseexception">
 <h3>DatabaseException<a class="headerlink" href="#databaseexception" title="永久链接至标题">¶</a></h3>
-<p>This exception is thrown for database errors, such as when the database connection cannot be created,
-or when it is temporarily lost:</p>
+<p>当产生如连接不能建立或连接临时丢失的数据库错误时，请使用此异常:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\DatabaseException</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>This provides an HTTP status code of 500, and an exit code of 8.</p>
+<p>它将 HTTP 状态码置为 500，退出状态码被置为 8.</p>
 </div>
 </div>
 </div>
@@ -551,7 +536,7 @@ or when it is temporarily lost:</p>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2017-11-30。
+       最后修改：2017-12-07。
     </p>
   </div>
 
