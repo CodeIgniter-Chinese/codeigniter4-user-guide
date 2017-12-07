@@ -4,7 +4,8 @@
 > - [x] 表示已认领
 > - [x] ~~表示已完成~~
 
-- [ ] [./source/general/alternative_php.rst](source/general/alternative_php.rst)
+
+- [x] [./source/general/alternative_php.rst](source/general/alternative_php.rst)
 - [x] [./source/general/caching.rst](source/general/caching.rst)
 - [x] [./source/general/cli.rst](source/general/cli.rst)
 - [x] [./source/general/cli_commands.rst](source/general/cli_commands.rst)
