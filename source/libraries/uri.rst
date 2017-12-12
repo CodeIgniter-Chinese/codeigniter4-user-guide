@@ -27,11 +27,11 @@ CodeIngiter 为你在应用中使用 URI 类提供了一个面向对象的解决
 当前 URI
 ---------------
 
-很多时候，你真正想要的是一个表示着当前请求 URL 的对象。这可以有两种不同的方式来获取。第一，直接从当前请求对象中提取。假设你所在的控制器已经继承了 ``CodeIgniter\Controller``，你可以这样做::
+很多时候，你真正想要的是一个表示着当前请求 URL 的对象。可以有两种不同的方式来获取。第一，直接从当前请求对象中提取。假设你所在的控制器已继承自 ``CodeIgniter\Controller``，可以这样做::
 
 	$uri = $this->request->uri;
 
-第二，你可以使用 **url_helper** 中的一个相关函数来获取::
+第二，你可以使用 **url_helper** 中的一个可用函数来获取::
 
 	helper('url');
 	$uri = current_url(true);
@@ -42,7 +42,7 @@ CodeIngiter 为你在应用中使用 URI 类提供了一个面向对象的解决
 URI 字符串
 ===========
 
-很多时候，你真正想要的是得到一个表示 URI 的字符串。那么直接将 URI 对象转换为字符串就可以了::
+很多时候，你真正想要的是得到一个表示 URI 的字符串。那直接将 URI 对象转换为字符串就可以了::
 
 	$uri = current_url(true);
 	echo (string)$uri;  // http://example.com
@@ -74,14 +74,14 @@ Scheme
 Authority
 ---------
 
-许多 URI 内装载着被统称为 'authority' 的数个元素，包括用户信息，主机地址和端口号。你可以通过 ``getAuthority()`` 方法来获取一个包含着所有相关元素的字符串，也可以操作独立的元素。
+许多 URI 内装载着被统称为 'authority' 的数个元素，包括用户信息，主机地址和端口号。你可以通过 ``getAuthority()`` 方法来获取一个包含了所有相关元素的字符串，也可以对独立的元素进行操作。
 ::
 
 	$uri = new \CodeIgniter\HTTP\URI('ftp://user:password@example.com:21/some/path');
 
 	echo $uri->getAuthority();  // user@example.com:21
 	
-默认情况下，由于你不希望向别人展示密码部分，所以它不会被显示出来。如你想要展示密码，可以使用 ``showPassword()`` 方法。URI实例会在你再次关掉显示之前一直保持显示密码部分，所以你应在使用完之后立刻关闭它::
+默认情况下，因为你不希望向别人展示密码，所以它不会被显示出来。如你想展示密码，可以使用 ``showPassword()`` 方法。URI实例会在你再次关掉显示之前一直保持密码部分地展示，所以你应在使用完成后立刻关闭它::
 
 	echo $uri->getAuthority();  // user@example.com:21
 	echo $uri->showPassword()->getAuthority();   // user:password@example.com:21
@@ -93,12 +93,12 @@ Authority
 
 	echo $uri->getAuthority(true);  // user@example.com
 	
-.. 备注:: 如果当前端口号是传输协议的默认端口号，那它将永远不会被显示。
+.. Note:: 如果当前端口值是传输协议的默认端口值，那它将永远不会被显示。
 
 Userinfo
 --------
 
-用户信息部分是在使用 FTP URI 时你看到的用户名和密码。当你能在 Authority 中得到它的时，你也可以直接获取它::
+用户信息部分是在使用 FTP URI 时你看到的用户名和密码。当你能在 Authority 中得到它时，你也可以通过方法直接获取它::
 
 	echo $uri->getUserInfo();   // user
 
@@ -140,7 +140,7 @@ Path
 	echo $uri->getPath();   // 'some/path'
 	echo $uri->setPath('another/path')->getPath();  // 'another/path'
 
-.. 备注:: 以这种方式或类允许的其他方式设置 path 的时候，将会对危险字符进行编码，并移除点分段来确保安全。
+.. Note:: 以这种方式或类允许的其他方式设置 path 的时候，将会对危险字符进行编码，并移除点分段来确保安全。
 
 Query
 -----
@@ -153,13 +153,13 @@ Query
 	echo $uri->getQuery();  // 'foo=bar'
 	$uri->setQuery('foo=bar&bar=baz');
 
-.. 备注:: Query 值不能包含片段，否则会抛出一个 InvalidArgumentException 异常。
+.. Note:: Query 值不能包含片段，否则会抛出一个 InvalidArgumentException 异常。
 
 你可以使用一个数组来设置查询值::
 
     $uri->setQueryArray(['foo' => 'bar', 'bar' => 'baz']);
 
-``setQuery()`` 和 ``setQueryArray()`` 方法会重写已经存在的查询变量。你可以使用 ``addQuery()`` 方法在不销毁已存在的查询变量的前提下追加值。第一个参数是变量名，第二个参数是值::
+``setQuery()`` 和 ``setQueryArray()`` 方法会重写已经存在的查询变量。你可以使用 ``addQuery()`` 方法在不销毁已存在查询变量的前提下追加值。第一个参数是变量名，第二个参数是值::
 
     $uri->addQuery('foo', 'bar');
 
