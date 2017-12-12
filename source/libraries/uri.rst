@@ -81,7 +81,7 @@ Authority
 
 	echo $uri->getAuthority();  // user@example.com:21
 	
-默认情况下，因为你不希望向别人展示密码，所以它不会被显示出来。如你想展示密码，可以使用 ``showPassword()`` 方法。URI实例会在你再次关掉显示之前一直保持密码部分地展示，所以你应在使用完成后立刻关闭它::
+默认情况下，因为你不希望向别人展示密码，所以它不会被显示出来。如你想展示密码，可以使用 ``showPassword()`` 方法。URI 实例会在你再次关掉显示之前一直保持密码部分地展示，所以你应在使用完成后立刻关闭它::
 
 	echo $uri->getAuthority();  // user@example.com:21
 	echo $uri->showPassword()->getAuthority();   // user:password@example.com:21
