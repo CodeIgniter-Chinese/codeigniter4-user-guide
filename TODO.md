@@ -78,7 +78,7 @@
 - [ ] [./source/libraries/throttler.rst](source/libraries/throttler.rst)
 - [ ] [./source/libraries/time.rst](source/libraries/time.rst)
 - [ ] [./source/libraries/typography.rst](source/libraries/typography.rst)
-- [ ] [./source/libraries/uploaded_files.rst](source/libraries/uploaded_files.rst)
+- [x] [./source/libraries/uploaded_files.rst](source/libraries/uploaded_files.rst)
 - [x] [./source/libraries/uri.rst](source/libraries/uri.rst)
 - [x] [./source/libraries/validation.rst](source/libraries/validation.rst)
 - [ ] [./source/helpers/cookie_helper.rst](source/helpers/cookie_helper.rst)
