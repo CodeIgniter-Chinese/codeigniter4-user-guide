@@ -21,7 +21,7 @@
 - [ ] [./source/general/helpers.rst](source/general/helpers.rst)
 - [ ] [./source/general/index.rst](source/general/index.rst)
 - [ ] [./source/general/logging.rst](source/general/logging.rst)
-- [ ] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
+- [x] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
 - [ ] [./source/general/modules.rst](source/general/modules.rst)
 - [x] [./source/general/routing.rst](source/general/routing.rst)
 - [ ] [./source/general/testing.rst](source/general/testing.rst)
