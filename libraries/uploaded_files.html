@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Working with Uploaded Files &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>使用文件上传类 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -32,7 +32,7 @@
   
     <link rel="top" title="CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档" href="../index.html"/>
         <link rel="up" title="类库参考" href="index.html"/>
-        <link rel="next" title="Working with URIs" href="uri.html"/>
+        <link rel="next" title="使用 URI 类" href="uri.html"/>
         <link rel="prev" title="Typography" href="typography.html"/> 
 
   
@@ -137,8 +137,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="throttler.html">Throttler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typography.html">Typography</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Working with Uploaded Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="uri.html">Working with URIs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">使用文件上传类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uri.html">使用 URI 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="validation.html">Validation</a></li>
 </ul>
 </li>
@@ -314,8 +314,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="throttler.html">Throttler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typography.html">Typography</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Working with Uploaded Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="uri.html">Working with URIs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">使用文件上传类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uri.html">使用 URI 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="validation.html">Validation</a></li>
 </ul>
 </li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">类库参考</a> &raquo;</li>
       
-    <li>Working with Uploaded Files</li>
+    <li>使用文件上传类</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,66 +405,59 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="working-with-uploaded-files">
-<h1>Working with Uploaded Files<a class="headerlink" href="#working-with-uploaded-files" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter makes working with files uploaded through a form much simpler and more secure than using PHP's <code class="docutils literal"><span class="pre">$_FILES</span></code>
-array directly. This extends the <a class="reference internal" href="files.html"><span class="doc">File class</span></a> and thus gains all of the features of that class.</p>
+  <div class="section" id="id1">
+<h1>使用文件上传类<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>在 CodeIgniter 中通过表单使用文件上传功能将会比直接使用 PHP 的 <code class="docutils literal"><span class="pre">$_FILES</span></code> 数组更加简单和安全。其将继承  <a class="reference internal" href="files.html"><span class="doc">文件类</span></a> 并获取该类的所有功能。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">This is not the same as the File Uploading class in previous versions of CodeIgniter. This provides a raw
-interface to the uploaded files with a few small features. An uploader class will be present in the final release.</p>
+<p class="last">这和 CodeIgniter 的上一版本的文件上传类不同。这次提供了一个原生接口及一些小功能来上传文件。上传类将在最终版的时提供。</p>
 </div>
 <div class="contents local topic" id="page-contents">
 <p class="topic-title first">Page Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#accessing-files" id="id1">Accessing Files</a><ul>
-<li><a class="reference internal" href="#all-files" id="id2">All Files</a></li>
-<li><a class="reference internal" href="#single-file" id="id3">Single File</a><ul>
-<li><a class="reference internal" href="#simplest-usage" id="id4">Simplest usage</a></li>
-<li><a class="reference internal" href="#array-notation" id="id5">Array notation</a></li>
-<li><a class="reference internal" href="#multiple-files" id="id6">Multiple files</a></li>
+<li><a class="reference internal" href="#id2" id="id15">访问文件</a><ul>
+<li><a class="reference internal" href="#id3" id="id16">所有文件</a></li>
+<li><a class="reference internal" href="#id4" id="id17">单个文件</a><ul>
+<li><a class="reference internal" href="#id5" id="id18">最简使用</a></li>
+<li><a class="reference internal" href="#id6" id="id19">数组表示法</a></li>
+<li><a class="reference internal" href="#id7" id="id20">多文件</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#working-with-the-file" id="id7">Working With the File</a><ul>
-<li><a class="reference internal" href="#verify-a-file" id="id8">Verify A File</a></li>
-<li><a class="reference internal" href="#file-names" id="id9">File Names</a></li>
-<li><a class="reference internal" href="#other-file-info" id="id10">Other File Info</a></li>
-<li><a class="reference internal" href="#moving-files" id="id11">Moving Files</a></li>
+<li><a class="reference internal" href="#id8" id="id21">使用文件</a><ul>
+<li><a class="reference internal" href="#id9" id="id22">验证文件</a></li>
+<li><a class="reference internal" href="#id10" id="id23">文件名称</a></li>
+<li><a class="reference internal" href="#id11" id="id24">其他文件信息</a></li>
+<li><a class="reference internal" href="#id12" id="id25">移动文件</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="accessing-files">
-<h2><a class="toc-backref" href="#id1">Accessing Files</a><a class="headerlink" href="#accessing-files" title="永久链接至标题">¶</a></h2>
-<div class="section" id="all-files">
-<h3><a class="toc-backref" href="#id2">All Files</a><a class="headerlink" href="#all-files" title="永久链接至标题">¶</a></h3>
-<p>When you upload files they can be accessed natively in PHP through the <code class="docutils literal"><span class="pre">$_FILES</span></code> superglobal. This array has some
-major shortcomings when working with multiple files uploaded at once, and has potential security flaws many developers
-are not aware of. CodeIgniter helps with both of these situations by standardizing your usage of files behind a
-common interface.</p>
-<p>Files are accessed through the current <code class="docutils literal"><span class="pre">IncomingRequest</span></code> instance. To retrieve all files that were uploaded with this
-request, use <code class="docutils literal"><span class="pre">getFiles()</span></code>. This will return an array of files represented by instances of <code class="docutils literal"><span class="pre">CodeIgniter\HTTP\Files\UploadedFile</span></code>:</p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id15">访问文件</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id16">所有文件</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>当你上传文件时，PHP 可以在本地使用全局数组 <code class="docutils literal"><span class="pre">$_FILES</span></code> 来访问这些文件。当你同时上传多个文件时，这个数组存在一些不可忽视的缺点和很多开发者没有意识到的安全方面的潜在缺陷。CodeIgniter 通过一个公共接口来规范你对文件的使用，从而改善这些问题。</p>
+<p>通过当前的 <code class="docutils literal"><span class="pre">IncomingRequest</span></code> 实例来访问文件。使用 <code class="docutils literal"><span class="pre">getFiles()</span></code> 方法来获取本次请求中上传的所有文件。方法将会返回由 <code class="docutils literal"><span class="pre">CodeIgniter\HTTP\Files\UploadedFile</span></code> 实例表示的文件数组:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$files</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>Of course, there are multiple ways to name the file input, and anything but the simplest can create strange results.
-The array returns in a manner that you would expect. With the simplest usage, a single file might be submitted like:</p>
+<p>当然，有很多种方式来为文件 input 标签命名，除了最简外任何其他任何命名方式都可能产生奇怪的结果。数组将会以你期望的方式返回。使用最简方式，一个单文件提交表单可能会是这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;avatar&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>Which would return a simple array like:</p>
+<p>其将会返回一个简单的数组像是:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="p">[</span>
         <span class="s1">&#39;avatar&#39;</span> <span class="o">=&gt;</span> <span class="c1">// UploadedFile instance</span>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>If you used an array notation for the name, the input would look something like:</p>
+<p>如果你在标签名称中使用数组表示法，input 标签将看上去像是这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatar]&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>The array returned by <code class="docutils literal"><span class="pre">getFiles()</span></code> would look more like this:</p>
+<p><code class="docutils literal"><span class="pre">getFiles()</span></code> 方法返回的数组看上去将像是这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="p">[</span>
         <span class="s1">&#39;my-form&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                 <span class="s1">&#39;details&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -474,12 +467,12 @@ The array returns in a manner that you would expect. With the simplest usage, a 
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>In some cases, you may specify an array of files to upload:</p>
+<p>在某些情况下，你可以指定一组文件元素来上传:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
 <span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>In this case, the returned array of files would be more like:</p>
+<p>在这种情况下，返回的文件数组将会像是这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="p">[</span>
         <span class="s1">&#39;my-form&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                 <span class="s1">&#39;details&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -492,44 +485,44 @@ The array returns in a manner that you would expect. With the simplest usage, a 
 </pre></div>
 </div>
 </div>
-<div class="section" id="single-file">
-<h3><a class="toc-backref" href="#id3">Single File</a><a class="headerlink" href="#single-file" title="永久链接至标题">¶</a></h3>
-<p>If you just need to access a single file, you can use <code class="docutils literal"><span class="pre">getFile()</span></code> to retrieve the file instance directly. This will return an instance of <code class="docutils literal"><span class="pre">CodeIgniter\HTTP\Files\UploadedFile</span></code>:</p>
-<div class="section" id="simplest-usage">
-<h4><a class="toc-backref" href="#id4">Simplest usage</a><a class="headerlink" href="#simplest-usage" title="永久链接至标题">¶</a></h4>
-<p>With the simplest usage, a single file might be submitted like:</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id17">单个文件</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>如果你只需要访问单个文件，你可以使用 <code class="docutils literal"><span class="pre">getFile()</span></code> 方法来直接获取文件实例。其将会返回一个 <code class="docutils literal"><span class="pre">CodeIgniter\HTTP\Files\UploadedFile</span></code> 实例:</p>
+<div class="section" id="id5">
+<h4><a class="toc-backref" href="#id18">最简使用</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<p>使用最简方式，一个单文件提交表单可能会是这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;userfile&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>Which would return a simple file instance like:</p>
+<p>其将会返回一个简单的文件实例像是:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;userfile&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="array-notation">
-<h4><a class="toc-backref" href="#id5">Array notation</a><a class="headerlink" href="#array-notation" title="永久链接至标题">¶</a></h4>
-<p>If you used an array notation for the name, the input would look something like:</p>
+<div class="section" id="id6">
+<h4><a class="toc-backref" href="#id19">数组表示法</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p>如果你在标签名称中使用数组表示法，input 标签将看上去像是这样:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatar]&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>For get the file instance:</p>
+<p>这样来获取文件实例:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;my-form.details.avatar&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="multiple-files">
-<h4><a class="toc-backref" href="#id6">Multiple files</a><a class="headerlink" href="#multiple-files" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id7">
+<h4><a class="toc-backref" href="#id20">多文件</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
 <blockquote>
 <div>&lt;input type=&quot;file&quot; name=&quot;images[]&quot; multiple /&gt;</div></blockquote>
 <dl class="docutils">
-<dt>In controller::</dt>
+<dt>在控制器中::</dt>
 <dd><p class="first">if($imagefile = $this-&gt;request-&gt;getFiles())
 {</p>
 <blockquote>
-<div><p>foreach($imagefile['images'] as $Im)
+<div><p>foreach($imagefile['images'] as $img)
 {</p>
 <blockquote>
-<div><p>if ($im-&gt;isValid() &amp;&amp; ! $im-&gt;hasMoved())
+<div><p>if ($img-&gt;isValid() &amp;&amp; ! $img-&gt;hasMoved())
 {</p>
 <blockquote>
 <div>$newName = $img-&gt;getRandomName();
@@ -539,109 +532,99 @@ $img-&gt;move(WRITEPATH.'uploads', $newName);</div></blockquote>
 <p>}</p>
 </div></blockquote>
 <p>}</p>
-<p class="last">where the <strong>images</strong> is loop is from the form field name</p>
+<p class="last">循环中的 <strong>images</strong> 是表单中的字段名称</p>
 </dd>
 </dl>
-<p>If there are multiple files with the same name you can use <code class="docutils literal"><span class="pre">getFile()</span></code> ro retrieve every file individually::
-In controller:</p>
+<p>如果多个文件使用相同名称提交，你可以使用 <code class="docutils literal"><span class="pre">getFile()</span></code> 去逐个获取每个文件::
+在控制器中:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$file1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;images.0&#39;</span><span class="p">);</span>
 <span class="nv">$file2</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;images.1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Another example:</p>
+<p>另外一个例子:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
 <span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>In controller:</p>
+<p>在控制器中:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$file1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;my-form.details.avatars.0&#39;</span><span class="p">);</span>
 <span class="nv">$file2</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;my-form.details.avatars.1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">using <code class="docutils literal"><span class="pre">getFiles()</span></code> is more appropriate</p>
+<p class="last">使用  <code class="docutils literal"><span class="pre">getFiles()</span></code> 更合适。</p>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="working-with-the-file">
-<h2><a class="toc-backref" href="#id7">Working With the File</a><a class="headerlink" href="#working-with-the-file" title="永久链接至标题">¶</a></h2>
-<p>Once you've retrieved the UploadedFile instance, you can retrieve information about the file in safe ways, as well as
-move the file to a new location.</p>
-<div class="section" id="verify-a-file">
-<h3><a class="toc-backref" href="#id8">Verify A File</a><a class="headerlink" href="#verify-a-file" title="永久链接至标题">¶</a></h3>
-<p>You can check that a file was actually uploaded via HTTP with no errors by calling the <code class="docutils literal"><span class="pre">isValid()</span></code> method:</p>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id21">使用文件</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<p>一旦你获取到了 UploadedFile 实例,你可以以安全的方式检索到文件的信息，还能将文件移动到新的位置。</p>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id22">验证文件</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>你可以调用 <code class="docutils literal"><span class="pre">isValid()</span></code> 方法来检查文件是否是通过 HTTP 无误上传的:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span>
 <span class="p">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nx">RuntimeException</span><span class="p">(</span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getErrorString</span><span class="p">()</span><span class="o">.</span><span class="s1">&#39;(&#39;</span><span class="o">.</span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getError</span><span class="p">()</span><span class="o">.</span><span class="s1">&#39;)&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>As seen in this example, if a file had an upload error, you can retrieve the error code (an integer) and the error
-message with the <code class="docutils literal"><span class="pre">getError()</span></code> and <code class="docutils literal"><span class="pre">getErrorString()</span></code> methods. The following errors can be discovered through
-this method:</p>
+<p>如这个例子所见，如果一个文件产生一个上传错误，你可以通过 <code class="docutils literal"><span class="pre">getError()</span></code> 和 <code class="docutils literal"><span class="pre">getErrorString()</span></code> 方法获取错误码（一个整数）和错误消息。通过此方法可以发现以下错误:</p>
 <ul class="simple">
-<li>The file exceeds your upload_max_filesize ini directive.</li>
-<li>The file exceeds the upload limit defined in your form.</li>
-<li>The file was only partially uploaded.</li>
-<li>No file was uploaded.</li>
-<li>The file could not be written on disk.</li>
-<li>File could not be uploaded: missing temporary directory.</li>
-<li>File upload was stopped by a PHP extension.</li>
+<li>文件大小超过了 upload_max_filesize 配置的值。</li>
+<li>文件大小超过了表单定义的上传限制。</li>
+<li>文件仅部分被上传。</li>
+<li>没有文件被上传。</li>
+<li>无法将文件写入磁盘。</li>
+<li>无法上传文件：缺少临时目录。</li>
+<li>PHP扩展阻止了文件上传。</li>
 </ul>
 </div>
-<div class="section" id="file-names">
-<h3><a class="toc-backref" href="#id9">File Names</a><a class="headerlink" href="#file-names" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id23">文件名称</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <p><strong>getName()</strong></p>
-<p>You can retrieve the original filename provided by the client with the <code class="docutils literal"><span class="pre">getName()</span></code> method. This will typically be the
-filename sent by the client, and should not be trusted. If the file has been moved, this will return the final name of
-the moved file:</p>
+<p>你可以通过 <code class="docutils literal"><span class="pre">getName()</span></code> 提取到客户端提供的文件的原始名称。其通常是由客户端发送的文件名，不应受信。如果文件已经被移动，将返回移动文件的最终名称:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$name</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>getClientName()</strong></p>
-<p>Always returns the original name of the uploaded file as sent by the client, even if the file has been moved:</p>
+<p>总是返回由客户端发送的上传文件的原始名称，即使文件已经被移动了:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$originalName</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientName</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>getTempName()</strong></p>
-<p>To get the full path of the temp file that was created during the upload, you can use the <code class="docutils literal"><span class="pre">getTempName()</span></code> method:</p>
+<p>要获取在上传期间产生的临时文件的全路径，你可以使用 <code class="docutils literal"><span class="pre">getTempName()</span></code> 方法:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$tempfile</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getTempName</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="other-file-info">
-<h3><a class="toc-backref" href="#id10">Other File Info</a><a class="headerlink" href="#other-file-info" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id24">其他文件信息</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p><strong>getClientExtension()</strong></p>
-<p>Returns the original file extension, based on the file name that was uploaded. This is NOT a trusted source. For a
-trusted version, use <code class="docutils literal"><span class="pre">getExtension()</span></code> instead:</p>
+<p>基于上传文件的名称，返回原始文件扩展名。这不是一个值得信赖的来源。对于可信的版本，请使用 <code class="docutils literal"><span class="pre">getExtension()</span></code> 来代替:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$ext</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientExtension</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>getClientType()</strong></p>
-<p>Returns the mime type (mime type) of the file as provided by the client. This is NOT a trusted value. For a trusted
-version, use <code class="docutils literal"><span class="pre">getType()</span></code> instead:</p>
+<p>返回由客户端提供的文件的媒体类型(mime type)。这不是一个值得信赖的值，对于可信的版本，请使用 <code class="docutils literal"><span class="pre">getType()</span></code> 来代替:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientType</span><span class="p">();</span>
 
 <span class="k">echo</span> <span class="nv">$type</span><span class="p">;</span> <span class="c1">// image/png</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="moving-files">
-<h3><a class="toc-backref" href="#id11">Moving Files</a><a class="headerlink" href="#moving-files" title="永久链接至标题">¶</a></h3>
-<p>Each file can be moved to its new location with the aptly named <code class="docutils literal"><span class="pre">move()</span></code> method. This takes the directory to move
-the file to as the first parameter:</p>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id25">移动文件</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<p>每个文件都可以使用恰如其名的 <a href="#id13"><span class="problematic" id="id14">``</span></a>move()` 方法来移动到新的位置。使用第一个参数为目标目录来移动文件:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span><span class="o">.</span><span class="s1">&#39;uploads&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>By default, the original filename was used. You can specify a new filename by passing it as the second parameter:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$newName</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getRandomName</span><span class="p">();</span>
-<span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span><span class="o">.</span><span class="s1">&#39;uploads&#39;</span><span class="p">,</span> <span class="nv">$newName</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>Once the file has been removed the temporary file is deleted. You can check if a file has been moved already with
-the <code class="docutils literal"><span class="pre">hasMoved()</span></code> method, which returns a boolean:</p>
+<p>默认的，将使用文件原始名称。你可以指定一个新的文件名称作为第二个参数传递给方法。</p>
+<blockquote>
+<div>$newName = $file-&gt;getRandomName();
+$file-&gt;move(WRITEPATH.'uploads', $newName);</div></blockquote>
+<p>一旦文件被移除，将删除临时文件。你可以通过 <code class="docutils literal"><span class="pre">hasMoved()</span></code> 方法来检查文件是否已经被移动了，返回布尔值:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">hasMoved</span><span class="p">())</span>
 <span class="p">{</span>
     <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
@@ -658,7 +641,7 @@ the <code class="docutils literal"><span class="pre">hasMoved()</span></code> me
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="uri.html" class="btn btn-neutral float-right" title="Working with URIs">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="uri.html" class="btn btn-neutral float-right" title="使用 URI 类">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="typography.html" class="btn btn-neutral" title="Typography"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
