@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Web Page Caching &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>网页缓存 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -105,7 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging Information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="errors.html">错误处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Your Application</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Web Page Caching</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">网页缓存</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli_commands.html">Custom CLI Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.html">Code Modules</a></li>
@@ -282,7 +282,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logging.html">Logging Information</a></li>
 <li class="toctree-l2"><a class="reference internal" href="errors.html">错误处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">Debugging Your Application</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Web Page Caching</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">网页缓存</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli.html">Running via the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli_commands.html">Custom CLI Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.html">Code Modules</a></li>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">常规主题</a> &raquo;</li>
       
-    <li>Web Page Caching</li>
+    <li>网页缓存</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,57 +405,41 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="web-page-caching">
-<h1>Web Page Caching<a class="headerlink" href="#web-page-caching" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter lets you cache your pages in order to achieve maximum
-performance.</p>
-<p>Although CodeIgniter is quite fast, the amount of dynamic information
-you display in your pages will correlate directly to the server
-resources, memory, and processing cycles utilized, which affect your
-page load speeds. By caching your pages, since they are saved in their
-fully rendered state, you can achieve performance much closer to that of
-static web pages.</p>
-<div class="section" id="how-does-caching-work">
-<h2>How Does Caching Work?<a class="headerlink" href="#how-does-caching-work" title="永久链接至标题">¶</a></h2>
-<p>Caching can be enabled on a per-page basis, and you can set the length
-of time that a page should remain cached before being refreshed. When a
-page is loaded for the first time, the file will be cached using the
-currently configured cache engine. On subsequent page loads the cache file
-will be retrieved and sent to the requesting user's browser. If it has
-expired, it will be deleted and refreshed before being sent to the
-browser.</p>
+  <div class="section" id="id1">
+<h1>网页缓存<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>CodeIgniter 可以让你通过缓存页面来达到更好的性能。</p>
+<p>尽管 CodeIgniter 已经相当高效了，但是网页中的动态内容、主机的内存 CPU 和数据库读取速度等因素直接影响了网页的加载速度。 依靠网页缓存， 你的网页可以达到近乎静态网页的加载速度，因为程序的输出结果 已经保存下来了。</p>
+<div class="section" id="id2">
+<h2>缓存是如何工作的？<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>可以针对到每个独立的页面进行缓存，并且你可以设置每个页面缓存的更新时间。 当页面第一次加载时，缓存将被写入到 application/cache 目录下的文件中去。 之后请求这个页面时，就可以直接从缓存文件中读取内容并输出到用户的浏览器。 如果缓存过期，会在输出之前被删除并重新刷新。</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">基准标记没有缓存，所以当缓存启用时，仍然可以查看页面加载速度。</p>
 </div>
-<div class="section" id="enabling-caching">
-<h2>Enabling Caching<a class="headerlink" href="#enabling-caching" title="永久链接至标题">¶</a></h2>
-<p>To enable caching, put the following tag in any of your controller
-methods:</p>
+</div>
+<div class="section" id="id3">
+<h2>开启缓存<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>将下面的代码放到任何一个控制器的方法内，你就可以开启缓存了:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cachePage</span><span class="p">(</span><span class="nv">$n</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Where <code class="docutils literal"><span class="pre">$n</span></code> is the number of <strong>seconds</strong> you wish the page to remain
-cached between refreshes.</p>
-<p>The above tag can go anywhere within a method. It is not affected by
-the order that it appears, so place it wherever it seems most logical to
-you. Once the tag is in place, your pages will begin being cached.</p>
+<p>其中 <code class="docutils literal"><span class="pre">$n</span></code> 是缓存更新的时间（单位分钟）。</p>
+<p>上面的代码可以放在方法的任何位置它出现的顺序对缓存没有影响，所以你可以把它放到任何你认为合理的地方。一旦该代码被放在方法内，你的页面就开始被缓存了。</p>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">If you change configuration options that might affect
-your output, you have to manually delete your cache files.</p>
+<p>如果你修改了可能影响页面输出的配置，你需要手动删除你的缓存文件。</p>
+<div class="last admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">在写入缓存文件之前，必须通过编辑 <strong>application/Config/Cache.php</strong> 文件来设置缓存引擎。</p>
 </div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>删除缓存<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>如果你不再需要缓存某个页面，你可以删除掉该页面上的缓存代码，这样它在过期之后就不会刷新了。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">Before the cache files can be written you must set the cache
-engine up by editing <strong>application/Config/Cache.php</strong>.</p>
-</div>
-</div>
-<div class="section" id="deleting-caches">
-<h2>Deleting Caches<a class="headerlink" href="#deleting-caches" title="永久链接至标题">¶</a></h2>
-<p>If you no longer wish to cache a file you can remove the caching tag and
-it will no longer be refreshed when it expires.</p>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">Removing the tag will not delete the cache immediately. It will
-have to expire normally.</p>
+<p class="last">删除缓存代码之后并不是立即生效，必须等到缓存过期才会生效。</p>
 </div>
 </div>
 </div>
@@ -479,7 +463,7 @@ have to expire normally.</p>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2017-12-20。
+       最后修改：2017-12-27。
     </p>
   </div>
 
