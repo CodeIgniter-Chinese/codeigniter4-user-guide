@@ -17,9 +17,9 @@ CodeIgniter 提供了少量全局定义的函数和变量给用户在某些地�
 
 .. php:function:: cache ( [$key] )
 
-    :param  string $key: The cache name of the item to retrieve from cache (Optional)
-    :returns: Either the cache object, or the item retrieved from the cache
-    :rtype: mixed
+    :param  string $key: The 需从缓存中取回的参数名 (可选)
+    :returns: 缓存对象或从缓存取回的变量
+    :rtype: mixed
 
     若 $key 不存在, 则返回缓存引擎实例. 若 $key
     有值存在, 则返回 $key 当前存储在缓存中的值,
@@ -32,34 +32,31 @@ CodeIgniter 提供了少量全局定义的函数和变量给用户在某些地�
 
 .. php:function:: env ( $key[, $default=null])
 
-	:param string $key: 需取回的环境变量的参数名
+	:param string $key: 需取回的环境变量中的参数名
 	:param mixed  $default: 如参数值不存在则返回默认值.
 	:returns: 运行环境变量, 默认值, 或者 null.
 	:rtype: mixed
 
-	Used to retrieve values that have previously been set to the environment,
-	or return a default value if it is not found. Will format boolean values
-	to actual booleans instead of string representations.
+	用于取回事前设置在环境变量中的变量值,若无设置则返回默认值. 
+	若没有找到健值则返回一个布尔值结果（false）.
 
-	Especially useful when used in conjunction with .env files for setting
-	values that are specific to the environment itself, like database
-	settings, API keys, etc.
+        在特定的运行环境中设置变量非常有用，例如数据库设置，API健值等.
 
 .. php:function:: esc ( $data, $context='html' [, $encoding])
 
-	:param   string|array   $data: The information to be escaped.
-	:param   string   $context: The escaping context. Default is 'html'.
-	:param   string   $encoding: The character encoding of the string.
-	:returns: The escaped data.
+	:param   string|array   $data: 被输出的信息.
+	:param   string   $context: 被输出内容的上下文. 默认值 'html'.
+	:param   string   $encoding: 编码字符串.
+	:returns: 输出的数据.
 	:rtype: string
 
-	Escapes data for inclusion in web pages, to help prevent XSS attacks.
-	This uses the Zend Escaper library to handle the actual filtering of the data.
+	页面中包含的输出数据, 有助于阻止 XSS 攻击.
+	使用Zend Escaper library把控过滤中的数据.
 
-	If $data is a string, then it simply escapes and returns it.
-	If $data is an array, then it loops over it, escaping each 'value' of the key/value pairs.
+	若 $data 为字符串, 则直接把输出返回.
+	若 $data 为数组, 则遍历key/value键值对中的'value'.
 
-	Valid context values: html, js, css, url, attr, raw, null
+	有效的上下文值: html, js, css, url, attr, raw, null
 
 .. php:function:: helper( $filename )
 
