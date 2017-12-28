@@ -125,68 +125,66 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	 详情参见 the :doc:`Views <views>` 页。
 
-Miscellaneous Functions
+杂类函数
 =======================
 
 .. php:function:: csrf_token ()
 
-	:returns: The name of the current CSRF token.
-	:rtype: string
+	:返回: 当前 CSRF token 名称。
+	:返回类型: string
 
-	Returns the name of the current CSRF token.
+	返回当前 CSRF token名称。
 
 .. php:function:: csrf_hash ()
 
-	:returns: The current value of the CSRF hash.
-	:rtype: string
+	:返回: 当前 CSRF hash值.
+	:返回类型: string
 
-	Returns the current CSRF hash value.
+	返回当前 CSRF hash 的值.
 
 .. php:function:: csrf_field ()
 
-	:returns: A string with the HTML for hidden input with all required CSRF information.
-	:rtype: string
+	:返回:  带有全部请求CSRF信息的隐藏input的HTML字符串。
+	:返回类型: string
 
-	Returns a hidden input with the CSRF information already inserted:
+	返回已插入CSRF信息的隐藏input:
 
 		<input type="hidden" name="{csrf_token}" value="{csrf_hash}">
 
 .. php:function:: force_https ( $duration = 31536000 [, $request = null [, $response = null]] )
 
-	:param  int  $duration: The number of seconds browsers should convert links to this resource to HTTPS.
-	:param  RequestInterface $request: An instance of the current Request object.
-	:param  ResponseInterface $response: An instance of the current Response object.
+	:参数  int  $duration: HTTPS资源的转换链接浏览秒数。
+	:参数  RequestInterface $request: 当前请求对象的实例。
+	:参数  ResponseInterface $response: 当前响应对象的实例。
 
-	Checks to see if the page is currently being accessed via HTTPS. If it is, then
-	nothing happens. If it is not, then the user is redirected back to the current URI
-	but through HTTPS. Will set the HTTP Strict Transport Security header, which instructs
-	modern browsers to automatically modify any HTTP requests to HTTPS requests for the $duration.
+	检查页面是否正被通过HTTPS访问. 若是则没任何事情发生. 若不是则被通过HTTPS重定向到当前URI。
+	严格设置HTTP传输安全header（Transport Security header）, 指示浏览器自动修改HTTP请求为HTTPS请求 for the $duration.
 
 .. php:function:: is_cli ()
 
-	:returns: TRUE if the script is being executed from the command line or FALSE otherwise.
-	:rtype: bool
+	:返回: TRUE 若脚本通过命令行执行 ；FALSE 其它.
+	:返回类型: bool
 
 .. php:function:: log_message ($level, $message [, array $context])
 
-	:param   string   $level: The level of severity
-	:param   string   $message: The message that is to be logged.
-	:param   array    $context: An associative array of tags and their values that should be replaced in $message
-	:returns: TRUE if was logged succesfully or FALSE if there was a problem logging it
-	:rtype: bool
+	:参数   string   $level: 级别程度
+	:参数   string   $message: 写入日志的信息.
+	:参数   array    $context: 一个标记和值的联合数组被替换到 $message
+	:返回: TRUE 若写入日志成功 ； FALSE 写入日志时有问题
+	:返回类型: bool
 
-	Logs a message using the Log Handlers defined in **application/Config/Logger.php**.
+	使用日志句柄记录日志信息 defined in **application/Config/Logger.php**.
 
-	Level can be one of the following values: **emergency**, **alert**, **critical**, **error**, **warning**,
+	级别可为以下值: **emergency**, **alert**, **critical**, **error**, **warning**,
 	**notice**, **info**, or **debug**.
 
-	Context can be used to substitute values in the message string. For full details, see the
-	:doc:`Logging Information <logging>` page.
+	上下文可被用于替换在message字符串中的值.详情参见 the
+	:doc:`Logging Information <logging>` 页。
 
 .. php:function:: redirect( $uri[, ...$params ] )
 
-	:param  string  $uri: The URI to redirect the user to.
-	:param  mixed   $params: one or more additional parameters that can be used with the :meth:`RouteCollection::reverseRoute` method.
+	:参数  string  $uri: 重定向URI 。
+	:参数  mixed   $params: 可使用单个或多个附加参数 the :meth:`RouteCollection::reverseRoute` 方法.
 
 	Convenience method that works with the current global ``$request`` and
 	``$router`` instances to redirect using named/reverse-routed routes
