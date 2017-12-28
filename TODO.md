@@ -9,7 +9,7 @@
 - [x] [./source/general/caching.rst](source/general/caching.rst)
 - [x] [./source/general/cli.rst](source/general/cli.rst)
 - [x] [./source/general/cli_commands.rst](source/general/cli_commands.rst)
-- [ ] [./source/general/common_functions.rst](source/general/common_functions.rst)
+- [x] [./source/general/common_functions.rst](source/general/common_functions.rst)
 - [x] [~~./source/general/configuration.rst~~](source/general/configuration.rst)
 - [x] [~~./source/general/controllers.rst~~](source/general/controllers.rst)
 - [x] [./source/general/core_classes.rst](source/general/core_classes.rst)
