@@ -183,155 +183,147 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: redirect( $uri[, ...$params ] )
 
-	:参数  string  $uri: 重定向URI 。
+	:参数  string  $uri: 重定向URI。
 	:参数  mixed   $params: 可使用单个或多个附加参数 the :meth:`RouteCollection::reverseRoute` 方法.
 
-	Convenience method that works with the current global ``$request`` and
-	``$router`` instances to redirect using named/reverse-routed routes
-	to determine the URL to go to. If nothing is found, will treat
-	as a traditional redirect and pass the string in, letting
-	``$response->redirect()`` determine the correct method and code.
+	便捷的方法与当前全局 ``$request``和``$router``实例协同重定向，使用named/reverse-routed路由判定转向的URL。
+	若没有发现则按惯常的重定向方式转向，让``$response->redirect()``判定适合的方法和代码。
 
-	If more control is needed, you must use ``$response->redirect()`` explicitly.
+	若需要更多的控制, 需要显式地使用 ``$response->redirect()`` 。
 
 .. php:function:: redirect_with_input( $uri[, ...$params] )
 
-	:param string $uri: The URI to redirect the user to.
-	:param mixed  $params: one or more additional parameters that can be used with the :meth:`RouteCollection::reverseRoute` method.
+	:参数 string $uri: 重定向URI。
+	:参数 mixed  $params: 一个或更多附加参数可被用于 the :meth:`RouteCollection::reverseRoute` 方法。
 
-	Identical to the ``redirect()`` method, except this flashes the request's $_GET and $_POST values to the session.
-	On the next page request, the form helper ``set_*`` methods will check for data within the old input first, then,
-	if it's not found, the current GET/POST will be checked.
+	跟``redirect()``方法等同, 该session刷新的请求中的 $_GET 和 $_POST的值除外。
+	在下一页的请求, 表单辅助类的 ``set_*`` 方法将首先检查旧的输入数据, 若没发现, 则当前的 GET/POST 将被检查。
 
-	.. note:: In order to retrieve the old, the session MUST be started prior to calling the function.
+	.. 注意:: 为了取回旧的值, session必须被启用，优先调用函数.
 
 .. php:function:: remove_invisible_characters($str[, $url_encoded = TRUE])
 
-	:param	string	$str: Input string
-	:param	bool	$url_encoded: Whether to remove URL-encoded characters as well
-	:returns:	Sanitized string
-	:rtype:	string
+	:参数	string	$str: 输入字符串
+	:参数	bool	$url_encoded: 是否移除URL编码字符
+	:返回:	已过滤的字符串
+	:返回类型:	string
 
-	This function prevents inserting NULL characters between ASCII
-	characters, like Java\\0script.
+	次函数阻止在ASCII字符中插入NULL，例如 Java\\0script。
 
-	Example::
+	范例::
 
 		remove_invisible_characters('Java\\0script');
-		// Returns: 'Javascript'
+		// 返回: 'Javascript'
 
 .. php:function:: route_to ( $method [, ...$params] )
 
-	:param   string   $method: The named route alias, or name of the controller/method to match.
-	:param   mixed   $params: One or more parameters to be passed to be matched in the route.
+	:参数   string   $method: 命名路由别名, 或匹配controller/method名称。
+	:参数   mixed   $params: 一个或更多参数被传递到路由中匹配。
 
-	Generates a relative URI for you based on either a named route alias, or a controller::method
-	combination. Will take parameters into effect, if provided.
+	生成相关的 URI基于命名路由别名或者controller::method结构体。 若提供参数会产生影响效果。
 
-	For full details, see the :doc:`routing` page.
+	详情参见 the :doc:`routing` 页。
 
 .. php:function:: service ( $name [, ...$params] )
 
-	:param   string   $name: The name of the service to load
-	:param   mixed    $params: One or more parameters to pass to the service method.
-	:returns: An instance of the service class specified.
-	:rtype: mixed
+	:参数   string   $name: 加载的服务名称
+	:参数   mixed    $params: 一个或多个参数传递到服务方法。
+	:返回: 指定的服务类的实例。
+	:返回类型: mixed
 
-	Provides easy access to any of the :doc:`Services <../concepts/services>` defined in the system.
-	This will always return a shared instance of the class, so no matter how many times this is called
-	during a single request, only one class instance will be created.
+	提供简易访问任何在系统中定义的服务，详见the :doc:`Services <../concepts/services>` 。
+	返回一个共享类的实例, 无论在单个请求中被调用多少次，仅一个类的实例被创建。
 
-	Example::
+	范例::
 
 		$logger = service('logger');
 		$renderer = service('renderer', APPPATH.'views/');
 
 .. php:function:: single_service ( $name [, ...$params] )
 
-	:param   string   $name: The name of the service to load
-	:param   mixed    $params: One or more parameters to pass to the service method.
-	:returns: An instance of the service class specified.
-	:rtype: mixed
+	:参数   string   $name: 加载的服务名称
+	:参数   mixed    $params: 一个或多个参数传递到服务方法。
+	:返回: 指定的服务类的实例。
+	:返回类型: mixed
 
-	Identical to the **service()** function described above, except that all calls to this
-	function will return a new instance of the class, where **service** returns the same
-	instance every time.
+	等同于前面所描述的 **service()** 函数, 除了所有调用该函数将返回一个类的新实例。
+	 **service** 返回的是相同的实例。
 
 .. php:function:: stringify_attributes ( $attributes [, $js] )
 
-	:param   mixed    $attributes: string, array of key value pairs, or object
-	:param   boolean  $js: TRUE if values do not need quotes (Javascript-style)
-	:returns: String containing the attribute key/value pairs, comma-separated
-	:rtype: string
+	:参数   mixed    $attributes: 字符串, 键值对数组, 或者对象
+	:参数   boolean  $js: TRUE 若值不需要引用 (Javascript风格)
+	:返回: 字符串包含键值对属性, 逗号分隔
+	:返回类型: string
 
-	Helper function used to convert a string, array, or object of attributes to a string.
+	辅助函数用于转换字符串, 数组, 或者字符串的对象属性。
 
 
 ================
-Global Constants
+全局常量
 ================
 
-The following constants are always available anywhere within your application.
+以下的常量在你的应用中的任何地方有效。
 
-Core Constants
+核心常量
 ==============
 
 .. php:const:: ROOTPATH
 
-	The path to the main application directory. Just above ``public``.
+	主应用目录路径. 如前述的 ``public``.
 
 .. php:const:: APPPATH
 
-	The path to the **application** directory.
+	**application** 目录的路径。
 
 .. php:const:: BASEPATH
 
-	The path to the **system** directory.
+	**system** 目录的路径。
 
 .. php:const:: FCPATH
 
-	The path to the directory that holds the front controller.
+	保存的前端控制器目录的路径。
 
 .. php:const:: SELF
 
-	The path to the front controller, **index.php**.
+	前端控制器的路径, **index.php**.
 
 .. php:const:: WRITEPATH
 
-	The path to the **writable** directory.
+	**writable** 目录的路径。
 
 
-Time Constants
+时间常量
 ==============
 
 .. php:const:: SECOND
 
-	Equals 1.
+	等于 1.
 
 .. php:const:: MINUTE
 
-	Equals 60.
+	等于 60.
 
 .. php:const:: HOUR
 
-	Equals 3600.
+	等于 3600.
 
 .. php:const:: DAY
 
-	Equals 86400.
+	等于 86400.
 
 .. php:const:: WEEK
 
-	Equals 604800.
+	等于 604800.
 
 .. php:const:: MONTH
 
-	Equals 2592000.
+	等于 2592000.
 
 .. php:const:: YEAR
 
-	Equals 31536000.
+	等于 31536000.
 
 .. php:const:: DECADE
 
-	Equals 315360000.
+	等于 315360000.
