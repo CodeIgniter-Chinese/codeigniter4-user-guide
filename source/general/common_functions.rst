@@ -1,18 +1,18 @@
 ##############################
-Global Functions and Constants
+全局函数和常量
 ##############################
 
-CodeIgniter uses provides a few functions and variables that are globally defined, and are available to you at any point.
-These do not require loading any additional libraries or helpers.
+CodeIgniter 提供了少量全局定义的函数和变量给用户在某些地方能有效访问.
+在访问时并不需要加载其它的类库或辅助类.
 
 .. contents:: Page Contents
 	:local:
 
 ================
-Global Functions
+全局函数
 ================
 
-Service Accessors
+服务访问函数
 =================
 
 .. php:function:: cache ( [$key] )
@@ -21,9 +21,9 @@ Service Accessors
     :returns: Either the cache object, or the item retrieved from the cache
     :rtype: mixed
 
-    If no $key is provided, will return the Cache engine instance. If a $key
-    is provided, will return the value of $key as stored in the cache currently,
-    or false if no value is found.
+    若 $key 不存在, 则返回缓存引擎实例. 若 $key
+    有值存在, 则返回 $key 当前存储在缓存中的值,
+    若值不存在则返回false.
 
     Examples::
 
@@ -32,9 +32,9 @@ Service Accessors
 
 .. php:function:: env ( $key[, $default=null])
 
-	:param string $key: The name of the environment variable to retrieve
-	:param mixed  $default: The default value to return if no value is found.
-	:returns: The environment variable, the default value, or null.
+	:param string $key: 需取回的环境变量的参数名
+	:param mixed  $default: 如参数值不存在则返回默认值.
+	:returns: 运行环境变量, 默认值, 或者 null.
 	:rtype: mixed
 
 	Used to retrieve values that have previously been set to the environment,
