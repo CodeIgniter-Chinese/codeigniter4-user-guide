@@ -1,25 +1,24 @@
 ##############################
-全局函数和常量
+公共函数和全局常量
 ##############################
 
-CodeIgniter 提供了少量全局定义的函数和变量给用户在某些地方能有效访问.
-在访问时并不需要加载其它的类库或辅助类.
+CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 类库或辅助函数。
 
 .. contents:: Page Contents
 	:local:
 
 ================
-全局函数
+公共函数
 ================
 
-服务访问函数
+服务访问器函数
 =================
 
 .. php:function:: cache ( [$key] )
 
-    :param  string $key: The 需从缓存中取回的参数名 (可选)
-    :returns: 缓存对象或从缓存取回的变量
-    :rtype: mixed
+    :参数  string $key: The 需从缓存中检索的参数名 (可选)
+    :返回: 缓存对象或从缓存取回的变量
+    :返回类型: mixed
 
     若 $key 不存在, 则返回缓存引擎实例. 若 $key
     有值存在, 则返回 $key 当前存储在缓存中的值,
@@ -32,26 +31,26 @@ CodeIgniter 提供了少量全局定义的函数和变量给用户在某些地�
 
 .. php:function:: env ( $key[, $default=null])
 
-	:param string $key: 需取回的环境变量中的参数名
-	:param mixed  $default: 如参数值不存在则返回默认值.
-	:returns: 运行环境变量, 默认值, 或者 null.
-	:rtype: mixed
+	:参数 string $key: 需检索的环境变量中的参数名
+	:参数 mixed  $default: 如参数值不存在则返回默认值.
+	:返回: 运行环境变量, 默认值, 或者 null.
+	:返回类型: mixed
 
-	用于取回事前设置在环境变量中的变量值,若无设置则返回默认值. 
+	用于检索事前设置在环境变量中的变量值,若无设置则返回默认值. 
 	若没有找到健值则返回一个布尔值结果（false）.
 
         在特定的运行环境中设置变量非常有用，例如数据库设置，API健值等.
 
 .. php:function:: esc ( $data, $context='html' [, $encoding])
 
-	:param   string|array   $data: 被输出的信息.
-	:param   string   $context: 被输出内容的上下文. 默认值 'html'.
-	:param   string   $encoding: 编码字符串.
-	:returns: 输出的数据.
-	:rtype: string
+	:参数   string|array   $data: 被输出的信息.
+	:参数   string   $context: 被输出内容的上下文. 默认值 'html'.
+	:参数   string   $encoding: 编码字符串.
+	:返回: 输出的数据（The escaped data）.
+	:返回类型: string
 
-	页面中包含的输出数据, 有助于阻止 XSS 攻击.
-	使用Zend Escaper library把控过滤中的数据.
+	页面中包含的输出数据, 它在防止 XSS 攻击时很有用。
+	使用Zend Escaper library把控过滤中的数据。
 
 	若 $data 为字符串, 则直接把输出返回.
 	若 $data 为数组, 则遍历key/value键值对中的'value'.
@@ -60,39 +59,37 @@ CodeIgniter 提供了少量全局定义的函数和变量给用户在某些地�
 
 .. php:function:: helper( $filename )
 
-	:param   string   $filename: The name of the helper file to load.
+	:参数   string   $filename: 加载的辅助类文件的名称.
 
-	Loads a helper file.
+        加载辅助类文件。
 
-	For full details, see the :doc:`helpers` page.
+	详情参照 the :doc:`helpers` 页.
 
 .. php:function:: lang(string $line[, array $args]): string
 
-	:param string $line: The line of text to retrieve
-	:param array  $args: An array of data to substitute for placeholders.
+	:参数 string $line: 检索文本的行
+	:参数 array  $args: 一组数组数据，用于替代占位符.
 
-	Retrieves a locale-specific file based on an alias string.
+	检索一个基于某个别名字符串的本地特定文件。
 
-	For more information, see the :doc:`Localization </libraries/localization>` page.
+        更多详细信息请见 the :doc:`Localization </libraries/localization>` 页.
 
 .. php:function:: session( [$key] )
 
-	:param string $key: The name of the session item to check for.
-	:returns: An instance of the Session object if no $key, the value found in the session for $key, or null.
-	:rtype: mixed
+	:变量 string $key: 在session中查找的健值名称.
+	:返回: $key的值或者null，若$key不存在则返回一个session object实例。
+	:返回类型: mixed
 
-	Provides a convenient way to access the session class and to retrieve a
-	stored value. For more information, see the :doc:`Sessions </libraries/sessions>` page.
+	提供一个便捷的方式访问session类和检索存储于其中的值.更多信息详见 the :doc:`Sessions </libraries/sessions>` 页.
 
 .. php:function:: timer( [$name] )
 
-	:param string $name: The name of the benchmark point.
-	:returns: The Timer instance
-	:rtype: CodeIgniter\Debug\Timer
+	:参数 string $name: 检测点的名称.
+	:返回: Timer 实例
+	:返回类型: CodeIgniter\Debug\Timer
 
-	A convenience method that provides quick access to the Timer class. You can pass in the name
-	of a benchmark point as the only parameter. This will start timing from this point, or stop
-	timing if a timer with this name is already running.
+	提供一个便捷的方法快速访问 Timer class. 你可忽略参数，其将从此刻开始计时；
+	或者停止计时某名称检测点，如果该名称检测点已经在运行。
 
 	Example::
 
@@ -106,23 +103,19 @@ CodeIgniter 提供了少量全局定义的函数和变量给用户在某些地�
 
 .. php:function:: view ($name [, $data [, $options ]])
 
-	:param   string   $name: The name of the file to load
-	:param   array    $data: An array of key/value pairs to make available within the view.
-	:param   array    $options: An array of options that will be passed to the rendering class.
-	:returns: The output from the view.
-	:rtype: string
+	:参数   string   $name: 被加载的文件名
+	:参数   array   $data: 键值对数组，在视图中能被获取。
+	:参数   array    $options: 可选的参数数组，用于传递值给渲染类.
+	:返回: 视图的输出.
+	:返回类型: string
 
-	Grabs the current RendererInterface-compatible class
-	and tells it to render the specified view. Simply provides
-	a convenience method that can be used in Controllers,
-	libraries, and routed closures.
+        抓取当前的界面渲染类（RendererInterface-compatible class）
+	并请求它递交特定的视图. 提供了便捷的方法给控制器、类库、路由闭包使用,
 
-	Currently, only one option is available for use within the `$options` array, `saveData` which specifies
-	that data will persistent between multiple calls to `view()` within the same request. By default, the
-	data for that view is forgotten after displaying that single view file.
+	通常, 唯一有效可选项使用`$options`数组是, 在同一次请求中数据持续保持在多次调用view()中。 缺省情况下,传给view的数据会
+	被丢弃，在显示单独的view文件后.
 
-	The $option array is provided primarily to facilitate third-party integrations with
-	libraries like Twig.
+	$option数组主要作用为提供第三方类库整合，例如Twig。
 
 	Example::
 
@@ -130,7 +123,7 @@ CodeIgniter 提供了少量全局定义的函数和变量给用户在某些地�
 
 		echo view('user_profile', $data);
 
-	For more details, see the :doc:`Views <views>` page.
+	 详情参见 the :doc:`Views <views>` 页。
 
 Miscellaneous Functions
 =======================
