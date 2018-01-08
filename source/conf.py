@@ -56,6 +56,8 @@ release = '4.0.0-dev'
 # for a list of supported languages.
 language = 'zh_CN'
 
+html_search_language = 'zh'
+
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
 #today = ''
