@@ -16,13 +16,11 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: cache ( [$key] )
 
-    :参数  string $key: The 需从缓存中检索的参数名 (可选)
+    :参数  string $key: 需从缓存中检索的参数名 (可选)
     :返回: 缓存对象或从缓存取回的变量
     :返回类型: mixed
 
-    若 $key 不存在, 则返回缓存引擎实例. 若 $key
-    有值存在, 则返回 $key 当前存储在缓存中的值,
-    若值不存在则返回false.
+    若 $key 不存在, 则返回缓存引擎实例. 若 $key有值存在, 则返回 $key 当前存储在缓存中的值，若值不存在则返回false.
 
     Examples::
 
@@ -39,7 +37,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	用于检索事前设置在环境变量中的变量值,若无设置则返回默认值. 
 	若没有找到健值则返回一个布尔值结果（false）.
 
-        在特定的运行环境中设置变量非常有用，例如数据库设置，API健值等.
+        在特定的运行环境中利用 .env 文件设置环境变量非常有用，例如数据库设置，API健值等.
 
 .. php:function:: esc ( $data, $context='html' [, $encoding])
 
@@ -52,10 +50,10 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	页面中包含的输出数据, 它在防止 XSS 攻击时很有用。
 	使用Zend Escaper library把控过滤中的数据。
 
-	若 $data 为字符串, 则直接把输出返回.
-	若 $data 为数组, 则遍历key/value键值对中的'value'.
+	若 $data 为字符串, 则简单转义并且返回。
+	若 $data 为数组, 则遍历数组，转义 key/value 键值对中的 'value'。
 
-	有效的上下文值: html, js, css, url, attr, raw, null
+	有效的 context 值: html, js, css, url, attr, raw, null
 
 .. php:function:: helper( $filename )
 
@@ -80,7 +78,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:返回: $key的值或者null，若$key不存在则返回一个session object实例。
 	:返回类型: mixed
 
-	提供一个便捷的方式访问session类和检索存储于其中的值.更多信息详见 the :doc:`Sessions </libraries/sessions>` 页.
+	提供一个访问 session 类和检索存储值的便捷方法。更多信息详见 the :doc:`Sessions </libraries/sessions>` 页.
 
 .. php:function:: timer( [$name] )
 
@@ -88,8 +86,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:返回: Timer 实例
 	:返回类型: CodeIgniter\Debug\Timer
 
-	提供一个便捷的方法快速访问 Timer class. 你可忽略参数，其将从此刻开始计时；
-	或者停止计时某名称检测点，如果该名称检测点已经在运行。
+	提供一个快速访问 Timer class的便捷的方法。 你可以将基准点的名称作为唯一参数传递。这将从这一点开始计时，
+	如果这个名称的计时器已经运行，则停止计时。
 
 	Example::
 
