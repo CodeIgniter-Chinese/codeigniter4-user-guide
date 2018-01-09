@@ -16,7 +16,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: cache ( [$key] )
 
-    :参数  string $key: 需从缓存中检索的参数名 (可选)
+    :param  string $key: 需从缓存中检索的参数名 (可选)
     :返回: 缓存对象或从缓存取回的变量
     :返回类型: mixed
 
@@ -29,8 +29,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: env ( $key[, $default=null])
 
-	:参数 string $key: 需检索的环境变量中的参数名
-	:参数 mixed  $default: 如参数值不存在则返回默认值.
+	:param string $key: 需检索的环境变量中的参数名
+	:param mixed  $default: 如参数值不存在则返回默认值.
 	:返回: 运行环境变量, 默认值, 或者 null.
 	:返回类型: mixed
 
@@ -41,9 +41,9 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: esc ( $data, $context='html' [, $encoding])
 
-	:参数   string|array   $data: 被输出的信息.
-	:参数   string   $context: 被输出内容的上下文. 默认值 'html'.
-	:参数   string   $encoding: 编码字符串.
+	:param   string|array   $data: 被输出的信息.
+	:param   string   $context: 被输出内容的上下文. 默认值 'html'.
+	:param   string   $encoding: 编码字符串.
 	:返回: 输出的数据（The escaped data）.
 	:返回类型: string
 
@@ -57,7 +57,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: helper( $filename )
 
-	:参数   string   $filename: 加载的辅助类文件的名称.
+	:param   string   $filename: 加载的辅助类文件的名称.
 
         加载辅助类文件。
 
@@ -65,8 +65,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: lang(string $line[, array $args]): string
 
-	:参数 string $line: 检索文本的行
-	:参数 array  $args: 一组数组数据，用于替代占位符.
+	:param string $line: 检索文本的行
+	:param array  $args: 一组数组数据，用于替代占位符.
 
 	检索一个基于某个别名字符串的本地特定文件。
 
@@ -82,7 +82,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: timer( [$name] )
 
-	:参数 string $name: 检测点的名称.
+	:param string $name: 检测点的名称.
 	:返回: Timer 实例
 	:返回类型: CodeIgniter\Debug\Timer
 
@@ -101,9 +101,9 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: view ($name [, $data [, $options ]])
 
-	:参数   string   $name: 被加载的文件名
-	:参数   array   $data: 键值对数组，在视图中能被获取。
-	:参数   array    $options: 可选的参数数组，用于传递值给渲染类.
+	:param   string   $name: 被加载的文件名
+	:param   array   $data: 键值对数组，在视图中能被获取。
+	:param   array    $options: 可选的参数数组，用于传递值给渲染类.
 	:返回: 视图的输出.
 	:返回类型: string
 
@@ -151,9 +151,9 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: force_https ( $duration = 31536000 [, $request = null [, $response = null]] )
 
-	:参数  int  $duration: HTTPS资源的转换链接浏览秒数。
-	:参数  RequestInterface $request: 当前请求对象的实例。
-	:参数  ResponseInterface $response: 当前响应对象的实例。
+	:param  int  $duration: HTTPS资源的转换链接浏览秒数。
+	:param  RequestInterface $request: 当前请求对象的实例。
+	:param  ResponseInterface $response: 当前响应对象的实例。
 
 	检查页面是否正被通过HTTPS访问. 若是则没任何事情发生. 若不是则被通过HTTPS重定向到当前URI。
 	严格设置HTTP传输安全header（Transport Security header）, 指示浏览器自动修改HTTP请求为HTTPS请求 for the $duration.
@@ -165,9 +165,9 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: log_message ($level, $message [, array $context])
 
-	:参数   string   $level: 级别程度
-	:参数   string   $message: 写入日志的信息.
-	:参数   array    $context: 一个标记和值的联合数组被替换到 $message
+	:param   string   $level: 级别程度
+	:param   string   $message: 写入日志的信息.
+	:param   array    $context: 一个标记和值的联合数组被替换到 $message
 	:返回: TRUE 若写入日志成功 ； FALSE 写入日志时有问题
 	:返回类型: bool
 
@@ -181,8 +181,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: redirect( $uri[, ...$params ] )
 
-	:参数  string  $uri: 重定向URI。
-	:参数  mixed   $params: 可使用单个或多个附加参数 the :meth:`RouteCollection::reverseRoute` 方法.
+	:param  string  $uri: 重定向URI。
+	:param  mixed   $params: 可使用单个或多个附加参数 the :meth:`RouteCollection::reverseRoute` 方法.
 
 	便捷的方法与当前全局 ``$request``和``$router``实例协同重定向，使用named/reverse-routed路由判定转向的URL。
 	若没有发现则按惯常的重定向方式转向，让``$response->redirect()``判定适合的方法和代码。
@@ -191,8 +191,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: redirect_with_input( $uri[, ...$params] )
 
-	:参数 string $uri: 重定向URI。
-	:参数 mixed  $params: 一个或更多附加参数可被用于 the :meth:`RouteCollection::reverseRoute` 方法。
+	:param string $uri: 重定向URI。
+	:param mixed  $params: 一个或更多附加参数可被用于 the :meth:`RouteCollection::reverseRoute` 方法。
 
 	跟``redirect()``方法等同, 该session刷新的请求中的 $_GET 和 $_POST的值除外。
 	在下一页的请求, 表单辅助类的 ``set_*`` 方法将首先检查旧的输入数据, 若没发现, 则当前的 GET/POST 将被检查。
@@ -201,8 +201,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: remove_invisible_characters($str[, $url_encoded = TRUE])
 
-	:参数	string	$str: 输入字符串
-	:参数	bool	$url_encoded: 是否移除URL编码字符
+	:param	string	$str: 输入字符串
+	:param	bool	$url_encoded: 是否移除URL编码字符
 	:返回:	已过滤的字符串
 	:返回类型:	string
 
@@ -215,8 +215,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: route_to ( $method [, ...$params] )
 
-	:参数   string   $method: 命名路由别名, 或匹配controller/method名称。
-	:参数   mixed   $params: 一个或更多参数被传递到路由中匹配。
+	:param   string   $method: 命名路由别名, 或匹配controller/method名称。
+	:param   mixed   $params: 一个或更多参数被传递到路由中匹配。
 
 	生成相关的 URI基于命名路由别名或者controller::method结构体。 若提供参数会产生影响效果。
 
@@ -224,8 +224,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: service ( $name [, ...$params] )
 
-	:参数   string   $name: 加载的服务名称
-	:参数   mixed    $params: 一个或多个参数传递到服务方法。
+	:param   string   $name: 加载的服务名称
+	:param   mixed    $params: 一个或多个参数传递到服务方法。
 	:返回: 指定的服务类的实例。
 	:返回类型: mixed
 
@@ -239,8 +239,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: single_service ( $name [, ...$params] )
 
-	:参数   string   $name: 加载的服务名称
-	:参数   mixed    $params: 一个或多个参数传递到服务方法。
+	:param   string   $name: 加载的服务名称
+	:param   mixed    $params: 一个或多个参数传递到服务方法。
 	:返回: 指定的服务类的实例。
 	:返回类型: mixed
 
@@ -249,8 +249,8 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: stringify_attributes ( $attributes [, $js] )
 
-	:参数   mixed    $attributes: 字符串, 键值对数组, 或者对象
-	:参数   boolean  $js: TRUE 若值不需要引用 (Javascript风格)
+	:param   mixed    $attributes: 字符串, 键值对数组, 或者对象
+	:param   boolean  $js: TRUE 若值不需要引用 (Javascript风格)
 	:返回: 字符串包含键值对属性, 逗号分隔
 	:返回类型: string
 
