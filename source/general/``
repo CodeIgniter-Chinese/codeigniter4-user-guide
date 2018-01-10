@@ -107,13 +107,12 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:返回: 视图的输出.
 	:返回类型: string
 
-        抓取当前的界面渲染类（RendererInterface-compatible class）
-	并请求它递交特定的视图. 提供了便捷的方法给控制器、类库、路由闭包使用,
+	抓取当前的 RendererInterface-compatible 类（界面渲染类），告诉它展示特定的视图。给控制器、库、路由闭包提供了一种便捷的方法。
 
-	通常, 唯一有效可选项使用`$options`数组是, 在同一次请求中数据持续保持在多次调用view()中。 缺省情况下,传给view的数据会
-	被丢弃，在显示单独的view文件后.
+	目前，在 $options 数组里只有一个选项是可用的，saveData 指定在同一个请求中，在多次调用 view() 时数据将连续。默认情况下，
+	在显示该单一视图文件之后，该视图的数据被丢弃。
 
-	$option数组主要作用为提供第三方类库整合，例如Twig。
+	$option 数组主要用于与第三方库整合，例如Twig。
 
 	Example::
 
@@ -123,7 +122,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	 详情参见 the :doc:`Views <views>` 页。
 
-杂类函数
+其他函数
 =======================
 
 .. php:function:: csrf_token ()
@@ -151,16 +150,16 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 .. php:function:: force_https ( $duration = 31536000 [, $request = null [, $response = null]] )
 
-	:param  int  $duration: HTTPS资源的转换链接浏览秒数。
+	:param  int  $duration: 浏览器的秒数应该将此资源的链接转换为 HTTPS 。
 	:param  RequestInterface $request: 当前请求对象的实例。
 	:param  ResponseInterface $response: 当前响应对象的实例。
 
-	检查页面是否正被通过HTTPS访问. 若是则没任何事情发生. 若不是则被通过HTTPS重定向到当前URI。
-	严格设置HTTP传输安全header（Transport Security header）, 指示浏览器自动修改HTTP请求为HTTPS请求 for the $duration.
+	检查页面当前是否通过HTTPS访问，如果不是，则用户通过HTTPS重定向回当前URI。
+	将设置 HTTP 严格的传输安全标头，该命令指示现代浏览器自动将HTTP请求修改为 $duration 参数时间的HTTPS请求。 
 
 .. php:function:: is_cli ()
 
-	:返回: TRUE 若脚本通过命令行执行 ；FALSE 其它.
+	:返回: 如果脚本是从命令行执行的，则为true，否则为false。
 	:返回类型: bool
 
 .. php:function:: log_message ($level, $message [, array $context])
@@ -168,26 +167,25 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:param   string   $level: 级别程度
 	:param   string   $message: 写入日志的信息.
 	:param   array    $context: 一个标记和值的联合数组被替换到 $message
-	:返回: TRUE 若写入日志成功 ； FALSE 写入日志时有问题
+	:返回: 如果写入日志成功则为 TRUE ，如果写入日志出现问题则为 FALSE 。
 	:返回类型: bool
 
-	使用日志句柄记录日志信息 defined in **application/Config/Logger.php**.
+	使用 application/Config/Logger.php 中定义的日志处理程序记录日志。
 
 	级别可为以下值: **emergency**, **alert**, **critical**, **error**, **warning**,
 	**notice**, **info**, or **debug**.
 
-	上下文可被用于替换在message字符串中的值.详情参见 the
-	:doc:`Logging Information <logging>` 页。
+	Context 可用于替换 message 字符串中的值。详情参见 the:doc:`Logging Information <logging>` 页。
 
 .. php:function:: redirect( $uri[, ...$params ] )
 
 	:param  string  $uri: 重定向URI。
-	:param  mixed   $params: 可使用单个或多个附加参数 the :meth:`RouteCollection::reverseRoute` 方法.
+	:param  mixed   $params: 在 :meth:RouteCollection::reverseRoute 方法中可使用单个或多个附加参数。
 
-	便捷的方法与当前全局 ``$request``和``$router``实例协同重定向，使用named/reverse-routed路由判定转向的URL。
+	这是方便的方法，它可以与当前的全局 $request 和 $router 实例一起重定向，使用命名路由/反向路由（named/reverse-routed）来确定要访问的 URL 。
 	若没有发现则按惯常的重定向方式转向，让``$response->redirect()``判定适合的方法和代码。
 
-	若需要更多的控制, 需要显式地使用 ``$response->redirect()`` 。
+	你需要使用更加明确的 ``$response->redirect() ``。
 
 .. php:function:: redirect_with_input( $uri[, ...$params] )
 
