@@ -204,7 +204,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:返回:	已过滤的字符串
 	:返回类型:	string
 
-	次函数阻止在ASCII字符中插入NULL，例如 Java\\0script。
+	这个函数防止在 ASCII 字符之间插入空字符(NULL)，例如 Java\\0script。
 
 	范例::
 
@@ -216,7 +216,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:param   string   $method: 命名路由别名, 或匹配controller/method名称。
 	:param   mixed   $params: 一个或更多参数被传递到路由中匹配。
 
-	生成相关的 URI基于命名路由别名或者controller::method结构体。 若提供参数会产生影响效果。
+	以指定的路由别名或 controller::method 组合为依据生成一个相对 URI 。如果提供参数，将执行参数。
 
 	详情参见 the :doc:`routing` 页。
 
@@ -228,7 +228,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:返回类型: mixed
 
 	提供简易访问任何在系统中定义的服务，详见the :doc:`Services <../concepts/services>` 。
-	返回一个共享类的实例, 无论在单个请求中被调用多少次，仅一个类的实例被创建。
+	这将总是返回类的共享实例，因此不管在单个请求中调用多少次，都只会创建一个类实例。
 
 	范例::
 
