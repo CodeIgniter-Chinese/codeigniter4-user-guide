@@ -104,7 +104,7 @@
 - [ ] [./source/concepts/services.rst](source/concepts/services.rst)
 - [ ] [./source/concepts/structure.rst](source/concepts/structure.rst)
 - [ ] [./source/contributing/documentation.rst](source/contributing/documentation.rst)
-- [ ] [./source/contributing/guidelines.rst](source/contributing/guidelines.rst)
+- [x] [./source/contributing/guidelines.rst](source/contributing/guidelines.rst)
 - [ ] [./source/contributing/index.rst](source/contributing/index.rst)
 - [ ] [./source/contributing/internals.rst](source/contributing/internals.rst)
 - [ ] [./source/contributing/roadmap.rst](source/contributing/roadmap.rst)
