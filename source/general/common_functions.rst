@@ -1,29 +1,26 @@
 ##############################
-Global Functions and Constants
+公共函数和全局常量
 ##############################
 
-CodeIgniter uses provides a few functions and variables that are globally defined, and are available to you at any point.
-These do not require loading any additional libraries or helpers.
+CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 类库或辅助函数。
 
 .. contents:: Page Contents
 	:local:
 
 ================
-Global Functions
+公共函数
 ================
 
-Service Accessors
+服务访问器函数
 =================
 
 .. php:function:: cache ( [$key] )
 
-    :param  string $key: The cache name of the item to retrieve from cache (Optional)
-    :returns: Either the cache object, or the item retrieved from the cache
-    :rtype: mixed
+    :param  string $key: 需从缓存中检索的参数名 (可选)
+    :返回: 缓存对象或从缓存取回的变量
+    :返回类型: mixed
 
-    If no $key is provided, will return the Cache engine instance. If a $key
-    is provided, will return the value of $key as stored in the cache currently,
-    or false if no value is found.
+    若 $key 不存在, 则返回缓存引擎实例. 若 $key有值存在, 则返回 $key 当前存储在缓存中的值，若值不存在则返回false.
 
     Examples::
 
@@ -32,70 +29,65 @@ Service Accessors
 
 .. php:function:: env ( $key[, $default=null])
 
-	:param string $key: The name of the environment variable to retrieve
-	:param mixed  $default: The default value to return if no value is found.
-	:returns: The environment variable, the default value, or null.
-	:rtype: mixed
+	:param string $key: 需检索的环境变量中的参数名
+	:param mixed  $default: 如参数值不存在则返回默认值.
+	:返回: 运行环境变量, 默认值, 或者 null.
+	:返回类型: mixed
 
-	Used to retrieve values that have previously been set to the environment,
-	or return a default value if it is not found. Will format boolean values
-	to actual booleans instead of string representations.
+	用于检索事前设置在环境变量中的变量值,若无设置则返回默认值. 
+	若没有找到健值则返回一个布尔值结果（false）.
 
-	Especially useful when used in conjunction with .env files for setting
-	values that are specific to the environment itself, like database
-	settings, API keys, etc.
+        在特定的运行环境中利用 .env 文件设置环境变量非常有用，例如数据库设置，API健值等.
 
 .. php:function:: esc ( $data, $context='html' [, $encoding])
 
-	:param   string|array   $data: The information to be escaped.
-	:param   string   $context: The escaping context. Default is 'html'.
-	:param   string   $encoding: The character encoding of the string.
-	:returns: The escaped data.
-	:rtype: string
+	:param   string|array   $data: 被输出的信息.
+	:param   string   $context: 被输出内容的上下文. 默认值 'html'.
+	:param   string   $encoding: 编码字符串.
+	:返回: 输出的数据（The escaped data）.
+	:返回类型: string
 
-	Escapes data for inclusion in web pages, to help prevent XSS attacks.
-	This uses the Zend Escaper library to handle the actual filtering of the data.
+	页面中包含的输出数据, 它在防止 XSS 攻击时很有用。
+	使用Zend Escaper library把控过滤中的数据。
 
-	If $data is a string, then it simply escapes and returns it.
-	If $data is an array, then it loops over it, escaping each 'value' of the key/value pairs.
+	若 $data 为字符串, 则简单转义并且返回。
+	若 $data 为数组, 则遍历数组，转义 key/value 键值对中的 'value'。
 
-	Valid context values: html, js, css, url, attr, raw, null
+	有效的 context 值: html, js, css, url, attr, raw, null
 
 .. php:function:: helper( $filename )
 
-	:param   string   $filename: The name of the helper file to load.
+	:param   string   $filename: 加载的辅助类文件的名称.
 
-	Loads a helper file.
+        加载辅助类文件。
 
-	For full details, see the :doc:`helpers` page.
+	详情参照 the :doc:`helpers` 页.
 
 .. php:function:: lang(string $line[, array $args]): string
 
-	:param string $line: The line of text to retrieve
-	:param array  $args: An array of data to substitute for placeholders.
+	:param string $line: 检索文本的行
+	:param array  $args: 一组数组数据，用于替代占位符.
 
-	Retrieves a locale-specific file based on an alias string.
+	检索一个基于某个别名字符串的本地特定文件。
 
-	For more information, see the :doc:`Localization </libraries/localization>` page.
+        更多详细信息请见 the :doc:`Localization </libraries/localization>` 页.
 
 .. php:function:: session( [$key] )
 
-	:param string $key: The name of the session item to check for.
-	:returns: An instance of the Session object if no $key, the value found in the session for $key, or null.
-	:rtype: mixed
+	:变量 string $key: 在session中查找的健值名称.
+	:返回: $key的值或者null，若$key不存在则返回一个session object实例。
+	:返回类型: mixed
 
-	Provides a convenient way to access the session class and to retrieve a
-	stored value. For more information, see the :doc:`Sessions </libraries/sessions>` page.
+	提供一个访问 session 类和检索存储值的便捷方法。更多信息详见 the :doc:`Sessions </libraries/sessions>` 页.
 
 .. php:function:: timer( [$name] )
 
-	:param string $name: The name of the benchmark point.
-	:returns: The Timer instance
-	:rtype: CodeIgniter\Debug\Timer
+	:param string $name: 检测点的名称.
+	:返回: Timer 实例
+	:返回类型: CodeIgniter\Debug\Timer
 
-	A convenience method that provides quick access to the Timer class. You can pass in the name
-	of a benchmark point as the only parameter. This will start timing from this point, or stop
-	timing if a timer with this name is already running.
+	提供一个快速访问 Timer class的便捷的方法。 你可以将基准点的名称作为唯一参数传递。这将从这一点开始计时，
+	如果这个名称的计时器已经运行，则停止计时。
 
 	Example::
 
@@ -109,23 +101,18 @@ Service Accessors
 
 .. php:function:: view ($name [, $data [, $options ]])
 
-	:param   string   $name: The name of the file to load
-	:param   array    $data: An array of key/value pairs to make available within the view.
-	:param   array    $options: An array of options that will be passed to the rendering class.
-	:returns: The output from the view.
-	:rtype: string
+	:param   string   $name: 被加载的文件名
+	:param   array   $data: 键值对数组，在视图中能被获取。
+	:param   array    $options: 可选的参数数组，用于传递值给渲染类.
+	:返回: 视图的输出.
+	:返回类型: string
 
-	Grabs the current RendererInterface-compatible class
-	and tells it to render the specified view. Simply provides
-	a convenience method that can be used in Controllers,
-	libraries, and routed closures.
+	抓取当前的 RendererInterface-compatible 类（界面渲染类），告诉它展示特定的视图。给控制器、库、路由闭包提供了一种便捷的方法。
 
-	Currently, only one option is available for use within the `$options` array, `saveData` which specifies
-	that data will persistent between multiple calls to `view()` within the same request. By default, the
-	data for that view is forgotten after displaying that single view file.
+	目前，在 $options 数组里只有一个选项是可用的，saveData 指定在同一个请求中，在多次调用 view() 时数据将连续。默认情况下，
+	在显示该单一视图文件之后，该视图的数据被丢弃。
 
-	The $option array is provided primarily to facilitate third-party integrations with
-	libraries like Twig.
+	$option 数组主要用于与第三方库整合，例如Twig。
 
 	Example::
 
@@ -133,217 +120,206 @@ Service Accessors
 
 		echo view('user_profile', $data);
 
-	For more details, see the :doc:`Views <views>` page.
+	 详情参见 the :doc:`Views <views>` 页。
 
-Miscellaneous Functions
+其他函数
 =======================
 
 .. php:function:: csrf_token ()
 
-	:returns: The name of the current CSRF token.
-	:rtype: string
+	:返回: 当前 CSRF token 名称。
+	:返回类型: string
 
-	Returns the name of the current CSRF token.
+	返回当前 CSRF token名称。
 
 .. php:function:: csrf_hash ()
 
-	:returns: The current value of the CSRF hash.
-	:rtype: string
+	:返回: 当前 CSRF hash值.
+	:返回类型: string
 
-	Returns the current CSRF hash value.
+	返回当前 CSRF hash 的值.
 
 .. php:function:: csrf_field ()
 
-	:returns: A string with the HTML for hidden input with all required CSRF information.
-	:rtype: string
+	:返回:  带有全部请求CSRF信息的隐藏input的HTML字符串。
+	:返回类型: string
 
-	Returns a hidden input with the CSRF information already inserted:
+	返回已插入CSRF信息的隐藏input:
 
 		<input type="hidden" name="{csrf_token}" value="{csrf_hash}">
 
 .. php:function:: force_https ( $duration = 31536000 [, $request = null [, $response = null]] )
 
-	:param  int  $duration: The number of seconds browsers should convert links to this resource to HTTPS.
-	:param  RequestInterface $request: An instance of the current Request object.
-	:param  ResponseInterface $response: An instance of the current Response object.
+	:param  int  $duration: 浏览器的秒数应该将此资源的链接转换为 HTTPS 。
+	:param  RequestInterface $request: 当前请求对象的实例。
+	:param  ResponseInterface $response: 当前响应对象的实例。
 
-	Checks to see if the page is currently being accessed via HTTPS. If it is, then
-	nothing happens. If it is not, then the user is redirected back to the current URI
-	but through HTTPS. Will set the HTTP Strict Transport Security header, which instructs
-	modern browsers to automatically modify any HTTP requests to HTTPS requests for the $duration.
+	检查页面当前是否通过HTTPS访问，如果不是，则用户通过HTTPS重定向回当前URI。
+	将设置 HTTP 严格的传输安全标头，该命令指示现代浏览器自动将HTTP请求修改为 $duration 参数时间的HTTPS请求。 
 
 .. php:function:: is_cli ()
 
-	:returns: TRUE if the script is being executed from the command line or FALSE otherwise.
-	:rtype: bool
+	:返回: 如果脚本是从命令行执行的，则为true，否则为false。
+	:返回类型: bool
 
 .. php:function:: log_message ($level, $message [, array $context])
 
-	:param   string   $level: The level of severity
-	:param   string   $message: The message that is to be logged.
-	:param   array    $context: An associative array of tags and their values that should be replaced in $message
-	:returns: TRUE if was logged succesfully or FALSE if there was a problem logging it
-	:rtype: bool
+	:param   string   $level: 级别程度
+	:param   string   $message: 写入日志的信息.
+	:param   array    $context: 一个标记和值的联合数组被替换到 $message
+	:返回: 如果写入日志成功则为 TRUE ，如果写入日志出现问题则为 FALSE 。
+	:返回类型: bool
 
-	Logs a message using the Log Handlers defined in **application/Config/Logger.php**.
+	使用 application/Config/Logger.php 中定义的日志处理程序记录日志。
 
-	Level can be one of the following values: **emergency**, **alert**, **critical**, **error**, **warning**,
+	级别可为以下值: **emergency**, **alert**, **critical**, **error**, **warning**,
 	**notice**, **info**, or **debug**.
 
-	Context can be used to substitute values in the message string. For full details, see the
-	:doc:`Logging Information <logging>` page.
+	Context 可用于替换 message 字符串中的值。详情参见 the:doc:`Logging Information <logging>` 页。
 
 .. php:function:: redirect( $uri[, ...$params ] )
 
-	:param  string  $uri: The URI to redirect the user to.
-	:param  mixed   $params: one or more additional parameters that can be used with the :meth:`RouteCollection::reverseRoute` method.
+	:param  string  $uri: 重定向URI。
+	:param  mixed   $params: 在 :meth:RouteCollection::reverseRoute 方法中可使用单个或多个附加参数。
 
-	Convenience method that works with the current global ``$request`` and
-	``$router`` instances to redirect using named/reverse-routed routes
-	to determine the URL to go to. If nothing is found, will treat
-	as a traditional redirect and pass the string in, letting
-	``$response->redirect()`` determine the correct method and code.
+	这是方便的方法，它可以与当前的全局 $request 和 $router 实例一起重定向，使用命名路由/反向路由（named/reverse-routed）来确定要访问的 URL 。
+	若没有发现则按惯常的重定向方式转向，让``$response->redirect()``判定适合的方法和代码。
 
-	If more control is needed, you must use ``$response->redirect()`` explicitly.
+	你需要使用更加明确的 ``$response->redirect() ``。
 
 .. php:function:: redirect_with_input( $uri[, ...$params] )
 
-	:param string $uri: The URI to redirect the user to.
-	:param mixed  $params: one or more additional parameters that can be used with the :meth:`RouteCollection::reverseRoute` method.
+	:param string $uri: 重定向URI。
+	:param mixed  $params: 一个或更多附加参数可被用于 the :meth:`RouteCollection::reverseRoute` 方法。
 
-	Identical to the ``redirect()`` method, except this flashes the request's $_GET and $_POST values to the session.
-	On the next page request, the form helper ``set_*`` methods will check for data within the old input first, then,
-	if it's not found, the current GET/POST will be checked.
+	跟``redirect()``方法等同, 该session刷新的请求中的 $_GET 和 $_POST的值除外。
+	在下一页的请求, 表单辅助类的 ``set_*`` 方法将首先检查旧的输入数据, 若没发现, 则当前的 GET/POST 将被检查。
 
-	.. note:: In order to retrieve the old, the session MUST be started prior to calling the function.
+	.. 注意:: 为了取回旧的值, session必须被启用，优先调用函数.
 
 .. php:function:: remove_invisible_characters($str[, $url_encoded = TRUE])
 
-	:param	string	$str: Input string
-	:param	bool	$url_encoded: Whether to remove URL-encoded characters as well
-	:returns:	Sanitized string
-	:rtype:	string
+	:param	string	$str: 输入字符串
+	:param	bool	$url_encoded: 是否移除URL编码字符
+	:返回:	已过滤的字符串
+	:返回类型:	string
 
-	This function prevents inserting NULL characters between ASCII
-	characters, like Java\\0script.
+	这个函数防止在 ASCII 字符之间插入空字符(NULL)，例如 Java\\0script。
 
-	Example::
+	范例::
 
 		remove_invisible_characters('Java\\0script');
-		// Returns: 'Javascript'
+		// 返回: 'Javascript'
 
 .. php:function:: route_to ( $method [, ...$params] )
 
-	:param   string   $method: The named route alias, or name of the controller/method to match.
-	:param   mixed   $params: One or more parameters to be passed to be matched in the route.
+	:param   string   $method: 命名路由别名, 或匹配controller/method名称。
+	:param   mixed   $params: 一个或更多参数被传递到路由中匹配。
 
-	Generates a relative URI for you based on either a named route alias, or a controller::method
-	combination. Will take parameters into effect, if provided.
+	以指定的路由别名或 controller::method 组合为依据生成一个相对 URI 。如果提供参数，将执行参数。
 
-	For full details, see the :doc:`routing` page.
+	详情参见 the :doc:`routing` 页。
 
 .. php:function:: service ( $name [, ...$params] )
 
-	:param   string   $name: The name of the service to load
-	:param   mixed    $params: One or more parameters to pass to the service method.
-	:returns: An instance of the service class specified.
-	:rtype: mixed
+	:param   string   $name: 加载的服务名称
+	:param   mixed    $params: 一个或多个参数传递到服务方法。
+	:返回: 指定的服务类的实例。
+	:返回类型: mixed
 
-	Provides easy access to any of the :doc:`Services <../concepts/services>` defined in the system.
-	This will always return a shared instance of the class, so no matter how many times this is called
-	during a single request, only one class instance will be created.
+	提供简易访问任何在系统中定义的服务，详见the :doc:`Services <../concepts/services>` 。
+	这将总是返回类的共享实例，因此不管在单个请求中调用多少次，都只会创建一个类实例。
 
-	Example::
+	范例::
 
 		$logger = service('logger');
 		$renderer = service('renderer', APPPATH.'views/');
 
 .. php:function:: single_service ( $name [, ...$params] )
 
-	:param   string   $name: The name of the service to load
-	:param   mixed    $params: One or more parameters to pass to the service method.
-	:returns: An instance of the service class specified.
-	:rtype: mixed
+	:param   string   $name: 加载的服务名称
+	:param   mixed    $params: 一个或多个参数传递到服务方法。
+	:返回: 指定的服务类的实例。
+	:返回类型: mixed
 
-	Identical to the **service()** function described above, except that all calls to this
-	function will return a new instance of the class, where **service** returns the same
-	instance every time.
+	等同于前面所描述的 **service()** 函数, 除了所有调用该函数将返回一个类的新实例。
+	 **service** 返回的是相同的实例。
 
 .. php:function:: stringify_attributes ( $attributes [, $js] )
 
-	:param   mixed    $attributes: string, array of key value pairs, or object
-	:param   boolean  $js: TRUE if values do not need quotes (Javascript-style)
-	:returns: String containing the attribute key/value pairs, comma-separated
-	:rtype: string
+	:param   mixed    $attributes: 字符串, 键值对数组, 或者对象
+	:param   boolean  $js: TRUE 若值不需要引用 (Javascript风格)
+	:返回: 字符串包含键值对属性, 逗号分隔
+	:返回类型: string
 
-	Helper function used to convert a string, array, or object of attributes to a string.
+	辅助函数用于转换字符串, 数组, 或者字符串的对象属性。
 
 
 ================
-Global Constants
+全局常量
 ================
 
-The following constants are always available anywhere within your application.
+以下的常量在你的应用中的任何地方有效。
 
-Core Constants
+核心常量
 ==============
 
 .. php:const:: ROOTPATH
 
-	The path to the main application directory. Just above ``public``.
+	主应用目录路径. 如前述的 ``public``.
 
 .. php:const:: APPPATH
 
-	The path to the **application** directory.
+	**application** 目录的路径。
 
 .. php:const:: BASEPATH
 
-	The path to the **system** directory.
+	**system** 目录的路径。
 
 .. php:const:: FCPATH
 
-	The path to the directory that holds the front controller.
+	保存的前端控制器目录的路径。
 
 .. php:const:: SELF
 
-	The path to the front controller, **index.php**.
+	前端控制器的路径, **index.php**.
 
 .. php:const:: WRITEPATH
 
-	The path to the **writable** directory.
+	**writable** 目录的路径。
 
 
-Time Constants
+时间常量
 ==============
 
 .. php:const:: SECOND
 
-	Equals 1.
+	等于 1.
 
 .. php:const:: MINUTE
 
-	Equals 60.
+	等于 60.
 
 .. php:const:: HOUR
 
-	Equals 3600.
+	等于 3600.
 
 .. php:const:: DAY
 
-	Equals 86400.
+	等于 86400.
 
 .. php:const:: WEEK
 
-	Equals 604800.
+	等于 604800.
 
 .. php:const:: MONTH
 
-	Equals 2592000.
+	等于 2592000.
 
 .. php:const:: YEAR
 
-	Equals 31536000.
+	等于 31536000.
 
 .. php:const:: DECADE
 
-	Equals 315360000.
+	等于 315360000.
