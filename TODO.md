@@ -5,9 +5,9 @@
 > - [x] ~~表示已完成~~
 
 
-- [x] [./source/general/alternative_php.rst](source/general/alternative_php.rst)
-- [x] [./source/general/caching.rst](source/general/caching.rst)
-- [x] [./source/general/cli.rst](source/general/cli.rst)
+- [x] [~~./source/general/alternative_php.rst~~](source/general/alternative_php.rst)
+- [x] [~~./source/general/caching.rst~~](source/general/caching.rst)
+- [x] [~~./source/general/cli.rst~~](source/general/cli.rst)
 - [x] [./source/general/cli_commands.rst](source/general/cli_commands.rst)
 - [x] [~~./source/general/common_functions.rst~~](source/general/common_functions.rst)
 - [x] [~~./source/general/configuration.rst~~](source/general/configuration.rst)
