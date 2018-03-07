@@ -24,7 +24,7 @@
 - [x] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
 - [ ] [./source/general/modules.rst](source/general/modules.rst)
 - [x] [./source/general/routing.rst](source/general/routing.rst)
-- [ ] [./source/general/testing.rst](source/general/testing.rst)
+- [x] [./source/general/testing.rst](source/general/testing.rst)
 - [x] [~~./source/general/urls.rst~~](source/general/urls.rst)
 - [ ] [./source/general/view_cells.rst](source/general/view_cells.rst)
 - [ ] [./source/general/view_parser.rst](source/general/view_parser.rst)
