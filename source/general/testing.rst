@@ -1,46 +1,44 @@
 #######
-Testing
+测试
 #######
 
-CodeIgniter has been built to make testing both the framework and your application as simple as possible.
-Support for ``PHPUnit`` is built in, and a ``phpunit.xml`` file is already setup for your application.
-It also provides a number of convenient helper methods to make testing every aspect of your application
-as painless as possible.
+
+CodeIgniter 的构建是为了尽可能简单地测试框架和应用程序。
+ ``PHPUnit`` 的支持是内置的，而且是 ``PHPUnit.xml`` 已经为你的应用程序设置好了。
+它还提供了许多方便的助手方法来测试应用程序的各个方面。
+尽可能简单。
 
 .. contents::
     :local:
     :depth: 2
 
 ========================
-Testing Your Application
+测试你的应用
 ========================
 
-The Test Class
+Test 类
 ==============
 
-In order to take advantage of the additional tools provided, your tests must extend ``\CIUnitTestCase``::
+为了利用提供的额外工具，你的 Test 类必须继承 ``\CIUnitTestCase``::
 
     class MyTests extends \CIUnitTestCase
     {
         . . .
     }
 
-.. note:: More features are planned, but are not implemented yet. Stay tuned.
+.. 注意:: 更多计划的特性, 暂时没有实现。 请继续关注。
 
-Mocking Services
+Services 模拟
 ================
 
-You will often find that you need to mock one of the services defined in **application/Config/Services.php** to limit
-your tests to only the code in question, while simulating various responses from the services. This is especially
-true when testing controllers and other integration testing. CodeIgniter makes this simple.
+你经常会发现你需要模拟一个 **application/Config/Services.php**  限制你的测试相关问题的代码，同时模拟来自 services 的各种响应。 这特别在测试控制器和其他集成测试时是否正确。
+ CodeIgniter 使这变得简单。
 
-While in test mode, the system loads a wrapper around the **Services** class that provides two new methods,
-``injectMock()``, and ``reset()``.
+在测试模式下，系统在 **Service** 类上加载一个包装器，它提供了两个新方法， ``injectMock()`` 和 ``reset()`` 。
 
 **injectMock()**
 
-This method allows you to define the exact instance that will be returned by the Services class. You can use this to
-set properties of a service so that it behaves in a certain way, or replace a service with a mocked class.
+该方法允许你定义将由服务类返回的确切实例。 你可以用这个设置 Services 的属性，以便它以某种方式表现，或者用一个模拟的类替换服务。
 ::
 
     public function testSomething()
@@ -53,31 +51,29 @@ set properties of a service so that it behaves in a certain way, or replace a se
         // Do normal testing here....
     }
 
-The first parameter is the service that you are replacing. The name must match the function name in the Services
-class exactly. The second parameter is the instance to replace it with.
+第一个参数是要替换的 service 。 名称必须与 Services 中的函数名相匹配。
+ 第二个参数是替换它的实例。
 
 **reset()**
 
-Removes all mocked classes from the Services class, bringing it back to its original state.
+删除 Services 类中的所有被模拟的类，并将其恢复到原来的状态。
 
 =====================
-Testing Your Database
+测试数据库
 =====================
 
-The Test Class
+测试类
 ==============
 
-In order to take advantage of the built-in database tools that CodeIgniter provides for testing, your
-tests must extend ``\CIDatabaseTestCase``::
+为了利用 CodeIgniter 为测试提供的内置数据库工具，你的测试必须继承 ``\ CIDatabaseTestCase`` ::
 
     class MyTests extends \CIDatabaseTestCase
     {
         . . .
     }
 
-Because special functionality is ran during the ``setUp()`` and ``tearDown()`` phases, you must ensure
-that you call the parent's methods if you need to use those methods, otherwise you will lose much
-of the functionality described here.
+因为在 ``setUp()`` 和 ``tearDown()`` 阶段中运行特殊的功能，所以必须确保存在。
+如果你需要使用这些方法，你可以调用父方法，否则你将缺少很多这里描述的功能。
 ::
 
     class MyTests extends \CIDatabaseTestCase
@@ -89,6 +85,7 @@ of the functionality described here.
             // Do something here....
         }
 
+
         public function tearDown()
         {
             parent::tearDown();
@@ -97,29 +94,27 @@ of the functionality described here.
         }
     }
 
-Test Database Setup
+测试数据库设置
 ===================
 
-When running database tests, you need to provide a database that can be used during testing. Instead of
-using the PHPUnit built-in database features, the framework provides tools specific to CodeIgniter. The first
-step is to ensure that you have a ``tests`` database group setup in **application/Config/Database.php**.
-This specifies a database connection that is only used while running tests, to keep your other data safe.
+在运行数据库测试时，你需要提供一个可以在测试期间使用的数据库。 而不是
+使用 PHPUnit 内置的数据库特性，框架提供了特定于 CodeIgniter 的工具。 第一个
+一步是确保你有一个 ``tests`` 数据库组设置在 **application/Config/Database.php** 。
+ 它指定只在运行测试时使用的数据库连接，以保证其他数据的安全。
 
-If you have multiple developers on your team, you will likely want to keep your credentials store in
-the **.env** file. To do so, edit the file to ensure the following lines are present, and have the
-correct information::
+如果你的团队中有多个开发人员，那么你可能希望保留你的凭证存储 **.env** 。 为了做到这一点，编辑文件以确保下面的行是存在的，并拥有正确的信息::
 
     database.tests.dbdriver = 'MySQLi';
     database.tests.username = 'root';
     database.tests.password = '';
     database.tests.database = '';
 
-Migrations and Seeds
+Migrations 和 Seeds
 --------------------
 
-When running tests you need to ensure that your database has the correct schema setup, and that
-it is in a known state for every test. You can use migrations and seeds to setup your database,
-by adding a couple of class properties to your test.
+在运行测试时，你需要确保数据库具有正确的模式设置。
+每个测试都处于一个已知的状态。你可以使用 migrations 和 seeds 来设置数据库，
+通过在测试中添加几个类属性。
 ::
 
     class MyTests extends \CIDatabaseTestCase
@@ -131,34 +126,31 @@ by adding a couple of class properties to your test.
 
 **$refresh**
 
-This boolean value determines whether the database is completely refreshed before every test. If true,
-all migrations are rolled back to version 0, then the database is migrated to the latest available migration.
+boolean 决定在每次测试之前数据库是否完全刷新。 如果正确,
+全部迁移回滚到版本 0 , 然后将数据库迁移到最新的可用迁移。
 
 **$seed**
 
-If present and not empty, this specifies the name of a Seed file that is ran to populate the database with
-test data prior to every test running.
+如果存在且不为空， 则根据指定要使用的 Seed 文件的名称， 在每次测试运行之前测试数据。
 
 **$basePath**
 
-By default, CodeIgniter will look in **tests/_support/database/migrations** and **tests/_support_database/seeds**
-to locate the migrations and seeds that it should run during testing. You can change this directory by specifying
-the path in the ``$basePath`` property. This should not include the **migrations** or **seeds** directories, but
-the path to the single directory that holds both of those sub-directories.
+默认情况下, CodeIgniter 会定位在 **tests/_support/database/migrations** 和 **tests/_support_database/seeds** 测试期间应该运行的 migrations 和 seeds。
+ 你可以通过指定 ``$basePath`` 路径来更改此目录。 这不应该包括 **migrations** 或 **seeds** 目录, 应该指向包含两个子目录的单个目录的路径。
 
-Helper Methods
+辅助方法
 ==============
 
-The **CIDatabaseTestCase** class provides several helper methods to aid in testing your database.
+**CIDatabaseTestCase** 类提供了一些辅助方法,以帮助你测试你的数据库。
 
 **seed($name)**
 
-Allows you to manually load a Seed into the database. The only parameter is the name of the seed to run. The seed
-must pe present within the path specified in ``$basePath``.
+允许你手动将 Seed 加载到数据库中。 唯一的参数是要运行的 seed 的名称。 seed
+必须在 ``$basePath`` 中指定的路径中存在 pe 。
 
 **dontSeeInDatabase($table, $criteria)**
 
-Asserts that a row with criteria matching the key/value pairs in ``$criteria`` DOES NOT exist in the database.
+对当前行在数据库表中不存在 $criteria 中 （key/value） 键值对匹配作出断言。
 ::
 
     $criteria = [
@@ -169,7 +161,7 @@ Asserts that a row with criteria matching the key/value pairs in ``$criteria`` D
 
 **seeInDatabase($table, $criteria)**
 
-Asserts that a row with criteria matching the key/value pairs in ``$criteria`` DOES exist in the database.
+对当前行在数据库表中存在 $criteria 中 （key/value） 键值对匹配作出断言。
 ::
 
     $criteria = [
@@ -180,16 +172,15 @@ Asserts that a row with criteria matching the key/value pairs in ``$criteria`` D
 
 **grabFromDatabase($table, $column, $criteria)**
 
-Returns the value of ``$column`` from the specified table where the row matches ``$criteria``. If more than one
-row is found, it will only test against the first one.
+从列匹配 ``$criteria`` 的指定表中返回 ``$column`` 的值。如果不止一行被发现，它只会测试第一个。
 ::
 
     $username = $this->grabFromDatabase('users', 'username', ['email' => 'joe@example.com']);
 
 **hasInDatabase($table, $data)**
 
-Inserts a new row into the database. This row is removed after the current test runs. ``$data`` is an associative
-array with the data to insert into the table.
+将新的一行数据插入到数据库中。 此行在当前测试运行后删除。 ``$ data`` 是一个关联
+将数据数组插入到表中。
 ::
 
     $data = [
@@ -200,11 +191,10 @@ array with the data to insert into the table.
 
 **seeNumRecords($expected, $table, $criteria)**
 
-Asserts that a number of matching rows are found in the database that match ``$criteria``.
+对 $criteria 数据和数据库表中数据行的数量作出断言。
 ::
 
     $criteria = [
         'deleted' => 1
     ];
     $this->seeNumRecords(2, 'users', $criteria);
-
