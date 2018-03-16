@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Testing &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>测试 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -112,7 +112,7 @@
 <li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alternative_php.html">在视图文件中使用PHP替代语法</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Testing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">测试</a></li>
 </ul>
 </li>
 </ul>
@@ -289,7 +289,7 @@
 <li class="toctree-l2"><a class="reference internal" href="managing_apps.html">Managing your Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="environments.html">Handling Multiple Environments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alternative_php.html">在视图文件中使用PHP替代语法</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Testing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">测试</a></li>
 </ul>
 </li>
 </ul>
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">常规主题</a> &raquo;</li>
       
-    <li>Testing</li>
+    <li>测试</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,53 +405,47 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="testing">
-<h1>Testing<a class="headerlink" href="#testing" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter has been built to make testing both the framework and your application as simple as possible.
-Support for <code class="docutils literal"><span class="pre">PHPUnit</span></code> is built in, and a <code class="docutils literal"><span class="pre">phpunit.xml</span></code> file is already setup for your application.
-It also provides a number of convenient helper methods to make testing every aspect of your application
-as painless as possible.</p>
+  <div class="section" id="id1">
+<h1>测试<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<dl class="docutils">
+<dt>CodeIgniter 的构建是为了使测试的框架和应用程序尽可能简单。</dt>
+<dd><code class="docutils literal"><span class="pre">PHPUnit</span></code> 的支持是内置的，而且是 <code class="docutils literal"><span class="pre">PHPUnit.xml</span></code> 已经为你的应用程序设置好了。</dd>
+</dl>
+<p>它还提供了许多方便的助手方法，使测试你应用程序的方方面面尽可能简单。</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#testing-your-application" id="id2">Testing Your Application</a><ul>
-<li><a class="reference internal" href="#the-test-class" id="id3">The Test Class</a></li>
-<li><a class="reference internal" href="#mocking-services" id="id4">Mocking Services</a></li>
+<li><a class="reference internal" href="#id2" id="id7">测试你的应用</a><ul>
+<li><a class="reference internal" href="#test" id="id8">Test 类</a></li>
+<li><a class="reference internal" href="#services" id="id9">Services 模拟</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#testing-your-database" id="id5">Testing Your Database</a><ul>
-<li><a class="reference internal" href="#id1" id="id6">The Test Class</a></li>
-<li><a class="reference internal" href="#test-database-setup" id="id7">Test Database Setup</a></li>
-<li><a class="reference internal" href="#helper-methods" id="id8">Helper Methods</a></li>
+<li><a class="reference internal" href="#id3" id="id10">测试数据库</a><ul>
+<li><a class="reference internal" href="#id4" id="id11">测试类</a></li>
+<li><a class="reference internal" href="#id5" id="id12">测试数据库设置</a></li>
+<li><a class="reference internal" href="#id6" id="id13">辅助方法</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="testing-your-application">
-<h2><a class="toc-backref" href="#id2">Testing Your Application</a><a class="headerlink" href="#testing-your-application" title="永久链接至标题">¶</a></h2>
-<div class="section" id="the-test-class">
-<h3><a class="toc-backref" href="#id3">The Test Class</a><a class="headerlink" href="#the-test-class" title="永久链接至标题">¶</a></h3>
-<p>In order to take advantage of the additional tools provided, your tests must extend <code class="docutils literal"><span class="pre">\CIUnitTestCase</span></code>:</p>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id7">测试你的应用</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="test">
+<h3><a class="toc-backref" href="#id8">Test 类</a><a class="headerlink" href="#test" title="永久链接至标题">¶</a></h3>
+<p>为了利用提供的额外工具，你的 Test 类必须继承 <code class="docutils literal"><span class="pre">\CIUnitTestCase</span></code>:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyTests</span> <span class="k">extends</span> <span class="nx">\CIUnitTestCase</span>
 <span class="p">{</span>
     <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">More features are planned, but are not implemented yet. Stay tuned.</p>
 </div>
-</div>
-<div class="section" id="mocking-services">
-<h3><a class="toc-backref" href="#id4">Mocking Services</a><a class="headerlink" href="#mocking-services" title="永久链接至标题">¶</a></h3>
-<p>You will often find that you need to mock one of the services defined in <strong>application/Config/Services.php</strong> to limit
-your tests to only the code in question, while simulating various responses from the services. This is especially
-true when testing controllers and other integration testing. CodeIgniter makes this simple.</p>
-<p>While in test mode, the system loads a wrapper around the <strong>Services</strong> class that provides two new methods,
-<code class="docutils literal"><span class="pre">injectMock()</span></code>, and <code class="docutils literal"><span class="pre">reset()</span></code>.</p>
+<div class="section" id="services">
+<h3><a class="toc-backref" href="#id9">Services 模拟</a><a class="headerlink" href="#services" title="永久链接至标题">¶</a></h3>
+<p>你经常会发现，当模拟来自 services 的各种响应的时候，你需要模拟一个在 <strong>application/Config/Services.php</strong> 中定义的服务来限制你的测试所需的代码。
+在测试控制器和其他集成测试时尤其如此。</p>
+<p>在测试模式下，系统在 <strong>Service</strong> 类上加载一个包装器，它提供了两个新方法， <code class="docutils literal"><span class="pre">injectMock()</span></code> 和 <code class="docutils literal"><span class="pre">reset()</span></code> 。</p>
 <p><strong>injectMock()</strong></p>
-<p>This method allows you to define the exact instance that will be returned by the Services class. You can use this to
-set properties of a service so that it behaves in a certain way, or replace a service with a mocked class.</p>
+<p>该方法允许你定义将由服务类返回的确切实例。 你可以用这个设置 Services 的属性，以便它以某种方式表现，或者用一个模拟的类替换服务。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">testSomething</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="nv">$curlrequest</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getMockBuilder</span><span class="p">(</span><span class="s1">&#39;CodeIgniter\HTTP\CURLRequest&#39;</span><span class="p">)</span>
@@ -463,27 +457,27 @@ set properties of a service so that it behaves in a certain way, or replace a se
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The first parameter is the service that you are replacing. The name must match the function name in the Services
-class exactly. The second parameter is the instance to replace it with.</p>
+<dl class="docutils">
+<dt>第一个参数是要替换的 service 。 名称必须与 Services 中的函数名相匹配。</dt>
+<dd>第二个参数是替换它的实例。</dd>
+</dl>
 <p><strong>reset()</strong></p>
-<p>Removes all mocked classes from the Services class, bringing it back to its original state.</p>
+<p>删除 Services 类中的所有被模拟的类，并将其恢复到原来的状态。</p>
 </div>
 </div>
-<div class="section" id="testing-your-database">
-<h2><a class="toc-backref" href="#id5">Testing Your Database</a><a class="headerlink" href="#testing-your-database" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id1">
-<h3><a class="toc-backref" href="#id6">The Test Class</a><a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
-<p>In order to take advantage of the built-in database tools that CodeIgniter provides for testing, your
-tests must extend <code class="docutils literal"><span class="pre">\CIDatabaseTestCase</span></code>:</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">测试数据库</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id11">测试类</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>为了利用 CodeIgniter 为测试提供的内置数据库工具，你的测试必须继承 <code class="docutils literal"><span class="pre">\</span> <span class="pre">CIDatabaseTestCase</span></code></p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyTests</span> <span class="k">extends</span> <span class="nx">\CIDatabaseTestCase</span>
 <span class="p">{</span>
     <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Because special functionality is ran during the <code class="docutils literal"><span class="pre">setUp()</span></code> and <code class="docutils literal"><span class="pre">tearDown()</span></code> phases, you must ensure
-that you call the parent's methods if you need to use those methods, otherwise you will lose much
-of the functionality described here.</p>
+<p>因为在 <code class="docutils literal"><span class="pre">setUp()</span></code> 和 <code class="docutils literal"><span class="pre">tearDown()</span></code> 阶段中运行特殊的功能，所以必须确保存在。
+如果你需要使用这些方法，你可以调用父方法，否则你将缺少很多这里描述的功能。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyTests</span> <span class="k">extends</span> <span class="nx">\CIDatabaseTestCase</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">setUp</span><span class="p">()</span>
@@ -492,6 +486,7 @@ of the functionality described here.</p>
 
         <span class="c1">// Do something here....</span>
     <span class="p">}</span>
+
 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">tearDown</span><span class="p">()</span>
     <span class="p">{</span>
@@ -503,26 +498,25 @@ of the functionality described here.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="test-database-setup">
-<h3><a class="toc-backref" href="#id7">Test Database Setup</a><a class="headerlink" href="#test-database-setup" title="永久链接至标题">¶</a></h3>
-<p>When running database tests, you need to provide a database that can be used during testing. Instead of
-using the PHPUnit built-in database features, the framework provides tools specific to CodeIgniter. The first
-step is to ensure that you have a <code class="docutils literal"><span class="pre">tests</span></code> database group setup in <strong>application/Config/Database.php</strong>.
-This specifies a database connection that is only used while running tests, to keep your other data safe.</p>
-<p>If you have multiple developers on your team, you will likely want to keep your credentials store in
-the <strong>.env</strong> file. To do so, edit the file to ensure the following lines are present, and have the
-correct information:</p>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id12">测试数据库设置</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>在运行数据库测试时，你需要提供一个可以在测试期间使用的数据库。 而不是
+使用 PHPUnit 内置的数据库特性，框架提供了特定于 CodeIgniter 的工具。 第一个
+第一步是确保你有一个 <code class="docutils literal"><span class="pre">tests</span></code> 数据库组设置在 <strong>application/Config/Database.php</strong> 。</p>
+<blockquote>
+<div>它指定只在运行测试时使用的数据库连接，以保证其他数据的安全。</div></blockquote>
+<p>如果你的团队中有多个开发人员，那么你可能希望保留你的凭证存储 <strong>.env</strong> 。 为了做到这一点，编辑文件以确保下面的行是存在的，并拥有正确的信息:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="nx">tests</span><span class="o">.</span><span class="nx">dbdriver</span> <span class="o">=</span> <span class="s1">&#39;MySQLi&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="nx">tests</span><span class="o">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="nx">tests</span><span class="o">.</span><span class="nx">password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="nx">tests</span><span class="o">.</span><span class="nx">database</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
-<div class="section" id="migrations-and-seeds">
-<h4>Migrations and Seeds<a class="headerlink" href="#migrations-and-seeds" title="永久链接至标题">¶</a></h4>
-<p>When running tests you need to ensure that your database has the correct schema setup, and that
-it is in a known state for every test. You can use migrations and seeds to setup your database,
-by adding a couple of class properties to your test.</p>
+<div class="section" id="migrations-seeds">
+<h4>Migrations 和 Seeds<a class="headerlink" href="#migrations-seeds" title="永久链接至标题">¶</a></h4>
+<p>在运行测试时，你需要确保数据库具有正确的模式设置。
+每个测试都处于一个已知的状态。你可以使用 migrations 和 seeds 来设置数据库，
+通过在测试中添加几个类属性。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyTests</span> <span class="k">extends</span> <span class="nx">\CIDatabaseTestCase</span>
 <span class="p">{</span>
     <span class="k">protected</span> <span class="nv">$refresh</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
@@ -532,26 +526,23 @@ by adding a couple of class properties to your test.</p>
 </pre></div>
 </div>
 <p><strong>$refresh</strong></p>
-<p>This boolean value determines whether the database is completely refreshed before every test. If true,
-all migrations are rolled back to version 0, then the database is migrated to the latest available migration.</p>
+<p>这个布尔值决定在每次测试之前是否完全刷新数据库。 如果是 true ，将所有迁移回滚到版本0，然后将数据库迁移到最新可用迁移。</p>
 <p><strong>$seed</strong></p>
-<p>If present and not empty, this specifies the name of a Seed file that is ran to populate the database with
-test data prior to every test running.</p>
+<p>如果存在且不为空， 则根据指定要使用的 Seed 文件的名称， 在每次运行测试之前都用测试数据填充数据库。</p>
 <p><strong>$basePath</strong></p>
-<p>By default, CodeIgniter will look in <strong>tests/_support/database/migrations</strong> and <strong>tests/_support_database/seeds</strong>
-to locate the migrations and seeds that it should run during testing. You can change this directory by specifying
-the path in the <code class="docutils literal"><span class="pre">$basePath</span></code> property. This should not include the <strong>migrations</strong> or <strong>seeds</strong> directories, but
-the path to the single directory that holds both of those sub-directories.</p>
+<dl class="docutils">
+<dt>默认情况下, CodeIgniter 会定位在 <strong>tests/_support/database/migrations</strong> 和 <strong>tests/_support_database/seeds</strong> 测试期间应该运行的 migrations 和 seeds。</dt>
+<dd>你可以通过指定 <code class="docutils literal"><span class="pre">$basePath</span></code> 路径来更改此目录。 这不应该包括 <strong>migrations</strong> 或 <strong>seeds</strong> 目录, 应该指向包含两个子目录的单个目录的路径。</dd>
+</dl>
 </div>
 </div>
-<div class="section" id="helper-methods">
-<h3><a class="toc-backref" href="#id8">Helper Methods</a><a class="headerlink" href="#helper-methods" title="永久链接至标题">¶</a></h3>
-<p>The <strong>CIDatabaseTestCase</strong> class provides several helper methods to aid in testing your database.</p>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id13">辅助方法</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p><strong>CIDatabaseTestCase</strong> 类提供了一些辅助方法,以帮助你测试你的数据库。</p>
 <p><strong>seed($name)</strong></p>
-<p>Allows you to manually load a Seed into the database. The only parameter is the name of the seed to run. The seed
-must pe present within the path specified in <code class="docutils literal"><span class="pre">$basePath</span></code>.</p>
+<p>允许你手动将 Seed 加载到数据库中。 唯一的参数是要运行的 seed 的名称。 seed 必须在 $basePath 指定的路径中存在。</p>
 <p><strong>dontSeeInDatabase($table, $criteria)</strong></p>
-<p>Asserts that a row with criteria matching the key/value pairs in <code class="docutils literal"><span class="pre">$criteria</span></code> DOES NOT exist in the database.</p>
+<p>对当前行在数据库表中不存在 $criteria 中 （key/value） 键值对匹配作出断言。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$criteria</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;joe@example.com&#39;</span><span class="p">,</span>
     <span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span>
@@ -560,7 +551,7 @@ must pe present within the path specified in <code class="docutils literal"><spa
 </pre></div>
 </div>
 <p><strong>seeInDatabase($table, $criteria)</strong></p>
-<p>Asserts that a row with criteria matching the key/value pairs in <code class="docutils literal"><span class="pre">$criteria</span></code> DOES exist in the database.</p>
+<p>对当前行在数据库表中存在 $criteria 中 （key/value） 键值对匹配作出断言。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$criteria</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;joe@example.com&#39;</span><span class="p">,</span>
     <span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span>
@@ -569,14 +560,13 @@ must pe present within the path specified in <code class="docutils literal"><spa
 </pre></div>
 </div>
 <p><strong>grabFromDatabase($table, $column, $criteria)</strong></p>
-<p>Returns the value of <code class="docutils literal"><span class="pre">$column</span></code> from the specified table where the row matches <code class="docutils literal"><span class="pre">$criteria</span></code>. If more than one
-row is found, it will only test against the first one.</p>
+<p>从列匹配 <code class="docutils literal"><span class="pre">$criteria</span></code> 的指定表中返回 <code class="docutils literal"><span class="pre">$column</span></code> 的值。如果不止一行被发现，它只会测试第一个。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$username</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">grabFromDatabase</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;joe@example.com&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p><strong>hasInDatabase($table, $data)</strong></p>
-<p>Inserts a new row into the database. This row is removed after the current test runs. <code class="docutils literal"><span class="pre">$data</span></code> is an associative
-array with the data to insert into the table.</p>
+<p>将新的一行数据插入到数据库中。 此行在当前测试运行后删除。 <code class="docutils literal"><span class="pre">$data</span></code> 是一个关联
+将数据数组插入到表中。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;joe@example.com&#39;</span><span class="p">,</span>
     <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Joe Cool&#39;</span>
@@ -585,7 +575,7 @@ array with the data to insert into the table.</p>
 </pre></div>
 </div>
 <p><strong>seeNumRecords($expected, $table, $criteria)</strong></p>
-<p>Asserts that a number of matching rows are found in the database that match <code class="docutils literal"><span class="pre">$criteria</span></code>.</p>
+<p>对 $criteria 数据和数据库表中数据行的数量作出断言。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$criteria</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;deleted&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span>
 <span class="p">];</span>
@@ -615,7 +605,7 @@ array with the data to insert into the table.</p>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2018-03-07。
+       最后修改：2018-03-16。
     </p>
   </div>
 
