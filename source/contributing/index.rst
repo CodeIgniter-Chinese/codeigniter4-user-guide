@@ -1,5 +1,6 @@
+
 ###########################
-Contributing to CodeIgniter
+贡献给CodeIgniter①
 ###########################
 
 .. toctree::
@@ -14,66 +15,51 @@ Contributing to CodeIgniter
     PHP Style Guide <styleguide>
     ../DCO
 
-CodeIgniter is a community driven project and accepts contributions of code
-and documentation from the community. These contributions are made in the form
-of Issues or `Pull Requests <https://help.github.com/articles/using-pull-requests/>`_ 
-on the `CodeIgniter4 repository <https://github.com/bcit-ci/CodeIgniter4>`_ on GitHub.
 
-Issues are a quick way to point out a bug. If you find a bug or documentation
-error in CodeIgniter then please check a few things first:
+codeigniter是一个大众驱动项目并且它接受自大众提供的编码和文档编制贡献。这些贡献将在 Github 的 `CodeIgniter4 repository <https://github.com/bcit-ci/CodeIgniter4>`_  上以讨论的形式或者以 `Pull Requests <https://help.github.com/articles/using-pull-requests/>`_ 形式产生。
 
-- There is not already an open Issue
-- The issue has already been fixed (check the develop branch, or look for
-  closed Issues)
-- Is it something really obvious that you fix it yourself?
 
-Reporting issues is helpful but an even better approach is to send a Pull
-Request, which is done by "Forking" the main repository and committing to your
-own copy. This will require you to use the version control system called Git.
+讨论是指出一个程序错误最快捷的方式。如果你在 Codeigniter 中找到了程序错误或者文档编制错误，请首先检查一些要事：
+	- 是否存在一个已经开放的讨论。
+	- 讨论已经被解决了。（检查开发分支，或者查看关闭的讨论。）
+	- 你明确的确实要独自解决问题吗？
+发布讨论是有帮助而且发出出栈请求（Pull Request）是一个更好的门径，出栈请求是基于 “Forking” 主要的内容并提交到你自己拷贝版本里。
 
 *******
-Support
+支持
 *******
 
-Please note that GitHub is not for general support questions! If you are
-having trouble using a feature of CodeIgniter, ask for help on our
-`forums <http://forum.codeigniter.com/>`_ instead.
+请记住 GitHub 决不支持一般使用性的问题！如果将来你在使用 Codeigniter 中有了困难，请去网络论坛寻求帮助代替发表在 `forums <http://forum.codeigniter.com/>`_ 上。
 
-If you are not sure whether you are using something correctly or if you
-have found a bug, again - please ask on the forums first.
+如果你不能保证你使用中出现的事情是否正确或者你又发现了一处程序错误，请首先在网络论坛中询问。
 
 ********
-Security
+安全性
 ********
 
-Did you find a security issue in CodeIgniter?
+你已经在 CodeIgniter 中找到一个安全问题了吗？
 
-Please *don't* disclose it publicly, but e-mail us at security@codeigniter.com,
-or report it via our page on `HackerOne <https://hackerone.com/codeigniter>`_.
-
-If you've found a critical vulnerability, we'd be happy to credit you in our
-`ChangeLog <../changelog.html>`_.
+请不要公开揭露你发现的安全问题，但是你要发送邮件给 security@codeigniter.com，或者经由我们 `HackerOne <https://hackerone.com/codeigniter>`_ 的页面发布它。
+如果你已经找到了一个濒临崩溃的安全危险，我们很高兴把你的发现放在我们的 `ChangeLog <../changelog.html>`_ 里。
 
 ****************************
-Tips for a Good Issue Report
+优良的讨论报告贴士
 ****************************
 
-Use a descriptive subject line (eg parser library chokes on commas) rather than a vague one (eg. your code broke).
+使用有描述的主题原则（例如 parser library chokes on commas）好于含糊不清的主题（例如 your code broke ）。
 
-Address a single issue in a report.
+在报告里计算机物理地址是单独说明的问题。
 
-Identify the CodeIgniter version (eg 3.0-develop) and the component if you know it (eg. parser library)
+识别清楚 codeigniter 的版本（例如 3.0 - develop）和你知道的组件（例如 parser library）
 
-Explain what you expected to happen, and what did happen.
-Include error messages and stacktrace, if any.
+阐述你预期将要发生的事或者已经发生的事。包括任何错误的信息和堆栈轨迹。
 
-Include short code segments if they help to explain.
-Use a pastebin or dropbox facility to include longer segments of code or screenshots - do not include them in the issue report itself.
-This means setting a reasonable expiry for those, until the issue is resolved or closed.
+如果代码程序段能够帮助说明要把短代码程序段考虑在内。使用 pastebin 或者 dropbox 很容易提取更长的代码程序段或者截图 ———— 截图并不包含讨论报告自身。
+本段文字的主旨是设定问题解决的合理终结，直到问题解决或者关闭。
 
-If you know how to fix the issue, you can do so in your own fork & branch, and submit a pull request.
-The issue report information above should be part of that.
+如果你知道如何解决讨论，你要在你自己的 fork & branch 做好解决方案，并且提交堆栈请求（pull request）。 
+上文中的问题报告信息应当是整个报告的一部分。
 
-If your issue report can describe the steps to reproduce the problem, that is great.
-If you can include a unit test that reproduces the problem, that is even better, as it gives whoever is fixing
-it a clearer target!
+如果你的讨论报告描述能分步骤的再现问题，那是极好的。如果你在再现问题时能把单元测试考虑在内，那将更好，讨论报告要给任何正在解决问题的人一个更加清楚的目标！
+
+译者注:① codeigniter:codeigniter的意思是编码点火器,原著作者本意即是希望该引擎能够在开源状态下得到大众的编码支持。
