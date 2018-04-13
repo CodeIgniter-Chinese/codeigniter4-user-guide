@@ -106,7 +106,7 @@
 - [ ] [./source/contributing/documentation.rst](source/contributing/documentation.rst)
 - [x] [~~./source/contributing/guidelines.rst~~](source/contributing/guidelines.rst)
 - [x] [./source/contributing/index.rst](source/contributing/index.rst)
-- [ ] [./source/contributing/internals.rst](source/contributing/internals.rst)
+- [x] [./source/contributing/internals.rst](source/contributing/internals.rst)
 - [ ] [./source/contributing/roadmap.rst](source/contributing/roadmap.rst)
 - [ ] [./source/contributing/signing.rst](source/contributing/signing.rst)
 - [ ] [./source/contributing/styleguide.rst](source/contributing/styleguide.rst)
