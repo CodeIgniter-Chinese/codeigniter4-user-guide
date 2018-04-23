@@ -1,19 +1,15 @@
 ##############################
-CodeIgniter Internals Overview
+CodeIgniter本质概述
 ##############################
 
-This guide should help contributors understand how the core of the framework works, and what needs to be done
-when creating new functionality. Specifically, it details the information needed to create new packages for the
-core.
 
-Dependencies
+ Codeigniter 引导应该帮助贡献者懂得核心框架的工作原理，而且当新的功能创建时所有必须的需求都要完成。
+ 明确的说，为核心创建新程序包的细节信息是必要的。
+
+附属代码
 ============
 
-All packages should be designed to be completely isolated from the rest of the packages. This will allow
-them to be used in projects outside of CodeIgniter. Basically, this means that all dependencies should be
-kept to a minimum. Any dependencies must be able to be passed into the constructor. If you do need to use one
-of the other core packages, you can create that in the constructor using the Services class, as long as you
-provide a way for dependencies to override that::
+来自剩余部分程序包的一切应当被完整的隔离设计。这个习惯将允许他们被使用在 codeigniter 外的项目里。上面所述主要的意思是所有的附属代码应该保持最小量。任何附属代码必须能被允许加入到构造程序里。如果你需要使用其他核心程序包中的一个，你可以使用服务类数据结构在构造程序里创建新的程序包，只要你为附属代码提供像下面代码一样的撤消方式::
 
 	public function __construct(Foo $foo=null)
 	{
@@ -22,95 +18,77 @@ provide a way for dependencies to override that::
 			: \Config\Services::foo();
 	}
 
-Type hinting
+典型提示
 ============
 
-PHP7 provides the ability to `type hint <http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration>`_
-method parameters and return types. Use it where possible. Return type hinting is not always practical, but do try to
-make it work.
+PHP7 提供可能的 `type hint <http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration>`_ 方法参数和返回类型。任何编码位置将会用到它。返回提示类型不是一直实际有效的，但要多尝试去使程序可以工作。
 
-At this time, we are not using strict type hinting.
+同时，我们将不使用绝对的典型提示。
 
-Abstractions
+抽象术语
 ============
 
-The amount of abstraction required to implement a solution should be the minimal amount required. Every layer of
-abstraction brings additional levels of technical debt and unnecessary complexity. That said, don't be afraid to
-use it when it's needed and can help things.
 
-* Don't create a new container class when an array will do just fine.
-* Start simple, refactor as necessary to achieve clean separation of code, but don't overdo it.
+最小限度的抽象术语数量要求去使解决方案生效。每一层抽象术语会带来额外层次的技术义务和不必要的复杂性。即便如此，当真的需要它或者它能产生帮助处理事情时不要反感使用它。
 
-Testing
+* 当一个数组恰好合适时不要创建一个新的容器类。
+
+* 起始简单，必要的重构以达到清理代码分离，但不要做的夸张。
+
+测试
 =======
 
-Any new packages submitted to the framework must be accompanied by unit tests. The target is 80%+ coverage of all
-classes within the package.
+被提交到框架的任何新程序包必定会随着单元测试发生。目标涵盖程序包内全部类的80%范围。
 
-* Test only public methods, not protected and private unless the method really needs it due to complexity.
-* Don't just test that the method works, but test for all fail states, thrown exceptions, and other pathways through your code.
+* 测试仅有的公共方法，而不是保护的方法和私有的方法除非方法因为它的复杂性真的需要。
 
-Namespaces and Files
+* 不要仅仅测试代码有条理的行为，而为了所有代码失效的状况，被抛出的例外，还有贯穿你的编码的其他不可预知的路径方向去测试。
+
+命名空间和文件
 ====================
 
-All new packages should live under the ``CodeIgniter`` namespace. The package itself will need its own sub-namespace
-that collects all related files into one grouping, like ``CodeIgniter\HTTP``.
+所有新的程序包应该存在于 ``CodeIgniter`` 命名空间下。程序包需要他自己的次要命名空间以收集所有的有关联的文件到一个集群里，如同 ``CodeIgniter\HTTP``.
 
-Files MUST be named the same as the class they hold, and they must match the :doc:`Style Guide <styleguide>`, meaning
-CamelCase class and file names. The should be in their own directory that matches the sub-namespace under the **system**
-directory.
+文件的命名必须与他们支持的类相同，并且他们必须与 :doc:`Style Guide <styleguide>` 相配，意思是驼峰式大小写命名规则类和文件名。它们应当在他们自己的磁盘目录里与在 **system** 磁盘目录里次要命名空间相配。
 
-The the Router as an example. The Router lives in the ``CodeIgniter\Router`` namespace. It has two classes,
-**RouteCollection** and **Router**, which are in the files, **system/Router/RouteCollection.php** and
-**system/Router/Router.php** respectively. 
+路由模块是实例。路由存在于 ``CodeIgniter\Router`` 命名空间。它有两个类，**RouteCollection** 和 **Router**，
+它们分别的放在文件 **system/Router/RouteCollection.php** 和 **system/Router/Router.php** 里。
 
-Interfaces
+接口
 ----------
 
-Most base classes should have an interface defined for them. At the very least this allows them to be easily mocked
-and passed in other classes as a dependency without breaking the type-hinting. The interface names should match
-the name of the class with "Interface" appended to it, like ``RouteCollectionInterface``.
+大部分基础类应当有一个接口被定义。除了破坏典型提示的附属代码的其他类里最起码这将允许他们被简单的模仿和采纳。接口的名字应当对阶添加带有 "Interface" 类的名字，如同 ``RouteCollectionInterface``.
 
-The Router package mentioned above includes the 
-``CodeIgniter\Router\RouterCollectionInterface`` and ``CodeIgniter\Router\RouterInterface``
-interfaces to provide the abstractions for the two classes in the package.
+路由程序包提示以上的信息包含在  ``CodeIgniter\Router\RouterCollectionInterface`` 和 ``CodeIgniter\Router\RouterInterface`` 接口里并在程序包里为两个类提供抽象术语。
 
-Handlers
+处理程序
 --------
 
-When a package supports multiple "drivers", the convention is to place them in a **Handlers** directory, and
-name the child classes as Handlers. You will often find that creating a ``BaseHandler`` the child classes can
-extend to be beneficial in keeping the code DRY.
+当一个程序包支持多重 “驱动器” ，协定会放置它们在 **Handlers** 的存储磁盘中，并且以处理程序来命名子类。在维持编码一个规则，实现一次的基本原则中你将常常能发现创建 ``BaseHandler`` 子类能是能延续益处的。
 
-See the Log and Session packages for examples.
+至于示例要去查看日志和权限程序包。
 
-Configuration
+
+配置
 =============
 
-Should the package require user-configurable settings, you should create a new file just for that package under
-**application/Config**. The file name should generally match the package name.
+程序包要有使用者配置设定，你应该在 **application/Config** 下为程序包创建一个新文件。文件名通常要与程序包的名字相配。
 
-Autoloader
+自动装载程序
 ==========
 
-All files within the package should be added to **system/Config/AutoloadConfig.php**, in the "classmap" property.
-This is only used for core framework files, and helps to minimize file system scans and keep performance high.
+包含程序包在内所有文件应该被添加进 **system/Config/AutoloadConfig.php** ，它们在 "classmap" 属性里可查。自动加载仅仅使用于核心框架文件，并且帮助将文件系统浏览减少到最小且能维持系统性能的品质。
 
-Command-Line Support
+命令行支持
 ====================
 
-CodeIgniter has never been known for it's strong CLI support. However, if your package could benefit from it, create a
-new file under **system/Commands**. The class contained within is simply a controller that is intended for CLI
-usage only. The ``index()`` method should provide a list of available commands provided by that package.
+CodeIgniter 从来不是因加强支持通用语言运行库而知名。然而，要是你的程序包能从中受益，要在 **system/Commands** 下创建一个新的文件。对于通用语言运行库的专门用法有意的包含在一个简单的类控制器里。以程序包为条件的 ``index()`` 方法应该提供一个有用的命令列表。
 
-Routes must be added to **system/Config/Routes.php** using the ``cli()`` method to ensure it is not accessible
-through the browser, but is restricted to the CLI only.
+路由必须被添加到正使用 ``cli()`` 方法的 **system/Config/Routes.php** 中以确保通过浏览器时不受影响，但它对于通用语言运行库是被受限制的。
 
-See the **MigrationsCommand** file for an example.
+实例要查看系统 **MigrationsCommand** 文件。
 
-Documentation
+文件
 =============
 
-All packages must contain appropriate documentation that matches the tone and style of the rest of the user guide.
-In most cases, the top portion of the package's page should be treated in tutorial fashion, while the second
-half would be a class reference.
+所有的程序包必须包含相称的文件以与剩余的用户指引格调和风格相配。在大多数情况下，在流行的教学软件里软件包页面的主要部分应该被阐述，同时不到一半的次要部分将被作为一种类结构的参考。
