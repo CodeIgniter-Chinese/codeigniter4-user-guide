@@ -35,7 +35,7 @@ Helper辅助函数一般保存在**system/Helpers**或者**application/Helpers d
 
 辅助函数也可以从**application/Helpers** 和**system/Helpers**之外的目录加载，只要目录路径名称能够通过命名空间中找到，你可以在自动加载配置文件中的PSR-4章节建立命名空间（参考 <../concepts/autoloader>）。在那个已命名的空间目录中，加载器默认辅助函数会放在名为Helper的子文件夹中。以下例子将有助于理解这个情况：
 
-比如，我们将所有博客相关的代码放到一个独立的命名空间``Example\Blog``中。文件存在服务器上目录**/Modules/Blog/**下，于是，我们将博客模块的辅助函数文件放在**/Modules/Blog/Helpers/**目录下。 **blog_helper**的文件路径将会是**/Modules/Blog/Helpers/blog_helper.php**。在控制器中，我们就可以使用如下命令来加载辅助函数：
+比如，我们将所有博客相关的代码放到一个独立的命名空间``Example\Blog``中。文件存在服务器上目录**/Modules/Blog/**下，于是，我们将博客模块的辅助函数文件放在**/Modules/Blog/Helpers/**目录下。 **blog_helper**的文件路径将会是**/Modules/Blog/Helpers/blog_helper.php**。在控制器中，我们就可以使用如下命令来加载辅助函数:
 
 	helper('Modules\Blog\blog');
 
