@@ -18,7 +18,7 @@
 - [x] [~~./source/general/errors.rst~~](source/general/errors.rst)
 - [ ] [./source/general/events.rst](source/general/events.rst)
 - [x] [./source/general/filters.rst](source/general/filters.rst)
-- [ ] [./source/general/helpers.rst](source/general/helpers.rst)
+- [x] [./source/general/helpers.rst](source/general/helpers.rst)
 - [ ] [./source/general/index.rst](source/general/index.rst)
 - [ ] [./source/general/logging.rst](source/general/logging.rst)
 - [x] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
