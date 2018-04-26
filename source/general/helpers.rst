@@ -6,27 +6,15 @@
 
 不用于CI中的其他大部分系统，Helpers(辅助函数)并不是用面向对象的方式实现。这些函数都是简单的，过程化的函数。每个辅助函数都实现了某一特定任务，并不依赖于其他函数。
 
-CodeIgniter does not load Helper Files by default, so the first step in
-using a Helper is to load it. Once loaded, it becomes globally available
-in your :doc:`controller <../general/controllers>` and
-:doc:`views <../general/views>`.
-默认情况下，CI 不会自己加载Helper文件，因此使用Hepler的第一步就是加载它。一旦加载完成，它就在你的控制器文件<../general/controllers>和视图文件<../general/views>中变成全局可用。
+因此使用Hepler的第一步就是加载它。一旦加载完成，它就在你的控制器文件<../general/controllers>和视图文件<../general/views>中变成全局可用。
 
-Helpers are typically stored in your **system/Helpers**, or
-**application/Helpers directory**. CodeIgniter will look first in your
-**application/Helpers directory**. If the directory does not exist or the
-specified helper is not located there CI will instead look in your
-global *system/Helpers/* directory.
 Helper辅助函数一般保存在**system/Helpers**或者**application/Helpers directory**目录下。CI会先在**application/Helpers**目录下查找，如果目录或者对应的辅助函数不在该位置，就会转到你的全局目录*system/Helpers/*下查找。
-
-
 
 
 
 加载辅助函数
 ================
 
-Loading a helper file is quite simple using the following method::
 加载辅助函数（Helper）文件非常简单，方法如下::
 
 	helper('name');
@@ -39,21 +27,13 @@ Loading a helper file is quite simple using the following method::
 
 辅助函数可以在你控制器方法内的任何位置加载（甚至可以在视图文件中加载，虽然通常这么做并不好）。只要在使用之前加载就行。你也可以在控制器的构造函数中加载，这样就可以在该控制的任何函数中使用，当然也可以在有需要的时候在特定函数里单独加载。
 
-.. note:: The Helper loading method above does not return a value, so
-	don't try to assign it to a variable. Just use it as shown.
 .. 注意:: 辅助函数的加载方法没有返回值，所以不要将其赋值给变量。直接使用就行了。
 
 
 从一个非标准位置加载
 -----------------------------------
 
-Helpers can be loaded from directories outside of **application/Helpers** and
-**system/Helpers**, as long as that path can be found through a namespace that
-has been setup within the PSR-4 section of the :doc:`Autoloader config file <../concepts/autoloader>`.
-You would prefix the name of the Helper with the namespace that it can be located
-in. Within that namespaced directory, the loader expects it to live within a
-sub-directory named ``Helpers``. An example will help understand this.
-辅助函数也可以从**application/Helpers** 和**system/Helpers**这两个目录之外加载，///只要通过基于PSR-4建立的命名空间里的自动加载配置文件（参考<../concepts/autoloader>）里面能够找到，////在那个已命名空间里，加载器默认预期辅助函数会放在名为Helper的子文件夹中。以下例子将有助于理解这个情况：
+辅助函数也可以从**application/Helpers** 和**system/Helpers**之外的目录加载，只要目录路径名称能够通过命名空间中找到，你可以在自动加载配置文件中的PSR-4章节建立命名空间（参考 <../concepts/autoloader>）。在那个已命名的空间目录中，加载器默认辅助函数会放在名为Helper的子文件夹中。以下例子将有助于理解这个情况：
 
 比如，我们将所有博客相关的代码放到一个独立的命名空间``Example\Blog``中。文件存在服务器上目录**/Modules/Blog/**下，于是，我们将博客模块的辅助函数文件放在**/Modules/Blog/Helpers/**目录下。 **blog_helper**的文件路径将会是**/Modules/Blog/Helpers/blog_helper.php**。在控制器中，我们就可以使用如下命令来加载辅助函数：
 
