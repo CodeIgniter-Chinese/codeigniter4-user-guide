@@ -6,9 +6,9 @@
 
 不用于CI中的其他大部分系统，Helpers(辅助函数)并不是用面向对象的方式实现。这些函数都是简单的，过程化的函数。每个辅助函数都实现了某一特定任务，并不依赖于其他函数。
 
-因此使用Hepler的第一步就是加载它。一旦加载完成，它就在你的控制器文件<../general/controllers>和视图文件<../general/views>中变成全局可用。
+因此使用Hepler的第一步就是加载它。一旦加载完成，它就在你的控制器文件 :doc:`controller <../general/controllers>` 和视图文件 :doc:`views <../general/views>` 中变成全局可用。
 
-Helper辅助函数一般保存在**system/Helpers**或者**application/Helpers directory**目录下。CI会先在**application/Helpers**目录下查找，如果目录或者对应的辅助函数不在该位置，就会转到你的全局目录*system/Helpers/*下查找。
+Helper 辅助函数一般保存在**system/Helpers**或者**application/Helpers directory**目录下。CI会先在**application/Helpers**目录中查找，如果目录或者对应的辅助函数不在该位置，就会转到你的全局目录*system/Helpers/*下查找。
 
 
 
@@ -21,37 +21,45 @@ Helper辅助函数一般保存在**system/Helpers**或者**application/Helpers d
 
 这里的**name**是辅助函数的文件名，不带.php扩展名或者“helper”部分。
 
-比如，要加载一个文件名为**url_helper.php**的**URL辅助函数**，只需这样：
+
+
+比如，要加载一个文件名为**cookie_helper.php**的**Cookie辅助函数**，只需这样::
 
 	helper('url');
+
+如果您想一次性加载多个 Helper 辅助函数，可以通过数组传递文件名::
+
+	helper(['cookie','date'])
 
 辅助函数可以在你控制器方法内的任何位置加载（甚至可以在视图文件中加载，虽然通常这么做并不好）。只要在使用之前加载就行。你也可以在控制器的构造函数中加载，这样就可以在该控制的任何函数中使用，当然也可以在有需要的时候在特定函数里单独加载。
 
 .. 注意:: 辅助函数的加载方法没有返回值，所以不要将其赋值给变量。直接使用就行了。
 
+.. 注意:: URL辅助函数会被自动加载，所以您无需手动加载。
+
 
 从一个非标准位置加载
 -----------------------------------
 
-辅助函数也可以从**application/Helpers** 和**system/Helpers**之外的目录加载，只要目录路径名称能够通过命名空间中找到，你可以在自动加载配置文件中的PSR-4章节建立命名空间（参考 <../concepts/autoloader>）。在那个已命名的空间目录中，加载器默认辅助函数会放在名为Helper的子文件夹中。以下例子将有助于理解这个情况：
+辅助函数也可以从**application/Helpers** 和**system/Helpers**之外的目录加载，只要目录路径名称能够通过命名空间中找到，你可以在自动加载配置文件 :doc:`Autoloader config file <../concepts/autoloader>` PSR-4章节建立命名空间。在那个已命名的空间目录中，加载器默认辅助函数会放在名为Helper的子文件夹中。以下例子将有助于理解这个情况：
 
-比如，我们将所有博客相关的代码放到一个独立的命名空间``Example\Blog``中。文件存在服务器上目录**/Modules/Blog/**下，于是，我们将博客模块的辅助函数文件放在**/Modules/Blog/Helpers/**目录下。 **blog_helper**的文件路径将会是**/Modules/Blog/Helpers/blog_helper.php**。在控制器中，我们就可以使用如下命令来加载辅助函数:
+比如，我们将所有博客相关的代码放到一个独立的命名空间``Example\Blog``中。文件存在服务器上目录**/Modules/Blog/**下，于是，我们将博客模块的辅助函数文件放在**/Modules/Blog/Helpers/**目录下。 **blog_helper**的文件路径将会是**/Modules/Blog/Helpers/blog_helper.php**。在控制器中，我们就可以使用如下命令来加载辅助函数::
 
 	helper('Modules\Blog\blog');
 
 .. 注意:: 这种方式加载文件中的函数不是真正意义上的命名空间。这里使用命名空间只是为了方便定位文件。
 
 
-使用辅助函数Helper
-==============
+使用 Helper 辅助函数
+====================
 
 一旦你要使用的辅助函数对应的Helper文件完成加载，你就可以用标准的PHP函数调用方式去使用它。
 
-比如，在视图文件中使用``anchor()``函数创建链接： 
+比如，在视图文件中使用``anchor()``函数创建链接:: 
 
 	<?php echo anchor('blog/comments', 'Click Here');?>
 
-这里的“Click Here"是链接的名字，“blog/comments”是控制器/方法（controller/method）链接的URI地址。
+这里的"Click Here"是链接的名字，“blog/comments”是控制器/方法（controller/method）链接的URI地址。
 
 扩展辅助函数
 ===================
@@ -94,4 +102,4 @@ Helper辅助函数一般保存在**system/Helpers**或者**application/Helpers d
 接下来呢？
 =========
 
-在内容表格中，你能看到所有的Helper的文件列表。浏览一下，看看这些函数能做什么吧!
+在目录中，你能看到所有的 Helper辅助函数 文件列表。浏览一下，看看这些函数能做什么吧!
