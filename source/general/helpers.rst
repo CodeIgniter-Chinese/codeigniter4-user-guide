@@ -4,9 +4,9 @@
 
 辅助函数（Helpers)，顾名思义，是辅助我们完成任务的函数。每一个辅助函数文件都是某一特定种类函数的集合。比如，**URL辅助函数（URL Helplers）**能帮我们创建链接，**Form辅助函数(Form Helpers)**能帮我们表单元素，**Text辅助函数（Text Helpers）**提供各种文本格式化操作，**Cookie辅助函数（Cookie Helpers）**提供设置和读取cookie的相关操作，**File辅助函数（File Helpers）**帮我们处理文件操作，等等。
 
-不用于CI中的其他大部分系统，Helpers(辅助函数)并不是用面向对象的方式实现。这些函数都是简单的，过程化的函数。每个辅助函数都实现了某一特定任务，并不依赖于其他函数。
+不用于CodeIgniter中的其他大部分系统，Helpers(辅助函数)并不是用面向对象的方式实现。这些函数都是简单的，过程化的函数。每个辅助函数都实现了某一特定任务，并不依赖于其他函数。
 
-因此使用Hepler的第一步就是加载它。一旦加载完成，它就在你的控制器文件 :doc:`controller <../general/controllers>` 和视图文件 :doc:`views <../general/views>` 中变成全局可用。
+因此使用 Hepler 的第一步就是加载它。一旦加载完成，它就在你的控制器文件 :doc:`controller <../general/controllers>` 和视图文件 :doc:`views <../general/views>` 中变成全局可用。
 
 Helper 辅助函数一般保存在**system/Helpers**或者**application/Helpers directory**目录下。CI会先在**application/Helpers**目录中查找，如果目录或者对应的辅助函数不在该位置，就会转到你的全局目录*system/Helpers/*下查找。
 
@@ -68,7 +68,7 @@ Helper 辅助函数一般保存在**system/Helpers**或者**application/Helpers 
 
 想要扩展辅助函数，先要在**application/helpers/**文件夹下新建一个和已有的Helper名字相同的文件，但是要在文件名加上**MY\_**前缀（该项可以配置，参见下文）。
 
-如果你只是想在现有的Helper中添加一些功能，比如增加一两个函数，或者修改某个特定函数的实现方法--那么用你自己的版本对整个Helper进行替换就会显得反应过度。这种情况下，最好是只进行简单的扩展(extend).
+如果你只是想在现有的Helper中添加一些功能，比如增加一两个函数，或者修改某个特定函数的实现方法--那么用你自己的版本对整个Helper进行替换就会显得矫枉过正，得不偿失。这种情况下，最好是只进行简单的扩展(extend).
 
 .. 注意:: 扩展(extend)一词在这里用得并不是很严谨，因为这些辅助函数都是过程化的，相对独立的，并不能实现传统编程意义上的扩展。基于此，你可以在Helper中增加函数，或者替换Helper提供的函数。
 
