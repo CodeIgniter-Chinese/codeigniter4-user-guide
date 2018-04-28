@@ -25,7 +25,7 @@ Helper辅助函数集 一般保存在 **system/Helpers** 或者 **application/He
 
 比如，要加载一个文件名为 **cookie_helper.php** 的 **Cookie辅助函数集** ，只需这样::
 
-	helper('url');
+	helper('cookie');
 
 如果您想一次性加载多个 Helper辅助函数集，可以通过数组传递文件名::
 
