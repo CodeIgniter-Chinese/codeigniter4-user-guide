@@ -40,7 +40,7 @@
 核心类的替换
 =================
 
-当用你自己的系统类替代CI默认的类时，首先确保:doc:`Autoloader <../concepts/autoloader>` 能找到你的类；其次你的新类继承了正确的接口，同时修改:doc:`Service <../concepts/services>` 保证加载的是你自己的类。
+当用你自己的系统类替代CI默认的类时，首先确保 :doc:`Autoloader <../concepts/autoloader>` 能找到你的类；其次你的新类继承了正确的接口，同时修改 :doc:`Service <../concepts/services>` 保证加载的是你自己的类。
 
 比如，你有一个名为 `` App\Libraries\RouteCollection `` 的新类想要替换掉系统原来的类，你应该像这样生成之::
 
