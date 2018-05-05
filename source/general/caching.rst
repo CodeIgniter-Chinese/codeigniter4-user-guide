@@ -28,7 +28,7 @@ CodeIgniter 可以让你通过缓存页面来达到更好的性能。
 
 .. important:: 如果你修改了可能影响页面输出的配置，你需要手动删除你的缓存文件。
 
- .. note:: 在写入缓存文件之前，必须通过编辑 **application/Config/Cache.php** 文件来设置缓存引擎。
+.. note:: 在写入缓存文件之前，必须通过编辑 **application/Config/Cache.php** 文件来设置缓存引擎。
 
 删除缓存
 ===============
