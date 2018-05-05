@@ -63,7 +63,7 @@ API 响应特性
 当您通过以下任何一种方法传递数据时，它们将决定基于数据类型来格式化结果:
 
 * 如果 $data 是一个字符串，它将被当作 HTML 发送回客户端。
-* 如果 $data 是一个数组，它将尝试请求内容类型与客户端进行协商，默认为 JSON。如果没有在 Config\API.php 中配置内容。默认使用``$supportedResponseFormats`` 属性。
+* 如果 $data 是一个数组，它将尝试请求内容类型与客户端进行协商，默认为 JSON。如果没有在 Config\API.php 中配置内容。默认使用 ``$supportedResponseFormats`` 属性。
 
 需要使用格式化，请修改 **Config/Format.php** 文件配置。``$supportedResponseFormats`` 包含了一个格式化响应类型列表。默认情况下，系统将会自动判断并响应 XML 和 JSON 格式::
 
