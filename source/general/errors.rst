@@ -30,7 +30,7 @@ CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>
 		// do something here...
 	}
 
-这便于你自己进行错误处理或是在脚本结束前做好清理工作。如果你希望错误处理程序正常运行，可以在 catch 语句块中再抛出一个新的异常。
+这便于你自己进行错误处理或是在脚本结束前做好清理工作。如果你希望错误处理程序正常运行，可以在 catch 语句块中再抛出一个新的异常。::
 
 	catch (\CodeIgniter\UnknownFileException $e)
 	{
