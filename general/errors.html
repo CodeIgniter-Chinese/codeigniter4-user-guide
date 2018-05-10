@@ -411,11 +411,11 @@
 <div class="section" id="id2">
 <h2>使用异常处理<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>本节为新手程序员或没有多少异常处理使用经验的开发人员做一个简单概述。</p>
-<p>异常处理是在异常被&quot;抛出&quot;的时候产生的事件。它会暂停当前脚本的执行，并将捕获到的异常发送到错误处理程序后显示适当的错误提示页:</p>
+<p>异常处理是在异常被&quot;抛出&quot;的时候产生的事件。它会暂停当前脚本的执行，并将捕获到的异常发送到错误处理程序后显示适当的错误提示页</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\Exception</span><span class="p">(</span><span class="s2">&quot;Some message goes here&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>如果你调用了一个可能会产生异常的方法，你可以使用  <code class="docutils literal"><span class="pre">try/catch</span> <span class="pre">block</span></code> 去捕获异常:</p>
+<p>如果你调用了一个可能会产生异常的方法，你可以使用  <code class="docutils literal"><span class="pre">try/catch</span> <span class="pre">block</span></code> 去捕获异常</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
         <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
 <span class="p">}</span>
@@ -426,23 +426,22 @@
 </pre></div>
 </div>
 <p>如果 <code class="docutils literal"><span class="pre">$userModel</span></code> 抛出了一个异常，那么它就会被捕获，并执行 catch 代码块内的语句。在这个样例中，脚本终止并输出了 <code class="docutils literal"><span class="pre">UserModel</span></code> 定义的错误信息。</p>
-<p>在这个例子中，我们可以捕捉任意类型的异常。如果我们仅仅想要监视特定类型的异常，比如 UnknownFileException，我们就可以把它在 catch 参数中指定出来。这样一来，其它异常和非监视类型子类的异常都会被传递给错误处理程序:</p>
+<p>在这个例子中，我们可以捕捉任意类型的异常。如果我们仅仅想要监视特定类型的异常，比如 UnknownFileException，我们就可以把它在 catch 参数中指定出来。这样一来，其它异常和非监视类型子类的异常都会被传递给错误处理程序</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">catch</span> <span class="p">(</span><span class="nx">\CodeIgniter\UnknownFileException</span> <span class="nv">$e</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="c1">// do something here...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>这便于你自己进行错误处理或是在脚本结束前做好清理工作。如果你希望错误处理程序正常运行，可以在 catch 语句块中再抛出一个新的异常。</p>
-<blockquote>
-<div><p>catch (CodeIgniterUnknownFileException $e)
-{</p>
-<blockquote>
-<div><p>// do something here...</p>
-<p>throw new RuntimeException($e-&gt;getMessage(), $e-&gt;getCode(), $e);</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<p>这便于你自己进行错误处理或是在脚本结束前做好清理工作。如果你希望错误处理程序正常运行，可以在 catch 语句块中再抛出一个新的异常</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">catch</span> <span class="p">(</span><span class="nx">\CodeIgniter\UnknownFileException</span> <span class="nv">$e</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="c1">// do something here...</span>
+
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">\RuntimeException</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">(),</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getCode</span><span class="p">(),</span> <span class="nv">$e</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id3">
 <h2>配置<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
@@ -457,7 +456,7 @@
 <p>下列是可用的自定义异常:</p>
 <div class="section" id="pagenotfoundexception">
 <h3>PageNotFoundException<a class="headerlink" href="#pagenotfoundexception" title="永久链接至标题">¶</a></h3>
-<p>这是用来声明 404 ，页面无法找到的错误。当异常被抛出时，系统将显示后面的错误模板 <code class="docutils literal"><span class="pre">/application/views/errors/html/error_404.php</span></code>。你应为你的站点自定义所有错误视图。如果在 <code class="docutils literal"><span class="pre">Config/Routes.php</span></code> 中，你指定了404 的重写规则，那么它将代替标准的 404 页来被调用:</p>
+<p>这是用来声明 404 ，页面无法找到的错误。当异常被抛出时，系统将显示后面的错误模板 <code class="docutils literal"><span class="pre">/application/views/errors/html/error_404.php</span></code>。你应为你的站点自定义所有错误视图。如果在 <code class="docutils literal"><span class="pre">Config/Routes.php</span></code> 中，你指定了404 的重写规则，那么它将代替标准的 404 页来被调用</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$pageModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">))</span>
 <span class="p">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\PageNotFoundException</span><span class="p">();</span>
@@ -536,7 +535,7 @@
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2018-05-07。
+       最后修改：2018-05-10。
     </p>
   </div>
 
