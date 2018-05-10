@@ -7,11 +7,11 @@ CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>
 ================
 本节为新手程序员或没有多少异常处理使用经验的开发人员做一个简单概述。
 
-异常处理是在异常被"抛出"的时候产生的事件。它会暂停当前脚本的执行，并将捕获到的异常发送到错误处理程序后显示适当的错误提示页::
+异常处理是在异常被"抛出"的时候产生的事件。它会暂停当前脚本的执行，并将捕获到的异常发送到错误处理程序后显示适当的错误提示页 ::
 
 	throw new \Exception("Some message goes here");
 
-如果你调用了一个可能会产生异常的方法，你可以使用  ``try/catch block`` 去捕获异常::
+如果你调用了一个可能会产生异常的方法，你可以使用  ``try/catch block`` 去捕获异常 ::
 
 	try {
 		$user = $userModel->find($id);
@@ -23,14 +23,14 @@ CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>
 
 如果 ``$userModel`` 抛出了一个异常，那么它就会被捕获，并执行 catch 代码块内的语句。在这个样例中，脚本终止并输出了 ``UserModel`` 定义的错误信息。	
 
-在这个例子中，我们可以捕捉任意类型的异常。如果我们仅仅想要监视特定类型的异常，比如 UnknownFileException，我们就可以把它在 catch 参数中指定出来。这样一来，其它异常和非监视类型子类的异常都会被传递给错误处理程序::
+在这个例子中，我们可以捕捉任意类型的异常。如果我们仅仅想要监视特定类型的异常，比如 UnknownFileException，我们就可以把它在 catch 参数中指定出来。这样一来，其它异常和非监视类型子类的异常都会被传递给错误处理程序 ::
 
 	catch (\CodeIgniter\UnknownFileException $e)
 	{
 		// do something here...
 	}
 
-这便于你自己进行错误处理或是在脚本结束前做好清理工作。如果你希望错误处理程序正常运行，可以在 catch 语句块中再抛出一个新的异常。
+这便于你自己进行错误处理或是在脚本结束前做好清理工作。如果你希望错误处理程序正常运行，可以在 catch 语句块中再抛出一个新的异常 ::
 
 	catch (\CodeIgniter\UnknownFileException $e)
 	{
@@ -54,7 +54,7 @@ CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>
 PageNotFoundException
 ---------------------
 
-这是用来声明 404 ，页面无法找到的错误。当异常被抛出时，系统将显示后面的错误模板 ``/application/views/errors/html/error_404.php``。你应为你的站点自定义所有错误视图。如果在 ``Config/Routes.php`` 中，你指定了404 的重写规则，那么它将代替标准的 404 页来被调用::
+这是用来声明 404 ，页面无法找到的错误。当异常被抛出时，系统将显示后面的错误模板 ``/application/views/errors/html/error_404.php``。你应为你的站点自定义所有错误视图。如果在 ``Config/Routes.php`` 中，你指定了404 的重写规则，那么它将代替标准的 404 页来被调用 ::
 
 	if (! $page = $pageModel->find($id))
 	{
