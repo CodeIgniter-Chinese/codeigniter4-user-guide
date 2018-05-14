@@ -66,7 +66,7 @@ PageNotFoundException
 ConfigException
 ---------------
 
-当配置文件中的值无效或 class 类不是正确类型等情况时，请使用此异常::
+当配置文件中的值无效或 class 类不是正确类型等情况时，请使用此异常 ::
 
 	throw new \CodeIgniter\ConfigException();
 
@@ -75,7 +75,7 @@ ConfigException
 UnknownFileException
 --------------------
 
-在文件没有被找到时，请使用此异常::
+在文件没有被找到时，请使用此异常 ::
 
 	throw new \CodeIgniter\UnknownFileException();
 
@@ -84,7 +84,7 @@ UnknownFileException
 UnknownClassException
 ---------------------
 
-当一个类没有被找到时，请使用此异常::
+当一个类没有被找到时，请使用此异常 ::
 
 	throw new \CodeIgniter\UnknownClassException($className);
 
@@ -93,7 +93,7 @@ UnknownClassException
 UnknownMethodException
 ----------------------
 
-当一个类的方法不存在时，请使用此异常::
+当一个类的方法不存在时，请使用此异常 ::
 
 	throw new \CodeIgniter\UnknownMethodException();
 
@@ -102,7 +102,7 @@ UnknownMethodException
 UserInputException
 ------------------
 
-当用户的输入无效时，请使用此异常::
+当用户的输入无效时，请使用此异常 ::
 
 	throw new \CodeIgniter\UserInputException();
 
@@ -111,7 +111,7 @@ UserInputException
 DatabaseException
 -----------------
 
-当产生如连接不能建立或连接临时丢失的数据库错误时，请使用此异常::
+当产生如连接不能建立或连接临时丢失的数据库错误时，请使用此异常 ::
 
 	throw new \CodeIgniter\DatabaseException();
 
