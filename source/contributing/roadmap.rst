@@ -1,18 +1,17 @@
 =====================
-CodeIgniter4 Roadmap
+CodeIgniter4 项目计划
 =====================
 
-The roadmap we are working to was `announced on our forum
-<http://forum.codeigniter.com/thread-62615.html>`_  in August, 2015.
+我们正在作业的项目计划已经在2015年8月 `公布在我们的论坛
+<http://forum.codeigniter.com/thread-62615.html>`_。
 
-Phase 1: Essentials (done)
+
+第一阶段：要点（完成）
 ==========================
 
-The first phase focused on nailing the essentials in the framework. 
-This ensures that all of the basic parts needed to make it work are in place 
-and working well.
+第一阶段的专心的集中于框架里的要点。这能确保所有必须能完成工作的基础部分在适当的位置很出色的作业。
 
-Phase 1 packages include:
+第一阶段的程序包包括：
 
 - Autoloader
 - Logging
@@ -28,18 +27,16 @@ Phase 1 packages include:
 - Sessions
 - Basic debugging and profiling
 
-This phase is complete, and the repository is being opened up for the
-community to help.
+这个阶段是完整的，并且内容对公众开发是有益的。
 
-Completed: June 2016
+完成时间：2016年6月
 
-Phase 2: Core Components (in progress)
+第二阶段：核心部件（进行中）
 ======================================
 
-The second phase focuses on providing and refining the existing classes and 
-features that CodeIgniter users know and love.
+第二阶段集中于提供和精炼 CodeIgniter 用户熟知和热爱的已经存在的类和程序特点。
 
-Phase 2 packages include:
+第二阶段程序包包括：
 
 - The helpers
 - Language/Localization features
@@ -51,26 +48,20 @@ Phase 2 packages include:
 - Pagination
 - Uploader
 
-During this phase, we will be looking for PRs for the planned and approved
-components, and for bug reports filed as github issues.
+在这一时期里，我们将会不断寻找已计划和被认可组件的堆栈请求（PRs），并且以程序错误报告文件作为 github 的讨论点。
 
-Those packages that we are ready to implement will appear as issues
-in the github repository, with whatever direction we can provide.
-As they get implemented and tested, and merged into the framework,
-they will show up in the changelog.
+我们准备执行的程序包将会作为讨论点出现在 github 内容里，用无论哪一种我们能提供的指导。如它们已经执行和测试过，并且已经合并到框架里，它们将会在更新日志里显示。
 
-Target completion: December 2016
+目标完成日期：2016年12月
 
-Phase 3: Expansion (not started)
+第三阶段：扩展（未开始）
 ================================
 
-The third phase includes fleshing out and working on the optional packages. 
-At this point, the framework can be released and need not wait for these libraries to be brought up to date. 
+第三阶段包括扩充和作业在可选择的程序包里。在这时，框架能被发表而且不需要为提出这些库耽搁日期。 
 
-Each optional package will have its own repository, and will be developed
-and managed independently of the main framework.
+每一个可选择的程序包将会有自己的属性，并且它将会被主框架独立的开发和管理。
 
-Planned optional packages:
+已计划可选择的程序包
 
 - FTP
 - XML-RPC
@@ -78,14 +69,12 @@ Planned optional packages:
 - Typography
 - Template Parser
 
-These optional packages will constitute the "official" addins for CodeIgniter4.
-Developers will undoubtedly create their own as well. We have not settled
-on the best way to promote/integrate these.
+这些可选择的程序包将为 CodeIgniter4 制定“官方”插件。开发者将毋庸置疑的更好创建他们特有的插件。我们不会用最好的方式决定去升级/合并这些可选择的程序包。
 
-Target completion: April 2017
+目标完成日期：2017年4月
 
-.. note:: Any target completion dates shown are speculative, and depend
-    very much on the quantity and quality of community contributions.
+**注意：**
 
-    Results may not be as depicted. Your mileage may vary. Contents will settle
-    during shipping. 
+任何已经显示的目标完成日期是纯理论性的，并且非常依赖代码总量和社区贡献品质。
+
+结果也许是无法描述的。因人而异。内容会在发送期间解决。
