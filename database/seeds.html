@@ -408,7 +408,7 @@
   <div class="section" id="id1">
 <h1>数据填充<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <p>数据填充是一种简单的将数据添加到数据库的方式。这在开发的过程中特别有用，你只需要准备开发中所需要的示例数据填充到数据库中，而且不仅如此，这些数据可以包括你不想要包括的迁移的静态数据，例如国家/地区，地理编码表，事件或设置信息等等。</p>
-<p>数据填充是必须有 <strong>run()</strong> 方法的简单类，并继承于 <strong>CodeIgniterDatabaseSeeder</strong> 。在 <strong>run()</strong> 中，该类可以创建你所需要的任何类型的数据。该类可以创建需要的任何形式的数据。它可以分别通过建立 $this-&gt;db 和 $this-&gt;forge 访问数据库连接。填充文件必须存储在 <strong>application/Database/Seeds</strong> 目录中。文件名和类名必须保持一致。</p>
+<p>数据填充是必须有 <strong>run()</strong> 方法的简单类，并继承于 <strong>CodeIgniterDatabaseSeeder</strong> 。在 <strong>run()</strong> 中，该类可以创建你所需要的任何类型的数据。该类可以创建需要的任何形式的数据。它可以分别通过建立  <code class="docutils literal"><span class="pre">$this-&gt;db</span></code> 和 <code class="docutils literal"><span class="pre">$this-&gt;forge</span></code> 访问数据库连接。填充文件必须存储在 <strong>application/Database/Seeds</strong> 目录中。文件名和类名必须保持一致。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// application/Database/Seeds/SimpleSeeder.php</span>
 <span class="k">class</span> <span class="nc">SimpleSeeder</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Database\Seeder</span>
 <span class="p">{</span>
@@ -455,10 +455,11 @@
 </div>
 <div class="section" id="seeders">
 <h2>使用 Seeders<a class="headerlink" href="#seeders" title="永久链接至标题">¶</a></h2>
-<p>你可以通过数据库配置类获取主 seeder</p>
-<blockquote>
-<div>$seeder = ConfigDatabase::seeder();
-$seeder-&gt;call('TestSeeder');</div></blockquote>
+<p>你可以通过数据库配置类获取主 seeder:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$seeder</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">seeder</span><span class="p">();</span>
+<span class="nv">$seeder</span><span class="o">-&gt;</span><span class="na">call</span><span class="p">(</span><span class="s1">&#39;TestSeeder&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
 <div class="section" id="id3">
 <h3>命令行填充数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>如果不想创建专用控制器，也可以从命令行填充数据，作为 Migrations CLI 工具的一部分:</p>
@@ -488,7 +489,7 @@ $seeder-&gt;call('TestSeeder');</div></blockquote>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2018-05-15。
+       最后修改：2018-05-16。
     </p>
   </div>
 
