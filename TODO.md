@@ -108,6 +108,6 @@
 - [x] [./source/contributing/index.rst](source/contributing/index.rst)
 - [x] [./source/contributing/internals.rst](source/contributing/internals.rst)
 - [x] [./source/contributing/roadmap.rst](source/contributing/roadmap.rst)
-- [ ] [./source/contributing/signing.rst](source/contributing/signing.rst)
+- [x] [./source/contributing/signing.rst](source/contributing/signing.rst)
 - [ ] [./source/contributing/styleguide.rst](source/contributing/styleguide.rst)
 - [ ] [./source/contributing/workflow.rst](source/contributing/workflow.rst)
