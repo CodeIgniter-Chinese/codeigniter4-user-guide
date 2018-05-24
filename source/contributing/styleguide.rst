@@ -1,93 +1,68 @@
 ######################
-PHP Coding Style Guide
+PHP编码风格指南
 ######################
 
-The following document declares a set of coding convention rules to be
-followed when contributing PHP code to the CodeIgniter project.
 
-Some of these rules, like naming conventions for example, *may* be
-incorporated into the framework's logic and therefore be functionally
-enforced (which would be separately documented), but while we would
-recommend it, there's no requirement that you follow these conventions in
-your own applications.
+当贡献 PHP 编码到 CodeIgniter 项目时接下来文档声明的一套编码约定规范要被遵循。
 
-The `PHP Interop Group <http://www.php-fig.org/>`_ has proposed a number of
-canonical recommendations for PHP code style. CodeIgniter is not a member of
-of PHP-FIG. We commend their efforts to unite the PHP community,
-but no not agree with all of their recommendations.
+规范中的一些，就像为实例命名的约定，*也许*被合并到框架逻辑内又因此功能地执行（约定将会被分别地证明），但当我们将推荐约定的时候，在你自己的计算机程序里你遵循的这些约定没有需求。
 
-PSR-2 is PHP-FIG's Coding Style Guide. We do not claim conformance with it,
-although there are a lot of similarities. The differences will be pointed out
-below.
+`PHP 互操作视窗组 <http://www.php-fig.org/>`_ 已经为 PHP 编码风格提议任何一个数目权威的建议。CodeIgniter 不是 PHP-FIG 的成员。我们称颂他们对统一 PHP 社区的成就，但是不赞成他们所有的建议。
 
-.. note:: See the 
-    `CodeIgniter4-developer-setup <https://github.com/bcit-ci/CodeIgniter4-developer-setup>`_ 
-    repository for tips on configuring your IDE or editor to help you conform
-    to the style guide.
+PSR-2 是 PHP-FIG 的编码风格引导。我们不要求与 PHP-FIG 的一致性，虽然有许多类似点。差异将会在下面的文章中被指出。
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to
-be interpreted as described in `RFC 2119 <http://www.ietf.org/rfc/rfc2119.txt>`_.
+**注意**
 
-*Note: When used below, the term "class" refers to all kinds of classes,
-interfaces and traits.*
+在设置你的IDE时为了贴士而查看 `CodeIgniter4-developer-setup <https://github.com/bcit-ci/CodeIgniter4-developer-setup>`_ 存储库或者编者去帮助你遵循风格指南。
+
+
+关键词 " MUST ", " MUST NOT ", " REQUIRED ", " SHALL ", " SHALL NOT ", " SHOULD " , " SHOULD NOT ", " RECOMMENDED ",  " MAY ", 和 " OPTIONAL " 在当前文件夹里像在  `RFC 2119 <http://www.ietf.org/rfc/rfc2119.txt>`_  里描述的一样被解释。
+
+*注意：当下文再次使用词语 "class" 时要参考所有类型的类，接口和特性。*
+
 
 *****
-Files
+文件
 *****
 
-Formatting
+
+格式化
 ==========
 
-- Files MUST use UTF-8 character set encoding without BOM.
-- Files MUST use UNIX line endings (LF: `\n`).
-- Files MUST end with a single empty line (i.e. LF: `\n`).
+- 在 BOM（位元组顺序记号）之外文件必须使用 UTF-8（通用多八位编码字符集）字符设置加密。
+- 文件必须使用 UNIX 操作系统行终止（例如：LF: `\n`）
+- 文件必须带着单一的的空行终止（例如：LF: `\n`）
 
-Structure
+结构
 =========
 
-- A single file SHOULD NOT declare more than one class.
-  Examples where we feel that more than one class in a source file
-  is appropriate:
+-  单个文件不应该声明多于一个类。实例那里我们感觉在开源文件里多于一个类是适合的：
 
-    -   `system/Debug/CustomExceptions` contains a number of CodeIgniter
-        exceptions and errors, that we want to use for a consistent
-        experience across applications. 
-        If we stick with the purist route, then each of the 13+/- custom 
-        exceptions would require an additional file, which would have a 
-        performance impact at times. 
-    -   `system/HTTP/Response` provides a RedirectException, used with the
-        Response class.
-    -   `system/Router/Router` similarly provides a RedirectException, used with 
-        the Router class.
+    -   `system/Debug/CustomExceptions` 包含一个数量的CodeIgniter例外和错误，以至于通过计算机程序我们要去为至少有一个共同解的经验处理。 如果我们坚持纯正癖者的路径，那时每13+/-的客户例外将缺少一份额外的文件，有时文件将有一个性能上的影响。
+         
+    -   `system/HTTP/Response` 提供了一个重定向例外，与响应的类一同使用。
+    -   `system/Router/Router` 类似于提供一个重定向例外，与路由类一同使用。
 
-- Files SHOULD either declare symbols (i.e. classes, functions, constants)
-  or execute non-declarative logic, but SHOULD NOT do both.
+- 文件应该不是声明符号（例如：类，函数，常量）就是完成非陈述的逻辑操作，但是应该没有全做。
 
-Naming
+命名
 ======
 
-- File names MUST end with a ".php" name extension and MUST NOT have
-  multiple name extensions.
-- Files declaring classes, interfaces or traits MUST have names exactly matching 
-  the classes that they declare (obviously excluding the ".php" name extension).
-- Files declaring functions SHOULD be named in *snake_case.php*.
+- 文件名必须用 ".php" 扩展名结尾并且必须没有混合扩展名。
+- 文件声明类，接口或者特性必须有命名正确地相配的类并且它们要声明（显然地 ".php" 扩展名除外）。
+- 文件声明函数应该被命名在 *snake_case.php* 内。
 
 *************************************
-Whitespace, indentation and alignment
+不换行空格，行首缩进和校正
 *************************************
 
-- Best practice: indentation SHOULD use only tabs.
-- Best practice: alignment SHOULD use only spaces.
-- If using tabs for anything, you MUST set the tab spacing to 4.
+- 最好的习惯：行首缩进应该仅使用标记（tab）。
+- 最好的习惯：校正应该仅使用空格（space）。
+- 如果标记正在做缩进，你一定要设置空格标记为4个字距。
 
-This will accommodate the widest range of developer environment options,
-while maintaining consistency of code appearance.
+当正在维持编码外观的一致性时，上面的习惯将适合开发人员环境选择权的最大的范围。
 
-Following the "best practice" above, 
-the following code block would have a single tab at the beginning of
-each line containing braces, and two tabs at the beginning of the
-nested statements. No alignment is implied::
+遵循上文所述 “最好的习惯”，下列编码程序块将会在大括号包含内开始的每一行有单一的标记空格，并且在嵌套语句最开始保留两个标记空格。没有校正是不言而喻的::
 
     {
         $first = 1;
@@ -95,9 +70,8 @@ nested statements. No alignment is implied::
         $third = 3;
     }
 
-Following the "best practice" above,
-the following code block would use spaces to have the assignment
-operators line up with each other::
+
+遵循上文所述 “最好的习惯”，下列编码程序块将使用空格去各自排列赋值运算符号::
 
     {
         $first    = 1;
@@ -106,138 +80,106 @@ operators line up with each other::
     }
 
 
-.. note:: Our indenting and alignment convention differs from PSR-2, which
-    **only** uses spaces for both indenting and alignment.
+**注意**
+    
+我们的缩排和校正约定不同于 PSR-2 , PSR-2 对于缩排和校正**仅**使用空格。
 
-- Unnecessary whitespace characters MUST NOT be present anywhere within a
-  script.
+- 在脚本语言内部不必要的不换行空格不能呈现在任何地方。
 
-  That includes trailing whitespace after a line of code, two or
-  more spaces used when only one is necessary (excluding alignment), as
-  well as any other whitespace usage that is not functionally required or
-  explicitly described in this document.
+  当只有缩排是必要时（校正除外）一行编码后包含被使用过的不换行空格是两个字节或更多字节，在这个文档里与任何其他的不换行空格用法一样不是功能必须的或者明确地叙述。
 
-.. note:: With conforming tab settings, alignment spacing should 
-    be preserved in all development environments.
-    A pull request that deals only with tabs or spaces for alignment
-    will not be favorably considered.
+ **注意**
+ 
+在所有开发环境中一致的标记设定，校正间距应该被保存。
+堆栈请求（PR）为了校正仅处理标记和空格将不会被赞许地考虑。
 
 ****
-Code
+编码
 ****
 
-PHP tags
+PHP 标签
 ========
 
-- Opening tags MUST only use the `<?php` and `<?=` forms.
+- 开头的标签必须仅使用 `<?php` 和 `<?=` 格式。
+  - 脚本语言正提供的输出信息应该使用 “缩写的回显(short echo)” 标签`<?=`。
+  - 脚本语言正声明的 “和” 或者 “或”（and/or）正使用的有条件的逻辑操作应该使用 “长” 标签`<?php`。
 
-  - Scripts producing output SHOULD use the "short echo" `<?=` tag.
-  - Scripts declaring and/or using conditional logic SHOULD use the "long"
-    `<?php` tag.
+- 结束标签 `?>` 不会被使用，除非打算开始直接的从电脑输出信息。
 
-- Closing `?>` tags SHOULD NOT be used, unless the intention is to start
-  direct output.
+  - 脚本语言不提供电脑输出信息不需要使用关闭标签 `?>`。
 
-  - Scripts that don't produce output MUST NOT use the closing `?>` tag.
-
-Namespaces and classes
+命名空间和类
 ======================
 
-- Class names and namespaces SHOULD be declared in `UpperCamelCase`, 
-  also called `StudlyCaps`, unless
-  another form is *functionally* required.
+- 除非不同的格式*功能地*需求，类名字和命名空间应该用大驼峰式命名法 (`UpperCamelCase`) 被声明，也叫做大写开始的驼峰大小写命名法(`StudlyCaps`)。
 
-  - Abbreviations in namespaces, class names and method names SHOULD be
-    written in capital letters (e.g. PHP).
+  - 用于命名空间，类名字和方法名字的缩写应该被用印刷体大写书写（例如：PHP）。
 
-- Class constants MUST be declared in `CAPITALS_SEPARATED_BY_UNDERSCORES`.
-- Class methods, property names and other variables MUST be declared in
-  `lowerCamelCase()`.
-- Class methods and properties MUST have visibility declarations (i.e.
-  `public`, `private` or `protected`).
+- 类常数必须用带有下划线的大写分隔声明（例如：`CAPITALS_SEPARATED_BY_UNDERSCORES`）。
+- 类方法，属性名称和其他变量必须被用小驼峰式命名法（ `lowerCamelCase()`）声明。 
+- 类方法和属性必须有可见性声明（例如： `public` , `private` 或者 `protected`）
 
-Methods
+方法
 -------
 
-To maintain consistency between core classes, class properties MUST
-be private or protected, and the following public methods
-MUST be used for each such property "x"
+在核心类中间维持一致性，类属性必须是私有或者保护的，并且对于每个这种的属性 "x" 下列公共方法必须被使用
 
-- `getX()` when the method returns returns a property value, or null if not set
-- `setX(value)` changes a property value, doesn't return anything, and can
-  throw exceptions
-- `hasX()` returns a boolean to if a property exists
-- `newX()` creates an instance of a/the component object and returns it,
-  and can throw exceptions
-- `isX()` returns true/false for boolean properties
+- `getX()`当方法返回时，返回属性值，或者要是没有设定则为空
+- `setX(value)` 修改属性值，没有返回什么，并且能抛出异常。
+- `hasX()`如果属性存在会返回布尔值
+- `newX()` 创建组件对象的实例并有返回值，而且能抛出异常
+- `isX()` 布尔值属性返回真或者假
 
-- Methods SHOULD use type hints and return type hints
+- 方法应该使用典型提示并返回典型提示
 
 
-Procedural code
+程序性的编码
 ===============
 
-- Function and variable names SHOULD be declared in `snake_case()` (all
-  lowercase letters, separated by underscores), unless another form is
-  *functionally* required.
-- Constants MUST be declared in `CAPITALS_SEPARATED_BY_UNDERSCORES`.
+- 除非不同的格式是 *功能地 *要求，函数和变量名字应该被声明在 `snake_case()` 里。(所有的印刷体小写，用下划线分隔的)
+- 常数必须被声明在带有下划线的大写分隔中（例如：`CAPITALS_SEPARATED_BY_UNDERSCORES`）。
 
-Keywords
+关键字
 ========
 
-- All keywords MUST be written in lowercase letters. This includes "scalar"
-  types, but does NOT include core PHP classes such as `stdClass` or
-  `Exception`.
-- Adjacent keywords are separated by a single space character.
-- The keywords `require`, `require_once`, `include`, `include_once` MUST
-  be followed by a single space character and MUST NOT be followed by a
-  parenthesis anywhere within the declaration.
-- The `function` keyword MUST be immediately followed by either an opening
-  parenthesis or a single space and a function name.
-- Other keywords not explicitly mentioned in this section MUST be separated
-  by a single space character from any printable characters around them and
-  on the same line.
+- 所有的关键字必须用印刷体小写书写。包含 "scalar" 类型，但不包含核心 PHP 类如标准类（`stdClass`）或者异常（`Exception`）。
+- 毗邻的关键字由单一的空格字符被分隔。
+- 关键字 `require`,`require_once`,`include`,`include_once` 必须遵循单一的空格字节并且不必遵循声明内部的任何地方的括号。
+- 函数（`function`）关键字必须即刻遵循打开的括号或单一的空格与函数名。
+- 在这段里没有明确地提及的其他关键字必须分隔来自任何可印刷的字节关键字周围的单一的空格字节并且在同一行。
 
-Operators
+运算符号
 =========
 
-- The single dot concatenation, incrementing, decrementing, error
-  suppression operators and references MUST NOT be separated from their
-  subjects.
-- Other operators not explicitly mentioned in this section MUST be
-  separated by a single space character from any printable characters
-  around them and on the same line.
-- An operator MUST NOT be the last set of printable characters on a line.
-- An operator MAY be the first set of printable characters on a line.
+- 单一的小数点并置，增加，减少，错误取消运算符号和参考不必从它们对象中被分隔。
+- 其他运算符号没有在这一节明确地提示必须分隔来自任何可印刷的字节关键字周围的单一的空格字节并且在同一行。
+- 在一行上运算符号不必是可印刷地字节最后置位。
+- 在一行上运算符号也许是可印刷字节第一个置位。
 
-Logical Operators
+逻辑运算符号
 =================
 
--   Use the symbol versions (**||** and **&&**) of the logical operators
-    instead of the word versions (**OR** and **AND**).
+-   使用逻辑运算符号的符号版本（**||** 和 **&&**）代替文字版本（**OR** 和 **AND**）。
+    
+        -   本段的要求与其他程序语言是一致的。
+        -   下面的程序避免了赋值运算符号的问题 (**=**)有更高的优先权::
+        
+                $result = true && false; // $result 结果是假的，预期中的
+                $result = true OR false; // $result 结果是真的，赋值就像 "($result = true) OR false"
+                $result = (true OR false); // $result 结果是假的
 
-        -   This is consistent with other programming languages
-        -   It avoids the problem of the assignment operator (**=**) having
-            higher precedence::
 
-                $result = true && false; // $result is false, expected
-                $result = true OR false; // $result is true, evaluated as "($result = true) OR false"
-                $result = (true OR false); // $result is false
+-   逻辑非运算符号必须由单一的空格从它的自变量中被分隔，与在 **! $result** 代替 **!$result** 一样。
+-   如果逻辑表达式有潜在的混淆，那么清楚的使用括号，就像上文中表达过的。
 
--   The logical negation operator MUST be separated from its argument by a
-    single space, as in **! $result** instead of **!$result**
--   If there is potential confusion with a logical expression, then use
-    parentheses for clarity, as shown above.
-
-Control Structures
+管理结构
 ==================
 
--   Control structures, such as **if/else** statements, **for/foreach** statements, or
-    **while/do** statements, MUST use a brace-surrounded block for their body
-    segments.
 
-    Good control structure examples::
+-  管理结构，例如 **if/else** 语句，**for/foreach** 语句, 或者 **while/do** 语句，对于它们的主体程序段必须使用大括号环绕的程序块。
 
+优良的管理结构示例::
+   
         if ( $foo )
         {
             $bar += $baz;
@@ -247,35 +189,30 @@ Control Structures
             $baz = 'bar';
         }
 
-    Not-acceptable control structures::
+不可接受的管理结构::
 
         if ( $foo ) $bar = $oneThing + $anotherThing + $yetAnotherThing + $evenMore;
 
         if ( $foo ) $bar += $baz;
         else $baz = 'bar';
 
-Other
+其他
 =====
 
-- Argument separators (comma: `,`) MUST NOT be preceeded by a whitespace
-  character and MUST be followed by a space character or a newline
-  (LF: `\n`).
-- Semi-colons (i.e. `;`) MUST NOT be preceeded by a whitespace character
-  and MUST be followed by a newline (LF: `\n`).
+- 自变量分隔符（逗号：`,`）不必由不换行空格继续进行下去并且必须遵循一个空格字节或者新行 (LF: `\n`)。
+- 分号（例如: `;`）不必由不换行空格继续进行下去并且必须遵循新行(LF: `\n`)。
 
-- Opening parentheses SHOULD NOT be followed by a space character.
-- Closing parentheses SHOULD NOT be preceeded by a space character.
+- 打开的括号不应该遵循于空格字符。
+- 关闭括号不应该经由空格字符继续进行。
 
-- Opening square brackets SHOULD NOT be followed by a space character,
-  unless when using the "short array" declaration syntax.
-- Closing square backets SHOULD NOT be preceeded by a space character,
-  unless when using the "short array" declaration syntax.
+- 打开的方括号不应该遵循于空格字符，除非当声明语法正使用"短整数数组（"short array"）".
+- 关闭括号不应该经由空格字符的继续进行，除非当声明语法正使用"短整数数组（"short array" ）".
 
-- A curly brace SHOULD be the only printable character on a line, unless:
+-花括号（大括号）在一行上不应该是唯一打印的字体。除非::
 
-  - When declaring an anonymous function.
-  - Inside a "variable variable" (i.e. `${$foo}` or `${'foo'.$bar}`).
-  - Around a variable in a double-quoted string (i.e. `"Foo {$bar}"`).
+  - 正在声明一个佚名的函数。
+  - 括号里有“变量 变量”（"variable variable"）（例如: `${$foo}` 或者 `${'foo'.$bar}` ）
+  - 在双引证字符内是一个变量（例如：`"Foo {$bar}"` ）。
 
-.. note:: Our control structures braces convention differs from PSR-2.
-    We use "Allman style" notation instead.
+**注意**
+    我们的管理结构大括号约定不同于 PSR-2 .我们使用 "Allman style(BSD-style)" 标记法代替。 
