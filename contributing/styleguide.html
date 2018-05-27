@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PHP Coding Style Guide &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
+  <title>PHP编码风格指南 &mdash; CodeIgniter 4.0.0-dev 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -393,7 +393,7 @@
       
         <li><a href="index.html">贡献给CodeIgniter①</a> &raquo;</li>
       
-    <li>PHP Coding Style Guide</li>
+    <li>PHP编码风格指南</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -405,94 +405,60 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="php-coding-style-guide">
-<h1>PHP Coding Style Guide<a class="headerlink" href="#php-coding-style-guide" title="永久链接至标题">¶</a></h1>
-<p>The following document declares a set of coding convention rules to be
-followed when contributing PHP code to the CodeIgniter project.</p>
-<p>Some of these rules, like naming conventions for example, <em>may</em> be
-incorporated into the framework's logic and therefore be functionally
-enforced (which would be separately documented), but while we would
-recommend it, there's no requirement that you follow these conventions in
-your own applications.</p>
-<p>The <a class="reference external" href="http://www.php-fig.org/">PHP Interop Group</a> has proposed a number of
-canonical recommendations for PHP code style. CodeIgniter is not a member of
-of PHP-FIG. We commend their efforts to unite the PHP community,
-but no not agree with all of their recommendations.</p>
-<p>PSR-2 is PHP-FIG's Coding Style Guide. We do not claim conformance with it,
-although there are a lot of similarities. The differences will be pointed out
-below.</p>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">See the
-<a class="reference external" href="https://github.com/bcit-ci/CodeIgniter4-developer-setup">CodeIgniter4-developer-setup</a>
-repository for tips on configuring your IDE or editor to help you conform
-to the style guide.</p>
-</div>
-<p>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;,
-&quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to
-be interpreted as described in <a class="reference external" href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.</p>
-<p><em>Note: When used below, the term &quot;class&quot; refers to all kinds of classes,
-interfaces and traits.</em></p>
-<div class="section" id="files">
-<h2>Files<a class="headerlink" href="#files" title="永久链接至标题">¶</a></h2>
-<div class="section" id="formatting">
-<h3>Formatting<a class="headerlink" href="#formatting" title="永久链接至标题">¶</a></h3>
+  <div class="section" id="php">
+<h1>PHP编码风格指南<a class="headerlink" href="#php" title="永久链接至标题">¶</a></h1>
+<p>当贡献 PHP 编码到 CodeIgniter 项目时接下来文档声明的一套编码约定规范要被遵循。</p>
+<p>规范中的一些，就像为实例命名的约定，<a href="#id1"><span class="problematic" id="id2">*</span></a>也许*被合并到框架逻辑内又因此功能地执行（约定将会被分别地证明），但当我们将推荐约定的时候，在你自己的计算机程序里你遵循的这些约定没有需求。</p>
+<p><a class="reference external" href="http://www.php-fig.org/">PHP 互操作视窗组</a> 已经为 PHP 编码风格提议任何一个数目权威的建议。CodeIgniter 不是 PHP-FIG 的成员。我们称颂他们对统一 PHP 社区的成就，但是不赞成他们所有的建议。</p>
+<p>PSR-2 是 PHP-FIG 的编码风格引导。我们不要求与 PHP-FIG 的一致性，虽然有许多类似点。差异将会在下面的文章中被指出。</p>
+<p><strong>注意</strong></p>
+<p>在设置你的IDE时为了贴士而查看 <a class="reference external" href="https://github.com/bcit-ci/CodeIgniter4-developer-setup">CodeIgniter4-developer-setup</a> 存储库或者编者去帮助你遵循风格指南。</p>
+<p>关键词 &quot; MUST &quot;, &quot; MUST NOT &quot;, &quot; REQUIRED &quot;, &quot; SHALL &quot;, &quot; SHALL NOT &quot;, &quot; SHOULD &quot; , &quot; SHOULD NOT &quot;, &quot; RECOMMENDED &quot;,  &quot; MAY &quot;, 和 &quot; OPTIONAL &quot; 在当前文件夹里像在  <a class="reference external" href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>  里描述的一样被解释。</p>
+<p><em>注意：当下文再次使用词语 &quot;class&quot; 时要参考所有类型的类，接口和特性。</em></p>
+<div class="section" id="id4">
+<h2>文件<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id5">
+<h3>格式化<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>Files MUST use UTF-8 character set encoding without BOM.</li>
-<li>Files MUST use UNIX line endings (LF: <cite>n</cite>).</li>
-<li>Files MUST end with a single empty line (i.e. LF: <cite>n</cite>).</li>
+<li>在 BOM（位元组顺序记号）之外文件必须使用 UTF-8（通用多八位编码字符集）字符设置加密。</li>
+<li>文件必须使用 UNIX 操作系统行终止（例如：LF: <cite>n</cite>）</li>
+<li>文件必须带着单一的的空行终止（例如：LF: <cite>n</cite>）</li>
 </ul>
 </div>
-<div class="section" id="structure">
-<h3>Structure<a class="headerlink" href="#structure" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id6">
+<h3>结构<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p class="first">A single file SHOULD NOT declare more than one class.
-Examples where we feel that more than one class in a source file
-is appropriate:</p>
+<li><p class="first">单个文件不应该声明多于一个类。实例那里我们感觉在开源文件里多于一个类是适合的：</p>
 <blockquote>
 <div><ul class="simple">
-<li><cite>system/Debug/CustomExceptions</cite> contains a number of CodeIgniter
-exceptions and errors, that we want to use for a consistent
-experience across applications.
-If we stick with the purist route, then each of the 13+/- custom
-exceptions would require an additional file, which would have a
-performance impact at times.</li>
-<li><cite>system/HTTP/Response</cite> provides a RedirectException, used with the
-Response class.</li>
-<li><cite>system/Router/Router</cite> similarly provides a RedirectException, used with
-the Router class.</li>
+<li><cite>system/Debug/CustomExceptions</cite> 包含一个数量的CodeIgniter例外和错误，以至于通过计算机程序我们要去为至少有一个共同解的经验处理。 如果我们坚持纯正癖者的路径，那时每13+/-的客户例外将缺少一份额外的文件，有时文件将有一个性能上的影响。</li>
+<li><cite>system/HTTP/Response</cite> 提供了一个重定向例外，与响应的类一同使用。</li>
+<li><cite>system/Router/Router</cite> 类似于提供一个重定向例外，与路由类一同使用。</li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Files SHOULD either declare symbols (i.e. classes, functions, constants)
-or execute non-declarative logic, but SHOULD NOT do both.</p>
+<li><p class="first">文件应该不是声明符号（例如：类，函数，常量）就是完成非陈述的逻辑操作，但是应该没有全做。</p>
 </li>
 </ul>
 </div>
-<div class="section" id="naming">
-<h3>Naming<a class="headerlink" href="#naming" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id7">
+<h3>命名<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>File names MUST end with a &quot;.php&quot; name extension and MUST NOT have
-multiple name extensions.</li>
-<li>Files declaring classes, interfaces or traits MUST have names exactly matching
-the classes that they declare (obviously excluding the &quot;.php&quot; name extension).</li>
-<li>Files declaring functions SHOULD be named in <em>snake_case.php</em>.</li>
+<li>文件名必须用 &quot;.php&quot; 扩展名结尾并且必须没有混合扩展名。</li>
+<li>文件声明类，接口或者特性必须有命名正确地相配的类并且它们要声明（显然地 &quot;.php&quot; 扩展名除外）。</li>
+<li>文件声明函数应该被命名在 <em>snake_case.php</em> 内。</li>
 </ul>
 </div>
 </div>
-<div class="section" id="whitespace-indentation-and-alignment">
-<h2>Whitespace, indentation and alignment<a class="headerlink" href="#whitespace-indentation-and-alignment" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id8">
+<h2>不换行空格，行首缩进和校正<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
-<li>Best practice: indentation SHOULD use only tabs.</li>
-<li>Best practice: alignment SHOULD use only spaces.</li>
-<li>If using tabs for anything, you MUST set the tab spacing to 4.</li>
+<li>最好的习惯：行首缩进应该仅使用标记（tab）。</li>
+<li>最好的习惯：校正应该仅使用空格（space）。</li>
+<li>如果标记正在做缩进，你一定要设置空格标记为4个字距。</li>
 </ul>
-<p>This will accommodate the widest range of developer environment options,
-while maintaining consistency of code appearance.</p>
-<p>Following the &quot;best practice&quot; above,
-the following code block would have a single tab at the beginning of
-each line containing braces, and two tabs at the beginning of the
-nested statements. No alignment is implied:</p>
+<p>当正在维持编码外观的一致性时，上面的习惯将适合开发人员环境选择权的最大的范围。</p>
+<p>遵循上文所述 “最好的习惯”，下列编码程序块将会在大括号包含内开始的每一行有单一的标记空格，并且在嵌套语句最开始保留两个标记空格。没有校正是不言而喻的:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nv">$first</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="nv">$second</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
@@ -500,9 +466,7 @@ nested statements. No alignment is implied:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Following the &quot;best practice&quot; above,
-the following code block would use spaces to have the assignment
-operators line up with each other:</p>
+<p>遵循上文所述 “最好的习惯”，下列编码程序块将使用空格去各自排列赋值运算符号:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nv">$first</span>    <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="nv">$second</span>   <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
@@ -510,153 +474,111 @@ operators line up with each other:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">Our indenting and alignment convention differs from PSR-2, which
-<strong>only</strong> uses spaces for both indenting and alignment.</p>
-</div>
+<p><strong>注意</strong></p>
+<p>我们的缩排和校正约定不同于 PSR-2 , PSR-2 对于缩排和校正**仅**使用空格。</p>
 <ul>
-<li><p class="first">Unnecessary whitespace characters MUST NOT be present anywhere within a
-script.</p>
-<p>That includes trailing whitespace after a line of code, two or
-more spaces used when only one is necessary (excluding alignment), as
-well as any other whitespace usage that is not functionally required or
-explicitly described in this document.</p>
+<li><p class="first">在脚本语言内部不必要的不换行空格不能呈现在任何地方。</p>
+<p>当只有缩排是必要时（校正除外）一行编码后包含被使用过的不换行空格是两个字节或更多字节，在这个文档里与任何其他的不换行空格用法一样不是功能必须的或者明确地叙述。</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">With conforming tab settings, alignment spacing should
-be preserved in all development environments.
-A pull request that deals only with tabs or spaces for alignment
-will not be favorably considered.</p>
+<p>&nbsp;<strong>注意</strong></p>
+<p>在所有开发环境中一致的标记设定，校正间距应该被保存。
+堆栈请求（PR）为了校正仅处理标记和空格将不会被赞许地考虑。</p>
 </div>
-</div>
-<div class="section" id="code">
-<h2>Code<a class="headerlink" href="#code" title="永久链接至标题">¶</a></h2>
-<div class="section" id="php-tags">
-<h3>PHP tags<a class="headerlink" href="#php-tags" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id9">
+<h2>编码<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id10">
+<h3>PHP 标签<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>Opening tags MUST only use the <cite>&lt;?php</cite> and <cite>&lt;?=</cite> forms.<ul>
-<li>Scripts producing output SHOULD use the &quot;short echo&quot; <cite>&lt;?=</cite> tag.</li>
-<li>Scripts declaring and/or using conditional logic SHOULD use the &quot;long&quot;
-<cite>&lt;?php</cite> tag.</li>
-</ul>
-</li>
-<li>Closing <cite>?&gt;</cite> tags SHOULD NOT be used, unless the intention is to start
-direct output.<ul>
-<li>Scripts that don't produce output MUST NOT use the closing <cite>?&gt;</cite> tag.</li>
+<li>开头的标签必须仅使用 <cite>&lt;?php</cite> 和 <cite>&lt;?=</cite> 格式。
+- 脚本语言正提供的输出信息应该使用 “缩写的回显(short echo)” 标签`&lt;?=`。
+- 脚本语言正声明的 “和” 或者 “或”（and/or）正使用的有条件的逻辑操作应该使用 “长” 标签`&lt;?php`。</li>
+<li>结束标签 <cite>?&gt;</cite> 不会被使用，除非打算开始直接的从电脑输出信息。<ul>
+<li>脚本语言不提供电脑输出信息不需要使用关闭标签 <cite>?&gt;</cite>。</li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="namespaces-and-classes">
-<h3>Namespaces and classes<a class="headerlink" href="#namespaces-and-classes" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id11">
+<h3>命名空间和类<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>Class names and namespaces SHOULD be declared in <cite>UpperCamelCase</cite>,
-also called <cite>StudlyCaps</cite>, unless
-another form is <em>functionally</em> required.<ul>
-<li>Abbreviations in namespaces, class names and method names SHOULD be
-written in capital letters (e.g. PHP).</li>
+<li>除非不同的格式*功能地*需求，类名字和命名空间应该用大驼峰式命名法 (<cite>UpperCamelCase</cite>) 被声明，也叫做大写开始的驼峰大小写命名法(<cite>StudlyCaps</cite>)。<ul>
+<li>用于命名空间，类名字和方法名字的缩写应该被用印刷体大写书写（例如：PHP）。</li>
 </ul>
 </li>
-<li>Class constants MUST be declared in <cite>CAPITALS_SEPARATED_BY_UNDERSCORES</cite>.</li>
-<li>Class methods, property names and other variables MUST be declared in
-<cite>lowerCamelCase()</cite>.</li>
-<li>Class methods and properties MUST have visibility declarations (i.e.
-<cite>public</cite>, <cite>private</cite> or <cite>protected</cite>).</li>
+<li>类常数必须用带有下划线的大写分隔声明（例如：<cite>CAPITALS_SEPARATED_BY_UNDERSCORES</cite>）。</li>
+<li>类方法，属性名称和其他变量必须被用小驼峰式命名法（ <cite>lowerCamelCase()</cite>）声明。</li>
+<li>类方法和属性必须有可见性声明（例如： <cite>public</cite> , <cite>private</cite> 或者 <cite>protected</cite>）</li>
 </ul>
-<div class="section" id="methods">
-<h4>Methods<a class="headerlink" href="#methods" title="永久链接至标题">¶</a></h4>
-<p>To maintain consistency between core classes, class properties MUST
-be private or protected, and the following public methods
-MUST be used for each such property &quot;x&quot;</p>
+<div class="section" id="id12">
+<h4>方法<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h4>
+<p>在核心类中间维持一致性，类属性必须是私有或者保护的，并且对于每个这种的属性 &quot;x&quot; 下列公共方法必须被使用</p>
 <ul class="simple">
-<li><cite>getX()</cite> when the method returns returns a property value, or null if not set</li>
-<li><cite>setX(value)</cite> changes a property value, doesn't return anything, and can
-throw exceptions</li>
-<li><cite>hasX()</cite> returns a boolean to if a property exists</li>
-<li><cite>newX()</cite> creates an instance of a/the component object and returns it,
-and can throw exceptions</li>
-<li><cite>isX()</cite> returns true/false for boolean properties</li>
-<li>Methods SHOULD use type hints and return type hints</li>
+<li><a href="#id13"><span class="problematic" id="id14">`</span></a>getX()`当方法返回时，返回属性值，或者要是没有设定则为空</li>
+<li><cite>setX(value)</cite> 修改属性值，没有返回什么，并且能抛出异常。</li>
+<li><a href="#id15"><span class="problematic" id="id16">`</span></a>hasX()`如果属性存在会返回布尔值</li>
+<li><cite>newX()</cite> 创建组件对象的实例并有返回值，而且能抛出异常</li>
+<li><cite>isX()</cite> 布尔值属性返回真或者假</li>
+<li>方法应该使用典型提示并返回典型提示</li>
 </ul>
 </div>
 </div>
-<div class="section" id="procedural-code">
-<h3>Procedural code<a class="headerlink" href="#procedural-code" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id17">
+<h3>程序性的编码<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>Function and variable names SHOULD be declared in <cite>snake_case()</cite> (all
-lowercase letters, separated by underscores), unless another form is
-<em>functionally</em> required.</li>
-<li>Constants MUST be declared in <cite>CAPITALS_SEPARATED_BY_UNDERSCORES</cite>.</li>
+<li>除非不同的格式是 <a href="#id18"><span class="problematic" id="id19">*</span></a>功能地 <a href="#id20"><span class="problematic" id="id21">*</span></a>要求，函数和变量名字应该被声明在 <cite>snake_case()</cite> 里。(所有的印刷体小写，用下划线分隔的)</li>
+<li>常数必须被声明在带有下划线的大写分隔中（例如：<cite>CAPITALS_SEPARATED_BY_UNDERSCORES</cite>）。</li>
 </ul>
 </div>
-<div class="section" id="keywords">
-<h3>Keywords<a class="headerlink" href="#keywords" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id22">
+<h3>关键字<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>All keywords MUST be written in lowercase letters. This includes &quot;scalar&quot;
-types, but does NOT include core PHP classes such as <cite>stdClass</cite> or
-<cite>Exception</cite>.</li>
-<li>Adjacent keywords are separated by a single space character.</li>
-<li>The keywords <cite>require</cite>, <cite>require_once</cite>, <cite>include</cite>, <cite>include_once</cite> MUST
-be followed by a single space character and MUST NOT be followed by a
-parenthesis anywhere within the declaration.</li>
-<li>The <cite>function</cite> keyword MUST be immediately followed by either an opening
-parenthesis or a single space and a function name.</li>
-<li>Other keywords not explicitly mentioned in this section MUST be separated
-by a single space character from any printable characters around them and
-on the same line.</li>
+<li>所有的关键字必须用印刷体小写书写。包含 &quot;scalar&quot; 类型，但不包含核心 PHP 类如标准类（<cite>stdClass</cite>）或者异常（<cite>Exception</cite>）。</li>
+<li>毗邻的关键字由单一的空格字符被分隔。</li>
+<li>关键字 <cite>require</cite>,`require_once`,`include`,`include_once` 必须遵循单一的空格字节并且不必遵循声明内部的任何地方的括号。</li>
+<li>函数（<cite>function</cite>）关键字必须即刻遵循打开的括号或单一的空格与函数名。</li>
+<li>在这段里没有明确地提及的其他关键字必须分隔来自任何可印刷的字节关键字周围的单一的空格字节并且在同一行。</li>
 </ul>
 </div>
-<div class="section" id="operators">
-<h3>Operators<a class="headerlink" href="#operators" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id23">
+<h3>运算符号<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>The single dot concatenation, incrementing, decrementing, error
-suppression operators and references MUST NOT be separated from their
-subjects.</li>
-<li>Other operators not explicitly mentioned in this section MUST be
-separated by a single space character from any printable characters
-around them and on the same line.</li>
-<li>An operator MUST NOT be the last set of printable characters on a line.</li>
-<li>An operator MAY be the first set of printable characters on a line.</li>
+<li>单一的小数点并置，增加，减少，错误取消运算符号和参考不必从它们对象中被分隔。</li>
+<li>其他运算符号没有在这一节明确地提示必须分隔来自任何可印刷的字节关键字周围的单一的空格字节并且在同一行。</li>
+<li>在一行上运算符号不必是可印刷地字节最后置位。</li>
+<li>在一行上运算符号也许是可印刷字节第一个置位。</li>
 </ul>
 </div>
-<div class="section" id="logical-operators">
-<h3>Logical Operators<a class="headerlink" href="#logical-operators" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id24">
+<h3>逻辑运算符号<a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p class="first">Use the symbol versions (<strong>||</strong> and <strong>&amp;&amp;</strong>) of the logical operators
-instead of the word versions (<strong>OR</strong> and <strong>AND</strong>).</p>
+<li><p class="first">&nbsp; 使用逻辑运算符号的符号版本（<strong>||</strong> 和 <strong>&amp;&amp;</strong>）代替文字版本（<strong>OR</strong> 和 <strong>AND</strong>）。</p>
 <blockquote>
 <div><ul>
-<li><p class="first">This is consistent with other programming languages</p>
+<li><p class="first">本段的要求与其他程序语言是一致的。</p>
 </li>
-<li><p class="first">It avoids the problem of the assignment operator (<strong>=</strong>) having
-higher precedence:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$result</span> <span class="o">=</span> <span class="k">true</span> <span class="o">&amp;&amp;</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// $result is false, expected</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="k">true</span> <span class="k">OR</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// $result is true, evaluated as &quot;($result = true) OR false&quot;</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="p">(</span><span class="k">true</span> <span class="k">OR</span> <span class="k">false</span><span class="p">);</span> <span class="c1">// $result is false</span>
+<li><p class="first">下面的程序避免了赋值运算符号的问题 (<strong>=</strong>)有更高的优先权:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$result</span> <span class="o">=</span> <span class="k">true</span> <span class="o">&amp;&amp;</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// $result 结果是假的，预期中的</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="k">true</span> <span class="k">OR</span> <span class="k">false</span><span class="p">;</span> <span class="c1">// $result 结果是真的，赋值就像 &quot;($result = true) OR false&quot;</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="p">(</span><span class="k">true</span> <span class="k">OR</span> <span class="k">false</span><span class="p">);</span> <span class="c1">// $result 结果是假的</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">The logical negation operator MUST be separated from its argument by a
-single space, as in <strong>! $result</strong> instead of <strong>!$result</strong></p>
+<li><p class="first">逻辑非运算符号必须由单一的空格从它的自变量中被分隔，与在 <strong>! $result</strong> 代替 <strong>!$result</strong> 一样。</p>
 </li>
-<li><p class="first">If there is potential confusion with a logical expression, then use
-parentheses for clarity, as shown above.</p>
+<li><p class="first">&nbsp; 如果逻辑表达式有潜在的混淆，那么清楚的使用括号，就像上文中表达过的。</p>
 </li>
 </ul>
 </div>
-<div class="section" id="control-structures">
-<h3>Control Structures<a class="headerlink" href="#control-structures" title="永久链接至标题">¶</a></h3>
-<ul>
-<li><p class="first">Control structures, such as <strong>if/else</strong> statements, <strong>for/foreach</strong> statements, or
-<strong>while/do</strong> statements, MUST use a brace-surrounded block for their body
-segments.</p>
-<p>Good control structure examples:</p>
+<div class="section" id="id25">
+<h3>管理结构<a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>&nbsp;管理结构，例如 <strong>if/else</strong> 语句，<strong>for/foreach</strong> 语句, 或者 <strong>while/do</strong> 语句，对于它们的主体程序段必须使用大括号环绕的程序块。</li>
+</ul>
+<p>优良的管理结构示例:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span> <span class="nv">$foo</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="nv">$bar</span> <span class="o">+=</span> <span class="nv">$baz</span><span class="p">;</span>
@@ -667,42 +589,34 @@ segments.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Not-acceptable control structures:</p>
+<p>不可接受的管理结构:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span> <span class="nv">$foo</span> <span class="p">)</span> <span class="nv">$bar</span> <span class="o">=</span> <span class="nv">$oneThing</span> <span class="o">+</span> <span class="nv">$anotherThing</span> <span class="o">+</span> <span class="nv">$yetAnotherThing</span> <span class="o">+</span> <span class="nv">$evenMore</span><span class="p">;</span>
 
 <span class="k">if</span> <span class="p">(</span> <span class="nv">$foo</span> <span class="p">)</span> <span class="nv">$bar</span> <span class="o">+=</span> <span class="nv">$baz</span><span class="p">;</span>
 <span class="k">else</span> <span class="nv">$baz</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
-</li>
-</ul>
 </div>
-<div class="section" id="other">
-<h3>Other<a class="headerlink" href="#other" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id26">
+<h3>其他<a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li>Argument separators (comma: <cite>,</cite>) MUST NOT be preceeded by a whitespace
-character and MUST be followed by a space character or a newline
-(LF: <cite>n</cite>).</li>
-<li>Semi-colons (i.e. <cite>;</cite>) MUST NOT be preceeded by a whitespace character
-and MUST be followed by a newline (LF: <cite>n</cite>).</li>
-<li>Opening parentheses SHOULD NOT be followed by a space character.</li>
-<li>Closing parentheses SHOULD NOT be preceeded by a space character.</li>
-<li>Opening square brackets SHOULD NOT be followed by a space character,
-unless when using the &quot;short array&quot; declaration syntax.</li>
-<li>Closing square backets SHOULD NOT be preceeded by a space character,
-unless when using the &quot;short array&quot; declaration syntax.</li>
-<li>A curly brace SHOULD be the only printable character on a line, unless:<ul>
-<li>When declaring an anonymous function.</li>
-<li>Inside a &quot;variable variable&quot; (i.e. <cite>${$foo}</cite> or <cite>${'foo'.$bar}</cite>).</li>
-<li>Around a variable in a double-quoted string (i.e. <cite>&quot;Foo {$bar}&quot;</cite>).</li>
+<li>自变量分隔符（逗号：<cite>,</cite>）不必由不换行空格继续进行下去并且必须遵循一个空格字节或者新行 (LF: <cite>n</cite>)。</li>
+<li>分号（例如: <cite>;</cite>）不必由不换行空格继续进行下去并且必须遵循新行(LF: <cite>n</cite>)。</li>
+<li>打开的括号不应该遵循于空格字符。</li>
+<li>关闭括号不应该经由空格字符继续进行。</li>
+<li>打开的方括号不应该遵循于空格字符，除非当声明语法正使用&quot;短整数数组（&quot;short array&quot;）&quot;.</li>
+<li>关闭括号不应该经由空格字符的继续进行，除非当声明语法正使用&quot;短整数数组（&quot;short array&quot; ）&quot;.</li>
 </ul>
-</li>
-</ul>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">Our control structures braces convention differs from PSR-2.
-We use &quot;Allman style&quot; notation instead.</p>
+<p>-花括号（大括号）在一行上不应该是唯一打印的字体。除非:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="nx">正在声明一个佚名的函数。</span>
+<span class="o">-</span> <span class="nx">括号里有“变量</span> <span class="nx">变量”（</span><span class="s2">&quot;variable variable&quot;</span><span class="nx">）（例如</span><span class="o">:</span> <span class="sb">`${$foo}`</span> <span class="nx">或者</span> <span class="sb">`${&#39;foo&#39;.$bar}`</span> <span class="nx">）</span>
+<span class="o">-</span> <span class="nx">在双引证字符内是一个变量（例如：</span><span class="sb">`&quot;Foo {$bar}&quot;`</span> <span class="nx">）。</span>
+</pre></div>
 </div>
+<dl class="docutils">
+<dt><strong>注意</strong></dt>
+<dd>我们的管理结构大括号约定不同于 PSR-2 .我们使用 &quot;Allman style(BSD-style)&quot; 标记法代替。</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -726,7 +640,7 @@ We use &quot;Allman style&quot; notation instead.</p>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2018-05-22。
+       最后修改：2018-05-27。
     </p>
   </div>
 
