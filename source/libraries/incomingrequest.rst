@@ -5,7 +5,6 @@ IncomingRequest 类
 IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的面向对象封装。
 基于它可以访问所有 :doc:`Request </libraries/request>` 和 :doc:`Message </libraries/message>` 中的方法， 以及以下列出的方法。
 
-
 .. contents:: 目录
 
 获得请求
@@ -84,7 +83,7 @@ IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的�
 ================
 
 你可以通过 Request 对象读取 $_SERVER, $_GET, $_POST, $_ENV, $_SESSION 内的信息。
-因为输入数据不会自动过滤，只会返回请求时的原始数据。而使用这些方法去替代直接获取数据的（比如 $_POST['something']）主要优点是当参数不存在时会返回 null ，而且你还能做数据过滤。这可以使你很方便的直接使用 数据而不需要先去判断某个参数是否存在。换句话说，一般情况下你以前会这么做:: 
+因为输入数据不会自动过滤，只会返回请求时的原始数据。而使用这些方法去替代直接获取数据的（比如 $_POST['something']）主要优点是当参数不存在时会返回 null ，而且你还能做数据过滤。这可以使你很方便的直接使用 数据而不需要先去判断某个参数是否存在。换句话说，一般情况下你以前会这么做::
 
 	$something = isset($_POST['foo']) ? $_POST['foo'] : NULL;
 
@@ -92,19 +91,19 @@ IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的�
 
 	$something = $request->getVar('foo');
 
-因为 ``getVar()`` 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如::
+因为 ``getVar()`` 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如：
 
 * ``$request->getGet()``
 * ``$request->getPost()``
 * ``$request->getServer()``
 * ``$request->getCookie()``
 
-另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法::
+另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法：
 
 * ``$request->getPostGet()`` - 先 $_POST, 后 $_GET
 * ``$request->getGetPost()`` - 先 $_GET, 后 $_POST
 
-**获取JSON数据**
+**获取 JSON 数据**
 
 你可以使用 ``getJSON()`` 去获取 php://input 传递的 JSON 格式的数据。
 
@@ -118,7 +117,7 @@ IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的�
 
 该方法的第二和第三个参数则分别对应 `json_decode <http://php.net/manual/en/function.json-decode.php>`_ 方法的 ``depth`` 和 ``options`` 参数.
 
-**获取原始数据 （获取 Method 为 PUT, PATCH, DELETE 传递的数据）**
+**获取原始数据（获取 Method 为 PUT, PATCH, DELETE 传递的数据）**
 
 最后，你可以通过 ``getRawInput()`` 去获取 php://input 传递的原始数据。
 
@@ -175,7 +174,7 @@ filter types <http://php.net/manual/en/filter.filters.php>`_.
 如果你需要某个头的值并在一行字符串内输出，可以使用 ``getHeaderLine()`` 方法::
 
 	// Accept-Encoding: gzip, deflate, sdch
-    echo 'Accept-Encoding: '.$request->getHeaderLine('accept-encoding');
+	echo 'Accept-Encoding: '.$request->getHeaderLine('accept-encoding');
 
 如果你需要完整头信息，输出包括全部名称和值的字符串，可以使用如下方法做转换::
 
@@ -251,7 +250,7 @@ filter types <http://php.net/manual/en/filter.filters.php>`_.
 
 .. note:: 除了这里列出的，本类还继承了 :doc:`Request Class </libraries/request>`  和 :doc:`Message Class </libraries/message>` 的方法。
 
-以下方法由父类提供::
+以下方法由父类提供:
 
 * :meth:`CodeIgniter\\HTTP\\Request::getIPAddress`
 * :meth:`CodeIgniter\\HTTP\\Request::validIP`
