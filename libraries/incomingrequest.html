@@ -406,29 +406,32 @@
           <div role="main" class="document">
             
   <div class="section" id="incomingrequest">
-<h1><a class="toc-backref" href="#id25">IncomingRequest 类</a><a class="headerlink" href="#incomingrequest" title="永久链接至标题">¶</a></h1>
+<h1><a class="toc-backref" href="#id26">IncomingRequest 类</a><a class="headerlink" href="#incomingrequest" title="永久链接至标题">¶</a></h1>
 <p>IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的面向对象封装。
 基于它可以访问所有 <a class="reference internal" href="request.html"><span class="doc">Request</span></a> 和 <a class="reference internal" href="message.html"><span class="doc">Message</span></a> 中的方法， 以及以下列出的方法。</p>
 <div class="contents topic" id="id1">
 <p class="topic-title first">目录</p>
 <ul class="simple">
-<li><a class="reference internal" href="#incomingrequest" id="id25">IncomingRequest 类</a><ul>
-<li><a class="reference internal" href="#id2" id="id26">获得请求</a></li>
-<li><a class="reference internal" href="#id3" id="id27">判断请求类型</a></li>
-<li><a class="reference internal" href="#id4" id="id28">数据读取</a><ul>
-<li><a class="reference internal" href="#id5" id="id29">数据过滤</a></li>
+<li><a class="reference internal" href="#incomingrequest" id="id26">IncomingRequest 类</a><ul>
+<li><a class="reference internal" href="#id2" id="id27">获得请求</a></li>
+<li><a class="reference internal" href="#id3" id="id28">判断请求类型</a></li>
+<li><a class="reference internal" href="#id4" id="id29">数据读取</a><ul>
+<li><a class="reference internal" href="#id5" id="id30">数据过滤</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6" id="id30">获取数据头</a></li>
-<li><a class="reference internal" href="#id7" id="id31">请求地址</a></li>
-<li><a class="reference internal" href="#id8" id="id32">上传文件</a></li>
-<li><a class="reference internal" href="#id9" id="id33">内容协商</a></li>
+<li><a class="reference internal" href="#id6" id="id31">获取数据头</a></li>
+<li><a class="reference internal" href="#id7" id="id32">请求地址</a></li>
+<li><a class="reference internal" href="#id8" id="id33">上传文件</a></li>
+<li><a class="reference internal" href="#id9" id="id34">内容协商</a><ul>
+<li><a class="reference internal" href="#id10" id="id35">类信息参考</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id26">获得请求</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id27">获得请求</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>如果当前控制器继承了 <code class="docutils literal"><span class="pre">CodeIgniter\Controller</span></code>，则一个 Request 类的实例已被初始化并可作为属性被使用:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UserController</span> <span class="k">extends</span> <span class="nx">CodeIgniter\Controller</span>
 <span class="p">{</span>
@@ -464,7 +467,7 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id27">判断请求类型</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id28">判断请求类型</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>请求有多种来源，包含使用 AJAX 发起和使用 CLI 发起的。可通过 <code class="docutils literal"><span class="pre">isAJAX()</span></code> and <code class="docutils literal"><span class="pre">isCLI()</span></code> 来检测:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Check for AJAX request.</span>
 <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isAJAX</span><span class="p">())</span>
@@ -479,7 +482,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>你可以检测请求的 HTTP 类型</p>
+<p>你可以检测请求的 HTTP 类型:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Returns &#39;post&#39;</span>
 <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">();</span>
 </pre></div>
@@ -498,7 +501,7 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id28">数据读取</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id29">数据读取</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>你可以通过 Request 对象读取 $_SERVER, $_GET, $_POST, $_ENV, $_SESSION 内的信息。
 因为输入数据不会自动过滤，只会返回请求时的原始数据。而使用这些方法去替代直接获取数据的（比如 $_POST['something']）主要优点是当参数不存在时会返回 null ，而且你还能做数据过滤。这可以使你很方便的直接使用 数据而不需要先去判断某个参数是否存在。换句话说，一般情况下你以前会这么做:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$something</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="k">NULL</span><span class="p">;</span>
@@ -508,14 +511,14 @@
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$something</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>因为 <code class="docutils literal"><span class="pre">getVar()</span></code> 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如：</p>
+<p>因为 <code class="docutils literal"><span class="pre">getVar()</span></code> 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">$request-&gt;getGet()</span></code></li>
 <li><code class="docutils literal"><span class="pre">$request-&gt;getPost()</span></code></li>
 <li><code class="docutils literal"><span class="pre">$request-&gt;getServer()</span></code></li>
 <li><code class="docutils literal"><span class="pre">$request-&gt;getCookie()</span></code></li>
 </ul>
-<p>另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法：</p>
+<p>另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">$request-&gt;getPostGet()</span></code> - 先 $_POST, 后 $_GET</li>
 <li><code class="docutils literal"><span class="pre">$request-&gt;getGetPost()</span></code> - 先 $_GET, 后 $_POST</li>
@@ -545,9 +548,8 @@
 </pre></div>
 </div>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id29">数据过滤</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-<p>为了保证应用程序的安全，必须过滤所有输入的数据。你可以传递过滤类型到方法的最后一个参数里。会调用系统方法 <code class="docutils literal"><span class="pre">filter_var()</span></code> 去过滤。具体过滤类型可以参考 PHP 手册里的列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">valid
-filter types</a>.</p>
+<h3><a class="toc-backref" href="#id30">数据过滤</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>为了保证应用程序的安全，必须过滤所有输入的数据。你可以传递过滤类型到方法的最后一个参数里。会调用系统方法 <code class="docutils literal"><span class="pre">filter_var()</span></code> 去过滤。具体过滤类型可以参考 PHP 手册里的列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">valid filter types</a>.</p>
 <p>过滤一个 POST 变量可以这么做:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$email</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_EMAIL</span><span class="p">);</span>
 </pre></div>
@@ -556,7 +558,7 @@ filter types</a>.</p>
 </div>
 </div>
 <div class="section" id="id6">
-<h2><a class="toc-backref" href="#id30">获取数据头</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id31">获取数据头</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>你可以通过 <code class="docutils literal"><span class="pre">getHeaders()</span></code> 方法获得请求的数据头，该方法会以数组形式返回所有的数据头信息，数据的键值为数据头名称，值则为一个 <code class="docutils literal"><span class="pre">CodeIgniter\HTTP\Header</span></code> 的实例:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeaders</span><span class="p">());</span>
 
@@ -592,7 +594,7 @@ filter types</a>.</p>
 </div>
 </div>
 <div class="section" id="id7">
-<h2><a class="toc-backref" href="#id31">请求地址</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id32">请求地址</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>你可以通过访问 <code class="docutils literal"><span class="pre">$request-&gt;uri</span></code> 属性获取代表当前访问信息的 doc:<cite>URI &lt;uri&gt;</cite> 对象。通过以下方法获取当前请求的完整访问地址:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$uri</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">;</span>
 </pre></div>
@@ -614,7 +616,7 @@ filter types</a>.</p>
 </div>
 </div>
 <div class="section" id="id8">
-<h2><a class="toc-backref" href="#id32">上传文件</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id33">上传文件</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <p>所有上传文件的信息可以通过 <code class="docutils literal"><span class="pre">$request-&gt;getFiles()</span></code> 方法获得，该方法会返回一个 <a class="reference internal" href="uploaded_files.html"><span class="doc">FileCollection</span></a> 实例。这会有助于减少处理文件上传的工作量，以及使用最佳方案去降低安全风险。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$files</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">();</span>
 
@@ -641,7 +643,7 @@ filter types</a>.</p>
 </div>
 </div>
 <div class="section" id="id9">
-<h2><a class="toc-backref" href="#id33">内容协商</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id34">内容协商</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <p>你可以很轻松的通过 <code class="docutils literal"><span class="pre">negotiate()</span></code> 方法来完成信息内容类型的协商:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$language</span>    <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="s1">&#39;en-GB&#39;</span><span class="p">,</span> <span class="s1">&#39;fr&#39;</span><span class="p">,</span> <span class="s1">&#39;es-mx&#39;</span><span class="p">]);</span>
 <span class="nv">$imageType</span>   <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span> <span class="s1">&#39;image/jpg&#39;</span><span class="p">]);</span>
@@ -651,6 +653,8 @@ filter types</a>.</p>
 </pre></div>
 </div>
 <p>查看 <a class="reference internal" href="content_negotiation.html"><span class="doc">Content Negotiation</span></a> 获得更多细节。</p>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id35">类信息参考</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
 <p class="last">除了这里列出的，本类还继承了 <a class="reference internal" href="request.html"><span class="doc">Request Class</span></a>  和 <a class="reference internal" href="message.html"><span class="doc">Message Class</span></a> 的方法。</p>
@@ -990,6 +994,7 @@ function <a class="reference internal" href="../helpers/cookie_helper.html#get_c
 
 </dd></dl>
 
+</div>
 </div>
 </div>
 
