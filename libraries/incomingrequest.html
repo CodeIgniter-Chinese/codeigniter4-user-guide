@@ -508,19 +508,19 @@
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$something</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>因为 <code class="docutils literal"><span class="pre">getVar()</span></code> 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getGet</span><span class="p">()</span><span class="sb">``</span>
-<span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">()</span><span class="sb">``</span>
-<span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">()</span><span class="sb">``</span>
-<span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">()</span><span class="sb">``</span>
-</pre></div>
-</div>
-<p>另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPostGet</span><span class="p">()</span><span class="sb">``</span> <span class="o">-</span> <span class="nx">先</span> <span class="nv">$_POST</span><span class="p">,</span> <span class="nx">后</span> <span class="nv">$_GET</span>
-<span class="o">*</span> <span class="sb">``</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getGetPost</span><span class="p">()</span><span class="sb">``</span> <span class="o">-</span> <span class="nx">先</span> <span class="nv">$_GET</span><span class="p">,</span> <span class="nx">后</span> <span class="nv">$_POST</span>
-</pre></div>
-</div>
-<p><strong>获取JSON数据</strong></p>
+<p>因为 <code class="docutils literal"><span class="pre">getVar()</span></code> 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">$request-&gt;getGet()</span></code></li>
+<li><code class="docutils literal"><span class="pre">$request-&gt;getPost()</span></code></li>
+<li><code class="docutils literal"><span class="pre">$request-&gt;getServer()</span></code></li>
+<li><code class="docutils literal"><span class="pre">$request-&gt;getCookie()</span></code></li>
+</ul>
+<p>另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">$request-&gt;getPostGet()</span></code> - 先 $_POST, 后 $_GET</li>
+<li><code class="docutils literal"><span class="pre">$request-&gt;getGetPost()</span></code> - 先 $_GET, 后 $_POST</li>
+</ul>
+<p><strong>获取 JSON 数据</strong></p>
 <p>你可以使用 <code class="docutils literal"><span class="pre">getJSON()</span></code> 去获取 php://input 传递的 JSON 格式的数据。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
@@ -531,7 +531,7 @@
 </div>
 <p>默认情况下，这会返回一个 JSON 数据对象。如果你需要一个数据，请传递 <code class="docutils literal"><span class="pre">true</span></code> 作为第一个参数。</p>
 <p>该方法的第二和第三个参数则分别对应 <a class="reference external" href="http://php.net/manual/en/function.json-decode.php">json_decode</a> 方法的 <code class="docutils literal"><span class="pre">depth</span></code> 和 <code class="docutils literal"><span class="pre">options</span></code> 参数.</p>
-<p><strong>获取原始数据 （获取 Method 为 PUT, PATCH, DELETE 传递的数据）</strong></p>
+<p><strong>获取原始数据（获取 Method 为 PUT, PATCH, DELETE 传递的数据）</strong></p>
 <p>最后，你可以通过 <code class="docutils literal"><span class="pre">getRawInput()</span></code> 去获取 php://input 传递的原始数据。</p>
 <blockquote>
 <div>$data = $request-&gt;getRawInput();</div></blockquote>
@@ -582,7 +582,7 @@ filter types</a>.</p>
 </pre></div>
 </div>
 <p>如果你需要某个头的值并在一行字符串内输出，可以使用 <code class="docutils literal"><span class="pre">getHeaderLine()</span></code> 方法:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span>    <span class="c1">// Accept-Encoding: gzip, deflate, sdch</span>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// Accept-Encoding: gzip, deflate, sdch</span>
 <span class="k">echo</span> <span class="s1">&#39;Accept-Encoding: &#39;</span><span class="o">.</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getHeaderLine</span><span class="p">(</span><span class="s1">&#39;accept-encoding&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -656,28 +656,28 @@ filter types</a>.</p>
 <p class="last">除了这里列出的，本类还继承了 <a class="reference internal" href="request.html"><span class="doc">Request Class</span></a>  和 <a class="reference internal" href="message.html"><span class="doc">Message Class</span></a> 的方法。</p>
 </div>
 <p>以下方法由父类提供:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Request::getIPAddress`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Request::validIP`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Request::getMethod`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Request::getServer`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::body`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::setBody`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::populateHeaders`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::headers`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::header`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::headerLine`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::setHeader`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::removeHeader`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::appendHeader`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::protocolVersion`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::setProtocolVersion`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateMedia`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateCharset`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateEncoding`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateLanguage`</span>
-<span class="o">*</span> <span class="o">:</span><span class="nx">meth</span><span class="o">:</span><span class="sb">`CodeIgniter\\HTTP\\Message::negotiateLanguage`</span>
-</pre></div>
-</div>
+<ul class="simple">
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getIPAddress()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::validIP()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getMethod()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Request::getServer()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::body()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setBody()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::populateHeaders()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::headers()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::header()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::headerLine()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setHeader()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::removeHeader()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::appendHeader()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::protocolVersion()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::setProtocolVersion()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateMedia()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateCharset()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateEncoding()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></li>
+</ul>
 <dl class="class">
 <dt>
 <code class="descname">CodeIgniter\HTTP\IncomingRequest</code></dt>
@@ -1012,7 +1012,7 @@ function <a class="reference internal" href="../helpers/cookie_helper.html#get_c
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2017 不列颠哥伦比亚理工学院。
-       最后修改：2018-05-27。
+       最后修改：2018-05-28。
     </p>
   </div>
 
