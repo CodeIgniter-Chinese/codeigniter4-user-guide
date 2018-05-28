@@ -61,7 +61,7 @@ IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的�
 		. . .
 	}
 
-你可以检测请求的 HTTP 类型 :: 
+你可以检测请求的 HTTP 类型::
 
 	// Returns 'post'
 	$method = $request->getMethod();
@@ -91,14 +91,14 @@ IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的�
 
 	$something = $request->getVar('foo');
 
-因为 ``getVar()`` 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如：
+因为 ``getVar()`` 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如:
 
 * ``$request->getGet()``
 * ``$request->getPost()``
 * ``$request->getServer()``
 * ``$request->getCookie()``
 
-另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法：
+另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法:
 
 * ``$request->getPostGet()`` - 先 $_POST, 后 $_GET
 * ``$request->getGetPost()`` - 先 $_GET, 后 $_POST
@@ -135,8 +135,7 @@ IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的�
 数据过滤
 --------------------
 
-为了保证应用程序的安全，必须过滤所有输入的数据。你可以传递过滤类型到方法的最后一个参数里。会调用系统方法 ``filter_var()`` 去过滤。具体过滤类型可以参考 PHP 手册里的列表 `valid
-filter types <http://php.net/manual/en/filter.filters.php>`_.
+为了保证应用程序的安全，必须过滤所有输入的数据。你可以传递过滤类型到方法的最后一个参数里。会调用系统方法 ``filter_var()`` 去过滤。具体过滤类型可以参考 PHP 手册里的列表 `valid filter types <http://php.net/manual/en/filter.filters.php>`_.
 
 过滤一个 POST 变量可以这么做::
 
@@ -244,9 +243,8 @@ filter types <http://php.net/manual/en/filter.filters.php>`_.
 
 查看 :doc:`Content Negotiation </libraries/content_negotiation>` 获得更多细节。
 
-***************
 类信息参考
-***************
+---------------
 
 .. note:: 除了这里列出的，本类还继承了 :doc:`Request Class </libraries/request>`  和 :doc:`Message Class </libraries/message>` 的方法。
 
