@@ -44,7 +44,7 @@
 - [ ] [./source/database/model.rst](source/database/model.rst)
 - [ ] [./source/database/queries.rst](source/database/queries.rst)
 - [ ] [./source/database/query_builder.rst](source/database/query_builder.rst)
-- [ ] [./source/database/results.rst](source/database/results.rst)
+- [x] [./source/database/results.rst](source/database/results.rst)
 - [x] [~~./source/database/seeds.rst~~](source/database/seeds.rst)
 - [ ] [./source/database/transactions.rst](source/database/transactions.rst)
 - [ ] [./source/installation/downloads.rst](source/installation/downloads.rst)
