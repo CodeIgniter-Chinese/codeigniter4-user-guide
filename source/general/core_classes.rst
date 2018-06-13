@@ -1,11 +1,11 @@
 ****************************
-生成核心系统类
+创建核心系统类
 ****************************
 
 
-每次CodeIgniter 运行，就有若干个基础类作为核心框架的一部分被初始化。然而，将任意一个核心系统类替换成你自己想要的类或仅仅是局部扩展这些基础类也是可以的。
+每次CodeIgniter 运行时，都有一些基础类伴随着核心框架自动的被初始化。但你也可以使用你自己的类来替代这些核心类或者扩展这些核心类。
 
-**虽说绝大部分用户将没有上述的需求，但对于一些想显著改变CodeIgniter 核心的用户来说，这个可替换或者扩展的选项存在确有必要。**
+**大多数用户一般不会有这种需求，但对于那些想较大幅度的改变 CodeIgniter 核心的人来说，我们依然提供了替换和扩展核心类的选择。**
 
 **注意**
 
@@ -14,7 +14,7 @@
 系统类列表
 =================
 
-以下是每次CodeIgniter 运行时涉及到的系统核心文件列表：
+以下是系统核心文件的列表，它们在每次 CodeIgniter 启动时被调用：
 
 * Config\Services
 * CodeIgniter\Autoloader\Autoloader
@@ -37,12 +37,12 @@
 * CodeIgniter\View\View
 * CodeIgniter\View\Escaper
 
-核心类的替换
+替换核心类
 =================
 
-当用你自己的系统类替代CodeIgniter 默认的类时，首先确保 :doc:`Autoloader <../concepts/autoloader>` 能找到你的类；其次你的新类继承了正确的接口，同时修改 :doc:`Service <../concepts/services>` 保证加载的是你自己的类。
+要使用你的系统类替换 CodeIgniter 默认的系统类时，首先确保 :doc:`Autoloader <../concepts/autoloader>` 能找到你的类；其次你的新类继承了正确的接口，同时修改 :doc:`Service <../concepts/services>` 以保证加载的是你自己的类。
 
-比如，你有一个名为 `` App\Libraries\RouteCollection `` 的新类想要替换掉系统原来的类，你应该像这样生成之::
+例如，你有一个名为 `` App\Libraries\RouteCollection `` 的新类想要替换系统的核心类，你应该像这样创建你的类::
 
 	class RouteCollection implements \CodeIgniter\Router\RouteCollectionInterface
 	{
@@ -61,7 +61,7 @@
 		return self::getSharedInstance('routes');
 	}
 
-核心类的扩展
+扩展核心类
 =================
 
 如果你需要往一个现有的库里添加一些功能-或许只是添加一两个方法，重写这整个库显然是没必要的。这时更好的通常是对其中的类进行扩展。对类进行扩展与替换掉类几乎相同，除了一点：
