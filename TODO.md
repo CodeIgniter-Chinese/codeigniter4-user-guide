@@ -28,7 +28,7 @@
 - [x] [~~./source/general/urls.rst~~](source/general/urls.rst)
 - [ ] [./source/general/view_cells.rst](source/general/view_cells.rst)
 - [ ] [./source/general/view_parser.rst](source/general/view_parser.rst)
-- [ ] [./source/general/view_renderer.rst](source/general/view_renderer.rst)
+- [x] [./source/general/view_renderer.rst](source/general/view_renderer.rst)
 - [x] [./source/general/views.rst](source/general/views.rst)
 - [ ] [./source/database/call_function.rst](source/database/call_function.rst)
 - [x] [~~./source/database/configuration.rst](source/database/configuration.rst)
