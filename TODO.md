@@ -73,7 +73,7 @@
 - [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
 - [x] [~~./source/libraries/request.rst~~](source/libraries/request.rst)
 - [x] [~~./source/libraries/response.rst~~](source/libraries/response.rst)
-- [ ] [./source/libraries/security.rst](source/libraries/security.rst)
+- [x] [./source/libraries/security.rst](source/libraries/security.rst)
 - [x] [./source/libraries/sessions.rst](source/libraries/sessions.rst)
 - [ ] [./source/libraries/throttler.rst](source/libraries/throttler.rst)
 - [ ] [./source/libraries/time.rst](source/libraries/time.rst)
