@@ -1,8 +1,8 @@
 ##############
-Security Class
+安全类
 ##############
 
-The Security Class contains methods that help protect your site against Cross-Site Request Forgery attacks.
+安全类包含了一些方法，用于帮助保护你的网站，以免受到跨站请求伪造（CSRF）的攻击。
 
 .. contents:: Page Contents
 	:local:
