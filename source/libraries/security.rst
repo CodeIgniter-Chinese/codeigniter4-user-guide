@@ -12,11 +12,8 @@
 *******************
 
 如果你加载这个类，只是想进行 CSRF 的防护，那就没必要加载它，因为它是作为一个过滤器运行的，而且没有手动调用的接口。
-如果你想在某种情况下直接访问这个类，你可以通过服务文件来加载它
-If your only interest in loading the library is to handle CSRF protection, then you will never need to load it,
-as it is ran as filter and has no manual interaction.
 
-If you find a case where you do need direct access, though, you may load it through the Services file::
+如果你想在某种情况下直接访问这个类，你可以通过服务文件来加载它::
 
 	$security = \Config\Services::security();
 
@@ -24,9 +21,8 @@ If you find a case where you do need direct access, though, you may load it thro
 跨站请求伪造 （CSRF）
 *********************************
 
-打开你的 **application/Config/Filters.php** 文件并且全局开启 `csrf` 过滤器，即可开启 CSRF 防护
-You can enable CSRF protection by altering your **application/Config/Filters.php**
-and enabling the `csrf` filter globally::
+打开你的 **application/Config/Filters.php** 文件并且全局开启 `csrf` 过滤器，即可开启 CSRF 防护::
+
 
 	public $globals = [
 		'before' => [
