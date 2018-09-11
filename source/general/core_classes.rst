@@ -1,61 +1,55 @@
 ****************************
-Creating Core System Classes
+创建核心系统类
 ****************************
 
-Every time CodeIgniter runs there are several base classes that are initialized automatically as part of the core
-framework. It is possible, however, to swap any of the core system classes with your own version or even just extend
-the core versions.
 
-**Most users will never have any need to do this, but the option to replace or extend them does exist for those
-who would like to significantly alter the CodeIgniter core.**
+每次CodeIgniter 运行时，都有一些基础类伴随着核心框架自动的被初始化。但你也可以使用你自己的类来替代这些核心类或者扩展这些核心类。
 
-.. note:: Messing with a core system class has a lot of implications, so make sure you know what you are doing before
-    attempting it.
+**大多数用户一般不会有这种需求，但对于那些想较大幅度的改变 CodeIgniter 核心的人来说，我们依然提供了替换和扩展核心类的选择。**
 
-System Class List
+**注意**
+
+变动核心系统类意味着一系列的挑战，所以，请三思后行。
+
+系统类列表
 =================
 
-The following is a list of the core system files that are invoked every time CodeIgniter runs:
+以下是系统核心文件的列表，它们在每次 CodeIgniter 启动时被调用：
 
-* Config\\Services
-* CodeIgniter\\Autoloader\\Autoloader
-* CodeIgniter\\Config\\DotEnv
-* CodeIgniter\\Controller
-* CodeIgniter\\Debug\\Exceptions
-* CodeIgniter\\Debug\\Timer
-* CodeIgniter\\Events\\Events
-* CodeIgniter\\HTTP\\CLIRequest (if launched from command line only)
-* CodeIgniter\\HTTP\\IncomingRequest (if launched over HTTP)
-* CodeIgniter\\HTTP\\Request
-* CodeIgniter\\HTTP\\Response
-* CodeIgniter\\HTTP\\Message
-* CodeIgniter\\Log\\Logger
-* CodeIgniter\\Log\\Handlers\\BaseHandler
-* CodeIgniter\\Log\\Handlers\\FileHandler
-* CodeIgniter\\Router\\RouteCollection
-* CodeIgniter\\Router\\Router
-* CodeIgniter\\Security\\Security
-* CodeIgniter\\View\\View
-* CodeIgniter\\View\\Escaper
+* Config\Services
+* CodeIgniter\Autoloader\Autoloader
+* CodeIgniter\Config\DotEnv
+* CodeIgniter\Controller
+* CodeIgniter\Debug\Exceptions
+* CodeIgniter\Debug\Timer
+* CodeIgniter\Events\Events
+* CodeIgniter\HTTP\CLIRequest (if launched from command line only)
+* CodeIgniter\HTTP\IncomingRequest (if launched over HTTP)
+* CodeIgniter\HTTP\Request
+* CodeIgniter\HTTP\Response
+* CodeIgniter\HTTP\Message
+* CodeIgniter\Log\Logger
+* CodeIgniter\Log\Handlers\BaseHandler
+* CodeIgniter\Log\Handlers\FileHandler
+* CodeIgniter\Router\RouteCollection
+* CodeIgniter\Router\Router
+* CodeIgniter\Security\Security
+* CodeIgniter\View\View
+* CodeIgniter\View\Escaper
 
-Replacing Core Classes
-======================
+替换核心类
+=================
 
-To use one of your own system classes instead of a default one, ensure that the :doc:`Autoloader <../concepts/autoloader>`
-can find your class, that  your new class extends the appropriate interface, and modify the appropriate
-:doc:`Service <../concepts/services>` to load your class in place of the core class.
+要使用你的系统类替换 CodeIgniter 默认的系统类时，首先确保 :doc:`Autoloader <../concepts/autoloader>` 能找到你的类；其次你的新类继承了正确的接口，同时修改 :doc:`Service <../concepts/services>` 以保证加载的是你自己的类。
 
-For example, if you have a new ``App\Libraries\RouteCollection`` class that you would like to use in place of
-the core system class, you would create your class like this::
+例如，你有一个名为 `` App\Libraries\RouteCollection `` 的新类想要替换系统的核心类，你应该像这样创建你的类::
 
-    namespace App\Libraries;
+	class RouteCollection implements \CodeIgniter\Router\RouteCollectionInterface
+	{
 
-    class RouteCollection implements \CodeIgniter\Router\RouteCollectionInterface
-    {
+	}
 
-    }
-
-Then  you would modify the ``routes`` service to load your class instead::
+然后，你应该修改路由文件来加载你自己的类::
 
 	public static function routes($getShared = false)
 	{
@@ -67,23 +61,21 @@ Then  you would modify the ``routes`` service to load your class instead::
 		return self::getSharedInstance('routes');
 	}
 
-Extending Core Classes
-======================
+扩展核心类
+=================
 
-If all you need to is add some functionality to an existing library - perhaps add a method or two - then it's overkill
-to recreate the entire library. In this case it's better to simply extend the class. Extending the class is nearly
-identical to replacing a class with a one exception:
+如果你需要往一个现有的库里添加一些功能-或许只是添加一两个方法，重写这整个库显然是没必要的。这时更好的通常是对其中的类进行扩展。对类进行扩展与替换掉类几乎相同，除了一点：
 
-* The class declaration must extend the parent class.
+* 类的声明必须继承父类。
 
-For example, to extend the native RouteCollection class, you would declare your class with::
+比如，继承 RouteCollection  这个原生类，你应该这样声明::
 
     class RouteCollection extends \CodeIgniter\Router\RouteCollection
     {
 
     }
 
-If you need to use a constructor in your class make sure you extend the parent constructor::
+如果你需要在类中使用构造器来确保子类继承了父类的构造器::
 
         class RouteCollection implements \CodeIgniter\Router\RouteCollection
         {
@@ -93,13 +85,10 @@ If you need to use a constructor in your class make sure you extend the parent c
             }
         }
 
-**Tip:**  Any functions in your class that are named identically to the methods in the parent class will be used
-instead of the native ones (this is known as “method overriding”). This allows you to substantially alter the CodeIgniter core.
+**Tip:**  在你自己的类中，所有与父类方法名相同的函数将会覆盖父类方法，此为"方法覆盖". 这样你就可以充分地改动CodeIgniter 的核心类。
 
-If you are extending the Controller core class, then be sure to extend your new class in your application controller’s
-constructors::
+你若扩展了控制器核心类，则需确保你的新类继承了应用下的控制器类的构造器::
 
 	class Home extends App\BaseController {
 
 	}
-
