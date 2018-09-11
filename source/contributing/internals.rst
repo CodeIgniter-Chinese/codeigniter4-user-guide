@@ -75,7 +75,7 @@ PHP7 提供可能的 `type hint <http://php.net/manual/en/functions.arguments.ph
 程序包要有使用者配置设定，你应该在 **application/Config** 下为程序包创建一个新文件。文件名通常要与程序包的名字相配。
 
 自动装载程序
-==========
+=============
 
 包含程序包在内所有文件应该被添加进 **system/Config/AutoloadConfig.php** ，它们在 "classmap" 属性里可查。自动加载仅仅使用于核心框架文件，并且帮助将文件系统浏览减少到最小且能维持系统性能的品质。
 
