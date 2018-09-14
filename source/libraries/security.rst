@@ -4,7 +4,7 @@
 
 安全类包含了一些方法，用于帮助保护你的网站，以免受到跨站请求伪造（CSRF）的攻击。
 
-.. contents:: 页面内容
+.. contents:: 目录内容
 	:local:
 
 *******************
@@ -47,7 +47,7 @@
 	];
 如果你使用 :doc:`表单辅助函数 <../helpers/form_helper>` ，:func:`form_open()`
 函数将会自动地在你的表单中插入一个隐藏的 CSRF 字段。如果没有插入这个字段，
-你可以手工调用 ``get_csrf_token_name()`` 和 ``get_csrf_hash()`` 这两个函数。
+你可以手动调用 ``get_csrf_token_name()`` 和 ``get_csrf_hash()`` 这两个函数。
 ::
 
 	<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
@@ -65,7 +65,7 @@
 	public $CSRFRegenerate  = true;
 
 *********************
-其它的帮助函数
+其它的辅助方法
 *********************
 
 你将永远不需要直接使用安全类中的大多数方法。下面的一些方法，你可能会觉得有用，这些方法和 CSRF 防护无关。
