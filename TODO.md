@@ -54,7 +54,7 @@
 - [ ] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
 - [ ] [./source/installation/upgrading.rst](source/installation/upgrading.rst)
 - [ ] [./source/intro/credits.rst](source/intro/credits.rst)
-- [ ] [./source/intro/index.rst](source/intro/index.rst)
+- [x] [~~./source/intro/index.rst~~](source/intro/index.rst)
 - [x] [~~./source/intro/psr.rst~~](source/intro/psr.rst)
 - [ ] [./source/intro/requirements.rst](source/intro/requirements.rst)
 - [x] [~~./source/libraries/api_responses.rst~~](source/libraries/api_responses.rst)
