@@ -4,13 +4,14 @@ Dates and Times
 
 CodeIgniter provides a fully-localized, immutable, date/time class that is built on PHP's DateTime object, but uses the Intl
 extension's features to convert times across timezones and display the output correctly for different locales. This class
-is the **Time** class and lives in the **CodeIgniter\I18n** namespace.
+is the **Time** class and lives in the **CodeIgniter\\I18n** namespace.
 
 .. note:: Since the Time class extends DateTime, if there are features that you need that this class doesn't provide,
     you can likely find them within the DateTime class itself.
 
-.. contents:: Page Contents
+.. contents::
     :local:
+    :depth: 1
 
 =============
 Instantiating
@@ -26,14 +27,13 @@ be any string that PHP's strtotime function can parse::
     $myTime = new Time('now');
 
 You can pass in strings representing the timezone and the locale in the second and parameters, respectively. Timezones
-can be any supported by PHP's `DateTimeZone <http://php.net/manual/en/timezones.php>`_ class. The locale can be
-any supported by PHP's `Locale <http://php.net/manual/en/class.locale.php>`_ class. If no locale or timezone is
+can be any supported by PHP's `DateTimeZone <http://php.net/manual/en/timezones.php>`__ class. The locale can be
+any supported by PHP's `Locale <http://php.net/manual/en/class.locale.php>`__ class. If no locale or timezone is
 provided, the application defaults will be used.
 
 ::
 
     $myTime = new Time('now', 'America/Chicago', 'en_US');
-
 
 now()
 -----
@@ -85,9 +85,9 @@ Given separate inputs for **year**, **month**, and **day**, will return a new in
 are not provided, it will use the current value to fill it in. Accepts strings for the timezone and locale in the
 fourth and fifth parameters::
 
-    $today = Time::createFromDate();            // Uses current year, month, and day
+    $today       = Time::createFromDate();            // Uses current year, month, and day
     $anniversary = Time::createFromDate(2018);  // Uses current month and day
-    $date = Time::createFromDate(2018, 3, 15, 'America/Chicago', 'en_US');
+    $date        = Time::createFromDate(2018, 3, 15, 'America/Chicago', 'en_US');
 
 createFromTime()
 ----------------
@@ -96,9 +96,9 @@ Like **createFromDate** except it is only concerned with the **hours**, **minute
 current day for the date portion of the Time instance. Accepts strings for the timezone and locale in the
 fourth and fifth parameters::
 
-    $lunch = Time::createFromTime(11, 30)       // 11:30 am today
+    $lunch  = Time::createFromTime(11, 30)       // 11:30 am today
     $dinner = Time::createFromTime(18, 00, 00)  // 6:00 pm today
-    $time = Time::createFromTime($hour, $minutes, $seconds, $timezone, $locale);
+    $time   = Time::createFromTime($hour, $minutes, $seconds, $timezone, $locale);
 
 create()
 --------
@@ -131,7 +131,7 @@ When working with other libraries that provide a DateTime instance, you can use 
 to a Time instance, optionally setting the locale. The timezone will be automatically determined from the DateTime
 instance passed in::
 
-    $dt = new DateTime('now');
+    $dt   = new DateTime('now');
     $time = Time::instance($dt, 'en_US');
 
 toDateTime()
@@ -155,13 +155,12 @@ toLocalizedString()
 -------------------
 
 This is the localized version of DateTime's format() method. Instead of using the values you might be familiar with, though,
-you must use values acceptable to the `IntlDateFormatter <http://php.net/manual/en/class.intldateformatter.php>`_ class.
-A full listing of values can be found `here <http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details>`_.
-
+you must use values acceptable to the `IntlDateFormatter <http://php.net/manual/en/class.intldateformatter.php>`__ class.
+A full listing of values can be found `here <http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details>`__.
 ::
+
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
     echo $time->toLocalizedString('MMM d, yyyy');   // March 9, 2016
-
 
 toDateTimeString()
 ------------------
@@ -188,7 +187,6 @@ Displays just the time portion of the value::
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
     echo $time->toTimeString();     // 12:00:00
 
-
 humanize()
 ----------
 
@@ -206,14 +204,14 @@ The exact time displayed is determined in the following manner:
 =============================== =================================
 Time difference                  Result
 =============================== =================================
-$time > 1 year && < 2 years     in 1 year / 1 year ago
-$time > 1 month && < 1 year     in 6 months / 6 months ago
-$time > 7 days && < 1 month     in 3 weeks / 3 weeks ago
-$time > today && < 7 days       in 4 days / 4 days ago
-$time == tomorrow / yesterday   Tomorrow / Yesterday
-$time > 59 minutes && < 1 day   1:37pm
-$time > now && < 1 hour         in 35 minutes / 35 minutes ago
-$time == now                    Now
+$time > 1 year && < 2 years      in 1 year / 1 year ago
+$time > 1 month && < 1 year      in 6 months / 6 months ago
+$time > 7 days && < 1 month      in 3 weeks / 3 weeks ago
+$time > today && < 7 days        in 4 days / 4 days ago
+$time == tomorrow / yesterday    Tomorrow / Yesterday
+$time > 59 minutes && < 1 day    1:37pm
+$time > now && < 1 hour          in 35 minutes / 35 minutes ago
+$time == now                     Now
 =============================== =================================
 
 The exact language used is controlled through the language file, Time.php.
@@ -230,7 +228,7 @@ All of the following `getX` and `setX` methods can also be used as if they were 
 like `getYear` can also be accessed through `$time->year`, and so on.
 
 Getters
-=======
+-------
 
 The following basic getters exist::
 
@@ -306,7 +304,7 @@ Returns boolean true if the Time instance is in UTC time::
 getTimezone()
 -------------
 
-Returns a new `DateTimeZone <http://php.net/manual/en/class.datetimezone.php>`_ object set the timezone of the Time
+Returns a new `DateTimeZone <http://php.net/manual/en/class.datetimezone.php>`__ object set the timezone of the Time
 instance::
 
     $tz = Time::now()->getTimezone();
@@ -318,11 +316,10 @@ instance::
 getTimezoneName()
 -----------------
 
-Returns the full `timezone string <http://php.net/manual/en/timezones.php>`_ of the Time instance::
+Returns the full `timezone string <http://php.net/manual/en/timezones.php>`__ of the Time instance::
 
     echo Time::now('America/Chicago')->getTimezoneName();   // America/Chicago
     echo Time::now('Europe/London')->timezoneName;          // Europe/London
-
 
 Setters
 =======
@@ -350,7 +347,7 @@ setTimezone()
 
 Converts the time from it's current timezone into the new one::
 
-    $time = Time::parse('May 10, 2017', 'America/Chicago');
+    $time  = Time::parse('May 10, 2017', 'America/Chicago');
     $time2 = $time->setTimezone('Europe/London');           // Returns new instance converted to new timezone
 
     echo $time->timezoneName;   // American/Chicago
@@ -366,7 +363,6 @@ Returns a new instance with the date set to the new timestamp::
 
     echo $time->toDateTimeString();     // 2017-05-10 00:00:00
     echo $time2->toDateTimeString();     // 2017-04-01 00:00:00
-
 
 Modifying the Value
 ===================
@@ -389,7 +385,6 @@ modify the existing Time instance, but will return a new instance.
     $time = $time->subDays(21);
     $time = $time->subMonths(14);
     $time = $time->subYears(5);
-
 
 Comparing Two Times
 ===================
@@ -456,15 +451,12 @@ Works exactly the same as **isBefore()** except checks if the time is after the 
     $time1->isAfter($time2);  // false
     $time2->isAfter($time1);  // true
 
-
-
 Viewing Differences
 ===================
 
 To compare two Times directly, you would use the **difference()** method, which returns a **CodeIgniter\I18n\TimeDifference**
 instance. The first parameter is either a Time instance, a DateTime instance, or a string with the date/time. If
 a string is passed in the first parameter, the second parameter can be a timezone string::
-
 
     $time = Time::parse('March 10, 2017', 'America/Chicago');
 
@@ -516,13 +508,13 @@ The exact time displayed is determined in the following manner:
 =============================== =================================
 Time difference                  Result
 =============================== =================================
-$time > 1 year && < 2 years     in 1 year / 1 year ago
-$time > 1 month && < 1 year     in 6 months / 6 months ago
-$time > 7 days && < 1 month     in 3 weeks / 3 weeks ago
-$time > today && < 7 days       in 4 days / 4 days ago
-$time > 1 hour && < 1 day       in 8 hours / 8 hours ago
-$time > 1 minute && < 1 hour    in 35 minutes / 35 minutes ago
-$time < 1 minute                Now
+$time > 1 year && < 2 years      in 1 year / 1 year ago
+$time > 1 month && < 1 year      in 6 months / 6 months ago
+$time > 7 days && < 1 month      in 3 weeks / 3 weeks ago
+$time > today && < 7 days        in 4 days / 4 days ago
+$time > 1 hour && < 1 day        in 8 hours / 8 hours ago
+$time > 1 minute && < 1 hour     in 35 minutes / 35 minutes ago
+$time < 1 minute                 Now
 =============================== =================================
 
 The exact language used is controlled through the language file, Time.php.

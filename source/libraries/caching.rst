@@ -4,8 +4,9 @@
 
 CodeIgniter 提供了几种最常用的快速缓存的封装，除了基于文件的缓存， 其他的缓存都需要对服务器进行特殊的配置，如果配置不正确，将会抛出 一个致命错误异常（Fatal Exception）。
 
-.. contents:: 目录
-	:local:
+.. contents::
+    :local:
+    :depth: 2
 
 *************
 示例代码

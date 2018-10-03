@@ -2,12 +2,13 @@
 使用文件类
 ******************
 
-CodeIgniter提供了一个文件类,它将提供 `SplFileInfo <http://php.net/manual/en/class.splfileinfo.php>`_ class 
+CodeIgniter提供了一个文件类,它将提供 `SplFileInfo <http://php.net/manual/en/class.splfileinfo.php>`_ class
 方法和一些额外的便利方法.这个类是 :doc:`uploaded files </libraries/uploaded_files>` 的基类
 和 :doc:`images </libraries/images>`.
 
-.. contents:: 目录
+.. contents::
     :local:
+    :depth: 2
 
 获取文件类实例
 =======================
@@ -24,15 +25,15 @@ CodeIgniter提供了一个文件类,它将提供 `SplFileInfo <http://php.net/ma
 一旦你有一个实例,你就可以完成 SplFileInfo 类的全部功能,包括::
 
     echo $file->getBasename();  // 获取文件的基本名称
-   
+
     echo $file->getMTime();     // 获取上次修改的时间
 
     echo $file->getRealpath();  // 获取真正的实际路径
 
-    
+
     echo $file->getPerms();     // 获取文件权限
 
-    
+
     if ($file->isWritable())    // 向CSV中写入几行数据.
     {
         $csv = $file->openFile('w');
@@ -61,7 +62,7 @@ CodeIgniter提供了一个文件类,它将提供 `SplFileInfo <http://php.net/ma
 将分别返回千字节和兆字节的结果::
 
 	$bytes     = $file->getSize();      // 256901
-    
+
 	$kilobytes = $file->getSize('kb');  // 250.880
 
 	$megabytes = $file->getSize('mb');  // 0.245
@@ -91,5 +92,5 @@ CodeIgniter提供了一个文件类,它将提供 `SplFileInfo <http://php.net/ma
 默认情况下,使用原始文件名.您可以通过第二个参数重命名你要移动的文件::
 
 	$newName = $file->getRandomName();
-    
+
 	$file->move(WRITEPATH.'uploads', $newName);

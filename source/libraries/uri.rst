@@ -4,8 +4,9 @@
 
 CodeIngiter 为你在应用中使用 URI 类提供了一个面向对象的解决方案。使用这种方式可以轻易地确保结构始终准确，无论 URI 的复杂程度如何，也能将相对 URI 添加到现有应用中，并保证其可以被安全、准确地解析。
 
-.. contents:: Page Contents
-
+.. contents::
+    :local:
+    :depth: 2
 
 ======================
 创建 URI 实例
@@ -80,7 +81,7 @@ Authority
 	$uri = new \CodeIgniter\HTTP\URI('ftp://user:password@example.com:21/some/path');
 
 	echo $uri->getAuthority();  // user@example.com:21
-	
+
 默认情况下，因为你不希望向别人展示密码，所以它不会被显示出来。如你想展示密码，可以使用 ``showPassword()`` 方法。URI 实例会在你再次关掉显示之前一直保持密码部分地展示，所以你应在使用完成后立刻关闭它::
 
 	echo $uri->getAuthority();  // user@example.com:21
@@ -92,7 +93,7 @@ Authority
 如果你不想显示端口，可以传递唯一参数 ``true``::
 
 	echo $uri->getAuthority(true);  // user@example.com
-	
+
 .. Note:: 如果当前端口值是传输协议的默认端口值，那它将永远不会被显示。
 
 Userinfo

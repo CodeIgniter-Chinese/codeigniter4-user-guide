@@ -6,8 +6,9 @@
 
 .. note:: 这和 CodeIgniter 的上一版本的文件上传类不同。这次提供了一个原生接口及一些小功能来上传文件。上传类将在最终版的时提供。
 
-.. contents:: Page Contents
-  :local:
+.. contents::
+    :local:
+    :depth: 2
 
 ===============
 访问文件
@@ -102,7 +103,7 @@
 
 在控制器中::
 	if($imagefile = $this->request->getFiles())
-	{  
+	{
 	   foreach($imagefile['images'] as $img)
 	   {
 	      if ($img->isValid() && ! $img->hasMoved())
@@ -115,10 +116,10 @@
 
 
 	循环中的 **images** 是表单中的字段名称
-	
+
 如果多个文件使用相同名称提交，你可以使用 ``getFile()`` 去逐个获取每个文件::
 在控制器中::
-	
+
 	$file1 = $this->request->getFile('images.0');
 	$file2 = $this->request->getFile('images.1');
 
@@ -132,7 +133,7 @@
 	$file1 = $this->request->getFile('my-form.details.avatars.0');
 	$file2 = $this->request->getFile('my-form.details.avatars.1');
 
-.. note:: 使用  ``getFiles()`` 更合适。 
+.. note:: 使用  ``getFiles()`` 更合适。
 
 =====================
 使用文件

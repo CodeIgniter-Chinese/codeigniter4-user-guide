@@ -23,4 +23,3 @@ code, you can:
 -  Check out our `forums <http://forum.codeigniter.com/>`_
 -  Visit our `IRC chatroom <https://github.com/bcit-ci/CodeIgniter/wiki/IRC>`_
 -  Explore the `Wiki <https://github.com/bcit-ci/CodeIgniter/wiki/>`_
-

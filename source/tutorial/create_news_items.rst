@@ -7,10 +7,6 @@ you haven't written any information to the database yet. In this section
 you'll expand your news controller and model created earlier to include
 this functionality.
 
-.. note:: This section of the tutorial cannot be completed as certain
-    portions of the framework, like the form helper and the validation
-    library have not been completed yet.
-
 Create a form
 -------------
 
@@ -18,13 +14,13 @@ To input data into the database you need to create a form where you can
 input the information to be stored. This means you'll be needing a form
 with two fields, one for the title and one for the text. You'll derive
 the slug from our title in the model. Create the new view at
-*application/Views/News/Create.php*.
+*application/Views/news/create.php*.
 
 ::
 
     <h2><?= esc($title); ?></h2>
 
-    <?= validation_errors(); ?>
+    <?= \Config\Services::validation()->listErrors(); ?>
 
     <?= form_open('news/create'); ?>
 
@@ -39,7 +35,7 @@ the slug from our title in the model. Create the new view at
     </form>
 
 There are only two things here that probably look unfamiliar to you: the
-``form_open()`` function and the ``validation_errors()`` function.
+``form_open()`` function and the ``\Config\Services::validation()->listErrors()`` function.
 
 The first function is provided by the :doc:`form
 helper <../helpers/form_helper>` and renders the form element and
@@ -64,9 +60,9 @@ validation <../libraries/validation>` library to do this.
             'text'  => 'required'
         ]))
         {
-            echo view('Templates/Header', ['title' => 'Create a news item']);
-            echo view('News/Create');
-            echo view('Templates/Footer');
+            echo view('templates/header', ['title' => 'Create a news item']);
+            echo view('news/create');
+            echo view('templates/footer');
 
         }
         else
@@ -76,7 +72,7 @@ validation <../libraries/validation>` library to do this.
                 'slug'  => url_title($this->request->getVar('title')),
                 'text'  => $this->request->getVar('text'),
             ]);
-            echo view('News/Success');
+            echo view('news/success');
         }
     }
 
@@ -100,7 +96,7 @@ sure everything is in lowercase characters. This leaves you with a nice
 slug, perfect for creating URIs.
 
 After this, a view is loaded to display a success message. Create a view at
-**application/Views/News/Success.php** and write a success message.
+**application/Views/news/success.php** and write a success message.
 
 Model
 -----
@@ -132,7 +128,6 @@ database. Notice that we leave out the ``id``? That's because you will almost
 never need to do that, since it is an auto-incrementing field in the database.
 This helps protect against Mass Assignment Vulnerabilities. If your model is
 handling your timestamps, you would also leave those out.
-
 
 Routing
 -------

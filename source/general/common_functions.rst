@@ -4,8 +4,9 @@
 
 CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 类库或辅助函数。
 
-.. contents:: Page Contents
-	:local:
+.. contents::
+    :local:
+    :depth: 2
 
 ================
 公共函数
@@ -34,7 +35,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:返回: 运行环境变量, 默认值, 或者 null.
 	:返回类型: mixed
 
-	用于检索事前设置在环境变量中的变量值,若无设置则返回默认值. 
+	用于检索事前设置在环境变量中的变量值,若无设置则返回默认值.
 	若没有找到健值则返回一个布尔值结果（false）.
 
         在特定的运行环境中利用 .env 文件设置环境变量非常有用，例如数据库设置，API健值等.
@@ -155,7 +156,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:param  ResponseInterface $response: 当前响应对象的实例。
 
 	检查页面当前是否通过HTTPS访问，如果不是，则用户通过HTTPS重定向回当前URI。
-	将设置 HTTP 严格的传输安全标头，该命令指示现代浏览器自动将HTTP请求修改为 $duration 参数时间的HTTPS请求。 
+	将设置 HTTP 严格的传输安全标头，该命令指示现代浏览器自动将HTTP请求修改为 $duration 参数时间的HTTPS请求。
 
 .. php:function:: is_cli ()
 

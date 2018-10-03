@@ -40,20 +40,20 @@ characters so that it can be used safely::
 	<input type="text" name="myfield" value="<?= esc($string); ?>" />
 
 .. note:: If you use any of the form helper functions listed on this page,
+        and you pass values as an associative array,
 	the form values will be automatically escaped, so there is no need
 	to call this function. Use it only if you are creating your own
-	form elements.
+	form elements, which you would pass as strings.
 
 Available Functions
 ===================
 
 The following functions are available:
 
-
 .. php:function:: form_open([$action = ''[, $attributes = ''[, $hidden = array()]]])
 
 	:param	string	$action: Form action/target URI string
-    	:param	array	$attributes: HTML attributes
+    	:param	mixed	$attributes: HTML attributes, as an array or escaped string
     	:param	array	$hidden: An array of hidden fields' definitions
     	:returns:	An HTML form opening tag
     	:rtype:	string
@@ -99,7 +99,7 @@ The following functions are available:
 			$hidden = array('username' => 'Joe', 'member_id' => '234');
 			echo form_open('email/send', '', $hidden);
 
-		You can skip the second parameter by passing any falsy value to it.
+		You can skip the second parameter by passing any false value to it.
 
 		The above example would create a form similar to this::
 
@@ -107,19 +107,17 @@ The following functions are available:
 				<input type="hidden" name="username" value="Joe" />
 				<input type="hidden" name="member_id" value="234" />
 
-
-.. php:function:: form_open_multipart([$action = ''[, $attributes = array()[, $hidden = array()]]])
+.. php:function:: form_open_multipart([$action = ''[, $attributes = ''[, $hidden = array()]]])
 
 	:param	string	$action: Form action/target URI string
-    	:param	array	$attributes: HTML attributes
+    	:param	mixed	$attributes: HTML attributes, as an array or escaped string
     	:param	array	$hidden: An array of hidden fields' definitions
     	:returns:	An HTML multipart form opening tag
     	:rtype:	string
 
-    	This function is absolutely identical to :php:func:`form_open()` above,
+    	This function is identical to :php:func:`form_open()` above,
 	except that it adds a *multipart* attribute, which is necessary if you
 	would like to use the form to upload files with.
-
 
 .. php:function:: form_hidden($name[, $value = ''])
 
@@ -205,12 +203,12 @@ The following functions are available:
 	form to contain::
 
 		$data = array(
-			'name'		=> 'username',
-			'id'		=> 'username',
-			'value'		=> 'johndoe',
-			'maxlength'	=> '100',
-			'size'		=> '50',
-			'style'		=> 'width:50%'
+			'name'      => 'username',
+			'id'        => 'username',
+			'value'     => 'johndoe',
+			'maxlength' => '100',
+			'size'      => '50',
+			'style'     => 'width:50%'
 		);
 
 		echo form_input($data);
@@ -253,7 +251,6 @@ The following functions are available:
     	This function is identical in all respects to the :php:func:`form_input()`
 	function above except that it uses the "password" input type.
 
-
 .. php:function:: form_upload([$data = ''[, $value = ''[, $extra = '']]])
 
 	:param	array	$data: Field attributes data
@@ -265,7 +262,6 @@ The following functions are available:
     	This function is identical in all respects to the :php:func:`form_input()`
 	function above except that it uses the "file" input type, allowing it to
 	be used to upload files.
-
 
 .. php:function:: form_textarea([$data = ''[, $value = ''[, $extra = '']]])
 
@@ -294,16 +290,16 @@ The following functions are available:
     	contain the name of the field, the second parameter will contain an
     	associative array of options, and the third parameter will contain the
     	value you wish to be selected. You can also pass an array of multiple
-    	items through the third parameter, and CodeIgniter will create a
+    	items through the third parameter, and the helper will create a
     	multiple select for you.
 
     	Example::
 
 		$options = array(
-			'small'		=> 'Small Shirt',
-			'med'		=> 'Medium Shirt',
-			'large'		=> 'Large Shirt',
-			'xlarge'	=> 'Extra Large Shirt',
+			'small'  => 'Small Shirt',
+			'med'    => 'Medium Shirt',
+			'large'  => 'Large Shirt',
+			'xlarge' => 'Extra Large Shirt',
 		);
 
 		$shirts_on_sale = array('small', 'large');
@@ -352,7 +348,6 @@ The following functions are available:
 	``form_dropdown()`` will produce an <optgroup> with the array key as the
 	label.
 
-
 .. php:function:: form_multiselect([$name = ''[, $options = array()[, $selected = array()[, $extra = '']]]])
 
 	:param	string	$name: Field name
@@ -370,7 +365,6 @@ The following functions are available:
     	The parameter usage is identical to using :php:func:`form_dropdown()` above,
 	except of course that the name of the field will need to use POST array
 	syntax, e.g. foo[].
-
 
 .. php:function:: form_fieldset([$legend_text = ''[, $attributes = array()]])
 
@@ -417,13 +411,11 @@ The following functions are available:
 			</fieldset>
 		*/
 
-
 .. php:function:: form_fieldset_close([$extra = ''])
 
 	:param	string	$extra: Anything to append after the closing tag, *as is*
 	:returns:	An HTML fieldset closing tag
 	:rtype:	string
-
 
 	Produces a closing </fieldset> tag. The only advantage to using this
 	function is it permits you to pass data to it which will be added below
@@ -434,7 +426,6 @@ The following functions are available:
 		$string = '</div></div>';
 		echo form_fieldset_close($string);
 		// Would produce: </fieldset></div></div>
-
 
 .. php:function:: form_checkbox([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
 
@@ -457,11 +448,11 @@ The following functions are available:
 	array of attributes to the function::
 
 		$data = array(
-			'name'		=> 'newsletter',
-			'id'		=> 'newsletter',
-			'value'		=> 'accept',
-			'checked'	=> TRUE,
-			'style'		=> 'margin:10px'
+			'name'    => 'newsletter',
+			'id'      => 'newsletter',
+			'value'   => 'accept',
+			'checked' => TRUE,
+			'style'   => 'margin:10px'
 		);
 
 		echo form_checkbox($data);
@@ -479,7 +470,6 @@ The following functions are available:
 		$js = array('onClick' => 'some_function();');
 		echo form_checkbox('newsletter', 'accept', TRUE, $js);
 
-
 .. php:function:: form_radio([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
 
 	:param	array	$data: Field attributes data
@@ -491,7 +481,6 @@ The following functions are available:
 
     	This function is identical in all respects to the :php:func:`form_checkbox()`
 	function above except that it uses the "radio" input type.
-
 
 .. php:function:: form_label([$label_text = ''[, $id = ''[, $attributes = array()]]])
 
@@ -519,7 +508,6 @@ The following functions are available:
 		echo form_label('What is your Name', 'username', $attributes);
 		// Would produce:  <label for="username" class="mycustomclass" style="color: #000;">What is your Name</label>
 
-
 .. php:function:: form_submit([$data = ''[, $value = ''[, $extra = '']]])
 
 	:param	string	$data: Button name
@@ -537,7 +525,6 @@ The following functions are available:
 	first parameter if you prefer to set your own attributes. The third
 	parameter lets you add extra data to your form, like JavaScript.
 
-
 .. php:function:: form_reset([$data = ''[, $value = ''[, $extra = '']]])
 
 	:param	string	$data: Button name
@@ -548,7 +535,6 @@ The following functions are available:
 
     	Lets you generate a standard reset button. Use is identical to
     	:func:`form_submit()`.
-
 
 .. php:function:: form_button([$data = ''[, $content = ''[, $extra = '']]])
 
@@ -568,11 +554,11 @@ The following functions are available:
 	form to contain::
 
 		$data = array(
-			'name'		=> 'button',
-			'id'		=> 'button',
-			'value'		=> 'true',
-			'type'		=> 'reset',
-			'content'	=> 'Reset'
+			'name'    => 'button',
+			'id'      => 'button',
+			'value'   => 'true',
+			'type'    => 'reset',
+			'content' => 'Reset'
 		);
 
 		echo form_button($data);
@@ -583,7 +569,6 @@ The following functions are available:
 
 		$js = 'onClick="some_function()"';
 		echo form_button('mybutton', 'Click Me', $js);
-
 
 .. php:function:: form_close([$extra = ''])
 
@@ -598,7 +583,6 @@ The following functions are available:
 		$string = '</div></div>';
 		echo form_close($string);
 		// Would produce:  </form> </div></div>
-
 
 .. php:function:: set_value($field[, $default = ''[, $html_escape = TRUE]])
 
@@ -690,48 +674,3 @@ The following functions are available:
 		functions to work. This is because if a Form Validation object is
 		defined, the control for ``set_*()`` is handed over to a method of the
 		class instead of the generic helper function.
-
-.. php:function:: form_error([$field = ''[, $prefix = ''[, $suffix = '']]])
-
-	:param	string	$field:	Field name
-	:param	string	$prefix: Error opening tag
-    	:param	string	$suffix: Error closing tag
-    	:returns:	HTML-formatted form validation error message(s)
-    	:rtype:	string
-
-    	Returns a validation error message from the :doc:`Form Validation Library
-    	<../libraries/validation>`, associated with the specified field name.
-    	You can optionally specify opening and closing tag(s) to put around the error
-    	message.
-
-    	Example::
-
-		// Assuming that the 'username' field value was incorrect:
-		echo form_error('myfield', '<div class="error">', '</div>');
-
-		// Would produce: <div class="error">Error message associated with the "username" field.</div>
-
-
-.. php:function:: validation_errors([$prefix = ''[, $suffix = '']])
-
-	:param	string	$prefix: Error opening tag
-    	:param	string	$suffix: Error closing tag
-    	:returns:	HTML-formatted form validation error message(s)
-    	:rtype:	string
-
-    	Similarly to the :php:func:`form_error()` function, returns all validation
-	error messages produced by the :doc:`Form Validation Library
-    	<../libraries/validation>`, with optional opening and closing tags
-    	around each of the messages.
-
-    	Example::
-
-		echo validation_errors('<span class="error">', '</span>');
-
-		/*
-			Would produce, e.g.:
-
-			<span class="error">The "email" field doesn't contain a valid e-mail address!</span>
-			<span class="error">The "password" field doesn't match the "repeat_password" field!</span>
-
-		 */

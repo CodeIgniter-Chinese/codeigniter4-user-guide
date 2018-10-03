@@ -1,7 +1,12 @@
 ##############
 错误处理
 ##############
+
 CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>`_ 和一些框架内自定义异常来生成系统错误报告。错误处理的行为取决于你部署环境的设置，当一个错误或异常被抛出时，只要应用不是在 ``production`` 环境下运行，就会默认展示出详细的错误报告。在这种情况下，应为用户显示一个更为通用的信息来保证最佳的用户体验。
+
+.. contents::
+    :local:
+    :depth: 2
 
 使用异常处理
 ================
@@ -21,7 +26,7 @@ CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>
 		die($e->getMessage());
 	}
 
-如果 ``$userModel`` 抛出了一个异常，那么它就会被捕获，并执行 catch 代码块内的语句。在这个样例中，脚本终止并输出了 ``UserModel`` 定义的错误信息。	
+如果 ``$userModel`` 抛出了一个异常，那么它就会被捕获，并执行 catch 代码块内的语句。在这个样例中，脚本终止并输出了 ``UserModel`` 定义的错误信息。
 
 在这个例子中，我们可以捕捉任意类型的异常。如果我们仅仅想要监视特定类型的异常，比如 UnknownFileException，我们就可以把它在 catch 参数中指定出来。这样一来，其它异常和非监视类型子类的异常都会被传递给错误处理程序 ::
 
@@ -106,7 +111,7 @@ UserInputException
 
 	throw new \CodeIgniter\UserInputException();
 
-它将 HTTP 状态码置为 500，退出状态码被置为 7.	
+它将 HTTP 状态码置为 500，退出状态码被置为 7.
 
 DatabaseException
 -----------------

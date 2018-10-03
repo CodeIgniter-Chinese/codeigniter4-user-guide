@@ -4,6 +4,9 @@ Installation
 
 CodeIgniter4 can be installed manually, or using Composer.
 
+.. note:: Before using CodeIgniter, make sure that your server meets the
+          :doc:`requirements </intro/requirements>`.
+
 Manual Installation
 ===================
 
@@ -18,7 +21,6 @@ While not required, CodeIgniter can be installed via `composer <https://getcompo
 
     composer create-project codeigniter4/framework
 
-
 Running
 =======
 
@@ -27,7 +29,8 @@ Running
    your project root.
 #. Open the **application/Config/App.php** file with a text editor and
    set your base URL. If you intend to use encryption or sessions, set
-   your encryption key.
+   your encryption key. If you need more flexibility, the baseURL may
+   be set within the .env file as **app.baseURL="http://example.com"**.
 #. If you intend to use a database, open the
    **application/Config/Database.php** file with a text editor and set your
    database settings.
@@ -54,12 +57,14 @@ By default, the application will run using the "production" environment. To
 take advantage of the debugging tools provided, you should set the environment
 to "develop".
 
+.. caution:: Using PHP's built-in web server is likely to cause problems,
+	as it does not process the `.htaccess` file used to properly handle requests.
+
 That's it!
 
 If you're new to CodeIgniter, please read the :doc:`Getting
 Started <../intro/index>` section of the User Guide
 to begin learning how to build dynamic PHP applications. Enjoy!
-
 
 .. toctree::
     :hidden:

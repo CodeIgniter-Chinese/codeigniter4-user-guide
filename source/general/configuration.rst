@@ -5,7 +5,11 @@
 每一个项目，都需要一种方法来定义不同的全局配置项，而这通常是借助配置文件来实现的。
 而配置文件，一般来说，是通过声明一个将所有的配置项作为公开属性的类，来实现这一配置过程的。
 不同于许多其他的框架，在CI4中，不需要访问某个具体的类来修改我们的配置项信息。
-取而代之的是，我们仅仅需要创建一个配置类的实例，从而轻而易举的实现配置流程。 
+取而代之的是，我们仅仅需要创建一个配置类的实例，从而轻而易举的实现配置流程。
+
+.. contents::
+    :local:
+    :depth: 2
 
 访问配置文件
 ======================
@@ -14,7 +18,7 @@
 配置类中所有的这些属性都是公开的，故而可以如调用其他属性一样调用相应的配置项::
 
 	$config = new \Config\EmailConfig();
-	
+
 	// 如类属性一样调用配置项
 	$protocol = $config->protocol;
 	$mailpath = $config->mailpath;
@@ -35,12 +39,12 @@
 
 
 	<?php namespace Config;
-	
+
 	class App extends \CodeIgniter\Config\BaseConfig {
-	
+
 		public $siteName = 'My Great Site';
 		public $siteEmail = 'webmaster@example.com';
-		
+
 	}
 
 
@@ -81,7 +85,7 @@
 
 	BASE_DIR="/var/webroot/project-root"
 	CACHE_DIR="${BASE_DIR}/cache"
-	TMP_DIR="${BASE_DIR}/tmp" 
+	TMP_DIR="${BASE_DIR}/tmp"
 
 
 命名空间中的变量
@@ -174,7 +178,7 @@
 ... 所关联的地区销售模型将如下所示::
 
     namespace App\Models;
-    class RegionalSales {   
+    class RegionalSales {
         public static function MySalesConfig() {
             return ['target' => 45, 'actual' => 72];
         }
@@ -185,4 +189,3 @@
 
     $target = 45;
     $campaign = "Winter Wonderland";
-

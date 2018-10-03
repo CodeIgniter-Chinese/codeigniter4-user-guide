@@ -1,12 +1,12 @@
 ################
-CodeIgniter URLs
+CodeIgniter URL
 ################
 
 在默认情况下，CodeIgniter 中的 URL 被设计成对搜索引擎和用户友好的样式。 不同于使用传统的在动态系统中使用代词的标准 “查询字符串” 的方式，CodeIgniter 使用基于段的方法::
 
 	example.com/news/article/my_article
 
-URI分段
+URI 分段
 ============
 
 如果遵循模型-视图-控制器模式，那么 URI 中的每一段通常表示下面的含义::
@@ -14,7 +14,7 @@ URI分段
 	example.com/class/method/ID
 
 1. 第一段表示要调用的控制器 **类** ;
-2. 第二段表示要调用的类中的 **函数** 或 **方法** ； 
+2. 第二段表示要调用的类中的 **函数** 或 **方法** ；
 3. 第三段以及后面的段代表传给控制器的参数，如 ID 或其他任何变量；
 
 :doc:`URI 类 <../libraries/uri>` 和 :doc:`URL 辅助函数 <../helpers/url_helper>` 包含了一些函数可以让你更容易的处理 URI 数据。此外，可以通过 :doc:`URI 路由 <routing>` 的方式进行重定向你的 URL 从而使得程序更加灵活。

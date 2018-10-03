@@ -95,7 +95,6 @@ The following functions are available:
 	viewed.
 
 	.. note:: Calling this function is the same as doing this::
-
 		base_url(uri_string());
 
 .. php:function:: previous_url([$returnObject = false])
@@ -111,7 +110,6 @@ The following functions are available:
 	use a known and trusted source. If the session hasn't been loaded, or is otherwise unavailable,
 	then a sanitized version of HTTP_REFERER will be used.
 
-
 .. php:function:: uri_string()
 
 	:returns:	An URI string
@@ -125,7 +123,6 @@ The following functions are available:
 	The function would return::
 
 		blog/comments/123
-
 
 .. php:function:: index_page([$altConfig = NULL])
 
@@ -316,7 +313,7 @@ The following functions are available:
 	useful if, for example, you have a blog in which you'd like to use the
 	title of your entries in the URL. Example::
 
-		$title = "What's wrong with CSS?";
+		$title     = "What's wrong with CSS?";
 		$url_title = url_title($title);
 		// Produces: Whats-wrong-with-CSS
 
@@ -325,7 +322,7 @@ The following functions are available:
 
 	Example::
 
-		$title = "What's wrong with CSS?";
+		$title     = "What's wrong with CSS?";
 		$url_title = url_title($title, 'underscore');
 		// Produces: Whats_wrong_with_CSS
 
@@ -334,10 +331,9 @@ The following functions are available:
 
 	Example::
 
-		$title = "What's wrong with CSS?";
+		$title     = "What's wrong with CSS?";
 		$url_title = url_title($title, 'underscore', TRUE);
 		// Produces: whats_wrong_with_css
-
 
 .. php:function:: prep_url($str = '')
 
