@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>创建核心系统类 &mdash; CodeIgniter 4.0.0-alpha.1 中文手册|用户手册|用户指南|中文文档</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="CodeIgniter 4.0.0-alpha.1 中文手册|用户手册|用户指南|中文文档" href="../index.html"/>
+        <link rel="up" title="Extending CodeIgniter" href="index.html"/>
+        <link rel="next" title="Events - Extending the Framework Core" href="events.html"/>
+        <link rel="prev" title="Extending CodeIgniter" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 概览</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../incoming/index.html">Controllers and Routing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">Building Responses</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库参考</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../models/index.html">Modeling Data</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">Managing Databases</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">命令行用法</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Extending CodeIgniter</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">创建核心系统类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Events - Extending the Framework Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">贡献给 CodeIgniter</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">The MIT License (MIT)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter4</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Extending CodeIgniter</a> &raquo;</li>
+        
+      <li>创建核心系统类</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>创建核心系统类<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>每次CodeIgniter 运行时，都有一些基础类伴随着核心框架自动的被初始化。但你也可以使用你自己的类来替代这些核心类或者扩展这些核心类。</p>
+<p><strong>大多数用户一般不会有这种需求，但对于那些想较大幅度的改变 CodeIgniter 核心的人来说，我们依然提供了替换和扩展核心类的选择。</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">变动核心系统类意味着一系列的挑战，所以，请三思后行。</p>
+</div>
+<div class="section" id="id2">
+<h2>系统类列表<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>以下是系统核心文件的列表，它们在每次 CodeIgniter 启动时被调用：</p>
+<ul class="simple">
+<li>ConfigServices</li>
+<li>CodeIgniterAutoloaderAutoloader</li>
+<li>CodeIgniterConfigDotEnv</li>
+<li>CodeIgniterController</li>
+<li>CodeIgniterDebugExceptions</li>
+<li>CodeIgniterDebugTimer</li>
+<li>CodeIgniterEventsEvents</li>
+<li>CodeIgniterHTTPCLIRequest (if launched from command line only)</li>
+<li>CodeIgniterHTTPIncomingRequest (if launched over HTTP)</li>
+<li>CodeIgniterHTTPRequest</li>
+<li>CodeIgniterHTTPResponse</li>
+<li>CodeIgniterHTTPMessage</li>
+<li>CodeIgniterLogLogger</li>
+<li>CodeIgniterLogHandlersBaseHandler</li>
+<li>CodeIgniterLogHandlersFileHandler</li>
+<li>CodeIgniterRouterRouteCollection</li>
+<li>CodeIgniterRouterRouter</li>
+<li>CodeIgniterSecuritySecurity</li>
+<li>CodeIgniterViewView</li>
+<li>CodeIgniterViewEscaper</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>替换核心类<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>要使用你的系统类替换 CodeIgniter 默认的系统类时，首先确保 <a class="reference internal" href="../concepts/autoloader.html"><span class="doc">Autoloader</span></a> 能找到你的类；其次你的新类继承了正确的接口，同时修改 <a class="reference internal" href="../concepts/services.html"><span class="doc">Service</span></a> 以保证加载的是你自己的类。</p>
+<p>例如，你有一个名为 `` AppLibrariesRouteCollection `` 的新类想要替换系统的核心类，你应该像这样创建你的类:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RouteCollection</span> <span class="k">implements</span> <span class="nx">\CodeIgniter\Router\RouteCollectionInterface</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>然后，你应该修改路由文件来加载你自己的类:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">routes</span><span class="p">(</span><span class="nv">$getShared</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$getShared</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nx">\App\Libraries\RouteCollection</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">self</span><span class="o">::</span><span class="na">getSharedInstance</span><span class="p">(</span><span class="s1">&#39;routes&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>扩展核心类<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>如果你需要往一个现有的库里添加一些功能-或许只是添加一两个方法，重写这整个库显然是没必要的。这时更好的通常是对其中的类进行扩展。对类进行扩展与替换掉类几乎相同，除了一点：</p>
+<ul class="simple">
+<li>类的声明必须继承父类。</li>
+</ul>
+<p>比如，继承 RouteCollection  这个原生类，你应该这样声明:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RouteCollection</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Router\RouteCollection</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>如果你需要在类中使用构造器来确保子类继承了父类的构造器:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RouteCollection</span> <span class="k">implements</span> <span class="nx">\CodeIgniter\Router\RouteCollection</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Tip:</strong>  在你自己的类中，所有与父类方法名相同的函数将会覆盖父类方法，此为&quot;方法覆盖&quot;. 这样你就可以充分地改动CodeIgniter 的核心类。</p>
+<p>你若扩展了控制器核心类，则需确保你的新类继承了应用下的控制器类的构造器:</p>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Home</span> <span class="k">extends</span> <span class="nx">App\BaseController</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="events.html" class="btn btn-neutral float-right" title="Events - Extending the Framework Core" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Extending CodeIgniter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; 版权所有 2014-2018 不列颠哥伦比亚理工学院.
+       最后修改：2018-10-03。
+
+    </p>
+  </div>
+  基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/snide/sphinx_rtd_theme">风格</a>构建. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'4.0.0-alpha.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  false,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
