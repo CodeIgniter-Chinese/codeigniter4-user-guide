@@ -18,14 +18,14 @@ Cookie 辅助函数文件使用下面的代码加载::
 
 	helper('cookie');
 
-通用函数
+函数参考
 ===================
 
-下面的函数是通用的:
+该辅助函数有下列可用函数:
 
 .. php:function:: set_cookie($name[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httpOnly = false]]]]]]])
 
-	:param	mixed	$name: Cookie Cookie 名称 *或* 对这函数所有通用参数的关联数组
+	:param	mixed	$name: Cookie 名称 *或* 对这函数所有通用参数的关联数组
 	:param	string	$value: Cookie 值
 	:param	int	$expire: 直到截止时的秒数
 	:param	string	$domain: Cookie 域名 (通常是: .yourdomain.com)
