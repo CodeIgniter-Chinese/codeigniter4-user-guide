@@ -49,7 +49,7 @@
 - [ ] [./source/database/transactions.rst](source/database/transactions.rst)
 - [x] [~~./source/installation/downloads.rst~~](source/installation/downloads.rst)
 - [x] [./source/installation/index.rst](source/installation/index.rst)
-- [ ] [./source/installation/local_server.rst](source/installation/local_server.rst)
+- [x] [./source/installation/local_server.rst](source/installation/local_server.rst)
 - [ ] [./source/installation/troubleshooting.rst](source/installation/troubleshooting.rst)
 - [ ] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
 - [ ] [./source/installation/upgrading.rst](source/installation/upgrading.rst)
