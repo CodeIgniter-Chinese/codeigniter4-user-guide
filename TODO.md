@@ -41,7 +41,7 @@
 - [ ] [./source/database/index.rst](source/database/index.rst)
 - [ ] [./source/database/metadata.rst](source/database/metadata.rst)
 - [ ] [./source/dbmgmt/migration.rst](source/dbmgmt/migration.rst)
-- [ ] [./source/models/model.rst](source/models/model.rst)
+- [x] [./source/models/model.rst](source/models/model.rst)
 - [ ] [./source/database/queries.rst](source/database/queries.rst)
 - [ ] [./source/database/query_builder.rst](source/database/query_builder.rst)
 - [x] [./source/database/results.rst](source/database/results.rst)
