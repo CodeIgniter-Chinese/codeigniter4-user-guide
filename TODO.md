@@ -16,7 +16,7 @@
 - [x] [./source/testing/debugging.rst](source/testing/debugging.rst)
 - [x] [~~./source/general/environments.rst~~](source/general/environments.rst)
 - [x] [~~./source/general/errors.rst~~](source/general/errors.rst)
-- [ ] [./source/extending/events.rst](source/extending/events.rst)
+- [x] [./source/extending/events.rst](source/extending/events.rst)
 - [x] [./source/incoming/filters.rst](source/incoming/filters.rst)
 - [x] [./source/general/helpers.rst](source/general/helpers.rst)
 - [ ] [./source/general/index.rst](source/general/index.rst)
