@@ -88,7 +88,7 @@
 - [ ] [./source/helpers/inflector_helper.rst](source/helpers/inflector_helper.rst)
 - [ ] [./source/helpers/number_helper.rst](source/helpers/number_helper.rst)
 - [ ] [./source/helpers/security_helper.rst](source/helpers/security_helper.rst)
-- [ ] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
+- [x] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
 - [ ] [./source/helpers/url_helper.rst](source/helpers/url_helper.rst)
 - [ ] [./source/tutorial/conclusion.rst](source/tutorial/conclusion.rst)
 - [ ] [./source/tutorial/create_news_items.rst](source/tutorial/create_news_items.rst)
