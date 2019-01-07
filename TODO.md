@@ -12,7 +12,7 @@
 - [x] [~~./source/general/common_functions.rst~~](source/general/common_functions.rst)
 - [x] [~~./source/general/configuration.rst~~](source/general/configuration.rst)
 - [x] [~~./source/incoming/controllers.rst~~](source/incoming/controllers.rst)
-- [x] [./source/extending/core_classes.rst](source/extending/core_classes.rst)
+- [x] [~~./source/extending/core_classes.rst~~](source/extending/core_classes.rst)
 - [x] [./source/testing/debugging.rst](source/testing/debugging.rst)
 - [x] [~~./source/general/environments.rst~~](source/general/environments.rst)
 - [x] [~~./source/general/errors.rst~~](source/general/errors.rst)
