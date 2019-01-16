@@ -30,7 +30,7 @@
 - [ ] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
 - [x] [./source/outgoing/view_renderer.rst](source/outgoing/view_renderer.rst)
 - [x] [./source/outgoing/views.rst](source/outgoing/views.rst)
-- [ ] [./source/database/call_function.rst](source/database/call_function.rst)
+- [x] [./source/database/call_function.rst](source/database/call_function.rst)
 - [x] [~~./source/database/configuration.rst~~](source/database/configuration.rst)
 - [x] [~~./source/database/connecting.rst~~](source/database/connecting.rst)
 - [ ] [./source/models/entities.rst](source/models/entities.rst)
