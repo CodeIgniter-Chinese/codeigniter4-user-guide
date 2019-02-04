@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Application Structure &mdash; CodeIgniter 4.0.0-alpha.1 中文手册|用户手册|用户指南|中文文档</title>
+  <title>应用结构 &mdash; CodeIgniter 4.0.0-alpha.1 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -94,7 +94,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">CodeIgniter4 概览</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Application Structure</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">应用结构</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mvc.html">模型，视图和控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autoloader.html">Autoloading Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="services.html">Services</a></li>
@@ -185,7 +185,7 @@
         
           <li><a href="index.html">CodeIgniter4 概览</a> &raquo;</li>
         
-      <li>Application Structure</li>
+      <li>应用结构</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -202,81 +202,83 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="application-structure">
-<h1>Application Structure<a class="headerlink" href="#application-structure" title="永久链接至标题">¶</a></h1>
-<p>To get the most out of CodeIgniter, you need to understand how the application is structured, by default, and what you
-can change to meet the needs of your application.</p>
-<div class="section" id="default-directories">
-<h2>Default Directories<a class="headerlink" href="#default-directories" title="永久链接至标题">¶</a></h2>
-<p>A fresh install has six directories: <code class="docutils literal"><span class="pre">/application</span></code>, <code class="docutils literal"><span class="pre">/system</span></code>, <code class="docutils literal"><span class="pre">/public</span></code>,
-<code class="docutils literal"><span class="pre">/writable</span></code>, <code class="docutils literal"><span class="pre">/tests</span></code> and <code class="docutils literal"><span class="pre">/docs</span></code>.
-Each of these directories has a very specific part to play.</p>
+  <div class="section" id="id1">
+<h1>应用结构<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>为了可以充分利用 CodeIgniter，你需要了解应用程序的结构，默认情况下，你可以更改内容以满足你的应用程序的需求。</p>
+<p>Default Directories
+默认目录
+===================</p>
+<p>新安装的应用程序中有六个目录：<code class="docutils literal"><span class="pre">/application</span></code>，<code class="docutils literal"><span class="pre">/system</span></code>，<code class="docutils literal"><span class="pre">/public</span></code>， <code class="docutils literal"><span class="pre">/writable</span></code>，<code class="docutils literal"><span class="pre">/tests``和</span></code>/docs``。这些目录中的每一个都有一个非常具体的使用规范。</p>
 <div class="section" id="application">
-<h3>application<a class="headerlink" href="#application" title="永久链接至标题">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">application</span></code> directory is where all of your application code lives. This comes with a default directory
-structure that works well for many applications. The following folders make up the basic contents:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>/application
-        /Config         Stores the configuration files
-        /Controllers    Controllers determine the program flow
-        /Helpers        Helpers store collections of standalone functions
-        /Language       Multiple language support reads the language strings from here
-        /Libraries      Useful classes that don&#39;t fit in another category
-        /Models         Models work with the database to represent the business entities.
-        /Views          Views make up the HTML that is displayed to the client.
-</pre></div>
-</div>
-<p>Because the <code class="docutils literal"><span class="pre">application</span></code> directory is already namespaced, you should feel free to modify the structure
-of this directory to suit your application's needs. For example, you might decide to start using the Repository
-pattern and Entity Models to work with your data. In this case, you could rename the <code class="docutils literal"><span class="pre">Models</span></code> directory to
-<code class="docutils literal"><span class="pre">Repositories</span></code>, and add a new <code class="docutils literal"><span class="pre">Entities</span></code> directory.</p>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">If you rename the <code class="docutils literal"><span class="pre">Controllers</span></code> directory, though, you will not be able to use the automatic method of
-routing to controllers, and will need to define all of your routes in the routes file.</p>
-</div>
-<p>All files in this directory live under the <code class="docutils literal"><span class="pre">App</span></code> namespace, though you are free to change that in
-<strong>application/Config/Constants.php</strong>.</p>
+<h2>application<a class="headerlink" href="#application" title="永久链接至标题">¶</a></h2>
+<p><a href="#id2"><span class="problematic" id="id3">``</span></a>application``目录是你所有应用程序代码所在的目录。它带有一个默认的目录结构，适用于许多应用程序。以下文件夹构成基本内容::
+.. code-block:: none</p>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">/application</span></kbd></td>
+<td><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">/Config</span></kbd></td>
+<td>Stores the configuration files</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">/Controllers</span></kbd></td>
+<td>Controllers determine the program flow</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">/Helpers</span></kbd></td>
+<td>Helpers store collections of standalone functions</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">/Language</span></kbd></td>
+<td>Multiple language support reads the language strings from here</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">/Libraries</span></kbd></td>
+<td>Useful classes that don't fit in another category</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">/Models</span></kbd></td>
+<td>Models work with the database to represent the business entities.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">/Views</span></kbd></td>
+<td>Views make up the HTML that is displayed to the client.</td></tr>
+</tbody>
+</table>
+</td></tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>由于application目录已经是命名空间，因此你可以随意修改此目录的结构以满足应用程序的需要。例如，你可能决定开始使用存储库模式和实体模型来处理数据。在这种情况下，你可以将Models目录重命名为 Repositories，并添加新Entities目录。</p>
+<p>此目录中的所有文件都位于 <a href="#id4"><span class="problematic" id="id5">``</span></a>App``命名空间下，你可以在**application/Config/Constants.php**文件中自由更改 。</p>
 </div>
 <div class="section" id="system">
-<h3>system<a class="headerlink" href="#system" title="永久链接至标题">¶</a></h3>
-<p>This directory stores the files that make up the framework, itself. While you have a lot of flexibility in how you
-use the application directory, the files in the system directory should never be modified. Instead, you should
-extend the classes, or create new classes, to provide the desired functionality.</p>
-<p>All files in this directory live under the <code class="docutils literal"><span class="pre">CodeIgniter</span></code> namespace.</p>
+<h2>system<a class="headerlink" href="#system" title="永久链接至标题">¶</a></h2>
+<p>该目录存储构成框架的文件本身。虽然你在使用应用程序目录方面具有很大的灵活性，但系统目录中的文件永远不应该被修改。相反，你应该扩展类或创建新类，以提供所需的相应功能。</p>
+<p>此目录中的所有文件都位于``CodeIgniter``命名空间下。</p>
 </div>
 <div class="section" id="public">
-<h3>public<a class="headerlink" href="#public" title="永久链接至标题">¶</a></h3>
-<p>The <strong>public</strong> folder holds the browser-accessible portion of your web application,
-preventing direct access to your source code.
-It contains the main <strong>.htaccess</strong> file, <strong>index.php</strong>, and any application
-assets that you add, like CSS, javascript, or
-images.</p>
-<p>This folder is meant to be the &quot;web root&quot; of your site, and your web server
-would be configured to point to it.</p>
+<h2>public<a class="headerlink" href="#public" title="永久链接至标题">¶</a></h2>
+<p><strong>public</strong> 文件夹包含 Web应用程序的浏览器可以直接访问的地址，防止源代码的直接访问。它包含主要的**.htaccess** 文件，<a href="#id6"><span class="problematic" id="id7">**</span></a>index.php**以及其它你想要添加的样式文件地址，比如CSS，javascript或图像。</p>
+<p>这个文件夹将成为你站点的&quot;Web根目录&quot;，并且你的Web服务器配置将指向它。</p>
 </div>
 <div class="section" id="writable">
-<h3>writable<a class="headerlink" href="#writable" title="永久链接至标题">¶</a></h3>
-<p>This directory holds any directories that might need to be written to in the course of an application's life.
-This includes directories for storing cache files, logs, and any uploads a user might send. You should add any other
-directories that your application will need to write to here. This allows you to keep your other primary directories
-non-writable as an added security measure.</p>
+<h2>writable<a class="headerlink" href="#writable" title="永久链接至标题">¶</a></h2>
+<p>此目录包含在应用程序生命周期中可能需要写入的所有目录。包括用于存储缓存文件，日志和任何用户可能发送使用的目录。你可以在此处添加应用程序需要写入的任何其他目录。这允许你将其他主目录保持为不可写，作为附加的安全措施。</p>
 </div>
 <div class="section" id="tests">
-<h3>tests<a class="headerlink" href="#tests" title="永久链接至标题">¶</a></h3>
-<p>This directory is setup to hold your test files. The <code class="docutils literal"><span class="pre">_support</span></code> directory holds various mock classes and other
-utilities that you can use while writing your tests. This directory does not need to be transferred to your
-production servers.</p>
+<h2>tests<a class="headerlink" href="#tests" title="永久链接至标题">¶</a></h2>
+<p>此目录设置为测试文件的存储地址。 <a href="#id8"><span class="problematic" id="id9">``</span></a>_support``目录包含各种模拟类和其他在编写测试时可以使用的实用程序。该目录请在生产环境中忽略提交/传输到生产环境中。</p>
 </div>
 <div class="section" id="docs">
-<h3>docs<a class="headerlink" href="#docs" title="永久链接至标题">¶</a></h3>
-<p>This directory holds a local copy of the CodeIgniter4
-User Guide.</p>
+<h2>docs<a class="headerlink" href="#docs" title="永久链接至标题">¶</a></h2>
+<p>此目录包含 CodeIgniter4 用户指南的本地副本。</p>
 </div>
 <div class="section" id="modifying-directory-locations">
-<h3>Modifying Directory Locations<a class="headerlink" href="#modifying-directory-locations" title="永久链接至标题">¶</a></h3>
-<p>If you've relocated any of the main directories, you can change the configuration
-settings inside <code class="docutils literal"><span class="pre">application/Config/Paths</span></code>.</p>
-</div>
+<h2>Modifying Directory Locations(修改目录位置)<a class="headerlink" href="#modifying-directory-locations" title="永久链接至标题">¶</a></h2>
+<p>如果你需要重置任何主目录位置，可以在 <a href="#id10"><span class="problematic" id="id11">``</span></a>application/Config/Paths``更改你需要更改的配置设置。</p>
 </div>
 </div>
 
@@ -303,7 +305,7 @@ settings inside <code class="docutils literal"><span class="pre">application/Con
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2018 不列颠哥伦比亚理工学院.
-       最后修改：2019-01-16。
+       最后修改：2019-02-04。
 
     </p>
   </div>
