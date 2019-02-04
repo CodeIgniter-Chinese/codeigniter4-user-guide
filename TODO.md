@@ -100,5 +100,5 @@
 - [ ] [./source/concepts/index.rst](source/concepts/index.rst)
 - [x] [~~./source/concepts/mvc.rst~~](source/concepts/mvc.rst)
 - [x] [~~./source/concepts/security.rst~~](source/concepts/security.rst)
-- [ ] [./source/concepts/services.rst](source/concepts/services.rst)
+- [x] [./source/concepts/services.rst](source/concepts/services.rst)
 - [x] [~~./source/concepts/structure.rst~~](source/concepts/structure.rst)
