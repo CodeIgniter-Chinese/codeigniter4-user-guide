@@ -42,7 +42,7 @@
 - [x] [./source/database/metadata.rst](source/database/metadata.rst)
 - [ ] [./source/dbmgmt/migration.rst](source/dbmgmt/migration.rst)
 - [x] [./source/models/model.rst](source/models/model.rst)
-- [ ] [./source/database/queries.rst](source/database/queries.rst)
+- [x] [./source/database/queries.rst](source/database/queries.rst)
 - [ ] [./source/database/query_builder.rst](source/database/query_builder.rst)
 - [x] [./source/database/results.rst](source/database/results.rst)
 - [x] [~~./source/dbmgmt/seeds.rst~~](source/dbmgmt/seeds.rst)
