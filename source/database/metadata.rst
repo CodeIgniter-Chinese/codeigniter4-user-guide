@@ -1,5 +1,5 @@
 #################
-Database Metadata
+数据库元数据
 #################
 
 .. contents::
@@ -7,18 +7,17 @@ Database Metadata
     :depth: 2
 
 **************
-Table MetaData
+表元数据
 **************
 
-These functions let you fetch table information.
+下面这些方法用于获取表信息。
 
-List the Tables in Your Database
+列出数据库中的所有表
 ================================
 
 **$db->listTables();**
 
-Returns an array containing the names of all the tables in the database
-you are currently connected to. Example::
+返回一个数组，其中包含当前连接到的数据库中所有表的数组。例如::
 
 	$tables = $db->listTables();
 
@@ -27,35 +26,33 @@ you are currently connected to. Example::
 		echo $table;
 	}
 
-Determine If a Table Exists
+检查表是否存在
 ===========================
 
 **$db->tableExists();**
 
-Sometimes it's helpful to know whether a particular table exists before
-running an operation on it. Returns a boolean TRUE/FALSE. Usage example::
+有时，在对其执行操作之前知道特定表是否存在是有帮助的。
+返回布尔值 TRUE/FALSE. 例如::
 
 	if ($db->tableExists('table_name'))
 	{
 		// some code...
 	}
 
-.. note:: Replace *table_name* with the name of the table you are looking for.
+.. 注意:: 使用你要查找的表名替换掉 table_name
 
 **************
-Field MetaData
+字段元数据
 **************
 
-List the Fields in a Table
+列出表中的所有列
 ==========================
 
 **$db->getFieldNames()**
 
-Returns an array containing the field names. This query can be called
-two ways:
+返回包含字段名称的数组。 有两种不同的调用方式：
 
-1. You can supply the table name and call it from the $db->
-object::
+1.你可以提供表名称从 $db->object 中调用它::
 
 	$fields = $db->getFieldNames('table_name');
 
@@ -64,8 +61,7 @@ object::
 		echo $field;
 	}
 
-2. You can gather the field names associated with any query you run by
-calling the function from your query result object::
+2.你可以从任何查询结果对象上调用该方法，获取查询返回的所有字段::
 
 	$query = $db->query('SELECT * FROM some_table');
 
@@ -74,36 +70,33 @@ calling the function from your query result object::
 		echo $field;
 	}
 
-Determine If a Field is Present in a Table
+检查表中是否存在某字段 
 ==========================================
 
 **$db->fieldExists()**
 
-Sometimes it's helpful to know whether a particular field exists before
-performing an action. Returns a boolean TRUE/FALSE. Usage example::
+有时，在执行一个操作之前先确定某个字段是否存在是很有用的。该方法返回布尔值 TRUE/FALSE。
+使用示例::
 
 	if ($db->fieldExists('field_name', 'table_name'))
 	{
 		// some code...
 	}
 
-.. note:: Replace *field_name* with the name of the column you are looking
-	for, and replace *table_name* with the name of the table you are
-	looking for.
+.. 注意:: 将 *field_name* 替换为你要查找的字段名, 并且将 *table_name* 替换为你要查找的表的名称
 
-Retrieve Field Metadata
+获取字段的元数据
 =======================
 
 **$db->getFieldData()**
 
-Returns an array of objects containing field information.
+该方法返回一个包含字段信息的对象数组。
 
-Sometimes it's helpful to gather the field names or other metadata, like
-the column type, max length, etc.
+有时，收集字段名称或相关的元数据会很有用的，例如数据类型，最大长度等。
 
-.. note:: Not all databases provide meta-data.
+.. 注意:: 并非所有的数据库都支持元数据。
 
-Usage example::
+使用示例::
 
 	$fields = $db->getFieldData('table_name');
 
@@ -115,23 +108,21 @@ Usage example::
 		echo $field->primary_key;
 	}
 
-If you have run a query already you can use the result object instead of
-supplying the table name::
+如果你已经进行了查询，则可以使用结果对象而不是提供表格名::
 
-	$query  = $db->query("YOUR QUERY");
+	$query = $db->query("YOUR QUERY");
 	$fields = $query->fieldData();
 
-The following data is available from this function if supported by your
-database:
+如果你的数据库支持，则可以从此函数获得以下数据:
 
--  name - column name
--  max_length - maximum length of the column
--  primary_key - 1 if the column is a primary key
--  type - the type of the column
+-  name - 字段名
+-  max_length - 字段的最大长度
+-  primary_key - 等于1的话表示此字段是主键
+-  type - 字段的数据类型
 
-List the Indexes in a Table
+列出表格中的索引
 ===========================
 
 **$db->getIndexData()**
 
-please write this, someone...
+请写下来，有人……
