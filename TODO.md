@@ -64,7 +64,7 @@
 - [ ] [./source/incoming/content_negotiation.rst](source/incoming/content_negotiation.rst)
 - [ ] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
 - [x] [~~./source/libraries/files.rst~~](source/libraries/files.rst)
-- [ ] [./source/libraries/images.rst](source/libraries/images.rst)
+- [x] [./source/libraries/images.rst](source/libraries/images.rst)
 - [x] [~~./source/incoming/incomingrequest.rst~~](source/incoming/incomingrequest.rst)
 - [ ] [./source/libraries/index.rst](source/libraries/index.rst)
 - [ ] [./source/outgoing/localization.rst](source/outgoing/localization.rst)
