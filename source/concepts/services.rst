@@ -1,5 +1,6 @@
 ########
 Services
+服务
 ########
 
 .. contents::
@@ -7,11 +8,14 @@ Services
     :depth: 2
 
 Introduction
+介绍
 ============
 
 All of the classes within CodeIgniter are provided as "services". This simply means that, instead
 of hard-coding a class name to load, the classes to call are defined within a very simple
 configuration file. This file acts as a type of factory to create new instances of the required class.
+
+CodeIgniter 中的所有类都作为 "服务" 提供。这仅仅意味着，不是硬编码要加载的类名，而是在非常简单的配置文件中定义要调用的类。此文件充当一种工厂类型，用于创建所需类的新实例。
 
 A quick example will probably make things clearer, so imagine that you need to pull in an instance
 of the Timer class. The simplest method would simply be to create a new instance of that class::
