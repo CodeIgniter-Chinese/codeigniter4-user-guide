@@ -13,7 +13,6 @@
     internals
     documentation
     PHP Style Guide <styleguide>
-    ../DCO
 
 
 codeigniter是一个大众驱动项目并且它接受自大众提供的编码和文档编制贡献。这些贡献将在 Github 的 `CodeIgniter4 repository <https://github.com/bcit-ci/CodeIgniter4>`_  上以讨论的形式或者以 `Pull Requests <https://help.github.com/articles/using-pull-requests/>`_ 形式产生。
