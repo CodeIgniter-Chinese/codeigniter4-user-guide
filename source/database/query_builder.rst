@@ -30,7 +30,7 @@ CodeIgniter 提供了查询构造器类， 查询构造器允许你使用较少�
 查询数据
 **************
 
-下面的方法用来构建 SQL SELECT 语句。
+下面的方法用来构建 SQL **SELECT** 语句。
 
 **$builder->get()**
 
@@ -43,7 +43,7 @@ CodeIgniter 提供了查询构造器类， 查询构造器允许你使用较少�
 
 	$query = $builder->get(10, 20);
 
-	// 执行: SELECT * FROM mytable LIMIT 20, 10
+	// Executes: SELECT * FROM mytable LIMIT 20, 10
 	// (在 MySQL 的情况。其他数据库的语法略有不同)
 
 你应该已经注意到了， 上面的方法的结果都赋值给了一个 $query 变量， 通过这个变量， 我们
@@ -68,21 +68,21 @@ CodeIgniter 提供了查询构造器类， 查询构造器允许你使用较少�
 	$sql = $builder->getCompiledSelect();
 	echo $sql;
 
-	// 打印字符: SELECT * FROM mytable
+	// Prints string: SELECT * FROM mytable
 
 第一个参数使您能够设置查询生成器是否查询
 将重置(默认情况下将重置，就像使用 `$builder->get()` 时一样)::
 
 	echo $builder->limit(10,20)->getCompiledSelect(false);
 
-	// 打印字符: SELECT * FROM mytable LIMIT 20, 10
+	// Prints string: SELECT * FROM mytable LIMIT 20, 10
 	// (在 MySQL 的情况。其他数据库的语法略有不同)
 
 	echo $builder->select('title, content, date')->getCompiledSelect();
 
-	// 打印字符: SELECT title, content, date FROM mytable LIMIT 20, 10
+	// Prints string: SELECT title, content, date FROM mytable LIMIT 20, 10
 
-上面的例子中，最值得注意的是，第二个查询并没有用到 **$builder->from()** 方法， 
+上面的Executes中，最值得注意的是，第二个查询并没有用到 **$builder->from()** 方法， 
 也没有为查询指定表名参数。 这是因为查询并没有使用 **$builder->get()** 方法执行， 
 它会重置值或使用 **$builder->resetQuery()** 方法直接重置。
 
@@ -103,7 +103,7 @@ Please read the about the where function below for more information.
 	$builder->select('title, content, date');
 	$query = $builder->get();
 
-	// 例子: SELECT title, content, date FROM mytable
+	// Executes: SELECT title, content, date FROM mytable
 
 .. note:: 如果要从表中选择全部 (\*)， 则不需要这样做使用这个函数。 当省略时，CodeIgniter 假定您希望这样做选择所有字段并自动添加 'SELECT \*'。
 
@@ -124,10 +124,10 @@ Please read the about the where function below for more information.
 ::
 
 	$builder->selectMax('age');
-	$query = $builder->get();  // 过程: SELECT MAX(age) as age FROM mytable
+	$query = $builder->get();  // Produces: SELECT MAX(age) as age FROM mytable
 
 	$builder->selectMax('age', 'member_age');
-	$query = $builder->get(); // 过程: SELECT MAX(age) as member_age FROM mytable
+	$query = $builder->get(); // Produces: SELECT MAX(age) as member_age FROM mytable
 
 **$builder->selectMin()**
 
@@ -137,7 +137,7 @@ selectMax() 方法一样， 你可以使用第二个参数（可选）重命名�
 ::
 
 	$builder->selectMin('age');
-	$query = $builder->get(); // 过程: SELECT MIN(age) as age FROM mytable
+	$query = $builder->get(); // Produces: SELECT MIN(age) as age FROM mytable
 
 **$builder->selectAvg()**
 
@@ -147,7 +147,7 @@ selectMax() 方法一样， 你可以使用第二个参数（可选）重命名�
 ::
 
 	$builder->selectAvg('age');
-	$query = $builder->get(); // 过程: SELECT AVG(age) as age FROM mytable
+	$query = $builder->get(); // Produces: SELECT AVG(age) as age FROM mytable
 
 **$builder->selectSum()**
 
@@ -157,7 +157,7 @@ selectMax() 方法一样， 你可以使用第二个参数重命名结果字段�
 ::
 
 	$builder->selectSum('age');
-	$query = $builder->get(); // 过程: SELECT SUM(age) as age FROM mytable
+	$query = $builder->get(); // Produces: SELECT SUM(age) as age FROM mytable
 
 **$builder->from()**
 
@@ -165,7 +165,7 @@ selectMax() 方法一样， 你可以使用第二个参数重命名结果字段�
 
 	$builder->select('title, content, date');
 	$builder->from('mytable');
-	$query = $builder->get();  // 过程: SELECT title, content, date FROM mytable
+	$query = $builder->get();  // Produces: SELECT title, content, date FROM mytable
 
 .. note:: 正如前面所说，查询中的 FROM 部分可以在方法 $db->table() 中指定。 对 from() 的其他调用将向查询的FROM部分添加更多表。
 
@@ -178,7 +178,7 @@ selectMax() 方法一样， 你可以使用第二个参数重命名结果字段�
     $builder->join('comments', 'comments.id = blogs.id');
     $query = $builder->get();
 
-    // 过程:
+    // Produces:
     // SELECT * FROM blogs JOIN comments ON comments.id = blogs.id
 
 如果你的查询中有多个连接，你可以多次调用这个方法.
@@ -189,7 +189,7 @@ outer， inner， left outer 和 right outer 。
 ::
 
 	$builder->join('comments', 'comments.id = blogs.id', 'left');
-	// 过程: LEFT JOIN comments ON comments.id = blogs.id
+	// Produces: LEFT JOIN comments ON comments.id = blogs.id
 
 *************************
 查找特定数据
@@ -205,7 +205,7 @@ outer， inner， left outer 和 right outer 。
 
 	::
 
-		$builder->where('name', $name); // 过程: WHERE name = 'Joe'
+		$builder->where('name', $name); // Produces: WHERE name = 'Joe'
 
 	注意自动为你加上了等号。
 
@@ -225,7 +225,7 @@ outer， inner， left outer 和 right outer 。
 	::
 
 		$builder->where('name !=', $name);
-		$builder->where('id <', $id); // 过程: WHERE name != 'Joe' AND id < 45
+		$builder->where('id <', $id); // Produces: WHERE name != 'Joe' AND id < 45
 
 #. **关联数组方式:**
 
@@ -233,7 +233,7 @@ outer， inner， left outer 和 right outer 。
 
 		$array = ['name' => $name, 'title' => $title, 'status' => $status];
 		$builder->where($array);
-		// 过程: WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
+		// Produces: WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
 
 	你也可以在这个方法里包含你自己的比较运算符:
 
@@ -260,7 +260,7 @@ outer， inner， left outer 和 right outer 。
 这个方法和上面的方法一样，只是多个条件之间使用 OR 进行连接::
 
 	$builder->where('name !=', $name);
-	$builder->orWhere('id >', $id);  // 过程: WHERE name != 'Joe' OR id > 50
+	$builder->orWhere('id >', $id);  // Produces: WHERE name != 'Joe' OR id > 50
 
 **$builder->whereIn()**
 
@@ -270,7 +270,7 @@ outer， inner， left outer 和 right outer 。
 
 	$names = array('Frank', 'Todd', 'James');
 	$builder->whereIn('username', $names);
-	// 过程: WHERE username IN ('Frank', 'Todd', 'James')
+	// Produces: WHERE username IN ('Frank', 'Todd', 'James')
 
 **$builder->orWhereIn()**
 
@@ -300,7 +300,7 @@ outer， inner， left outer 和 right outer 。
 
 	$names = array('Frank', 'Todd', 'James');
 	$builder->orWhereNotIn('username', $names);
-	// 过程: OR username NOT IN ('Frank', 'Todd', 'James')
+	// Produces: OR username NOT IN ('Frank', 'Todd', 'James')
 
 ************************
 查找相似的数据
@@ -322,7 +322,7 @@ outer， inner， left outer 和 right outer 。
 	::
 
 		$builder->like('title', 'match');
-		// 过程: WHERE `title` LIKE '%match%' ESCAPE '!'
+		// Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
 
 	如果你多次调用该方法，那么多个 WHERE 条件将会使用 AND 连接起来::
 
@@ -335,9 +335,9 @@ outer， inner， left outer 和 right outer 。
 
 	::
 
-		$builder->like('title', 'match', 'before');	// 过程: WHERE `title` LIKE '%match' ESCAPE '!'
-		$builder->like('title', 'match', 'after');	// 过程: WHERE `title` LIKE 'match%' ESCAPE '!'
-		$builder->like('title', 'match', 'both');	// 过程: WHERE `title` LIKE '%match%' ESCAPE '!'
+		$builder->like('title', 'match', 'before');	// Produces: WHERE `title` LIKE '%match' ESCAPE '!'
+		$builder->like('title', 'match', 'after');	// Produces: WHERE `title` LIKE 'match%' ESCAPE '!'
+		$builder->like('title', 'match', 'both');	// Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
 
 #. **关联数组方式:**
 
@@ -373,11 +373,11 @@ NOT LIKE 子句::
 
 该方法用于生成 GROUP BY 子句::
 
-	$builder->groupBy("title"); // 过程: GROUP BY title
+	$builder->groupBy("title"); // Produces: GROUP BY title
 
 你也可以通过一个数组传入多个值::
 
-	$builder->groupBy(array("title", "date"));  // 过程: GROUP BY title, date
+	$builder->groupBy(array("title", "date"));  // Produces: GROUP BY title, date
 
 **$builder->distinct()**
 
@@ -386,15 +386,15 @@ NOT LIKE 子句::
 ::
 
 	$builder->distinct();
-	$builder->get(); // 过程: SELECT DISTINCT * FROM mytable
+	$builder->get(); // Produces: SELECT DISTINCT * FROM mytable
 
 **$builder->having()**
 
 该方法用于生成 HAVING 子句， 有下面两种不同的语法. 有两个
 可能的语法， 1 个或 2 个参数::
 
-	$builder->having('user_id = 45');  // 过程: HAVING user_id = 45
-	$builder->having('user_id',  45);  // 过程: HAVING user_id = 45
+	$builder->having('user_id = 45');  // Produces: HAVING user_id = 45
+	$builder->having('user_id',  45);  // Produces: HAVING user_id = 45
 
 您还可以传递一个包含多个值的数组::
 
@@ -408,8 +408,8 @@ NOT LIKE 子句::
 
 ::
 
-	$builder->having('user_id',  45);  // 过程: HAVING `user_id` = 45 in some databases such as MySQL
-	$builder->having('user_id',  45, FALSE);  // 过程: HAVING user_id = 45
+	$builder->having('user_id',  45);  // Produces: HAVING `user_id` = 45 in some databases such as MySQL
+	$builder->having('user_id',  45, FALSE);  // Produces: HAVING user_id = 45
 
 **$builder->orHaving()**
 
@@ -430,12 +430,12 @@ NOT LIKE 子句::
 ::
 
 	$builder->orderBy('title', 'DESC');
-	// 过程: ORDER BY `title` DESC
+	// Produces: ORDER BY `title` DESC
 
 第一个参数也可以是你自己的排序字符串::
 
 	$builder->orderBy('title DESC, name ASC');
-	// 过程: ORDER BY `title` DESC, `name` ASC
+	// Produces: ORDER BY `title` DESC, `name` ASC
 
 如果需要根据多个字段进行排序，可以多次调用该方法。
 
@@ -443,17 +443,17 @@ NOT LIKE 子句::
 
 	$builder->orderBy('title', 'DESC');
 	$builder->orderBy('name', 'ASC');
-	// 过程: ORDER BY `title` DESC, `name` ASC
+	// Produces: ORDER BY `title` DESC, `name` ASC
 
 如果你选择了 **RANDOM**， 第一个参数会被忽略， 但是你可以传入一个数字值， 作为随机数的种子。
 
 ::
 
 	$builder->orderBy('title', 'RANDOM');
-	// 过程: ORDER BY RAND()
+	// Produces: ORDER BY RAND()
 
 	$builder->orderBy(42, 'RANDOM');
-	// 过程: ORDER BY RAND(42)
+	// Produces: ORDER BY RAND(42)
 
 .. note:: Oracle 暂时还不支持随机排序，会默认使用ASC。
 
@@ -465,13 +465,13 @@ NOT LIKE 子句::
 
 该方法用于限制你的查询返回结果的数量::
 
-	$builder->limit(10);  // 过程: LIMIT 10
+	$builder->limit(10);  // Produces: LIMIT 10
 
 第二个参数可以用来设置偏移.
 
 ::
 
-	$builder->limit(10, 20);  // 过程: LIMIT 20, 10 (在 MySQL。 其他数据库的语法略有不同）
+	$builder->limit(10, 20);  // Produces: LIMIT 20, 10 (在 MySQL。 其他数据库的语法略有不同）
 
 **$builder->countAllResults()**
 
@@ -553,7 +553,7 @@ NOT LIKE 子句::
 	);
 
 	$builder->insert($data);
-	// 过程: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
+	// Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
 
 第一个参数为要插入的数据，是个关联数组。
 
@@ -569,7 +569,7 @@ NOT LIKE 子句::
 
 	$object = new Myclass;
 	$builder->insert($object);
-	// 过程: INSERT INTO mytable (title, content, date) VALUES ('My Title', 'My Content', 'My Date')
+	// Produces: INSERT INTO mytable (title, content, date) VALUES ('My Title', 'My Content', 'My Date')
 
 第一个参数为要插入的数据，是个对象。
 
@@ -591,23 +591,17 @@ NOT LIKE 子句::
 	$sql = $builder->set($data)->getCompiledInsert('mytable');
 	echo $sql;
 
-	// 打印过程: INSERT INTO mytable (`title`, `name`, `date`) VALUES ('My title', 'My name', 'My date')
+	// Produces string: INSERT INTO mytable (`title`, `name`, `date`) VALUES ('My title', 'My name', 'My date')
 
 第二个参数用于设置是否重置查询（默认情况下会重置，正如 $builder->insert() 方法一样）::
 
 	echo $builder->set('title', 'My Title')->getCompiledInsert('mytable', FALSE);
 
-	// 打印过程: INSERT INTO mytable (`title`) VALUES ('My Title')
+	// Produces string: INSERT INTO mytable (`title`) VALUES ('My Title')
 
 	echo $builder->set('content', 'My Content')->getCompiledInsert();
 
-	// 打印过程: INSERT INTO mytable (`title`, `content`) VALUES ('My Title', 'My Content')
-
-The key thing to notice in the above example is that the second query did not
-utilize `$builder->from()` nor did it pass a table name into the first
-parameter. The reason this worked is because the query has not been executed
-using `$builder->insert()` which resets values or reset directly using
-`$builder->resetQuery()`.
+	// Produces string: INSERT INTO mytable (`title`, `content`) VALUES ('My Title', 'My Content')
 
 上面的例子中，最值得注意的是，第二个查询并没有用到 `$builder->from()` 方法， 也没有将表名传递给
 第一个参数。 这样做的原因是因为查询尚未使用 `$builder->insert()` 执行，它使用 `$builder->insert()` 重置
@@ -634,7 +628,7 @@ using `$builder->insert()` which resets values or reset directly using
 	);
 
 	$builder->insertBatch($data);
-	// 过程: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date'),  ('Another title', 'Another name', 'Another date')
+	// Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date'),  ('Another title', 'Another name', 'Another date')
 
 第一个参数为要插入的数据，是个二维数组。
 
@@ -650,12 +644,6 @@ using `$builder->insert()` which resets values or reset directly using
 该方法用于执行一条 REPLACE 语句， 该语句基本上是（可选）DELETE + INSERT的SQL标准，
 使用 *PRIMARY* 和 *UNIQUE* 键作为决定因素。在我们的例子中，它可以使你免于需要实现与不同的
 组合复杂的逻辑 ``select()``， ``update()``， ``delete()`` 和 ``insert()``。
-This method executes a REPLACE statement, which is basically the SQL
-standard for (optional) DELETE + INSERT, using *PRIMARY* and *UNIQUE*
-keys as the determining factor.
-In our case, it will save you from the need to implement complex
-logics with different combinations of  ``select()``, ``update()``,
-``delete()`` and ``insert()`` calls.
 
 例如::
 
@@ -667,7 +655,7 @@ logics with different combinations of  ``select()``, ``update()``,
 
 	$builder->replace($data);
 
-	// 执行: REPLACE INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
+	// Executes: REPLACE INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
 
 上面的例子中，我们假设 *title* 字段是我们的主键，那么如果我们数据库里有一行
 包含 'My title'作为标题，这一行将会被删除并被我们的新数据所取代。
@@ -683,7 +671,7 @@ logics with different combinations of  ``select()``, ``update()``,
 ::
 
 	$builder->set('name', $name);
-	$builder->insert();  // 过程: INSERT INTO mytable (`name`) VALUES ('{$name}')
+	$builder->insert();  // Produces: INSERT INTO mytable (`name`) VALUES ('{$name}')
 
 如果你多次调用该方法，它会正确组装出 insert 或 update 语句来::
 
@@ -743,7 +731,7 @@ logics with different combinations of  ``select()``, ``update()``,
 
 	$builder->where('id', $id);
 	$builder->update($data);
-	// 过程:
+	// Produces:
 	//
 	//	UPDATE mytable
 	//	SET title = '{$title}', name = '{$name}', date = '{$date}'
@@ -762,7 +750,7 @@ logics with different combinations of  ``select()``, ``update()``,
 	$object = new Myclass;
 	$builder->where('id', $id);
 	$builder->update($object);
-	// 过程:
+	// Produces:
 	//
 	// UPDATE `mytable`
 	// SET `title` = '{$title}', `name` = '{$name}', `date` = '{$date}'
@@ -800,7 +788,7 @@ logics with different combinations of  ``select()``, ``update()``,
 
 	$builder->updateBatch($data, 'title');
 
-	// 过程:
+	// Produces:
 	// UPDATE `mytable` SET `name` = CASE
 	// WHEN `title` = 'My title' THEN 'My Name 2'
 	// WHEN `title` = 'Another title' THEN 'Another Name 2'
@@ -836,7 +824,7 @@ logics with different combinations of  ``select()``, ``update()``,
 
 ::
 
-	$builder->delete(array('id' => $id));  // 过程: // DELETE FROM mytable  // WHERE id = $id
+	$builder->delete(array('id' => $id));  // Produces: // DELETE FROM mytable  // WHERE id = $id
 
 第一个参数为 where 条件。你也可以不用第一个参数， 使用 where() 或者 or_where() 
 函数来替代它::
@@ -844,7 +832,7 @@ logics with different combinations of  ``select()``, ``update()``,
 	$builder->where('id', $id);
 	$builder->delete();
 
-	// 过程:
+	// Produces:
 	// DELETE FROM mytable
 	// WHERE id = $id
 
@@ -854,7 +842,7 @@ logics with different combinations of  ``select()``, ``update()``,
 
 该方法生成删除SQl语句并执行::
 
-	  $builder->emptyTable('mytable'); // 过程: DELETE FROM mytable
+	  $builder->emptyTable('mytable'); // Produces: DELETE FROM mytable
 
 **$builder->truncate()**
 
@@ -864,7 +852,7 @@ logics with different combinations of  ``select()``, ``update()``,
 
 	$builder->truncate();
 
-	// 过程:
+	// Produces:
 	// TRUNCATE mytable
 
 .. note:: 如果 TRUNCATE 语句不可用，truncate() 方法将执行 "DELETE FROM table"。
@@ -921,7 +909,7 @@ logics with different combinations of  ``select()``, ``update()``,
 
 	.. php:method:: resetQuery()
 
-		:returns:	BaseBuilder 实例 (方法链)
+		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
 		重置当前查询生成器状态。在你需要的时候有用要构建可以在特定条件下取消的查询.
@@ -1285,10 +1273,6 @@ logics with different combinations of  ``select()``, ``update()``,
 
 		编译并执行批处理 ``UPDATE`` 语句。
 
-		.. note:: When more than ``$batch_size`` field/value pairs are provided,
-			multiple queries will be executed, each handling up to
-			``$batch_size`` field/value pairs.
-
 		当提供超过 ``$batch_size`` field/value 对时，
 		将执行多个查询，每个处理最多 ``$batch_size`` field/value 对。
 
@@ -1315,7 +1299,7 @@ logics with different combinations of  ``select()``, ``update()``,
 		:param	string	$where: The WHERE clause
 		:param	int	$limit: The LIMIT clause
 		:param	bool	$reset_data: TRUE 重置查询 "write" 子句
-		:returns:	BaseBuilder instance (方法链) 失败为 FALSE
+		:returns:	BaseBuilder instance (方法链) 或者失败时为 FALSE
 		:rtype:	mixed
 
 		编译并执行 DELETE 查询。
