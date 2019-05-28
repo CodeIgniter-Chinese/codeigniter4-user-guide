@@ -121,7 +121,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 		echo view('user_profile', $data);
 
-	 详情参见 the :doc:`Views <views>` 页。
+详情参见 the :doc:`Views </outgoing/views>` 页。
 
 其他函数
 =======================
