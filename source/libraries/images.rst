@@ -33,9 +33,9 @@ CodeIgniter的图像处理类允许你执行以下操作:
 - gd        对应调用的是GD/GD2图像库。
 - imagick   对应调用的是ImageMagick图像库。
 
-如果你要使用ImageMagick图像库，则必须要在**application/Config/Images.php**中设置服务器上该库的所在路径。
+如果你要使用ImageMagick图像库，则必须要在 **application/Config/Images.php** 中设置服务器上该库的所在路径。
 
-.. note:: ImageMagick处理程序不需要在服务器上加载imagick扩展。只要你的脚本可以访问该库并且可以使用exec()运行在服务器上，它就可以工作。
+.. note:: ImageMagick处理程序不需要在服务器上加载imagick扩展。只要你的脚本可以访问该库并且可以使用 ``exec()`` 运行在服务器上，它就可以工作。
 
 处理图像
 ===================
@@ -79,7 +79,7 @@ CodeIgniter的图像处理类允许你执行以下操作:
 -  $image->rotate()
 -  $image->text()
 
-这些方法将会返回类实例，如上所示，它们可以链接在一起。如果失败，它们将抛出包含错误的消息到``CodeIgniter\Images\ImageException``。
+这些方法将会返回类实例，如上所示，它们可以链接在一起。如果失败，它们将抛出包含错误的消息到 ``CodeIgniter\Images\ImageException`` 。
 一个好的做法是捕获异常消息，在失败时显示错误，如下所示::
 
 	try {
@@ -100,7 +100,7 @@ CodeIgniter的图像处理类允许你执行以下操作:
 图像裁剪
 ---------------
 
-图像可以被裁剪，只保留原始图像的一部分。通常用于创建特定大小/纵横比匹配的缩略图图像。这是用crop()方法处理的::
+图像可以被裁剪，只保留原始图像的一部分。通常用于创建特定大小/纵横比匹配的缩略图图像。这是用 ``crop()`` 方法处理的::
 
     crop(int $width = null, int $height = null, int $x = null, int $y = null, bool $maintainRatio = false, string $masterDim = 'auto')
 
@@ -129,7 +129,7 @@ CodeIgniter的图像处理类允许你执行以下操作:
 拟合图像
 --------------
 
-使用``fit()`` 方法旨在通过执行以下步骤帮助简化以“智能”方式裁剪图像的一部分:
+使用 ``fit()`` 方法旨在通过执行以下步骤帮助简化以“智能”方式裁剪图像的一部分:
 
 - 确定要裁剪的原始图像的正确部分，以保持所需的宽高比。
 - 裁剪原始图像。
