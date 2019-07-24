@@ -1,27 +1,21 @@
 ###############
-Troubleshooting
+故障排除
 ###############
 
-Here are some common installation problems, and suggested workarounds.
+以下是一些常见的安装问题，以及建议的解决方法。
 
-I have to include index.php in my URL
+我必须在我的URL中包含index.php
 -------------------------------------
 
-If a URL like ``/mypage/find/apple`` doesn't work, but the similar
-URL ``/index.php/mypage/find/apple`` does, then your ``.htaccess`` rules
-(for Apache) are not setup properly.
+如果``/mypage/find/apple``类似的URL``/index.php/mypage/find/apple``不起作用，但类似的URL ，则你的``.htaccess``规则（对于Apache）未正确设置。
 
-Only the default page loads
+
+仅加载默认页面
 ---------------------------
 
-If you find that no matter what you put in your URL only your default
-page is loading, it might be that your server does not support the
-REQUEST_URI variable needed to serve search-engine friendly URLs. As a
-first step, open your *application/Config/App.php* file and look for
-the URI Protocol information. It will recommend that you try a couple of
-alternate settings. If it still doesn't work after you've tried this
-you'll need to force CodeIgniter to add a question mark to your URLs. To
-do this open your *application/Config/App.php* file and change this::
+如果你发现无论你在URL中放入什么内容，只会加载默认页面，可能是你的服务器不支持提供搜索引擎友好URL所需的REQUEST_URI变量。首先，打开*application/Config/App.php*文件并查找URI协议信息。它会建议你尝试一些备用设置。如果在你尝试此操作后仍然无效，则需要强制CodeIgniter向你的网址添加问号。为此，请打开*application/Config/App.php*文件并更改
+
+::
 
 	public $indexPage = 'index.php';
 
@@ -29,11 +23,9 @@ To this::
 
 	public $indexPage = 'index.php?';
 
-The tutorial gives 404 errors everywhere :(
+该教程给出了404错误:(
 -------------------------------------------
 
-You can't follow the tutorial using PHP's built-in web server.
-It doesn't process the `.htaccess` file needed to route
-requests properly.
+你无法使用PHP的内置Web服务器来学习本教程。它不处理正确路由请求所需的`.htaccess`文件。
 
-The solution: use Apache to server your site.
+解决方案：使用Apache为你的站点提供服务。
