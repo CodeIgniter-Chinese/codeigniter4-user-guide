@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Create news items &mdash; CodeIgniter 4.0.0-alpha.1 中文手册|用户手册|用户指南|中文文档</title>
+  <title>创建新闻项目 &mdash; CodeIgniter 4.0.0-alpha.1 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -39,7 +39,7 @@
         <link rel="search" title="搜索" href="../search.html"/>
     <link rel="top" title="CodeIgniter 4.0.0-alpha.1 中文手册|用户手册|用户指南|中文文档" href="../index.html"/>
         <link rel="up" title="Tutorial" href="index.html"/>
-        <link rel="next" title="Conclusion" href="conclusion.html"/>
+        <link rel="next" title="结论" href="conclusion.html"/>
         <link rel="prev" title="新闻展示功能" href="news_section.html"/> 
 
   
@@ -96,8 +96,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="static_pages.html">加载静态页</a></li>
 <li class="toctree-l2"><a class="reference internal" href="news_section.html">新闻展示功能</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Create news items</a></li>
-<li class="toctree-l2"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">创建新闻项目</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conclusion.html">结论</a></li>
 </ul>
 </li>
 </ul>
@@ -186,7 +186,7 @@
         
           <li><a href="index.html">Tutorial</a> &raquo;</li>
         
-      <li>Create news items</li>
+      <li>创建新闻项目</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -203,19 +203,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="create-news-items">
-<h1>Create news items<a class="headerlink" href="#create-news-items" title="永久链接至标题">¶</a></h1>
-<p>You now know how you can read data from a database using CodeIgniter, but
-you haven't written any information to the database yet. In this section
-you'll expand your news controller and model created earlier to include
-this functionality.</p>
-<div class="section" id="create-a-form">
-<h2>Create a form<a class="headerlink" href="#create-a-form" title="永久链接至标题">¶</a></h2>
-<p>To input data into the database you need to create a form where you can
-input the information to be stored. This means you'll be needing a form
-with two fields, one for the title and one for the text. You'll derive
-the slug from our title in the model. Create the new view at
-<em>application/Views/news/create.php</em>.</p>
+  <div class="section" id="id1">
+<h1>创建新闻项目<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>你现在知道如何使用CodeIgniter从数据库读取数据，但你尚未向数据库写入任何信息。在本节中，你将扩展之前创建新的控制器和模型以包含此功能。</p>
+<div class="section" id="id2">
+<h2>创建表格<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>要将数据输入数据库，你需要创建一个表格，你可以在其中输入要存储的信息。这意味着你将需要一个包含两个字段的表格，一个用于标题，另一个用于文本。你将从模型中的标题中获得slug。在*application / Views / news / create.php*创建新视图</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$title</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">();</span> <span class="cp">?&gt;</span>
@@ -233,17 +226,9 @@ the slug from our title in the model. Create the new view at
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>There are only two things here that probably look unfamiliar to you: the
-<code class="docutils literal"><span class="pre">form_open()</span></code> function and the <code class="docutils literal"><span class="pre">\Config\Services::validation()-&gt;listErrors()</span></code> function.</p>
-<p>The first function is provided by the <a class="reference internal" href="../helpers/form_helper.html"><span class="doc">form
-helper</span></a> and renders the form element and
-adds extra functionality, like adding a hidden <a class="reference internal" href="../libraries/security.html"><span class="doc">CSRF prevention
-field</span></a>. The latter is used to report
-errors related to form validation.</p>
-<p>Go back to your news controller. You're going to do two things here,
-check whether the form was submitted and whether the submitted data
-passed the validation rules. You'll use the <a class="reference internal" href="../libraries/validation.html"><span class="doc">form
-validation</span></a> library to do this.</p>
+<p>这里只有两个函数你可能不熟悉:<cite>form_open()`函数和</cite>ConfigServices::validation()-&gt;listErrors()`函数。
+第一个函数由:doc:<cite>form helper &lt;../helpers/form_helper&gt;`提供，并呈现表格元素并添加额外的功能，例如添加一个隐藏的:doc:`CSRF prevention field &lt;../libraries/security&gt;</cite>。后者用于报告与表格验证相关的错误。</p>
+<p>回到你的新闻控制器。你将在此处执行两项操作，检查表格是否已提交以及提交的数据是否通过了验证规则。你将使用:doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>form validation &lt;../libraries/validation&gt;`库来执行此操作。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
@@ -271,37 +256,15 @@ validation</span></a> library to do this.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The code above adds a lot of functionality. The first few lines load the
-form helper and the NewsModel. After that, the Controller-provided helper
-function is used to validate the $_POST fields. In this case the title and
-text fields are required.</p>
-<p>CodeIgniter has a powerful validation library as demonstrated
-above. You can read <a class="reference internal" href="../libraries/validation.html"><span class="doc">more about this library
-here</span></a>.</p>
-<p>Continuing down, you can see a condition that checks whether the form
-validation ran successfully. If it did not, the form is displayed, if it
-was submitted <strong>and</strong> passed all the rules, the model is called. This
-takes care of passing the news item into the model.
-This contains a new function, url_title(). This function -
-provided by the <a class="reference internal" href="../helpers/url_helper.html"><span class="doc">URL helper</span></a> - strips down
-the string you pass it, replacing all spaces by dashes (-) and makes
-sure everything is in lowercase characters. This leaves you with a nice
-slug, perfect for creating URIs.</p>
-<p>After this, a view is loaded to display a success message. Create a view at
-<strong>application/Views/news/success.php</strong> and write a success message.</p>
+<p>上面的代码添加了很多功能。前几行加载表格helper和NewsModel。之后，Controller提供的辅助函数用于验证$_POST字段。在这种情况下，标题和文本字段是必需的。</p>
+<p>如上所示，CodeIgniter具有强大的验证库。你可以阅读:doc:<cite>more about this library here &lt;../libraries/validation&gt;</cite>。</p>
+<p>接下来，你可以看到检查表格验证是否成功运行的条件。如果没有，则显示表格，如果提交并传递了所有规则，则调用模型。这将负责将新闻项传递到模型中。这包含一个新函数url_title()。这个函数由:doc:<a href="#id5"><span class="problematic" id="id6">`</span></a>URL helper &lt;../helpers/url_helper&gt;`提供， 它将你传递的字符串剥离出来，用短划线(-)替换所有空格，并确保所有内容都是小写字符。这给你留下了一个漂亮的slug，非常适合创建URI。</p>
+<p>在此之后，加载视图以显示成功消息。在**application/Views/news/success.php**创建一个视图 并写一条成功消息。</p>
 </div>
-<div class="section" id="model">
-<h2>Model<a class="headerlink" href="#model" title="永久链接至标题">¶</a></h2>
-<p>The only thing that remains is ensuring that your model is setup
-to allow data to be saved properly. The <code class="docutils literal"><span class="pre">save()</span></code> method that was
-used will determine whether the information should be inserted
-or if the row already exists and should be updated, based on the presence
-of a primary key. In this case, there is no <code class="docutils literal"><span class="pre">id</span></code> field passed to it,
-so it will insert a new row into it's table, <strong>news</strong>.</p>
-<p>However, by default the insert and update methods in the model will
-not actually save any data because it doesn't know what fields are
-safe to be updated. Edit the model to provide it a list of updatable
-fields in the <code class="docutils literal"><span class="pre">$allowedFields</span></code> property.</p>
+<div class="section" id="id7">
+<h2>模型<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>最适合剩下的就是确保你的模型设置为允许正确保存数据。使用的``save()``方法将根据主键的存在来确定是否应插入信息，或者行是否已存在且应更新。在这种情况下，没有``id``传递给它的字段，所以它会在它的表中插入一个新行，即**news**。</p>
+<p>但是，默认情况下，模型中的插入和更新方法实际上不会保存任何数据，因为它不知道哪些字段可以安全更新。编辑模型以在``$allowedFields``属性中为其提供可更新字段的列表。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">NewsModel</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Model</span>
 <span class="p">{</span>
@@ -311,28 +274,18 @@ fields in the <code class="docutils literal"><span class="pre">$allowedFields</s
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This new property now contains the fields that we allow to be saved to the
-database. Notice that we leave out the <code class="docutils literal"><span class="pre">id</span></code>? That's because you will almost
-never need to do that, since it is an auto-incrementing field in the database.
-This helps protect against Mass Assignment Vulnerabilities. If your model is
-handling your timestamps, you would also leave those out.</p>
+<p>此新属性现在包含我们允许保存到数据库的字段。请注意，我们遗漏了``id``？那是因为你几乎不需要这样做，因为它是数据库中的自动递增字段。这有助于防止批量分配漏洞。如果你的模型正在处理你的时间戳，你也可以将其保留。</p>
 </div>
-<div class="section" id="routing">
-<h2>Routing<a class="headerlink" href="#routing" title="永久链接至标题">¶</a></h2>
-<p>Before you can start adding news items into your CodeIgniter application
-you have to add an extra rule to <em>Config/Routes.php</em> file. Make sure your
-file contains the following. This makes sure CodeIgniter sees 'create'
-as a method instead of a news item's slug.</p>
+<div class="section" id="id8">
+<h2>路由<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<p>在开始将新闻项添加到CodeIgniter应用程序之前，必须向*Config/Routes.php*文件添加额外的规则。确保你的文件包含以下内容。这可以确保CodeIgniter将'create'视为一种方法，而不是新闻项目的slug。</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;news/create&#39;</span><span class="p">,</span> <span class="s1">&#39;News::create&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;news/(:segment)&#39;</span><span class="p">,</span> <span class="s1">&#39;News::view/$1&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="s1">&#39;News::index&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;(:any)&#39;</span><span class="p">,</span> <span class="s1">&#39;Pages::view/$1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Now point your browser to your local development environment where you
-installed CodeIgniter and add index.php/news/create to the URL.
-Congratulations, you just created your first CodeIgniter application!
-Add some news and check out the different pages you made.</p>
+<p>现在将浏览器指向安装CodeIgniter的本地开发环境，并将index.php/news/create添加到URL。恭喜，你刚刚创建了第一个CodeIgniter应用程序！添加一些新闻并查看你制作的不同页面。</p>
 </div>
 </div>
 
@@ -346,7 +299,7 @@ Add some news and check out the different pages you made.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="conclusion.html" class="btn btn-neutral float-right" title="Conclusion" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="conclusion.html" class="btn btn-neutral float-right" title="结论" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="news_section.html" class="btn btn-neutral" title="新闻展示功能" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
@@ -359,7 +312,7 @@ Add some news and check out the different pages you made.</p>
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2018 不列颠哥伦比亚理工学院.
-       最后修改：2019-07-11。
+       最后修改：2019-07-24。
 
     </p>
   </div>
