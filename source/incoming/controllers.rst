@@ -1,128 +1,148 @@
 ###########
-控制器
+Controllers
 ###########
 
-控制器是你整个应用的核心，因为它们决定了 HTTP 请求将被如何处理。
+Controllers are the heart of your application, as they determine how HTTP requests should be handled.
 
 .. contents::
     :local:
     :depth: 2
 
 
-什么是控制器?
+What is a Controller?
 =====================
 
-简而言之，一个控制器就是一个类文件，是以一种能够和 URI 关联在一起的方式来命名的。
+A Controller is simply a class file that is named in a way that it can be associated with a URI.
 
-考虑下面的 URI::
+Consider this URI::
 
-	example.com/index.php/blog/
+	example.com/index.php/helloworld/
 
-上例中，CodeIgniter 将会尝试查询一个名为 Blog.php 的控制器并加载它。
+In the above example, CodeIgniter would attempt to find a controller named Helloworld.php and load it.
 
-**当控制器的名称和 URI 的第一段匹配上时，它将会被加载。**
+**When a controller's name matches the first segment of a URI, it will be loaded.**
 
-
-让我们试试看：Hello World！
+Let's try it: Hello World!
 ==========================
 
+Let's create a simple controller so you can see it in action. Using your text editor, create a file called Helloworld.php,
+and put the following code in it::
 
-接下来你会看到如何创建一个简单的控制器，打开你的文本编辑器，新建一个文件 Blog.php ， 然后放入以下代码::
+	<?php namespace App\Controllers;
 
-	<?php
-	class Blog extends \CodeIgniter\Controller
-	{
+        use CodeIgniter\Controller;
+
+	class Helloworld extends Controller
+        {
 		public function index()
 		{
 			echo 'Hello World!';
 		}
 	}
 
+Then save the file to your **/app/Controllers/** directory.
 
-然后将文件保存到 **/application/controllers/** 目录下。
+.. important:: The file must be called 'Helloworld.php', with a capital 'H'.
 
+Now visit your site using a URL similar to this::
 
-.. important:: 文件名必须是大写字母开头，如：'Blog.php' 。
+	example.com/index.php/helloworld
 
-
-现在使用类似下面的 URL 来访问你的站点:：
-
-	example.com/index.php/blog
-
-
-如果一切正常，你将看到：:
+If you did it right you should see::
 
 	Hello World!
 
-.. important:: 类名必须以大写字母开头。
+.. important:: Controller class names MUST start with an uppercase letter and ONLY the first character can be uppercase.
 
-这是有效的::
+This is valid::
 
-	<?php
-	class Blog extends \CodeIgniter\Controller {
+	<?php namespace App\Controllers;
 
-	}
+        use CodeIgniter\Controller;
 
-这是 **无效** 的::
-
-	<?php
-	class blog extends \CodeIgniter\Controller {
+	class Helloworld extends Controller {
 
 	}
 
+This is **not** valid::
 
-另外，一定要确保你的控制器继承了父控制器类，这样它才能使用父类的方法。
+	<?php namespace App\Controllers;
 
+        use CodeIgniter\Controller;
 
-方法
+	class helloworld extends Controller {
+
+	}
+
+This is **not** valid::
+
+	<?php namespace App\Controllers;
+
+        use CodeIgniter\Controller;
+
+	class HelloWorld extends Controller {
+
+	}
+
+Also, always make sure your controller extends the parent controller
+class so that it can inherit all its methods.
+
+Methods
 =======
 
+In the above example, the method name is ``index()``. The "index" method
+is always loaded by default if the **second segment** of the URI is
+empty. Another way to show your "Hello World" message would be this::
 
-上例中，方法名为 ``index()`` 。"index" 方法总是在 URI 的 **第二段** 为空时被调用。 另一种显示 "Hello World" 消息的方法是::
+	example.com/index.php/helloworld/index/
 
-	example.com/index.php/blog/index/
+**The second segment of the URI determines which method in the
+controller gets called.**
 
+Let's try it. Add a new method to your controller::
 
-**URI 中的第二段用于决定调用控制器中的哪个方法。**
+	<?php namespace App\Controllers;
 
-让我们试一下，向你的控制器添加一个新的方法::
+        use CodeIgniter\Controller;
 
-	<?php
-	class Blog extends \CodeIgniter\Controller {
+	class Helloworld extends Controller
+        {
 
 		public function index()
 		{
 			echo 'Hello World!';
 		}
 
-		public function comments()
+		public function comment()
 		{
-			echo 'Look at this!';
+			echo 'I am not flat!';
 		}
 	}
 
+Now load the following URL to see the comment method::
 
-现在，通过下面的 URL 来调用 comments 方法::
+	example.com/index.php/helloworld/comment/
 
-	example.com/index.php/blog/comments/
+You should see your new message.
 
-你应该能看到你的新消息了。
-
-
-通过 URI 分段向你的方法传递参数
+Passing URI Segments to your methods
 ====================================
 
-如果你的 URI 多于两个段，多余的段将作为参数传递到你的方法中。
+If your URI contains more than two segments they will be passed to your
+method as parameters.
 
-例如，假设你的 URI 是这样::
+For example, let's say you have a URI like this::
 
 	example.com/index.php/products/shoes/sandals/123
 
+Your method will be passed URI segments 3 and 4 ("sandals" and "123")::
 
-你的方法将会收到第三段和第四段两个参数（"sandals" 和 "123"）::
+	<?php namespace App\Controllers;
 
-	<?php
-	class Products extends \CodeIgniter\Controller {
+        use CodeIgniter\Controller;
+
+	class Products extends Controller
+        {
 
 		public function shoes($sandals, $id)
 		{
@@ -131,39 +151,55 @@
 		}
 	}
 
+.. important:: If you are using the :doc:`URI Routing <routing>`
+	feature, the segments passed to your method will be the re-routed
+	ones.
 
-.. important:: 如果你使用了 `URI 路由` ，传递到你的方法的参数将是路由后的参数。
-
-
-定义默认控制器
+Defining a Default Controller
 =============================
 
-CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时加载，例如当用户直接访问你网站的首页时。 打开 **application/config/routes.php** 文件，通过下面的参数指定一个默认的控制器::
+CodeIgniter can be told to load a default controller when a URI is not
+present, as will be the case when only your site root URL is requested. Let's try it
+with the Helloworld controller. 
 
-	$routes->setDefaultController('Blog');
+To specify a default controller open your **app/Config/Routes.php**
+file and set this variable::
 
+	$routes->setDefaultController('Helloworld');
 
-其中，“Blog”是你想加载的控制器类名，如果你现在通过不带任何参数的 index.php 访问你的站点，你将看到你的“Hello World”消息。
+Where 'Helloworld' is the name of the controller class you want to be used.
 
-想要了解更多信息，请参阅 :doc:`./source/general/routing.rst` 部分文档。
+A few lines further down **Routes.php** in the "Route Definitions" section comment out the line::
 
+$routes->get('/', 'Home::index');
 
-重映射方法
+If you now browse to your site without specifying any URI segments you'll
+see the “Hello World” message.
+
+.. note:: The line ``$routes->get('/', 'Home::index');`` is an optimization that you will want to use in a "real-world" app. But for demonstration purposes we don't want to use that feature. ``$routes->get()`` is explained in :doc:`URI Routing <routing>`
+
+For more information, please refer to the "Routes Configuration Options" section of the
+:doc:`URI Routing <routing>` documentation.
+
+Remapping Method Calls
 ======================
 
-
-正如上文所说，URI 的第二段通常决定控制器的哪个方法被调用。CodeIgniter 允许你使用 ``_remap()`` 方法来重写该规则::
+As noted above, the second segment of the URI typically determines which
+method in the controller gets called. CodeIgniter permits you to override
+this behavior through the use of the ``_remap()`` method::
 
 	public function _remap()
 	{
 		// Some code here...
 	}
 
+.. important:: If your controller contains a method named _remap(),
+	it will **always** get called regardless of what your URI contains. It
+	overrides the normal behavior in which the URI determines which method
+	is called, allowing you to define your own method routing rules.
 
-.. important:: 如果你的控制包含一个 _remap() 方法，那么无论 URI 中包含什么参数时都会调用该方法。 它允许你定义你自己的路由规则，重写默认的使用 URI 中的分段来决定调用哪个方法这种行为。
-
-
-被重写的方法（通常是 URI 的第二段）将被作为参数传递到 ``_remap()`` 方法::
+The overridden method call (typically the second segment of the URI) will
+be passed as a parameter to the ``_remap()`` method::
 
 	public function _remap($method)
 	{
@@ -177,9 +213,10 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 		}
 	}
 
-方法名之后的所有其他段将作为 ``_remap()`` 方法的第二个参数，它是可选的。这个参数可以使用 PHP 的 call_user_func_array() 函数来模拟 CodeIgniter 的默认行为。
+Any extra segments after the method name are passed into ``_remap()``. These parameters can be passed to the method
+to emulate CodeIgniter's default behavior.
 
-例如::
+Example::
 
 	public function _remap($method, ...$params)
 	{
@@ -188,157 +225,155 @@ CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时
 		{
 			return $this->$method(...$params);
 		}
-		show_404();
+		throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 	}
 
-
-私有方法
+Private methods
 ===============
 
-有时候你可能希望某些方法不能被公开访问，要实现这点，只要简单的将方法声明为 private 或 protected ， 这样这个方法就不能被 URL 访问到了。例如，如果你有一个下面这个方法::
+In some cases, you may want certain methods hidden from public access.
+To achieve this, simply declare the method as private or protected. 
+That will prevent it from being served by a URL request. For example,
+if you were to define a method like this for the `Helloworld` controller::
 
 	protected function utility()
 	{
 		// some code
 	}
 
+then trying to access it using the following URL will not work::
 
-使用下面的 URL 尝试访问它，你会发现是无法访问的::
+	example.com/index.php/helloworld/utility/
 
-	example.com/index.php/blog/utility/
-
-
-将控制器放入子目录中
+Organizing Your Controllers into Sub-directories
 ================================================
 
-如果你正在构建一个比较大的应用，那么将控制器放到子目录下进行组织可能会方便一点。CodeIgniter 也可以实现这一点。
+If you are building a large application you might want to hierarchically
+organize or structure your controllers into sub-directories. CodeIgniter
+permits you to do this.
 
-你只需要简单的在 *application/controllers/* 目录下创建新的目录，并将控制器文件放到子目录下。
+Simply create sub-directories under the main *app/Controllers/*
+one and place your controller classes within them.
 
-.. note:: 当使用该功能时，URI 的第一段必须指定目录，例如，假设你在如下位置有一个控制器::
+.. note:: When using this feature the first segment of your URI must
+	specify the folder. For example, let's say you have a controller located
+	here::
 
-		application/controllers/products/Shoes.php
+		app/Controllers/products/Shoes.php
 
-	为了调用该控制器，你的 URI 应该像下面这样::
+	To call the above controller your URI will look something like this::
 
 		example.com/index.php/products/shoes/show/123
 
-每个子目录包含一个默认控制器，将在 URL 只包含子目录的时候被调用。默认控制器在 *application/Config/Routes.php* 中定义。
+Each of your sub-directories may contain a default controller which will be
+called if the URL contains *only* the sub-directory. Simply put a controller
+in there that matches the name of your 'default_controller' as specified in
+your *app/Config/Routes.php* file.
 
-你也可以使用 CodeIgniter 的 :doc:`./source/general/routing.rst` 功能来重定向 URI。
+CodeIgniter also permits you to remap your URIs using its :doc:`URI Routing <routing>` feature.
 
 
-构造函数
-==================
-
-
-如果你打算在你的控制器中使用构造函数，你 **必须** 将下面这行代码放在里面:：
-
-	parent::__construct(...$params);
-
-原因是你的构造函数将会覆盖父类的构造函数，所以我们要手工的调用它。
-
-例如::
-
-	<?php
-	class Blog extends \CodeIgniter\Controller
-	{
-		public function __construct(...$params)
-		{
-			parent::__construct(...$params);
-
-			// Your own constructor code
-		}
-	}
-
-如果你需要在你的类被初始化时设置一些默认值，或者进行一些默认处理，构造函数将很有用。 构造函数没有返回值，但是可以执行一些默认操作。
-
-包含属性
+Included Properties
 ===================
 
-你创建的每一个 controller 都应该继承 ``CodeIgniter\Controller`` 类。这个类提供了适合所有控制器的几个属性。
+Every controller you create should extend ``CodeIgniter\Controller`` class.
+This class provides several features that are available to all of your controllers.
 
-Request 对象
---------------
-``$this->request`` 作为应用程序的主要属性 :doc:`./source/libraries/request.rst` 是可以一直被使用的类属性。
+**Request Object**
 
+The application's main :doc:`Request Instance </incoming/request>` is always available
+as a class property, ``$this->request``.
 
-Response 对象
----------------
-``$this->response`` 作为应用程序的主要属性 :doc:`./source/libraries/response.rst` 是可以一直被使用的类属性。
+**Response Object**
 
-Logger 对象
--------------
-``$this->logger`` 类实例 :doc:`./source/general/logging.rst` 是可以一直被使用的类属性。
+The application's main :doc:`Response Instance </outgoing/response>` is always available
+as a class property, ``$this->response``.
 
-forceHTTPS
-----------
-一种强制通过 HTTPS 访问方法的便捷方法，在所有控制器中都是可用的::
+**Logger Object**
+
+An instance of the :doc:`Logger <../general/logging>` class is available as a class property,
+``$this->logger``.
+
+**forceHTTPS**
+
+A convenience method for forcing a method to be accessed via HTTPS is available within all
+controllers::
 
 	if (! $this->request->isSecure())
 	{
 		$this->forceHTTPS();
 	}
 
-默认情况下，在支持 HTTP 严格传输安全报头的现代浏览器中，此调用应强制浏览器将非 HTTPS 调用转换为一年的 HTTPS 调用。你可以通过将持续时间（以秒为单位）作为第一个参数来修改。 ::
+By default, and in modern browsers that support the HTTP Strict Transport Security header, this
+call should force the browser to convert non-HTTPS calls to HTTPS calls for one year. You can
+modify this by passing the duration (in seconds) as the first parameter::
 
 	if (! $this->request->isSecure())
 	{
 		$this->forceHTTPS(31536000);    // one year
 	}
 
+.. note:: A number of :doc:`time-based constants </general/common_functions>` are always available for you to use, including YEAR, MONTH, and more.
 
-.. note:: 你可以使用更多全局变量和函数 :doc:`./source/general/common_functions.rst` ，包括 年、月等等。
-
-
-辅助函数
+helpers
 -------
 
-你可以定义一个辅助文件数组作为类属性。每当控制器被加载时，
-这些辅助文件将自动加载到内存中，这样就可以在控制器的任何地方使用它们的方法。::
+You can define an array of helper files as a class property. Whenever the controller is loaded 
+these helper files will be automatically loaded into memory so that you can use their methods anywhere
+inside the controller::
 
-	class MyController extends \CodeIgniter\Controller
+	namespace App\Controllers;
+        use CodeIgniter\Controller;
+
+	class MyController extends Controller
 	{
 		protected $helpers = ['url', 'form'];
 	}
 
-验证 $_POST 数据
+Validating data
 ======================
 
-控制器还提供了一个简单方便的方法来验证 $_POST 数据，将一组规则作为第一个参数进行验证，如果验证不通过，可以选择显示一组自定义错误消息。你可以通过 **$this->request** 这个用法获取 POST 数据。 :doc:`Validation Library docs <./source/libraries/validation.rst>` 是有关规则和消息数组的格式以及可用规则的详细信息。 ::
+To simplify data checking, the controller also provides the convenience method ``validate()``. 
+The method accepts an array of rules in the first parameter, 
+and in the optional second parameter, an array of custom error messages to display 
+if the items are not valid. Internally, this uses the controller's
+**$this->request** instance to get the data to be validated. 
+The :doc:`Validation Library docs </libraries/validation>` have details on 
+rule and message array formats, as well as available rules.::
 
     public function updateUser(int $userID)
     {
         if (! $this->validate([
             'email' => "required|is_unique[users.email,id,{$userID}]",
-            'name' => 'required|alpha_numeric_spaces'
+            'name'  => 'required|alpha_numeric_spaces'
         ]))
         {
             return view('users/update', [
-                'errors' => $this->errors
+                'errors' => $this->validator->getErrors()
             ]);
         }
 
         // do something here if successful...
     }
 
-如果你觉得在配置文件中保存规则更简单，你可以通过在 ``Config\Validation.php`` 中定义代替 $rules 数组 ::
+If you find it simpler to keep the rules in the configuration file, you can replace 
+the $rules array with the name of the group as defined in ``Config\Validation.php``::
 
     public function updateUser(int $userID)
     {
         if (! $this->validate('userRules'))
         {
             return view('users/update', [
-                'errors' => $this->errors
+                'errors' => $this->validator->getErrors()
             ]);
         }
 
         // do something here if successful...
     }
 
-.. note:: 验证也可以在模型中自动处理。你可以在任何地方处理，你会发现控制器中的一些情况比模型简单，反之亦然。
+.. note:: Validation can also be handled automatically in the model, but sometimes it's easier to do it in the controller. Where is up to you.
 
-就这样了！
+That's it!
 ==========
 
-OK，总的来说，这就是关于控制器的所有内容了。
+That, in a nutshell, is all there is to know about controllers.

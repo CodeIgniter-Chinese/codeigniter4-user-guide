@@ -1,45 +1,50 @@
 ***************************
-使用文件上传类
+Working with Uploaded Files
 ***************************
 
-在 CodeIgniter 中通过表单使用文件上传功能将会比直接使用 PHP 的 ``$_FILES`` 数组更加简单和安全。其将继承  :doc:`文件类 </libraries/files>` 并获取该类的所有功能。
+CodeIgniter makes working with files uploaded through a form much simpler and more secure than using PHP's ``$_FILES``
+array directly. This extends the :doc:`File class </libraries/files>` and thus gains all of the features of that class.
 
-.. note:: 这和 CodeIgniter 的上一版本的文件上传类不同。这次提供了一个原生接口及一些小功能来上传文件。上传类将在最终版的时提供。
+.. note:: This is not the same as the File Uploading class in previous versions of CodeIgniter. This provides a raw
+	interface to the uploaded files with a few small features.
 
 .. contents::
     :local:
     :depth: 2
 
 ===============
-访问文件
+Accessing Files
 ===============
 
-所有文件
+All Files
 ----------
 
-当你上传文件时，PHP 可以在本地使用全局数组 ``$_FILES`` 来访问这些文件。当你同时上传多个文件时，这个数组存在一些不可忽视的缺点和很多开发者没有意识到的安全方面的潜在缺陷。CodeIgniter 通过一个公共接口来规范你对文件的使用，从而改善这些问题。
+When you upload files they can be accessed natively in PHP through the ``$_FILES`` superglobal. This array has some
+major shortcomings when working with multiple files uploaded at once, and has potential security flaws many developers
+are not aware of. CodeIgniter helps with both of these situations by standardizing your usage of files behind a
+common interface.
 
-
-通过当前的 ``IncomingRequest`` 实例来访问文件。使用 ``getFiles()`` 方法来获取本次请求中上传的所有文件。方法将会返回由 ``CodeIgniter\HTTP\Files\UploadedFile`` 实例表示的文件数组::
+Files are accessed through the current ``IncomingRequest`` instance. To retrieve all files that were uploaded with this
+request, use ``getFiles()``. This will return an array of files represented by instances of ``CodeIgniter\HTTP\Files\UploadedFile``::
 
 	$files = $this->request->getFiles();
 
-
-当然，有很多种方式来为文件 input 标签命名，除了最简外任何其他任何命名方式都可能产生奇怪的结果。数组将会以你期望的方式返回。使用最简方式，一个单文件提交表单可能会是这样::
+Of course, there are multiple ways to name the file input, and anything but the simplest can create strange results.
+The array returns in a manner that you would expect. With the simplest usage, a single file might be submitted like::
 
 	<input type="file" name="avatar" />
 
-其将会返回一个简单的数组像是::
+Which would return a simple array like::
 
 	[
 		'avatar' => // UploadedFile instance
 	]
 
-如果你在标签名称中使用数组表示法，input 标签将看上去像是这样::
+If you used an array notation for the name, the input would look something like::
 
 	<input type="file" name="my-form[details][avatar]" />
 
-``getFiles()`` 方法返回的数组看上去将像是这样::
+The array returned by ``getFiles()`` would look more like this::
 
 	[
 		'my-form' => [
@@ -49,12 +54,12 @@
 		]
 	]
 
-在某些情况下，你可以指定一组文件元素来上传::
+In some cases, you may specify an array of files to upload::
 
 	Upload an avatar: <input type="file" name="my-form[details][avatars][]" />
 	Upload an avatar: <input type="file" name="my-form[details][avatars][]" />
 
-在这种情况下，返回的文件数组将会像是这样::
+In this case, the returned array of files would be more like::
 
 	[
 		'my-form' => [
@@ -66,157 +71,197 @@
 		]
 	]
 
-单个文件
+Single File
 -----------
 
-如果你只需要访问单个文件，你可以使用 ``getFile()`` 方法来直接获取文件实例。其将会返回一个 ``CodeIgniter\HTTP\Files\UploadedFile`` 实例:
+If you just need to access a single file, you can use ``getFile()`` to retrieve the file instance directly. This will return an instance of ``CodeIgniter\HTTP\Files\UploadedFile``:
 
-
-最简使用
+Simplest usage
 ^^^^^^^^^^^^^^
 
-使用最简方式，一个单文件提交表单可能会是这样::
+With the simplest usage, a single file might be submitted like::
 
 	<input type="file" name="userfile" />
 
-其将会返回一个简单的文件实例像是::
+Which would return a simple file instance like::
 
 	$file = $this->request->getFile('userfile');
 
-
-数组表示法
+Array notation
 ^^^^^^^^^^^^^^
 
-如果你在标签名称中使用数组表示法，input 标签将看上去像是这样::
+If you used an array notation for the name, the input would look something like::
 
 	<input type="file" name="my-form[details][avatar]" />
 
-这样来获取文件实例::
+For get the file instance::
 
 	$file = $this->request->getFile('my-form.details.avatar');
 
-
-多文件
+Multiple files
 ^^^^^^^^^^^^^^
+::
 
-	<input type="file" name="images[]" multiple />
+    <input type="file" name="images[]" multiple />
 
-在控制器中::
-	if($imagefile = $this->request->getFiles())
-	{
-	   foreach($imagefile['images'] as $img)
-	   {
-	      if ($img->isValid() && ! $img->hasMoved())
-	      {
-	           $newName = $img->getRandomName();
-	           $img->move(WRITEPATH.'uploads', $newName);
-	      }
-	   }
-	}
+In controller::
 
+    if($imagefile = $this->request->getFiles())
+    {
+       foreach($imagefile['images'] as $img)
+       {
+          if ($img->isValid() && ! $img->hasMoved())
+          {
+               $newName = $img->getRandomName();
+               $img->move(WRITEPATH.'uploads', $newName);
+          }
+       }
+    }
 
-	循环中的 **images** 是表单中的字段名称
+where the **images** is loop is from the form field name
 
-如果多个文件使用相同名称提交，你可以使用 ``getFile()`` 去逐个获取每个文件::
-在控制器中::
+If there are multiple files with the same name you can use ``getFile()`` ro retrieve every file individually::
+In controller::
 
 	$file1 = $this->request->getFile('images.0');
 	$file2 = $this->request->getFile('images.1');
 
-另外一个例子::
+You might find it easier to use ``getFileMultiple()``, to get an array of uploaded files with the same name::
+
+	$files = $this->request->getFileMultiple('images');
+
+
+Another example::
 
 	Upload an avatar: <input type="file" name="my-form[details][avatars][]" />
 	Upload an avatar: <input type="file" name="my-form[details][avatars][]" />
 
-在控制器中::
+In controller::
 
 	$file1 = $this->request->getFile('my-form.details.avatars.0');
 	$file2 = $this->request->getFile('my-form.details.avatars.1');
 
-.. note:: 使用  ``getFiles()`` 更合适。
+.. note:: using ``getFiles()`` is more appropriate
 
 =====================
-使用文件
+Working With the File
 =====================
 
-一旦你获取到了 UploadedFile 实例,你可以以安全的方式检索到文件的信息，还能将文件移动到新的位置。
+Once you've retrieved the UploadedFile instance, you can retrieve information about the file in safe ways, as well as
+move the file to a new location.
 
-验证文件
+Verify A File
 -------------
 
-你可以调用 ``isValid()`` 方法来检查文件是否是通过 HTTP 无误上传的::
+You can check that a file was actually uploaded via HTTP with no errors by calling the ``isValid()`` method::
 
 	if (! $file->isValid())
 	{
 		throw new RuntimeException($file->getErrorString().'('.$file->getError().')');
 	}
 
-如这个例子所见，如果一个文件产生一个上传错误，你可以通过 ``getError()`` 和 ``getErrorString()`` 方法获取错误码（一个整数）和错误消息。通过此方法可以发现以下错误:
+As seen in this example, if a file had an upload error, you can retrieve the error code (an integer) and the error
+message with the ``getError()`` and ``getErrorString()`` methods. The following errors can be discovered through
+this method:
 
-* 文件大小超过了 upload_max_filesize 配置的值。
-* 文件大小超过了表单定义的上传限制。
-* 文件仅部分被上传。
-* 没有文件被上传。
-* 无法将文件写入磁盘。
-* 无法上传文件：缺少临时目录。
-* PHP扩展阻止了文件上传。
+* The file exceeds your upload_max_filesize ini directive.
+* The file exceeds the upload limit defined in your form.
+* The file was only partially uploaded.
+* No file was uploaded.
+* The file could not be written on disk.
+* File could not be uploaded: missing temporary directory.
+* File upload was stopped by a PHP extension.
 
-
-文件名称
+File Names
 ----------
 
 **getName()**
 
-你可以通过 ``getName()`` 提取到客户端提供的文件的原始名称。其通常是由客户端发送的文件名，不应受信。如果文件已经被移动，将返回移动文件的最终名称::
+You can retrieve the original filename provided by the client with the ``getName()`` method. This will typically be the
+filename sent by the client, and should not be trusted. If the file has been moved, this will return the final name of
+the moved file::
 
 	$name = $file->getName();
 
 **getClientName()**
 
-总是返回由客户端发送的上传文件的原始名称，即使文件已经被移动了::
+Always returns the original name of the uploaded file as sent by the client, even if the file has been moved::
 
   $originalName = $file->getClientName();
 
 **getTempName()**
 
-要获取在上传期间产生的临时文件的全路径，你可以使用 ``getTempName()`` 方法::
+To get the full path of the temp file that was created during the upload, you can use the ``getTempName()`` method::
 
 	$tempfile = $file->getTempName();
 
-
-其他文件信息
+Other File Info
 ---------------
 
 **getClientExtension()**
 
-基于上传文件的名称，返回原始文件扩展名。这不是一个值得信赖的来源。对于可信的版本，请使用 ``getExtension()`` 来代替::
+Returns the original file extension, based on the file name that was uploaded. This is NOT a trusted source. For a
+trusted version, use ``getExtension()`` instead::
 
 	$ext = $file->getClientExtension();
 
-**getClientType()**
+**getClientMimeType()**
 
-返回由客户端提供的文件的媒体类型(mime type)。这不是一个值得信赖的值，对于可信的版本，请使用 ``getType()`` 来代替::
+Returns the mime type (mime type) of the file as provided by the client. This is NOT a trusted value. For a trusted
+version, use ``getMimeType()`` instead::
 
-	$type = $file->getClientType();
+	$type = $file->getClientMimeType();
 
 	echo $type; // image/png
 
-
-移动文件
+Moving Files
 ------------
 
-每个文件都可以使用恰如其名的 ``move()` 方法来移动到新的位置。使用第一个参数为目标目录来移动文件::
+Each file can be moved to its new location with the aptly named ``move()`` method. This takes the directory to move
+the file to as the first parameter::
 
 	$file->move(WRITEPATH.'uploads');
 
-默认的，将使用文件原始名称。你可以指定一个新的文件名称作为第二个参数传递给方法。
+By default, the original filename was used. You can specify a new filename by passing it as the second parameter::
 
 	$newName = $file->getRandomName();
 	$file->move(WRITEPATH.'uploads', $newName);
 
-一旦文件被移除，将删除临时文件。你可以通过 ``hasMoved()`` 方法来检查文件是否已经被移动了，返回布尔值::
+Once the file has been removed the temporary file is deleted. You can check if a file has been moved already with
+the ``hasMoved()`` method, which returns a boolean::
 
     if ($file->isValid() && ! $file->hasMoved())
     {
         $file->move($path);
     }
+
+Moving an uploaded file can fail, with an HTTPException, under several circumstances:
+
+- the file has already been moved
+- the file did not upload successfully
+- the file move operation fails (eg. improper permissions)
+
+Store Files
+------------
+
+Each file can be moved to its new location with the aptly named ``store()`` method.
+
+With the simplest usage, a single file might be submitted like::
+
+	<input type="file" name="userfile" />
+
+By default, Upload files are saved in writable/uploads directory. the YYYYMMDD folder
+and random file name will be created. return a file path::
+
+	$path = $this->request->getFile('userfile')->store();
+
+You can specify directory to movethe file to as the first parameter.a new filename by
+passing it as thesecond parameter::
+
+	$path = $this->request->getFile('userfile')->store('head_img/', 'user_name.jpg');
+
+Moving an uploaded file can fail, with an HTTPException, under several circumstances:
+
+- the file has already been moved
+- the file did not upload successfully
+- the file move operation fails (eg. improper permissions)

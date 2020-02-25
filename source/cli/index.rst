@@ -1,8 +1,8 @@
 ##################
-命令行用法
+Command Line Usage
 ##################
 
-CodeIgniter 4 也可以用于命令行程序。
+CodeIgniter 4 can also be used with command line programs.
 
 .. toctree::
     :titlesonly:
@@ -10,3 +10,4 @@ CodeIgniter 4 也可以用于命令行程序。
     cli
     cli_commands
     cli_library
+    cli_request

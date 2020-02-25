@@ -73,7 +73,7 @@ for the timezone and locale in the second and third parameters::
 tomorrow()
 -----------
 
-Returns a new instance with the date set to the tomorrow's date and the time set to midnight. It accepts strings
+Returns a new instance with the date set to tomorrow's date and the time set to midnight. It accepts strings
 for the timezone and locale in the second and third parameters::
 
     $myTime = Time::tomorrow('America/Chicago', 'en_US');
@@ -148,7 +148,7 @@ Displaying the Value
 ====================
 
 Since the Time class extends DateTime, you get all of the output methods that provides, including the format() method.
-However, the DateTime methods do not provide a localize result. The Time class does provide a number of helper methods
+However, the DateTime methods do not provide a localized result. The Time class does provide a number of helper methods
 to display localized versions of the value, though.
 
 toLocalizedString()
@@ -177,7 +177,7 @@ toDateString()
 Displays just the date portion of the Time::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
-    echo $time->toDateTimeString();     // 2016-03-09
+    echo $time->toDateString();     // 2016-03-09
 
 toTimeString()
 --------------
@@ -498,10 +498,12 @@ Much like Time's humanize() method, this returns a string that displays the diff
 human readable format that is geared towards being easily understood. It can create strings like '3 hours ago',
 'in 1 month', etc. The biggest differences are in how very recent dates are handled::
 
-    // Assume current time is: March 10, 2017 (America/Chicago)
-    $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
+    $current = Time::parse('March 10, 2017', 'America/Chicago')
+    $test    = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
 
-    echo $time->humanize();     // 1 year ago
+    $diff = $current->difference($test)
+
+    echo $diff->humanize();     // 1 year ago
 
 The exact time displayed is determined in the following manner:
 

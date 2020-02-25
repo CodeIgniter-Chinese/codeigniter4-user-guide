@@ -1,24 +1,31 @@
 ################
-数据填充
+Database Seeding
 ################
 
-数据填充是一种简单的将数据添加到数据库的方式。这在开发的过程中特别有用，你只需要准备开发中所需要的示例数据填充到数据库中，而且不仅如此，这些数据可以包括你不想要包括的迁移的静态数据，例如国家/地区，地理编码表，事件或设置信息等等。
+Database seeding is a simple way to add data into your database. It is especially useful during development where
+you need to populate the database with sample data that you can develop against, but it is not limited to that.
+Seeds can contain static data that you don't want to include in a migration, like countries, or geo-coding tables,
+event or setting information, and more.
 
-数据填充是必须有 **run()** 方法的简单类，并继承于 **CodeIgniter\Database\Seeder** 。在 **run()** 中，该类可以创建你所需要的任何类型的数据。该类可以创建需要的任何形式的数据。它可以分别通过建立  ``$this->db`` 和 ``$this->forge`` 访问数据库连接。填充文件必须存储在 **application/Database/Seeds** 目录中。文件名和类名必须保持一致。
+Database seeds are simple classes that must have a **run()** method, and extend **CodeIgniter\Database\Seeder**.
+Within the **run()** the class can create any form of data that it needs to. It has access to the database
+connection and the forge through ``$this->db`` and ``$this->forge``, respectively. Seed files must be
+stored within the **app/Database/Seeds** directory. The name of the file must match the name of the class.
 ::
 
-	// application/Database/Seeds/SimpleSeeder.php
+        <?php namespace App\Database\Seeds;
+
 	class SimpleSeeder extends \CodeIgniter\Database\Seeder
 	{
 		public function run()
 		{
 			$data = [
 				'username' => 'darth',
-				'email' => 'darth@theempire.com'
+				'email'    => 'darth@theempire.com'
 			];
 
 			// Simple Queries
-			$this->db->query("INSERT INTO users (username, email) VALUES(:username, :email)",
+			$this->db->query("INSERT INTO users (username, email) VALUES(:username:, :email:)",
 				$data
 			);
 
@@ -27,10 +34,13 @@
 		}
 	}
 
-嵌套数据填充
+Nesting Seeders
 ===============
 
-你可以使用 **call()** 方法来运行其他的 seed 类。这允许你更容易使用 seeder，而且同时也将任务分发到各个 seeder 文件当中::
+Seeders can call other seeders, with the **call()** method. This allows you to easily organize a central seeder,
+but organize the tasks into separate seeder files::
+
+        <?php namespace App\Database\Seeds;
 
 	class TestSeeder extends \CodeIgniter\Database\Seeder
 	{
@@ -42,7 +52,8 @@
 		}
 	}
 
-你也可以在 **call()** 方法中使用完全合格的类名，使你的 seeder 在任何地方都可以更好的加载。这对于更多模块化代码库来说非常方便::
+You can also use a fully-qualified class name in the **call()** method, allowing you to keep your seeders
+anywhere the autoloader can find them. This is great for more modular code bases::
 
 	public function run()
 	{
@@ -50,17 +61,19 @@
 		$this->call('My\Database\Seeds\CountrySeeder');
 	}
 
-使用 Seeders
+Using Seeders
 =============
 
-你可以通过数据库配置类获取主 seeder::
+You can grab a copy of the main seeder through the database config class::
 
 	$seeder = \Config\Database::seeder();
 	$seeder->call('TestSeeder');
 
-命令行填充数
+Command Line Seeding
 --------------------
 
-如果不想创建专用控制器，也可以从命令行填充数据，作为 Migrations CLI 工具的一部分::
+You can also seed data from the command line, as part of the Migrations CLI tools, if you don't want to create
+a dedicated controller::
 
-	> php index.php migrations seed TestSeeder
+	> php spark db:seed TestSeeder
+

@@ -10,7 +10,7 @@ or communicate with an API, among many other things.
     :local:
     :depth: 2
 
-This class is modelled after the `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ library since
+This class is modeled after the `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ library since
 it is one of the more widely used libraries. Where possible, the syntax has been kept the same so that if
 your application needs something a little more powerful than what this library provides, you will have
 to change very little to move over to use Guzzle.
@@ -234,11 +234,22 @@ You can pass 0 to wait indefinitely::
 
 	$response->request('GET', 'http://example.com', ['connect_timeout' => 0]);
 
+cookie
+======
+
+This specifies the filename that CURL should use to read cookie values from, and
+to save cookie values to. This is done using the CURL_COOKIEJAR and CURL_COOKIEFILE options.
+An example::
+
+	$response->request('GET', 'http://example.com', ['cookie' => WRITEPATH . 'CookieSaver.txt']);
+
 debug
 =====
 
-When ``debug`` is passed and set to ``true``, this will enable additional debugging to echo to STDOUT during the
-script execution. This is done by passing CURLOPT_VERBOSE and echoing the output::
+When ``debug`` is passed and set to ``true``, this will enable additional debugging to echo to STDERR during the
+script execution. This is done by passing CURLOPT_VERBOSE and echoing the output. So, when you're running a built-in
+server via ``spark serve`` you will see the output in the console. Otherwise, the output will be written to
+the server's error log.
 
 	$response->request('GET', 'http://example.com', ['debug' => true]);
 
@@ -326,7 +337,7 @@ has been disabled. Any files that you want to send must be passed as instances o
 
 	$post_data = [
 		'foo'      => 'bar',
-		'userfile' => new CURLFile('/path/to/file.txt')
+		'userfile' => new \CURLFile('/path/to/file.txt')
 	];
 
 .. note:: ``multipart`` cannot be used with the ``form_params`` option. You can only use one or the other. Use
@@ -375,3 +386,4 @@ or 1.1, 2.0 is currently unsupported.)::
 
 	// Force HTTP/1.0
 	$client->request('GET', '/', ['version' => 1.0]);
+

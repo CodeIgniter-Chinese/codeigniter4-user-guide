@@ -1,255 +1,306 @@
 ##################
-API 响应特性
+API Response Trait
 ##################
 
-现代化的 PHP开发都需要构建 API ，不管它只是为了给 javascript 单页应用提供数据还是作为独立的产品。CodeIgniter 提供了一个API响应特性，可用于任何控制器，使公共响应类型简单，无需记住它的 HTTP 状态代码应返回的响应类型。
+Much of modern PHP development requires building API's, whether simply to provide data for a javascript-heavy
+single page application, or as a standalone product. CodeIgniter provides an API Response trait that can be
+used with any controller to make common response types simple, with no need to remember which HTTP status code
+should be returned for which response types.
 
 .. contents::
     :local:
     :depth: 2
 
 *************
-使用示例
+Example Usage
 *************
 
-下面的示例显示了控制器中常见的使用模式。
+The following example shows a common usage pattern within your controllers.
 
 ::
 
     <?php namespace App\Controllers;
 
+    use CodeIgniter\API\ResponseTrait;
+
     class Users extends \CodeIgniter\Controller
     {
-        use CodeIgniter\API\ResponseTrait;
+        use ResponseTrait;
 
         public function createUser()
         {
             $model = new UserModel();
-            $user = $model->save($this->request->getPost());
+            $user  = $model->save($this->request->getPost());
 
-            // 响应 201 状态码
+            // Respond with 201 status code
             return $this->respondCreated();
         }
     }
 
-在这个例子中，响应了 201 的HTTP状态码，并使用“创建”的通用状态消息返回。方法存在于最常见的用例中 ::
+In this example, an HTTP status code of 201 is returned, with the generic status message, 'Created'. Methods
+exist for the most common use cases::
 
-    // 通用响应方式
+    // Generic response method
     respond($data, 200);
-    // 通用错误响应
+    // Generic failure response
     fail($errors, 400);
-    // 项目创建响应
+    // Item created response
     respondCreated($data);
-    // 项目成功删除
+    // Item successfully deleted
     respondDeleted($data);
-    // 客户端未授权
+    // Command executed by no response required
+    respondNoContent($message);
+    // Client isn't authorized
     failUnauthorized($description);
-    // 禁止动作
+    // Forbidden action
     failForbidden($description);
-    // 找不到资源
+    // Resource Not Found
     failNotFound($description);
-    // Data 数据没有验证
+    // Data did not validate
     failValidationError($description);
-    // 资源已存在
+    // Resource already exists
     failResourceExists($description);
-    // 资源早已被删除
+    // Resource previously deleted
     failResourceGone($description);
-    // 客户端请求数过多
+    // Client made too many requests
     failTooManyRequests($description);
 
 ***********************
-处理响应类型
+Handling Response Types
 ***********************
 
-当您通过以下任何一种方法传递数据时，它们将决定基于数据类型来格式化结果:
+When you pass your data in any of these methods, they will determine the data type to format the results as based on
+the following criteria:
 
-* 如果 $data 是一个字符串，它将被当作 HTML 发送回客户端。
-* 如果 $data 是一个数组，它将尝试请求内容类型与客户端进行协商，默认为 JSON。如果没有在 Config\API.php 中配置内容。默认使用 ``$supportedResponseFormats`` 属性。
+* If $data is a string, it will be treated as HTML to send back to the client.
+* If $data is an array, it will try to negotiate the content type with what the client asked for, defaulting to JSON
+    if nothing else has been specified within Config\API.php, the ``$supportedResponseFormats`` property.
 
-需要使用格式化，请修改 **Config/Format.php** 文件配置。``$supportedResponseFormats`` 包含了一个格式化响应类型列表。默认情况下，系统将会自动判断并响应 XML 和 JSON 格式::
+To define the formatter that is used, edit **Config/Format.php**. The ``$supportedResponseFormats`` contains a list of
+mime types that your application can automatically format the response for. By default, the system knows how to
+format both XML and JSON responses::
 
         public $supportedResponseFormats = [
             'application/json',
             'application/xml'
         ];
 
-这是在 :doc:`Content Negotiation </libraries/content_negotiation>` 中使用的数组，以确定返回的响应类型。如果在客户端请求的内容和您支持的内容之间没有匹配，则返回第一个该数组中的格式。
+This is the array that is used during :doc:`Content Negotiation </incoming/content_negotiation>` to determine which
+type of response to return. If no matches are found between what the client requested and what you support, the first
+format in this array is what will be returned.
 
-接下来，需要定义用于格式化数据数组的类。这必须是一个完全合格的类名，类名必须实现 **CodeIgniter\API\FormatterInterface**。格式化支持 JSON 和 XML ::
+Next, you need to define the class that is used to format the array of data. This must be a fully qualified class
+name, and the class must implement **CodeIgniter\\Format\\FormatterInterface**. Formatters come out of the box that
+support both JSON and XML::
 
     public $formatters = [
-        'application/json' => \CodeIgniter\API\JSONFormatter::class,
-        'application/xml'  => \CodeIgniter\API\XMLFormatter::class
+        'application/json' => \CodeIgniter\Format\JSONFormatter::class,
+        'application/xml'  => \CodeIgniter\Format\XMLFormatter::class
     ];
 
-因此，如果您的请求在 **Accept** 头中请求 JSON 格式的数据，那么您传递的数据数组就可以通过其中任何一个 ``respond*`` 或 ``fail*`` 方法将由 **CodeIgniter\API\JSONFormatter** 格式化。由此产生的 JSON 数据将被发送回客户端。
+So, if your request asks for JSON formatted data in an **Accept** header, the data array you pass any of the
+``respond*`` or ``fail*`` methods will be formatted by the **CodeIgniter\\API\\JSONFormatter** class. The resulting
+JSON data will be sent back to the client.
 
-===============
-引用类
-===============
+Class Reference
+***************
+
 .. php:method:: respond($data[, $statusCode=200[, $message='']])
 
-    :param mixed  $data:  返回客户端的数据。字符串或数组。
-    :param int    $statusCode: 返回的HTTP状态码。默认为 200。
-    :param string $message: 返回的自定义 "reason" 消息。
+    :param mixed  $data: The data to return to the client. Either string or array.
+    :param int    $statusCode: The HTTP status code to return. Defaults to 200
+    :param string $message: A custom "reason" message to return.
 
-    这是该特征中所有其他方法用于将响应返回给客户端的方法。
+    This is the method used by all other methods in this trait to return a response to the client.
 
-     ``$data`` 元素可以是字符串或数组。 默认情况下，一个字符串将作为 HTML 返回，而数组将通过 json_encode 运行并返回为 JSON，除非 :doc:`Content Negotiation </libraries/content_negotiation>` 确定它应该以不同的格式返回。
+    The ``$data`` element can be either a string or an array. By default, a string will be returned as HTML,
+    while an array will be run through json_encode and returned as JSON, unless :doc:`Content Negotiation </incoming/content_negotiation>`
+    determines it should be returned in a different format.
 
-    如果一个 ``$message`` 字符串被传递，它将被用来替代标准的 IANA 标准码回应状态。但不是每个客户端都会遵守自定义代码，并将使用 IANA 标准
-     匹配状态码。
+    If a ``$message`` string is passed, it will be used in place of the standard IANA reason codes for the
+    response status. Not every client will respect the custom codes, though, and will use the IANA standards
+    that match the status code.
 
-    .. note:: 由于它在活动的响应实例上设置状态码和正文，所以应该一直作为脚本执行中的最终方法。
+    .. note:: Since it sets the status code and body on the active Response instance, this should always
+        be the final method in the script execution.
 
 .. php:method:: fail($messages[, int $status=400[, string $code=null[, string $message='']]])
 
-    :param mixed $messages: 包含遇到错误消息的字符串或字符串数组。
-    :param int   $status: 返回的HTTP状态码。 默认为400。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: 以客户端的首选格式进行多部分响应。
+    :param mixed $messages: A string or array of strings that contain error messages encountered.
+    :param int   $status: The HTTP status code to return. Defaults to 400.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: A multi-part response in the client's preferred format.
 
-    这是用于表示失败的响应的通用方法，并被所有其他“fail”方法使用。
+    The is the generic method used to represent a failed response, and is used by all of the other "fail" methods.
 
-    该 ``$messages`` 元素可以是字符串或字符串数​​组。
-    该 ``$status`` 参数是应返回的HTTP状态码。
+    The ``$messages`` element can be either a string or an array of strings.
 
-    由于使用自定义错误代码更好地提供了许多 API，因此可以在第三个参数中传递自定义错误代码。如果没有值，它将是一样的 ``$status`` 【状态码】。
+    The ``$status`` parameter is the HTTP status code that should be returned.
 
-    如果一个 ``$message`` 字符串被传递，它将被用于代替响应状态的标准 IANA 码。不是每个客户端都会遵守自定义代码，并且将使用与状态代码相匹配的 IANA 标准。
+    Since many APIs are better served using custom error codes, a custom error code can be passed in the third
+    parameter. If no value is present, it will be the same as ``$status``.
 
-    这个响应是一个包含两个元素的数组： ``error`` 和 ``messages`` 。 ``error`` 元素包含错误的状态代码。``messages`` 元素包含一组错误消息。它看起来像::
+    If a ``$message`` string is passed, it will be used in place of the standard IANA reason codes for the
+    response status. Not every client will respect the custom codes, though, and will use the IANA standards
+    that match the status code.
 
-        $response = [
-            'status' => 400,
-            'code' => '321a',
-            'messages' => [
-                'Error message 1',
-                'Error message 2'
-            ]
-        ];
+    The response is an array with two elements: ``error`` and ``messages``. The ``error`` element contains the status
+    code of the error. The ``messages`` element contains an array of error messages. It would look something like::
 
-.. php:method:: respondCreated($data[, string $message = ''])
+	    $response = [
+	        'status'   => 400,
+	        'code'     => '321a',
+	        'messages' => [
+	            'Error message 1',
+	            'Error message 2'
+	        ]
+	    ];
 
-    :param mixed  $data: 返回给客户端的数据。字符串或数组。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+.. php:method:: respondCreated($data = null[, string $message = ''])
 
-    设置创建新资源时使用的相应状态代码，通常为201::
+    :param mixed  $data: The data to return to the client. Either string or array.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
 
-        $user = $userModel->insert($data);
-        return $this->respondCreated($user);
+    Sets the appropriate status code to use when a new resource was created, typically 201.::
 
-.. php:method:: respondDeleted($data[, string $message = ''])
+	    $user = $userModel->insert($data);
+	    return $this->respondCreated($user);
 
-    :param mixed  $data: 返回给客户端的数据。字符串或数组
-    :param string $message: 自定义的“原因”消息返回。
-    :returns: Response 对象的 send()方法的值。
+.. php:method:: respondDeleted($data = null[, string $message = ''])
 
-    设置当通过此API调用的结果删除新资源时使用的相应状态代码（通常为200）。
-    ::
+    :param mixed  $data: The data to return to the client. Either string or array.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
 
-        $user = $userModel->delete($id);
-        return $this->respondDeleted(['id' => $id]);
-
-.. php:method:: failUnauthorized(string $description[, string $code=null[, string $message = '']])
-
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns:  Response 对象的 send()方法的值。
-
-    设置当用户未被授权或授权不正确时使用的相应状态代码。状态码为401。
-    ::
-
-        return $this->failUnauthorized('Invalid Auth token');
-
-.. php:method:: failForbidden(string $description[, string $code=null[, string $message = '']])
-
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
-
-    不像 ``failUnauthorized``，当请求 API 路径决不允许采用这种方法。未经授权意味着客户端被鼓励再次尝试使用不同的凭据。禁止意味着客户端不应该再次尝试，因为它不会有帮助。状态码为403。
+    Sets the appropriate status code to use when a new resource was deleted as the result of this API call, typically 200.
 
     ::
 
-        return $this->failForbidden('Invalid API endpoint.');
+	    $user = $userModel->delete($id);
+	    return $this->respondDeleted(['id' => $id]);
 
-.. php:method:: failNotFound(string $description[, string $code=null[, string $message = '']])
+.. php:method:: respondNoContent(string $message = 'No Content')
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
 
-    设置于在找不到请求的资源时使用的状态码。状态码为404。
-    ::
-
-        return $this->failNotFound('User 13 cannot be found.');
-
-.. php:method:: failValidationError(string $description[, string $code=null[, string $message = '']])
-
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
-
-    设置于客户端发送的数据未通过验证规则时使用的状态码。状态码通常为400。
+    Sets the appropriate status code to use when a command was successfully executed by the server but there is no 
+    meaningful reply to send back to the client, typically 204.
 
     ::
 
-        return $this->failValidationError($validation->getErrors());
+	    sleep(1);
+	    return $this->respondNoContent();        
 
-.. php:method:: failResourceExists(string $description[, string $code=null[, string $message = '']])
+.. php:method:: failUnauthorized(string $description = 'Unauthorized'[, string $code=null[, string $message = '']])
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    :param string  $description: The error message to show the user.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
 
-    设置于当客户端尝试创建的资源已经存在时使用的状态码。状态码通常为409。
-
-    ::
-
-        return $this->failResourceExists('A user already exists with that email.');
-
-.. php:method:: failResourceGone(string $description[, string $code=null[, string $message = '']])
-
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
-
-    设置于当请求的资源先前被删除并且不再使用时使用的状态码。状态码通常为410。
+    Sets the appropriate status code to use when the user either has not been authorized,
+    or has incorrect authorization. Status code is 401.
 
     ::
 
-        return $this->failResourceGone('That user has been previously deleted.');
+	    return $this->failUnauthorized('Invalid Auth token');
 
-.. php:method:: failTooManyRequests(string $description[, string $code=null[, string $message = '']])
+.. php:method:: failForbidden(string $description = 'Forbidden'[, string $code=null[, string $message = '']])
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    :param string  $description: The error message to show the user.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
 
-    设置于当客户端调用 API路径次数过多时使用的状态码。这可能是由于某种形式的节流或速率限制。状态码通常为400。
-    ::
-
-        return $this->failTooManyRequests('You must wait 15 seconds before making another request.');
-
-.. php:method:: failServerError(string $description[, string $code = null[, string $message = '']])
-
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
-
-    设置于当存在服务器错误时使用的状态码。
+    Unlike ``failUnauthorized``, this method should be used when the requested API endpoint is never allowed.
+    Unauthorized implies the client is encouraged to try again with different credentials. Forbidden means
+    the client should not try again because it won't help. Status code is 403.
 
     ::
 
-        return $this->failServerError('Server error.');
+    	return $this->failForbidden('Invalid API endpoint.');
+
+.. php:method:: failNotFound(string $description = 'Not Found'[, string $code=null[, string $message = '']])
+
+    :param string  $description: The error message to show the user.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
+
+    Sets the appropriate status code to use when the requested resource cannot be found. Status code is 404.
+
+    ::
+
+    	return $this->failNotFound('User 13 cannot be found.');
+
+.. php:method:: failValidationError(string $description = 'Bad Request'[, string $code=null[, string $message = '']])
+
+    :param string  $description: The error message to show the user.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
+
+    Sets the appropriate status code to use when data the client sent did not pass validation rules.
+    Status code is typically 400.
+
+    ::
+
+    	return $this->failValidationError($validation->getErrors());
+
+.. php:method:: failResourceExists(string $description = 'Conflict'[, string $code=null[, string $message = '']])
+
+    :param string  $description: The error message to show the user.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
+
+    Sets the appropriate status code to use when the resource the client is trying to create already exists.
+    Status code is typically 409.
+
+    ::
+
+    	return $this->failResourceExists('A user already exists with that email.');
+
+.. php:method:: failResourceGone(string $description = 'Gone'[, string $code=null[, string $message = '']])
+
+    :param string  $description: The error message to show the user.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
+
+    Sets the appropriate status code to use when the requested resource was previously deleted and
+    is no longer available. Status code is typically 410.
+
+    ::
+
+    	return $this->failResourceGone('That user has been previously deleted.');
+
+.. php:method:: failTooManyRequests(string $description = 'Too Many Requests'[, string $code=null[, string $message = '']])
+
+    :param string  $description: The error message to show the user.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
+
+    Sets the appropriate status code to use when the client has called an API endpoint too many times.
+    This might be due to some form of throttling or rate limiting. Status code is typically 400.
+
+    ::
+
+    	return $this->failTooManyRequests('You must wait 15 seconds before making another request.');
+
+.. php:method:: failServerError(string $description = 'Internal Server Error'[, string $code = null[, string $message = '']])
+
+    :param string $description: The error message to show the user.
+    :param string $code: A custom, API-specific, error code.
+    :param string $message: A custom "reason" message to return.
+    :returns: The value of the Response object's send() method.
+
+    Sets the appropriate status code to use when there is a server error.
+
+    ::
+
+    	return $this->failServerError('Server error.');

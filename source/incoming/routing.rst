@@ -1,37 +1,40 @@
 ###########
-URI 路由
+URI Routing
 ###########
 
 .. contents::
     :local:
     :depth: 2
 
-一般情况下，一个 URL 字符串和它对应的控制器中类和方法是一一对应的关系。 URL 中的每一段通常遵循下面的规则::
+Typically there is a one-to-one relationship between a URL string and its corresponding
+controller class/method. The segments in a URI normally follow this pattern::
 
     example.com/class/function/id/
 
-但是有时候，你可能想改变这种映射关系，调用一个不同的类和方法，而不是 URL 中对应的那样。
+In some instances, however, you may want to remap this relationship so that a different
+class/method can be called instead of the one corresponding to the URL.
 
-例如，假设你希望你的 URL 变成下面这样::
+For example, let’s say you want your URLs to have this prototype::
 
     example.com/product/1/
     example.com/product/2/
     example.com/product/3/
     example.com/product/4/
 
-URL 的第二段通常表示方法的名称，但在上面的例子中，第二段是一个商品 ID ， 为了实现这一点，CodeIgniter 允许你重新定义 URL 的处理流程。
+Normally the second segment of the URL is reserved for the method name, but in the example
+above it instead has a product ID. To overcome this, CodeIgniter allows you to remap the URI handler.
 
-设置你自己的路由规则
+Setting your own routing rules
 ==============================
 
-Routing rules are defined in the **application/config/Routes.php** file. In it you'll see that
+Routing rules are defined in the **app/config/Routes.php** file. In it you'll see that
 it creates an instance of the RouteCollection class that permits you to specify your own routing criteria.
 Routes can be specified using placeholders or Regular Expressions.
 
 A route simply takes the URI on the left, and maps it to the controller and method on the right,
 along with any parameters that should be passed to the controller. The controller and method should
 be listed in the same way that you would use a static method, by separating the fully-namespaced class
-and its method with a double-colon, like ``Users::list``.  If that method requires parameters to be
+and its method with a double-colon, like ``Users::list``. If that method requires parameters to be
 passed to it, then they would be listed after the method name, separated by forward-slashes::
 
 	// Calls the $Users->list()
@@ -94,7 +97,7 @@ and the “productLookupByID” method passing in the match as a variable to the
 
 .. important:: While the ``add()`` method is convenient, it is recommended to always use the HTTP-verb-based
     routes, described below, as it is more secure. It will also provide a slight performance increase, since
-    only routes that match the current request method are stored, resulting in less routes to scan through
+    only routes that match the current request method are stored, resulting in fewer routes to scan through
     when trying to find a match.
 
 Custom Placeholders
@@ -119,10 +122,10 @@ is allowed, as are back-references.
 .. important:: Note: If you use back-references you must use the dollar syntax rather than the double backslash syntax.
     A typical RegEx route might look something like this::
 
-	$routes->add('products/([a-z]+)/(\d+)', '$1::id_$2');
+	$routes->add('products/([a-z]+)/(\d+)', 'Products::show/$1/id_$2');
 
-In the above example, a URI similar to products/shirts/123 would instead call the “\Shirts” controller class
-and the “id_123” method.
+In the above example, a URI similar to products/shirts/123 would instead call the ``show`` method
+of the ``Products`` controller class, with the original first and second segment passed as arguments to it.
 
 With regular expressions, you can also catch a segment containing a forward slash (‘/’), which would usually
 represent the delimiter between multiple segments.
@@ -218,20 +221,20 @@ If you need to assign options to a group, like a `namespace <#assigning-namespac
 
 This would handle a resource route to the ``App\API\v1\Users`` controller with the ``/api/users`` URI.
 
-You can also use ensure that a specific `filter </general/filters>`_ gets ran for a group of routes. This will always
-run the filter before the controller. This is especially handy during authentication::
+You can also use a specific `filter <filters.html>`_ for a group of routes. This will always
+run the filter before or after the controller. This is especially handy during authentication or api logging::
 
     $routes->group('api', ['filter' => 'api-auth'], function($routes)
     {
         $routes->resource('users');
     });
 
-The value for the filter must match one of the aliases defined within ``application/Config/Filters.php``.
+The value for the filter must match one of the aliases defined within ``app/Config/Filters.php``.
 
 Environment Restrictions
 ========================
 
-You can create a set of routes that will only be viewable under a certain environment. This allows you to create
+You can create a set of routes that will only be viewable in a certain environment. This allows you to create
 tools that only the developer can use on their local machines that are not reachable on testing or production servers.
 This can be done with the ``environment()`` method. The first parameter is the name of the environment. Any
 routes defined within this closure are only accessible from the given environment::
@@ -303,78 +306,10 @@ available from the command line::
 
 	$routes->cli('migrate', 'App\Database::migrate');
 
-Resource Routes
-===============
-
-You can quickly create a handful of RESTful routes for a single resource with the ``resource()`` method. This
-creates the five most common routes needed for full CRUD of a resource: create a new resource, update an existing one,
-list all of that resource, show a single resource, and delete a single resource. The first parameter is the resource
-name::
-
-    $routes->resource('photos');
-
-    // Equivalent to the following:
-    $routes->get('photos',                 'Photos::index');
-    $routes->get('photos/new',             'Photos::new');
-    $routes->get('photos/(:segment)/edit', 'Photos::edit/$1');
-    $routes->get('photos/(:segment)',      'Photos::show/$1');
-    $routes->post('photos',                'Photos::create');
-    $routes->patch('photos/(:segment)',    'Photos::update/$1');
-    $routes->put('photos/(:segment)',      'Photos::update/$1');
-    $routes->delete('photos/(:segment)',   'Photos::delete/$1');
-
-.. important:: The routes are matched in the order they are specified, so if you have a resource photos above a get 'photos/poll' the show action's route for the resource line will be matched before the get line. To fix this, move the get line above the resource line so that it is matched first.
-
-The second parameter accepts an array of options that can be used to modify the routes that are generated. While these
-routes are geared toward API-usage, where more methods are allowed, you can pass in the 'websafe' option to have it
-generate update and delete methods that work with HTML forms::
-
-    $routes->resource('photos', ['websafe' => 1]);
-
-    // The following equivalent routes are created:
-    $routes->post('photos/(:segment)',        'Photos::update/$1');
-    $routes->post('photos/(:segment)/delete', 'Photos::delete/$1');
-
-Change the Controller Used
---------------------------
-
-You can specify the controller that should be used by passing in the ``controller`` option with the name of
-the controller that should be used::
-
-	$routes->resource('photos', ['controller' =>'App\Gallery']);
-
-	// Would create routes like:
-	$routes->get('photos', 'App\Gallery::index');
-
-Change the Placeholder Used
----------------------------
-
-By default, the ``segment`` placeholder is used when a resource ID is needed. You can change this by passing
-in the ``placeholder`` option with the new string to use::
-
-	$routes->resource('photos', ['placeholder' => '(:id)']);
-
-	// Generates routes like:
-	$routes->get('photos/(:id)', 'Photos::show/$1');
-
-Limit the Routes Made
----------------------
-
-You can restrict the routes generated with the ``only`` option. This should be an array or comma separated list of method names that should
-be created. Only routes that match one of these methods will be created. The rest will be ignored::
-
-	$routes->resource('photos', ['only' => ['index', 'show']]);
-
-Otherwise you can remove unused routes with the ``except`` option. This option run after ``only``::
-
-	$routes->resource('photos', ['except' => 'new,edit']);
-
-Valid methods are: index, show, create, update, new, edit and delete.
-
 Global Options
 ==============
 
-All of the methods for creating a route (add, get, post, resource, etc) can take an array of options that
+All of the methods for creating a route (add, get, post, `resource <restful.html>`_ etc) can take an array of options that
 can modify the generated routes, or further restrict them. The ``$options`` array is always the last parameter::
 
 	$routes->add('from', 'to', $options);
@@ -389,6 +324,19 @@ can modify the generated routes, or further restrict them. The ``$options`` arra
 	$routes->resource('photos', $options);
 	$routes->map($array, $options);
 	$routes->group('name', $options, function());
+
+Applying Filters
+----------------
+
+You can alter the behavior of specific routes by supplying a filter to run before or after the controller. This is especially handy during authentication or api logging::
+
+    $routes->add('admin',' AdminController::index', ['filter' => 'admin-auth']);
+
+The value for the filter must match one of the aliases defined within ``app/Config/Filters.php``. You may also supply parameters to be passed to the filter's ``before()`` and ``after()`` methods::
+
+    $routes->add('users/delete/(:segment)', 'AdminController::index', ['filter' => 'admin-auth:dual,noreturn']);
+
+See `Controller filters <filters.html>`_ for more information on setting up filters.
 
 Assigning Namespace
 -------------------
@@ -452,7 +400,7 @@ Routes Configuration Options
 ============================
 
 The RoutesCollection class provides several options that affect all routes, and can be modified to meet your
-application's needs. These options are available at the top of `/application/Config/Routes.php`.
+application's needs. These options are available at the top of `/app/Config/Routes.php`.
 
 Default Namespace
 -----------------
@@ -485,14 +433,14 @@ Default Controller
 
 When a user visits the root of your site (i.e. example.com) the controller to use is determined by the value set by
 the ``setDefaultController()`` method, unless a route exists for it explicitly. The default value for this is ``Home``
-which matches the controller at ``/application/Controllers/Home.php``::
+which matches the controller at ``/app/Controllers/Home.php``::
 
-	// example.com routes to application/Controllers/Welcome.php
+	// example.com routes to app/Controllers/Welcome.php
 	$routes->setDefaultController('Welcome');
 
 The default controller is also used when no matching route has been found, and the URI would point to a directory
 in the controllers directory. For example, if the user visits ``example.com/admin``, if a controller was found at
-``/application/Controllers/admin/Home.php`` it would be used.
+``/app/Controllers/admin/Home.php`` it would be used.
 
 Default Method
 --------------
@@ -510,7 +458,7 @@ Translate URI Dashes
 --------------------
 
 This option enables you to automatically replace dashes (‘-‘) with underscores in the controller and method
-URI segments, thus saving you additional route entries if you need to do that. This is required, because the
+URI segments, thus saving you additional route entries if you need to do that. This is required because the
 dash isn’t a valid class or method name character and would cause a fatal error if you try to use it::
 
 	$routes->setTranslateURIDashes(true);

@@ -67,7 +67,7 @@ What It Does
 ============
 
 The ``Parser`` class processes "PHP/HTML scripts" stored in the application's view path.
-These scripts have a ``.php`` extension, but can not contain any PHP.
+These scripts can not contain any PHP.
 
 Each view parameter (which we refer to as a pseudo-variable) triggers a substitution,
 based on the type of value you provided for it. Pseudo-variables are not
@@ -99,7 +99,9 @@ View parameters are passed to ``setData()`` as an associative
 array of data to be replaced in the template. In the above example, the
 template would contain two variables: {blog_title} and {blog_heading}
 The first parameter to ``render()`` contains the name of the :doc:`view
-file </outgoing/views>` (in this example the file would be called blog_template.php),
+file </outgoing/views>`, Where *blog_template* is the name of your view file.
+
+.. important:: If the file extension is omitted, then the views are expected to end with the .php extension.
 
 Parser Configuration Options
 ============================
@@ -184,17 +186,17 @@ Parsing variable pairs is done using the identical code shown above to
 parse single variables, except, you will add a multi-dimensional array
 corresponding to your variable pair data. Consider this example::
 
-	$data = array(
+	$data = [
 		'blog_title'   => 'My Blog Title',
 		'blog_heading' => 'My Blog Heading',
-		'blog_entries' => array(
+		'blog_entries' => [
 			['title' => 'Title 1', 'body' => 'Body 1'],
 			['title' => 'Title 2', 'body' => 'Body 2'],
 			['title' => 'Title 3', 'body' => 'Body 3'],
 			['title' => 'Title 4', 'body' => 'Body 4'],
 			['title' => 'Title 5', 'body' => 'Body 5']
-		)
-	);
+		]
+	];
 
 	echo $parser->setData($data)
 	             ->render('blog_template');
@@ -209,11 +211,11 @@ method::
 
 	$query = $db->query("SELECT * FROM blog");
 
-	$data = array(
+	$data = [
 		'blog_title'   => 'My Blog Title',
 		'blog_heading' => 'My Blog Heading',
 		'blog_entries' => $query->getResultArray()
-	);
+	];
 
 	echo $parser->setData($data)
 	             ->render('blog_template');
@@ -234,13 +236,13 @@ Nested Substitutions
 A nested substitution happens when the value for a pseudo-variable is
 an associative array of values, like a record from a database::
 
-	$data = array(
+	$data = [
 		'blog_title'   => 'My Blog Title',
 		'blog_heading' => 'My Blog Heading',
-		'blog_entry'   => array(
+		'blog_entry'   => [
 			'title' => 'Title 1', 'body' => 'Body 1'
-		)
-	);
+		]
+	];
 
 	echo $parser->setData($data)
 	             ->render('blog_template');
@@ -399,40 +401,66 @@ Provided Filters
 
 The following filters are available when using the parser:
 
-==================== ========================== ==================================================================== =================================
-Filter               Arguments                  Description                                                          Example
-==================== ========================== ==================================================================== =================================
-abs                                             Displays the absolute value of a number.                             { v|abs }
-capitalize                                      Displays the string in sentence case: all lowercase with first       { v|capitalize}
-                                                letter capitalized.
-date                 format (Y-m-d)             A PHP **date**-compatible formatting string.                         { v|date(Y-m-d) }
-date_modify          value to add/subtract      A **strtotime** compatible string to modify the date, like           { v|date_modify(+1 day) }
-                                                ``+5 day`` or ``-1 week``.
-default              default value              Displays the default value if the variable is empty or undefined.    { v|default(just in case) }
-esc                  html, attr, css, js        Specifies the context to escape the data.                            { v|esc(attr) }
-excerpt              phrase, radius             Returns the text within a radius of words from a given phrase.       { v|excerpt(green giant, 20) }
-                                                Same as **excerpt** helper function.
-highlight            phrase                     Highlights a given phrase within the text using '<mark></mark>'
-                                                tags.                                                                { v|highlight(view parser) }
-highlight_code                                  Highlights code samples with HTML/CSS.                               { v|highlight_code }
-limit_chars          limit                      Limits the number of chracters to $limit.                            { v|limit_chars(100) }
-limit_words          limit                      Limits the number of words to $limit.                                { v|limit_words(20) }
-local_currency       currency, locale           Displays a localized version of a currency. "currency" value is any  { v|local_currency(EUR,en_US) }
-                                                3-letter ISO 4217 currency code.
-local_number         type, precision, locale    Displays a localized version of a number. "type" can be one of:      { v|local_number(decimal,2,en_US) }
-                                                decimal, currency, percent, scientific, spellout, ordinal, duration.
-lower                                           Converts a string to lowercase.                                      { v|lower }
-nl2br                                           Replaces all newline characters (\n) to an HTML <br/> tag.           { v|nl2br }
-number_format        places                     Wraps PHP **number_format** function for use within the parser.      { v|number_format(3) }
-prose                                           Takes a body of text and uses the **auto_typography()** method to    { v|prose }
-                                                turn it into prettier, easier-to-read, prose.
-round                places, type               Rounds a number to the specified places. Types of **ceil** and       { v|round(3) } { v|round(ceil) }
-                                                **floor** can be passed to use those functions instead.
-strip_tags           allowed chars              Wraps PHP **strip_tags**. Can accept a string of allowed tags.       { v|strip_tags(<br>) }
-title                                           Displays a "title case" version of the string, with all lowercase,   { v|title }
-                                                and each word capitalized.
-upper                                           Displays the string in all uppercase.                                { v|upper }
-==================== ========================== ==================================================================== =================================
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ **Filter**    + **Arguments**       + **Description**                                              + **Example**                         +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ abs           +                     + Displays the absolute value of a number.                     + { v|abs }                           +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ capitalize    +                     + Displays the string in sentence case: all lowercase          + { v|capitalize}                     +
++               +                     + with firstletter capitalized.                                +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ date          + format (Y-m-d)      + A PHP **date**-compatible formatting string.                 + { v|date(Y-m-d) }                   +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ date_modify   + value to add        + A **strtotime** compatible string to modify the date,        + { v|date_modify(+1 day) }           +
++               + / subtract          + like ``+5 day`` or ``-1 week``.                              +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ default       + default value       + Displays the default value if the variable is empty or       + { v|default(just in case) }         +
++               +                     + undefined.                                                   +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ esc           + html, attr, css, js + Specifies the context to escape the data.                    + { v|esc(attr) }                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ excerpt       + phrase, radius      + Returns the text within a radius of words from a given       + { v|excerpt(green giant, 20) }      +
++               +                     + phrase. Same as **excerpt** helper function.                 +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ highlight     + phrase              + Highlights a given phrase within the text using              + { v|highlight(view parser) }        +
++               +                     + '<mark></mark>' tags.                                        +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ highlight_code+                     + Highlights code samples with HTML/CSS.                       + { v|highlight_code }                +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ limit_chars   + limit               + Limits the number of characters to $limit.                   + { v|limit_chars(100) }              +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ limit_words   + limit               + Limits the number of words to $limit.                        + { v|limit_words(20) }               +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ local_currency+ currency, locale    + Displays a localized version of a currency. "currency"       + { v|local_currency(EUR,en_US) }     +
++               +                     + valueis any 3-letter ISO 4217 currency code.                 +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ local_number  + type, precision,    + Displays a localized version of a number. "type" can be      + { v|local_number(decimal,2,en_US) } +
++               + locale              + one of: decimal, currency, percent, scientific, spellout,    +                                     +
++               +                     + ordinal, duration.                                           +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ lower         +                     + Converts a string to lowercase.                              + { v|lower }                         +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ nl2br         +                     + Replaces all newline characters (\n) to an HTML <br/> tag.   + { v|nl2br }                         +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ number_format + places              + Wraps PHP **number_format** function for use within the      + { v|number_format(3) }              +
++               +                     + parser.                                                      +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ prose         +                     + Takes a body of text and uses the **auto_typography()**      + { v|prose }                         +
++               +                     + method to turn it into prettier, easier-to-read, prose.      +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ round         + places, type        + Rounds a number to the specified places. Types of **ceil**   + { v|round(3) } { v|round(ceil) }    +
++               +                     + and **floor** can be passed to use those functions instead.  +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ strip_tags    + allowed chars       + Wraps PHP **strip_tags**. Can accept a string of allowed     + { v|strip_tags(<br>) }              +
++               +                     + tags.                                                        +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ title         +                     + Displays a "title case" version of the string, with all      + { v|title }                         +
++               +                     + lowercase, and each word capitalized.                        +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++ upper         +                     + Displays the string in all uppercase.                        + { v|upper }                         +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
++               +                     +                                                              +                                     +
++---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
 
 See `PHP's NumberFormatter <http://php.net/manual/en/numberformatter.create.php>`_ for details relevant to the
 "local_number" filter.
@@ -440,7 +468,7 @@ See `PHP's NumberFormatter <http://php.net/manual/en/numberformatter.create.php>
 Custom Filters
 --------------
 
-You can easily create your own filters by editing **application/Config/View.php** and adding new entries to the
+You can easily create your own filters by editing **app/Config/View.php** and adding new entries to the
 ``$filters`` array. Each key is the name of the filter is called by in the view, and its value is any valid PHP
 callable::
 
@@ -452,7 +480,7 @@ callable::
 PHP Native functions as Filters
 -------------------------------
 
-You can easily use native php function as filters by editing **application/Config/View.php** and adding new entries to the
+You can use native php function as filters by editing **app/Config/View.php** and adding new entries to the
 ``$filters`` array.Each key is the name of the native PHP function is called by in the view, and its value is any valid native PHP
 function prefixed with::
 
@@ -493,12 +521,12 @@ The following plugins are available when using the parser:
 ==================== ========================== ================================================================================== ================================================================
 Plugin               Arguments                  Description                                                           			   Example
 ==================== ========================== ================================================================================== ================================================================
-current_url                                     Alias for the current_url helper function.                            			   {+ current_url +}
-previous_url                                    Alias for the previous_url helper function.                           			   {+ previous_url +}
-site_url                                        Alias for the site_url helper function.                                            {+ site_url "login" +}
-mailto               email, title, attributes   Alias for the mailto helper function.                                 			   {+ mailto email=foo@example.com title="Stranger Things" +}
-safe_mailto          email, title, attributes   Alias for the safe_mailto helper function.                            			   {+ safe_mailto email=foo@example.com title="Stranger Things" +}
-lang                 language string            Alias for the lang helper function.                                    			   {+ lang number.terabyteAbbr +}
+current_url                                     Alias for the current_url helper function.                                         {+ current_url +}
+previous_url                                    Alias for the previous_url helper function.                           		       {+ previous_url +}
+siteURL                                         Alias for the site_url helper function.                                            {+ siteURL "login" +}
+mailto               email, title, attributes   Alias for the mailto helper function.                                 		       {+ mailto email=foo@example.com title="Stranger Things" +}
+safe_mailto          email, title, attributes   Alias for the safe_mailto helper function.                            		       {+ safe_mailto email=foo@example.com title="Stranger Things" +}
+lang                 language string            Alias for the lang helper function.                                    		       {+ lang number.terabyteAbbr +}
 validation_errors    fieldname(optional)        Returns either error string for the field (if specified) or all validation errors. {+ validation_errors +} , {+ validation_errors field="email" +}
 route                route name                 Alias for the route_to helper function.                                            {+ route "login" +}
 ==================== ========================== ================================================================================== ================================================================
@@ -507,7 +535,7 @@ Registering a Plugin
 --------------------
 
 At its simplest, all you need to do to register a new plugin and make it ready for use is to add it to the
-**application/Config/View.php**, under the **$plugins** array. The key is the name of the plugin that is
+**app/Config/View.php**, under the **$plugins** array. The key is the name of the plugin that is
 used within the template file. The value is any valid PHP callable, including static class methods, and closures::
 
 	public $plugins = [
@@ -516,6 +544,22 @@ used within the template file. The value is any valid PHP callable, including st
 			return $str;
 		},
 	];
+
+Any closures that are being used must be defined in the config file's constructor::
+
+    class View extends \CodeIgniter\Config\View
+    {
+        public $plugins = [];
+
+        public function __construct()
+        {
+            $this->plugins['bar'] = function(array $params=[]) {
+                return $params[0] ?? '';
+            };
+
+            parent::__construct();
+        }
+    }
 
 If the callable is on its own, it is treated as a single tag, not a open/close one. It will be replaced by
 the return value from the plugin::
@@ -544,11 +588,11 @@ If you include substitution parameters that are not referenced in your
 template, they are ignored::
 
 	$template = 'Hello, {firstname} {lastname}';
-	$data = array(
+	$data = [
 		'title' => 'Mr',
 		'firstname' => 'John',
 		'lastname' => 'Doe'
-	);
+	];
 	echo $parser->setData($data)
 	             ->renderString($template);
 
@@ -558,11 +602,11 @@ If you do not include a substitution parameter that is referenced in your
 template, the original pseudo-variable is shown in the result::
 
 	$template = 'Hello, {firstname} {initials} {lastname}';
-	$data = array(
+	$data = [
 		'title'     => 'Mr',
 		'firstname' => 'John',
 		'lastname'  => 'Doe'
-	);
+	];
 	echo $parser->setData($data)
 	             ->renderString($template);
 
@@ -573,15 +617,15 @@ i.e. for a variable pair, the substitution is done for the opening variable
 pair tag, but the closing variable pair tag is not rendered properly::
 
 	$template = 'Hello, {firstname} {lastname} ({degrees}{degree} {/degrees})';
-	$data = array(
+	$data = [
 		'degrees'   => 'Mr',
 		'firstname' => 'John',
 		'lastname'  => 'Doe',
-		'titles'    => array(
-			array('degree' => 'BSc'),
-			array('degree' => 'PhD')
-		)
-	);
+		'titles'    => [
+			['degree' => 'BSc'],
+			['degree' => 'PhD']
+		]
+	];
 	echo $parser->setData($data)
 	             ->renderString($template);
 
@@ -601,12 +645,12 @@ An example with the iteration controlled in the view::
 		<li><a href="{link}">{title}</a></li>
 	{/menuitems}</ul>';
 
-	$data = array(
-		'menuitems' => array(
-			array('title' => 'First Link', 'link' => '/first'),
-			array('title' => 'Second Link', 'link' => '/second'),
-		)
-	);
+	$data = [
+		'menuitems' => [
+			['title' => 'First Link', 'link' => '/first'],
+			['title' => 'Second Link', 'link' => '/second'],
+		]
+	];
 	echo $parser->setData($data)
 	             ->renderString($template);
 
@@ -622,10 +666,10 @@ using a view fragment::
 
 	$temp = '';
 	$template1 = '<li><a href="{link}">{title}</a></li>';
-	$data1 = array(
-		array('title' => 'First Link', 'link' => '/first'),
-		array('title' => 'Second Link', 'link' => '/second'),
-	);
+	$data1 = [
+		['title' => 'First Link', 'link' => '/first'],
+		['title' => 'Second Link', 'link' => '/second'],
+	];
 
 	foreach ($data1 as $menuitem)
 	{
@@ -633,9 +677,9 @@ using a view fragment::
 	}
 
 	$template = '<ul>{menuitems}</ul>';
-	$data = array(
+	$data = [
 		'menuitems' => $temp
-	);
+	];
 	echo $parser->setData($data)
 	             ->renderString($template);
 

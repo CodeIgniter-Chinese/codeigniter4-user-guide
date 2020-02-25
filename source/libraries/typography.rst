@@ -1,52 +1,59 @@
 ##########
-Typography 类
+Typography
 ##########
 
-Typography 库包含一些方法用于帮助您以语义相关的方式设置文本格式。
+The Typography library contains methods that help you format text
+in semantically relevant ways.
 
 *******************
-加载类库
+Loading the Library
 *******************
 
-与 CodeIgniter 的所有其他服务一样，可以通过 ``Config\Services`` 来加载，通常不需要手动加载::
+Like all services in CodeIgniter, it can be loaded via ``Config\Services``, though you usually will not need
+to load it manually::
 
     $typography = \Config\Services::typography();
 
 **************************
-可用的静态方法
+Available static functions
 **************************
 
-以下的方法是可用的：
+The following functions are available:
 
 **autoTypography()**
 
 .. php:function:: autoTypography($str[, $reduce_linebreaks = FALSE])
 
 	:param	string	$str: Input string
-	:param	bool	$reduce_linebreaks: 是否将多个双重换行减少为两个
-	:returns:	HTML 格式化的排版安全的字符串
+	:param	bool	$reduce_linebreaks: Whether to reduce multiple instances of double newlines to two
+	:returns:	HTML-formatted typography-safe string
 	:rtype: string
 
-	格式化文本使其成为语义和排版正确的 HTML 。
-	
-	使用示例::
+	Formats text so that it is semantically and typographically correct
+	HTML.
+
+	Usage example::
 
 		$string = $typography->autoTypography($string);
 
-	.. note:: 格式排版可能会消耗大量处理器资源，特别是在排版大量内容时。 如果你选择使用这个函数的话，
-		你可以考虑 :doc:`缓存 <../general/caching>` 你的页面。
+	.. note:: Typographic formatting can be processor intensive, particularly if
+		you have a lot of content being formatted. If you choose to use this
+		function you may want to consider :doc:`caching <../general/caching>` your
+		pages.
 
 **formatCharacters()**
 
 .. php:function:: formatCharacters($str)
 
 	:param	string	$str: Input string
-	:returns:	带有格式化字符的字符串
+	:returns:	String with formatted characters.
 	:rtype:	string
 
-	将双引号或单引号转成正确的实体，也会转化—破折号，双空格和&符号。
-	
-	使用示例::
+	This function mainly converts double and single quotes
+	to curly entities, but it also converts em-dashes,
+	double spaces, and ampersands.
+
+	Usage example::
 
 		$string = $typography->formatCharacters($string);
 
@@ -55,13 +62,13 @@ Typography 库包含一些方法用于帮助您以语义相关的方式设置文
 .. php:function:: nl2brExceptPre($str)
 
 	:param	string	$str: Input string
-	:returns:	带有 HTML 格式化换行符的字符串
+	:returns:	String with HTML-formatted line breaks
 	:rtype:	string
 
-	将换行转换为 <br /> 标签， 忽略 <pre> 标签中的换行符。
-	这个函数和PHP原生的 ``nl2br()`` 函数是一样的，
-	但忽略 <pre> 标签。
+	Converts newlines to <br /> tags unless they appear within <pre> tags.
+	This function is identical to the native PHP ``nl2br()`` function,
+	except that it ignores <pre> tags.
 
-	使用示例::
+	Usage example::
 
 		$string = $typography->nl2brExceptPre($string);

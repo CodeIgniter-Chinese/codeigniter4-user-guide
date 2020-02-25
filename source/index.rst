@@ -1,5 +1,5 @@
 #######################
-CodeIgniter4 用户指南
+CodeIgniter4 User Guide
 #######################
 
 .. toctree::
@@ -9,7 +9,7 @@ CodeIgniter4 用户指南
         intro/index
 
 ***************
-开始
+Getting Started
 ***************
 
 .. toctree::
@@ -18,6 +18,10 @@ CodeIgniter4 用户指南
 
 	installation/index
 
+****************************
+Build Your First Application
+****************************
+
 .. toctree::
 	:includehidden:
 	:titlesonly:
@@ -25,7 +29,7 @@ CodeIgniter4 用户指南
     	tutorial/index
 
 *************************
-概览和常规主题
+Overview & General Topics
 *************************
 
 .. toctree::
@@ -39,7 +43,7 @@ CodeIgniter4 用户指南
 	general/index
 
 ****************
-请求处理
+Request Handling
 ****************
 
 .. toctree::
@@ -53,7 +57,7 @@ CodeIgniter4 用户指南
 	outgoing/index
 
 ******************
-数据库
+Handling Databases
 ******************
 
 .. toctree::
@@ -73,7 +77,7 @@ CodeIgniter4 用户指南
 
 
 *******************
-类库和辅助函数
+Libraries & Helpers
 *******************
 
 .. toctree::
@@ -87,7 +91,7 @@ CodeIgniter4 用户指南
 	helpers/index
 
 ***************
-高级主题
+Advanced Topics
 ***************
 
 .. toctree::
@@ -109,4 +113,4 @@ CodeIgniter4 用户指南
         :hidden:
 
         license
-        changelog
+        changelogs/index

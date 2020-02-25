@@ -1,13 +1,19 @@
-#################
-创建新闻项目
-#################
+Create news items
+###############################################################################
 
-你现在知道如何使用CodeIgniter从数据库读取数据，但你尚未向数据库写入任何信息。在本节中，你将扩展之前创建新的控制器和模型以包含此功能。
+You now know how you can read data from a database using CodeIgniter, but
+you haven't written any information to the database yet. In this section,
+you'll expand your news controller and model created earlier to include
+this functionality.
 
-创建表格
--------------
+Create a form
+-------------------------------------------------------
 
-要将数据输入数据库，你需要创建一个表格，你可以在其中输入要存储的信息。这意味着你将需要一个包含两个字段的表格，一个用于标题，另一个用于文本。你将从模型中的标题中获得slug。在*application / Views / news / create.php*创建新视图
+To input data into the database, you need to create a form where you can
+input the information to be stored. This means you'll be needing a form
+with two fields, one for the title and one for the text. You'll derive
+the slug from our title in the model. Create a new view at
+**app/Views/news/create.php**.
 
 ::
 
@@ -15,22 +21,26 @@
 
     <?= \Config\Services::validation()->listErrors(); ?>
 
-    <?= form_open('news/create'); ?>
+    <form action="/news/create">
 
         <label for="title">Title</label>
         <input type="input" name="title" /><br />
 
-        <label for="text">Text</label>
-        <textarea name="text"></textarea><br />
+        <label for="body">Text</label>
+        <textarea name="body"></textarea><br />
 
         <input type="submit" name="submit" value="Create news item" />
 
     </form>
 
-这里只有两个函数你可能不熟悉:`form_open()`函数和`\Config\Services::validation()->listErrors()`函数。
-第一个函数由:doc:`form helper <../helpers/form_helper>`提供，并呈现表格元素并添加额外的功能，例如添加一个隐藏的:doc:`CSRF prevention field <../libraries/security>`。后者用于报告与表格验证相关的错误。
+There is only one thing here that probably look unfamiliar to you: the 
+``\Config\Services::validation()->listErrors()`` function. It is used to report
+errors related to form validation.
 
-回到你的新闻控制器。你将在此处执行两项操作，检查表格是否已提交以及提交的数据是否通过了验证规则。你将使用:doc:`form validation <../libraries/validation>`库来执行此操作。
+Go back to your ``News`` controller. You're going to do two things here,
+check whether the form was submitted and whether the submitted data
+passed the validation rules. You'll use the :doc:`form
+validation <../libraries/validation>` library to do this.
 
 ::
 
@@ -39,9 +49,9 @@
         helper('form');
         $model = new NewsModel();
 
-        if (! $this->validate($this->request, [
-            'title' => 'required|min[3]|max[255]',
-            'text'  => 'required'
+        if (! $this->validate([
+            'title' => 'required|min_length[3]|max_length[255]',
+            'body'  => 'required'
         ]))
         {
             echo view('templates/header', ['title' => 'Create a news item']);
@@ -54,49 +64,109 @@
             $model->save([
                 'title' => $this->request->getVar('title'),
                 'slug'  => url_title($this->request->getVar('title')),
-                'text'  => $this->request->getVar('text'),
+                'body'  => $this->request->getVar('body'),
             ]);
             echo view('news/success');
         }
     }
 
-上面的代码添加了很多功能。前几行加载表格helper和NewsModel。之后，Controller提供的辅助函数用于验证$_POST字段。在这种情况下，标题和文本字段是必需的。
+The code above adds a lot of functionality. The first few lines load the
+form helper and the NewsModel. After that, the Controller-provided helper
+function is used to validate the $_POST fields. In this case, the title and
+text fields are required.
 
-如上所示，CodeIgniter具有强大的验证库。你可以阅读:doc:`more about this library here <../libraries/validation>`。
+CodeIgniter has a powerful validation library as demonstrated
+above. You can read :doc:`more about this library
+here <../libraries/validation>`.
 
-接下来，你可以看到检查表格验证是否成功运行的条件。如果没有，则显示表格，如果提交并传递了所有规则，则调用模型。这将负责将新闻项传递到模型中。这包含一个新函数url_title()。这个函数由:doc:`URL helper <../helpers/url_helper>`提供， 它将你传递的字符串剥离出来，用短划线(-)替换所有空格，并确保所有内容都是小写字符。这给你留下了一个漂亮的slug，非常适合创建URI。
+Continuing down, you can see a condition that checks whether the form
+validation ran successfully. If it did not, the form is displayed; if it
+was submitted **and** passed all the rules, the model is called. This
+takes care of passing the news item into the model.
+This contains a new function, url\_title(). This function -
+provided by the :doc:`URL helper <../helpers/url_helper>` - strips down
+the string you pass it, replacing all spaces by dashes (-) and makes
+sure everything is in lowercase characters. This leaves you with a nice
+slug, perfect for creating URIs.
 
-在此之后，加载视图以显示成功消息。在**application/Views/news/success.php**创建一个视图 并写一条成功消息。
+After this, a view is loaded to display a success message. Create a view at
+**app/Views/news/success.php** and write a success message. 
 
-模型
------
+This could be as simple as:::
 
-最适合剩下的就是确保你的模型设置为允许正确保存数据。使用的``save()``方法将根据主键的存在来确定是否应插入信息，或者行是否已存在且应更新。在这种情况下，没有``id``传递给它的字段，所以它会在它的表中插入一个新行，即**news**。
+    News item created successfully. 
 
-但是，默认情况下，模型中的插入和更新方法实际上不会保存任何数据，因为它不知道哪些字段可以安全更新。编辑模型以在``$allowedFields``属性中为其提供可更新字段的列表。
+Model Updating
+-------------------------------------------------------
+
+The only thing that remains is ensuring that your model is set up
+to allow data to be saved properly. The ``save()`` method that was
+used will determine whether the information should be inserted
+or if the row already exists and should be updated, based on the presence
+of a primary key. In this case, there is no ``id`` field passed to it,
+so it will insert a new row into it's table, **news**.
+
+However, by default the insert and update methods in the model will
+not actually save any data because it doesn't know what fields are
+safe to be updated. Edit the model to provide it a list of updatable
+fields in the ``$allowedFields`` property.
 
 ::
 
-    <?php
-    class NewsModel extends \CodeIgniter\Model
+    <?php namespace App\Models;
+    use CodeIgniter\Model;
+
+    class NewsModel extends Model
     {
         protected $table = 'news';
 
-        protected $allowedFields = ['title', 'slug', 'text'];
+        protected $allowedFields = ['title', 'slug', 'body'];
     }
 
-此新属性现在包含我们允许保存到数据库的字段。请注意，我们遗漏了``id``？那是因为你几乎不需要这样做，因为它是数据库中的自动递增字段。这有助于防止批量分配漏洞。如果你的模型正在处理你的时间戳，你也可以将其保留。
+This new property now contains the fields that we allow to be saved to the
+database. Notice that we leave out the ``id``? That's because you will almost
+never need to do that, since it is an auto-incrementing field in the database.
+This helps protect against Mass Assignment Vulnerabilities. If your model is
+handling your timestamps, you would also leave those out.
 
-路由
--------
+Routing
+-------------------------------------------------------
 
-在开始将新闻项添加到CodeIgniter应用程序之前，必须向*Config/Routes.php*文件添加额外的规则。确保你的文件包含以下内容。这可以确保CodeIgniter将'create'视为一种方法，而不是新闻项目的slug。
+Before you can start adding news items into your CodeIgniter application
+you have to add an extra rule to **app/Config/Routes.php** file. Make sure your
+file contains the following. This makes sure CodeIgniter sees 'create'
+as a method instead of a news item's slug.
 
 ::
 
-    $routes->post('news/create', 'News::create');
-    $routes->add('news/(:segment)', 'News::view/$1');
+    $routes->match(['get', 'post'], 'news/create', 'News::create');
+    $routes->get('news/(:segment)', 'News::view/$1');
     $routes->get('news', 'News::index');
-    $routes->add('(:any)', 'Pages::view/$1');
+    $routes->get('(:any)', 'Pages::view/$1');
 
-现在将浏览器指向安装CodeIgniter的本地开发环境，并将index.php/news/create添加到URL。恭喜，你刚刚创建了第一个CodeIgniter应用程序！添加一些新闻并查看你制作的不同页面。
+Now point your browser to your local development environment where you
+installed CodeIgniter and add ``/news/create`` to the URL.
+Add some news and check out the different pages you made.
+
+.. image:: ../images/tutorial3.png
+    :align: center
+    :height: 415px
+    :width: 45%
+
+.. image:: ../images/tutorial4.png
+    :align: center
+    :height: 415px
+    :width: 45%
+
+.. image:: ../images/tutorial9.png
+    :align: left
+ 
+
+Congratulations
+-------------------------------------------------------
+
+You just completed your first CodeIgniter4 application!
+
+The image to the left shows your project's **app** folder,
+with all of the files that you created in green.
+The two modified configuration files (Database & Routes) are not shown.

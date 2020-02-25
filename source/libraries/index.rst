@@ -1,5 +1,5 @@
 #################
-类库参考
+Library Reference
 #################
 
 .. toctree::
@@ -8,6 +8,7 @@
     caching
     curlrequest
     email
+    encryption
     files
     honeypot
     images

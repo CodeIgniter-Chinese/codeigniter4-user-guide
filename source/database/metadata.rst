@@ -1,5 +1,5 @@
 #################
-数据库元数据
+Database Metadata
 #################
 
 .. contents::
@@ -7,17 +7,18 @@
     :depth: 2
 
 **************
-表元数据
+Table MetaData
 **************
 
-下面这些方法用于获取表信息。
+These functions let you fetch table information.
 
-列出数据库中的所有表
+List the Tables in Your Database
 ================================
 
 **$db->listTables();**
 
-返回一个数组，其中包含当前连接到的数据库中所有表的数组。例如::
+Returns an array containing the names of all the tables in the database
+you are currently connected to. Example::
 
 	$tables = $db->listTables();
 
@@ -25,34 +26,38 @@
 	{
 		echo $table;
 	}
+	
+.. note:: Some drivers have additional system tables that are excluded from this return.
 
-检查表是否存在
+Determine If a Table Exists
 ===========================
 
 **$db->tableExists();**
 
-有时，在对其执行操作之前知道特定表是否存在是有帮助的。
-返回布尔值 TRUE/FALSE. 例如::
+Sometimes it's helpful to know whether a particular table exists before
+running an operation on it. Returns a boolean TRUE/FALSE. Usage example::
 
 	if ($db->tableExists('table_name'))
 	{
 		// some code...
 	}
 
-.. note:: 使用你要查找的表名替换掉 table_name
+.. note:: Replace *table_name* with the name of the table you are looking for.
 
 **************
-字段元数据
+Field MetaData
 **************
 
-列出表中的所有列
+List the Fields in a Table
 ==========================
 
 **$db->getFieldNames()**
 
-返回包含字段名称的数组。 有两种不同的调用方式：
+Returns an array containing the field names. This query can be called
+two ways:
 
-1.你可以提供表名称从 $db->object 中调用它::
+1. You can supply the table name and call it from the $db->
+object::
 
 	$fields = $db->getFieldNames('table_name');
 
@@ -61,7 +66,8 @@
 		echo $field;
 	}
 
-2.你可以从任何查询结果对象上调用该方法，获取查询返回的所有字段::
+2. You can gather the field names associated with any query you run by
+calling the function from your query result object::
 
 	$query = $db->query('SELECT * FROM some_table');
 
@@ -70,33 +76,36 @@
 		echo $field;
 	}
 
-检查表中是否存在某字段 
+Determine If a Field is Present in a Table
 ==========================================
 
 **$db->fieldExists()**
 
-有时，在执行一个操作之前先确定某个字段是否存在是很有用的。该方法返回布尔值 TRUE/FALSE。
-使用示例::
+Sometimes it's helpful to know whether a particular field exists before
+performing an action. Returns a boolean TRUE/FALSE. Usage example::
 
 	if ($db->fieldExists('field_name', 'table_name'))
 	{
 		// some code...
 	}
 
-.. note:: 将 *field_name* 替换为你要查找的字段名, 并且将 *table_name* 替换为你要查找的表的名称
+.. note:: Replace *field_name* with the name of the column you are looking
+	for, and replace *table_name* with the name of the table you are
+	looking for.
 
-获取字段的元数据
+Retrieve Field Metadata
 =======================
 
 **$db->getFieldData()**
 
-该方法返回一个包含字段信息的对象数组。
+Returns an array of objects containing field information.
 
-有时，收集字段名称或相关的元数据会很有用的，例如数据类型，最大长度等。
+Sometimes it's helpful to gather the field names or other metadata, like
+the column type, max length, etc.
 
-.. note:: 并非所有的数据库都支持元数据。
+.. note:: Not all databases provide meta-data.
 
-使用示例::
+Usage example::
 
 	$fields = $db->getFieldData('table_name');
 
@@ -108,21 +117,59 @@
 		echo $field->primary_key;
 	}
 
-如果你已经进行了查询，则可以使用结果对象而不是提供表格名::
+If you have run a query already you can use the result object instead of
+supplying the table name::
 
-	$query = $db->query("YOUR QUERY");
+	$query  = $db->query("YOUR QUERY");
 	$fields = $query->fieldData();
 
-如果你的数据库支持，则可以从此函数获得以下数据:
+The following data is available from this function if supported by your
+database:
 
--  name - 字段名
--  max_length - 字段的最大长度
--  primary_key - 等于1的话表示此字段是主键
--  type - 字段的数据类型
+-  name - column name
+-  max_length - maximum length of the column
+-  primary_key - 1 if the column is a primary key
+-  type - the type of the column
 
-列出表格中的索引
+List the Indexes in a Table
 ===========================
 
 **$db->getIndexData()**
 
-请写下来，有人……
+Returns an array of objects containing index information.
+
+Usage example::
+
+	$keys = $db->getIndexData('table_name');
+
+	foreach ($keys as $key)
+	{
+		echo $key->name;
+		echo $key->type;
+		echo $key->fields;  // array of field names
+	}
+
+The key types may be unique to the database you are using.
+For instance, MySQL will return one of primary, fulltext, spatial, index or unique
+for each key associated with a table.
+
+**$db->getForeignKeyData()**
+
+Returns an array of objects containing foreign key information.
+
+Usage example::
+
+	$keys = $db->getForeignKeyData('table_name');
+
+	foreach ($keys as $key)
+	{
+		echo $key->constraint_name;
+		echo $key->table_name;
+		echo $key->column_name;
+		echo $key->foreign_table_name;
+		echo $key->foreign_column_name;
+	}
+
+The object fields may be unique to the database you are using. For instance, SQLite3 does
+not return data on column names, but has the additional *sequence* field for compound
+foreign key definitions.

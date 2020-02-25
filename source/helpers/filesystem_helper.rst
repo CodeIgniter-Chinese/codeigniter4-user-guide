@@ -1,8 +1,9 @@
 #################
-文件系统辅助函数
+Filesystem Helper
 #################
 
-目录辅助函数文件包含的函数协助目录运行。
+The Directory Helper file contains functions that assist in working with
+directories.
 
 .. contents::
   :local:
@@ -11,43 +12,47 @@
 
   <div class="custom-index container"></div>
 
-加载文件系统辅助函数
+Loading this Helper
 ===================
 
-文件系统辅助函数使用下面的代码加载:
+This helper is loaded using the following code:
 
 ::
 
 	helper('filesystem');
 
-通用函数
+Available Functions
 ===================
 
-接下来的函数是通用的:
+The following functions are available:
 
 .. php:function:: directory_map($source_dir[, $directory_depth = 0[, $hidden = FALSE]])
 
-	:param	string	$source_dir: 资源目录路径
-	:param	int	$directory_depth: 遍历目录量度 (0 = 完全递归, 1 = 最近目录, 等等)
-	:param	bool	$hidden: 是否包含隐藏目录
-	:returns:	文件数组
+	:param	string  $source_dir: Path to the source directory
+	:param	int	    $directory_depth: Depth of directories to traverse (0 = fully recursive, 1 = current dir, etc)
+	:param	bool	$hidden: Whether to include hidden directories
+	:returns:	An array of files
 	:rtype:	array
 
-	例子::
+	Examples::
 
 		$map = directory_map('./mydirectory/');
 
-	.. note:: 路径几乎常常与你的主要 index.php 文件有关系。
+	.. note:: Paths are almost always relative to your main index.php file.
 
-	 子文件夹包含的目录还会被映射。如果你希望控制递归量度，你会使用秒参数（整型）。1 的量度将仅仅映射根层目录::
+	Sub-folders contained within the directory will be mapped as well. If
+	you wish to control the recursion depth, you can do so using the second
+	parameter (integer). A depth of 1 will only map the top level directory::
 
 		$map = directory_map('./mydirectory/', 1);
 
-	默认情况下，在返回数组里将不会被包含隐藏文件。推翻这个运转状态，你也许要设置第三个参数为真（boolean）::
+	By default, hidden files will not be included in the returned array. To
+	override this behavior, you may set a third parameter to true (boolean)::
 
 		$map = directory_map('./mydirectory/', FALSE, TRUE);
 
-	每一个文件名将是数组索引，它包含的文件将会被用数值编入索引。下面是一个典型数组::
+	Each folder name will be an array index, while its contained files will
+	be numerically indexed. Here is an example of a typical array::
 
 		Array (
 			[libraries] => Array
@@ -75,19 +80,20 @@
 					[9] => uri.html
 				)
 
-	如果没有找到结果，将会返回空数组。
+	If no results are found, this will return an empty array.
 
 .. php:function:: write_file($path, $data[, $mode = 'wb'])
 
-	:param	string	$path: File 路径
-	:param	string	$data: 数据写入 file
-	:param	string	$mode: ``fopen()`` 模式
-	:returns:	如果写入成功为 TRUE , 万一错误是 FALSE
+	:param	string	$path: File path
+	:param	string	$data: Data to write to file
+	:param	string	$mode: ``fopen()`` mode
+	:returns:	TRUE if the write was successful, FALSE in case of an error
 	:rtype:	bool
 
-	 File 写入数据要详细指明路径，如果确凿没有 File 文件函数将会创建它。.
+	Writes data to the file specified in the path. If the file does not exist then the
+	function will create it.
 
-	事例::
+	Example::
 
 		$data = 'Some file data';
 		if ( ! write_file('./path/to/file.php', $data))
@@ -99,91 +105,99 @@
 			echo 'File written!';
 		}
 
-	你能随意地通过第三个参数设置写模式::
+	You can optionally set the write mode via the third parameter::
 
 		write_file('./path/to/file.php', $data, 'r+');
 
-	 默认模式是'wb'. 模式选项请查看 `PHP 用户指导 <http://php.net/manual/en/function.fopen.php>`_ .
+	The default mode is 'wb'. Please see the `PHP user guide <http://php.net/manual/en/function.fopen.php>`_
+	for mode options.
 
-	.. note:: 这个函数向文件里写入数据要按顺序，它的权限必须被设置成可写的。如果文件已经不存在，
-	          那么目录下的文件必须是可写的。
+	.. note:: In order for this function to write data to a file, its permissions must
+		be set such that it is writable. If the file does not already exist,
+		then the directory containing it must be writable.
 
-	.. note:: 路径关联你的主站的 index.php 文件，不是你的 controller 或者 view 文件。
-	          CodeIgniter 用前端 controller 因此路径常常关联主站的 index.
+	.. note:: The path is relative to your main site index.php file, NOT your
+		controller or view files. CodeIgniter uses a front controller so paths
+		are always relative to the main site index.
 
-	.. note:: 当写入文件时函数捕获了文件上独占的锁定。
+	.. note:: This function acquires an exclusive lock on the file while writing to it.
 
 .. php:function:: delete_files($path[, $del_dir = FALSE[, $htdocs = FALSE]])
 
-	:param	string	$path: 目录路径
-	:param	bool	$del_dir: 是否也删除目录
-	:param	bool	$htdocs: 是否跳过删除 .htaccess 和 index page 文件
-	:returns:	万一为FALSE，TRUE 为真
+	:param	string	$path: Directory path
+	:param	bool	$del_dir: Whether to also delete directories
+	:param	bool	$htdocs: Whether to skip deleting .htaccess and index page files
+	:returns:	TRUE on success, FALSE in case of an error
 	:rtype:	bool
 
-	删除所有包含在备用路径里的文件。
+	Deletes ALL files contained in the supplied path.
 
-	事例::
+	Example::
 
 		delete_files('./path/to/directory/');
 
-	如果第二个参数设置为 TRUE，包含备用根路径的任何目录将也会被删除。
+	If the second parameter is set to TRUE, any directories contained within the supplied
+	root path will be deleted as well.
 
-	事例::
+	Example::
 
 		delete_files('./path/to/directory/', TRUE);
 
-	.. note:: 文件必须是可写的而已经归属至系统的文件原则上已被删除。
+	.. note:: The files must be writable or owned by the system in order to be deleted.
 
 .. php:function:: get_filenames($source_dir[, $include_path = FALSE])
 
-	:param	string	$source_dir: 目录路径
-	:param	bool	$include_path: 作为文件名的部分是否包含路径
-	:returns:	文件名数组
+	:param	string	$source_dir: Directory path
+	:param	bool	$include_path: Whether to include the path as part of the filenames
+	:returns:	An array of file names
 	:rtype:	array
 
-	函数里取服务器路径输入并返回包含所有文件名的数组。设置第二参数为 TRUE 文件路径能很随意的被添加到文件名里。
+	Takes a server path as input and returns an array containing the names of all files
+	contained within it. The file path can optionally be added to the file names by setting
+	the second parameter to TRUE.
 
-	事例::
+	Example::
 
 		$controllers = get_filenames(APPPATH.'controllers/');
 
 .. php:function:: get_dir_file_info($source_dir, $top_level_only)
 
-	:param	string	$source_dir: 目录路径
-	:param	bool	$top_level_only: 是否仅仅查看特殊目录 (不包含子目录)
-	:returns:	数组涵盖的信息在备用目录的内容中
+	:param	string	$source_dir: Directory path
+	:param	bool	$top_level_only: Whether to look only at the specified directory (excluding sub-directories)
+	:returns:	An array containing info on the supplied directory's contents
 	:rtype:	array
 
-	阅读指定的目录并建立包含文件名，文件大小，日期和权限的数组。
-	如果传送第二个参数被阻止成 FALSE 包含指定目录的子文件夹一定是只读的，如同这是个强调操作。
-	
+	Reads the specified directory and builds an array containing the filenames, filesize,
+	dates, and permissions. Sub-folders contained within the specified path are only read
+	if forced by sending the second parameter to FALSE, as this can be an intensive
+	operation.
 
-	事例::
+	Example::
 
 		$models_info = get_dir_file_info(APPPATH.'models/');
 
-.. php:function:: get_file_info($file[, $returned_values = array('name', 'server_path', 'size', 'date')])
+.. php:function:: get_file_info($file[, $returned_values = ['name', 'server_path', 'size', 'date']])
 
-	:param	string	$file: File 路径
-	:param	array	$returned_values: 任何返回的信息类型
-	:returns:	在指定文件上的数组包含的信息或失效的 FALSE 
+	:param	string	        $file: File path
+	:param	array|string    $returned_values: What type of info to return to be passed as array or comma separated string
+	:returns:	An array containing info on the specified file or FALSE on failure
 	:rtype:	array
 
-	约定的文件和路径，文件返回（随意地） the *name*, *path*, *size* and *date modified* 属性信息。
-	第二参数允许你明确地声明任何你想返回的信息。
-	
+	Given a file and path, returns (optionally) the *name*, *path*, *size* and *date modified*
+	information attributes for a file. Second parameter allows you to explicitly declare what
+	information you want returned.
 
-	有效的 ``$returned_values`` 选项是: `name`, `size`, `date`, `readable`, `writeable`,
-	`executable` 和 `fileperms`.
+	Valid ``$returned_values`` options are: `name`, `size`, `date`, `readable`, `writeable`,
+	`executable` and `fileperms`.
 
 .. php:function:: symbolic_permissions($perms)
 
-	:param	int	$perms: 权限
-	:returns:	象征权限的 string
+	:param	int	$perms: Permissions
+	:returns:	Symbolic permissions string
 	:rtype:	string
 
-	抓取数值权限（就像是被 ``fileperms()`` 返回的）并且返回文件权限的标准符号记号。
+	Takes numeric permissions (such as is returned by ``fileperms()``) and returns
+	standard symbolic notation of file permissions.
 
 	::
 
@@ -191,38 +205,41 @@
 
 .. php:function:: octal_permissions($perms)
 
-	:param	int	$perms: 权限
-	:returns:	八进制权限的 string
+	:param	int	$perms: Permissions
+	:returns:	Octal permissions string
 	:rtype:	string
 
-	抓取数值权限（就像是被 ``fileperms()`` 返回的）并且返回文件权限的一个由三个字母组成的八进制记号。 
+	Takes numeric permissions (such as is returned by ``fileperms()``) and returns
+	a three character octal notation of file permissions.
 
 	::
 
 		echo octal_permissions(fileperms('./index.php')); // 644
 
-.. php:function:: set_realpath($path[, $check_existance = FALSE])
+.. php:function:: set_realpath($path[, $check_existence = FALSE])
 
-	:param	string	$path: 路径
-	:param	bool	$check_existance: 如果路径确实存在是否要去检查
-	:returns:	绝对路径
+	:param	string	$path: Path
+	:param	bool	$check_existence: Whether to check if the path actually exists
+	:returns:	An absolute path
 	:rtype:	string
 
-	函数会返回不带符号链接的服务器路径或者有关联的目录结构。
-	如果路径不能决定选项的次一级争议将触发一个错误。
+	This function will return a server path without symbolic links or
+	relative directory structures. An optional second argument will
+	cause an error to be triggered if the path cannot be resolved.
 
-	事例::
+	Examples::
 
 		$file = '/etc/php5/apache2/php.ini';
-		echo set_realpath($file); //  输出 '/etc/php5/apache2/php.ini'
+		echo set_realpath($file); // Prints '/etc/php5/apache2/php.ini'
 
 		$non_existent_file = '/path/to/non-exist-file.txt';
-		echo set_realpath($non_existent_file, TRUE);	// 显示错误，如同路径不能决定
-		echo set_realpath($non_existent_file, FALSE);	// 输出 '/path/to/non-exist-file.txt'
+		echo set_realpath($non_existent_file, TRUE);	// Shows an error, as the path cannot be resolved
+		echo set_realpath($non_existent_file, FALSE);	// Prints '/path/to/non-exist-file.txt'
 
 		$directory = '/etc/php5';
-		echo set_realpath($directory);	// 输出 '/etc/php5/'
+		echo set_realpath($directory);	// Prints '/etc/php5/'
 
 		$non_existent_directory = '/path/to/nowhere';
-		echo set_realpath($non_existent_directory, TRUE);	// 显示错误，如同路径不能决定
-		echo set_realpath($non_existent_directory, FALSE);	// 输出 '/path/to/nowhere'
+		echo set_realpath($non_existent_directory, TRUE);	// Shows an error, as the path cannot be resolved
+		echo set_realpath($non_existent_directory, FALSE);	// Prints '/path/to/nowhere'
+

@@ -1,23 +1,31 @@
 ###################################
-在视图文件中使用PHP替代语法
+Alternate PHP Syntax for View Files
 ###################################
 
-如果你不使用模板引擎来简化输出，那么意味着你将在视图文件中使用纯 PHP 语法。为了精简视图文件中的 PHP 代码同时增强代码的可读性，建议你在写控制结构和 echo 语句时使用 PHP 的替代语法。如果你对这个语法还不熟悉，下面将介绍如何通过这个语法来消除你代码中的大括号和 echo 语句。
+If you do not utilize a templating engine to simplify output,
+you'll be using pure PHP in your
+View files. To minimize the PHP code in these files, and to make it
+easier to identify the code blocks it is recommended that you use PHPs
+alternative syntax for control structures and short tag echo statements.
+If you are not familiar with this syntax, it allows you to eliminate the
+braces from your code, and eliminate "echo" statements.
 
-Echo 的替代语法
+Alternative Echos
 =================
-通常来说，你在输出或打印一个变量的时候会这样做::
+
+Normally to echo, or print out a variable you would do this::
 
 	<?php echo $variable; ?>
 
-而使用替代语法，你可以写成这样::
+With the alternative syntax you can instead do it this way::
 
-	<?= $variable?>
+	<?= $variable ?>
 
-
-控制结构的替代语法
+Alternative Control Structures
 ==============================
-像 if、for、foreach、while 这样的控制结构也可以写成简化格式。下面以 ``foreach`` 举例::
+
+Controls structures, like if, for, foreach, and while can be written in
+a simplified format as well. Here is an example using ``foreach``::
 
 	<ul>
 
@@ -29,11 +37,14 @@ Echo 的替代语法
 
 	</ul>
 
-注意这里没有任何括号，结束括号被 ``endforeach`` 取而代之。上面列举出的那些控制结构都有相似的结束标志: ``endif``, ``endfor``, ``endforeach`` 和 ``endwhile``。
+Notice that there are no braces. Instead, the end brace is replaced with
+``endforeach``. Each of the control structures listed above has a similar
+closing syntax: ``endif``, ``endfor``, ``endforeach``, and ``endwhile``
 
-同时要注意的是，每个结构分支后面都要跟一个冒号(除了最后一个)，而不是分号,这很重要!
+Also notice that instead of using a semicolon after each structure
+(except the last one), there is a colon. This is important!
 
-这是另外一个样例，使用了 ``if``/``elseif``/``else``，注意看分支语句后的冒号::
+Here is another example, using ``if``/``elseif``/``else``. Notice the colons::
 
 	<?php if ($username === 'sally') : ?>
 

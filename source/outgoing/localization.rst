@@ -14,10 +14,10 @@ CodeIgniter provides several tools to help you localize your application for dif
 localization of an application is a complex subject, it's simple to swap out strings in your application
 with different supported languages.
 
-Language strings are stored in the **application/Language** directory, with a sub-directory for each
+Language strings are stored in the **app/Language** directory, with a sub-directory for each
 supported language::
 
-    /application
+    /app
         /Language
             /en
                 app.php
@@ -39,10 +39,10 @@ recommended that a `BCP 47 <http://www.rfc-editor.org/rfc/bcp/bcp47.txt>`_ langu
 language codes like en-US for American English, or fr-FR, for French/France. A more readable introduction
 to this can be found on the `W3C's site <https://www.w3.org/International/articles/language-tags/>`_.
 
-The system is smart enough to fallback to more generic language codes if an exact match
-cannot be found. If the locale code was set to **en-US** and we only have language files setup for **en**
+The system is smart enough to fall back to more generic language codes if an exact match
+cannot be found. If the locale code was set to **en-US** and we only have language files set up for **en**
 then those will be used since nothing exists for the more specific **en-US**. If, however, a language
-directory existed at **application/Language/en-US** then that would be used first.
+directory existed at **app/Language/en-US** then that would be used first.
 
 Locale Detection
 ================
@@ -55,7 +55,7 @@ will be used to set the locale.
 Content Negotiation
 -------------------
 
-You can setup content negotiation to happen automatically by setting two additional settings in Config/App.
+You can set up content negotiation to happen automatically by setting two additional settings in Config/App.
 The first value tells the Request class that we do want to negotiate a locale, so simply set it to true::
 
     public $negotiateLocale = true;
@@ -88,7 +88,7 @@ Retrieving the Current Locale
 The current locale can always be retrieved from the IncomingRequest object, through the ``getLocale()`` method.
 If your controller is extending ``CodeIgniter\Controller``, this will be available through ``$this->request``::
 
-    namespace App\Controllers;
+    <?php namespace App\Controllers;
 
     class UserController extends \CodeIgniter\Controller
     {
@@ -113,7 +113,7 @@ Languages do not have any specific naming convention that are required. The file
 describe the type of content it holds. For example, let's say you want to create a file containing error messages.
 You might name it simply: **Errors.php**.
 
-Within the file you would return an array, where each element in the array has a language key and the string to return::
+Within the file, you would return an array, where each element in the array has a language key and the string to return::
 
         'language_key' => 'The actual message to be shown.'
 
@@ -133,7 +133,7 @@ Basic Usage
 ===========
 
 You can use the ``lang()`` helper function to retrieve text from any of the language files, by passing the
-filename and the language key as the first paremeter, separated by a period (.). For example, to load the
+filename and the language key as the first parameter, separated by a period (.). For example, to load the
 ``errorEmailMissing`` string from the ``Errors`` language file, you would do the following::
 
     echo lang('Errors.errorEmailMissing');
@@ -224,7 +224,7 @@ Here are a few examples::
     echo lang('Tests.ordinal', [time()]);
 
 You should be sure to read up on the MessageFormatter class and the underlying ICU formatting to get a better
-idea on what capabilities it has, like permorming conditional replacement, pluralization, and more. Both of the links provided
+idea on what capabilities it has, like performing the conditional replacement, pluralization, and more. Both of the links provided
 earlier will give you an excellent idea as to the options available.
 
 Specifying Locale
@@ -263,3 +263,36 @@ Language files also allow nested arrays to make working with lists, etc... easie
 
     // Displays "Apples, Bananas, Grapes, Lemons, Oranges, Strawberries"
     echo implode(', ', lang('Fruit.list'));
+
+Language Fallback
+=================
+
+If you have a set of messages for a given locale, for instance
+``Language/en/app.php``, you can add language variants for that locale,
+each in its own folder, for instance ``Language/en-US/app.php``.
+
+You only need to provide values for those messages that would be
+localized differently for that locale variant. Any missing message
+definitions will be automatically pulled from the main locale settings.
+
+It gets better - the localization can fall all the way back to English,
+in case new messages are added to the framework and you haven't had
+a chance to translate them yet for your locale.
+
+So, if you are using the locale ``fr-CA``, then a localized
+message will first be sought in ``Language/fr/CA``, then in
+``Language/fr``, and finally in ``Language/en``.
+
+Message Translations
+====================
+
+We have an "official" set of translations in their
+`own repository <https://github.com/codeigniter4/translations>`_.
+
+You could download that repository, and copy its ``Language`` folder
+into your ``app``. The incorporated translations will be automatically
+picked up because the ``App`` namespace is mapped to your ``app`` folder.
+
+Alternately, a better practice would be to ``composer require codeigniter4/translations``
+inside your project, and the translated messages will be automatically picked
+up because the translations folders get mapped appropriately.

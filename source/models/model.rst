@@ -6,25 +6,38 @@ Using CodeIgniter's Model
     :local:
     :depth: 2
 
-Manual Model Creation
-=====================
+Models
+======
 
-You do not need to extend any special class to create a model for your application. All you need is to get an
-instance of the database connection and you're good to go.
+Models provide a way to interact with a specific table in your database. They come out of the box with helper
+methods for much of the standard ways you would need to interact with a database table, including finding records,
+updating records, deleting records, and more.
+
+Accessing Models
+================
+
+Models are typically stored in the ``app/Models`` directory. They should have a namespace that matches their
+location within the directory, like ``namespace App\Models``.
+
+You can access models within your classes by creating a new instance or using the ``model()`` helper function.
 
 ::
 
-	use \CodeIgniter\Database\ConnectionInterface;
+    // Create a new class manually
+    $userModel = new App\Models\UserModel();
 
-	class UserModel
-	{
-		protected $db;
+    // Create a new class with the model function
+    $userModel = model('App\Models\UserModel', false);
 
-		public function __construct(ConnectionInterface &$db)
-		{
-			$this->db =& $db;
-		}
-	}
+    // Create a shared instance of the model
+    $userModel = model('App\Models\UserModel');
+
+    // Create shared instance with a supplied database connection
+    // When no namespace is given, it will search through all namespaces
+    // the system knows about and attempt to located the UserModel class.
+    $db = db_connect('custom');
+    $userModel = model('UserModel', true, $db);
+
 
 CodeIgniter's Model
 ===================
@@ -46,7 +59,11 @@ Creating Your Model
 To take advantage of CodeIgniter's model, you would simply create a new model class
 that extends ``CodeIgniter\Model``::
 
-	class UserModel extends \CodeIgniter\Model
+        <?php namespace App\Models;
+
+        use CodeIgniter\Model;
+
+	class UserModel extends Model
 	{
 
 	}
@@ -57,14 +74,18 @@ and a number of additional convenience methods.
 Connecting to the Database
 --------------------------
 
-When the class is first instantiated, if no database connection instance is passed to constructor,
+When the class is first instantiated, if no database connection instance is passed to the constructor,
 it will automatically connect to the default database group, as set in the configuration. You can
 modify which group is used on a per-model basis by adding the DBGroup property to your class.
 This ensures that within the model any references to ``$this->db`` are made through the appropriate
 connection.
 ::
 
-	class UserModel extends \CodeIgniter\Model
+    <?php namespace App\Models;
+
+    use CodeIgniter\Model;
+
+	class UserModel extends Model
 	{
 		protected $DBGroup = 'group_name';
 	}
@@ -79,7 +100,11 @@ The model class has a few configuration options that can be set to allow the cla
 to work seamlessly for you. The first two are used by all of the CRUD methods to determine
 what table to use and how we can find the required records::
 
-	class UserModel extends \CodeIgniter\Model
+        <?php namespace App\Models;
+
+        use CodeIgniter\Model;
+
+	class UserModel extends Model
 	{
 		protected $table      = 'users';
 		protected $primaryKey = 'id';
@@ -90,6 +115,9 @@ what table to use and how we can find the required records::
 		protected $allowedFields = ['name', 'email'];
 
 		protected $useTimestamps = false;
+		protected $createdField  = 'created_at';
+		protected $updatedField  = 'updated_at';
+		protected $deletedField  = 'deleted_at';
 
 		protected $validationRules    = [];
 		protected $validationMessages = [];
@@ -105,8 +133,11 @@ queries.
 **$primaryKey**
 
 This is the name of the column that uniquely identifies the records in this table. This
-does not necessarilly have to match the primary key that is specified in the database, but
+does not necessarily have to match the primary key that is specified in the database, but
 is used with methods like ``find()`` to know what column to match the specified value to.
+
+.. note:: All Models must have a primaryKey specified to allow all of the features to work
+    as expected.
 
 **$returnType**
 
@@ -118,13 +149,15 @@ method.
 
 **$useSoftDeletes**
 
-If true, then any delete* method calls will simply set a flag in the database, instead of
+If true, then any delete* method calls will set ``deleted_at`` in the database, instead of
 actually deleting the row. This can preserve data when it might be referenced elsewhere, or
 can maintain a "recycle bin" of objects that can be restored, or even simply preserve it as
 part of a security trail. If true, the find* methods will only return non-deleted rows, unless
 the withDeleted() method is called prior to calling the find* method.
 
-This requires an INT or TINYINT field to be present in the table for storing state.The default field name is  ``deleted`` however this name can be configured to any name of your choice by using $deletedField property.
+This requires either a DATETIME or INTEGER field in the database as per the model's
+$dateFormat setting. The default field name is ``deleted_at`` however this name can be
+configured to any name of your choice by using $deletedField property.
 
 **$allowedFields**
 
@@ -140,11 +173,22 @@ and updates. If true, will set the current time in the format specified by $date
 requires that the table have columns named 'created_at' and 'updated_at' in the appropriate
 data type.
 
+**$createdField**
+
+Specifies which database field should use for keep data record create timestamp.
+Leave it empty to avoid update it (even useTimestamps is enabled)
+
+**$updatedField**
+
+Specifies which database field should use for keep data record update timestamp.
+Leave it empty to avoid update it (even useTimestamps is enabled)
+
 **$dateFormat**
 
-This value works with $useTimestamps to ensure that the correct type of date value gets
-inserted into the database. By default, this creates DATETIME values, but valid options
-are: datetime, date, or int (a PHP timestamp).
+This value works with $useTimestamps and $useSoftDeletes to ensure that the correct type of
+date value gets inserted into the database. By default, this creates DATETIME values, but
+valid options are: datetime, date, or int (a PHP timestamp). Using 'useSoftDeletes' or
+'useTimestamps' with an invalid or missing dateFormat will cause an exception.
 
 **$validationRules**
 
@@ -199,6 +243,14 @@ of just one::
 If no parameters are passed in, will return all rows in that model's table, effectively acting
 like findAll(), though less explicit.
 
+**findColumn()**
+
+ Returns null or an indexed array of column values::
+
+ 	$user = $userModel->findColumn($column_name);
+
+ $column_name should be a name of single column else you will get the DataException.
+
 **findAll()**
 
 Returns all results::
@@ -225,8 +277,8 @@ Returns the first row in the result set. This is best used in combination with t
 
 **withDeleted()**
 
-If $useSoftDeletes is true, then the find* methods will not return any rows where 'deleted = 1'. To
-temporarily override this, you can use the withDeleted() method prior to calling the find* method.
+If $useSoftDeletes is true, then the find* methods will not return any rows where 'deleted_at IS NOT NULL'.
+To temporarily override this, you can use the withDeleted() method prior to calling the find* method.
 ::
 
 	// Only gets non-deleted rows (deleted = 0)
@@ -250,7 +302,7 @@ Saving Data
 **insert()**
 
 An associative array of data is passed into this method as the only parameter to create a new
-row of data in the database. The array's keys must match the name of the columns in $table, while
+row of data in the database. The array's keys must match the name of the columns in a $table, while
 the array's values are the values to save for that key::
 
 	$data = [
@@ -264,7 +316,7 @@ the array's values are the values to save for that key::
 
 Updates an existing record in the database. The first parameter is the $primaryKey of the record to update.
 An associative array of data is passed into this method as the second parameter. The array's keys must match the name
-of the columns in $table, while the array's values are the values to save for that key::
+of the columns in a $table, while the array's values are the values to save for that key::
 
 	$data = [
 		'username' => 'darth',
@@ -281,7 +333,7 @@ Multiple records may be updated with a single call by passing an array of primar
 
 	$userModel->update([1, 2, 3], $data);
 
-When you need a more flexible solution, you can leaven the parameters empty and it functions like the Query Builder's
+When you need a more flexible solution, you can leave the parameters empty and it functions like the Query Builder's
 update command, with the added benefit of validation, events, etc::
 
     $userModel
@@ -291,7 +343,7 @@ update command, with the added benefit of validation, events, etc::
 
 **save()**
 
-This is a wrapper around the insert() and update() methods that handles inserting or updating the record
+This is a wrapper around the insert() and update() methods that handle inserting or updating the record
 automatically, based on whether it finds an array key matching the $primaryKey value::
 
 	// Defined as a model property
@@ -348,7 +400,9 @@ simplest, they might look like this::
 
 A very simple model to work with this might look like::
 
-	class JobModel extends \CodeIgniter\Model
+        use CodeIgniter\Model;
+
+	class JobModel extends Model
 	{
 		protected $table = 'jobs';
 		protected $returnType = '\App\Entities\Job';
@@ -382,8 +436,8 @@ Takes a primary key value as the first parameter and deletes the matching record
 
 	$userModel->delete(12);
 
-If the model's $useSoftDeletes value is true, this will update the row to set 'deleted = 1'. You can force
-a permanent delete by setting the second parameter as true.
+If the model's $useSoftDeletes value is true, this will update the row to set ``deleted_at`` to the current
+date and time. You can force a permanent delete by setting the second parameter as true.
 
 An array of primary keys can be passed in as the first parameter to delete multiple records at once::
 
@@ -396,7 +450,7 @@ previously::
 
 **purgeDeleted()**
 
-Cleans out the database table by permanently removing all rows that have 'deleted = 1'. ::
+Cleans out the database table by permanently removing all rows that have 'deleted_at IS NOT NULL'. ::
 
 	$userModel->purgeDeleted();
 
@@ -426,6 +480,39 @@ be applied. If you have custom error message that you want to use, place them in
 		];
 	}
 
+The other way to set the validation message to fields by functions,
+
+.. php:function:: setValidationMessage($field, $fieldMessages)
+
+	:param	string	$field
+	:param	array	$fieldMessages
+
+	This function will set the field wise error messages.
+
+	Usage example::
+
+            $fieldName = 'name';
+            $fieldValidationMessage = array(
+                            'required'   => 'Your name is required here',
+                    );
+            $model->setValidationMessage($fieldName, $fieldValidationMessage);
+
+.. php:function:: setValidationMessages($fieldMessages)
+
+	:param	array	$fieldMessages
+
+	This function will set the field messages.
+
+	Usage example::
+
+            $fieldValidationMessage = array(
+                    'name' => array(
+                            'required'   => 'Your baby name is missing.',
+                            'min_length' => 'Too short, man!',
+                    ),
+            );
+            $model->setValidationMessages($fieldValidationMessage);
+
 Now, whenever you call the ``insert()``, ``update()``, or ``save()`` methods, the data will be validated. If it fails,
 the model will return boolean **false**. You can use the ``errors()`` method to retrieve the validation errors::
 
@@ -452,6 +539,28 @@ and simply set ``$validationRules`` to the name of the validation rule group you
 	{
 		protected $validationRules = 'users';
 	}
+
+Retrieving Validation Rules
+---------------------------
+
+You can retrieve a model's validation rules by accessing its ``validationRules``
+property::
+
+    $rules = $model->validationRules;
+
+You can also retrieve just a subset of those rules by calling the accessor
+method directly, with options::
+
+    $rules = $model->getValidationRules($options);
+
+The ``$options`` parameter is an associative array with one element,
+whose key is either "except" or "only", and which has as its
+value an array of fieldnames of interest.::
+
+    // get the rules for all but the "username" field
+    $rules = $model->getValidationRules(['except' => ['username']]);
+    // get the rules for only the "city" and "state" fields
+    $rules = $model->getValidationRules(['only' => ['city', 'state']]);
 
 Validation Placeholders
 -----------------------
@@ -510,7 +619,7 @@ need it::
 
 	$builder = $userModel->builder();
 
-This builder is already setup with the model's $table.
+This builder is already set up with the model's $table.
 
 You can also use Query Builder methods and the Model's CRUD methods in the same chained call, allowing for
 very elegant use::
@@ -579,7 +688,7 @@ Defining Callbacks
 
 You specify the callbacks by first creating a new class method in your model to use. This class will always
 receive a $data array as its only parameter. The exact contents of the $data array will vary between events, but
-will always contain a key named **data** that contains the primary data passed to original method. In the case
+will always contain a key named **data** that contains the primary data passed to the original method. In the case
 of the insert* or update* methods, that will be the key/value pairs that are being inserted into the database. The
 main array will also contain the other values passed to the method, and be detailed later. The callback method
 must return the original $data array so other callbacks have the full information.
@@ -617,13 +726,14 @@ Event            $data contents
 ================ =========================================================================================================
 beforeInsert      **data** = the key/value pairs that are being inserted. If an object or Entity class is passed to the
                   insert method, it is first converted to an array.
-afterInsert       **data** = the original key/value pairs being inserted.
+afterInsert       **id** = the primary key of the new row, or 0 on failure.
+                  **data** = the key/value pairs being inserted.
                   **result** = the results of the insert() method used through the Query Builder.
 beforeUpdate      **id** = the primary key of the row being updated.
                   **data** = the key/value pairs that are being inserted. If an object or Entity class is passed to the
                   insert method, it is first converted to an array.
 afterUpdate       **id** = the primary key of the row being updated.
-                  **data** = the original key/value pairs being updated.
+                  **data** = the key/value pairs being updated.
                   **result** = the results of the update() method used through the Query Builder.
 afterFind         Varies by find* method. See the following:
 - find()          **id** = the primary key of the row being searched for.
@@ -641,3 +751,27 @@ afterDelete       Varies by delete* method. See the following:
                   **result** = the result of the delete() call on the Query Builder.
                   **data** = unused.
 ================ =========================================================================================================
+
+
+Manual Model Creation
+=====================
+
+You do not need to extend any special class to create a model for your application. All you need is to get an
+instance of the database connection and you're good to go. This allows you to bypass the features CodeIgniter's
+Model gives you out of the box, and create a fully custom experience.
+
+::
+
+    <?php namespace App\Models;
+
+	use CodeIgniter\Database\ConnectionInterface;
+
+	class UserModel
+	{
+		protected $db;
+
+		public function __construct(ConnectionInterface &$db)
+		{
+			$this->db =& $db;
+		}
+	}

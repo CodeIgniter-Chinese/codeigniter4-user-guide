@@ -1,41 +1,71 @@
-############
-加载静态页
-############
+Static pages
+###############################################################################
 
-**Note:** 本教程假设你已经下载好 CodeIgniter，并将其 :doc:`安装 <../installation/index>` 到你的开发环境。
+**Note:** This tutorial assumes you've downloaded CodeIgniter and
+:doc:`installed the framework <../installation/index>` in your
+development environment.
 
-首先你需要新建一个 **控制器** 来处理静态页。控制器就是用来帮助你完成工作的一个简单的类，它是你整个 Web 应用程序的"粘合剂"。
+The first thing you're going to do is set up a **controller** to handle
+static pages. A controller is simply a class that helps delegate work.
+It is the glue of your web application.
 
-例如，当访问下面这个 URL 时:
-	
-	http://example.com/news/latest/10
+For example, when a call is made to:
 
-根据此 URL 我们可以推测出有一个名称为 "news" 的控制器，被调用的方法为 "latest"，"latest" 方法的作用应该是查询10条新闻条目并展示在页面上。
-在MVC模式里，你会经常看到下面格式的 URL:
+	``http://example.com/news/latest/10``
 
-	http://example.com/[controller-class]/[controller-method]/[arguments]
+We might imagine that there is a controller named "news". The method
+being called on news would be "latest". The news method's job could be to
+grab 10 news items, and render them on the page. Very often in MVC,
+you'll see URL patterns that match:
 
-在正式环境下 URL 的格式可能会更复杂，但现在，我们只需要知道这些就够了。
+	``http://example.com/[controller-class]/[controller-method]/[arguments]``
 
-新建一个文件 *application/Controllers/Pages.php*，然后添加如下代码：
+As URL schemes become more complex, this may change. But for now, this
+is all we will need to know.
+
+Let's make our first controller
+-------------------------------------------------------
+
+Create a file at **app/Controllers/Pages.php** with the following
+code.
 
 ::
 
-	<?php
-	class Pages extends CodeIgniter\Controller {
+    <?php namespace App\Controllers;
+    use CodeIgniter\Controller;
 
-		public function view($page = 'home')
-		{
-	    }
+	class Pages extends Controller {
+
+        public function index()
+        {
+            return view('welcome_message');
+        }
+
+        public function showme($page = 'home')
+        {
+        }
 	}
 
-你刚创建了一个 ``Pages`` 类，有一个方法 view 并可接受一个 $page 的参数。``Pages`` 类继承自 ``CodeIgniter\Controller`` 类，这意味着它可以访问 ``CodeIgniter\Controller`` 类 (*system/Controller.php*) 中定义的方法和变量。
+You have created a class named ``Pages``, with a ``showme`` method that accepts
+one argument named ``$page``. It also has an ``index()`` method, the same
+as the default controller found in **app/Controllers/Home.php**; that method
+displays the CodeIgniter welcome page.
 
-控制器将是你 Web 应用程序中处理请求的核心。和其他的 PHP 类一样，可以在你的控制器中使用 ``$this`` 来访问它。
+The ``Pages`` class is extending the
+``CodeIgniter\Controller`` class. This means that the new Pages class can access the
+methods and variables defined in the ``CodeIgniter\Controller`` class
+(*system/Controller.php*).
 
-现在，你已经创建了你的第一个方法，是时候创建一些基本的页面模板了。我们将新建两个 "views" (页面模板) 分别作为我们的页头和页脚。
+The **controller is what will become the center of every request** to
+your web application. Like any php class, you refer to
+it within your controllers as ``$this``.
 
-新建页头文件 *application/Views/Templates/Header.php* 并添加以下代码：
+Now that you've created your first method, it's time to make some basic page
+templates. We will be creating two "views" (page templates) that act as
+our page footer and header.
+
+Create the header at **app/Views/templates/header.php** and add
+the following code:
 
 ::
 
@@ -48,72 +78,156 @@
 
 		<h1><?= $title; ?></h1>
 
-页头包含了一些基本的 HTML 代码，用于展示页面主视图之前的内容。同时，它还打印出了 ``$title`` 变量，这个我们之后讲控制器的时候再细说。
-现在，再新建个页脚文件 *application/Views/Templates/Footer.php*，然后添加以下代码：
+The header contains the basic HTML code that you'll want to display
+before loading the main view, together with a heading. It will also
+output the ``$title`` variable, which we'll define later in the controller.
+Now, create a footer at **app/Views/templates/footer.php** that
+includes the following code:
 
 ::
 
-			<em>&copy; 2016</em>
-		</body>
+		<em>&copy; 2019</em>
+	</body>
 	</html>
 
-在控制器中添加逻辑
-------------------------------
+Adding logic to the controller
+-------------------------------------------------------
 
-你刚新建的控制器中有一个 ``view()`` 方法，这个方法可接受一个用于指定要加载页面的参数。静态页面的模板目录为：*application/Views/Pages/*。
+Earlier you set up a controller with a ``showme()`` method. The method
+accepts one parameter, which is the name of the page to be loaded. The
+static page bodies will be located in the **app/Views/pages/**
+directory.
 
-在该目录中，新建 *Home.php* 和 *About.php* 模板文件。在每个文件中任意输入一些文本然后保存它们。如果你不知道写什么，那就写 "Hello World!" 吧。
+In that directory, create two files named **home.php** and **about.php**.
+Within those files, type some text − anything you'd like − and save them.
+If you like to be particularly un-original, try "Hello World!".
 
-为了加载这些界面，你需要检查下请求的页面是否存在：
+In order to load those pages, you'll have to check whether the requested
+page actually exists. This will be the body of the ``showme()`` method
+in the ``Pages`` controller created above:
 
 ::
 
-	public function view($page = 'home')
+	public function showme($page = 'home')
 	{
-	    if ( ! file_exists(APPPATH.'/Views/Pages/'.$page.'.php'))
+		if ( ! is_file(APPPATH.'/Views/pages/'.$page.'.php'))
 		{
-			// Whoops, we don't have a page for that!
-			throw new \CodeIgniter\PageNotFoundException($page);
+		    // Whoops, we don't have a page for that!
+		    throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
 		}
 
 		$data['title'] = ucfirst($page); // Capitalize the first letter
 
-		echo view('Templates/Header', $data);
-		echo view('Pages/'.$page, $data);
-		echo view('Templates/Footer', $data);
+		echo view('templates/header', $data);
+		echo view('pages/'.$page, $data);
+		echo view('templates/footer', $data);
 	}
 
-当请求的页面存在时，将给用户加载并展示出一个包含页头页脚的页面。如果不存在，会显示 "404 Page not found" 的错误页面。
+Now, when the requested page does exist, it is loaded, including the header and
+footer, and displayed to the user. If the requested page doesn't exist, a "404
+Page not found" error is shown.
 
-此事例方法中，第一行用以检查界面是否存在，``file_exists()`` 是原生的 PHP 函数，用于检查某个文件是否存在。``PageNotFoundException`` 是 CodeIgniter 的内置函数，用来展示默认的错误页面。
+The first line in this method checks whether the page actually exists.
+PHP's native ``is_file()`` function is used to check whether the file
+is where it's expected to be. The ``PageNotFoundException`` is a CodeIgniter
+exception that causes the default error page to show.
 
-在页头模板文件中，``$title`` 变量代表页面的自定义标题，它是在方法中被赋值的，但并不是直接赋值给 title 变量，而是赋值给 ``$data`` 数组中的 title 元素。
+In the header template, the ``$title`` variable was used to customize the
+page title. The value of title is defined in this method, but instead of
+assigning the value to a variable, it is assigned to the title element
+in the ``$data`` array.
 
-最后要做的就是按顺序加载所需的视图，``view()`` 方法中的参数代表要展示的视图文件名称。``$data`` 数组中的每一个元素将被赋值给一个变量，这个变量的名字就是数组的键值。所以控制器中 ``$data['title']`` 的值，就等于视图中 ``$title`` 的值。
+The last thing that has to be done is loading the views in the order
+they should be displayed. The ``view()`` method built-in to
+CodeIgniter will be used to do this. The second parameter in the ``view()`` method is
+used to pass values to the view. Each value in the ``$data`` array is
+assigned to a variable with the name of its key. So the value of
+``$data['title']`` in the controller is equivalent to ``$title`` in the
+view.
 
-路由
--------
+.. note:: Any files and directory names passed into the **view()** function MUST
+	match the case of the actual directory and file itself or the system will
+	throw errors on case-sensitive platforms.
 
-控制器已经开始工作了！在你的浏览器中输入 ``[your-site-url]index.php/pages/view`` 来查看你的页面。当你访问 ``index.php/pages/view/about`` 时你将看到包含页头和页脚的 about 页面。
+Running the App
+-------------------------------------------------------
 
-使用自定义的路由规则，你可以将任意的 URL 映射到任意的控制器和方法上，从而打破默认的规则：
-``http://example.com/[controller-class]/[controller-method]/[arguments]``
+Ready to test? You cannot run the app using PHP's built-in server,
+since it will not properly process the ``.htaccess`` rules that are provided in
+``public``, and which eliminate the need to specify "index.php/"
+as part of a URL. CodeIgniter has its own command that you can use though.
 
-让我们来试试。打开路由文件 *application/Config/Routes.php* 然后添加如下两行代码，并删除掉其它对 ``$route`` 数组赋值的代码。
+From the command line, at the root of your project:
 
 ::
 
-	$routes->setDefaultController('Pages/view');
-	$routes->add('(:any)', 'Pages::view/$1');
+    php spark serve
 
-CodeIgniter 读取路由的规则为从上到下，并将请求映射到第一个匹配的规则。每个规则都是一个正则表达式（左侧）映射到一个控制器和方法（右侧）。当获取到请求时，CodeIgniter 首先查找能匹配到的第一条规则，然后调用相应的可能存在参数的控制器和方法。
+will start a web server, accessible on port 8080. If you set the location field
+in your browser to ``localhost:8080``, you should see the CodeIgniter welcome page.
 
-你可以在关于 :doc:`URL路由的文档 <../general/routing>` 中找到更多信息。
+You can now try several URLs in the browser location field, to see what the `Pages`
+controller you made above produces...
 
-路由事例的第二条规则 ``$routes`` 数组中使用了通配符 ``(:any)`` 来匹配所有的请求，然后将参数传递给 ``Pages`` 类的 ``view()`` 方法。
+- ``localhost:8080/pages`` will show the results from the `index` method
+  inside our `Pages` controller, which is to display the CodeIgniter "welcome" page,
+  because "index" is the default controller method
+- ``localhost:8080/pages/index`` will also show the CodeIgniter "welcome" page,
+  because we explicitly asked for the "index" method
+- ``localhost:8080/pages/showme`` will show the "home" page that you made above,
+  because it is the default "page" parameter to the `showme()` method.
+- ``localhost:8080/pages/showme/home`` will also show the "home" page that you made above,
+  because we explicitly asked for it
+- ``localhost:8080/pages/showme/about`` will show the "about" page that you made above,
+  because we explicitly asked for it
+- ``localhost:8080/pages/showme/shop`` will show a "404 - File Not Found" error page,
+  because there is no `app/Views/pages/shop.php`
 
-为请求默认的控制器，你必须确定当前路由未被定义或重新编写过。默认的路由文件 **does** 下存在一个处理网站根目录的路由 (/) 规则.删除以下的路由来确保 Pages 控制器可以访问到我们的 home 页面：
 
-	$routes->add('/', 'Home::index');
+Routing
+-------------------------------------------------------
 
-现在访问 ``index.php/about``。路由规则是不是正确的将你带到了控制器中的 ``view()`` 方法？太酷了！
+The controller is now functioning!
+
+Using custom routing rules, you have the power to map any URI to any
+controller and method, and break free from the normal convention:
+``http://example.com/[controller-class]/[controller-method]/[arguments]``
+
+Let's do that. Open the routing file located at
+*app/Config/Routes.php* and look for the "Route Definitions"
+section of the configuration file.
+
+The only uncommented line there to start with should be:::
+
+    $routes->get('/', 'Home::index');
+
+This directive says that any incoming request without any content
+specified should be handled by the ``index`` method inside the ``Home`` controller.
+
+Add the following line, **after** the route directive for '/'.
+
+::
+
+	$routes->get('(:any)', 'Pages::showme/$1');
+
+CodeIgniter reads its routing rules from top to bottom and routes the
+request to the first matching rule. Each rule is a regular expression
+(left-side) mapped to a controller and method name separated by slashes
+(right-side). When a request comes in, CodeIgniter looks for the first
+match, and calls the appropriate controller and method, possibly with
+arguments.
+
+More information about routing can be found in the URI Routing
+:doc:`documentation </incoming/routing>`.
+
+Here, the second rule in the ``$routes`` array matches **any** request
+using the wildcard string ``(:any)``. and passes the parameter to the
+``view()`` method of the ``Pages`` class.
+
+Now visit ``home``. Did it get routed correctly to the ``showme()``
+method in the pages controller? Awesome!
+
+You should see something like the following:
+
+.. image:: ../images/tutorial1.png
+    :align: center

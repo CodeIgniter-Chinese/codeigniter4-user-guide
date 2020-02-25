@@ -10,7 +10,9 @@ View components are used to build what is returned to the user.
     views
     view_cells
     view_renderer
+    view_layouts
     view_parser
+    table
     response
     api_responses
     localization

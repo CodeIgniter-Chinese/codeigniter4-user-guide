@@ -1,8 +1,8 @@
 #######
-辅助函数
+Helpers
 #######
 
-辅助函数是一些程序功能的集合。
+Helpers are collections of useful procedural functions.
 
 .. toctree::
 	:glob:

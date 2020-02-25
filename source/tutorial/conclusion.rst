@@ -1,17 +1,22 @@
-##########
-结论
-##########
+Conclusion
+###############################################################################
 
-本教程没有涵盖你对完整内容管理系统可能期望的所有内容，但它向你介绍了路由，编写控制器和模型等更重要的主题。
-我们希望本教程能让你深入了解CodeIgniter的一些基本设计模式，你可以对其进行扩展。
+This tutorial did not cover all of the things you might expect of a
+full-fledged content management system, but it introduced you to the
+more important topics of routing, writing controllers, and models. We
+hope this tutorial gave you an insight into some of CodeIgniter's basic
+design patterns, which you can expand upon.
 
-现在你已完成本教程，我们建议你查看其余文档。CodeIgniter因其全面的文档而受到称赞。
-使用它有利于你，并彻底阅读“简介”和“一般主题”部分。你应该在需要时阅读类和帮助程序引用。
+Now that you've completed this tutorial, we recommend you check out the
+rest of the documentation. CodeIgniter is often praised because of its
+comprehensive documentation. Use this to your advantage and read the
+"Introduction" and "General Topics" sections thoroughly. You should read
+the class and helper references when needed.
 
-每个中级PHP程序员都应该能够在几天内获得CodeIgniter的支持。
+Every intermediate PHP programmer should be able to get the hang of
+CodeIgniter within a few days.
 
-如果你仍然对框架或你自己的CodeIgniter代码有疑问，你可以：
+If you still have questions about the framework or your own CodeIgniter
+code, you can:
 
--  看看我们的 `论坛 <http://forum.codeigniter.com/>`_
--  访问我们的 `IRC 聊天室 <https://github.com/bcit-ci/CodeIgniter/wiki/IRC>`_
--  探索 `Wiki <https://github.com/bcit-ci/CodeIgniter/wiki/>`_
+-  Check out our `forums <http://forum.codeigniter.com/>`_

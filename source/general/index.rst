@@ -1,5 +1,5 @@
 ##############
-常规主题
+General Topics
 ##############
 
 .. toctree::
@@ -12,6 +12,7 @@
     logging
     errors
     caching
+    ajax
     modules
     managing_apps
     environments

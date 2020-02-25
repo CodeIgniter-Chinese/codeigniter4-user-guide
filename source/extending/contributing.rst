@@ -1,52 +1,72 @@
 ###########################
-贡献给 CodeIgniter
+Contributing to CodeIgniter
 ###########################
 
-CodeIgniter 是一个大众驱动项目并且它接受自大众提供的编码和文档编制贡献。这些贡献将在 Github 的 `CodeIgniter4 repository <https://github.com/bcit-ci/CodeIgniter4>`_  上以讨论的形式或者以 `Pull Requests <https://help.github.com/articles/using-pull-requests/>`_ 形式产生。
+CodeIgniter is a community driven project and accepts contributions of code
+and documentation from the community. These contributions are made in the form
+of Issues or `Pull Requests <https://help.github.com/articles/using-pull-requests/>`_
+on the `CodeIgniter4 repository <https://github.com/codeigniter4/CodeIgniter4>`_ on GitHub.
 
-讨论是指出一个程序错误最快捷的方式。如果你在 Codeigniter 中找到了程序错误或者文档编制错误，请首先检查一些要事：
+Issues are a quick way to point out a bug. If you find a bug or documentation
+error in CodeIgniter then please check a few things first:
 
-- 是否存在一个已经开放的讨论。
-- 讨论已经被解决了。（检查开发分支，或者查看关闭的讨论。）
-- 你明确的确实要独自解决问题吗？
+- There is not already an open Issue
+- The issue has already been fixed (check the develop branch, or look for
+  closed Issues)
+- Is it something really obvious that you fix it yourself?
 
-发布讨论是有帮助而且发出 Pull Request 是一个更好的方式，PR 是基于 “Forking” 主要的内容并提交到你自己拷贝版本里。
+Reporting issues is helpful but an even better approach is to send a Pull
+Request, which is done by "Forking" the main repository and committing to your
+own copy. This will require you to use the version control system called Git.
 
-请查看代码库的 `贡献给 CodeIgniter4 <https://github.com/bcit-ci/CodeIgniter4/tree/develop/contributing>`_ 章节。
+Please see the `Contributing to CodeIgniter4 <https://github.com/codeigniter4/CodeIgniter4/tree/develop/contributing>`_
+section of our code repository.
 
 *******
-支持
+Support
 *******
 
-请记住 GitHub 决不支持一般使用性的问题！如果将来你在使用 Codeigniter 中有了困难，请去网络论坛寻求帮助代替发表在 `forums <http://forum.codeigniter.com/>`_ 上。
+Please note that GitHub is not for general support questions! If you are
+having trouble using a feature, you can:
 
-如果你不能保证你使用中出现的事情是否正确或者你又发现了一处程序错误，请首先在网络论坛中询问。
+- Start a new thread on the `forum <http://forum.codeigniter.com/>`_
+- Ask your questions on `Slack <https://codeigniterchat.slack.com/>`_
+
+If you are not sure whether you are using something correctly or if you
+have found a bug, again - please ask on the forums first.
 
 ********
-安全性
+Security
 ********
 
-你已经在 CodeIgniter 中找到一个安全问题了吗？
+Did you find a security issue in CodeIgniter?
 
-请不要公开揭露你发现的安全问题，但是你要发送邮件给 security@codeigniter.com，或者经由我们 `HackerOne <https://hackerone.com/codeigniter>`_ 的页面发布它。
-如果你已经找到了一个濒临崩溃的安全危险，我们很高兴把你的发现放在我们的 `ChangeLog <../changelog.html>`_ 里。
+Please *don't* disclose it publicly, but e-mail us at security@codeigniter.com,
+or report it via our page on `HackerOne <https://hackerone.com/codeigniter>`_.
+
+If you've found a critical vulnerability, we'd be happy to credit you in our
+`ChangeLog <../changelogs/index.html>`_.
 
 ****************************
-优良的讨论报告贴士
+Tips for a Good Issue Report
 ****************************
 
-使用有描述的主题原则（例如 parser library chokes on commas）好于含糊不清的主题（例如 your code broke ）。
+Use a descriptive subject line (eg parser library chokes on commas) rather than a vague one (eg. your code broke).
 
-在报告里计算机物理地址是单独说明的问题。
+Address a single issue in a report.
 
-识别清楚 codeigniter 的版本（例如 3.0 - develop）和你知道的组件（例如 parser library）
+Identify the CodeIgniter version (eg 4.0.1) and the component if you know it (eg. parser library)
 
-阐述你预期将要发生的事或者已经发生的事。包括任何错误的信息和堆栈轨迹。
+Explain what you expected to happen, and what did happen.
+Include error messages and stack trace, if any.
 
-如果代码程序段能够帮助说明要把短代码程序段考虑在内。使用 pastebin 或者 dropbox 很容易提取更长的代码程序段或者截图 ———— 截图并不包含讨论报告自身。
-本段文字的主旨是设定问题解决的合理终结，直到问题解决或者关闭。
+Include short code segments if they help to explain.
+Use a pastebin or dropbox facility to include longer segments of code or screenshots - do not include them in the issue report itself.
+This means setting a reasonable expiry for those until the issue is resolved or closed.
 
-如果你知道如何解决讨论，你要在你自己的 fork & branch 做好解决方案，并且提交堆栈请求（pull request）。
-上文中的问题报告信息应当是整个报告的一部分。
+If you know how to fix the issue, you can do so in your own fork & branch, and submit a pull request.
+The issue report information above should be part of that.
 
-如果你的讨论报告描述能分步骤的再现问题，那是极好的。如果你在再现问题时能把单元测试考虑在内，那将更好，讨论报告要给任何正在解决问题的人一个更加清楚的目标！
+If your issue report can describe the steps to reproduce the problem, that is great.
+If you can include a unit test that reproduces the problem, that is even better, as it gives whoever is fixing
+it a clearer target!

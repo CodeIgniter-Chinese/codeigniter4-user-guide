@@ -16,7 +16,7 @@ must return the generated HTML as a string. The method can be either a static me
 Cell Parameters
 ---------------
 
-You can further refine the call by passing a list of parameters in the second parameter to the method. The values passed
+You can further refine the call by passing a list of parameters in the second parameter to the method. The values passed 
 can be an array of key/value pairs, or a comma-separated string of key/value pairs::
 
     // Passing Parameter Array

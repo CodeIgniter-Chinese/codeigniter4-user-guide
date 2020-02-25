@@ -22,9 +22,9 @@ and power. Some common examples of tasks that might be performed with filters ar
 Creating a Filter
 *****************
 
-Filters are simple classes that implement ``CodeIgniter\Filters\FilterInterface``. 
-They contain two methods: ``before()`` and ``after()`` which hold the code that 
-will run before and after the controller respectively. Your class must contain both methods 
+Filters are simple classes that implement ``CodeIgniter\Filters\FilterInterface``.
+They contain two methods: ``before()`` and ``after()`` which hold the code that
+will run before and after the controller respectively. Your class must contain both methods
 but may leave the methods empty if they are not needed. A skeleton filter class looks like::
 
     <?php namespace App\Filters;
@@ -56,7 +56,7 @@ to make changes that will still be present when the controller executes.
 
 Since before filters are executed prior to your controller being executed, you may at times want to stop the
 actions in the controller from happening. You can do this by passing back anything that is not the request object.
-This is typically used to peform redirects, like in this example::
+This is typically used to perform redirects, like in this example::
 
     public function before(RequestInterface $request)
     {
@@ -69,7 +69,7 @@ This is typically used to peform redirects, like in this example::
     }
 
 If a Response instance is returned, the Response will be sent back to the client and script execution will stop.
-This can be useful for implementing rate limiting for API's. See **application/Filters/Throttle.php** for an
+This can be useful for implementing rate limiting for API's. See **app/Filters/Throttle.php** for an
 example.
 
 After Filters
@@ -80,11 +80,11 @@ and you cannot stop script execution. This does allow you to modify the final ou
 the final output. This could be used to ensure certain security headers were set the correct way, or to cache
 the final output, or even to filter the final output with a bad words filter.
 
-===================
+*******************
 Configuring Filters
-===================
+*******************
 
-Once you've created your filters, you need to configure when they get run. This is done in ``application/Config/Filters.php``.
+Once you've created your filters, you need to configure when they get run. This is done in ``app/Config/Filters.php``.
 This file contains four properties that allow you to configure exactly when the filters run.
 
 $aliases
@@ -94,7 +94,7 @@ The ``$aliases`` array is used to associate a simple name with one or more fully
 filters to run::
 
     public $aliases = [
-        'csrf' => \App\Filters\CSRF::class
+        'csrf' => \CodeIgniter\Filters\CSRF::class
     ];
 
 Aliases are mandatory and if you try to use a full class name later, the system will throw an error. Defining them
@@ -166,10 +166,12 @@ In addition to the standard HTTP methods, this also supports two special cases: 
 self-explanatory here, but 'cli' would apply to all requests that were run from the command line, while 'ajax'
 would apply to every AJAX request.
 
+.. note:: The AJAX requests depends on the ``X-Requested-With`` header, which in some cases is not sent by default in XHR requests via JavaScript (i.e. fetch). See the :doc:`AJAX Requests </general/ajax>` section on how to avoid this problem.
+
 $filters
 ========
 
-This property is an array of filter aliases. For each alias you can specify before and after arrays that contain
+This property is an array of filter aliases. For each alias, you can specify before and after arrays that contain
 a list of URI patterns that filter should apply to::
 
     public filters = [
@@ -181,4 +183,4 @@ a list of URI patterns that filter should apply to::
 Provided Filters
 ****************
 
-Three filters are bundled with CodeIgniter4: Honeypot, Security, and Throttler.
+Three filters are bundled with CodeIgniter4: Honeypot, Security, and DebugToolbar.
