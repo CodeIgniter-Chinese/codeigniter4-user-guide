@@ -3,6 +3,7 @@
 > - [ ] 表示未认领
 > - [x] 表示已认领
 > - [x] ~~表示已完成~~
+> - [ ] :exclamation: 表示需要更新
 
 
 - [x] [~~./source/outgoing/alternative_php.rst~~](source/outgoing/alternative_php.rst)
