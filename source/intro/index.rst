@@ -1,40 +1,26 @@
 #######################
-Welcome to CodeIgniter4
+欢迎使用 CodeIgniter4
 #######################
 
-CodeIgniter is an Application Development Framework - a toolkit - for
-people who build web sites using PHP. Its goal is to enable you to
-develop projects much faster than you could if you were writing code
-from scratch, by providing a rich set of libraries for commonly needed
-tasks, as well as a simple interface and logical structure to access
-these libraries. CodeIgniter lets you creatively focus on your project
-by minimizing the amount of code needed for a given task.
+CodeIgniter 是一套给 PHP 网站开发者使用的应用程序开发框架和工具包。它的目标是让你能够更快速的开发，它提供了日常任务中所需的大量类库，以及简单的接口和逻辑结构。通过减少代码量，CodeIgniter 让你更加专注于你的创造性工作。
 
-Where possible, CodeIgniter has been kept as flexible as possible,
-allowing you to work in the way you want, not being forced into working
-any certain way. The framework can have core parts easily extended
-or completely replaced to make the system work the way you need it to.
-In short, CodeIgniter is the malleable framework that tries to provide
-the tools you need while staying out of the way.
+CodeIgniter 将尽可能的保持其灵活性，以允许你以喜欢的方式工作，而不是被迫以其它方式工作。框架可以轻松扩展或替换核心部件，使系统按你期望的方式工作。简而言之，CodeIgniter 是一个可扩展的框架，它试图提供你所需的工具，同时让你避免踩坑。
 
-***********************
-Who is CodeIgniter For?
-***********************
+**************************
+CodeIgniter 是为谁准备的？
+**************************
 
-CodeIgniter is right for you if:
+CodeIgniter 就是你所需要的，如果...
 
--  You want a framework with a small footprint.
--  You need exceptional performance.
--  You want a framework that requires nearly zero configuration.
--  You want a framework that does not require you to use the command
-   line.
--  You want a framework that does not require you to adhere to
-   restrictive coding rules.
--  You are not interested in large-scale monolithic libraries like PEAR.
--  You do not want to be forced to learn a templating language (although
-   a template parser is optionally available if you desire one).
--  You eschew complexity, favoring simple solutions.
--  You need clear, thorough documentation.
+-  你想要一个小巧的框架；
+-  你需要出色的性能；
+-  你想要一个几乎零配置的框架；
+-  你想要一个不需使用命令行的框架；
+-  你想要一个不想被编码规则的条条框框限制住的框架；
+-  你对 PEAR 这种庞然大物不感兴趣；
+-  你不想被迫学习一种新的模板语言（当然如果你喜欢，你可以选择一个模板解析器）；
+-  你不喜欢复杂，追求简单；
+-  你需要清晰、完整的文档。
 
 .. toctree::
 	:hidden:

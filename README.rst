@@ -1,6 +1,19 @@
+.. image:: https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master
+    :target: https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide
+
 #############################
 CodeIgniter 4 中文手册翻译计划
 #############################
+
+***********
+翻译准则
+***********
+
+中文翻译请遵守 `中文文案排版指北 <http://mazhuang.org/wiki/chinese-copywriting-guidelines/>`_ 和 `文档翻译指南 <translation-guide.md>`_
+
+`文档翻译进度 <TODO.md>`_
+
+`预览最新文档 <https://codeigniter-chinese.github.io/codeigniter4-user-guide/>`_
 
 ******************
 安装步骤
@@ -23,11 +36,12 @@ http://python.org/download/releases/2.7.2/
 ============
 
 1. 安装 `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install>`_
-2. ``easy_install "sphinx==1.4.5"``
-3. ``easy_install sphinxcontrib-phpdomain``
-4. 安装 CI Lexer，它可以高亮文档中的 PHP, HTML, CSS, 和 JavaScript 代码 (参见 *cilexer/README*)
-5. 返回代码库根目录
-6. ``make html``
+2. ``easy_install "sphinx==1.4.9"``
+3. ``easy_install "sphinxcontrib-phpdomain==0.4.1"``
+4. ``easy_install "jieba==0.39"``
+5. 安装 CI Lexer，它可以高亮文档中的 PHP, HTML, CSS, 和 JavaScript 代码 (参见 *cilexer/README*)
+6. 返回代码库根目录
+7. ``make html``
 
 译注：
 
@@ -57,4 +71,4 @@ http://python.org/download/releases/2.7.2/
 风格指南
 ***************
 
-使用 Sphinx 为 CodeIgniter 编写文档，请参考 source/documentation/index.rst 的一般准则。
+使用 Sphinx 为 CodeIgniter 编写文档，请参考 `source/contributing/documentation.rst <source/contributing/documentation.rst>`_ 的一般准则。

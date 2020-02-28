@@ -1,130 +1,97 @@
 =====================
-Contribution Workflow
+贡献工作流程
 =====================
 
-Much of the workflow for contributing to CodeIgniter (or any project) involves
-understanding how `Git <https://git-scm.com/>`_ is used to 
-manage a shared repository and contributions to it.
-Examples below use the Git bash shell, to be as platform neutral as
-possible. Your IDE may make some of these easier.
+大量工作流程为了贡献给 CodeIgniter（或者任何项目），包括理解 `Git <https://git-scm.com/>`_  过去如何管理共享库并且贡献给项目。
+例如下面使用 Git bash shell （命令行界面）尽可能保持平台无特征的。你的 IDE（集成开发环境）也许会使得下面流程中的一些更简单。
 
-Some conventions used below, which you will need to provide appropriate
-values for when you try these::
+一些规约常常用在下面，当你尝试这些规约时你要提供合适的值::
 
-    ALL_PROJECTS    // folder location with all your projects in subfolders, eg /lampp/htdocs
-    YOUR_PROJECT    // folder containing the project you are working on, inside ALL_PROJECTS
-    ORIGIN_URL      // the cloning URL for your repository fork
-    UPSTREAM_URL    // the cloning URL for the CodeIgniter4 repository
+    ALL_PROJECTS    // 在子文件夹下所有项目的文件位置，例如: /lampp/htdocs
+    YOUR_PROJECT    // 文件夹包括你正在工作的项目，在 ALL_PROJECTS 里 
+    ORIGIN_URL      // 对你的库 fork(系统调用) 的原始网址的复制 URL（网页地址）
+    UPSTREAM_URL    // 对 CodeIgniter4 库原始网址的复制 URL（网页地址）
 
-Branching
+分支程序
 =========
 
-CodeIgniter uses the `Git-Flow
-<http://nvie.com/posts/a-successful-git-branching-model/>`_ branching model,
-which requires all pull requests to be sent to the "develop" branch. This is
-where the next planned version will be developed. The "master" branch will
-always contain the latest stable version and is kept clean so a "hotfix" (e.g:
-an emergency security patch) can be applied to master to create a new version,
-without worrying about other features holding it up. For this reason all
-commits need to be made to "develop" and any sent to "master" will be closed
-automatically. If you have multiple changes to submit, please place each
-change into their own branch on your fork.
+CodeIgniter 使用 `Git-Flow
+<http://nvie.com/posts/a-successful-git-branching-model/>`_  分支模板，所有出栈请求（pull requests）需求要被发送到 "develop （开发）" 分支。被发送到开发分支的出栈请求（pull requests）将会作为下一个计划版本开发。 "master（主分支）" 分支常会包含最新的稳定版本并且如是的 "hotfix （热修复）"（例如：应急加密补丁） 会洁净如新的被应用在母分支上创建新版本，排除担心其他特征会拦劫它。因为这个原因所有的提交需要被制作成 "develop" 版本并且一些被送到 "master（主分支）" 的提交将会被自动地关闭。如果你有复合的选择要传递，请在你的 fork（系统调用）上放置每一个改变他们自身的分支程序。
 
-One thing at a time: a pull request should only contain one change. That does
-not mean only one commit, but one change - however many commits it took. The
-reason for this is that if you change X and Y but send a pull request for both
-at the same time, we might really want X but disagree with Y, meaning we
-cannot merge the request. Using the Git-Flow branching model you can create
-new branches for both of these features and send two requests.
 
-Forking
+每次一件事：一个出栈请求应该仅包含一个改变。那并不意味着仅仅一次提交，但一次改变它或许会带来许多提交。这个理由就像你改变了 X 和 Y 并在同时为他们发送了出栈请求，我们也许真的想同意 X 但不同意 Y ，那意思是我们不能合并这个请求。使用 Git-flow 分支模板你能为所有这些特性去创建新的分支程序并发送两个请求。
+
+系统调用
 =======
 
-You work with a fork of the CodeIgniter4 repository. This is a copy of our repository,
-in your github account. You can make changes to your forked repository, while
-you cannot do the same with the shared one - you have to submit pull requests
-to it instead.
 
-`Creating a fork <https://help.github.com/articles/fork-a-repo/>`_ is done through the Github website. Navigate to `our
-repository <https://github.com/bcit-ci/CodeIgniter4>`_, 
-click the **Fork** button in the top-right of the page, and choose which account or
-organization of yours should contain that fork.
+你的工作会带着 CodeIgniter4 库的系统调用。这是在你 github 账户里我们库的一份拷贝。你能对你的系统调用库做出改变，当然你不能对已经共享的系统调用做同样的事情　——　你要对它提交出栈请求而非硬改你的系统调用。
 
-Cloning
+
+通过 Github 网站 `创建系统调用 <https://help.github.com/articles/fork-a-repo/>`_ 直到完成。跟着 `我们
+库 <https://github.com/bcit-ci/CodeIgniter4>`_ 的导航，点击页面顶部右方的  **Fork** （系统调用）按钮，然后选择应该包含那个系统调用的你的账户或组织。
+
+克隆（编程学）
 =======
 
-You *could* work on your repository using Github's web interface, but that is
-awkward. Most developers will clone their repository to their local system,
-and work with it there.
+你 *能* 用 Github 的页面接口工作在你的库上，但那是笨拙的。大多数开发人员将会克隆它们的库到他们本地系统中并且在本地系统里工作。
 
-On Github, navigate to your forked repository, click **Clone or download**, and
-copy the cloning URL shown. We will refer to this as ORIGIN_URL.
+在 Github 上，导航到你系统调用的库，点击 **克隆或者下载** ，然后复制已显示的克隆地址。我们将会参考复制的地址作为 ORIGIN_URL（起始地址）。
 
-Clone your repository, leaving a local folder for you to work with::
+克隆你的库，为你去工作备用一个本地文件夹::
 
     cd ALL_PROJECTS
     git clone ORIGIN_URL
 
-Synching
+
+同步
 ========
 
-Within your local repository, Git will have created an alias, **origin**, for the 
-Github repository it is bound to. You want to create an alias for the shared
-repository, so that you can "synch" the two, making sure that your repository
-includes any other contributions that have been merged by us into the shared repo::
+
+在你的本地库里面，Git 将会创建一个别名，**起源**，对于 Github 库别名是必须的。你要为共享库创建别名，所以你能 "synch（同步）" 两个别名，包括任何其他的贡献确保你的库已经被我们合并到共享库::
 
     git remote add upstream UPSTREAM_URL
 
-Then synchronizing is done by pulling from us and pushing to you. This is normally
-done locally, so that you can resolve any merge conflicts. For instance, to 
-synchronize **develop** branches::
+
+那么从我们那拉取的同步完成了并且推送给你。这是正常的本地化，因此你能解决任何合并冲突。例证，同步 **开发** 分支::
 
     git checkout develop
     git pull upstream develop
     git push origin develop
 
-You might get merge conflicts when you pull from upstream. It is your responsibility
-to resolve those locally, so that you can continue collaborating with the shared
-repository. Basically, the shared repository is updated in the order that contributions 
-are merged into it, not in the order that they might have been submitted. 
-If two PRs update the same piece of code, then the first one to be merged 
-will take precedence, even if it causes problems for other contributions.
 
-It is a good idea to synchronize repositories when the shared one changes.
+当你拉取上游数据的时候你也许遇见了合并冲突。你的责任是要解决这些本地数据，因此你要继续与共享库协作。主要地，共享库在指令里被更新并且贡献被合并到里面，不是在指令里那么他们也许已经被提交了。如果两个 PRs（出栈请求） 更新在相同的代码片段里，那么被合并的第一段将会优先接受，即使它会对其他贡献来说会引起问题。
 
-Branching Revisited
+当共享变更时同步内容是一个好主意。
+
+
+分支程序回访
 ===================
 
-The top of this page talked about the **master** and **develop** branches. 
-The *best practice* for your work is to create a *feature branch* locally,
-to hold a group of related changes (source, unit testing, documentation,
-change log, etc). This local branch should be named appropriately,
-for instance "fix/problem123" or "new/mind-reader".
 
-For instance, make sure you are in the *develop* branch, and create a
-new feature branch, based on *develop*, for a new feature you are creating::
+本页面最开始谈论了 **主要** 程序和 **开发** 分支程序。创建本地 *特征分支程序* 是对你工作 *最好的实践* ，去控制相关改变的几个窗口（如：源码，单元测试，文件，变更日志，等等）。本地分支程序应当被适当的命名，例如 "fix/problem123" 或者 "new/mind-reader".
+
+例如，保证你仍在 *开发* 分支程序里并且创建新的特征分支程序，基于 *开发* ，为了新的特征你要创建::
 
     git checkout develop
     git checkout -b new/mind-reader
 
-Saving changes only updates your local working area.
 
-Committing
+正保存的改变仅更新你的本地正工作的区域。
+
+提交
 ==========
 
-Your local changes need to be *committed* to save them in your local repository.
-This is where `contribution signing <signing>`_ comes in.
+你的本地改变要被 *提交* 并在你本地库里保存它们。这刚好是  `贡献签名 <signing>`_  存在的位置。
 
-You can have as many commits in a branch as you need to "get it right".
-For instance, to commit your work from a debugging session::
+在分支程序里和你需要 "把它彻底弄清楚" 一样你能有许多的提交。例如，从一个调试权限里提交你的工作::
 
     git add .
     git commit -S -m "Find and fix the broken reference problem"
 
-Just make sure that your commits in a feature branch are all related.
+仅保证在特征分支程序里你的提交全是有密切联系的。
 
-If you are working on two features at a time, then you will want to switch
-between them to keep the contributions separate. For instance::
+如果你在同时忙于两个特征，而你将要在它们之间调整以保持贡献分开。例如::
 
     git checkout new/mind-reader
     // work away
@@ -136,67 +103,53 @@ between them to keep the contributions separate. For instance::
     git commit -S -m "Fixed problem in DEF\Something"
     git checkout develop
 
-The last checkout makes sure that you end up in your *develop* branch as a
-starting point for your next session working with your repository.
-This is a good practice, as it is not always obvious which branch you are working in.
 
-Pushing Your Branch
+你的库最后的检查确保在你的 *开发* 分支里为了你接下来阶段的工作你的终点就像起点。这是个有益的实践，如同你正工作的分支程序不常常是明显的。
+
+推送你的分支程序
 ===================
 
-At some point, you will decide that your feature branch is complete, or that
-it could benefit from a review by fellow developers.
+基于一些精髓，你将会决定你的特征分支程序完成了，或者它会得益于关注的开发者复审。
 
-.. note::
-    Remember to synch your local repo with the shared one before pushing!
-    It is a lot easier to resolve conflicts at this stage.
+.. note::（注意）
+   
+    在推送前记得与已经共享的分支程序去同步你的本地库！在这一阶段非常容易解决矛盾。
+    
 
-Synchronize your repository::
+同步你的库::
 
     git checkout develop
     git pull upstream develop
     git push origin develop
     
-Bring your feature branch up to date::
+带来你最新的特征分支程序::
 
     git checkout new/mind-reader
     git merge develop
 
-And finally push your local branch to your github repository::
+最后推送你本地的分支程序到你的 Github 库::
 
     git push origin new/mind-reader
 
-Pull Requests
+出栈请求
 =============
 
-On Github, you propose your changes one feature branch at a time, by
-switching to the branch you wish to contribute, and then clicking
-on "New pull request".
+在 Github 上，你打算同时改变一个特征分支程序，调整到你希望贡献的分支程序，于是点击 "New pull request" (新的出栈请求)。
 
-Make sure the pull request is for the shared **develop** branch, or it
-may be rejected.
+保证出栈请求是为共享的 **开发** 分支，要不然出栈请求或许会被拒绝。
 
-Make sure that the PR title is helpful for the maintainers and other developers.
-Add any comments appropriate, for instance asking for review.
+保证 PR （出栈请求）题目是对维护人员和其他的开发人员有帮助的。添加一些适当的评论，比如为了复审而询问。
 
-.. note::
-    If you do not provide a title for your PR, the odds of it being summarily rejected
-    rise astronomically.
+.. note::（注意）
+    如果你没有为你的 PR （出栈请求）提供题目，出栈请求立刻被拒绝的可能性会天文数字般上升。
 
-When your PR is submitted, a continuous integration task will be triggered,
-running all the unit tests as well as any other checking we have configured for it.
-If the unit tests fail, or if there are merge conflicts, your PR will not
-be mergeable until fixed.
+当你的 PR（出栈请求） 已经确定了，连续的整合任务会被触发，运行所有的测试单元就像我们已经为出栈请求已经配置的任何其他正在检查的一样好。如果单元测试失败了，或者有合并冲突，在修好以前你的 PR （出栈请求）将不会被合并。
 
-Fix such changes locally, commit them properly, and then push your branch again.
-That will update the PR automatically, and re-run the CI tests. You don't need 
-to raise a new PR.
+准备这样的本地地改变，适当地提交它们，于是再次推送你的分支程序。 PR （出栈请求）将自动地更新，然后再次运行 CI （ CodeIgniter） 测试。你不需要增加新的 PR (出栈请求)。
 
-If your PR does not follow our contribution guidelines, or is incomplete,
-the codebase maintainers will comment on it, pointing out what
-needs fixing. 
+如果你的 PR (出栈请求)不遵循我们的贡献原则，或者是不完整的，基本代码的维护者将会在它上面做评论，指出什么需要修正。
 
-Cleanup
+清除
 =======
 
-If your PR is accepted and merged into the shared repository, you can delete
-that branch in your github repository as well as locally.
+如果你的 PR （出栈请求）接受并合并到共享库里，你能在你的 github 库里尽可能恰当的删除本地分支程序。

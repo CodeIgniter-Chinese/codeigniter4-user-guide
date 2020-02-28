@@ -1,58 +1,56 @@
 ###############
-Security Helper
+安全辅助函数
 ###############
 
-The Security Helper file contains security related functions.
+安全辅助函数文件包含安全相关联的函数。
 
 .. contents::
-:local:
+  :local:
 
-Loading this Helper
+加载安全辅助函数
 ===================
 
-This helper is loaded using the following code::
+安全辅助函数使用下面的代码加载::
 
 	helper('security');
 
-Available Functions
+通用函数
 ===================
 
-The following functions are available:
+下面是通用函数:
 
 .. php:function:: sanitize_filename($filename)
 
-	:param	string	$filename: Filename
-    	:returns:	Sanitized file name
+	:param	string	$filename: 文件名
+    	:returns:	净化文件名
     	:rtype:	string
 
-    	Provides protection against directory traversal.
+    	 提供保护来应对磁盘遍历。
 
-    	This function is an alias for ``\CodeIgniter\Security::sanitize_filename()``.
-	For more info, please see the :doc:`Security Library <../libraries/security>`
-	documentation.
+    	对于 ``\CodeIgniter\Security::sanitize_filename()`` 本函数仅是别名。
+	更多信息，请查看文档  :doc:`Security Library <../libraries/security>` .
+
 
 .. php:function:: strip_image_tags($str)
 
-	:param	string	$str: Input string
-    	:returns:	The input string with no image tags
+	:param	string	$str: 输入 string
+    	:returns:	无成像标签的输入
     	:rtype:	string
 
-    	This is a security function that will strip image tags from a string.
-    	It leaves the image URL as plain text.
+        这是一个将无成像标签从 string 中剥去的安全函数。它留下成像 URL 就像清楚的文本一样。   
 
-    	Example::
+    	事例::
 
 		$string = strip_image_tags($string);
 
-
 .. php:function:: encode_php_tags($str)
 
-	:param	string	$str: Input string
-    	:returns:	Safely formatted string
+	:param	string	$str: 输入 string
+    	:returns:	安全地格式化 string
     	:rtype:	string
 
-    	This is a security function that converts PHP tags to entities.
+    	这是一个安全函数去转换 PHP 标签为实体。
 
-	Example::
+	事例::
 
 		$string = encode_php_tags($string);

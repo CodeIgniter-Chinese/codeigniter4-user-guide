@@ -1,9 +1,8 @@
 ###########
-HTML Helper
+HTML 辅助函数
 ###########
 
-The HTML Helper file contains functions that assist in working with
-HTML.
+HTML 辅助函数包含的函数辅助 HTML 运行。
 
 .. contents::
     :local:
@@ -12,55 +11,48 @@ HTML.
 
     <div class="custom-index container"></div>
 
-Loading this Helper
+加载 HTML 辅助函数
 ===================
 
-This helper is loaded using the following code::
+HTML 辅助函数使用下面的代码加载::
 
     helper('html');
 
-Available Functions
+通用函数
 ===================
 
-The following functions are available:
-
+下面的函数是通用的:
 
 .. php:function:: img([$src = ''[, $indexPage = false[, $attributes = '']]])
 
-    :param  string  $src:        Image source data
-    :param  bool    $indexPage:  Whether to treat $src as a routed URI string
-    :param  array   $attributes: HTML attributes
+    :param  mixed  $src:        Image 原始码数据
+    :param  bool    $indexPage:  是否像路由的 URI 字符串处理 $src 
+    :param  mixed   $attributes: HTML 属性
     :returns:   HTML image tag
     :rtype: string
 
-    Lets you create HTML <img /> tags. The first parameter contains the
-    image source. Example::
+    让你创建 HTML <img /> tags. 第一个参数包含 image 原始码。事例::
 
         echo img('images/picture.jpg');
         // <img src="http://site.com/images/picture.jpg" />
 
-    There is an optional second parameter that is a true/false value that
-    specifics if the *src* should have the page specified by
-    ``$config['indexPage']`` added to the address it creates.
-    Presumably, this would be if you were using a media controller::
+   有一个可选择的第二参数是特定的 true/false 值并规定如果 *src* 将经由 ``$config['indexPage']`` 被添加到地址并创建有明确说明的页面。推测起来，假如你正在使用一个 media 控制器那将是自以为是的::
 
         echo img('images/picture.jpg', true);
         // <img src="http://site.com/index.php/images/picture.jpg" alt="" />
 
-    Additionally, an associative array can be passed to the ``img()`` function
-    for complete control over all attributes and values. If an *alt* attribute
-    is not provided, CodeIgniter will generate an empty string.
+此外，组合数组能被作为第一参数传达，为了完成控制额外的所有属性和值。 如果不提供 *alt* 属性，CodeIgniter 将产生空字符串。
 
-    Example::
+    事例::
 
         $imageProperties = array(
-            'src'   => 'images/picture.jpg',
-            'alt'   => 'Me, demonstrating how to eat 4 slices of pizza at one time',
-            'class' => 'post_images',
-            'width' => '200',
-            'height'=> '200',
-            'title' => 'That was quite a night',
-            'rel'   => 'lightbox'
+            'src'    => 'images/picture.jpg',
+            'alt'    => 'Me, demonstrating how to eat 4 slices of pizza at one time',
+            'class'  => 'post_images',
+            'width'  => '200',
+            'height' => '200',
+            'title'  => 'That was quite a night',
+            'rel'    => 'lightbox'
         );
 
         img($imageProperties);
@@ -68,28 +60,27 @@ The following functions are available:
 
 .. php:function:: link_tag([$href = ''[, $rel = 'stylesheet'[, $type = 'text/css'[, $title = ''[, $media = ''[, $indexPage = false]]]]]])
 
-    :param  string  $href:      The source of the link file
-    :param  string  $rel:       Relation type
-    :param  string  $type:      Type of the related document
-    :param  string  $title:     Link title
-    :param  string  $media:     Media type
-    :param  bool    $indexPage: Whether to treat $src as a routed URI string
+    :param  string  $href:      链接文件的原始码
+    :param  string  $rel:       关系类型
+    :param  string  $type:      关系文件夹的类型
+    :param  string  $title:     链接主题
+    :param  string  $media:     媒体类型
+    :param  bool    $indexPage: 是否像路由的 URI 字符串处理 $src
     :returns:   HTML link tag
     :rtype: string
 
-    Lets you create HTML <link /> tags. This is useful for stylesheet links,
-    as well as other links. The parameters are *href*, with optional *rel*,
-    *type*, *title*, *media* and *indexPage*.
+     让你创建 HTML <link /> tags. 这对样式表链接是有用的,和其他链接一样。参数是 *href* ，带着可选择的 *rel*,
+    *type*, *title*, *media* 和 *indexPage*.
 
-    *indexPage* is a boolean value that specifies if the *href* should have
-    the page specified by ``$config['indexPage']`` added to the address it creates.
+    *indexPage* 是 boolean 值并规定如果 *href* 将经由 ``$config['indexPage']`` 被添加到地址并创建有明确说明的页面。
+     
 
-    Example::
+    事例::
 
         echo link_tag('css/mystyles.css');
         // <link href="http://site.com/css/mystyles.css" rel="stylesheet" type="text/css" />
 
-    Further examples::
+    更多事例::
 
         echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
         // <link href="http://site.com/favicon.ico" rel="shortcut icon" type="image/ico" />
@@ -97,8 +88,7 @@ The following functions are available:
         echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
         // <link href="http://site.com/feed" rel="alternate" type="application/rss+xml" title="My RSS Feed" />
 
-    Additionally, an associative array can be passed to the ``link()`` function
-    for complete control over all attributes and values::
+    间隔地，为了完全控制额外的所有属性和值组合数组能被传达到 ``link_tag()`` 函数::
 
         $link = array(
             'href'  => 'css/printer.css',
@@ -112,27 +102,22 @@ The following functions are available:
 
 .. php:function:: script_tag([$src = ''[, $indexPage = false]])
 
-    :param  string  $src: The source of JavaScript file
-    :param  bool    $indexPage: Whether to treat $src as a routed URI string
+    :param  mixed  $src: JavaScript 文件的原始码名称
+    :param  bool    $indexPage: 是否像路由的 URI 字符串处理 $src 
     :returns:   HTML script tag
     :rtype: string
 
-    Lets you create HTML <script></script> tags. The parameters is *src*, with optional *indexPage*.
+    让你创建 HTML <script></script> tags. 参数是 *src*, 与可选的 *indexPage* 一起.
 
-    *indexPage* is a boolean value that specifies if the *src* should have
-    the page specified by ``$config['indexPage']`` added to the address it creates.
+	*indexPage* 是 boolean 值并规定如果 *src* 将经由 ``$config['indexPage']`` 被添加到地址并创建有明确说明的页面。
+    
 
-    Example::
+    事例::
 
         echo script_tag('js/mystyles.js');
         // <script src="http://site.com/js/mystyles.js" type="text/javascript"></script>
 
-    Further examples::
-
-        // to be done
-
-    Additionally, an associative array can be passed to the ``script_tag()`` function
-    for complete control over all attributes and values::
+间隔地，为了完全控制额外的所有属性和值组合数组能被通过 ``script_tag()`` 函数::
 
         $script = array('src'  => 'js/printer.js');
 
@@ -141,13 +126,12 @@ The following functions are available:
 
 .. php:function:: ul($list[, $attributes = ''])
 
-    :param  array   $list: List entries
-    :param  array   $attributes: HTML attributes
-    :returns:   HTML-formatted unordered list
+    :param  array   $list: 目录登录
+    :param  array   $attributes: HTML 属性
+    :returns:   HTML-formatted 无序目录
     :rtype: string
 
-    Permits you to generate unordered HTML lists from simple or
-    multi-dimensional arrays. Example::
+   容许你从简单或者多倍空间的数组产生无序 HTML 目录。事例:::
 
         $list = array(
             'red',
@@ -163,7 +147,7 @@ The following functions are available:
 
         echo ul($list, $attributes);
 
-    The above code will produce this:
+    上文的代码将产生下文这样地 HTML 代码:
 
     .. code-block:: html
 
@@ -174,7 +158,7 @@ The following functions are available:
             <li>yellow</li>
         </ul>
 
-    Here is a more complex example, using a multi-dimensional array::
+    下面是更复杂的事例，使用多维空间的数组::
 
         $attributes = array(
             'class' => 'boldlist',
@@ -182,12 +166,12 @@ The following functions are available:
         );
 
         $list = array(
-            'colors'  => array(
+            'colors' => array(
                 'red',
                 'blue',
                 'green'
             ),
-            'shapes'  => array(
+            'shapes' => array(
                 'round',
                 'square',
                 'circles' => array(
@@ -198,7 +182,7 @@ The following functions are available:
             ),
             'moods'  => array(
                 'happy',
-                'upset' => array(
+                'upset'   => array(
                     'defeated' => array(
                         'dejected',
                         'disheartened',
@@ -213,7 +197,7 @@ The following functions are available:
 
         echo ul($list, $attributes);
 
-    The above code will produce this:
+    上文的代码将产生这样的 HTML 前端代码:
 
     .. code-block:: html
 
@@ -261,26 +245,25 @@ The following functions are available:
 
 .. php:function:: ol($list, $attributes = '')
 
-    :param  array   $list: List entries
-    :param  array   $attributes: HTML attributes
-    :returns:   HTML-formatted ordered list
+    :param  array   $list: 目录登录
+    :param  array   $attributes: HTML 属性
+    :returns:   HTML-formatted 有序目录
     :rtype: string
 
-    Identical to :php:func:`ul()`, only it produces the <ol> tag for
-    ordered lists instead of <ul>.
+    完全相似于 :php:func:`ul()` ,为了代替有序目录 <ul> 它仅产生 <ol> tag.
+    
 
 .. php:function:: video($src[, $unsupportedMessage = ''[, $attributes = ''[, $tracks = [][, $indexPage = false]]]])
 
-    :param  mixed   $src:                Either a source string or an array of sources. See :php:func:`source()` function
-    :param  string  $unsupportedMessage: The message to display if the media tag is not supported by the browser
-    :param  string  $attributes:         HTML attributes
-    :param  array   $tracks:             Use the track function inside an array. See :php:func:`track()` function
+    :param  mixed   $src:                任一原始码字符串或者原始码的数组. 参看 :php:func:`source()` 函数
+    :param  string  $unsupportedMessage: 如果 media tag 不支持由浏览器提供的消息会显示
+    :param  string  $attributes:         HTML 属性
+    :param  array   $tracks:            在数组里使用追踪函数。参看 :php:func:`track()` 函数
     :param  bool    $indexPage:
-    :returns:                            HTML-formatted video element
+    :returns:                            HTML-formatted 影像元素
     :rtype: string
 
-    Permits you to generate HTML video element from simple or
-    source arrays. Example::
+    容许你从简单的或者原始码数组产生 HTML 影像元素。事例::
 
         $tracks =
         [
@@ -311,7 +294,7 @@ The following functions are available:
             $tracks
          );
 
-    The above code will produce this:
+    上文的编码将产生这样地 HTML 前端代码:
 
     .. code-block:: html
 
@@ -337,58 +320,55 @@ The following functions are available:
 
 .. php:function:: audio($src[, $unsupportedMessage = ''[, $attributes = ''[, $tracks = [][, $indexPage = false]]]])
 
-    :param  mixed   $src:                Either a source string or an array of sources. See :php:func:`source()` function
-    :param  string  $unsupportedMessage: The message to display if the media tag is not supported by the browser
+    :param  mixed   $src:                任一原始码字符串或者原始码数组。参看 :php:func:`source()` 函数
+    :param  string  $unsupportedMessage: 如果 media tag 不支持由浏览器提供的消息会显示
     :param  string  $attributes:
-    :param  array   $tracks:             Use the track function inside an array. See :php:func:`track()` function
+    :param  array   $tracks:            在数组里用追踪函数. 参看 :php:func:`track()` 函数
     :param  bool    $indexPage:
-    :returns:                            HTML-formatted video element
+    :returns:                            HTML-formatted 音频元素
     :rtype: string
 
-    Identical to :php:func:`video()`, only it produces the <audio> tag instead of <video>.
-
+    完全相似于 :php:func:`video()`, 它仅仅产生 <audio> tag 代替 <video>.
+    
 
 .. php:function:: source($src = ''[, $type = false[, $attributes = '']])
 
-    :param  string  $src:        The path of the media resource
-    :param  bool    $type:       The MIME-type of the resource with optional codecs parameters
-    :param  array   $attributes: HTML attributes
+    :param  string  $src:        media source的路径
+    :param  bool    $type:      以可选择的编码参数的资源 MIME（多用途的网络邮件扩充协议）类型
+    :param  array   $attributes: HTML 属性
     :returns:   HTML source tag
     :rtype: string
 
-    Lets you create HTML <source /> tags. The first parameter contains the
-    source source. Example::
+   让你创建 HTML <source /> tags. 第一个参数包含起源 source. 事例::
 
         echo source('movie.mp4', 'video/mp4', 'class="test"');
         // <source src="movie.mp4" type="video/mp4" class="test" />
 
 .. php:function:: embed($src = ''[, $type = false[, $attributes = ''[, $indexPage = false]]])
 
-    :param  string  $src:        The path of the resource to embed
-    :param  bool    $type:       MIME-type
-    :param  array   $attributes: HTML attributes
+    :param  string  $src:        资源的路径 embed
+    :param  bool    $type:      MIME（多用途的网络邮件扩充协议）类型
+    :param  array   $attributes: HTML 属性
     :param  bool    $indexPage:
     :returns:   HTML embed tag
     :rtype: string
 
-    Lets you create HTML <embed /> tags. The first parameter contains the
-    embed source. Example::
+   让你创建 HTML <embed /> tags.第一参数包含 embed source. 事例::
+   
 
         echo embed('movie.mov', 'video/quicktime', 'class="test"');
         // <embed src="movie.mov" type="video/quicktime" class="test"/>
 
-
 .. php:function:: object($data = ''[, $type = false[, $attributes = '']])
 
-    :param  string  $data:       A resource URL
-    :param  bool    $type:       Content-type of the resource
-    :param  array   $attributes: HTML attributes
-    :param  array   $params:     Use the param function inside an array. See :php:func:`param()` function
+    :param  string  $data:       资源 URL
+    :param  bool    $type:       资源的内容类型
+    :param  array   $attributes: HTML 属性
+    :param  array   $params:     在数组里使用 param 函数。参看 :php:func:`param()` 函数
     :returns:   HTML object tag
     :rtype: string
 
-    Lets you create HTML <object /> tags. The first parameter contains the
-    object data. Example::
+    让你创建 HTML <object /> tags. 第一参数包含 object data. 事例::
 
         echo object('movie.swf', 'application/x-shockwave-flash', 'class="test"');
 
@@ -403,7 +383,7 @@ The following functions are available:
             ]
         );
 
-    The above code will produce this:
+    上文编码将产生这样的 HTML 前端代码:
 
     .. code-block:: html
 
@@ -414,47 +394,42 @@ The following functions are available:
           <param name="hello" type="ref" value="world" class="test" />
         </object>
 
-
 .. php:function:: param($name = ''[, $type = false[, $attributes = '']])
 
-    :param  string  $name:       The name of the parameter
-    :param  string  $value:      The value of the parameter
-    :param  array   $attributes: HTML attributes
+    :param  string  $name:       参数的名字
+    :param  string  $value:      参数的值
+    :param  array   $attributes: HTML 属性
     :returns:   HTML param tag
     :rtype: string
 
-    Lets you create HTML <param /> tags. The first parameter contains the
-    param source. Example::
+     让你创建 HTML <param /> tags. 第一个参数包含 
+    param source. 事例::
 
         echo param('movie.mov', 'video/quicktime', 'class="test"');
         // <param src="movie.mov" type="video/quicktime" class="test"/>
 
-
 .. php:function:: track($name = ''[, $type = false[, $attributes = '']])
 
-    :param  string  $name:       The name of the parameter
-    :param  string  $value:      The value of the parameter
-    :param  array   $attributes: HTML attributes
+    :param  string  $name:       参数的名称
+    :param  string  $value:      参数的值
+    :param  array   $attributes: HTML 属性
     :returns:   HTML track tag
     :rtype: string
 
-    Generates a track element to specify timed tracks. The tracks are
-    formatted in WebVTT format. Example::
+    产生一个跟踪元素去具体指定时间的轨迹。在 WebVVT 格式里轨迹已被格式化。事例::
 
         echo track('subtitles_no.vtt', 'subtitles', 'no', 'Norwegian No');
         // <track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian No" />
 
-
 .. php:function:: doctype([$type = 'html5'])
 
-    :param  string  $type: Doctype name
+    :param  string  $type: Doctype 名字
     :returns:   HTML DocType tag
     :rtype: string
 
-    Helps you generate document type declarations, or DTD's. HTML 5
-    is used by default, but many doctypes are available.
-
-    Example::
+    帮助你产生 document type 声明, 而 DTD's. HTML 5 是默认使用的，但是许多 doctypes 是通用的。
+    
+    事例::
 
         echo doctype();
         // <!DOCTYPE html>
@@ -462,11 +437,12 @@ The following functions are available:
         echo doctype('html4-trans');
         // <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-    The following is a list of doctype choices. These are configurable, and
-    pulled from application/config/doctypes.php
+    接下来的是重定义 doctype 选择的目录。
+    这些是可设置的， 被从 `application/Config/DocTypes.php` 出栈,或者在你的 `.env` 结构里它们能被加载。
+    
 
     =============================== =================== ==================================================================================================================================================
-    Document type                   Option              Result
+    文档类型                   选项              结果
     =============================== =================== ==================================================================================================================================================
     XHTML 1.1                       xhtml11             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
     XHTML 1.0 Strict                xhtml1-strict       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

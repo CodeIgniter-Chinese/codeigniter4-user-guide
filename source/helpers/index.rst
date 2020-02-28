@@ -1,11 +1,11 @@
 #######
-Helpers
+辅助函数
 #######
 
-Helpers are collections of useful procedureal functions.
+辅助函数是一些程序功能的集合。
 
 .. toctree::
 	:glob:
 	:titlesonly:
-	
+
 	*

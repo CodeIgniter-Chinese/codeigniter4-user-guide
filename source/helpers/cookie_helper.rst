@@ -1,9 +1,8 @@
 #############
-Cookie Helper
+Cookie 辅助函数
 #############
 
-The Cookie Helper file contains functions that assist in working with
-cookies.
+Cookie 辅助函数文件包含一些协助 Cookie 运行的函数。
 
 .. contents::
   :local:
@@ -12,68 +11,59 @@ cookies.
 
   <div class="custom-index container"></div>
 
-Loading this Helper
+加载 Cookie 辅助函数
 ===================
 
-This helper is loaded using the following code::
+Cookie 辅助函数文件使用下面的代码加载::
 
 	helper('cookie');
 
-Available Functions
+函数参考
 ===================
 
-The following functions are available:
-
+该辅助函数有下列可用函数:
 
 .. php:function:: set_cookie($name[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httpOnly = false]]]]]]])
 
-	:param	mixed	$name: Cookie name *or* associative array of all of the parameters available to this function
-	:param	string	$value: Cookie value
-	:param	int	$expire: Number of seconds until expiration
-	:param	string	$domain: Cookie domain (usually: .yourdomain.com)
-	:param	string	$path: Cookie path
-	:param	string	$prefix: Cookie name prefix
-	:param	bool	$secure: Whether to only send the cookie through HTTPS
-	:param	bool	$httpOnly: Whether to hide the cookie from JavaScript
+	:param	mixed	$name: Cookie 名称 *或* 对这函数所有通用参数的关联数组
+	:param	string	$value: Cookie 值
+	:param	int	$expire: 直到截止时的秒数
+	:param	string	$domain: Cookie 域名 (通常是: .yourdomain.com)
+	:param	string	$path: Cookie 路径
+	:param	string	$prefix: Cookie 名称前缀
+	:param	bool	$secure: 是否仅仅通过 HTTPS 发送 Cookie 
+	:param	bool	$httpOnly: 是否从 JavaScript 中隐藏 Cookie 
 	:rtype:	void
 
-	This helper function gives you friendlier syntax to set browser
-	cookies. Refer to the :doc:`Response Library <../libraries/response>` for
-	a description of its use, as this function is an alias for
-	``Response::setCookie()``.
+	辅助函数给你更友好的语法去 *设置* 浏览器的 Cookies. 辅助函数使用的说明参考 :doc:`响应库 </outgoing/response>` 
+	, 同时对 ``Response::setCookie()`` 来说 Cookie 辅助函数是别称.
 
 .. php:function:: get_cookie($index[, $xssClean = false])
 
-	:param	string	$index: Cookie name
-	:param	bool	$xss_clean: Whether to apply XSS filtering to the returned value
-	:returns:	The cookie value or NULL if not found
+	:param	string	$index: Cookie 名称
+	:param	bool	$xss_clean: 返回值是否应用在 XSS 过滤中
+	:returns:	返回 Cookie 值而如果没有则为空
 	:rtype:	mixed
 
-	This helper function gives you friendlier syntax to get browser
-	cookies. Refer to the :doc:`IncomingRequest Library <../libraries/incomingrequest>` for
-	detailed description of its use, as this function acts very
-	similarly to ``IncomingRequest::getCookie()``, except it will also prepend
-	the ``$cookiePrefix`` that you might've set in your
-	*application/Config/App.php* file.
+	辅助函数给你更友好的语法去 *获取* 浏览器的 Cookies. 辅助函数详细的使用说明参考 :doc:`传入请求库 </incoming/incomingrequest>` 
+	同时辅助函数的作用非常近似于 ``IncomingRequest::getCookie()``, 
+	你也许已经设置在你的 *application/Config/App.php* 文件里除了它也预置了 ``$cookiePrefix`` .
 
 .. php:function:: delete_cookie($name[, $domain = ''[, $path = '/'[, $prefix = '']]])
 
-	:param	string	$name: Cookie name
-	:param	string	$domain: Cookie domain (usually: .yourdomain.com)
-	:param	string	$path: Cookie path
-	:param	string	$prefix: Cookie name prefix
+	:param	string	$name: Cookie 名称
+	:param	string	$domain: Cookie 域名 (通常是: .yourdomain.com)
+	:param	string	$path: Cookie 路径
+	:param	string	$prefix: Cookie 名称前缀
 	:rtype:	void
 
-	Lets you delete a cookie. Unless you've set a custom path or other
-	values, only the name of the cookie is needed.
+	该函数让你删除一个 Cookie. 除非你已经设置了一个定制路径或者其他值，仅仅 Cookie 的名字是必须的。
 	::
 
 		delete_cookie('name');
 
-	This function is otherwise identical to ``set_cookie()``, except that it
-	does not have the value and expiration parameters. You can submit an
-	array of values in the first parameter or you can set discrete
-	parameters.
+	这个函数除了没有值和截止参数，它对 ``set_cookie()`` 来说在其他方面是恒等的。
+	你能在第一参数里确定数组值或者你要设置 *非连续* 参数。 
 	::
 
 		delete_cookie($name, $domain, $path, $prefix);

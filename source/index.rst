@@ -1,17 +1,6 @@
 #######################
-CodeIgniter4 User Guide
+CodeIgniter4 用户指南
 #######################
-
-- :doc:`License Agreement <license>`
-- :doc:`Change Log <changelog>`
-
-.. contents::
-   :local:
-   :depth: 2
-
-*******
-Welcome
-*******
 
 .. toctree::
 	:includehidden:
@@ -19,20 +8,15 @@ Welcome
 
         intro/index
 
-************
-Installation
-************
+***************
+开始
+***************
 
 .. toctree::
-	:includehidden:
 	:maxdepth: 2
 	:titlesonly:
 
 	installation/index
-
-********
-Tutorial
-********
 
 .. toctree::
 	:includehidden:
@@ -40,34 +24,36 @@ Tutorial
 
     	tutorial/index
 
-*********************
-CodeIgniter4 Overview
-*********************
+*************************
+概览和常规主题
+*************************
+
 .. toctree::
-   :titlesonly:
+	:titlesonly:
 
-   concepts/index
-
-**************
-General Topics
-**************
+	concepts/index
 
 .. toctree::
 	:titlesonly:
 
 	general/index
 
-*****************
-Library Reference
-*****************
+****************
+请求处理
+****************
 
 .. toctree::
 	:titlesonly:
 
-	libraries/index
+	incoming/index
+
+.. toctree::
+	:titlesonly:
+
+	outgoing/index
 
 ******************
-Database Reference
+数据库
 ******************
 
 .. toctree::
@@ -75,21 +61,52 @@ Database Reference
 
 	database/index
 
-****************
-Helper Reference
-****************
+.. toctree::
+	:titlesonly:
+
+	models/index
+
+.. toctree::
+	:titlesonly:
+
+	dbmgmt/index
+
+
+*******************
+类库和辅助函数
+*******************
+
+.. toctree::
+	:titlesonly:
+
+	libraries/index
 
 .. toctree::
 	:titlesonly:
 
 	helpers/index
 
-
-***************************
-Contributing to CodeIgniter
-***************************
+***************
+高级主题
+***************
 
 .. toctree::
 	:titlesonly:
 
-   	contributing/index
+	testing/index
+
+.. toctree::
+	:titlesonly:
+
+	cli/index
+
+.. toctree::
+	:titlesonly:
+
+	extending/index
+
+.. toctree::
+        :hidden:
+
+        license
+        changelog

@@ -1,32 +1,24 @@
 ########################
-Local Development Server
+本地开发服务器
 ########################
 
-PHP provides a built-in web server that is can be used locally when developing an application without
-the need to setup a dedicated web server like MAMP, XAMPP, etc. If you have PHP installed on your
-development machine, you can use the ``serve`` script to launch PHP's built-in server and have
-it all setup to work with your CodeIgniter application. To launch the server type the following
-from the command line in the main directory::
+PHP 提供了一个内置的可以在本地使用进行开发的 Web 服务器，免去了安装如 MAMP，XAMPP 等独立 Web 服务器的需要。如果你在你的开发机器上安装了 PHP，你可以使用 ``serve`` 指令来启动 PHP 的内置服务器，完全安装并用于运行你的 CodeIgniter 应用程序。要启动服务器，在主目录下使用命令行输入以下命令：
 
     > php serve
 
-This will launch the server and you can now view your application in your browser at http://localhost:8080.
+这将启动服务器，并且你可以在浏览器中访问  http://localhost:8080 来查看你的应用程序。
 
-.. note:: The built-in development server should only be used on local development machines. It should NEVER
-    be used on a production server.
+.. 注解:: 内置的开发服务器应该只用于本地开发机器上。永远不要将其运行在生产环境的服务器上！
 
-Customization
+定制化
 =============
 
-If you need to run the site on a different host than simply localhost, you'll first need to add the host
-to your ``hosts`` file. The exact location of the file varies in each of the main operating systems, though
-all *nix-type systems (include OS X) will typically keep the file at **/etc/hosts**.
+如果你需要将站点运行在不同的主机而不是简单的 localhost 上，首先你需要将主机加入到你的 ``hosts`` 文件中。这个文件的确切目录会因为不同的操作系统而不同，不过所有 *nix 类的系统 （包括 OS X ）通常都会将文件放在 **/etc/hosts** 目录下。
 
-Once that is done you can use the ``--host`` CLI option to specify a different host to run the application at::
+一旦你完成设置后你就可以使用命令行选项 ``--host`` 来指定一个不同的主机来运行你的应用程序：
 
     > php serve --host=example.dev
 
-By default, the server runs on port 8080 but you might have more than one site running, or already have
-another application using that port. You can use the ``--port`` CLI option to specify a different one::
+默认情况下，服务器将会运行在 8080 端口下，但你可能需要运行多个站点，或者已经有另一个站点在使用这个端口时，你可以使用命令行选项 ``--port`` 来指定一个不同的端口：
 
     > php serve --port=8081
