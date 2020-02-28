@@ -14,38 +14,41 @@
 访问配置文件
 ======================
 
-我们可以通过创建一个新的配置类实例，来访问类中的配置项。
+我们可以通过创建一个新的配置类实例或者使用config函数，来访问类中的配置项。
 配置类中所有的这些属性都是公开的，故而可以如调用其他属性一样调用相应的配置项::
 
-	$config = new \Config\EmailConfig();
+	// 手动创建一个新的配置类实例
+	$config = new \Config\Pager();
+	// 使用config函数创建一个新的配置类实例
+	$config = config( 'Pager', false );
+	// 通过config函数使用共享的配置类实例
+	$config = config( 'Pager' );
+	// 通过namespace(命名空间)使用配置类
+	$config = config( 'Config\\Pager' );
+	// 以类属性成员的形式使用配置
+	$pageSize = $config->perPage;
 
-	// 如类属性一样调用配置项
-	$protocol = $config->protocol;
-	$mailpath = $config->mailpath;
 
-
-若没有给定namespace(命名空间），框架会在所有可用的、已被定义的命名空间中搜寻所需的文件，就如同 **/application/Config/** 一样。
+若没有给定namespace(命名空间），框架会在所有可用的、已被定义的命名空间中搜寻所需的文件，就如同 **/app/Config/** 一样。
 所以Codeigniter里所有的配置文件都应当被放置在 ``Config`` 这一命名空间下。
 由于框架可以确切地了解配置文件所在目录的的位置，从而不必扫描文件系统中的不同区域；故而在我们的项目中，使用命名空间将会有效地提升性能。
 
 我们也可以通过使用一个不同的命名空间，从而在服务器的任意位置上部署所需的配置文件。
-这一举措可以让我们将生产环境的服务器中的配置文件移动到一个不能通过Web访问的位置；而在开发环境中，将其放置在 **/application** 目录下以便访问。
+这一举措可以让我们将生产环境的服务器中的配置文件移动到一个不能通过Web访问的位置；而在开发环境中，将其放置在 **/app** 目录下以便访问。
 
 创建配置文件
 ============================
 
+当我们需要创建一个新的配置文件时，需要在指定位置创建一个新的文件，例如在默认的 **/app/Config** 目录下。然后创建一个带有公开属性的类，从而放置相应的配置信息::
 
-当我们需要创建一个新的配置文件时，需要在指定位置创建一个新的文件，例如在默认的 **/aplication/Config** 目录下。然后创建一个带有公开属性的类，从而放置相应的配置信息::
 
-
-	<?php namespace Config;
-
-	class App extends \CodeIgniter\Config\BaseConfig {
-
-		public $siteName = 'My Great Site';
-		public $siteEmail = 'webmaster@example.com';
-
-	}
+    <?php namespace Config;
+    use CodeIgniter\Config\BaseConfig;
+    class App extends BaseConfig
+    {
+    	public $siteName  = 'My Great Site';
+    	public $siteEmail = 'webmaster@example.com';
+    }
 
 
 
@@ -57,7 +60,7 @@
 由于我们的站点将会在不同的环境中运行，例如开发者的本地机器上，或是用于部署的远端服务器上，我们可以基于环境来修改配置信息。
 在这基础上，我们将能够根据站点所运行的服务器，来使用不同的配置信息。这些包括并不限于数据库配置信息，API认证信息，以及其他的根据部署环境而改变的配置信息。
 
-我们可以将这些值保存在根目录下的一个 **.env** 文件中，就如system和application目录一样。这个文件就如一个.ini配置文件一样，由许多对被等号分割的键/值对所组成::
+我们可以将这些值保存在根目录下的一个 **.env** 文件中，就如system和application目录一样。这个文件就如一个 ".ini" 配置文件一样，由许多对被等号分割的键/值对所组成::
 
 	S3_BUCKET="dotenv"
 	SECRET_KEY="super_secret_key"
@@ -71,12 +74,14 @@
 创建一个类似于 **.env.example** 的，其中包含了所有我们的项目所需的，仅设置了配置项的空值或默认值的模板文件，是一个不错的方法。
 在不同的环境里，我们可以把这个文件复制到 **.env** 目录下并填充这个环境相对应的配置项的值。
 
-当应用开始运行时，这个文件将会被自动加载，同时这些变量也会被运行环境所调用——这一过程适用于除生产环境外的其他环境的部署：在这些环境中变量应当被通过类似于.htaceess一样的文件所设置的getServer方法所支持。
+当应用开始运行时，这个文件将会被自动加载，同时这些变量也会被运行环境所调用——这一过程适用于所有环境的部署。
 在这之后，这些变量将通过 ``getenv()``, ``$_SERVER``, and ``$_ENV`` 的方式被调用。在这三者中， ``getenv()`` 方法由于其大小写不敏感而被推荐使用::
 
 	$s3_bucket = getenv('S3_BUCKET');
 	$s3_bucket = $_ENV['S3_BUCKET'];
 	$s3_bucket = $_SERVER['S3_BUCKET'];
+
+.. 注意:: 如果你正在使用Apache服务器，CI_ENVIRONMENT 可以被设置于 ``public/.htaccess``文件的头部，一般会显示为一个被注释的一行。通过去除这行的注释来更改成你所需要使用的环境设定。
 
 嵌套变量
 =================
@@ -149,6 +154,8 @@
 
 结果与原来的相同
 
+.. _registrars:
+
 注册器
 ==========
 
@@ -166,10 +173,12 @@
 
 配置类举例如下::
 
-    namespace App\Config;
-    class MySalesConfig extends \CodeIgniter\Config\BaseConfig {
-        public $target = 100;
-        public $campaign = "Winter Wonderland";
+    <?php namespace App\Config;
+    use CodeIgniter\Config\BaseConfig;
+    class MySalesConfig extends BaseConfig
+    {
+        public $target        = 100;
+        public $campaign      = "Winter Wonderland";
         protected $registrars = [
             '\App\Models\RegionalSales';
         ];
@@ -177,9 +186,11 @@
 
 ... 所关联的地区销售模型将如下所示::
 
-    namespace App\Models;
-    class RegionalSales {
-        public static function MySalesConfig() {
+    <?php namespace App\Models;
+    class RegionalSales
+    {
+        public static function MySalesConfig()
+        {
             return ['target' => 45, 'actual' => 72];
         }
     }
