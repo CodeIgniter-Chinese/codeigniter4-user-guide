@@ -1,63 +1,54 @@
 ###################
-Logging Information
+记录日志信息
 ###################
 
 .. contents::
     :local:
     :depth: 2
 
-    You can log information to the local log files by using the ``log_message()`` method. You must supply
-the "level" of the error in the first parameter, indicating what type of message it is (debug, error, etc).
-The second parameter is the message itself::
+你可以通过 ``log_message()`` 方法将信息记录在本地日志文件中，并且必须在第一个参数中指定错误的"级别"，来表明这个信息的类型（debug，error等）。
+第二个参数就是信息本身::
 
 	if ($some_var == '')
 	{
 		log_message('error', 'Some variable did not contain a value.');
 	}
 
-There are eight different log levels, matching to the `RFC 5424 <http://tools.ietf.org/html/rfc5424>`_ levels, and they are as follows:
+总共有八种不同的事件报错级别，与 `RFC 5424 <http://tools.ietf.org/html/rfc5424>`_ 中所定义的错误级别一一对应，它们是::
 
-* **debug** - Detailed debug information.
-* **info** - Interesting events in your application, like a user logging in, logging SQL queries, etc.
-* **notice** - Normal, but significant events in your application.
-* **warning** - Exceptional occurrences that are not errors, like the use of deprecated APIs, poor use of an API, or other undesirable things that are not necessarily wrong.
-* **error** - Runtime errors that do not require immediate action but should typically be logged and monitored.
-* **critical** - Critical conditions, like an application component not available, or an unexpected exception.
-* **alert** - Action must be taken immediately, like when an entire website is down, the database unavailable, etc.
-* **emergency** - The system is unusable.
+* **debug** - 详细的debug信息。
+* **info** - 你的应用中的一些有意义的事件，例如用户登录，记录SQL语句等。
+* **notice** - 你的应用中的一些正常但明显有价值的事件。
+* **warning** - 出现了异常，但不是错误，例如使用了被废弃的API，某个API的调用异常，或其他不期望出现的，但不是错误的情况。
+* **error** - 运行时错误，不需要立即被处理但通常需要被记录或者监控。
+* **critical** - 危险情况，例如某个程序组件不可用，或出现未被捕获的异常等。
+* **alert** - 告警，必须采取行动来修复，例如整个网站宕机或数据库无法访问等。
+* **emergency** - 系统不可用。
 
-The logging system does not provide ways to alert sysadmins or webmasters about these events, they solely log
-the information. For many of the more critical event levels, the logging happens automatically by the
-Error Handler, described above.
+日志系统不提供警告系统管理员或网站管理者的方法，只是单纯的记录信息。对于诸多更为危险的错误级别，日志就会被异常调度器自动抛出，如上所述。
 
-Configuration
+配置
 =============
 
-You can modify which levels are actually logged, as well as assign different Loggers to handle different levels, within
-the ``/app/Config/Logger.php`` configuration file.
+你可以修改 ``/app/Config/Logger.php` 配置文件来修改哪些级别的事件会被实际记录，以及为不同的事件等级分配不同的日志记录器等。
 
-The ``threshold`` value of the config file determines which levels are logged across your application. If any levels
-are requested to be logged by the application, but the threshold doesn't allow them to log currently, they will be
-ignored. The simplest method to use is to set this value to the minimum level that you want to have logged. For example,
-if you want to log debug messages, and not information messages, you would set the threshold to ``5``. Any log requests with
-a level of 5 or less (which includes runtime errors, system errors, etc) would be logged and info, notices, and warnings
-would be ignored::
+配置文件中的 ``threshold`` （报错阈值）决定了从哪个级别开始的事件将会在整个应用中记录下来。如果应用中有任何低于报错阈值的事件记录被记录时，这些请求将会被忽略。
+最为简单的使用阈值的方法就是将其设为你希望记录的报错等级的最低值。举例来说，如果你想记录warning信息，而不是information信息，就需要将报错阈值设为 ``5`` 。所有报错等级低于5的日志记录请求
+（包括运行时错误，系统错误等）将会被记录，而info, notice和debug级别的错误就会被忽略::
 
 	public $threshold = 5;
 
-A complete list of levels and their corresponding threshold value is in the configuration file for your reference.
+关于报错级别和对应的阈值的列表列举在配置文件中以供参阅。
 
-You can pick and choose the specific levels that you would like logged by assigning an array of log level numbers
-to the threshold value::
+你可以通过给报错阈值赋值一个包含报错等级数字的数组，来选择特定的报错级别::
 
-	// Log only debug and info type messages
+	// 只记录debug和info类型的报错
 	public $threshold = [5, 8];
 
-Using Multiple Log Handlers
+使用多个日志调度器
 ---------------------------
 
-The logging system can support multiple methods of handling logging running at the same time. Each handler can
-be set to handle specific levels and ignore the rest. Currently, two handlers come with a default install:
+日志系统支持同时使用多种方法来处理日志记录。每一种调度器可以独立地设置用于特定的错误等级，并忽略其他的。现状而言，我们默认安装了两种调度器以供使用:
 
 - **File Handler** is the default handler and will create a single file for every day locally. This is the
   recommended method of logging.
