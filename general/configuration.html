@@ -224,36 +224,40 @@
 <li><a class="reference internal" href="#id6" id="id14">命名空间中的变量</a></li>
 <li><a class="reference internal" href="#id7" id="id15">将环境变量并入配置中</a></li>
 <li><a class="reference internal" href="#id8" id="id16">以数组的方式调用环境变量</a></li>
-<li><a class="reference internal" href="#id9" id="id17">注册器</a></li>
+<li><a class="reference internal" href="#registrars" id="id17">注册器</a></li>
 </ul>
 </div>
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id10">访问配置文件</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>我们可以通过创建一个新的配置类实例，来访问类中的配置项。
+<p>我们可以通过创建一个新的配置类实例或者使用config函数，来访问类中的配置项。
 配置类中所有的这些属性都是公开的，故而可以如调用其他属性一样调用相应的配置项:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Config\EmailConfig</span><span class="p">();</span>
-
-<span class="c1">// 如类属性一样调用配置项</span>
-<span class="nv">$protocol</span> <span class="o">=</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">protocol</span><span class="p">;</span>
-<span class="nv">$mailpath</span> <span class="o">=</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">mailpath</span><span class="p">;</span>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="c1">// 手动创建一个新的配置类实例</span>
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Config\Pager</span><span class="p">();</span>
+<span class="c1">// 使用config函数创建一个新的配置类实例</span>
+<span class="nv">$config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">(</span> <span class="s1">&#39;Pager&#39;</span><span class="p">,</span> <span class="k">false</span> <span class="p">);</span>
+<span class="c1">// 通过config函数使用共享的配置类实例</span>
+<span class="nv">$config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">(</span> <span class="s1">&#39;Pager&#39;</span> <span class="p">);</span>
+<span class="c1">// 通过namespace(命名空间)使用配置类</span>
+<span class="nv">$config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">(</span> <span class="s1">&#39;Config\\Pager&#39;</span> <span class="p">);</span>
+<span class="c1">// 以类属性成员的形式使用配置</span>
+<span class="nv">$pageSize</span> <span class="o">=</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">perPage</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>若没有给定namespace(命名空间），框架会在所有可用的、已被定义的命名空间中搜寻所需的文件，就如同 <strong>/application/Config/</strong> 一样。
+<p>若没有给定namespace(命名空间），框架会在所有可用的、已被定义的命名空间中搜寻所需的文件，就如同 <strong>/app/Config/</strong> 一样。
 所以Codeigniter里所有的配置文件都应当被放置在 <code class="docutils literal"><span class="pre">Config</span></code> 这一命名空间下。
 由于框架可以确切地了解配置文件所在目录的的位置，从而不必扫描文件系统中的不同区域；故而在我们的项目中，使用命名空间将会有效地提升性能。</p>
 <p>我们也可以通过使用一个不同的命名空间，从而在服务器的任意位置上部署所需的配置文件。
-这一举措可以让我们将生产环境的服务器中的配置文件移动到一个不能通过Web访问的位置；而在开发环境中，将其放置在 <strong>/application</strong> 目录下以便访问。</p>
+这一举措可以让我们将生产环境的服务器中的配置文件移动到一个不能通过Web访问的位置；而在开发环境中，将其放置在 <strong>/app</strong> 目录下以便访问。</p>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id11">创建配置文件</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>当我们需要创建一个新的配置文件时，需要在指定位置创建一个新的文件，例如在默认的 <strong>/aplication/Config</strong> 目录下。然后创建一个带有公开属性的类，从而放置相应的配置信息:</p>
+<p>当我们需要创建一个新的配置文件时，需要在指定位置创建一个新的文件，例如在默认的 <strong>/app/Config</strong> 目录下。然后创建一个带有公开属性的类，从而放置相应的配置信息:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">App</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Config\BaseConfig</span> <span class="p">{</span>
-
-        <span class="k">public</span> <span class="nv">$siteName</span> <span class="o">=</span> <span class="s1">&#39;My Great Site&#39;</span><span class="p">;</span>
-        <span class="k">public</span> <span class="nv">$siteEmail</span> <span class="o">=</span> <span class="s1">&#39;webmaster@example.com&#39;</span><span class="p">;</span>
-
+<span class="k">use</span> <span class="nx">CodeIgniter\Config\BaseConfig</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">App</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$siteName</span>  <span class="o">=</span> <span class="s1">&#39;My Great Site&#39;</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$siteEmail</span> <span class="o">=</span> <span class="s1">&#39;webmaster@example.com&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -263,7 +267,7 @@
 <h2><a class="toc-backref" href="#id12">针对不同的环境</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>由于我们的站点将会在不同的环境中运行，例如开发者的本地机器上，或是用于部署的远端服务器上，我们可以基于环境来修改配置信息。
 在这基础上，我们将能够根据站点所运行的服务器，来使用不同的配置信息。这些包括并不限于数据库配置信息，API认证信息，以及其他的根据部署环境而改变的配置信息。</p>
-<p>我们可以将这些值保存在根目录下的一个 <strong>.env</strong> 文件中，就如system和application目录一样。这个文件就如一个.ini配置文件一样，由许多对被等号分割的键/值对所组成:</p>
+<p>我们可以将这些值保存在根目录下的一个 <strong>.env</strong> 文件中，就如system和application目录一样。这个文件就如一个 &quot;.ini&quot; 配置文件一样，由许多对被等号分割的键/值对所组成:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nx">S3_BUCKET</span><span class="o">=</span><span class="s2">&quot;dotenv&quot;</span>
 <span class="nx">SECRET_KEY</span><span class="o">=</span><span class="s2">&quot;super_secret_key&quot;</span>
 </pre></div>
@@ -276,7 +280,7 @@
 </div>
 <p>创建一个类似于 <strong>.env.example</strong> 的，其中包含了所有我们的项目所需的，仅设置了配置项的空值或默认值的模板文件，是一个不错的方法。
 在不同的环境里，我们可以把这个文件复制到 <strong>.env</strong> 目录下并填充这个环境相对应的配置项的值。</p>
-<p>当应用开始运行时，这个文件将会被自动加载，同时这些变量也会被运行环境所调用——这一过程适用于除生产环境外的其他环境的部署：在这些环境中变量应当被通过类似于.htaceess一样的文件所设置的getServer方法所支持。
+<p>当应用开始运行时，这个文件将会被自动加载，同时这些变量也会被运行环境所调用——这一过程适用于所有环境的部署。
 在这之后，这些变量将通过 <code class="docutils literal"><span class="pre">getenv()</span></code>, <code class="docutils literal"><span class="pre">$_SERVER</span></code>, and <code class="docutils literal"><span class="pre">$_ENV</span></code> 的方式被调用。在这三者中， <code class="docutils literal"><span class="pre">getenv()</span></code> 方法由于其大小写不敏感而被推荐使用:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">);</span>
 <span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nv">$_ENV</span><span class="p">[</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">];</span>
@@ -344,8 +348,8 @@
 </div>
 <p>结果与原来的相同</p>
 </div>
-<div class="section" id="id9">
-<h2><a class="toc-backref" href="#id17">注册器</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="section" id="registrars">
+<span id="id9"></span><h2><a class="toc-backref" href="#id17">注册器</a><a class="headerlink" href="#registrars" title="永久链接至标题">¶</a></h2>
 <p>一个配置文件可以指定任意数量的”注册器“；这里所指的注册器为其他类可能提供的额外的配置属性。
 这一行为通常通过在配置文件中增加一个 <code class="docutils literal"><span class="pre">registrars</span></code> 属性来实现，这一属性存有一个可选的注册器数组。:</p>
 <div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="nv">$registrars</span> <span class="o">=</span> <span class="p">[</span>
@@ -357,10 +361,12 @@
 <p>当我们实例化了一个配置类的对象后，系统将自动循环搜索在 <code class="docutils literal"><span class="pre">$registrars</span></code> 中指定的类。
 对于这些类而言，当其中包含有与该配置类同名的方法时，框架将调用这一方法，并将其返回的所有属性，如同上节所述的命名空间变量一样，并入到配置项中。</p>
 <p>配置类举例如下:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Config</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">MySalesConfig</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Config\BaseConfig</span> <span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$target</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nv">$campaign</span> <span class="o">=</span> <span class="s2">&quot;Winter Wonderland&quot;</span><span class="p">;</span>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Config</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Config\BaseConfig</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">MySalesConfig</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$target</span>        <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$campaign</span>      <span class="o">=</span> <span class="s2">&quot;Winter Wonderland&quot;</span><span class="p">;</span>
     <span class="k">protected</span> <span class="nv">$registrars</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;\App\Models\RegionalSales&#39;</span><span class="p">;</span>
     <span class="p">];</span>
@@ -368,9 +374,11 @@
 </pre></div>
 </div>
 <p>... 所关联的地区销售模型将如下所示:</p>
-<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">RegionalSales</span> <span class="p">{</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">MySalesConfig</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-ci"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">RegionalSales</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">MySalesConfig</span><span class="p">()</span>
+    <span class="p">{</span>
         <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;target&#39;</span> <span class="o">=&gt;</span> <span class="mi">45</span><span class="p">,</span> <span class="s1">&#39;actual&#39;</span> <span class="o">=&gt;</span> <span class="mi">72</span><span class="p">];</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -407,7 +415,7 @@
   <div role="contentinfo">
     <p>
         &copy; 版权所有 2014-2018 不列颠哥伦比亚理工学院.
-       最后修改：2020-02-25。
+       最后修改：2020-02-29。
 
     </p>
   </div>
