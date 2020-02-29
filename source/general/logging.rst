@@ -6,7 +6,7 @@ Logging Information
     :local:
     :depth: 2
 
-You can log information to the local log files by using the ``log_message()`` method. You must supply
+    You can log information to the local log files by using the ``log_message()`` method. You must supply
 the "level" of the error in the first parameter, indicating what type of message it is (debug, error, etc).
 The second parameter is the message itself::
 
@@ -20,7 +20,7 @@ There are eight different log levels, matching to the `RFC 5424 <http://tools.ie
 * **debug** - Detailed debug information.
 * **info** - Interesting events in your application, like a user logging in, logging SQL queries, etc.
 * **notice** - Normal, but significant events in your application.
-* **warning** - Exceptional occurrences that are not errors, like the user of deprecated APIs, poor use of an API, or other undesirable things that are not necessarily wrong.
+* **warning** - Exceptional occurrences that are not errors, like the use of deprecated APIs, poor use of an API, or other undesirable things that are not necessarily wrong.
 * **error** - Runtime errors that do not require immediate action but should typically be logged and monitored.
 * **critical** - Critical conditions, like an application component not available, or an unexpected exception.
 * **alert** - Action must be taken immediately, like when an entire website is down, the database unavailable, etc.
@@ -34,7 +34,7 @@ Configuration
 =============
 
 You can modify which levels are actually logged, as well as assign different Loggers to handle different levels, within
-the ``/application/Config/Logger.php`` configuration file.
+the ``/app/Config/Logger.php`` configuration file.
 
 The ``threshold`` value of the config file determines which levels are logged across your application. If any levels
 are requested to be logged by the application, but the threshold doesn't allow them to log currently, they will be
@@ -103,7 +103,7 @@ into the message string::
 
 If you want to log an Exception or an Error, you can use the key of 'exception', and the value being the
 Exception or Error itself. A string will be generated from that object containing the error message, the
-file name and line number.  You must still provide the exception placeholder in the message::
+file name and line number. You must still provide the exception placeholder in the message::
 
 	try
 	{
@@ -142,8 +142,8 @@ You can use any other logger that you might like as long as it extends from eith
 that you can easily drop in use for any PSR3-compatible logger, or create your own.
 
 You must ensure that the third-party logger can be found by the system, by adding it to either
-the ``/application/Config/Autoload.php`` configuration file, or through another autoloader,
-like Composer. Next, you should modify ``/application/Config/Services.php`` to point the ``logger``
+the ``/app/Config/Autoload.php`` configuration file, or through another autoloader,
+like Composer. Next, you should modify ``/app/Config/Services.php`` to point the ``logger``
 alias to your new class name.
 
 Now, any call that is done through the ``log_message()`` function will use your library instead.
