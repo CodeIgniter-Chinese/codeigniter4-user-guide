@@ -187,18 +187,17 @@ URL 的第二段通常表示方法的名称，但在上面的例子中，第二�
 		$routes->resource('users');
 	});
 
-This would handle a resource route to the ``App\API\v1\Users`` controller with the ``/api/users`` URI.
-You can also use a specific `filter <filters.html>`_ for a group of routes. This will always
-run the filter before or after the controller. This is especially handy during authentication or api logging::
+这将能够使得如同 ``/api/users/`` 一样resource的路由映射于 ``App\API\v1\Users`` 控制器上。
+你也可以对一组路由使用一个特定的 `过滤器 <filers.html>`_ 。过滤器总是会在控制器的调用前或调用后运行，这一操作在认证或api日志时格外有用::
 
     $routes->group('api', ['filter' => 'api-auth'], function($routes)
     {
         $routes->resource('users');
     });
 
-The value for the filter must match one of the aliases defined within ``app/Config/Filters.php``.
+控制器的值必须与定义在 ``app/Config/Filters.php`` 中的一系列别名中的至少一个所匹配。
 
-Environment Restrictions
+环境约束
 ========================
 
 You can create a set of routes that will only be viewable in a certain environment. This allows you to create
@@ -211,7 +210,7 @@ routes defined within this closure are only accessible from the given environmen
 		$routes->add('builder', 'Tools\Builder::index');
 	});
 
-Reverse Routing
+反向路由
 ===============
 
 Reverse routing allows you to define the controller and method, as well as any parameters, that a link should go
@@ -230,7 +229,7 @@ should be passed to the route are passed in next::
 	// Generates: /users/15/gallery/12
 	<a href="<?= route_to('App\Controllers\Galleries::showUserGallery', 15, 12) ?>">View Gallery</a>
 
-Using Named Routes
+使用命名路由
 ==================
 
 You can name routes to make your application less fragile. This applies a name to a route that can be called
@@ -351,12 +350,13 @@ be used when the first parameter is a language string::
 	// Creates:
 	$routes['users/(:num)'] = 'users/show/$2';
 
-Routes Configuration Options
+路由配置选项
 ============================
 
 The RoutesCollection class provides several options that affect all routes, and can be modified to meet your
 application's needs. These options are available at the top of `/app/Config/Routes.php`.
-Default Namespace
+
+默认命名空间
 -----------------
 
 When matching a controller to a route, the router will add the default namespace value to the front of the controller
