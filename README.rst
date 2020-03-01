@@ -36,9 +36,9 @@ http://python.org/download/releases/2.7.2/
 ============
 
 1. 安装 `easy_install <http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install>`_
-2. ``easy_install "sphinx==1.4.9"``
-3. ``easy_install "sphinxcontrib-phpdomain==0.4.1"``
-4. ``easy_install "jieba==0.39"``
+2. ``easy_install "sphinx==1.8.5"``
+3. ``easy_install sphinxcontrib-phpdomain``
+4. ``easy_install "jieba==0.42.1"``
 5. 安装 CI Lexer，它可以高亮文档中的 PHP, HTML, CSS, 和 JavaScript 代码 (参见 *cilexer/README*)
 6. 返回代码库根目录
 7. ``make html``
@@ -66,9 +66,3 @@ http://python.org/download/releases/2.7.2/
 你将会看到正在编译中的信息，编译成功后，生成的用户指南和图片都位于 *build/html/* 目录下。
 在 HTML 第一次编译之后，后面将只会针对修改的文件进行重编译，这将大大的节约我们的时间。
 如果你想再重新全部编译一次，只需删除 *build* 目录然后编译即可。
-
-***************
-风格指南
-***************
-
-使用 Sphinx 为 CodeIgniter 编写文档，请参考 `source/contributing/documentation.rst <source/contributing/documentation.rst>`_ 的一般准则。
