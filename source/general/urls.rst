@@ -17,7 +17,7 @@ URI 分段
 2. 第二段表示要调用的类中的 **函数** 或 **方法** ；
 3. 第三段以及后面的段代表传给控制器的参数，如 ID 或其他任何变量；
 
-:doc:`URI 类 <../libraries/uri>` 和 :doc:`URL 辅助函数 <../helpers/url_helper>` 包含了一些函数可以让你更容易的处理 URI 数据。此外，可以通过 :doc:`URI 路由 <routing>` 的方式进行重定向你的 URL 从而使得程序更加灵活。
+:doc:`URI 类 <../libraries/uri>` 和 :doc:`URL 辅助函数 <../helpers/url_helper>` 包含了一些函数可以让你更容易的处理 URI 数据。此外，可以通过 :doc:`URI 路由 </incoming/routing>` 的方式进行重定向你的 URL 从而使得程序更加灵活。
 
 
 移除 index.php 文件
@@ -34,7 +34,9 @@ Apache服务器
 -----------------
 
 
-Apache需要开启 *mod_rewrite* 扩展。当开启时，我们可以使用一个 ``.htaccess`` 文件以及一些简单的规则来实现 URL 重写。如下为这个文件的一个样例，其中使用了”否定“方法来排除某些不需要重定向的项目::
+Apache需要开启 *mod_rewrite* 扩展。当开启时，我们可以使用一个 ``.htaccess`` 文件以及一些简单的规则来实现 URL 重写。如下为这个文件的一个样例，其中使用了”否定“方法来排除某些不需要重定向的项目:
+
+.. code-block:: apache
 
 	RewriteEngine On
 	RewriteCond %{REQUEST_FILENAME} !-f
@@ -50,10 +52,12 @@ Apache需要开启 *mod_rewrite* 扩展。当开启时，我们可以使用一�
 
 NGINX
 -----
-在NGINX中，我们可以定义一个 location 块并用 ``try_files`` 导向来取得如上文中 Apache 配置一样的效果::
+在NGINX中，我们可以定义一个 location 块并用 ``try_files`` 导向来取得如上文中 Apache 配置一样的效果:
+
+.. code-block:: nginx
 
 	location / {
-        try_files $uri $uri/ /index.php/$args;
+            try_files $uri $uri/ /index.php/$args;
 	}
 
 
