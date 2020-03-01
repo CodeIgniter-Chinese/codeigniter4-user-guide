@@ -1,5 +1,5 @@
 ################
-Helper Functions
+助手函数
 ################
 
 Helpers, as the name suggests, help you with tasks. Each helper file is
