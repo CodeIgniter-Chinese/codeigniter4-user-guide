@@ -200,10 +200,8 @@ URL 的第二段通常表示方法的名称，但在上面的例子中，第二�
 环境约束
 ========================
 
-You can create a set of routes that will only be viewable in a certain environment. This allows you to create
-tools that only the developer can use on their local machines that are not reachable on testing or production servers.
-This can be done with the ``environment()`` method. The first parameter is the name of the environment. Any
-routes defined within this closure are only accessible from the given environment::
+你可以设置一组在特定环境下运行的路由。这方便了你创建一组只有开发者在本地环境中可使用，而在测试和生产环境不可见的工具。
+以上操作可通过 ``environment()`` 方法来实现。第一个参数是环境名。在这个闭包中的定义的所有路由，仅在当前环境下可访问::
 
 	$routes->environment('development', function($routes)
 	{
@@ -213,38 +211,33 @@ routes defined within this closure are only accessible from the given environmen
 反向路由
 ===============
 
-Reverse routing allows you to define the controller and method, as well as any parameters, that a link should go
-to, and have the router lookup the current route to it. This allows route definitions to change without you having
-to update your application code. This is typically used within views to create links.
+反向路由允许你定义一个链接与它需要查找的当前路由所需要使用的控制器和方法以及参数。这可以不需要改变程序代码而定义路由规则。通常用于视图内部以创建链接地址。
 
-For example, if you have a route to a photo gallery that you want to link to, you can use the ``route_to()`` helper
-function to get the current route that should be used. The first parameter is the fully qualified Controller and method,
-separated by a double colon (::), much like you would use when writing the initial route itself. Any parameters that
-should be passed to the route are passed in next::
+举例来说，如果你需要一个跳转到图片相册的路由，你可以使用 ``route_to()`` 辅助函数以获取当前应该使用的路由。
+第一个参数是完整的控制器类名与方法名以双英文冒号（::）区分，就像你在写一条原生的路由规则的格式一样。其他所有需要传递给这个路由的参数都将在后面被传递::
 
-	// The route is defined as:
+	// 该路由定义为:
 	$routes->add('users/(:id)/gallery(:any)', 'App\Controllers\Galleries::showUserGallery/$1/$2');
 
-	// Generate the relative URL to link to user ID 15, gallery 12
-	// Generates: /users/15/gallery/12
-	<a href="<?= route_to('App\Controllers\Galleries::showUserGallery', 15, 12) ?>">View Gallery</a>
+	// 生成对应连接到用户ID1：5，图片ID：12的指定URL
+	// 生成:/users/15/gallery/12
+	<a href="<?= route_to('App\Controllers\Galleries::showUserGallery', 15, 12) ?>">查看相册</a>
 
 使用命名路由
 ==================
 
-You can name routes to make your application less fragile. This applies a name to a route that can be called
-later, and even if the route definition changes, all of the links in your application built with ``route_to``
-will still work without you having to make any changes. A route is named by passing in the ``as`` option
-with the name of the route::
+你可以为路由命名，从而提高系统健壮性（鲁棒性），这一操作可通过给一个路由命名从而在后面调用来实现。
+即使路由定义改变了，所有在系统中通过 ``route_to`` 创建的的连接将仍旧可用并且不需要进行任何变动。
+命名一个路由，通过与路由名一起传递 ``as`` 选项来实现::
 
-    // The route is defined as:
+    // 路由定义为:
     $routes->add('users/(:id)/gallery(:any)', 'Galleries::showUserGallery/$1/$2', ['as' => 'user_gallery');
 
-    // Generate the relative URL to link to user ID 15, gallery 12
-    // Generates: /users/15/gallery/12
+    // 生成对应连接到用户ID1：5，图片ID：12的指定URL
+	// 生成:/users/15/gallery/12
     <a href="<?= route_to('user_gallery', 15, 12) ?>">View Gallery</a>
 
-This has the added benefit of making the views more readable, too.
+这同样使得视图更具有可读性。
 
 在路由中使用 HTTP 动词
 ==========================
@@ -257,7 +250,7 @@ This has the added benefit of making the views more readable, too.
 	$routes->put('products/(:num)', 'Product::feature');
 	$routes->delete('products/(:num)', 'Product::feature');
 
-你可以指定一个路由可以匹配多个动词，将其传递``match``方法作为一个数组::
+你可以指定一个路由可以匹配多个动词，将其传递 ``match()`` 方法作为一个数组::
 
 	$routes->match(['get', 'put'], 'products', 'Product::feature');
 
@@ -294,7 +287,7 @@ This has the added benefit of making the views more readable, too.
 
     $routes->add('admin',' AdminController::index', ['filter' => 'admin-auth']);
 
-过滤器的值必须至少匹配``app/Config/Filters.php``中的一个别名。
+过滤器的值必须至少匹配 ``app/Config/Filters.php`` 中的一个别名。
 你也可以指定过滤器的 ``before()`` 和 ``after()`` 方法的参数::
 
     $routes->add('users/delete/(:segment)', 'AdminController::index', ['filter' => 'admin-auth:dual,noreturn']);
@@ -339,66 +332,63 @@ This has the added benefit of making the views more readable, too.
 Offsetting the Matched Parameters
 ---------------------------------
 
-You can offset the matched parameters in your route by any numeric value with the ``offset`` option, with the
-value being the number of segments to offset.
+你可以向后推移在路由中匹配到的参数的位置，通过在 ``offset`` 选项中传递任何数字值，该值指名了推移匹配的URI分段的数量。
 
-This can be beneficial when developing API's with the first URI segment being the version number. It can also
-be used when the first parameter is a language string::
+这将会为开发API带来好处，当URI第一个分段是版本号时，同样可以用于第一个参数是一个语言标识（例如en，fr等，译者注）::
 
 	$routes->get('users/(:num)', 'users/show/$1', ['offset' => 1]);
 
-	// Creates:
+	// 创建:
 	$routes['users/(:num)'] = 'users/show/$2';
+
+（译者注：实质就是将匹配的位置向后推移，由于第一个分段的位置可能会被其他参数占用，所以通配符的位置需要后移，
+例如/en/users/(:num)，这里/en/是第一个分段，不需要作为路由使用，所以(:num)实际上通过offset后移到了$2的位置。）
 
 路由配置选项
 ============================
 
-The RoutesCollection class provides several options that affect all routes, and can be modified to meet your
-application's needs. These options are available at the top of `/app/Config/Routes.php`.
+路由集合类提供了多个可影响到所有路由的选项配置，并可被修改以符合程序要求，这些选项可在 `/app/Config/Routes/php`` 文件的顶部被更改。
 
 默认命名空间
 -----------------
 
-When matching a controller to a route, the router will add the default namespace value to the front of the controller
-specified by the route. By default, this value is empty, which leaves each route to specify the fully namespaced
-controller::
+当匹配到了一个需要路由的控制器，路由将会为该控制器增加一个默认的命名空间。默认设置下，这个命名空间的值为空，从而每个每个路由都需要完全对应到的带有命名空间的控制器类名::
 
     $routes->setDefaultNamespace('');
 
-    // Controller is \Users
+    // 控制器为 \Users
     $routes->add('users', 'Users::index');
 
-    // Controller is \Admin\Users
+    // 控制器为 \Admin\Users
     $routes->add('users', 'Admin\Users::index');
 
-If your controllers are not explicitly namespaced, there is no need to change this. If you namespace your controllers,
-then you can change this value to save typing::
+如果你的控制器不是严格遵从命名空间的话，就没有更改的必要。如果你为控制器指定了命名空间，就可以通过更改默认命名空间的值来减少打字输入::
 
 	$routes->setDefaultNamespace('App');
 
-	// Controller is \App\Users
+	// 控制器为 \App\Users
 	$routes->add('users', 'Users::index');
 
-	// Controller is \App\Admin\Users
+	// 控制器为 \App\Admin\Users
 	$routes->add('users', 'Admin\Users::index');
 
 默认控制器
 ------------------
 
-当用户直接访问你的站点的根路径时（例如example.com），所调用的控制器将会由``setDefaultController()`` 方法所设置的参数决定，除非有一个路由是显式声明过（默认控制器）。
-这一方法的默认值是``Home``，对应的控制器是``/app/Controllers/Home.php``::
+当用户直接访问你的站点的根路径时（例如example.com），所调用的控制器将会由 ``setDefaultController()`` 方法所设置的参数决定，除非有一个路由是显式声明过（默认控制器）。
+这一方法的默认值是 ``Home`` ，对应的控制器是 ``/app/Controllers/Home.php`` ::
 
 
 	// example.com 对应的路由是app/Controllers/Welcome.php
 	$routes->setDefaultController('Welcome');
 
 默认控制器同样也在找不到对应的路由规则，URI对应到控制器的对应目录下的情况下被用到。
-例如有个用户访问了``example.com/admin``，如果有个控制器被命名为``/app/Controllers/admin/Home.php``，那么就被调用到。
+例如有个用户访问了 ``example.com/admin`` ，如果有个控制器被命名为 ``/app/Controllers/admin/Home.php`` ，那么就被调用到。
 
 默认方法
 --------------
 
-与默认控制器的设置类似，用于设置设置默认方法。其应用场景是，找到了URI对应的控制器，但是URI分段对应不上控制器的方法时。默认值是``index``::
+与默认控制器的设置类似，用于设置设置默认方法。其应用场景是，找到了URI对应的控制器，但是URI分段对应不上控制器的方法时。默认值是 ``index`` ::
 
 	$routes->setDefaultMethod('listAll');
 

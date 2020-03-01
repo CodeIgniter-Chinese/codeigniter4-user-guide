@@ -1,5 +1,5 @@
 ############
-Code Modules
+代码模块
 ############
 
 CodeIgniter supports a form of code modularization to help you create reusable code. Modules are typically

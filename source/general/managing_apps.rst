@@ -1,5 +1,5 @@
 ##########################
-Managing your Applications
+管理多个应用
 ##########################
 
 By default it is assumed that you only intend to use CodeIgniter to
