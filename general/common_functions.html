@@ -316,22 +316,22 @@
 <p>CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 类库或辅助函数。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#id3" id="id13">公共函数</a><ul>
-<li><a class="reference internal" href="#id4" id="id14">服务访问器函数</a></li>
-<li><a class="reference internal" href="#id5" id="id15">其他函数</a></li>
+<li><a class="reference internal" href="#id3" id="id9">公共函数</a><ul>
+<li><a class="reference internal" href="#id4" id="id10">服务访问器函数</a></li>
+<li><a class="reference internal" href="#id5" id="id11">其他函数</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id10" id="id16">全局常量</a><ul>
-<li><a class="reference internal" href="#id11" id="id17">核心常量</a></li>
-<li><a class="reference internal" href="#id12" id="id18">时间常量</a></li>
+<li><a class="reference internal" href="#id6" id="id12">全局常量</a><ul>
+<li><a class="reference internal" href="#id7" id="id13">核心常量</a></li>
+<li><a class="reference internal" href="#id8" id="id14">时间常量</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id13">公共函数</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">公共函数</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id14">服务访问器函数</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">服务访问器函数</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <dl class="function">
 <dt id="cache">
 <code class="descname">cache</code><span class="sig-paren">(</span><span class="optional">[</span><em>$key</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#cache" title="永久链接至目标">¶</a></dt>
@@ -352,7 +352,7 @@
 </tr>
 </tbody>
 </table>
-<p>若 $key 不存在, 则返回缓存引擎实例. 若 $key有值存在, 则返回 $key 当前存储在缓存中的值，若值不存在则返回false.</p>
+<p>若 $key 不存在, 则返回缓存引擎实例. 若 $key有值存在, 则返回 $key 当前存储在缓存中的值，若值不存在则返回null。</p>
 <p>Examples:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$foo</span> <span class="o">=</span> <span class="nx">cache</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
 <span class="nv">$cache</span> <span class="o">=</span> <span class="nx">cache</span><span class="p">();</span>
@@ -403,13 +403,13 @@
 <tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">输出的数据（The escaped data）.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>页面中包含的输出数据, 它在防止 XSS 攻击时很有用。
-使用Zend Escaper library把控过滤中的数据。</p>
+使用Laminas Escaper 库来处理实际的数据过滤。</p>
 <p>若 $data 为字符串, 则简单转义并且返回。
 若 $data 为数组, 则遍历数组，转义 key/value 键值对中的 ‘value’。</p>
 <p>有效的 context 值: html, js, css, url, attr, raw, null</p>
@@ -423,35 +423,111 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$filename</strong> (<em>string</em>) – 加载的辅助类文件的名称.</li>
+<li><strong>$filename</strong> (<em>string|array</em>) – 加载的辅助类文件的名称，或一个包含类文件名的数组。</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>加载辅助类文件。</p>
-<p>详情参照 the <a class="reference internal" href="helpers.html"><span class="doc">辅助函数</span></a> 页.</p>
 </dd></dl>
 
+<p>&nbsp; &nbsp; 加载辅助类文件。</p>
+<blockquote>
+<div>详情参照 <a class="reference internal" href="helpers.html"><span class="doc">辅助函数</span></a> 页.</div></blockquote>
 <dl class="function">
-<dt>
-<code class="descname">lang(string $line[, array $args]): string</code></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dt id="lang">
+<code class="descname">lang</code><span class="sig-paren">(</span><em>$line</em><span class="optional">[</span>, <em>$args</em><span class="optional">[</span>, <em>$locale</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#lang" title="永久链接至目标">¶</a></dt>
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param &nbsp; string &nbsp; $line:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">检索文本的行</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param &nbsp; array &nbsp; $args:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">一组数组数据，用于替代占位符.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$line</strong> (<em>string</em>) – 检索文本的行</li>
-<li><strong>$args</strong> (<em>array</em>) – 一组数组数据，用于替代占位符.</li>
+<li><strong>$locale</strong> (<em>string</em>) – <p>使用不同的地区，而不是默认的地区设置。</p>
+<p>检索一个基于某个别名字符串的本地特定文件。</p>
+</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>检索一个基于某个别名字符串的本地特定文件。</p>
-<p>更多详细信息请见 the <span class="xref std std-doc">Localization</span> 页.</p>
 </dd></dl>
 
+<p>&nbsp; &nbsp; 更多详细信息请见 <a class="reference internal" href="../outgoing/localization.html"><span class="doc">Localization</span></a> 页。</p>
+<dl class="function">
+<dt id="old">
+<code class="descname">old</code><span class="sig-paren">(</span><em>$key</em><span class="optional">[</span>, <em>$default = null</em><span class="optional">[</span>, <em>$escape = 'html'</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#old" title="永久链接至目标">¶</a></dt>
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param string $key:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">需要使用的原有的表单提交的键。</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param mixed  $default:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">如果当$key不存在时返回的默认值。</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$escape</strong> (<em>mixed</em>) – <p>一个 <a class="reference external" href="#esc">escape</a> 的上下文，或传值false来禁用该功能。</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">给定的键对应的值，或设置的默认值</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>提供了一个简易的方式，在表单提交时访问 “原有的输入数据”。</p>
+<p>示例:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在控制器中查看表单提交</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$user</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// &#39;withInput&#39;方法意味着&quot;原有的数据&quot;需要被存储。</span>
+    <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">withInput</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// 视图中</span>
+<span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&lt;?= old(&#39;email&#39;) ?&gt;&quot;</span><span class="o">&gt;</span>
+<span class="c1">// 以数组的形式</span>
+<span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;user[email]&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&lt;?= old(&#39;user.email&#39;) ?&gt;&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">如果你正使用 :doc: <cite>form helper &lt;/helpers/form_helper&gt;</cite> , 这个特性就是内置的。只有在你不使用form helper的时候才需要手动调用。</p>
+</div>
 <dl class="function">
 <dt id="session">
 <code class="descname">session</code><span class="sig-paren">(</span><span class="optional">[</span><em>$key</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#session" title="永久链接至目标">¶</a></dt>
@@ -492,14 +568,14 @@
 </table>
 <p>提供一个快速访问 Timer class的便捷的方法。 你可以将基准点的名称作为唯一参数传递。这将从这一点开始计时，
 如果这个名称的计时器已经运行，则停止计时。</p>
-<p>Example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Get an instance</span>
+<p>示例:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 获取一个timer实例</span>
 <span class="nv">$timer</span> <span class="o">=</span> <span class="nx">timer</span><span class="p">();</span>
 
-<span class="c1">// Set timer start and stop points</span>
-<span class="nx">timer</span><span class="p">(</span><span class="s1">&#39;controller_loading&#39;</span><span class="p">);</span>    <span class="c1">// Will start the timer</span>
+<span class="c1">// 设置计时器的开始与结束点</span>
+<span class="nx">timer</span><span class="p">(</span><span class="s1">&#39;controller_loading&#39;</span><span class="p">);</span>    <span class="c1">// 开始计时器</span>
 <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-<span class="nx">timer</span><span class="p">(</span><span class="s1">&#39;controller_loading&#39;</span><span class="p">);</span>    <span class="c1">// Will stop the running timer</span>
+<span class="nx">timer</span><span class="p">(</span><span class="s1">&#39;controller_loading&#39;</span><span class="p">);</span>    <span class="c1">// 停止计时器运行</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -541,7 +617,7 @@
 <p>详情参见 the <a class="reference internal" href="../outgoing/views.html"><span class="doc">Views</span></a> 页。</p>
 </div>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id15">其他函数</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">其他函数</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <dl class="function">
 <dt id="csrf_token">
 <code class="descname">csrf_token</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#csrf_token" title="永久链接至目标">¶</a></dt>
@@ -556,6 +632,24 @@
 </tbody>
 </table>
 <p>返回当前 CSRF token名称。</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="csrf_header">
+<code class="descname">csrf_header</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#csrf_header" title="永久链接至目标">¶</a></dt>
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">The name of the header for current CSRF token.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>The name of the header for current CSRF token.</p>
 </dd></dl>
 
 <dl class="function">
@@ -590,6 +684,26 @@
 <p>返回已插入CSRF信息的隐藏input:</p>
 <blockquote>
 <div>&lt;input type=”hidden” name=”{csrf_token}” value=”{csrf_hash}”&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="csrf_meta">
+<code class="descname">csrf_meta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#csrf_meta" title="永久链接至目标">¶</a></dt>
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">A string with the HTML for meta tag with all required CSRF information.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Returns a meta tag with the CSRF information already inserted:</p>
+<blockquote>
+<div>&lt;meta name=”{csrf_header}” content=”{csrf_hash}”&gt;</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -629,7 +743,7 @@
 
 <dl class="function">
 <dt id="log_message">
-<code class="descname">log_message</code><span class="sig-paren">(</span><em>$level</em>, <em>$message</em><span class="optional">[</span>, <em>array $context</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#log_message" title="永久链接至目标">¶</a></dt>
+<code class="descname">log_message</code><span class="sig-paren">(</span><em>$level</em>, <em>$message</em><span class="optional">[</span>, <em>$context</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#log_message" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -649,7 +763,7 @@
 </tr>
 </tbody>
 </table>
-<p>使用 application/Config/Logger.php 中定义的日志处理程序记录日志。</p>
+<p>使用 <strong>app/Config/Logger.php</strong> 中定义的日志处理程序记录日志。</p>
 <p>级别可为以下值: <strong>emergency</strong>, <strong>alert</strong>, <strong>critical</strong>, <strong>error</strong>, <strong>warning</strong>,
 <strong>notice</strong>, <strong>info</strong>, or <strong>debug</strong>.</p>
 <p>Context 可用于替换 message 字符串中的值。详情参见 the:doc:<cite>Logging Information &lt;logging&gt;</cite> 页。</p>
@@ -657,22 +771,40 @@
 
 <dl class="function">
 <dt id="redirect">
-<code class="descname">redirect</code><span class="sig-paren">(</span><em>$uri</em><span class="optional">[</span>, <em>...$params</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#redirect" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<code class="descname">redirect</code><span class="sig-paren">(</span><em>string $uri</em><span class="sig-paren">)</span><a class="headerlink" href="#redirect" title="永久链接至目标">¶</a></dt>
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$uri</strong> (<em>string</em>) – 重定向URI。</li>
-<li><strong>$params</strong> (<em>mixed</em>) – 在 :meth:RouteCollection::reverseRoute 方法中可使用单个或多个附加参数。</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $uri:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">需要引导用户重定向到的页面.</td>
 </tr>
 </tbody>
 </table>
-<p>这是方便的方法，它可以与当前的全局 $request 和 $router 实例一起重定向，使用命名路由/反向路由（named/reverse-routed）来确定要访问的 URL 。
-若没有发现则按惯常的重定向方式转向，让``$response-&gt;redirect()``判定适合的方法和代码。</p>
-<p>你需要使用更加明确的 <a href="#id6"><span class="problematic" id="id7">``</span></a>$response-&gt;redirect() <a href="#id8"><span class="problematic" id="id9">``</span></a>。</p>
+</div></blockquote>
+<p>返回以后RedirectResponse的实例以便创建重定向:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span>        <span class="c1">// 回到上一个页面Go back to the previous page</span>
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">();</span>
+
+        <span class="c1">// 跳转至具体的URI</span>
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="s1">&#39;/admin&#39;</span><span class="p">);</span>
+
+        <span class="c1">// 跳转到一个命名路由或反向路由 URI</span>
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">route</span><span class="p">(</span><span class="s1">&#39;named_route&#39;</span><span class="p">);</span>
+
+        <span class="c1">// 在跳转中保持原有的输入值，使得它们可以被 `old()` 函数调用。</span>
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">withInput</span><span class="p">();</span>
+
+        <span class="c1">// 显示一个消息</span>
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">with</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span><span class="p">);</span>
+
+<span class="nx">当将URI传给这个函数时。它将会被作为一个反向路由请求，而不是一个完整的URI，就像使用</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">route</span><span class="p">()</span><span class="nx">一样</span><span class="o">::</span>
+
+<span class="c1">// 跳转到一个命名路由或反向路由 URI</span>
+        <span class="k">return</span> <span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;named_route&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -700,14 +832,14 @@
 
 <dl class="function">
 <dt id="remove_invisible_characters">
-<code class="descname">remove_invisible_characters</code><span class="sig-paren">(</span><em>$str</em><span class="optional">[</span>, <em>$url_encoded = TRUE</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#remove_invisible_characters" title="永久链接至目标">¶</a></dt>
+<code class="descname">remove_invisible_characters</code><span class="sig-paren">(</span><em>$str</em><span class="optional">[</span>, <em>$urlEncoded = TRUE</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#remove_invisible_characters" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
 <li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
-<li><strong>$url_encoded</strong> (<em>bool</em>) – 是否移除URL编码字符</li>
+<li><strong>$urlEncoded</strong> (<em>bool</em>) – 是否移除URL编码字符</li>
 </ul>
 </td>
 </tr>
@@ -743,7 +875,7 @@
 </tbody>
 </table>
 <p>以指定的路由别名或 controller::method 组合为依据生成一个相对 URI 。如果提供参数，将执行参数。</p>
-<p>详情参见 the <span class="xref std std-doc">routing</span> 页。</p>
+<p>详情参见 the <a class="reference internal" href="../incoming/routing.html"><span class="doc">URI 路由</span></a> 页。</p>
 </dd></dl>
 
 <dl class="function">
@@ -829,26 +961,26 @@
 
 </div>
 </div>
-<div class="section" id="id10">
-<h2><a class="toc-backref" href="#id16">全局常量</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id12">全局常量</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>以下的常量在你的应用中的任何地方有效。</p>
-<div class="section" id="id11">
-<h3><a class="toc-backref" href="#id17">核心常量</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
-<dl class="const">
-<dt id="ROOTPATH">
-<em class="property">constant </em><code class="descname">ROOTPATH</code><a class="headerlink" href="#ROOTPATH" title="永久链接至目标">¶</a></dt>
-<dd><p>主应用目录路径. 如前述的 <code class="docutils literal notranslate"><span class="pre">public</span></code>.</p>
-</dd></dl>
-
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id13">核心常量</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
 <dl class="const">
 <dt id="APPPATH">
 <em class="property">constant </em><code class="descname">APPPATH</code><a class="headerlink" href="#APPPATH" title="永久链接至目标">¶</a></dt>
-<dd><p><strong>application</strong> 目录的路径。</p>
+<dd><p><strong>app</strong> 目录的路径。</p>
 </dd></dl>
 
 <dl class="const">
-<dt id="BASEPATH">
-<em class="property">constant </em><code class="descname">BASEPATH</code><a class="headerlink" href="#BASEPATH" title="永久链接至目标">¶</a></dt>
+<dt id="ROOTPATH">
+<em class="property">constant </em><code class="descname">ROOTPATH</code><a class="headerlink" href="#ROOTPATH" title="永久链接至目标">¶</a></dt>
+<dd><p>项目根目录，<code class="docutils literal notranslate"><span class="pre">APPPATH</span></code> 目录的上层目录。</p>
+</dd></dl>
+
+<dl class="const">
+<dt id="SYSTEMPATH">
+<em class="property">constant </em><code class="descname">SYSTEMPATH</code><a class="headerlink" href="#SYSTEMPATH" title="永久链接至目标">¶</a></dt>
 <dd><p><strong>system</strong> 目录的路径。</p>
 </dd></dl>
 
@@ -871,8 +1003,8 @@
 </dd></dl>
 
 </div>
-<div class="section" id="id12">
-<h3><a class="toc-backref" href="#id18">时间常量</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id14">时间常量</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <dl class="const">
 <dt id="SECOND">
 <em class="property">constant </em><code class="descname">SECOND</code><a class="headerlink" href="#SECOND" title="永久链接至目标">¶</a></dt>
@@ -947,7 +1079,7 @@
     <p>
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-03-01.
+        最后更新于 2020-03-02.
       </span>
 
     </p>
