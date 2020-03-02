@@ -18,6 +18,10 @@ CodeIgniter4 用户指南
 
 	installation/index
 
+****************************
+构建你的第一个应用
+****************************
+
 .. toctree::
 	:includehidden:
 	:titlesonly:
@@ -109,4 +113,4 @@ CodeIgniter4 用户指南
         :hidden:
 
         license
-        changelog
+        changelogs/index
