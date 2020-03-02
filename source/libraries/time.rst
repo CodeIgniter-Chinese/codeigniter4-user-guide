@@ -1,35 +1,31 @@
-###############
-Dates and Times
-###############
+############
+日期与时间类
+############
 
-CodeIgniter provides a fully-localized, immutable, date/time class that is built on PHP's DateTime object, but uses the Intl
-extension's features to convert times across timezones and display the output correctly for different locales. This class
-is the **Time** class and lives in the **CodeIgniter\\I18n** namespace.
+CodeIgniter 提供了一个完全本地化的，不变的日期与时间类，这个类建立在 PHP 原生的 DateTime 类之上，但使用了 Intl 扩展程序的功能
+来进行跨时区转换时间并正确显示不同语言环境的输出。 这个类就是 **Time** 类，位于 **CodeIgniter\\I18n** 命名空间中。
 
-.. note:: Since the Time class extends DateTime, if there are features that you need that this class doesn't provide,
-    you can likely find them within the DateTime class itself.
+.. note:: 由于 Time 类是 DateTime 类的拓展，因此如果您需要此类不提供的功能，可以在 DateTime 类中找到它们。
 
 .. contents::
     :local:
     :depth: 1
 
-=============
-Instantiating
-=============
+======
+实例化
+======
 
-There are several ways that a new Time instance can be created. The first is simply to create a new instance
-like any other class. When you do it this way, you can pass in a string representing the desired time. This can
-be any string that PHP's strtotime function can parse::
+有多种创建 Time 类实例的方法。 首先是像其他类一样简单地创建一个新实例。 当您以这种方式进行操作时，您可以传递一
+个表示所需时间的字符串。 它可以是 PHP 的 strtotime() 函数可以解析的任何字符串： ::
 
     use CodeIgniter\I18n\Time;
 
     $myTime = new Time('+3 week');
     $myTime = new Time('now');
 
-You can pass in strings representing the timezone and the locale in the second and parameters, respectively. Timezones
-can be any supported by PHP's `DateTimeZone <http://php.net/manual/en/timezones.php>`__ class. The locale can be
-any supported by PHP's `Locale <http://php.net/manual/en/class.locale.php>`__ class. If no locale or timezone is
-provided, the application defaults will be used.
+你可以在参数中分别传递表示时区和语言环境的字符串。时区可以是 PHP 的 `DateTimeZone <http://php.net/manual/en/timezones.php>`__ 类
+可以支持所有时区。 语言环境可以是 PHP 的 `Locale <http://php.net/manual/en/class.locale.php>`__ 类支持的任何语言环境。
+如果未提供语言环境或时区，则将使用应用程序配置中的默认值。
 
 ::
 
@@ -38,9 +34,8 @@ provided, the application defaults will be used.
 now()
 -----
 
-The Time class has several helper methods to instantiate the class. The first of these is the **now()** method
-that returns a new instance set to the current time. You can pass in strings representing the timezone and the locale
-in the second and parameters, respectively. If no locale or timezone is provided, the application defaults will be used.
+Time 类有几个有用的 helper 方法来实例化这个类，首先是 **now()** 方法，该方法返回设置为当前时间的新实例。 您可以在参数中
+提供表示时区和语言环境的字符串。 如果未提供语言环境或时区，则将使用应用程序配置中的默认值。
 
 ::
 
@@ -49,87 +44,84 @@ in the second and parameters, respectively. If no locale or timezone is provided
 parse()
 -------
 
-This helper method is a static version of the default constructor. It takes a string acceptable as DateTime's
-constructor as the first parameter, a timezone as the second parameter, and the locale as the third parameter.::
+这个 helper 程序方法是默认的构造函数的 static 版本。它以 DateTime 类构造函数可接受的任何表示时间的字符串为第一个参数，
+将表示时区的字符串作为第二个参数，将表示语言环境的字符串作为第三个参数： ::
 
     $myTime = Time::parse('next Tuesday', 'America/Chicago', 'en_US');
 
 today()
 -------
 
-Returns a new instance with the date set to the current date, and the time set to midnight. It accepts strings
-for the timezone and locale in the second and third parameters::
+返回一个新实例，该实例的日期设置为当前日期，时间设置为午夜。它在第二个和第三个参数中分别接受表示时区和语言环境
+的字符串 *（译注：应该是第一和第二个参数，原文出错，下同）* ： ::
 
     $myTime = Time::today('America/Chicago', 'en_US');
 
 yesterday()
 -----------
 
-Returns a new instance with the date set to the yesterday's date and the time set to midnight. It accepts strings
-for the timezone and locale in the second and third parameters::
+返回一个新实例，该实例的日期设置为昨天的日期，时间设置为午夜。它在第二个和第三个参数中分别接受表示时区和语言环境
+的字符串： ::
 
     $myTime = Time::yesterday('America/Chicago', 'en_US');
 
 tomorrow()
 -----------
 
-Returns a new instance with the date set to the tomorrow's date and the time set to midnight. It accepts strings
-for the timezone and locale in the second and third parameters::
+返回一个新实例，该实例的日期设置为明天的日期，时间设置为午夜。它在第二个和第三个参数中分别接受表示时区和语言环境
+的字符串： ::
 
     $myTime = Time::tomorrow('America/Chicago', 'en_US');
 
 createFromDate()
 ----------------
 
-Given separate inputs for **year**, **month**, and **day**, will return a new instance. If any of these parameters
-are not provided, it will use the current value to fill it in. Accepts strings for the timezone and locale in the
-fourth and fifth parameters::
+给定 **年** 、 **月** 、 **日** 的单独输入，将返回一个新实例。如果未提供它们三个中的任何一个，它将使用当前时间的该值进行填充。在第四
+和第五个参数中接受时区和语言环境的字符串： ::
 
-    $today       = Time::createFromDate();            // Uses current year, month, and day
-    $anniversary = Time::createFromDate(2018);  // Uses current month and day
+    $today       = Time::createFromDate();      // 将使用现在时间的年、月、日
+    $anniversary = Time::createFromDate(2018);  // 将使用现在时间的月、日
     $date        = Time::createFromDate(2018, 3, 15, 'America/Chicago', 'en_US');
 
 createFromTime()
 ----------------
 
-Like **createFromDate** except it is only concerned with the **hours**, **minutes**, and **seconds**. Uses the
-current day for the date portion of the Time instance. Accepts strings for the timezone and locale in the
-fourth and fifth parameters::
+与 **createFromDate()** 相似，只不过它只和 **小时** 、 **分钟** 和 **秒** 有关。 使用当前时间的日期作为 Time 实例的日期
+部分。 在第四个和第五个参数中接受时区和语言环境的字符串： ::
 
     $lunch  = Time::createFromTime(11, 30)       // 11:30 am today
+    $lunch  = Time::createFromTime(11, 30)      // 今天的 11:30
     $dinner = Time::createFromTime(18, 00, 00)  // 6:00 pm today
+    $dinner = Time::createFromTime(18, 00, 00)  // 今天的 18:00
     $time   = Time::createFromTime($hour, $minutes, $seconds, $timezone, $locale);
 
 create()
 --------
 
-A combination of the previous two methods, takes **year**, **month**, **day**, **hour**, **minutes**, and **seconds**
-as separate parameters. Any value not provided will use the current date and time to determine. Accepts strings for the
-timezone and locale in the fourth and fifth parameters::
+前面两种方法的组合，将 **年** 、 **月** 、 **日** 、 **小时** 、 **分钟** 和 **秒** 作为单独的参数。
+任何未提供的值将使用当前的日期和时间来确定。 在第四个和第五个参数中接受时区和语言环境的字符串： ::
 
     $time = Time::create($year, $month, $day, $hour, $minutes, $seconds, $timezone, $locale);
 
 createFromFormat()
 ------------------
 
-This is a replacement for DateTime's method of the same name. This allows the timezone to be set at the same time,
-and returns a **Time** instance, instead of DateTime::
+它是替代 DateTime 构造函数的方法。它允许同时设置时区，并返回一个 **Time** 实例，而不是 DateTime 实例： ::
 
     $time = Time::createFromFormat('j-M-Y', '15-Feb-2009', 'America/Chicago');
 
 createFromTimestamp()
 ---------------------
 
-This method takes a UNIX timestamp and, optionally, the timezone and locale, to create a new Time instance::
+该方法使用 UNIX 时间戳以及时区和语言环境（可选）来创建新的 Time 实例： ::
 
     $time = Time::createFromTimestamp(1501821586, 'America/Chicago', 'en_US');
 
 instance()
 ----------
 
-When working with other libraries that provide a DateTime instance, you can use this method to convert that
-to a Time instance, optionally setting the locale. The timezone will be automatically determined from the DateTime
-instance passed in::
+与提供 DateTime 实例的其他 library 一起使用时，可以使用此方法将其转换为 Time 实例，可以选择设置语言环境。
+时区将根据传入的 DateTime 实例自动确定： ::
 
     $dt   = new DateTime('now');
     $time = Time::instance($dt, 'en_US');
@@ -137,26 +129,24 @@ instance passed in::
 toDateTime()
 ------------
 
-While not an instantiator, this method is the opposite of the **instance** method, allowing you to convert a Time
-instance into a DateTime instance. This preserves the timezone setting, but loses the locale, since DateTime is
-not aware of locales::
+它不是用来实例化的，此方法与 **实例化** 方法相反，它允许您将 Time 实例转换为 DateTime 实例。这样会保留时区设置，
+但会丢失语言环境，因为 DateTime 并不了解语言环境： ::
 
     $datetime = Time::toDateTime();
 
-====================
-Displaying the Value
-====================
+==========
+显示时间值
+==========
 
-Since the Time class extends DateTime, you get all of the output methods that provides, including the format() method.
-However, the DateTime methods do not provide a localize result. The Time class does provide a number of helper methods
-to display localized versions of the value, though.
+由于 Time 是 DateTime 类的拓展，因此您将获得提供的所有输出方法，包括 format() 方法。 但是，DateTime 方法不提供本地化结果。 不过，
+Time 类提供了许多 helper 方法来显示值的本地化版本。
 
 toLocalizedString()
 -------------------
 
-This is the localized version of DateTime's format() method. Instead of using the values you might be familiar with, though,
-you must use values acceptable to the `IntlDateFormatter <http://php.net/manual/en/class.intldateformatter.php>`__ class.
-A full listing of values can be found `here <http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details>`__.
+这是 DateTime 的 format() 方法的本地化版本。但是，必须使用 `IntlDateFormatter <http://php.net/manual/en/class.intldateformatter.php>`__ 类可以接受的值，
+而不能使用你熟悉的值。完整的值列表可以在 `这里 <http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details>`__ 找到。
+
 ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
@@ -165,8 +155,8 @@ A full listing of values can be found `here <http://www.icu-project.org/apiref/i
 toDateTimeString()
 ------------------
 
-This is the first of three helper methods to work with the IntlDateFormatter without having to remember their values.
-This will return a string formatted as you would commonly use for datetime columns in a database (Y-m-d H:i:s)::
+这是与 IntlDateFormatter 一起使用的三种辅助方法中的第一种，无需记住它们的值。这将返回一个格式化的字符串，
+该字符串的格式与数据库中日期时间列的常用格式相同（Y-m-d H:i:s）： ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
     echo $time->toDateTimeString();     // 2016-03-09 12:00:00
@@ -174,7 +164,7 @@ This will return a string formatted as you would commonly use for datetime colum
 toDateString()
 --------------
 
-Displays just the date portion of the Time::
+仅返回时间与日期的日期部分： ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
     echo $time->toDateTimeString();     // 2016-03-09
@@ -182,7 +172,7 @@ Displays just the date portion of the Time::
 toTimeString()
 --------------
 
-Displays just the time portion of the value::
+仅返回时间与日期的时间部分： ::
 
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
     echo $time->toTimeString();     // 12:00:00
@@ -190,19 +180,18 @@ Displays just the time portion of the value::
 humanize()
 ----------
 
-This methods returns a string that displays the difference between the current date/time and the instance in a
-human readable format that is geared towards being easily understood. It can create strings like '3 hours ago',
-'in 1 month', etc::
+此方法返回一个字符串，该字符串以易于理解的人类可读格式显示当前日期或时间与实例之间的差异。它会返回“ 3 小时前”、“ 1 个月内”
+等字符串： ::
 
-    // Assume current time is: March 10, 2017 (America/Chicago)
+    // 假设现在的时间是：March 10, 2017 (America/Chicago)
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
 
     echo $time->humanize();     // 1 year ago
 
-The exact time displayed is determined in the following manner:
+通过以下方式确定显示的确切时间：
 
 =============================== =================================
-Time difference                  Result
+时间差异                         结果
 =============================== =================================
 $time > 1 year && < 2 years      in 1 year / 1 year ago
 $time > 1 month && < 1 year      in 6 months / 6 months ago
@@ -214,23 +203,22 @@ $time > now && < 1 hour          in 35 minutes / 35 minutes ago
 $time == now                     Now
 =============================== =================================
 
-The exact language used is controlled through the language file, Time.php.
+返回的结果的语言被语言文件 Time.php 所控制。
 
-==============================
-Working with Individual Values
-==============================
+================
+处理各个时间的值
+================
 
-The Time object provides a number of methods to allow to get and set individual items, like the year, month, hour, etc,
-of an existing instance. All of the values retrieved through the following methods will be fully localized and respect
-the locale that the Time instance was created with.
+Time 对象提供了许多方法来获取和设置现有实例的各个项目，例如年、月、时等。通过以下方法检索到的的所有值都会被完全本地化，
+并遵守创建 Time 实例所使用的语言环境。
 
-All of the following `getX` and `setX` methods can also be used as if they were a class property. So, any calls to methods
-like `getYear` can also be accessed through `$time->year`, and so on.
+以下所有 `getX` 和 `setX` 方法也可以当作类属性使用。因此，对像 `getYear` 这样调用的方法也可以通过 `$time->year`
+进行调用，依此类推。
 
-Getters
+获取器
 -------
 
-The following basic getters exist::
+有以下几种基本的获取器： ::
 
     $time = Time::parse('August 12, 2016 4:15:23pm');
 
@@ -248,15 +236,15 @@ The following basic getters exist::
     echo $time->minute;         // 15
     echo $time->second;         // 23
 
-In addition to these, a number of methods exist to provide additional information about the date::
+除这些之外，还有许多方法可以获取有关日期的其他信息： ::
 
     $time = Time::parse('August 12, 2016 4:15:23pm');
 
-    echo $time->getDayOfWeek();     // 6 - but may vary based on locale's starting day of the week
+    echo $time->getDayOfWeek();     // 6 - 但可能会因地区的一个星期的第一天而有所不同
     echo $time->getDayOfYear();     // 225
     echo $time->getWeekOfMonth();   // 2
     echo $time->getWeekOfYear();    // 33
-    echo $time->getTimestamp();     // 1471018523 - UNIX timestamp
+    echo $time->getTimestamp();     // 1471018523 - UNIX 时间戳
     echo $time->getQuarter();       // 3
 
     echo $time->dayOfWeek;          // 6
@@ -269,8 +257,7 @@ In addition to these, a number of methods exist to provide additional informatio
 getAge()
 --------
 
-Returns the age, in years, of between the Time's instance and the current time. Perfect for checking
-the age of someone based on their birthday::
+返回 Time 实例与当前时间之间的差值（以年为单位）。主要是用于根据某人的生日检查其年龄： ::
 
     $time = Time::parse('5 years ago');
 
@@ -280,7 +267,7 @@ the age of someone based on their birthday::
 getDST()
 --------
 
-Returns boolean true/false based on whether the Time instance is currently observing Daylight Savings Time::
+根据 Time 实例是否正在遵守夏令时，返回布尔值 true 或 false： ::
 
     echo Time::createFromDate(2012, 1, 1)->getDst();     // false
     echo Time::createFromDate(2012, 9, 1)->dst;     // true
@@ -288,15 +275,15 @@ Returns boolean true/false based on whether the Time instance is currently obser
 getLocal()
 ----------
 
-Returns boolean true if the Time instance is in the same timezone as the application is currently running in::
+如果 Time 实例的时区与 web 应用程序当前所在的时区位于同一时区，则返回布尔值 true： ::
 
-    echo Time::now()->getLocal();       // true
-    echo Time::now('Europe/London');    // false
+    echo Time::now()->getLocal();                   // true
+    echo Time::now('Europe/London')->getLocal();    // false
 
 getUtc()
 --------
 
-Returns boolean true if the Time instance is in UTC time::
+如果 Time 实例使用 UTC 时间，则返回 true： ::
 
     echo Time::now('America/Chicago')->getUtc();    // false
     echo Time::now('UTC')->utc;                     // true
@@ -304,8 +291,7 @@ Returns boolean true if the Time instance is in UTC time::
 getTimezone()
 -------------
 
-Returns a new `DateTimeZone <http://php.net/manual/en/class.datetimezone.php>`__ object set the timezone of the Time
-instance::
+返回一个新的 `DateTimeZone <http://php.net/manual/en/class.datetimezone.php>`__ 实例，该实例是 Time 实例的时区： ::
 
     $tz = Time::now()->getTimezone();
     $tz = Time::now()->timezone;
@@ -316,20 +302,19 @@ instance::
 getTimezoneName()
 -----------------
 
-Returns the full `timezone string <http://php.net/manual/en/timezones.php>`__ of the Time instance::
+返回 Time 实例的 `完整时区字符串 <http://php.net/manual/en/timezones.php>`__ ： ::
 
     echo Time::now('America/Chicago')->getTimezoneName();   // America/Chicago
     echo Time::now('Europe/London')->timezoneName;          // Europe/London
 
-Setters
+设置器
 =======
 
-The following basic setters exist. If any of the values set are out of range, an ``InvalidArgumentExeption`` will be
-thrown.
+存在以下的基本设置器。如果设置的任何值超出允许范围，则会抛出 ``InvalidArgumentExeption`` 。
 
-.. note:: All setters will return a new Time instance, leaving the original instance untouched.
+.. note:: 所有设置器都将返回一个新的 Time 实例，而原始实例保持不变。
 
-.. note:: All setters will throw an InvalidArgumentException if the value is out of range.
+.. note:: 如果值超出范围，则设置器将抛出 InvalidArgumentException。
 
 ::
 
@@ -345,10 +330,10 @@ thrown.
 setTimezone()
 -------------
 
-Converts the time from it's current timezone into the new one::
+将时间从当前时区转换为新时区： ::
 
     $time  = Time::parse('May 10, 2017', 'America/Chicago');
-    $time2 = $time->setTimezone('Europe/London');           // Returns new instance converted to new timezone
+    $time2 = $time->setTimezone('Europe/London');           // 将时间从当前时区转换为新时区
 
     echo $time->timezoneName;   // American/Chicago
     echo $time2->timezoneName;  // Europe/London
@@ -356,7 +341,7 @@ Converts the time from it's current timezone into the new one::
 setTimestamp()
 --------------
 
-Returns a new instance with the date set to the new timestamp::
+返回日期设置为新时间戳的新实例： ::
 
     $time = Time::parse('May 10, 2017', 'America/Chicago');
     $time2 = $time->setTimestamp(strtotime('April 1, 2017'));
@@ -367,8 +352,7 @@ Returns a new instance with the date set to the new timestamp::
 Modifying the Value
 ===================
 
-The following methods allow you to modify the date by adding or subtracting values to the current Time. This will not
-modify the existing Time instance, but will return a new instance.
+通过以下方法，您可以通过在当前时间上增加或减少值来修改日期。这不会修改现有的 Time 实例，只会返回一个新实例。
 
 ::
 
@@ -386,35 +370,30 @@ modify the existing Time instance, but will return a new instance.
     $time = $time->subMonths(14);
     $time = $time->subYears(5);
 
-Comparing Two Times
+比较两个 Time
 ===================
 
-The following methods allow you to compare one Time instance with another. All comparisons are first converted to UTC
-before comparisons are done, to ensure that different timezones respond correctly.
+以下方法使您可以将一个 Time 实例与另一个 Time 实例进行比较。在进行比较之前，首先将所有比较转换为 UTC，以确保不同时区都正确响应。
 
 equals()
 --------
 
-Determines if the datetime passed in is equal to the current instance. Equal in this case means that they represent the
-same moment in time, and are not required to be in the same timezone, as both times are converted to UTC and compared
-that way::
+确定传入的日期时间是否等于当前实例。在这种情况下，相等意味着它们表示同一时间，并且不需要位于同一时区，因为两个时间都转换为 UTC 并以这种方式进行比较： ::
 
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'Europe/London');
 
     $time1->equals($time2);    // true
 
-The value being tested against can be a Time instance, a DateTime instance, or a string with the full date time in
-a manner that a new DateTime instance can understand. When passing a string as the first parameter, you can pass
-a timezone string in as the second parameter. If no timezone is given, the system default will be used::
+要作比较的值可以是 Time 实例，DateTime 实例或 DateTime 类可以理解的任何表示时间的字符串。当将字符串作为第一个参数传递时，
+可以将时区字符串作为第二个参数传递。 如果没有给出时区，将使用配置的默认值： ::
 
     $time1->equals('January 11, 2017 03:50:00', 'Europe/London');  // true
 
 sameAs()
 --------
 
-This is identical to the **equals** method, except that it only returns true when the date, time, AND timezone are
-all identical::
+除了只有在日期，时间和时区都相同时才返回 true，这与 **equals** 方法相同： ::
 
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'Europe/London');
@@ -425,8 +404,7 @@ all identical::
 isBefore()
 ----------
 
-Checks if the passed in time is before the the current instance. The comparison is done against the UTC versions of
-both times::
+检查传入的时间是否在当前实例之前。两种情况下都针对 UTC 版本进行了比较： ::
 
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'America/Chicago');
@@ -434,16 +412,15 @@ both times::
     $time1->isBefore($time2);  // true
     $time2->isBefore($time1);  // false
 
-The value being tested against can be a Time instance, a DateTime instance, or a string with the full date time in
-a manner that a new DateTime instance can understand. When passing a string as the first parameter, you can pass
-a timezone string in as the second parameter. If no timezone is given, the system default will be used::
+要作比较的值可以是 Time 实例，DateTime 实例或 DateTime 类可以理解的任何表示时间的字符串。当将字符串作为第一个参数传递时，
+可以将时区字符串作为第二个参数传递。 如果没有给出时区，将使用配置的默认值： ::
 
     $time1->isBefore('March 15, 2013', 'America/Chicago');  // false
 
 isAfter()
 ---------
 
-Works exactly the same as **isBefore()** except checks if the time is after the time passed in::
+除了检查时间是否在传入的时间之后，其他的与 **isBefore()** 完全相同： ::
 
     $time1 = Time::parse('January 10, 2017 21:50:00', 'America/Chicago');
     $time2 = Time::parse('January 11, 2017 03:50:00', 'America/Chicago');
@@ -451,12 +428,11 @@ Works exactly the same as **isBefore()** except checks if the time is after the 
     $time1->isAfter($time2);  // false
     $time2->isAfter($time1);  // true
 
-Viewing Differences
-===================
+查看差异
+========
 
-To compare two Times directly, you would use the **difference()** method, which returns a **CodeIgniter\I18n\TimeDifference**
-instance. The first parameter is either a Time instance, a DateTime instance, or a string with the date/time. If
-a string is passed in the first parameter, the second parameter can be a timezone string::
+要直接比较两个 Times，可以使用 **difference()** 方法，该方法返回 **CodeIgniter\\I18n\\TimeDifference** 实例。第一个参数可以是 Time 实例、
+DateTime 实例或带有日期或时间的字符串。 如果在第一个参数中传递了表示时间字符串，则第二个参数可以是时区字符串： ::
 
     $time = Time::parse('March 10, 2017', 'America/Chicago');
 
@@ -464,9 +440,8 @@ a string is passed in the first parameter, the second parameter can be a timezon
     $diff = $time->difference(new DateTime('July 4, 1975', 'America/Chicago');
     $diff = $time->difference('July 4, 1975 13:32:05', 'America/Chicago');
 
-Once you have the TimeDifference instance, you have several methods you can use to find information about the difference
-between the two times. The value returned will be negative if it was in the past, or positive if in the future from
-the original time::
+有了 TimeDifference 实例后，您可以使用多种方法来查找有关两个 Time 间的信息。如果比较时间在待比较时间之前，则返回值为负数；反之，
+如果比较时间在带比较时间之后，则返回的值为正数： ::
 
     $current = Time::parse('March 10, 2017', 'America/Chicago');
     $test    = Time::parse('March 10, 2010', 'America/Chicago');
@@ -481,7 +456,7 @@ the original time::
     echo $diff->getMinutes();   // -3682080
     echo $diff->getSeconds();   // -220924800
 
-You can use either **getX()** methods, or access the calculate values as if they were properties::
+你可以用 **getX()** 方法，也可以像使用属性一样访问计算值： ::
 
     echo $diff->years;     // -7
     echo $diff->months;    // -84
@@ -494,19 +469,19 @@ You can use either **getX()** methods, or access the calculate values as if they
 humanize()
 ----------
 
-Much like Time's humanize() method, this returns a string that displays the difference between the times in a
-human readable format that is geared towards being easily understood. It can create strings like '3 hours ago',
-'in 1 month', etc. The biggest differences are in how very recent dates are handled::
+与 Time 的 humanize() 方法非常相似，此方法返回一个字符串，该字符串以易于理解的格式显示时间之间的时差。
+它可以创建像“3 小时前”、“1 个月内”这样的的字符串。它们之间最大的区别在于最近日期的处理方式： ::
 
     // Assume current time is: March 10, 2017 (America/Chicago)
+    // 假设现在时间是： March 10, 2017 (America/Chicago)
     $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
 
     echo $time->humanize();     // 1 year ago
 
-The exact time displayed is determined in the following manner:
+通过以下方式确定显示的确切时间：
 
 =============================== =================================
-Time difference                  Result
+时间差异                         结果
 =============================== =================================
 $time > 1 year && < 2 years      in 1 year / 1 year ago
 $time > 1 month && < 1 year      in 6 months / 6 months ago
@@ -517,4 +492,4 @@ $time > 1 minute && < 1 hour     in 35 minutes / 35 minutes ago
 $time < 1 minute                 Now
 =============================== =================================
 
-The exact language used is controlled through the language file, Time.php.
+返回的结果的语言被语言文件 Time.php 所控制。
