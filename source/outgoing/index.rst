@@ -1,8 +1,8 @@
 ##################
-Building Responses
+构建响应
 ##################
 
-View components are used to build what is returned to the user.
+视图组件用于构建返回给用户的内容。
 
 .. toctree::
     :titlesonly:
