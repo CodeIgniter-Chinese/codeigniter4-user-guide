@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AJAX Requests &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>AJAX请求 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -104,7 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用结构</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型，视图和控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">自动加载文件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">服务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
 </ul>
@@ -290,7 +290,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>AJAX Requests</li>
+      <li>AJAX请求</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -307,11 +307,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ajax-requests">
-<h1>AJAX Requests<a class="headerlink" href="#ajax-requests" title="永久链接至标题">¶</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">IncomingRequest::isAJAX()</span></code> method uses the <code class="docutils literal notranslate"><span class="pre">X-Requested-With</span></code> header to define whether the request is XHR or normal. However, the most recent JavaScript implementations (i.e. fetch) no longer send this header along with the request, thus the use of <code class="docutils literal notranslate"><span class="pre">IncomingRequest::isAJAX()</span></code> becomes less reliable, because without this header it is not possible to define whether the request is or not XHR.</p>
-<p>To get around this problem, the most efficient solution (so far) is to manually define the request header, forcing the information to be sent to the server, which will then be able to identify that the request is XHR.</p>
-<p>Here’s how to force the <code class="docutils literal notranslate"><span class="pre">X-Requested-With</span></code> header to be sent in the Fetch API and other JavaScript libraries.</p>
+  <div class="section" id="ajax">
+<h1>AJAX请求<a class="headerlink" href="#ajax" title="永久链接至标题">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">IncomingRequest::isAJAX()</span></code> 方法使用了 <code class="docutils literal notranslate"><span class="pre">X-Requested-With</span></code> 请求头来确定一个请求是否是XHR(XML Http Request)或者是一个正常的请求。
+然后最新的JavaScript实现（例如fetch方法）中不再随着请求发送这个头，因此使用 <code class="docutils literal notranslate"><span class="pre">IncomingRequest::isAJAX()</span></code> 就不那么可靠了，因为没有这个头，该方法就不能识别一个请求是否是一个XHR。</p>
+<p>为了解决这个问题，最有效的解决方式（至今）就是人为定义一个请求头，迫使这个请求信息发送的服务器从而识别这个请求是否是一个XHR。</p>
+<p>以下就是如何迫使在Fetch API和其他JavaScript库中发送 <code class="docutils literal notranslate"><span class="pre">X-Requested-With</span></code> 请求头。</p>
 <div class="section" id="fetch-api">
 <h2>Fetch API<a class="headerlink" href="#fetch-api" title="永久链接至标题">¶</a></h2>
 <blockquote>
@@ -331,27 +332,30 @@ headers: {</p>
 </div>
 <div class="section" id="jquery">
 <h2>jQuery<a class="headerlink" href="#jquery" title="永久链接至标题">¶</a></h2>
-<p>For libraries like jQuery for example, it is not necessary to make explicit the sending of this header, because according to the official documentation &lt;<a class="reference external" href="https://api.jquery.com/jquery.ajax/">https://api.jquery.com/jquery.ajax/</a>&gt; it is a standard header for all requests <code class="docutils literal notranslate"><span class="pre">$.ajax()</span></code>. But if you still want to force the shipment to not take risks, just do it as follows:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>$.ajax({</dt>
-<dd><p class="first">url: “your url”,</p>
-<p class="last">headers: {‘X-Requested-With’: ‘XMLHttpRequest’}</p>
-</dd>
-</dl>
-<p>});</p>
-</div></blockquote>
+<p>对于类似jQuery之类的库来说，不需要额外发送这个头，因为根据 <cite>官方文档&lt;https://api.jquery.com/jquery.ajax/&gt;</cite> ，对于所有``$.ajax()`` 请求来说，这都是一个标准头。
+但是如果你还是不想担风险并强制发送这个头，就像下面这样做吧:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span>$.ajax({
+    url: &quot;your url&quot;,
+
+    headers: {&#39;X-Requested-With&#39;: &#39;XMLHttpRequest&#39;}
+
+});
+</pre></div>
+</div>
 </div>
 <div class="section" id="vuejs">
 <h2>VueJS<a class="headerlink" href="#vuejs" title="永久链接至标题">¶</a></h2>
-<p>In VueJS you just need to add the following code to the <code class="docutils literal notranslate"><span class="pre">created</span></code> function, as long as you are using Axios for this type of request.</p>
-<blockquote>
-<div>axios.defaults.headers.common[‘X-Requested-With’] = ‘XMLHttpRequest’;</div></blockquote>
+<p>在VueJS中你只需要在 <code class="docutils literal notranslate"><span class="pre">created</span></code> 函数中增加以下代码，只要你在这类请求时使用Axios:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">axios</span><span class="o">.</span><span class="nx">defaults</span><span class="o">.</span><span class="nx">headers</span><span class="o">.</span><span class="nx">common</span><span class="p">[</span><span class="s1">&#39;X-Requested-With&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;XMLHttpRequest&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="react">
 <h2>React<a class="headerlink" href="#react" title="永久链接至标题">¶</a></h2>
-<blockquote>
-<div>axios.get(“your url”, {headers: {‘Content-Type’: ‘application/json’}})</div></blockquote>
+<p>例如:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">axios</span><span class="o">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;your url&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}})</span>
+</pre></div>
+</div>
 </div>
 </div>
 
