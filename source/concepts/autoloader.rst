@@ -1,27 +1,18 @@
 #################
-Autoloading Files
+自动加载文件
 #################
 
-Every application consists of a large number of classes in many different locations.
-The framework provides classes for core functionality. Your application will have a
-number of libraries, models, and other entities to make it work. You might have third-party
-classes that your project is using. Keeping track of where every single file is, and
-hard-coding that location into your files in a series of ``requires()`` is a massive
-headache and very error-prone. That's where autoloaders come in.
+每个应用都在不同的位置包含有大量的类文件。框架提供了实现核心功能的类，而你的应用将会由大量的库，模型，以及其他实体文件以运行。
+你也可能需要第三方的类库以供项目使用。记录每个单独的文件的位置，并硬编码一系列的 ``requires()`` 在文件中，这是一个非常头疼且容易出错的事情。
+这就是自动加载器的用武之地。
 
-CodeIgniter provides a very flexible autoloader that can be used with very little configuration.
-It can locate individual non-namespaced classes, namespaced classes that adhere to
-`PSR4 <http://www.php-fig.org/psr/psr-4/>`_ autoloading
-directory structures, and will even attempt to locate classes in common directories (like Controllers,
-Models, etc).
+CodeIgniter提供了一个非常灵活且需要极少配置的自动加载器。它可以定位单个的非命名空间标注的类，符合命名空间规范 `PSR4 <http://www.php-fig.org/psr/psr-4/>`_ 目录加载结构的类，
+甚至可以在常规目录下定位类文件（例如控制器，模型等）。
 
-For performance improvement, the core CodeIgniter components have been added to the classmap.
+为了提升性能，CodeIgniter的核心组件已被添加到类映射文件中。
 
-The autoloader works great by itself, but can also work with other autoloaders, like
-`Composer <https://getcomposer.org>`_, or even your own custom autoloaders, if needed.
-Because they're all registered through
-`spl_autoload_register <http://php.net/manual/en/function.spl-autoload-register.php>`_,
-they work in sequence and don't get in each other's way.
+自动加载器可以单独运行，如果你需要的话，可以和其他自动加载器协同运行，例如 `Composer <https://getcomposer.org>`_ 或者是你自己的自定义加载器。
+因为它们都是通过 `spl_autoload_register <http://php.net/manual/en/function.spl-autoload-register.php>`_ 来注册运行的，所以可以依次运行，互不打扰。
 
 The autoloader is always active, being registered with ``spl_autoload_register()`` at the
 beginning of the framework's execution.
