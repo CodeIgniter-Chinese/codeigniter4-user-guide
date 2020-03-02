@@ -2,46 +2,43 @@
 代码模块
 ############
 
-CodeIgniter supports a form of code modularization to help you create reusable code. Modules are typically
-centered around a specific subject, and can be thought of as mini-applications within your larger application. Any
-of the standard file types within the framework are supported, like controllers, models, views, config files, helpers,
-language files, etc. Modules may contain as few, or as many, of these as you like.
+CodeIgniter支持代码模块化组合，以便于你构建可重用的代码。模块通常来说是以一个特定主题为中心而构建的，并可被认为是在大型的程序中的一系列微型程序。
+我们支持框架中所有标准的文件类型，例如控制器，模型，视图，配置文件，辅助函数，语言文件等。模块可能包含着或多或少的你所需要的以上这些类型中。
 
 .. contents::
     :local:
     :depth: 2
 
 ==========
-Namespaces
+命名空间
 ==========
 
-The core element of the modules functionality comes from the :doc:`PSR4-compatible autoloading </concepts/autoloader>`
-that CodeIgniter uses. While any code can use the PSR4 autoloader and namespaces, the only way to take full advantage of
-modules is to namespace your code and add it to **application/Config/Autoload.php**, in the ``psr4`` section.
+CodeIgniter所使用的模块功能的核心组件来自于 :doc:`与PSR4相适应的自动加载 </concepts/autoloader>` 。
+虽然所有的代码都可以使用PSR4的自动加载和命名空间，最主要的充分使用模块优势的方式还是为你的代码加上命名空间，并将其添加到 **app/Config/Autoload.php** 中，在 ``psr4`` 这节中。
 
-For example, let's say we want to keep a simple blog module that we can re-use between applications. We might create
-folder with our company name, Acme, to store all of our modules within. We will put it right alongside our **application**
-directory in the main project root::
+举例而言，比如我们需要维护一个在应用间复用的简单的博客模块。我们可能会创建一个带有公司名（比如acme）的文件夹来保存所有的模块。
+我们可能会将其置于我们的 **application** 目录旁边，在主项目目录下::
 
-    /acme        // New modules directory
+    /acme        // 新的模块目录
     /application
     /public
     /system
     /tests
     /writable
 
-Open **application/Config/Autoload.php** and add the **Acme** namespace to the ``psr4`` array property::
+打开 **app/Config/Autoload.php** 并将 **Acme** 命名空间加入到 ``psr4`` 数组成员中::
 
-    public $psr4 = [
-        'Acme' => ROOTPATH.'acme'
+    $psr4 = [
+        'Config'        => APPPATH . 'Config',
+        APP_NAMESPACE   => APPPATH,                // 自定义命名空间
+        'App'           => APPPATH,                // 确保筛选器等组件可找到,
+        'Acme'          => ROOTPATH.'acme'
     ];
 
-Now that this is setup we can access any file within the **acme** folder through the ``Acme`` namespace. This alone
-takes care of 80% of what is needed for modules to work, so you should be sure to familiarize yourself within namespaces
-and become comfortable with their use. A number of the file types will be scanned for automatically through all defined
-namespaces here, making this crucial to working with modules at all.
+当我们设置完以上流程后，就可以通过 ``Acme`` 命名空间来访问 **acme** 目录下的文件夹内容。这已经完成了80%的模块工作所需要的内容，
+所以你可以通过熟悉命名空间来适应这种使用方式。这样多种文件类型将会被自动扫描并在整个定义的命名空间中使用——这也是使用模块的关键。
 
-A common directory structure within a module will mimic the main application folder::
+在模块中的常见目录结构和主程序目录类似::
 
     /acme
         /Blog
@@ -57,79 +54,74 @@ A common directory structure within a module will mimic the main application fol
             /Models
             /Views
 
-Of course, there is nothing forcing you to use this exact structure, and you should organize it in the manner that
-best suits your module, leaving out directories you don't need, creating new directories for Entities, Interfaces,
-or Repositories, etc.
+当然了，不强制使用这样的目录结构，你也可以自定义目录结构来更好地符合你的模块要求，去掉那些你不需要的目录并增加一些新的目录，例如实体（Entites），接口（Interfaces），仓库（Repository）等。
 
 ==============
-Auto-Discovery
+自动发现
 ==============
 
-Many times, you will need to specify the full namespace to files you want to include, but CodeIgniter can be
-configured to make integrating modules into your applications simpler by automatically discovering many different
-file types, including:
+很多情况下，你需要指名你所需要包含进来的文件的命名空间全称，但是CodeIgniter可以通过配置自动发现的文件类型，来将模块更方便地整合进你的项目中:
 
 - :doc:`Events </extending/events>`
 - :doc:`Registrars </general/configuration>`
 - :doc:`Route files </incoming/routing>`
 - :doc:`Services </concepts/services>`
 
-This is configured in the file **application/Config/Modules.php**.
+这些是在 **app/Config/Modules.php** 文件中配置的。
 
-The auto-discovery system works by scanning any psr4 namespaces that have been defined within **Config/Autoload.php**
-for familiar directories/files.
+自动发现系统通过扫描所有在 **Config/Autoload.php** 中定义的PSR4类型的命名空间来实现对于目录/文件的识别。
 
-When at the **acme** namespace above, we would need to make one small adjustment to make it so the files could be found:
-each "module" within the namespace would have to have it's own namespace defined there. **Acme** would be changed
-to **Acme\Blog**. Once  your module folder has been defined, the discover process would look for a Routes file, for example,
-at **/acme/Blog/Config/Routes.php**, just as if it was another application.
+当我们回顾上面的 **acme** 命名空间时，需要进行一个小小的调整，使得文件被发现: 每个命名空间中的“模块”需要拥有自己独立定义的命名空间。
+**Acme** 需要被换成 **Acme\Blog**。当你的模块文件夹确定下来后，如果我们要去找一个Routes文件，自动发现的流程就会去寻找 **/acme/Blog/Config/Routes.php** 以防在别的应用中进行了查找。
 
-Enable/Disable Discover
+开启/关闭自动发现
 =======================
 
-You can turn on or off all auto-discovery in the system with the **$enabled** class variable. False will disable
-all discovery, optimizing performance, but negating the special capabilities of your modules.
+你可以开启或关闭所有的系统中的自动发现，通过 **$enabled** 类变量。False的话就会关闭所有的自动发现，优化性能，但却会让你的模块可用性相对下降。
 
-Specify Discovery Items
+明确目录项目
 =======================
 
-With the **$activeExplorers** option, you can specify which items are automatically discovered. If the item is not
-present, then no auto-discovery will happen for that item, but the others in the array will still be discovered.
+通过 **$activeExplorers** 选项，你可以明确哪些项目是自动发现的。如果这个项目不存在，就不会对它进行自动发现流程，而数组中的其他成员仍旧会被自动发现。
+
+自动发现与Composer
+======================
+
+通过Composer安装的包将会默认被自动发现。这只需要Composer识别所需要加载的命名空间是符合PSR4规范的命名空间，PSR0类型的命名空间将不会被发现。
+
+如果在定位文件时，你不想扫描所有Composer已识别的的目录，可以通过编辑 ``Config\Modules.php`` 中的 ``$discoverInComposer`` 变量来关闭这一功能::
+
+    public $discoverInComposer = false;
 
 ==================
-Working With Files
+和文件打交道Working With Files
 ==================
 
-This section will take a look at each of the file types (controllers, views, language files, etc) and how they can
-be used within the module. Some of this information is described in more detail in the relevant location of the user
-guide, but is being reproduced here so that it's easier to grasp how all of the pieces fit together.
+这节将会详细介绍每种文件类型（控制器，视图，语言文件等）以及在模块中如果使用它们。其中的某些信息在用户手册中将会更为详细地描述，不过在这里重新介绍一下以便了解全局的情况。
 
-Routes
+路由
 ======
 
-By default, :doc:`routes </incoming/routing>` are automatically scanned for within modules. If can be turned off in
-the **Modules** config file, described above.
+默认情况下， :doc:`路由 </incoming/routing>` 将会在模块内部自动扫描，而这一特性可在 **Modules** 配置文件中被关闭，如上所述。
 
-.. note:: Since the files are being included into the current scope, the ``$routes`` instance is already defined for you.
-    It will cause errors if you attempt to redefine that class.
+.. note:: 由于在当前域内包含了路由文件， ``$routes`` 实例已经被定义了，所以当你尝试重新定义类的时候可能会引起错误。
 
-Controllers
+控制器
 ===========
 
-Controllers outside of the main **application/Controllers** directory cannot be automatically routed by URI detection,
-but must be specified within the Routes file itself::
+在主 **app/Controller** 目录下定义的控制器不会自动被URI路由自动调用，所以需要在路由文件内部手动声明::
 
     // Routes.php
     $routes->get('blog', 'Acme\Blog\Controllers\Blog::index');
 
-To reduce the amount of typing needed here, the **group** routing feature is helpful::
+为了减少不必要的输入， **group** 路由特性（译者注： `分组路由 </incoming/routing#分组路由>` ）是一个不错的选择::
 
     $routes->group('blog', ['namespace' => 'Acme\Blog\Controllers'], function($routes)
     {
         $routes->get('/', 'Blog::index');
     });
 
-Config Files
+配置文件
 ============
 
 No special change is needed when working with configuration files. These are still namespaced classes and loaded
@@ -139,51 +131,47 @@ with the ``new`` command::
 
 Config files are automatically discovered whenever using the **config()** function that is always available.
 
-Migrations
+迁移
 ==========
 
-Migration files will be automatically discovered within defined namespaces. All migrations found across all
-namespaces will be run every time.
+迁移文件将通过定义的命名空间自动发现。所有命名空间里找到的迁移每次都会被自动运行。
 
-Seeds
+种子
 =====
 
-Seed files can be used from both the CLI and called from within other seed files as long as the full namespace
-is provided. If calling on the CLI, you will need to provide double backslashes::
+种子文件可在CLI或其他种子文件里使用，只要提供了完整的命名空间名。如果通过CLI调用，就需要提供双反斜杠定义的类名格式(\\)::
 
     > php public/index.php migrations seed Acme\\Blog\\Database\\Seeds\\TestPostSeeder
 
-Helpers
+辅助函数
 =======
 
-Helpers will be located automatically from defined namespaces when using the ``helper()`` method, as long as it
-is within the namespaces **Helpers** directory::
+当使用 ``helper()`` 方法时，辅助函数将会通过定义的命名空间自动定位。只要它存在于 **Helpers** 命名空间目录下::
 
     helper('blog');
 
-Language Files
+语言文件
 ==============
 
-Language files are located automatically from defined namespaces when using the ``lang()`` method, as long as the
-file follows the same directory structures as the main application directory.
+当使用 ``lang()`` 方法时，语言文件是通过定义的命名空间来自动定位的。只要这个文件是遵循主程序目录一样的目录结构来放置的。
 
-Libraries
+库
 =========
 
-Libraries are always instantiated by their fully-qualified class name, so no special access is provided::
+库总是通过完全命名空间化的类名进行实例化，所以不需要额外的操作::
 
     $lib = new \Acme\Blog\Libraries\BlogLib();
 
-Models
+模型
 ======
 
-Models are always instantiated by their fully-qualified class name, so no special access is provided::
+模型总是通过完全命名空间化的类名进行实例化，所以不需要额外的操作::
 
     $model = new \Acme\Blog\Models\PostModel();
 
-Views
+视图
 =====
 
-Views can be loaded using the class namespace as described in the :doc:`views </outgoing/views>` documentation::
+视图文件可通过 :doc:`视图 </outgoing/views>` 文档中所述的类命名空间进行加载::
 
     echo view('Acme\Blog\Views\index');
