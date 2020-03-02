@@ -1,5 +1,4 @@
-#####################################
-Events - Extending the Framework Core
+Events
 #####################################
 
 CodeIgniter's Events feature provides a means to tap into and modify the inner workings of the framework without hacking
@@ -20,7 +19,7 @@ Events are always enabled, and are available globally.
 Defining an Event
 =================
 
-Most events are defined within the **application/Config/Events.php** file. You can subscribe an action to an event with
+Most events are defined within the **app/Config/Events.php** file. You can subscribe an action to an event with
 the Events class' ``on()`` method. The first parameter is the name of the event to subscribe to. The second parameter is
 a callable that will be run when that event is triggered::
 
@@ -30,7 +29,7 @@ a callable that will be run when that event is triggered::
 
 In this example, whenever the **pre_controller** event is executed, an instance of ``MyClass`` is created and the
 ``MyFunction`` method is run. Note that the second parameter can be *any* form of
-`callable <http://php.net/manual/en/function.is-callable.php>`_ that PHP recognizes::
+`callable <https://www.php.net/manual/en/function.is-callable.php>`_ that PHP recognizes::
 
 	// Call a standalone function
 	Events::on('pre_system', 'some_function');

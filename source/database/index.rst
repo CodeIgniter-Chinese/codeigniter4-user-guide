@@ -18,3 +18,4 @@ CodeIgniter 内置了一个快速强大的数据库抽象类，支持传统的 S
     获取元数据 <metadata>
     自定义函数调用 <call_function>
     数据库事件 <events>
+    数据库工具 <utilities>

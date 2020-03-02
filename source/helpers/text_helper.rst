@@ -37,7 +37,7 @@ The following functions are available:
 	specifies the length. The following choices are available:
 
 	-  **alpha**: A string with lower and uppercase letters only.
-	-  **alnum**: Alpha-numeric string with lower and uppercase characters.
+	-  **alnum**: Alphanumeric string with lower and uppercase characters.
 	-  **basic**: A random number based on ``mt_rand()`` (length ignored).
 	-  **numeric**: Numeric string.
 	-  **nozero**: Numeric string with no zeros.
@@ -118,19 +118,19 @@ The following functions are available:
 
 	Example::
 
-		$str = array(
+		$str = [
 			'question' => 'Is your name O\'reilly?',
 			'answer'   => 'No, my name is O\'connor.'
-		);
+		];
 
 		$str = strip_slashes($str);
 
 	The above will return the following array::
 
-		array(
+		[
 			'question' => "Is your name O'reilly?",
 			'answer'   => "No, my name is O'connor."
-		);
+		];
 
 	.. note:: For historical reasons, this function will also accept
 		and handle string inputs. This however makes it just an
@@ -217,7 +217,7 @@ The following functions are available:
 	The third parameter is an optional suffix added to the string, if
 	undeclared this helper uses an ellipsis.
 
-	.. note:: If you need to truncate to an exact number of characters please
+	.. note:: If you need to truncate to an exact number of characters, please
 		see the :php:func:`ellipsize()` function below.
 
 .. php:function:: ascii_to_entities($str)
@@ -231,7 +231,7 @@ The following functions are available:
 	they can be shown consistently regardless of browser settings or stored
 	reliably in a database. There is some dependence on your server's
 	supported character sets, so it may not be 100% reliable in all cases,
-	but for the most part it should correctly identify characters outside
+	but for the most part, it should correctly identify characters outside
 	the normal range (like accented characters).
 
 	Example::
@@ -263,7 +263,7 @@ The following functions are available:
 		$string = convert_accented_characters($string);
 
 	.. note:: This function uses a companion config file
-		`application/Config/ForeignCharacters.php` to define the to and
+		`app/Config/ForeignCharacters.php` to define the to and
 		from array for transliteration.
 
 .. php:function:: word_censor($str, $censored[, $replacement = ''])
@@ -282,7 +282,7 @@ The following functions are available:
 
 	Example::
 
-		$disallowed = array('darn', 'shucks', 'golly', 'phooey');
+		$disallowed = ['darn', 'shucks', 'golly', 'phooey'];
 		$string     = word_censor($string, $disallowed, 'Beep!');
 
 .. php:function:: highlight_code($str)
@@ -372,7 +372,7 @@ The following functions are available:
 	example. a value of 1 will place the ellipsis at the right of the
 	string, .5 in the middle, and 0 at the left.
 
-	An optional forth parameter is the kind of ellipsis. By default,
+	An optional fourth parameter is the kind of ellipsis. By default,
 	&hellip; will be inserted.
 
 	Example::

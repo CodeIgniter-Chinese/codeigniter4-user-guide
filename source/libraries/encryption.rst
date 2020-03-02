@@ -5,7 +5,7 @@ Encryption Service
 .. important:: DO NOT use this or any other *encryption* library for
 	password storage! Passwords must be *hashed* instead, and you
 	should do that through PHP's `Password Hashing extension
-	<http://php.net/password>`_.
+	<https://www.php.net/password>`_.
 
 The Encryption Service provides two-way symmetric (secret key) data encryption. 
 The service will instantiate and/or initialize an
@@ -18,7 +18,7 @@ enabled in your instance of PHP.
 
 The following PHP extensions are currently supported:
 
-- `OpenSSL <http://php.net/openssl>`_
+- `OpenSSL <https://www.php.net/openssl>`_
 
 This is not a full cryptographic solution. If you need more capabilities, for example, 
 public-key encryption, we suggest you consider direct use of OpenSSL or 
@@ -144,13 +144,13 @@ Encryption Handler Notes
 OpenSSL Notes
 -------------
 
-The `OpenSSL <http://php.net/openssl>`_ extension has been a standard part of PHP for a long time.
+The `OpenSSL <https://www.php.net/openssl>`_ extension has been a standard part of PHP for a long time.
 
 CodeIgniter's OpenSSL handler uses the AES-256-CTR cipher.
 
 The *key* your configuration provides is used to derive two other keys, one for 
 encryption and one for authentication. This is achieved by way of a technique known 
-as an `HMAC-based Key Derivation Function <http://en.wikipedia.org/wiki/HKDF>`_ (HKDF).
+as an `HMAC-based Key Derivation Function <https://en.wikipedia.org/wiki/HKDF>`_ (HKDF).
 
 Message Length
 ==============

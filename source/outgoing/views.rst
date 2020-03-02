@@ -30,7 +30,7 @@ Using your text editor, create a file called ``BlogView.php`` and put this in it
         </body>
 	</html>
 
-Then save the file in your **application/Views** directory.
+Then save the file in your **app/Views** directory.
 
 Displaying a View
 =================
@@ -44,6 +44,8 @@ Where *name* is the name of your view file.
 .. important:: If the file extension is omitted, then the views are expected to end with the .php extension.
 
 Now, open the controller file you made earlier called ``Blog.php``, and replace the echo statement with the view function::
+
+	<?php namespace App\Controllers;
 
 	class Blog extends \CodeIgniter\Controller
 	{
@@ -66,6 +68,8 @@ Loading Multiple Views
 CodeIgniter will intelligently handle multiple calls to ``view()`` from within a controller. If more than one
 call happens they will be appended together. For example, you may wish to have a header view, a menu view, a
 content view, and a footer view. That might look something like this::
+
+	<?php namespace App\Controllers;
 
 	class Page extends \CodeIgniter\Controller
 	{
@@ -99,7 +103,7 @@ You can store views under a **View** directory that is namespaced, and load that
 PHP does not support loading non-class files from a namespace, CodeIgniter provides this feature to make it possible
 to package your views together in a module-like fashion for easy re-use or distribution.
 
-If you have ``Blog`` directory that has a PSR-4 mapping setup in the :doc:`Autoloader </concepts/autoloader>` living
+If you have ``Blog`` directory that has a PSR-4 mapping set up in the :doc:`Autoloader </concepts/autoloader>` living
 under the namespace ``Example\Blog``, you could retrieve view files as if they were namespaced also. Following this
 example, you could load the **BlogView** file from **/blog/views** by prepending the namespace to the view name::
 
@@ -135,6 +139,8 @@ Here's an example::
 	echo view('blogview', $data);
 
 Let's try it with your controller file. Open it and add this code::
+
+	<?php namespace App\Controllers;
 
 	class Blog extends \CodeIgniter\Controller
 	{
@@ -175,7 +181,7 @@ into the `$option` array in the third parameter.
 	echo view('blogview', $data, ['saveData' => true]);
 
 Additionally, if you would like the default functionality of the view method to be that it does save the data
-between calls, you can set ``$saveData`` to **true** in **application/Config/Views.php**.
+between calls, you can set ``$saveData`` to **true** in **app/Config/Views.php**.
 
 Creating Loops
 ==============
@@ -185,6 +191,8 @@ arrays, which can be looped to generate multiple rows. For example, if you pull 
 typically be in the form of a multi-dimensional array.
 
 Here’s a simple example. Add this to your controller::
+
+	<?php namespace App\Controllers;
 
 	class Blog extends \CodeIgniter\Controller
 	{

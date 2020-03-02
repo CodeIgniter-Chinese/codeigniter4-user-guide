@@ -72,11 +72,15 @@ without needing to create a new connection you can use this method::
 	$db->setPrefix('newprefix');
 	$db->prefixTable('tablename'); // outputs newprefix_tablename
 
+You can get the current prefix any time with this method::
+	
+	$DBPrefix = $db->getPrefix();
+
 **********************
 Protecting identifiers
 **********************
 
-In many databases it is advisable to protect table and field names - for
+In many databases, it is advisable to protect table and field names - for
 example with backticks in MySQL. **Query Builder queries are
 automatically protected**, but if you need to manually protect an
 identifier you can use::
@@ -148,7 +152,7 @@ values in the array in the second parameter of the query function.
 Binding also work with arrays, which will be transformed to IN sets::
 
 	$sql = "SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?";
-	$db->query($sql, array(array(3, 6), 'live', 'Rick'));
+	$db->query($sql, [[3, 6], 'live', 'Rick']);
 
 The resulting query will be::
 
@@ -223,21 +227,25 @@ as placeholders. This returns a PreparedQuery object::
 If you don't want to use the Query Builder you can create the Query object manually using question marks for
 value placeholders::
 
+    use CodeIgniter\Database\Query;
+
     $pQuery = $db->prepare(function($db)
     {
         $sql = "INSERT INTO user (name, email, country) VALUES (?, ?, ?)";
 
-        return new Query($db)->setQuery($sql);
+        return (new Query($db))->setQuery($sql);
     });
 
 If the database requires an array of options passed to it during the prepare statement phase you can pass that
 array through in the second parameter::
 
+    use CodeIgniter\Database\Query;
+
     $pQuery = $db->prepare(function($db)
     {
         $sql = "INSERT INTO user (name, email, country) VALUES (?, ?, ?)";
 
-        return new Query($db)->setQuery($sql);
+        return (new Query($db))->setQuery($sql);
     }, $options);
 
 Executing the Query

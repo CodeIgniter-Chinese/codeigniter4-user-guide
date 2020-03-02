@@ -18,7 +18,7 @@ At it's heart Content Negotiation is simply a part of the HTTP specification tha
 resource to serve more than one type of content, allowing the clients to request the type of
 data that works best for them.
 
-A classic example of this is a browser than cannot display PNG files can request only GIF or
+A classic example of this is a browser that cannot display PNG files can request only GIF or
 JPEG images. When the getServer receives the request, it looks at the available file types the client
 is requesting and selects the best match from the image formats that it supports, in this case
 likely choosing a JPEG image to return.
@@ -66,17 +66,17 @@ Class Reference
 		The preceding ``HTTP_`` is removed from the string. So ``HTTP_ACCEPT_LANGUAGE`` becomes
 		``Accept-Language``.
 
-	.. php:method:: headers()
+	.. php:method:: getHeaders()
 
 		:returns: An array of all of the headers found.
 		:rtype: array
 
 		Returns an array of all headers found or previously set.
 
-	.. php:method:: header([$name[, $filter = null]])
+	.. php:method:: getHeader([$name[, $filter = null]])
 
 		:param  string  $name: The name of the header you want to retrieve the value of.
-		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <http://php.net/manual/en/filter.filters.php>`_.
+		:param  int  $filter: The type of filter to apply. A list of filters can be found `here <https://www.php.net/manual/en/filter.filters.php>`_.
 		:returns: The current value of the header. If the header has multiple values, they will be returned as an array.
 		:rtype: string|array|null
 
@@ -84,14 +84,14 @@ Class Reference
 		While the header is converted internally as described above, you can access the header with any type of case::
 
 			// These are all the same:
-			$message->header('HOST');
-			$message->header('Host');
-			$message->header('host');
+			$message->getHeader('HOST');
+			$message->getHeader('Host');
+			$message->getHeader('host');
 
 		If the header has multiple values, the values will return as an array of values. You can use the ``headerLine()``
 		method to retrieve the values as a string::
 
-			echo $message->header('Accept-Language');
+			echo $message->getHeader('Accept-Language');
 
 			// Outputs something like:
 			[
@@ -101,7 +101,7 @@ Class Reference
 
 		You can filter the header by passing a filter value in as the second parameter::
 
-			$message->header('Document-URI', FILTER_SANITIZE_URL);
+			$message->getHeader('Document-URI', FILTER_SANITIZE_URL);
 
 	.. php:method:: headerLine($name)
 
@@ -194,7 +194,7 @@ Class Reference
 		array, with the rest following in descending order of priority. If no match can be made between the header
 		values and the supported values, the first element of the array will be returned.
 
-		Per the `RFC <http://tools.ietf.org/html/rfc7231#section-5.3>`_ the match has the option of returning a
+		Per the `RFC <https://tools.ietf.org/html/rfc7231#section-5.3>`_ the match has the option of returning a
 		default value, like this method does, or to return an empty string. If you need to have an exact match and
 		would like an empty string returned instead, pass ``true`` as the second parameter::
 
@@ -203,12 +203,12 @@ Class Reference
 
 		The matching process takes into account the priorities and specificity of the RFC. This means that the more
 		specific header values will have a higher order of precedence, unless modified by a different ``q`` value.
-		For more details, please read the `appropriate section of the RFC <http://tools.ietf.org/html/rfc7231#section-5.3.2>`_.
+		For more details, please read the `appropriate section of the RFC <https://tools.ietf.org/html/rfc7231#section-5.3.2>`_.
 
 	.. php:method:: negotiateCharset($supported)
 
 		:param array $supported: An array of character sets the application supports.
-		:returns: The supported character set that best matches what is required..
+		:returns: The supported character set that best matches what is required.
 		:rtype: string
 
 		This is used identically to the ``negotiateMedia()`` method, except that it matches against the ``Accept-Charset``
@@ -225,7 +225,7 @@ Class Reference
 	.. php:method:: negotiateEncoding($supported)
 
 		:param array $supported: An array of character encodings the application supports.
-		:returns: The supported character set that best matches what is required..
+		:returns: The supported character set that best matches what is required.
 		:rtype: string
 
 		Determines the best match between the application-supported values and the ``Accept-Encoding`` header value.
@@ -240,7 +240,7 @@ Class Reference
 	.. php:method:: negotiateLanguage($supported)
 
 		:param array $supported: An array of languages the application supports.
-		:returns: The supported language that best matches what is required..
+		:returns: The supported language that best matches what is required.
 		:rtype: string
 
 		Determines the best match between the application-supported languages and the ``Accept-Language`` header value.
@@ -253,5 +253,4 @@ Class Reference
 			];
 			$language = $message->negotiateLanguage($supported);
 
-		More information about the language tags are available in `RFC 1766 <https://www.ietf.org/rfc/rfc1766.txt>`_.
-
+		More information about the language tags is available in `RFC 1766 <https://www.ietf.org/rfc/rfc1766.txt>`_.

@@ -23,11 +23,12 @@ If you find a case where you do need direct access though, you may load it throu
 Cross-site request forgery (CSRF)
 *********************************
 
-You can enable CSRF protection by altering your **application/Config/Filters.php**
+You can enable CSRF protection by altering your **app/Config/Filters.php**
 and enabling the `csrf` filter globally::
 
 	public $globals = [
 		'before' => [
+			//'honeypot'
 			'csrf'
 		]
 	];
@@ -64,6 +65,22 @@ hidden input field for you::
 	// Generates: <input type="hidden" name="{csrf_token}" value="{csrf_hash}" />
 	<?= csrf_field() ?>
 
+When sending a JSON request the CSRF token can also be passed as one of the parameters.
+The next way to pass the CSRF token is a special Http header that's name is available by
+``csrf_header()`` function.
+
+Additionally, you can use the ``csrf_meta()`` method to generate this handy
+meta tag for you::
+
+	// Generates: <meta name="{csrf_header}" content="{csrf_hash}" />
+	<?= csrf_meta() ?>
+
+The order of checking the avability of the CSRF token is as follows:
+
+1. ``$_POST`` array
+2. Http header
+3. ``php://input`` (JSON request) - bare in mind that this approach is the slowest one since we have to decode JSON and then encode it again
+
 Tokens may be either regenerated on every submission (default) or
 kept the same throughout the life of the CSRF cookie. The default
 regeneration of tokens provides stricter security, but may result
@@ -77,7 +94,7 @@ may alter this behavior by editing the following config parameter
 When a request fails the CSRF validation check, it will redirect to the previous page by default,
 setting an ``error`` flash message that you can display to the end user. This provides a nicer experience
 than simply crashing. This can be turned off by editing the ``$CSRFRedirect`` value in
-**application/Config/App.php**::
+**app/Config/App.php**::
 
 	public $CSRFRedirect = false;
 

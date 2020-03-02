@@ -10,12 +10,12 @@ or communicate with an API, among many other things.
     :local:
     :depth: 2
 
-This class is modelled after the `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ library since
+This class is modeled after the `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ library since
 it is one of the more widely used libraries. Where possible, the syntax has been kept the same so that if
 your application needs something a little more powerful than what this library provides, you will have
 to change very little to move over to use Guzzle.
 
-.. note:: This class requires the `cURL Library <http://php.net/manual/en/book.curl.php>`_ to be installed
+.. note:: This class requires the `cURL Library <https://www.php.net/manual/en/book.curl.php>`_ to be installed
     in your version of PHP. This is a very common library that is typically available but not all hosts
     will provide it, so please check with your host to verify if you run into problems.
 
@@ -108,19 +108,19 @@ when working with APIs::
 
 When a relative URI is provided to the ``request()`` method or any of the shortcut methods, it will be combined
 with the base_uri according to the rules described by
-`RFC 2986, section 2 <http://tools.ietf.org/html/rfc3986#section-5.2>`_. To save you some time, here are some
+`RFC 2986, section 2 <https://tools.ietf.org/html/rfc3986#section-5.2>`_. To save you some time, here are some
 examples of how the combinations are resolved.
 
-	===================   ==============   ======================
+	=====================   ================   ========================
 	base_uri              URI              Result
-	===================   ==============   ======================
-	http://foo.com        /bar             http://foo.com/bar
-	http://foo.com/foo    /bar             http://foo.com/bar
-	http://foo.com/foo    bar              http://foo.com/bar
-	http://foo.com/foo/   bar              http://foo.com/foo/bar
-	http://foo.com        http://baz.com   http://baz.com
-	http://foo.com/?bar   bar              http://foo.com/bar
-	===================   ==============   ======================
+	=====================   ================   ========================
+	`http://foo.com`        /bar               `http://foo.com/bar`
+	`http://foo.com/foo`    /bar               `http://foo.com/bar`
+	`http://foo.com/foo`    bar                `http://foo.com/bar`
+	`http://foo.com/foo/`   bar                `http://foo.com/foo/bar`
+	`http://foo.com`        `http://baz.com`   `http://baz.com`
+	`http://foo.com/?bar`   bar                `http://foo.com/bar`
+	=====================   ================   ========================
 
 Using Responses
 ===============
@@ -194,8 +194,8 @@ You can pass in array as the value of the ``allow_redirects`` option to specify 
 auth
 ====
 
-Allows you to provide Authentication details for `HTTP Basic <http://www.ietf.org/rfc/rfc2069.txt>`_ and
-`Digest <http://www.ietf.org/rfc/rfc2069.txt>`_ and authentication. Your script may have to do extra to support
+Allows you to provide Authentication details for `HTTP Basic <https://www.ietf.org/rfc/rfc2069.txt>`_ and
+`Digest <https://www.ietf.org/rfc/rfc2069.txt>`_ and authentication. Your script may have to do extra to support
 Digest authentication - this simply passes the username and password along for you. The value must be an
 array where the first element is the username, and the second is the password. The third parameter should be
 the type of authentication to use, either ``basic`` or ``digest``::
@@ -234,11 +234,22 @@ You can pass 0 to wait indefinitely::
 
 	$response->request('GET', 'http://example.com', ['connect_timeout' => 0]);
 
+cookie
+======
+
+This specifies the filename that CURL should use to read cookie values from, and
+to save cookie values to. This is done using the CURL_COOKIEJAR and CURL_COOKIEFILE options.
+An example::
+
+	$response->request('GET', 'http://example.com', ['cookie' => WRITEPATH . 'CookieSaver.txt']);
+
 debug
 =====
 
-When ``debug`` is passed and set to ``true``, this will enable additional debugging to echo to STDOUT during the
-script execution. This is done by passing CURLOPT_VERBOSE and echoing the output::
+When ``debug`` is passed and set to ``true``, this will enable additional debugging to echo to STDERR during the
+script execution. This is done by passing CURLOPT_VERBOSE and echoing the output. So, when you're running a built-in
+server via ``spark serve`` you will see the output in the console. Otherwise, the output will be written to
+the server's error log.
 
 	$response->request('GET', 'http://example.com', ['debug' => true]);
 
@@ -320,13 +331,13 @@ multipart
 =========
 
 When you need to send files and other data via a POST request, you can use the ``multipart`` option, along with
-the `CURLFile Class <http://php.net/manual/en/class.curlfile.php>`_. The values should be an associative array
+the `CURLFile Class <https://www.php.net/manual/en/class.curlfile.php>`_. The values should be an associative array
 of POST data to send. For safer usage, the legacy method of uploading files by prefixing their name with an `@`
 has been disabled. Any files that you want to send must be passed as instances of CURLFile::
 
 	$post_data = [
 		'foo'      => 'bar',
-		'userfile' => new CURLFile('/path/to/file.txt')
+		'userfile' => new \CURLFile('/path/to/file.txt')
 	];
 
 .. note:: ``multipart`` cannot be used with the ``form_params`` option. You can only use one or the other. Use

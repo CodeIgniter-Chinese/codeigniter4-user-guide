@@ -4,7 +4,7 @@ Testing Controllers
 
 Testing your controllers is made convenient with a couple of new helper classes and traits. When testing controllers,
 you can execute the code within a controller, without first running through the entire application bootstrap process.
-Often times, using the `Feature Testing tools </testing/feature>`_ will be simpler, but this functionality is here in
+Often times, using the `Feature Testing tools <feature.html>`_ will be simpler, but this functionality is here in
 case you need it.
 
 .. note:: Because the entire framework has not been bootstrapped, there will be times when you cannot test a controller
@@ -16,7 +16,9 @@ The Helper Trait
 You can use either of the base test classes, but you do need to use the ``ControllerTester`` trait
 within your tests::
 
-    use Tests\Support\Helpers\ControllerTester;
+    <?php namespace CodeIgniter;
+
+    use CodeIgniter\Test\ControllerTester;
 
     class TestControllerA extends \CIDatabaseTestCase
     {
@@ -28,9 +30,11 @@ the request body, URI, and more. You specify the controller to use with the ``co
 fully qualified class name of your controller. Finally, call the ``execute()`` method with the name of the method
 to run as the parameter::
 
-    use Tests\Support\Helpers\ControllerTester;
+    <?php namespace CodeIgniter;
 
-    class TestControllerA extends CIDatabaseTestCase
+    use CodeIgniter\Test\ControllerTester;
+
+    class TestControllerA extends \CIDatabaseTestCase
     {
         use ControllerTester;
 
@@ -102,6 +106,20 @@ Allows you to provide a **Response** instance::
                      ->execute('showCategories');
 
 If you do not provide one, a new Response instance with the default application values will be passed
+into your controller.
+
+**withLogger($logger)**
+
+Allows you to provide a **Logger** instance::
+
+    $logger = new CodeIgniter\Log\Handlers\FileHandler();
+
+    $results = $this->withResponse($response)
+                    -> withLogger($logger)
+                     ->controller(\App\Controllers\ForumController::class)
+                     ->execute('showCategories');
+
+If you do not provide one, a new Logger instance with the default configuration values will be passed
 into your controller.
 
 **withURI($uri)**
