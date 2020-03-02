@@ -1,12 +1,13 @@
 ##############
-AJAX Requests
+AJAX请求
 ##############
 
-The ``IncomingRequest::isAJAX()`` method uses the ``X-Requested-With`` header to define whether the request is XHR or normal. However, the most recent JavaScript implementations (i.e. fetch) no longer send this header along with the request, thus the use of ``IncomingRequest::isAJAX()`` becomes less reliable, because without this header it is not possible to define whether the request is or not XHR.
+``IncomingRequest::isAJAX()`` 方法使用了 ``X-Requested-With`` 请求头来确定一个请求是否是XHR(XML Http Request)或者是一个正常的请求。
+然后最新的JavaScript实现（例如fetch方法）中不再随着请求发送这个头，因此使用 ``IncomingRequest::isAJAX()`` 就不那么可靠了，因为没有这个头，该方法就不能识别一个请求是否是一个XHR。
 
-To get around this problem, the most efficient solution (so far) is to manually define the request header, forcing the information to be sent to the server, which will then be able to identify that the request is XHR.
+为了解决这个问题，最有效的解决方式（至今）就是人为定义一个请求头，迫使这个请求信息发送的服务器从而识别这个请求是否是一个XHR。
 
-Here's how to force the ``X-Requested-With`` header to be sent in the Fetch API and other JavaScript libraries.
+以下就是如何迫使在Fetch API和其他JavaScript库中发送 ``X-Requested-With`` 请求头。
 
 Fetch API
 =========
@@ -27,7 +28,8 @@ Fetch API
 jQuery
 ======
 
-For libraries like jQuery for example, it is not necessary to make explicit the sending of this header, because according to the official documentation <https://api.jquery.com/jquery.ajax/> it is a standard header for all requests ``$.ajax()``. But if you still want to force the shipment to not take risks, just do it as follows:
+对于类似jQuery之类的库来说，不需要额外发送这个头，因为根据 `官方文档<https://api.jquery.com/jquery.ajax/>` ，对于所有``$.ajax()`` 请求来说，这都是一个标准头。
+但是如果你还是不想担风险并强制发送这个头，就像下面这样做吧::
 
     $.ajax({
         url: "your url",
@@ -40,12 +42,14 @@ For libraries like jQuery for example, it is not necessary to make explicit the 
 VueJS
 =====
 
-In VueJS you just need to add the following code to the ``created`` function, as long as you are using Axios for this type of request.
+在VueJS中你只需要在 ``created`` 函数中增加以下代码，只要你在这类请求时使用Axios::
 
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
 React
 =====
+
+例如::
 
     axios.get("your url", {headers: {'Content-Type': 'application/json'}})
