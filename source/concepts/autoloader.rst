@@ -14,64 +14,52 @@ CodeIgniter提供了一个非常灵活且需要极少配置的自动加载器。
 自动加载器可以单独运行，如果你需要的话，可以和其他自动加载器协同运行，例如 `Composer <https://getcomposer.org>`_ 或者是你自己的自定义加载器。
 因为它们都是通过 `spl_autoload_register <http://php.net/manual/en/function.spl-autoload-register.php>`_ 来注册运行的，所以可以依次运行，互不打扰。
 
-The autoloader is always active, being registered with ``spl_autoload_register()`` at the
-beginning of the framework's execution.
+自动加载器总是处于激活状态，并通过 ``spl_autoload_register()`` 在框架运行开始时进行注册挂载。
 
-Configuration
+配置
 =============
 
-Initial configuration is done in **/application/Config/Autoload.php**. This file contains two primary
-arrays: one for the classmap, and one for PSR4-compatible namespaces.
+初始配置是在 **/application/Config/Autoload.php** 文件中进行。该文件包含两个主要的数组，一个用于类映射图，一个用于符合PSR-4规范的命名空间。
 
-Namespaces
+命名空间
 ==========
 
-The recommended method for organizing your classes is to create one or more namespaces for your
-application's files. This is most important for any business-logic related classes, entity classes,
-etc. The ``psr4`` array in the configuration file allows you to map the namespace to the directory
-those classes can be found in::
+我们推荐通过在应用文件里创建一个或多个命名空间来管理你的类。而这一点对于业务逻辑相关联的类，实体类等也是最为重要的。
+配置文件中的 ``psr4`` 数组允许你将命名空间和对应的类所存在的目录进行映射::
 
 	$psr4 = [
 		'App'         => APPPATH,
 		'CodeIgniter' => BASEPATH,
 	];
 
-The key of each row is the namespace itself. This does not need a trailing slash. If you use double-quotes
-to define the array, be sure to escape the backwards slash. That means that it would be ``My\\App``,
-not ``My\App``. The value is the location to the directory the classes can be found in. They should
-have a trailing slash.
+数组的每一行的键就是命名空间本身，不需要反斜杠(\)。如果你需要在定义数组时使用双引号，确保使用反斜杠进行转义。
+这意味着应当如同 ``My\\App`` 而不是 ``My\App`` 这样。对应的值就是这些类所存在的目录，而这些需要包括反斜杠。
 
-By default, the application folder is namespace to the ``App`` namespace. While you are not forced to namespace the controllers,
-libraries, or models in the application directory, if you do, they will be found under the ``App`` namespace.
-You may change this namespace by editing the **/application/Config/Constants.php** file and setting the
-new namespace value under the ``APP_NAMESPACE`` setting::
+默认来说，应用文件夹对应着 ``App`` 命名空间。尽管你不一定非得给应用目录下的控制器，库和模型声明命名空间，但是如果你这样做了的话，
+这些文件就会在 ``App`` 命名空间下被找到。你可以通过编辑 **/application/Config/Constants.php** 文件来改变这个命名空间，并且通过更改 ``APP_NAMESPACE`` 选项来设置新的命名空间值::
 
 	define('APP_NAMESPACE', 'App');
 
-You will need to modify any existing files that are referencing the current namespace.
+你需要修改所有现存的指向当前命名空间的文件。
 
-.. important:: Config files are namespaced in the ``Config`` namespace, not in ``App\Config`` as you might
-	expect. This allows the core system files to always be able to locate them, even when the application
-	namespace has changed.
+.. important:: 配置文件的命名空间是 ``Config`` ，而不是如你所想的 ``App\Config``。这一特性使得核心系统文件可被准确定位，甚至在应用的命名空间被更改的情况下。
 
-Classmap
+类映射图
 ========
 
-The classmap is used extensively by CodeIgniter to eke the last ounces of performance out of the system
-by not hitting the file-system with extra ``file_exists()`` calls. You can use the classmap to link to
-third-party libraries that are not namespaced::
+类映射图是CodeIgniter用来榨干系统最后一分性能的手段，通过不使用额外的 ``file_exists()`` 调用来查询文件系统来实现。
+你可以利用类映射图来链接到第三方库，即使它们并没有命名空间::
 
 	$classmap = [
 		'Markdown' => APPPATH .'third_party/markdown.php'
 	];
 
-The key of each row is the name of the class that you want to locate. The value is the path to locate it at.
+每一行的键就是你所需要定位的类名。值就是需要定位的路径
 
-Legacy Support
+支持从前版本
 ==============
 
-If neither of the above methods find the class, and the class is not namespaced, the autoloader will look in the
-**/application/Libraries** and **/application/Models** directories to attempt to locate the files. This provides
-a measure to help ease the transition from previous versions.
+如果以上的所有方法都找不到对应的类文件，且这个类没有对应的命名空间，自动加载器将会查找 **/application/Libraries** 和 **/application/Models** 目录来尝试定位文件。
+这为从以前版本升级提供了一个简洁的方式。
 
-There are no configuration options for legacy support.
+对于支持从前版本而言，没有额外的配置选项。
