@@ -29,7 +29,7 @@ CodeIgniter 的用户指南是使用 Sphinx 软件进行管理，并可以生成
 Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已经自带 Python 了。
 你可以在终端中执行不带参数的 ``python`` 命令，以确认你的系统是否已安装 Python 。
 如果你已安装，会显示出你当前所使用的版本。
-如果显示的不是3.7以上版本，你可以去这里下载并安装3.7.6
+如果显示的不是 3.7 以上版本，你可以去这里下载并安装 3.7.6
 https://www.python.org/downloads/release/python-376/
 
 安装
