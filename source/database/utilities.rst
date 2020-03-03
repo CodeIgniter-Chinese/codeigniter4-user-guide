@@ -1,20 +1,20 @@
 ########################
-Utilities
+实用工具
 ########################
 
-The Database Utility Class contains methods that help you manage your database.
+数据库实用工具类包含一系列可以帮助你管理数据库的方法。
 
 .. contents::
     :local:
     :depth: 2
 
 *******************
-Get XML FROM Result
+从结果中获取XML
 *******************
 
 **getXMLFromResult()**
 
-This method returns the xml result from database result. You can do like this::
+该方法用于从数据库查询结果中返回xml结果，可以如下所示::
 
     $model = new class extends \CodeIgniter\Model {
         protected $table      = 'foo';
@@ -27,7 +27,7 @@ This method returns the xml result from database result. You can do like this::
     $util = (new \CodeIgniter\Database\Database())->loadUtils($db);
     echo $util->getXMLFromResult($model->get());
 
-and it will get the following xml result::
+将会返回如下的XML结果::
 
     <root>
         <element>

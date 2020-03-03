@@ -103,9 +103,9 @@
 
 新文件：
 
-- [x] [./source/database/utilities.rst](source/database/utilities.rst)
-- [x] [./source/extending/authentication.rst](source/extending/authentication.rst)
-- [x] [./source/extending/common.rst](source/extending/common.rst)
+- [x] [~~./source/database/utilities.rst~~](source/database/utilities.rst)
+- [x] [~~./source/extending/authentication.rst~~](source/extending/authentication.rst)
+- [x] [~~./source/extending/common.rst~~](source/extending/common.rst)
 - [x] [~~./source/general/ajax.rst~~](source/general/ajax.rst)
 - [x] [./source/helpers/xml_helper.rst](source/helpers/xml_helper.rst)
 - [x] [./source/incoming/methodspoofing.rst](source/incoming/methodspoofing.rst)
