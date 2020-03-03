@@ -1,23 +1,20 @@
-############
-View Layouts
-############
+########
+视图布局
+########
 
 .. contents::
     :local:
     :depth: 2
 
-CodeIgniter supports a simple, yet very flexible, layout system that makes it simple to use one or more
-base page layouts across your application. Layouts support sections of content that can be inserted from
-any view being rendered. You could create different layouts to support one-column, two-column,
-blog archive pages, and more. Layouts are never directly rendered. Instead, you render a view, which
-specifies the layout that it wants to extend.
+CodeIgniter 提供了一个简单但非常灵活的布局系统，使你可以轻松地在整个 web 应用程序中使用一个或多个基本页面布局。
+布局支持在任何渲染视图中插入内容节。你可以通过创建不同的布局来支持一栏、两栏或博客存档页面等。布局不会直接被渲染，
+但可以通过渲染一个视图（View），而该视图可以指定要扩展的布局（Layout）来实现（渲染布局）。
 
-*****************
-Creating A Layout
-*****************
+********
+创建布局
+********
 
-Layouts are views like any other. The only difference is their intended usage. Layouts are the only view
-files that would make use of the ``renderSection()`` method. This method acts as a placeholder for content.
+布局和其他视图一样。它们唯一的区别是它们的用途。布局就是使用 ``renderSection()`` 方法的视图文件。这个方法会充当内容的占位符。
 
 ::
 
@@ -31,26 +28,23 @@ files that would make use of the ``renderSection()`` method. This method acts as
     </body>
     </html>
 
-The renderSection() method only has one argument - the name of the section. That way any child views know
-what to name the content section.
+renderSection() 方法只有一个参数，那就是节的名称，这样所有子视图就都可以知道节的名称。
 
-**********************
-Using Layouts in Views
-**********************
+****************
+在视图中使用布局
+****************
 
-Whenever a view wants to be inserted into a layout, it must use the ``extend()`` method at the top of the file::
+无论何时需要把视图插入到布局中时，都必须在文件开头使用 ``extend()`` 方法： ::
 
     <?= $this->extend('default') ?>
 
-The extend method takes the name of any view file that you wish to use. Since they are standard views, they will
-be located just like a view. By default, it will look in the application's View directory, but will also scan
-other PSR-4 defined namespaces. You can include a namespace to locate the view in particular namespace View directory::
+extend() 方法采用你所希望使用的视图文件的名称。由于它们也是视图，因此它们的位置就像视图一样。默认情况下，
+会在应用程序的 View 目录中查找它们，但还会扫描其他 PSR-4 定义的命名空间。你还可以加上一个命名空间以在特定名称空间的 View 目录中定位视图： ::
 
     <?= $this->extend('Blog\Views\default') ?>
 
-All content within a view that extends a layout must be included within ``section($name)`` and ``endSection()`` method calls.
-Any content between these calls will be inserted into the layout wherever the ``renderSection($name)`` call that
-matches the section name exists.::
+拓展布局所有内容时，必须包含 ``section($name)`` 和 ``endSection()`` 方法的调用。这些调用之间的任何内容都将插入到与节名称匹配的
+``renderSection($name)`` 调用所在的布局中：::
 
     <?= $this->extend('default') ?>
 
@@ -58,27 +52,27 @@ matches the section name exists.::
         <h1>Hello World!</h1>
     <?= $this->endSection() ?>
 
-The ``endSection()`` does not need the section name. It automatically knows which one to close.
+``endSection()`` 不需要节的名称，它会自动结束需要结束的节。
 
-******************
-Rendering the View
-******************
+********
+渲染视图
+********
 
-Rendering the view and it's layout is done exactly as any other view would be displayed within a controller::
+渲染视图及其布局的方法与在控制器中显示的任何其他视图的方法完全相同： ::
 
     public function index()
     {
         echo view('some_view');
     }
 
-The renderer is smart enough to detect whether the view should be rendered on its own, or if it needs a layout.
+渲染器足够强大，它可以检测视图是需要单独渲染还是需要布局。
 
-***********************
-Including View Partials
-***********************
+************
+引用局部视图
+************
 
-View partials are view files that do not extend any layout. They typically include content that can be reused from
-view to view. When using view layouts you must use ``$this->include()`` to include any view partials.
+局部视图是不扩展任何布局的视图文件。它们通常是可以在视图之间重复使用的内容。 使用视图布局时，必须使用 ``$this->include()``
+来引用。
 
 ::
 
@@ -90,5 +84,5 @@ view to view. When using view layouts you must use ``$this->include()`` to inclu
         <?= $this->include('sidebar') ?>
     <?= $this->endSection() ?>
 
-When calling the include() method, you can pass it all of the same options that can when rendering a normal view, including
-cache directives, etc.
+
+调用 include() 方法时，可以将渲染普通视图时可以使用的所有选项都传递给它，包括缓存指令等。
