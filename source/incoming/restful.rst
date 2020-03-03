@@ -1,18 +1,15 @@
-RESTful Resource Handling
+处理RESTful请求资源
 #######################################################
 
 .. contents::
     :local:
     :depth: 2
 
-Representational State Transfer (REST) is an architectural style for
-distributed applications, first described by Roy Fielding in his
-2000 PhD dissertation, `Architectural Styles and
-the Design of Network-based Software Architectures 
-<https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_.
-That might be a bit of a dry read, and you might find Martin Fowler's
-`Richardson Maturity Model <https://martinfowler.com/articles/richardsonMaturityModel.html>`_ 
-a gentler introduction.
+表现层状态转移(REST)是一种对于分布式应用的架构风格，最初由Roy Fielding在他的2000年博士论文 `Architectural Styles and
+the Design of Network-based Software Architectures
+<https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_ 所提出。
+上文可能读起来有些枯燥，你也可以参照Martin Fowler的 `Richardson Maturity Model <https://martinfowler.com/articles/richardsonMaturityModel.html>`_ 以获得更方便的介绍。
+
 
 REST has been interpreted, and mis-interpreted, in more ways than most
 software architectures, and it might be easier to say that the more
