@@ -8,28 +8,22 @@
 表现层状态转移(REST)是一种对于分布式应用的架构风格，最初由Roy Fielding在他的2000年博士论文 `Architectural Styles and
 the Design of Network-based Software Architectures
 <https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_ 所提出。
-上文可能读起来有些枯燥，你也可以参照Martin Fowler的 `Richardson Maturity Model <https://martinfowler.com/articles/richardsonMaturityModel.html>`_ 以获得更方便的介绍。
+上文可能读起来有些枯燥，你也可以参照Martin Fowler的 `Richardson Maturity Model <https://martinfowler.com/articles/richardsonMaturityModel.html>`_ 以获得更方便的教程。
 
+对于REST的架构方式，比起大多数软件架构体系，大家理解和误解得会更多。
+或者可以这样说，当你将Roy Fielding的原则越多得使用在一个架构中，你的应用就会变得越"RESTful"。
 
-REST has been interpreted, and mis-interpreted, in more ways than most
-software architectures, and it might be easier to say that the more
-of Roy Fielding's principles that you embrace in an architecture, the
-most "RESTful" your application would be considered.
+CodeIgniter实现了一种简易的方式来创建RESTful API从而访问你的资源，通过其自带的资源路由和 `ResourceController` （资源控制器）。
 
-CodeIgniter makes it easy to create RESTful APIs for your resources,
-with its resource routes and `ResourceController`.
-
-Resource Routes
+资源路由
 ============================================================
 
-You can quickly create a handful of RESTful routes for a single resource with the ``resource()`` method. This
-creates the five most common routes needed for full CRUD of a resource: create a new resource, update an existing one,
-list all of that resource, show a single resource, and delete a single resource. The first parameter is the resource
-name::
+对单个资源，你可以通过 ``resource()`` 方法来创建一个方便的RESTful路由。这种方式可以创建五种对于操作资源的CRUD方式，最为常见的比如：
+创建一个资源，更新一个已存在的资源，列出所有这类资源，获取一个单独资源以及删除一个单独的资源。第一个参数就是这个资源的名字::
 
     $routes->resource('photos');
 
-    // Equivalent to the following:
+    // 与以下方式等同:
     $routes->get('photos/new',             'Photos::new');
     $routes->post('photos',                'Photos::create');
     $routes->get('photos',                 'Photos::index');
@@ -39,21 +33,19 @@ name::
     $routes->patch('photos/(:segment)',    'Photos::update/$1');
     $routes->delete('photos/(:segment)',   'Photos::delete/$1');
 
-.. note:: The ordering above is for clarity, whereas the actual order the routes are created in, in RouteCollection, ensures proper route resolution
+.. note:: 上述的排序方式是为了排版清晰起见，而实际上这些路由在RouteCollection中的创建顺序已经确保了路由可以被正确地解析。
 
-.. important:: The routes are matched in the order they are specified, so if you have a resource photos above a get 'photos/poll' the show action's route for the resource line will be matched before the get line. To fix this, move the get line above the resource line so that it is matched first.
+.. important:: 路由是由它们所定义的顺序而进行匹配的，因此如果像上面一样，如果你有一个GET资源图片请求，类似 "photos/poll" 一样，那么show的请求路由会比get请求优先被匹配。为了解决这个问题，将get请求这行移到资源行的顶部，从而它可以被首先匹配。
 
-The second parameter accepts an array of options that can be used to modify the routes that are generated. While these
-routes are geared toward API-usage, where more methods are allowed, you can pass in the 'websafe' option to have it
-generate update and delete methods that work with HTML forms::
+第二个参数接受的是一个包含着用于修改生成路由方式的选项数组。尽管这些路由通过API调用的，且这里支持更多的请求类型，你还是可以通过传递“websafe”选项来生成update和delete请求类型来处理HTML表单::
 
     $routes->resource('photos', ['websafe' => 1]);
 
-    // The following equivalent routes are created:
+    // 将会创建以下的同等效应的路由:
     $routes->post('photos/(:segment)/delete', 'Photos::delete/$1');
     $routes->post('photos/(:segment)',        'Photos::update/$1');
 
-Change the Controller Used
+更改所使用的控制器
 --------------------------
 
 You can specify the controller that should be used by passing in the ``controller`` option with the name of
