@@ -1,9 +1,8 @@
-##########
-XML Helper
-##########
+############
+XML辅助函数
+############
 
-The XML Helper file contains functions that assist in working with XML
-data.
+XML辅助函数文件包含一些用于处理XML数据的函数。
 
 .. contents::
   :local:
@@ -12,43 +11,41 @@ data.
 
   <div class="custom-index container"></div>
 
-Loading this Helper
+加载辅助函数
 ===================
 
-This helper is loaded using the following code
+辅助函数是通过以下代码加载的
 
 ::
 
 	helper('xml');
 
-Available Functions
+可用的函数
 ===================
 
-The following functions are available:
+可使用以下函数:
 
 .. php:function:: xml_convert($str[, $protect_all = FALSE])
 
-	:param string $str: the text string to convert
-	:param bool $protect_all: Whether to protect all content that looks like a potential entity instead of just numbered entities, e.g. &foo;
-	:returns: XML-converted string
+	:param string $str:  所需要转换的文本字符串
+	:param bool $protect_all:  是否保持那些看起来是一个潜在实体的结构而非将其转化为数字标识的实体，例如$foo。
+	:returns:  转化成XML结构的字符串
 	:rtype:	string
 
-	Takes a string as input and converts the following reserved XML
-	characters to entities:
+    将一个字符串作为输入并将以下的保留XML字符转化为实体:
 
-	  - Ampersands: &
-	  - Less than and greater than characters: < >
-	  - Single and double quotes: ' "
-	  - Dashes: -
+	  - 与操作符: &
+	  - 大于小于号: < >
+	  - 单双引号: ' "
+	  - 横杠: -
 
-	This function ignores ampersands if they are part of existing numbered
-	character entities, e.g. &#123;. Example::
+    该函数将忽略作为数字字符实体的一部分而存在的&符号，例如 ``&#123;`` 。如下所示::
 
 		$string = '<p>Here is a paragraph & an entity (&#123;).</p>';
 		$string = xml_convert($string);
 		echo $string;
 
-	outputs:
+	输出:
 
 	.. code-block:: html
 
