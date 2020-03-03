@@ -49,9 +49,7 @@ These correspond to the repositories mentioned above:
 
 - `codeigniter4/framework <https://packagist.org/packages/codeigniter4/framework>`_
 - `codeigniter4/appstarter <https://packagist.org/packages/codeigniter4/appstarter>`_
-- `codeigniter4/userguide <https://packagist.org/packages/codeigniter4/userguide>`_
 - `codeigniter4/translations <https://packagist.org/packages/codeigniter4/translations>`_
-- `codeigniter4/CodeIgniter4 <https://packagist.org/packages/codeigniter4/CodeIgniter4>`_
 - `codeigniter4/coding-standard <https://packagist.org/packages/codeigniter4/codeigniter4-standard>`_
 
 See the :doc:`Installation </installation/index>` page for more information.

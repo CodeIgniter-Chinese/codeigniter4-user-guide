@@ -65,7 +65,7 @@ Defining Services
 =================
 
 To make services work well, you have to be able to rely on each class having a constant API, or
-`interface <http://php.net/manual/en/language.oop5.interfaces.php>`_, to use. Almost all of
+`interface <https://www.php.net/manual/en/language.oop5.interfaces.php>`_, to use. Almost all of
 CodeIgniter's classes provide an interface that they adhere to. When you want to extend or replace
 core classes, you only need to ensure you meet the requirements of the interface and you know that
 the classes are compatible.
@@ -79,7 +79,7 @@ create a new class that implements the ``RouterCollectionInterface``::
 		// Implement required methods here.
 	}
 
-Finally, modify **/application/Config/Services.php** to create a new instance of ``MyRouter``
+Finally, modify **/app/Config/Services.php** to create a new instance of ``MyRouter``
 instead of ``CodeIgniter\Router\RouterCollection``::
 
 	public static function routes()
@@ -126,24 +126,24 @@ within the class, and, if not, creates a new one. All of the factory methods pro
                 return new \CodeIgniter\Router\RouteCollection();
             }
 
-            return self::getSharedInstance('routes');
+            return static::getSharedInstance('routes');
         }
     }
 
 Service Discovery
 -----------------
 
-CodeIgniter can automatically discover any Config\Services.php files you may have created within any defined namespaces.
+CodeIgniter can automatically discover any Config\\Services.php files you may have created within any defined namespaces.
 This allows simple use of any module Services files. In order for custom Services files to be discovered, they must
 meet these requirements:
 
-- It's namespace must be defined ``Config\Autoload.php``
+- Its namespace must be defined in ``Config\Autoload.php``
 - Inside the namespace, the file must be found at ``Config\Services.php``
 - It must extend ``CodeIgniter\Config\BaseService``
 
 A small example should clarify this.
 
-Imagine that you've created a new directory, ``Blog`` in your root directory. This will hold a blog module with controllers,
+Imagine that you've created a new directory, ``Blog`` in your root directory. This will hold a **blog module** with controllers,
 models, etc, and you'd like to make some of the classes available as a service. The first step is to create a new file:
 ``Blog\Config\Services.php``. The skeleton of the file should be::
 
@@ -164,4 +164,4 @@ would simply use the framework's ``Config\Services`` class to grab your service:
 
     $postManager = Config\Services::postManager();
 
-.. note:: If multiple Services file have the same method name, the first one found will be the instance returned.
+.. note:: If multiple Services files have the same method name, the first one found will be the instance returned.

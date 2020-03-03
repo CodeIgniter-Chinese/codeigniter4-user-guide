@@ -2,22 +2,22 @@
 Server Requirements
 ###################
 
-`PHP <http://php.net/>`_ version 7.1 or newer is required, with the
-`*intl* extension <http://php.net/manual/en/intl.requirements.php>`_
-installed. `Why 7.1 <https://gophp71.org/>`_?
+`PHP <https://www.php.net/>`_ version 7.2 or newer is required, with the 
+`*intl* extension <https://www.php.net/manual/en/intl.requirements.php>`_
+installed.
 
 The following PHP extensions should be enabled on your server:
-``php-json``, ``php-mbstring``, ``php-mysqlnd``, `php-xml``
+``php-json``, ``php-mbstring``, ``php-mysqlnd``, ``php-xml``
 
 In order to use the :doc:`CURLRequest </libraries/curlrequest>`, you will need
-`libcurl <http://php.net/manual/en/curl.requirements.php>`_ installed.
+`libcurl <https://www.php.net/manual/en/curl.requirements.php>`_ installed.
 
 A database is required for most web application programming.
 Currently supported databases are:
 
   - MySQL (5.1+) via the *MySQLi* driver
   - PostgreSQL via the *Postgre* driver
-  - SqLite3 via the *SQLite3* driver
+  - SQLite3 via the *SQLite3* driver
 
 Not all of the drivers have been converted/rewritten for CodeIgniter4.
 The list below shows the outstanding ones.

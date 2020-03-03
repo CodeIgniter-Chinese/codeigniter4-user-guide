@@ -1,8 +1,8 @@
 #######################
-Controllers and Routing
+控制器和路由
 #######################
 
-Controllers handle incoming requests.
+控制器用于处理收到的请求。
 
 .. toctree::
     :titlesonly:
@@ -14,3 +14,5 @@ Controllers handle incoming requests.
     request
     incomingrequest
     content_negotiation
+    methodspoofing
+    restful

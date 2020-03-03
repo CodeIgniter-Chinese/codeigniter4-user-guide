@@ -1,12 +1,11 @@
 #############
-Modeling Data
+数据建模
 #############
 
-CodeIgniter comes with rich tools for modeling and working
-with your database tables and records.
+CodeIgniter 具备丰富的工具，可用于对数据库表和记录进行建模和处理。
 
 .. toctree::
     :titlesonly:
 
-    Using CodeIgniter's Model <model>
-    Using Entity Classes <entities>
+    使用 CodeIgniter 的模型 <model>
+    使用实体类 <entities>

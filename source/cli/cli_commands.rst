@@ -16,7 +16,7 @@ building out custom code generators for your company.
 Running Commands
 ****************
 
-Commands are run from the command line, in the root directory. The same one that holds the **/application**
+Commands are run from the command line, in the root directory. The same one that holds the **/app**
 and **/system** directories. A custom script, **spark** has been provided that is used to run any of the
 cli commands::
 
@@ -67,7 +67,7 @@ File Location
 =============
 
 Commands must be stored within a directory named **Commands**. However, that directory can be located anywhere
-that the :doc:`Autoloader </concepts/autoloader>` can locate it. This could be in **/application/Commands**, or
+that the :doc:`Autoloader </concepts/autoloader>` can locate it. This could be in **/app/Commands**, or
 a directory that you keep commands in to use in all of your project development, like **Acme/Commands**.
 
 .. note:: When the commands are executed, the full CodeIgniter cli environment has been loaded, making it
@@ -77,12 +77,13 @@ An Example Command
 ==================
 
 Let's step through an example command whose only function is to report basic information about the application
-itself, for demonstration purposes. Start by creating a new file at **/application/Commands/AppInfo.php**. It
+itself, for demonstration purposes. Start by creating a new file at **/app/Commands/AppInfo.php**. It
 should contain the following code::
 
     <?php namespace App\Commands;
 
     use CodeIgniter\CLI\BaseCommand;
+    use CodeIgniter\CLI\CLI;
 
     class AppInfo extends BaseCommand
     {
@@ -130,7 +131,7 @@ Our demo command might have a ``run`` method something like::
         CLI::write('PHP Version: '. CLI::color(phpversion(), 'yellow'));
         CLI::write('CI Version: '. CLI::color(CodeIgniter::CI_VERSION, 'yellow'));
         CLI::write('APPPATH: '. CLI::color(APPPATH, 'yellow'));
-        CLI::write('BASEPATH: '. CLI::color(BASEPATH, 'yellow'));
+        CLI::write('SYSTEMPATH: '. CLI::color(SYSTEMPATH, 'yellow'));
         CLI::write('ROOTPATH: '. CLI::color(ROOTPATH, 'yellow'));
         CLI::write('Included files: '. CLI::color(count(get_included_files()), 'yellow'));
     }
@@ -143,7 +144,7 @@ The ``BaseCommand`` class that all commands must extend have a couple of helpful
 be familiar with when creating your own commands. It also has a :doc:`Logger </general/logging>` available at
 **$this->logger**.
 
-.. php:class:: CodeIgniter\CLI\BaseCommand
+.. php:class:: CodeIgniter\\CLI\\BaseCommand
 
     .. php:method:: call(string $command[, array $params=[] ])
 
@@ -176,8 +177,8 @@ be familiar with when creating your own commands. It also has a :doc:`Logger </g
 
     .. php:method:: getPad($array, $pad)
 
-        :param Exception $array: The  $key => $value array.
-        :param Exception $pad: The pad spaces.
+        :param array    $array: The  $key => $value array.
+        :param integer  $pad: The pad spaces.
 
         A method to calculate padding for $key => $value array output. The padding can be used to output a will formatted table in CLI::
 

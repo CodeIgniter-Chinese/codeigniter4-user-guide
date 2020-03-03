@@ -1,8 +1,8 @@
 ##################
-Building Responses
+构建响应
 ##################
 
-View components are used to build what is returned to the user.
+视图组件用于构建返回给用户的内容。
 
 .. toctree::
     :titlesonly:
@@ -10,7 +10,9 @@ View components are used to build what is returned to the user.
     views
     view_cells
     view_renderer
+    view_layouts
     view_parser
+    table
     response
     api_responses
     localization

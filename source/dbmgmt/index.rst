@@ -1,8 +1,8 @@
 ##################
-Managing Databases
+管理数据库
 ##################
 
-CodeIgniter comes with tools to restructure or sees your database.
+CodeIgniter 用于重建或查看数据库的工具。
 
 .. toctree::
     :titlesonly:

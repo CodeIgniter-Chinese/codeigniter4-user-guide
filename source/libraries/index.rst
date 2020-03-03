@@ -8,6 +8,7 @@
     caching
     curlrequest
     email
+    encryption
     files
     honeypot
     images

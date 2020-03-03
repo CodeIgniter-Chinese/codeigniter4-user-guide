@@ -2,7 +2,7 @@
 Upgrading from 3.x to 4.x
 #############################
 
-CodeIgniter 4 is a rewrite of the framework, and is not backwards compatible.
+CodeIgniter 4 is a rewrite of the framework and is not backwards compatible.
 It is more appropriate to think of converting your app, rather than upgrading it.
 Once you have done that, upgrading from one version of CodeIgniter 4 to the next
 will be straightforward.
@@ -18,7 +18,7 @@ We'll try to point out the most important considerations here.
 
 Not all of the CI3 libraries have been ported or rewritten for CI4!
 See the threads in the `CodeIgniter 4 Roadmap <https://forum.codeigniter.com/forum-33.html>`_
-subforum for an uptodate list!
+subforum for an up-to-date list!
 
 **Do read the user guide** before embarking on a project conversion!
 
@@ -30,16 +30,17 @@ subforum for an uptodate list!
 
 **Namespaces**
 
-- CI4 is built for PHP7.1+, and everything in the framework is namespaced, even the helpers
+- CI4 is built for PHP7.2+, and everything in the framework is namespaced, except for the helpers.
 
 **Application Structure**
 
-- The framework still has ``application`` and ``system`` folders, with the same
+- The ``application`` folder is renamed as ``app`` and
+  the framework still has ``system`` folders, with the same
   interpretation as before
 - The framework now provides for a ``public`` folder, intended as the document
   root for your app
 - There is also a ``writable`` folder, to hold cache data, logs, and session data
-- The ``application`` folder looks very similar to that for CI3, with some
+- The ``app`` folder looks very similar to ``application`` for CI3, with some
   name changes, and some subfolders
   moved to the ``writable`` folder
 - There is no longer a nested ``application/core`` folder, as we have
@@ -61,7 +62,7 @@ subforum for an uptodate list!
 
 **Controllers**
 
-- Controllers extend \CodeIgniter\Controller instead of CI_Controller
+- Controllers extend \\CodeIgniter\\Controller instead of CI_Controller
 - They don't use a constructor any more (to invoke CI "magic") unless
   that is part of a base controller you make
 - CI provides ``Request`` and ``Response`` objects for you to work with -
@@ -72,7 +73,7 @@ subforum for an uptodate list!
 
 **Models**
 
-- Models extend \CodeIgniter\Model instead of CI_Model
+- Models extend \\CodeIgniter\\Model instead of CI_Model
 - The CI4 model has much more functionality, including automatic
   database connection, basic CRUD, in-model validation, and
   automatic pagination
@@ -91,7 +92,7 @@ subforum for an uptodate list!
 
 **Libraries**
 
-- Your app classes can still go inside ``application\Libraries``, but they
+- Your app classes can still go inside ``app/Libraries``, but they
   don't have to
 - Instead of CI3's ``$this->load->library(x);`` you can now use
   ``$this->x = new X();``, following namespaced conventions for your
@@ -101,6 +102,12 @@ subforum for an uptodate list!
 
 - Helpers are pretty much the same as before, though some have been simplified
 
+**Events**
+
+- Hooks have been replaced by Events
+- Instead of CI3's ``$hook['post_controller_constructor']`` you now use ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);``, with the namespace ``CodeIgniter\Events\Events;``
+- Events are always enabled, and are available globally
+
 **Extending the framework**
 
 - You don't need a ``core`` folder to hold ``MY_...`` framework
@@ -108,5 +115,5 @@ subforum for an uptodate list!
 - You don't need ``MY_x`` classes inside your libraries folder
   to extend or replace CI4 pieces
 - Make any such classes where you like, and add appropriate
-  service methods in ``application/Config/Services.php`` to load
+  service methods in ``app/Config/Services.php`` to load
   your components instead of the default ones
