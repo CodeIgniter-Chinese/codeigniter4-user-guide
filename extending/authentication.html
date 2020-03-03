@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Authentication &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>鉴权 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -149,7 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">Request 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/content_negotiation.html">Content Negotiation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP Method Spoofing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP类型伪装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/restful.html">RESTful Resource Handling</a></li>
 </ul>
 </li>
@@ -236,7 +236,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">安全辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">Text Helper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML辅助函数</a></li>
 </ul>
 </li>
 </ul>
@@ -263,10 +263,10 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">扩展 CodeIgniter</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="core_classes.html">创建核心系统类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common.html">Replacing Common Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common.html">替换通用函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="events.html">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basecontroller.html">Extending the Controller</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Authentication</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">鉴权</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contributing.html">贡献给 CodeIgniter</a></li>
 </ul>
 </li>
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">扩展 CodeIgniter</a> &raquo;</li>
         
-      <li>Authentication</li>
+      <li>鉴权</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,17 +334,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="authentication">
-<h1>Authentication<a class="headerlink" href="#authentication" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter intentionally does not provide an internal authentication or authorization class. There are a number
-of great third-party modules that provide these services, as well as resources in the community for writing
-your own. The following are recommended guidelines to encourage consistency among developers of
-modules, projects, and the framework itself.</p>
+  <div class="section" id="id1">
+<h1>鉴权<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>CodeIgniter本身不提供一个内部鉴权或认证的类。不过有许多优秀的第三方模块可以提供类似的服务，而且在社区里也有许多资源以帮助你自己实现一个类似的功能。
+我们鼓励开发者们基于以下原则来共享模块，项目以及框架本身。</p>
 <div class="section" id="recommendations">
 <h2>Recommendations<a class="headerlink" href="#recommendations" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
-<li>Modules that handle login and logout operations should trigger the <code class="docutils literal notranslate"><span class="pre">login</span></code> and <code class="docutils literal notranslate"><span class="pre">logout</span></code> Events when successful</li>
-<li>Modules that define a “current user” should define the function <code class="docutils literal notranslate"><span class="pre">user_id()</span></code> to return the user’s unique identifier, or <code class="docutils literal notranslate"><span class="pre">null</span></code> for “no current user”</li>
+<li>处理登入和登出操作的模块需要在操作成功时触发 <code class="docutils literal notranslate"><span class="pre">login</span></code> 和 <code class="docutils literal notranslate"><span class="pre">logout</span></code> 事件</li>
+<li>定义了“当前用户”的模块应该定义一个 <code class="docutils literal notranslate"><span class="pre">user_id()</span></code> 方法来返回当前用户的唯一识别符，或者是在不存在当前用户时返回 <code class="docutils literal notranslate"><span class="pre">null</span></code></li>
 </ul>
 </div>
 </div>
