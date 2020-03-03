@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Encryption Service &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>加密服务 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -206,7 +206,7 @@
 <li class="toctree-l2"><a class="reference internal" href="caching.html">缓存驱动器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="email.html">Email Class</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Encryption Service</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">加密服务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html">使用文件类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="honeypot.html">Honeypot Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="images.html">图像处理类</a></li>
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">类库参考</a> &raquo;</li>
         
-      <li>Encryption Service</li>
+      <li>加密服务</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,101 +334,89 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="encryption-service">
-<h1>Encryption Service<a class="headerlink" href="#encryption-service" title="永久链接至标题">¶</a></h1>
+  <div class="section" id="id1">
+<h1>加密服务<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">DO NOT use this or any other <em>encryption</em> library for
-password storage! Passwords must be <em>hashed</em> instead, and you
-should do that through PHP’s <a class="reference external" href="https://www.php.net/password">Password Hashing extension</a>.</p>
+<p class="last">请勿使任何 <em>encryption</em> 库来存储密码！
+密码必须使用 <em>散列</em> ，而你应该通过 <a class="reference external" href="http://php.net/password">PHP的密码散列扩展</a> 进行散列 。</p>
 </div>
-<p>The Encryption Service provides two-way symmetric (secret key) data encryption.
-The service will instantiate and/or initialize an
-encryption <strong>handler</strong> to suit your parameters as explained below.</p>
-<p>Encryption Service handlers must implement CodeIgniter’s simple <code class="docutils literal notranslate"><span class="pre">EncrypterInterface</span></code>.
-Using an appropriate PHP cryptographic extension or third-party library may require
-additional software is installed on your server and/or might need to be explicitly
-enabled in your instance of PHP.</p>
-<p>The following PHP extensions are currently supported:</p>
+<p>加密服务提供双向对称（密钥）数据加密。该服务将实例化或初始化 <strong>加密程序</strong> 以适配你的参数，如下所述。</p>
+<p>加密处理程序必须实现CodeIgniter的 <code class="docutils literal notranslate"><span class="pre">EncrypterInterface</span></code> 接口 。使用 PHP 密码扩展或其它第三方库可能需要在服务器上安装其他软件，
+并且可能需要在 PHP 实例启用。</p>
+<p>支持以下拓展：</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.php.net/openssl">OpenSSL</a></li>
 </ul>
-<p>This is not a full cryptographic solution. If you need more capabilities, for example,
-public-key encryption, we suggest you consider direct use of OpenSSL or
-one of the other <a class="reference external" href="https://www.php.net/manual/en/refs.crypto.php">Cryptography Extensions</a>.
-A more comprehensive package like <a class="reference external" href="https://github.com/paragonie/halite">Halite</a>
-(an O-O package built on libsodium) is another possibility.</p>
+<p>这并不是一套完整的密码解决方案。如果您需要更多功能（例如公钥加密），建议你考虑直接使用 OpenSSL 或其他 <a class="reference external" href="https://www.php.net/manual/en/refs.crypto.php">密码学扩展</a> 。
+还有一种更全面的软件包，例如 <a class="reference external" href="https://github.com/paragonie/halite">Halite</a> （基于libsodium构建的 O-O 软件包）。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">Support for the <code class="docutils literal notranslate"><span class="pre">MCrypt</span></code> extension has been dropped, as that has
-been deprecated as of PHP 7.2.</p>
+<p class="last">自从PHP 7.2起就已弃用了对 <code class="docutils literal notranslate"><span class="pre">MCrypt</span></code> 扩展的支持。</p>
 </div>
-<div class="contents local topic" id="id1">
+<div class="contents local topic" id="id3">
 <ul class="simple">
-<li><a class="reference internal" href="#using-the-encryption-library" id="id3">Using the Encryption Library</a><ul>
-<li><a class="reference internal" href="#configuring-the-library" id="id4">Configuring the Library</a></li>
-<li><a class="reference internal" href="#default-behavior" id="id5">Default Behavior</a></li>
-<li><a class="reference internal" href="#setting-your-encryption-key" id="id6">Setting Your Encryption Key</a><ul>
-<li><a class="reference internal" href="#encoding-keys-or-results" id="id7">Encoding Keys or Results</a></li>
+<li><a class="reference internal" href="#id4" id="id17">使用加密类库</a><ul>
+<li><a class="reference internal" href="#id6" id="id18">配置加密类库</a></li>
+<li><a class="reference internal" href="#id8" id="id19">默认行为</a></li>
+<li><a class="reference internal" href="#id9" id="id20">配置你的密钥</a><ul>
+<li><a class="reference internal" href="#id10" id="id21">对密钥或结果编码</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#encryption-handler-notes" id="id8">Encryption Handler Notes</a><ul>
-<li><a class="reference internal" href="#openssl-notes" id="id9">OpenSSL Notes</a></li>
+<li><a class="reference internal" href="#id11" id="id22">加密处理程序说明</a><ul>
+<li><a class="reference internal" href="#id12" id="id23">OpenSSL 说明</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#message-length" id="id10">Message Length</a></li>
-<li><a class="reference internal" href="#using-the-encryption-service-directly" id="id11">Using the Encryption Service Directly</a></li>
+<li><a class="reference internal" href="#id14" id="id24">消息长度</a></li>
+<li><a class="reference internal" href="#id15" id="id25">直接使用加密服务</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#class-reference" id="id12">Class Reference</a></li>
+<li><a class="reference internal" href="#id16" id="id26">类参考</a></li>
 </ul>
 </div>
-<div class="custom-index container"></div><div class="section" id="using-the-encryption-library">
-<span id="usage"></span><h2><a class="toc-backref" href="#id3">Using the Encryption Library</a><a class="headerlink" href="#using-the-encryption-library" title="永久链接至标题">¶</a></h2>
-<p>Like all services in CodeIgniter, it can be loaded via <code class="docutils literal notranslate"><span class="pre">Config\Services</span></code>:</p>
+<div class="custom-index container"></div><div class="section" id="id4">
+<span id="id5"></span><h2><a class="toc-backref" href="#id17">使用加密类库</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>就像CodeIgniter的其他服务，它可以通过 <code class="docutils literal notranslate"><span class="pre">Config\Services</span></code> 来调用：</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$encrypter</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">encrypter</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>Assuming you have set your starting key (see <a class="reference internal" href="#configuration"><span class="std std-ref">Configuring the Library</span></a>),
-encrypting and decrypting data is simple - pass the appropriate string to <code class="docutils literal notranslate"><span class="pre">encrypt()</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">decrypt()</span></code> methods:</p>
+<p>如果你已设置了启动密钥（请参阅 <a class="reference internal" href="#id6"><span class="std std-ref">配置加密类库</span></a> ），那么加密和解密数据很简单，将适当的字符串传递给 <code class="docutils literal notranslate"><span class="pre">encrypt()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">decrypt()</span></code> 方法：</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$plainText</span> <span class="o">=</span> <span class="s1">&#39;This is a plain-text message!&#39;</span><span class="p">;</span>
 <span class="nv">$ciphertext</span> <span class="o">=</span> <span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="p">(</span><span class="nv">$plainText</span><span class="p">);</span>
 
-<span class="c1">// Outputs: This is a plain-text message!</span>
+<span class="c1">// 输出: This is a plain-text message!</span>
 <span class="k">echo</span> <span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">decrypt</span><span class="p">(</span><span class="nv">$ciphertext</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>And that’s it! The Encryption library will do everything necessary
-for the whole process to be cryptographically secure out-of-the-box.
-You don’t need to worry about it.</p>
-<div class="section" id="configuring-the-library">
-<span id="configuration"></span><h3><a class="toc-backref" href="#id4">Configuring the Library</a><a class="headerlink" href="#configuring-the-library" title="永久链接至标题">¶</a></h3>
-<p>The example above uses the configuration settings found in <code class="docutils literal notranslate"><span class="pre">app/Config/Encryption.php</span></code>.</p>
-<p>There are only two settings:</p>
+<p>就是这样！加密库将为加密整个过程提供开箱即用的加密安全性。 你无需担心。</p>
+<div class="section" id="id6">
+<span id="id7"></span><h3><a class="toc-backref" href="#id18">配置加密类库</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>上面的示例将使用 <code class="docutils literal notranslate"><span class="pre">app/Config/Encryption.php</span></code> 中的配置设置。</p>
+<p>它只有两个设置选项</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="15%" />
 <col width="85%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">Option</th>
-<th class="head">Possible values (default in parentheses)</th>
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">可能的值</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>key</td>
-<td>Encryption key starter</td>
+<td>加密</td>
 </tr>
-<tr class="row-odd"><td>driver</td>
-<td>Preferred handler (OpenSSL)</td>
+<tr class="row-odd"><td>启动器</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>driver</td>
+<td>首选加密程序 (默认为OpenSSL)</td>
 </tr>
 </tbody>
 </table>
-<p>You can replace the config file’s settings by passing a configuration
-object of your own to the <code class="docutils literal notranslate"><span class="pre">Services</span></code> call. The <code class="docutils literal notranslate"><span class="pre">$config</span></code> variable must be
-an instance of either the <cite>Config\Encryption</cite> class or an object
-that extends <cite>CodeIgniter\Config\BaseConfig</cite>.</p>
+<p>你可以通过将自己的配置对象传递给 <code class="docutils literal notranslate"><span class="pre">Services</span></code> 调用来替换配置文件的设置。
+<code class="docutils literal notranslate"><span class="pre">$config</span></code> 的值必须是 <cite>Config\Encryption</cite> 类的实例或扩展 <cite>CodeIgniter\Config\BaseConfig</cite> 的实例。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$config</span>         <span class="o">=</span> <span class="k">new</span> <span class="nx">Config\Encryption</span><span class="p">();</span>
 <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">key</span>    <span class="o">=</span> <span class="s1">&#39;aBigsecret_ofAtleast32Characters&#39;</span><span class="p">;</span>
 <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">driver</span> <span class="o">=</span> <span class="s1">&#39;OpenSSL&#39;</span><span class="p">;</span>
@@ -437,89 +425,78 @@ that extends <cite>CodeIgniter\Config\BaseConfig</cite>.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="default-behavior">
-<h3><a class="toc-backref" href="#id5">Default Behavior</a><a class="headerlink" href="#default-behavior" title="永久链接至标题">¶</a></h3>
-<p>By default, the Encryption Library uses the OpenSSL handler. That handler encrypts using
-the AES-256-CTR algorithm, your configured <em>key</em>, and SHA512 HMAC authentication.</p>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id19">默认行为</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>默认情况下，加密库使用 OpenSSL 加密程序。该处理程序使用 AES-256-CTR 算法、你配置的 <strong>密钥</strong> 和SHA512 HMAC身份验证进行加密。</p>
 </div>
-<div class="section" id="setting-your-encryption-key">
-<h3><a class="toc-backref" href="#id6">Setting Your Encryption Key</a><a class="headerlink" href="#setting-your-encryption-key" title="永久链接至标题">¶</a></h3>
-<p>Your encryption key <strong>must</strong> be as long as the encryption algorithm in use allows.
-For AES-256, that’s 256 bits or 32 bytes (characters) long.</p>
-<p>The key should be as random as possible, and it <strong>must not</strong> be a regular text string,
-nor the output of a hashing function, etc. To create a proper key,
-you can use the Encryption library’s <code class="docutils literal notranslate"><span class="pre">createKey()</span></code> method.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// $key will be assigned a 32-byte (256-bit) random key</span>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id20">配置你的密钥</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>你的加密密钥的长度 <strong>必须</strong> 在使用的加密算法允许的范围内。比如对于AES-256来说，则为256位或32个字节（字符）长度。</p>
+<p>密钥应该尽可能随机，并且不能是常规文本字符串，也不能是哈希函数的输出等。要创建正确的密钥，可以使用加密库的 <code class="docutils literal notranslate"><span class="pre">createKey()</span></code> 方法。</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// $key 将被分配一个32字节（256位）随机密钥</span>
 <span class="nv">$key</span> <span class="o">=</span> <span class="nx">Encryption</span><span class="o">::</span><span class="na">createKey</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The key can be stored in <em>app/Config/Encryption.php</em>, or you can design
-a storage mechanism of your own and pass the key dynamically when encrypting/decrypting.</p>
-<p>To save your key to your <em>app/Config/Encryption.php</em>, open the file
-and set:</p>
+<p>密钥可以存储在 <em>app/Config/Encryption.php</em> 中，或者您可以设计自己的存储机制，并在加解密时动态传递密钥。</p>
+<p>要将密钥保存到 <em>app/Config/Encryption.php</em> ，请打开文件并进行以下设置：:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$key</span> <span class="o">=</span> <span class="s1">&#39;YOUR KEY&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
-<div class="section" id="encoding-keys-or-results">
-<h4><a class="toc-backref" href="#id7">Encoding Keys or Results</a><a class="headerlink" href="#encoding-keys-or-results" title="永久链接至标题">¶</a></h4>
-<p>You’ll notice that the <code class="docutils literal notranslate"><span class="pre">createKey()</span></code> method outputs binary data, which
-is hard to deal with (i.e. a copy-paste may damage it), so you may use
-<code class="docutils literal notranslate"><span class="pre">bin2hex()</span></code>, <code class="docutils literal notranslate"><span class="pre">hex2bin()</span></code> or Base64-encoding to work with the key in
-a more friendly manner. For example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Get a hex-encoded representation of the key:</span>
+<div class="section" id="id10">
+<h4><a class="toc-backref" href="#id21">对密钥或结果编码</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h4>
+<p>你会注意到 <code class="docutils literal notranslate"><span class="pre">createKey()</span></code> 方法会输出二进制数据，这是很难解决（即复制粘贴可能会损坏），
+所以你可以使用 <code class="docutils literal notranslate"><span class="pre">bin2hex()</span></code> 、 <code class="docutils literal notranslate"><span class="pre">hex2bin()</span></code> 或编码的 <code class="docutils literal notranslate"><span class="pre">Base64</span></code> 处理以更友好的密钥。例如：:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 获取一个十六进制形式的密钥</span>
 <span class="nv">$encoded</span> <span class="o">=</span> <span class="nb">bin2hex</span><span class="p">(</span><span class="nx">Encryption</span><span class="o">::</span><span class="na">createKey</span><span class="p">(</span><span class="mi">32</span><span class="p">));</span>
 
-<span class="c1">// Put the same value in your config with hex2bin(),</span>
-<span class="c1">// so that it is still passed as binary to the library:</span>
+<span class="c1">// 使用 hex2bin() 将相同的值放入配置中，</span>
+<span class="c1">// 这样它仍会以二进制形式传递给库配置：</span>
 <span class="nv">$key</span> <span class="o">=</span> <span class="nb">hex2bin</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">your</span> <span class="nx">hex</span><span class="o">-</span><span class="nx">encoded</span> <span class="nb">key</span><span class="o">&gt;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>You might find the same technique useful for the results
-of encryption:</p>
+<p>你可能会发现相同的技术对于加密结果也是有效的：:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Encrypt some text &amp; make the results text</span>
+<span class="c1">// 加密一些文本并生成密文</span>
 <span class="nv">$encoded</span> <span class="o">=</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="p">(</span><span class="nv">$plaintext</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="encryption-handler-notes">
-<h3><a class="toc-backref" href="#id8">Encryption Handler Notes</a><a class="headerlink" href="#encryption-handler-notes" title="永久链接至标题">¶</a></h3>
-<div class="section" id="openssl-notes">
-<h4><a class="toc-backref" href="#id9">OpenSSL Notes</a><a class="headerlink" href="#openssl-notes" title="永久链接至标题">¶</a></h4>
-<p>The <a class="reference external" href="https://www.php.net/openssl">OpenSSL</a> extension has been a standard part of PHP for a long time.</p>
-<p>CodeIgniter’s OpenSSL handler uses the AES-256-CTR cipher.</p>
-<p>The <em>key</em> your configuration provides is used to derive two other keys, one for
-encryption and one for authentication. This is achieved by way of a technique known
-as an <a class="reference external" href="https://en.wikipedia.org/wiki/HKDF">HMAC-based Key Derivation Function</a> (HKDF).</p>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id22">加密处理程序说明</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id12">
+<h4><a class="toc-backref" href="#id23">OpenSSL 说明</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h4>
+<p>一直以来， <a class="reference external" href="https://www.php.net/openssl">OpenSSL</a> 扩展一直是PHP的标配。</p>
+<p>CodeIgniter的OpenSSL处理程序使用AES-256-CTR算法。</p>
+<p>你的配置提供的 <em>密钥</em> 用于派生另外两个密钥，一个用于加密，另一个用于身份验证。
+这是通过一种叫做 <a class="reference external" href="https://en.wikipedia.org/wiki/HKDF">基于HMAC的密钥派生函数</a>
+（HKDF）的技术来实现的。</p>
 </div>
 </div>
-<div class="section" id="message-length">
-<h3><a class="toc-backref" href="#id10">Message Length</a><a class="headerlink" href="#message-length" title="永久链接至标题">¶</a></h3>
-<p>An encrypted string is usually longer than the original, plain-text string (depending on the cipher).</p>
-<p>This is influenced by the cipher algorithm itself, the initialization vector (IV)
-prepended to the cipher-text, and the HMAC authentication message that is also prepended.
-Furthermore, the encrypted message is also Base64-encoded so that it is safe
-for storage and transmission regardless of the character-set in use.</p>
-<p>Keep this information in mind when selecting your data storage mechanism.
-Cookies, for example, can only hold 4K of information.</p>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id24">消息长度</a><a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<p>加密后的字符串通常长于原始的纯文本字符串（取决于算法）。</p>
+<p>这受密码算法本身影响，初始化因子（IV）以及HMAC身份验证消息也会加在密码文本之前。
+此外，加密的消息也会经过Base64编码，因此无论使用什么字符集，它都可以安全地存储和传输。</p>
+<p>但是选择数据存储机制时，请记住，Cookie只能保存4K信息。</p>
 </div>
-<div class="section" id="using-the-encryption-service-directly">
-<h3><a class="toc-backref" href="#id11">Using the Encryption Service Directly</a><a class="headerlink" href="#using-the-encryption-service-directly" title="永久链接至标题">¶</a></h3>
-<p>Instead of (or in addition to) using <code class="docutils literal notranslate"><span class="pre">Services</span></code> as described in <a class="reference internal" href="#usage"><span class="std std-ref">Using the Encryption Library</span></a>,
-you can create an “Encrypter” directly, or change the settings of an existing instance.</p>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id25">直接使用加密服务</a><a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+<p>除了使用 <a class="reference internal" href="#id4"><span class="std std-ref">使用加密类库</span></a> 中 <code class="docutils literal notranslate"><span class="pre">Services</span></code> 那样的方法外，你还可以直接创建“加密器”，或更改现有实例的设置。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// create an Encrypter instance</span>
+<span class="c1">// 创建一个加密器实例</span>
 <span class="nv">$encryption</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Encryption\Encryption</span><span class="p">();</span>
 
 <span class="c1">// reconfigure an instance with different settings</span>
+<span class="c1">// 用不同的设置重新配置实例</span>
 <span class="nv">$encrypter</span> <span class="o">=</span> <span class="nv">$encryption</span><span class="o">-&gt;</span><span class="na">initialize</span><span class="p">(</span><span class="nv">$config</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Remember, that <code class="docutils literal notranslate"><span class="pre">$config</span></code> must me an instance of either a <cite>ConfigEncryption</cite> class
-or an object that extends <cite>CodeIgniterConfigBaseConfig</cite>.</p>
+<p>请记住， <code class="docutils literal notranslate"><span class="pre">$config</span></code> 必须是 <cite>ConfigEncryption</cite> 类或扩展 <cite>CodeIgniterConfigBaseConfig</cite> 类的实例。</p>
 </div>
 </div>
-<div class="section" id="class-reference">
-<h2><a class="toc-backref" href="#id12">Class Reference</a><a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id26">类参考</a><a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
 <dl class="class">
 <dt>
 <code class="descname">CodeIgniter\Encryption\Encryption</code></dt>
@@ -531,11 +508,11 @@ or an object that extends <cite>CodeIgniterConfigBaseConfig</cite>.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$length</strong> (<em>int</em>) – Output length</li>
+<li><strong>$length</strong> (<em>int</em>) – 输出密钥的长度</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">A pseudo-random cryptographic key with the specified length, or FALSE on failure</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">具有指定长度的随机密码密钥，创建失败则为FALSE</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -543,10 +520,9 @@ or an object that extends <cite>CodeIgniterConfigBaseConfig</cite>.</p>
 </tr>
 </tbody>
 </table>
-<p>Creates a cryptographic key by fetching random data from
-the operating system’s sources (i.e. /dev/urandom).</p>
 </dd></dl>
 
+<p>通过从操作系统的源（即/dev/urandom）获取随机数据来创建加密密钥。</p>
 <dl class="method">
 <dt id="initialize">
 <code class="descname">initialize</code><span class="sig-paren">(</span><em>$config</em><span class="sig-paren">)</span><a class="headerlink" href="#initialize" title="永久链接至目标">¶</a></dt>
@@ -570,14 +546,16 @@ the operating system’s sources (i.e. /dev/urandom).</p>
 </tr>
 </tbody>
 </table>
-<p>Initializes (configures) the library to use different settings.</p>
-<p>Example:</p>
+</dd></dl>
+
+<p>初始化（或配置）库以使用不同的设置。</p>
+<blockquote>
+<div><p>例:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$encrypter</span> <span class="o">=</span> <span class="nv">$encryption</span><span class="o">-&gt;</span><span class="na">initialize</span><span class="p">([</span><span class="s1">&#39;cipher&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;3des&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>Please refer to the <a class="reference internal" href="#configuration"><span class="std std-ref">Configuring the Library</span></a> section for detailed info.</p>
-</dd></dl>
-
+</div></blockquote>
+<p>请参阅 <a class="reference internal" href="#id6"><span class="std std-ref">配置加密类库</span></a> 部分以获取详细信息。</p>
 </dd></dl>
 
 <dl class="interface">
@@ -591,12 +569,12 @@ the operating system’s sources (i.e. /dev/urandom).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<em>string</em>) – Data to encrypt</li>
-<li><strong>$params</strong> – Configuration parameters (key)</li>
+<li><strong>$data</strong> (<em>string</em>) – 要加密的数据</li>
+<li><strong>$params</strong> – 配置参数（或键）</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Encrypted data or FALSE on failure</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">加密后的数据，加密失败时返回FALSE</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first">string</p>
@@ -607,18 +585,20 @@ the operating system’s sources (i.e. /dev/urandom).</p>
 </tr>
 </tbody>
 </table>
-<p>Encrypts the input data and returns its ciphertext.</p>
-<p>If you pass parameters as the second argument, the <code class="docutils literal notranslate"><span class="pre">key</span></code> element
-will be used as the starting key for this operation if <code class="docutils literal notranslate"><span class="pre">$params</span></code>
-is an array; or the starting key may be passed as a string.</p>
-<p>Examples:</p>
+</dd></dl>
+
+<p>加密输入数据并返回其密文。</p>
+<blockquote>
+<div><p>将配置参数作为第二个参数传递时，如果 <code class="docutils literal notranslate"><span class="pre">$params</span></code> 是数组，
+则 <code class="docutils literal notranslate"><span class="pre">密钥</span></code> 将用作这次加密的起始键；
+或者也可以把这次加密的密钥作为字符串传递。</p>
+<p>例:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$ciphertext</span> <span class="o">=</span> <span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="p">(</span><span class="s1">&#39;My secret message&#39;</span><span class="p">);</span>
 <span class="nv">$ciphertext</span> <span class="o">=</span> <span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="p">(</span><span class="s1">&#39;My secret message&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;New secret key&#39;</span><span class="p">]);</span>
 <span class="nv">$ciphertext</span> <span class="o">=</span> <span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="p">(</span><span class="s1">&#39;My secret message&#39;</span><span class="p">,</span> <span class="s1">&#39;New secret key&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</dd></dl>
-
+</div></blockquote>
 <dl class="method">
 <dt id="decrypt">
 <code class="descname">decrypt</code><span class="sig-paren">(</span><em>$data</em>, <em>$params = null</em><span class="sig-paren">)</span><a class="headerlink" href="#decrypt" title="永久链接至目标">¶</a></dt>
@@ -627,12 +607,12 @@ is an array; or the starting key may be passed as a string.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<em>string</em>) – Data to decrypt</li>
-<li><strong>$params</strong> – Configuration parameters (key)</li>
+<li><strong>$data</strong> (<em>string</em>) – 要解密的数据</li>
+<li><strong>$params</strong> – 配置参数（或键）</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Decrypted data or FALSE on failure</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">解密后的数据，解密失败时返回FALSE</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first">string</p>
@@ -643,18 +623,20 @@ is an array; or the starting key may be passed as a string.</p>
 </tr>
 </tbody>
 </table>
-<p>Decrypts the input data and returns it in plain-text.</p>
-<p>If you pass parameters as the second argument, the <code class="docutils literal notranslate"><span class="pre">key</span></code> element
-will be used as the starting key for this operation if <code class="docutils literal notranslate"><span class="pre">$params</span></code>
-is an array; or the starting key may be passed as a string.</p>
-<p>Examples:</p>
+</dd></dl>
+
+<p>加密输入数据并返回其密文。</p>
+<blockquote>
+<div><p>将配置参数作为第二个参数传递时，如果 <code class="docutils literal notranslate"><span class="pre">$params</span></code> 是数组，
+则 <code class="docutils literal notranslate"><span class="pre">密钥</span></code> 将用作这次解密的起始键；
+或者也可以把这次解密的密钥作为字符串传递。</p>
+<p>例:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">decrypt</span><span class="p">(</span><span class="nv">$ciphertext</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">decrypt</span><span class="p">(</span><span class="nv">$ciphertext</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;New secret key&#39;</span><span class="p">]);</span>
 <span class="k">echo</span> <span class="nv">$encrypter</span><span class="o">-&gt;</span><span class="na">decrypt</span><span class="p">(</span><span class="nv">$ciphertext</span><span class="p">,</span> <span class="s1">&#39;New secret key&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</dd></dl>
-
+</div></blockquote>
 </dd></dl>
 
 </div>
