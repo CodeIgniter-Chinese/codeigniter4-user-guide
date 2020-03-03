@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>View Layouts &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>视图布局 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -159,7 +159,7 @@
 <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_cells.html">View Cells</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_renderer.html">View Renderer</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">View Layouts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_parser.html">View Parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="table.html">HTML Table Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="response.html">HTTP 响应</a></li>
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">构建响应</a> &raquo;</li>
         
-      <li>View Layouts</li>
+      <li>视图布局</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,25 +334,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="view-layouts">
-<h1>View Layouts<a class="headerlink" href="#view-layouts" title="永久链接至标题">¶</a></h1>
-<div class="contents local topic" id="id1">
+  <div class="section" id="id1">
+<h1>视图布局<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#creating-a-layout" id="id2">Creating A Layout</a></li>
-<li><a class="reference internal" href="#using-layouts-in-views" id="id3">Using Layouts in Views</a></li>
-<li><a class="reference internal" href="#rendering-the-view" id="id4">Rendering the View</a></li>
-<li><a class="reference internal" href="#including-view-partials" id="id5">Including View Partials</a></li>
+<li><a class="reference internal" href="#id3" id="id7">创建布局</a></li>
+<li><a class="reference internal" href="#id4" id="id8">在视图中使用布局</a></li>
+<li><a class="reference internal" href="#id5" id="id9">渲染视图</a></li>
+<li><a class="reference internal" href="#id6" id="id10">引用局部视图</a></li>
 </ul>
 </div>
-<p>CodeIgniter supports a simple, yet very flexible, layout system that makes it simple to use one or more
-base page layouts across your application. Layouts support sections of content that can be inserted from
-any view being rendered. You could create different layouts to support one-column, two-column,
-blog archive pages, and more. Layouts are never directly rendered. Instead, you render a view, which
-specifies the layout that it wants to extend.</p>
-<div class="section" id="creating-a-layout">
-<h2><a class="toc-backref" href="#id2">Creating A Layout</a><a class="headerlink" href="#creating-a-layout" title="永久链接至标题">¶</a></h2>
-<p>Layouts are views like any other. The only difference is their intended usage. Layouts are the only view
-files that would make use of the <code class="docutils literal notranslate"><span class="pre">renderSection()</span></code> method. This method acts as a placeholder for content.</p>
+<p>CodeIgniter 提供了一个简单但非常灵活的布局系统，使你可以轻松地在整个 web 应用程序中使用一个或多个基本页面布局。
+布局支持在任何渲染视图中插入内容节。你可以通过创建不同的布局来支持一栏、两栏或博客存档页面等。布局不会直接被渲染，
+但可以通过渲染一个视图（View），而该视图可以指定要扩展的布局（Layout）来实现（渲染布局）。</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id7">创建布局</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>布局和其他视图一样。它们唯一的区别是它们的用途。布局就是使用 <code class="docutils literal notranslate"><span class="pre">renderSection()</span></code> 方法的视图文件。这个方法会充当内容的占位符。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;!</span><span class="nx">doctype</span> <span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
@@ -364,24 +361,21 @@ files that would make use of the <code class="docutils literal notranslate"><spa
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>The renderSection() method only has one argument - the name of the section. That way any child views know
-what to name the content section.</p>
+<p>renderSection() 方法只有一个参数，那就是节的名称，这样所有子视图就都可以知道节的名称。</p>
 </div>
-<div class="section" id="using-layouts-in-views">
-<h2><a class="toc-backref" href="#id3">Using Layouts in Views</a><a class="headerlink" href="#using-layouts-in-views" title="永久链接至标题">¶</a></h2>
-<p>Whenever a view wants to be inserted into a layout, it must use the <code class="docutils literal notranslate"><span class="pre">extend()</span></code> method at the top of the file:</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id8">在视图中使用布局</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>无论何时需要把视图插入到布局中时，都必须在文件开头使用 <code class="docutils literal notranslate"><span class="pre">extend()</span></code> 方法：</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>The extend method takes the name of any view file that you wish to use. Since they are standard views, they will
-be located just like a view. By default, it will look in the application’s View directory, but will also scan
-other PSR-4 defined namespaces. You can include a namespace to locate the view in particular namespace View directory:</p>
+<p>extend() 方法采用你所希望使用的视图文件的名称。由于它们也是视图，因此它们的位置就像视图一样。默认情况下，
+会在应用程序的 View 目录中查找它们，但还会扫描其他 PSR-4 定义的命名空间。你还可以加上一个命名空间以在特定名称空间的 View 目录中定位视图：</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;Blog\Views\default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>All content within a view that extends a layout must be included within <code class="docutils literal notranslate"><span class="pre">section($name)</span></code> and <code class="docutils literal notranslate"><span class="pre">endSection()</span></code> method calls.
-Any content between these calls will be inserted into the layout wherever the <code class="docutils literal notranslate"><span class="pre">renderSection($name)</span></code> call that
-matches the section name exists.:</p>
+<p>拓展布局所有内容时，必须包含 <code class="docutils literal notranslate"><span class="pre">section($name)</span></code> 和 <code class="docutils literal notranslate"><span class="pre">endSection()</span></code> 方法的调用。这些调用之间的任何内容都将插入到与节名称匹配的
+<code class="docutils literal notranslate"><span class="pre">renderSection($name)</span></code> 调用所在的布局中：:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">section</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
@@ -389,23 +383,23 @@ matches the section name exists.:</p>
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">endSection</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">endSection()</span></code> does not need the section name. It automatically knows which one to close.</p>
+<p><code class="docutils literal notranslate"><span class="pre">endSection()</span></code> 不需要节的名称，它会自动结束需要结束的节。</p>
 </div>
-<div class="section" id="rendering-the-view">
-<h2><a class="toc-backref" href="#id4">Rendering the View</a><a class="headerlink" href="#rendering-the-view" title="永久链接至标题">¶</a></h2>
-<p>Rendering the view and it’s layout is done exactly as any other view would be displayed within a controller:</p>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id9">渲染视图</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>渲染视图及其布局的方法与在控制器中显示的任何其他视图的方法完全相同：</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;some_view&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The renderer is smart enough to detect whether the view should be rendered on its own, or if it needs a layout.</p>
+<p>渲染器足够强大，它可以检测视图是需要单独渲染还是需要布局。</p>
 </div>
-<div class="section" id="including-view-partials">
-<h2><a class="toc-backref" href="#id5">Including View Partials</a><a class="headerlink" href="#including-view-partials" title="永久链接至标题">¶</a></h2>
-<p>View partials are view files that do not extend any layout. They typically include content that can be reused from
-view to view. When using view layouts you must use <code class="docutils literal notranslate"><span class="pre">$this-&gt;include()</span></code> to include any view partials.</p>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id10">引用局部视图</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>局部视图是不扩展任何布局的视图文件。它们通常是可以在视图之间重复使用的内容。 使用视图布局时，必须使用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;include()</span></code>
+来引用。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">section</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
@@ -415,8 +409,7 @@ view to view. When using view layouts you must use <code class="docutils literal
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">endSection</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>When calling the include() method, you can pass it all of the same options that can when rendering a normal view, including
-cache directives, etc.</p>
+<p>调用 include() 方法时，可以将渲染普通视图时可以使用的所有选项都传递给它，包括缓存指令等。</p>
 </div>
 </div>
 
