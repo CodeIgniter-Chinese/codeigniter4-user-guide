@@ -178,6 +178,8 @@ html_copy_source = False
 
 # -- Options for LaTeX output --------------------------------------------------
 
+latex_engine = 'xelatex'
+
 # The paper size ('letter' or 'a4').
 #latex_paper_size = 'letter'
 
@@ -206,6 +208,7 @@ latex_elements = {
 'preamble': '''
 \usepackage{xeCJK}
 \usepackage{indentfirst}
+\setlistdepth{9}
 \setlength{\parindent}{2em}
 \setCJKmainfont[BoldFont=STHeiti, ItalicFont=STKaiti]{STSong}
 \setCJKmonofont[Scale=0.9]{Monaco}

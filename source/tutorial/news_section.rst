@@ -227,4 +227,5 @@
 在地址栏里输入 *localhost:8080/news* 来访问你创建好的新闻列表页面吧。
 你将会看到如下图一样的一个展示新闻列表的网页，列表里的每个文章都带一个可以打开该条新闻详情页面的超级链接。
 
-.. image:: ../_images/tutorial2.png
+.. image:: ../images/tutorial2.png
+    :align: center
