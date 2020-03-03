@@ -117,4 +117,4 @@
 - [ ] [./source/installation/running.rst](source/installation/running.rst)
 - [ ] [./source/libraries/encryption.rst](source/libraries/encryption.rst)
 - [ ] [./source/outgoing/table.rst](source/outgoing/table.rst)
-- [ ] [./source/outgoing/view_layouts.rst](source/outgoing/view_layouts.rst)
+- [x] [~~./source/outgoing/view_layouts.rst~~](source/outgoing/view_layouts.rst)
