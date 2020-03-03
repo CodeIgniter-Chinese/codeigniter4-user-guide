@@ -1,13 +1,11 @@
-Authentication 
+鉴权
 #####################################
 
-CodeIgniter intentionally does not provide an internal authentication or authorization class. There are a number
-of great third-party modules that provide these services, as well as resources in the community for writing
-your own. The following are recommended guidelines to encourage consistency among developers of
-modules, projects, and the framework itself.
+CodeIgniter本身不提供一个内部鉴权或认证的类。不过有许多优秀的第三方模块可以提供类似的服务，而且在社区里也有许多资源以帮助你自己实现一个类似的功能。
+我们鼓励开发者们基于以下原则来共享模块，项目以及框架本身。
 
 Recommendations
 ===============
 
-* Modules that handle login and logout operations should trigger the ``login`` and ``logout`` Events when successful
-* Modules that define a "current user" should define the function ``user_id()`` to return the user's unique identifier, or ``null`` for "no current user"
+* 处理登入和登出操作的模块需要在操作成功时触发 ``login`` 和 ``logout`` 事件
+* 定义了“当前用户”的模块应该定义一个 ``user_id()`` 方法来返回当前用户的唯一识别符，或者是在不存在当前用户时返回 ``null``

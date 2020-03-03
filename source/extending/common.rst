@@ -1,13 +1,10 @@
 **************************
-Replacing Common Functions
+替换通用函数
 **************************
 
-There are quite a few functions necessary to CodeIgniter that need to be loaded early for use in the core classes and
-thus cannot be placed into a helper. While most users will never have any need to do this, but the option to replace
-these functions does exist for those who would like to significantly alter the CodeIgniter core. In the ``App\``
-directory there is a file ``Common.php``, and any functions defined in there will take precedence over the versions
-found in ``system/Common.php``. This is also an opportunity to create globally-available functions you intend to
-use throughout the framework.
+对于CodeIgniter来说，需要在核心类中提前加载许多必需的函数，因此这些函数不应该放入辅助函数中。
+尽管大多数用户可能永远不会面对这种情况，我们依旧为哪些想要手动修改CodeIgniter内核的用户提供了一个选项来修改这些函数。
+在 ``App`` 目录下有一个 ``Common.php`` 文件，其中定义的所有函数都会在 ``system/Common.php`` 文件所定义的函数版本前生效。
+同样这也是一个创建在框架里全局有效的函数的好机会。
 
-.. note:: Messing with a core system class has a lot of implications, so make sure you know what you are doing before
-    attempting it.
+.. note:: 在核心系统类中加入很多复杂成分会带来很多影响，在尝试做这件事之前，请确保你知道自己正在做什么。
