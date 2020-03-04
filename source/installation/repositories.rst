@@ -1,72 +1,65 @@
-CodeIgniter Repositories
+CodeIgniter 仓库
 ########################
 
-The CodeIgniter 4 open source project has its own
-`Github organization <https://github.com/codeigniter4>`_.
+The CodeIgniter 4 开源项目有着属于它自己的 `Github 组织 <https://github.com/codeigniter4>`_.
 
-There are several development repositories, of interest to potential contributors:
+对于感兴趣的开源贡献者来说，有以下几个开发仓库。
 
 +------------------+--------------+-----------------------------------------------------------------+
-+ Repository       + Audience     + Description                                                     +
++ 仓库              + 受众          + 描述                                                            +
 +==================+==============+=================================================================+
-+ CodeIgniter4     + contributors + Project codebase, including tests & user guide sources          +
++ CodeIgniter4     + 贡献者        + 项目核心仓库，包括测试和源文档结构                                   +
 +------------------+--------------+-----------------------------------------------------------------+
-+ translations     + developers   + System message translations                                     +
++ translations     + 开发者        + 系统信息的翻译                                                    +
 +------------------+--------------+-----------------------------------------------------------------+
-+ coding-standard  + contributors + Coding style conventions & rules                                +
++ coding-standard  + 贡献者        + 代码风格的统一和相关规约                                            +
 +------------------+--------------+-----------------------------------------------------------------+
 +                  +              +                                                                 +
 +------------------+--------------+-----------------------------------------------------------------+
 
-There are also several deployment repositories, referenced in the installation directions.
-The deployment repositories are built automatically when a new version is released, and they
-are not directly contributed to.
+以下是几个开发的仓库，在安装指南里提到过。
+当新版本发布时，development仓库将执行自动构建，该仓库不能被直接提交代码。
 
 +------------------+--------------+-----------------------------------------------------------------+
 + Repository       + Audience     + Description                                                     +
 +==================+==============+=================================================================+
-+ framework        + developers   + Released versions of the framework                              +
++ framework        + 开发者        + 框架的已发布版本                                                   +
 +------------------+--------------+-----------------------------------------------------------------+
-+ appstarter       + developers   + Starter project (app/public/writable).                          +
-+                  +              + Dependent on "framework"                                        +
++ appstarter       + 开发者        + 项目启动器 (app/public/writable)                                  +
++                  +              + 依赖于 "framework"                                               +
 +------------------+--------------+-----------------------------------------------------------------+
-+ userguide        + anyone       + Pre-built user guide                                            +
++ userguide        + 任何人        + 预构建的用户手册                                                   +
 +------------------+--------------+-----------------------------------------------------------------+
 +                  +              +                                                                 +
 +------------------+--------------+-----------------------------------------------------------------+
 
-In all the above, the latest version of a repository can be downloaded
-by selecting the "releases" link in the secondary navbar inside
-the "Code" tab of its Github repository page. The current (in development) version of each can
-be cloned or downloaded by selecting the "Clone or download" dropdown
-button on the right-hand side if the repository homepage.
+在上述所有仓库中，仓库的最新版本可以通过选择Github仓库页面的第二层导航条的Code（代码）导航块中的"release"（发布）链接来进行下载。
 
-Composer Packages
+Composer 包
 =================
 
-We also maintain composer-installable packages on `packagist.org <https://packagist.org/search/?query=codeigniter4>`_.
-These correspond to the repositories mentioned above:
+我们同样在 `packagist.org <https://packagist.org/search/?query=codeigniter4>`_ 维护着一个通过Composer进行安装的包
+以下对应着上文提及的相关仓库:
 
 - `codeigniter4/framework <https://packagist.org/packages/codeigniter4/framework>`_
 - `codeigniter4/appstarter <https://packagist.org/packages/codeigniter4/appstarter>`_
 - `codeigniter4/translations <https://packagist.org/packages/codeigniter4/translations>`_
 - `codeigniter4/coding-standard <https://packagist.org/packages/codeigniter4/codeigniter4-standard>`_
 
-See the :doc:`Installation </installation/index>` page for more information.
+参照文档 :doc:`安装 </installation/index>` 页面来获取更多信息.
 
-CodeIgniter 4 Projects
+CodeIgniter 4 项目
 ======================
 
-We maintain a `codeigniter4projects <https://github.com/codeigniter4projects>`_ organization
-on Github as well, with projects that are not part of the framework, 
-but which showcase it or make it easier to work with!
+我们在Github上也维护着 `codeigniter4projects <https://github.com/codeigniter4projects>`_ 组织，
+用于管理那些不属于框架的一部分，但是可以用来更为轻松地使用框架的项目！
 
 +------------------+--------------+-----------------------------------------------------------------+
 + Repository       + Audience     + Description                                                     +
 +==================+==============+=================================================================+
-+ website2         + developers   + The codeigniter.com website, written in CodeIgniter 4           +
++ website2         + developers   +  codeigniter.com 网站, 通过 CodeIgniter 4来进行构建                +
 +------------------+--------------+-----------------------------------------------------------------+
 +                  +              +                                                                 +
 +------------------+--------------+-----------------------------------------------------------------+
 
-These are not composer-installable repositories.
+这些仓库不能通过composer来进行安装
