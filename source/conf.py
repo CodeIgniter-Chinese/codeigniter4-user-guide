@@ -208,6 +208,7 @@ latex_elements = {
 'preamble': '''
 \usepackage{xeCJK}
 \usepackage{indentfirst}
+\usepackage{enumitem}
 \setlistdepth{9}
 \setlength{\parindent}{2em}
 \setCJKmainfont[BoldFont=STHeiti, ItalicFont=STKaiti]{STSong}

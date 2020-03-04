@@ -115,6 +115,6 @@
 - [x] [~~./source/installation/installing_manual.rst~~](source/installation/installing_manual.rst)
 - [x] [~~./source/installation/repositories.rst~~](source/installation/repositories.rst)
 - [x] [./source/installation/running.rst](source/installation/running.rst)
-- [ ] [./source/libraries/encryption.rst](source/libraries/encryption.rst)
+- [x] [~~./source/libraries/encryption.rst~~](source/libraries/encryption.rst)
 - [ ] [./source/outgoing/table.rst](source/outgoing/table.rst)
 - [x] [~~./source/outgoing/view_layouts.rst~~](source/outgoing/view_layouts.rst)

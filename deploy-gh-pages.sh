@@ -6,8 +6,8 @@ git clone --branch=gh-pages "https://${GH_TOKEN}@${GH_REF}" gh-pages
 cd ./build/html
 rm .buildinfo
 zip -r ./codeigniter_user_guide.zip ./
-#cd ../latex
-#cp CodeIgniter.pdf ../../gh-pages/
+cd ../latex
+cp CodeIgniter.pdf ../../gh-pages/
 cd ../../gh-pages
 cp -Rf ../build/html/* .
 git add -f .
