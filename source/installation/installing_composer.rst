@@ -12,160 +12,145 @@
 
 **Note**: 如果你正使用一个Git仓库来存储代码或与他人写作，那么 ``vendor`` 目录就需要添加到gitignore文件中。在这种情况下，当你克隆仓库到新系统中，就需要执行 ``composer update``指令
 
-App Starter
+启动应用
 ============================================================
 
-The `CodeIgniter 4 app starter <https://github.com/codeigniter4/appstarter>`_ 
-repository holds a skeleton application, with a composer dependency on
-the latest released version of the framework.
+`CodeIgniter 4 应用启动 <https://github.com/codeigniter4/appstarter>`_
+仓库里通过composer依赖最新版本的框架来维护了一个基础骨架的应用。
 
-This installation technique would suit a developer who wishes to start
-a new CodeIgniter4 based project.
+以下安装教程适用于每一位希望启动一个新的基于CodeIgniter4的项目的开发者。
 
-Installation & Set Up
+安装和设置
 -------------------------------------------------------
 
-In the folder above your project root::
+在你的项目根目录执行以下命令::
 
     composer create-project codeigniter4/appstarter project-root
 
-The command above will create a "project-root" folder.
+该指令将会创建一个 "project-root" 目录。
 
-If you omit the "project-root" argument, the command will create an
-"appstarter" folder, which can be renamed as appropriate.
+如果你忽略了"project-root"参数，该命令就会创建一个"appstarter"目录，该目录当需要时可以被重命名。
 
-If you don't need or want phpunit installed, and all of its composer
-dependencies, then add the "--no-dev" option to the end of the above
-command line. That will result in only the framework, and the three
-trusted dependencies that we bundle, being composer-installed.
+如果你不需要或不想安装PHPUnit以及跟它相关的任何Composer依赖，请在该命令的尾部增加"--no-dev"选项。
+这一操作将只会使用Composer安装框架本体以及三个我们打包过的可信赖的外部依赖包。
 
-A sample such installation command, using the default project-root "appstarter"::
+下面是一个这样的安装指令的示例，使用默认的项目根目录"APPstarter"::
 
     composer create-project codeigniter4/appstarter --no-dev
 
-After installation you should follow the steps in the "Upgrading" section.
+安装完成后你应该根据 "升级" 这节里的步骤继续进行。
 
-Upgrading
+升级
 -------------------------------------------------------
 
-Whenever there is a new release, then from the command line in your project root::
+每当有新的发布时，在你项目的根目录运行以下指令::
 
     composer update 
 
-If you used the "--no-dev" option when you created the project, it
-would be appropriate to do so here too, i.e. ``composer update --no-dev``.
+如果在你创建项目时使用了"--no-dev"选项，那么在这里也一样适合这样做。``composer update --no-dev``
 
-Read the upgrade instructions, and check designated  ``app/Config`` folders for affected changes.
+阅读升级指南，并检查指定的 ``app/Config`` 目录是否有内容变更。
 
-Pros
+对于专业人士
 -------------------------------------------------------
 
-Simple installation; easy to update
+便于安装，便于升级
 
-Cons
+贡献者
 -------------------------------------------------------
 
-You still need to check for ``app/Config`` changes after updating
+你仍需要在更新后检查 ``app/Config`` 的变更。
 
-Structure
+结构
 -------------------------------------------------------
 
-Folders in your project after set up:
+设置完成后你的项目中会有以下目录:
 
 - app, public, tests, writable 
 - vendor/codeigniter4/framework/system
 - vendor/codeigniter4/framework/app & public (compare with yours after updating)
 
-Latest Dev
+最新的开发版本
 -------------------------------------------------------
 
-The App Starter repo comes with a ``builds`` scripts to switch Composer sources between the
-current stable release and the latest development branch of the framework. Use this script
-for a developer who is willing to live with the latest unreleased changes, which may be unstable.
+App Start仓库里有着 ``builds`` 脚本，在框架当前稳定发布版本和最新的开发版本间进行选择。
+对于开发者而言，可以选择使用该脚本来获取最新的变更，不过这些变更可能是不稳定的。
 
-The `development user guide <https://codeigniter4.github.io/CodeIgniter4/>`_ is accessible online.
-Note that this differs from the released user guide, and will pertain to the
-develop branch explicitly.
+`开发者用户手册 <https://codeigniter4.github.io/CodeIgniter4/>`_ 可以在线访问。请注意与当前发布版本的用户手册
+有所不同，并独立维护一个开发的分支。
 
-In your project root::
+在你的项目根目录执行以下指令::
 
     php builds development
 
-The command above will update **composer.json** to point to the ``develop`` branch of the
-working repository, and update the corresponding paths in config and XML files. To revert
-these changes run::
+以上的指令将会更新 **composer.json** 文件并将当前的工作仓库指向 ``develop`` 分支，并在配置和XML文件中更新对应的路径。
+如果要回退以上变更，请执行::
 
     php builds release
 
-After using the ``builds`` command be sure to run ``composer update`` to sync your vendor
-folder with the latest target build.
+在使用完 ``builds`` 命令后，请确保运行 ``composer update`` 来将你的vendor目录与最新版本的同步。
 
-Adding CodeIgniter4 to an Existing Project
+将CodeIgniter4添加到现存项目中
 ============================================================
 
-The same `CodeIgniter 4 framework <https://github.com/codeigniter4/framework>`_ 
-repository described in "Manual Installation" can also be added to an
-existing project using Composer.
+在"手动安装"这章中描述过的 `CodeIgniter 4 framework <https://github.com/codeigniter4/framework>`_
+仓库同样也可使用Composer来被添加到现存的项目中。
 
-Develop your app inside the ``app`` folder, and the ``public`` folder 
-will be your document root. 
+在 ``app`` 目录下开发你的应用，``public`` 目录作为文档的根目录。
 
-In your project root::
+在你的项目根目录下::
 
     composer require codeigniter4/framework
 
-As with the earlier two composer install methods, you can omit installing
-phpunit and its dependencies by adding the "--no-dev" argument to the "composer require" command.
+与前面两个composer安装方式类似，你也可以在"composer require"命令中使用"--no-dev"参数来忽略安装PHPunit。
 
-Set Up
+设置
 -------------------------------------------------------
 
-Copy the app, public, tests and writable folders from ``vendor/codeigniter4/framework`` 
-to your project root
+从 ``vendor/codeigniter4/framework`` 中复制app, public, tests 和 writable目录到你的项目根目录下。
 
-Copy the ``env``, ``phpunit.xml.dist`` and ``spark`` files, from
-``vendor/codeigniter4/framework`` to your project root
+从 ``vendor/codeigniter4/framework`` 中复制 ``env``, ``phpunit.xml.dist`` and ``spark`` 文件到你的项目根目录下。
 
-You will have to adjust paths to refer to vendor/codeigniter/framework``, 
-- the $systemDirectory variable in ``app/Config/Paths.php``
+你需要设置指向 ``vendor/codeigniter/framework`` 的目录 —— 通过修改 ``app/Config/Paths.php`` 中的 ``$systemDirectory`` 变量
 
-Upgrading
+
+升级
 -------------------------------------------------------
 
-Whenever there is a new release, then from the command line in your project root::
+每当有新的发布时，在你项目的根目录运行以下指令::
 
-    composer update 
+    composer update
 
-Read the upgrade instructions, and check designated 
-``app/Config`` folders for affected changes.
+如果在你创建项目时使用了"--no-dev"选项，那么在这里也一样适合这样做。``composer update --no-dev``
 
-Pros
+阅读升级指南，并检查指定的 ``app/Config`` 目录是否有内容变更。
+
+专业人士
 -------------------------------------------------------
 
-Relatively simple installation; easy to update
+相当简单的安装方式；便于升级
 
-Cons
+贡献者
 -------------------------------------------------------
 
-You still need to check for ``app/Config`` changes after updating
+你仍需要在更新后检查 ``app/Config`` 的变更。
 
-Structure
+结构
 -------------------------------------------------------
 
-Folders in your project after set up:
+设置完成后你的项目结构如下:
 
 - app, public, tests, writable 
 - vendor/codeigniter4/framework/system
 
 
-Translations Installation
+安装翻译
 ============================================================
 
-If you want to take advantage of the system message translations,
-they can be added to your project in a similar fashion. 
+如果你想充分利用系统信息的翻译，可以类似地把这些翻译加入到项目中。
 
-From the command line inside your project root::
+在项目根目录运行以下指令::
 
     composer require codeigniter4/translations @rc
 
-These will be updated along with the framework whenever you do a ``composer update``.
+当你每次运行 ``composer update`` 时这些翻译文件也同样会被更新。
