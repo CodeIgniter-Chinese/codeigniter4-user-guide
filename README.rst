@@ -2,7 +2,7 @@
     :target: https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide
 
 #############################
-CodeIgniter 4 中文手册翻译计划
+CodeIgniter 4 中文手册翻译项目
 #############################
 
 ***********
