@@ -39,7 +39,7 @@
 - [x] [~~./source/dbmgmt/forge.rst~~](source/dbmgmt/forge.rst)
 - [ ] [./source/database/helpers.rst](source/database/helpers.rst)
 - [x] [~~./source/database/index.rst~~](source/database/index.rst)
-- [ ] [./source/database/metadata.rst](source/database/metadata.rst)
+- [x] [~~./source/database/metadata.rst~~](source/database/metadata.rst)
 - [x] [~~./source/dbmgmt/migration.rst~~](source/dbmgmt/migration.rst)
 - [ ] [./source/models/model.rst](source/models/model.rst)
 - [ ] [./source/database/queries.rst](source/database/queries.rst)
