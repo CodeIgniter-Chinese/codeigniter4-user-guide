@@ -110,7 +110,7 @@
 - [x] [~~./source/helpers/xml_helper.rst~~](source/helpers/xml_helper.rst)
 - [x] [~~./source/incoming/methodspoofing.rst~~](source/incoming/methodspoofing.rst)
 - [x] [~~./source/incoming/restful.rst~~](source/incoming/restful.rst)
-- [x] [./source/installation/installing_composer.rst](source/installation/installing_composer.rst)
+- [x] [~~./source/installation/installing_composer.rst~~](source/installation/installing_composer.rst)
 - [x] [~~./source/installation/installing_git.rst~~](source/installation/installing_git.rst)
 - [x] [~~./source/installation/installing_manual.rst~~](source/installation/installing_manual.rst)
 - [x] [~~./source/installation/repositories.rst~~](source/installation/repositories.rst)
