@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Security Class &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>安全类 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -211,7 +211,7 @@
 <li class="toctree-l2"><a class="reference internal" href="honeypot.html">Honeypot Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="images.html">图像处理类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pagination.html">Pagination</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Security Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">安全类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="throttler.html">限流类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="time.html">日期与时间类</a></li>
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">类库参考</a> &raquo;</li>
         
-      <li>Security Class</li>
+      <li>安全类</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,40 +334,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="security-class">
-<h1>Security Class<a class="headerlink" href="#security-class" title="永久链接至标题">¶</a></h1>
-<p>The Security Class contains methods that help protect your site against Cross-Site Request Forgery attacks.</p>
-<div class="contents local topic" id="id1">
+  <div class="section" id="id1">
+<h1>安全类<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>安全类包含了一些方法，用于帮助保护你的网站，以免受到跨站请求伪造（CSRF）的攻击。</p>
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#loading-the-library" id="id2">Loading the Library</a></li>
-<li><a class="reference internal" href="#cross-site-request-forgery-csrf" id="id3">Cross-site request forgery (CSRF)</a></li>
-<li><a class="reference internal" href="#other-helpful-methods" id="id4">Other Helpful Methods</a></li>
+<li><a class="reference internal" href="#id3" id="id5">加载类</a></li>
+<li><a class="reference internal" href="#csrf" id="id6">跨站请求伪造 （CSRF）</a></li>
+<li><a class="reference internal" href="#id4" id="id7">其它的辅助方法</a></li>
 </ul>
 </div>
-<div class="section" id="loading-the-library">
-<h2><a class="toc-backref" href="#id2">Loading the Library</a><a class="headerlink" href="#loading-the-library" title="永久链接至标题">¶</a></h2>
-<p>If your only interest in loading the library is to handle CSRF protection, then you will never need to load it,
-as it runs as a filter and has no manual interaction.</p>
-<p>If you find a case where you do need direct access though, you may load it through the Services file:</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id5">加载类</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>如果你加载这个类，只是想进行 CSRF 的防护，那就没必要加载它，因为它是作为一个过滤器运行的，而且没有手动调用的接口。</p>
+<p>如果你想在某种情况下直接访问这个类，你可以通过服务文件来加载它:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$security</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">security</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="cross-site-request-forgery-csrf">
-<h2><a class="toc-backref" href="#id3">Cross-site request forgery (CSRF)</a><a class="headerlink" href="#cross-site-request-forgery-csrf" title="永久链接至标题">¶</a></h2>
-<p>You can enable CSRF protection by altering your <strong>app/Config/Filters.php</strong>
-and enabling the <cite>csrf</cite> filter globally:</p>
+<div class="section" id="csrf">
+<h2><a class="toc-backref" href="#id6">跨站请求伪造 （CSRF）</a><a class="headerlink" href="#csrf" title="永久链接至标题">¶</a></h2>
+<p>打开你的 <strong>application/Config/Filters.php</strong> 文件并且全局开启 <cite>csrf</cite> 过滤器，即可开启 CSRF 防护:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$globals</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="c1">//&#39;honeypot&#39;</span>
                 <span class="s1">&#39;csrf&#39;</span>
         <span class="p">]</span>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>Select URIs can be whitelisted from CSRF protection (for example API
-endpoints expecting externally POSTed content). You can add these URIs
-by adding them as exceptions in the filter:</p>
+<p>你可以添加一个 URI 的白名单，跳过 CSRF 保护（例如某个 API 接口希望接受 原始的 POST 数据），
+将这些 URI 添加到 <cite>csrf</cite> 过滤器的 ‘except’ 配置参数中:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$globals</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                 <span class="s1">&#39;csrf&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;api/record/save&#39;</span><span class="p">]]</span>
@@ -375,7 +371,7 @@ by adding them as exceptions in the filter:</p>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>Regular expressions are also supported (case-insensitive):</p>
+<p>同样支持正则表达式（不区分大小写）:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$globals</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s1">&#39;before&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                     <span class="s1">&#39;csrf&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;api/record/[0-9]+&#39;</span><span class="p">]]</span>
@@ -383,61 +379,32 @@ by adding them as exceptions in the filter:</p>
     <span class="p">];</span>
 </pre></div>
 </div>
-<p>If you use the <a class="reference internal" href="../helpers/form_helper.html"><span class="doc">form helper</span></a>, then
-<code class="xref py py-func docutils literal notranslate"><span class="pre">form_open()</span></code> will automatically insert a hidden csrf field in
-your forms. If not, then you can use the always available <code class="docutils literal notranslate"><span class="pre">csrf_token()</span></code>
-and <code class="docutils literal notranslate"><span class="pre">csrf_hash()</span></code> functions</p>
+<p>如果你使用 <a class="reference internal" href="../helpers/form_helper.html"><span class="doc">表单辅助函数</span></a> ，<code class="xref py py-func docutils literal notranslate"><span class="pre">form_open()</span></code>
+函数将会自动地在你的表单中插入一个隐藏的 CSRF 字段。如果没有插入这个字段，
+你可以手动调用 <code class="docutils literal notranslate"><span class="pre">get_csrf_token_name()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">get_csrf_hash()</span></code> 这两个函数。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;&lt;?= csrf_token() ?&gt;&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&lt;?= csrf_hash() ?&gt;&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>Additionally, you can use the <code class="docutils literal notranslate"><span class="pre">csrf_field()</span></code> method to generate this
-hidden input field for you:</p>
+<p>另外，你可以使用 <code class="docutils literal notranslate"><span class="pre">csrf_field()</span></code> 方法来帮你生成这个隐藏的 <code class="docutils literal notranslate"><span class="pre">input</span></code> 字段:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Generates: &lt;input type=&quot;hidden&quot; name=&quot;{csrf_token}&quot; value=&quot;{csrf_hash}&quot; /&gt;</span>
 <span class="o">&lt;?=</span> <span class="nx">csrf_field</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>When sending a JSON request the CSRF token can also be passed as one of the parameters.
-The next way to pass the CSRF token is a special Http header that’s name is available by
-<code class="docutils literal notranslate"><span class="pre">csrf_header()</span></code> function.</p>
-<p>Additionally, you can use the <code class="docutils literal notranslate"><span class="pre">csrf_meta()</span></code> method to generate this handy
-meta tag for you:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Generates: &lt;meta name=&quot;{csrf_header}&quot; content=&quot;{csrf_hash}&quot; /&gt;</span>
-<span class="o">&lt;?=</span> <span class="nx">csrf_meta</span><span class="p">()</span> <span class="cp">?&gt;</span>
-</pre></div>
-</div>
-<p>The order of checking the avability of the CSRF token is as follows:</p>
-<ol class="arabic simple">
-<li><code class="docutils literal notranslate"><span class="pre">$_POST</span></code> array</li>
-<li>Http header</li>
-<li><code class="docutils literal notranslate"><span class="pre">php://input</span></code> (JSON request) - bare in mind that this approach is the slowest one since we have to decode JSON and then encode it again</li>
-</ol>
-<p>Tokens may be either regenerated on every submission (default) or
-kept the same throughout the life of the CSRF cookie. The default
-regeneration of tokens provides stricter security, but may result
-in usability concerns as other tokens become invalid (back/forward
-navigation, multiple tabs/windows, asynchronous actions, etc). You
-may alter this behavior by editing the following config parameter</p>
+<p>令牌（tokens）默认会在每一次提交时重新生成，或者你也可以设置成在 CSRF cookie
+的生命周期内一直有效。默认情况下令牌重新生成提供了更严格的安全机制，但可能会对
+可用性带来一定的影响，因为令牌很可能会变得失效（例如使用浏览器的返回前进按钮、
+使用多窗口或多标签页浏览、异步调用等等）。你可以修改下面这个参数来改变这一点。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$CSRFRegenerate</span>  <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>When a request fails the CSRF validation check, it will redirect to the previous page by default,
-setting an <code class="docutils literal notranslate"><span class="pre">error</span></code> flash message that you can display to the end user. This provides a nicer experience
-than simply crashing. This can be turned off by editing the <code class="docutils literal notranslate"><span class="pre">$CSRFRedirect</span></code> value in
-<strong>app/Config/App.php</strong>:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$CSRFRedirect</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
-</pre></div>
 </div>
-<p>Even when the redirect value is <strong>true</strong>, AJAX calls will not redirect, but will throw an error.</p>
-</div>
-<div class="section" id="other-helpful-methods">
-<h2><a class="toc-backref" href="#id4">Other Helpful Methods</a><a class="headerlink" href="#other-helpful-methods" title="永久链接至标题">¶</a></h2>
-<p>You will never need to use most of the methods in the Security class directly. The following are methods that
-you might find helpful that are not related to the CSRF protection.</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id7">其它的辅助方法</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>你将永远不需要直接使用安全类中的大多数方法。下面的一些方法，你可能会觉得有用，这些方法和 CSRF 防护无关。</p>
 <p><strong>sanitizeFilename()</strong></p>
-<p>Tries to sanitize filenames in order to prevent directory traversal attempts and other security threats, which is
-particularly useful for files that were supplied via user input. The first parameter is the path to sanitize.</p>
-<p>If it is acceptable for the user input to include relative paths, e.g. file/in/some/approved/folder.txt, you can set
-the second optional parameter, $relative_path to true.</p>
+<p>尝试对文件名进行净化，防止目录遍历尝试以及其他的安全威胁，这在文件名作为用户输入的参数时格外有用。第一个参数是需要净化的路径名。</p>
+<p>如果用户输入包含相对路径是可以接受的，例如： file/in/some/approved/folder.txt ,那么你可以设置第二个可选参数， $relative_path
+为 true 。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$path</span> <span class="o">=</span> <span class="nv">$security</span><span class="o">-&gt;</span><span class="na">sanitizeFilename</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;filepath&#39;</span><span class="p">));</span>
 </pre></div>
 </div>
