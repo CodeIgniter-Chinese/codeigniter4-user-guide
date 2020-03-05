@@ -72,7 +72,7 @@
 - [x] [~~./source/outgoing/response.rst~~](source/outgoing/response.rst)
 - [x] [./source/libraries/security.rst](source/libraries/security.rst)
 - [x] [./source/libraries/sessions.rst](source/libraries/sessions.rst)
-- [ ] [./source/libraries/throttler.rst](source/libraries/throttler.rst)
+- [x] [~~./source/libraries/throttler.rst~~](source/libraries/throttler.rst)
 - [x] [~~./source/libraries/time.rst~~](source/libraries/time.rst)
 - [ ] [./source/libraries/typography.rst](source/libraries/typography.rst)
 - [x] [~~./source/libraries/uploaded_files.rst~~](source/libraries/uploaded_files.rst)

@@ -1,16 +1,14 @@
-Composer Installation
+通过Composer安装
 ###############################################################################
 
 .. contents::
     :local:
     :depth: 1
 
-Composer can be used in several ways to install CodeIgniter4 on your system.
+可以通过多种方式在你的系统中来使用Composer安装CodeIgniter。
 
-The first two techniques describe creating a skeleton project
-using CodeIgniter4, that you would then use as the base for a new webapp.
-The third technique described below lets you add CodeIgniter4 to an existing
-webapp, 
+前两种方法描述了使用CodeIgniter4来创建一个项目的骨架结构，从而让你可以在一个新的webapp中作为基础来使用。
+而第三种技术，如下所述，使得你可以将CodeIgniter4加入进一个现存的webapp中。
 
 **Note**: if you are using a Git repository to store your code, or for
 collaboration with others, then the ``vendor`` folder would normally

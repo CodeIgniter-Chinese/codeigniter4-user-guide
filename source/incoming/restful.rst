@@ -48,47 +48,42 @@ CodeIgniter实现了一种简易的方式来创建RESTful API从而访问你的�
 更改所使用的控制器
 --------------------------
 
-You can specify the controller that should be used by passing in the ``controller`` option with the name of
-the controller that should be used::
+你可以通过指定所使用的控制器，通过为 ``controller`` 选项传值::
 
 	$routes->resource('photos', ['controller' =>'App\Gallery']);
 
-	// Would create routes like:
+	// 将会创建如下路由
 	$routes->get('photos', 'App\Gallery::index');
 
-Change the Placeholder Used
+更改使用的通配符
 ---------------------------
 
-By default, the ``segment`` placeholder is used when a resource ID is needed. You can change this by passing
-in the ``placeholder`` option with the new string to use::
+默认情况下，在需要资源ID时，我们需要使用 ``segment`` 占位符。你可以通过为 ``placeholder`` 选项传值一个新的字符串来实现这一操作::
 
 	$routes->resource('photos', ['placeholder' => '(:id)']);
 
-	// Generates routes like:
+	// 将会创建如下路由:
 	$routes->get('photos/(:id)', 'Photos::show/$1');
 
-Limit the Routes Made
+限制生成的路由
 ---------------------
 
-You can restrict the routes generated with the ``only`` option. This should be an array or comma separated list of method names that should
-be created. Only routes that match one of these methods will be created. The rest will be ignored::
+你可以通过 ``only`` 选项来限制所生成的路由。这个选项的传值可以是一个数组或者是一个由逗号分隔的列表，其中包含着需要创建的类型名。而剩余的将会被忽略::
 
 	$routes->resource('photos', ['only' => ['index', 'show']]);
 
-Otherwise you can remove unused routes with the ``except`` option. This option run after ``only``::
+反过来你也可以通过 ``except`` 选项来移除那些不使用的路由。该选项就在 ``only`` 后运行::
 
 	$routes->resource('photos', ['except' => 'new,edit']);
 
-Valid methods are: index, show, create, update, new, edit and delete.
+合理的请求类型为: index, show, create, update, new, edit and delete.
 
-ResourceController
+资源控制器
 ============================================================
 
-The `ResourceController` provides a convenient starting point for your RESTful API,
-with methods that correspond to the resource routes above.
+`ResourceController` 为开始你的RESTful API的构建提供了一个非常便利的起点，实现了上述列举的资源路由的请求类型。
 
-Extend it, over-riding the `modelName` and `format` properties, and then
-implement those methods that you want handled.::
+继承或重载 `modelName` 和 `format` 属性，并实现你想要处理的请求类型::
 
 	<?php namespace App\Controllers;
 
@@ -108,25 +103,21 @@ implement those methods that you want handled.::
                 // ...
 	}
 
-The routing for this would be::
+上述路由结构如下::
 
     $routes->resource('photos');
 
-Presenter Routes
+表现层路由
 ============================================================
 
-You can quickly create a presentation controller which aligns
-with a resource controller, using the ``presenter()`` method. This
-creates routes for the controller methods that would return views
-for your resource, or process forms submitted from those views.
+你可以使用 ``presenter()`` 方法来创建一个表现层路由，并分配给对应的资源控制器。
+这将会为那些给你的资源返回视图的的控制器方法创建路由，或者处理从这些控制器所创建的视图里发送的表单请求。
 
-It is not needed, since the presentation can be handled with
-a conventional controller - it is a convenience.
-Its usage is similar to the resource routing::
+由于表现层惯例是由一个通用控制器来处理，这个功能不是必需的。它的用法与一个资源路由类似::
 
     $routes->presenter('photos');
 
-    // Equivalent to the following:
+    // 与如下等同:
     $routes->get('photos/new',                'Photos::new');
     $routes->post('photos/create',            'Photos::create');
     $routes->post('photos',                   'Photos::create');   // alias
