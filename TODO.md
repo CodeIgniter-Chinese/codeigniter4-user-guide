@@ -90,7 +90,7 @@
 - [x] [./source/helpers/url_helper.rst](source/helpers/url_helper.rst)
 - [x] [./source/tutorial/conclusion.rst](source/tutorial/conclusion.rst)
 - [x] [./source/tutorial/create_news_items.rst](source/tutorial/create_news_items.rst)
-- [x] [./source/tutorial/index.rst](source/tutorial/index.rst)
+- [x] [~~./source/tutorial/index.rst~~](source/tutorial/index.rst) :white_check_mark:
 - [x] [./source/tutorial/news_section.rst](source/tutorial/news_section.rst)
 - [x] [~~./source/tutorial/static_pages.rst~~](source/tutorial/static_pages.rst)
 - [x] [~~./source/concepts/autoloader.rst~~](source/concepts/autoloader.rst)
