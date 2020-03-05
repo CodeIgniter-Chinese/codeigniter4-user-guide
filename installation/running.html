@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running Your App &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>运行你的应用程序 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -94,7 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installing_git.html">通过Git安装</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Running Your App</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upgrading.html">Upgrading From a Previous Version</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="upgrade_4xx.html">Upgrading from 3.x to 4.x</a></li>
 </ul>
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">安装</a> &raquo;</li>
         
-      <li>Running Your App</li>
+      <li>运行你的应用程序</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,59 +334,45 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="running-your-app">
-<h1>Running Your App<a class="headerlink" href="#running-your-app" title="永久链接至标题">¶</a></h1>
-<div class="contents local topic" id="id1">
+  <div class="section" id="id1">
+<h1>运行你的应用程序<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#initial-configuration-set-up" id="id3">Initial Configuration &amp; Set Up</a></li>
-<li><a class="reference internal" href="#local-development-server" id="id4">Local Development Server</a></li>
-<li><a class="reference internal" href="#hosting-with-apache" id="id5">Hosting with Apache</a></li>
-<li><a class="reference internal" href="#hosting-with-vagrant" id="id6">Hosting with Vagrant</a></li>
+<li><a class="reference internal" href="#id3" id="id6">初始化配置与设置</a></li>
+<li><a class="reference internal" href="#id4" id="id7">本地开发主机</a></li>
+<li><a class="reference internal" href="#hosting-with-apache" id="id8">Hosting with Apache</a></li>
+<li><a class="reference internal" href="#hosting-with-vagrant" id="id9">Hosting with Vagrant</a></li>
 </ul>
 </div>
-<p>A CodeIgniter 4 app can be run in a number of different ways: hosted on a web server,
-using virtualization, or using CodeIgniter’s command line tool for testing.
-This section addresses how to use each technique, and explains some of the pros and cons of them.</p>
-<p>If you’re new to CodeIgniter, please read the <a class="reference internal" href="../intro/index.html"><span class="doc">Getting Started</span></a>
-section of the User Guide to begin learning how to build dynamic PHP applications. Enjoy!</p>
-<div class="section" id="initial-configuration-set-up">
-<h2><a class="toc-backref" href="#id3">Initial Configuration &amp; Set Up</a><a class="headerlink" href="#initial-configuration-set-up" title="永久链接至标题">¶</a></h2>
+<p>一个CodeIgniter 4的程序能够通过以下几种方式来运行：部署在一台web服务器上，使用虚拟化，或者使用CodeIgniter的命令行工具以便测试。
+本节阐述了如何使用以上技术来进行部署，以及介绍了一些高级用法与如何做出贡献。</p>
+<p>如果CodeIgniter对你来说相当陌生，请阅读用户手册中的 <a class="reference internal" href="../intro/index.html"><span class="doc">准备开始</span></a> 这节来学习如何构建一个动态的PHP应用，祝你玩得开心！</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">初始化配置与设置</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
-<li>Open the <strong>app/Config/App.php</strong> file with a text editor and
-set your base URL. If you need more flexibility, the baseURL may
-be set within the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file as <strong>app.baseURL=”http://example.com”</strong>.</li>
-<li>If you intend to use a database, open the
-<strong>app/Config/Database.php</strong> file with a text editor and set your
-database settings. Alternately, these could be set in your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file.</li>
+<li>用一个文本编辑器打开 <strong>app/Config/App.php</strong> 文件并设置你的baseURL（网站基础URL）。如果你希望更灵活点，也可以通过编辑 <code class="docutils literal notranslate"><span class="pre">.env</span></code> 文件，新增或更改其中的 <strong>app.baseURL=”http://example.com”</strong> 来更改baseURL。</li>
+<li>如果你想要使用数据库，用文本编辑器打开 <strong>app/Config/Database.php</strong> 文件并进行数据库设置。同样的，也可以在 <code class="docutils literal notranslate"><span class="pre">.env</span></code> 文件里进行如上设置。If you intend to use a database, open the</li>
 </ol>
-<p>One additional measure to take in production environments is to disable
-PHP error reporting and any other development-only functionality. In
-CodeIgniter, this can be done by setting the <code class="docutils literal notranslate"><span class="pre">ENVIRONMENT</span></code> constant, which
-is more fully described on the <a class="reference internal" href="../general/environments.html"><span class="doc">environments page</span></a>.
-By default, the application will run using the “production” environment. To
-take advantage of the debugging tools provided, you should set the environment
-to “develop”.</p>
+<p>在生产环境里需要做的另一个件事就是关闭PHP的错误报告以及其他所有的只在开发环境里的功能。
+在CodeIgniter中，可以通过设置 <code class="docutils literal notranslate"><span class="pre">ENVIRONMENT</span></code> 常量来进行。关于这一特性，在文档 :doc:环境 &lt;/general/environments&gt;`
+中进行了更为详尽的介绍。
+在默认情况下，应用程序会使用”production”(生产）环境。为了更为充分地使用所提供的debug（问题定位）工具，你需要将环境设置为”develop”(开发环境）</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">If you will be running your site using a web server (e.g. Apache or Nginx),
-you will need to modify the permissions for the <code class="docutils literal notranslate"><span class="pre">writable</span></code> folder inside
-your project, so that it is writable by the user or account used by your
-web server.</p>
+<p class="last">如果你想要在一台web服务器上运行你的网站。你需要修改项目线下的 <code class="docutils literal notranslate"><span class="pre">writable</span></code> 文件夹的权限，从而使得你的web服务器的当前用户可以对它进行写入。</p>
 </div>
 </div>
-<div class="section" id="local-development-server">
-<h2><a class="toc-backref" href="#id4">Local Development Server</a><a class="headerlink" href="#local-development-server" title="永久链接至标题">¶</a></h2>
-<p>CodeIgniter 4 comes with a local development server, leveraging PHP’s built-in web server
-with CodeIgniter routing. You can use the <code class="docutils literal notranslate"><span class="pre">serve</span></code> script to launch it,
-with the following command line in the main directory:</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id7">本地开发主机</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>CodeIgniter4 中内置了一个本地开发用的主机，利用了PHP内置的web服务器并实现了CodeIgniter的路由机制。
+你可以使用主目录下的如下如下命令行中的 <code class="docutils literal notranslate"><span class="pre">serve</span></code> 脚本来启动:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">php</span> <span class="nx">spark</span> <span class="nx">serve</span>
 </pre></div>
 </div>
-<p>This will launch the server and you can now view your application in your browser at <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>.</p>
+<p>这将会启动服务器，与此同时，你可以在浏览器中输入以下 <a class="reference external" href="http://localhost:8080">http://localhost:8080</a> 地址来浏览你的应用。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">The built-in development server should only be used on local development machines. It should NEVER
-be used on a production server.</p>
+<p class="last">内置的开发服务器只应该在本地开发机器上使用。绝对不要将其用于生产服务器中</p>
 </div>
 <p>If you need to run the site on a host other than simply localhost, you’ll first need to add the host
 to your <code class="docutils literal notranslate"><span class="pre">hosts</span></code> file. The exact location of the file varies in each of the main operating systems, though
@@ -413,7 +399,7 @@ set to the path of the PHP executable you want to use:</p>
 </ul>
 </div>
 <div class="section" id="hosting-with-apache">
-<h2><a class="toc-backref" href="#id5">Hosting with Apache</a><a class="headerlink" href="#hosting-with-apache" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Hosting with Apache</a><a class="headerlink" href="#hosting-with-apache" title="永久链接至标题">¶</a></h2>
 <p>A CodeIgniter4 webapp is normally hosted on a web server.
 Apache’s <code class="docutils literal notranslate"><span class="pre">httpd</span></code> is the “standard” platform, and assumed in much of our documentation.</p>
 <p>Apache is bundled with many platforms, but can also be downloaded in a bundle
@@ -473,7 +459,7 @@ erver access to the files.</p>
 </div>
 </div>
 <div class="section" id="hosting-with-vagrant">
-<h2><a class="toc-backref" href="#id6">Hosting with Vagrant</a><a class="headerlink" href="#hosting-with-vagrant" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Hosting with Vagrant</a><a class="headerlink" href="#hosting-with-vagrant" title="永久链接至标题">¶</a></h2>
 <p>Virtualization is an effective way to test your webapp in the environment you
 plan to deploy on, even if you develop on a different one.
 Even if you are using the same platform for both, virtualization provides an
@@ -490,8 +476,8 @@ for your platform.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id2">
-<h3>Testing<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id5">
+<h3>Testing<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>Once set up, you can then launch your webapp inside a VM, with the command:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">vagrant</span> <span class="nx">up</span>
 </pre></div>
