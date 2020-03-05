@@ -5,7 +5,7 @@
 > - [x] ~~表示已完成~~
 > - [x] ~~表示已翻译并已更新为最新~~ :white_check_mark:
 
-## 未认领
+## 待翻译
 
 1. - [ ] [./source/cli/cli_commands.rst](source/cli/cli_commands.rst)
 1. - [ ] [./source/testing/debugging.rst](source/testing/debugging.rst)
