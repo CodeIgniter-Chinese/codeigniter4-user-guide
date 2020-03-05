@@ -47,7 +47,7 @@
 - [x] [./source/database/results.rst](source/database/results.rst)
 - [x] [~~./source/dbmgmt/seeds.rst~~](source/dbmgmt/seeds.rst)
 - [x] [./source/database/transactions.rst](source/database/transactions.rst)
-- [x] [./source/installation/index.rst](source/installation/index.rst)
+- [x] [~~./source/installation/index.rst~~](source/installation/index.rst)
 - [x] [./source/installation/troubleshooting.rst](source/installation/troubleshooting.rst)
 - [x] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
 - [ ] [./source/installation/upgrading.rst](source/installation/upgrading.rst)

@@ -1,56 +1,50 @@
-#########
-Throttler
-#########
+############
+限流类
+############
 
 .. contents::
     :local:
     :depth: 2
 
-The Throttler class provides a very simple way to limit an activity to be performed to a certain number of attempts
-within a set period of time. This is most often used for performing rate limiting on API's, or restricting the number
-of attempts a user can make against a form to help prevent brute force attacks. The class itself can be used
-for anything that you need to throttle based on actions within a set time interval.
+限流类（Throttler)提供了一种非常简单的方法，可以将用户要执行的活动限制为在设定的时间段内只能进行一定次数的尝试。
+这最常用于对 API 进行速率限制，或限制用户针对表单进行的尝试次数，以帮助防止暴力攻击。
+该类可用于你根据设置的时间来进行限制的操作。
 
 ********
-Overview
+总览
 ********
 
-The Throttler implements a simplified version of the `Token Bucket <https://en.wikipedia.org/wiki/Token_bucket>`_
-algorithm. This basically treats each action that you want as a bucket. When you call the ``check()`` method,
-you tell it how large the bucket is, and how many tokens it can hold and the time interval. Each ``check()`` call uses
-1 of the available tokens, by default. Let's walk through an example to make this clear.
+Throttler 实现了 `Token Bucket （令牌桶） <https://en.wikipedia.org/wiki/Token_bucket>`_
+算法的一个简化版本。一般，会将你要执行的每个操作都视为一个存储桶。调用该 ``check()`` 方法时，你要告诉它存储桶的大小，
+可以容纳多少令牌以及时间间隔。在默认情况下，每个 ``check()`` 的调用请求将会使用1个可用令牌。让我们通过一个例子来阐明这一点。
+（译注：国内用户可参考 `令牌桶 <https://baike.baidu.com/item/%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95>`_ ）
 
-Let's say we want an action to happen once every second. The first call to the Throttler would look like the following.
-The first parameter is the bucket name, the second parameter the number of tokens the bucket holds, and
-the third being the amount of time it takes the bucket to refill::
+假设我们希望某动作每秒发生一次。对 Throttler 的第一次呼叫将如下所示。第一个参数是存储桶名称，第二个参数是存储桶持有的令牌数量，
+第三个参数是存储桶重新填充所需的时间： ::
 
     $throttler = \Config\Services::throttler();
     $throttler->check($name, 60, MINUTE);
 
-Here we're using one of the :doc:`global constants </general/common_functions>` for the time, to make it a little
-more readable. This says that the bucket allows 60 actions every minute, or 1 action every second.
+我们暂时使用 `全局常量 </general/common_functions>` 的其中一个，以使其更具可读性。也就是说，这个存储桶每分钟允许执行60次操作，
+或者每秒允许执行1次操作。
 
-Let's say that a third-party script was trying to hit a URL repeatedly. At first, it would be able to use all 60
-of those tokens in less than a second. However, after that the Throttler would only allow one action per second,
-potentially slowing down the requests enough that they attack is no longer worth it.
+假设某个第三方脚本试图重复访问 URL 。最初，它能够在不到一秒钟的时间内使用完所有60个令牌。但是，在那之后，
+Throttler 将仅允许每秒执行一次操作，从而有可能减慢请求的速度，以至于让攻击不再有价值。
 
-.. note:: For the Throttler class to work, the Cache library must be set up to use a handler other than dummy.
-            For best performance, an in-memory cache, like Redis or Memcached, is recommended.
+.. note:: 为了使 Throttler 类可以正常工作，必须将 Cache 库设置为实际可用的缓存对象处理程序。为了获得最佳性能，
+    建议使用像 Redis 或 Memcached 那样的内存缓存。
 
 *************
-Rate Limiting
+速率限制
 *************
 
-The Throttler class does not do any rate limiting or request throttling on its own, but is the key to making
-one work. An example :doc:`Filter </incoming/filters>` is provided that implements a very simple rate limiting at
-one request per second per IP address. Here we will run through how it works, and how you could set it up and
-start using it in your application.
+Throttler 类不会自发地做任何的请求速率限制或对请求进行限流，但却是上述功能得以实现的关键。这里提供了一个示例 :doc:`过滤器 </incoming/filters>` ，
+该过滤器以每个IP地址每秒一个请求的速率限制实现了非常简单的速率限制。我们将介绍它的工作原理，以及如何设置它并开始在应用程序中使用它。
 
-The Code
+实现代码
 ========
 
-You could make your own Throttler filter, at **app/Filters/Throttle.php**, 
-along the lines of:: 
+你可以在 **app/Filters/Throttle.php** 上创建自己的Throttler过滤器，大致如下： ::
 
     <?php namespace App\Filters;
 
@@ -62,30 +56,27 @@ along the lines of::
     class Throttle implements FilterInterface
     {
             /**
-             * This is a demo implementation of using the Throttler class
-             * to implement rate limiting for your application.
+             * 这是一个为应用程序使用 Trottler 类来实现速率限制的实例
              *
              * @param RequestInterface|\CodeIgniter\HTTP\IncomingRequest $request
              *
              * @return mixed
              */
-	public function before(RequestInterface $request)
-	{
-		$throttler = Services::throttler();
+            public function before(RequestInterface $request)
+            {
+                $throttler = Services::throttler();
 
-		// Restrict an IP address to no more
-		// than 1 request per second across the
-		// entire site.
-		if ($throttler->check($request->getIPAddress(), 60, MINUTE) === false)
-		{
-		    return Services::response()->setStatusCode(429);
-		}
-	}
+        		// 在整个站点上将IP地址限制为每秒不超过1个请求
+        		if ($throttler->check($request->getIPAddress(), 60, MINUTE) === false)
+                {
+                    return Services::response()->setStatusCode(429);
+        		}
+            }
 
             //--------------------------------------------------------------------
 
             /**
-             * We don't have anything to do here.
+             * 暂时无事可做
              *
              * @param RequestInterface|\CodeIgniter\HTTP\IncomingRequest $request
              * @param ResponseInterface|\CodeIgniter\HTTP\Response       $response
@@ -97,55 +88,48 @@ along the lines of::
             }
     }
 
-When run, this method first grabs an instance of the throttler. Next, it uses the IP address as the bucket name,
-and sets things to limit them to one request per second. If the throttler rejects the check, returning false,
-then we return a Response with the status code set to 429 - Too Many Attempts, and the script execution ends
-before it ever hits the controller. This example will throttle based on a single IP address across all requests
-made to the site, not per page.
+运行时，此方法首先获取节流阀的实例。接下来，它将IP地址用作存储桶名称，并进行设置以将其限制为每秒一个请求。
+如果节流阀拒绝检查，返回false，则我们返回一个状态码为429（太多尝试的 HTTP Response）的响应，
+并且脚本执行在调用控制器之前就结束了。本示例将基于对站点的所有请求（而不是每页）中的单个IP地址进行限制。
 
-Applying the Filter
+应用过滤器
 ===================
 
-We don't necessarily need to throttle every page on the site. For many web applications, this makes the most sense
-to apply only to POST requests, though API's might want to limit every request made by a user. In order to apply
-this to incoming requests, you need to edit **/app/Config/Filters.php** and first add an alias to the
-filter::
+我们不一定需要限制网站上的每个页面。对于许多Web应用程序，最有意义的是仅将其应用于POST请求，尽管API可能希望限制用户发出的每个请求。
+为了将此应用到传入请求，你需要编辑 **/app/Config/Filters.php** 并首先向过滤器添加别名： ::
 
 	public $aliases = [
 		...
 		'throttle' => \App\Filters\Throttle::class
 	];
 
-Next, we assign it to all POST requests made on the site::
+接下来，我们将其分配给网站上的所有POST请求： ::
 
     public $methods = [
         'post' => ['throttle', 'CSRF']
     ];
 
-And that's all there is to it. Now all POST requests made on the site will have to be rate limited.
+这就是全部。现在，会对网站上发出的所有POST请求进行速率限制。
 
 ***************
-Class Reference
+类参考
 ***************
 
 .. php:method:: check(string $key, int $capacity, int $seconds[, int $cost = 1])
 
-    :param string $key: The name of the bucket
-    :param int $capacity: The number of tokens the bucket holds
-    :param int $seconds: The number of seconds it takes for a bucket to completely fill
-    :param int $cost: The number of tokens that are spent on this action
-    :returns: TRUE if action can be performed, FALSE if not
+    :param string $key: 储存桶的名称
+    :param int $capacity: 储存桶中持有的令牌数量
+    :param int $seconds: 储存桶完全填满的秒数
+    :param int $cost: 此操作将会花费的令牌数量
+    :returns: 如果可以执行此操作则为 TRUE，否则为 FALSE
     :rtype: bool
 
-    Checks to see if there are any tokens left within the bucket, or if too many have
-    been used within the allotted time limit. During each check the available tokens
-    are reduced by $cost if successful.
+    检查存储桶中是否还有令牌，或者是否在分配的时间限制内使用了太多令牌。在每次检查期间，如果成功，将根据 $cost 参数来减少可用令牌的数量 。
 
 .. php:method:: getTokentime()
 
-    :returns: The number of seconds until another token should be available.
-    :rtype: integer
+    :returns: 直到下一次令牌可用的秒数
+    :rtype: int
 
-    After ``check()`` has been run and returned FALSE, this method can be used
-    to determine the time until a new token should be available and the action can be
-    tried again. In this case, the minimum enforced wait time is one second.
+    在 ``check()`` 运行并返回 FALSE 之后，可以使用此方法确定直到新令牌可用并可以再次尝试操作之前的时间。
+    在这种情况下，最小强制等待时间为一秒。
