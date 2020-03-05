@@ -39,8 +39,6 @@
 1. - [x] [./source/incoming/filters.rst](source/incoming/filters.rst)
 1. - [x] [./source/general/helpers.rst](source/general/helpers.rst)
 1. - [x] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
-1. - [x] [./source/intro/credits.rst](source/intro/credits.rst)
-1. - [x] [./source/intro/requirements.rst](source/intro/requirements.rst)
 1. - [x] [./source/installation/running.rst](source/installation/running.rst)
 
 ## 已完成
@@ -121,3 +119,5 @@
 1. - [x] [~~./source/installation/repositories.rst~~](source/installation/repositories.rst)
 1. - [x] [~~./source/libraries/encryption.rst~~](source/libraries/encryption.rst)
 1. - [x] [~~./source/outgoing/view_layouts.rst~~](source/outgoing/view_layouts.rst)
+1. - [x] [~~./source/intro/credits.rst](source/intro/credits.rst~~)
+1. - [x] [~~./source/intro/requirements.rst](source/intro/requirements.rst~~)
