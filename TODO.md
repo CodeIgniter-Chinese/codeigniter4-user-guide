@@ -5,6 +5,46 @@
 > - [x] ~~表示已完成~~
 > - [x] ~~表示已翻译并已更新为最新~~ :white_check_mark:
 
+## 未认领
+
+1. - [ ] [./source/cli/cli_commands.rst](source/cli/cli_commands.rst)
+1. - [ ] [./source/testing/debugging.rst](source/testing/debugging.rst)
+1. - [ ] [./source/incoming/content_negotiation.rst](source/incoming/content_negotiation.rst)
+1. - [ ] [./source/incoming/message.rst](source/incoming/message.rst)
+1. - [ ] [./source/outgoing/view_cells.rst](source/outgoing/view_cells.rst)
+1. - [ ] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
+1. - [ ] [./source/outgoing/view_renderer.rst](source/outgoing/view_renderer.rst)
+1. - [ ] [./source/outgoing/views.rst](source/outgoing/views.rst)
+1. - [ ] [./source/outgoing/localization.rst](source/outgoing/localization.rst)
+1. - [ ] [./source/outgoing/table.rst](source/outgoing/table.rst)
+1. - [ ] [./source/database/call_function.rst](source/database/call_function.rst)
+1. - [ ] [./source/database/events.rst](source/database/events.rst)
+1. - [ ] [./source/database/helpers.rst](source/database/helpers.rst)
+1. - [ ] [./source/database/queries.rst](source/database/queries.rst)
+1. - [ ] [./source/database/results.rst](source/database/results.rst)
+1. - [ ] [./source/models/entities.rst](source/models/entities.rst)
+1. - [ ] [./source/models/model.rst](source/models/model.rst)
+1. - [ ] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
+1. - [ ] [./source/installation/upgrading.rst](source/installation/upgrading.rst)
+1. - [ ] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
+1. - [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
+1. - [ ] [./source/libraries/sessions.rst](source/libraries/sessions.rst)
+1. - [ ] [./source/libraries/validation.rst](source/libraries/validation.rst)
+1. - [ ] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
+1. - [ ] [./source/concepts/services.rst](source/concepts/services.rst)
+
+## 翻译中
+
+1. - [x] [./source/extending/events.rst](source/extending/events.rst)
+1. - [x] [./source/incoming/filters.rst](source/incoming/filters.rst)
+1. - [x] [./source/general/helpers.rst](source/general/helpers.rst)
+1. - [x] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
+1. - [x] [./source/intro/credits.rst](source/intro/credits.rst)
+1. - [x] [./source/intro/requirements.rst](source/intro/requirements.rst)
+1. - [x] [./source/installation/running.rst](source/installation/running.rst)
+
+## 已完成
+
 1. - [x] [~~./source/outgoing/alternative_php.rst~~](source/outgoing/alternative_php.rst)
 1. - [x] [~~./source/general/caching.rst~~](source/general/caching.rst)
 1. - [x] [~~./source/cli/cli.rst~~](source/cli/cli.rst)
@@ -14,10 +54,8 @@
 1. - [x] [~~./source/extending/core_classes.rst~~](source/extending/core_classes.rst)
 1. - [x] [~~./source/general/environments.rst~~](source/general/environments.rst)
 1. - [x] [~~./source/general/errors.rst~~](source/general/errors.rst)
-1. - [x] [./source/general/helpers.rst](source/general/helpers.rst)
 1. - [x] [~~./source/general/index.rst~~](source/general/index.rst)
 1. - [x] [~~./source/general/logging.rst~~](source/general/logging.rst)
-1. - [x] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
 1. - [x] [~~./source/general/modules.rst~~](source/general/modules.rst)
 1. - [x] [~~./source/incoming/routing.rst~~](source/incoming/routing.rst)
 1. - [x] [~~./source/general/urls.rst~~](source/general/urls.rst)
@@ -33,10 +71,8 @@
 1. - [x] [~~./source/database/transactions.rst~~](source/database/transactions.rst)
 1. - [x] [~~./source/installation/index.rst~~](source/installation/index.rst) :white_check_mark:
 1. - [x] [~~./source/installation/troubleshooting.rst~~](source/installation/troubleshooting.rst)
-1. - [x] [./source/intro/credits.rst](source/intro/credits.rst)
 1. - [x] [~~./source/intro/index.rst~~](source/intro/index.rst)
 1. - [x] [~~./source/intro/psr.rst~~](source/intro/psr.rst)
-1. - [x] [./source/intro/requirements.rst](source/intro/requirements.rst)
 1. - [x] [~~./source/outgoing/api_responses.rst~~](source/outgoing/api_responses.rst)
 1. - [x] [~~./source/testing/benchmark.rst~~](source/testing/benchmark.rst)
 1. - [x] [~~./source/libraries/caching.rst~~](source/libraries/caching.rst)
@@ -72,38 +108,6 @@
 1. - [x] [~~./source/concepts/mvc.rst~~](source/concepts/mvc.rst)
 1. - [x] [~~./source/concepts/security.rst~~](source/concepts/security.rst)
 1. - [x] [~~./source/concepts/structure.rst~~](source/concepts/structure.rst)
-
-未认领：
-
-1. - [ ] [./source/cli/cli_commands.rst](source/cli/cli_commands.rst)
-1. - [ ] [./source/testing/debugging.rst](source/testing/debugging.rst)
-1. - [ ] [./source/extending/events.rst](source/extending/events.rst)
-1. - [ ] [./source/incoming/filters.rst](source/incoming/filters.rst)
-1. - [ ] [./source/incoming/content_negotiation.rst](source/incoming/content_negotiation.rst)
-1. - [ ] [./source/incoming/message.rst](source/incoming/message.rst)
-1. - [ ] [./source/outgoing/view_cells.rst](source/outgoing/view_cells.rst)
-1. - [ ] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
-1. - [ ] [./source/outgoing/view_renderer.rst](source/outgoing/view_renderer.rst)
-1. - [ ] [./source/outgoing/views.rst](source/outgoing/views.rst)
-1. - [ ] [./source/outgoing/localization.rst](source/outgoing/localization.rst)
-1. - [ ] [./source/database/call_function.rst](source/database/call_function.rst)
-1. - [ ] [./source/database/events.rst](source/database/events.rst)
-1. - [ ] [./source/database/helpers.rst](source/database/helpers.rst)
-1. - [ ] [./source/database/queries.rst](source/database/queries.rst)
-1. - [ ] [./source/database/results.rst](source/database/results.rst)
-1. - [ ] [./source/models/entities.rst](source/models/entities.rst)
-1. - [ ] [./source/models/model.rst](source/models/model.rst)
-1. - [ ] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
-1. - [ ] [./source/installation/upgrading.rst](source/installation/upgrading.rst)
-1. - [ ] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
-1. - [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
-1. - [ ] [./source/libraries/sessions.rst](source/libraries/sessions.rst)
-1. - [ ] [./source/libraries/validation.rst](source/libraries/validation.rst)
-1. - [ ] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
-1. - [ ] [./source/concepts/services.rst](source/concepts/services.rst)
-
-新文件：
-
 1. - [x] [~~./source/database/utilities.rst~~](source/database/utilities.rst)
 1. - [x] [~~./source/extending/authentication.rst~~](source/extending/authentication.rst)
 1. - [x] [~~./source/extending/common.rst~~](source/extending/common.rst)
@@ -115,7 +119,5 @@
 1. - [x] [~~./source/installation/installing_git.rst~~](source/installation/installing_git.rst)
 1. - [x] [~~./source/installation/installing_manual.rst~~](source/installation/installing_manual.rst)
 1. - [x] [~~./source/installation/repositories.rst~~](source/installation/repositories.rst)
-1. - [x] [./source/installation/running.rst](source/installation/running.rst)
 1. - [x] [~~./source/libraries/encryption.rst~~](source/libraries/encryption.rst)
-1. - [ ] [./source/outgoing/table.rst](source/outgoing/table.rst)
 1. - [x] [~~./source/outgoing/view_layouts.rst~~](source/outgoing/view_layouts.rst)
