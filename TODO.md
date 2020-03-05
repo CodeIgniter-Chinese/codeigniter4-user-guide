@@ -36,7 +36,7 @@
 - [ ] [./source/models/entities.rst](source/models/entities.rst)
 - [ ] [./source/database/events.rst](source/database/events.rst)
 - [x] [~~./source/database/examples.rst~~](source/database/examples.rst)
-- [ ] [./source/dbmgmt/forge.rst](source/dbmgmt/forge.rst)
+- [ ] [~~./source/dbmgmt/forge.rst~~](source/dbmgmt/forge.rst)
 - [ ] [./source/database/helpers.rst](source/database/helpers.rst)
 - [x] [~~./source/database/index.rst~~](source/database/index.rst)
 - [ ] [./source/database/metadata.rst](source/database/metadata.rst)
