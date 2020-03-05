@@ -1,32 +1,27 @@
 ###################
-Server Requirements
+服务器安装要求
 ###################
 
-`PHP <https://www.php.net/>`_ version 7.2 or newer is required, with the 
-`*intl* extension <https://www.php.net/manual/en/intl.requirements.php>`_
-installed.
+需要7.2或更新版本的 `PHP <https://www.php.net/>`_ 同时需要安装 `*intl* 扩展 <https://www.php.net/manual/en/intl.requirements.php>`_ 。
 
-The following PHP extensions should be enabled on your server:
+在服务器同时需要启用以下PHP扩展:
 ``php-json``, ``php-mbstring``, ``php-mysqlnd``, ``php-xml``
 
-In order to use the :doc:`CURLRequest </libraries/curlrequest>`, you will need
-`libcurl <https://www.php.net/manual/en/curl.requirements.php>`_ installed.
+为了能够使用 :doc:`CURLRequest </libraries/curlrequest>` ，你需要安装 `libcurl <https://www.php.net/manual/en/curl.requirements.php>`_ 。
 
-A database is required for most web application programming.
-Currently supported databases are:
+对于大多数web应用程序来说，一个数据库是不可或缺的。以下是我们支持的数据库:
 
-  - MySQL (5.1+) via the *MySQLi* driver
-  - PostgreSQL via the *Postgre* driver
-  - SQLite3 via the *SQLite3* driver
+  - MySQL (5.1+) 通过 *MySQLi* 驱动使用
+  - PostgreSQL 通过 *Postgre* 驱动使用
+  - SQLite3 通过 *SQLite3* 驱动使用
 
-Not all of the drivers have been converted/rewritten for CodeIgniter4.
-The list below shows the outstanding ones.
+CodeIgniter4 并没有转换或重写所有的驱动，下列显示了几个很棒的数据库与它们对应的驱动
 
-  - MySQL (5.1+) via the *pdo* driver
-  - Oracle via the *oci8* and *pdo* drivers
-  - PostgreSQL via the *pdo* driver
-  - MS SQL via the *mssql*, *sqlsrv* (version 2005 and above only) and *pdo* drivers
-  - SQLite via the *sqlite* (version 2) and *pdo* drivers
-  - CUBRID via the *cubrid* and *pdo* drivers
-  - Interbase/Firebird via the *ibase* and *pdo* drivers
-  - ODBC via the *odbc* and *pdo* drivers (you should know that ODBC is actually an abstraction layer)
+  - MySQL (5.1+) 通过 *pdo* 驱动
+  - Oracle 通过 *oci8* 和 *pdo* 驱动使用
+  - PostgreSQL 通过 *pdo* driver
+  - MS SQL 通过 *mssql*, *sqlsrv* (2005版本及以上使用)和 *pdo* 驱动使用
+  - SQLite 通过 *sqlite* (version 2) 和 *pdo* 驱动使用
+  - CUBRID 通过 *cubrid* 和 *pdo* 驱动使用
+  - Interbase/Firebird 通过 *ibase* and *pdo* 驱动使用
+  - ODBC 通过 *odbc* 和 *pdo* 驱动使用（你应该知道ODBC实际上只是一个抽象层）
