@@ -119,5 +119,5 @@
 1. - [x] [~~./source/installation/repositories.rst~~](source/installation/repositories.rst)
 1. - [x] [~~./source/libraries/encryption.rst~~](source/libraries/encryption.rst)
 1. - [x] [~~./source/outgoing/view_layouts.rst~~](source/outgoing/view_layouts.rst)
-1. - [x] [~~./source/intro/credits.rst](source/intro/credits.rst~~)
-1. - [x] [~~./source/intro/requirements.rst](source/intro/requirements.rst~~)
+1. - [x] [~~./source/intro/credits.rst~~](source/intro/credits.rst)
+1. - [x] [~~./source/intro/requirements.rst~~](source/intro/requirements.rst)
