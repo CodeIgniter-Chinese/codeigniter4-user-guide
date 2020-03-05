@@ -10,7 +10,6 @@
 1. - [ ] [./source/cli/cli_commands.rst](source/cli/cli_commands.rst)
 1. - [ ] [./source/testing/debugging.rst](source/testing/debugging.rst)
 1. - [ ] [./source/incoming/content_negotiation.rst](source/incoming/content_negotiation.rst)
-1. - [ ] [./source/incoming/message.rst](source/incoming/message.rst)
 1. - [ ] [./source/outgoing/view_cells.rst](source/outgoing/view_cells.rst)
 1. - [ ] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
 1. - [ ] [./source/outgoing/view_renderer.rst](source/outgoing/view_renderer.rst)
@@ -24,14 +23,11 @@
 1. - [ ] [./source/database/results.rst](source/database/results.rst)
 1. - [ ] [./source/models/entities.rst](source/models/entities.rst)
 1. - [ ] [./source/models/model.rst](source/models/model.rst)
-1. - [ ] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
-1. - [ ] [./source/installation/upgrading.rst](source/installation/upgrading.rst)
 1. - [ ] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
 1. - [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
 1. - [ ] [./source/libraries/sessions.rst](source/libraries/sessions.rst)
 1. - [ ] [./source/libraries/validation.rst](source/libraries/validation.rst)
 1. - [ ] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
-1. - [ ] [./source/concepts/services.rst](source/concepts/services.rst)
 
 ## 翻译中
 
@@ -40,6 +36,10 @@
 1. - [x] [./source/general/helpers.rst](source/general/helpers.rst)
 1. - [x] [./source/general/managing_apps.rst](source/general/managing_apps.rst)
 1. - [x] [./source/installation/running.rst](source/installation/running.rst)
+1. - [x] [./source/incoming/message.rst](source/incoming/message.rst)
+1. - [x] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
+1. - [x] [./source/installation/upgrading.rst](source/installation/upgrading.rst)
+1. - [x] [./source/concepts/services.rst](source/concepts/services.rst)
 
 ## 已完成
 
