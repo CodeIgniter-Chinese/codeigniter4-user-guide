@@ -1,11 +1,10 @@
 #################################
-Upgrading From a Previous Version
+从原先的版本升级
 #################################
 
-Please read the upgrade notes corresponding to the version you are
-upgrading from.
+请阅读你需要升级的版本所对应的升级指南
 
 .. toctree::
 	:titlesonly:
 
-	Upgrading from 3.x to 4.x <upgrade_4xx>
+	从CodeIgniter 3系列版本升级到4系列版本 <upgrade_4xx>

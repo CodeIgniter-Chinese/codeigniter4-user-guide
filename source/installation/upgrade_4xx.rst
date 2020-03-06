@@ -1,119 +1,81 @@
-#############################
-Upgrading from 3.x to 4.x
-#############################
+######################################
+从CodeIgniter 3系列版本升级到4系列版本
+######################################
 
-CodeIgniter 4 is a rewrite of the framework and is not backwards compatible.
-It is more appropriate to think of converting your app, rather than upgrading it.
-Once you have done that, upgrading from one version of CodeIgniter 4 to the next
-will be straightforward.
+CodeIgniter 4是对该框架的重写，并且不向前兼容（对以前的版本不兼容）。
+比起升级你的应用，更为合适的是转换和重写它。当你做完了这一步（即已经升级到CodeIgniter4）之后，在CodeIgniter4的不同版本间进行升级就会轻而易举。
 
 The "lean, mean and simple" philosophy has been retained, but the
 implementation has a lot of differences, compared to CodeIgniter 3.
 
-There is no 12-step checklist for upgrading. Instead, start with a copy
-of CodeIgniter 4 in a new project folder,
-:doc:`however you wish to install and use it </installation/index>`,
-and then convert and integrate your app components.
-We'll try to point out the most important considerations here.
+升级过程中并没有12步检查列表之类的东西。取而代之的是，在一个新的项目文件夹里开始CodeIgniter 4的重新部署 :doc:`开始与使用本框架 </installation/index>` ，
+并开始转换和整合你的应用部件。下面我们会试着指出最需要注意的点。
 
-Not all of the CI3 libraries have been ported or rewritten for CI4!
-See the threads in the `CodeIgniter 4 Roadmap <https://forum.codeigniter.com/forum-33.html>`_
-subforum for an up-to-date list!
+CI4中我们并没有完全迁移和重写全部的CI3库！参考 `CodeIgniter 4 路线图 <https://forum.codeigniter.com/forum-33.html>`_ 中的最新列表！
 
-**Do read the user guide** before embarking on a project conversion!
+在项目转换之前 **请务必阅读用户指南** !
 
-**Downloads**
+**下载**
 
-- CI4 is still available as a ready-to-run zip or tarball, which
-  includes the user guide (though in the `docs` subfolder
-- It can also be installed using Composer
+- CI4同样可以通过解压-运行的zip或tarball压缩文件的格式进行使用，其中包含有用户指南（在 `docs` 子目录中）
+- 它也可以通过Composer进行安装
 
-**Namespaces**
+**命名空间**
 
-- CI4 is built for PHP7.2+, and everything in the framework is namespaced, except for the helpers.
+- CI4构建基于PHP7.2+的版本，框架中除了辅助函数的所有部分都进行了命名空间标注。
 
-**Application Structure**
+**应用结构**
 
-- The ``application`` folder is renamed as ``app`` and
-  the framework still has ``system`` folders, with the same
-  interpretation as before
-- The framework now provides for a ``public`` folder, intended as the document
-  root for your app
+- ``application`` 目录被重命名为 ``app`` ，而框架中仍旧存在着 ``system`` 文件夹，有着与以往版本一样的功能。
+- 本框架现在提供了一个 ``public`` 目录，希望你可以将其用于项目的根目录
 - There is also a ``writable`` folder, to hold cache data, logs, and session data
-- The ``app`` folder looks very similar to ``application`` for CI3, with some
-  name changes, and some subfolders
-  moved to the ``writable`` folder
-- There is no longer a nested ``application/core`` folder, as we have
-  a different mechanism for extending framework components (see below)
+- ``app`` 目录与CI3中的 ``application`` 目录类似，不过有着一些命名的变更，以及将一些子目录移动到 ``writable`` 目录下。
+- 如今已经没有一个嵌套的 ``application/core`` 目录了，由于我们已经提供了一套不同的机制来扩展框架核心（如下所示）。
 
-**Class loading**
+**加载类文件**
 
-- There is no longer a CodeIgniter "superobject", with framework component
-  references magically injected as properties of your controller
-- Classes are instantiated where needed, and components are managed
-  by ``Services``
-- The class loader automatically handles PSR4 style class locating,
-  within the ``App`` (application) and ``CodeIgniter`` (i.e. system) top level
-  namespaces; with composer autoloading support, and even using educated
-  guessing to find your models and libraries if they are in the right
-  folder even though not namespaced
-- You can configure the class loading to support whatever application structure
-  you are most comfortable with, including the "HMVC" style
+- 由于对框架组件的引用如今已作为属性动态注入到你的控制器中，现在已经不存在一个CodeIgniter的"超级对象"了。
+- 类如今已经按需加载了，并且组件也是通过 ``Services`` 进行维护（服务）
+- 类加载器自动处理PSR4风格的类文件定位，对于那些以 ``App``（application目录）和 ``CodeIgniter`` system目录） 为顶级命名空间的类。而通过对composer自动加载的支持与智能假设机制，框架甚至可以定位你的那些并未命名空间声明的模型和库文件。
+- 你可以配置类的自动加载来支持任何你喜欢的应用结构，包括"HMVC"风格的（译者注：按等级划分的MVC模式，简单的解释就是把MVC又细分成了多个子MVC，每个模块就分成一个MVC）
 
-**Controllers**
+**控制器**
 
-- Controllers extend \\CodeIgniter\\Controller instead of CI_Controller
-- They don't use a constructor any more (to invoke CI "magic") unless
-  that is part of a base controller you make
-- CI provides ``Request`` and ``Response`` objects for you to work with -
-  more powerful than the CI3-way
-- If you want a base controller (MY_Controller in CI3), make it
-  where you like, e.g. BaseController extends Controller, and then
-  have your controllers extend it
+- 控制器继承了 ``\\CodeIgniter\\Controller`` 类，而非 ``CI_Controller`` 类
+- 控制器不再需要一个构造函数了（用于调用CI魔术方法），除非这是你自己定义的基类控制器的一部分
+- CI 提供了 ``Request`` （请求）and ``Response`` （响应）对象供你使用，比起CI3的风格来说更为强大
+- 如果你需要一个基类控制器（比如CI3中的MY_Controller），那么请在你需要的地方使用就行。比如 ``BaseController extends Controller`` ，并使用你自己的类来继承 ``BaseController``
 
-**Models**
+**模型**
 
-- Models extend \\CodeIgniter\\Model instead of CI_Model
-- The CI4 model has much more functionality, including automatic
-  database connection, basic CRUD, in-model validation, and
-  automatic pagination
-- CI4 also has the ``Entity`` class you can build on, for
-  richer data mapping to your database tables
-- Instead of CI3's ``$this->load->model(x);``, you would now use
-  ``$this->x = new X();``, following namespaced conventions for your component
+- 模型继承了 ``\\CodeIgniter\\Model`` 而非 ``CI_Model``
+- CI4的模型拥有更多的功能，包括动态数据库连接，基础的CRUD（增删改查），模型内验证和自动分页功能。
+- CI4 同样拥有可供你构建的 ``Entity`` （实体）类，用于实现更为丰富的数据表映射功能
+- 取消使用CI3的 ``$this->load->model(x);`` ，而是使用模型的命名空间模式来调用 ``$this->x = new X();``。
 
-**Views**
+**视图**
 
-- Your views look much like before, but they are invoked differently ...
-  instead of CI3's ``$this->load->view(x);`` you can use ``echo view(x);``
-- CI4 supports view "cells", to build your response in pieces
-- The template parser is still there, but substantially
-  enhanced
+- 你的视图看起来与从前类似，但是却是以完全不同的方式调用……取消使用 ``$this->load->view(x);`` ，而是通过 ``echo view(x);``。
+- CI4支持视图单元，以构建分片响应
+- 模板处理器一如过往，但是在功能上有了显著的提升
 
-**Libraries**
+**库**
 
-- Your app classes can still go inside ``app/Libraries``, but they
-  don't have to
-- Instead of CI3's ``$this->load->library(x);`` you can now use
-  ``$this->x = new X();``, following namespaced conventions for your
-  component
+- 你的应用类仍旧可以深入访问 ``app/Libraries``，但这不是必须的。
+- 取消使用CI3的 ``$this->load->library(x);`` 调用方式，如今你可以使用组件的命名空间模式来调用 ``$this->x = new X();``
 
-**Helpers**
+**辅助函数**
 
-- Helpers are pretty much the same as before, though some have been simplified
+- 辅助函数与以往大致相似，不过有一部分被简化了
 
-**Events**
+**事件**
 
-- Hooks have been replaced by Events
-- Instead of CI3's ``$hook['post_controller_constructor']`` you now use ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);``, with the namespace ``CodeIgniter\Events\Events;``
-- Events are always enabled, and are available globally
+- Hooks（钩子）如今已经被Events（事件）所取代
+- 取消使用CI3的 ``$hook['post_controller_constructor']`` 调用方式，如今你可以使用命名空间 ``CodeIgniter\Events\Events;`` 下的 ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);`` 。
+- 事件保持启用状态并全局可用。
 
-**Extending the framework**
+**扩展框架**
 
-- You don't need a ``core`` folder to hold ``MY_...`` framework
-  component extensions or replacements
-- You don't need ``MY_x`` classes inside your libraries folder
-  to extend or replace CI4 pieces
-- Make any such classes where you like, and add appropriate
-  service methods in ``app/Config/Services.php`` to load
-  your components instead of the default ones
+- 你不需要一个 ``core`` 目录来保存类似 ``MY_...`` 的框架组件扩展或替代品。
+- 在库目录下，你不需要类似 ``MY_x`` 之类的类来继承或取代CI4的框架部分。
+- 你可以在任何地方创建这样的类，并加入适当的自定义组件来代替默认的那些组件。
