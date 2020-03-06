@@ -38,7 +38,6 @@
 1. - [x] [./source/installation/running.rst](source/installation/running.rst)
 1. - [x] [./source/incoming/message.rst](source/incoming/message.rst)
 1. - [x] [./source/installation/upgrade_4xx.rst](source/installation/upgrade_4xx.rst)
-1. - [x] [./source/installation/upgrading.rst](source/installation/upgrading.rst)
 1. - [x] [./source/concepts/services.rst](source/concepts/services.rst)
 
 ## 已完成
@@ -121,3 +120,4 @@
 1. - [x] [~~./source/outgoing/view_layouts.rst~~](source/outgoing/view_layouts.rst)
 1. - [x] [~~./source/intro/credits.rst~~](source/intro/credits.rst)
 1. - [x] [~~./source/intro/requirements.rst~~](source/intro/requirements.rst)
+1. - [x] [~~./source/installation/upgrading.rst~~](source/installation/upgrading.rst)
