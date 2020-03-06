@@ -1,6 +1,6 @@
 [![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # CodeIgniter 4 中文手册翻译项目
@@ -95,6 +95,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/arcsinw"><img src="https://avatars3.githubusercontent.com/u/10514065?v=4" width="100px;" alt=""/><br /><sub><b>arcsinw</b></sub></a><br /><a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/commits?author=arcsinw" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/Qnurye"><img src="https://avatars0.githubusercontent.com/u/50016379?v=4" width="100px;" alt=""/><br /><sub><b>Qnurye</b></sub></a><br /><a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/commits?author=Qnurye" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/JerryGai"><img src="https://avatars2.githubusercontent.com/u/38777583?v=4" width="100px;" alt=""/><br /><sub><b>JerryGai</b></sub></a><br /><a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/commits?author=JerryGai" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://codeigniter.org.cn"><img src="https://avatars1.githubusercontent.com/u/13709?v=4" width="100px;" alt=""/><br /><sub><b>Hex</b></sub></a><br /><a href="#translation-hex-ci" title="Translation">🌍</a> <a href="#maintenance-hex-ci" title="Maintenance">🚧</a> <a href="#projectManagement-hex-ci" title="Project Management">📆</a> <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/pulls?q=is%3Apr+reviewed-by%3Ahex-ci" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
