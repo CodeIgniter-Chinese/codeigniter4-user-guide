@@ -32,7 +32,6 @@
 ## 翻译中
 
 1. - [x] [./source/extending/events.rst](source/extending/events.rst)
-1. - [x] [./source/incoming/filters.rst](source/incoming/filters.rst)
 1. - [x] [./source/general/helpers.rst](source/general/helpers.rst)
 1. - [x] [./source/installation/running.rst](source/installation/running.rst)
 1. - [x] [./source/incoming/message.rst](source/incoming/message.rst)
@@ -121,3 +120,4 @@
 1. - [x] [~~./source/installation/upgrading.rst~~](source/installation/upgrading.rst)
 1. - [x] [~~./source/installation/upgrade_4xx.rst~~](source/installation/upgrade_4xx.rst)
 1. - [x] [~~./source/general/managing_apps.rst~~](source/general/managing_apps.rst)
+1. - [x] [~~./source/incoming/filters.rst~~](source/incoming/filters.rst)
