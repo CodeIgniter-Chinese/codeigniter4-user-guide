@@ -1,4 +1,4 @@
-[![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide) [![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#贡献者-)
+[![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->[![All Contributors](https://img.shields.io/badge/all_contributors-23-orange.svg?style=flat-square)](#贡献者-)<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # CodeIgniter 4 中文手册翻译项目
 
