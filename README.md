@@ -1,4 +1,4 @@
-[![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide) [![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
+[![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide) [![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#贡献者-)
 
 # CodeIgniter 4 中文手册翻译项目
 
@@ -58,9 +58,9 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
 第一次编译之后，后面将只会针对修改的文件进行重编译，这将大大的节约我们的时间。
 如果你想再重新全部编译一次，只需删除 *build* 目录然后编译即可。
 
-## Contributors ✨
+## 贡献者 ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+感谢这些可爱的童鞋为中文手册做出的卓越贡献。 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -102,4 +102,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+本项目遵循 [all-contributors](https://github.com/all-contributors/all-contributors) 规范。欢迎任何形式的贡献！
