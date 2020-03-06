@@ -1,6 +1,6 @@
 [![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # CodeIgniter 4 中文手册翻译项目
@@ -71,6 +71,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://alexfu.cc"><img src="https://avatars3.githubusercontent.com/u/9924787?v=4" width="100px;" alt=""/><br /><sub><b>Alexander.Fu</b></sub></a><br /><a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/commits?author=FlyingWings" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://www.wazidw.com"><img src="https://avatars0.githubusercontent.com/u/4579995?v=4" width="100px;" alt=""/><br /><sub><b>wazidw</b></sub></a><br /><a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/commits?author=wazidw" title="Documentation">📖</a></td>
   </tr>
 </table>
 
