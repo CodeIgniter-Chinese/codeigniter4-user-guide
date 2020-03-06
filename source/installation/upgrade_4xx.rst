@@ -1,38 +1,31 @@
-#############################
-Upgrading from 3.x to 4.x
-#############################
+######################################
+从CodeIgniter 3系列版本升级到4系列版本
+######################################
 
-CodeIgniter 4 is a rewrite of the framework and is not backwards compatible.
-It is more appropriate to think of converting your app, rather than upgrading it.
-Once you have done that, upgrading from one version of CodeIgniter 4 to the next
-will be straightforward.
+CodeIgniter 4是对该框架的重写，并且不向前兼容（对以前的版本不兼容）。
+比起升级你的应用，更为合适的是转换和重写它。当你做完了这一步（即已经升级到CodeIgniter4）之后，在CodeIgniter4的不同版本间进行升级就会轻而易举。
 
 The "lean, mean and simple" philosophy has been retained, but the
 implementation has a lot of differences, compared to CodeIgniter 3.
 
-There is no 12-step checklist for upgrading. Instead, start with a copy
-of CodeIgniter 4 in a new project folder,
-:doc:`however you wish to install and use it </installation/index>`,
-and then convert and integrate your app components.
-We'll try to point out the most important considerations here.
+升级过程中并没有12步检查列表之类的东西。取而代之的是，在一个新的项目文件夹里开始CodeIgniter 4的重新部署 :doc:`开始与使用本框架 </installation/index>` ，
+并开始转换和整合你的应用部件。下面我们会试着指出最需要注意的点。
 
-Not all of the CI3 libraries have been ported or rewritten for CI4!
-See the threads in the `CodeIgniter 4 Roadmap <https://forum.codeigniter.com/forum-33.html>`_
-subforum for an up-to-date list!
+CI4中我们并没有完全迁移和重写全部的CI3库！参考 `CodeIgniter 4 路线图 <https://forum.codeigniter.com/forum-33.html>`_ 中的最新列表！
 
-**Do read the user guide** before embarking on a project conversion!
+在项目转换之前 **请务必阅读用户指南** !
 
-**Downloads**
+**下载**
 
 - CI4 is still available as a ready-to-run zip or tarball, which
   includes the user guide (though in the `docs` subfolder
 - It can also be installed using Composer
 
-**Namespaces**
+**命名空间**
 
 - CI4 is built for PHP7.2+, and everything in the framework is namespaced, except for the helpers.
 
-**Application Structure**
+**应用结构**
 
 - The ``application`` folder is renamed as ``app`` and
   the framework still has ``system`` folders, with the same
@@ -46,7 +39,7 @@ subforum for an up-to-date list!
 - There is no longer a nested ``application/core`` folder, as we have
   a different mechanism for extending framework components (see below)
 
-**Class loading**
+**加载类文件**
 
 - There is no longer a CodeIgniter "superobject", with framework component
   references magically injected as properties of your controller
@@ -60,7 +53,7 @@ subforum for an up-to-date list!
 - You can configure the class loading to support whatever application structure
   you are most comfortable with, including the "HMVC" style
 
-**Controllers**
+**控制器**
 
 - Controllers extend \\CodeIgniter\\Controller instead of CI_Controller
 - They don't use a constructor any more (to invoke CI "magic") unless
@@ -71,7 +64,7 @@ subforum for an up-to-date list!
   where you like, e.g. BaseController extends Controller, and then
   have your controllers extend it
 
-**Models**
+**模型**
 
 - Models extend \\CodeIgniter\\Model instead of CI_Model
 - The CI4 model has much more functionality, including automatic
@@ -82,7 +75,7 @@ subforum for an up-to-date list!
 - Instead of CI3's ``$this->load->model(x);``, you would now use
   ``$this->x = new X();``, following namespaced conventions for your component
 
-**Views**
+**视图**
 
 - Your views look much like before, but they are invoked differently ...
   instead of CI3's ``$this->load->view(x);`` you can use ``echo view(x);``
@@ -90,7 +83,7 @@ subforum for an up-to-date list!
 - The template parser is still there, but substantially
   enhanced
 
-**Libraries**
+**库**
 
 - Your app classes can still go inside ``app/Libraries``, but they
   don't have to
@@ -98,17 +91,17 @@ subforum for an up-to-date list!
   ``$this->x = new X();``, following namespaced conventions for your
   component
 
-**Helpers**
+**辅助函数**
 
 - Helpers are pretty much the same as before, though some have been simplified
 
-**Events**
+**事件**
 
 - Hooks have been replaced by Events
 - Instead of CI3's ``$hook['post_controller_constructor']`` you now use ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);``, with the namespace ``CodeIgniter\Events\Events;``
 - Events are always enabled, and are available globally
 
-**Extending the framework**
+**扩展框架**
 
 - You don't need a ``core`` folder to hold ``MY_...`` framework
   component extensions or replacements
