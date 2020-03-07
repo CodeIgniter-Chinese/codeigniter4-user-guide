@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -337,8 +337,8 @@
   <div class="section" id="id1">
 <h1>加密服务<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="admonition important">
-<p class="first admonition-title">重要</p>
-<p class="last">请勿使任何 <em>encryption</em> 库来存储密码！
+<p class="admonition-title">重要</p>
+<p>请勿使任何 <em>encryption</em> 库来存储密码！
 密码必须使用 <em>散列</em> ，而你应该通过 <a class="reference external" href="http://php.net/password">PHP的密码散列扩展</a> 进行散列 。</p>
 </div>
 <p>加密服务提供双向对称（密钥）数据加密。该服务将实例化或初始化 <strong>加密程序</strong> 以适配你的参数，如下所述。</p>
@@ -346,32 +346,35 @@
 并且可能需要在 PHP 实例启用。</p>
 <p>支持以下拓展：</p>
 <ul class="simple">
-<li><a class="reference external" href="https://www.php.net/openssl">OpenSSL</a></li>
+<li><p><a class="reference external" href="https://www.php.net/openssl">OpenSSL</a></p></li>
 </ul>
 <p>这并不是一套完整的密码解决方案。如果您需要更多功能（例如公钥加密），建议你考虑直接使用 OpenSSL 或其他 <a class="reference external" href="https://www.php.net/manual/en/refs.crypto.php">密码学扩展</a> 。
 还有一种更全面的软件包，例如 <a class="reference external" href="https://github.com/paragonie/halite">Halite</a> （基于libsodium构建的 O-O 软件包）。</p>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">自从PHP 7.2起就已弃用了对 <code class="docutils literal notranslate"><span class="pre">MCrypt</span></code> 扩展的支持。</p>
+<p class="admonition-title">注解</p>
+<p>自从PHP 7.2起就已弃用了对 <code class="docutils literal notranslate"><span class="pre">MCrypt</span></code> 扩展的支持。</p>
 </div>
 <div class="contents local topic" id="id3">
 <ul class="simple">
-<li><a class="reference internal" href="#id4" id="id17">使用加密类库</a><ul>
-<li><a class="reference internal" href="#id6" id="id18">配置加密类库</a></li>
-<li><a class="reference internal" href="#id8" id="id19">默认行为</a></li>
-<li><a class="reference internal" href="#id9" id="id20">配置你的密钥</a><ul>
-<li><a class="reference internal" href="#id10" id="id21">对密钥或结果编码</a></li>
+<li><p><a class="reference internal" href="#id4" id="id17">使用加密类库</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id6" id="id18">配置加密类库</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id19">默认行为</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id20">配置你的密钥</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id21">对密钥或结果编码</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id11" id="id22">加密处理程序说明</a><ul>
-<li><a class="reference internal" href="#id12" id="id23">OpenSSL 说明</a></li>
+<li><p><a class="reference internal" href="#id11" id="id22">加密处理程序说明</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id12" id="id23">OpenSSL 说明</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id14" id="id24">消息长度</a></li>
-<li><a class="reference internal" href="#id15" id="id25">直接使用加密服务</a></li>
+<li><p><a class="reference internal" href="#id14" id="id24">消息长度</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id25">直接使用加密服务</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id16" id="id26">类参考</a></li>
+<li><p><a class="reference internal" href="#id16" id="id26">类参考</a></p></li>
 </ul>
 </div>
 <div class="custom-index container"></div><div class="section" id="id4">
@@ -393,25 +396,25 @@
 <span id="id7"></span><h3><a class="toc-backref" href="#id18">配置加密类库</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p>上面的示例将使用 <code class="docutils literal notranslate"><span class="pre">app/Config/Encryption.php</span></code> 中的配置设置。</p>
 <p>它只有两个设置选项</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="85%" />
+<col style="width: 15%" />
+<col style="width: 85%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">选项</th>
-<th class="head">可能的值</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>选项</p></th>
+<th class="head"><p>可能的值</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>key</td>
-<td>加密</td>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>加密</p></td>
 </tr>
-<tr class="row-odd"><td>启动器</td>
-<td>&#160;</td>
+<tr class="row-odd"><td><p>启动器</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>driver</td>
-<td>首选加密程序 (默认为OpenSSL)</td>
+<tr class="row-even"><td><p>driver</p></td>
+<td><p>首选加密程序 (默认为OpenSSL)</p></td>
 </tr>
 </tbody>
 </table>
@@ -499,53 +502,45 @@
 <h2><a class="toc-backref" href="#id26">类参考</a><a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
 <dl class="class">
 <dt>
-<code class="descname">CodeIgniter\Encryption\Encryption</code></dt>
+<code class="sig-name descname">CodeIgniter\Encryption\Encryption</code></dt>
 <dd><dl class="staticmethod">
 <dt id="createKey">
-<em class="property">static </em><code class="descname">createKey</code><span class="sig-paren">(</span><em>$length</em><span class="sig-paren">)</span><a class="headerlink" href="#createKey" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$length</strong> (<em>int</em>) – 输出密钥的长度</li>
+<em class="property">static </em><code class="sig-name descname">createKey</code><span class="sig-paren">(</span><em class="sig-param">$length</em><span class="sig-paren">)</span><a class="headerlink" href="#createKey" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$length</strong> (<em>int</em>) – 输出密钥的长度</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">具有指定长度的随机密码密钥，创建失败则为FALSE</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>具有指定长度的随机密码密钥，创建失败则为FALSE</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
 </dd></dl>
 
 <p>通过从操作系统的源（即/dev/urandom）获取随机数据来创建加密密钥。</p>
 <dl class="method">
 <dt id="initialize">
-<code class="descname">initialize</code><span class="sig-paren">(</span><em>$config</em><span class="sig-paren">)</span><a class="headerlink" href="#initialize" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$config</strong> (<em>BaseConfig</em>) – Configuration parameters</li>
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param">$config</em><span class="sig-paren">)</span><a class="headerlink" href="#initialize" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$config</strong> (<em>BaseConfig</em>) – Configuration parameters</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniter\Encryption\EncrypterInterface instance</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first">CodeIgniter\Encryption\EncrypterInterface</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first last">CodeIgniter\Encryption\EncryptionException</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>CodeIgniter\Encryption\EncrypterInterface instance</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>CodeIgniter\Encryption\EncrypterInterface</p>
+</dd>
+<dt class="field-even">Throws</dt>
+<dd class="field-even"><p>CodeIgniter\Encryption\EncryptionException</p>
+</dd>
+</dl>
 </dd></dl>
 
 <p>初始化（或配置）库以使用不同的设置。</p>
@@ -560,31 +555,27 @@
 
 <dl class="interface">
 <dt>
-<code class="descname">CodeIgniter\Encryption\EncrypterInterface</code></dt>
+<code class="sig-name descname">CodeIgniter\Encryption\EncrypterInterface</code></dt>
 <dd><dl class="method">
 <dt id="encrypt">
-<code class="descname">encrypt</code><span class="sig-paren">(</span><em>$data</em>, <em>$params = null</em><span class="sig-paren">)</span><a class="headerlink" href="#encrypt" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<em>string</em>) – 要加密的数据</li>
-<li><strong>$params</strong> – 配置参数（或键）</li>
+<code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param">$data</em>, <em class="sig-param">$params = null</em><span class="sig-paren">)</span><a class="headerlink" href="#encrypt" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$data</strong> (<em>string</em>) – 要加密的数据</p></li>
+<li><p><strong>$params</strong> – 配置参数（或键）</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">加密后的数据，加密失败时返回FALSE</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first">string</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first last">CodeIgniter\Encryption\EncryptionException</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>加密后的数据，加密失败时返回FALSE</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Throws</dt>
+<dd class="field-even"><p>CodeIgniter\Encryption\EncryptionException</p>
+</dd>
+</dl>
 </dd></dl>
 
 <p>加密输入数据并返回其密文。</p>
@@ -601,28 +592,24 @@
 </div></blockquote>
 <dl class="method">
 <dt id="decrypt">
-<code class="descname">decrypt</code><span class="sig-paren">(</span><em>$data</em>, <em>$params = null</em><span class="sig-paren">)</span><a class="headerlink" href="#decrypt" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<em>string</em>) – 要解密的数据</li>
-<li><strong>$params</strong> – 配置参数（或键）</li>
+<code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param">$data</em>, <em class="sig-param">$params = null</em><span class="sig-paren">)</span><a class="headerlink" href="#decrypt" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$data</strong> (<em>string</em>) – 要解密的数据</p></li>
+<li><p><strong>$params</strong> – 配置参数（或键）</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">解密后的数据，解密失败时返回FALSE</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first">string</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Throws:</th><td class="field-body"><p class="first last">CodeIgniter\Encryption\EncryptionException</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>解密后的数据，解密失败时返回FALSE</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Throws</dt>
+<dd class="field-even"><p>CodeIgniter\Encryption\EncryptionException</p>
+</dd>
+</dl>
 </dd></dl>
 
 <p>加密输入数据并返回其密文。</p>

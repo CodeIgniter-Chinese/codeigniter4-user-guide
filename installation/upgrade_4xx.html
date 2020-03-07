@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -348,68 +348,68 @@ implementation has a lot of differences, compared to CodeIgniter 3.</p>
 <p>在项目转换之前 <strong>请务必阅读用户指南</strong> !</p>
 <p><strong>下载</strong></p>
 <ul class="simple">
-<li>CI4同样可以通过解压-运行的zip或tarball压缩文件的格式进行使用，其中包含有用户指南（在 <cite>docs</cite> 子目录中）</li>
-<li>它也可以通过Composer进行安装</li>
+<li><p>CI4同样可以通过解压-运行的zip或tarball压缩文件的格式进行使用，其中包含有用户指南（在 <cite>docs</cite> 子目录中）</p></li>
+<li><p>它也可以通过Composer进行安装</p></li>
 </ul>
 <p><strong>命名空间</strong></p>
 <ul class="simple">
-<li>CI4构建基于PHP7.2+的版本，框架中除了辅助函数的所有部分都进行了命名空间标注。</li>
+<li><p>CI4构建基于PHP7.2+的版本，框架中除了辅助函数的所有部分都进行了命名空间标注。</p></li>
 </ul>
 <p><strong>应用结构</strong></p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">application</span></code> 目录被重命名为 <code class="docutils literal notranslate"><span class="pre">app</span></code> ，而框架中仍旧存在着 <code class="docutils literal notranslate"><span class="pre">system</span></code> 文件夹，有着与以往版本一样的功能。</li>
-<li>本框架现在提供了一个 <code class="docutils literal notranslate"><span class="pre">public</span></code> 目录，希望你可以将其用于项目的根目录</li>
-<li>There is also a <code class="docutils literal notranslate"><span class="pre">writable</span></code> folder, to hold cache data, logs, and session data</li>
-<li><code class="docutils literal notranslate"><span class="pre">app</span></code> 目录与CI3中的 <code class="docutils literal notranslate"><span class="pre">application</span></code> 目录类似，不过有着一些命名的变更，以及将一些子目录移动到 <code class="docutils literal notranslate"><span class="pre">writable</span></code> 目录下。</li>
-<li>如今已经没有一个嵌套的 <code class="docutils literal notranslate"><span class="pre">application/core</span></code> 目录了，由于我们已经提供了一套不同的机制来扩展框架核心（如下所示）。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">application</span></code> 目录被重命名为 <code class="docutils literal notranslate"><span class="pre">app</span></code> ，而框架中仍旧存在着 <code class="docutils literal notranslate"><span class="pre">system</span></code> 文件夹，有着与以往版本一样的功能。</p></li>
+<li><p>本框架现在提供了一个 <code class="docutils literal notranslate"><span class="pre">public</span></code> 目录，希望你可以将其用于项目的根目录</p></li>
+<li><p>There is also a <code class="docutils literal notranslate"><span class="pre">writable</span></code> folder, to hold cache data, logs, and session data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">app</span></code> 目录与CI3中的 <code class="docutils literal notranslate"><span class="pre">application</span></code> 目录类似，不过有着一些命名的变更，以及将一些子目录移动到 <code class="docutils literal notranslate"><span class="pre">writable</span></code> 目录下。</p></li>
+<li><p>如今已经没有一个嵌套的 <code class="docutils literal notranslate"><span class="pre">application/core</span></code> 目录了，由于我们已经提供了一套不同的机制来扩展框架核心（如下所示）。</p></li>
 </ul>
 <p><strong>加载类文件</strong></p>
 <ul class="simple">
-<li>由于对框架组件的引用如今已作为属性动态注入到你的控制器中，现在已经不存在一个CodeIgniter的”超级对象”了。</li>
-<li>类如今已经按需加载了，并且组件也是通过 <code class="docutils literal notranslate"><span class="pre">Services</span></code> 进行维护（服务）</li>
-<li>类加载器自动处理PSR4风格的类文件定位，对于那些以 <code class="docutils literal notranslate"><span class="pre">App``（application目录）和</span> <span class="pre">``CodeIgniter</span></code> system目录） 为顶级命名空间的类。而通过对composer自动加载的支持与智能假设机制，框架甚至可以定位你的那些并未命名空间声明的模型和库文件。</li>
-<li>你可以配置类的自动加载来支持任何你喜欢的应用结构，包括”HMVC”风格的（译者注：按等级划分的MVC模式，简单的解释就是把MVC又细分成了多个子MVC，每个模块就分成一个MVC）</li>
+<li><p>由于对框架组件的引用如今已作为属性动态注入到你的控制器中，现在已经不存在一个CodeIgniter的”超级对象”了。</p></li>
+<li><p>类如今已经按需加载了，并且组件也是通过 <code class="docutils literal notranslate"><span class="pre">Services</span></code> 进行维护（服务）</p></li>
+<li><p>类加载器自动处理PSR4风格的类文件定位，对于那些以 <code class="docutils literal notranslate"><span class="pre">App``（application目录）和</span> <span class="pre">``CodeIgniter</span></code> system目录） 为顶级命名空间的类。而通过对composer自动加载的支持与智能假设机制，框架甚至可以定位你的那些并未命名空间声明的模型和库文件。</p></li>
+<li><p>你可以配置类的自动加载来支持任何你喜欢的应用结构，包括”HMVC”风格的（译者注：按等级划分的MVC模式，简单的解释就是把MVC又细分成了多个子MVC，每个模块就分成一个MVC）</p></li>
 </ul>
 <p><strong>控制器</strong></p>
 <ul class="simple">
-<li>控制器继承了 <code class="docutils literal notranslate"><span class="pre">\\CodeIgniter\\Controller</span></code> 类，而非 <code class="docutils literal notranslate"><span class="pre">CI_Controller</span></code> 类</li>
-<li>控制器不再需要一个构造函数了（用于调用CI魔术方法），除非这是你自己定义的基类控制器的一部分</li>
-<li>CI 提供了 <code class="docutils literal notranslate"><span class="pre">Request</span></code> （请求）and <code class="docutils literal notranslate"><span class="pre">Response</span></code> （响应）对象供你使用，比起CI3的风格来说更为强大</li>
-<li>如果你需要一个基类控制器（比如CI3中的MY_Controller），那么请在你需要的地方使用就行。比如 <code class="docutils literal notranslate"><span class="pre">BaseController</span> <span class="pre">extends</span> <span class="pre">Controller</span></code> ，并使用你自己的类来继承 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code></li>
+<li><p>控制器继承了 <code class="docutils literal notranslate"><span class="pre">\\CodeIgniter\\Controller</span></code> 类，而非 <code class="docutils literal notranslate"><span class="pre">CI_Controller</span></code> 类</p></li>
+<li><p>控制器不再需要一个构造函数了（用于调用CI魔术方法），除非这是你自己定义的基类控制器的一部分</p></li>
+<li><p>CI 提供了 <code class="docutils literal notranslate"><span class="pre">Request</span></code> （请求）and <code class="docutils literal notranslate"><span class="pre">Response</span></code> （响应）对象供你使用，比起CI3的风格来说更为强大</p></li>
+<li><p>如果你需要一个基类控制器（比如CI3中的MY_Controller），那么请在你需要的地方使用就行。比如 <code class="docutils literal notranslate"><span class="pre">BaseController</span> <span class="pre">extends</span> <span class="pre">Controller</span></code> ，并使用你自己的类来继承 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code></p></li>
 </ul>
 <p><strong>模型</strong></p>
 <ul class="simple">
-<li>模型继承了 <code class="docutils literal notranslate"><span class="pre">\\CodeIgniter\\Model</span></code> 而非 <code class="docutils literal notranslate"><span class="pre">CI_Model</span></code></li>
-<li>CI4的模型拥有更多的功能，包括动态数据库连接，基础的CRUD（增删改查），模型内验证和自动分页功能。</li>
-<li>CI4 同样拥有可供你构建的 <code class="docutils literal notranslate"><span class="pre">Entity</span></code> （实体）类，用于实现更为丰富的数据表映射功能</li>
-<li>取消使用CI3的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;model(x);</span></code> ，而是使用模型的命名空间模式来调用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;x</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">X();</span></code>。</li>
+<li><p>模型继承了 <code class="docutils literal notranslate"><span class="pre">\\CodeIgniter\\Model</span></code> 而非 <code class="docutils literal notranslate"><span class="pre">CI_Model</span></code></p></li>
+<li><p>CI4的模型拥有更多的功能，包括动态数据库连接，基础的CRUD（增删改查），模型内验证和自动分页功能。</p></li>
+<li><p>CI4 同样拥有可供你构建的 <code class="docutils literal notranslate"><span class="pre">Entity</span></code> （实体）类，用于实现更为丰富的数据表映射功能</p></li>
+<li><p>取消使用CI3的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;model(x);</span></code> ，而是使用模型的命名空间模式来调用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;x</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">X();</span></code>。</p></li>
 </ul>
 <p><strong>视图</strong></p>
 <ul class="simple">
-<li>你的视图看起来与从前类似，但是却是以完全不同的方式调用……取消使用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;view(x);</span></code> ，而是通过 <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">view(x);</span></code>。</li>
-<li>CI4支持视图单元，以构建分片响应</li>
-<li>模板处理器一如过往，但是在功能上有了显著的提升</li>
+<li><p>你的视图看起来与从前类似，但是却是以完全不同的方式调用……取消使用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;view(x);</span></code> ，而是通过 <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">view(x);</span></code>。</p></li>
+<li><p>CI4支持视图单元，以构建分片响应</p></li>
+<li><p>模板处理器一如过往，但是在功能上有了显著的提升</p></li>
 </ul>
 <p><strong>库</strong></p>
 <ul class="simple">
-<li>你的应用类仍旧可以深入访问 <code class="docutils literal notranslate"><span class="pre">app/Libraries</span></code>，但这不是必须的。</li>
-<li>取消使用CI3的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;library(x);</span></code> 调用方式，如今你可以使用组件的命名空间模式来调用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;x</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">X();</span></code></li>
+<li><p>你的应用类仍旧可以深入访问 <code class="docutils literal notranslate"><span class="pre">app/Libraries</span></code>，但这不是必须的。</p></li>
+<li><p>取消使用CI3的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;library(x);</span></code> 调用方式，如今你可以使用组件的命名空间模式来调用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;x</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">X();</span></code></p></li>
 </ul>
 <p><strong>辅助函数</strong></p>
 <ul class="simple">
-<li>辅助函数与以往大致相似，不过有一部分被简化了</li>
+<li><p>辅助函数与以往大致相似，不过有一部分被简化了</p></li>
 </ul>
 <p><strong>事件</strong></p>
 <ul class="simple">
-<li>Hooks（钩子）如今已经被Events（事件）所取代</li>
-<li>取消使用CI3的 <code class="docutils literal notranslate"><span class="pre">$hook['post_controller_constructor']</span></code> 调用方式，如今你可以使用命名空间 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Events\Events;</span></code> 下的 <code class="docutils literal notranslate"><span class="pre">Events::on('post_controller_constructor',</span> <span class="pre">['MyClass',</span> <span class="pre">'MyFunction']);</span></code> 。</li>
-<li>事件保持启用状态并全局可用。</li>
+<li><p>Hooks（钩子）如今已经被Events（事件）所取代</p></li>
+<li><p>取消使用CI3的 <code class="docutils literal notranslate"><span class="pre">$hook['post_controller_constructor']</span></code> 调用方式，如今你可以使用命名空间 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Events\Events;</span></code> 下的 <code class="docutils literal notranslate"><span class="pre">Events::on('post_controller_constructor',</span> <span class="pre">['MyClass',</span> <span class="pre">'MyFunction']);</span></code> 。</p></li>
+<li><p>事件保持启用状态并全局可用。</p></li>
 </ul>
 <p><strong>扩展框架</strong></p>
 <ul class="simple">
-<li>你不需要一个 <code class="docutils literal notranslate"><span class="pre">core</span></code> 目录来保存类似 <code class="docutils literal notranslate"><span class="pre">MY_...</span></code> 的框架组件扩展或替代品。</li>
-<li>在库目录下，你不需要类似 <code class="docutils literal notranslate"><span class="pre">MY_x</span></code> 之类的类来继承或取代CI4的框架部分。</li>
-<li>你可以在任何地方创建这样的类，并加入适当的自定义组件来代替默认的那些组件。</li>
+<li><p>你不需要一个 <code class="docutils literal notranslate"><span class="pre">core</span></code> 目录来保存类似 <code class="docutils literal notranslate"><span class="pre">MY_...</span></code> 的框架组件扩展或替代品。</p></li>
+<li><p>在库目录下，你不需要类似 <code class="docutils literal notranslate"><span class="pre">MY_x</span></code> 之类的类来继承或取代CI4的框架部分。</p></li>
+<li><p>你可以在任何地方创建这样的类，并加入适当的自定义组件来代替默认的那些组件。</p></li>
 </ul>
 </div>
 

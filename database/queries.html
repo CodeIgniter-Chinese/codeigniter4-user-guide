@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -338,27 +338,31 @@
 <h1>Queries<a class="headerlink" href="#queries" title="永久链接至标题">¶</a></h1>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><a class="reference internal" href="#query-basics" id="id2">Query Basics</a><ul>
-<li><a class="reference internal" href="#regular-queries" id="id3">Regular Queries</a></li>
-<li><a class="reference internal" href="#simplified-queries" id="id4">Simplified Queries</a></li>
+<li><p><a class="reference internal" href="#query-basics" id="id2">Query Basics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#regular-queries" id="id3">Regular Queries</a></p></li>
+<li><p><a class="reference internal" href="#simplified-queries" id="id4">Simplified Queries</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#working-with-database-prefixes-manually" id="id5">Working with Database prefixes manually</a></li>
-<li><a class="reference internal" href="#protecting-identifiers" id="id6">Protecting identifiers</a></li>
-<li><a class="reference internal" href="#escaping-queries" id="id7">Escaping Queries</a></li>
-<li><a class="reference internal" href="#query-bindings" id="id8">Query Bindings</a><ul>
-<li><a class="reference internal" href="#named-bindings" id="id9">Named Bindings</a></li>
+<li><p><a class="reference internal" href="#working-with-database-prefixes-manually" id="id5">Working with Database prefixes manually</a></p></li>
+<li><p><a class="reference internal" href="#protecting-identifiers" id="id6">Protecting identifiers</a></p></li>
+<li><p><a class="reference internal" href="#escaping-queries" id="id7">Escaping Queries</a></p></li>
+<li><p><a class="reference internal" href="#query-bindings" id="id8">Query Bindings</a></p>
+<ul>
+<li><p><a class="reference internal" href="#named-bindings" id="id9">Named Bindings</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#handling-errors" id="id10">Handling Errors</a></li>
-<li><a class="reference internal" href="#prepared-queries" id="id11">Prepared Queries</a><ul>
-<li><a class="reference internal" href="#preparing-the-query" id="id12">Preparing the Query</a></li>
-<li><a class="reference internal" href="#executing-the-query" id="id13">Executing the Query</a></li>
-<li><a class="reference internal" href="#other-methods" id="id14">Other Methods</a></li>
+<li><p><a class="reference internal" href="#handling-errors" id="id10">Handling Errors</a></p></li>
+<li><p><a class="reference internal" href="#prepared-queries" id="id11">Prepared Queries</a></p>
+<ul>
+<li><p><a class="reference internal" href="#preparing-the-query" id="id12">Preparing the Query</a></p></li>
+<li><p><a class="reference internal" href="#executing-the-query" id="id13">Executing the Query</a></p></li>
+<li><p><a class="reference internal" href="#other-methods" id="id14">Other Methods</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#working-with-query-objects" id="id15">Working with Query Objects</a><ul>
-<li><a class="reference internal" href="#the-query-class" id="id16">The Query Class</a></li>
+<li><p><a class="reference internal" href="#working-with-query-objects" id="id15">Working with Query Objects</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-query-class" id="id16">The Query Class</a></p></li>
 </ul>
 </li>
 </ul>
@@ -404,8 +408,8 @@ fetchable results.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">PostgreSQL’s <code class="docutils literal notranslate"><span class="pre">pg_exec()</span></code> function (for example) always
+<p class="admonition-title">注解</p>
+<p>PostgreSQL’s <code class="docutils literal notranslate"><span class="pre">pg_exec()</span></code> function (for example) always
 returns a resource on success even for write type queries.
 So keep that in mind if you’re looking for a boolean value.</p>
 </div>
@@ -440,8 +444,8 @@ identifier you can use:</p>
 </pre></div>
 </div>
 <div class="admonition important">
-<p class="first admonition-title">重要</p>
-<p class="last">Although the Query Builder will try its best to properly
+<p class="admonition-title">重要</p>
+<p>Although the Query Builder will try its best to properly
 quote any field and table names that you feed it. Note that it
 is NOT designed to work with arbitrary user input. DO NOT feed it
 with unsanitized user data.</p>
@@ -459,24 +463,23 @@ prefixing set TRUE (boolean) via the second parameter:</p>
 it into your database. CodeIgniter has three methods that help you do
 this:</p>
 <ol class="arabic">
-<li><p class="first"><strong>$db-&gt;escape()</strong> This function determines the data type so
+<li><p><strong>$db-&gt;escape()</strong> This function determines the data type so
 that it can escape only string data. It also automatically adds
 single quotes around the data so you don’t have to:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO table (title) VALUES(&quot;</span><span class="o">.</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">escape</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;)&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>$db-&gt;escapeString()</strong> This function escapes the data passed to
+<li><p><strong>$db-&gt;escapeString()</strong> This function escapes the data passed to
 it, regardless of type. Most of the time you’ll use the above
 function rather than this one. Use the function like this:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO table (title) VALUES(&#39;&quot;</span><span class="o">.</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">escapeString</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;&#39;)&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>$db-&gt;escapeLikeString()</strong> This method should be used when
+<li><p><strong>$db-&gt;escapeLikeString()</strong> This method should be used when
 strings are to be used in LIKE conditions so that LIKE wildcards
-(‘%’, ‘_’) in the string are also properly escaped.</p>
-</li>
+(‘%’, ‘_’) in the string are also properly escaped.</p></li>
 </ol>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$search</span> <span class="o">=</span> <span class="s1">&#39;20% raise&#39;</span><span class="p">;</span>
 <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT id FROM table WHERE column LIKE &#39;%&quot;</span> <span class="o">.</span>
@@ -484,8 +487,8 @@ strings are to be used in LIKE conditions so that LIKE wildcards
 </pre></div>
 </div>
 <div class="admonition important">
-<p class="first admonition-title">重要</p>
-<p class="last">The <code class="docutils literal notranslate"><span class="pre">escapeLikeString()</span></code> method uses ‘!’ (exclamation mark)
+<p class="admonition-title">重要</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">escapeLikeString()</span></code> method uses ‘!’ (exclamation mark)
 to escape special characters for <em>LIKE</em> conditions. Because this
 method escapes partial strings that you would wrap in quotes
 yourself, it cannot automatically add the <code class="docutils literal notranslate"><span class="pre">ESCAPE</span> <span class="pre">'!'</span></code>
@@ -528,8 +531,8 @@ placeholders in the query:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">Each name in the query MUST be surrounded by colons.</p>
+<p class="admonition-title">注解</p>
+<p>Each name in the query MUST be surrounded by colons.</p>
 </div>
 </div>
 </div>

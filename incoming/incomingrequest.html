@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -340,17 +340,19 @@
 基于它可以访问所有 <span class="xref std std-doc">Request</span> 和 <span class="xref std std-doc">Message</span> 中的方法， 以及以下列出的方法。</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><a class="reference internal" href="#id2" id="id26">获得请求</a></li>
-<li><a class="reference internal" href="#id3" id="id27">判断请求类型</a></li>
-<li><a class="reference internal" href="#id4" id="id28">数据读取</a><ul>
-<li><a class="reference internal" href="#id5" id="id29">数据过滤</a></li>
+<li><p><a class="reference internal" href="#id2" id="id26">获得请求</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id27">判断请求类型</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id28">数据读取</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id5" id="id29">数据过滤</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6" id="id30">获取数据头</a></li>
-<li><a class="reference internal" href="#id7" id="id31">请求地址</a></li>
-<li><a class="reference internal" href="#id8" id="id32">上传文件</a></li>
-<li><a class="reference internal" href="#id9" id="id33">内容协商</a><ul>
-<li><a class="reference internal" href="#id10" id="id34">类信息参考</a></li>
+<li><p><a class="reference internal" href="#id6" id="id30">获取数据头</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id31">请求地址</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id32">上传文件</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id33">内容协商</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id34">类信息参考</a></p></li>
 </ul>
 </li>
 </ul>
@@ -438,21 +440,21 @@
 </div>
 <p>因为 <code class="docutils literal notranslate"><span class="pre">getVar()</span></code> 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">$request-&gt;getGet()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">$request-&gt;getPost()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">$request-&gt;getServer()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">$request-&gt;getCookie()</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$request-&gt;getGet()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$request-&gt;getPost()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$request-&gt;getServer()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$request-&gt;getCookie()</span></code></p></li>
 </ul>
 <p>另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">$request-&gt;getPostGet()</span></code> - 先 $_POST, 后 $_GET</li>
-<li><code class="docutils literal notranslate"><span class="pre">$request-&gt;getGetPost()</span></code> - 先 $_GET, 后 $_POST</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$request-&gt;getPostGet()</span></code> - 先 $_POST, 后 $_GET</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$request-&gt;getGetPost()</span></code> - 先 $_GET, 后 $_POST</p></li>
 </ul>
 <p><strong>获取 JSON 数据</strong></p>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">getJSON()</span></code> 去获取 php://input 传递的 JSON 格式的数据。</p>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">因为无法检测来源数据是否具有有效的JSON格式，所以只有当你确认数据来源格式是JSON后才可使用。</p>
+<p class="admonition-title">注解</p>
+<p>因为无法检测来源数据是否具有有效的JSON格式，所以只有当你确认数据来源格式是JSON后才可使用。</p>
 </div>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$json</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getJSON</span><span class="p">();</span>
 </pre></div>
@@ -462,7 +464,8 @@
 <p><strong>获取原始数据（获取 Method 为 PUT, PATCH, DELETE 传递的数据）</strong></p>
 <p>最后，你可以通过 <code class="docutils literal notranslate"><span class="pre">getRawInput()</span></code> 去获取 php://input 传递的原始数据。</p>
 <blockquote>
-<div>$data = $request-&gt;getRawInput();</div></blockquote>
+<div><p>$data = $request-&gt;getRawInput();</p>
+</div></blockquote>
 <p>这会返回数据并转换为数组。比如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getRawInput</span><span class="p">());</span>
 
@@ -581,103 +584,93 @@
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id34">类信息参考</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">除了这里列出的，本类还继承了 <span class="xref std std-doc">Request Class</span>  和 <span class="xref std std-doc">Message Class</span> 的方法。</p>
+<p class="admonition-title">注解</p>
+<p>除了这里列出的，本类还继承了 <span class="xref std std-doc">Request Class</span>  和 <span class="xref std std-doc">Message Class</span> 的方法。</p>
 </div>
 <p>以下方法由父类提供:</p>
 <ul class="simple">
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::getIPAddress()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::validIP()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::getMethod()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::getServer()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::body()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::setBody()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::populateHeaders()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::headers()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::header()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::headerLine()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::setHeader()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::removeHeader()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::appendHeader()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::protocolVersion()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::setProtocolVersion()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateMedia()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateCharset()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateEncoding()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></li>
-<li><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::getIPAddress()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::validIP()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::getMethod()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::getServer()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::body()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::setBody()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::populateHeaders()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::headers()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::header()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::headerLine()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::setHeader()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::removeHeader()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::appendHeader()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::protocolVersion()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::setProtocolVersion()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateMedia()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateCharset()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateEncoding()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::negotiateLanguage()</span></code></p></li>
 </ul>
 <dl class="class">
 <dt>
-<code class="descname">CodeIgniter\HTTP\IncomingRequest</code></dt>
+<code class="sig-name descname">CodeIgniter\HTTP\IncomingRequest</code></dt>
 <dd><dl class="method">
 <dt id="isCLI">
-<code class="descname">isCLI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isCLI" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">由命令行发起的请求会返回 true ，其他返回 false。</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
-</tr>
-</tbody>
-</table>
+<code class="sig-name descname">isCLI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isCLI" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>由命令行发起的请求会返回 true ，其他返回 false。</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="isAJAX">
-<code class="descname">isAJAX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isAJAX" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">AJAX请求返回 true ，其他返回 false。</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
-</tr>
-</tbody>
-</table>
+<code class="sig-name descname">isAJAX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isAJAX" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>AJAX请求返回 true ，其他返回 false。</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="isSecure">
-<code class="descname">isSecure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isSecure" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">HTTPS请求返回 true ，其他返回 false。</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">bool</td>
-</tr>
-</tbody>
-</table>
+<code class="sig-name descname">isSecure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#isSecure" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>HTTPS请求返回 true ，其他返回 false。</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="getVar">
-<code class="descname">getVar</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getVar" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</li>
-<li><strong>$filter</strong> (<em>int</em>) – 过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</li>
-<li><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
-</li>
+<code class="sig-name descname">getVar</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$index = null</em><span class="optional">[</span>, <em class="sig-param">$filter = null</em><span class="optional">[</span>, <em class="sig-param">$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getVar" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</p></li>
+<li><p><strong>$filter</strong> (<em>int</em>) – 过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p></li>
+<li><p><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 REQUEST 中的所有元素，传参并且参数存在则返回对应的 REQUEST 值，不存在返回 null</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>不传参数会返回 REQUEST 中的所有元素，传参并且参数存在则返回对应的 REQUEST 值，不存在返回 null</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>mixed|null</p>
+</dd>
+</dl>
 <p>第一个参数包含需要查找的数据名</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">);</span>
 </pre></div>
@@ -704,82 +697,70 @@
 
 <dl class="method">
 <dt id="getGet">
-<code class="descname">getGet</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getGet" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</li>
-<li><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
-</li>
-<li><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
-</li>
+<code class="sig-name descname">getGet</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$index = null</em><span class="optional">[</span>, <em class="sig-param">$filter = null</em><span class="optional">[</span>, <em class="sig-param">$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getGet" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</p></li>
+<li><p><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
+</p></li>
+<li><p><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 GET 中的所有元素，传参并且参数存在则返回对应的 GET 值，不存在返回 null</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>不传参数会返回 GET 中的所有元素，传参并且参数存在则返回对应的 GET 值，不存在返回 null</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>mixed|null</p>
+</dd>
+</dl>
 <p>该方法与 <code class="docutils literal notranslate"><span class="pre">getVar()</span></code> 类似, 只返回 GET 的数据。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="getPost">
-<code class="descname">getPost</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getPost" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</li>
-<li><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
-</li>
-<li><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
-</li>
+<code class="sig-name descname">getPost</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$index = null</em><span class="optional">[</span>, <em class="sig-param">$filter = null</em><span class="optional">[</span>, <em class="sig-param">$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getPost" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</p></li>
+<li><p><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
+</p></li>
+<li><p><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 POST 中的所有元素，传参并且参数存在则返回对应的 POST 值，不存在返回 null</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>不传参数会返回 POST 中的所有元素，传参并且参数存在则返回对应的 POST 值，不存在返回 null</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>mixed|null</p>
+</dd>
+</dl>
 <p>该方法与 <code class="docutils literal notranslate"><span class="pre">getVar()</span></code> 类似, 只返回 POST 的数据。</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="getPostGet">
-<code class="descname">getPostGet</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getPostGet" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</li>
-<li><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
-</li>
-<li><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
-</li>
+<code class="sig-name descname">getPostGet</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$index = null</em><span class="optional">[</span>, <em class="sig-param">$filter = null</em><span class="optional">[</span>, <em class="sig-param">$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getPostGet" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</p></li>
+<li><p><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
+</p></li>
+<li><p><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 POST／GET 中的所有元素，传参并且参数存在则返回对应的 POST／GET 值，不存在返回 null</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>不传参数会返回 POST／GET 中的所有元素，传参并且参数存在则返回对应的 POST／GET 值，不存在返回 null</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>mixed|null</p>
+</dd>
+</dl>
 <p>该方法和 <code class="docutils literal notranslate"><span class="pre">getPost()</span></code>，<code class="docutils literal notranslate"><span class="pre">getGet()</span></code> 类似，它会同时查找 POST 和 GET 两个数组来获取数据， 先查找 POST ，再查找 GET:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPostGet</span><span class="p">(</span><span class="s1">&#39;field1&#39;</span><span class="p">);</span>
 </pre></div>
@@ -788,28 +769,24 @@
 
 <dl class="method">
 <dt id="getGetPost">
-<code class="descname">getGetPost</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getGetPost" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</li>
-<li><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
-</li>
-<li><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
-</li>
+<code class="sig-name descname">getGetPost</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$index = null</em><span class="optional">[</span>, <em class="sig-param">$filter = null</em><span class="optional">[</span>, <em class="sig-param">$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getGetPost" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$index</strong> (<em>string</em>) – 需要查找的数据名。</p></li>
+<li><p><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
+</p></li>
+<li><p><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 POST／GET 中的所有元素，传参并且参数存在则返回对应的 POST／GET 值，不存在返回 null</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed|null</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>不传参数会返回 POST／GET 中的所有元素，传参并且参数存在则返回对应的 POST／GET 值，不存在返回 null</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>mixed|null</p>
+</dd>
+</dl>
 <p>该方法和 <code class="docutils literal notranslate"><span class="pre">getPost()</span></code>，<code class="docutils literal notranslate"><span class="pre">getGet()</span></code> 类似，它会同时查找 POST 和 GET 两个数组来获取数据， 先查找 GET ，再查找 POST:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getGetPost</span><span class="p">(</span><span class="s1">&#39;field1&#39;</span><span class="p">);</span>
 </pre></div>
@@ -818,28 +795,24 @@
 
 <dl class="method">
 <dt id="getCookie">
-<code class="descname">getCookie</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getCookie" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) – COOKIE 名。</li>
-<li><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
-</li>
-<li><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
-</li>
+<code class="sig-name descname">getCookie</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$index = null</em><span class="optional">[</span>, <em class="sig-param">$filter = null</em><span class="optional">[</span>, <em class="sig-param">$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getCookie" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$index</strong> (<em>string</em>) – COOKIE 名。</p></li>
+<li><p><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
+</p></li>
+<li><p><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 COOKIE 中的所有元素，传参并且参数存在则返回对应的 COOKIE 值，不存在返回 null</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>不传参数会返回 COOKIE 中的所有元素，传参并且参数存在则返回对应的 COOKIE 值，不存在返回 null</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>mixed</p>
+</dd>
+</dl>
 <p>该方法与 <code class="docutils literal notranslate"><span class="pre">getPost()</span></code>，<code class="docutils literal notranslate"><span class="pre">getGet()</span></code> 类似, 只返回 COOKIE 的数据</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="s1">&#39;some_cookie&#39;</span><span class="p">);</span>
 <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="s1">&#39;some_cookie&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_STRING</span><span class="p">);</span> <span class="c1">// with filter</span>
@@ -850,36 +823,32 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">与 <a class="reference internal" href="../helpers/cookie_helper.html"><span class="doc">Cookie Helper</span></a>
+<p class="admonition-title">注解</p>
+<p>与 <a class="reference internal" href="../helpers/cookie_helper.html"><span class="doc">Cookie Helper</span></a>
 function <a class="reference internal" href="../helpers/cookie_helper.html#get_cookie" title="get_cookie"><code class="xref php php-func docutils literal notranslate"><span class="pre">get_cookie()</span></code></a> 不同, 该方法不会自动添加配置中 <code class="docutils literal notranslate"><span class="pre">$config['cookie_prefix']</span></code> 的值。</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="getServer">
-<code class="descname">getServer</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getServer" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$index</strong> (<em>string</em>) – 服务器信息名。</li>
-<li><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
-</li>
-<li><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
-</li>
+<code class="sig-name descname">getServer</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$index = null</em><span class="optional">[</span>, <em class="sig-param">$filter = null</em><span class="optional">[</span>, <em class="sig-param">$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getServer" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$index</strong> (<em>string</em>) – 服务器信息名。</p></li>
+<li><p><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
+</p></li>
+<li><p><strong>$flags</strong> (<em>int</em>) – <p>过滤器名，值为过滤器的预定义变量名。 参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">查看</a>。</p>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">不传参数会返回 SERVER 中的所有元素，传参并且参数存在则返回对应的 SERVER 值，不存在返回 null</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>不传参数会返回 SERVER 中的所有元素，传参并且参数存在则返回对应的 SERVER 值，不存在返回 null</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>mixed</p>
+</dd>
+</dl>
 <p>该方法与 <code class="docutils literal notranslate"><span class="pre">getPost()</span></code>，<code class="docutils literal notranslate"><span class="pre">getGet()</span></code> ，<code class="docutils literal notranslate"><span class="pre">getCookie()</span></code> 类似, 只返回 SERVER 的数据</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">);</span>
 </pre></div>
@@ -892,25 +861,21 @@ function <a class="reference internal" href="../helpers/cookie_helper.html#get_c
 
 <dl class="method">
 <dt id="getUserAgent">
-<code class="descname">getUserAgent</code><span class="sig-paren">(</span><span class="optional">[</span><em>$filter = null</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getUserAgent" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
-</li>
+<code class="sig-name descname">getUserAgent</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$filter = null</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getUserAgent" title="永久链接至目标">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$filter</strong> (<em>int</em>) – <p>过滤类型。参见列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">查看</a>。</p>
+</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">包含 User Agent 信息的字符串，不存在返回 null</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>包含 User Agent 信息的字符串，不存在返回 null</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>mixed</p>
+</dd>
+</dl>
 <p>该方法从服务器信息哪查找并以字符串形式返回 User Agent</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getUserAgent</span><span class="p">();</span>
 </pre></div>
