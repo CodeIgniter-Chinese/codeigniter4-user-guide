@@ -1,123 +1,90 @@
 ################
-Helper Functions
+辅助函数
 ################
 
-Helpers, as the name suggests, help you with tasks. Each helper file is
-simply a collection of functions in a particular category. There are **URL
-Helpers**, that assist in creating links, there are **Form Helpers** that help
-you create form elements, **Text Helpers** perform various text formatting
-routines, **Cookie Helpers** set and read cookies, **File Helpers** help you
-deal with files, etc.
+辅助函数正如其名，是用于辅助你处理任务的。每个辅助文件都只是一个特殊分类下一系列函数的集合。
+例如 **URL辅助函数** 用于创建链接，**表单辅助函数** 用于创建表单元素，**文本辅助函数** 用于不同的文本编排方式，**Cookie辅助函数**用于设置和获取cookies，**文件辅助函数**用于处理文件等。
 
 .. contents::
     :local:
     :depth: 2
 
-Unlike most other systems in CodeIgniter, Helpers are not written in an
-Object Oriented format. They are simple, procedural functions. Each
-helper function performs one specific task, with no dependence on other
-functions.
+与CodeIgniter中其他大多数的系统部件有所不同，辅助函数不是以面向对象的方式实现的，而仅仅是简单的，程序化的函数方法。
+每个辅助函数都只执行一个特定的功能，并与其他的函数不产生依赖。
 
-CodeIgniter does not load Helper Files by default, so the first step in
-using a Helper is to load it. Once loaded, it becomes globally available
-in your :doc:`controller </incoming/controllers>` and
-:doc:`views </outgoing/views>`.
+CodeIgniter在默认情况下不加载辅助函数文件，因此使用它的第一步就是加载它。
+而当辅助函数被加载后，该函数就在你的 :doc:`控制器 </incoming/controllers>` and
+:doc:`视图 </outgoing/views>` 中全局可用。
 
-Helpers are typically stored in your **system/Helpers**, or
-**app/Helpers directory**. CodeIgniter will look first in your
-**app/Helpers directory**. If the directory does not exist or the
-specified helper is not located there CI will instead look in your
-global *system/Helpers/* directory.
+辅助函数通常储存在 **system/Helpers** 或 **app/Helpers directory** 下。CodeIgniter首先会在 **app/Helpers** 目录下进行查找，但是如果该目录不存在，或者指定的辅助函数文件不在当前位置。
+CI就会在你的全局 *system/Helpers/* 目录下进行搜索。
 
-Loading a Helper
+
+加载一个辅助文件
 ================
 
-Loading a helper file is quite simple using the following method::
+可以使用如下方法来轻易地加载辅助文件::
 
 	helper('name');
 
-Where **name** is the file name of the helper, without the .php file
-extension or the "helper" part.
+其中 **name** 是辅助文件的文件名，并不需要带有.php的文件扩展名或者是"helper"这部分。
 
-For example, to load the **Cookie Helper** file, which is named
-**cookie_helper.php**, you would do this::
+举例来说，为了加载名为**cookie_helper.php**的**Cookie辅助文件**，你需要这样做::
 
 	helper('cookie');
 
-If you need to load more than one helper at a time, you can pass
-an array of file names in and all of them will be loaded::
+如果你需要加载多个辅助文件，可以通过传值一个文件名构成的数组，这样一来这些文件就都会被加载了::
 
 	helper(['cookie', 'date']);
 
-A helper can be loaded anywhere within your controller methods (or
-even within your View files, although that's not a good practice), as
-long as you load it before you use it. You can load your helpers in your
-controller constructor so that they become available automatically in
-any function, or you can load a helper in a specific function that needs
-it.
+一个辅助函数文件可以在你的控制器方法里的任意位置被加载（甚至在你的视图文件里，虽然这样做并不符合最佳实践），
+只要你在使用前加载了该文件就行。你也可以在控制器的构造函数里加载辅助函数，从而在当前控制器的任何方法里都可以使用，
+或者在需要调用的方法里加载这个辅助函数。
 
-.. note:: The Helper loading method above does not return a value, so
-	don't try to assign it to a variable. Just use it as shown.
+.. note:: 辅助函数的加载方法并不会返回值，所以请不要尝试将它赋值给一个变量。请如上所示调用即可。
 
-.. note:: The URL helper is always loaded so you do not need to load it yourself.
+.. note:: URL辅助函数文件总是会自动加载，因此你不需要手动加载它。
 
-Loading from Non-standard Locations
+从非标准位置加载
 -----------------------------------
 
-Helpers can be loaded from directories outside of **app/Helpers** and
-**system/Helpers**, as long as that path can be found through a namespace that
-has been set up within the PSR-4 section of the :doc:`Autoloader config file <../concepts/autoloader>`.
-You would prefix the name of the Helper with the namespace that it can be located
-in. Within that namespaced directory, the loader expects it to live within a
-sub-directory named ``Helpers``. An example will help understand this.
+辅助函数文件可以从 **app/Helpers**目录和**system/Helpers**目录外被加载，
+只要它们所处的路径可以通过 :doc:`自动加载器配置文件 <../concepts/autoloader>` 中的PSR-4这节所配置的命名空间定位。
+你可以为辅助函数文件用命名空间作为前缀来起名，从而使其可被定位。在命名空间所处的目录下，加载器期望该文件存在于命名空间中一个名为 ``Helpers`` 的子目录下。
+以下是一个帮助理解的例子。
 
-For this example, assume that we have grouped together all of our Blog-related
-code into its own namespace, ``Example\Blog``. The files exist on our server at
-**/Modules/Blog/**. So, we would put our Helper files for the blog module in
-**/Modules/Blog/Helpers/**. A **blog_helper** file would be at
-**/Modules/Blog/Helpers/blog_helper.php**. Within our controller we could
-use the following command to load the helper for us::
+举例来说，假设我们把所有博客相关的代码都放在了我们的命名空间 ``Example\Blog`` 中。而文件存在于我们服务器的**/Modules/Blog/**命名空间下。
+那么我们就应该把博客模块对应的辅助文件放在**/Modules/Blog/Helpers/**命名空间里。**blog_helper** 文件就应该位于**/Modules/Blog/Helpers/blog_helper.php**的位置。
+在控制器中我们可以使用如下指令来加载该辅助文件::
 
 	helper('Modules\Blog\blog');
 
-.. note:: The functions within files loaded this way are not truly namespaced.
-		The namespace is simply used as a convenient way to locate the files.
+.. note:: 通过该方式加载的文件中包含的函数并不是真正带有命名空间的。这里的命名空间只是用于简单快捷地定位文件而已。
 
-Using a Helper
+使用一个辅助函数
 ==============
 
-Once you've loaded the Helper File containing the function you intend to
-use, you'll call it the way you would a standard PHP function.
+当你加载完包含有你想要使用的辅助函数的文件后，就可以像调用一个标准的PHP函数一样调用它。
 
-For example, to create a link using the ``anchor()`` function in one of
-your view files you would do this::
+举例来说，在你的视图文件中使用 ``anchor`` 函数来创建一个链接，可以这样做::
 
 	<?php echo anchor('blog/comments', 'Click Here');?>
 
-Where "Click Here" is the name of the link, and "blog/comments" is the
-URI to the controller/method you wish to link to.
+其中"Click Here"是链接名，而"blogs/comments"是你希望链接到的控制器/方法名所对应的的URI
 
-"Extending" Helpers
+"继承"辅助函数
 ===================
 
-To "extend" Helpers, create a file in your **app/Helpers/** folder
-with an identical name to the existing Helper.
+为了实现对辅助函数文件的"继承"，在你的**app/Helpers/** 目录下创建一个和现存的辅助函数文件同名的文件。
 
-If all you need to do is add some functionality to an existing helper -
-perhaps add a function or two, or change how a particular helper
-function operates - then it's overkill to replace the entire helper with
-your version. In this case, it's better to simply "extend" the Helper.
+如果你你想做的只是对已有的辅助函数文件加一些新功能——那么在里面加一两个函数或者改某个特殊的辅助函数的代码——
+比起用你的版本来完全替换整个辅助函数文件来说要实用的多。在这种情况下，最好只是"继承"这个辅助函数文件。
 
-.. note:: The term "extend" is used loosely since Helper functions are
-	procedural and discrete and cannot be extended in the traditional
-	programmatic sense. Under the hood, this gives you the ability to
-	add to, or to replace the functions a Helper provides.
+.. note:: "继承"这个词语在这里用起来太过于泛化了，因为辅助函数是面向过程且离散的，并不能像传统的场景一样被继承。在这种情况下，这里的"继承"的意思是，让你可以添加或替换原本的辅助文件所提供的函数。
 
-For example, to extend the native **Array Helper** you'll create a file
-named **app/Helpers/array_helper.php**, and add or override
-functions::
+举个例子，为了继承原生的 **数组辅助函数**，你可以创建一个名为 **app/Helpers/array_helper.php** 的文件并增加或重载以下函数::
 
-	// any_in_array() is not in the Array Helper, so it defines a new function
+	// any_in_array() 并不是数组辅助函数，因为被定义为一个新的函数
 	function any_in_array($needle, $haystack)
 	{
 		$needle = is_array($needle) ? $needle : [$needle];
@@ -133,24 +100,21 @@ functions::
 		return FALSE;
 	}
 
-	// random_element() is included in Array Helper, so it overrides the native function
+	// random_element() 在数组辅助函数中被定义了，所以在这里重载了原生的函数
 	function random_element($array)
 	{
 		shuffle($array);
 		return array_pop($array);
 	}
 
-The **helper()** method will scan through all PSR-4 namespaces defined in **app/Config/Autoload.php**
-and load in ALL matching helpers of the same name. This allows any module's helpers
-to be loaded, as well as any helpers you've created specifically for this application. The load order
-is as follows:
+**helper()** 方法会扫描所有 **app/Config/Autoload.php** 里定义的PSR-4命名空间并同时加载所有匹配的辅助文件
+这一行为将使得所有模块的辅助文件都会被加载，包括所有你所创建用于该程序的对应辅助文件。加载顺序如下:
 
-1. app/Helpers - Files loaded here are always loaded first.
-2. {namespace}/Helpers - All namespaces are looped through in the order they are defined.
-3. system/Helpers - The base file is loaded last
+1. app/Helpers - 这里的文件总是首先被加载
+2. {namespace}/Helpers - 所有的命名空间都会通过所定义的顺序遍历
+3. system/Helpers - 系统辅助文件在最后加载
 
-Now What?
+然后呢?
 =========
 
-In the Table of Contents, you'll find a list of all the available Helper
-Files. Browse each one to see what they do.
+在内容表里你可以找到所有可用的辅助函数文件。请逐一浏览它们的用途吧。
