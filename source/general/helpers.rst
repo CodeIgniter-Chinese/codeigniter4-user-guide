@@ -1,27 +1,20 @@
 ################
-Helper Functions
+辅助函数
 ################
 
-Helpers, as the name suggests, help you with tasks. Each helper file is
-simply a collection of functions in a particular category. There are **URL
-Helpers**, that assist in creating links, there are **Form Helpers** that help
-you create form elements, **Text Helpers** perform various text formatting
-routines, **Cookie Helpers** set and read cookies, **File Helpers** help you
-deal with files, etc.
+辅助函数正如其名，是用于辅助你处理任务的。每个辅助文件都只是一个特殊分类下一系列函数的集合。
+例如 **URL辅助函数** 用于创建链接，**表单辅助函数** 用于创建表单元素，**文本辅助函数** 用于不同的文本编排方式，**Cookie辅助函数**用于设置和获取cookies，**文件辅助函数**用于处理文件等。
 
 .. contents::
     :local:
     :depth: 2
 
-Unlike most other systems in CodeIgniter, Helpers are not written in an
-Object Oriented format. They are simple, procedural functions. Each
-helper function performs one specific task, with no dependence on other
-functions.
+与CodeIgniter中其他大多数的系统部件有所不同，辅助函数不是以面向对象的方式实现的，而仅仅是简单的，程序化的函数方法。
+每个辅助函数都只执行一个特定的功能，并与其他的函数不产生依赖。
 
-CodeIgniter does not load Helper Files by default, so the first step in
-using a Helper is to load it. Once loaded, it becomes globally available
-in your :doc:`controller </incoming/controllers>` and
-:doc:`views </outgoing/views>`.
+CodeIgniter在默认情况下不加载辅助函数文件，因此使用它的第一步就是加载它。
+而当辅助函数被加载后，该函数就在你的 :doc:`控制器 </incoming/controllers>` and
+:doc:`视图 </outgoing/views>` 中全局可用。
 
 Helpers are typically stored in your **system/Helpers**, or
 **app/Helpers directory**. CodeIgniter will look first in your
