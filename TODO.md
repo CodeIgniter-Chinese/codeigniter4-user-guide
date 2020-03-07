@@ -31,7 +31,6 @@
 
 ## 翻译中
 
-1. - [x] [./source/extending/events.rst](source/extending/events.rst)
 1. - [x] [./source/general/helpers.rst](source/general/helpers.rst)
 1. - [x] [./source/installation/running.rst](source/installation/running.rst)
 1. - [x] [./source/incoming/message.rst](source/incoming/message.rst)
@@ -46,6 +45,9 @@
 1. - [x] [~~./source/general/configuration.rst~~](source/general/configuration.rst)
 1. - [x] [~~./source/incoming/controllers.rst~~](source/incoming/controllers.rst)
 1. - [x] [~~./source/extending/core_classes.rst~~](source/extending/core_classes.rst)
+1. - [x] [~~./source/extending/authentication.rst~~](source/extending/authentication.rst)
+1. - [x] [~~./source/extending/common.rst~~](source/extending/common.rst)
+1. - [x] [~~./source/extending/events.rst~~](source/extending/events.rst)
 1. - [x] [~~./source/general/environments.rst~~](source/general/environments.rst)
 1. - [x] [~~./source/general/errors.rst~~](source/general/errors.rst)
 1. - [x] [~~./source/general/index.rst~~](source/general/index.rst)
@@ -103,8 +105,6 @@
 1. - [x] [~~./source/concepts/security.rst~~](source/concepts/security.rst)
 1. - [x] [~~./source/concepts/structure.rst~~](source/concepts/structure.rst)
 1. - [x] [~~./source/database/utilities.rst~~](source/database/utilities.rst)
-1. - [x] [~~./source/extending/authentication.rst~~](source/extending/authentication.rst)
-1. - [x] [~~./source/extending/common.rst~~](source/extending/common.rst)
 1. - [x] [~~./source/general/ajax.rst~~](source/general/ajax.rst)
 1. - [x] [~~./source/helpers/xml_helper.rst~~](source/helpers/xml_helper.rst)
 1. - [x] [~~./source/incoming/methodspoofing.rst~~](source/incoming/methodspoofing.rst)
