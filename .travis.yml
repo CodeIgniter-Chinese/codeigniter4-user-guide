@@ -1,4 +1,6 @@
 language: python
+os: linux
+dist: bionic
 python:
   - "3.7"
 
@@ -11,16 +13,12 @@ cache:
   directories:
   - $HOME/.cache/pip
 
-sudo: false
-
 addons:
   apt:
     packages:
     - texlive-xetex
-    - texlive-latex-recommended
+    - texlive-lang-chinese
     - texlive-fonts-recommended
-    - texlive-latex-extra
-    - lmodern
     - latexmk
     - xindy
 
@@ -33,8 +31,6 @@ install:
 
 script:
   - make html
-  - wget https://codeigniter-chinese.github.io/codeigniter4-user-guide/_fonts/fonts.tar.gz
-  - mkdir $HOME/.fonts && tar xzf fonts.tar.gz && cp *.ttf $HOME/.fonts/
   - make latexpdf
 
 after_success:
