@@ -1,83 +1,78 @@
-Events
+事件
 #####################################
 
-CodeIgniter's Events feature provides a means to tap into and modify the inner workings of the framework without hacking
-core files. When CodeIgniter runs it follows a specific execution process. There may be instances, however, when you'd
-like to cause some action to take place at a particular stage in the execution process. For example, you might want to run
-a script right before your controllers get loaded, or right after, or you might want to trigger one of your own scripts
-in some other location.
+CodeIgniter 事件特性提供了一种方法来修改框架的内部运作流程或功能，而无需修改核心文件的能力。CodeIgniter 遵循着一个特定的流程来
+运行。但是，在某些情况下，你可能想在执行特定流程时执行某些特定的操作。例如在加载控制器之前或之后立即运行一个特定的脚本。或者在其他的
+某些位置触发你的脚本。
 
-Events work on a *publish/subscribe* pattern, where an event, is triggered at some point during the script execution.
-Other scripts can "subscribe" to that event by registering with the Events class to let it know they want to perform an
-action when that event is triggered.
+事件已发布/订阅模式工作，可以在脚本执行过程中的某个时刻触发事件。其他脚本可以通过向 Events 类来注册订阅事件，使它知道在脚本触发事件
+时该执行什么操作。
 
-Enabling Events
+启用事件
 ===============
 
-Events are always enabled, and are available globally.
+事件始终处于启用状态，并且全局可用。
 
-Defining an Event
+定义事件
 =================
 
-Most events are defined within the **app/Config/Events.php** file. You can subscribe an action to an event with
-the Events class' ``on()`` method. The first parameter is the name of the event to subscribe to. The second parameter is
-a callable that will be run when that event is triggered::
+大多数的事件都定义在 **app/Config/Events.php** 文件中。不过你也可以通过 Events 类的 ``on()`` 方法定义事件。第一个参数是事件
+名称，第二个参数是当触发该事件时执行的操作::
 
 	use CodeIgniter\Events\Events;
 
 	Events::on('pre_system', ['MyClass', 'MyFunction']);
 
-In this example, whenever the **pre_controller** event is executed, an instance of ``MyClass`` is created and the
-``MyFunction`` method is run. Note that the second parameter can be *any* form of
-`callable <https://www.php.net/manual/en/function.is-callable.php>`_ that PHP recognizes::
+在这个例子中，任何时候触发 **pre_controller** 事件，都会创建 ``MyClass`` 实例并运行 ``MyFunction`` 方法。
 
-	// Call a standalone function
+第二个参数可以是 PHP 能识别的任何 `可调用结构 <https://www.php.net/manual/en/function.is-callable.php>`_::
+
+	// 调用 some_function 方法
 	Events::on('pre_system', 'some_function');
 
-	// Call on an instance method
+	// 调用实例方法
 	$user = new User();
 	Events::on('pre_system', [$user, 'some_method']);
 
-	// Call on a static method
+	// 调用静态方法
 	Events::on('pre_system', 'SomeClass::someMethod');
 
-	// Use a Closure
+	// 使用闭包形式
 	Events::on('pre_system', function(...$params)
 	{
 		. . .
 	});
 
-Setting Priorities
+
+
+设置执行优先顺序
 ------------------
 
-Since multiple methods can be subscribed to a single event, you will need a way to define in what order those methods
-are called. You can do this by passing a priority value as the third parameter of the ``on()`` method. Lower values
-are executed first, with a value of 1 having the highest priority, and there being no limit on the lower values::
+由于可以将多个方法订阅到一个事件中，因此需要一种方式来定义这些方法的调用顺序。你可以通过传递优先级作为 ``on()`` 方法的第三个参数来实现。
+事件系统将优先执行优先级较低的值，优先级最高的值为 1::
 
     Events::on('post_controller_constructor', 'some_function', 25);
 
-Any subscribers with the same priority will be executed in the order they were defined.
+如果出现相同优先级的情况，那么事件系统将按定义的顺序执行。
 
-Three constants are defined for your use, that set some helpful ranges on the values. You are not required to use these
-but you might find they aid readability::
+.. note:: 可以理解为事件系统会根据事件名称分组排序，按第三个参数升序排列，然后依次执行。
+
+Codeigniter 内置了三个常量供您使用，仅供参考。你也可以不使用它，但你会发现他们有助于提高可读性::
 
 	define('EVENT_PRIORITY_LOW', 200);
 	define('EVENT_PRIORITY_NORMAL', 100);
 	define('EVENT_PRIORITY_HIGH', 10);
 
-Once sorted, all subscribers are executed in order. If any subscriber returns a boolean false value, then execution of
-the subscribers will stop.
+排序后，将按顺序执行所有订阅者。如果任意订阅者返回了布尔类型 ``false``，订阅者将停止执行。
 
-Publishing your own Events
+发布自定义的事件
 ==========================
 
-The Events library makes it simple for you to create events in your own code, also. To use this feature, you would simply
-need to call the ``trigger()`` method on the **Events** class with the name of the event::
+使用事件系统，你可以轻松创建自己的事件。要使用此功能，只需要调用 **Events** 类的 ``trigger()`` 方法即可::
 
 	\CodeIgniter\Events\Events::trigger('some_event');
 
-You can pass any number of arguments to the subscribers by adding them as additional parameters. Subscribers will be
-given the arguments in the same order as defined::
+当然，你也可以为订阅者传递任意数量的参数，订阅者将会按相同的顺序接收参数::
 
 	\CodeIgniter\Events\Events::trigger('some_events', $foo, $bar, $baz);
 
@@ -85,27 +80,23 @@ given the arguments in the same order as defined::
 		...
 	});
 
-Simulating Events
+模拟事件
 =================
 
-During testing, you might not want the events to actually fire, as sending out hundreds of emails a day is both slow
-and counter-productive. You can tell the Events class to only simulate running the events with the ``simulate()`` method.
-When **true**, all events will be skipped over during the trigger method. Everything else will work as normal, though.
-
-::
+在测试期间，你可能不希望事件被真正的触发，因为每天发送数百封电子邮件记缓慢又适得其反。你可以告诉 Events 类使用 ``simulate()`` 方法
+模拟运行事件。如果为 **true**，那么将跳过所有事件，不过其他的内容都会正常运行::
 
     Events::simulate(true);
 
-You can stop simulation by passing false::
+你也可以传递 **false** 停止模拟::
 
     Events::simulate(false);
 
-Event Points
+事件触发点
 ============
 
-The following is a list of available event points within the CodeIgniter core code:
+以下是 Codeigniter 核心代码中可用的事件触发点列表:
 
-* **pre_system** Called very early during system execution. Only the benchmark and events class have been loaded at this point. No routing or other processes have happened.
-* **post_controller_constructor** Called immediately after your controller is instantiated, but prior to any method calls happening.
-* **post_system** Called after the final rendered page is sent to the browser, at the end of system execution after the finalized data is sent to the browser.
-
+* **pre_system** 系统执行过程中最早被调用。此时，只有 基准测试类 和 钩子类 被加载了， 还没有执行到路由或其他的流程。
+* **post_controller_constructor** 在你的控制器实例化之后立即执行，控制器的任何方法都还未调用。
+* **post_system** 最终数据发送到浏览器之后，系统执行结束时调用。
