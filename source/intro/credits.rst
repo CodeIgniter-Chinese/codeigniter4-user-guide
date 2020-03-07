@@ -3,7 +3,7 @@
 ##############
 
 CodeIgniter原本是由 `EllisLab  <https://ellislab.com/>`_ 所开发的。本框架的开发目的是为了提升在现实使用过程中的性能，同时实现了许多原创的类库，辅助函数和子系统
-（借鉴了 `ExpressionEngine<https://expressionengine.com>`_ 的代码结构）。
+（借鉴了 `ExpressionEngine <https://expressionengine.com>`_ 的代码结构）。
 在过去的几年中，是由EllisLab，ExpressionEngine开发团队以及被称为the Reactor Team的社区成员所开发并维护的。
 
 而在2014年，CodeIgniter转由 `British Columbia Institute of Technology
