@@ -10,10 +10,6 @@
 1. - [ ] [./source/cli/cli_commands.rst](source/cli/cli_commands.rst)
 1. - [ ] [./source/testing/debugging.rst](source/testing/debugging.rst)
 1. - [ ] [./source/incoming/content_negotiation.rst](source/incoming/content_negotiation.rst)
-1. - [ ] [./source/outgoing/view_cells.rst](source/outgoing/view_cells.rst)
-1. - [ ] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
-1. - [ ] [./source/outgoing/view_renderer.rst](source/outgoing/view_renderer.rst)
-1. - [ ] [./source/outgoing/views.rst](source/outgoing/views.rst)
 1. - [ ] [./source/outgoing/localization.rst](source/outgoing/localization.rst)
 1. - [ ] [./source/outgoing/table.rst](source/outgoing/table.rst)
 1. - [ ] [./source/database/call_function.rst](source/database/call_function.rst)
@@ -35,6 +31,10 @@
 1. - [x] [./source/installation/running.rst](source/installation/running.rst)
 1. - [x] [./source/incoming/message.rst](source/incoming/message.rst)
 1. - [x] [./source/concepts/services.rst](source/concepts/services.rst)
+1. - [x] [./source/outgoing/view_cells.rst](source/outgoing/view_cells.rst)
+1. - [x] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
+1. - [x] [./source/outgoing/view_renderer.rst](source/outgoing/view_renderer.rst)
+1. - [x] [./source/outgoing/views.rst](source/outgoing/views.rst)
 
 ## 已完成
 
