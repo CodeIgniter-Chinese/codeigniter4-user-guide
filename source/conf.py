@@ -201,6 +201,8 @@ latex_elements = {
 'pointsize': '12pt',
 
 'maxlistdepth': '9',
+'cmappkg': '',
+'releasename': '版本',
 
 # Additional stuff for the LaTeX preamble.
 'preamble': '''
