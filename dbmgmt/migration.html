@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -339,33 +339,34 @@
 <p>迁移是一种有条理、有组织的方式更改数据库的便捷方式。你可以手动编辑SQL的片段，然后你要负责告诉其他开发人员他们也需要去运行这段SQL。你还必须跟踪下次部署时需要对生产机器运行哪些更改。</p>
 <p>数据库表**迁移**会跟踪已经运行的迁移，因此您只需更新应用程序文件并调用$migration-&gt;current()以确定应运行哪些迁移。当前版本位于**application/Config/Migrations.php**中。</p>
 <ul class="simple">
-<li><p>迁移文件名</p></li>
-<li><p>创建迁移</p></li>
-<li><dl class="simple">
-<dt>使用$currentVersion</dt><dd><ul>
-<li><p>数据库组</p></li>
-<li><p>命名空间</p></li>
-<li><p>用法示例</p></li>
+<li>迁移文件名</li>
+<li>创建迁移</li>
+<li><dl class="first docutils">
+<dt>使用$currentVersion</dt>
+<dd><ul class="first last">
+<li>数据库组</li>
+<li>命名空间</li>
+<li>用法示例</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p>命令行工具</p></li>
-<li><p>迁移参数</p></li>
-<li><p>类参考</p></li>
+<li>命令行工具</li>
+<li>迁移参数</li>
+<li>类参考</li>
 </ul>
 <div class="section" id="id2">
 <h2>迁移文件名<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>每个迁移都按数字顺序向前或向后运行，具体取决于所采用的方法。有两种编号样式可供选择：</p>
 <ul class="simple">
-<li><p><strong>顺序</strong>：每个迁移按顺序编号，从001开始。每个数字必须是三位数，并且序列中不得有任何间隙。（这是CodeIgniter 3.0之前的编号方案。）</p></li>
-<li><p><strong>时间戳</strong>：使用创建迁移时的时间戳对每个迁移进行编号，格式为**YYYYMMDDHHIES**格式（例如**20121031100537**）。这有助于防止在团队环境中工作时出现编号冲突，并且是CodeIgniter 3.0及更高版本中的首选方案。</p></li>
+<li><strong>顺序</strong>：每个迁移按顺序编号，从001开始。每个数字必须是三位数，并且序列中不得有任何间隙。（这是CodeIgniter 3.0之前的编号方案。）</li>
+<li><strong>时间戳</strong>：使用创建迁移时的时间戳对每个迁移进行编号，格式为**YYYYMMDDHHIES**格式（例如**20121031100537**）。这有助于防止在团队环境中工作时出现编号冲突，并且是CodeIgniter 3.0及更高版本中的首选方案。</li>
 </ul>
 <p>可以使用*application/Config/Migrations.php*文件中的$type设置选择所需的样式。默认设置为时间戳。</p>
 <p>无论您选择使用哪种编号样式，请在迁移文件前加上迁移编号，后跟下划线和迁移的描述性名称。例如：</p>
 <ul class="simple">
-<li><p>001_add_blog.php（顺序编号）</p></li>
-<li><p>20121031100537_add_blog.php（时间戳编号）</p></li>
+<li>001_add_blog.php（顺序编号）</li>
+<li>20121031100537_add_blog.php（时间戳编号）</li>
 </ul>
 </div>
 <div class="section" id="id3">
@@ -378,27 +379,26 @@
 <div><p>public function up()
 {</p>
 <blockquote>
-<div><dl>
-<dt>$this-&gt;forge-&gt;addField([</dt><dd><dl class="simple">
-<dt>‘blog_id’          =&gt; [</dt><dd><p>‘type’           =&gt; ‘INT’,
+<div><dl class="docutils">
+<dt>$this-&gt;forge-&gt;addField([</dt>
+<dd><dl class="first docutils">
+<dt>‘blog_id’          =&gt; [</dt>
+<dd>‘type’           =&gt; ‘INT’,
 ‘constraint’     =&gt; 5,
 ‘unsigned’       =&gt; TRUE,
-‘auto_increment’ =&gt; TRUE</p>
-</dd>
+‘auto_increment’ =&gt; TRUE</dd>
 </dl>
 <p>],
 ‘blog_title’       =&gt; [</p>
 <blockquote>
-<div><p>‘type’           =&gt; ‘VARCHAR’,
-‘constraint’     =&gt; ‘100’,</p>
-</div></blockquote>
+<div>‘type’           =&gt; ‘VARCHAR’,
+‘constraint’     =&gt; ‘100’,</div></blockquote>
 <p>],
 ‘blog_description’ =&gt; [</p>
 <blockquote>
-<div><p>‘type’           =&gt; ‘TEXT’,
-‘null’           =&gt; TRUE,</p>
-</div></blockquote>
-<p>],</p>
+<div>‘type’           =&gt; ‘TEXT’,
+‘null’           =&gt; TRUE,</div></blockquote>
+<p class="last">],</p>
 </dd>
 </dl>
 <p>]);
@@ -409,8 +409,7 @@ $this-&gt;forge-&gt;createTable(‘blog’);</p>
 <p>public function down()
 {</p>
 <blockquote>
-<div><p>$this-&gt;forge-&gt;dropTable(‘blog’);</p>
-</div></blockquote>
+<div>$this-&gt;forge-&gt;dropTable(‘blog’);</div></blockquote>
 <p>}</p>
 </div></blockquote>
 <p>}</p>
@@ -443,10 +442,10 @@ $this-&gt;forge-&gt;createTable(‘blog’);</p>
 <p>每个命名空间都有自己的版本序列，这将帮助您升级和降级每个模块（命名空间），而不会影响其他命名空间。</p>
 <p>例如，假设我们在Autoload配置文件中定义了以下命名空间：</p>
 <blockquote>
-<div><dl class="simple">
-<dt>$psr4 = [</dt><dd><p>‘App’       =&gt; APPPATH,
-‘MyCompany’ =&gt; ROOTPATH.’MyCompany’</p>
-</dd>
+<div><dl class="docutils">
+<dt>$psr4 = [</dt>
+<dd>‘App’       =&gt; APPPATH,
+‘MyCompany’ =&gt; ROOTPATH.’MyCompany’</dd>
 </dl>
 <p>];</p>
 </div></blockquote>
@@ -471,8 +470,7 @@ $migrate-&gt;current();
 catch (Exception $e)
 {</p>
 <blockquote>
-<div><p>// Do something with the error here…</p>
-</div></blockquote>
+<div>// Do something with the error here…</div></blockquote>
 <p>}</p>
 </div></blockquote>
 <p>}</p>
@@ -486,26 +484,23 @@ catch (Exception $e)
 <p><strong>latest</strong></p>
 <p>将所有数据库组迁移到最新的可用迁移：</p>
 <blockquote>
-<div><p>&gt; php spark migrate:latest</p>
-</div></blockquote>
+<div>&gt; php spark migrate:latest</div></blockquote>
 <p>你可以使用（latest）以下选项：</p>
 <ul class="simple">
-<li><p>（-g）选择数据库组，否则将使用默认数据库组。</p></li>
-<li><p>（-n）选择名称空间，否则将使用（App）名称空间。</p></li>
-<li><p>（all）将所有名称空间迁移到最新的迁移</p></li>
+<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
+<li>（-n）选择名称空间，否则将使用（App）名称空间。</li>
+<li>（all）将所有名称空间迁移到最新的迁移</li>
 </ul>
 <p>此示例将Blog名称空间迁移到latest：</p>
 <blockquote>
-<div><p>&gt; php spark migrate:latest -g test -n Blog</p>
-</div></blockquote>
+<div>&gt; php spark migrate:latest -g test -n Blog</div></blockquote>
 <p><strong>current</strong></p>
 <p>迁移（App）命名空间以匹配中设置的版本$currentVersion。这将根据需要上下移动以匹配指定的版本：</p>
 <blockquote>
-<div><p>&gt; php spark migrate:current</p>
-</div></blockquote>
+<div>&gt; php spark migrate:current</div></blockquote>
 <p>你可以使用（current）以下选项：</p>
 <ul class="simple">
-<li><p>（-g）选择数据库组，否则将使用默认数据库组。</p></li>
+<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
 </ul>
 <p><strong>version</strong></p>
 <p>迁移到指定的版本。如果未提供任何版本，系统将提示你输入该版本。</p>
@@ -520,50 +515,46 @@ catch (Exception $e)
 </div></blockquote>
 <p>你可以使用（version）以下选项：</p>
 <ul class="simple">
-<li><p>（-g）选择数据库组，否则将使用默认数据库组。</p></li>
-<li><p>（-n）选择名称空间，否则将使用（App）名称空间。</p></li>
+<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
+<li>（-n）选择名称空间，否则将使用（App）名称空间。</li>
 </ul>
 <p><strong>rollback</strong></p>
 <p>回滚所有迁移，将所有数据库组转为空白平板，有效迁移0：</p>
 <blockquote>
-<div><p>&gt; php spark migrate:rollback</p>
-</div></blockquote>
+<div>&gt; php spark migrate:rollback</div></blockquote>
 <p>你可以使用（rollback）以下选项：</p>
 <ul class="simple">
-<li><p>（-g）选择数据库组，否则将使用默认数据库组。</p></li>
-<li><p>（-n）选择名称空间，否则将使用（App）名称空间。</p></li>
-<li><p>（all）将所有名称空间迁移到最新的迁移</p></li>
+<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
+<li>（-n）选择名称空间，否则将使用（App）名称空间。</li>
+<li>（all）将所有名称空间迁移到最新的迁移</li>
 </ul>
 <p><strong>refresh</strong></p>
 <p>首先回滚所有迁移，然后迁移到最新版本，刷新数据库状态：</p>
 <blockquote>
-<div><p>&gt; php spark migrate:refresh</p>
-</div></blockquote>
+<div>&gt; php spark migrate:refresh</div></blockquote>
 <p>你可以使用（refresh）以下选项：</p>
 <ul class="simple">
-<li><p>（-g）选择数据库组，否则将使用默认数据库组。</p></li>
-<li><p>（-n）选择名称空间，否则将使用（App）名称空间。</p></li>
-<li><p>（all）将所有名称空间迁移到最新的迁移</p></li>
+<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
+<li>（-n）选择名称空间，否则将使用（App）名称空间。</li>
+<li>（all）将所有名称空间迁移到最新的迁移</li>
 </ul>
 <p><strong>status</strong></p>
 <p>显示所有迁移的列表及其运行的日期和时间，如果尚未运行，则显示’–’：</p>
 <blockquote>
-<div><p>&gt; php spark migrate:status
+<div>&gt; php spark migrate:status
 Filename               Migrated On
-First_migration.php    2016-04-25 04:44:22</p>
-</div></blockquote>
+First_migration.php    2016-04-25 04:44:22</div></blockquote>
 <p>你可以使用（status）以下选项：</p>
 <ul class="simple">
-<li><p>（-g）选择数据库组，否则将使用默认数据库组。</p></li>
+<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
 </ul>
 <p><strong>create</strong></p>
 <p>使用时间戳格式在application/Database/Migrations中创建框架迁移文件：</p>
 <blockquote>
-<div><p>&gt; php spark migrate:create [filename]</p>
-</div></blockquote>
+<div>&gt; php spark migrate:create [filename]</div></blockquote>
 <p>你可以使用（create）以下选项：</p>
 <ul class="simple">
-<li><p>（-n）选择名称空间，否则将使用（App）名称空间。</p></li>
+<li>（-n）选择名称空间，否则将使用（App）名称空间。</li>
 </ul>
 </div>
 <div class="section" id="id8">
@@ -582,58 +573,68 @@ First_migration.php    2016-04-25 04:44:22</p>
 <blockquote>
 <div><dl class="class">
 <dt id="CodeIgniterDatabaseMigrationRunner">
-<em class="property">class </em><code class="sig-name descname">CodeIgniterDatabaseMigrationRunner</code><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner" title="永久链接至目标">¶</a></dt>
+<em class="property">class </em><code class="descname">CodeIgniterDatabaseMigrationRunner</code><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner" title="永久链接至目标">¶</a></dt>
 <dd><dl class="method">
 <dt id="CodeIgniterDatabaseMigrationRunner::current">
-<code class="sig-name descname">current</code><span class="sig-paren">(</span><em class="sig-param">$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::current" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$group</strong> (<em>mixed</em>) – database group name, if null (App) namespace will be used.</p></li>
+<code class="descname">current</code><span class="sig-paren">(</span><em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::current" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$group</strong> (<em>mixed</em>) – database group name, if null (App) namespace will be used.</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE if no migrations are found, current version string on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>mixed</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE if no migrations are found, current version string on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Migrates up to the current version (whatever is set for
 <code class="docutils literal notranslate"><span class="pre">$currentVersion</span></code> in <em>application/Config/Migrations.php</em>).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseMigrationRunner::findMigrations">
-<code class="sig-name descname">findMigrations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::findMigrations" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
-<dd class="field-odd"><p>An array of migration files</p>
-</dd>
-<dt class="field-even">返回类型</dt>
-<dd class="field-even"><p>array</p>
-</dd>
-</dl>
+<code class="descname">findMigrations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::findMigrations" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">An array of migration files</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">array</td>
+</tr>
+</tbody>
+</table>
 <p>An array of migration filenames are returned that are found in the <strong>path</strong> property.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseMigrationRunner::latest">
-<code class="sig-name descname">latest</code><span class="sig-paren">(</span><em class="sig-param">$namespace</em>, <em class="sig-param">$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::latest" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$namespace</strong> (<em>mixed</em>) – application namespace, if null (App) namespace will be used.</p></li>
-<li><p><strong>$group</strong> (<em>mixed</em>) – database group name, if null default database group will be used.</p></li>
+<code class="descname">latest</code><span class="sig-paren">(</span><em>$namespace</em>, <em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::latest" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$namespace</strong> (<em>mixed</em>) – application namespace, if null (App) namespace will be used.</li>
+<li><strong>$group</strong> (<em>mixed</em>) – database group name, if null default database group will be used.</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Current version string on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>mixed</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Current version string on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>This works much the same way as <code class="docutils literal notranslate"><span class="pre">current()</span></code> but instead of looking for
 the <code class="docutils literal notranslate"><span class="pre">$currentVersion</span></code> the Migration class will use the very
 newest migration found in the filesystem.</p>
@@ -641,20 +642,24 @@ newest migration found in the filesystem.</p>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseMigrationRunner::latestAll">
-<code class="sig-name descname">latestAll</code><span class="sig-paren">(</span><em class="sig-param">$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::latestAll" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$group</strong> (<em>mixed</em>) – database group name, if null default database group will be used.</p></li>
+<code class="descname">latestAll</code><span class="sig-paren">(</span><em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::latestAll" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$group</strong> (<em>mixed</em>) – database group name, if null default database group will be used.</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>mixed</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>This works much the same way as <code class="docutils literal notranslate"><span class="pre">latest()</span></code> but instead of looking for
 one namespace, the Migration class will use the very
 newest migration found for all namespaces.</p>
@@ -662,22 +667,26 @@ newest migration found for all namespaces.</p>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseMigrationRunner::version">
-<code class="sig-name descname">version</code><span class="sig-paren">(</span><em class="sig-param">$target_version</em>, <em class="sig-param">$namespace</em>, <em class="sig-param">$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::version" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$namespace</strong> (<em>mixed</em>) – application namespace, if null (App) namespace will be used.</p></li>
-<li><p><strong>$group</strong> (<em>mixed</em>) – database group name, if null default database group will be used.</p></li>
-<li><p><strong>$target_version</strong> (<em>mixed</em>) – Migration version to process</p></li>
+<code class="descname">version</code><span class="sig-paren">(</span><em>$target_version</em>, <em>$namespace</em>, <em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::version" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$namespace</strong> (<em>mixed</em>) – application namespace, if null (App) namespace will be used.</li>
+<li><strong>$group</strong> (<em>mixed</em>) – database group name, if null default database group will be used.</li>
+<li><strong>$target_version</strong> (<em>mixed</em>) – Migration version to process</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE if no migrations are found, current version string on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>mixed</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE if no migrations are found, current version string on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Version can be used to roll back changes or step forwards programmatically to
 specific versions. It works just like <code class="docutils literal notranslate"><span class="pre">current()</span></code> but ignores <code class="docutils literal notranslate"><span class="pre">$currentVersion</span></code>.</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$migration</span><span class="o">-&gt;</span><span class="na">version</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
@@ -687,20 +696,24 @@ specific versions. It works just like <code class="docutils literal notranslate"
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseMigrationRunner::setNamespace">
-<code class="sig-name descname">setNamespace</code><span class="sig-paren">(</span><em class="sig-param">$namespace</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::setNamespace" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$namespace</strong> (<em>string</em>) – application namespace.</p></li>
+<code class="descname">setNamespace</code><span class="sig-paren">(</span><em>$namespace</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::setNamespace" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$namespace</strong> (<em>string</em>) – application namespace.</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>The current MigrationRunner instance</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#CodeIgniterDatabaseMigrationRunner" title="CodeIgniterDatabaseMigrationRunner">CodeIgniterDatabaseMigrationRunner</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The current MigrationRunner instance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseMigrationRunner" title="CodeIgniterDatabaseMigrationRunner">CodeIgniterDatabaseMigrationRunner</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Sets the path the library should look for migration files:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$migration</span><span class="o">-&gt;</span><span class="na">setNamespace</span><span class="p">(</span><span class="nv">$path</span><span class="p">)</span>
           <span class="o">-&gt;</span><span class="na">latest</span><span class="p">();</span>
@@ -710,20 +723,24 @@ specific versions. It works just like <code class="docutils literal notranslate"
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseMigrationRunner::setGroup">
-<code class="sig-name descname">setGroup</code><span class="sig-paren">(</span><em class="sig-param">$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::setGroup" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$group</strong> (<em>string</em>) – database group name.</p></li>
+<code class="descname">setGroup</code><span class="sig-paren">(</span><em>$group</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseMigrationRunner::setGroup" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$group</strong> (<em>string</em>) – database group name.</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>The current MigrationRunner instance</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#CodeIgniterDatabaseMigrationRunner" title="CodeIgniterDatabaseMigrationRunner">CodeIgniterDatabaseMigrationRunner</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The current MigrationRunner instance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseMigrationRunner" title="CodeIgniterDatabaseMigrationRunner">CodeIgniterDatabaseMigrationRunner</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Sets the path the library should look for migration files:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$migration</span><span class="o">-&gt;</span><span class="na">setNamespace</span><span class="p">(</span><span class="nv">$path</span><span class="p">)</span>
           <span class="o">-&gt;</span><span class="na">latest</span><span class="p">();</span>

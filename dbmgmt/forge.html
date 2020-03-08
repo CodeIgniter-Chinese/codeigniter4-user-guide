@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -339,34 +339,32 @@
 <p>数据库工厂类（Database Forge）包含了帮助你管理你的数据库的一些相关方法。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#forge" id="id20">初始化 Forge 类</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id21">创建和删除数据库</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id22">创建和删除数据表</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id5" id="id23">添加字段</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id24">添加键</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id25">添加外键</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id26">创建表格</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id27">删除表</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id28">删除外键</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id29">重命名表</a></p></li>
+<li><a class="reference internal" href="#forge" id="id20">初始化 Forge 类</a></li>
+<li><a class="reference internal" href="#id3" id="id21">创建和删除数据库</a></li>
+<li><a class="reference internal" href="#id4" id="id22">创建和删除数据表</a><ul>
+<li><a class="reference internal" href="#id5" id="id23">添加字段</a></li>
+<li><a class="reference internal" href="#id7" id="id24">添加键</a></li>
+<li><a class="reference internal" href="#id8" id="id25">添加外键</a></li>
+<li><a class="reference internal" href="#id9" id="id26">创建表格</a></li>
+<li><a class="reference internal" href="#id10" id="id27">删除表</a></li>
+<li><a class="reference internal" href="#id11" id="id28">删除外键</a></li>
+<li><a class="reference internal" href="#id12" id="id29">重命名表</a></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id13" id="id30">修改表</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id14" id="id31">向表中添加列</a></p></li>
-<li><p><a class="reference internal" href="#id15" id="id32">从表中删除列</a></p></li>
-<li><p><a class="reference internal" href="#id16" id="id33">从表中的修改列</a></p></li>
+<li><a class="reference internal" href="#id13" id="id30">修改表</a><ul>
+<li><a class="reference internal" href="#id14" id="id31">向表中添加列</a></li>
+<li><a class="reference internal" href="#id15" id="id32">从表中删除列</a></li>
+<li><a class="reference internal" href="#id16" id="id33">从表中的修改列</a></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id19" id="id34">类引用</a></p></li>
+<li><a class="reference internal" href="#id19" id="id34">类引用</a></li>
 </ul>
 </div>
 <div class="section" id="forge">
 <h2><a class="toc-backref" href="#id20">初始化 Forge 类</a><a class="headerlink" href="#forge" title="永久链接至标题">¶</a></h2>
 <div class="admonition important">
-<p class="admonition-title">重要</p>
-<p>为了初始化forge类，你的数据库驱动程序必须已经在运行，因为forge类是依赖它运行的。</p>
+<p class="first admonition-title">重要</p>
+<p class="last">为了初始化forge类，你的数据库驱动程序必须已经在运行，因为forge类是依赖它运行的。</p>
 </div>
 <p>加载 Forge 类的代码如下:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">forge</span><span class="p">();</span>
@@ -414,11 +412,11 @@
 </div>
 <p>此外，可以使用以下键/值:</p>
 <ul class="simple">
-<li><p>unsigned/true : 在字段定义中生成 “UNSIGNED” 。</p></li>
-<li><p>default/value : 在字段定义中生成默认值。</p></li>
-<li><p>null/true : 在字段定义中生成”NULL”。如果没有这个，该字段将默认为”NOT NULL”。</p></li>
-<li><p>auto_increment/true : 在字段上生成auto_increment标志。请注意，字段类型必须是支持此类型的类型，例如整数。</p></li>
-<li><p>unique/true : 为字段定义生成唯一键。</p></li>
+<li>unsigned/true : 在字段定义中生成 “UNSIGNED” 。</li>
+<li>default/value : 在字段定义中生成默认值。</li>
+<li>null/true : 在字段定义中生成”NULL”。如果没有这个，该字段将默认为”NOT NULL”。</li>
+<li>auto_increment/true : 在字段上生成auto_increment标志。请注意，字段类型必须是支持此类型的类型，例如整数。</li>
+<li>unique/true : 为字段定义生成唯一键。</li>
 </ul>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;blog_id&#39;</span>          <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
@@ -454,12 +452,12 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
-<p>将原始字符串作为字段传递后，不能用 <code class="docutils literal notranslate"><span class="pre">add_key()</span></code> 对这些字段进行调用。</p>
+<p class="first admonition-title">注解</p>
+<p class="last">将原始字符串作为字段传递后，不能用 <code class="docutils literal notranslate"><span class="pre">add_key()</span></code> 对这些字段进行调用。</p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
-<p>对 add_field() 的多次调用是累积的。</p>
+<p class="first admonition-title">注解</p>
+<p class="last">对 add_field() 的多次调用是累积的。</p>
 </div>
 </div>
 <div class="section" id="id">
@@ -535,8 +533,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
-<p>除非你指定 <code class="docutils literal notranslate"><span class="pre">CHARACTER</span> <span class="pre">SET</span></code> 和/或 <code class="docutils literal notranslate"><span class="pre">COLLATE</span></code> 属性,
+<p class="first admonition-title">注解</p>
+<p class="last">除非你指定 <code class="docutils literal notranslate"><span class="pre">CHARACTER</span> <span class="pre">SET</span></code> 和/或 <code class="docutils literal notranslate"><span class="pre">COLLATE</span></code> 属性,
 <code class="docutils literal notranslate"><span class="pre">createTable()</span></code> 否则将始终使用你配置的 <em>charset</em>
 和 <em>DBCollat</em> 值, 只要它们不为空 (仅限MySQL).</p>
 </div>
@@ -560,8 +558,8 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
-<p>SQLite数据库驱动程序不支持删除外键。</p>
+<p class="first admonition-title">注解</p>
+<p class="last">SQLite数据库驱动程序不支持删除外键。</p>
 </div>
 </div>
 <div class="section" id="id12">
@@ -628,241 +626,289 @@
 <h2><a class="toc-backref" href="#id34">类引用</a><a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h2>
 <dl class="class">
 <dt id="CodeIgniterDatabaseForge">
-<em class="property">class </em><code class="sig-name descname">CodeIgniterDatabaseForge</code><a class="headerlink" href="#CodeIgniterDatabaseForge" title="永久链接至目标">¶</a></dt>
+<em class="property">class </em><code class="descname">CodeIgniterDatabaseForge</code><a class="headerlink" href="#CodeIgniterDatabaseForge" title="永久链接至目标">¶</a></dt>
 <dd><dl class="method">
 <dt id="CodeIgniterDatabaseForge::addColumn">
-<code class="sig-name descname">addColumn</code><span class="sig-paren">(</span><em class="sig-param">$table</em><span class="optional">[</span>, <em class="sig-param">$field = array()</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addColumn" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$table</strong> (<em>string</em>) – Table name to add the column to</p></li>
-<li><p><strong>$field</strong> (<em>array</em>) – Column definition(s)</p></li>
+<code class="descname">addColumn</code><span class="sig-paren">(</span><em>$table</em><span class="optional">[</span>, <em>$field = array()</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addColumn" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$table</strong> (<em>string</em>) – Table name to add the column to</li>
+<li><strong>$field</strong> (<em>array</em>) – Column definition(s)</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Adds a column to a table. Usage:  See <a href="#id35"><span class="problematic" id="id36">`Adding a Column to a Table`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::addField">
-<code class="sig-name descname">addField</code><span class="sig-paren">(</span><em class="sig-param">$field</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addField" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$field</strong> (<em>array</em>) – Field definition to add</p></li>
+<code class="descname">addField</code><span class="sig-paren">(</span><em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addField" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$field</strong> (<em>array</em>) – Field definition to add</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>CodeIgniterDatabaseForge instance (method chaining)</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniterDatabaseForge instance (method chaining)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Adds a field to the set that will be used to create a table. Usage:  See <a href="#id37"><span class="problematic" id="id38">`Adding fields`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::addKey">
-<code class="sig-name descname">addKey</code><span class="sig-paren">(</span><em class="sig-param">$key</em><span class="optional">[</span>, <em class="sig-param">$primary = FALSE</em><span class="optional">[</span>, <em class="sig-param">$unique = FALSE</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addKey" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</p></li>
-<li><p><strong>$primary</strong> (<em>bool</em>) – Set to TRUE if it should be a primary key or a regular one</p></li>
-<li><p><strong>$unique</strong> (<em>bool</em>) – Set to TRUE if it should be a unique key or a regular one</p></li>
+<code class="descname">addKey</code><span class="sig-paren">(</span><em>$key</em><span class="optional">[</span>, <em>$primary = FALSE</em><span class="optional">[</span>, <em>$unique = FALSE</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addKey" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</li>
+<li><strong>$primary</strong> (<em>bool</em>) – Set to TRUE if it should be a primary key or a regular one</li>
+<li><strong>$unique</strong> (<em>bool</em>) – Set to TRUE if it should be a unique key or a regular one</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>CodeIgniterDatabaseForge instance (method chaining)</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniterDatabaseForge instance (method chaining)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Adds a key to the set that will be used to create a table. Usage:  See <a href="#id39"><span class="problematic" id="id40">`Adding Keys`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::addPrimaryKey">
-<code class="sig-name descname">addPrimaryKey</code><span class="sig-paren">(</span><em class="sig-param">$key</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addPrimaryKey" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</p></li>
+<code class="descname">addPrimaryKey</code><span class="sig-paren">(</span><em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addPrimaryKey" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>CodeIgniterDatabaseForge instance (method chaining)</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniterDatabaseForge instance (method chaining)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Adds a primary key to the set that will be used to create a table. Usage:  See <a href="#id41"><span class="problematic" id="id42">`Adding Keys`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::addUniqueKey">
-<code class="sig-name descname">addUniqueKey</code><span class="sig-paren">(</span><em class="sig-param">$key</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addUniqueKey" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</p></li>
+<code class="descname">addUniqueKey</code><span class="sig-paren">(</span><em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addUniqueKey" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>CodeIgniterDatabaseForge instance (method chaining)</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniterDatabaseForge instance (method chaining)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Adds an unique key to the set that will be used to create a table. Usage:  See <a href="#id43"><span class="problematic" id="id44">`Adding Keys`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::createDatabase">
-<code class="sig-name descname">createDatabase</code><span class="sig-paren">(</span><em class="sig-param">$db_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::createDatabase" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$db_name</strong> (<em>string</em>) – Name of the database to create</p></li>
+<code class="descname">createDatabase</code><span class="sig-paren">(</span><em>$db_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::createDatabase" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$db_name</strong> (<em>string</em>) – Name of the database to create</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Creates a new database. Usage:  See <a href="#id45"><span class="problematic" id="id46">`Creating and Dropping Databases`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::createTable">
-<code class="sig-name descname">createTable</code><span class="sig-paren">(</span><em class="sig-param">$table</em><span class="optional">[</span>, <em class="sig-param">$if_not_exists = FALSE</em><span class="optional">[</span>, <em class="sig-param">array $attributes = array()</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::createTable" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$table</strong> (<em>string</em>) – Name of the table to create</p></li>
-<li><p><strong>$if_not_exists</strong> (<em>string</em>) – Set to TRUE to add an ‘IF NOT EXISTS’ clause</p></li>
-<li><p><strong>$attributes</strong> (<em>string</em>) – An associative array of table attributes</p></li>
+<code class="descname">createTable</code><span class="sig-paren">(</span><em>$table</em><span class="optional">[</span>, <em>$if_not_exists = FALSE</em><span class="optional">[</span>, <em>array $attributes = array()</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::createTable" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$table</strong> (<em>string</em>) – Name of the table to create</li>
+<li><strong>$if_not_exists</strong> (<em>string</em>) – Set to TRUE to add an ‘IF NOT EXISTS’ clause</li>
+<li><strong>$attributes</strong> (<em>string</em>) – An associative array of table attributes</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Creates a new table. Usage:  See <a href="#id47"><span class="problematic" id="id48">`Creating a table`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::dropColumn">
-<code class="sig-name descname">dropColumn</code><span class="sig-paren">(</span><em class="sig-param">$table</em>, <em class="sig-param">$column_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropColumn" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$table</strong> (<em>string</em>) – Table name</p></li>
-<li><p><strong>$column_name</strong> (<em>array</em>) – The column name to drop</p></li>
+<code class="descname">dropColumn</code><span class="sig-paren">(</span><em>$table</em>, <em>$column_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropColumn" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$table</strong> (<em>string</em>) – Table name</li>
+<li><strong>$column_name</strong> (<em>array</em>) – The column name to drop</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Drops a column from a table. Usage:  See <a href="#id49"><span class="problematic" id="id50">`Dropping a Column From a Table`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::dropDatabase">
-<code class="sig-name descname">dropDatabase</code><span class="sig-paren">(</span><em class="sig-param">$db_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropDatabase" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$db_name</strong> (<em>string</em>) – Name of the database to drop</p></li>
+<code class="descname">dropDatabase</code><span class="sig-paren">(</span><em>$db_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropDatabase" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$db_name</strong> (<em>string</em>) – Name of the database to drop</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Drops a database. Usage:  See <a href="#id51"><span class="problematic" id="id52">`Creating and Dropping Databases`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::dropTable">
-<code class="sig-name descname">dropTable</code><span class="sig-paren">(</span><em class="sig-param">$table_name</em><span class="optional">[</span>, <em class="sig-param">$if_exists = FALSE</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropTable" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$table</strong> (<em>string</em>) – Name of the table to drop</p></li>
-<li><p><strong>$if_exists</strong> (<em>string</em>) – Set to TRUE to add an ‘IF EXISTS’ clause</p></li>
+<code class="descname">dropTable</code><span class="sig-paren">(</span><em>$table_name</em><span class="optional">[</span>, <em>$if_exists = FALSE</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropTable" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$table</strong> (<em>string</em>) – Name of the table to drop</li>
+<li><strong>$if_exists</strong> (<em>string</em>) – Set to TRUE to add an ‘IF EXISTS’ clause</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Drops a table. Usage:  See <a href="#id53"><span class="problematic" id="id54">`Dropping a table`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::modifyColumn">
-<code class="sig-name descname">modifyColumn</code><span class="sig-paren">(</span><em class="sig-param">$table</em>, <em class="sig-param">$field</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::modifyColumn" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$table</strong> (<em>string</em>) – Table name</p></li>
-<li><p><strong>$field</strong> (<em>array</em>) – Column definition(s)</p></li>
+<code class="descname">modifyColumn</code><span class="sig-paren">(</span><em>$table</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::modifyColumn" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$table</strong> (<em>string</em>) – Table name</li>
+<li><strong>$field</strong> (<em>array</em>) – Column definition(s)</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Modifies a table column. Usage:  See <a href="#id55"><span class="problematic" id="id56">`Modifying a Column in a Table`_</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="CodeIgniterDatabaseForge::renameTable">
-<code class="sig-name descname">renameTable</code><span class="sig-paren">(</span><em class="sig-param">$table_name</em>, <em class="sig-param">$new_table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::renameTable" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$table</strong> (<em>string</em>) – Current of the table</p></li>
-<li><p><strong>$new_table_name</strong> (<em>string</em>) – New name of the table</p></li>
+<code class="descname">renameTable</code><span class="sig-paren">(</span><em>$table_name</em>, <em>$new_table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::renameTable" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$table</strong> (<em>string</em>) – Current of the table</li>
+<li><strong>$new_table_name</strong> (<em>string</em>) – New name of the table</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>TRUE on success, FALSE on failure</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Renames a table. Usage:  See <a href="#id57"><span class="problematic" id="id58">`Renaming a table`_</span></a>.</p>
 </dd></dl>
 

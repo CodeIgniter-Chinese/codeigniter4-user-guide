@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -343,49 +343,55 @@
 <h2>类参考<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <dl class="class">
 <dt>
-<code class="sig-name descname">CodeIgniter\HTTP\IncomingRequest</code></dt>
+<code class="descname">CodeIgniter\HTTP\IncomingRequest</code></dt>
 <dd><dl class="method">
 <dt id="getIPAddress">
-<code class="sig-name descname">getIPAddress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getIPAddress" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
-<dd class="field-odd"><p>可以检测到的用户 IP 地址，否则为 NULL ，如果 IP 地址无效，则返回 0.0.0.0</p>
-</dd>
-<dt class="field-even">返回类型</dt>
-<dd class="field-even"><p>string</p>
-</dd>
-</dl>
+<code class="descname">getIPAddress</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getIPAddress" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">可以检测到的用户 IP 地址，否则为 NULL ，如果 IP 地址无效，则返回 0.0.0.0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
 <p>返回当前用户的 IP 地址。如果 IP 地址无效，返回 ‘0.0.0.0’</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getIPAddress</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="admonition important">
-<p class="admonition-title">重要</p>
-<p>此方法会根据 <code class="docutils literal notranslate"><span class="pre">App-&gt;proxy_ips</span></code> 的配置，来返回 HTTP_X_FORWARDED_FOR、 HTTP_CLIENT_IP、HTTP_X_CLIENT_IP 或 HTTP_X_CLUSTER_CLIENT_IP 。</p>
+<p class="first admonition-title">重要</p>
+<p class="last">此方法会根据 <code class="docutils literal notranslate"><span class="pre">App-&gt;proxy_ips</span></code> 的配置，来返回 HTTP_X_FORWARDED_FOR、 HTTP_CLIENT_IP、HTTP_X_CLIENT_IP 或 HTTP_X_CLUSTER_CLIENT_IP 。</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="validIP">
-<code class="sig-name descname">validIP</code><span class="sig-paren">(</span><em class="sig-param">$ip</em><span class="optional">[</span>, <em class="sig-param">$which = ''</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#validIP" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$ip</strong> (<em>string</em>) – IP 地址</p></li>
-<li><p><strong>$which</strong> (<em>string</em>) – IP 协议 (‘ipv4’ 或 ‘ipv6’)</p></li>
+<code class="descname">validIP</code><span class="sig-paren">(</span><em>$ip</em><span class="optional">[</span>, <em>$which = ''</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#validIP" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$ip</strong> (<em>string</em>) – IP 地址</li>
+<li><strong>$which</strong> (<em>string</em>) – IP 协议 (‘ipv4’ 或 ‘ipv6’)</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>IP 有效返回 true，否则返回 false</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">IP 有效返回 true，否则返回 false</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>传入一个 IP 地址，根据 IP 是否有效返回 true 或 false</p>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
-<p>$request-&gt;getIPAddress() 自动检测 IP 地址是否有效</p>
+<p class="first admonition-title">注解</p>
+<p class="last">$request-&gt;getIPAddress() 自动检测 IP 地址是否有效</p>
 </div>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">validIP</span><span class="p">(</span><span class="nv">$ip</span><span class="p">))</span>
 <span class="p">{</span>
@@ -402,20 +408,24 @@
 
 <dl class="method">
 <dt id="method">
-<code class="sig-name descname">method</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$upper = FALSE</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#method" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$upper</strong> (<em>bool</em>) – 以大写还是小写返回方法名，TRUE 表示大写</p></li>
+<code class="descname">method</code><span class="sig-paren">(</span><span class="optional">[</span><em>$upper = FALSE</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#method" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$upper</strong> (<em>bool</em>) – 以大写还是小写返回方法名，TRUE 表示大写</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>HTTP 请求方法</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>string</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">HTTP 请求方法</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>返回 <code class="docutils literal notranslate"><span class="pre">$_SERVER['REQUEST_METHOD']</span></code>, 并且转换字母到指定大写或小写</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="k">TRUE</span><span class="p">);</span> <span class="c1">// Outputs: POST</span>
 <span class="k">echo</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">(</span><span class="k">FALSE</span><span class="p">);</span> <span class="c1">// Outputs: post</span>
@@ -426,23 +436,27 @@
 
 <dl class="method">
 <dt id="getServer">
-<code class="sig-name descname">getServer</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$index = null</em><span class="optional">[</span>, <em class="sig-param">$filter = null</em><span class="optional">[</span>, <em class="sig-param">$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getServer" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$index</strong> (<em>mixed</em>) – 要过滤的变量</p></li>
-<li><p><strong>$filter</strong> (<em>int</em>) – 要过滤的类型，过滤类型列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">见此</a>.</p></li>
-<li><p><strong>$flags</strong> (<em>int</em>) – <p>过滤器ID. 完整列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">见此</a>.</p>
-</p></li>
+<code class="descname">getServer</code><span class="sig-paren">(</span><span class="optional">[</span><em>$index = null</em><span class="optional">[</span>, <em>$filter = null</em><span class="optional">[</span>, <em>$flags = null</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getServer" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$index</strong> (<em>mixed</em>) – 要过滤的变量</li>
+<li><strong>$filter</strong> (<em>int</em>) – 要过滤的类型，过滤类型列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.php">见此</a>.</li>
+<li><strong>$flags</strong> (<em>int</em>) – <p>过滤器ID. 完整列表 <a class="reference external" href="http://php.net/manual/en/filter.filters.flags.php">见此</a>.</p>
+</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>$_SERVER 值，如果不存在则返回NULL</p>
-</dd>
-<dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p>mixed</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">$_SERVER 值，如果不存在则返回NULL</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>该方法与  <span class="xref std std-doc">IncomingRequest 类</span> 中的 <code class="docutils literal notranslate"><span class="pre">post()</span></code>， <code class="docutils literal notranslate"><span class="pre">get()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">cookie()</span></code> 方法相同。只是它只获取 getServer 数据(<code class="docutils literal notranslate"><span class="pre">$_SERVER</span></code>)</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getServer</span><span class="p">(</span><span class="s1">&#39;some_data&#39;</span><span class="p">);</span>
 </pre></div>

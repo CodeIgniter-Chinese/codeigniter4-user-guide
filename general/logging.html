@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -338,14 +338,13 @@
 <h1>记录日志信息<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id7">配置</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id4" id="id8">使用多个日志调度器</a></p></li>
+<li><a class="reference internal" href="#id3" id="id7">配置</a><ul>
+<li><a class="reference internal" href="#id4" id="id8">使用多个日志调度器</a></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id5" id="id9">根据上下文修改记录信息</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id10">使用第三方日志器</a></p></li>
-<li><p><a class="reference internal" href="#loggeraware-trait" id="id11">LoggerAware Trait（代码复用）</a></p></li>
+<li><a class="reference internal" href="#id5" id="id9">根据上下文修改记录信息</a></li>
+<li><a class="reference internal" href="#id6" id="id10">使用第三方日志器</a></li>
+<li><a class="reference internal" href="#loggeraware-trait" id="id11">LoggerAware Trait（代码复用）</a></li>
 </ul>
 </div>
 <p>你可以通过 <code class="docutils literal notranslate"><span class="pre">log_message()</span></code> 方法将信息记录在本地日志文件中，并且必须在第一个参数中指定错误的”级别”，来表明这个信息的类型（debug，error等）。
@@ -387,8 +386,8 @@
 <h3><a class="toc-backref" href="#id8">使用多个日志调度器</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>日志系统支持同时使用多种调度器来处理日志记录。每一种调度器可以独立地设置用于特定的错误等级，并忽略其他的。现状而言，我们默认安装了两种调度器以供使用:</p>
 <ul class="simple">
-<li><p><strong>文件调度器</strong> 是默认的调度器，它将会每天在本地创建一个独立的日志文件，同时这也是较为被推荐的日志记录方式。</p></li>
-<li><p><strong>ChromeLogger 调度器</strong> 如果你在Chrome浏览器上安装了 <a class="reference external" href="https://craig.is/writing/chrome-logger">ChromeLogger 扩展</a> ，你可以使用这种调度器将日志输出到Chrome的控制台窗口中。</p></li>
+<li><strong>文件调度器</strong> 是默认的调度器，它将会每天在本地创建一个独立的日志文件，同时这也是较为被推荐的日志记录方式。</li>
+<li><strong>ChromeLogger 调度器</strong> 如果你在Chrome浏览器上安装了 <a class="reference external" href="https://craig.is/writing/chrome-logger">ChromeLogger 扩展</a> ，你可以使用这种调度器将日志输出到Chrome的控制台窗口中。</li>
 </ul>
 <p>调度器配置于主配置文件中的 <code class="docutils literal notranslate"><span class="pre">$handlers</span></code> 属性中，这一属性的格式为一个包含一组调度器和它们对应的配置的数组。
 每个调度器被定义数组的键，格式为完整命名空间格式的类名，而对应的值就是一个数组。

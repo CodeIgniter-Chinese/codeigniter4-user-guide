@@ -23,11 +23,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -339,10 +339,9 @@
 <p>现代化的 PHP开发都需要构建 API ，不管它只是为了给 javascript 单页应用提供数据还是作为独立的产品。CodeIgniter 提供了一个API响应特性，可用于任何控制器，使公共响应类型简单，无需记住它的 HTTP 状态代码应返回的响应类型。</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id5">使用示例</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id6">处理响应类型</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id4" id="id7">引用类</a></p></li>
+<li><a class="reference internal" href="#id2" id="id5">使用示例</a></li>
+<li><a class="reference internal" href="#id3" id="id6">处理响应类型</a><ul>
+<li><a class="reference internal" href="#id4" id="id7">引用类</a></li>
 </ul>
 </li>
 </ul>
@@ -397,8 +396,8 @@
 <h2><a class="toc-backref" href="#id6">处理响应类型</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>当您通过以下任何一种方法传递数据时，它们将决定基于数据类型来格式化结果:</p>
 <ul class="simple">
-<li><p>如果 $data 是一个字符串，它将被当作 HTML 发送回客户端。</p></li>
-<li><p>如果 $data 是一个数组，它将尝试请求内容类型与客户端进行协商，默认为 JSON。如果没有在 ConfigAPI.php 中配置内容。默认使用 <code class="docutils literal notranslate"><span class="pre">$supportedResponseFormats</span></code> 属性。</p></li>
+<li>如果 $data 是一个字符串，它将被当作 HTML 发送回客户端。</li>
+<li>如果 $data 是一个数组，它将尝试请求内容类型与客户端进行协商，默认为 JSON。如果没有在 ConfigAPI.php 中配置内容。默认使用 <code class="docutils literal notranslate"><span class="pre">$supportedResponseFormats</span></code> 属性。</li>
 </ul>
 <p>需要使用格式化，请修改 <strong>Config/Format.php</strong> 文件配置。<code class="docutils literal notranslate"><span class="pre">$supportedResponseFormats</span></code> 包含了一个格式化响应类型列表。默认情况下，系统将会自动判断并响应 XML 和 JSON 格式:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$supportedResponseFormats</span> <span class="o">=</span> <span class="p">[</span>
@@ -420,46 +419,53 @@
 <h3><a class="toc-backref" href="#id7">引用类</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <dl class="method">
 <dt id="respond">
-<code class="sig-name descname">respond</code><span class="sig-paren">(</span><em class="sig-param">$data</em><span class="optional">[</span>, <em class="sig-param">$statusCode=200</em><span class="optional">[</span>, <em class="sig-param">$message=''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#respond" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$data</strong> (<em>mixed</em>) – 返回客户端的数据。字符串或数组。</p></li>
-<li><p><strong>$statusCode</strong> (<em>int</em>) – 返回的HTTP状态码。默认为 200。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义 “reason” 消息。</p></li>
+<code class="descname">respond</code><span class="sig-paren">(</span><em>$data</em><span class="optional">[</span>, <em>$statusCode=200</em><span class="optional">[</span>, <em>$message=''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#respond" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$data</strong> (<em>mixed</em>) – 返回客户端的数据。字符串或数组。</li>
+<li><strong>$statusCode</strong> (<em>int</em>) – 返回的HTTP状态码。默认为 200。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义 “reason” 消息。</li>
 </ul>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 <p>这是该特征中所有其他方法用于将响应返回给客户端的方法。</p>
 <blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">$data</span></code> 元素可以是字符串或数组。 默认情况下，一个字符串将作为 HTML 返回，而数组将通过 json_encode 运行并返回为 JSON，除非 <span class="xref std std-doc">Content Negotiation</span> 确定它应该以不同的格式返回。</p>
-</div></blockquote>
+<div><code class="docutils literal notranslate"><span class="pre">$data</span></code> 元素可以是字符串或数组。 默认情况下，一个字符串将作为 HTML 返回，而数组将通过 json_encode 运行并返回为 JSON，除非 <span class="xref std std-doc">Content Negotiation</span> 确定它应该以不同的格式返回。</div></blockquote>
 <p>如果一个 <code class="docutils literal notranslate"><span class="pre">$message</span></code> 字符串被传递，它将被用来替代标准的 IANA 标准码回应状态。但不是每个客户端都会遵守自定义代码，并将使用 IANA 标准</p>
 </dd></dl>
 
-<p>     匹配状态码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 匹配状态码。</p>
 <blockquote>
 <div><div class="admonition note">
-<p class="admonition-title">注解</p>
-<p>由于它在活动的响应实例上设置状态码和正文，所以应该一直作为脚本执行中的最终方法。</p>
+<p class="first admonition-title">注解</p>
+<p class="last">由于它在活动的响应实例上设置状态码和正文，所以应该一直作为脚本执行中的最终方法。</p>
 </div>
 </div></blockquote>
 <dl class="method">
 <dt id="fail">
-<code class="sig-name descname">fail</code><span class="sig-paren">(</span><em class="sig-param">$messages</em><span class="optional">[</span>, <em class="sig-param">int $status=400</em><span class="optional">[</span>, <em class="sig-param">string $code=null</em><span class="optional">[</span>, <em class="sig-param">string $message=''</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#fail" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$messages</strong> (<em>mixed</em>) – 包含遇到错误消息的字符串或字符串数组。</p></li>
-<li><p><strong>$status</strong> (<em>int</em>) – 返回的HTTP状态码。 默认为400。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">fail</code><span class="sig-paren">(</span><em>$messages</em><span class="optional">[</span>, <em>int $status=400</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message=''</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#fail" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$messages</strong> (<em>mixed</em>) – 包含遇到错误消息的字符串或字符串数组。</li>
+<li><strong>$status</strong> (<em>int</em>) – 返回的HTTP状态码。 默认为400。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>以客户端的首选格式进行多部分响应。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">以客户端的首选格式进行多部分响应。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>这是用于表示失败的响应的通用方法，并被所有其他“fail”方法使用。</p>
 <p>该 <code class="docutils literal notranslate"><span class="pre">$messages</span></code> 元素可以是字符串或字符串数​​组。
 该 <code class="docutils literal notranslate"><span class="pre">$status</span></code> 参数是应返回的HTTP状态码。</p>
@@ -480,18 +486,22 @@
 
 <dl class="method">
 <dt id="respondCreated">
-<code class="sig-name descname">respondCreated</code><span class="sig-paren">(</span><em class="sig-param">$data</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#respondCreated" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$data</strong> (<em>mixed</em>) – 返回给客户端的数据。字符串或数组。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">respondCreated</code><span class="sig-paren">(</span><em>$data</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#respondCreated" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$data</strong> (<em>mixed</em>) – 返回给客户端的数据。字符串或数组。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置创建新资源时使用的相应状态代码，通常为201:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">respondCreated</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
@@ -501,18 +511,22 @@
 
 <dl class="method">
 <dt id="respondDeleted">
-<code class="sig-name descname">respondDeleted</code><span class="sig-paren">(</span><em class="sig-param">$data</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#respondDeleted" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$data</strong> (<em>mixed</em>) – 返回给客户端的数据。字符串或数组</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 自定义的“原因”消息返回。</p></li>
+<code class="descname">respondDeleted</code><span class="sig-paren">(</span><em>$data</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#respondDeleted" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$data</strong> (<em>mixed</em>) – 返回给客户端的数据。字符串或数组</li>
+<li><strong>$message</strong> (<em>string</em>) – 自定义的“原因”消息返回。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置当通过此API调用的结果删除新资源时使用的相应状态代码（通常为200）。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">respondDeleted</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">]);</span>
@@ -522,19 +536,23 @@
 
 <dl class="method">
 <dt id="failUnauthorized">
-<code class="sig-name descname">failUnauthorized</code><span class="sig-paren">(</span><em class="sig-param">string $description</em><span class="optional">[</span>, <em class="sig-param">string $code=null</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failUnauthorized" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">failUnauthorized</code><span class="sig-paren">(</span><em>string $description</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failUnauthorized" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置当用户未被授权或授权不正确时使用的相应状态代码。状态码为401。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failUnauthorized</span><span class="p">(</span><span class="s1">&#39;Invalid Auth token&#39;</span><span class="p">);</span>
 </pre></div>
@@ -543,19 +561,23 @@
 
 <dl class="method">
 <dt id="failForbidden">
-<code class="sig-name descname">failForbidden</code><span class="sig-paren">(</span><em class="sig-param">string $description</em><span class="optional">[</span>, <em class="sig-param">string $code=null</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failForbidden" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">failForbidden</code><span class="sig-paren">(</span><em>string $description</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failForbidden" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>不像 <code class="docutils literal notranslate"><span class="pre">failUnauthorized</span></code>，当请求 API 路径决不允许采用这种方法。未经授权意味着客户端被鼓励再次尝试使用不同的凭据。禁止意味着客户端不应该再次尝试，因为它不会有帮助。状态码为403。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failForbidden</span><span class="p">(</span><span class="s1">&#39;Invalid API endpoint.&#39;</span><span class="p">);</span>
 </pre></div>
@@ -564,19 +586,23 @@
 
 <dl class="method">
 <dt id="failNotFound">
-<code class="sig-name descname">failNotFound</code><span class="sig-paren">(</span><em class="sig-param">string $description</em><span class="optional">[</span>, <em class="sig-param">string $code=null</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failNotFound" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">failNotFound</code><span class="sig-paren">(</span><em>string $description</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failNotFound" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置于在找不到请求的资源时使用的状态码。状态码为404。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failNotFound</span><span class="p">(</span><span class="s1">&#39;User 13 cannot be found.&#39;</span><span class="p">);</span>
 </pre></div>
@@ -585,19 +611,23 @@
 
 <dl class="method">
 <dt id="failValidationError">
-<code class="sig-name descname">failValidationError</code><span class="sig-paren">(</span><em class="sig-param">string $description</em><span class="optional">[</span>, <em class="sig-param">string $code=null</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failValidationError" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">failValidationError</code><span class="sig-paren">(</span><em>string $description</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failValidationError" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置于客户端发送的数据未通过验证规则时使用的状态码。状态码通常为400。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failValidationError</span><span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">());</span>
 </pre></div>
@@ -606,19 +636,23 @@
 
 <dl class="method">
 <dt id="failResourceExists">
-<code class="sig-name descname">failResourceExists</code><span class="sig-paren">(</span><em class="sig-param">string $description</em><span class="optional">[</span>, <em class="sig-param">string $code=null</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failResourceExists" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">failResourceExists</code><span class="sig-paren">(</span><em>string $description</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failResourceExists" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置于当客户端尝试创建的资源已经存在时使用的状态码。状态码通常为409。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failResourceExists</span><span class="p">(</span><span class="s1">&#39;A user already exists with that email.&#39;</span><span class="p">);</span>
 </pre></div>
@@ -627,19 +661,23 @@
 
 <dl class="method">
 <dt id="failResourceGone">
-<code class="sig-name descname">failResourceGone</code><span class="sig-paren">(</span><em class="sig-param">string $description</em><span class="optional">[</span>, <em class="sig-param">string $code=null</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failResourceGone" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">failResourceGone</code><span class="sig-paren">(</span><em>string $description</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failResourceGone" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置于当请求的资源先前被删除并且不再使用时使用的状态码。状态码通常为410。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failResourceGone</span><span class="p">(</span><span class="s1">&#39;That user has been previously deleted.&#39;</span><span class="p">);</span>
 </pre></div>
@@ -648,19 +686,23 @@
 
 <dl class="method">
 <dt id="failTooManyRequests">
-<code class="sig-name descname">failTooManyRequests</code><span class="sig-paren">(</span><em class="sig-param">string $description</em><span class="optional">[</span>, <em class="sig-param">string $code=null</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failTooManyRequests" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">failTooManyRequests</code><span class="sig-paren">(</span><em>string $description</em><span class="optional">[</span>, <em>string $code=null</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failTooManyRequests" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置于当客户端调用 API路径次数过多时使用的状态码。这可能是由于某种形式的节流或速率限制。状态码通常为400。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failTooManyRequests</span><span class="p">(</span><span class="s1">&#39;You must wait 15 seconds before making another request.&#39;</span><span class="p">);</span>
 </pre></div>
@@ -669,19 +711,23 @@
 
 <dl class="method">
 <dt id="failServerError">
-<code class="sig-name descname">failServerError</code><span class="sig-paren">(</span><em class="sig-param">string $description</em><span class="optional">[</span>, <em class="sig-param">string $code = null</em><span class="optional">[</span>, <em class="sig-param">string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failServerError" title="永久链接至目标">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</p></li>
-<li><p><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</p></li>
-<li><p><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</p></li>
+<code class="descname">failServerError</code><span class="sig-paren">(</span><em>string $description</em><span class="optional">[</span>, <em>string $code = null</em><span class="optional">[</span>, <em>string $message = ''</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#failServerError" title="永久链接至目标">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$description</strong> (<em>mixed</em>) – 显示用户的错误信息。</li>
+<li><strong>$code</strong> (<em>string</em>) – 一个自定义的API特定的错误代码。</li>
+<li><strong>$message</strong> (<em>string</em>) – 返回的自定义“reason”消息。</li>
 </ul>
-</dd>
-<dt class="field-even">返回</dt>
-<dd class="field-even"><p>Response 对象的 send()方法的值。</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first last">Response 对象的 send()方法的值。</p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>设置于当存在服务器错误时使用的状态码。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failServerError</span><span class="p">(</span><span class="s1">&#39;Server error.&#39;</span><span class="p">);</span>
 </pre></div>
