@@ -28,7 +28,7 @@ Fetch API
 jQuery
 ======
 
-对于类似jQuery之类的库来说，不需要额外发送这个头，因为根据 `官方文档<https://api.jquery.com/jquery.ajax/>` ，对于所有``$.ajax()`` 请求来说，这都是一个标准头。
+对于类似jQuery之类的库来说，不需要额外发送这个头，因为根据 `官方文档 <https://api.jquery.com/jquery.ajax/>`_ ，对于所有``$.ajax()`` 请求来说，这都是一个标准头。
 但是如果你还是不想担风险并强制发送这个头，就像下面这样做吧:
 
     $.ajax({
