@@ -206,8 +206,11 @@ latex_elements = {
 
 # Additional stuff for the LaTeX preamble.
 'preamble': '''
-\usepackage{xeCJK}
-\setcounter{tocdepth}{2}
+\\setcounter{tocdepth}{2}
+\\addto\\captionsenglish{%
+  \\renewcommand{\\chaptername}{章节}%
+  \\renewcommand{\\contentsname}{目录}%
+}
 '''
 }
 
