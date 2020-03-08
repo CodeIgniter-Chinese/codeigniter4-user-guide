@@ -28,7 +28,7 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
 
 1.  安装
     [easy\_install](http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install)
-2.  `easy_install "sphinx==2.4.4"`
+2.  `easy_install "sphinx==1.8.5"`
 3.  `easy_install "sphinxcontrib-phpdomain==0.7.0"`
 4.  `easy_install "jieba==0.42.1"`
 5.  安装 CI Lexer，它可以高亮文档中的 PHP, HTML, CSS, 和 JavaScript 代码 (参见
