@@ -252,7 +252,7 @@ man_pages = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'CodeIgniter 中文手册 版本 ' + release
+epub_title = u'CodeIgniter4 中文手册 版本 ' + release
 epub_author = u'CodeIgniter 基金会 & CodeIgniter 中国开发者社区'
 epub_publisher = u'CodeIgniter 基金会 & CodeIgniter 中国开发者社区'
 epub_copyright = u'2019-2020 CodeIgniter 基金会'
