@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Custom Function Calls &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>自定义函数调用 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="Database Events" href="events.html" />
+    <link rel="next" title="数据库事件" href="events.html" />
     <link rel="prev" title="数据库元数据" href="metadata.html" /> 
 </head>
 
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">数据库参考</a> &raquo;</li>
         
-      <li>Custom Function Calls</li>
+      <li>自定义函数调用</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,35 +334,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="custom-function-calls">
-<h1>Custom Function Calls<a class="headerlink" href="#custom-function-calls" title="永久链接至标题">¶</a></h1>
+  <div class="section" id="id1">
+<h1>自定义函数调用<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="section" id="db-callfunction">
 <h2>$db-&gt;callFunction();<a class="headerlink" href="#db-callfunction" title="永久链接至标题">¶</a></h2>
-<p>This function enables you to call PHP database functions that are not
-natively included in CodeIgniter, in a platform-independent manner. For
-example, let’s say you want to call the mysql_get_client_info()
-function, which is <strong>not</strong> natively supported by CodeIgniter. You could
-do so like this:</p>
+<p>该函数使你可以以平台无关的形式来调用CodeIgniter中并没有原生包含的PHP数据库方法。
+举例来说，假如你想调用 <code class="docutils literal notranslate"><span class="pre">mysql_get_client_info</span></code>  函数，但是这一方法CodeIgniter并**没有**原生支持。那么就可以像这样做:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">callFunction</span><span class="p">(</span><span class="s1">&#39;get_client_info&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>You must supply the name of the function, <strong>without</strong> the mysql_
-prefix, in the first parameter. The prefix is added automatically based
-on which database driver is currently being used. This permits you to
-run the same function on different database platforms. Obviously, not all
-function calls are identical between platforms, so there are limits to
-how useful this function can be in terms of portability.</p>
-<p>Any parameters needed by the function you are calling will be added to
-the second parameter.</p>
+<p>你必须在第一个参数里提供函数名，并且**不应该**带有 <code class="docutils literal notranslate"><span class="pre">mysql\_</span></code> 的前缀。
+该前缀实际上会根据所使用的数据库驱动而自动附加上。因此这一机制确保你可以在不同数据库平台下运行同样的方法。
+显而易见的，并不是所有的方法在不同的平台间都是一样的，因此对于该函数的使用应当适当地予以限制。</p>
+<p>需要被传递给你所需要调用的函数的任何参数都可以添加到第二个参数后面:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">callFunction</span><span class="p">(</span><span class="s1">&#39;some_function&#39;</span><span class="p">,</span> <span class="nv">$param1</span><span class="p">,</span> <span class="nv">$param2</span><span class="p">,</span> <span class="nx">etc</span><span class="o">..</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Often, you will either need to supply a database connection ID or a
-database result ID. The connection ID can be accessed using:</p>
+<p>一般来说，你应该要么提供一个数据库连接ID或者是一个数据库结果ID。当前连接ID可以通过该方法获得:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">connID</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>The result ID can be accessed from within your result object, like this:</p>
+<p>结果ID可以通过你的结果对象来获得，例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SOME QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">resultID</span><span class="p">;</span>
@@ -379,7 +371,7 @@ database result ID. The connection ID can be accessed using:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="events.html" class="btn btn-neutral float-right" title="Database Events" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="events.html" class="btn btn-neutral float-right" title="数据库事件" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="metadata.html" class="btn btn-neutral float-left" title="数据库元数据" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>

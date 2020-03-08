@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Database Events &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据库事件 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -39,7 +39,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="实用工具" href="utilities.html" />
-    <link rel="prev" title="Custom Function Calls" href="call_function.html" /> 
+    <link rel="prev" title="自定义函数调用" href="call_function.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">数据库参考</a> &raquo;</li>
         
-      <li>Database Events</li>
+      <li>数据库事件</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,23 +334,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="database-events">
-<h1>Database Events<a class="headerlink" href="#database-events" title="永久链接至标题">¶</a></h1>
-<p>The Database classes contain a few <a class="reference internal" href="../extending/events.html"><span class="doc">Events</span></a> that you can tap into in
-order to learn more about what is happening during the database execution. These events can
-be used to collect data for analysis and reporting. The <a class="reference internal" href="../testing/debugging.html"><span class="doc">Debug Toolbar</span></a>
-uses this to collect the queries to display in the Toolbar.</p>
-<div class="section" id="the-events">
-<h2>The Events<a class="headerlink" href="#the-events" title="永久链接至标题">¶</a></h2>
+  <div class="section" id="id1">
+<h1>数据库事件<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>数据库类包括着一些你可以用来了解关于数据库执行过程的 <a class="reference internal" href="../extending/events.html"><span class="doc">事件</span></a> 相关的内容。
+这些事件可以用来收集数据以供分析和报告。<a class="reference internal" href="../testing/debugging.html"><span class="doc">Debug 工具条</span></a> 类使用了这一特性来收集用于工具条中展示的语句。</p>
+<div class="section" id="id2">
+<h2>事件<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p><strong>DBQuery</strong></p>
-<p>This event is triggered whenever a new query has been run, whether successful or not. The only parameter is
-a <a class="reference internal" href="queries.html"><span class="doc">Query</span></a> instance of the current query. You could use this to display all queries
-in STDOUT, or logging to a file, or even creating tools to do automatic query analysis to help you spot
-potentially missing indexes, slow queries, etc. An example usage might be:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// In Config\Events.php</span>
+<p>该事件会在一个新的语句运行完毕时，无论成功与否，都会触发。唯一的参数就是一个当前语句的 :doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>Query &lt;/database/queries&gt;`实例。
+你可以使用该方法在标准输出流，日志文件中输出所有的查询语句。甚至可以使用工具来进行自动化的语句分析来监测可能会出现的索引丢失，慢查询等情况。可行的用例如下:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在Config\Events.php文件中</span>
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;DBQuery&#39;</span><span class="p">,</span> <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Database::collect&#39;</span><span class="p">);</span>
 
-<span class="c1">// Collect the queries so something can be done with them later.</span>
+<span class="c1">// 收集所有的查询语句以备后来所需</span>
 <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">collect</span><span class="p">(</span><span class="nx">CodeIgniter\Database\Query</span> <span class="nv">$query</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">static</span><span class="o">::</span><span class="nv">$queries</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$query</span><span class="p">;</span>
@@ -371,7 +367,7 @@ potentially missing indexes, slow queries, etc. An example usage might be:</p>
         <a href="utilities.html" class="btn btn-neutral float-right" title="实用工具" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="call_function.html" class="btn btn-neutral float-left" title="Custom Function Calls" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="call_function.html" class="btn btn-neutral float-left" title="自定义函数调用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
       
     </div>
   

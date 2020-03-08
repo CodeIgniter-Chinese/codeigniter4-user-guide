@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Query Helper Methods &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>查询语句辅助函数 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">数据库参考</a> &raquo;</li>
         
-      <li>Query Helper Methods</li>
+      <li>查询语句辅助函数</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,50 +334,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="query-helper-methods">
-<h1>Query Helper Methods<a class="headerlink" href="#query-helper-methods" title="永久链接至标题">¶</a></h1>
-<div class="section" id="information-from-executing-a-query">
-<h2>Information From Executing a Query<a class="headerlink" href="#information-from-executing-a-query" title="永久链接至标题">¶</a></h2>
+  <div class="section" id="id1">
+<h1>查询语句辅助函数<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>从语句的执行中获取信息<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p><strong>$db-&gt;insertID()</strong></p>
-<p>The insert ID number when performing database inserts.</p>
+<p>当执行插入语句时，插入行的ID</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>If using the PDO driver with PostgreSQL, or using the Interbase
-driver, this function requires a $name parameter, which specifies the
-appropriate sequence to check for the insert id.</p>
+<p>如果使用PDO驱动来操作PostgreSQL，或使用Interbase驱动，该函数需要一个 $name 参数，用于在查找插入ID时使用正确的顺序。</p>
 </div>
 <p><strong>$db-&gt;affectedRows()</strong></p>
-<p>Displays the number of affected rows, when doing “write” type queries
-(insert, update, etc.).</p>
+<p>返回在”写入”类型的语句（insert，update等）执行时有多少行受到了变动</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>In MySQL “DELETE FROM TABLE” returns 0 affected rows. The database
-class has a small hack that allows it to return the correct number of
-affected rows. By default this hack is enabled but it can be turned off
-in the database driver file.</p>
+<p>在MYSQL中 “DELETE FROM TABLE” 会返回0行受影响。所以数据库类进行了一些微小的更改，从而使得该语句可以返回真正受影响的行数。默认情况下这项更改是启用的，不过可以通过修改数据库驱动配置文件来进行关闭。</p>
 </div>
 <p><strong>$db-&gt;getLastQuery()</strong></p>
-<p>Returns a Query object that represents the last query that was run (the query string, not the result).</p>
+<p>返回一个最近一次运行的查询语句的实例（查询语句本身，而非查询结果）</p>
 </div>
-<div class="section" id="information-about-your-database">
-<h2>Information About Your Database<a class="headerlink" href="#information-about-your-database" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h2>关于数据库的信息<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p><strong>$db-&gt;countAll()</strong></p>
-<p>Permits you to determine the number of rows in a particular table.
-Submit the table name in the first parameter. This is part of Query Builder.
-Example:</p>
+<p>帮助你了解一张特定表里的总共行数，通过在第一个参数里给出表名即可。
+这也是语句构建器的一部分，例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">countAll</span><span class="p">();</span>
 
-<span class="c1">// Produces an integer, like 25</span>
+<span class="c1">// 输出一个整数，例如25</span>
 </pre></div>
 </div>
 <p><strong>$db-&gt;getPlatform()</strong></p>
-<p>Outputs the database platform you are running (MySQL, MS SQL, Postgres,
-etc…):</p>
+<p>数据当前运行的数据库平台(MySQL, MS SQL, Postgres等):</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getPlatform</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>$db-&gt;getVersion()</strong></p>
-<p>Outputs the database version you are running:</p>
+<p>输出当前运行的数据库版本:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getVersion</span><span class="p">();</span>
 </pre></div>
 </div>
