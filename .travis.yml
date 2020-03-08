@@ -1,4 +1,6 @@
 language: python
+os: linux
+dist: bionic
 python:
   - "3.7"
 
@@ -11,30 +13,26 @@ cache:
   directories:
   - $HOME/.cache/pip
 
-sudo: false
-
 addons:
   apt:
     packages:
     - texlive-xetex
-    - texlive-latex-recommended
+    - texlive-lang-chinese
     - texlive-fonts-recommended
-    - texlive-latex-extra
-    - lmodern
+    - texlive-fonts-extra
+    - fonts-freefont-otf
     - latexmk
     - xindy
 
 install:
   - pip install --upgrade pip
   - pip install "sphinx==1.8.5"
-  - pip install "sphinxcontrib-phpdomain"
+  - pip install "sphinxcontrib-phpdomain==0.7.0"
   - pip install "jieba==0.42.1"
   - cd cilexer && python setup.py install && cd ..
 
 script:
   - make html
-  - wget https://codeigniter-chinese.github.io/codeigniter4-user-guide/_fonts/fonts.tar.gz
-  - mkdir $HOME/.fonts && tar xzf fonts.tar.gz && cp *.ttf $HOME/.fonts/
   - make latexpdf
 
 after_success:

@@ -1,41 +1,37 @@
 ##############
-Security Class
+安全类
 ##############
 
-The Security Class contains methods that help protect your site against Cross-Site Request Forgery attacks.
+安全类包含了一些方法，用于帮助保护你的网站，以免受到跨站请求伪造（CSRF）的攻击。
 
 .. contents::
     :local:
     :depth: 2
 
 *******************
-Loading the Library
+加载类
 *******************
 
-If your only interest in loading the library is to handle CSRF protection, then you will never need to load it,
-as it runs as a filter and has no manual interaction.
+如果你加载这个类，只是想进行 CSRF 的防护，那就没必要加载它，因为它是作为一个过滤器运行的，而且没有手动调用的接口。
 
-If you find a case where you do need direct access though, you may load it through the Services file::
+如果你想在某种情况下直接访问这个类，你可以通过服务文件来加载它::
 
 	$security = \Config\Services::security();
 
 *********************************
-Cross-site request forgery (CSRF)
+跨站请求伪造 （CSRF）
 *********************************
 
-You can enable CSRF protection by altering your **app/Config/Filters.php**
-and enabling the `csrf` filter globally::
+打开你的 **application/Config/Filters.php** 文件并且全局开启 `csrf` 过滤器，即可开启 CSRF 防护::
 
 	public $globals = [
 		'before' => [
-			//'honeypot'
 			'csrf'
 		]
 	];
 
-Select URIs can be whitelisted from CSRF protection (for example API
-endpoints expecting externally POSTed content). You can add these URIs
-by adding them as exceptions in the filter::
+你可以添加一个 URI 的白名单，跳过 CSRF 保护（例如某个 API 接口希望接受 原始的 POST 数据），
+将这些 URI 添加到 `csrf` 过滤器的 'except' 配置参数中::
 
 	public $globals = [
 		'before' => [
@@ -43,77 +39,44 @@ by adding them as exceptions in the filter::
 		]
 	];
 
-Regular expressions are also supported (case-insensitive)::
+同样支持正则表达式（不区分大小写）::
 
     public $globals = [
 		'before' => [
 			'csrf' => ['except' => ['api/record/[0-9]+']]
 		]
 	];
-
-If you use the :doc:`form helper <../helpers/form_helper>`, then
-:func:`form_open()` will automatically insert a hidden csrf field in
-your forms. If not, then you can use the always available ``csrf_token()``
-and ``csrf_hash()`` functions
+如果你使用 :doc:`表单辅助函数 <../helpers/form_helper>` ，:func:`form_open()`
+函数将会自动地在你的表单中插入一个隐藏的 CSRF 字段。如果没有插入这个字段，
+你可以手动调用 ``get_csrf_token_name()`` 和 ``get_csrf_hash()`` 这两个函数。
 ::
 
 	<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
 
-Additionally, you can use the ``csrf_field()`` method to generate this
-hidden input field for you::
+另外，你可以使用 ``csrf_field()`` 方法来帮你生成这个隐藏的 ``input`` 字段::
 
 	// Generates: <input type="hidden" name="{csrf_token}" value="{csrf_hash}" />
 	<?= csrf_field() ?>
-
-When sending a JSON request the CSRF token can also be passed as one of the parameters.
-The next way to pass the CSRF token is a special Http header that's name is available by
-``csrf_header()`` function.
-
-Additionally, you can use the ``csrf_meta()`` method to generate this handy
-meta tag for you::
-
-	// Generates: <meta name="{csrf_header}" content="{csrf_hash}" />
-	<?= csrf_meta() ?>
-
-The order of checking the avability of the CSRF token is as follows:
-
-1. ``$_POST`` array
-2. Http header
-3. ``php://input`` (JSON request) - bare in mind that this approach is the slowest one since we have to decode JSON and then encode it again
-
-Tokens may be either regenerated on every submission (default) or
-kept the same throughout the life of the CSRF cookie. The default
-regeneration of tokens provides stricter security, but may result
-in usability concerns as other tokens become invalid (back/forward
-navigation, multiple tabs/windows, asynchronous actions, etc). You
-may alter this behavior by editing the following config parameter
+令牌（tokens）默认会在每一次提交时重新生成，或者你也可以设置成在 CSRF cookie
+的生命周期内一直有效。默认情况下令牌重新生成提供了更严格的安全机制，但可能会对
+可用性带来一定的影响，因为令牌很可能会变得失效（例如使用浏览器的返回前进按钮、
+使用多窗口或多标签页浏览、异步调用等等）。你可以修改下面这个参数来改变这一点。
 ::
 
 	public $CSRFRegenerate  = true;
 
-When a request fails the CSRF validation check, it will redirect to the previous page by default,
-setting an ``error`` flash message that you can display to the end user. This provides a nicer experience
-than simply crashing. This can be turned off by editing the ``$CSRFRedirect`` value in
-**app/Config/App.php**::
-
-	public $CSRFRedirect = false;
-
-Even when the redirect value is **true**, AJAX calls will not redirect, but will throw an error.
-
 *********************
-Other Helpful Methods
+其它的辅助方法
 *********************
 
-You will never need to use most of the methods in the Security class directly. The following are methods that
-you might find helpful that are not related to the CSRF protection.
+你将永远不需要直接使用安全类中的大多数方法。下面的一些方法，你可能会觉得有用，这些方法和 CSRF 防护无关。
 
 **sanitizeFilename()**
 
-Tries to sanitize filenames in order to prevent directory traversal attempts and other security threats, which is
-particularly useful for files that were supplied via user input. The first parameter is the path to sanitize.
+尝试对文件名进行净化，防止目录遍历尝试以及其他的安全威胁，这在文件名作为用户输入的参数时格外有用。第一个参数是需要净化的路径名。
 
-If it is acceptable for the user input to include relative paths, e.g. file/in/some/approved/folder.txt, you can set
-the second optional parameter, $relative_path to true.
+如果用户输入包含相对路径是可以接受的，例如： file/in/some/approved/folder.txt ,那么你可以设置第二个可选参数， $relative_path 
+为 true 。
 ::
 
 	$path = $security->sanitizeFilename($request->getVar('filepath'));

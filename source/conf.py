@@ -181,10 +181,10 @@ html_copy_source = False
 latex_engine = 'xelatex'
 
 # The paper size ('letter' or 'a4').
-#latex_paper_size = 'letter'
+#latex_paper_size = 'a4'
 
 # The font size ('10pt', '11pt' or '12pt').
-#latex_font_size = '10pt'
+#latex_font_size = '12pt'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
@@ -200,23 +200,18 @@ latex_elements = {
 # The font size ('10pt', '11pt' or '12pt').
 'pointsize': '12pt',
 
-'classoptions': ',english',
-'inputenc': '',
-'utf8extra': '',
+'maxlistdepth': '9',
+'cmappkg': '',
+'releasename': '版本',
 
 # Additional stuff for the LaTeX preamble.
 'preamble': '''
-\usepackage{xeCJK}
-\usepackage{indentfirst}
-\usepackage{enumitem}
-\setlistdepth{9}
-\setlength{\parindent}{2em}
-\setCJKmainfont[BoldFont=STHeiti, ItalicFont=STKaiti]{STSong}
-\setCJKmonofont[Scale=0.9]{Monaco}
-\setCJKfamilyfont{song}[BoldFont=STSong]{STSong}
-\setCJKfamilyfont{sf}[BoldFont=STSong]{STSong}
-\XeTeXlinebreaklocale "zh"
-\XeTeXlinebreakskip = 0pt plus 1pt
+\\usepackage{xeCJK}
+\\setcounter{tocdepth}{2}
+\\addto\\captionsenglish{%
+  \\renewcommand{\\chaptername}{章节}%
+  \\renewcommand{\\contentsname}{目录}%
+}
 '''
 }
 

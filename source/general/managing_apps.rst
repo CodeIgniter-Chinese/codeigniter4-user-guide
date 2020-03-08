@@ -2,40 +2,30 @@
 管理多个应用
 ##########################
 
-By default it is assumed that you only intend to use CodeIgniter to
-manage one application, which you will build in your **application**
-directory. It is possible, however, to have multiple sets of
-applications that share a single CodeIgniter installation, or even to
-rename or relocate your application directory.
+默认情况下，我们假设你只是用CodeIgniter来管理一个应用，并将该应用在 **application** 目录下进行构建。
+然而也存在这样的可能性：多个应用共享一个CodeIgniter的安装目录，甚至开发者会将 application目录进行重命名或移动位置。
 
-Renaming the Application Directory
+重命名Application（应用）文件夹
 ==================================
 
-If you would like to rename your application directory you may do so
-as long as you open **application/Config/Paths.php** file and set its name using
-the ``$application_directory`` variable::
+如果你想重命名你的应用文件夹，实际上只需要打开 **application/Config/Paths.php** 文件并设置 ``$application_directory`` 变量的值::
 
 	$application_directory = 'application';
 
-Relocating your Application Directory
+移动你的项目文件夹
 =====================================
 
-It is possible to move your application directory to a different
-location on your server than your web root. To do so open
-your main **index.php** and set a *full server path* in the
-``$application_directory`` variable::
+将你的应用目录移动到服务器的另一个位置，而不是web根目录，也是可行的。
+为了实现以上目标，请打开你的主 **index.php** 文件并为 ``$application_directory`` 变量赋值为一个 *服务器上的绝对路径* ::
 
 	$application_directory = '/path/to/your/application';
 
-Running Multiple Applications with one CodeIgniter Installation
+单个CodeIgniter对应运行多个应用
 ===============================================================
 
-If you would like to share a common CodeIgniter installation to manage
-several different applications simply put all of the directories located
-inside your application directory into their own sub-directory.
+如果你想要让多个不同的应用来共享一次CodeIgniter的安装文件，只需要将你的应用目录下的所有目录都移动到他们对应的子目录中即可。
 
-For example, let's say you want to create two applications, named "foo"
-and "bar". You could structure your application directories like this::
+举例而言，加入你想要创建两个应用程序，命名为"foo"和"bar"，你可以将你的应用目录排列如下::
 
 	applications/foo/
 	applications/foo/config/
@@ -50,12 +40,8 @@ and "bar". You could structure your application directories like this::
 	applications/bar/models/
 	applications/bar/views/
 
-To select a particular application for use requires that you open your
-main index.php file and set the ``$application_directory`` variable. For
-example, to select the "foo" application for use you would do this::
+为了选择指定的应用目录，你需要打开主index.php文件并设置 ``$application_directory`` 变量。例如，选择"foo"应用，进行以下操作::
 
 	$application_directory = 'applications/foo';
 
-.. note:: Each of your applications will need its own **index.php** file
-	which calls the desired application. The **index.php** file can be named
-	anything you want.
+.. note:: 你的每个应用都需要独立的 **index.php** 文件，并独自调用所需的应用文件。 **index.php** 文件也可以被改名为其他你希望的名称。

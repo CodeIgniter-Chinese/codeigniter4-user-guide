@@ -1,53 +1,39 @@
-Running Your App
+运行你的应用程序
 ###############################################################################
 
 .. contents::
     :local:
     :depth: 1
 
-A CodeIgniter 4 app can be run in a number of different ways: hosted on a web server, 
-using virtualization, or using CodeIgniter’s command line tool for testing. 
-This section addresses how to use each technique, and explains some of the pros and cons of them.
+一个CodeIgniter 4的程序能够通过以下几种方式来运行：部署在一台web服务器上，使用虚拟化，或者使用CodeIgniter的命令行工具以便测试。
+本节阐述了如何使用以上技术来进行部署，以及介绍了一些高级用法与如何做出贡献。
 
-If you’re new to CodeIgniter, please read the :doc:`Getting Started </intro/index>`
-section of the User Guide to begin learning how to build dynamic PHP applications. Enjoy!
+如果CodeIgniter对你来说相当陌生，请阅读用户手册中的 :doc:`准备开始 </intro/index>` 这节来学习如何构建一个动态的PHP应用，祝你玩得开心！
 
-Initial Configuration & Set Up
+初始化配置与设置
 =================================================
 
-#. Open the **app/Config/App.php** file with a text editor and
-   set your base URL. If you need more flexibility, the baseURL may
-   be set within the ``.env`` file as **app.baseURL="http://example.com"**.
-#. If you intend to use a database, open the
-   **app/Config/Database.php** file with a text editor and set your
-   database settings. Alternately, these could be set in your ``.env`` file.
+#. 用一个文本编辑器打开 **app/Config/App.php** 文件并设置你的baseURL（网站基础URL）。如果你希望更灵活点，也可以通过编辑 ``.env`` 文件，新增或更改其中的 **app.baseURL="http://example.com"** 来更改baseURL。
+#. 如果你想要使用数据库，用文本编辑器打开 **app/Config/Database.php** 文件并进行数据库设置。同样的，也可以在 ``.env`` 文件里进行如上设置。If you intend to use a database, open the
 
-One additional measure to take in production environments is to disable
-PHP error reporting and any other development-only functionality. In
-CodeIgniter, this can be done by setting the ``ENVIRONMENT`` constant, which
-is more fully described on the :doc:`environments page </general/environments>`.
-By default, the application will run using the "production" environment. To
-take advantage of the debugging tools provided, you should set the environment
-to "develop".
+在生产环境里需要做的另一个件事就是关闭PHP的错误报告以及其他所有的只在开发环境里的功能。
+在CodeIgniter中，可以通过设置 ``ENVIRONMENT`` 常量来进行。关于这一特性，在文档 :doc:环境 </general/environments>`
+中进行了更为详尽的介绍。
+在默认情况下，应用程序会使用"production"(生产）环境。为了更为充分地使用所提供的debug（问题定位）工具，你需要将环境设置为"develop"(开发环境）
 
-.. note:: If you will be running your site using a web server (e.g. Apache or Nginx),
-    you will need to modify the permissions for the ``writable`` folder inside
-    your project, so that it is writable by the user or account used by your
-    web server.
+.. note:: 如果你想要在一台web服务器上运行你的网站。你需要修改项目线下的 ``writable`` 文件夹的权限，从而使得你的web服务器的当前用户可以对它进行写入。
 
-Local Development Server
+本地开发主机
 =================================================
 
-CodeIgniter 4 comes with a local development server, leveraging PHP's built-in web server
-with CodeIgniter routing. You can use the ``serve`` script to launch it,
-with the following command line in the main directory::
+CodeIgniter4 中内置了一个本地开发用的主机，利用了PHP内置的web服务器并实现了CodeIgniter的路由机制。
+你可以使用主目录下的如下如下命令行中的 ``serve`` 脚本来启动::
 
     php spark serve
 
-This will launch the server and you can now view your application in your browser at http://localhost:8080.
+这将会启动服务器，与此同时，你可以在浏览器中输入以下 http://localhost:8080 地址来浏览你的应用。
 
-.. note:: The built-in development server should only be used on local development machines. It should NEVER
-    be used on a production server.
+.. note:: 内置的开发服务器只应该在本地开发机器上使用。绝对不要将其用于生产服务器中
 
 If you need to run the site on a host other than simply localhost, you'll first need to add the host
 to your ``hosts`` file. The exact location of the file varies in each of the main operating systems, though
