@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP Messages &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>HTTP 消息 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -145,7 +145,7 @@
 <li class="toctree-l2"><a class="reference internal" href="controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filters.html">控制器过滤器</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">HTTP Messages</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HTTP 消息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="request.html">Request 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="incomingrequest.html">IncomingRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="content_negotiation.html">Content Negotiation</a></li>
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">控制器和路由</a> &raquo;</li>
         
-      <li>HTTP Messages</li>
+      <li>HTTP 消息</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,33 +334,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="http-messages">
-<h1>HTTP Messages<a class="headerlink" href="#http-messages" title="永久链接至标题">¶</a></h1>
-<p>The Message class provides an interface to the portions of an HTTP message that are common to both
-requests and responses, including the message body, protocol version, utilities for working with
-the headers, and methods for handling content negotiation.</p>
-<p>This class is the parent class that both the <a class="reference internal" href="request.html"><span class="doc">Request Class</span></a> and the
-<a class="reference internal" href="../outgoing/response.html"><span class="doc">Response Class</span></a> extend from. As such, some methods, such as the content
-negotiation methods, may apply only to a request or response, and not the other one, but they have
-been included here to keep the header methods together.</p>
-<div class="section" id="what-is-content-negotiation">
-<h2>What is Content Negotiation?<a class="headerlink" href="#what-is-content-negotiation" title="永久链接至标题">¶</a></h2>
-<p>At it’s heart Content Negotiation is simply a part of the HTTP specification that allows a single
-resource to serve more than one type of content, allowing the clients to request the type of
-data that works best for them.</p>
-<p>A classic example of this is a browser that cannot display PNG files can request only GIF or
-JPEG images. When the getServer receives the request, it looks at the available file types the client
-is requesting and selects the best match from the image formats that it supports, in this case
-likely choosing a JPEG image to return.</p>
-<p>This same negotiation can happen with four types of data:</p>
+  <div class="section" id="http">
+<h1>HTTP 消息<a class="headerlink" href="#http" title="永久链接至标题">¶</a></h1>
+<p>消息类为HTTP消息中的请求和响应的实现提供了一个通用的接口，包括消息体，协议版本，处理消息头的工具和一些进行内容协商的方法。</p>
+<p>该类是 <a class="reference internal" href="request.html"><span class="doc">请求类</span></a> 和 <a class="reference internal" href="../outgoing/response.html"><span class="doc">响应类</span></a> 共有的父类。
+因此某些方法，例如内容协商方法等，可能只适用于请求和响应，而对于其他方法不适用，但是我们将其聚合在该类中
+从而使得处理头的方法可以定义在相同的位置。</p>
+<div class="section" id="id1">
+<h2>什么是内容协商<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>内容协商的核心机制，其实只是HTTP实现的一个简单的部分，即允许单个资源适用于不止一种内容类型，从而允许客户端选择适合自己的数据类型。</p>
+<p>一个典型的案例就是，该浏览器无法播放PNG格式的文件，并且只能请求GIF或者JPEG格式的图片文件。而当资源服务器接收到该请求时，
+它将会检查可用的文件类型是否能满足客户端所请求的，并选择本身所支持的格式中，最为适合的图片格式，在本例中就可能会返回一个JPEG的图片文件。</p>
+<p>同样的协商方式会在以下四种数据类型中提现:</p>
 <ul class="simple">
-<li><p><strong>Media/Document Type</strong> - this could be image format, or HTML vs. XML or JSON.</p></li>
-<li><p><strong>Character Set</strong> - The character set the returned document should be set in. Typically is UTF-8.</p></li>
-<li><p><strong>Document Encoding</strong> - Typically the type of compression used on the results.</p></li>
-<li><p><strong>Document Language</strong> - For sites that support multiple languages, this helps determine which to return.</p></li>
+<li><p><strong>媒体/文档类型</strong> - 可以是图片的类型格式，或者是HTML、XML或JSON.</p></li>
+<li><p><strong>字符集Character Set</strong> - 该文档所属的字符集，通常是UTF-8</p></li>
+<li><p><strong>文档编码Document Encoding</strong> - 通常是返回结果的压缩类型（译者注：例如gzip）</p></li>
+<li><p><strong>文档语言Document Language</strong> - 对于支持多语言的站点，有助于决定返回哪种语言格式</p></li>
 </ul>
-<div class="section" id="class-reference">
-<h3>Class Reference<a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id2">
+<h3>类的参考文档<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
 <dl class="class">
 <dt>
 <code class="sig-name descname">CodeIgniter\HTTP\Message</code></dt>
@@ -369,13 +362,13 @@ likely choosing a JPEG image to return.</p>
 <code class="sig-name descname">body</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#body" title="永久链接至目标">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">返回</dt>
-<dd class="field-odd"><p>The current message body</p>
+<dd class="field-odd"><p>当前的消息体</p>
 </dd>
 <dt class="field-even">返回类型</dt>
 <dd class="field-even"><p>string</p>
 </dd>
 </dl>
-<p>Returns the current message body, if any has been set. If not body exists, returns null:</p>
+<p>返回当前消息的实体部分，如果实体不存在或者已经被发送过，返回null:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">body</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -387,15 +380,15 @@ likely choosing a JPEG image to return.</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$str</strong> (<em>string</em>) – The body of the message.</p></li>
+<li><p><strong>$str</strong> (<em>string</em>) – 消息体对应的字符串.</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>the Message instance to allow methods to be chained together.</p>
+<dd class="field-even"><p>该消息实例，用于链式调用</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
-<dd class="field-odd"><p><p>CodeIgniter\HTTP\Message instance.</p>
-<p>Sets the body of the current request.</p>
+<dd class="field-odd"><p><p>CodeIgniter\HTTP\Message 实例.</p>
+<p>设置当前请求的实体内容</p>
 </p>
 </dd>
 </dl>
@@ -409,13 +402,9 @@ likely choosing a JPEG image to return.</p>
 <dd class="field-odd"><p>void</p>
 </dd>
 </dl>
-<p>Scans and parses the headers found in the SERVER data and stores it for later access.
-This is used by the <a class="reference internal" href="incomingrequest.html"><span class="doc">IncomingRequest Class</span></a> to make
-the current request’s headers available.</p>
-<p>The headers are any SERVER data that starts with <code class="docutils literal notranslate"><span class="pre">HTTP_</span></code>, like <code class="docutils literal notranslate"><span class="pre">HTTP_HOST</span></code>. Each message
-is converted from it’s standard uppercase and underscore format to a ucwords and dash format.
-The preceding <code class="docutils literal notranslate"><span class="pre">HTTP_</span></code> is removed from the string. So <code class="docutils literal notranslate"><span class="pre">HTTP_ACCEPT_LANGUAGE</span></code> becomes
-<code class="docutils literal notranslate"><span class="pre">Accept-Language</span></code>.</p>
+<p>扫描并处理SERVER数据中找到的请求头内容，并将其存储以供下次使用。该方法用于 <a class="reference internal" href="incomingrequest.html"><span class="doc">请求类 Class</span></a> 从而使得当前的请求头内容可被使用.</p>
+<p>这里所指的请求头实际上是所有以 <code class="docutils literal notranslate"><span class="pre">HTTP_</span></code> 开头的SERVER数据，例如 <code class="docutils literal notranslate"><span class="pre">HTTP_POST</span></code> 。每个消息都会从被从标准的大小写格式转换为首字母大写并以横线(-)连接的格式。
+并移除了开头的 <code class="docutils literal notranslate"><span class="pre">HTTP_</span></code> 部分，故而 <code class="docutils literal notranslate"><span class="pre">HTTP_ACCEPT_LANGUAGE</span></code> 变成了 <code class="docutils literal notranslate"><span class="pre">Accept-Language</span></code> 。</p>
 </dd></dl>
 
 <dl class="method">
@@ -423,13 +412,13 @@ The preceding <code class="docutils literal notranslate"><span class="pre">HTTP_
 <code class="sig-name descname">getHeaders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getHeaders" title="永久链接至目标">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">返回</dt>
-<dd class="field-odd"><p>An array of all of the headers found.</p>
+<dd class="field-odd"><p>一个包括了所有能确定的头部的数组.</p>
 </dd>
 <dt class="field-even">返回类型</dt>
 <dd class="field-even"><p>array</p>
 </dd>
 </dl>
-<p>Returns an array of all headers found or previously set.</p>
+<p>返回所有能确定或者是先前设定过的头</p>
 </dd></dl>
 
 <dl class="method">
@@ -438,37 +427,35 @@ The preceding <code class="docutils literal notranslate"><span class="pre">HTTP_
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<em>string</em>) – The name of the header you want to retrieve the value of.</p></li>
-<li><p><strong>$filter</strong> (<em>int</em>) – The type of filter to apply. A list of filters can be found <a class="reference external" href="https://www.php.net/manual/en/filter.filters.php">here</a>.</p></li>
+<li><p><strong>$name</strong> (<em>string</em>) – 你想要获取对应的值的头的名字</p></li>
+<li><p><strong>$filter</strong> (<em>int</em>) – 所需要使用的过滤器类型。可供使用的过滤器见表 <a class="reference external" href="https://www.php.net/manual/en/filter.filters.php">过滤器</a> 。</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The current value of the header. If the header has multiple values, they will be returned as an array.</p>
+<dd class="field-even"><p>当前头的值。如果该头有多个值，就会以数组的形式返回</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>string|array|null</p>
 </dd>
 </dl>
-<p>Allows you to retrieve the current value of a single message header. <code class="docutils literal notranslate"><span class="pre">$name</span></code> is the case-insensitive header name.
-While the header is converted internally as described above, you can access the header with any type of case:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// These are all the same:</span>
+<p>使你可以获取单个消息头的当前值。 <code class="docutils literal notranslate"><span class="pre">$name</span></code> 对应的是大小写敏感的头名。由于在上述例子中已经对头进行了内部转换，你可以通过任何大小写方式格式来传值:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 这些都等同:</span>
 <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;HOST&#39;</span><span class="p">);</span>
 <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">);</span>
 <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>If the header has multiple values, the values will return as an array of values. You can use the <code class="docutils literal notranslate"><span class="pre">headerLine()</span></code>
-method to retrieve the values as a string:</p>
+<p>如果该头有多个值，就会以数组的形式返回. 你可以使用 <code class="docutils literal notranslate"><span class="pre">headerLine()</span></code> 方法来将这些数据转换为字符串的形式来返回:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">);</span>
 
-<span class="c1">// Outputs something like:</span>
+<span class="c1">// 输出如下:</span>
 <span class="p">[</span>
         <span class="s1">&#39;en&#39;</span><span class="p">,</span>
         <span class="s1">&#39;en-US&#39;</span>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>You can filter the header by passing a filter value in as the second parameter:</p>
+<p>你可以通过将过滤器的值作为第二个参数传递给该函数:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Document-URI&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_URL</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -480,21 +467,20 @@ method to retrieve the values as a string:</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<em>string</em>) – The name of the header to retrieve.</p></li>
+<li><p><strong>$name</strong> (<em>string</em>) – 需要获取的头的名字.</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>A string representing the header value.</p>
+<dd class="field-even"><p>头所对应的值（字符串形式）</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>string</p>
 </dd>
 </dl>
-<p>Returns the value(s) of the header as a string. This method allows you to easily get a string representation
-of the header values when the header has multiple values. The values are appropriately joined:</p>
+<p>将该头对应的值以字符串形式返回。该方法使得你可以在该头对应多个值时，将头对应的值轻松地以字符串形式返回。值以逗号分隔形式:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">headerLine</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">);</span>
 
-<span class="c1">// Outputs:</span>
+<span class="c1">// 输出:</span>
 <span class="nx">en</span><span class="p">,</span> <span class="nx">en</span><span class="o">-</span><span class="nx">US</span>
 </pre></div>
 </div>
@@ -506,42 +492,40 @@ of the header values when the header has multiple values. The values are appropr
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<em>string</em>) – The name of the header to set the value for.</p></li>
-<li><p><strong>$value</strong> (<em>mixed</em>) – The value to set the header to.</p></li>
+<li><p><strong>$name</strong> (<em>string</em>) – 需要设置值的头的名字</p></li>
+<li><p><strong>$value</strong> (<em>mixed</em>) – 需要设置的值</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The current message instance</p>
+<dd class="field-even"><p>当前消息实例</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>CodeIgniter\HTTP\Message</p>
 </dd>
 </dl>
-<p>Sets the value of a single header. <code class="docutils literal notranslate"><span class="pre">$name</span></code> is the case-insensitive name of the header. If the header
-doesn’t already exist in the collection, it will be created. The <code class="docutils literal notranslate"><span class="pre">$value</span></code> can be either a string
-or an array of strings:</p>
+</dd></dl>
+
+<p>为单个头赋值。 <code class="docutils literal notranslate"><span class="pre">$name</span></code> 是该头所对应的大小写敏感的命名。如果该头部当前不存在就会被创建。<code class="docutils literal notranslate"><span class="pre">$value</span></code> 可以是字符串或者一个字符串数组:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">setHeader</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">,</span> <span class="s1">&#39;codeigniter.com&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</dd></dl>
-
 <dl class="method">
 <dt id="removeHeader">
 <code class="sig-name descname">removeHeader</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">$name</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#removeHeader" title="永久链接至目标">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<em>string</em>) – The name of the header to remove.</p></li>
+<li><p><strong>$name</strong> (<em>string</em>) – 需要移除的头的名字.</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The current message instance</p>
+<dd class="field-even"><p>当前消息实例</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>CodeIgniter\HTTP\Message</p>
 </dd>
 </dl>
-<p>Removes the header from the Message. <code class="docutils literal notranslate"><span class="pre">$name</span></code> is the case-insensitive name of the header:</p>
+<p>从消息中移除指定头. <code class="docutils literal notranslate"><span class="pre">$name</span></code> 是该头所对应的大小写敏感的命名:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -553,19 +537,18 @@ or an array of strings:</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<em>string</em>) – The name of the header to modify</p></li>
-<li><p><strong>$value</strong> (<em>mixed</em>) – The value to add to the header.</p></li>
+<li><p><strong>$name</strong> (<em>string</em>) – 需要修改的头的名字</p></li>
+<li><p><strong>$value</strong> (<em>mixed</em>) – 需要为该头增加的值</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The current message instance</p>
+<dd class="field-even"><p>当前消息实例</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>CodeIgniter\HTTP\Message</p>
 </dd>
 </dl>
-<p>Adds a value to an existing header. The header must already be an array of values instead of a single string.
-If it is a string then a LogicException will be thrown.</p>
+<p>为一个现存的头增加值。该头的值不可以是单个字符串，必须是一个数组。如果是单个字符串的话会抛出一个 LogicException 异常</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">appendHeader</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">,</span> <span class="s1">&#39;en-US; q=0.8&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -576,14 +559,13 @@ If it is a string then a LogicException will be thrown.</p>
 <code class="sig-name descname">protocolVersion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#protocolVersion" title="永久链接至目标">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">返回</dt>
-<dd class="field-odd"><p>The current HTTP protocol version</p>
+<dd class="field-odd"><p>当前HTTP协议版本</p>
 </dd>
 <dt class="field-even">返回类型</dt>
 <dd class="field-even"><p>string</p>
 </dd>
 </dl>
-<p>Returns the message’s current HTTP protocol. If none has been set, will return <code class="docutils literal notranslate"><span class="pre">null</span></code>. Acceptable values
-are <code class="docutils literal notranslate"><span class="pre">1.0</span></code> and <code class="docutils literal notranslate"><span class="pre">1.1</span></code>.</p>
+<p>返回当前消息对应的HTTP 协议版本，如果没有设定过的话就会返回 <code class="docutils literal notranslate"><span class="pre">null</span></code> ，可选值为 <code class="docutils literal notranslate"><span class="pre">1.0</span></code> 和 <code class="docutils literal notranslate"><span class="pre">1.1</span></code> 。</p>
 </dd></dl>
 
 <dl class="method">
@@ -592,17 +574,17 @@ are <code class="docutils literal notranslate"><span class="pre">1.0</span></cod
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$version</strong> (<em>string</em>) – The HTTP protocol version</p></li>
+<li><p><strong>$version</strong> (<em>string</em>) – HTTP协议版本</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The current message instance</p>
+<dd class="field-even"><p>当前消息实例</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>CodeIgniter\HTTP\Message</p>
 </dd>
 </dl>
-<p>Sets the HTTP protocol version this Message uses. Valid values are <code class="docutils literal notranslate"><span class="pre">1.0</span></code> or <code class="docutils literal notranslate"><span class="pre">1.1</span></code>:</p>
+<p>为当前消息所使用的HTTP协议设定版本。可赋值为 <code class="docutils literal notranslate"><span class="pre">1.0</span></code> 或 <code class="docutils literal notranslate"><span class="pre">1.1</span></code>:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">setProtocolVersion</span><span class="p">(</span><span class="s1">&#39;1.1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -614,20 +596,18 @@ are <code class="docutils literal notranslate"><span class="pre">1.0</span></cod
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$supported</strong> (<em>array</em>) – An array of media types the application supports</p></li>
-<li><p><strong>$strictMatch</strong> (<em>bool</em>) – Whether it should force an exact match to happen.</p></li>
+<li><p><strong>$supported</strong> (<em>array</em>) – 系统所支持的媒体类型构成的数组</p></li>
+<li><p><strong>$strictMatch</strong> (<em>bool</em>) – 是否需要严格匹配</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The supported media type that best matches what is requested.</p>
+<dd class="field-even"><p>对于所请求的媒体格式，返回程序支持的媒体类型</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>string</p>
 </dd>
 </dl>
-<p>Parses the <code class="docutils literal notranslate"><span class="pre">Accept</span></code> header and compares with the application’s supported media types to determine
-the best match. Returns the appropriate media type. The first parameter is an array of application supported
-media types that should be compared against header values:</p>
+<p>用于处理 <code class="docutils literal notranslate"><span class="pre">Accept</span></code> 请求头并将其与应用程序所支持的媒体类型进行对比来给出最合适的类型。本方法会返回一个合适的媒体类型，第一个参数是应用程序所支持的类型，用于和客户端所请求的类型进行比对:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
         <span class="s1">&#39;image/jpg&#39;</span><span class="p">,</span>
@@ -636,19 +616,14 @@ media types that should be compared against header values:</p>
 <span class="nv">$imageType</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateMedia</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">$supported</span></code> array should be structured so that the application’s preferred format is the first in the
-array, with the rest following in descending order of priority. If no match can be made between the header
-values and the supported values, the first element of the array will be returned.</p>
-<p>Per the <a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-5.3">RFC</a> the match has the option of returning a
-default value, like this method does, or to return an empty string. If you need to have an exact match and
-would like an empty string returned instead, pass <code class="docutils literal notranslate"><span class="pre">true</span></code> as the second parameter:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Returns empty string if no match.</span>
+<p><code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组里成员的顺序应该以程序优先返回的顺序进行定义，其中第一个成员应该是应用程序所期待的返回类型，其余降序排列。如果和请求的类型匹配不上，就默认返回数组里的第一个成员。</p>
+<p>根据 <a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-5.3">RFC</a> ，协商匹配可以选择以返回一个默认值（就如该方法所做的那样），或者是返回一个空字符串。如果你希望进行严格匹配并返回一个空字符串的话，请为第二个参数传值 <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 如果匹配不到就返回一个空字符串</span>
 <span class="nv">$imageType</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateMedia</span><span class="p">(</span><span class="nv">$supported</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The matching process takes into account the priorities and specificity of the RFC. This means that the more
-specific header values will have a higher order of precedence, unless modified by a different <code class="docutils literal notranslate"><span class="pre">q</span></code> value.
-For more details, please read the <a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-5.3.2">appropriate section of the RFC</a>.</p>
+<p>匹配流程实际上同时考虑到了请求类型的优先级和在RFC中的明确性。这就意味着请求头的值越明确，所对应的优先级就越高，（除非通过 <code class="docutils literal notranslate"><span class="pre">q</span></code> 的值来修改）
+更多细节请阅读 <a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-5.3.2">appropriate section of the RFC</a></p>
 </dd></dl>
 
 <dl class="method">
@@ -657,18 +632,17 @@ For more details, please read the <a class="reference external" href="https://to
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$supported</strong> (<em>array</em>) – An array of character sets the application supports.</p></li>
+<li><p><strong>$supported</strong> (<em>array</em>) – 系统所支持的字符集构成的数组</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The supported character set that best matches what is required.</p>
+<dd class="field-even"><p>对于所请求的字符集类型，所能匹配到的最优先的字符集</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>string</p>
 </dd>
 </dl>
-<p>This is used identically to the <code class="docutils literal notranslate"><span class="pre">negotiateMedia()</span></code> method, except that it matches against the <code class="docutils literal notranslate"><span class="pre">Accept-Charset</span></code>
-header string:</p>
+<p>和 <code class="docutils literal notranslate"><span class="pre">negotiateMedia()</span></code> 方法一样，只是用于匹配 <code class="docutils literal notranslate"><span class="pre">Accept-Charset</span></code> 请求头:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
         <span class="s1">&#39;iso-8895-9&#39;</span>
@@ -676,7 +650,7 @@ header string:</p>
 <span class="nv">$charset</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateCharset</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>If no match is found, the system will default to <code class="docutils literal notranslate"><span class="pre">utf-8</span></code>.</p>
+<p>匹配不到的情况下，返回默认的 <code class="docutils literal notranslate"><span class="pre">utf-8</span></code> 字符集。</p>
 </dd></dl>
 
 <dl class="method">
@@ -685,18 +659,17 @@ header string:</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$supported</strong> (<em>array</em>) – An array of character encodings the application supports.</p></li>
+<li><p><strong>$supported</strong> (<em>array</em>) – 系统所支持的字符编码构成的数组</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The supported character set that best matches what is required.</p>
+<dd class="field-even"><p>对于所请求的字符编码，所能匹配到的最优先的字符编码</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>string</p>
 </dd>
 </dl>
-<p>Determines the best match between the application-supported values and the <code class="docutils literal notranslate"><span class="pre">Accept-Encoding</span></code> header value.
-If no match is found, will return the first element of the <code class="docutils literal notranslate"><span class="pre">$supported</span></code> array:</p>
+<p>与上述两个方法类似，用于匹配 <code class="docutils literal notranslate"><span class="pre">Accept-Encoding</span></code> 请求头；无法匹配时返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组的第一个元素:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;gzip&#39;</span><span class="p">,</span>
         <span class="s1">&#39;compress&#39;</span>
@@ -712,18 +685,17 @@ If no match is found, will return the first element of the <code class="docutils
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$supported</strong> (<em>array</em>) – An array of languages the application supports.</p></li>
+<li><p><strong>$supported</strong> (<em>array</em>) – 系统所支持的语言构成的数组</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>The supported language that best matches what is required.</p>
+<dd class="field-even"><p>对于所请求的语言，所能匹配到的最优先的语言</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p>string</p>
 </dd>
 </dl>
-<p>Determines the best match between the application-supported languages and the <code class="docutils literal notranslate"><span class="pre">Accept-Language</span></code> header value.
-If no match is found, will return the first element of the <code class="docutils literal notranslate"><span class="pre">$supported</span></code> array:</p>
+<p>与上述三个个方法类似，用于匹配 Accept-Language 请求头；无法匹配时返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组的第一个元素:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;en&#39;</span><span class="p">,</span>
         <span class="s1">&#39;fr&#39;</span><span class="p">,</span>
@@ -732,7 +704,7 @@ If no match is found, will return the first element of the <code class="docutils
 <span class="nv">$language</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateLanguage</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>More information about the language tags is available in <a class="reference external" href="https://www.ietf.org/rfc/rfc1766.txt">RFC 1766</a>.</p>
+<p>关于语言标记的更多信息，请参阅 <a class="reference external" href="https://www.ietf.org/rfc/rfc1766.txt">RFC 1766</a> 。</p>
 </dd></dl>
 
 </dd></dl>
@@ -763,7 +735,7 @@ If no match is found, will return the first element of the <code class="docutils
     <p>
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-03-07.
+        最后更新于 2020-03-08.
       </span>
 
     </p>
