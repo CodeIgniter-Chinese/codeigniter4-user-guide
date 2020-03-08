@@ -1,54 +1,46 @@
 ####################
-Query Helper Methods
+查询语句辅助函数
 ####################
 
-Information From Executing a Query
+从语句的执行中获取信息
 ==================================
 
 **$db->insertID()**
 
-The insert ID number when performing database inserts.
+当执行插入语句时，插入行的ID
 
-.. note:: If using the PDO driver with PostgreSQL, or using the Interbase
-	driver, this function requires a $name parameter, which specifies the
-	appropriate sequence to check for the insert id.
+.. note:: 如果使用PDO驱动来操作PostgreSQL，或使用Interbase驱动，该函数需要一个 $name 参数，用于在查找插入ID时使用正确的顺序。
 
 **$db->affectedRows()**
 
-Displays the number of affected rows, when doing "write" type queries
-(insert, update, etc.).
+返回在"写入"类型的语句（insert，update等）执行时有多少行受到了变动
 
-.. note:: In MySQL "DELETE FROM TABLE" returns 0 affected rows. The database
-	class has a small hack that allows it to return the correct number of
-	affected rows. By default this hack is enabled but it can be turned off
-	in the database driver file.
+.. note:: 在MYSQL中 "DELETE FROM TABLE" 会返回0行受影响。所以数据库类进行了一些微小的更改，从而使得该语句可以返回真正受影响的行数。默认情况下这项更改是启用的，不过可以通过修改数据库驱动配置文件来进行关闭。
 
 **$db->getLastQuery()**
 
-Returns a Query object that represents the last query that was run (the query string, not the result).
+返回一个最近一次运行的查询语句的实例（查询语句本身，而非查询结果）
 
-Information About Your Database
+关于数据库的信息
 ===============================
 
 **$db->countAll()**
 
-Permits you to determine the number of rows in a particular table.
-Submit the table name in the first parameter. This is part of Query Builder.
-Example::
+帮助你了解一张特定表里的总共行数，通过在第一个参数里给出表名即可。
+这也是语句构建器的一部分，例如::
 
 	echo $db->table('my_table')->countAll();
 
-	// Produces an integer, like 25
+	// 输出一个整数，例如25
 
 **$db->getPlatform()**
 
-Outputs the database platform you are running (MySQL, MS SQL, Postgres,
-etc...)::
+数据当前运行的数据库平台(MySQL, MS SQL, Postgres等)::
 
 	echo $db->getPlatform();
 
 **$db->getVersion()**
 
-Outputs the database version you are running::
+输出当前运行的数据库版本::
 
 	echo $db->getVersion();
