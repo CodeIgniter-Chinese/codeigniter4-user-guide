@@ -6,20 +6,17 @@ Views
     :local:
     :depth: 2
 
-A view is simply a web page, or a page fragment, like a header, footer, sidebar, etc. In fact,
-views can flexibly be embedded within other views (within other views, etc.) if you need
-this type of hierarchy.
+视图只是一个网页或页面片段，例如页眉，页脚，侧边栏等。实际上，视图可以灵活地嵌入其他视图中（在其他视图内部）。
 
-Views are never called directly, they must be loaded by a controller. Remember that in an MVC framework,
-the Controller acts as the traffic cop, so it is responsible for fetching a particular view. If you have
-not read the :doc:`Controllers </incoming/controllers>` page, you should do so before continuing.
+视图不会被直接调用，它必须通难过控制器加载。请记住，在 MVC 框架中，控制器充当交通警察的作用，因此它专门负责读取特定的视图。
+如果你还没有阅读过 :doc:`控制器 </incoming/controllers>` 页面，建议你应该先看下这个。
 
-Using the example controller you created in the controller page, let’s add a view to it.
+使用控制器创建章节中的例子，让我们为它创建一个视图。
 
-Creating a View
+创建视图
 ===============
 
-Using your text editor, create a file called ``BlogView.php`` and put this in it::
+使用你的文本编辑器，创建一个 ``BlogView.php`` 文件，代码如下::
 
 	<html>
         <head>
@@ -30,20 +27,20 @@ Using your text editor, create a file called ``BlogView.php`` and put this in it
         </body>
 	</html>
 
-Then save the file in your **app/Views** directory.
+将文件保存到 **app/Views** 文件夹。
 
-Displaying a View
+显示视图
 =================
 
-To load and display a particular view file you will use the following function::
+要加载并且显示指定的视图文件，你需要用到下面的方法::
 
 	echo view('name');
 
-Where *name* is the name of your view file.
+*name* 是视图文件的名称。
 
-.. important:: If the file extension is omitted, then the views are expected to end with the .php extension.
+.. important:: 如果你省略了文件的扩展名，那么默认会已 .php 扩展名结尾。
 
-Now, open the controller file you made earlier called ``Blog.php``, and replace the echo statement with the view function::
+现在，打开你之前创建的 ``Blog.php`` 这个控制器文件，并将 echo 语句替换为 view 方法，已完成显示视图的功能::
 
 	<?php namespace App\Controllers;
 
@@ -55,19 +52,17 @@ Now, open the controller file you made earlier called ``Blog.php``, and replace 
 		}
 	}
 
-If you visit your site using the URL you did earlier you should see your new view. The URL was similar to this::
+如果你使用之前访问网站的 URL 来重新访问站点，你应该会看到新的视图。这个 URL 类似以下的内容::
 
 	example.com/index.php/blog/
 
-.. note:: While all of the examples show echo the view directly, you can also return the output from the view, instead,
-    and it will be appended to any captured output.
+.. note:: 尽管所有示例都是直接显示视图内容，但是你也在视图文件中输出任何动态内容。
 
-Loading Multiple Views
+加载多个视图
 ======================
 
-CodeIgniter will intelligently handle multiple calls to ``view()`` from within a controller. If more than one
-call happens they will be appended together. For example, you may wish to have a header view, a menu view, a
-content view, and a footer view. That might look something like this::
+CodeIgniter 可以智能的处理在控制器中多次调用 ``view()`` 方法。如果出现了多次调用，它们将被合并到一起。例如，你可能希望有一个
+页头视图、 一个菜单视图，一个内容视图 以及 一个页脚视图。代码看起来应该这样::
 
 	<?php namespace App\Controllers;
 
@@ -86,49 +81,46 @@ content view, and a footer view. That might look something like this::
 		}
 	}
 
-In the example above, we are using "dynamically added data", which you will see below.
+在上面的例子中，我们使用了 "添加动态数据" ，我们会在后面讲到。
 
-Storing Views within Sub-directories
+在子目录中存储视图
 ====================================
 
-Your view files can also be stored within sub-directories if you prefer that type of organization.
-When doing so you will need to include the directory name loading the view.  Example::
+如果你喜欢这样的组织形式，则视图文件可以保存到子目录中。当你这样做时，加载视图时需要包含子目录的名字，例如::
 
 	echo view('directory_name/file_name');
 
-Namespaced Views
+命名空间视图
 ================
 
-You can store views under a **View** directory that is namespaced, and load that view as if it was namespaced. While
-PHP does not support loading non-class files from a namespace, CodeIgniter provides this feature to make it possible
-to package your views together in a module-like fashion for easy re-use or distribution.
+您可以将视图存储在已命名空间的 **View** 目录下，并像加载加载命名空间一样加载视图。虽然 PHP 不支持在非命名空间下加载类文件，但是
+CodeIgniter 提供了此功能，使你可以将它们以类似于模块的方式打包在一起，以便于重用或分发。
 
-If you have ``Blog`` directory that has a PSR-4 mapping set up in the :doc:`Autoloader </concepts/autoloader>` living
-under the namespace ``Example\Blog``, you could retrieve view files as if they were namespaced also. Following this
-example, you could load the **BlogView** file from **/blog/views** by prepending the namespace to the view name::
+如果您在 :doc:`自动加载 </concepts/autoloader>` 文件 PSR-4 数组中设置 ``Blog`` 目录在 ``Example\Blog`` 命名空间下，则可
+以像使用命名空间一样找到视图文件。下面的示例就是通过在名称空间前添加视图名称来从 **/blog/views** 目录下加载  **BlogView**
+文件::
 
     echo view('Example\Blog\Views\BlogView');
 
-Caching Views
+.. note:: **译者注** 这段有点难懂，需要和 :doc:`模块 </general/modules>` 章节一起看会比较容易懂。我的理解：框架中视图文件默认在 **app/Views** 目录下，当然这个也是可以通过 **app/Config/Paths.php** 类的 ``$viewDirectory`` 属性进行更改的。那么如果我们使用了 modules 功能把 Blog 模块独立出来，视图文件也是可以正常加载的，那么就需要在 **app/Config/Autoload.php** 文件中设定好映射目录，然后就可以通过命名空间的形式来加载视图文件了。
+
+缓存视图
 =============
 
-You can cache a view with the ``view`` command by passing a ``cache`` option with the number of seconds to cache
-the view for, in the third parameter::
+你可以通过 ``view`` 方法的第三个参数 ``cache`` 选项来实现视图缓存功能，缓存的实际单位是秒::
 
-    // Cache the view for 60 seconds
+    // 视图会缓存 60 秒
     echo view('file_name', $data, ['cache' => 60]);
 
-By default, the view will be cached using the same name as the view file itself. You can customize this by passing
-along ``cache_name`` and the cache ID you wish to use::
+默认情况下，缓存视图的文件名与视图文件名相同。不过，你可以通过传递 ``cache_name`` 参数对缓存文件名进行自定义::
 
-    // Cache the view for 60 seconds
+    // 视图会缓存 60 秒
     echo view('file_name', $data, ['cache' => 60, 'cache_name' => 'my_cached_view']);
 
-Adding Dynamic Data to the View
+视图中显示动态数据
 ===============================
 
-Data is passed from the controller to the view by way of an array in the second parameter of the view function.
-Here's an example::
+数据通过视图方法的第二个参数从控制器传递到视图，这是一个例子::
 
 	$data = [
 		'title'   => 'My title',
@@ -138,7 +130,7 @@ Here's an example::
 
 	echo view('blogview', $data);
 
-Let's try it with your controller file. Open it and add this code::
+让我们打开你的控制器文件，并添加一下代码::
 
 	<?php namespace App\Controllers;
 
@@ -153,7 +145,7 @@ Let's try it with your controller file. Open it and add this code::
 		}
 	}
 
-Now open your view file and change the text to variables that correspond to the array keys in your data::
+现在打开视图文件，并将文本更改为与数据中的数组键对应的变量::
 
 	<html>
         <head>
@@ -164,13 +156,10 @@ Now open your view file and change the text to variables that correspond to the 
         </body>
 	</html>
 
-Then load the page at the URL you've been using and you should see the variables replaced.
+现在重新刷新页面，你应该会看到变量已经替换成数据中的值。
 
-The data passed in is only available during one call to `view`. If you call the function multiple times
-in a single request, you will have to pass the desired data to each view. This keeps any data from "bleeding" into
-other views, potentially causing issues. If you would prefer the data to persist, you can pass the `saveData` option
-into the `$option` array in the third parameter.
-::
+默认情况下，传递的数据只在当前调用 `view` 中可用。如果在一次请求中多次调用该方法，则必须将所需的数据传递给每个视图。这样可以防止
+数据显示/覆盖到其他视图中的数据而导致出现问题。如果你想保留数据，则可以将 `saveData` 选项传递到第三个参数的 `$option` 数组中::
 
 	$data = [
 		'title'   => 'My title',
@@ -180,17 +169,14 @@ into the `$option` array in the third parameter.
 
 	echo view('blogview', $data, ['saveData' => true]);
 
-Additionally, if you would like the default functionality of the view method to be that it does save the data
-between calls, you can set ``$saveData`` to **true** in **app/Config/Views.php**.
+另外，如果您希望 view 方法的默认功能是在调用之间保存数据，则可以在 **app/Config/Views.php** 中将 ``$saveData`` 设置为 **true**。
 
-Creating Loops
+创建循环
 ==============
 
-The data array you pass to your view files is not limited to simple variables. You can pass multi dimensional
-arrays, which can be looped to generate multiple rows. For example, if you pull data from your database it will
-typically be in the form of a multi-dimensional array.
+传入视图文件的数据不仅仅限制为普通的变量，你还可以传入多维数组，这样你就可以在视图中生成多行了。例如，如果你从数据库中获取数据， 一般情况下数据都是一个多维数组。
 
-Here’s a simple example. Add this to your controller::
+这里是个简单的例子，将它添加到你的控制器中::
 
 	<?php namespace App\Controllers;
 
@@ -208,7 +194,7 @@ Here’s a simple example. Add this to your controller::
 		}
 	}
 
-Now open your view file and create a loop::
+现在打开视图文件并创建一个循环::
 
 	<html>
 	<head>
