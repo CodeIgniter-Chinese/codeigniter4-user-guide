@@ -1,28 +1,25 @@
 ##########
-View Cells
+子视图
 ##########
 
-View Cells allow you to insert HTML that is generated outside of your controller. It simply calls the specified
-class and method, which must return a string of valid HTML. This method could be in any callable method, found in any class
-that the autoloader can locate. The only restriction is that the class can not have any constructor parameters.
-This is intended to be used within views, and is a great aid to modularizing your code.
+子视图允许你插入在控制器以外生成的 HTML 片段，但它只能调用指定类的方法，且该方法只能返回有效的 HTML 字符串内容。这个可调用方法可以是在
+项目中自动加载器可以定位到的任何可访问类的任何方法，唯一的限制是该类的构造方法不可有必须传入的参数。使用这个功能后，对模块化代码有很好的帮助。
 ::
 
     <?= view_cell('\App\Libraries\Blog::recentPosts') ?>
 
-In this example, the class ``App\Libraries\Blog`` is loaded, and the method ``recentPosts()`` is run. The method
-must return the generated HTML as a string. The method can be either a static method or not. Either way works.
+在这个示例中，会自动运行 ``App\Libraries\Blog`` 类的 ``recentPosts()`` 方法，该方法必须返回有效的 HTML 字符串。该方法可以是
+静态方法，也可以是非静态方法。
 
-Cell Parameters
+子视图参数
 ---------------
 
-You can further refine the call by passing a list of parameters in the second parameter to the method. The values passed
-can be an array of key/value pairs, or a comma-separated string of key/value pairs::
+可以通过 ``view_cell`` 方法的第二个参数向方法进行传值来进一步优化调用方式。参数支持键/值对的数组或键/值对的字符串（已逗号分隔）::
 
-    // Passing Parameter Array
+    // 数组形式的参数
     <?= view_cell('\App\Libraries\Blog::recentPosts', ['category' => 'codeigniter', 'limit' => 5]) ?>
 
-    // Passing Parameter String
+    // 字符串形式的参数
     <?= view_cell('\App\Libraries\Blog::recentPosts', 'category=codeigniter, limit=5') ?>
 
     public function recentPosts(array $params=[])
@@ -35,8 +32,7 @@ can be an array of key/value pairs, or a comma-separated string of key/value pai
         return view('recentPosts', ['posts' => $posts]);
     }
 
-Additionally, you can use parameter names that match the parameter variables in the method for better readability.
-When you use it this way, all of the parameters must always be specified in the view cell call::
+此外，可以在方法中使用与参数变量匹配的参数名称，以提高可读性。当以这种方式使用它时，必须始终在视图调用方法中指定所有参数::
 
     <?= view_cell('\App\Libraries\Blog::recentPosts', 'category=codeigniter, limit=5') ?>
 
@@ -50,18 +46,16 @@ When you use it this way, all of the parameters must always be specified in the 
         return view('recentPosts', ['posts' => $posts]);
     }
 
-Cell Caching
+子视图缓存
 ------------
 
-You can cache the results of the view cell call by passing the number of seconds to cache the data for as the
-third parameter. This will use the currently configured cache engine.
+您可以通过传递缓存数据的秒数作为第三个参数来缓存子视图的调用结果，默认将使用当前配置的缓存引擎。
 ::
 
-    // Cache the view for 5 minutes
+    // 视图将缓存 5 分钟
     <?= view_cell('\App\Libraries\Blog::recentPosts', 'limit=5', 300) ?>
 
-You can provide a custom name to use instead of the auto-generated one if you like, by passing the new name
-as the fourth parameter::
+当然，你也可以自定义缓存视图的文件名已替换默认的缓存文件名，通过第 4 个参数来自定义::
 
-    // Cache the view for 5 minutes
+    // 视图将缓存 5 分钟，将缓存文件重新命名为 newcacheid
     <?= view_cell('\App\Libraries\Blog::recentPosts', 'limit=5', 300, 'newcacheid') ?>
