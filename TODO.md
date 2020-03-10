@@ -17,14 +17,12 @@
 1. - [ ] [./source/models/model.rst](source/models/model.rst)
 1. - [ ] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
 1. - [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
-1. - [ ] [./source/libraries/sessions.rst](source/libraries/sessions.rst)
 1. - [ ] [./source/libraries/validation.rst](source/libraries/validation.rst)
 1. - [ ] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
 
 ## 翻译中
 
 1. - [x] [./source/concepts/services.rst](source/concepts/services.rst)
-1. - [x] [./source/outgoing/view_cells.rst](source/outgoing/view_cells.rst)
 1. - [x] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
 1. - [x] [./source/outgoing/view_renderer.rst](source/outgoing/view_renderer.rst)
 1. - [x] [./source/outgoing/views.rst](source/outgoing/views.rst)
@@ -121,3 +119,5 @@
 1. - [x] [~~./source/database/events.rst~~](source/database/events.rst)
 1. - [x] [~~./source/database/helpers.rst~~](source/database/helpers.rst)
 1. - [x] [~~./source/installation/running.rst~~](source/installation/running.rst)
+1. - [x] [~~./source/libraries/sessions.rst~~](source/libraries/sessions.rst)
+1. - [x] [~~./source/outgoing/view_cells.rst~~](source/outgoing/view_cells.rst)
