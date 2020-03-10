@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>View Cells &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>子视图 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -157,7 +157,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">构建响应</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">View Cells</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">子视图</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_renderer.html">View Renderer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_parser.html">View Parser</a></li>
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">构建响应</a> &raquo;</li>
         
-      <li>View Cells</li>
+      <li>子视图</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,25 +334,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="view-cells">
-<h1>View Cells<a class="headerlink" href="#view-cells" title="永久链接至标题">¶</a></h1>
-<p>View Cells allow you to insert HTML that is generated outside of your controller. It simply calls the specified
-class and method, which must return a string of valid HTML. This method could be in any callable method, found in any class
-that the autoloader can locate. The only restriction is that the class can not have any constructor parameters.
-This is intended to be used within views, and is a great aid to modularizing your code.</p>
+  <div class="section" id="id1">
+<h1>子视图<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>子视图允许你插入在控制器以外生成的 HTML 片段，但它只能调用指定类的方法，且该方法只能返回有效的 HTML 字符串内容。这个可调用方法可以是在
+项目中自动加载器可以定位到的任何可访问类的任何方法，唯一的限制是该类的构造方法不可有必须传入的参数。使用这个功能后，对模块化代码有很好的帮助。</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;\App\Libraries\Blog::recentPosts&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>In this example, the class <code class="docutils literal notranslate"><span class="pre">App\Libraries\Blog</span></code> is loaded, and the method <code class="docutils literal notranslate"><span class="pre">recentPosts()</span></code> is run. The method
-must return the generated HTML as a string. The method can be either a static method or not. Either way works.</p>
-<div class="section" id="cell-parameters">
-<h2>Cell Parameters<a class="headerlink" href="#cell-parameters" title="永久链接至标题">¶</a></h2>
-<p>You can further refine the call by passing a list of parameters in the second parameter to the method. The values passed
-can be an array of key/value pairs, or a comma-separated string of key/value pairs:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Passing Parameter Array</span>
+<p>在这个示例中，会自动运行 <code class="docutils literal notranslate"><span class="pre">App\Libraries\Blog</span></code> 类的 <code class="docutils literal notranslate"><span class="pre">recentPosts()</span></code> 方法，该方法必须返回有效的 HTML 字符串。该方法可以是
+静态方法，也可以是非静态方法。</p>
+<div class="section" id="id2">
+<h2>子视图参数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>可以通过 <code class="docutils literal notranslate"><span class="pre">view_cell</span></code> 方法的第二个参数向方法进行传值来进一步优化调用方式。参数支持键/值对的数组或键/值对的字符串（已逗号分隔）:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 数组形式的参数</span>
 <span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;\App\Libraries\Blog::recentPosts&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;codeigniter&#39;</span><span class="p">,</span> <span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">])</span> <span class="cp">?&gt;</span>
 
-// Passing Parameter String
+// 字符串形式的参数
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;\App\Libraries\Blog::recentPosts&#39;</span><span class="p">,</span> <span class="s1">&#39;category=codeigniter, limit=5&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
 public function recentPosts(array $params=[])
@@ -366,8 +363,7 @@ public function recentPosts(array $params=[])
 }
 </pre></div>
 </div>
-<p>Additionally, you can use parameter names that match the parameter variables in the method for better readability.
-When you use it this way, all of the parameters must always be specified in the view cell call:</p>
+<p>此外，可以在方法中使用与参数变量匹配的参数名称，以提高可读性。当以这种方式使用它时，必须始终在视图调用方法中指定所有参数:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;\App\Libraries\Blog::recentPosts&#39;</span><span class="p">,</span> <span class="s1">&#39;category=codeigniter, limit=5&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
 public function recentPosts(int $limit, string $category)
@@ -382,17 +378,15 @@ public function recentPosts(int $limit, string $category)
 </pre></div>
 </div>
 </div>
-<div class="section" id="cell-caching">
-<h2>Cell Caching<a class="headerlink" href="#cell-caching" title="永久链接至标题">¶</a></h2>
-<p>You can cache the results of the view cell call by passing the number of seconds to cache the data for as the
-third parameter. This will use the currently configured cache engine.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Cache the view for 5 minutes</span>
+<div class="section" id="id3">
+<h2>子视图缓存<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>您可以通过传递缓存数据的秒数作为第三个参数来缓存子视图的调用结果，默认将使用当前配置的缓存引擎。</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 视图将缓存 5 分钟</span>
 <span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;\App\Libraries\Blog::recentPosts&#39;</span><span class="p">,</span> <span class="s1">&#39;limit=5&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>You can provide a custom name to use instead of the auto-generated one if you like, by passing the new name
-as the fourth parameter:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Cache the view for 5 minutes</span>
+<p>当然，你也可以自定义缓存视图的文件名已替换默认的缓存文件名，通过第 4 个参数来自定义:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 视图将缓存 5 分钟，将缓存文件重新命名为 newcacheid</span>
 <span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;\App\Libraries\Blog::recentPosts&#39;</span><span class="p">,</span> <span class="s1">&#39;limit=5&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="s1">&#39;newcacheid&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
