@@ -23,7 +23,6 @@
 
 ## 翻译中
 
-1. - [x] [./source/installation/running.rst](source/installation/running.rst)
 1. - [x] [./source/concepts/services.rst](source/concepts/services.rst)
 1. - [x] [./source/outgoing/view_cells.rst](source/outgoing/view_cells.rst)
 1. - [x] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
@@ -121,3 +120,4 @@
 1. - [x] [~~./source/database/call_function.rst~~](source/database/call_function.rst)
 1. - [x] [~~./source/database/events.rst~~](source/database/events.rst)
 1. - [x] [~~./source/database/helpers.rst~~](source/database/helpers.rst)
+1. - [x] [~~./source/installation/running.rst~~](source/installation/running.rst)
