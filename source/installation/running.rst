@@ -14,19 +14,19 @@
 =================================================
 
 #. 用一个文本编辑器打开 **app/Config/App.php** 文件并设置你的baseURL（网站基础URL）。如果你希望更灵活点，也可以通过编辑 ``.env`` 文件，新增或更改其中的 **app.baseURL="http://example.com"** 来更改baseURL。
-#. 如果你想要使用数据库，用文本编辑器打开 **app/Config/Database.php** 文件并进行数据库设置。同样的，也可以在 ``.env`` 文件里进行如上设置。If you intend to use a database, open the
+#. 如果你想要使用数据库，用文本编辑器打开 **app/Config/Database.php** 文件并进行数据库设置。同样的，也可以在 ``.env`` 文件里进行如上设置。
 
 在生产环境里需要做的另一个件事就是关闭PHP的错误报告以及其他所有的只在开发环境里的功能。
 在CodeIgniter中，可以通过设置 ``ENVIRONMENT`` 常量来进行。关于这一特性，在文档 :doc:环境 </general/environments>`
 中进行了更为详尽的介绍。
-在默认情况下，应用程序会使用"production"(生产）环境。为了更为充分地使用所提供的debug（问题定位）工具，你需要将环境设置为"develop"(开发环境）
+在默认情况下，应用程序会使用"production"(生产）环境。为了更为充分地使用所提供的 debug（问题定位）工具，你需要将环境设置为 "develop" (开发环境）
 
 .. note:: 如果你想要在一台web服务器上运行你的网站。你需要修改项目线下的 ``writable`` 文件夹的权限，从而使得你的web服务器的当前用户可以对它进行写入。
 
 本地开发主机
 =================================================
 
-CodeIgniter4 中内置了一个本地开发用的主机，利用了PHP内置的web服务器并实现了CodeIgniter的路由机制。
+CodeIgniter4 中内置了一个本地开发用的主机，利用了PHP内置的web服务器并实现了 CodeIgniter 的路由机制。
 你可以使用主目录下的如下如下命令行中的 ``serve`` 脚本来启动::
 
     php spark serve
@@ -35,48 +35,40 @@ CodeIgniter4 中内置了一个本地开发用的主机，利用了PHP内置的w
 
 .. note:: 内置的开发服务器只应该在本地开发机器上使用。绝对不要将其用于生产服务器中
 
-If you need to run the site on a host other than simply localhost, you'll first need to add the host
-to your ``hosts`` file. The exact location of the file varies in each of the main operating systems, though
-all unix-type systems (include OS X) will typically keep the file at **/etc/hosts**.
+如果你想在服务器上运行一个不仅仅是localhost，而是其他站点名的网站，你需要首先将该站点加入到你的 ``hosts`` 文件中。
+该文件实际所处的位置根据不同的操作系统会存在差异，不过对于所有Unix类型的系统（包括OS X），该文件都是位于 **/etc/hosts** 。
 
-The local development server can be customized with three command line options:
+本地开发主机可以通过三个命令行选项来进行自定义化:
 
-- You can use the ``--host`` CLI option to specify a different host to run the application at::
+- 你可以使用 ``--host`` 命令行选项来指定当前应用所位于的主机名::
 
     php spark serve --host=example.dev
 
-- By default, the server runs on port 8080 but you might have more than one site running, or already have
-  another application using that port. You can use the ``--port`` CLI option to specify a different one::
+- 默认情况下，服务器在8080端口上运行；不过如果你可能会需要多个站点同时运行，或者在8080端口上已有一个应用正在部署。那么就可以通过 ``--port`` 选项来指定另一个端口::
 
     php spark serve --port=8081
 
-- You can also specify a specific version of PHP to use, with the ``--php`` CLI option, with its value
-  set to the path of the PHP executable you want to use::
+- 你也可以指定不同的PHP版本，通过 ``--php`` 选项，同时指定你想使用的对应的PHP版本所处的路径::
 
     php spark serve --php=/usr/bin/php7.6.5.4
 
-Hosting with Apache
+在Apache上部署主机
 =================================================
 
-A CodeIgniter4 webapp is normally hosted on a web server. 
-Apache’s ``httpd`` is the "standard" platform, and assumed in much of our documentation.
+CodeIgniter4 的 webapp 通常部署在一个网站主机上。在本文档中我们将 Apache 的 ``httpd`` 进程假定为标准使用的平台。
 
-Apache is bundled with many platforms, but can also be downloaded in a bundle 
-with a database engine and PHP from [Bitnami](https://bitnami.com/stacks/infrastructure).
+Apache 在许多平台中默认集成，不过也能够以一个安装包（其中包含数据库引擎和PHP执行文件）从 [Bitnami] 上下载(https://bitnami.com/stacks/infrastructure)
 
 .htaccess
 -------------------------------------------------------
 
-The “mod_rewrite” module enables URLs without “index.php” in them, and is assumed 
-in our user guide.
+本文档中假定你可以使用 "mod_rewrite" 模块，该模块可以在URL中移除 "index.php" 这一部分。
 
-Make sure that the rewrite module is enabled (uncommented) in the main 
-configuration file, eg. ``apache2/conf/httpd.conf``::
+确保该模块（重写模块）在主配置文件中已被启用（未注释），例如 ``apache2/conf/httpd.conf``::
 
     LoadModule rewrite_module modules/mod_rewrite.so
 
-Also make sure that the default document root's <Directory> element enables this too, 
-in the "AllowOverride" setting::
+与此同时，确保默认的文档根目录 <Directory> 元素中也启用了该模块，在 "AllowOverride" 设置中::
 
     <Directory "/opt/lamp7.2/apache2/htdocs">
         Options Indexes FollowSymLinks
@@ -84,25 +76,22 @@ in the "AllowOverride" setting::
         Require all granted
     </Directory>
 
-Virtual Hosting
+虚拟主机
 -------------------------------------------------------
 
-We recommend using “virtual hosting” to run your apps. 
-You can set up different aliases for each of the apps you work on,
+我们推荐使用虚拟主机的配置来运行你的应用。
+你可以为每个应用设置不同的别名。
 
-Make sure that the virtual hosting module is enabled (uncommented) in the main 
-configuration file, eg. ``apache2/conf/httpd.conf``::
+确保虚拟主机模块在主配置文件中启用（未注释），例如 ``apache2/conf/httpd.conf``::
 
     LoadModule vhost_alias_module modules/mod_vhost_alias.so
 
-Add a host alias in your “hosts” file, typically ``/etc/hosts`` on unix-type platforms, 
-or ``c:/Windows/System32/drivers/etc/hosts`` on Windows. 
-Add a line to the file. This could be "myproject.local" or "myproject.test", for instance::
+在你的主机配置文件（hosts文件）里增加一个主机别名，在unix类型的平台上通常是 ``/etc/hosts`` ，而在Windows上通常是 ``c:/Windows/System32/drivers/etc/hosts`` 。
+在该文件中增加一行，比如 "myproject.local" 或 "myproject.test"，举例来说::
 
     127.0.0.1 myproject.local
 
-Add a <VirtualHost> element for your webapp inside the virtual hosting configuration, 
-eg. ``apache2/conf/extra/httpd-vhost.conf``::
+在虚拟主机配置中，为你的 webapp 增加一个 <VirtualHost> 元素，例如在 ``apache2/conf/extra/httpd-vhost.conf`` 中::
 
     <VirtualHost *:80>
         DocumentRoot "/opt/lamp7.2/apache2/htdocs/myproject/public"
@@ -111,47 +100,40 @@ eg. ``apache2/conf/extra/httpd-vhost.conf``::
         CustomLog "logs/myproject-access_log" common
     </VirtualHost>
 
-If your project folder is not a subfolder of the Apache document root, then your 
-<VirtualHost> element may need a nested <Directory> element to grant the web s
-erver access to the files.
+如果你的项目目录并不位于 Apache 的文档根目录下，你的 <VirtualHost> 元素就需要一个嵌套的 <Directory> 元素来为服务器访问这些文件提供授权。
 
-Testing
+测试
 -------------------------------------------------------
 
-With the above configuration, your webapp would be accessed with the URL ``http://myproject.local`` in your browser.
+上述配置完成后，你的 webapp 应该就可以通过在浏览器上输入 ``http://myproject.local`` 的 URL 来进行访问了。
 
-Apache needs to be restarted whenever you change its configuration.
+每当你更改了它的配置后，Apache 都需要被重新启动
 
-Hosting with Vagrant
+通过 Vagrant 部署主机
 =================================================
 
-Virtualization is an effective way to test your webapp in the environment you 
-plan to deploy on, even if you develop on a different one. 
-Even if you are using the same platform for both, virtualization provides an 
-isolated environment for testing.
+虚拟化也是一个有效地测试你希望部署的环境中的 webapp 的实现情况的方式，即使你是在一个不同环境中进行部署的话。
+即使你为两个环境使用了相同的平台，虚拟化也可以为测试提供独立的环境。
 
-The codebase comes with a ``VagrantFile.dist``, that can be copied to ``VagrantFile``
-and tailored for your system, for instance enabling access to specific database or caching engines.
+相关的代码位于 ``VagrantFile.dist`` 中，该文件也可以被复制到 ``VagrantFile`` 里，并根据你的系统的情况来进行增减。例如为特定的数据库或缓存引擎提供访问。
 
-Setting Up
+设置
 -------------------------------------------------------
 
-It assumes that you have installed `VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_ and 
-`Vagrant <https://www.vagrantup.com/downloads.html>`_ 
-for your platform.
+我们假设了你已经安装了 `VirtualBox <https://www.virtualbox.org/wiki/Downloads>`_ 和 `Vagrant <https://www.vagrantup.com/downloads.html>`_ 的指定平台版本。
 
-The Vagrant configuration file assumes you have set up a `ubuntu/bionic64 Vagrant box 
-<https://app.vagrantup.com/ubuntu/boxes/bionic64>`_ on your system::
+我们的 Vagrant 配置文件默认你在系统中使用 `ubuntu/bionic64 Vagrant box
+<https://app.vagrantup.com/ubuntu/boxes/bionic64>`_  。
+
+Vagrant 配置文件假定你是这样进行安装的::
 
     vagrant box add ubuntu/bionic64
 
-Testing
+测试
 -------------------------------------------------------
 
-Once set up, you can then launch your webapp inside a VM, with the command::
+设置完成后，你就可以用以下命令在虚拟机中部署你的 webapp ::
 
     vagrant up
 
-Your webapp will be accessible at ``http://localhost:8080``, with the code coverage 
-report for your build at ``http://localhost:8081`` and the user guide for 
-it at ``http://localhost:8082``.
+你的 webapp 就可以通过 ``http://localhost:8080`` 来访问，而当次构建的代码覆盖率测试报告可以通过 ``http://localhost:8081`` ，用户指南通过 ``http://localhost:8082`` 进行访问。
