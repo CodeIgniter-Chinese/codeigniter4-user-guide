@@ -28,7 +28,7 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
 
 1.  安装
     [easy\_install](http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install)
-2.  `easy_install "sphinx==2.4.4"`
+2.  `easy_install "sphinx==1.8.5"`
 3.  `easy_install "sphinxcontrib-phpdomain==0.7.0"`
 4.  `easy_install "jieba==0.42.1"`
 5.  安装 CI Lexer，它可以高亮文档中的 PHP, HTML, CSS, 和 JavaScript 代码 (参见
@@ -41,6 +41,16 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
 1.  Ubuntu 系统上安装 easy\_install 可以直接：`sudo apt-get install
     python-setuptools`
 2.  easy\_install 需要 root 权限，前面加上 sudo
+
+### 使用 Docker
+
+如果你喜欢使用 Docker 构建文档的话，可以这样：
+
+1. clone 代码库到本地，例如 `/my/ci4` 目录
+2. 在 `/my/ci4` 目录下执行 `docker build -t ci4 .`
+3. 在 `/my/ci4` 目录下执行 `docker run -t --rm -v /my/ci4:/ci ci4`
+
+执行完毕后，`/my/ci4/build/html` 目录就是生成的文档啦。
 
 ### 编辑并创建文档
 

@@ -206,6 +206,7 @@ latex_elements = {
 
 # Additional stuff for the LaTeX preamble.
 'preamble': '''
+\\usepackage{xeCJK}
 \\setcounter{tocdepth}{2}
 \\addto\\captionsenglish{%
   \\renewcommand{\\chaptername}{章节}%
@@ -251,9 +252,9 @@ man_pages = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'CodeIgniter4'
-epub_author = u'CodeIgniter 基金会'
-epub_publisher = u'CodeIgniter 基金会'
+epub_title = u'CodeIgniter4 中文手册 版本 ' + release
+epub_author = u'CodeIgniter 基金会 & CodeIgniter 中国开发者社区'
+epub_publisher = u'CodeIgniter 基金会 & CodeIgniter 中国开发者社区'
 epub_copyright = u'2019-2020 CodeIgniter 基金会'
 
 # The language of the text. It defaults to the language option
