@@ -336,14 +336,14 @@
             
   <div class="section" id="cli">
 <h1>自定义 CLI 命令<a class="headerlink" href="#cli" title="永久链接至标题">¶</a></h1>
-<p>尽管使用 cli 命令和路由一样方便，但是你可能会发现需要一些不同之处的时候。这就是 CLI 命令的来源。它们是简单的类，不需要为之定义路由，因此非常适合构建工具，开发人员可以使用这些工具来简化工作，无论是通过处理迁移或数据库种子，检查 cronjob 状态还是甚至为你的公司构建自定义代码生成器。</p>
+<p>使用 CLI 命令和使用路由等其他模块一样的轻松愉快，也有一些不同的地方，这就是 CLI 命令的由来。CLI 命令是不需要为其定义路由的简单类，可以让开发人员更简单的创建一些工具。例如，数据库迁移、数据库填充、检查计划任务（cronjob）状态，甚至为公司做一个自定义代码生成器。</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
 <li><a class="reference internal" href="#id2" id="id7">运行命令</a></li>
 <li><a class="reference internal" href="#id3" id="id8">使用帮助命令</a></li>
 <li><a class="reference internal" href="#id4" id="id9">创建新的命令</a><ul>
 <li><a class="reference internal" href="#id5" id="id10">文件位置</a></li>
-<li><a class="reference internal" href="#id6" id="id11">实例命令</a></li>
+<li><a class="reference internal" href="#id6" id="id11">命令示例</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#basecommand" id="id12">BaseCommand</a></li>
@@ -351,19 +351,19 @@
 </div>
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id7">运行命令</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>命令是从命令行在根目录中运行的。包含 <strong>/app</strong> 和 <strong>/system</strong> 目录的同一目录，提供了一个自定义脚本 <strong>spark</strong> 用于运行任何 cli 命令：</p>
+<p>命令是在项目根目录中通过命令行来执行的。在 <strong>/app</strong> 和 <strong>/system</strong> 同级目录中，提供了一个自定义脚本 <strong>spark</strong> 用于运行任何 CLI 命令:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span>
 </pre></div>
 </div>
-<p>在未指定命令的情况下调用时，将显示一个简单的帮助页面，该页面还提供了可用命令的列表。你应该将命令名称作为运行该命令的第一个参数传递：</p>
+<p>在不指定命令名称的情况下调用命令，会显示帮助页面并展示出所有可用的命令。你应该将命令名称作为运行该命令的第一个参数传递:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span>
 </pre></div>
 </div>
-<p>一些命令带有附加参数，应在命令后直接提供，并用空格分隔：</p>
+<p>一些命令需要使用到更多的参数，你需要直接写在后面并以空格分隔开:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">seed</span> <span class="nx">DevUserSeeder</span>
 </pre></div>
 </div>
-<p>对于 CodeIgniter 提供的命令，如果不提供必需的参数，则将提示你输入正确运行所需的信息：</p>
+<p>对于 CodeIgniter 提供的命令，如果不提供必需的参数，则将提示你输入正确运行所需的参数:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">version</span>
 <span class="o">&gt;</span> <span class="nx">Version</span><span class="o">?</span>
 </pre></div>
@@ -371,35 +371,35 @@
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id8">使用帮助命令</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>你可以使用 help 命令获得有关任何 CLI 命令的帮助，如下所示：</p>
+<p>你可以使用 help 命令来获得 CLI 帮助:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">help</span> <span class="nx">db</span><span class="o">:</span><span class="nx">seed</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id4">
 <h2><a class="toc-backref" href="#id9">创建新的命令</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<p>你可以非常轻松地创建新命令以在自己的开发中使用。每个类都必须位于其自己的文件中，并且必须 extend <code class="docutils literal notranslate"><span class="pre">CodeIgniter\CLI\BaseCommand</span> <span class="pre">``</span> <span class="pre">并</span> <span class="pre">implement</span> <span class="pre">``run()</span></code> 方法。</p>
-<p>应该使用以下属性，以便在 CLI 命令中列出并向命令添加帮助功能：</p>
+<p>你可以非常容易的创建新的命令，并在开发中使用。每个类都必须独立成一个文件，且必须继承自 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\CLI\BaseCommand</span></code>，同时需要实现 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法。</p>
+<p>为了在 CLI 命令中列出你的命令并添加相应帮助功能，需要使用到以下属性：</p>
 <ul class="simple">
 <li>($group): 一个字符串，用于描述列出命令时命令所属的组。例如（数据库）</li>
-<li>($name): 表示命令名称的字符串。例如 ( migrate:create )</li>
-<li>($description): 描述命令的字符串。例如 ( 创建一个新的迁移文件 )</li>
-<li>($usage): 描述命令用法的字符串。例如 ( migrate:create [migration_name] [选项] )</li>
-<li>($arguments): 描述每个命令参数的字符串数组。例如 ( ‘migration_name’ =&gt; ‘迁移文件名’’ )</li>
-<li>($options): 描述每个命令选项的字符串数组。例如 ( ‘-n’=&gt;’设置迁移命名空间’ )</li>
+<li>($name): 表示命令名称的字符串。例如（migrate:create）</li>
+<li>($description): 描述命令的字符串。例如（创建一个新的迁移文件）</li>
+<li>($usage): 描述命令用法的字符串。例如（migrate:create [migration_name] [选项]）</li>
+<li>($arguments): 描述每个命令参数的字符串数组。例如（’migration_name’ =&gt; ‘迁移文件名’）</li>
+<li>($options): 描述每个命令选项的字符串数组。例如（’-n’ =&gt; ‘设置迁移命名空间’）</li>
 </ul>
 <p><strong>帮助描述将根据以上参数自动生成。</strong></p>
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id10">文件位置</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-<p>命令必须存储在名为 <strong>Commands</strong> 的目录中。但是，该目录可以位于 <a class="reference internal" href="../concepts/autoloader.html"><span class="doc">自动加载器</span></a> 可以找到的任何位置。该目录可以在 <strong>/app/Commands**中，也可以在其中保存命令以在所有项目开发中使用的目录中，例如 **Acme/Commands</strong> 。</p>
+<p>命令必须放在名为 <strong>Commands</strong> 的目录中。但是，该目录可以位于 <a class="reference internal" href="../concepts/autoloader.html"><span class="doc">自动加载器</span></a> 可以找到的任何位置。该目录可以在 <strong>/app/Commands</strong> 中，或者一个你用来放置所有命令的目录，例如 <strong>Acme/Commands</strong> 。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">执行命令时，将加载完整的 CodeIgniter cli 环境，从而可以获取环境信息，路径信息以及使用制作控制器时将使用的任何工具。</p>
+<p class="last">执行命令时，将加载完整的 CodeIgniter CLI 环境，从而可以获取环境信息，路径信息以及编写控制器时所用到的任何工具。</p>
 </div>
 </div>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id11">实例命令</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
-<p>让我们看一个示例命令，该命令的唯一功能是为演示目的报告有关应用程序本身的基本信息。首先从 <strong>/app/Commands/AppInfo.php</strong> 创建一个新文件。它应包含以下代码：</p>
+<h3><a class="toc-backref" href="#id11">命令示例</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>让我们逐步通过一个示例命令来演示，这个命令的功能是报告关于应用程序自身的一些基本信息。首先创建一个 <strong>/app/Commands/AppInfo.php</strong> 文件，代码如下:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Commands</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\CLI\BaseCommand</span><span class="p">;</span>
@@ -418,23 +418,22 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>如果运行 <strong>list</strong> 命令，你将在其自己的 <code class="docutils literal notranslate"><span class="pre">demo</span></code> 组下看到新命令。如果你仔细看一看，应该会看到它的工作原理。该 <code class="docutils literal notranslate"><span class="pre">$group</span></code> 属性只是告诉它如何与所有其他现有命令一起组织此命令，并告诉其列出该标题的标题。</p>
-<p><code class="docutils literal notranslate"><span class="pre">$name</span></code> 属性是可以调用此命令的名称。唯一的要求是，它不能包含空格，并且所有字符在命令行本身上都必须有效。但是，按照惯例，命令是小写的，通过使用带有命令名称本身的冒号来完成命令的进一步分组。这有助于防止多个命令发生命名冲突。</p>
-<p>最后一个属性 <code class="docutils literal notranslate"><span class="pre">$description</span></code> 是在 <strong>list</strong> 命令中显示的一条短字符串，应描述命令的作用。</p>
+<p>如果运行 <strong>list</strong> 命令，你将在其自己的 <code class="docutils literal notranslate"><span class="pre">demo</span></code> 组下看到新命令。如果你仔细观察，就会很容易的发现它们是如何工作的。<code class="docutils literal notranslate"><span class="pre">$group</span></code> 属性说明他所在的组，及存在的所有命令，并会指出他在哪个列表之下。</p>
+<p><code class="docutils literal notranslate"><span class="pre">$name</span></code> 属性是命令用来被调用的名字，仅有的要求是不能包含空格，并且所有字符必须是命令行有效字符。按照惯例命令行都是小写，通过使用命名空间的冒号，可以规避掉重名的风险。</p>
+<p>最后一个属性 <code class="docutils literal notranslate"><span class="pre">$description</span></code> 是在 <strong>list</strong> 命令中显示的一条描述信息，用来描述命令的用途。</p>
 <div class="section" id="run">
 <h4>run()<a class="headerlink" href="#run" title="永久链接至标题">¶</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法是在运行命令时调用的方法。<code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组是你使用的命令名称后的所有 cli 参数的列表。如果 cli 字符串是：</p>
+<p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法在命令运行时会被调用，<code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组是紧跟在命令名之后的 CLI 参数列表，例如下面的 CLI 内容:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">foo</span> <span class="nx">bar</span> <span class="nx">baz</span>
 </pre></div>
 </div>
-<p>则 <strong>foo</strong> 是命令名称， <code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组将是：</p>
+<p><strong>foo</strong> 是命令名称，<code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组将是:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">];</span>
 </pre></div>
 </div>
 <p>This can also be accessed through the <a class="reference internal" href="cli_library.html"><span class="doc">CLI</span></a> library, but this already has your command removed
 from the string. These parameters can be used to customize how your scripts behave.</p>
-<p>这也可以通过 <a class="reference internal" href="cli_library.html"><span class="doc">CLI</span></a> 库进行获取，但是已经从字符串中删除了你的命令。这些参数可用于自定义脚本的行为。</p>
-<p>我们的 demo 命令可能具有 run 类似以下方法：</p>
+<p>在我们的 demo 命令中，<code class="docutils literal notranslate"><span class="pre">run</span></code> 方法类似如下写法:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;PHP Version: &#39;</span><span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nb">phpversion</span><span class="p">(),</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
@@ -451,7 +450,7 @@ from the string. These parameters can be used to customize how your scripts beha
 </div>
 <div class="section" id="basecommand">
 <h2><a class="toc-backref" href="#id12">BaseCommand</a><a class="headerlink" href="#basecommand" title="永久链接至标题">¶</a></h2>
-<p>所有命令必须扩展的 <code class="docutils literal notranslate"><span class="pre">BaseCommand</span></code> 类具有几个有用的实用程序方法，在创建自己的命令时应熟悉这些方法。在 <strong>$this-&gt;logger</strong> 上也有一个 <a class="reference internal" href="../general/logging.html"><span class="doc">Logger</span></a> 。</p>
+<p>所有命令必须继承自 <code class="docutils literal notranslate"><span class="pre">BaseCommand</span></code> 类，它拥有一些很有用的方法，在创建自己的命令时应熟悉这些方法。在 <strong>$this-&gt;logger</strong> 上也有一个 <a class="reference internal" href="../general/logging.html"><span class="doc">Logger</span></a> 。</p>
 <dl class="class">
 <dt>
 <code class="descname">CodeIgniter\CLI\BaseCommand</code></dt>
@@ -464,13 +463,13 @@ from the string. These parameters can be used to customize how your scripts beha
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
 <li><strong>$command</strong> (<em>string</em>) – 要调用的另一个命令的名称。</li>
-<li><strong>$params</strong> (<em>array</em>) – 使该命令可用的附加 cli 参数。</li>
+<li><strong>$params</strong> (<em>array</em>) – 使该命令可用的附加 CLI 参数。</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>此方法使你可以在当前命令执行期间运行其他命令：</p>
+<p>此方法使你可以在当前命令执行期间运行其他命令:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">call</span><span class="p">(</span><span class="s1">&#39;command_one&#39;</span><span class="p">);</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">call</span><span class="p">(</span><span class="s1">&#39;command_two&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
 </pre></div>
@@ -491,7 +490,7 @@ from the string. These parameters can be used to customize how your scripts beha
 </tr>
 </tbody>
 </table>
-<p>一种方便的方法，用于向 cli 保持一致且清晰的错误输出：</p>
+<p>一种方便的方法，用于向 CLI 保持一致且清晰的错误输出:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">try</span>
 <span class="p">{</span>
     <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
@@ -518,14 +517,14 @@ from the string. These parameters can be used to customize how your scripts beha
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$array</strong> (<em>array</em>) – 一个关联数组</li>
+<li><strong>$array</strong> (<em>array</em>) – $key =&gt; $value 数组</li>
 <li><strong>$pad</strong> (<em>integer</em>) – 填充空格数</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>一个为关联数组输出计算填充的方法。填充可用于在 CLI 中输出格式化的表格：</p>
+<p>一个为 $key =&gt; $value 数组输出计算填充的方法。填充可用于在 CLI 中输出格式化的表格:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$pad</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getPad</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span> <span class="k">as</span> <span class="nv">$option</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">)</span>
 <span class="p">{</span>
