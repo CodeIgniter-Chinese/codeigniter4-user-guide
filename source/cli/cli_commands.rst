@@ -48,7 +48,7 @@
 * ($group): 一个字符串，用于描述列出命令时命令所属的组。例如（数据库）
 * ($name): 表示命令名称的字符串。例如 ( migrate:create )
 * ($description): 描述命令的字符串。例如 ( 创建一个新的迁移文件 )
-* ($usage): 描述命令用法的字符串。例如 ( migrate:create [migration_name] 『选项』 )
+* ($usage): 描述命令用法的字符串。例如 ( migrate:create [migration_name] [选项] )
 * ($arguments): 描述每个命令参数的字符串数组。例如 ( 'migration_name' => '迁移文件名'' )
 * ($options): 描述每个命令选项的字符串数组。例如 ( '-n'=>'设置迁移命名空间' )
 
