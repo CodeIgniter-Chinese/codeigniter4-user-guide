@@ -1,84 +1,72 @@
 #############
-View Renderer
+视图渲染器
 #############
 
 .. contents::
     :local:
     :depth: 2
 
-Using the View Renderer
+使用视图渲染器
 ***************************
 
-The ``view()`` function is a convenience function that grabs an instance of the
-``renderer`` service, sets the data, and renders the view. While this is often
-exactly what you want, you may find times where you want to work with it more directly.
-In that case you can access the View service directly::
+``view()`` 方法是一种便捷功能，可以获取 ``renderer`` 服务实例，然后可以设置数据并显示视图。
+这种方式是我们常用的方式，但有时候我们需要更直接使用它，那么可以直接已服务的形式获取::
 
 	$view = \Config\Services::renderer();
 
-Alternately, if you are not using the ``View`` class as your default renderer, you
-can instantiate it directly::
+如果使用 ``View`` 类作为默认渲染器，则可以直接实例化它::
 
 	$view = new \CodeIgniter\View\View();
 
-.. important:: You should create services only within controllers. If you need
-	access to the View class from a library, you should set that as a dependency
-	in your library's constructor.
+.. important:: 你应该只在控制器内创建、使用服务。如果你想在其他类（Library）中使用，则应在类的构造函数中将其设置为依赖项。
 
-Then you can use any of the three standard methods that it provides:
-**render(viewpath, options, save)**, **setVar(name, value, context)** and **setData(data, context)**.
+然后，您可以使用它提供的三种标准方法中的任何一种:
+**render(viewpath, options, save)**, **setVar(name, value, context)** 和 **setData(data, context)**.
 
-What It Does
+它是做什么的
 ============
 
-The ``View`` class processes conventional HTML/PHP scripts stored in the application's view path,
-after extracting view parameters into PHP variables, accessible inside the scripts.
-This means that your view parameter names need to be legal PHP variable names.
+``View`` 类将视图的参数提取到可在脚本内部访问的PHP变量后，处理存储在应用程序视图路径中的标准 HTML/PHP 脚本。
+这意味着视图参数名称必须是合法的 PHP 变量名称。
 
-The View class uses an associative array internally, to accumulate view parameters
-until you call its ``render()``. This means that your parameter (or variable) names
-need to be unique, or a later variable setting will over-ride an earlier one.
+``View`` 类在内部使用一个关联数组，以保存视图参数，直到调用 ``render()`` 方法为止。这意味着视图参数（或变量）名称必须是
+唯一的，否则后面变量的值将覆盖前面的变量。
 
-This also impacts escaping parameter values for different contexts inside your
-script. You will have to give each escaped value a unique parameter name.
+同时，这还会影响脚本中不同上下文的参数值，你将必须为每个值赋予唯一的参数名称。
 
-No special meaning is attached to parameters whose value is an array. It is up
-to you to process the array appropriately in your PHP code.
+数组类型的值没有任何特殊含义，可以根据自己的 PHP 代码处理数组。
 
-Method Chaining
+方法链
 ===============
 
-The `setVar()` and `setData()` methods are chainable, allowing you to combine a
-number of different calls together in a chain::
+`setVar()` 和 `setData()` 方法支持链式调用，允许将多个不同的调用组合到一个方法链中使用::
 
 	$view->setVar('one', $one)
 	     ->setVar('two', $two)
 	     ->render('myView');
 
-Escaping Data
+转义数据
 =============
 
-When you pass data to the ``setVar()`` and ``setData()`` functions you have the option to escape the data to protect
-against cross-site scripting attacks. As the last parameter in either method, you can pass the desired context to
-escape the data for. See below for context descriptions.
+当你将数据传递给 ``setVar()`` 和 ``setData()`` 方法时，可以选择转义数据以防止跨站点脚本攻击。作为这两种方法中的最后一个参数，你
+可以传递所需的上下文，以选择是否对数据进行转义。
 
-If you don't want the data to be escaped, you can pass `null` or `raw` as the final parameter to each function::
+如果你不想对数据进行转义，你可以向第三个参数传递 `null` 或 `raw`，这样将不会对数据进行转义::
 
 	$view->setVar('one', $one, 'raw');
 
-If you choose not to escape data, or you are passing in an object instance, you can manually escape the data within
-the view with the ``esc()`` function. The first parameter is the string to escape. The second parameter is the
-context to escape the data for (see below)::
+如果选择不转义数据，或者要传递对象实例，则可以使用 ``esc()`` 辅助方法在视图中手动转义数据。第一个参数是要转义的字符串，第二个参数是
+用于转义数据的上下文（请参见下文）::
 
 	<?= \esc($object->getStat()) ?>
 
-Escaping Contexts
+.. note:: 译者注：框架内部使用 ``\Zend\Escaper\Escaper`` 类已 escape 开头的相关方法对数据进行的转义处理。
+
+转义上下文
 -----------------
 
-By default, the ``esc()`` and, in turn, the ``setVar()`` and ``setData()`` functions assume that the data you want to
-escape is intended to be used within standard HTML. However, if the data is intended for use in Javascript, CSS,
-or in an href attribute, you would need different escaping rules to be effective. You can pass in the name of the
-context as the second parameter. Valid contexts are 'html', 'js', 'css', 'url', and 'attr'::
+默认情况下，``esc()`` 方法认为要转义的数据会在 HTML 中使用。如果数据打算用于 Javascript、CSS 或 href 属性时，需要不同的转义规则才
+能生效。你可以传入转义类型名称作为第二个参数，选择合适的规则。规则支持 'html', 'js', 'css', 'url' 和 'attr'::
 
 	<a href="<?= esc($url, 'url') ?>" data-foo="<?= esc($bar, 'attr') ?>">Some Link</a>
 
@@ -92,15 +80,14 @@ context as the second parameter. Valid contexts are 'html', 'js', 'css', 'url', 
 		}
 	</style>
 
-View Renderer Options
+视图渲染器配置
 =====================
 
-Several options can be passed to the ``render()`` or ``renderString()`` methods:
+可以将配置信息传递给 ``render()`` 或 ``renderString()`` 方法：
 
--   ``cache`` - the time in seconds, to save a view's results; ignored for renderString()
--   ``cache_name`` - the ID used to save/retrieve a cached view result; defaults to the viewpath;
-		ignored for renderString()
--   ``saveData`` - true if the view data parameters should be retained for subsequent calls
+-   ``cache`` - 缓存视图结果的时间（已秒为时间单位），忽略 renderString() 方法
+-   ``cache_name`` - 保存缓存视图结果的文件名，默认是 viewpath，忽略 renderString() 方法
+-   ``saveData`` - 如果要保留视图的参数，应设置为 true
 
 Class Reference
 ***************
