@@ -10,11 +10,11 @@
 ***************************
 
 ``view()`` 方法是一种便捷功能，可以获取 ``renderer`` 服务实例，然后可以设置数据并显示视图。
-这种方式是我们常用的方式，但有时候我们需要更直接使用它，那么可以直接已服务的形式获取::
+这种方式是我们常用的方式，但有时候我们需要一种更为直接的使用方式；在这种情况下你可以直接以视图服务的形式调用它::
 
 	$view = \Config\Services::renderer();
 
-如果使用 ``View`` 类作为默认渲染器，则可以直接实例化它::
+如果不使用 ``View`` 类作为默认渲染器，则可以直接实例化它::
 
 	$view = new \CodeIgniter\View\View();
 
@@ -27,7 +27,7 @@
 ============
 
 ``View`` 类将视图的参数提取到可在脚本内部访问的PHP变量后，处理存储在应用程序视图路径中的标准 HTML/PHP 脚本。
-这意味着视图参数名称必须是合法的 PHP 变量名称。
+这意味着视图中的参数名称必须是合法的 PHP 变量名。
 
 ``View`` 类在内部使用一个关联数组，以保存视图参数，直到调用 ``render()`` 方法为止。这意味着视图参数（或变量）名称必须是
 唯一的，否则后面变量的值将覆盖前面的变量。
@@ -36,7 +36,7 @@
 
 数组类型的值没有任何特殊含义，可以根据自己的 PHP 代码处理数组。
 
-方法链
+链式调用方法
 ===============
 
 `setVar()` 和 `setData()` 方法支持链式调用，允许将多个不同的调用组合到一个方法链中使用::
@@ -51,7 +51,7 @@
 当你将数据传递给 ``setVar()`` 和 ``setData()`` 方法时，可以选择转义数据以防止跨站点脚本攻击。作为这两种方法中的最后一个参数，你
 可以传递所需的上下文，以选择是否对数据进行转义。
 
-如果你不想对数据进行转义，你可以向第三个参数传递 `null` 或 `raw`，这样将不会对数据进行转义::
+如果你不想对数据进行转义，你可以向每个方法的最后一个参数传递 `null` 或 `raw`，这样将不会对数据进行转义::
 
 	$view->setVar('one', $one, 'raw');
 
@@ -60,7 +60,7 @@
 
 	<?= \esc($object->getStat()) ?>
 
-.. note:: 译者注：框架内部使用 ``\Zend\Escaper\Escaper`` 类已 escape 开头的相关方法对数据进行的转义处理。
+.. note:: 译者注：框架内部使用 ``\Zend\Escaper\Escaper`` 类中以 escape 开头的相关方法对数据进行的转义处理。
 
 转义上下文
 -----------------
@@ -80,16 +80,16 @@
 		}
 	</style>
 
-视图渲染器配置
+视图渲染器选项
 =====================
 
-可以将配置信息传递给 ``render()`` 或 ``renderString()`` 方法：
+可以将多个选项信息传递给 ``render()`` 或 ``renderString()`` 方法：
 
--   ``cache`` - 缓存视图结果的时间（已秒为时间单位），忽略 renderString() 方法
--   ``cache_name`` - 保存缓存视图结果的文件名，默认是 viewpath，忽略 renderString() 方法
--   ``saveData`` - 如果要保留视图的参数，应设置为 true
+-   ``cache`` - 缓存视图结果的时间（以秒为时间单位）， renderString() 方法中会忽略
+-   ``cache_name`` - 保存缓存视图结果的文件名，默认是 viewpath， renderString() 方法中会忽略
+-   ``saveData`` - 如果要保留视图的参数，并在后续调用中使用，应设置为 true
 
-Class Reference
+类参考
 ***************
 
 .. php:class:: CodeIgniter\\View\\View
@@ -97,10 +97,10 @@ Class Reference
 	.. php:method:: render($view[, $options[, $saveData=false]]])
                 :noindex:
 
-		:param  string  $view: File name of the view source
-		:param  array   $options: Array of options, as key/value pairs
-		:param  boolean $saveData: If true, will save data for use with any other calls, if false, will clean the data after rendering the view.
-		:returns: The rendered text for the chosen view
+		:param  string  $view: 源视图文件的文件名
+		:param  array   $options: 以键值对传递的选项数组
+		:param  boolean $saveData: 如果该值为 true , 该方法会保留该数据并为其他调用使用；反之就会在渲染视图后清除该数据
+		:returns: 指定视图文件所渲染的文字内容
 		:rtype: string
 
 		Builds the output based upon a file name and any data that has already been set::
