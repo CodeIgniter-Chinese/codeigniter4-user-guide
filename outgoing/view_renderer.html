@@ -456,7 +456,7 @@
 </tr>
 </tbody>
 </table>
-<p>Builds the output based upon a file name and any data that has already been set:</p>
+<p>根据传入的文件名和预先设置的数据来渲染输出:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;myview&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -470,13 +470,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$view</strong> (<em>string</em>) – Contents of the view to render, for instance content retrieved from a database</li>
-<li><strong>$options</strong> (<em>array</em>) – Array of options, as key/value pairs</li>
-<li><strong>$saveData</strong> (<em>boolean</em>) – If true, will save data for use with any other calls, if false, will clean the data after rendering the view.</li>
+<li><strong>$view</strong> (<em>string</em>) – 需要渲染的视图的内容，例如从数据库里返回的内容等</li>
+<li><strong>$options</strong> (<em>array</em>) – 以键值对传递的选项数组</li>
+<li><strong>$saveData</strong> (<em>boolean</em>) – 如果该值为 true , 该方法会保留该数据并为其他调用使用；反之就会在渲染视图后清除该数据</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The rendered text for the chosen view</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">指定视图文件所渲染的文字内容</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -484,14 +484,11 @@
 </tr>
 </tbody>
 </table>
-<p>Builds the output based upon a view fragment and any data that has already been set:</p>
+<p>根据给定的视图分块和预先设置的数据来渲染输出:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">renderString</span><span class="p">(</span><span class="s1">&#39;&lt;div&gt;My Sharona&lt;/div&gt;&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>This could be used for displaying content that might have been stored in a database,
-but you need to be aware that this is a potential security vulnerability,
-and that you <strong>must</strong> validate any such data, and probably escape it
-appropriately!</p>
+<p>该方法可以用于输出一些例如数据库中存储的内容。但是你需要意识到这一操作可能是有安全风险的，并且**必须**对这些数据进行验证以及尽可能进行转义！</p>
 </dd></dl>
 
 <dl class="method">
@@ -502,12 +499,12 @@ appropriately!</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<em>array</em>) – Array of view data strings, as key/value pairs</li>
-<li><strong>$context</strong> (<em>string</em>) – The context to use for data escaping.</li>
+<li><strong>$data</strong> (<em>array</em>) – 以键值对传递的视图数据数组</li>
+<li><strong>$context</strong> (<em>string</em>) – 使用数据转义的上下文</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The Renderer, for method chaining</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">用于方法链式调用的渲染器</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">CodeIgniter\View\RendererInterface.</p>
@@ -515,16 +512,14 @@ appropriately!</p>
 </tr>
 </tbody>
 </table>
-<p>Sets several pieces of view data at once:</p>
+<p>同时设置多组视图数据:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;George&#39;</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;Boss&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>Supported escape contexts: html, css, js, url, or attr or raw.
-If ‘raw’, no escaping will happen.</p>
-<p>Each call adds to the array of data that the object is accumulating,
-until the view is rendered.</p>
 </dd></dl>
 
+<p>支持以下的上下文: html, css, js, url, or attr or raw, 如果是 ‘raw’ 的话，就不进行转义</p>
+<p>每个调用都会为对象附加一个属性数据，直到视图被渲染</p>
 <dl class="method">
 <dt>
 <code class="descname">setVar</code><span class="sig-paren">(</span><em>$name</em><span class="optional">[</span>, <em>$value=null</em><span class="optional">[</span>, <em>$context=null</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span></dt>
@@ -533,13 +528,13 @@ until the view is rendered.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$name</strong> (<em>string</em>) – Name of the view data variable</li>
-<li><strong>$value</strong> (<em>mixed</em>) – The value of this view data</li>
-<li><strong>$context</strong> (<em>string</em>) – The context to use for data escaping.</li>
+<li><strong>$name</strong> (<em>string</em>) – 视图数据变量的变量名</li>
+<li><strong>$value</strong> (<em>mixed</em>) – 该变量的变量值</li>
+<li><strong>$context</strong> (<em>string</em>) – 使用数据转义的上下文</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The Renderer, for method chaining</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">用于方法链式调用的渲染器</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">CodeIgniter\View\RendererInterface.</p>
@@ -547,14 +542,12 @@ until the view is rendered.</p>
 </tr>
 </tbody>
 </table>
-<p>Sets a single piece of view data:</p>
+<p>设置单个数据变量:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;Joe&#39;</span><span class="p">,</span><span class="s1">&#39;html&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Supported escape contexts: html, css, js, url, attr or raw.
-If ‘raw’, no escaping will happen.</p>
-<p>If you use the a view data variable that you have previously used
-for this object, the new value will replace the existing one.</p>
+<p>支持以下的上下文: html, css, js, url, or attr or raw, 如果是 ‘raw’ 的话，就不进行转义</p>
+<p>如果你想要使用对该对象已使用过的视图数据变量，新的值就会取代老的值。</p>
 </dd></dl>
 
 </dd></dl>
