@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>View Renderer &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>视图渲染器 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -158,7 +158,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">构建响应</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_cells.html">子视图</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">View Renderer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_parser.html">View Parser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="table.html">HTML Table Class</a></li>
@@ -317,7 +317,7 @@
         
           <li><a href="index.html">构建响应</a> &raquo;</li>
         
-      <li>View Renderer</li>
+      <li>视图渲染器</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -334,86 +334,76 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="view-renderer">
-<h1>View Renderer<a class="headerlink" href="#view-renderer" title="永久链接至标题">¶</a></h1>
-<div class="contents local topic" id="id1">
+  <div class="section" id="id1">
+<h1>视图渲染器<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#using-the-view-renderer" id="id2">Using the View Renderer</a><ul>
-<li><a class="reference internal" href="#what-it-does" id="id3">What It Does</a></li>
-<li><a class="reference internal" href="#method-chaining" id="id4">Method Chaining</a></li>
-<li><a class="reference internal" href="#escaping-data" id="id5">Escaping Data</a></li>
-<li><a class="reference internal" href="#view-renderer-options" id="id6">View Renderer Options</a></li>
+<li><a class="reference internal" href="#id3" id="id10">使用视图渲染器</a><ul>
+<li><a class="reference internal" href="#id4" id="id11">它是做什么的</a></li>
+<li><a class="reference internal" href="#id5" id="id12">链式调用方法</a></li>
+<li><a class="reference internal" href="#id6" id="id13">转义数据</a></li>
+<li><a class="reference internal" href="#id8" id="id14">视图渲染器选项</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#class-reference" id="id7">Class Reference</a></li>
+<li><a class="reference internal" href="#id9" id="id15">类参考</a></li>
 </ul>
 </div>
-<div class="section" id="using-the-view-renderer">
-<h2><a class="toc-backref" href="#id2">Using the View Renderer</a><a class="headerlink" href="#using-the-view-renderer" title="永久链接至标题">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">view()</span></code> function is a convenience function that grabs an instance of the
-<code class="docutils literal notranslate"><span class="pre">renderer</span></code> service, sets the data, and renders the view. While this is often
-exactly what you want, you may find times where you want to work with it more directly.
-In that case you can access the View service directly:</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">使用视图渲染器</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">view()</span></code> 方法是一种便捷功能，可以获取 <code class="docutils literal notranslate"><span class="pre">renderer</span></code> 服务实例，然后可以设置数据并显示视图。
+这种方式是我们常用的方式，但有时候我们需要一种更为直接的使用方式；在这种情况下你可以直接以视图服务的形式调用它:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">renderer</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>Alternately, if you are not using the <code class="docutils literal notranslate"><span class="pre">View</span></code> class as your default renderer, you
-can instantiate it directly:</p>
+<p>如果不使用 <code class="docutils literal notranslate"><span class="pre">View</span></code> 类作为默认渲染器，则可以直接实例化它:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\View\View</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">You should create services only within controllers. If you need
-access to the View class from a library, you should set that as a dependency
-in your library’s constructor.</p>
+<p class="last">你应该只在控制器内创建、使用服务。如果你想在其他类（Library）中使用，则应在类的构造函数中将其设置为依赖项。</p>
 </div>
-<p>Then you can use any of the three standard methods that it provides:
-<strong>render(viewpath, options, save)</strong>, <strong>setVar(name, value, context)</strong> and <strong>setData(data, context)</strong>.</p>
-<div class="section" id="what-it-does">
-<h3><a class="toc-backref" href="#id3">What It Does</a><a class="headerlink" href="#what-it-does" title="永久链接至标题">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">View</span></code> class processes conventional HTML/PHP scripts stored in the application’s view path,
-after extracting view parameters into PHP variables, accessible inside the scripts.
-This means that your view parameter names need to be legal PHP variable names.</p>
-<p>The View class uses an associative array internally, to accumulate view parameters
-until you call its <code class="docutils literal notranslate"><span class="pre">render()</span></code>. This means that your parameter (or variable) names
-need to be unique, or a later variable setting will over-ride an earlier one.</p>
-<p>This also impacts escaping parameter values for different contexts inside your
-script. You will have to give each escaped value a unique parameter name.</p>
-<p>No special meaning is attached to parameters whose value is an array. It is up
-to you to process the array appropriately in your PHP code.</p>
+<p>然后，您可以使用它提供的三种标准方法中的任何一种:
+<strong>render(viewpath, options, save)</strong>, <strong>setVar(name, value, context)</strong> 和 <strong>setData(data, context)</strong>.</p>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id11">它是做什么的</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">View</span></code> 类将视图的参数提取到可在脚本内部访问的PHP变量后，处理存储在应用程序视图路径中的标准 HTML/PHP 脚本。
+这意味着视图中的参数名称必须是合法的 PHP 变量名。</p>
+<p><code class="docutils literal notranslate"><span class="pre">View</span></code> 类在内部使用一个关联数组，以保存视图参数，直到调用 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 方法为止。这意味着视图参数（或变量）名称必须是
+唯一的，否则后面变量的值将覆盖前面的变量。</p>
+<p>同时，这还会影响脚本中不同上下文的参数值，你将必须为每个值赋予唯一的参数名称。</p>
+<p>数组类型的值没有任何特殊含义，可以根据自己的 PHP 代码处理数组。</p>
 </div>
-<div class="section" id="method-chaining">
-<h3><a class="toc-backref" href="#id4">Method Chaining</a><a class="headerlink" href="#method-chaining" title="永久链接至标题">¶</a></h3>
-<p>The <cite>setVar()</cite> and <cite>setData()</cite> methods are chainable, allowing you to combine a
-number of different calls together in a chain:</p>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id12">链式调用方法</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p><cite>setVar()</cite> 和 <cite>setData()</cite> 方法支持链式调用，允许将多个不同的调用组合到一个方法链中使用:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="nv">$one</span><span class="p">)</span>
      <span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="nv">$two</span><span class="p">)</span>
      <span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;myView&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="escaping-data">
-<h3><a class="toc-backref" href="#id5">Escaping Data</a><a class="headerlink" href="#escaping-data" title="永久链接至标题">¶</a></h3>
-<p>When you pass data to the <code class="docutils literal notranslate"><span class="pre">setVar()</span></code> and <code class="docutils literal notranslate"><span class="pre">setData()</span></code> functions you have the option to escape the data to protect
-against cross-site scripting attacks. As the last parameter in either method, you can pass the desired context to
-escape the data for. See below for context descriptions.</p>
-<p>If you don’t want the data to be escaped, you can pass <cite>null</cite> or <cite>raw</cite> as the final parameter to each function:</p>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id13">转义数据</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>当你将数据传递给 <code class="docutils literal notranslate"><span class="pre">setVar()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setData()</span></code> 方法时，可以选择转义数据以防止跨站点脚本攻击。作为这两种方法中的最后一个参数，你
+可以传递所需的上下文，以选择是否对数据进行转义。</p>
+<p>如果你不想对数据进行转义，你可以向每个方法的最后一个参数传递 <cite>null</cite> 或 <cite>raw</cite>，这样将不会对数据进行转义:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="nv">$one</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>If you choose not to escape data, or you are passing in an object instance, you can manually escape the data within
-the view with the <code class="docutils literal notranslate"><span class="pre">esc()</span></code> function. The first parameter is the string to escape. The second parameter is the
-context to escape the data for (see below):</p>
+<p>如果选择不转义数据，或者要传递对象实例，则可以使用 <code class="docutils literal notranslate"><span class="pre">esc()</span></code> 辅助方法在视图中手动转义数据。第一个参数是要转义的字符串，第二个参数是
+用于转义数据的上下文（请参见下文）:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">\esc</span><span class="p">(</span><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getStat</span><span class="p">())</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="escaping-contexts">
-<h4>Escaping Contexts<a class="headerlink" href="#escaping-contexts" title="永久链接至标题">¶</a></h4>
-<p>By default, the <code class="docutils literal notranslate"><span class="pre">esc()</span></code> and, in turn, the <code class="docutils literal notranslate"><span class="pre">setVar()</span></code> and <code class="docutils literal notranslate"><span class="pre">setData()</span></code> functions assume that the data you want to
-escape is intended to be used within standard HTML. However, if the data is intended for use in Javascript, CSS,
-or in an href attribute, you would need different escaping rules to be effective. You can pass in the name of the
-context as the second parameter. Valid contexts are ‘html’, ‘js’, ‘css’, ‘url’, and ‘attr’:</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">译者注：框架内部使用 <code class="docutils literal notranslate"><span class="pre">\Zend\Escaper\Escaper</span></code> 类中以 escape 开头的相关方法对数据进行的转义处理。</p>
+</div>
+<div class="section" id="id7">
+<h4>转义上下文<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
+<p>默认情况下，<code class="docutils literal notranslate"><span class="pre">esc()</span></code> 方法认为要转义的数据会在 HTML 中使用。如果数据打算用于 Javascript、CSS 或 href 属性时，需要不同的转义规则才
+能生效。你可以传入转义类型名称作为第二个参数，选择合适的规则。规则支持 ‘html’, ‘js’, ‘css’, ‘url’ 和 ‘attr’:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;&lt;?= esc(</span><span class="si">$url</span><span class="s2">, &#39;url&#39;) ?&gt;&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">foo</span><span class="o">=</span><span class="s2">&quot;&lt;?= esc(</span><span class="si">$bar</span><span class="s2">, &#39;attr&#39;) ?&gt;&quot;</span><span class="o">&gt;</span><span class="nx">Some</span> <span class="nx">Link</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
 
 <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
@@ -429,22 +419,18 @@ context as the second parameter. Valid contexts are ‘html’, ‘js’, ‘css
 </div>
 </div>
 </div>
-<div class="section" id="view-renderer-options">
-<h3><a class="toc-backref" href="#id6">View Renderer Options</a><a class="headerlink" href="#view-renderer-options" title="永久链接至标题">¶</a></h3>
-<p>Several options can be passed to the <code class="docutils literal notranslate"><span class="pre">render()</span></code> or <code class="docutils literal notranslate"><span class="pre">renderString()</span></code> methods:</p>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id14">视图渲染器选项</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>可以将多个选项信息传递给 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">renderString()</span></code> 方法：</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">cache</span></code> - the time in seconds, to save a view’s results; ignored for renderString()</li>
-<li><dl class="first docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">cache_name</span></code> - the ID used to save/retrieve a cached view result; defaults to the viewpath;</dt>
-<dd>ignored for renderString()</dd>
-</dl>
-</li>
-<li><code class="docutils literal notranslate"><span class="pre">saveData</span></code> - true if the view data parameters should be retained for subsequent calls</li>
+<li><code class="docutils literal notranslate"><span class="pre">cache</span></code> - 缓存视图结果的时间（以秒为时间单位）， renderString() 方法中会忽略</li>
+<li><code class="docutils literal notranslate"><span class="pre">cache_name</span></code> - 保存缓存视图结果的文件名，默认是 viewpath， renderString() 方法中会忽略</li>
+<li><code class="docutils literal notranslate"><span class="pre">saveData</span></code> - 如果要保留视图的参数，并在后续调用中使用，应设置为 true</li>
 </ul>
 </div>
 </div>
-<div class="section" id="class-reference">
-<h2><a class="toc-backref" href="#id7">Class Reference</a><a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id15">类参考</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <dl class="class">
 <dt>
 <code class="descname">CodeIgniter\View\View</code></dt>
@@ -456,13 +442,13 @@ context as the second parameter. Valid contexts are ‘html’, ‘js’, ‘css
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$view</strong> (<em>string</em>) – File name of the view source</li>
-<li><strong>$options</strong> (<em>array</em>) – Array of options, as key/value pairs</li>
-<li><strong>$saveData</strong> (<em>boolean</em>) – If true, will save data for use with any other calls, if false, will clean the data after rendering the view.</li>
+<li><strong>$view</strong> (<em>string</em>) – 源视图文件的文件名</li>
+<li><strong>$options</strong> (<em>array</em>) – 以键值对传递的选项数组</li>
+<li><strong>$saveData</strong> (<em>boolean</em>) – 如果该值为 true , 该方法会保留该数据并为其他调用使用；反之就会在渲染视图后清除该数据</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The rendered text for the chosen view</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">指定视图文件所渲染的文字内容</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
