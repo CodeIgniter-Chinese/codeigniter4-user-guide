@@ -1,121 +1,97 @@
 ########
-Services
+服务
 ########
 
 .. contents::
     :local:
     :depth: 2
 
-Introduction
+引言
 ============
 
-All of the classes within CodeIgniter are provided as "services". This simply means that, instead
-of hard-coding a class name to load, the classes to call are defined within a very simple
-configuration file. This file acts as a type of factory to create new instances of the required class.
+在CodeIgniter内部的所有类实际上都是以"服务"的形式呈现的。这意味着，所有的类都是以定义在一个简单的配置文件里，而非硬编码所需要加载的类名，来进行加载的。
+该配置文件实际上扮演了一种为所需类创建新的实例的工厂的角色。
 
-A quick example will probably make things clearer, so imagine that you need to pull in an instance
-of the Timer class. The simplest method would simply be to create a new instance of that class::
+一个简单的例子可能会讲得更清楚，比如请设想你需要获得一个 Timer （计时器）类的实例，最简单的方法就是为该类创建一个新的实例::
 
 	$timer = new \CodeIgniter\Debug\Timer();
 
-And this works great. Until you decide that you want to use a different timer class in its place.
-Maybe this one has some advanced reporting the default timer does not provide. In order to do this,
-you now have to locate all of the locations in your application that you have used the timer class.
-Since you might have left them in place to keep a performance log of your application constantly
-running, this might be a time-consuming and error-prone way to handle this. That's where services
-come in handy.
+这种方式运行得相当不错，直到你决定需要在该位置上使用另一个计时器类时。可能这个类比起默认的计时器类提供了更高级的报告方法。
+为了实现这一目标，你可能会查找应用中的所有位置来定位哪些地方使用了定时器类。由于你可能在很多地方都设置了该类的实例，以获取应用日常运行的性能日志，
+这种查找-替换的工作可能会变得相当的耗时并且错误频发。这就是服务的用武之地。
 
-Instead of creating the instance ourself, we let a central class create an instance of the
-class for us. This class is kept very simple. It only contains a method for each class that we want
-to use as a service. The method typically returns a shared instance of that class, passing any dependencies
-it might have into it. Then, we would replace our timer creation code with code that calls this new class::
+取代了手动创建实例的操作，我们保留了一个中央控制类来为我们新建实例。该类的结构相当简单，仅仅包含了一个方法用于调度我们需要用作服务的每个类。
+该方法只是返回了指定类的一个共享实例，用于所有依赖该类的地方以服务的形式来调用。从而我们可以用以下代码来取代每次都新建一个实例的方式::
 
 	$timer = \Config\Services::timer();
 
-When you need to change the implementation used, you can modify the services configuration file, and
-the change happens automatically throughout your application without you having to do anything. Now
-you just need to take advantage of any new functionality and you're good to go. Very simple and
-error-resistant.
+当你想要更改这一实现时，只需要更改服务的配置文件，从而在应用中就可以自动地进行变更替换，不需要任何其他操作。
+现在你所需要的只是使用新的替换上来的类的特性，非常地简单且不易出错。
 
-.. note:: It is recommended to only create services within controllers. Other files, like models and libraries should have the dependencies either passed into the constructor or through a setter method.
+.. note:: 我们推荐只在控制器里创建服务。在其他文件例如模型和库，应当依赖于构造函数或者 setter 方法的传参来实例化。
 
 
-Convenience Functions
+便利的方法
 ---------------------
 
-Two functions have been provided for getting a service. These functions are always available.
+有两个方法被用于获取一个服务，这些方法都非常的方便。
 
-The first is ``service()`` which returns a new instance of the requested service. The only
-required parameter is the service name. This is the same as the method name within the Services
-file always returns a SHARED instance of the class, so calling the function multiple times should
-always return the same instance::
+第一个就是 ``service()`` 方法，该方法返回了指定服务的新的实例。唯一需要的参数就是服务名。
+该方法与服务文件内部返回共享实例的方式是一样的，因此对该方法的多次调用总是会返回一个相同的实例::
 
 	$logger = service('logger');
 
-If the creation method requires additional parameters, they can be passed after the service name::
+如果创建的方法需要额外的参数，那么这些参数就应该在服务名后传递::
 
 	$renderer = service('renderer', APPPATH.'views/');
 
-The second function, ``single_service()`` works just like ``service()`` but returns a new instance of
-the class::
+第二个方法 ``single_service()`` ，和 ``service()`` 一样调用，不过每次都会返回一个指定类的新的实例::
 
 	$logger = single_service('logger');
 
-Defining Services
+定义服务
 =================
 
-To make services work well, you have to be able to rely on each class having a constant API, or
-`interface <https://www.php.net/manual/en/language.oop5.interfaces.php>`_, to use. Almost all of
-CodeIgniter's classes provide an interface that they adhere to. When you want to extend or replace
-core classes, you only need to ensure you meet the requirements of the interface and you know that
-the classes are compatible.
+为了保证服务的正常运行，你需要能够对每个拥有常量API，或者实现了 `接口 <https://www.php.net/manual/en/language.oop5.interfaces.php>`_ 的类建立依赖。
+CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。当你需要扩展或者替代核心类时，你只需要确保自己符合这些接口的要求并且确定这些类的功能是完善的。
 
-For example, the ``RouterCollection`` class implements the ``RouterCollectionInterface``. When you
-want to create a replacement that provides a different way to create routes, you just need to
-create a new class that implements the ``RouterCollectionInterface``::
+举例来说， ``RouterCollection`` 类实现了 ``RouterCollectionInterface`` 接口。当你想要替代该类，并实现不同的路由管理方法时，只需要创建一个实现了 ``RouterCollectionInterface`` 接口的类即可::
 
 	class MyRouter implements \CodeIgniter\Router\RouteCollectionInterface
 	{
 		// Implement required methods here.
 	}
 
-Finally, modify **/app/Config/Services.php** to create a new instance of ``MyRouter``
-instead of ``CodeIgniter\Router\RouterCollection``::
+最后，修改 **/app/Config/Services.php** 以创建 ``MyRouter`` 类的实例，来替代 ``CodeIgniter\Router\RouterCollection`` ::
 
 	public static function routes()
 	{
 		return new \App\Router\MyRouter();
 	}
 
-Allowing Parameters
+允许使用参数
 -------------------
 
-In some instances, you will want the option to pass a setting to the class during instantiation.
-Since the services file is a very simple class, it is easy to make this work.
+在某些情况下，你可能想要使用某个选项来为一个类在实例化的时候传递配置信息。
+由于服务文件只是简单的类文件，如上操作非常方便。
 
-A good example is the ``renderer`` service. By default, we want this class to be able
-to find the views at ``APPPATH.views/``. We want the developer to have the option of
-changing that path, though, if their needs require it. So the class accepts the ``$viewPath``
-as a constructor parameter. The service method looks like this::
+``renderer`` 服务就是一个不错的例子。默认情况下，我们需要该类能够找到 ``APPPATH.views/`` 目录下的视图文件。我们同时也想为开发者提供改变路径的选项（如果他们需要的话）。
+因此该类接受 ``$viewPath`` 变量作为构造函数的参数。该服务的调用方法可能如下所示::
 
 	public static function renderer($viewPath=APPPATH.'views/')
 	{
 		return new \CodeIgniter\View\View($viewPath);
 	}
 
-This sets the default path in the constructor method, but allows for easily changing
-the path it uses::
+这一过程在构造函数方法里设置了默认路径，同时也可以轻松地改变其所使用的路径::
 
 	$renderer = \Config\Services::renderer('/shared/views');
 
-Shared Classes
+共享类
 -----------------
 
-There are occasions where you need to require that only a single instance of a service
-is created. This is easily handled with the ``getSharedInstance()`` method that is called from within the
-factory method. This handles checking if an instance has been created and saved
-within the class, and, if not, creates a new one. All of the factory methods provide a
-``$getShared = true`` value as the last parameter. You should stick to the method also::
+某些情况下你可能只需要创建一个类的单实例。该操作可以通过工厂方法内部调用的 ``getSharedInstance()`` 方法来轻松地处理。
+该方法检查了该类是否已创建了存储于内部的单个实例，如果没有的话，就会创建一个新的。所有的工厂方法都会提供一个 ``$getShared = true`` 的值作为最后的参数。你可以像这样操作该方法::
 
     class Services
     {
@@ -130,22 +106,20 @@ within the class, and, if not, creates a new one. All of the factory methods pro
         }
     }
 
-Service Discovery
+服务发现
 -----------------
 
-CodeIgniter can automatically discover any Config\\Services.php files you may have created within any defined namespaces.
-This allows simple use of any module Services files. In order for custom Services files to be discovered, they must
-meet these requirements:
+CodeIgniter可以自动发现所有你在其他命名空间里可能定义的 ``Config\\Services.php`` 文件。这一功能允许了任何模块服务化文件的简单使用。
+为了这些定制化的服务文件可以被自动发现，他们需要满足这些要求
 
-- Its namespace must be defined in ``Config\Autoload.php``
-- Inside the namespace, the file must be found at ``Config\Services.php``
-- It must extend ``CodeIgniter\Config\BaseService``
+- 它们的命名空间必须在 ``Config\Autoload.php`` 中已定义
+- 在命名空间内部，该文件必须可以在 ``Config\Services.php`` 里被定位
+- 它们必须继承 ``CodeIgniter\Config\BaseService`` 类
 
-A small example should clarify this.
+一个小例子可以帮助我们更好地理解。
 
-Imagine that you've created a new directory, ``Blog`` in your root directory. This will hold a **blog module** with controllers,
-models, etc, and you'd like to make some of the classes available as a service. The first step is to create a new file:
-``Blog\Config\Services.php``. The skeleton of the file should be::
+假设你创建了一个新的目录，比如在根目录下的一个叫做 ``Blog`` 的目录。该目录中里有一个 **博客模块** ，并含有控制器，模型等文件。
+如果你愿意的话也可以将某些类作为服务而使用。第一步就是创建一个新的文件: ``Blog\Config\Services.php`` ，该文件结构应当如下所示::
 
     <?php namespace Blog\Config;
 
@@ -159,9 +133,8 @@ models, etc, and you'd like to make some of the classes available as a service. 
         }
     }
 
-Now you can use this file as described above. When you want to grab the posts service from any controller, you
-would simply use the framework's ``Config\Services`` class to grab your service::
+现在你可以使用如上描述的文件。每当你想要调用其他控制器的 posts 服务时，就可以简单地使用该框架的 ``Config\Services`` 类来获取你所需要的服务::
 
     $postManager = Config\Services::postManager();
 
-.. note:: If multiple Services files have the same method name, the first one found will be the instance returned.
+.. note:: 如果多个服务文件拥有相同的方法名，那么第一个被发现的服务实例就会作为返回值。
