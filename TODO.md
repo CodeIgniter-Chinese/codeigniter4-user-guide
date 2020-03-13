@@ -7,24 +7,23 @@
 
 ## 待翻译
 
-1. - [ ] [./source/outgoing/localization.rst](source/outgoing/localization.rst)
 1. - [ ] [./source/outgoing/table.rst](source/outgoing/table.rst)
 1. - [ ] [./source/database/queries.rst](source/database/queries.rst)
 1. - [ ] [./source/database/results.rst](source/database/results.rst)
 1. - [ ] [./source/models/entities.rst](source/models/entities.rst)
 1. - [ ] [./source/models/model.rst](source/models/model.rst)
-1. - [ ] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
 1. - [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
 1. - [ ] [./source/libraries/validation.rst](source/libraries/validation.rst)
-1. - [ ] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
 
 ## 翻译中
 
 1. - [x] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
 1. - [x] [./source/outgoing/views.rst](source/outgoing/views.rst)
 1. - [x] [./source/cli/cli_commands.rst](source/cli/cli_commands.rst)
-1. - [x] [./source/incoming/content_negotiation.rst](source/incoming/content_negotiation.rst)
 1. - [x] [./source/testing/debugging.rst](source/testing/debugging.rst)
+1. - [x] [./source/outgoing/localization.rst](source/outgoing/localization.rst)
+1. - [x] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
+1. - [x] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
 
 ## 已完成
 
@@ -121,3 +120,4 @@
 1. - [x] [~~./source/outgoing/view_cells.rst~~](source/outgoing/view_cells.rst)
 1. - [x] [~~./source/concepts/services.rst~~](source/concepts/services.rst)
 1. - [x] [~~./source/outgoing/view_renderer.rst~~](source/outgoing/view_renderer.rst)
+1. - [x] [~~./source/incoming/content_negotiation.rst~~](source/incoming/content_negotiation.rst)
