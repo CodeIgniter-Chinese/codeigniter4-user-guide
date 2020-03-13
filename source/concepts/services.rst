@@ -52,57 +52,46 @@
 定义服务
 =================
 
-To make services work well, you have to be able to rely on each class having a constant API, or
-`interface <https://www.php.net/manual/en/language.oop5.interfaces.php>`_, to use. Almost all of
-CodeIgniter's classes provide an interface that they adhere to. When you want to extend or replace
-core classes, you only need to ensure you meet the requirements of the interface and you know that
-the classes are compatible.
+为了保证服务的正常运行，你需要能够对每个拥有常量API，或者实现了 `接口 <https://www.php.net/manual/en/language.oop5.interfaces.php>`_ 的类建立依赖。
+CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。当你需要扩展或者替代核心类时，你只需要确保自己符合这些接口的要求并且确定这些类的功能是完善的。
 
-For example, the ``RouterCollection`` class implements the ``RouterCollectionInterface``. When you
-want to create a replacement that provides a different way to create routes, you just need to
-create a new class that implements the ``RouterCollectionInterface``::
+举例来说， ``RouterCollection`` 类实现了 ``RouterCollectionInterface`` 接口。当你想要替代该类，并实现不同的路由管理方法时，只需要创建一个实现了 ``RouterCollectionInterface`` 接口的类即可::
 
 	class MyRouter implements \CodeIgniter\Router\RouteCollectionInterface
 	{
 		// Implement required methods here.
 	}
 
-Finally, modify **/app/Config/Services.php** to create a new instance of ``MyRouter``
-instead of ``CodeIgniter\Router\RouterCollection``::
+最后，修改 **/app/Config/Services.php** 以创建 ``MyRouter`` 类的实例，来替代 ``CodeIgniter\Router\RouterCollection`` ::
+
 	public static function routes()
 	{
 		return new \App\Router\MyRouter();
 	}
 
-Allowing Parameters
+允许使用参数
 -------------------
 
-In some instances, you will want the option to pass a setting to the class during instantiation.
-Since the services file is a very simple class, it is easy to make this work.
+在某些情况下，你可能想要使用某个选项来为一个类在实例化的时候传递配置信息。
+由于服务文件只是简单的类文件，如上操作非常方便。
 
-A good example is the ``renderer`` service. By default, we want this class to be able
-to find the views at ``APPPATH.views/``. We want the developer to have the option of
-changing that path, though, if their needs require it. So the class accepts the ``$viewPath``
-as a constructor parameter. The service method looks like this::
+``renderer`` 服务就是一个不错的例子。默认情况下，我们需要该类能够找到 ``APPPATH.views/`` 目录下的视图文件。我们同时也想为开发者提供改变路径的选项（如果他们需要的话）。
+因此该类接受 ``$viewPath`` 变量作为构造函数的参数。该服务的调用方法可能如下所示::
 
 	public static function renderer($viewPath=APPPATH.'views/')
 	{
 		return new \CodeIgniter\View\View($viewPath);
 	}
 
-This sets the default path in the constructor method, but allows for easily changing
-the path it uses::
+这一过程在构造函数方法里设置了默认路径，同时也可以轻松地改变其所使用的路径::
 
 	$renderer = \Config\Services::renderer('/shared/views');
 
-Shared Classes
+共享类
 -----------------
 
-There are occasions where you need to require that only a single instance of a service
-is created. This is easily handled with the ``getSharedInstance()`` method that is called from within the
-factory method. This handles checking if an instance has been created and saved
-within the class, and, if not, creates a new one. All of the factory methods provide a
-``$getShared = true`` value as the last parameter. You should stick to the method also::
+某些情况下你可能只需要创建一个类的单实例。该操作可以通过工厂方法内部调用的 ``getSharedInstance()`` 方法来轻松地处理。
+该方法检查了该类是否已创建了存储于内部的单个实例，如果没有的话，就会创建一个新的。所有的工厂方法都会提供一个 ``$getShared = true`` 的值作为最后的参数。你可以像这样操作该方法::
 
     class Services
     {
@@ -117,22 +106,20 @@ within the class, and, if not, creates a new one. All of the factory methods pro
         }
     }
 
-Service Discovery
+服务发现
 -----------------
 
-CodeIgniter can automatically discover any Config\\Services.php files you may have created within any defined namespaces.
-This allows simple use of any module Services files. In order for custom Services files to be discovered, they must
-meet these requirements:
+CodeIgniter可以自动发现所有你在其他命名空间里可能定义的 ``Config\\Services.php`` 文件。这一功能允许了任何模块服务化文件的简单使用。
+为了这些定制化的服务文件可以被自动发现，他们需要满足这些要求
 
-- Its namespace must be defined in ``Config\Autoload.php``
-- Inside the namespace, the file must be found at ``Config\Services.php``
-- It must extend ``CodeIgniter\Config\BaseService``
+- 它们的命名空间必须在 ``Config\Autoload.php`` 中已定义
+- 在命名空间内部，该文件必须可以在 ``Config\Services.php`` 里被定位
+- 它们必须继承 ``CodeIgniter\Config\BaseService`` 类
 
-A small example should clarify this.
+一个小例子可以帮助我们更好地理解。
 
-Imagine that you've created a new directory, ``Blog`` in your root directory. This will hold a **blog module** with controllers,
-models, etc, and you'd like to make some of the classes available as a service. The first step is to create a new file:
-``Blog\Config\Services.php``. The skeleton of the file should be::
+假设你创建了一个新的目录，比如在根目录下的一个叫做 ``Blog`` 的目录。该目录中里有一个 **博客模块** ，并含有控制器，模型等文件。
+如果你愿意的话也可以将某些类作为服务而使用。第一步就是创建一个新的文件: ``Blog\Config\Services.php`` ，该文件结构应当如下所示::
 
     <?php namespace Blog\Config;
 
@@ -146,9 +133,8 @@ models, etc, and you'd like to make some of the classes available as a service. 
         }
     }
 
-Now you can use this file as described above. When you want to grab the posts service from any controller, you
-would simply use the framework's ``Config\Services`` class to grab your service::
+现在你可以使用如上描述的文件。每当你想要调用其他控制器的 posts 服务时，就可以简单地使用该框架的 ``Config\Services`` 类来获取你所需要的服务::
 
     $postManager = Config\Services::postManager();
 
-.. note:: If multiple Services files have the same method name, the first one found will be the instance returned.
+.. note:: 如果多个服务文件拥有相同的方法名，那么第一个被发现的服务实例就会作为返回值。
