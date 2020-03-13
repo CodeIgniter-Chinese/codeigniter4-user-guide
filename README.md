@@ -1,4 +1,6 @@
-[![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->[![All Contributors](https://img.shields.io/badge/all_contributors-23-orange.svg?style=flat-square)](#贡献者-)<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # CodeIgniter 4 中文手册翻译项目
 
@@ -106,6 +108,7 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
   <tr>
     <td align="center"><a href="https://codeigniter.org.cn"><img src="https://avatars1.githubusercontent.com/u/13709?v=4" width="100px;" alt=""/><br /><sub><b>Hex</b></sub></a><br /><a href="#translation-hex-ci" title="Translation">🌍</a> <a href="#maintenance-hex-ci" title="Maintenance">🚧</a> <a href="#projectManagement-hex-ci" title="Project Management">📆</a> <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/pulls?q=is%3Apr+reviewed-by%3Ahex-ci" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/bangbangda"><img src="https://avatars1.githubusercontent.com/u/13864407?v=4" width="100px;" alt=""/><br /><sub><b>24Kdabaiyang</b></sub></a><br /><a href="#translation-bangbangda" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/tianpanhaha"><img src="https://avatars3.githubusercontent.com/u/8691684?v=4" width="100px;" alt=""/><br /><sub><b>tianpanhaha</b></sub></a><br /><a href="#translation-tianpanhaha" title="Translation">🌍</a></td>
   </tr>
 </table>
 
