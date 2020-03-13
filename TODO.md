@@ -21,7 +21,6 @@
 ## 翻译中
 
 1. - [x] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
-1. - [x] [./source/outgoing/view_renderer.rst](source/outgoing/view_renderer.rst)
 1. - [x] [./source/outgoing/views.rst](source/outgoing/views.rst)
 1. - [x] [./source/cli/cli_commands.rst](source/cli/cli_commands.rst)
 1. - [x] [./source/incoming/content_negotiation.rst](source/incoming/content_negotiation.rst)
@@ -121,3 +120,4 @@
 1. - [x] [~~./source/libraries/sessions.rst~~](source/libraries/sessions.rst)
 1. - [x] [~~./source/outgoing/view_cells.rst~~](source/outgoing/view_cells.rst)
 1. - [x] [~~./source/concepts/services.rst~~](source/concepts/services.rst)
+1. - [x] [~~./source/outgoing/view_renderer.rst~~](source/outgoing/view_renderer.rst)

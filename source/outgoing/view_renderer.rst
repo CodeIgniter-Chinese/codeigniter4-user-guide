@@ -103,61 +103,54 @@
 		:returns: 指定视图文件所渲染的文字内容
 		:rtype: string
 
-		Builds the output based upon a file name and any data that has already been set::
+		根据传入的文件名和预先设置的数据来渲染输出::
 
 			echo $view->render('myview');
 
 	.. php:method:: renderString($view[, $options[, $saveData=false]]])
                 :noindex:
 
-		:param  string  $view: Contents of the view to render, for instance content retrieved from a database
-		:param  array   $options: Array of options, as key/value pairs
-		:param  boolean $saveData: If true, will save data for use with any other calls, if false, will clean the data after rendering the view.
-		:returns: The rendered text for the chosen view
+		:param  string  $view: 需要渲染的视图的内容，例如从数据库里返回的内容等
+		:param  array   $options: 以键值对传递的选项数组
+		:param  boolean $saveData: 如果该值为 true , 该方法会保留该数据并为其他调用使用；反之就会在渲染视图后清除该数据
+		:returns: 指定视图文件所渲染的文字内容
 		:rtype: string
 
-		Builds the output based upon a view fragment and any data that has already been set::
+		根据给定的视图分块和预先设置的数据来渲染输出::
 
 			echo $view->renderString('<div>My Sharona</div>');
 
-		This could be used for displaying content that might have been stored in a database,
-		but you need to be aware that this is a potential security vulnerability,
-		and that you **must** validate any such data, and probably escape it
-		appropriately!
+		该方法可以用于输出一些例如数据库中存储的内容。但是你需要意识到这一操作可能是有安全风险的，并且**必须**对这些数据进行验证以及尽可能进行转义！
 
 	.. php:method:: setData([$data[, $context=null]])
                 :noindex:
 
-		:param  array   $data: Array of view data strings, as key/value pairs
-		:param  string  $context: The context to use for data escaping.
-		:returns: The Renderer, for method chaining
+		:param  array   $data: 以键值对传递的视图数据数组
+		:param  string  $context: 使用数据转义的上下文
+		:returns: 用于方法链式调用的渲染器
 		:rtype: CodeIgniter\\View\\RendererInterface.
 
-		Sets several pieces of view data at once::
+		同时设置多组视图数据::
 
 			$view->setData(['name'=>'George', 'position'=>'Boss']);
 
-		Supported escape contexts: html, css, js, url, or attr or raw.
-		If 'raw', no escaping will happen.
+        支持以下的上下文: html, css, js, url, or attr or raw, 如果是 'raw' 的话，就不进行转义
 
-		Each call adds to the array of data that the object is accumulating,
-		until the view is rendered.
+        每个调用都会为对象附加一个属性数据，直到视图被渲染
 
 	.. php:method:: setVar($name[, $value=null[, $context=null]])
                 :noindex:
 
-		:param  string  $name: Name of the view data variable
-		:param  mixed   $value: The value of this view data
-		:param  string  $context: The context to use for data escaping.
-		:returns: The Renderer, for method chaining
+		:param  string  $name: 视图数据变量的变量名
+		:param  mixed   $value: 该变量的变量值
+		:param  string  $context: 使用数据转义的上下文
+		:returns: 用于方法链式调用的渲染器
 		:rtype: CodeIgniter\\View\\RendererInterface.
 
-		Sets a single piece of view data::
+		设置单个数据变量::
 
 			$view->setVar('name','Joe','html');
 
-		Supported escape contexts: html, css, js, url, attr or raw.
-		If 'raw', no escaping will happen.
+		支持以下的上下文: html, css, js, url, or attr or raw, 如果是 'raw' 的话，就不进行转义
 
-		If you use the a view data variable that you have previously used
-		for this object, the new value will replace the existing one.
+		如果你想要使用对该对象已使用过的视图数据变量，新的值就会取代老的值。
