@@ -1,27 +1,23 @@
 *******************
-Content Negotiation
+内容协商
 *******************
 
-Content negotiation is a way to determine what type of content to return to the client based on what the client
-can handle, and what the server can handle. This can be used to determine whether the client is wanting HTML or JSON
-returned, whether the image should be returned as a jpg or png, what type of compression is supported and more. This
-is done by analyzing four different headers which can each support multiple value options, each with their own priority.
-Trying to match this up manually can be pretty challenging. CodeIgniter provides the ``Negotiator`` class that
-can handle this for you.
+内容协商是一种用来根据客户端和服务端可处理的资源类型，来决定返回给客户端哪种类型的内容的机制。
+该机制可用来决定客户端是想要 HTML 还是想要 JSON ，一个图片是应该以 JPG 还是以 PNG 格式返回，或者支持哪种类型的压缩方法等。
+这些决策是通过分析四个不同的请求头，而这些请求头里支持多个带有优先级的值选项。手动对这些值选项进行优先级匹配通常是较有挑战性的，因此 CodeIgniter提供了 ``Negotiator`` 来处理以上过程。
 
 =================
-Loading the Class
+加载类文件
 =================
 
-You can load an instance of the class manually through the Service class::
+你可以通过 Service 类来手动加载一个该类的实例::
 
 	$negotiator = \Config\Services::negotiator();
 
-This will grab the current request instance and automatically inject it into the Negotiator class.
+以上操作会获取所有的请求实例并自动将其自动注入到 Negotiator （协商，下同）类中。
 
-This class does not need to be loaded on it's own. Instead, it can be accessed through this request's ``IncomingRequest``
-instance. While you cannot access it directly this way, you can easily access all of methods through the ``negotiate()``
-method::
+该类并不需要主动加载。而是通过请求的 ``IncomingRequest`` 实例来进行范文。
+尽管你并不能通过这一过程直接访问该实例，你可以通过 ``negotiate()`` 方法来调用它的所有方法::
 
 	$request->negotiate('media', ['foo', 'bar']);
 
@@ -29,13 +25,13 @@ When accessed this way, the first parameter is the type of content you're trying
 second is an array of supported values.
 
 ===========
-Negotiating
+协商
 ===========
 
 In this section, we will discuss the 4 types of content that can be negotiated and show how that would look using
 both of the methods described above to access the negotiator.
 
-Media
+媒体
 =====
 
 The first aspect to look at is handling 'media' negotiations. These are provided by the ``Accept`` header and
@@ -68,7 +64,7 @@ final value, it will return an empty string if no match is found::
 	// or
 	$format = $negotiate->media($supported, true);
 
-Language
+语言
 ========
 
 Another common usage is to determine the language the content should be served in. If you are running only a single
@@ -94,34 +90,33 @@ and German you would do something like::
 In this example, 'en' would be returned as the current language. If no match is found, it will return the first element
 in the $supported array, so that should always be the preferred language.
 
-Encoding
+编码
 ========
 
-The ``Accept-Encoding`` header contains the character sets the client prefers to receive, and is used to
-specify the type of compression the client supports::
+``Accept-Encoding`` 请求头包含了客户端所期望接收到的字符集，用于确定客户端支持哪种类型的压缩方式::
 
 	GET /foo HTTP/1.1
 	Accept-Encoding: compress, gzip
 
-Your web server will define what types of compression you can use. Some, like Apache, only support **gzip**::
+你的 web 服务器将会定义可以使用的压缩类型。某些服务器，例如 Apache , 只支持了 **gzip** ::
 
 	$type = $request->negotiate('encoding', ['gzip']);
-	// or
+	// 或
 	$type = $negotiate->encoding(['gzip']);
 
-See more at `Wikipedia <https://en.wikipedia.org/wiki/HTTP_compression>`_.
+更多信息，参阅 `Wikipedia <https://en.wikipedia.org/wiki/HTTP_compression>`_.
 
-Character Set
+字符集
 =============
 
-The desired character set is passed through the ``Accept-Charset`` header::
+所期待的字符集类型会通过 ``Accept-Charset`` 请求头来传值::
 
 	GET /foo HTTP/1.1
 	Accept-Charset: utf-16, utf-8
 
-By default, if no matches are found, **utf-8** will be returned::
+默认情况下，如果没有匹配的话就会返回 **utf-8** ::
 
 	$charset = $request->negotiate('charset', ['utf-8']);
-	// or
+	// 或者是
 	$charset = $negotiate->charset(['utf-8']);
 
