@@ -21,29 +21,24 @@
 
 	$request->negotiate('media', ['foo', 'bar']);
 
-When accessed this way, the first parameter is the type of content you're trying to find a match for, while the
-second is an array of supported values.
+当通过该方法访问实例时，第一个参数是你需要匹配的内容的类型，第二个是所支持的类型值构成的数组。
 
 ===========
 协商
 ===========
 
-In this section, we will discuss the 4 types of content that can be negotiated and show how that would look using
-both of the methods described above to access the negotiator.
+本节中，我们将讨论四种可以用来协商的类型，并展示如何通过上述两种方法来进行内容协商。
 
 媒体
 =====
 
-The first aspect to look at is handling 'media' negotiations. These are provided by the ``Accept`` header and
-is one of the most complex headers available. A common example is the client telling the server what format it
-wants the data in. This is especially common in API's. For example, a client might request JSON formatted data
-from an API endpoint::
+第一层首先要看的就是媒体协商。该协商方式是通过 ``Accept`` 请求头进行的，并且是可用的请求头中最为复杂的类型之一。
+一个常见的例子就是客户端告诉服务端其所需要的数据格式，而这种操作在 API 中最为常见。例如，一个客户端可能从一个 API 终点请求 JSON 编码的数据::
 
 	GET /foo HTTP/1.1
 	Accept: application/json
 
-The server now needs to provide a list of what type of content it can provide. In this example, the API might
-be able to return data as raw HTML, JSON, or XML. This list should be provided in order of preference::
+该服务器需要提供一个所支持的该内容的类型列表。在本例中，API 可能需要返回像原生 HTML ，JSON 或者是 XML 格式的数据。而根据客户端偏好，该列表应顺序返回::
 
 	$supported = [
 		'application/json',
@@ -52,31 +47,26 @@ be able to return data as raw HTML, JSON, or XML. This list should be provided i
 	];
 
 	$format = $request->negotiate('media', $supported);
-	// or
+	// 或者是
 	$format = $negotiate->media($supported);
 
-In this case, both the client and the server can agree on formatting the data as JSON so 'json' is returned from
-the negotiate method. By default, if no match is found, the first element in the $supported array would be returned.
-In some cases, though, you might need to enforce the format to be a strict match. If you pass ``true`` as the
-final value, it will return an empty string if no match is found::
+在本例中，客户端和服务器协商一致，将数据以 JSON 的格式返回，因此 'json' 就会从协商方法中返回。默认情况下，如果没有匹配到，在 ``$support`` 数组中的第一个成员就会返回。
+尽管在某些情况下，你可能会强制要求服务端进行严格匹配格式。因此如果你将 ``true`` 作为最后参数传入时，在匹配不到时就会返回空字符串::
 
 	$format = $request->negotiate('media', $supported, true);
-	// or
+	// 或
 	$format = $negotiate->media($supported, true);
 
 语言
 ========
 
-Another common usage is to determine the language the content should be served in. If you are running only a single
-language site, this obviously isn't going to make much difference, but any site that can offer up multiple translations
-of content will find this useful, since the browser will typically send the preferred language along in the ``Accept-Language``
-header::
+另一个常见的用法就是用于决定需要返回的内容的语言。如果你运行的是一个单语言网站，该功能显然并没有什么影响。
+但是如果对于那些提供多语言内容的网站来说，该功能就会变得非常有用，基于浏览器将通常会在 ``Accept-Language`` 请求头中发送偏好的语言类型::
 
 	GET /foo HTTP/1.1
 	Accept-Language: fr; q=1.0, en; q=0.5
 
-In this example, the browser would prefer French, with a second choice of English. If your website supports English
-and German you would do something like::
+本例中，浏览器偏好法语，并次偏好英语。如果你的网站支持英语或德语，那么你就会如下操作::
 
 	$supported = [
 		'en',
@@ -84,11 +74,10 @@ and German you would do something like::
 	];
 
 	$lang = $request->negotiate('language', $supported);
-	// or
+	// 或
 	$lang = $negotiate->language($supported);
 
-In this example, 'en' would be returned as the current language. If no match is found, it will return the first element
-in the $supported array, so that should always be the preferred language.
+本例中，"en"将作为当前语言返回。如果没有产生匹配，就会返回 ``$supported`` 数组的第一个成员，因此该成员将会一直作为偏好语言。
 
 编码
 ========
