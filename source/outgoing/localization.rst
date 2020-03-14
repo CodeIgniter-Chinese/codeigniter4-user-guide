@@ -1,5 +1,5 @@
 ############
-Localization
+本地化
 ############
 
 .. contents::
@@ -7,15 +7,12 @@ Localization
     :depth: 2
 
 ********************
-Working With Locales
+处理不同地域
 ********************
 
-CodeIgniter provides several tools to help you localize your application for different languages. While full
-localization of an application is a complex subject, it's simple to swap out strings in your application
-with different supported languages.
+CodeIgniter 提供了一系列帮助你处理多语言环境下将应用本土化的工具。尽管一个应用完全地本土化是一个复杂的问题，在你的应用中将一些字符串根据不同的语言进行替换，是相当简单的。
 
-Language strings are stored in the **app/Language** directory, with a sub-directory for each
-supported language::
+语言字符串存储于 **app/Language** 目录下，其下的每个子目录都代表着一种所支持的语言::
 
     /app
         /Language
@@ -24,13 +21,12 @@ supported language::
             /fr
                 app.php
 
-.. important:: Locale detection only works for web-based requests that use the IncomingRequest class.
-    Command-line requests will not have these features.
+.. important:: 地区的识别仅对于使用了 IncomingRequest 类的基于 web 的请求起效，命令行请求无法使用这些功能。
 
-Configuring the Locale
+配置地区
 ======================
 
-Every site will have a default language/locale they operate in. This can be set in **Config/App.php**::
+每个站点都拥有默认的语言/地区属性，可以通过 **Config/App.php** 进行设置::
 
     public $defaultLocale = 'en';
 
