@@ -95,18 +95,15 @@ CodeIgniter 装载的控制器为:
 设置性能测试目标
 ========================
 
-In order for the Profiler to compile and display your benchmark data you must name your mark points using specific syntax.
+为了使性能测试器可以收集并展示性能测试数据，你必须使用特定的语法来标记测试点。
 
-Please read the information on setting Benchmark points in the :doc:`Benchmark Library </testing/benchmark>` page.
+请阅读以下信息以设置性能测试基点 :doc:`基准测试类 </testing/benchmark>`
 
 创建自定义收集器
 ==========================
 
-Creating custom collectors is a straightforward task. You create a new class, fully-namespaced so that the autoloader
-can locate it, that extends ``CodeIgniter\Debug\Toolbar\Collectors\BaseCollector``. This provides a number of methods
-that you can override, and has four required class properties that you must correctly set depending on how you want
-the Collector to work
-::
+创建自定义收集器是一件简单直接的事情。你可以创建一个完全命名空间标识的类，并继承 ``CodeIgniter\Debug\Toolbar\Collectors\BaseCollector`` ，从而自动加载器可以将其定位。
+该类提供了许多你可以用于重载的方法，并含有四个需要设置的属性，来帮助你决定如何使用收集器::
 
 	<?php namespace MyNamespace;
 
@@ -123,36 +120,29 @@ the Collector to work
 		protected $title         = '';
 	}
 
-**$hasTimeline** should be set to ``true`` for any Collector that wants to display information in the toolbar's
-timeline. If this is true, you will need to implement the ``formatTimelineData()`` method to format and return the
-data for display.
+**$hasTimeline** 对于任何想要在工具条的时间线上显示信息的收集器来说，该属性应该被设置为 ``true`` 。如果该属性为 true 的话，你需要实现 ``formatTimelineData()`` 方法以格式化并返回需要显示的数据。
 
-**$hasTabContent** should be ``true`` if the Collector wants to display its own tab with custom content. If this
-is true, you will need to provide a ``$title``, implement the ``display()`` method to render out tab's contents,
-and might need to implement the ``getTitleDetails()`` method if you want to display additional information just
-to the right of the tab content's title.
+**$hasTabContent** 对于任何想要拥有自定义标签的收集器来说，该属性应该被设置为 ``true`` 。如果该属性为 true 的话，你需要提供 ``$title`` 值，并实现 ``display()`` 方法以渲染标签页内容。
+如果你需要在标签标题右侧显示额外的信息的话，需要实现 ``getTitleDetails()`` 方法。
 
-**$hasVarData** should be ``true`` if this Collector wants to add additional data to the ``Vars`` tab. If this
-is true, you will need to implement the ``getVarData()`` method.
+**$hasVarData** 如果该收集器需要为 ``变量`` 标签页增加额外数据的话，该值应被设为 ``true`` 。如果该值为 true ，你需要实现 ``getVarData()`` 方法。
 
-**$title** is displayed on open tabs.
+**$title** 在展开的标签页上显示
 
 显示工具条标签
 ------------------------
 
 为了显示一个工具条标签，你必须:
 
-1. Fill in ``$title`` with the text displayed as both the toolbar title and the tab header.
-2. Set ``$hasTabContent`` to ``true``.
-3. Implement the ``display()`` method.
-4. Optionally, implement the ``getTitleDetails()`` method.
+1. 将需要同时显示在工具条标题和标签头部的文本赋值给 ``$title`` .
+2. 将 ``$hasTabContent`` 属性设置为 ``true``.
+3. 实现 ``display()`` 方法.
+4. 也可以选择性地实现 ``getTitleDetails()`` 方法.
 
-The ``display()`` creates the HTML that is displayed within the tab itself. It does not need to worry about
-the title of the tab, as that is automatically handled by the toolbar. It should return a string of HTML.
+``display()`` 方法创建了标签内部显示的HTML内容。由于标签的标题会自动交由工具条来处理，因此该方法不会影响它。这一方法会返回一个 HTML 字符串。
 
-The ``getTitleDetails()`` method should return a string that is displayed just to the right of the tab's title.
-it can be used to provide additional overview information. For example, the Database tab displays the total
-number of queries across all connections, while the Files tab displays the total number of files.
+``getTitleDetails()`` 方法会返回一个用于显示在标签页标题右侧的字符串，该方法可用于更多额外的概览信息。
+例如，在数据库标签页上显示所有连接所执行的查询数，以及在文件标签页上显示打开的文件总个数等。
 
 提供时间线数据
 -----------------------
