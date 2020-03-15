@@ -30,40 +30,34 @@ CodeIgniter 提供了一系列帮助你处理多语言环境下将应用本土�
 
     public $defaultLocale = 'en';
 
-The value can be any string that your application uses to manage text strings and other formats. It is
-recommended that a `BCP 47 <http://www.rfc-editor.org/rfc/bcp/bcp47.txt>`_ language code is used. This results in
-language codes like en-US for American English, or fr-FR, for French/France. A more readable introduction
-to this can be found on the `W3C's site <https://www.w3.org/International/articles/language-tags/>`_.
+该变量的值，可以是任何字符串值，用于你的应用程序处理文本字符串和其他格式用。
+我们推荐使用 `BCP 47 <http://www.rfc-editor.org/rfc/bcp/bcp47.txt>`_ 类型的语言代号。该说明中，语言编码是例如用于美国英语的 en-US 或者是用于法国法语的 fr-FR 的格式。
+或者也可以参照 `W3C's site <https://www.w3.org/International/articles/language-tags/>`_ 以获取可读性更高的说明。
 
-The system is smart enough to fall back to more generic language codes if an exact match
-cannot be found. If the locale code was set to **en-US** and we only have language files set up for **en**
-then those will be used since nothing exists for the more specific **en-US**. If, however, a language
-directory existed at **app/Language/en-US** then that would be used first.
+如果不能找到绝对匹配的语言代码时，该系统将足够灵活地使用更为泛化的语言代码。
+如果地区代码被设为 **en-US** ，而只有 **en** 语言的语言文件，那么因为没有更为精确地匹配 **en-US** 的语言，我们就会使用这些语言文件。
+但是如果有一个语言文件目录 **app/Language/en-US** 存在的话，该目录里的语言文件就会被首先使用。
 
-Locale Detection
+地区识别
 ================
 
-There are two methods supported to detect the correct locale during the request. The first is a "set and forget"
-method that will automatically perform :doc:`content negotiation </incoming/content_negotiation>` for you to
-determine the correct locale to use. The second method allows you to specify a segment in your routes that
-will be used to set the locale.
+我们有两种方式用于在请求中识别正确的地区。第一种方式是"设后即忘"的方式，并会自动执行 :doc:`内容协商 </incoming/content_negotiation>` 以决定使用正确的地区。
+第二种方式使得你可以在路由中给定一个特定的分段并用于设置地区。
 
-Content Negotiation
+内容协商
 -------------------
 
-You can set up content negotiation to happen automatically by setting two additional settings in Config/App.
-The first value tells the Request class that we do want to negotiate a locale, so simply set it to true::
+你可以通过在 ``Config/App`` 中设置两个额外的参数来自动开启内容协商。
+第一个参数用于告诉 ``Request`` 类我们需要开启内容协商，因此只要将其设为 true 即可::
 
     public $negotiateLocale = true;
 
-Once this is enabled, the system will automatically negotiate the correct language based upon an array
-of locales that you have defined in ``$supportLocales``. If no match is found between the languages
-that you support, and the requested language, the first item in $supportedLocales will be used. In
-the following example, the **en** locale would be used if no match is found::
+当该参数启用时，系统会自动根据你在 ``$suppoertLocales`` 中定义的语言数组来协商使用正确的语言。
+如果在你提供的语言和所请求的语言中中匹配不到的话，该数组的第一个成员就会被使用。在下例中，在不匹配时， **en** 地区就会被使用::
 
     public $supportedLocales = ['en', 'es', 'fr-FR'];
 
-In Routes
+在路由中
 ---------
 
 The second method uses a custom placeholder to detect the desired locale and set it on the Request. The
@@ -78,7 +72,7 @@ set to ``fr``, assuming it was configured as a valid locale.
 .. note:: If the value doesn't match a valid locale as defined in the App configuration file, the default
     locale will be used in it's place.
 
-Retrieving the Current Locale
+获取当前地区
 =============================
 
 The current locale can always be retrieved from the IncomingRequest object, through the ``getLocale()`` method.
@@ -102,7 +96,7 @@ Alternatively, you can use the :doc:`Services class </concepts/services>` to ret
 Language Localization
 *********************
 
-Creating Language Files
+创建语言文件
 =======================
 
 Languages do not have any specific naming convention that are required. The file should be named logically to
@@ -125,7 +119,7 @@ Within the file, you would return an array, where each element in the array has 
         'errorUsernameMissing' => 'You must submit a username',
     ];
 
-Basic Usage
+基本用途
 ===========
 
 You can use the ``lang()`` helper function to retrieve text from any of the language files, by passing the
@@ -137,7 +131,7 @@ filename and the language key as the first parameter, separated by a period (.).
 If the requested language key doesn't exist in the file for the current locale, the string will be passed
 back, unchanged. In this example, it would return 'Errors.errorEmailMissing' if it didn't exist.
 
-Replacing Parameters
+参数替换
 --------------------
 
 .. note:: The following functions all require the `intl <https://www.php.net/manual/en/book.intl.php>`_ extension to
@@ -223,7 +217,7 @@ You should be sure to read up on the MessageFormatter class and the underlying I
 idea on what capabilities it has, like performing the conditional replacement, pluralization, and more. Both of the links provided
 earlier will give you an excellent idea as to the options available.
 
-Specifying Locale
+确定地区
 -----------------
 
 To specify a different locale to be used when replacing parameters, you can pass the locale in as the
@@ -238,7 +232,7 @@ third parameter to the ``lang()`` method.
     // Displays "$7.41"
     echo lang('{price, number, currency}', ['price' => 7.41], 'en-US');
 
-Nested Arrays
+嵌套数组
 -------------
 
 Language files also allow nested arrays to make working with lists, etc... easier.
@@ -279,16 +273,11 @@ So, if you are using the locale ``fr-CA``, then a localized
 message will first be sought in ``Language/fr/CA``, then in
 ``Language/fr``, and finally in ``Language/en``.
 
-Message Translations
+信息翻译
 ====================
 
-We have an "official" set of translations in their
-`own repository <https://github.com/codeigniter4/translations>`_.
+在我们的 `仓库 <https://github.com/codeigniter4/translations>`_ .中，有一份"正式的"翻译集
 
-You could download that repository, and copy its ``Language`` folder
-into your ``app``. The incorporated translations will be automatically
-picked up because the ``App`` namespace is mapped to your ``app`` folder.
+你可以下载该仓库并复制其中的 ``Language`` 目录到你的 ``app`` 中。因为 ``App`` 命名空间映射到了你的 ``app`` 目录，对应的翻译就会被自动使用。
 
-Alternately, a better practice would be to ``composer require codeigniter4/translations``
-inside your project, and the translated messages will be automatically picked
-up because the translations folders get mapped appropriately.
+不过更好的使用方式是在你的项目中使用 ``composer require codeigniter4/translations`` ，因为翻译目录自动映射之后，这样被翻译过的信息就会自动被使用。
