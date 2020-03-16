@@ -60,23 +60,20 @@ CodeIgniter 提供了一系列帮助你处理多语言环境下将应用本土�
 在路由中
 ---------
 
-The second method uses a custom placeholder to detect the desired locale and set it on the Request. The
-placeholder ``{locale}`` can be placed as a segment in your route. If present, the contents of the matching
-segment will be your locale::
+第二种方法是用一个自定义的通配符来检测所需要的地区，并将其用于当前请求中。在你的路由中，通配符 ``{locale}}`` 可以被替换为一个路由分段。
+如果该分段存在的话，所匹配到的路由分段就是你的地区::
 
     $routes->get('{locale}/books', 'App\Books::index');
 
-In this example, if the user tried to visit ``http://example.com/fr/books``, then the locale would be
-set to ``fr``, assuming it was configured as a valid locale.
+在本例中，如果用户尝试访问 ``http://example.com/fr/books`` ，地区就会被设置为 ``fr`` ，并假设这是一个合理的地区参数。
 
-.. note:: If the value doesn't match a valid locale as defined in the App configuration file, the default
-    locale will be used in it's place.
+.. note:: 如果该路由分段值匹配不到 App 配置文件中合理的地区值的话，就会用默认的地区来代替。
 
 获取当前地区
 =============================
 
-The current locale can always be retrieved from the IncomingRequest object, through the ``getLocale()`` method.
-If your controller is extending ``CodeIgniter\Controller``, this will be available through ``$this->request``::
+当前地区默认从 IncomingRequest 实例中获取，通过 ``getLocale()`` 方法。
+如果你的控制器继承了 ``CodeIgniter\Controller`` ，以上操作也可以通过 ``$this->request`` 来实现::
 
     <?php namespace App\Controllers;
 
@@ -88,12 +85,12 @@ If your controller is extending ``CodeIgniter\Controller``, this will be availab
         }
     }
 
-Alternatively, you can use the :doc:`Services class </concepts/services>` to retrieve the current request::
+或者你也可以用 :doc:`服务类 </concepts/services>` 来获取当前的请求::
 
     $locale = service('request')->getLocale();
 
 *********************
-Language Localization
+语言本土化
 *********************
 
 创建语言文件
@@ -122,53 +119,47 @@ Within the file, you would return an array, where each element in the array has 
 基本用途
 ===========
 
-You can use the ``lang()`` helper function to retrieve text from any of the language files, by passing the
-filename and the language key as the first parameter, separated by a period (.). For example, to load the
-``errorEmailMissing`` string from the ``Errors`` language file, you would do the following::
+你可以使用 ``lang()`` 辅助函数从所有语言文件中获取文本值，通过将文件名和语言键作为第一个参数，以点号(.)分隔。
+举例来说，从 ``Errors`` 语言文件中加载 ``errorEmailMissing`` 字符串，你可以如下操作::
 
     echo lang('Errors.errorEmailMissing');
 
-If the requested language key doesn't exist in the file for the current locale, the string will be passed
-back, unchanged. In this example, it would return 'Errors.errorEmailMissing' if it didn't exist.
+如果所请求的语言键对于当前的地区来说不存在的话，就会不做修改的返回请求的参数。在本例中，如果 'Errors.errorEmailMissing' 对应的翻译不存在的话，就会直接被返回。
 
 参数替换
 --------------------
 
-.. note:: The following functions all require the `intl <https://www.php.net/manual/en/book.intl.php>`_ extension to
-    be loaded on your system in order to work. If the extension is not loaded, no replacement will be attempted.
-    A great overview can be found over at `Sitepoint <https://www.sitepoint.com/localization-demystified-understanding-php-intl/>`_.
+.. note:: 以下函数需要加载并启用 `intl <https://www.php.net/manual/zh/book.intl.php>`_ 扩展。如果该扩展未加载，则不会进行替换操作。
+    可参阅 `Sitepoint <https://www.sitepoint.com/localization-demystified-understanding-php-intl/>`_.
 
-You can pass an array of values to replace placeholders in the language string as the second parameter to the
-``lang()`` function. This allows for very simple number translations and formatting::
+你可以在语言字符串中，通过对 ``lang()`` 函数的第二个参数传递一个值数组来替代通配符中的内容。这一操作对于简单的数字翻译和格式化来说非常方便::
 
-    // The language file, Tests.php:
+    // 语言文件, Tests.php:
     return [
         "apples"      => "I have {0, number} apples.",
         "men"         => "I have {1, number} men out-performed the remaining {0, number}",
         "namedApples" => "I have {number_apples, number, integer} apples.",
     ];
 
-    // Displays "I have 3 apples."
+    // 输出 "I have 3 apples."
     echo lang('Tests.apples', [ 3 ]);
 
-The first item in the placeholder corresponds to the index of the item in the array, if it's numerical::
+通配符中的第一项对应着数组的索引下标（如果该下标是数字格式的话)::
 
-    // Displays "The top 23 men out-performed the remaining 20"
+    // 输出 "The top 23 men out-performed the remaining 20"
     echo lang('Tests.men', [20, 23]);
 
-You can also use named keys to make it easier to keep things straight, if you'd like::
+如果希望的话，你也可以使用命名数组来更为直接地传递参数::
 
-    // Displays "I have 3 apples."
+    // 显示 "I have 3 apples."
     echo lang("Tests.namedApples", ['number_apples' => 3]);
 
-Obviously, you can do more than just number replacement. According to the
-`official ICU docs <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classMessageFormat.html#details>`_ for the underlying
-library, the following types of data can be replaced:
+显然你可以实现比起数字替换更为高级的功能。根据标准库 `official ICU docs <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classMessageFormat.html#details>`_ 所示，以下类型的数据可被替换:
 
-* numbers - integer, currency, percent
-* dates - short, medium, long, full
-* time - short, medium, long, full
-* spellout - spells out numbers (i.e. 34 becomes thirty-four)
+* numbers - 整数，汇率，百分比
+* dates - 短，中，长，完整格式
+* time - 短，中，长，完整格式
+* spellout - 大写数字 (例如 34 变成 thirty-four)
 * ordinal
 * duration
 
@@ -213,16 +204,12 @@ Here are a few examples::
     // Displays "It has been 408,676:24:35"
     echo lang('Tests.ordinal', [time()]);
 
-You should be sure to read up on the MessageFormatter class and the underlying ICU formatting to get a better
-idea on what capabilities it has, like performing the conditional replacement, pluralization, and more. Both of the links provided
-earlier will give you an excellent idea as to the options available.
+你需要阅读 MessageFormatter 类以及 ICU 编码格式以充分使用这一功能的特性，例如执行条件替换，多元素替换等。以上两者的链接都在上文中有所提及，希望可以可以帮助你充分利用这一特性。
 
 确定地区
 -----------------
 
-To specify a different locale to be used when replacing parameters, you can pass the locale in as the
-third parameter to the ``lang()`` method.
-::
+为了在替换参数时显式调用一个不同的地区，你可以通过将地区作为 ``lang()`` 方法的第三个参数来实现::
 
     // Displays "The time is now 23:21:28 GMT-5"
     echo lang('Test.longTime', [time()], 'ru-RU');
@@ -235,8 +222,7 @@ third parameter to the ``lang()`` method.
 嵌套数组
 -------------
 
-Language files also allow nested arrays to make working with lists, etc... easier.
-::
+语言文件可以接受嵌套数组作为参数，以更为方便地处理列表类型的数据等::
 
     // Language/en/Fruit.php
 
@@ -254,24 +240,16 @@ Language files also allow nested arrays to make working with lists, etc... easie
     // Displays "Apples, Bananas, Grapes, Lemons, Oranges, Strawberries"
     echo implode(', ', lang('Fruit.list'));
 
-Language Fallback
+语言回滚
 =================
 
-If you have a set of messages for a given locale, for instance
-``Language/en/app.php``, you can add language variants for that locale,
-each in its own folder, for instance ``Language/en-US/app.php``.
+如果对于一个给定的地区，你有多种语言文件类型，例如对于 ``Language/en.php`` ，你可以通过为这一地区增加一个语言变量，例如 ``Language/en-US/app.php``
 
-You only need to provide values for those messages that would be
-localized differently for that locale variant. Any missing message
-definitions will be automatically pulled from the main locale settings.
+你唯一需要为这些信息提供的就是它们在不同地区里的值。如果对应的信息翻译不存在的话，就会从主地区设置中获取并赋值。
 
-It gets better - the localization can fall all the way back to English,
-in case new messages are added to the framework and you haven't had
-a chance to translate them yet for your locale.
+本土化功能可以将所有翻译信息回滚为英语，以防止在新的信息增加到框架中时，你没办法为所在地区实现翻译。
 
-So, if you are using the locale ``fr-CA``, then a localized
-message will first be sought in ``Language/fr/CA``, then in
-``Language/fr``, and finally in ``Language/en``.
+因此，如果你在使用地区 ``fr-CA`` ，那么翻译信息会首先从 ``Language/fr/CA`` 中搜索，然后在 ``Language/fr`` ，最后在 ``Language/en`` 中。
 
 信息翻译
 ====================
