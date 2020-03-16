@@ -1,8 +1,8 @@
 ###########
-Text Helper
+文本辅助函数
 ###########
 
-The Text Helper file contains functions that assist in working with Text.
+文本辅助函数文件包括了一系列有助于处理文本的函数
 
 .. contents::
   :local:
@@ -11,27 +11,27 @@ The Text Helper file contains functions that assist in working with Text.
 
   <div class="custom-index container"></div>
 
-Loading this Helper
+加载辅助函数
 ===================
 
-This helper is loaded using the following code::
+该系列函数通过以下方式加载::
 
 	helper('text');
 
-Available Functions
+可用函数列表
 ===================
 
-The following functions are available:
+以下函数可用:
 
 .. php:function:: random_string([$type = 'alnum'[, $len = 8]])
 
-	:param	string	$type: Randomization type
-	:param	int	$len: Output string length
-	:returns:	A random string
+	:param	string	$type: 需要随机输出的类型
+	:param	int	$len: 输出的字符串长度
+	:returns:	一个随机字符串
 	:rtype:	string
 
-	Generates a random string based on the type and length you specify.
-	Useful for creating passwords or generating random hashes.
+	基于类型和长度生成一个随机字符串。
+    对于创建密码或随机哈希等非常有用。
 
 	The first parameter specifies the type of string, the second parameter
 	specifies the length. The following choices are available:
