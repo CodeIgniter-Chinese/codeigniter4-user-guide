@@ -377,56 +377,62 @@
 </div></blockquote>
 <p>对于创建密码或随机哈希等非常有用。</p>
 <blockquote>
-<div><p>The first parameter specifies the type of string, the second parameter
-specifies the length. The following choices are available:</p>
+<div><p>第一个参数给定字符串类型，第二个参数给定字符串长度，可使用以下类型:</p>
 <ul class="simple">
-<li><strong>alpha</strong>: A string with lower and uppercase letters only.</li>
-<li><strong>alnum</strong>: Alphanumeric string with lower and uppercase characters.</li>
-<li><strong>basic</strong>: A random number based on <code class="docutils literal notranslate"><span class="pre">mt_rand()</span></code> (length ignored).</li>
-<li><strong>numeric</strong>: Numeric string.</li>
-<li><strong>nozero</strong>: Numeric string with no zeros.</li>
-<li><strong>md5</strong>: An encrypted random number based on <code class="docutils literal notranslate"><span class="pre">md5()</span></code> (fixed length of 32).</li>
-<li><strong>sha1</strong>: An encrypted random number based on <code class="docutils literal notranslate"><span class="pre">sha1()</span></code> (fixed length of 40).</li>
-<li><strong>crypto</strong>: A random string based on <code class="docutils literal notranslate"><span class="pre">random_bytes()</span></code>.</li>
+<li><strong>alpha</strong>: 仅有大小写字母构成的字符串</li>
+<li><strong>alnum</strong>: 含有大小写字母和数字的字符串</li>
+<li><strong>basic</strong>: 基于 <code class="docutils literal notranslate"><span class="pre">mt_rand()</span></code> 方法组成的随机数（忽略长度）</li>
+<li><strong>numeric</strong>: 数字类型的字符串</li>
+<li><strong>nozero</strong>: 数字类型字符串，其中不含有零</li>
+<li><strong>md5</strong>: 基于 <code class="docutils literal notranslate"><span class="pre">md5()</span></code> 的加密随机数（固定长度32位）</li>
+<li><strong>sha1</strong>: 基于 <code class="docutils literal notranslate"><span class="pre">sha1()</span></code> 的加密随机数（固定长度40位）</li>
 </ul>
-<p>Usage example:</p>
+</div></blockquote>
+<ul>
+<li><p class="first"><strong>crypto</strong>: 基于 <code class="docutils literal notranslate"><span class="pre">random_bytes()</span></code> 的随机字符串</p>
+<blockquote>
+<div><p>用例如下:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">random_string</span><span class="p">(</span><span class="s1">&#39;alnum&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
 </pre></div>
 </div>
 </div></blockquote>
+</li>
+</ul>
 </dd></dl>
 
 <dl class="function">
 <dt id="increment_string">
 <code class="descname">increment_string</code><span class="sig-paren">(</span><em>$str</em><span class="optional">[</span>, <em>$separator = '_'</em><span class="optional">[</span>, <em>$first = 1</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#increment_string" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-<li><strong>$separator</strong> (<em>string</em>) – Separator to append a duplicate number with</li>
-<li><strong>$first</strong> (<em>int</em>) – Starting number</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入的字符串</td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">An incremented string</p>
-</td>
+<tr class="field-even field"><th class="field-name" colspan="2">param  string  $separator:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">用于增加一个数字的分隔符</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  int     $first:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">起始数字</td>
+</tr>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">递增字符串</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>Increments a string by appending a number to it or increasing the
-number. Useful for creating “copies” or a file or duplicating database
-content which has unique titles or slugs.</p>
-<p>Usage example:</p>
+</div></blockquote>
+<p>通过将一个每次在尾部递增数字的方式，递增一个字符串。用于创建”拷贝”或者用于拥有唯一标题或简介的文件或数据库内容。</p>
+<blockquote>
+<div><p>用例如下:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">increment_string</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">);</span> <span class="c1">// &quot;file_1&quot;</span>
 <span class="k">echo</span> <span class="nx">increment_string</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// &quot;file-2&quot;</span>
 <span class="k">echo</span> <span class="nx">increment_string</span><span class="p">(</span><span class="s1">&#39;file_4&#39;</span><span class="p">);</span> <span class="c1">// &quot;file_5&quot;</span>
 </pre></div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -437,11 +443,11 @@ content which has unique titles or slugs.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$args</strong> (<em>mixed</em>) – A variable number of arguments</li>
+<li><strong>$args</strong> (<em>mixed</em>) – 参数的一个变量数字</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Alternated string(s)</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">变化后的字符串</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -449,16 +455,14 @@ content which has unique titles or slugs.</p>
 </tr>
 </tbody>
 </table>
-<p>Allows two or more items to be alternated between, when cycling through
-a loop. Example:</p>
+<p>允许在进行循环时，两个或多个项目之间交换变化，例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">echo</span> <span class="nx">alternator</span><span class="p">(</span><span class="s1">&#39;string one&#39;</span><span class="p">,</span> <span class="s1">&#39;string two&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can add as many parameters as you want, and with each iteration of
-your loop the next item will be returned.</p>
+<p>如果你需要的话也可以增加尽可能多的参数，在下一次迭代时，下一个项目将会被返回:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">echo</span> <span class="nx">alternator</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="s1">&#39;four&#39;</span><span class="p">,</span> <span class="s1">&#39;five&#39;</span><span class="p">);</span>
@@ -467,8 +471,7 @@ your loop the next item will be returned.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">To use multiple separate calls to this function simply call the
-function with no arguments to re-initialize.</p>
+<p class="last">多个独立函数调用时，只需要不传参，不用重新初始化直接调用即可。</p>
 </div>
 </dd></dl>
 
@@ -480,11 +483,11 @@ function with no arguments to re-initialize.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">A string with normalized slashes</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">格式化斜线后的字符串</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -492,11 +495,10 @@ function with no arguments to re-initialize.</p>
 </tr>
 </tbody>
 </table>
-<p>Converts double slashes in a string to a single slash, except those
-found in URL protocol prefixes (e.g. http&amp;#58;//).</p>
-<p>Example:</p>
+<p>将一个字符串中的双斜线转变为单斜线，除了在 URL 协议前缀中的，比如 http&amp;#58;//</p>
+<p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;http://example.com//index.php&quot;</span><span class="p">;</span>
-<span class="k">echo</span> <span class="nx">reduce_double_slashes</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span> <span class="c1">// results in &quot;http://example.com/index.php&quot;</span>
+<span class="k">echo</span> <span class="nx">reduce_double_slashes</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span> <span class="c1">// 返回 &quot;http://example.com/index.php&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -509,11 +511,11 @@ found in URL protocol prefixes (e.g. http&amp;#58;//).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$data</strong> (<em>mixed</em>) – Input string or an array of strings</li>
+<li><strong>$data</strong> (<em>mixed</em>) – 输入的字符串或者字符串数组</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">String(s) with stripped slashes</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">去除斜杠后的字符串（数组）</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -521,8 +523,8 @@ found in URL protocol prefixes (e.g. http&amp;#58;//).</p>
 </tr>
 </tbody>
 </table>
-<p>Removes any slashes from an array of strings.</p>
-<p>Example:</p>
+<p>从一组字符串中去除所有斜杠</p>
+<p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$str</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;question&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Is your name O\&#39;reilly?&#39;</span><span class="p">,</span>
         <span class="s1">&#39;answer&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;No, my name is O\&#39;connor.&#39;</span>
@@ -531,7 +533,7 @@ found in URL protocol prefixes (e.g. http&amp;#58;//).</p>
 <span class="nv">$str</span> <span class="o">=</span> <span class="nx">strip_slashes</span><span class="p">(</span><span class="nv">$str</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The above will return the following array:</p>
+<p>以上会返回数组:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
         <span class="s1">&#39;question&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Is your name O&#39;reilly?&quot;</span><span class="p">,</span>
         <span class="s1">&#39;answer&#39;</span>   <span class="o">=&gt;</span> <span class="s2">&quot;No, my name is O&#39;connor.&quot;</span>
@@ -540,8 +542,7 @@ found in URL protocol prefixes (e.g. http&amp;#58;//).</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">For historical reasons, this function will also accept
-and handle string inputs. This however makes it just an
+<p class="last">基于历史原因，该函数也接受字符串类型的输入。这样看起来就跟 <code class="docutils literal notranslate"><span class="pre">stripslashes()</span></code> 函数的别名一样
 alias for <code class="docutils literal notranslate"><span class="pre">stripslashes()</span></code>.</p>
 </div>
 </dd></dl>
@@ -554,13 +555,13 @@ alias for <code class="docutils literal notranslate"><span class="pre">stripslas
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Text to search in</li>
-<li><strong>$character</strong> (<em>string</em>) – Character to reduce</li>
-<li><strong>$trim</strong> (<em>bool</em>) – Whether to also trim the specified character</li>
+<li><strong>$str</strong> (<em>string</em>) – 需要搜索的文本</li>
+<li><strong>$character</strong> (<em>string</em>) – 需要简化的字符</li>
+<li><strong>$trim</strong> (<em>bool</em>) – 是否在字符串首位同时去除指定的字符</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Reduced string</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">简化后的字符串</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -568,16 +569,14 @@ alias for <code class="docutils literal notranslate"><span class="pre">stripslas
 </tr>
 </tbody>
 </table>
-<p>Reduces multiple instances of a particular character occurring directly
-after each other. Example:</p>
+<p>将多个连续出现的相同字符简化为一个，例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Fred, Bill,, Joe, Jimmy&quot;</span><span class="p">;</span>
-<span class="nv">$string</span> <span class="o">=</span> <span class="nx">reduce_multiples</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s2">&quot;,&quot;</span><span class="p">);</span> <span class="c1">//results in &quot;Fred, Bill, Joe, Jimmy&quot;</span>
+<span class="nv">$string</span> <span class="o">=</span> <span class="nx">reduce_multiples</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span><span class="s2">&quot;,&quot;</span><span class="p">);</span> <span class="c1">//结果 &quot;Fred, Bill, Joe, Jimmy&quot;</span>
 </pre></div>
 </div>
-<p>If the third parameter is set to TRUE it will remove occurrences of the
-character at the beginning and the end of the string. Example:</p>
+<p>如果第三个参数被设为 TRUE 的话，该函数就会将首部和尾部出现的该字符串同时去除，例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;,Fred, Bill,, Joe, Jimmy,&quot;</span><span class="p">;</span>
-<span class="nv">$string</span> <span class="o">=</span> <span class="nx">reduce_multiples</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> <span class="c1">//results in &quot;Fred, Bill, Joe, Jimmy&quot;</span>
+<span class="nv">$string</span> <span class="o">=</span> <span class="nx">reduce_multiples</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> <span class="c1">//结果是 &quot;Fred, Bill, Joe, Jimmy&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -590,11 +589,11 @@ character at the beginning and the end of the string. Example:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
+<li><strong>$str</strong> (<em>string</em>) – 输入的字符串</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">String with quotes converted to HTML entities</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">拥有转义符号的字符串转换后的 HTML 实体</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -602,10 +601,9 @@ character at the beginning and the end of the string. Example:</p>
 </tr>
 </tbody>
 </table>
-<p>Converts single and double quotes in a string to the corresponding HTML
-entities. Example:</p>
+<p>将一个单引号或双引号转换为对应的 HTML 实体，例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Joe&#39;s </span><span class="se">\&quot;</span><span class="s2">dinner</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">;</span>
-<span class="nv">$string</span> <span class="o">=</span> <span class="nx">quotes_to_entities</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span> <span class="c1">//results in &quot;Joe&amp;#39;s &amp;quot;dinner&amp;quot;&quot;</span>
+<span class="nv">$string</span> <span class="o">=</span> <span class="nx">quotes_to_entities</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span> <span class="c1">//结果是 &quot;Joe&amp;#39;s &amp;quot;dinner&amp;quot;&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -618,11 +616,11 @@ entities. Example:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">String with quotes stripped</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">去除了引号的字符串</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -630,9 +628,9 @@ entities. Example:</p>
 </tr>
 </tbody>
 </table>
-<p>Removes single and double quotes from a string. Example:</p>
+<p>从字符串中去除单双引号，例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Joe&#39;s </span><span class="se">\&quot;</span><span class="s2">dinner</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">;</span>
-<span class="nv">$string</span> <span class="o">=</span> <span class="nx">strip_quotes</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span> <span class="c1">//results in &quot;Joes dinner&quot;</span>
+<span class="nv">$string</span> <span class="o">=</span> <span class="nx">strip_quotes</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span> <span class="c1">//结果是 &quot;Joes dinner&quot;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -645,13 +643,13 @@ entities. Example:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-<li><strong>$limit</strong> (<em>int</em>) – Limit</li>
-<li><strong>$end_char</strong> (<em>string</em>) – End character (usually an ellipsis)</li>
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+<li><strong>$limit</strong> (<em>int</em>) – 限制</li>
+<li><strong>$end_char</strong> (<em>string</em>) – 结尾字符（通常是省略号）</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Word-limited string</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">限制了单词的字符串</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -659,14 +657,13 @@ entities. Example:</p>
 </tr>
 </tbody>
 </table>
-<p>Truncates a string to the number of <em>words</em> specified. Example:</p>
+<p>根据 <em>单词</em> 的长度截断字符串，例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Here is a nice text string consisting of eleven words.&quot;</span><span class="p">;</span>
 <span class="nv">$string</span> <span class="o">=</span> <span class="nx">word_limiter</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
 <span class="c1">// Returns:  Here is a nice</span>
 </pre></div>
 </div>
-<p>The third parameter is an optional suffix added to the string. By
-default it adds an ellipsis.</p>
+<p>第三个参数是一个可选的字符串后缀。默认是一个省略号。</p>
 </dd></dl>
 
 <dl class="function">
@@ -677,13 +674,13 @@ default it adds an ellipsis.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-<li><strong>$n</strong> (<em>int</em>) – Number of characters</li>
-<li><strong>$end_char</strong> (<em>string</em>) – End character (usually an ellipsis)</li>
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+<li><strong>$n</strong> (<em>int</em>) – 字符数量</li>
+<li><strong>$end_char</strong> (<em>string</em>) – 结尾字符</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Character-limited string</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">限定了字符的字符串</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -691,55 +688,49 @@ default it adds an ellipsis.</p>
 </tr>
 </tbody>
 </table>
-<p>Truncates a string to the number of <em>characters</em> specified. It
-maintains the integrity of words so the character count may be slightly
-more or less than what you specify.</p>
-<p>Example:</p>
+<p>根据给定的 <em>字符</em> 的数量截断字符串。该方法将会保持单词的完整性，因此字符串长度可能会比你给定的略多或略少</p>
+<p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Here is a nice text string consisting of eleven words.&quot;</span><span class="p">;</span>
 <span class="nv">$string</span> <span class="o">=</span> <span class="nx">character_limiter</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
-<span class="c1">// Returns:  Here is a nice text string</span>
+<span class="c1">// 返回:  Here is a nice text string</span>
 </pre></div>
 </div>
-<p>The third parameter is an optional suffix added to the string, if
-undeclared this helper uses an ellipsis.</p>
+<p>第三个参数是一个可选的字符串后缀，未定义则默认使用省略号</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">If you need to truncate to an exact number of characters, please
-see the <a class="reference internal" href="#ellipsize" title="ellipsize"><code class="xref php php-func docutils literal notranslate"><span class="pre">ellipsize()</span></code></a> function below.</p>
+<p class="last">如果你想截断完全一致长度的字符串，参照下方的
+函数 <a class="reference internal" href="#ellipsize" title="ellipsize"><code class="xref php php-func docutils literal notranslate"><span class="pre">ellipsize()</span></code></a></p>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="ascii_to_entities">
 <code class="descname">ascii_to_entities</code><span class="sig-paren">(</span><em>$str</em><span class="sig-paren">)</span><a class="headerlink" href="#ascii_to_entities" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">A string with ASCII values converted to entities</p>
-</td>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">一个将 ASCII 值转化为实体的字符串</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>Converts ASCII values to character entities, including high ASCII and MS
-Word characters that can cause problems when used in a web page, so that
-they can be shown consistently regardless of browser settings or stored
-reliably in a database. There is some dependence on your server’s
-supported character sets, so it may not be 100% reliable in all cases,
-but for the most part, it should correctly identify characters outside
-the normal range (like accented characters).</p>
-<p>Example:</p>
+<p>将 ASCII 码转化为字符实体，包括可能导致 web 页面中出现问题的高位 ASCII 码以及一些 Word 字符串。
+通过这一方法可以使得这些字符无论是浏览器设置或是存储于数据库中都可以正确地显示。</p>
+</div></blockquote>
+<p>不过该方法依赖于你浏览器所支持的字符集，因此不一定100%可靠。
+不过在大多数情况下，该方法可以正确识别非正常类型的字符（例如方言字符等）</p>
+<blockquote>
+<div><p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">ascii_to_entities</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
 </pre></div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -750,12 +741,12 @@ the normal range (like accented characters).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-<li><strong>$all</strong> (<em>bool</em>) – Whether to convert unsafe entities as well</li>
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+<li><strong>$all</strong> (<em>bool</em>) – 是否同样转换非安全的实体</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">A string with HTML entities converted to ASCII characters</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">将 HTML 实体转化为 ASCII 码的字符串</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -763,8 +754,7 @@ the normal range (like accented characters).</p>
 </tr>
 </tbody>
 </table>
-<p>This function does the opposite of <a class="reference internal" href="#ascii_to_entities" title="ascii_to_entities"><code class="xref php php-func docutils literal notranslate"><span class="pre">ascii_to_entities()</span></code></a>.
-It turns character entities back into ASCII.</p>
+<p>该函数与 <a class="reference internal" href="#ascii_to_entities" title="ascii_to_entities"><code class="xref php php-func docutils literal notranslate"><span class="pre">ascii_to_entities()</span></code></a> 相反，将字符实体转换为 ASCII 码</p>
 </dd></dl>
 
 <dl class="function">
@@ -775,11 +765,11 @@ It turns character entities back into ASCII.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">A string with accented characters converted</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">一个字符串，其中方言字符已进行过转换</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
@@ -787,125 +777,121 @@ It turns character entities back into ASCII.</p>
 </tr>
 </tbody>
 </table>
-<p>Transliterates high ASCII characters to low ASCII equivalents. Useful
-when non-English characters need to be used where only standard ASCII
-characters are safely used, for instance, in URLs.</p>
-<p>Example:</p>
+<p>将高位 ASCII 码转化为等同功能的低位 ASCII 码。当面对只有标准 ASCII 码可以安全使用的情况，将非英语的字符进行转换，比如在 URL 中</p>
+<p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">convert_accented_characters</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">This function uses a companion config file
-<cite>app/Config/ForeignCharacters.php</cite> to define the to and
-from array for transliteration.</p>
+<p class="last">该函数利用配置文件 <cite>app/Config/ForeignCharacters.php</cite> 来定义并进行数组翻译。</p>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="word_censor">
 <code class="descname">word_censor</code><span class="sig-paren">(</span><em>$str</em>, <em>$censored</em><span class="optional">[</span>, <em>$replacement = ''</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#word_censor" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-<li><strong>$censored</strong> (<em>array</em>) – List of bad words to censor</li>
-<li><strong>$replacement</strong> (<em>string</em>) – What to replace bad words with</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Censored string</p>
-</td>
+<tr class="field-even field"><th class="field-name" colspan="2">param  array   $censored:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">一系列需要被探测的有问题的单词</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $replacement:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">用于替换问题单词的字符串</td>
+</tr>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">探测后的字符串</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>Enables you to censor words within a text string. The first parameter
-will contain the original string. The second will contain an array of
-words which you disallow. The third (optional) parameter can contain
-a replacement value for the words. If not specified they are replaced
-with pound signs: ####.</p>
-<p>Example:</p>
+</div></blockquote>
+<p>用于检测文本字符串中的敏感词。第一个参数为原有的字符串，第二个是一个含有你需要拦截的敏感词的数组。第三个参数（可选）为需要用于替换的单词。
+如果不声明的话就会用井号替换: ###</p>
+<blockquote>
+<div><p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$disallowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;darn&#39;</span><span class="p">,</span> <span class="s1">&#39;shucks&#39;</span><span class="p">,</span> <span class="s1">&#39;golly&#39;</span><span class="p">,</span> <span class="s1">&#39;phooey&#39;</span><span class="p">];</span>
 <span class="nv">$string</span>     <span class="o">=</span> <span class="nx">word_censor</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="nv">$disallowed</span><span class="p">,</span> <span class="s1">&#39;Beep!&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="highlight_code">
 <code class="descname">highlight_code</code><span class="sig-paren">(</span><em>$str</em><span class="sig-paren">)</span><a class="headerlink" href="#highlight_code" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">String with code highlighted via HTML</p>
-</td>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">HTML 格式代码高亮的字符串</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>Colorizes a string of code (PHP, HTML, etc.). Example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">highlight_code</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
+</div></blockquote>
+<p>将一个代码字符串 （PHP, HTML, 等）加上颜色。例如:</p>
+<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span>        <span class="nv">$string</span> <span class="o">=</span> <span class="nx">highlight_code</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
+
+<span class="nx">该函数使用了</span> <span class="nx">PHP</span> <span class="nx">的</span> <span class="sb">``</span><span class="nb">highlight_string</span><span class="p">()</span><span class="sb">``</span> <span class="nx">方法，因此使用的颜色是在你的</span> <span class="nx">php</span><span class="o">.</span><span class="nx">ini</span> <span class="nx">文件中定义的。</span>
 </pre></div>
 </div>
-<p>The function uses PHP’s <code class="docutils literal notranslate"><span class="pre">highlight_string()</span></code> function, so the
-colors used are the ones specified in your php.ini file.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="highlight_phrase">
 <code class="descname">highlight_phrase</code><span class="sig-paren">(</span><em>$str</em>, <em>$phrase</em><span class="optional">[</span>, <em>$tag_open = '&lt;mark&gt;'</em><span class="optional">[</span>, <em>$tag_close = '&lt;/mark&gt;'</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#highlight_phrase" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-<li><strong>$phrase</strong> (<em>string</em>) – Phrase to highlight</li>
-<li><strong>$tag_open</strong> (<em>string</em>) – Opening tag used for the highlight</li>
-<li><strong>$tag_close</strong> (<em>string</em>) – Closing tag for the highlight</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">String with a phrase highlighted via HTML</p>
-</td>
+<tr class="field-even field"><th class="field-name" colspan="2">param  string  $phrase:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">高亮的片段</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $tag_open:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">用于高亮的开括号</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param  string  $tag_close:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">用于高亮的闭括号</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">通过 HTML 进行片段高亮后的字符串</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>Will highlight a phrase within a text string. The first parameter will
-contain the original string, the second will contain the phrase you wish
-to highlight. The third and fourth parameters will contain the
-opening/closing HTML tags you would like the phrase wrapped in.</p>
-<p>Example:</p>
+</div></blockquote>
+<p>在一个文本字符串中高亮一个片段。第一个参数是原本的字符串，第二个参数是你需要高亮的片段。
+第三个第四个参数包含你需要用于包裹高亮片段的 HTML 标签。</p>
+<blockquote>
+<div><p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Here is a nice text string about nothing in particular.&quot;</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nx">highlight_phrase</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s2">&quot;nice text&quot;</span><span class="p">,</span> <span class="s1">&#39;&lt;span style=&quot;color:#990000;&quot;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The above code prints:</p>
+<p>以上将会输出:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">Here</span> <span class="nx">is</span> <span class="nx">a</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;color:#990000;&quot;</span><span class="o">&gt;</span><span class="nx">nice</span> <span class="nx">text</span><span class="o">&lt;/</span><span class="nx">span</span><span class="o">&gt;</span> <span class="nx">string</span> <span class="nx">about</span> <span class="nx">nothing</span> <span class="nx">in</span> <span class="nx">particular</span><span class="o">.</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p>This function used to use the <code class="docutils literal notranslate"><span class="pre">&lt;strong&gt;</span></code> tag by default. Older browsers
-might not support the new HTML5 mark tag, so it is recommended that you
-insert the following CSS code into your stylesheet if you need to support
-such browsers:</p>
+<p>该函数默认使用 <code class="docutils literal notranslate"><span class="pre">&lt;strong&gt;</span></code> 标签。
+旧版本的浏览器可能不支持新型 HTML5 的格式标签，因此我们推荐你将下述 CSS 加入到你的样式表中，如果你需要支持这类浏览器的话:</p>
 <div class="last highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">mark</span> <span class="p">{</span>
         <span class="nx">background</span><span class="o">:</span> <span class="c1">#ff0;</span>
         <span class="nx">color</span><span class="o">:</span> <span class="c1">#000;</span>
@@ -913,119 +899,123 @@ such browsers:</p>
 </pre></div>
 </div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="word_wrap">
 <code class="descname">word_wrap</code><span class="sig-paren">(</span><em>$str</em><span class="optional">[</span>, <em>$charlim = 76</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#word_wrap" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-<li><strong>$charlim</strong> (<em>int</em>) – Character limit</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Word-wrapped string</p>
-</td>
+<tr class="field-even field"><th class="field-name" colspan="2">param  int     $charlim:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">字符限制</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">单词换行过的字符串</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>Wraps text at the specified <em>character</em> count while maintaining
-complete words.</p>
-<p>Example:</p>
+</div></blockquote>
+<p>将一个文本以指定的字符长度进行换行，并保持单词完整性</p>
+<blockquote>
+<div><p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Here is a simple string of text that will help us demonstrate this function.&quot;</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nx">word_wrap</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
 
-<span class="c1">// Would produce:</span>
+<span class="c1">// 输出如下:</span>
 <span class="c1">// Here is a simple string</span>
 <span class="c1">// of text that will help us</span>
 <span class="c1">// demonstrate this</span>
 <span class="c1">// function.</span>
 </pre></div>
 </div>
-<p>Excessively long words will be split, but URLs will not be.</p>
+<p>过长的单词会被截断，不过 URL 不会</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="ellipsize">
 <code class="descname">ellipsize</code><span class="sig-paren">(</span><em>$str</em>, <em>$max_length</em><span class="optional">[</span>, <em>$position = 1</em><span class="optional">[</span>, <em>$ellipsis = '&amp;hellip;'</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#ellipsize" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$str</strong> (<em>string</em>) – Input string</li>
-<li><strong>$max_length</strong> (<em>int</em>) – String length limit</li>
-<li><strong>$position</strong> (<em>mixed</em>) – Position to split at (int or float)</li>
-<li><strong>$ellipsis</strong> (<em>string</em>) – What to use as the ellipsis character</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Ellipsized string</p>
-</td>
+<tr class="field-even field"><th class="field-name" colspan="2">param  int     $max_length:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">字符串长度限制</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  mixed   $position:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">需要截断的位置（整数或浮点数）</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param  string  $ellipsis:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">作为省略的标记符</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">省略后的字符串</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>This function will strip tags from a string, split it at a defined
-maximum length, and insert an ellipsis.</p>
-<p>The first parameter is the string to ellipsize, the second is the number
-of characters in the final string. The third parameter is where in the
-string the ellipsis should appear from 0 - 1, left to right. For
-example. a value of 1 will place the ellipsis at the right of the
-string, .5 in the middle, and 0 at the left.</p>
-<p>An optional fourth parameter is the kind of ellipsis. By default,
-&amp;hellip; will be inserted.</p>
-<p>Example:</p>
+<p>该函数将去除字符串中的标记并将其截断为指定长度，同时加上一个省略标记符</p>
+</div></blockquote>
+<p>第一个参数是需要省略的字符串，第二个是在输出的字符串中的字符长度。第三个参数是在省略后的字符串中，省略标记符号是否需要从0-1，从左到右的方式出现。
+例如，值为1时，就会在右边，0.5就是中间，0就是在左边</p>
+<p>第四个可选的参数是省略符号类型，默认情况下会插入一个 &amp;hellip;</p>
+<blockquote>
+<div><p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$str</span> <span class="o">=</span> <span class="s1">&#39;this_string_is_entirely_too_long_and_might_break_my_design.jpg&#39;</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nx">ellipsize</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Produces:</p>
+<p>结果:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">this_string_is_e</span><span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;</span><span class="nx">ak_my_design</span><span class="o">.</span><span class="nx">jpg</span>
 </pre></div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="excerpt">
 <code class="descname">excerpt</code><span class="sig-paren">(</span><em>$text</em>, <em>$phrase = false</em>, <em>$radius = 100</em>, <em>$ellipsis = '...'</em><span class="sig-paren">)</span><a class="headerlink" href="#excerpt" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$text</strong> (<em>string</em>) – Text to extract an excerpt</li>
-<li><strong>$phrase</strong> (<em>string</em>) – Phrase or word to extract the text arround</li>
-<li><strong>$radius</strong> (<em>int</em>) – Number of characters before and after $phrase</li>
-<li><strong>$ellipsis</strong> (<em>string</em>) – What to use as the ellipsis character</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $text:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">需要截取摘要的文本</td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Excerpt.</p>
-</td>
+<tr class="field-even field"><th class="field-name" colspan="2">param  string  $phrase:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">需要截取的文本附近的片段或单词</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
-</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">param  int             $radius:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">在片段前后截取的字符数量</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param  string  $ellipsis:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">省略标记符</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">摘要.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
-<p>This function will extract $radius number of characters before and after the
-central $phrase with an elipsis before and after.</p>
-<p>The first paramenter is the text to extract an excerpt from, the second is the
-central word or phrase to count before and after. The third parameter is the
-number of characters to count before and after the central phrase. If no phrase
-passed, the excerpt will include the first $radius characters with the elipsis
-at the end.</p>
-<p>Example:</p>
+</div></blockquote>
+<p>该函数会取出指定 <code class="docutils literal notranslate"><span class="pre">$phrase</span></code> 前后各 <code class="docutils literal notranslate"><span class="pre">$radius</span></code> 个数量的字符。</p>
+<p>第一个参数是需要截取摘要的文本，第二个是需要截取的中心单词或片段。
+第三个参数是需要截取的数量。如果不传 <code class="docutils literal notranslate"><span class="pre">$phrase</span></code> 参数的话就会从头开始获取 <code class="docutils literal notranslate"><span class="pre">$radius</span></code> 个字符并加上省略标记符</p>
+<blockquote>
+<div><p>例如:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$text</span> <span class="o">=</span> <span class="s1">&#39;Ut vel faucibus odio. Quisque quis congue libero. Etiam gravida</span>
 <span class="s1">eros lorem, eget porttitor augue dignissim tincidunt. In eget risus eget</span>
 <span class="s1">mauris faucibus molestie vitae ultricies odio. Vestibulum id ultricies diam.</span>
@@ -1038,12 +1028,13 @@ at the end.</p>
 <span class="k">echo</span> <span class="nx">excerpt</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="s1">&#39;Donec&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Produces:</p>
+<p>输出:</p>
 <div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">...</span> <span class="nx">non</span> <span class="nx">mauris</span> <span class="nx">lectus</span><span class="o">.</span> <span class="nx">Phasellus</span> <span class="nx">eu</span> <span class="nx">sodales</span> <span class="nx">sem</span><span class="o">.</span> <span class="nx">Integer</span> <span class="nx">dictum</span> <span class="nx">purus</span> <span class="nx">ac</span>
 <span class="nx">enim</span> <span class="nx">hendrerit</span> <span class="nx">gravida</span><span class="o">.</span> <span class="nx">Donec</span> <span class="nx">ac</span> <span class="nx">magna</span> <span class="nx">vel</span> <span class="nx">nunc</span> <span class="nx">tincidunt</span> <span class="nx">molestie</span> <span class="nx">sed</span>
 <span class="nx">vitae</span> <span class="nx">nisl</span><span class="o">.</span> <span class="nx">Cras</span> <span class="nx">sed</span> <span class="nx">auctor</span> <span class="nx">mauris</span><span class="p">,</span> <span class="nx">non</span> <span class="nx">dictum</span> <span class="o">...</span>
 </pre></div>
 </div>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -1071,7 +1062,7 @@ at the end.</p>
     <p>
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-03-16.
+        最后更新于 2020-03-17.
       </span>
 
     </p>
