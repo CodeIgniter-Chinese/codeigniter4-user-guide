@@ -230,36 +230,29 @@
 .. php:function:: convert_accented_characters($str)
 
 	:param	string	$str: 输入字符串
-	:returns:	A string with accented characters converted
+	:returns:	一个字符串，其中方言字符已进行过转换
 	:rtype:	string
 
-	Transliterates high ASCII characters to low ASCII equivalents. Useful
-	when non-English characters need to be used where only standard ASCII
-	characters are safely used, for instance, in URLs.
+	将高位 ASCII 码转化为等同功能的低位 ASCII 码。当面对只有标准 ASCII 码可以安全使用的情况，将非英语的字符进行转换，比如在 URL 中
 
-	Example::
+	例如::
 
 		$string = convert_accented_characters($string);
 
-	.. note:: This function uses a companion config file
-		`app/Config/ForeignCharacters.php` to define the to and
-		from array for transliteration.
+	.. note:: 该函数利用配置文件 `app/Config/ForeignCharacters.php` 来定义并进行数组翻译。
 
 .. php:function:: word_censor($str, $censored[, $replacement = ''])
 
 	:param	string	$str: 输入字符串
-	:param	array	$censored: List of bad words to censor
-	:param	string	$replacement: What to replace bad words with
-	:returns:	Censored string
+	:param	array	$censored: 一系列需要被探测的有问题的单词
+	:param	string	$replacement: 用于替换问题单词的字符串
+	:returns:	探测后的字符串
 	:rtype:	string
 
-	Enables you to censor words within a text string. The first parameter
-	will contain the original string. The second will contain an array of
-	words which you disallow. The third (optional) parameter can contain
-	a replacement value for the words. If not specified they are replaced
-	with pound signs: ####.
+    用于检测文本字符串中的敏感词。第一个参数为原有的字符串，第二个是一个含有你需要拦截的敏感词的数组。第三个参数（可选）为需要用于替换的单词。
+    如果不声明的话就会用井号替换: ###
 
-	Example::
+	例如::
 
 		$disallowed = ['darn', 'shucks', 'golly', 'phooey'];
 		$string     = word_censor($string, $disallowed, 'Beep!');
@@ -267,43 +260,38 @@
 .. php:function:: highlight_code($str)
 
 	:param	string	$str: 输入字符串
-	:returns:	String with code highlighted via HTML
+	:returns:	HTML 格式代码高亮的字符串
 	:rtype:	string
 
-	Colorizes a string of code (PHP, HTML, etc.). Example::
+    将一个代码字符串 （PHP, HTML, 等）加上颜色。例如::
 
 		$string = highlight_code($string);
 
-	The function uses PHP's ``highlight_string()`` function, so the
-	colors used are the ones specified in your php.ini file.
+	该函数使用了 PHP 的 ``highlight_string()`` 方法，因此使用的颜色是在你的 php.ini 文件中定义的。
 
 .. php:function:: highlight_phrase($str, $phrase[, $tag_open = '<mark>'[, $tag_close = '</mark>']])
 
 	:param	string	$str: 输入字符串
-	:param	string	$phrase: Phrase to highlight
-	:param	string	$tag_open: Opening tag used for the highlight
-	:param	string	$tag_close: Closing tag for the highlight
-	:returns:	String with a phrase highlighted via HTML
+	:param	string	$phrase: 高亮的片段
+	:param	string	$tag_open: 用于高亮的开括号
+	:param	string	$tag_close: 用于高亮的闭括号
+	:returns:	通过 HTML 进行片段高亮后的字符串
 	:rtype:	string
 
-	Will highlight a phrase within a text string. The first parameter will
-	contain the original string, the second will contain the phrase you wish
-	to highlight. The third and fourth parameters will contain the
-	opening/closing HTML tags you would like the phrase wrapped in.
+    在一个文本字符串中高亮一个片段。第一个参数是原本的字符串，第二个参数是你需要高亮的片段。
+    第三个第四个参数包含你需要用于包裹高亮片段的 HTML 标签。
 
-	Example::
+	例如::
 
 		$string = "Here is a nice text string about nothing in particular.";
 		echo highlight_phrase($string, "nice text", '<span style="color:#990000;">', '</span>');
 
-	The above code prints::
+	以上将会输出::
 
 		Here is a <span style="color:#990000;">nice text</span> string about nothing in particular.
 
-	.. note:: This function used to use the ``<strong>`` tag by default. Older browsers
-		might not support the new HTML5 mark tag, so it is recommended that you
-		insert the following CSS code into your stylesheet if you need to support
-		such browsers::
+	.. note:: 该函数默认使用 ``<strong>`` 标签。
+	    旧版本的浏览器可能不支持新型 HTML5 的格式标签，因此我们推荐你将下述 CSS 加入到你的样式表中，如果你需要支持这类浏览器的话::
 
 			mark {
 				background: #ff0;
@@ -313,75 +301,65 @@
 .. php:function:: word_wrap($str[, $charlim = 76])
 
 	:param	string	$str: 输入字符串
-	:param	int	$charlim: Character limit
-	:returns:	Word-wrapped string
+	:param	int	$charlim: 字符限制
+	:returns:	单词换行过的字符串
 	:rtype:	string
 
-	Wraps text at the specified *character* count while maintaining
-	complete words.
+    将一个文本以指定的字符长度进行换行，并保持单词完整性
 
-	Example::
+	例如::
 
 		$string = "Here is a simple string of text that will help us demonstrate this function.";
 		echo word_wrap($string, 25);
 
-		// Would produce:
+		// 输出如下:
 		// Here is a simple string
 		// of text that will help us
 		// demonstrate this
 		// function.
 
-        Excessively long words will be split, but URLs will not be.
+        过长的单词会被截断，不过 URL 不会
 
 .. php:function:: ellipsize($str, $max_length[, $position = 1[, $ellipsis = '&hellip;']])
 
 	:param	string	$str: 输入字符串
-	:param	int	$max_length: String length limit
-	:param	mixed	$position: Position to split at (int or float)
-	:param	string	$ellipsis: What to use as the ellipsis character
-	:returns:	Ellipsized string
+	:param	int	$max_length: 字符串长度限制
+	:param	mixed	$position: 需要截断的位置（整数或浮点数）
+	:param	string	$ellipsis: 作为省略的标记符
+	:returns:	省略后的字符串
 	:rtype:	string
 
-	This function will strip tags from a string, split it at a defined
-	maximum length, and insert an ellipsis.
+	该函数将去除字符串中的标记并将其截断为指定长度，同时加上一个省略标记符
 
-	The first parameter is the string to ellipsize, the second is the number
-	of characters in the final string. The third parameter is where in the
-	string the ellipsis should appear from 0 - 1, left to right. For
-	example. a value of 1 will place the ellipsis at the right of the
-	string, .5 in the middle, and 0 at the left.
+    第一个参数是需要省略的字符串，第二个是在输出的字符串中的字符长度。第三个参数是在省略后的字符串中，省略标记符号是否需要从0-1，从左到右的方式出现。
+    例如，值为1时，就会在右边，0.5就是中间，0就是在左边
 
-	An optional fourth parameter is the kind of ellipsis. By default,
-	&hellip; will be inserted.
+    第四个可选的参数是省略符号类型，默认情况下会插入一个 &hellip;
 
-	Example::
+	例如::
 
 		$str = 'this_string_is_entirely_too_long_and_might_break_my_design.jpg';
 		echo ellipsize($str, 32, .5);
 
-	Produces::
+	结果::
 
 		this_string_is_e&hellip;ak_my_design.jpg
 
 .. php:function:: excerpt($text, $phrase = false, $radius = 100, $ellipsis = '...')
 
-	:param	string	$text: Text to extract an excerpt
-	:param	string	$phrase: Phrase or word to extract the text arround
-	:param	int		$radius: Number of characters before and after $phrase
-	:param	string	$ellipsis: What to use as the ellipsis character
-	:returns:	Excerpt.
+	:param	string	$text: 需要截取摘要的文本
+	:param	string	$phrase: 需要截取的文本附近的片段或单词
+	:param	int		$radius: 在片段前后截取的字符数量
+	:param	string	$ellipsis: 省略标记符
+	:returns:	摘要.
 	:rtype:		string
 
-	This function will extract $radius number of characters before and after the
-	central $phrase with an elipsis before and after.
+    该函数会取出指定 ``$phrase`` 前后各 ``$radius`` 个数量的字符。
 
-	The first paramenter is the text to extract an excerpt from, the second is the
-	central word or phrase to count before and after. The third parameter is the
-	number of characters to count before and after the central phrase. If no phrase
-	passed, the excerpt will include the first $radius characters with the elipsis
-	at the end.
+    第一个参数是需要截取摘要的文本，第二个是需要截取的中心单词或片段。
+    第三个参数是需要截取的数量。如果不传 ``$phrase`` 参数的话就会从头开始获取 ``$radius`` 个字符并加上省略标记符
 
-	Example::
+	例如::
 
 		$text = 'Ut vel faucibus odio. Quisque quis congue libero. Etiam gravida
 		eros lorem, eget porttitor augue dignissim tincidunt. In eget risus eget
@@ -394,7 +372,7 @@
 
 		echo excerpt($str, 'Donec');
 
-	Produces::
+	输出::
 
 		... non mauris lectus. Phasellus eu sodales sem. Integer dictum purus ac
 		enim hendrerit gravida. Donec ac magna vel nunc tincidunt molestie sed
