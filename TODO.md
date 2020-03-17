@@ -19,7 +19,6 @@
 
 1. - [x] [./source/outgoing/view_parser.rst](source/outgoing/view_parser.rst)
 1. - [x] [./source/libraries/curlrequest.rst](source/libraries/curlrequest.rst)
-1. - [x] [./source/helpers/text_helper.rst](source/helpers/text_helper.rst)
 
 ## 已完成
 
@@ -121,3 +120,4 @@
 1. - [x] [~~./source/testing/debugging.rst~~](source/testing/debugging.rst)
 1. - [x] [~~./source/outgoing/views.rst~~](source/outgoing/views.rst)
 1. - [x] [~~./source/outgoing/localization.rst~~](source/outgoing/localization.rst)
+1. - [x] [~~./source/helpers/text_helper.rst~~](source/helpers/text_helper.rst)
