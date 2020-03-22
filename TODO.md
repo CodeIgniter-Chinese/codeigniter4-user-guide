@@ -12,7 +12,6 @@
 1. - [ ] [./source/database/results.rst](source/database/results.rst)
 1. - [ ] [./source/models/entities.rst](source/models/entities.rst)
 1. - [ ] [./source/models/model.rst](source/models/model.rst)
-1. - [ ] [./source/libraries/pagination.rst](source/libraries/pagination.rst)
 1. - [ ] [./source/libraries/validation.rst](source/libraries/validation.rst)
 
 ## 翻译中
@@ -121,3 +120,4 @@
 1. - [x] [~~./source/outgoing/views.rst~~](source/outgoing/views.rst)
 1. - [x] [~~./source/outgoing/localization.rst~~](source/outgoing/localization.rst)
 1. - [x] [~~./source/helpers/text_helper.rst~~](source/helpers/text_helper.rst)
+1. - [x] [~~./source/libraries/pagination.rst~~](source/libraries/pagination.rst)
