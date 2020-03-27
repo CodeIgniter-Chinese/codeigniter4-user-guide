@@ -1,36 +1,31 @@
 #################
-CURLRequest Class
+CURLRequest类
 #################
 
-The ``CURLRequest`` class is a lightweight HTTP client based on CURL that allows you to talk to other
-web sites and servers. It can be used to get the contents of a Google search, retrieve a web page or image,
-or communicate with an API, among many other things.
+``CURLRequest`` 类是一个轻量级的基于 CURL 的 HTTP 客户端，用于同其他网站和服务器进行沟通。该类可用于获取谷歌搜索的内容，抓取一个网站页面或一个图片，
+或者是用来同 API 进行信息传递等诸多功能。
 
 .. contents::
     :local:
     :depth: 2
 
-This class is modeled after the `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ library since
-it is one of the more widely used libraries. Where possible, the syntax has been kept the same so that if
-your application needs something a little more powerful than what this library provides, you will have
-to change very little to move over to use Guzzle.
+该类模仿了 `Guzzle HTTP Client <http://docs.guzzlephp.org/en/latest/>`_ 库，因为该库被广泛应用于多方面。
+我们尽可能地与 Guzzle 保持语法一致，不过如果你需要一些额外的功能的话（比如该类并未提供的功能之类的），可能需要稍微更改一下语法来使用 Guzzle 库。
 
-.. note:: This class requires the `cURL Library <https://www.php.net/manual/en/book.curl.php>`_ to be installed
-    in your version of PHP. This is a very common library that is typically available but not all hosts
-    will provide it, so please check with your host to verify if you run into problems.
+.. note:: 该类需要安装你的 PHP 版本的 `cURL 库 <https://www.php.net/manual/en/book.curl.php>`_ 。该库是一个在大多数情况下都广泛被使用的库，但不是所有服务器都安装了它。
+    因此请检查你的服务器上安装了该库以解决依赖问题。
 
 *******************
-Loading the Library
+加载该类库
 *******************
 
-The library can be loaded either manually or through the :doc:`Services class </concepts/services>`.
+该类库可以通过手动加载或者通过 :doc:`服务类 </concepts/services>` 加载。
 
-To load with the Services class call the ``curlrequest()`` method::
+通过服务类来加载 ``curlrequest()`` 方法::
 
 	$client = \Config\Services::curlrequest();
 
-You can pass in an array of default options as the first parameter to modify how cURL will handle the request.
-The options are described later in this document::
+你可以将一个默认选项数组作为参数传递给该方法作为第一个参数，用于修改 cURL 处理请求的方式。选项描述如下::
 
 	$options = [
 		'base_uri' => 'http://example.com/api/v1/',
@@ -38,9 +33,8 @@ The options are described later in this document::
 	];
 	$client = \Config\Services::curlrequest($options);
 
-When creating the class manually, you need to pass a few dependencies in. The first parameter is an
-instance of the ``Config\App`` class. The second parameter is a URI instance. The third
-parameter is a Response object. The fourth parameter is the optional ``$options`` array::
+当手动创建类实例时，你需要传递一些依赖。第一个参数是 ``Config\App`` 类的实例。第二个参数是一个 URI 实例。第三个参数是一个 Response 类的对象。
+第四个参数是一个可选的 ``$options`` 数组::
 
 	$client = new \CodeIgniter\HTTP\CURLRequest(
 		new \Config\App(),
@@ -50,19 +44,16 @@ parameter is a Response object. The fourth parameter is the optional ``$options`
 	);
 
 ************************
-Working with the Library
+使用该类库
 ************************
 
-Working with CURL requests is simply a matter of creating the Request and getting a
-:doc:`Response object </outgoing/response>` back. It is meant to handle the communications. After that
-you have complete control over how the information is handled.
+处理 CURL 请求基本上只是创建一个 Request 请求并获取 :doc:`Response 对象 </outgoing/response>` 的过程。这一过程就是用来处理数据交换的。
+这一过程后，你可以对获得的信息进行完全自定义的处理.
 
-Making Requests
+发送请求
 ===============
 
-Most communication is done through the ``request()`` method, which fires off the request, and then returns
-a Response instance to you. This takes the HTTP method, the url and an array of options as the parameters.
-::
+大多数交流会话是通过 ``request()`` 方法进行的，该方法触发请求并返回一个 Response 实例。该方法将 HTTP 动词， URL 信息和选项数组作为请求参数。::
 
 	$client = \Config\Services::curlrequest();
 
