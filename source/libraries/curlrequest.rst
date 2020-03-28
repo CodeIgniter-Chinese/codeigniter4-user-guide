@@ -109,34 +109,31 @@ base_uri （基础 URI ）
 	`http://foo.com/?bar`   bar                `http://foo.com/bar`
 	=====================   ================   ========================
 
-Using Responses
+使用响应
 ===============
+每个 ``request()`` 函数调用都会返回一个包含有许多有用信息和方法的 Response 实例对象。最通用的方法使得你可以定制化地处理响应对象本身。
 
-Each ``request()`` call returns a Response object that contains a lot of useful information and some helpful
-methods. The most commonly used methods let you determine the response itself.
-
-You can get the status code and reason phrase of the response::
+你可以获取响应的状态码以及状态原因::
 
 	$code   = $response->getStatusCode();    // 200
 	$reason = $response->getReason();      // OK
 
-You can retrieve headers from the response::
+你可以获取响应头::
 
-	// Get a header line
+	// 获取一个响应头的内容
 	echo $response->getHeaderLine('Content-Type');
 
-	// Get all headers
+	// 获取所有响应头
 	foreach ($response->getHeaders() as $name => $value)
 	{
 		echo $name .': '. $response->getHeaderLine($name) ."\n";
 	}
 
-The body can be retrieved using the ``getBody()`` method::
+响应体可以通过 ``getBody()`` 方法来获取::
 
 	$body = $response->getBody();
 
-The body is the raw body provided by the remote getServer. If the content type requires formatting, you will need
-to ensure that your script handles that::
+响应体是远端服务器提供的原生响应内容。如果内容类型需要格式化的话，你需要保证在代码中这样处理::
 
 	if (strpos($response->getHeader('content-type'), 'application/json') !== false)
 	{
@@ -200,27 +197,24 @@ body （请求体）
 cert (证书）
 ====
 
-To specify the location of a PEM formatted client-side certificate, pass a string with the full path to the
-file as the ``cert`` option. If a password is required, set the value to an array with the first element
-as the path to the certificate, and the second as the password::
+指定一个 PEM 格式的客户端证书的位置，通过为 ``cert`` 选项来传递绝对路径的方式来实现。
+如果需要密码的话，为该选项数组的第一个元素的值为路径，第二个元素的值设为密码::
 
     $client->request('get', '/', ['cert' => ['/path/getServer.pem', 'password']);
 
 connect_timeout （连接超时）
 ===============
 
-By default, CodeIgniter does not impose a limit for cURL to attempt to connect to a website. If you need to
-modify this value, you can do so by passing the amount of time in seconds with the ``connect_timeout`` option.
-You can pass 0 to wait indefinitely::
+默认情况下， CodeIgniter 并未对 cURL 尝试连接一个网站的时间进行限制。
+如果你需要修改这个值，可以通过为 ``connect_timeout`` 选项提供时间秒数值的方式来进行。传值为0时，无限等待::
 
 	$response->request('GET', 'http://example.com', ['connect_timeout' => 0]);
 
 cookie
 ======
 
-This specifies the filename that CURL should use to read cookie values from, and
-to save cookie values to. This is done using the CURL_COOKIEJAR and CURL_COOKIEFILE options.
-An example::
+该选项指定了 CURL 用于存取 cookie 值的文件名。这一过程通过使用 CURL_COOKIEJAR 和 CURL_COOKIEFILE 选项来实现。
+例如::
 
 	$response->request('GET', 'http://example.com', ['cookie' => WRITEPATH . 'CookieSaver.txt']);
 
@@ -233,7 +227,7 @@ debug （调试bug）
 
 	$response->request('GET', 'http://example.com', ['debug' => true]);
 
-可以通过将文件名作为参数传入的方式来将输出写入到文件中::
+可以通过将文件名作为参数传入的方式，将输出写入到文件中::
 
 	$response->request('GET', 'http://example.com', ['debug' => '/usr/local/curl_log.txt']);
 
