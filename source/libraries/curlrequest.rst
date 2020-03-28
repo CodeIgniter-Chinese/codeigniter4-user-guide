@@ -61,16 +61,15 @@ CURLRequest类
 		'auth' => ['user', 'pass']
 	]);
 
-Since the response is an instance of ``CodeIgniter\HTTP\Response`` you have all of the normal information
-available to you::
+由于该响应是 ``CodeIgniter\HTTP\Response`` 类的一个实例对象，故而可以通过调用该类的对应方法::
 
 	echo $response->getStatusCode();
 	echo $response->getBody();
 	echo $response->getHeader('Content-Type');
 	$language = $response->negotiateLanguage(['en', 'fr']);
 
-While the ``request()`` method is the most flexible, you can also use the following shortcut methods. They
-each take the URL as the first parameter and an array of options as the second::
+尽管 ``request()`` 方法非常灵活，你也可以使用以下的简称方法。
+这些方法将 URL 作为第一个参数并将选项数组作为第二个参数::
 
 * $client->get('http://example.com');
 * $client->delete('http://example.com');
@@ -80,12 +79,11 @@ each take the URL as the first parameter and an array of options as the second::
 * $client->put('http://example.com');
 * $client->post('http://example.com');
 
-Base URI
+base_uri （基础 URI ）
 --------
 
-A ``base_uri`` can be set as one of the options during the instantiation of the class. This allows you to
-set a base URI, and then make all requests with that client using relative URLs. This is especially handy
-when working with APIs::
+``base_uri`` 可以在该类实例化时作为一个选项进行设置。
+该参数使得你可以设置一个基础 URI ，并在该实例对象进行请求时使用相对 URL 路径。这一操作在和 API 通信时特别管用::
 
 	$client = \Config\Services::curlrequest([
 		'base_uri' => 'https://example.com/api/v1/'
@@ -97,10 +95,8 @@ when working with APIs::
 	// GET http:example.com/api/v1/photos/13
 	$client->delete('photos/13');
 
-When a relative URI is provided to the ``request()`` method or any of the shortcut methods, it will be combined
-with the base_uri according to the rules described by
-`RFC 2986, section 2 <https://tools.ietf.org/html/rfc3986#section-5.2>`_. To save you some time, here are some
-examples of how the combinations are resolved.
+当 ``request()`` 方法或者其他简称方法接受相对 URI 作为参数时，就会将 base_uri 和该相对 URI 根据 `RFC 2986, section 2 <https://tools.ietf.org/html/rfc3986#section-5.2>`_ 进行组合
+以下是一些组合的例子
 
 	=====================   ================   ========================
 	base_uri              URI              Result
@@ -148,66 +144,60 @@ to ensure that your script handles that::
 	}
 
 ***************
-Request Options
+请求选项
 ***************
 
-This section describes all of the available options you may pass into the constructor, the ``request()`` method,
-or any of the shortcut methods.
+本节描述了在构造函数， ``request()`` 方法以及所有简称方法中可以传递的所有可用选项。
 
-allow_redirects
+allow_redirects （运行重定向）
 ===============
 
-By default, cURL will follow all "Location:" headers the remote servers send back. The ``allow_redirects`` option
-allows you to modify how that works.
+默认情况下， CURL 会遵循远端服务器返回的所有的 "Location:" 响应头规则。 ``allow_redirects`` 选项使得你可以修改这一执行过程。
 
-If you set the value to ``false``, then it will not follow any redirects at all::
+如果该值被设为 ``false`` ，就不会执行任何的重定向规则。
 
 	$client->request('GET', 'http://example.com', ['allow_redirects' => false]);
 
-Setting it to ``true`` will apply the default settings to the request::
+设为 ``true`` 时就会执行请求的默认设置::
 
 	$client->request('GET', 'http://example.com', ['allow_redirects' => true]);
 
-	// Sets the following defaults:
-	'max'       => 5, // Maximum number of redirects to follow before stopping
-	'strict'    => true, // Ensure POST requests stay POST requests through redirects
-	'protocols' => ['http', 'https'] // Restrict redirects to one or more protocols
+	// 设置以下默认选项:
+	'max'       => 5, // 终止前最多的重定向次数
+	'strict'    => true, // 在重定向过程中确保发送的 POST 请求始终保持为 POST （译注：某些服务器会在重定向时修改请求方法，例如 304 重定向时修改请求方式为 GET)
+	'protocols' => ['http', 'https'] // 限制重定向使用一个或多个协议
 
-You can pass in array as the value of the ``allow_redirects`` option to specify new settings in place of the defaults::
+你可以为 ``allow_redirects`` 选项传递一个选项数组用于重定向时使用新的设置，而不是默认设置::
 
 	$client->request('GET', 'http://example.com', ['allow_redirects' => [
 		'max'       => 10,
 		'protocols' => ['https'] // Force HTTPS domains only.
 	]]);
 
-.. note:: Following redirects does not work when PHP is in safe_mode or open_basedir is enabled.
+.. note:: 当 PHP 在 safe_mode 或者 open_basedir 选项开启时，不会进行重定向。
 
-auth
+auth （认证）
 ====
 
-Allows you to provide Authentication details for `HTTP Basic <https://www.ietf.org/rfc/rfc2069.txt>`_ and
-`Digest <https://www.ietf.org/rfc/rfc2069.txt>`_ and authentication. Your script may have to do extra to support
-Digest authentication - this simply passes the username and password along for you. The value must be an
-array where the first element is the username, and the second is the password. The third parameter should be
-the type of authentication to use, either ``basic`` or ``digest``::
+使得你可以为 `HTTP Basic <https://www.ietf.org/rfc/rfc2069.txt>`_ 和 `Digest <https://www.ietf.org/rfc/rfc2069.txt>`_ 和认证过程提供细节信息。
+你的脚本文件需要执行额外操作以支持诊断认证——只需要在访问时传递用户名和密码。第三个参数是认证的类型，可以是 ``basic`` 或者 ``digest``::
 
 	$client->request('GET', 'http://example.com', ['auth' => ['username', 'password', 'digest']]);
 
-body
+body （请求体）
 ====
 
-There are two ways to set the body of the request for request types that support them, like PUT, OR POST.
-The first way is to use the ``setBody()`` method::
+对于支持请求体的方法，例如 PUT 或者是 POST 来说，有两种方法来设置请求体。
+第一种是使用 ``setBody()`` 方法::
 
 	$client->setBody($body)
 	       ->request('put', 'http://example.com');
 
-The second method is by passing a ``body`` option in. This is provided to maintain Guzzle API compatibility,
-and functions the exact same way as the previous example. The value must be a string::
+第二种方法是通过传递一个 ``body`` 选项。该方式是为了与 Guzzle 兼容起见的，并提供了和上述方式一样的功能。该值必须是一个字符串::
 
 	$client->request('put', 'http://example.com', ['body' => $body]);
 
-cert
+cert (证书）
 ====
 
 To specify the location of a PEM formatted client-side certificate, pass a string with the full path to the
@@ -216,7 +206,7 @@ as the path to the certificate, and the second as the password::
 
     $client->request('get', '/', ['cert' => ['/path/getServer.pem', 'password']);
 
-connect_timeout
+connect_timeout （连接超时）
 ===============
 
 By default, CodeIgniter does not impose a limit for cURL to attempt to connect to a website. If you need to
@@ -234,34 +224,32 @@ An example::
 
 	$response->request('GET', 'http://example.com', ['cookie' => WRITEPATH . 'CookieSaver.txt']);
 
-debug
+debug （调试bug）
 =====
 
-When ``debug`` is passed and set to ``true``, this will enable additional debugging to echo to STDERR during the
-script execution. This is done by passing CURLOPT_VERBOSE and echoing the output. So, when you're running a built-in
-server via ``spark serve`` you will see the output in the console. Otherwise, the output will be written to
-the server's error log.
+当 ``debug`` 被传递并设为 ``true`` 时，就会启动额外的调试模式并在脚本执行时输出标准错误流信息( STDERR )。
+该操作是通过传递 CURLOPT_VERBOSE 并返回输出来实现的。
+因此当你需要利用 ``spark serve`` 运行一个内置服务器时，将会看到命令行中的输出内容。否则输出就会被写入到服务器的错误日志中::
 
 	$response->request('GET', 'http://example.com', ['debug' => true]);
 
-You can pass a filename as the value for debug to have the output written to a file::
+可以通过将文件名作为参数传入的方式来将输出写入到文件中::
 
 	$response->request('GET', 'http://example.com', ['debug' => '/usr/local/curl_log.txt']);
 
-delay
+delay （延时）
 =====
 
-Allows you to pause a number of milliseconds before sending the request::
+使得你可以在发送请求前延迟指定的毫秒时间::
 
-	// Delay for 2 seconds
+	// 延时2秒
 	$response->request('GET', 'http://example.com', ['delay' => 2000]);
 
-form_params
+form_params （表单参数）
 ===========
 
-You can send form data in an application/x-www-form-urlencoded POST request by passing an associative array in
-the ``form_params`` option. This will set the ``Content-Type`` header to ``application/x-www-form-urlencoded``
-if it's not already set::
+你可以通过为 ``form_params`` 选项传递关联数组的方式，在一个 application/x-www-form-urlencoded POST 请求里发送表单数据。
+该操作会将 ``Content-Type`` 请求头强制设为 ``application/x-www-form-urlencoded`` ::
 
 	$client->request('POST', '/post', [
 		'form_params' => [
@@ -270,16 +258,13 @@ if it's not already set::
 		]
 	]);
 
-.. note:: ``form_params`` cannot be used with the ``multipart`` option. You will need to use one or the other.
-        Use ``form_params`` for ``application/x-www-form-urlencoded`` request, and ``multipart`` for ``multipart/form-data``
-        requests.
+.. note:: ``form_params`` 不能和 ``multipart`` 选项一起使用。你可以非此即彼地使用这两个选项。``form_params`` 用于 ``application/x-www-form-urlencoded`` 请求，而 ``multipart`` 用于 ``multipart/form-data`` 请求。
 
-headers
+headers （请求头）
 =======
 
-While you can set any headers this request needs by using the ``setHeader()`` method, you can also pass an associative
-array of headers in as an option. Each key is the name of a header, and each value is a string or array of strings
-representing the header field values::
+尽管你可以通过 ``setHeader()`` 方法来传递任何请求头，你也可以通过为选项传递关联数组作为参数的方式来实现自定义请求头。
+该关联数组中每个键都是请求头的名字，而值就是一个字符串或者是一个字符串数组，包括着请求头字段的值::
 
 	$client->request('get', '/', [
 		'headers' => [
@@ -289,17 +274,16 @@ representing the header field values::
 		]
 	]);
 
-If headers are passed into the constructor they are treated as default values that will be overridden later by any
-further headers arrays or calls to ``setHeader()``.
+如果请求头在构造函数中被传入时，就会被设为默认选项。而默认选项会被后续设置的选项或者 ``setHeader()`` 的调用所覆盖。
 
-http_errors
+http_errors （http错误）
 ===========
 
-By default, CURLRequest will fail if the HTTP code returned is greater than or equal to 400. You can set
-``http_errors`` to ``false`` to return the content instead::
+默认情况下，CURLRequest 类会在 HTTP 状态码大于等于400时结束请求并报错。
+你可以通过将 ``http_errors`` 选项设为 ``false`` 的方式来返回内容::
 
     $client->request('GET', '/status/500');
-    // Will fail verbosely
+    // 自动失败报错
 
     $res = $client->request('GET', '/status/500', ['http_errors' => false]);
     echo $res->getStatusCode();
@@ -308,72 +292,63 @@ By default, CURLRequest will fail if the HTTP code returned is greater than or e
 json
 ====
 
-The ``json`` option is used to easily upload JSON encoded data as the body of a request. A Content-Type header
-of ``application/json`` is added, overwriting any Content-Type that might be already set. The data provided to
-this option can be any value that ``json_encode()`` accepts::
+``json`` 选项用于上传 JSON 编码的数据作为请求体。同时会在请求头上加入 Content-Type 为 ``application/json`` 。
+并覆盖先前设置的 Content-Type 请求头。传递给该选项的参数可以是任何 ``json_encode()`` 函数所接受的参数::
 
 	$response = $client->request('PUT', '/put', ['json' => ['foo' => 'bar']]);
 
-.. note:: This option does not allow for any customization of the ``json_encode()`` function, or the Content-Type
-        header. If you need that ability, you will need to encode the data manually, passing it through the ``setBody()``
-        method of CURLRequest, and set the Content-Type header with the ``setHeader()`` method.
+.. note:: 该选项不允许对 ``json_encode()`` 和 Content-Type 请求头进行自定义地修改。如果你需要这一功能，
+        就需要手动编码数据并将其传递给 CURLRequest 类的 ``setBody()`` 方法，并通过 ``setHeader()`` 方法来设置 Content-Header 请求头。
 
 multipart
 =========
 
-When you need to send files and other data via a POST request, you can use the ``multipart`` option, along with
-the `CURLFile Class <https://www.php.net/manual/en/class.curlfile.php>`_. The values should be an associative array
-of POST data to send. For safer usage, the legacy method of uploading files by prefixing their name with an `@`
-has been disabled. Any files that you want to send must be passed as instances of CURLFile::
+如果你想通过 POST 请求来发送文件或者其他数据时，可以使用 ``multipart`` 选项和 `CURLFile 类 <https://www.php.net/manual/en/class.curlfile.php>`_ 。
+该选项的值应当是一个需要关联数组，包含有需要发送的数据。为了安全起见，上传文件时在前缀上加上 `@` 的遗留方法已被禁止。你所需要发送的文件应当以 CURLFile 类的实例的方式传递::
 
 	$post_data = [
 		'foo'      => 'bar',
 		'userfile' => new \CURLFile('/path/to/file.txt')
 	];
 
-.. note:: ``multipart`` cannot be used with the ``form_params`` option. You can only use one or the other. Use
-        ``form_params`` for ``application/x-www-form-urlencoded`` requests, and ``multipart`` for ``multipart/form-data``
-        requests.
+.. note:: ``multipart`` 不能和 ``form_params`` 选项一起使用。你可以非此即彼地使用这两个选项。
+        ``form_params`` 用于 ``application/x-www-form-urlencoded`` 请求，而 ``multipart`` 用于 ``multipart/form-data`` 请求。
 
-query
+query （查询语句）
 =====
 
-You can pass along data to send as query string variables by passing an associative array as the ``query`` option::
+你可以通过为 ``query`` 选项传递一个关联数组的方式来发送查询字符串信息::
 
-	// Send a GET request to /get?foo=bar
+	// 发送一个 GET 请求来获取 /get?foo=bar 的结果
 	$client->request('GET', '/get', ['query' => ['foo' => 'bar']]);
 
-timeout
+timeout（超时）
 =======
 
-By default, cURL functions are allowed to run as long as they take, with no time limit. You can modify this with the ``timeout``
-option. The value should be the number of seconds you want the functions to execute for. Use 0 to wait indefinitely::
+默认情况下， cURL 函数可以执行任意长的时间，不受时间限制。你可以通过 ``timeout`` 选项来修改这一过程。选项值是你需要这个函数运行的时间。使用0来无限等待::
 
 	$response->request('GET', 'http://example.com', ['timeout' => 5]);
 
-verify
+verify（鉴权）
 ======
 
-This option describes the SSL certificate verification behavior. If the ``verify`` option is ``true``, it enables the
-SSL certificate verification and uses the default CA bundle provided by the operating system. If set to ``false`` it
-will disable the certificate verification (this is insecure, and allows man-in-the-middle attacks!). You can set it
-to a string that contains the path to a CA bundle to enable verification with a custom certificate. The default value
-is true::
+该选项描述了 SSL 验证鉴权行为。
+如果 ``verify`` 选项被设为 ``true`` ，就开始 SSL 鉴权操作并使用系统提供默认的 CA 包文件。如果设为 ``false`` ，就会禁用鉴权操作（这一行为不安全，并可能导致中间人攻击！）。
+你可以将该参数设为一个 CA 包文件所在的路径，从而进行自定义的鉴权操作。该选项默认值为 true ::
 
-	// Use the system's CA bundle (this is the default setting)
+	// 使用系统的 CA 包文件（默认设置）
 	$client->request('GET', '/', ['verify' => true]);
 
-	// Use a custom SSL certificate on disk.
+	// 使用硬盘上的一个自定义的 SSL 鉴权文件
 	$client->request('GET', '/', ['verify' => '/path/to/cert.pem']);
 
-	// Disable validation entirely. (Insecure!)
+	// 完全禁用鉴权（不安全！）
 	$client->request('GET', '/', ['verify' => false]);
 
-version
+version（版本）
 =======
 
-To set the HTTP protocol to use, you can pass a string or float with the version number (typically either 1.0
-or 1.1, 2.0 is currently unsupported.)::
+你可以通过为版本参数传递一个字符串或者浮点数（特别是1.0，或1.1，尚未支持2.0）的方式来设置协议版本::
 
-	// Force HTTP/1.0
+	// 强制使用 HTTP/1.0
 	$client->request('GET', '/', ['version' => 1.0]);
