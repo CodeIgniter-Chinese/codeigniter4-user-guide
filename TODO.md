@@ -6,10 +6,12 @@
 
 ## 待校验
 
-1. - [ ] 译文: [source/cli/cli_commands.rst](source/cli/cli_commands.rst)
+1. - [x] 译文: [source/cli/cli_commands.rst](source/cli/cli_commands.rst)
          原文: [source/cli/cli_commands.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/cli/cli_commands.rst)
-1. - [ ] 译文: [source/cli/cli.rst](source/cli/cli.rst)
+         @Hex
+1. - [x] 译文: [source/cli/cli.rst](source/cli/cli.rst)
          原文: [source/cli/cli.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/cli/cli.rst)
+         @Hex
 1. - [ ] 译文: [source/concepts/autoloader.rst](source/concepts/autoloader.rst)
          原文: [source/concepts/autoloader.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/autoloader.rst)
 1. - [ ] 译文: [source/concepts/http.rst](source/concepts/http.rst)
@@ -184,16 +186,21 @@
          原文: [source/testing/benchmark.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/testing/benchmark.rst)
 1. - [ ] 译文: [source/testing/debugging.rst](source/testing/debugging.rst)
          原文: [source/testing/debugging.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/testing/debugging.rst)
-1. - [ ] 译文: [source/tutorial/conclusion.rst](source/tutorial/conclusion.rst)
+1. - [x] 译文: [source/tutorial/conclusion.rst](source/tutorial/conclusion.rst)
          原文: [source/tutorial/conclusion.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/tutorial/conclusion.rst)
-1. - [ ] 译文: [source/tutorial/create_news_items.rst](source/tutorial/create_news_items.rst)
+         @Hex
+1. - [x] 译文: [source/tutorial/create_news_items.rst](source/tutorial/create_news_items.rst)
          原文: [source/tutorial/create_news_items.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/tutorial/create_news_items.rst)
-1. - [ ] 译文: [source/tutorial/index.rst](source/tutorial/index.rst)
+         @Hex
+1. - [x] 译文: [source/tutorial/index.rst](source/tutorial/index.rst)
          原文: [source/tutorial/index.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/tutorial/index.rst)
-1. - [ ] 译文: [source/tutorial/news_section.rst](source/tutorial/news_section.rst)
+         @Hex
+1. - [x] 译文: [source/tutorial/news_section.rst](source/tutorial/news_section.rst)
          原文: [source/tutorial/news_section.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/tutorial/news_section.rst)
-1. - [ ] 译文: [source/tutorial/static_pages.rst](source/tutorial/static_pages.rst)
+         @Hex
+1. - [x] 译文: [source/tutorial/static_pages.rst](source/tutorial/static_pages.rst)
          原文: [source/tutorial/static_pages.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/tutorial/static_pages.rst)
+         @Hex
 
 ## 待翻译
 
