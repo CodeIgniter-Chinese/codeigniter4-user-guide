@@ -12,18 +12,24 @@
 1. - [x] 译文: [source/cli/cli.rst](source/cli/cli.rst)
          原文: [source/cli/cli.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/cli/cli.rst)
          @Hex
-1. - [ ] 译文: [source/concepts/autoloader.rst](source/concepts/autoloader.rst)
+1. - [x] 译文: [source/concepts/autoloader.rst](source/concepts/autoloader.rst)
          原文: [source/concepts/autoloader.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/autoloader.rst)
-1. - [ ] 译文: [source/concepts/http.rst](source/concepts/http.rst)
+         @蓝色的风
+1. - [x] 译文: [source/concepts/http.rst](source/concepts/http.rst)
          原文: [source/concepts/http.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/http.rst)
-1. - [ ] 译文: [source/concepts/mvc.rst](source/concepts/mvc.rst)
+         @蓝色的风
+1. - [x] 译文: [source/concepts/mvc.rst](source/concepts/mvc.rst)
          原文: [source/concepts/mvc.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/mvc.rst)
-1. - [ ] 译文: [source/concepts/security.rst](source/concepts/security.rst)
+         @蓝色的风
+1. - [x] 译文: [source/concepts/security.rst](source/concepts/security.rst)
          原文: [source/concepts/security.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/security.rst)
-1. - [ ] 译文: [source/concepts/services.rst](source/concepts/services.rst)
+         @蓝色的风
+1. - [x] 译文: [source/concepts/services.rst](source/concepts/services.rst)
          原文: [source/concepts/services.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/services.rst)
-1. - [ ] 译文: [source/concepts/structure.rst](source/concepts/structure.rst)
+         @蓝色的风
+1. - [x] 译文: [source/concepts/structure.rst](source/concepts/structure.rst)
          原文: [source/concepts/structure.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/structure.rst)
+         @蓝色的风
 1. - [ ] 译文: [source/database/call_function.rst](source/database/call_function.rst)
          原文: [source/database/call_function.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/call_function.rst)
 1. - [ ] 译文: [source/database/configuration.rst](source/database/configuration.rst)
