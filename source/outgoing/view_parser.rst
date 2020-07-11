@@ -521,12 +521,12 @@ The following plugins are available when using the parser:
 ==================== ========================== ================================================================================== ================================================================
 Plugin               Arguments                  Description                                                           			   Example
 ==================== ========================== ================================================================================== ================================================================
-current_url                                     Alias for the current_url helper function.                            			   {+ current_url +}
-previous_url                                    Alias for the previous_url helper function.                           			   {+ previous_url +}
+current_url                                     Alias for the current_url helper function.                                         {+ current_url +}
+previous_url                                    Alias for the previous_url helper function.                           		       {+ previous_url +}
 siteURL                                         Alias for the site_url helper function.                                            {+ siteURL "login" +}
-mailto               email, title, attributes   Alias for the mailto helper function.                                 			   {+ mailto email=foo@example.com title="Stranger Things" +}
-safe_mailto          email, title, attributes   Alias for the safe_mailto helper function.                            			   {+ safe_mailto email=foo@example.com title="Stranger Things" +}
-lang                 language string            Alias for the lang helper function.                                    			   {+ lang number.terabyteAbbr +}
+mailto               email, title, attributes   Alias for the mailto helper function.                                 		       {+ mailto email=foo@example.com title="Stranger Things" +}
+safe_mailto          email, title, attributes   Alias for the safe_mailto helper function.                            		       {+ safe_mailto email=foo@example.com title="Stranger Things" +}
+lang                 language string            Alias for the lang helper function.                                    		       {+ lang number.terabyteAbbr +}
 validation_errors    fieldname(optional)        Returns either error string for the field (if specified) or all validation errors. {+ validation_errors +} , {+ validation_errors field="email" +}
 route                route name                 Alias for the route_to helper function.                                            {+ route "login" +}
 ==================== ========================== ================================================================================== ================================================================
@@ -671,17 +671,17 @@ using a view fragment::
 		['title' => 'Second Link', 'link' => '/second'],
 	];
 
-	foreach ($data1 as $menuitem)
+	foreach ($data1 as $menuItem)
 	{
-		$temp .= $parser->setData($menuItem)->renderString();
+		$temp .= $parser->setData($menuItem)->renderString($template1);
 	}
 
-	$template = '<ul>{menuitems}</ul>';
+	$template2 = '<ul>{menuitems}</ul>';
 	$data = [
 		'menuitems' => $temp
 	];
 	echo $parser->setData($data)
-	             ->renderString($template);
+	             ->renderString($template2);
 
 Result::
 

@@ -146,7 +146,7 @@ parameter:
 	| **$row = $query->getPreviousRow('array')**
 
 .. note:: All the methods above will load the whole result into memory
-	(prefetching). Use ``getUnbufferredRow()`` for processing large
+	(prefetching). Use ``getUnbufferedRow()`` for processing large
 	result sets.
 
 **getUnbufferedRow()**
@@ -169,9 +169,9 @@ it returns the current row and moves the internal data pointer ahead.
 You can optionally pass 'object' (default) or 'array' in order to specify
 the returned value's type::
 
-	$query->getUnbufferedRow();		    // object
-	$query->getUnbufferedRow('object');	// object
-	$query->getUnbufferedRow('array');	// associative array
+	$query->getUnbufferedRow();         // object
+	$query->getUnbufferedRow('object'); // object
+	$query->getUnbufferedRow('array');  // associative array
 
 *********************
 Custom Result Objects
@@ -251,7 +251,7 @@ Example::
 
 	if (isset($row))
 	{
-		echo $row->email;   // access attributes
+		echo $row->email;                 // access attributes
 		echo $row->last_login('Y-m-d');   // access class methods
 	}
 
@@ -329,7 +329,7 @@ TRUE on success or FALSE on failure.
 Class Reference
 ***************
 
-.. php:class:: \CodeIgniter\Database\BaseResult
+.. php:class:: CodeIgniter\\Database\\BaseResult
 
 	.. php:method:: getResult([$type = 'object'])
 

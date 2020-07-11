@@ -15,7 +15,7 @@ Entity Usage
 
 At its core, an Entity class is simply a class that represents a single database row. It has class properties
 to represent the database columns, and provides any additional methods to implement the business logic for
-that row.  The core feature, though, is that it doesn't know anything about how to persist itself. That's the
+that row. The core feature, though, is that it doesn't know anything about how to persist itself. That's the
 responsibility of the model or the repository class. That way, if anything changes on how you need to save the
 object, you don't have to change how that object is used throughout the application. This makes it possible to
 use JSON or XML files to store the objects during a rapid prototyping stage, and then easily switch to a
@@ -96,7 +96,7 @@ Now that all of the pieces are in place, you would work with the Entity class as
     $userModel->save($user);
 
     // Create
-    $user = new App\Entities\User();
+    $user = new \App\Entities\User();
     $user->username = 'foo';
     $user->email    = 'foo@example.com';
     $userModel->save($user);
@@ -122,7 +122,7 @@ on your entities without worrying much about stray fields getting saved incorrec
 
     $data = $this->request->getPost();
 
-    $user = new App\Entities\User();
+    $user = new \App\Entities\User();
     $user->fill($data);
     $userModel->save($user);
 
@@ -132,7 +132,7 @@ You can also pass the data in the constructor and the data will be passed throug
 
     $data = $this->request->getPost();
 
-    $user = new App\Entities\User($data);
+    $user = new \App\Entities\User($data);
     $userModel->save($user);
 
 Handling Business Logic
@@ -219,12 +219,12 @@ As an example, imagine you have the simplified User Entity that is used througho
     class User extends Entity
     {
         protected $attributes = [
-            'id' => null;
-            'name' => null;        // Represents a username
-            'email' => null;
-            'password' => null;
-            'created_at' => null;
-            'updated_at' => null;
+            'id' => null,
+            'name' => null,        // Represents a username
+            'email' => null,
+            'password' => null,
+            'created_at' => null,
+            'updated_at' => null,
         ];
     }
 
@@ -234,7 +234,7 @@ full name now, not their username like it does currently. To keep things tidy an
 in the database you whip up a migration to rename the `name` field to `full_name` for clarity.
 
 Ignoring how contrived this example is, we now have two choices on how to fix the User class. We could modify the class
-property from ``$name`` to ``$full_name``, but that would require  changes throughout the application. Instead, we can
+property from ``$name`` to ``$full_name``, but that would require changes throughout the application. Instead, we can
 simply map the ``full_name`` column in the database to the ``$name`` property, and be done with the Entity changes::
 
     <?php namespace App\Entities;
@@ -244,17 +244,17 @@ simply map the ``full_name`` column in the database to the ``$name`` property, a
     class User extends Entity
     {
         protected $attributes = [
-            'id' => null;
-            'name' => null;        // Represents a username
-            'email' => null;
-            'password' => null;
-            'created_at' => null;
-            'updated_at' => null;
+            'id' => null,
+            'name' => null,        // Represents a username
+            'email' => null,
+            'password' => null,
+            'created_at' => null,
+            'updated_at' => null,
         ];
 
         protected $datamap = [
-                'full_name' => 'name'
-            ],
+            'full_name' => 'name'
+        ],
     }
 
 By adding our new database name to the ``$datamap`` array, we can tell the class what class property the database column
@@ -291,7 +291,7 @@ You can define which properties are automatically converted by adding the name t
 Now, when any of those properties are set, they will be converted to a Time instance, using the application's
 current timezone, as set in **app/Config/App.php**::
 
-    $user = new App\Entities\User();
+    $user = new \App\Entities\User();
 
     // Converted to Time instance
     $user->created_at = 'April 15, 2017 10:30:00';
@@ -321,7 +321,7 @@ For example, if you had a User entity with an **is_banned** property, you can ca
         protected $casts = [
             'is_banned' => 'boolean',
             'is_banned_nullable' => '?boolean'
-            ],
+        ],
     }
 
 Array/Json Casting
@@ -359,7 +359,7 @@ the value whenever the property is set::
 
     $options['foo'] = 'bar';
 
-    $user->options  = $options;
+    $user->options = $options;
     $userModel->save($user);
 
 Checking for Changed Attributes
