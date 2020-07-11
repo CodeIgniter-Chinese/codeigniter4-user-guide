@@ -98,7 +98,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
@@ -480,7 +479,7 @@ parameter:</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
 <p class="last">All the methods above will load the whole result into memory
-(prefetching). Use <code class="docutils literal notranslate"><span class="pre">getUnbufferredRow()</span></code> for processing large
+(prefetching). Use <code class="docutils literal notranslate"><span class="pre">getUnbufferedRow()</span></code> for processing large
 result sets.</p>
 </div>
 <p><strong>getUnbufferedRow()</strong></p>
@@ -499,9 +498,9 @@ it returns the current row and moves the internal data pointer ahead.</p>
 </div>
 <p>You can optionally pass ‘object’ (default) or ‘array’ in order to specify
 the returned value’s type:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">();</span>                 <span class="c1">// object</span>
-<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span>     <span class="c1">// object</span>
-<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>      <span class="c1">// associative array</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">();</span>         <span class="c1">// object</span>
+<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span> <span class="c1">// object</span>
+<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>  <span class="c1">// associative array</span>
 </pre></div>
 </div>
 </div>
@@ -574,7 +573,7 @@ number of the results. The second parameter is the class name to instantiate.</p
 
 <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">))</span>
 <span class="p">{</span>
-        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">;</span>   <span class="c1">// access attributes</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">;</span>                 <span class="c1">// access attributes</span>
         <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">last_login</span><span class="p">(</span><span class="s1">&#39;Y-m-d&#39;</span><span class="p">);</span>   <span class="c1">// access class methods</span>
 <span class="p">}</span>
 </pre></div>
@@ -645,12 +644,12 @@ Most notably - you won’t be able to use it with PDO.</p>
 <div class="section" id="class-reference">
 <h2><a class="toc-backref" href="#id6">Class Reference</a><a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h2>
 <dl class="class">
-<dt id="CodeIgniterDatabaseBaseResult">
-<em class="property">class </em><code class="descname">CodeIgniterDatabaseBaseResult</code><a class="headerlink" href="#CodeIgniterDatabaseBaseResult" title="永久链接至目标">¶</a></dt>
+<dt>
+<code class="descname">CodeIgniter\Database\BaseResult</code></dt>
 <dd><blockquote>
 <div><dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getResult">
-<code class="descname">getResult</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getResult" title="永久链接至目标">¶</a></dt>
+<dt id="getResult">
+<code class="descname">getResult</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getResult" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -674,8 +673,8 @@ and <code class="docutils literal notranslate"><span class="pre">getCustomResult
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getResultArray">
-<code class="descname">getResultArray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getResultArray" title="永久链接至目标">¶</a></dt>
+<dt id="getResultArray">
+<code class="descname">getResultArray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getResultArray" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -692,8 +691,8 @@ row is itself an associative array.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getResultObject">
-<code class="descname">getResultObject</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getResultObject" title="永久链接至目标">¶</a></dt>
+<dt id="getResultObject">
+<code class="descname">getResultObject</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getResultObject" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -710,8 +709,8 @@ row is an object of type <code class="docutils literal notranslate"><span class=
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getCustomResultObject">
-<code class="descname">getCustomResultObject</code><span class="sig-paren">(</span><em>$class_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getCustomResultObject" title="永久链接至目标">¶</a></dt>
+<dt id="getCustomResultObject">
+<code class="descname">getCustomResultObject</code><span class="sig-paren">(</span><em>$class_name</em><span class="sig-paren">)</span><a class="headerlink" href="#getCustomResultObject" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -734,8 +733,8 @@ row is an instance of the specified class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getRow">
-<code class="descname">getRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$n = 0</em><span class="optional">[</span>, <em>$type = 'object'</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getRow" title="永久链接至目标">¶</a></dt>
+<dt id="getRow">
+<code class="descname">getRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$n = 0</em><span class="optional">[</span>, <em>$type = 'object'</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getRow" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -760,8 +759,8 @@ row is an instance of the specified class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getUnbufferedRow">
-<code class="descname">getUnbufferedRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getUnbufferedRow" title="永久链接至目标">¶</a></dt>
+<dt id="getUnbufferedRow">
+<code class="descname">getUnbufferedRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getUnbufferedRow" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -785,8 +784,8 @@ requested form.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getRowArray">
-<code class="descname">getRowArray</code><span class="sig-paren">(</span><span class="optional">[</span><em>$n = 0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getRowArray" title="永久链接至目标">¶</a></dt>
+<dt id="getRowArray">
+<code class="descname">getRowArray</code><span class="sig-paren">(</span><span class="optional">[</span><em>$n = 0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getRowArray" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -809,8 +808,8 @@ requested form.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getRowObject">
-<code class="descname">getRowObject</code><span class="sig-paren">(</span><span class="optional">[</span><em>$n = 0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getRowObject" title="永久链接至目标">¶</a></dt>
+<dt id="getRowObject">
+<code class="descname">getRowObject</code><span class="sig-paren">(</span><span class="optional">[</span><em>$n = 0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getRowObject" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -834,8 +833,8 @@ requested form.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getCustomRowObject">
-<code class="descname">getCustomRowObject</code><span class="sig-paren">(</span><em>$n</em>, <em>$type</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getCustomRowObject" title="永久链接至目标">¶</a></dt>
+<dt id="getCustomRowObject">
+<code class="descname">getCustomRowObject</code><span class="sig-paren">(</span><em>$n</em>, <em>$type</em><span class="sig-paren">)</span><a class="headerlink" href="#getCustomRowObject" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -859,8 +858,8 @@ requested class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::dataSeek">
-<code class="descname">dataSeek</code><span class="sig-paren">(</span><span class="optional">[</span><em>$n = 0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::dataSeek" title="永久链接至目标">¶</a></dt>
+<dt id="dataSeek">
+<code class="descname">dataSeek</code><span class="sig-paren">(</span><span class="optional">[</span><em>$n = 0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#dataSeek" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -883,8 +882,8 @@ requested class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::setRow">
-<code class="descname">setRow</code><span class="sig-paren">(</span><em>$key</em><span class="optional">[</span>, <em>$value = NULL</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::setRow" title="永久链接至目标">¶</a></dt>
+<dt id="setRow">
+<code class="descname">setRow</code><span class="sig-paren">(</span><em>$key</em><span class="optional">[</span>, <em>$value = NULL</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#setRow" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -904,8 +903,8 @@ requested class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getNextRow">
-<code class="descname">getNextRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getNextRow" title="永久链接至目标">¶</a></dt>
+<dt id="getNextRow">
+<code class="descname">getNextRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getNextRow" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -927,8 +926,8 @@ requested class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getPreviousRow">
-<code class="descname">getPreviousRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getPreviousRow" title="永久链接至目标">¶</a></dt>
+<dt id="getPreviousRow">
+<code class="descname">getPreviousRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getPreviousRow" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -950,8 +949,8 @@ requested class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getFirstRow">
-<code class="descname">getFirstRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getFirstRow" title="永久链接至目标">¶</a></dt>
+<dt id="getFirstRow">
+<code class="descname">getFirstRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getFirstRow" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -973,8 +972,8 @@ requested class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getLastRow">
-<code class="descname">getLastRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getLastRow" title="永久链接至目标">¶</a></dt>
+<dt id="getLastRow">
+<code class="descname">getLastRow</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'object'</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#getLastRow" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -996,8 +995,8 @@ requested class.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getFieldCount">
-<code class="descname">getFieldCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getFieldCount" title="永久链接至目标">¶</a></dt>
+<dt id="getFieldCount">
+<code class="descname">getFieldCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getFieldCount" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1014,8 +1013,8 @@ requested class.</p>
 
 </div></blockquote>
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getFieldNames">
-<code class="descname">getFieldNames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getFieldNames" title="永久链接至目标">¶</a></dt>
+<dt id="getFieldNames">
+<code class="descname">getFieldNames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getFieldNames" title="永久链接至目标">¶</a></dt>
 <dd><blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1031,8 +1030,8 @@ requested class.</p>
 result set.</p>
 </div></blockquote>
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::getFieldData">
-<code class="descname">getFieldData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::getFieldData" title="永久链接至目标">¶</a></dt>
+<dt id="getFieldData">
+<code class="descname">getFieldData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getFieldData" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1048,8 +1047,8 @@ field meta-data.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="CodeIgniterDatabaseBaseResult::freeResult">
-<code class="descname">freeResult</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseBaseResult::freeResult" title="永久链接至目标">¶</a></dt>
+<dt id="freeResult">
+<code class="descname">freeResult</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#freeResult" title="永久链接至目标">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

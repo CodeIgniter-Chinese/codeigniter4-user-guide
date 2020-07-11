@@ -98,7 +98,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
@@ -401,7 +400,7 @@ method which takes the string to output as the first parameter:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;The rain in Spain falls mainly on the plains.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>You can change the color of the text by passing in a color name as the first parameter:</p>
+<p>You can change the color of the text by passing in a color name as the second parameter:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;File created.&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -467,7 +466,7 @@ it inside of a <code class="docutils literal notranslate"><span class="pre">writ
 to STDERR, instead of STDOUT, like <code class="docutils literal notranslate"><span class="pre">write()</span></code> and <code class="docutils literal notranslate"><span class="pre">color()</span></code> do. This can be useful if you have scripts watching
 for errors so they don’t have to sift through all of the information, only the actual error messages. You use it
 exactly as you would the <code class="docutils literal notranslate"><span class="pre">write()</span></code> method:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CLI</span><span class="o">::</span><span class="na">error</span><span class="p">(</span><span class="s1">&#39;Cannot write to file: &#39;</span><span class="o">.</span> <span class="nv">$file</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CLI</span><span class="o">::</span><span class="na">error</span><span class="p">(</span><span class="s1">&#39;Cannot write to file: &#39;</span> <span class="o">.</span> <span class="nv">$file</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><strong>wrap()</strong></p>
@@ -498,11 +497,11 @@ every line after the first line, so that you will have a crisp column edge on th
 <span class="p">{</span>
         <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span>
                 <span class="c1">// Display the title on the left of the row</span>
-                <span class="nv">$title</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;   &#39;</span><span class="o">.</span>
+                <span class="nv">$title</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">.</span> <span class="s1">&#39;   &#39;</span> <span class="o">.</span>
                 <span class="c1">// Wrap the descriptions in a right-hand column</span>
                 <span class="c1">// with its left side 3 characters wider than</span>
                 <span class="c1">// the longest item on the left.</span>
-                <span class="nx">CLI</span><span class="o">::</span><span class="na">wrap</span><span class="p">(</span><span class="nv">$descriptions</span><span class="p">[</span><span class="nv">$i</span><span class="p">],</span> <span class="mi">40</span><span class="p">,</span> <span class="nv">$maxlen</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+                <span class="nx">CLI</span><span class="o">::</span><span class="na">wrap</span><span class="p">(</span><span class="nv">$descriptions</span><span class="p">[</span><span class="nv">$i</span><span class="p">],</span> <span class="mi">40</span><span class="p">,</span> <span class="nv">$maxlen</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
         <span class="p">);</span>
 <span class="p">}</span>
 </pre></div>

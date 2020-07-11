@@ -98,7 +98,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
@@ -376,8 +375,8 @@ to run as the parameter:</p>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">testShowCategories</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withURI</span><span class="p">(</span><span class="s1">&#39;http://example.com/categories&#39;</span><span class="p">)</span>
-                        <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                        <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                       <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                       <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isOK</span><span class="p">());</span>
     <span class="p">}</span>
@@ -396,7 +395,7 @@ to run as the parameter:</p>
 <p><strong>execute($method)</strong></p>
 <p>Executes the specified method within the controller. The only parameter is the name of the method to run:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>This returns a new helper class that provides a number of routines for checking the response itself. See below
@@ -407,8 +406,8 @@ for details.</p>
 <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">appTimezone</span> <span class="o">=</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">;</span>
 
 <span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withConfig</span><span class="p">(</span><span class="nv">$config</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>If you do not provide one, the application’s App config file will be used.</p>
@@ -418,8 +417,8 @@ for details.</p>
 <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">setLocale</span><span class="p">(</span><span class="nv">$locale</span><span class="p">);</span>
 
 <span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>If you do not provide one, a new IncomingRequest instance with the default application values will be passed
@@ -429,8 +428,8 @@ into your controller.</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CodeIgniter\HTTP\Response</span><span class="p">(</span><span class="k">new</span> <span class="nx">Config\App</span><span class="p">());</span>
 
 <span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withResponse</span><span class="p">(</span><span class="nv">$response</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>If you do not provide one, a new Response instance with the default application values will be passed
@@ -440,9 +439,9 @@ into your controller.</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$logger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CodeIgniter\Log\Handlers\FileHandler</span><span class="p">();</span>
 
 <span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withResponse</span><span class="p">(</span><span class="nv">$response</span><span class="p">)</span>
-                <span class="o">-&gt;</span> <span class="na">withLogger</span><span class="p">(</span><span class="nv">$logger</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">withLogger</span><span class="p">(</span><span class="nv">$logger</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>If you do not provide one, a new Logger instance with the default configuration values will be passed
@@ -452,8 +451,8 @@ into your controller.</p>
 This is helpful if you need to check URI segments within your controller. The only parameter is a string
 representing a valid URI:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withURI</span><span class="p">(</span><span class="s1">&#39;http://example.com/forums/categories&#39;</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>It is a good practice to always provide the URI during testing to avoid surprises.</p>
@@ -463,8 +462,8 @@ you need to set a JSON value as the body. The only parameter is a string that re
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$body</span> <span class="o">=</span> <span class="nb">json_encode</span><span class="p">([</span><span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span><span class="p">]);</span>
 
 <span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withBody</span><span class="p">(</span><span class="nv">$body</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -476,8 +475,8 @@ of helpful methods, as well as direct access to the Request and Response that we
 <p>This provides a simple check that the response would be considered a “successful” response. This primarily checks that
 the HTTP status code is within the 200 or 300 ranges:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withBody</span><span class="p">(</span><span class="nv">$body</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">isOK</span><span class="p">())</span>
 <span class="p">{</span>
@@ -488,8 +487,8 @@ the HTTP status code is within the 200 or 300 ranges:</p>
 <p><strong>isRedirect()</strong></p>
 <p>Checks to see if the final response was a redirection of some sort:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withBody</span><span class="p">(</span><span class="nv">$body</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">isRedirect</span><span class="p">())</span>
 <span class="p">{</span>
@@ -500,8 +499,8 @@ the HTTP status code is within the 200 or 300 ranges:</p>
 <p><strong>request()</strong></p>
 <p>You can access the Request object that was generated with this method:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withBody</span><span class="p">(</span><span class="nv">$body</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 
 <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
 </pre></div>
@@ -509,8 +508,8 @@ the HTTP status code is within the 200 or 300 ranges:</p>
 <p><strong>response()</strong></p>
 <p>This allows you access to the response object that was generated, if any:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withBody</span><span class="p">(</span><span class="nv">$body</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 
 <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">();</span>
 </pre></div>
@@ -519,8 +518,8 @@ the HTTP status code is within the 200 or 300 ranges:</p>
 <p>You can access the body of the response that would have been sent to the client with the <strong>getBody()</strong> method. This could
 be generated HTML, or a JSON response, etc.:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$results</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withBody</span><span class="p">(</span><span class="nv">$body</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-                 <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
+                <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+                <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 
 <span class="nv">$body</span> <span class="o">=</span> <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">getBody</span><span class="p">();</span>
 </pre></div>

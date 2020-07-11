@@ -98,7 +98,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
@@ -382,7 +381,7 @@ updating records, deleting records, and more.</p>
 location within the directory, like <code class="docutils literal notranslate"><span class="pre">namespace</span> <span class="pre">App\Models</span></code>.</p>
 <p>You can access models within your classes by creating a new instance or using the <code class="docutils literal notranslate"><span class="pre">model()</span></code> helper function.</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create a new class manually</span>
-<span class="nv">$userModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">App\Models\UserModel</span><span class="p">();</span>
+<span class="nv">$userModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\App\Models\UserModel</span><span class="p">();</span>
 
 <span class="c1">// Create a new class with the model function</span>
 <span class="nv">$userModel</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="s1">&#39;App\Models\UserModel&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
@@ -438,10 +437,10 @@ connection.</p>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Model</span><span class="p">;</span>
 
-    <span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
-    <span class="p">{</span>
-            <span class="k">protected</span> <span class="nv">$DBGroup</span> <span class="o">=</span> <span class="s1">&#39;group_name&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$DBGroup</span> <span class="o">=</span> <span class="s1">&#39;group_name&#39;</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>You would replace “group_name” with the name of a defined database group from the database
@@ -458,22 +457,22 @@ what table to use and how we can find the required records:</p>
 
 <span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
 <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$table</span>      <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$primaryKey</span> <span class="o">=</span> <span class="s1">&#39;id&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$table</span>      <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$primaryKey</span> <span class="o">=</span> <span class="s1">&#39;id&#39;</span><span class="p">;</span>
 
-        <span class="k">protected</span> <span class="nv">$returnType</span> <span class="o">=</span> <span class="s1">&#39;array&#39;</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$useSoftDeletes</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$returnType</span>     <span class="o">=</span> <span class="s1">&#39;array&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$useSoftDeletes</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 
-        <span class="k">protected</span> <span class="nv">$allowedFields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">];</span>
+    <span class="k">protected</span> <span class="nv">$allowedFields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">];</span>
 
-        <span class="k">protected</span> <span class="nv">$useTimestamps</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$createdField</span>  <span class="o">=</span> <span class="s1">&#39;created_at&#39;</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$updatedField</span>  <span class="o">=</span> <span class="s1">&#39;updated_at&#39;</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$deletedField</span>  <span class="o">=</span> <span class="s1">&#39;deleted_at&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$useTimestamps</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$createdField</span>  <span class="o">=</span> <span class="s1">&#39;created_at&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$updatedField</span>  <span class="o">=</span> <span class="s1">&#39;updated_at&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$deletedField</span>  <span class="o">=</span> <span class="s1">&#39;deleted_at&#39;</span><span class="p">;</span>
 
-        <span class="k">protected</span> <span class="nv">$validationRules</span>    <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">protected</span> <span class="nv">$validationMessages</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">protected</span> <span class="nv">$skipValidation</span>     <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$validationRules</span>    <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">protected</span> <span class="nv">$validationMessages</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">protected</span> <span class="nv">$skipValidation</span>     <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -542,8 +541,8 @@ this model will never validate.</p>
 <strong>$afterInsert</strong>
 <strong>$beforeUpdate</strong>
 <strong>$afterUpdate</strong>
-<strong>afterFind</strong>
-<strong>afterDelete</strong></p>
+<strong>$afterFind</strong>
+<strong>$afterDelete</strong></p>
 <p>These arrays allow you to specify callback methods that will be run on the data at the
 time specified in the property name.</p>
 </div>
@@ -568,13 +567,11 @@ of just one:</p>
 <p>If no parameters are passed in, will return all rows in that model’s table, effectively acting
 like findAll(), though less explicit.</p>
 <p><strong>findColumn()</strong></p>
-<blockquote>
-<div><p>Returns null or an indexed array of column values:</p>
+<p>Returns null or an indexed array of column values:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">findColumn</span><span class="p">(</span><span class="nv">$column_name</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>$column_name should be a name of single column else you will get the DataException.</p>
-</div></blockquote>
 <p><strong>findAll()</strong></p>
 <p>Returns all results:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$users</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">findAll</span><span class="p">();</span>
@@ -622,8 +619,8 @@ the next find* methods to return only soft deleted rows:</p>
 row of data in the database. The array’s keys must match the name of the columns in a $table, while
 the array’s values are the values to save for that key:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;darth&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;d.vader@theempire.com&#39;</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;darth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;d.vader@theempire.com&#39;</span>
 <span class="p">];</span>
 
 <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
@@ -634,8 +631,8 @@ the array’s values are the values to save for that key:</p>
 An associative array of data is passed into this method as the second parameter. The array’s keys must match the name
 of the columns in a $table, while the array’s values are the values to save for that key:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;darth&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;d.vader@theempire.com&#39;</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;darth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;d.vader@theempire.com&#39;</span>
 <span class="p">];</span>
 
 <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
@@ -643,17 +640,17 @@ of the columns in a $table, while the array’s values are the values to save fo
 </div>
 <p>Multiple records may be updated with a single call by passing an array of primary keys as the first parameter:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span>
-    <span class="p">];</span>
+    <span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+<span class="p">];</span>
 
-    <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="nv">$data</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>When you need a more flexible solution, you can leave the parameters empty and it functions like the Query Builder’s
 update command, with the added benefit of validation, events, etc:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$userModel</span>
     <span class="o">-&gt;</span><span class="na">whereIn</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-    <span class="o">-&gt;</span><span class="na">set</span><span class="p">([</span><span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="o">-&gt;</span><span class="na">set</span><span class="p">([</span><span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">])</span>
     <span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -665,17 +662,17 @@ automatically, based on whether it finds an array key matching the $primaryKey v
 
 <span class="c1">// Does an insert()</span>
 <span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;darth&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;d.vader@theempire.com&#39;</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;darth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;d.vader@theempire.com&#39;</span>
 <span class="p">];</span>
 
 <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 
 <span class="c1">// Performs an update, since the primary key, &#39;id&#39;, is found.</span>
 <span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;id&#39;</span>       <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;darth&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;d.vader@theempire.com&#39;</span>
+    <span class="s1">&#39;id&#39;</span>       <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;darth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;d.vader@theempire.com&#39;</span>
 <span class="p">];</span>
 <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 </pre></div>
@@ -691,25 +688,25 @@ simplest, they might look like this:</p>
 
 <span class="k">class</span> <span class="nc">Job</span>
 <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$id</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$name</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$description</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$id</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$name</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$description</span><span class="p">;</span>
 
-        <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$key</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$key</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">property_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$key</span><span class="p">))</span>
         <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">property_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$key</span><span class="p">))</span>
-                <span class="p">{</span>
-                        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$key</span><span class="p">;</span>
-                <span class="p">}</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$key</span><span class="p">;</span>
         <span class="p">}</span>
+    <span class="p">}</span>
 
-        <span class="k">public</span> <span class="k">function</span> <span class="fm">__set</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="nv">$value</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__set</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="nv">$value</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">property_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$key</span><span class="p">))</span>
         <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">property_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$key</span><span class="p">))</span>
-                <span class="p">{</span>
-                        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$key</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
-                <span class="p">}</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$key</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
         <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -718,11 +715,11 @@ simplest, they might look like this:</p>
 
 <span class="k">class</span> <span class="nc">JobModel</span> <span class="k">extends</span> <span class="nx">Model</span>
 <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;jobs&#39;</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$returnType</span> <span class="o">=</span> <span class="s1">&#39;\App\Entities\Job&#39;</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$allowedFields</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span>
-        <span class="p">];</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;jobs&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$returnType</span> <span class="o">=</span> <span class="s1">&#39;\App\Entities\Job&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$allowedFields</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span>
+    <span class="p">];</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -778,18 +775,18 @@ prior to saving to the database with the <code class="docutils literal notransla
 be applied. If you have custom error message that you want to use, place them in the <code class="docutils literal notranslate"><span class="pre">$validationMessages</span></code> array:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
 <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$validationRules</span>    <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;username&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|alpha_numeric_space|min_length[3]&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email]&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;password&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[8]&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;pass_confirm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required_with[password]|matches[password]&#39;</span>
-        <span class="p">];</span>
+    <span class="k">protected</span> <span class="nv">$validationRules</span>    <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;username&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|alpha_numeric_space|min_length[3]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[8]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;pass_confirm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required_with[password]|matches[password]&#39;</span>
+    <span class="p">];</span>
 
-        <span class="k">protected</span> <span class="nv">$validationMessages</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="p">[</span>
-                        <span class="s1">&#39;is_unique&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sorry. That email has already been taken. Please choose another.&#39;</span>
-                <span class="p">]</span>
-        <span class="p">];</span>
+    <span class="k">protected</span> <span class="nv">$validationMessages</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;is_unique&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sorry. That email has already been taken. Please choose another.&#39;</span>
+        <span class="p">]</span>
+    <span class="p">];</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -797,14 +794,24 @@ be applied. If you have custom error message that you want to use, place them in
 <dl class="function">
 <dt id="setValidationMessage">
 <code class="descname">setValidationMessage</code><span class="sig-paren">(</span><em>$field</em>, <em>$fieldMessages</em><span class="sig-paren">)</span><a class="headerlink" href="#setValidationMessage" title="永久链接至目标">¶</a></dt>
-<dd><p>:param  string  $field
-:param  array   $fieldMessages</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$field</strong> (<em>string</em>) – </li>
+<li><strong>$fieldMessages</strong> (<em>array</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>This function will set the field wise error messages.</p>
 <p>Usage example:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fieldName</span> <span class="o">=</span> <span class="s1">&#39;name&#39;</span><span class="p">;</span>
-<span class="nv">$fieldValidationMessage</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;required&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;Your name is required here&#39;</span><span class="p">,</span>
-        <span class="p">);</span>
+<span class="nv">$fieldValidationMessage</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Your name is required here&#39;</span><span class="p">,</span>
+<span class="p">];</span>
 <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">setValidationMessage</span><span class="p">(</span><span class="nv">$fieldName</span><span class="p">,</span> <span class="nv">$fieldValidationMessage</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -813,15 +820,25 @@ be applied. If you have custom error message that you want to use, place them in
 <dl class="function">
 <dt id="setValidationMessages">
 <code class="descname">setValidationMessages</code><span class="sig-paren">(</span><em>$fieldMessages</em><span class="sig-paren">)</span><a class="headerlink" href="#setValidationMessages" title="永久链接至目标">¶</a></dt>
-<dd><p>:param  array   $fieldMessages</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$fieldMessages</strong> (<em>array</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>This function will set the field messages.</p>
 <p>Usage example:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fieldValidationMessage</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;required&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;Your baby name is missing.&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;min_length&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Too short, man!&#39;</span><span class="p">,</span>
-        <span class="p">),</span>
-<span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fieldValidationMessage</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;required&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;Your baby name is missing.&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;min_length&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Too short, man!&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">];</span>
 <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">setValidationMessages</span><span class="p">(</span><span class="nv">$fieldValidationMessage</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -831,18 +848,18 @@ be applied. If you have custom error message that you want to use, place them in
 the model will return boolean <strong>false</strong>. You can use the <code class="docutils literal notranslate"><span class="pre">errors()</span></code> method to retrieve the validation errors:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$model</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;updateUser&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">()];</span>
+    <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;updateUser&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">()];</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>This returns an array with the field names and their associated errors that can be used to either show all of the
 errors at the top of the form, or to display them individually:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$errors</span><span class="p">))</span> <span class="o">:</span> <span class="cp">?&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-danger&quot;</span><span class="p">&gt;</span>
-        <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$errors</span> <span class="k">as</span> <span class="nv">$field</span> <span class="o">=&gt;</span> <span class="nv">$error</span><span class="p">)</span> <span class="o">:</span> <span class="cp">?&gt;</span>
-                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$error</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-        <span class="cp">&lt;?php</span> <span class="k">endforeach</span> <span class="cp">?&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-danger&quot;</span><span class="p">&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$errors</span> <span class="k">as</span> <span class="nv">$field</span> <span class="o">=&gt;</span> <span class="nv">$error</span><span class="p">)</span> <span class="o">:</span> <span class="cp">?&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$error</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">endforeach</span> <span class="cp">?&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="cp">&lt;?php</span> <span class="k">endif</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
@@ -850,7 +867,7 @@ errors at the top of the form, or to display them individually:</p>
 and simply set <code class="docutils literal notranslate"><span class="pre">$validationRules</span></code> to the name of the validation rule group you created:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
 <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$validationRules</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$validationRules</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -893,7 +910,7 @@ that has an id matching the placeholder’s value. Assuming that the form POST d
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$_POST</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
     <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo@example.com&#39;</span>
-<span class="p">]</span>
+<span class="p">];</span>
 </pre></div>
 </div>
 <p>then the <code class="docutils literal notranslate"><span class="pre">{id}</span></code> placeholder would be replaced with the number <strong>4</strong>, giving this revised rule:</p>
@@ -980,8 +997,8 @@ parameter is a Closure that will be called for each row of data.</p>
 <p>This is best used during cronjobs, data exports, or other large tasks.</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">chunk</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$data</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="c1">// do something.</span>
-        <span class="c1">// $data is a single row of data.</span>
+    <span class="c1">// do something.</span>
+    <span class="c1">// $data is a single row of data.</span>
 <span class="p">});</span>
 </pre></div>
 </div>
@@ -1003,12 +1020,12 @@ main array will also contain the other values passed to the method, and be detai
 must return the original $data array so other callbacks have the full information.</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="k">function</span> <span class="nf">hashPassword</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
 <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;password&#39;</span><span class="p">])</span> <span class="k">return</span> <span class="nv">$data</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;password&#39;</span><span class="p">])</span> <span class="k">return</span> <span class="nv">$data</span><span class="p">;</span>
 
-        <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;password_hash&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">password_hash</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;password&#39;</span><span class="p">],</span> <span class="nx">PASSWORD_DEFAULT</span><span class="p">);</span>
-        <span class="nb">unset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+    <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;password_hash&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">password_hash</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;password&#39;</span><span class="p">],</span> <span class="nx">PASSWORD_DEFAULT</span><span class="p">);</span>
+    <span class="nb">unset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
 
-        <span class="k">return</span> <span class="nv">$data</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nv">$data</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1114,17 +1131,17 @@ instance of the database connection and you’re good to go. This allows you to 
 Model gives you out of the box, and create a fully custom experience.</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
 
-    <span class="k">use</span> <span class="nx">CodeIgniter\Database\ConnectionInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Database\ConnectionInterface</span><span class="p">;</span>
 
-    <span class="k">class</span> <span class="nc">UserModel</span>
+<span class="k">class</span> <span class="nc">UserModel</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$db</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">ConnectionInterface</span> <span class="o">&amp;</span><span class="nv">$db</span><span class="p">)</span>
     <span class="p">{</span>
-            <span class="k">protected</span> <span class="nv">$db</span><span class="p">;</span>
-
-            <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">ConnectionInterface</span> <span class="o">&amp;</span><span class="nv">$db</span><span class="p">)</span>
-            <span class="p">{</span>
-                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=&amp;</span> <span class="nv">$db</span><span class="p">;</span>
-            <span class="p">}</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=&amp;</span> <span class="nv">$db</span><span class="p">;</span>
     <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>

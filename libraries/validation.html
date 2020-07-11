@@ -98,7 +98,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
@@ -358,27 +357,29 @@ helps minimize the amount of code you’ll write.</p>
 <li><a class="reference internal" href="#validate-1-value" id="id13">Validate 1 Value</a></li>
 <li><a class="reference internal" href="#saving-sets-of-validation-rules-to-the-config-file" id="id14">Saving Sets of Validation Rules to the Config File</a></li>
 <li><a class="reference internal" href="#running-multiple-validations" id="id15">Running Multiple Validations</a></li>
+<li><a class="reference internal" href="#validation-placeholders" id="id16">Validation Placeholders</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#working-with-errors" id="id16">Working With Errors</a><ul>
-<li><a class="reference internal" href="#setting-custom-error-messages" id="id17">Setting Custom Error Messages</a></li>
-<li><a class="reference internal" href="#getting-all-errors" id="id18">Getting All Errors</a></li>
-<li><a class="reference internal" href="#getting-a-single-error" id="id19">Getting a Single Error</a></li>
-<li><a class="reference internal" href="#check-if-error-exists" id="id20">Check If Error Exists</a></li>
+<li><a class="reference internal" href="#working-with-errors" id="id17">Working With Errors</a><ul>
+<li><a class="reference internal" href="#setting-custom-error-messages" id="id18">Setting Custom Error Messages</a></li>
+<li><a class="reference internal" href="#translation-of-messages-and-validation-labels" id="id19">Translation Of Messages And Validation Labels</a></li>
+<li><a class="reference internal" href="#getting-all-errors" id="id20">Getting All Errors</a></li>
+<li><a class="reference internal" href="#getting-a-single-error" id="id21">Getting a Single Error</a></li>
+<li><a class="reference internal" href="#check-if-error-exists" id="id22">Check If Error Exists</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#customizing-error-display" id="id21">Customizing Error Display</a><ul>
-<li><a class="reference internal" href="#creating-the-views" id="id22">Creating the Views</a></li>
-<li><a class="reference internal" href="#configuration" id="id23">Configuration</a></li>
-<li><a class="reference internal" href="#specifying-the-template" id="id24">Specifying the Template</a></li>
+<li><a class="reference internal" href="#customizing-error-display" id="id23">Customizing Error Display</a><ul>
+<li><a class="reference internal" href="#creating-the-views" id="id24">Creating the Views</a></li>
+<li><a class="reference internal" href="#configuration" id="id25">Configuration</a></li>
+<li><a class="reference internal" href="#specifying-the-template" id="id26">Specifying the Template</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#creating-custom-rules" id="id25">Creating Custom Rules</a><ul>
-<li><a class="reference internal" href="#allowing-parameters" id="id26">Allowing Parameters</a></li>
+<li><a class="reference internal" href="#creating-custom-rules" id="id27">Creating Custom Rules</a><ul>
+<li><a class="reference internal" href="#allowing-parameters" id="id28">Allowing Parameters</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#available-rules" id="id27">Available Rules</a><ul>
-<li><a class="reference internal" href="#rules-for-file-uploads" id="id28">Rules for File Uploads</a></li>
+<li><a class="reference internal" href="#available-rules" id="id29">Available Rules</a><ul>
+<li><a class="reference internal" href="#rules-for-file-uploads" id="id30">Rules for File Uploads</a></li>
 </ul>
 </li>
 </ul>
@@ -439,25 +440,25 @@ code and save it to your <strong>app/Views/</strong> folder:</p>
 <span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
 
-<span class="o">&lt;?=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">()</span> <span class="cp">?&gt;</span>
+    <span class="o">&lt;?=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">()</span> <span class="cp">?&gt;</span>
 
-<span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">form_open</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+    <span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">form_open</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Username<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;username&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Username<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;username&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="p">/&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Password<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Password<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="p">/&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Password Confirm<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;passconf&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Password Confirm<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;passconf&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="p">/&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Email Address<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>Email Address<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="p">/&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Submit&quot;</span> <span class="p">/&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Submit&quot;</span> <span class="p">/&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
@@ -474,9 +475,9 @@ this code and save it to your <strong>app/Views/</strong> folder:</p>
 <span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
 
-<span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">Your</span> <span class="nx">form</span> <span class="nx">was</span> <span class="nx">successfully</span> <span class="nx">submitted</span><span class="o">!&lt;/</span><span class="nx">h3</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">Your</span> <span class="nx">form</span> <span class="nx">was</span> <span class="nx">successfully</span> <span class="nx">submitted</span><span class="o">!&lt;/</span><span class="nx">h3</span><span class="o">&gt;</span>
 
-<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&lt;?=</span> <span class="nx">anchor</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;Try it again!&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&lt;?=</span> <span class="nx">anchor</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;Try it again!&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
@@ -493,21 +494,21 @@ this code and save it to your <strong>app/Controllers/</strong> folder:</p>
 
 <span class="k">class</span> <span class="nc">Form</span> <span class="k">extends</span> <span class="nx">Controller</span>
 <span class="p">{</span>
-        <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
-        <span class="p">{</span>
-                <span class="nx">helper</span><span class="p">([</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">]);</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">helper</span><span class="p">([</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">]);</span>
 
-                <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([]))</span>
-                <span class="p">{</span>
-                        <span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;Signup&#39;</span><span class="p">,</span> <span class="p">[</span>
-                                <span class="s1">&#39;validation&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span>
-                        <span class="p">]);</span>
-                <span class="p">}</span>
-                <span class="k">else</span>
-                <span class="p">{</span>
-                        <span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;Success&#39;</span><span class="p">);</span>
-                <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([]))</span>
+        <span class="p">{</span>
+            <span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;Signup&#39;</span><span class="p">,</span> <span class="p">[</span>
+                <span class="s1">&#39;validation&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span>
+            <span class="p">]);</span>
         <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;Success&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -520,10 +521,13 @@ this code and save it to your <strong>app/Controllers/</strong> folder:</p>
 </div>
 <p>If you submit the form you should simply see the form reload. That’s
 because you haven’t set up any validation rules yet.</p>
-<p><strong>Since you haven’t told the Validation class to validate anything
-yet, it returns false (boolean false) by default. The</strong> <code class="docutils literal notranslate"><span class="pre">validate()</span></code> <strong>method
-only returns true if it has successfully applied your rules without any
-of them failing.</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">Since you haven’t told the <strong>Validation class</strong> to validate anything
+yet, it <strong>returns false</strong> (boolean false) <strong>by default</strong>. The <code class="docutils literal notranslate"><span class="pre">validate()</span></code>
+method only returns true if it has successfully applied your rules without
+any of them failing.</p>
+</div>
 </div>
 <div class="section" id="explanation">
 <h3><a class="toc-backref" href="#id8">Explanation</a><a class="headerlink" href="#explanation" title="永久链接至标题">¶</a></h3>
@@ -649,6 +653,20 @@ easily validate your data:</p>
 <span class="p">]);</span>
 </pre></div>
 </div>
+<p>“dot array syntax” can also be useful when you have single dimension array data.
+For example, data returned by multi select dropdown:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// The data to test:</span>
+<span class="s1">&#39;user_ids&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+    <span class="mi">3</span>
+<span class="p">]</span>
+<span class="c1">// Rule</span>
+<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;user_ids.*&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span>
+<span class="p">]);</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="validate-1-value">
 <h3><a class="toc-backref" href="#id13">Validate 1 Value</a><a class="headerlink" href="#validate-1-value" title="永久链接至标题">¶</a></h3>
@@ -711,19 +729,17 @@ be used for any errors when this group is used:</p>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span>
             <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
             <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;You must choose a {field}.&#39;</span>
+                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;You must choose a Username.&#39;</span>
             <span class="p">]</span>
         <span class="p">],</span>
-        <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email&#39;</span>
-    <span class="p">];</span>
-
-    <span class="k">public</span> <span class="nv">$signup_errors</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;valid_email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Please check the Email field. It does not appear to be valid.&#39;</span>
-        <span class="p">]</span>
+        <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;valid_email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Please check the Email field. It does not appear to be valid.&#39;</span>
+            <span class="p">]</span>
+        <span class="p">],</span>
     <span class="p">];</span>
 <span class="p">}</span>
 </pre></div>
@@ -766,15 +782,44 @@ you previously set, so <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 </div>
+<div class="section" id="validation-placeholders">
+<h3><a class="toc-backref" href="#id16">Validation Placeholders</a><a class="headerlink" href="#validation-placeholders" title="永久链接至标题">¶</a></h3>
+<p>The Validation class provides a simple method to replace parts of your rules based on data that’s being passed into it. This
+sounds fairly obscure but can be especially handy with the <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> validation rule. Placeholders are simply
+the name of the field (or array key) that was passed in as $data surrounded by curly brackets. It will be
+replaced by the <strong>value</strong> of the matched incoming field. An example should clarify this:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email,id,{id}]&#39;</span>
+<span class="p">]);</span>
+</pre></div>
+</div>
+<p>In this set of rules, it states that the email address should be unique in the database, except for the row
+that has an id matching the placeholder’s value. Assuming that the form POST data had the following:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$_POST</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo@example.com&#39;</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>then the <code class="docutils literal notranslate"><span class="pre">{id}</span></code> placeholder would be replaced with the number <strong>4</strong>, giving this revised rule:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email,id,4]&#39;</span>
+<span class="p">]);</span>
+</pre></div>
+</div>
+<p>So it will ignore the row in the database that has <code class="docutils literal notranslate"><span class="pre">id=4</span></code> when it verifies the email is unique.</p>
+<p>This can also be used to create more dynamic rules at runtime, as long as you take care that any dynamic
+keys passed in don’t conflict with your form data.</p>
+</div>
 </div>
 <div class="section" id="working-with-errors">
-<h2><a class="toc-backref" href="#id16">Working With Errors</a><a class="headerlink" href="#working-with-errors" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">Working With Errors</a><a class="headerlink" href="#working-with-errors" title="永久链接至标题">¶</a></h2>
 <p>The Validation library provides several methods to help you set error messages, provide
 custom error messages, and retrieve one or more errors to display.</p>
 <p>By default, error messages are derived from language strings in <code class="docutils literal notranslate"><span class="pre">system/Language/en/Validation.php</span></code>, where
 each rule has an entry.</p>
 <div class="section" id="setting-custom-error-messages">
-<span id="validation-custom-errors"></span><h3><a class="toc-backref" href="#id17">Setting Custom Error Messages</a><a class="headerlink" href="#setting-custom-error-messages" title="永久链接至标题">¶</a></h3>
+<span id="validation-custom-errors"></span><h3><a class="toc-backref" href="#id18">Setting Custom Error Messages</a><a class="headerlink" href="#setting-custom-error-messages" title="永久链接至标题">¶</a></h3>
 <p>Both the <code class="docutils literal notranslate"><span class="pre">setRule()</span></code> and <code class="docutils literal notranslate"><span class="pre">setRules()</span></code> methods can accept an array of custom messages
 that will be used as errors specific to each field as their last parameter. This allows
 for a very pleasant experience for the user since the errors are tailored to each
@@ -828,8 +873,33 @@ at least 6 characters.”</p>
 <p class="last">If you pass the last parameter the labeled style error messages will be ignored.</p>
 </div>
 </div>
+<div class="section" id="translation-of-messages-and-validation-labels">
+<h3><a class="toc-backref" href="#id19">Translation Of Messages And Validation Labels</a><a class="headerlink" href="#translation-of-messages-and-validation-labels" title="永久链接至标题">¶</a></h3>
+<p>To use translated strings from language files, we can simply use the dot syntax.
+Let’s say we have a file with translations located here: <code class="docutils literal notranslate"><span class="pre">app/Languages/en/Rules.php</span></code>.
+We can simply use the language lines defined in this file, like this:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Rules.username&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|is_unique[users.username]&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Rules.username.required&#39;</span>
+            <span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Rules.password&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;min_length&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Rules.password.min_length&#39;</span>
+            <span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="getting-all-errors">
-<h3><a class="toc-backref" href="#id18">Getting All Errors</a><a class="headerlink" href="#getting-all-errors" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">Getting All Errors</a><a class="headerlink" href="#getting-all-errors" title="永久链接至标题">¶</a></h3>
 <p>If you need to retrieve all error messages for failed fields, you can use the <code class="docutils literal notranslate"><span class="pre">getErrors()</span></code> method:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$errors</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">();</span>
 
@@ -843,7 +913,7 @@ at least 6 characters.”</p>
 <p>If no errors exist, an empty array will be returned.</p>
 </div>
 <div class="section" id="getting-a-single-error">
-<h3><a class="toc-backref" href="#id19">Getting a Single Error</a><a class="headerlink" href="#getting-a-single-error" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">Getting a Single Error</a><a class="headerlink" href="#getting-a-single-error" title="永久链接至标题">¶</a></h3>
 <p>You can retrieve the error for a single field with the <code class="docutils literal notranslate"><span class="pre">getError()</span></code> method. The only parameter is the field
 name:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$error</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
@@ -852,7 +922,7 @@ name:</p>
 <p>If no error exists, an empty string will be returned.</p>
 </div>
 <div class="section" id="check-if-error-exists">
-<h3><a class="toc-backref" href="#id20">Check If Error Exists</a><a class="headerlink" href="#check-if-error-exists" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">Check If Error Exists</a><a class="headerlink" href="#check-if-error-exists" title="永久链接至标题">¶</a></h3>
 <p>You can check to see if an error exists with the <code class="docutils literal notranslate"><span class="pre">hasError()</span></code> method. The only parameter is the field name:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">hasError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">))</span>
 <span class="p">{</span>
@@ -863,12 +933,12 @@ name:</p>
 </div>
 </div>
 <div class="section" id="customizing-error-display">
-<h2><a class="toc-backref" href="#id21">Customizing Error Display</a><a class="headerlink" href="#customizing-error-display" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id23">Customizing Error Display</a><a class="headerlink" href="#customizing-error-display" title="永久链接至标题">¶</a></h2>
 <p>When you call <code class="docutils literal notranslate"><span class="pre">$validation-&gt;listErrors()</span></code> or <code class="docutils literal notranslate"><span class="pre">$validation-&gt;showError()</span></code>, it loads a view file in the background
 that determines how the errors are displayed. By default, they display with a class of <code class="docutils literal notranslate"><span class="pre">errors</span></code> on the wrapping div.
 You can easily create new views and use them throughout your application.</p>
 <div class="section" id="creating-the-views">
-<h3><a class="toc-backref" href="#id22">Creating the Views</a><a class="headerlink" href="#creating-the-views" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">Creating the Views</a><a class="headerlink" href="#creating-the-views" title="永久链接至标题">¶</a></h3>
 <p>The first step is to create custom views. These can be placed anywhere that the <code class="docutils literal notranslate"><span class="pre">view()</span></code> method can locate them,
 which means the standard View directory, or any namespaced View folder will work. For example, you could create
 a new view at <strong>/app/Views/_errors_list.php</strong>:</p>
@@ -897,7 +967,7 @@ error message. This is used with the <code class="docutils literal notranslate">
 </div>
 </div>
 <div class="section" id="configuration">
-<h3><a class="toc-backref" href="#id23">Configuration</a><a class="headerlink" href="#configuration" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">Configuration</a><a class="headerlink" href="#configuration" title="永久链接至标题">¶</a></h3>
 <p>Once you have your views created, you need to let the Validation library know about them. Open <code class="docutils literal notranslate"><span class="pre">Config/Validation.php</span></code>.
 Inside, you’ll find the <code class="docutils literal notranslate"><span class="pre">$templates</span></code> property where you can list as many custom views as you want, and provide an
 short alias they can be referenced by. If we were to add our example file from above, it would look something like:</p>
@@ -910,7 +980,7 @@ short alias they can be referenced by. If we were to add our example file from a
 </div>
 </div>
 <div class="section" id="specifying-the-template">
-<h3><a class="toc-backref" href="#id24">Specifying the Template</a><a class="headerlink" href="#specifying-the-template" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">Specifying the Template</a><a class="headerlink" href="#specifying-the-template" title="永久链接至标题">¶</a></h3>
 <p>You can specify the template to use by passing it’s alias as the first parameter in <code class="docutils literal notranslate"><span class="pre">listErrors</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">(</span><span class="s1">&#39;my_list&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
@@ -923,15 +993,15 @@ right after the name of the field the error should belong to:</p>
 </div>
 </div>
 <div class="section" id="creating-custom-rules">
-<h2><a class="toc-backref" href="#id25">Creating Custom Rules</a><a class="headerlink" href="#creating-custom-rules" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id27">Creating Custom Rules</a><a class="headerlink" href="#creating-custom-rules" title="永久链接至标题">¶</a></h2>
 <p>Rules are stored within simple, namespaced classes. They can be stored any location you would like, as long as the
 autoloader can find it. These files are called RuleSets. To add a new RuleSet, edit <strong>Config/Validation.php</strong> and
 add the new file to the <code class="docutils literal notranslate"><span class="pre">$ruleSets</span></code> array:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$ruleSets</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="nx">\CodeIgniter\Validation\Rules</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-            <span class="nx">\CodeIgniter\Validation\FileRules</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-            <span class="nx">\CodeIgniter\Validation\CreditCardRules</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-    <span class="p">];</span>
+    <span class="nx">\CodeIgniter\Validation\Rules</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+    <span class="nx">\CodeIgniter\Validation\FileRules</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+    <span class="nx">\CodeIgniter\Validation\CreditCardRules</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+<span class="p">];</span>
 </pre></div>
 </div>
 <p>You can add it as either a simple string with the fully qualified class name, or using the <code class="docutils literal notranslate"><span class="pre">::class</span></code> suffix as
@@ -969,44 +1039,44 @@ second parameter:</p>
 </pre></div>
 </div>
 <div class="section" id="allowing-parameters">
-<h3><a class="toc-backref" href="#id26">Allowing Parameters</a><a class="headerlink" href="#allowing-parameters" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">Allowing Parameters</a><a class="headerlink" href="#allowing-parameters" title="永久链接至标题">¶</a></h3>
 <p>If your method needs to work with parameters, the function will need a minimum of three parameters: the string to validate,
 the parameter string, and an array with all of the data that was submitted the form. The $data array is especially handy
 for rules like <code class="docutils literal notranslate"><span class="pre">require_with</span></code> that needs to check the value of another submitted field to base its result on:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">required_with</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$fields</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 <span class="p">{</span>
-        <span class="nv">$fields</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">);</span>
+    <span class="nv">$fields</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">);</span>
 
-        <span class="c1">// If the field is present we can safely assume that</span>
-        <span class="c1">// the field is here, no matter whether the corresponding</span>
-        <span class="c1">// search field is present or not.</span>
-        <span class="nv">$present</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">(</span><span class="nv">$str</span> <span class="o">??</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="c1">// If the field is present we can safely assume that</span>
+    <span class="c1">// the field is here, no matter whether the corresponding</span>
+    <span class="c1">// search field is present or not.</span>
+    <span class="nv">$present</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">required</span><span class="p">(</span><span class="nv">$str</span> <span class="o">??</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$present</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$present</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Still here? Then we fail this test if</span>
+    <span class="c1">// any of the fields are present in $data</span>
+    <span class="c1">// as $fields is the lis</span>
+    <span class="nv">$requiredFields</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$fields</span> <span class="k">as</span> <span class="nv">$field</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">array_key_exists</span><span class="p">(</span><span class="nv">$field</span><span class="p">,</span> <span class="nv">$data</span><span class="p">))</span>
         <span class="p">{</span>
-                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+            <span class="nv">$requiredFields</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$field</span><span class="p">;</span>
         <span class="p">}</span>
+    <span class="p">}</span>
 
-        <span class="c1">// Still here? Then we fail this test if</span>
-        <span class="c1">// any of the fields are present in $data</span>
-        <span class="c1">// as $fields is the lis</span>
-        <span class="nv">$requiredFields</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="c1">// Remove any keys with empty values since, that means they</span>
+    <span class="c1">// weren&#39;t truly there, as far as this is concerned.</span>
+    <span class="nv">$requiredFields</span> <span class="o">=</span> <span class="nb">array_filter</span><span class="p">(</span><span class="nv">$requiredFields</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$item</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="nv">$item</span><span class="p">]);</span>
+    <span class="p">});</span>
 
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$fields</span> <span class="k">as</span> <span class="nv">$field</span><span class="p">)</span>
-        <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nb">array_key_exists</span><span class="p">(</span><span class="nv">$field</span><span class="p">,</span> <span class="nv">$data</span><span class="p">))</span>
-                <span class="p">{</span>
-                        <span class="nv">$requiredFields</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$field</span><span class="p">;</span>
-                <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="c1">// Remove any keys with empty values since, that means they</span>
-        <span class="c1">// weren&#39;t truly there, as far as this is concerned.</span>
-        <span class="nv">$requiredFields</span> <span class="o">=</span> <span class="nb">array_filter</span><span class="p">(</span><span class="nv">$requiredFields</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$item</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="nv">$item</span><span class="p">]);</span>
-        <span class="p">});</span>
-
-        <span class="k">return</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$requiredFields</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$requiredFields</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1014,18 +1084,23 @@ for rules like <code class="docutils literal notranslate"><span class="pre">requ
 </div>
 </div>
 <div class="section" id="available-rules">
-<h2><a class="toc-backref" href="#id27">Available Rules</a><a class="headerlink" href="#available-rules" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id29">Available Rules</a><a class="headerlink" href="#available-rules" title="永久链接至标题">¶</a></h2>
 <p>The following is a list of all the native rules that are available to use:</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">Rule is a string; there must be no spaces between the parameters, especially the “is_unique” rule.
-There can be no spaces before and after “ignore_value”.</p>
+<p class="last">Rule is a string; there must be <strong>no spaces</strong> between the parameters, especially the <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> rule.
+There can be no spaces before and after <code class="docutils literal notranslate"><span class="pre">ignore_value</span></code>.</p>
 </div>
-<ul class="simple">
-<li>“is_unique[supplier.name,uuid, $uuid]”   is not ok</li>
-<li>“is_unique[supplier.name,uuid,$uuid ]”   is not ok</li>
-<li>“is_unique[supplier.name,uuid,$uuid]”    is ok</li>
-</ul>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// is_unique[table.field,ignore_field,ignore_value]</span>
+
+<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;is_unique[supplier.name,uuid, </span><span class="si">$uuid</span><span class="s2">]&quot;</span><span class="p">,</span>  <span class="c1">// is not ok</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;is_unique[supplier.name,uuid,</span><span class="si">$uuid</span><span class="s2"> ]&quot;</span><span class="p">,</span>  <span class="c1">// is not ok</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;is_unique[supplier.name,uuid,</span><span class="si">$uuid</span><span class="s2">]&quot;</span><span class="p">,</span>   <span class="c1">// is ok</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;is_unique[supplier.name,uuid,{uuid}]&quot;</span><span class="p">,</span>  <span class="c1">// is ok - see &quot;Validation Placeholders&quot;</span>
+<span class="p">]);</span>
+</pre></div>
+</div>
 <table border="1" class="docutils">
 <colgroup>
 <col width="13%" />
@@ -1260,7 +1335,7 @@ HSBC Canada Card (hsbc)</td>
 </tbody>
 </table>
 <div class="section" id="rules-for-file-uploads">
-<h3><a class="toc-backref" href="#id28">Rules for File Uploads</a><a class="headerlink" href="#rules-for-file-uploads" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">Rules for File Uploads</a><a class="headerlink" href="#rules-for-file-uploads" title="永久链接至标题">¶</a></h3>
 <p>These validation rules enable you to do the basic checks you might need to verify that uploaded files meet your business needs.
 Since the value of a file upload HTML field doesn’t exist, and is stored in the $_FILES global, the name of the input field will
 need to be used twice. Once to specify the field name as you would for any other rule, but again as the first parameter of all
