@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>事件 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>事件 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="Extending the Controller" href="basecontroller.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">扩展 CodeIgniter</a> &raquo;</li>
         
@@ -349,14 +351,14 @@
 <h2>定义事件<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>大多数的事件都定义在 <strong>app/Config/Events.php</strong> 文件中。不过你也可以通过 Events 类的 <code class="docutils literal notranslate"><span class="pre">on()</span></code> 方法定义事件。第一个参数是事件
 名称，第二个参数是当触发该事件时执行的操作:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
 
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;pre_system&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;MyClass&#39;</span><span class="p">,</span> <span class="s1">&#39;MyFunction&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p>在这个例子中，任何时候触发 <strong>pre_controller</strong> 事件，都会创建 <code class="docutils literal notranslate"><span class="pre">MyClass</span></code> 实例并运行 <code class="docutils literal notranslate"><span class="pre">MyFunction</span></code> 方法。</p>
 <p>第二个参数可以是 PHP 能识别的任何 <a class="reference external" href="https://www.php.net/manual/en/function.is-callable.php">可调用结构</a>:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 调用 some_function 方法</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 调用 some_function 方法</span>
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;pre_system&#39;</span><span class="p">,</span> <span class="s1">&#39;some_function&#39;</span><span class="p">);</span>
 
 <span class="c1">// 调用实例方法</span>
@@ -377,7 +379,7 @@
 <h3>设置执行优先顺序<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>由于可以将多个方法订阅到一个事件中，因此需要一种方式来定义这些方法的调用顺序。你可以通过传递优先级作为 <code class="docutils literal notranslate"><span class="pre">on()</span></code> 方法的第三个参数来实现。
 事件系统将优先执行优先级较低的值，优先级最高的值为 1:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;post_controller_constructor&#39;</span><span class="p">,</span> <span class="s1">&#39;some_function&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;post_controller_constructor&#39;</span><span class="p">,</span> <span class="s1">&#39;some_function&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>如果出现相同优先级的情况，那么事件系统将按定义的顺序执行。</p>
@@ -386,7 +388,7 @@
 <p class="last">可以理解为事件系统会根据事件名称分组排序，按第三个参数升序排列，然后依次执行。</p>
 </div>
 <p>Codeigniter 内置了三个常量供您使用，仅供参考。你也可以不使用它，但你会发现他们有助于提高可读性:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nb">define</span><span class="p">(</span><span class="s1">&#39;EVENT_PRIORITY_LOW&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nb">define</span><span class="p">(</span><span class="s1">&#39;EVENT_PRIORITY_LOW&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;EVENT_PRIORITY_NORMAL&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;EVENT_PRIORITY_HIGH&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 </pre></div>
@@ -397,11 +399,11 @@
 <div class="section" id="id6">
 <h2>发布自定义的事件<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>使用事件系统，你可以轻松创建自己的事件。要使用此功能，只需要调用 <strong>Events</strong> 类的 <code class="docutils literal notranslate"><span class="pre">trigger()</span></code> 方法即可:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">\CodeIgniter\Events\Events</span><span class="o">::</span><span class="na">trigger</span><span class="p">(</span><span class="s1">&#39;some_event&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">\CodeIgniter\Events\Events</span><span class="o">::</span><span class="na">trigger</span><span class="p">(</span><span class="s1">&#39;some_event&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>当然，你也可以为订阅者传递任意数量的参数，订阅者将会按相同的顺序接收参数:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">\CodeIgniter\Events\Events</span><span class="o">::</span><span class="na">trigger</span><span class="p">(</span><span class="s1">&#39;some_events&#39;</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">\CodeIgniter\Events\Events</span><span class="o">::</span><span class="na">trigger</span><span class="p">(</span><span class="s1">&#39;some_events&#39;</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">);</span>
 
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;some_event&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$foo</span><span class="p">,</span> <span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">)</span> <span class="p">{</span>
         <span class="o">...</span>
@@ -413,11 +415,11 @@
 <h2>模拟事件<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>在测试期间，你可能不希望事件被真正的触发，因为每天发送数百封电子邮件记缓慢又适得其反。你可以告诉 Events 类使用 <code class="docutils literal notranslate"><span class="pre">simulate()</span></code> 方法
 模拟运行事件。如果为 <strong>true</strong>，那么将跳过所有事件，不过其他的内容都会正常运行:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">Events</span><span class="o">::</span><span class="na">simulate</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">Events</span><span class="o">::</span><span class="na">simulate</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>你也可以传递 <strong>false</strong> 停止模拟:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">Events</span><span class="o">::</span><span class="na">simulate</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">Events</span><span class="o">::</span><span class="na">simulate</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -440,10 +442,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="basecontroller.html" class="btn btn-neutral float-right" title="Extending the Controller" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="basecontroller.html" class="btn btn-neutral float-right" title="Extending the Controller" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="common.html" class="btn btn-neutral float-left" title="替换通用函数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="common.html" class="btn btn-neutral float-left" title="替换通用函数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -452,15 +454,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -468,10 +477,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -482,7 +491,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

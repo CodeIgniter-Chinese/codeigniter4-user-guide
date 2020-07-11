@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>处理多环境 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>处理多环境 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="控制器和路由" href="../incoming/index.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">常规主题</a> &raquo;</li>
         
@@ -343,21 +345,21 @@
 <div class="section" id="env">
 <h3>.env<a class="headerlink" href="#env" title="永久链接至标题">¶</a></h3>
 <p>最简单的方式是在你的 <a class="reference external" href="/general/configuration">.env</a> 配置文件里设置:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">CI_ENVIRONMENT</span> <span class="o">=</span> <span class="nx">development</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CI_ENVIRONMENT</span> <span class="o">=</span> <span class="nx">development</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apache">
 <h3>Apache<a class="headerlink" href="#apache" title="永久链接至标题">¶</a></h3>
 <p>如果要获取 $_SERVER[‘CI_ENVIRONMENT’] 的值可以在 .htaccess 的文件里，或者可以在Apache的配置文件里使用 <a class="reference external" href="https://httpd.apache.org/docs/2.2/mod/mod_env.html#setenv">SetEnv</a> 命令进行设置</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">SetEnv</span> <span class="nx">CI_ENVIRONMENT</span> <span class="nx">development</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">SetEnv</span> <span class="nx">CI_ENVIRONMENT</span> <span class="nx">development</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="nginx">
 <h3>nginx<a class="headerlink" href="#nginx" title="永久链接至标题">¶</a></h3>
 <p>在 nginx 下，为了能够在 $_SERVER 里显示环境变量的值你必须通过 fastcgi_params 来传递。这样允许它在虚拟主机上工作来替代使用 env 去为整个服务器设置它，即使在专用服务器上运行良好。你可以修改该服务器的配置为:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">server</span> <span class="p">{</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">server</span> <span class="p">{</span>
     <span class="nx">server_name</span> <span class="nx">localhost</span><span class="p">;</span>
     <span class="k">include</span>     <span class="nx">conf</span><span class="o">/</span><span class="nx">defaults</span><span class="o">.</span><span class="nx">conf</span><span class="p">;</span>
     <span class="nx">root</span>        <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nx">www</span><span class="p">;</span>
@@ -375,7 +377,7 @@
 <div class="section" id="id4">
 <h3>引导文件<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>CodeIgnite 要求在 <strong>APPPATH/Config/Boot</strong> 下放置一个与环境名称匹配的 PHP 脚本文件。这些文件包含你想为你的环境所做的符合要求的任何定制，无论是更新对错误显示的设置，还是加载附加开发工具，或者是添加其他东西。系统会自动加载这些文件。在新的版本中为你创建好了以下文件:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="nx">development</span><span class="o">.</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="nx">development</span><span class="o">.</span><span class="nx">php</span>
 <span class="o">*</span> <span class="nx">production</span><span class="o">.</span><span class="nx">php</span>
 <span class="o">*</span> <span class="nx">testing</span><span class="o">.</span><span class="nx">php</span>
 </pre></div>
@@ -405,10 +407,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../incoming/index.html" class="btn btn-neutral float-right" title="控制器和路由" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../incoming/index.html" class="btn btn-neutral float-right" title="控制器和路由" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="managing_apps.html" class="btn btn-neutral float-left" title="管理多个应用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="managing_apps.html" class="btn btn-neutral float-left" title="管理多个应用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -417,15 +419,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -433,10 +442,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -447,7 +456,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

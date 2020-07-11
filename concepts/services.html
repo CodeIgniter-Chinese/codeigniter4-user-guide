@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>服务 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>服务 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="处理 HTTP 请求" href="http.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">CodeIgniter4 概览</a> &raquo;</li>
         
@@ -355,7 +357,7 @@
 <p>在CodeIgniter内部的所有类实际上都是以”服务”的形式呈现的。这意味着，所有的类都是以定义在一个简单的配置文件里，而非硬编码所需要加载的类名，来进行加载的。
 该配置文件实际上扮演了一种为所需类创建新的实例的工厂的角色。</p>
 <p>一个简单的例子可能会讲得更清楚，比如请设想你需要获得一个 Timer （计时器）类的实例，最简单的方法就是为该类创建一个新的实例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$timer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Debug\Timer</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$timer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Debug\Timer</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>这种方式运行得相当不错，直到你决定需要在该位置上使用另一个计时器类时。可能这个类比起默认的计时器类提供了更高级的报告方法。
@@ -363,7 +365,7 @@
 这种查找-替换的工作可能会变得相当的耗时并且错误频发。这就是服务的用武之地。</p>
 <p>取代了手动创建实例的操作，我们保留了一个中央控制类来为我们新建实例。该类的结构相当简单，仅仅包含了一个方法用于调度我们需要用作服务的每个类。
 该方法只是返回了指定类的一个共享实例，用于所有依赖该类的地方以服务的形式来调用。从而我们可以用以下代码来取代每次都新建一个实例的方式:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$timer</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">timer</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$timer</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">timer</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>当你想要更改这一实现时，只需要更改服务的配置文件，从而在应用中就可以自动地进行变更替换，不需要任何其他操作。
@@ -377,15 +379,15 @@
 <p>有两个方法被用于获取一个服务，这些方法都非常的方便。</p>
 <p>第一个就是 <code class="docutils literal notranslate"><span class="pre">service()</span></code> 方法，该方法返回了指定服务的新的实例。唯一需要的参数就是服务名。
 该方法与服务文件内部返回共享实例的方式是一样的，因此对该方法的多次调用总是会返回一个相同的实例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$logger</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$logger</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>如果创建的方法需要额外的参数，那么这些参数就应该在服务名后传递:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$renderer</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;renderer&#39;</span><span class="p">,</span> <span class="nx">APPPATH</span><span class="o">.</span><span class="s1">&#39;views/&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$renderer</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;renderer&#39;</span><span class="p">,</span> <span class="nx">APPPATH</span><span class="o">.</span><span class="s1">&#39;views/&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>第二个方法 <code class="docutils literal notranslate"><span class="pre">single_service()</span></code> ，和 <code class="docutils literal notranslate"><span class="pre">service()</span></code> 一样调用，不过每次都会返回一个指定类的新的实例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$logger</span> <span class="o">=</span> <span class="nx">single_service</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$logger</span> <span class="o">=</span> <span class="nx">single_service</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -395,14 +397,14 @@
 <p>为了保证服务的正常运行，你需要能够对每个拥有常量API，或者实现了 <a class="reference external" href="https://www.php.net/manual/en/language.oop5.interfaces.php">接口</a> 的类建立依赖。
 CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。当你需要扩展或者替代核心类时，你只需要确保自己符合这些接口的要求并且确定这些类的功能是完善的。</p>
 <p>举例来说， <code class="docutils literal notranslate"><span class="pre">RouterCollection</span></code> 类实现了 <code class="docutils literal notranslate"><span class="pre">RouterCollectionInterface</span></code> 接口。当你想要替代该类，并实现不同的路由管理方法时，只需要创建一个实现了 <code class="docutils literal notranslate"><span class="pre">RouterCollectionInterface</span></code> 接口的类即可:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyRouter</span> <span class="k">implements</span> <span class="nx">\CodeIgniter\Router\RouteCollectionInterface</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyRouter</span> <span class="k">implements</span> <span class="nx">\CodeIgniter\Router\RouteCollectionInterface</span>
 <span class="p">{</span>
         <span class="c1">// Implement required methods here.</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>最后，修改 <strong>/app/Config/Services.php</strong> 以创建 <code class="docutils literal notranslate"><span class="pre">MyRouter</span></code> 类的实例，来替代 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Router\RouterCollection</span></code></p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">routes</span><span class="p">()</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">routes</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nx">\App\Router\MyRouter</span><span class="p">();</span>
 <span class="p">}</span>
@@ -414,14 +416,14 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
 由于服务文件只是简单的类文件，如上操作非常方便。</p>
 <p><code class="docutils literal notranslate"><span class="pre">renderer</span></code> 服务就是一个不错的例子。默认情况下，我们需要该类能够找到 <code class="docutils literal notranslate"><span class="pre">APPPATH.views/</span></code> 目录下的视图文件。我们同时也想为开发者提供改变路径的选项（如果他们需要的话）。
 因此该类接受 <code class="docutils literal notranslate"><span class="pre">$viewPath</span></code> 变量作为构造函数的参数。该服务的调用方法可能如下所示:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">renderer</span><span class="p">(</span><span class="nv">$viewPath</span><span class="o">=</span><span class="nx">APPPATH</span><span class="o">.</span><span class="s1">&#39;views/&#39;</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">renderer</span><span class="p">(</span><span class="nv">$viewPath</span><span class="o">=</span><span class="nx">APPPATH</span><span class="o">.</span><span class="s1">&#39;views/&#39;</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nx">\CodeIgniter\View\View</span><span class="p">(</span><span class="nv">$viewPath</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>这一过程在构造函数方法里设置了默认路径，同时也可以轻松地改变其所使用的路径:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$renderer</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">renderer</span><span class="p">(</span><span class="s1">&#39;/shared/views&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$renderer</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">renderer</span><span class="p">(</span><span class="s1">&#39;/shared/views&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -429,7 +431,7 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
 <h3><a class="toc-backref" href="#id14">共享类</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>某些情况下你可能只需要创建一个类的单实例。该操作可以通过工厂方法内部调用的 <code class="docutils literal notranslate"><span class="pre">getSharedInstance()</span></code> 方法来轻松地处理。
 该方法检查了该类是否已创建了存储于内部的单个实例，如果没有的话，就会创建一个新的。所有的工厂方法都会提供一个 <code class="docutils literal notranslate"><span class="pre">$getShared</span> <span class="pre">=</span> <span class="pre">true</span></code> 的值作为最后的参数。你可以像这样操作该方法:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Services</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Services</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">routes</span><span class="p">(</span><span class="nv">$getShared</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
     <span class="p">{</span>
@@ -456,7 +458,7 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
 <p>一个小例子可以帮助我们更好地理解。</p>
 <p>假设你创建了一个新的目录，比如在根目录下的一个叫做 <code class="docutils literal notranslate"><span class="pre">Blog</span></code> 的目录。该目录中里有一个 <strong>博客模块</strong> ，并含有控制器，模型等文件。
 如果你愿意的话也可以将某些类作为服务而使用。第一步就是创建一个新的文件: <code class="docutils literal notranslate"><span class="pre">Blog\Config\Services.php</span></code> ，该文件结构应当如下所示:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">Blog\Config</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">Blog\Config</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Config\BaseService</span><span class="p">;</span>
 
@@ -470,7 +472,7 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
 </pre></div>
 </div>
 <p>现在你可以使用如上描述的文件。每当你想要调用其他控制器的 posts 服务时，就可以简单地使用该框架的 <code class="docutils literal notranslate"><span class="pre">Config\Services</span></code> 类来获取你所需要的服务:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$postManager</span> <span class="o">=</span> <span class="nx">Config\Services</span><span class="o">::</span><span class="na">postManager</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$postManager</span> <span class="o">=</span> <span class="nx">Config\Services</span><span class="o">::</span><span class="na">postManager</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -489,10 +491,10 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="http.html" class="btn btn-neutral float-right" title="处理 HTTP 请求" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="http.html" class="btn btn-neutral float-right" title="处理 HTTP 请求" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="autoloader.html" class="btn btn-neutral float-left" title="自动加载文件" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="autoloader.html" class="btn btn-neutral float-left" title="自动加载文件" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -501,15 +503,22 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -517,10 +526,10 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -531,7 +540,6 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

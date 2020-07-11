@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>视图渲染器 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>视图渲染器 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="视图布局" href="view_layouts.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">构建响应</a> &raquo;</li>
         
@@ -352,11 +354,11 @@
 <h2><a class="toc-backref" href="#id10">使用视图渲染器</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">view()</span></code> 方法是一种便捷功能，可以获取 <code class="docutils literal notranslate"><span class="pre">renderer</span></code> 服务实例，然后可以设置数据并显示视图。
 这种方式是我们常用的方式，但有时候我们需要一种更为直接的使用方式；在这种情况下你可以直接以视图服务的形式调用它:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">renderer</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">renderer</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>如果不使用 <code class="docutils literal notranslate"><span class="pre">View</span></code> 类作为默认渲染器，则可以直接实例化它:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\View\View</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\View\View</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -377,7 +379,7 @@
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id12">链式调用方法</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p><cite>setVar()</cite> 和 <cite>setData()</cite> 方法支持链式调用，允许将多个不同的调用组合到一个方法链中使用:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="nv">$one</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="nv">$one</span><span class="p">)</span>
      <span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="nv">$two</span><span class="p">)</span>
      <span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;myView&#39;</span><span class="p">);</span>
 </pre></div>
@@ -388,12 +390,12 @@
 <p>当你将数据传递给 <code class="docutils literal notranslate"><span class="pre">setVar()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setData()</span></code> 方法时，可以选择转义数据以防止跨站点脚本攻击。作为这两种方法中的最后一个参数，你
 可以传递所需的上下文，以选择是否对数据进行转义。</p>
 <p>如果你不想对数据进行转义，你可以向每个方法的最后一个参数传递 <cite>null</cite> 或 <cite>raw</cite>，这样将不会对数据进行转义:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="nv">$one</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="nv">$one</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>如果选择不转义数据，或者要传递对象实例，则可以使用 <code class="docutils literal notranslate"><span class="pre">esc()</span></code> 辅助方法在视图中手动转义数据。第一个参数是要转义的字符串，第二个参数是
 用于转义数据的上下文（请参见下文）:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">\esc</span><span class="p">(</span><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getStat</span><span class="p">())</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">\esc</span><span class="p">(</span><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getStat</span><span class="p">())</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -404,7 +406,7 @@
 <h4>转义上下文<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
 <p>默认情况下，<code class="docutils literal notranslate"><span class="pre">esc()</span></code> 方法认为要转义的数据会在 HTML 中使用。如果数据打算用于 Javascript、CSS 或 href 属性时，需要不同的转义规则才
 能生效。你可以传入转义类型名称作为第二个参数，选择合适的规则。规则支持 ‘html’, ‘js’, ‘css’, ‘url’ 和 ‘attr’:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;&lt;?= esc(</span><span class="si">$url</span><span class="s2">, &#39;url&#39;) ?&gt;&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">foo</span><span class="o">=</span><span class="s2">&quot;&lt;?= esc(</span><span class="si">$bar</span><span class="s2">, &#39;attr&#39;) ?&gt;&quot;</span><span class="o">&gt;</span><span class="nx">Some</span> <span class="nx">Link</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;&lt;?= esc(</span><span class="si">$url</span><span class="s2">, &#39;url&#39;) ?&gt;&quot;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">foo</span><span class="o">=</span><span class="s2">&quot;&lt;?= esc(</span><span class="si">$bar</span><span class="s2">, &#39;attr&#39;) ?&gt;&quot;</span><span class="o">&gt;</span><span class="nx">Some</span> <span class="nx">Link</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
 
 <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
         <span class="k">var</span> <span class="nx">siteName</span> <span class="o">=</span> <span class="s1">&#39;&lt;?= esc($siteName, &#39;</span><span class="nx">js</span><span class="s1">&#39;) ?&gt;&#39;</span><span class="p">;</span>
@@ -457,7 +459,7 @@
 </tbody>
 </table>
 <p>根据传入的文件名和预先设置的数据来渲染输出:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;myview&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;myview&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -485,7 +487,7 @@
 </tbody>
 </table>
 <p>根据给定的视图分块和预先设置的数据来渲染输出:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">renderString</span><span class="p">(</span><span class="s1">&#39;&lt;div&gt;My Sharona&lt;/div&gt;&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">renderString</span><span class="p">(</span><span class="s1">&#39;&lt;div&gt;My Sharona&lt;/div&gt;&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>该方法可以用于输出一些例如数据库中存储的内容。但是你需要意识到这一操作可能是有安全风险的，并且**必须**对这些数据进行验证以及尽可能进行转义！</p>
@@ -513,7 +515,7 @@
 </tbody>
 </table>
 <p>同时设置多组视图数据:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;George&#39;</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;Boss&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;George&#39;</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;Boss&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -543,7 +545,7 @@
 </tbody>
 </table>
 <p>设置单个数据变量:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;Joe&#39;</span><span class="p">,</span><span class="s1">&#39;html&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$view</span><span class="o">-&gt;</span><span class="na">setVar</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;Joe&#39;</span><span class="p">,</span><span class="s1">&#39;html&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>支持以下的上下文: html, css, js, url, or attr or raw, 如果是 ‘raw’ 的话，就不进行转义</p>
@@ -563,10 +565,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="view_layouts.html" class="btn btn-neutral float-right" title="视图布局" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="view_layouts.html" class="btn btn-neutral float-right" title="视图布局" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="view_cells.html" class="btn btn-neutral float-left" title="子视图" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="view_cells.html" class="btn btn-neutral float-left" title="子视图" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -575,15 +577,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -591,10 +600,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -605,7 +614,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

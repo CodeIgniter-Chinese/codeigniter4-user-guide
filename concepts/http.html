@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>处理 HTTP 请求 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>处理 HTTP 请求 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="安全指南" href="security.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">CodeIgniter4 概览</a> &raquo;</li>
         
@@ -349,7 +351,7 @@
 <h3>HTTP 请求<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
 <p>当客户端（浏览器，手机软件等）尝试发送 HTTP 请求时，客户端会向服务器发出一条文本消息然后等待响应。</p>
 <p>这条文本消息会像这样：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Host</span> <span class="nx">codeigniter</span><span class="o">.</span><span class="nx">com</span>
 <span class="nx">Accept</span><span class="o">:</span> <span class="nx">text</span><span class="o">/</span><span class="nx">html</span>
 <span class="nx">User</span><span class="o">-</span><span class="nx">Agent</span><span class="o">:</span> <span class="nx">Chrome</span><span class="o">/</span><span class="mf">46.0</span><span class="o">.</span><span class="mf">2490.80</span>
@@ -364,7 +366,7 @@
 <h3>HTTP 响应<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>服务器收到请求后，你的 web 应用程序会处理这条信息然后输出一些响应结果。服务器会将你的响应结果打包为对
 客户端的的你的响应结果打包为对客户端的响应的一部分。服务器对客户端的响应消息看起来会像这样：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
 <span class="nx">Server</span><span class="o">:</span> <span class="nx">nginx</span><span class="o">/</span><span class="mf">1.8</span><span class="o">.</span><span class="mi">0</span>
 <span class="nx">Date</span><span class="o">:</span> <span class="nx">Thu</span><span class="p">,</span> <span class="mo">05</span> <span class="nx">Nov</span> <span class="mi">2015</span> <span class="mo">05</span><span class="o">:</span><span class="mi">33</span><span class="o">:</span><span class="mi">22</span> <span class="nx">GMT</span>
 <span class="nx">Content</span><span class="o">-</span><span class="nx">Type</span><span class="o">:</span> <span class="nx">text</span><span class="o">/</span><span class="nx">html</span><span class="p">;</span> <span class="nx">charset</span><span class="o">=</span><span class="nx">UTF</span><span class="o">-</span><span class="mi">8</span>
@@ -383,7 +385,7 @@
 <p>虽然 PHP 提供了与 HTTP 请求和响应进行交互的原生方式，但 CodeIgniter 像大多数框架一样，将它们抽象化，让你拥有一个
 一致、简单的接口。<a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">IncomingRequest 类</span></a> 类是 HTTP 请求的面向对象的表示形式。
 它提供你所需要的一切：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\HTTP\IncomingRequest</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\HTTP\IncomingRequest</span><span class="p">;</span>
 
 <span class="nv">$request</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IncomingRequest</span><span class="p">(</span><span class="k">new</span> <span class="nx">\Config\App</span><span class="p">(),</span> <span class="k">new</span> <span class="nx">\CodeIgniter\HTTP\URI</span><span class="p">());</span>
 
@@ -412,7 +414,7 @@
 最后确定正确的答案。</p>
 <p>CodeIgniter 还提供了 <a class="reference internal" href="../outgoing/response.html"><span class="doc">Response 类</span></a> ，它是 HTTP 响应的面向对象式表示。
 它为你提供一种简单而强大的方法来构造对客户的响应：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\HTTP\Response</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\HTTP\Response</span><span class="p">;</span>
 
 <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">();</span>
 
@@ -438,10 +440,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="security.html" class="btn btn-neutral float-right" title="安全指南" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="security.html" class="btn btn-neutral float-right" title="安全指南" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="services.html" class="btn btn-neutral float-left" title="服务" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="services.html" class="btn btn-neutral float-left" title="服务" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -450,15 +452,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -466,10 +475,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -480,7 +489,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

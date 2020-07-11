@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>利用配置文件开始工作 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>利用配置文件开始工作 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="CodeIgniter URL" href="urls.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">常规主题</a> &raquo;</li>
         
@@ -356,7 +358,7 @@
 <h2><a class="toc-backref" href="#id13">访问配置文件</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>我们可以通过创建一个新的配置类实例或者使用config函数，来访问类中的配置项。
 配置类中所有的这些属性都是公开的，故而可以如调用其他属性一样调用相应的配置项:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 手动创建一个新的配置类实例</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 手动创建一个新的配置类实例</span>
 <span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Config\Pager</span><span class="p">();</span>
 <span class="c1">// 使用config函数创建一个新的配置类实例</span>
 <span class="nv">$config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">(</span> <span class="s1">&#39;Pager&#39;</span><span class="p">,</span> <span class="k">false</span> <span class="p">);</span>
@@ -377,7 +379,7 @@
 <div class="section" id="id4">
 <h2><a class="toc-backref" href="#id14">创建配置文件</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>当我们需要创建一个新的配置文件时，需要在指定位置创建一个新的文件，例如在默认的 <strong>/app/Config</strong> 目录下。然后创建一个带有公开属性的类，从而放置相应的配置信息:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Config\BaseConfig</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">App</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
@@ -393,7 +395,7 @@
 <p>由于我们的站点将会在不同的环境中运行，例如开发者的本地机器上，或是用于部署的远端服务器上，我们可以基于环境来修改配置信息。
 在这基础上，我们将能够根据站点所运行的服务器，来使用不同的配置信息。这些包括并不限于数据库配置信息，API认证信息，以及其他的根据部署环境而改变的配置信息。</p>
 <p>我们可以将这些值保存在根目录下的一个 <strong>.env</strong> 文件中，就如system和application目录一样。这个文件就如一个 “.ini” 配置文件一样，由许多对被等号分割的键/值对所组成:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">S3_BUCKET</span><span class="o">=</span><span class="s2">&quot;dotenv&quot;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">S3_BUCKET</span><span class="o">=</span><span class="s2">&quot;dotenv&quot;</span>
 <span class="nx">SECRET_KEY</span><span class="o">=</span><span class="s2">&quot;super_secret_key&quot;</span>
 </pre></div>
 </div>
@@ -407,7 +409,7 @@
 在不同的环境里，我们可以把这个文件复制到 <strong>.env</strong> 目录下并填充这个环境相对应的配置项的值。</p>
 <p>当应用开始运行时，这个文件将会被自动加载，同时这些变量也会被运行环境所调用——这一过程适用于所有环境的部署。
 在这之后，这些变量将通过 <code class="docutils literal notranslate"><span class="pre">getenv()</span></code>, <code class="docutils literal notranslate"><span class="pre">$_SERVER</span></code>, and <code class="docutils literal notranslate"><span class="pre">$_ENV</span></code> 的方式被调用。在这三者中， <code class="docutils literal notranslate"><span class="pre">getenv()</span></code> 方法由于其大小写不敏感而被推荐使用:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">);</span>
 <span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nv">$_ENV</span><span class="p">[</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">];</span>
 <span class="nv">$s3_bucket</span> <span class="o">=</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;S3_BUCKET&#39;</span><span class="p">];</span>
 </pre></div>
@@ -420,7 +422,7 @@
 <div class="section" id="id8">
 <h2><a class="toc-backref" href="#id16">嵌套变量</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <p>为了减少输入，我们也可以用将变量名包裹在 <code class="docutils literal notranslate"><span class="pre">${...}</span></code> 的形式，来重用先前定义过的变量:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">BASE_DIR</span><span class="o">=</span><span class="s2">&quot;/var/webroot/project-root&quot;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">BASE_DIR</span><span class="o">=</span><span class="s2">&quot;/var/webroot/project-root&quot;</span>
 <span class="nx">CACHE_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_DIR</span><span class="si">}</span><span class="s2">/cache&quot;</span>
 <span class="nx">TMP_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_DIR</span><span class="si">}</span><span class="s2">/tmp&quot;</span>
 </pre></div>
@@ -431,7 +433,7 @@
 <p>有时候，我们会遇到多个变量具有相同名字的情况。当这种情况发生时，系统将没有办法获知这个变量所对应的确切的值。
 我们可以通过将这些变量放入”命名空间“中，来放置这一情况的出现。</p>
 <p>在配置文件中，点号(.)通常被用来表示一个变量是命名空间变量。这种变量通常是由一个独立前缀，后接一个点号(.)然后才是变量名称本身所组成的:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 非命名空间变量</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 非命名空间变量</span>
 <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;George&quot;</span>
 <span class="nx">db</span><span class="o">=</span><span class="nx">my_db</span>
 
@@ -455,7 +457,7 @@
 <h2><a class="toc-backref" href="#id19">以数组的方式调用环境变量</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
 <p>从更长远的角度来看，一个命名空间环境变量也可以以数组的方式被调用。
 如果一个命名空间环境变量的前缀与某个配置类所匹配，那么这个变量的剩余部分，若同样包含点号，则将会被当做一个数组的引用来调用:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 常规的命名空间变量</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 常规的命名空间变量</span>
 <span class="nx">SimpleConfig</span><span class="o">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">George</span>
 
 <span class="c1">// 数组化的命名空间变量</span>
@@ -464,13 +466,13 @@
 </pre></div>
 </div>
 <p>如果这个变量是对SimpleConfig配置类的成员的引用，上述例子将会如下图所示:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$address</span><span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Berlin&quot;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$address</span><span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Berlin&quot;</span><span class="p">;</span>
 <span class="nv">$address</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Germany&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>而 <code class="docutils literal notranslate"><span class="pre">$address</span></code> 属性的其他部分将不会被改动。</p>
 <p>我们同样可以将数组属性名作为前缀来使用，当配置文件如下所示时:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// array namespaced variables</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// array namespaced variables</span>
 <span class="nx">SimpleConfig</span><span class="o">.</span><span class="nx">address</span><span class="o">.</span><span class="nx">city</span> <span class="o">=</span> <span class="s2">&quot;Berlin&quot;</span>
 <span class="nx">address</span><span class="o">.</span><span class="nx">country</span> <span class="o">=</span> <span class="s2">&quot;Germany&quot;</span>
 </pre></div>
@@ -481,7 +483,7 @@
 <span id="id12"></span><h2><a class="toc-backref" href="#id20">注册器</a><a class="headerlink" href="#registrars" title="永久链接至标题">¶</a></h2>
 <p>一个配置文件可以指定任意数量的”注册器“；这里所指的注册器为其他类可能提供的额外的配置属性。
 这一行为通常通过在配置文件中增加一个 <code class="docutils literal notranslate"><span class="pre">registrars</span></code> 属性来实现，这一属性存有一个可选的注册器数组。:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="nv">$registrars</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="nv">$registrars</span> <span class="o">=</span> <span class="p">[</span>
     <span class="nx">SupportingPackageRegistrar</span><span class="o">::</span><span class="na">class</span>
 <span class="p">];</span>
 </pre></div>
@@ -490,7 +492,7 @@
 <p>当我们实例化了一个配置类的对象后，系统将自动循环搜索在 <code class="docutils literal notranslate"><span class="pre">$registrars</span></code> 中指定的类。
 对于这些类而言，当其中包含有与该配置类同名的方法时，框架将调用这一方法，并将其返回的所有属性，如同上节所述的命名空间变量一样，并入到配置项中。</p>
 <p>配置类举例如下:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Config</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Config</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Config\BaseConfig</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">MySalesConfig</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
@@ -503,7 +505,7 @@
 </pre></div>
 </div>
 <p>… 所关联的地区销售模型将如下所示:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
 <span class="k">class</span> <span class="nc">RegionalSales</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">MySalesConfig</span><span class="p">()</span>
@@ -514,7 +516,7 @@
 </pre></div>
 </div>
 <p>如上所示，当 <cite>MySalesConfig</cite> 被实例化后，它将以两个属性的被声明而结束，然而 <cite>$target</cite> 属性将会被 <cite>RegionalSalesModel</cite> 的注册器所覆盖，故而最终的配置属性为:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$target</span> <span class="o">=</span> <span class="mi">45</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$target</span> <span class="o">=</span> <span class="mi">45</span><span class="p">;</span>
 <span class="nv">$campaign</span> <span class="o">=</span> <span class="s2">&quot;Winter Wonderland&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -529,10 +531,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="urls.html" class="btn btn-neutral float-right" title="CodeIgniter URL" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="urls.html" class="btn btn-neutral float-right" title="CodeIgniter URL" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="常规主题" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="常规主题" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -541,15 +543,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -557,10 +566,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -571,7 +580,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

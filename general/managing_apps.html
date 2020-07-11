@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>管理多个应用 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>管理多个应用 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="处理多环境" href="environments.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">常规主题</a> &raquo;</li>
         
@@ -341,7 +343,7 @@
 <div class="section" id="application">
 <h2>重命名Application（应用）文件夹<a class="headerlink" href="#application" title="永久链接至标题">¶</a></h2>
 <p>如果你想重命名你的应用文件夹，实际上只需要打开 <strong>application/Config/Paths.php</strong> 文件并设置 <code class="docutils literal notranslate"><span class="pre">$application_directory</span></code> 变量的值:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$application_directory</span> <span class="o">=</span> <span class="s1">&#39;application&#39;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$application_directory</span> <span class="o">=</span> <span class="s1">&#39;application&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -349,7 +351,7 @@
 <h2>移动你的项目文件夹<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>将你的应用目录移动到服务器的另一个位置，而不是web根目录，也是可行的。
 为了实现以上目标，请打开你的主 <strong>index.php</strong> 文件并为 <code class="docutils literal notranslate"><span class="pre">$application_directory</span></code> 变量赋值为一个 <em>服务器上的绝对路径</em></p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$application_directory</span> <span class="o">=</span> <span class="s1">&#39;/path/to/your/application&#39;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$application_directory</span> <span class="o">=</span> <span class="s1">&#39;/path/to/your/application&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -357,7 +359,7 @@
 <h2>单个CodeIgniter对应运行多个应用<a class="headerlink" href="#codeigniter" title="永久链接至标题">¶</a></h2>
 <p>如果你想要让多个不同的应用来共享一次CodeIgniter的安装文件，只需要将你的应用目录下的所有目录都移动到他们对应的子目录中即可。</p>
 <p>举例而言，加入你想要创建两个应用程序，命名为”foo”和”bar”，你可以将你的应用目录排列如下:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span>
 <span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">config</span><span class="o">/</span>
 <span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">controllers</span><span class="o">/</span>
 <span class="nx">applications</span><span class="o">/</span><span class="nx">foo</span><span class="o">/</span><span class="nx">libraries</span><span class="o">/</span>
@@ -372,7 +374,7 @@
 </pre></div>
 </div>
 <p>为了选择指定的应用目录，你需要打开主index.php文件并设置 <code class="docutils literal notranslate"><span class="pre">$application_directory</span></code> 变量。例如，选择”foo”应用，进行以下操作:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$application_directory</span> <span class="o">=</span> <span class="s1">&#39;applications/foo&#39;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$application_directory</span> <span class="o">=</span> <span class="s1">&#39;applications/foo&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -390,10 +392,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="environments.html" class="btn btn-neutral float-right" title="处理多环境" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="environments.html" class="btn btn-neutral float-right" title="处理多环境" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="modules.html" class="btn btn-neutral float-left" title="代码模块" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="代码模块" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -402,15 +404,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -418,10 +427,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -432,7 +441,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

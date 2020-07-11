@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>数据库配置 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据库配置 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="连接你的数据库" href="connecting.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">数据库参考</a> &raquo;</li>
         
@@ -344,7 +346,7 @@
 </div>
 <p>CodeIgniter 中有一个用来保存数据库配置（用户名，密码，数据库名等）的文件，这个配置文件位于 application/Config/Database.php。你也可以在 .env 文件中配置数据库连接参数。接下来让我们详细看下配置信息。</p>
 <p>数据库配置信息存放在数组中:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$default</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$default</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;DSN&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span>
@@ -368,7 +370,7 @@
 </div>
 <p>类属性的名称就是连接名称，并且可以使用特殊的组名连接。</p>
 <p>有些数据库驱动（例如：PDO，PostgreSQL，Oracle，ODBC）可能需要提供完整的 DNS 信息。在这种情况下，你需要使用 DNS 配置参数，就像是使用该驱动的原生 PHP 扩展一样，例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// PDO</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// PDO</span>
 <span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;DSN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;pgsql:host=localhost;port=5432;dbname=database_name&#39;</span><span class="p">;</span>
 
 <span class="c1">// Oracle</span>
@@ -384,7 +386,7 @@
 <p class="last">如果你提供了一个 DNS 参数，但是缺少了某些配置（例如：数据库的字符集），若该配置存在在其它的配置项中，CodeIgniter 将自动在 DNS 上附加上该配置。</p>
 </div>
 <p>当主数据库由于某些原因无法连接时，你可以配置故障转移。例如可以像下面这样为一个连接配置故障转移:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;failover&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;failover&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="p">[</span>
                         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost1&#39;</span><span class="p">,</span>
                         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
@@ -426,7 +428,7 @@
 </div>
 <p>你可以指定任意多个你喜欢的故障转移配置。</p>
 <p>你可以选择存储多组连接值的信息。例如，若你运行多个环境（开发、生产、测试等），你可以为每个环境单独建立连接组，并在组之间进行切换。举个例子：若要设置一个 ‘test’ 环境，你可以这么做:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$test</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$test</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;DSN&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span>
@@ -449,7 +451,7 @@
 </pre></div>
 </div>
 <p>然后，设置配置文件中的变量并告诉系统要使用该组信息:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$defaultGroup</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$defaultGroup</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -457,7 +459,7 @@
 <p class="last">组的名称为 ‘test’ 是任意的。它可以是你想要的任意名称。默认情况下，主连接使用 ‘default’ 这个名称，但你可以基于你的项目为它起一个更有意义的名字。</p>
 </div>
 <p>你可以修改配置文件来检测环境并且在类的构造函数中添加所需的逻辑来自动更新正确的 ‘defaultGroup’ 值:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Database</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Database</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nv">$development</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">];</span>
     <span class="k">public</span> <span class="nv">$test</span>        <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">];</span>
@@ -473,7 +475,7 @@
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id5">配置文件</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>你可以将配置值保存在当前服务器数据库配置文件 <code class="docutils literal notranslate"><span class="pre">.env</span></code> 中。你只需要在默认组配置设置中输入你想要改变的值。该值在 <code class="docutils literal notranslate"><span class="pre">default</span></code> 组中的格式为:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">database</span> <span class="o">=</span> <span class="s1">&#39;ci4&#39;</span><span class="p">;</span>
 </pre></div>
@@ -497,10 +499,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="connecting.html" class="btn btn-neutral float-right" title="连接你的数据库" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="connecting.html" class="btn btn-neutral float-right" title="连接你的数据库" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="examples.html" class="btn btn-neutral float-left" title="数据库快速入门: 示例代码" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="examples.html" class="btn btn-neutral float-left" title="数据库快速入门: 示例代码" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -509,15 +511,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -525,10 +534,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -539,7 +548,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>创建新闻项目 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>创建新闻项目 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="结束语" href="conclusion.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">构建你的第一个应用</a> &raquo;</li>
         
@@ -340,7 +342,7 @@
 <div class="section" id="id2">
 <h2>创建表格<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>要将数据输入数据库，你需要创建一个表格，你可以在其中输入要存储的信息。这意味着你将需要一个包含两个字段的表格，一个用于标题，另一个用于文本。你将从模型中的标题中获得slug。在*application / Views / news / create.php*创建新视图</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$title</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$title</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">();</span> <span class="cp">?&gt;</span>
 
@@ -360,7 +362,7 @@
 <p>这里只有两个函数你可能不熟悉:<cite>form_open()`函数和</cite>ConfigServices::validation()-&gt;listErrors()`函数。
 第一个函数由:doc:<cite>form helper &lt;../helpers/form_helper&gt;`提供，并呈现表格元素并添加额外的功能，例如添加一个隐藏的:doc:`CSRF prevention field &lt;../libraries/security&gt;</cite>。后者用于报告与表格验证相关的错误。</p>
 <p>回到你的新闻控制器。你将在此处执行两项操作，检查表格是否已提交以及提交的数据是否通过了验证规则。你将使用:doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>form validation &lt;../libraries/validation&gt;`库来执行此操作。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
     <span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NewsModel</span><span class="p">();</span>
@@ -396,7 +398,7 @@
 <h2>模型<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>最适合剩下的就是确保你的模型设置为允许正确保存数据。使用的``save()``方法将根据主键的存在来确定是否应插入信息，或者行是否已存在且应更新。在这种情况下，没有``id``传递给它的字段，所以它会在它的表中插入一个新行，即**news**。</p>
 <p>但是，默认情况下，模型中的插入和更新方法实际上不会保存任何数据，因为它不知道哪些字段可以安全更新。编辑模型以在``$allowedFields``属性中为其提供可更新字段的列表。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">NewsModel</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Model</span>
 <span class="p">{</span>
     <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;news&#39;</span><span class="p">;</span>
@@ -410,7 +412,7 @@
 <div class="section" id="id8">
 <h2>路由<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <p>在开始将新闻项添加到CodeIgniter应用程序之前，必须向*Config/Routes.php*文件添加额外的规则。确保你的文件包含以下内容。这可以确保CodeIgniter将’create’视为一种方法，而不是新闻项目的slug。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;news/create&#39;</span><span class="p">,</span> <span class="s1">&#39;News::create&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;news/create&#39;</span><span class="p">,</span> <span class="s1">&#39;News::create&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;news/(:segment)&#39;</span><span class="p">,</span> <span class="s1">&#39;News::view/$1&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="s1">&#39;News::index&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;(:any)&#39;</span><span class="p">,</span> <span class="s1">&#39;Pages::view/$1&#39;</span><span class="p">);</span>
@@ -428,10 +430,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="conclusion.html" class="btn btn-neutral float-right" title="结束语" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="conclusion.html" class="btn btn-neutral float-right" title="结束语" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="news_section.html" class="btn btn-neutral float-left" title="新闻展示功能" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="news_section.html" class="btn btn-neutral float-left" title="新闻展示功能" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -440,15 +442,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -456,10 +465,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -470,7 +479,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

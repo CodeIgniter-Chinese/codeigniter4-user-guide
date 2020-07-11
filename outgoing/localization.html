@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>本地化 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>本地化 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="在视图文件中使用PHP替代语法" href="alternative_php.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">构建响应</a> &raquo;</li>
         
@@ -357,7 +359,7 @@
 <h2><a class="toc-backref" href="#id18">处理不同地域</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>CodeIgniter 提供了一系列帮助你处理多语言环境下将应用本土化的工具。尽管一个应用完全地本土化是一个复杂的问题，在你的应用中将一些字符串根据不同的语言进行替换，是相当简单的。</p>
 <p>语言字符串存储于 <strong>app/Language</strong> 目录下，其下的每个子目录都代表着一种所支持的语言:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nx">app</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nx">app</span>
     <span class="o">/</span><span class="nx">Language</span>
         <span class="o">/</span><span class="nx">en</span>
             <span class="nx">app</span><span class="o">.</span><span class="nx">php</span>
@@ -372,7 +374,7 @@
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id19">配置地区</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>每个站点都拥有默认的语言/地区属性，可以通过 <strong>Config/App.php</strong> 进行设置:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$defaultLocale</span> <span class="o">=</span> <span class="s1">&#39;en&#39;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$defaultLocale</span> <span class="o">=</span> <span class="s1">&#39;en&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>该变量的值，可以是任何字符串值，用于你的应用程序处理文本字符串和其他格式用。
@@ -390,12 +392,12 @@
 <h4>内容协商<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
 <p>你可以通过在 <code class="docutils literal notranslate"><span class="pre">Config/App</span></code> 中设置两个额外的参数来自动开启内容协商。
 第一个参数用于告诉 <code class="docutils literal notranslate"><span class="pre">Request</span></code> 类我们需要开启内容协商，因此只要将其设为 true 即可:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$negotiateLocale</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$negotiateLocale</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>当该参数启用时，系统会自动根据你在 <code class="docutils literal notranslate"><span class="pre">$suppoertLocales</span></code> 中定义的语言数组来协商使用正确的语言。
 如果在你提供的语言和所请求的语言中中匹配不到的话，该数组的第一个成员就会被使用。在下例中，在不匹配时， <strong>en</strong> 地区就会被使用:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$supportedLocales</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">,</span> <span class="s1">&#39;fr-FR&#39;</span><span class="p">];</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$supportedLocales</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">,</span> <span class="s1">&#39;fr-FR&#39;</span><span class="p">];</span>
 </pre></div>
 </div>
 </div>
@@ -403,7 +405,7 @@
 <h4>在路由中<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
 <p>第二种方法是用一个自定义的通配符来检测所需要的地区，并将其用于当前请求中。在你的路由中，通配符 <code class="docutils literal notranslate"><span class="pre">{locale}}</span></code> 可以被替换为一个路由分段。
 如果该分段存在的话，所匹配到的路由分段就是你的地区:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;{locale}/books&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Books::index&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;{locale}/books&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Books::index&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>在本例中，如果用户尝试访问 <code class="docutils literal notranslate"><span class="pre">http://example.com/fr/books</span></code> ，地区就会被设置为 <code class="docutils literal notranslate"><span class="pre">fr</span></code> ，并假设这是一个合理的地区参数。</p>
@@ -417,7 +419,7 @@
 <h3><a class="toc-backref" href="#id21">获取当前地区</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>当前地区默认从 IncomingRequest 实例中获取，通过 <code class="docutils literal notranslate"><span class="pre">getLocale()</span></code> 方法。
 如果你的控制器继承了 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Controller</span></code> ，以上操作也可以通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;request</span></code> 来实现:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">UserController</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
 <span class="p">{</span>
@@ -429,7 +431,7 @@
 </pre></div>
 </div>
 <p>或者你也可以用 <a class="reference internal" href="../concepts/services.html"><span class="doc">服务类</span></a> 来获取当前的请求:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$locale</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getLocale</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$locale</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getLocale</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -442,7 +444,7 @@
 describe the type of content it holds. For example, let’s say you want to create a file containing error messages.
 You might name it simply: <strong>Errors.php</strong>.</p>
 <p>Within the file, you would return an array, where each element in the array has a language key and the string to return:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;language_key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The actual message to be shown.&#39;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;language_key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The actual message to be shown.&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -451,7 +453,7 @@ You might name it simply: <strong>Errors.php</strong>.</p>
 similarly named items in other files. For example, if you are creating error messages you might prefix them
 with error_</p>
 </div>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="p">[</span>
     <span class="s1">&#39;errorEmailMissing&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;You must submit an email address&#39;</span><span class="p">,</span>
     <span class="s1">&#39;errorURLMissing&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;You must submit a URL&#39;</span><span class="p">,</span>
     <span class="s1">&#39;errorUsernameMissing&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;You must submit a username&#39;</span><span class="p">,</span>
@@ -463,7 +465,7 @@ with error_</p>
 <h3><a class="toc-backref" href="#id24">基本用途</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">lang()</span></code> 辅助函数从所有语言文件中获取文本值，通过将文件名和语言键作为第一个参数，以点号(.)分隔。
 举例来说，从 <code class="docutils literal notranslate"><span class="pre">Errors</span></code> 语言文件中加载 <code class="docutils literal notranslate"><span class="pre">errorEmailMissing</span></code> 字符串，你可以如下操作:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Errors.errorEmailMissing&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Errors.errorEmailMissing&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>如果所请求的语言键对于当前的地区来说不存在的话，就会不做修改的返回请求的参数。在本例中，如果 ‘Errors.errorEmailMissing’ 对应的翻译不存在的话，就会直接被返回。</p>
@@ -475,7 +477,7 @@ with error_</p>
 可参阅 <a class="reference external" href="https://www.sitepoint.com/localization-demystified-understanding-php-intl/">Sitepoint</a>.</p>
 </div>
 <p>你可以在语言字符串中，通过对 <code class="docutils literal notranslate"><span class="pre">lang()</span></code> 函数的第二个参数传递一个值数组来替代通配符中的内容。这一操作对于简单的数字翻译和格式化来说非常方便:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 语言文件, Tests.php:</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 语言文件, Tests.php:</span>
 <span class="k">return</span> <span class="p">[</span>
     <span class="s2">&quot;apples&quot;</span>      <span class="o">=&gt;</span> <span class="s2">&quot;I have {0, number} apples.&quot;</span><span class="p">,</span>
     <span class="s2">&quot;men&quot;</span>         <span class="o">=&gt;</span> <span class="s2">&quot;I have {1, number} men out-performed the remaining {0, number}&quot;</span><span class="p">,</span>
@@ -487,12 +489,12 @@ with error_</p>
 </pre></div>
 </div>
 <p>通配符中的第一项对应着数组的索引下标（如果该下标是数字格式的话):</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 输出 &quot;The top 23 men out-performed the remaining 20&quot;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 输出 &quot;The top 23 men out-performed the remaining 20&quot;</span>
 <span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Tests.men&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">23</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p>如果希望的话，你也可以使用命名数组来更为直接地传递参数:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 显示 &quot;I have 3 apples.&quot;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 显示 &quot;I have 3 apples.&quot;</span>
 <span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s2">&quot;Tests.namedApples&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;number_apples&#39;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">]);</span>
 </pre></div>
 </div>
@@ -506,7 +508,7 @@ with error_</p>
 <li>duration</li>
 </ul>
 <p>Here are a few examples:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// The language file, Tests.php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// The language file, Tests.php</span>
 <span class="k">return</span> <span class="p">[</span>
     <span class="s1">&#39;shortTime&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;The time is now {0, time, short}.&#39;</span><span class="p">,</span>
     <span class="s1">&#39;mediumTime&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The time is now {0, time, medium}.&#39;</span><span class="p">,</span>
@@ -551,7 +553,7 @@ with error_</p>
 <div class="section" id="id13">
 <h4>确定地区<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h4>
 <p>为了在替换参数时显式调用一个不同的地区，你可以通过将地区作为 <code class="docutils literal notranslate"><span class="pre">lang()</span></code> 方法的第三个参数来实现:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Displays &quot;The time is now 23:21:28 GMT-5&quot;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Displays &quot;The time is now 23:21:28 GMT-5&quot;</span>
 <span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Test.longTime&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nb">time</span><span class="p">()],</span> <span class="s1">&#39;ru-RU&#39;</span><span class="p">);</span>
 
 <span class="c1">// Displays &quot;£7.41&quot;</span>
@@ -564,7 +566,7 @@ with error_</p>
 <div class="section" id="id14">
 <h4>嵌套数组<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h4>
 <p>语言文件可以接受嵌套数组作为参数，以更为方便地处理列表类型的数据等:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Language/en/Fruit.php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Language/en/Fruit.php</span>
 
 <span class="k">return</span> <span class="p">[</span>
     <span class="s1">&#39;list&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -607,10 +609,10 @@ with error_</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="alternative_php.html" class="btn btn-neutral float-right" title="在视图文件中使用PHP替代语法" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="alternative_php.html" class="btn btn-neutral float-right" title="在视图文件中使用PHP替代语法" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="api_responses.html" class="btn btn-neutral float-left" title="API 响应特性" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="api_responses.html" class="btn btn-neutral float-left" title="API 响应特性" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -619,15 +621,22 @@ with error_</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -635,10 +644,10 @@ with error_</p>
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -649,7 +658,6 @@ with error_</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

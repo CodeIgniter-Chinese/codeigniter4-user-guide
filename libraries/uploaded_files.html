@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>使用文件上传类 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>使用文件上传类 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="使用 URI 类" href="uri.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">类库参考</a> &raquo;</li>
         
@@ -363,25 +365,25 @@
 <h3><a class="toc-backref" href="#id17">所有文件</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>当你上传文件时，PHP 可以在本地使用全局数组 <code class="docutils literal notranslate"><span class="pre">$_FILES</span></code> 来访问这些文件。当你同时上传多个文件时，这个数组存在一些不可忽视的缺点和很多开发者没有意识到的安全方面的潜在缺陷。CodeIgniter 通过一个公共接口来规范你对文件的使用，从而改善这些问题。</p>
 <p>通过当前的 <code class="docutils literal notranslate"><span class="pre">IncomingRequest</span></code> 实例来访问文件。使用 <code class="docutils literal notranslate"><span class="pre">getFiles()</span></code> 方法来获取本次请求中上传的所有文件。方法将会返回由 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Files\UploadedFile</span></code> 实例表示的文件数组:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$files</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$files</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>当然，有很多种方式来为文件 input 标签命名，除了最简外任何其他任何命名方式都可能产生奇怪的结果。数组将会以你期望的方式返回。使用最简方式，一个单文件提交表单可能会是这样:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;avatar&quot;</span> <span class="o">/&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;avatar&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>其将会返回一个简单的数组像是:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
         <span class="s1">&#39;avatar&#39;</span> <span class="o">=&gt;</span> <span class="c1">// UploadedFile instance</span>
 <span class="p">]</span>
 </pre></div>
 </div>
 <p>如果你在标签名称中使用数组表示法，input 标签将看上去像是这样:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatar]&quot;</span> <span class="o">/&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatar]&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">getFiles()</span></code> 方法返回的数组看上去将像是这样:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
         <span class="s1">&#39;my-form&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                 <span class="s1">&#39;details&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                         <span class="s1">&#39;avatar&#39;</span> <span class="o">=&gt;</span> <span class="c1">// UploadedFile instance</span>
@@ -391,12 +393,12 @@
 </pre></div>
 </div>
 <p>在某些情况下，你可以指定一组文件元素来上传:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
 <span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>在这种情况下，返回的文件数组将会像是这样:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
         <span class="s1">&#39;my-form&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                 <span class="s1">&#39;details&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                         <span class="s1">&#39;avatar&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -414,22 +416,22 @@
 <div class="section" id="id6">
 <h4>最简使用<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
 <p>使用最简方式，一个单文件提交表单可能会是这样:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;userfile&quot;</span> <span class="o">/&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;userfile&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>其将会返回一个简单的文件实例像是:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;userfile&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;userfile&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id7">
 <h4>数组表示法<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
 <p>如果你在标签名称中使用数组表示法，input 标签将看上去像是这样:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatar]&quot;</span> <span class="o">/&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatar]&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>这样来获取文件实例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;my-form.details.avatar&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;my-form.details.avatar&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -460,17 +462,17 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 </dl>
 <p>如果多个文件使用相同名称提交，你可以使用 <code class="docutils literal notranslate"><span class="pre">getFile()</span></code> 去逐个获取每个文件::
 在控制器中:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$file1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;images.0&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;images.0&#39;</span><span class="p">);</span>
 <span class="nv">$file2</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;images.1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>另外一个例子:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
 <span class="nx">Upload</span> <span class="nx">an</span> <span class="nx">avatar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;my-form[details][avatars][]&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>在控制器中:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$file1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;my-form.details.avatars.0&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;my-form.details.avatars.0&#39;</span><span class="p">);</span>
 <span class="nv">$file2</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;my-form.details.avatars.1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -487,7 +489,7 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id20">验证文件</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <p>你可以调用 <code class="docutils literal notranslate"><span class="pre">isValid()</span></code> 方法来检查文件是否是通过 HTTP 无误上传的:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span>
 <span class="p">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nx">RuntimeException</span><span class="p">(</span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getErrorString</span><span class="p">()</span><span class="o">.</span><span class="s1">&#39;(&#39;</span><span class="o">.</span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getError</span><span class="p">()</span><span class="o">.</span><span class="s1">&#39;)&#39;</span><span class="p">);</span>
 <span class="p">}</span>
@@ -508,17 +510,17 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 <h3><a class="toc-backref" href="#id21">文件名称</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p><strong>getName()</strong></p>
 <p>你可以通过 <code class="docutils literal notranslate"><span class="pre">getName()</span></code> 提取到客户端提供的文件的原始名称。其通常是由客户端发送的文件名，不应受信。如果文件已经被移动，将返回移动文件的最终名称:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$name</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$name</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>getClientName()</strong></p>
 <p>总是返回由客户端发送的上传文件的原始名称，即使文件已经被移动了:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$originalName</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientName</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$originalName</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientName</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>getTempName()</strong></p>
 <p>要获取在上传期间产生的临时文件的全路径，你可以使用 <code class="docutils literal notranslate"><span class="pre">getTempName()</span></code> 方法:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$tempfile</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getTempName</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$tempfile</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getTempName</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -526,12 +528,12 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 <h3><a class="toc-backref" href="#id22">其他文件信息</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
 <p><strong>getClientExtension()</strong></p>
 <p>基于上传文件的名称，返回原始文件扩展名。这不是一个值得信赖的来源。对于可信的版本，请使用 <code class="docutils literal notranslate"><span class="pre">getExtension()</span></code> 来代替:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$ext</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientExtension</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$ext</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientExtension</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>getClientType()</strong></p>
 <p>返回由客户端提供的文件的媒体类型(mime type)。这不是一个值得信赖的值，对于可信的版本，请使用 <code class="docutils literal notranslate"><span class="pre">getType()</span></code> 来代替:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientType</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientType</span><span class="p">();</span>
 
 <span class="k">echo</span> <span class="nv">$type</span><span class="p">;</span> <span class="c1">// image/png</span>
 </pre></div>
@@ -540,7 +542,7 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 <div class="section" id="id13">
 <h3><a class="toc-backref" href="#id23">移动文件</a><a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
 <p>每个文件都可以使用恰如其名的 <a href="#id14"><span class="problematic" id="id15">``</span></a>move()` 方法来移动到新的位置。使用第一个参数为目标目录来移动文件:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span><span class="o">.</span><span class="s1">&#39;uploads&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span><span class="o">.</span><span class="s1">&#39;uploads&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>默认的，将使用文件原始名称。你可以指定一个新的文件名称作为第二个参数传递给方法。</p>
@@ -548,7 +550,7 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 <div>$newName = $file-&gt;getRandomName();
 $file-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 <p>一旦文件被移除，将删除临时文件。你可以通过 <code class="docutils literal notranslate"><span class="pre">hasMoved()</span></code> 方法来检查文件是否已经被移动了，返回布尔值:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">hasMoved</span><span class="p">())</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">hasMoved</span><span class="p">())</span>
 <span class="p">{</span>
     <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
 <span class="p">}</span>
@@ -566,10 +568,10 @@ $file-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="uri.html" class="btn btn-neutral float-right" title="使用 URI 类" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="uri.html" class="btn btn-neutral float-right" title="使用 URI 类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="typography.html" class="btn btn-neutral float-left" title="Typography 类" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="typography.html" class="btn btn-neutral float-left" title="Typography 类" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -578,15 +580,22 @@ $file-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -594,10 +603,10 @@ $file-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -608,7 +617,6 @@ $file-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

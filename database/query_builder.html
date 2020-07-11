@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>查询构造器类 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>查询构造器类 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="事务" href="transactions.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">数据库参考</a> &raquo;</li>
         
@@ -363,7 +365,7 @@
 <h2><a class="toc-backref" href="#id16">加载查询构造器</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>查询构造器通过 <code class="docutils literal notranslate"><span class="pre">table()</span></code> 数据库连接上的方法加载。 <code class="docutils literal notranslate"><span class="pre">FROM</span></code> 将为你设置查询部分并
 返回查询构造类的新实例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span>      <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span>      <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">();</span>
 <span class="nv">$builder</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -374,12 +376,12 @@
 <p>下面的方法用来构建 SQL <strong>SELECT</strong> 语句。</p>
 <p><strong>$builder-&gt;get()</strong></p>
 <p>执行选择查询并返回查询结果，可以得到一个表的所有数据:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
 <span class="nv">$query</span>   <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>  <span class="c1">// Produces: SELECT * FROM mytable</span>
 </pre></div>
 </div>
 <p>第一个和第二个参数用于设置 limit 和 offset 子句:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
 
 <span class="c1">// Executes: SELECT * FROM mytable LIMIT 20, 10</span>
 <span class="c1">// (在 MySQL 的情况。其他数据库的语法略有不同)</span>
@@ -387,7 +389,7 @@
 </div>
 <p>你应该已经注意到了， 上面的方法的结果都赋值给了一个 $query 变量， 通过这个变量， 我们
 可以得到查询的结果:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
 <span class="p">{</span>
@@ -400,7 +402,7 @@
 <p>该方法和 <strong>$builder-&gt;get()</strong> 方法一样编译选择查询并返回查询的 SQL 语句，
 但是， 该方法并不执行它。 此方法只是将SQL查询作为字符串返回。</p>
 <p>例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">getCompiledSelect</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">getCompiledSelect</span><span class="p">();</span>
 <span class="k">echo</span> <span class="nv">$sql</span><span class="p">;</span>
 
 <span class="c1">// Prints string: SELECT * FROM mytable</span>
@@ -408,7 +410,7 @@
 </div>
 <p>第一个参数使您能够设置查询生成器是否查询
 将重置(默认情况下将重置，就像使用 <cite>$builder-&gt;get()</cite> 时一样):</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getCompiledSelect</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getCompiledSelect</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
 
 <span class="c1">// Prints string: SELECT * FROM mytable LIMIT 20, 10</span>
 <span class="c1">// (在 MySQL 的情况。其他数据库的语法略有不同)</span>
@@ -425,13 +427,13 @@
 <p>与 <code class="docutils literal notranslate"><span class="pre">get()</span></code> 函数相同，只是它允许您添加一个
 在第一个参数中使用 “where” 子句，而不是使用 db-&gt;where()
 功能:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">getWhere</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">],</span> <span class="nv">$limit</span><span class="p">,</span> <span class="nv">$offset</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">getWhere</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">],</span> <span class="nv">$limit</span><span class="p">,</span> <span class="nv">$offset</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Please read the about the where function below for more information.</p>
 <p><strong>$builder-&gt;select()</strong></p>
 <p>允许您编写查询的 SELECT 部分:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;title, content, date&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;title, content, date&#39;</span><span class="p">);</span>
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
 
 <span class="c1">// Executes: SELECT title, content, date FROM mytable</span>
@@ -444,14 +446,14 @@
 <p><code class="docutils literal notranslate"><span class="pre">$builder-&gt;select()</span></code> 方法的第二个参数可选，如果设置
 为 FALSE，CodeIgniter 将不保护你的表名和字段名，这在当
 你编写复合查询语句时很有用，不会破坏你编写的语句。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;(SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4) AS amount_paid&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;(SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4) AS amount_paid&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;selectMax()</strong></p>
 <p>该方法用于编写查询语句中的 <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">MAX(field)</span></code> 部分，你
 可以使用第二个参数重命名结果字段。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectMax</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectMax</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>  <span class="c1">// Produces: SELECT MAX(age) as age FROM mytable</span>
 
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectMax</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;member_age&#39;</span><span class="p">);</span>
@@ -461,27 +463,27 @@
 <p><strong>$builder-&gt;selectMin()</strong></p>
 <p>该方法用于编写查询语句中的 “SELECT MIN(field)” 部分，和
 selectMax() 方法一样， 你可以使用第二个参数（可选）重命名结果字段。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectMin</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectMin</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span> <span class="c1">// Produces: SELECT MIN(age) as age FROM mytable</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;selectAvg()</strong></p>
 <p>该方法用于编写查询语句中的 “SELECT AVG(field)” 部分，和
 selectMax() 方法一样， 你可以使用第二个参数（可选）重命名结果字段。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectAvg</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectAvg</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span> <span class="c1">// Produces: SELECT AVG(age) as age FROM mytable</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;selectSum()</strong></p>
 <p>该方法用于编写查询语句中的 “SELECT SUM(field)” 部分，和
 selectMax() 方法一样， 你可以使用第二个参数重命名结果字段。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectSum</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">selectSum</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span> <span class="c1">// Produces: SELECT SUM(age) as age FROM mytable</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;from()</strong></p>
 <p>该方法用于编写查询语句中的 FROM 子句:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;title, content, date&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;title, content, date&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>  <span class="c1">// Produces: SELECT title, content, date FROM mytable</span>
 </pre></div>
@@ -492,7 +494,7 @@ selectMax() 方法一样， 你可以使用第二个参数重命名结果字段�
 </div>
 <p><strong>$builder-&gt;join()</strong></p>
 <p>该方法用于编写查询语句中的 JOIN 子句:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">join</span><span class="p">(</span><span class="s1">&#39;comments&#39;</span><span class="p">,</span> <span class="s1">&#39;comments.id = blogs.id&#39;</span><span class="p">);</span>
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
@@ -504,7 +506,7 @@ selectMax() 方法一样， 你可以使用第二个参数重命名结果字段�
 <p>如果你的查询中有多个连接，你可以多次调用这个方法.</p>
 <p>你可以传入第三个参数指定连接的类型， 有这样几种选择： left， right，
 outer， inner， left outer 和 right outer 。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">join</span><span class="p">(</span><span class="s1">&#39;comments&#39;</span><span class="p">,</span> <span class="s1">&#39;comments.id = blogs.id&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">join</span><span class="p">(</span><span class="s1">&#39;comments&#39;</span><span class="p">,</span> <span class="s1">&#39;comments.id = blogs.id&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">);</span>
 <span class="c1">// Produces: LEFT JOIN comments ON comments.id = blogs.id</span>
 </pre></div>
 </div>
@@ -520,12 +522,12 @@ outer， inner， left outer 和 right outer 。</p>
 <ol class="arabic">
 <li><p class="first"><strong>简单的 key/value 方式:</strong></p>
 <blockquote>
-<div><div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span> <span class="c1">// Produces: WHERE name = &#39;Joe&#39;</span>
+<div><div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span> <span class="c1">// Produces: WHERE name = &#39;Joe&#39;</span>
 </pre></div>
 </div>
 <p>注意自动为你加上了等号。</p>
 <p>如果你多次调用该方法，那么多个 WHERE 条件将会使用 AND 连接起来:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="nv">$title</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="nv">$status</span><span class="p">);</span>
 <span class="c1">// WHERE name = &#39;Joe&#39; AND title = &#39;boss&#39; AND status = &#39;active&#39;</span>
@@ -536,7 +538,7 @@ outer， inner， left outer 和 right outer 。</p>
 <li><p class="first"><strong>自定义 key/value 方式:</strong></p>
 <blockquote>
 <div><p>为了控制比较，你可以在第一个参数中包含一个比较运算符:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name !=&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name !=&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id &lt;&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span> <span class="c1">// Produces: WHERE name != &#39;Joe&#39; AND id &lt; 45</span>
 </pre></div>
 </div>
@@ -544,13 +546,13 @@ outer， inner， left outer 和 right outer 。</p>
 </li>
 <li><p class="first"><strong>关联数组方式:</strong></p>
 <blockquote>
-<div><div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="nv">$status</span><span class="p">];</span>
+<div><div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="nv">$status</span><span class="p">];</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$array</span><span class="p">);</span>
 <span class="c1">// Produces: WHERE name = &#39;Joe&#39; AND title = &#39;boss&#39; AND status = &#39;active&#39;</span>
 </pre></div>
 </div>
 <p>你也可以在这个方法里包含你自己的比较运算符:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name !=&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;id &lt;&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">,</span> <span class="s1">&#39;date &gt;&#39;</span> <span class="o">=&gt;</span> <span class="nv">$date</span><span class="p">];</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name !=&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;id &lt;&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">,</span> <span class="s1">&#39;date &gt;&#39;</span> <span class="o">=&gt;</span> <span class="nv">$date</span><span class="p">];</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$array</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -559,7 +561,7 @@ outer， inner， left outer 和 right outer 。</p>
 <li><dl class="first docutils">
 <dt><strong>自定义字符串:</strong></dt>
 <dd><p class="first">你可以完全手动编写子句:</p>
-<div class="last highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$where</span> <span class="o">=</span> <span class="s2">&quot;name=&#39;Joe&#39; AND status=&#39;boss&#39; OR status=&#39;active&#39;&quot;</span><span class="p">;</span>
+<div class="last highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$where</span> <span class="o">=</span> <span class="s2">&quot;name=&#39;Joe&#39; AND status=&#39;boss&#39; OR status=&#39;active&#39;&quot;</span><span class="p">;</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$where</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -569,39 +571,39 @@ outer， inner， left outer 和 right outer 。</p>
 </ol>
 <p><code class="docutils literal notranslate"><span class="pre">$builder-&gt;where()</span></code> 方法有一个可选的第三个参数，如果设置为 FALSE，CodeIgniter
 将不保护你的表名和字段名。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;MATCH (field) AGAINST (&quot;value&quot;)&#39;</span><span class="p">,</span> <span class="k">NULL</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;MATCH (field) AGAINST (&quot;value&quot;)&#39;</span><span class="p">,</span> <span class="k">NULL</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;orWhere()</strong></p>
 <p>这个方法和上面的方法一样，只是多个条件之间使用 OR 进行连接:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name !=&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name !=&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orWhere</span><span class="p">(</span><span class="s1">&#39;id &gt;&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>  <span class="c1">// Produces: WHERE name != &#39;Joe&#39; OR id &gt; 50</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;whereIn()</strong></p>
 <p>该方法用于生成 WHERE IN(‘item’, ‘item’) 子句，多个子句之间使用 AND 连接</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$names</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Todd&#39;</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$names</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Todd&#39;</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">whereIn</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$names</span><span class="p">);</span>
 <span class="c1">// Produces: WHERE username IN (&#39;Frank&#39;, &#39;Todd&#39;, &#39;James&#39;)</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;orWhereIn()</strong></p>
 <p>该方法用于生成 WHERE IN(‘item’, ‘item’) 子句，多个子句之间使用 OR 连接</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$names</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Todd&#39;</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$names</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Todd&#39;</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orWhereIn</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$names</span><span class="p">);</span>
 <span class="c1">// Produces: OR username IN (&#39;Frank&#39;, &#39;Todd&#39;, &#39;James&#39;)</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;whereNotIn()</strong></p>
 <p>该方法用于生成 WHERE NOT IN(‘item’, ‘item’) 子句，多个子句之间使用 AND 连接</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$names</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Todd&#39;</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$names</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Todd&#39;</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">whereNotIn</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$names</span><span class="p">);</span>
 <span class="c1">// Produces: WHERE username NOT IN (&#39;Frank&#39;, &#39;Todd&#39;, &#39;James&#39;)</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;orWhereNotIn()</strong></p>
 <p>该方法用于生成 WHERE NOT IN(‘item’, ‘item’) 子句，多个子句之间使用 OR 连接</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$names</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Todd&#39;</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$names</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Frank&#39;</span><span class="p">,</span> <span class="s1">&#39;Todd&#39;</span><span class="p">,</span> <span class="s1">&#39;James&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orWhereNotIn</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$names</span><span class="p">);</span>
 <span class="c1">// Produces: OR username NOT IN (&#39;Frank&#39;, &#39;Todd&#39;, &#39;James&#39;)</span>
 </pre></div>
@@ -625,19 +627,19 @@ outer， inner， left outer 和 right outer 。</p>
 <ol class="arabic">
 <li><p class="first"><strong>简单 key/value 方式:</strong></p>
 <blockquote>
-<div><div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
+<div><div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
 <span class="c1">// Produces: WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
 </pre></div>
 </div>
 <p>如果你多次调用该方法，那么多个 WHERE 条件将会使用 AND 连接起来:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
 <span class="c1">// WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39; AND  `body` LIKE &#39;%match% ESCAPE &#39;!&#39;</span>
 </pre></div>
 </div>
 <p>可以传入第三个可选的参数来控制 LIKE 通配符（%）的位置，可用选项有：
 ‘before’，’after’ 和 ‘both’ (默认为 ‘both’)。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="s1">&#39;before&#39;</span><span class="p">);</span>     <span class="c1">// Produces: WHERE `title` LIKE &#39;%match&#39; ESCAPE &#39;!&#39;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="s1">&#39;before&#39;</span><span class="p">);</span>     <span class="c1">// Produces: WHERE `title` LIKE &#39;%match&#39; ESCAPE &#39;!&#39;</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="s1">&#39;after&#39;</span><span class="p">);</span>      <span class="c1">// Produces: WHERE `title` LIKE &#39;match%&#39; ESCAPE &#39;!&#39;</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">);</span>       <span class="c1">// Produces: WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
 </pre></div>
@@ -646,7 +648,7 @@ outer， inner， left outer 和 right outer 。</p>
 </li>
 <li><p class="first"><strong>关联数组方式:</strong></p>
 <blockquote>
-<div><div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">,</span> <span class="s1">&#39;page1&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">,</span> <span class="s1">&#39;page2&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">];</span>
+<div><div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">,</span> <span class="s1">&#39;page1&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">,</span> <span class="s1">&#39;page2&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">];</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="nv">$array</span><span class="p">);</span>
 <span class="c1">// WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39; AND  `page1` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39; AND  `page2` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
 </pre></div>
@@ -656,47 +658,47 @@ outer， inner， left outer 和 right outer 。</p>
 </ol>
 <p><strong>$builder-&gt;orLike()</strong></p>
 <p>这个方法和上面的方法一样，只是多个 WHERE 条件之间使用 OR 进行连接:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orLike</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="nv">$match</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orLike</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="nv">$match</span><span class="p">);</span>
 <span class="c1">// WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39; OR  `body` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;notLike()</strong></p>
 <p>这个方法和 <code class="docutils literal notranslate"><span class="pre">like()</span></code> 方法一样，只是生成
 NOT LIKE 子句:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">notLike</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>    <span class="c1">// WHERE `title` NOT LIKE &#39;%match% ESCAPE &#39;!&#39;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">notLike</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>    <span class="c1">// WHERE `title` NOT LIKE &#39;%match% ESCAPE &#39;!&#39;</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;orNotLike()</strong></p>
 <p>这个方法和 <code class="docutils literal notranslate"><span class="pre">notLike()</span></code>，方法一样，只是多个条件之间使用 OR 进行连接:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orNotLike</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
 <span class="c1">// WHERE `title` LIKE &#39;%match% OR  `body` NOT LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;groupBy()</strong></p>
 <p>该方法用于生成 GROUP BY 子句:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">groupBy</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">);</span> <span class="c1">// Produces: GROUP BY title</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">groupBy</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">);</span> <span class="c1">// Produces: GROUP BY title</span>
 </pre></div>
 </div>
 <p>你也可以通过一个数组传入多个值:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">groupBy</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">));</span>  <span class="c1">// Produces: GROUP BY title, date</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">groupBy</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">));</span>  <span class="c1">// Produces: GROUP BY title, date</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;distinct()</strong></p>
 <p>该方法用于向查询中添加 “DISTINCT” 关键字</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">distinct</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">distinct</span><span class="p">();</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span> <span class="c1">// Produces: SELECT DISTINCT * FROM mytable</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;having()</strong></p>
 <p>该方法用于生成 HAVING 子句， 有下面两种不同的语法. 有两个
 可能的语法， 1 个或 2 个参数:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">having</span><span class="p">(</span><span class="s1">&#39;user_id = 45&#39;</span><span class="p">);</span>  <span class="c1">// Produces: HAVING user_id = 45</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">having</span><span class="p">(</span><span class="s1">&#39;user_id = 45&#39;</span><span class="p">);</span>  <span class="c1">// Produces: HAVING user_id = 45</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">having</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span>  <span class="mi">45</span><span class="p">);</span>  <span class="c1">// Produces: HAVING user_id = 45</span>
 </pre></div>
 </div>
 <p>您还可以传递一个包含多个值的数组:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">having</span><span class="p">([</span><span class="s1">&#39;title =&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My Title&#39;</span><span class="p">,</span> <span class="s1">&#39;id &lt;&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">having</span><span class="p">([</span><span class="s1">&#39;title =&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My Title&#39;</span><span class="p">,</span> <span class="s1">&#39;id &lt;&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">]);</span>
 <span class="c1">// Produces: HAVING title = &#39;My Title&#39;, id &lt; 45</span>
 </pre></div>
 </div>
@@ -704,7 +706,7 @@ NOT LIKE 子句:</p>
 是否可以通过传递可选的第三个参数来防止转义内容
 设置为 FALSE .
 .</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">having</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span>  <span class="mi">45</span><span class="p">);</span>  <span class="c1">// Produces: HAVING `user_id` = 45 in some databases such as MySQL</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">having</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span>  <span class="mi">45</span><span class="p">);</span>  <span class="c1">// Produces: HAVING `user_id` = 45 in some databases such as MySQL</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">having</span><span class="p">(</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span>  <span class="mi">45</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>  <span class="c1">// Produces: HAVING user_id = 45</span>
 </pre></div>
 </div>
@@ -717,23 +719,23 @@ NOT LIKE 子句:</p>
 <p>该方法用于生成 ORDER BY 子句。</p>
 <p>第一个参数包含需要排序的列的名称。</p>
 <p>第一个参数为你想要排序的字段名，第二个参数用于设置排序的方向， 可选项有： <strong>ASC</strong>，<strong>DESC**和**RANDOM</strong>。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;DESC&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;DESC&#39;</span><span class="p">);</span>
 <span class="c1">// Produces: ORDER BY `title` DESC</span>
 </pre></div>
 </div>
 <p>第一个参数也可以是你自己的排序字符串:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title DESC, name ASC&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title DESC, name ASC&#39;</span><span class="p">);</span>
 <span class="c1">// Produces: ORDER BY `title` DESC, `name` ASC</span>
 </pre></div>
 </div>
 <p>如果需要根据多个字段进行排序，可以多次调用该方法。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;DESC&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;DESC&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;ASC&#39;</span><span class="p">);</span>
 <span class="c1">// Produces: ORDER BY `title` DESC, `name` ASC</span>
 </pre></div>
 </div>
 <p>如果你选择了 <strong>RANDOM</strong>， 第一个参数会被忽略， 但是你可以传入一个数字值， 作为随机数的种子。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;RANDOM&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;RANDOM&#39;</span><span class="p">);</span>
 <span class="c1">// Produces: ORDER BY RAND()</span>
 
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s1">&#39;RANDOM&#39;</span><span class="p">);</span>
@@ -749,17 +751,17 @@ NOT LIKE 子句:</p>
 <h2><a class="toc-backref" href="#id21">分页与计数</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <p><strong>$builder-&gt;limit()</strong></p>
 <p>该方法用于限制你的查询返回结果的数量:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>  <span class="c1">// Produces: LIMIT 10</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>  <span class="c1">// Produces: LIMIT 10</span>
 </pre></div>
 </div>
 <p>第二个参数可以用来设置偏移.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>  <span class="c1">// Produces: LIMIT 20, 10 (在 MySQL。 其他数据库的语法略有不同）</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>  <span class="c1">// Produces: LIMIT 20, 10 (在 MySQL。 其他数据库的语法略有不同）</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;countAllResults()</strong></p>
 <p>该方法用于获取特定查询返回结果的数量，也可以使用查询构造器的这些方法：
 <code class="docutils literal notranslate"><span class="pre">where()</span></code>, <code class="docutils literal notranslate"><span class="pre">orWhere()</span></code>, <code class="docutils literal notranslate"><span class="pre">like()</span></code>, <code class="docutils literal notranslate"><span class="pre">orLike()</span></code> 等等。例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">countAllResults</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">);</span>  <span class="c1">// 生成一个整数，比如 25</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">countAllResults</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">);</span>  <span class="c1">// 生成一个整数，比如 25</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">countAllResults</span><span class="p">();</span> <span class="c1">// 生成一个整数，比如 17</span>
@@ -767,12 +769,12 @@ NOT LIKE 子句:</p>
 </div>
 <p>但是， 这个方法会重置你在 <code class="docutils literal notranslate"><span class="pre">select()</span></code>。 方法里设置的所有值，如果你希望
 保留它们，可以将第二个参数设置为 FALSE:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">countAllResults</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">countAllResults</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;countAll()</strong></p>
 <p>该方法用于获取某个表的总行数，第一个参数为表名。例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">countAll</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">);</span>  <span class="c1">// Produces an integer, like 25</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">countAll</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">);</span>  <span class="c1">// Produces an integer, like 25</span>
 </pre></div>
 </div>
 </div>
@@ -780,7 +782,7 @@ NOT LIKE 子句:</p>
 <h2><a class="toc-backref" href="#id22">查询分组</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <p>查询分组可以让你生成用括号括起来的一组 WHERE 条件，这能创造出非常复杂的 WHERE 子句， 支持嵌套的条件组。
 例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">)</span>
         <span class="o">-&gt;</span><span class="na">groupStart</span><span class="p">()</span>
                 <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
                 <span class="o">-&gt;</span><span class="na">orGroupStart</span><span class="p">()</span>
@@ -815,7 +817,7 @@ NOT LIKE 子句:</p>
 <p><strong>$builder-&gt;insert()</strong></p>
 <p>该方法根据你提供的数据生成一条 INSERT 语句并执行，它的参数是一个**数组** 或一个**对象**，
 下面是使用数组的例子:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span><span class="p">,</span>
         <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;My Name&#39;</span><span class="p">,</span>
         <span class="s1">&#39;date&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;My date&#39;</span>
@@ -827,7 +829,7 @@ NOT LIKE 子句:</p>
 </div>
 <p>第一个参数为要插入的数据，是个关联数组。</p>
 <p>下面是使用对象的例子:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm">class Myclass {</span>
 <span class="cm">        public $title   = &#39;My Title&#39;;</span>
 <span class="cm">        public $content = &#39;My Content&#39;;</span>
@@ -849,7 +851,7 @@ NOT LIKE 子句:</p>
 <p>该方法和 $builder-&gt;insert() 方法一样编译插入查询，但是并不
 执行。此方法只是将 SQL 查询作为字符串返回。</p>
 <p>例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span><span class="p">,</span>
         <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;My Name&#39;</span><span class="p">,</span>
         <span class="s1">&#39;date&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;My date&#39;</span>
@@ -862,7 +864,7 @@ NOT LIKE 子句:</p>
 </pre></div>
 </div>
 <p>第二个参数用于设置是否重置查询（默认情况下会重置，正如 $builder-&gt;insert() 方法一样）:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;My Title&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getCompiledInsert</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;My Title&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getCompiledInsert</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
 
 <span class="c1">// Produces string: INSERT INTO mytable (`title`) VALUES (&#39;My Title&#39;)</span>
 
@@ -881,7 +883,7 @@ NOT LIKE 子句:</p>
 <p><strong>$builder-&gt;insertBatch()</strong></p>
 <p>该方法根据你提供的数据生成一条 INSERT 语句并执行，它的参数是一个**数组** 或一个**对象**，
 下面是使用数组的例子:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="k">array</span><span class="p">(</span>
                 <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;My Name&#39;</span><span class="p">,</span>
@@ -911,7 +913,7 @@ NOT LIKE 子句:</p>
 使用 <em>PRIMARY</em> 和 <em>UNIQUE</em> 键作为决定因素。在我们的例子中，它可以使你免于需要实现与不同的
 组合复杂的逻辑 <code class="docutils literal notranslate"><span class="pre">select()</span></code>， <code class="docutils literal notranslate"><span class="pre">update()</span></code>， <code class="docutils literal notranslate"><span class="pre">delete()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">insert()</span></code>。</p>
 <p>例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span><span class="p">,</span>
         <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;My Name&#39;</span><span class="p">,</span>
         <span class="s1">&#39;date&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;My date&#39;</span>
@@ -928,12 +930,12 @@ NOT LIKE 子句:</p>
 <p><strong>$builder-&gt;set()</strong></p>
 <p><strong>该方法可以取代直接传递数据数组到 insert 或 update 方法：</strong></p>
 <p><strong>它可以用来代替直接将数据数组传递给 insert 或 update 功能:</strong></p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">();</span>  <span class="c1">// Produces: INSERT INTO mytable (`name`) VALUES (&#39;{$name}&#39;)</span>
 </pre></div>
 </div>
 <p>如果你多次调用该方法，它会正确组装出 insert 或 update 语句来:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="nv">$title</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="nv">$status</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">();</span>
@@ -941,7 +943,7 @@ NOT LIKE 子句:</p>
 </div>
 <p><strong>set()</strong> 将方法也接受可选的第三个参数（<code class="docutils literal notranslate"><span class="pre">$escape</span></code>），如果设置为 FALSE，数据将不会自动
 转义。为了说明两者之间的区别，这里有一个带转义的 <code class="docutils literal notranslate"><span class="pre">set()</span></code> 方法和不带转义的例子。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;field&#39;</span><span class="p">,</span> <span class="s1">&#39;field+1&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;field&#39;</span><span class="p">,</span> <span class="s1">&#39;field+1&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span> <span class="c1">// gives UPDATE mytable SET field = field+1 WHERE `id` = 2</span>
 
@@ -951,7 +953,7 @@ NOT LIKE 子句:</p>
 </pre></div>
 </div>
 <p>你也可以传一个关联数组作为参数:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;name&#39;</span>   <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
         <span class="s1">&#39;title&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
         <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="nv">$status</span>
@@ -962,7 +964,7 @@ NOT LIKE 子句:</p>
 </pre></div>
 </div>
 <p>或者一个对象:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm">class Myclass {</span>
 <span class="cm">        public $title   = &#39;My Title&#39;;</span>
 <span class="cm">        public $content = &#39;My Content&#39;;</span>
@@ -978,7 +980,7 @@ NOT LIKE 子句:</p>
 <p><strong>$builder-&gt;update()</strong></p>
 <p>该方法根据你提供的数据生成更新字符串并执行，它的参数是一个 <strong>数组</strong> 或一个 <strong>对象</strong> ，
 下面是使用数组的例子:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
         <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
         <span class="s1">&#39;date&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$date</span>
@@ -994,7 +996,7 @@ NOT LIKE 子句:</p>
 </pre></div>
 </div>
 <p>或者你可以使用一个对象:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm">class Myclass {</span>
 <span class="cm">        public $title   = &#39;My Title&#39;;</span>
 <span class="cm">        public $content = &#39;My Content&#39;;</span>
@@ -1018,17 +1020,17 @@ NOT LIKE 子句:</p>
 </div>
 <p>你应该注意到 $builder-&gt;where() 方法的使用，它可以为你设置 WHERE 子句。
 你也可以直接使用字符串形式直接传递给更新函数:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="s2">&quot;id = 4&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="s2">&quot;id = 4&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>或者使用一个数组:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>
 </pre></div>
 </div>
 <p>当执行更新操作时，你还可以使用上面介绍的 $builder-&gt;set() 方法。</p>
 <p><strong>$builder-&gt;updateBatch()</strong></p>
 <p>该方法根据你提供的数据生成一条 UPDATE 语句并执行，它的参数是一个 <strong>数组</strong> 或一个 <strong>对象</strong>，下面是使用数组的例子:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
    <span class="k">array</span><span class="p">(</span>
       <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span> <span class="p">,</span>
       <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;My Name 2&#39;</span> <span class="p">,</span>
@@ -1077,12 +1079,12 @@ NOT LIKE 子句:</p>
 <h2><a class="toc-backref" href="#id25">删除数据</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
 <p><strong>$builder-&gt;delete()</strong></p>
 <p>该方法生成删除SQL语句并执行。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>  <span class="c1">// Produces: // DELETE FROM mytable  // WHERE id = $id</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>  <span class="c1">// Produces: // DELETE FROM mytable  // WHERE id = $id</span>
 </pre></div>
 </div>
 <p>第一个参数为 where 条件。你也可以不用第一个参数， 使用 where() 或者 or_where()
 函数来替代它:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
 <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
 
 <span class="c1">// Produces:</span>
@@ -1093,12 +1095,12 @@ NOT LIKE 子句:</p>
 <p>如果你想要删除一个表中的所有数据，可以使用 truncate() 或 empty_table() 方法。.</p>
 <p><strong>$builder-&gt;emptyTable()</strong></p>
 <p>该方法生成删除SQl语句并执行:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">emptyTable</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span> <span class="c1">// Produces: DELETE FROM mytable</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">emptyTable</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span> <span class="c1">// Produces: DELETE FROM mytable</span>
 </pre></div>
 </div>
 <p><strong>$builder-&gt;truncate()</strong></p>
 <p>该方法生截断SQL语句并执行。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">truncate</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">truncate</span><span class="p">();</span>
 
 <span class="c1">// Produces:</span>
 <span class="c1">// TRUNCATE mytable</span>
@@ -1115,7 +1117,7 @@ NOT LIKE 子句:</p>
 <div class="section" id="id13">
 <h2><a class="toc-backref" href="#id26">链式方法</a><a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h2>
 <p>通过将多个方法连接在一起，链式方法可以大大的简化你的语法。感受一下这个例子:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
                  <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span>
                  <span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
                  <span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
@@ -1127,7 +1129,7 @@ NOT LIKE 子句:</p>
 <p><strong>$builder-&gt;resetQuery()</strong></p>
 <p>该方法无需执行就能重置查询构造器中的查询，$builder-&gt;get() 或 $builder-&gt;insert() 方法也可以用于重置查询，但是必须要先执行它。</p>
 <p>当你在使用查询构造器生成 SQL 语句（如：<code class="docutils literal notranslate"><span class="pre">$builder-&gt;getCompiledSelect()</span></code>）， 之后再执行它。这种情况下，不重置查询缓存将非常有用:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span>            <span class="c1">// 注意 get_compiled_select 方法的第二个参数为 FALSE</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>            <span class="c1">// 注意 get_compiled_select 方法的第二个参数为 FALSE</span>
 <span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;field1&#39;</span><span class="p">,</span><span class="s1">&#39;field2&#39;</span><span class="p">))</span>
                <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;field3&#39;</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
                <span class="o">-&gt;</span><span class="na">getCompiledSelect</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
@@ -2321,10 +2323,10 @@ NOT LIKE 子句:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="transactions.html" class="btn btn-neutral float-right" title="事务" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="transactions.html" class="btn btn-neutral float-right" title="事务" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="helpers.html" class="btn btn-neutral float-left" title="查询语句辅助函数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="helpers.html" class="btn btn-neutral float-left" title="查询语句辅助函数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -2333,15 +2335,22 @@ NOT LIKE 子句:</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -2349,10 +2358,10 @@ NOT LIKE 子句:</p>
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -2363,7 +2372,6 @@ NOT LIKE 子句:</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

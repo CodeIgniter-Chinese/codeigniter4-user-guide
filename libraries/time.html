@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>日期与时间类 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>日期与时间类 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="Typography 类" href="typography.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">类库参考</a> &raquo;</li>
         
@@ -353,7 +355,7 @@
 <h2><a class="toc-backref" href="#id10">实例化</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>有多种创建 Time 类实例的方法。 首先是像其他类一样简单地创建一个新实例。 当您以这种方式进行操作时，您可以传递一
 个表示所需时间的字符串。 它可以是 PHP 的 strtotime() 函数可以解析的任何字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
 
 <span class="nv">$myTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Time</span><span class="p">(</span><span class="s1">&#39;+3 week&#39;</span><span class="p">);</span>
 <span class="nv">$myTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Time</span><span class="p">(</span><span class="s1">&#39;now&#39;</span><span class="p">);</span>
@@ -362,14 +364,14 @@
 <p>你可以在参数中分别传递表示时区和语言环境的字符串。时区可以是 PHP 的 <a class="reference external" href="http://php.net/manual/en/timezones.php">DateTimeZone</a> 类
 可以支持所有时区。 语言环境可以是 PHP 的 <a class="reference external" href="http://php.net/manual/en/class.locale.php">Locale</a> 类支持的任何语言环境。
 如果未提供语言环境或时区，则将使用应用程序配置中的默认值。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Time</span><span class="p">(</span><span class="s1">&#39;now&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Time</span><span class="p">(</span><span class="s1">&#39;now&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="now">
 <h3>now()<a class="headerlink" href="#now" title="永久链接至标题">¶</a></h3>
 <p>Time 类有几个有用的 helper 方法来实例化这个类，首先是 <strong>now()</strong> 方法，该方法返回设置为当前时间的新实例。 您可以在参数中
 提供表示时区和语言环境的字符串。 如果未提供语言环境或时区，则将使用应用程序配置中的默认值。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -377,7 +379,7 @@
 <h3>parse()<a class="headerlink" href="#parse" title="永久链接至标题">¶</a></h3>
 <p>这个 helper 程序方法是默认的构造函数的 static 版本。它以 DateTime 类构造函数可接受的任何表示时间的字符串为第一个参数，
 将表示时区的字符串作为第二个参数，将表示语言环境的字符串作为第三个参数：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;next Tuesday&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;next Tuesday&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -385,7 +387,7 @@
 <h3>today()<a class="headerlink" href="#today" title="永久链接至标题">¶</a></h3>
 <p>返回一个新实例，该实例的日期设置为当前日期，时间设置为午夜。它在第一个和第二个参数中分别接受表示时区和语言环境
 的字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">today</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">today</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -393,7 +395,7 @@
 <h3>yesterday()<a class="headerlink" href="#yesterday" title="永久链接至标题">¶</a></h3>
 <p>返回一个新实例，该实例的日期设置为昨天的日期，时间设置为午夜。它在第一个和第二个参数中分别接受表示时区和语言环境
 的字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">yesterday</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">yesterday</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -401,7 +403,7 @@
 <h3>tomorrow()<a class="headerlink" href="#tomorrow" title="永久链接至标题">¶</a></h3>
 <p>返回一个新实例，该实例的日期设置为明天的日期，时间设置为午夜。它在第一个和第二个参数中分别接受表示时区和语言环境
 的字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">tomorrow</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$myTime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">tomorrow</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -409,7 +411,7 @@
 <h3>createFromDate()<a class="headerlink" href="#createfromdate" title="永久链接至标题">¶</a></h3>
 <p>给定 <strong>年</strong> 、 <strong>月</strong> 、 <strong>日</strong> 的单独输入，将返回一个新实例。如果未提供它们三个中的任何一个，它将使用当前时间的该值进行填充。在第四
 和第五个参数中接受时区和语言环境的字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$today</span>       <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromDate</span><span class="p">();</span>      <span class="c1">// 将使用现在时间的年、月、日</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$today</span>       <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromDate</span><span class="p">();</span>      <span class="c1">// 将使用现在时间的年、月、日</span>
 <span class="nv">$anniversary</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromDate</span><span class="p">(</span><span class="mi">2018</span><span class="p">);</span>  <span class="c1">// 将使用现在时间的月、日</span>
 <span class="nv">$date</span>        <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromDate</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
@@ -419,7 +421,7 @@
 <h3>createFromTime()<a class="headerlink" href="#createfromtime" title="永久链接至标题">¶</a></h3>
 <p>与 <strong>createFromDate()</strong> 相似，只不过它只和 <strong>小时</strong> 、 <strong>分钟</strong> 和 <strong>秒</strong> 有关。 使用当前时间的日期作为 Time 实例的日期
 部分。 在第四个和第五个参数中接受时区和语言环境的字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$lunch</span>  <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromTime</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>       <span class="c1">// 11:30 am today</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$lunch</span>  <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromTime</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>       <span class="c1">// 11:30 am today</span>
 <span class="nv">$lunch</span>  <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromTime</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>      <span class="c1">// 今天的 11:30</span>
 <span class="nv">$dinner</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromTime</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">)</span>  <span class="c1">// 6:00 pm today</span>
 <span class="nv">$dinner</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromTime</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">)</span>  <span class="c1">// 今天的 18:00</span>
@@ -431,21 +433,21 @@
 <h3>create()<a class="headerlink" href="#create" title="永久链接至标题">¶</a></h3>
 <p>前面两种方法的组合，将 <strong>年</strong> 、 <strong>月</strong> 、 <strong>日</strong> 、 <strong>小时</strong> 、 <strong>分钟</strong> 和 <strong>秒</strong> 作为单独的参数。
 任何未提供的值将使用当前的日期和时间来确定。 在第四个和第五个参数中接受时区和语言环境的字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="nv">$year</span><span class="p">,</span> <span class="nv">$month</span><span class="p">,</span> <span class="nv">$day</span><span class="p">,</span> <span class="nv">$hour</span><span class="p">,</span> <span class="nv">$minutes</span><span class="p">,</span> <span class="nv">$seconds</span><span class="p">,</span> <span class="nv">$timezone</span><span class="p">,</span> <span class="nv">$locale</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="nv">$year</span><span class="p">,</span> <span class="nv">$month</span><span class="p">,</span> <span class="nv">$day</span><span class="p">,</span> <span class="nv">$hour</span><span class="p">,</span> <span class="nv">$minutes</span><span class="p">,</span> <span class="nv">$seconds</span><span class="p">,</span> <span class="nv">$timezone</span><span class="p">,</span> <span class="nv">$locale</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="createfromformat">
 <h3>createFromFormat()<a class="headerlink" href="#createfromformat" title="永久链接至标题">¶</a></h3>
 <p>它是替代 DateTime 构造函数的方法。它允许同时设置时区，并返回一个 <strong>Time</strong> 实例，而不是 DateTime 实例：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromFormat</span><span class="p">(</span><span class="s1">&#39;j-M-Y&#39;</span><span class="p">,</span> <span class="s1">&#39;15-Feb-2009&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromFormat</span><span class="p">(</span><span class="s1">&#39;j-M-Y&#39;</span><span class="p">,</span> <span class="s1">&#39;15-Feb-2009&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="createfromtimestamp">
 <h3>createFromTimestamp()<a class="headerlink" href="#createfromtimestamp" title="永久链接至标题">¶</a></h3>
 <p>该方法使用 UNIX 时间戳以及时区和语言环境（可选）来创建新的 Time 实例：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromTimestamp</span><span class="p">(</span><span class="mi">1501821586</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromTimestamp</span><span class="p">(</span><span class="mi">1501821586</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -453,7 +455,7 @@
 <h3>instance()<a class="headerlink" href="#instance" title="永久链接至标题">¶</a></h3>
 <p>与提供 DateTime 实例的其他 library 一起使用时，可以使用此方法将其转换为 Time 实例，可以选择设置语言环境。
 时区将根据传入的 DateTime 实例自动确定：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$dt</span>   <span class="o">=</span> <span class="k">new</span> <span class="nx">DateTime</span><span class="p">(</span><span class="s1">&#39;now&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$dt</span>   <span class="o">=</span> <span class="k">new</span> <span class="nx">DateTime</span><span class="p">(</span><span class="s1">&#39;now&#39;</span><span class="p">);</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">instance</span><span class="p">(</span><span class="nv">$dt</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -462,7 +464,7 @@
 <h3>toDateTime()<a class="headerlink" href="#todatetime" title="永久链接至标题">¶</a></h3>
 <p>它不是用来实例化的，此方法与 <strong>实例化</strong> 方法相反，它允许您将 Time 实例转换为 DateTime 实例。这样会保留时区设置，
 但会丢失语言环境，因为 DateTime 并不了解语言环境：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$datetime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">toDateTime</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$datetime</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">toDateTime</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -475,7 +477,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <h3>toLocalizedString()<a class="headerlink" href="#tolocalizedstring" title="永久链接至标题">¶</a></h3>
 <p>这是 DateTime 的 format() 方法的本地化版本。但是，必须使用 <a class="reference external" href="http://php.net/manual/en/class.intldateformatter.php">IntlDateFormatter</a> 类可以接受的值，
 而不能使用你熟悉的值。完整的值列表可以在 <a class="reference external" href="http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details">这里</a> 找到。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">toLocalizedString</span><span class="p">(</span><span class="s1">&#39;MMM d, yyyy&#39;</span><span class="p">);</span>   <span class="c1">// March 9, 2016</span>
 </pre></div>
 </div>
@@ -484,7 +486,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <h3>toDateTimeString()<a class="headerlink" href="#todatetimestring" title="永久链接至标题">¶</a></h3>
 <p>这是与 IntlDateFormatter 一起使用的三种辅助方法中的第一种，无需记住它们的值。这将返回一个格式化的字符串，
 该字符串的格式与数据库中日期时间列的常用格式相同（Y-m-d H:i:s）：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">toDateTimeString</span><span class="p">();</span>     <span class="c1">// 2016-03-09 12:00:00</span>
 </pre></div>
 </div>
@@ -492,7 +494,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="todatestring">
 <h3>toDateString()<a class="headerlink" href="#todatestring" title="永久链接至标题">¶</a></h3>
 <p>仅返回时间与日期的日期部分：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">toDateTimeString</span><span class="p">();</span>     <span class="c1">// 2016-03-09</span>
 </pre></div>
 </div>
@@ -500,7 +502,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="totimestring">
 <h3>toTimeString()<a class="headerlink" href="#totimestring" title="永久链接至标题">¶</a></h3>
 <p>仅返回时间与日期的时间部分：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">toTimeString</span><span class="p">();</span>     <span class="c1">// 12:00:00</span>
 </pre></div>
 </div>
@@ -509,7 +511,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <h3>humanize()<a class="headerlink" href="#humanize" title="永久链接至标题">¶</a></h3>
 <p>此方法返回一个字符串，该字符串以易于理解的人类可读格式显示当前日期或时间与实例之间的差异。它会返回“ 3 小时前”、“ 1 个月内”
 等字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 假设现在的时间是：March 10, 2017 (America/Chicago)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 假设现在的时间是：March 10, 2017 (America/Chicago)</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">humanize</span><span class="p">();</span>     <span class="c1">// 1 year ago</span>
@@ -565,7 +567,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="id6">
 <h3>获取器<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p>有以下几种基本的获取器：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;August 12, 2016 4:15:23pm&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;August 12, 2016 4:15:23pm&#39;</span><span class="p">);</span>
 
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">getYear</span><span class="p">();</span>      <span class="c1">// 2016</span>
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">getMonth</span><span class="p">();</span>     <span class="c1">// 8</span>
@@ -583,7 +585,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 </pre></div>
 </div>
 <p>除这些之外，还有许多方法可以获取有关日期的其他信息：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;August 12, 2016 4:15:23pm&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;August 12, 2016 4:15:23pm&#39;</span><span class="p">);</span>
 
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">getDayOfWeek</span><span class="p">();</span>     <span class="c1">// 6 - 但可能会因地区的一个星期的第一天而有所不同</span>
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">getDayOfYear</span><span class="p">();</span>     <span class="c1">// 225</span>
@@ -604,7 +606,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="getage">
 <h3>getAge()<a class="headerlink" href="#getage" title="永久链接至标题">¶</a></h3>
 <p>返回 Time 实例与当前时间之间的差值（以年为单位）。主要是用于根据某人的生日检查其年龄：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;5 years ago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;5 years ago&#39;</span><span class="p">);</span>
 
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">getAge</span><span class="p">();</span>   <span class="c1">// 5</span>
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">age</span><span class="p">;</span>        <span class="c1">// 5</span>
@@ -614,7 +616,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="getdst">
 <h3>getDST()<a class="headerlink" href="#getdst" title="永久链接至标题">¶</a></h3>
 <p>根据 Time 实例是否正在遵守夏令时，返回布尔值 true 或 false：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromDate</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getDst</span><span class="p">();</span>     <span class="c1">// false</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromDate</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getDst</span><span class="p">();</span>     <span class="c1">// false</span>
 <span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">createFromDate</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dst</span><span class="p">;</span>     <span class="c1">// true</span>
 </pre></div>
 </div>
@@ -622,7 +624,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="getlocal">
 <h3>getLocal()<a class="headerlink" href="#getlocal" title="永久链接至标题">¶</a></h3>
 <p>如果 Time 实例的时区与 web 应用程序当前所在的时区位于同一时区，则返回布尔值 true：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getLocal</span><span class="p">();</span>                   <span class="c1">// true</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getLocal</span><span class="p">();</span>                   <span class="c1">// true</span>
 <span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;Europe/London&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getLocal</span><span class="p">();</span>    <span class="c1">// false</span>
 </pre></div>
 </div>
@@ -630,7 +632,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="getutc">
 <h3>getUtc()<a class="headerlink" href="#getutc" title="永久链接至标题">¶</a></h3>
 <p>如果 Time 实例使用 UTC 时间，则返回 true：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getUtc</span><span class="p">();</span>    <span class="c1">// false</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getUtc</span><span class="p">();</span>    <span class="c1">// false</span>
 <span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">utc</span><span class="p">;</span>                     <span class="c1">// true</span>
 </pre></div>
 </div>
@@ -638,7 +640,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="gettimezone">
 <h3>getTimezone()<a class="headerlink" href="#gettimezone" title="永久链接至标题">¶</a></h3>
 <p>返回一个新的 <a class="reference external" href="http://php.net/manual/en/class.datetimezone.php">DateTimeZone</a> 实例，该实例是 Time 实例的时区：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$tz</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTimezone</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$tz</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getTimezone</span><span class="p">();</span>
 <span class="nv">$tz</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">timezone</span><span class="p">;</span>
 
 <span class="k">echo</span> <span class="nv">$tz</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>
@@ -649,7 +651,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="gettimezonename">
 <h3>getTimezoneName()<a class="headerlink" href="#gettimezonename" title="永久链接至标题">¶</a></h3>
 <p>返回 Time 实例的 <a class="reference external" href="http://php.net/manual/en/timezones.php">完整时区字符串</a> ：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getTimezoneName</span><span class="p">();</span>   <span class="c1">// America/Chicago</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;America/Chicago&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getTimezoneName</span><span class="p">();</span>   <span class="c1">// America/Chicago</span>
 <span class="k">echo</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">(</span><span class="s1">&#39;Europe/London&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">timezoneName</span><span class="p">;</span>          <span class="c1">// Europe/London</span>
 </pre></div>
 </div>
@@ -664,7 +666,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <p class="first admonition-title">注解</p>
 <p class="last">如果值超出范围，则设置器将抛出 InvalidArgumentException。</p>
 </div>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">setYear</span><span class="p">(</span><span class="mi">2017</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">setYear</span><span class="p">(</span><span class="mi">2017</span><span class="p">);</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">setMonthNumber</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>           <span class="c1">// April</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">setMonthLongName</span><span class="p">(</span><span class="s1">&#39;April&#39;</span><span class="p">);</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">setMonthShortName</span><span class="p">(</span><span class="s1">&#39;Feb&#39;</span><span class="p">);</span>    <span class="c1">// February</span>
@@ -679,7 +681,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="settimezone">
 <h3>setTimezone()<a class="headerlink" href="#settimezone" title="永久链接至标题">¶</a></h3>
 <p>将时间从当前时区转换为新时区：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span>  <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;May 10, 2017&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span>  <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;May 10, 2017&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="nv">$time2</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">setTimezone</span><span class="p">(</span><span class="s1">&#39;Europe/London&#39;</span><span class="p">);</span>           <span class="c1">// 将时间从当前时区转换为新时区</span>
 
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">timezoneName</span><span class="p">;</span>   <span class="c1">// American/Chicago</span>
@@ -690,7 +692,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="settimestamp">
 <h3>setTimestamp()<a class="headerlink" href="#settimestamp" title="永久链接至标题">¶</a></h3>
 <p>返回日期设置为新时间戳的新实例：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;May 10, 2017&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;May 10, 2017&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="nv">$time2</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">setTimestamp</span><span class="p">(</span><span class="nb">strtotime</span><span class="p">(</span><span class="s1">&#39;April 1, 2017&#39;</span><span class="p">));</span>
 
 <span class="k">echo</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">toDateTimeString</span><span class="p">();</span>     <span class="c1">// 2017-05-10 00:00:00</span>
@@ -700,7 +702,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="modifying-the-value">
 <h4>Modifying the Value<a class="headerlink" href="#modifying-the-value" title="永久链接至标题">¶</a></h4>
 <p>通过以下方法，您可以通过在当前时间上增加或减少值来修改日期。这不会修改现有的 Time 实例，只会返回一个新实例。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">addSeconds</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">addSeconds</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">addMinutes</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">addHours</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">addDays</span><span class="p">(</span><span class="mi">21</span><span class="p">);</span>
@@ -724,7 +726,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="equals">
 <h3>equals()<a class="headerlink" href="#equals" title="永久链接至标题">¶</a></h3>
 <p>确定传入的日期时间是否等于当前实例。在这种情况下，相等意味着它们表示同一时间，并且不需要位于同一时区，因为两个时间都转换为 UTC 并以这种方式进行比较：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 10, 2017 21:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 10, 2017 21:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="nv">$time2</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 11, 2017 03:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;Europe/London&#39;</span><span class="p">);</span>
 
 <span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">equals</span><span class="p">(</span><span class="nv">$time2</span><span class="p">);</span>    <span class="c1">// true</span>
@@ -732,14 +734,14 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 </div>
 <p>要作比较的值可以是 Time 实例，DateTime 实例或 DateTime 类可以理解的任何表示时间的字符串。当将字符串作为第一个参数传递时，
 可以将时区字符串作为第二个参数传递。 如果没有给出时区，将使用配置的默认值：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">equals</span><span class="p">(</span><span class="s1">&#39;January 11, 2017 03:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;Europe/London&#39;</span><span class="p">);</span>  <span class="c1">// true</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">equals</span><span class="p">(</span><span class="s1">&#39;January 11, 2017 03:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;Europe/London&#39;</span><span class="p">);</span>  <span class="c1">// true</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="sameas">
 <h3>sameAs()<a class="headerlink" href="#sameas" title="永久链接至标题">¶</a></h3>
 <p>除了只有在日期，时间和时区都相同时才返回 true，这与 <strong>equals</strong> 方法相同：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 10, 2017 21:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 10, 2017 21:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="nv">$time2</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 11, 2017 03:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;Europe/London&#39;</span><span class="p">);</span>
 
 <span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">sameAs</span><span class="p">(</span><span class="nv">$time2</span><span class="p">);</span>    <span class="c1">// false</span>
@@ -750,7 +752,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <div class="section" id="isbefore">
 <h3>isBefore()<a class="headerlink" href="#isbefore" title="永久链接至标题">¶</a></h3>
 <p>检查传入的时间是否在当前实例之前。两种情况下都针对 UTC 版本进行了比较：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 10, 2017 21:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 10, 2017 21:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="nv">$time2</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 11, 2017 03:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 
 <span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">isBefore</span><span class="p">(</span><span class="nv">$time2</span><span class="p">);</span>  <span class="c1">// true</span>
@@ -759,14 +761,14 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 </div>
 <p>要作比较的值可以是 Time 实例，DateTime 实例或 DateTime 类可以理解的任何表示时间的字符串。当将字符串作为第一个参数传递时，
 可以将时区字符串作为第二个参数传递。 如果没有给出时区，将使用配置的默认值：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">isBefore</span><span class="p">(</span><span class="s1">&#39;March 15, 2013&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>  <span class="c1">// false</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">isBefore</span><span class="p">(</span><span class="s1">&#39;March 15, 2013&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>  <span class="c1">// false</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="isafter">
 <h3>isAfter()<a class="headerlink" href="#isafter" title="永久链接至标题">¶</a></h3>
 <p>除了检查时间是否在传入的时间之后，其他的与 <strong>isBefore()</strong> 完全相同：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 10, 2017 21:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time1</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 10, 2017 21:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="nv">$time2</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;January 11, 2017 03:50:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 
 <span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">isAfter</span><span class="p">(</span><span class="nv">$time2</span><span class="p">);</span>  <span class="c1">// false</span>
@@ -777,7 +779,7 @@ Time 类提供了许多 helper 方法来显示值的本地化版本。</p>
 <h4>查看差异<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
 <p>要直接比较两个 Times，可以使用 <strong>difference()</strong> 方法，该方法返回 <strong>CodeIgniter\I18n\TimeDifference</strong> 实例。第一个参数可以是 Time 实例、
 DateTime 实例或带有日期或时间的字符串。 如果在第一个参数中传递了表示时间字符串，则第二个参数可以是时区字符串：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 10, 2017&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 10, 2017&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 
 <span class="nv">$diff</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">difference</span><span class="p">(</span><span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">());</span>
 <span class="nv">$diff</span> <span class="o">=</span> <span class="nv">$time</span><span class="o">-&gt;</span><span class="na">difference</span><span class="p">(</span><span class="k">new</span> <span class="nx">DateTime</span><span class="p">(</span><span class="s1">&#39;July 4, 1975&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
@@ -786,7 +788,7 @@ DateTime 实例或带有日期或时间的字符串。 如果在第一个参数�
 </div>
 <p>有了 TimeDifference 实例后，您可以使用多种方法来查找有关两个 Time 间的信息。如果比较时间在待比较时间之前，则返回值为负数；反之，
 如果比较时间在带比较时间之后，则返回的值为正数：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$current</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 10, 2017&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$current</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 10, 2017&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 <span class="nv">$test</span>    <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 10, 2010&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 
 <span class="nv">$diff</span> <span class="o">=</span> <span class="nv">$current</span><span class="o">-&gt;</span><span class="na">difference</span><span class="p">(</span><span class="nv">$test</span><span class="p">);</span>
@@ -801,7 +803,7 @@ DateTime 实例或带有日期或时间的字符串。 如果在第一个参数�
 </pre></div>
 </div>
 <p>你可以用 <strong>getX()</strong> 方法，也可以像使用属性一样访问计算值：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$diff</span><span class="o">-&gt;</span><span class="na">years</span><span class="p">;</span>     <span class="c1">// -7</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$diff</span><span class="o">-&gt;</span><span class="na">years</span><span class="p">;</span>     <span class="c1">// -7</span>
 <span class="k">echo</span> <span class="nv">$diff</span><span class="o">-&gt;</span><span class="na">months</span><span class="p">;</span>    <span class="c1">// -84</span>
 <span class="k">echo</span> <span class="nv">$diff</span><span class="o">-&gt;</span><span class="na">weeks</span><span class="p">;</span>     <span class="c1">// -365</span>
 <span class="k">echo</span> <span class="nv">$diff</span><span class="o">-&gt;</span><span class="na">days</span><span class="p">;</span>      <span class="c1">// -2557</span>
@@ -816,7 +818,7 @@ DateTime 实例或带有日期或时间的字符串。 如果在第一个参数�
 <h3>humanize()<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>与 Time 的 humanize() 方法非常相似，此方法返回一个字符串，该字符串以易于理解的格式显示时间之间的时差。
 它可以创建像“3 小时前”、“1 个月内”这样的的字符串。它们之间最大的区别在于最近日期的处理方式：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assume current time is: March 10, 2017 (America/Chicago)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assume current time is: March 10, 2017 (America/Chicago)</span>
 <span class="c1">// 假设现在时间是： March 10, 2017 (America/Chicago)</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span><span class="s1">&#39;March 9, 2016 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;America/Chicago&#39;</span><span class="p">);</span>
 
@@ -871,10 +873,10 @@ DateTime 实例或带有日期或时间的字符串。 如果在第一个参数�
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="typography.html" class="btn btn-neutral float-right" title="Typography 类" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="typography.html" class="btn btn-neutral float-right" title="Typography 类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="throttler.html" class="btn btn-neutral float-left" title="限流类" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="throttler.html" class="btn btn-neutral float-left" title="限流类" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -883,15 +885,22 @@ DateTime 实例或带有日期或时间的字符串。 如果在第一个参数�
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -899,10 +908,10 @@ DateTime 实例或带有日期或时间的字符串。 如果在第一个参数�
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -913,7 +922,6 @@ DateTime 实例或带有日期或时间的字符串。 如果在第一个参数�
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

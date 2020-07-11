@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>数据库工厂类 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据库工厂类 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="数据库迁移" href="migration.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">管理数据库</a> &raquo;</li>
         
@@ -367,11 +369,11 @@
 <p class="last">为了初始化forge类，你的数据库驱动程序必须已经在运行，因为forge类是依赖它运行的。</p>
 </div>
 <p>加载 Forge 类的代码如下:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">forge</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">forge</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>你可以将另外一个数据可组名传递给 DB Forge加载程序，以防要管理的数据库不是默认数据库:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">myforge</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">dbforge</span><span class="p">(</span><span class="s1">&#39;other_db&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">myforge</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">dbforge</span><span class="p">(</span><span class="s1">&#39;other_db&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>在上面的示例中，我们传递的是另一个数据库的名称作为第一个参数来连接。</p>
@@ -380,7 +382,7 @@
 <h2><a class="toc-backref" href="#id21">创建和删除数据库</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p><strong>$forge-&gt;createDatabase(‘db_name’)</strong></p>
 <p>用于创建指定数据库，根据成败返回 TRUE 或 FALSE:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">))</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">))</span>
 <span class="p">{</span>
         <span class="k">echo</span> <span class="s1">&#39;Database created!&#39;</span><span class="p">;</span>
 <span class="p">}</span>
@@ -388,7 +390,7 @@
 </div>
 <p><strong>$forge-&gt;dropDatabase(‘db_name’)</strong></p>
 <p>用于删除指定数据库，根据成败返回 TRUE 或 FALSE:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">))</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">))</span>
 <span class="p">{</span>
         <span class="k">echo</span> <span class="s1">&#39;Database deleted!&#39;</span><span class="p">;</span>
 <span class="p">}</span>
@@ -401,7 +403,7 @@
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id23">添加字段</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>字段是通过关联数组创建的。在数组中，必须包括与字段的数据类型相关的’type’键。例如，int、varchar、text等。许多数据类型（例如varchar）还需要“约束”键。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;users&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
                 <span class="s1">&#39;type&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;constraint&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
@@ -418,7 +420,7 @@
 <li>auto_increment/true : 在字段上生成auto_increment标志。请注意，字段类型必须是支持此类型的类型，例如整数。</li>
 <li>unique/true : 为字段定义生成唯一键。</li>
 </ul>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;blog_id&#39;</span>          <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
                 <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;INT&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;constraint&#39;</span>     <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
@@ -448,7 +450,7 @@
 <div class="section" id="id6">
 <h4>将字符串作为字段传递<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
 <p>如果你确切知道要如何创建字段，可以使用addField()方法将字符串传递给字段定义</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="s2">&quot;label varchar(100) NOT NULL DEFAULT &#39;default label&#39;&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="s2">&quot;label varchar(100) NOT NULL DEFAULT &#39;default label&#39;&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -463,7 +465,7 @@
 <div class="section" id="id">
 <h4>创建一个id字段<a class="headerlink" href="#id" title="永久链接至标题">¶</a></h4>
 <p>创建id字段有一个特殊例外。具有类型id的字段将自动分配为 INT(9) auto_incrementing 主键。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
 <span class="c1">// 提出 id INT(9) NOT NULL AUTO_INCREMENT</span>
 </pre></div>
 </div>
@@ -474,7 +476,7 @@
 <p>通常来说，表都会有键。这可以使用 $forge-&gt;addKey(‘field’)方法来实现。第二个参数设置是可选的，设置为 TRUE 将使其成为主键，
 第三个参数设置为 TRUE 将使其成为唯一键。注意 addKey()方法必须紧跟在createTable()方法后面。</p>
 <p>包含多列的非主键必须使用数组来添加，下面是 MySQL 的例子。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
 <span class="c1">// gives PRIMARY KEY `blog_id` (`blog_id`)</span>
 
 <span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
@@ -492,24 +494,24 @@
 </pre></div>
 </div>
 <p>为了使代码读取更加客观，还可以使用特定的方法添加主键和唯一键。:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addPrimaryKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addPrimaryKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">);</span>
 <span class="c1">// gives PRIMARY KEY `blog_id` (`blog_id`)</span>
 </pre></div>
 </div>
 <p>外键有助于跨表强制执行关系和操作。对于支持外键的表，可以直接在forge中添加它们。:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addUniqueKey</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">));</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addUniqueKey</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">));</span>
 <span class="c1">// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id25">添加外键</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span><span class="s1">&#39;users&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span><span class="s1">&#39;users&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
 <span class="c1">// gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)</span>
 </pre></div>
 </div>
 <p>你可以为约束的 “on delete” 和 “on update” 属性指定所需的操作:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span><span class="s1">&#39;users&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">,</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span><span class="s1">&#39;users&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">,</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">);</span>
 <span class="c1">// gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE</span>
 </pre></div>
 </div>
@@ -517,17 +519,17 @@
 <div class="section" id="id9">
 <h3><a class="toc-backref" href="#id26">创建表格</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>声明字段和键后，你可以根据如下代码创建一张新表</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">);</span>
 <span class="c1">// gives CREATE TABLE table_name</span>
 </pre></div>
 </div>
 <p>可选的第二个参数设置为TRUE时会在定义中添加”IF NOT EXISTS”子句</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
 <span class="c1">// gives CREATE TABLE IF NOT EXISTS table_name</span>
 </pre></div>
 </div>
 <p>你还可以传递可选的表属性，例如MySQL的 <code class="docutils literal notranslate"><span class="pre">ENGINE</span></code>:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ENGINE&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;InnoDB&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ENGINE&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;InnoDB&#39;</span><span class="p">);</span>
 <span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">,</span> <span class="nv">$attributes</span><span class="p">);</span>
 <span class="c1">// produces: CREATE TABLE `table_name` (...) ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci</span>
 </pre></div>
@@ -542,7 +544,7 @@
 <div class="section" id="id10">
 <h3><a class="toc-backref" href="#id27">删除表</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <p>执行DROP TABLE语句时，可以选择添加一个IF EXISTS子句。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Produces: DROP TABLE table_name</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Produces: DROP TABLE table_name</span>
 <span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">);</span>
 
 <span class="c1">// Produces: DROP TABLE IF EXISTS table_name</span>
@@ -553,7 +555,7 @@
 <div class="section" id="id11">
 <h3><a class="toc-backref" href="#id28">删除外键</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p>执行一个删除外键语句。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Produces: ALTER TABLE &#39;tablename&#39; DROP FOREIGN KEY &#39;users_foreign&#39;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Produces: ALTER TABLE &#39;tablename&#39; DROP FOREIGN KEY &#39;users_foreign&#39;</span>
 <span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropForeignKey</span><span class="p">(</span><span class="s1">&#39;tablename&#39;</span><span class="p">,</span><span class="s1">&#39;users_foreign&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -565,7 +567,7 @@
 <div class="section" id="id12">
 <h3><a class="toc-backref" href="#id29">重命名表</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
 <p>执行表重命名</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">renameTable</span><span class="p">(</span><span class="s1">&#39;old_table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;new_table_name&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">renameTable</span><span class="p">(</span><span class="s1">&#39;old_table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;new_table_name&#39;</span><span class="p">);</span>
 <span class="c1">// gives ALTER TABLE old_table_name RENAME TO new_table_name</span>
 </pre></div>
 </div>
@@ -577,7 +579,7 @@
 <h3><a class="toc-backref" href="#id31">向表中添加列</a><a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
 <p><strong>$forge-&gt;addColumn()</strong></p>
 <p>使用 <code class="docutils literal notranslate"><span class="pre">addColumn()</span></code> 方法用于对现有数据表进行修改，它的参数和上面介绍的字段数组一样，并且可以用于无限数量的附加字段。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;preferences&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">)</span>
 <span class="p">);</span>
 <span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">);</span>
@@ -586,7 +588,7 @@
 </div>
 <p>如果你使用 MySQL 或 CUBIRD ，你可以使用 AFTER 和 FIRST 语句来为新添加的列指定位置。</p>
 <p>例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Will place the new column after the `another_field` column:</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Will place the new column after the `another_field` column:</span>
 <span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;preferences&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span> <span class="s1">&#39;after&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;another_field&#39;</span><span class="p">)</span>
 <span class="p">);</span>
@@ -602,7 +604,7 @@
 <h3><a class="toc-backref" href="#id32">从表中删除列</a><a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
 <p><strong>$forge-&gt;dropColumn()</strong></p>
 <p>该语句用于从表中删除列。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;column_to_drop&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;column_to_drop&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -610,7 +612,7 @@
 <h3><a class="toc-backref" href="#id33">从表中的修改列</a><a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
 <p><strong>$forge-&gt;modifyColumn()</strong></p>
 <p>此方法的用法与 <a href="#id17"><span class="problematic" id="id18">``</span></a>add_column()``相同，只是它是更改现有列，而不是添加新列。为了更改名称，可以将“名称”键添加到字段定义数组中。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;old_name&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
                 <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new_name&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span>
@@ -925,10 +927,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="migration.html" class="btn btn-neutral float-right" title="数据库迁移" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="migration.html" class="btn btn-neutral float-right" title="数据库迁移" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="管理数据库" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="管理数据库" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -937,15 +939,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -953,10 +962,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -967,7 +976,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

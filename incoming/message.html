@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>HTTP 消息 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>HTTP 消息 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="Request 类" href="request.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">控制器和路由</a> &raquo;</li>
         
@@ -371,7 +373,7 @@
 </tbody>
 </table>
 <p>返回当前消息的实体部分，如果实体不存在或者已经被发送过，返回null:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">body</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">body</span><span class="p">();</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -454,14 +456,14 @@
 </tbody>
 </table>
 <p>使你可以获取单个消息头的当前值。 <code class="docutils literal notranslate"><span class="pre">$name</span></code> 对应的是大小写敏感的头名。由于在上述例子中已经对头进行了内部转换，你可以通过任何大小写方式格式来传值:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 这些都等同:</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 这些都等同:</span>
 <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;HOST&#39;</span><span class="p">);</span>
 <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">);</span>
 <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>如果该头有多个值，就会以数组的形式返回. 你可以使用 <code class="docutils literal notranslate"><span class="pre">headerLine()</span></code> 方法来将这些数据转换为字符串的形式来返回:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">);</span>
 
 <span class="c1">// 输出如下:</span>
 <span class="p">[</span>
@@ -471,7 +473,7 @@
 </pre></div>
 </div>
 <p>你可以通过将过滤器的值作为第二个参数传递给该函数:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Document-URI&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_URL</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">getHeader</span><span class="p">(</span><span class="s1">&#39;Document-URI&#39;</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_URL</span><span class="p">);</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -497,7 +499,7 @@
 </tbody>
 </table>
 <p>将该头对应的值以字符串形式返回。该方法使得你可以在该头对应多个值时，将头对应的值轻松地以字符串形式返回。值以逗号分隔形式:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">headerLine</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">headerLine</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">);</span>
 
 <span class="c1">// 输出:</span>
 <span class="nx">en</span><span class="p">,</span> <span class="nx">en</span><span class="o">-</span><span class="nx">US</span>
@@ -529,7 +531,7 @@
 </dd></dl>
 
 <p>为单个头赋值。 <code class="docutils literal notranslate"><span class="pre">$name</span></code> 是该头所对应的大小写敏感的命名。如果该头部当前不存在就会被创建。<code class="docutils literal notranslate"><span class="pre">$value</span></code> 可以是字符串或者一个字符串数组:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">setHeader</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">,</span> <span class="s1">&#39;codeigniter.com&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">setHeader</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">,</span> <span class="s1">&#39;codeigniter.com&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <dl class="method">
@@ -553,7 +555,7 @@
 </tbody>
 </table>
 <p>从消息中移除指定头. <code class="docutils literal notranslate"><span class="pre">$name</span></code> 是该头所对应的大小写敏感的命名:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;Host&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -580,7 +582,7 @@
 </tbody>
 </table>
 <p>为一个现存的头增加值。该头的值不可以是单个字符串，必须是一个数组。如果是单个字符串的话会抛出一个 LogicException 异常</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">appendHeader</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">,</span> <span class="s1">&#39;en-US; q=0.8&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">appendHeader</span><span class="p">(</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">,</span> <span class="s1">&#39;en-US; q=0.8&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -622,7 +624,7 @@
 </tbody>
 </table>
 <p>为当前消息所使用的HTTP协议设定版本。可赋值为 <code class="docutils literal notranslate"><span class="pre">1.0</span></code> 或 <code class="docutils literal notranslate"><span class="pre">1.1</span></code>:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">setProtocolVersion</span><span class="p">(</span><span class="s1">&#39;1.1&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$message</span><span class="o">-&gt;</span><span class="na">setProtocolVersion</span><span class="p">(</span><span class="s1">&#39;1.1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -649,7 +651,7 @@
 </tbody>
 </table>
 <p>用于处理 <code class="docutils literal notranslate"><span class="pre">Accept</span></code> 请求头并将其与应用程序所支持的媒体类型进行对比来给出最合适的类型。本方法会返回一个合适的媒体类型，第一个参数是应用程序所支持的类型，用于和客户端所请求的类型进行比对:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
         <span class="s1">&#39;image/jpg&#39;</span><span class="p">,</span>
         <span class="s1">&#39;image/gif&#39;</span>
@@ -659,7 +661,7 @@
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组里成员的顺序应该以程序优先返回的顺序进行定义，其中第一个成员应该是应用程序所期待的返回类型，其余降序排列。如果和请求的类型匹配不上，就默认返回数组里的第一个成员。</p>
 <p>根据 <a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-5.3">RFC</a> ，协商匹配可以选择以返回一个默认值（就如该方法所做的那样），或者是返回一个空字符串。如果你希望进行严格匹配并返回一个空字符串的话，请为第二个参数传值 <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 如果匹配不到就返回一个空字符串</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 如果匹配不到就返回一个空字符串</span>
 <span class="nv">$imageType</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">negotiateMedia</span><span class="p">(</span><span class="nv">$supported</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -688,7 +690,7 @@
 </tbody>
 </table>
 <p>和 <code class="docutils literal notranslate"><span class="pre">negotiateMedia()</span></code> 方法一样，只是用于匹配 <code class="docutils literal notranslate"><span class="pre">Accept-Charset</span></code> 请求头:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span>
         <span class="s1">&#39;iso-8895-9&#39;</span>
 <span class="p">];</span>
@@ -719,7 +721,7 @@
 </tbody>
 </table>
 <p>与上述两个方法类似，用于匹配 <code class="docutils literal notranslate"><span class="pre">Accept-Encoding</span></code> 请求头；无法匹配时返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组的第一个元素:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;gzip&#39;</span><span class="p">,</span>
         <span class="s1">&#39;compress&#39;</span>
 <span class="p">];</span>
@@ -749,7 +751,7 @@
 </tbody>
 </table>
 <p>与上述三个个方法类似，用于匹配 Accept-Language 请求头；无法匹配时返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组的第一个元素:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;en&#39;</span><span class="p">,</span>
         <span class="s1">&#39;fr&#39;</span><span class="p">,</span>
         <span class="s1">&#39;x-pig-latin&#39;</span>
@@ -774,10 +776,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="request.html" class="btn btn-neutral float-right" title="Request 类" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="request.html" class="btn btn-neutral float-right" title="Request 类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="filters.html" class="btn btn-neutral float-left" title="控制器过滤器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="filters.html" class="btn btn-neutral float-left" title="控制器过滤器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -786,15 +788,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -802,10 +811,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -816,7 +825,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

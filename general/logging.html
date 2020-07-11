@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>记录日志信息 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>记录日志信息 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="错误处理" href="errors.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">常规主题</a> &raquo;</li>
         
@@ -349,14 +351,14 @@
 </div>
 <p>你可以通过 <code class="docutils literal notranslate"><span class="pre">log_message()</span></code> 方法将信息记录在本地日志文件中，并且必须在第一个参数中指定错误的”级别”，来表明这个信息的类型（debug，error等）。
 第二个参数就是信息本身:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$some_var</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$some_var</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="nx">log_message</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Some variable did not contain a value.&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>总共有八种不同的事件报错级别，与 <a class="reference external" href="http://tools.ietf.org/html/rfc5424">RFC 5424</a> 中所定义的错误级别一一对应，它们是:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="o">**</span><span class="nx">debug</span><span class="o">**</span> <span class="o">-</span> <span class="nx">详细的debug信息。</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="o">**</span><span class="nx">debug</span><span class="o">**</span> <span class="o">-</span> <span class="nx">详细的debug信息。</span>
 <span class="o">*</span> <span class="o">**</span><span class="nx">info</span><span class="o">**</span> <span class="o">-</span> <span class="nx">你的应用中的一些有意义的事件，例如用户登录，记录SQL语句等。</span>
 <span class="o">*</span> <span class="o">**</span><span class="nx">notice</span><span class="o">**</span> <span class="o">-</span> <span class="nx">你的应用中的一些正常但明显有价值的事件。</span>
 <span class="o">*</span> <span class="o">**</span><span class="nx">warning</span><span class="o">**</span> <span class="o">-</span> <span class="nx">出现了异常，但不是错误，例如使用了被废弃的API，某个API的调用异常，或其他不期望出现的，但不是错误的情况。</span>
@@ -373,12 +375,12 @@
 <p>配置文件中的 <code class="docutils literal notranslate"><span class="pre">threshold</span></code> （报错阈值）决定了从哪个级别开始的事件将会在整个应用中记录下来。如果应用中有任何低于报错阈值的事件记录被记录时，这些请求将会被忽略。
 最为简单的使用阈值的方法就是将其设为你希望记录的报错等级的最低值。举例来说，如果你想记录warning信息，而不是information信息，就需要将报错阈值设为 <code class="docutils literal notranslate"><span class="pre">5</span></code> 。所有报错等级低于5的日志记录请求
 （包括运行时错误，系统错误等）将会被记录，而info, notice和debug级别的错误就会被忽略:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$threshold</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$threshold</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>关于报错级别和对应的阈值的列表列举在配置文件中以供参阅。</p>
 <p>你可以通过给报错阈值赋值一个包含报错等级数字的数组，来选择特定的报错级别:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 只记录debug和info类型的报错</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 只记录debug和info类型的报错</span>
 <span class="k">public</span> <span class="nv">$threshold</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">];</span>
 </pre></div>
 </div>
@@ -392,7 +394,7 @@
 <p>调度器配置于主配置文件中的 <code class="docutils literal notranslate"><span class="pre">$handlers</span></code> 属性中，这一属性的格式为一个包含一组调度器和它们对应的配置的数组。
 每个调度器被定义数组的键，格式为完整命名空间格式的类名，而对应的值就是一个数组。
 每个调度器配置块中都会有一个通用的属性： <code class="docutils literal notranslate"><span class="pre">handle</span></code> ，对应着该调度器将要记录的报错级别的 <em>名字</em></p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$handlers</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$handlers</span> <span class="o">=</span> <span class="p">[</span>
 
         <span class="c1">//--------------------------------------------------------------------</span>
         <span class="c1">// 文件调度器</span>
@@ -412,7 +414,7 @@
 <p>我们经常会根据上下文来修改记录信息的某些细节。比如说，可能会记录用户ID，IP地址，当前的POST变量等。
 你可以通过在信息中使用通配符来实现。每个通配符必须被大括号（{}） 包裹起来。在第三个参数中，你需要提供一个包含有通配符名，与其对应值的数组。
 这些内容将会插入到记录信息字符串中:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 生成一条例如这样的信息：用户123登录系统，登录IP为127.0.0.1</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 生成一条例如这样的信息：用户123登录系统，登录IP为127.0.0.1</span>
 <span class="nv">$info</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span>
         <span class="s1">&#39;ip_address&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">ip_address</span><span class="p">()</span>
@@ -424,7 +426,7 @@
 <p>如果你想记录一条异常或一个错误，你可以使用”exception”作为键，对应的值就是这条异常或错误本身。
 这样一来这个异常或错误对象包含的错误信息，文件名和对应行号就会生成一条字符串。
 你需要在记录信息中中提供exception通配符:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">try</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">try</span>
 <span class="p">{</span>
         <span class="o">...</span> <span class="nx">一些能抛出异常的代码</span>
 <span class="p">}</span>
@@ -435,7 +437,7 @@
 </pre></div>
 </div>
 <p>以下是几个核心通配符，它们将会在请求页面时自动被替换成指定的数据:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">+----------------+---------------------------------------------------+</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">+----------------+---------------------------------------------------+</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -480,10 +482,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="errors.html" class="btn btn-neutral float-right" title="错误处理" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="errors.html" class="btn btn-neutral float-right" title="错误处理" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="common_functions.html" class="btn btn-neutral float-left" title="公共函数和全局常量" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="common_functions.html" class="btn btn-neutral float-left" title="公共函数和全局常量" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -492,15 +494,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -508,10 +517,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -522,7 +531,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

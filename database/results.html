@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Generating Query Results &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Generating Query Results &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="查询语句辅助函数" href="helpers.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">数据库参考</a> &raquo;</li>
         
@@ -352,7 +354,7 @@
 <p>This method returns the query result as an array of <strong>objects</strong>, or
 <strong>an empty array</strong> on failure. Typically you’ll use this in a foreach
 loop, like this:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
 <span class="p">{</span>
@@ -365,7 +367,7 @@ loop, like this:</p>
 <p>The above method is an alias of <code class="docutils literal notranslate"><span class="pre">getResultObject()</span></code>.</p>
 <p>You can pass in the string ‘array’ if you wish to get your results
 as an array of arrays:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
 <span class="p">{</span>
@@ -378,7 +380,7 @@ as an array of arrays:</p>
 <p>The above usage is an alias of <code class="docutils literal notranslate"><span class="pre">getResultArray()</span></code>.</p>
 <p>You can also pass a string to <code class="docutils literal notranslate"><span class="pre">getResult()</span></code> which represents a class to
 instantiate for each result object</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users;&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users;&quot;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$user</span><span class="p">)</span>
 <span class="p">{</span>
@@ -392,7 +394,7 @@ instantiate for each result object</p>
 <p>This method returns the query result as a pure array, or an empty
 array when no result is produced. Typically you’ll use this in a foreach
 loop, like this:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResultArray</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
 <span class="p">{</span>
@@ -409,7 +411,7 @@ loop, like this:</p>
 <p>This method returns a single result row. If your query has more than
 one row, it returns only the first row. The result is returned as an
 <strong>object</strong>. Here’s a usage example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">();</span>
 
@@ -423,12 +425,12 @@ one row, it returns only the first row. The result is returned as an
 </div>
 <p>If you want a specific row returned you can submit the row number as a
 digit in the first parameter:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>You can also add a second String parameter, which is the name of a class
 to instantiate the row with:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users LIMIT 1;&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users LIMIT 1;&quot;</span><span class="p">);</span>
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">);</span>
 
 <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span> <span class="c1">// access attributes</span>
@@ -438,7 +440,7 @@ to instantiate the row with:</p>
 <p><strong>getRowArray()</strong></p>
 <p>Identical to the above <code class="docutils literal notranslate"><span class="pre">row()</span></code> method, except it returns an array.
 Example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRowArray</span><span class="p">();</span>
 
@@ -452,7 +454,7 @@ Example:</p>
 </div>
 <p>If you want a specific row returned you can submit the row number as a
 digit in the first parameter:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRowArray</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRowArray</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>In addition, you can walk forward/backwards/first/last through your
@@ -485,7 +487,7 @@ result sets.</p>
 <p>This method returns a single result row without prefetching the whole
 result in memory as <code class="docutils literal notranslate"><span class="pre">row()</span></code> does. If your query has more than one row,
 it returns the current row and moves the internal data pointer ahead.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">())</span>
 <span class="p">{</span>
@@ -497,7 +499,7 @@ it returns the current row and moves the internal data pointer ahead.</p>
 </div>
 <p>You can optionally pass ‘object’ (default) or ‘array’ in order to specify
 the returned value’s type:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">();</span>                 <span class="c1">// object</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">();</span>                 <span class="c1">// object</span>
 <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span>     <span class="c1">// object</span>
 <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>      <span class="c1">// associative array</span>
 </pre></div>
@@ -512,7 +514,7 @@ will attempt to load it. The object will have all values returned from the
 database set as properties. If these have been declared and are non-public
 then you should provide a <code class="docutils literal notranslate"><span class="pre">__set()</span></code> method to allow them to be set.</p>
 <p>Example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span>
 <span class="p">{</span>
         <span class="k">public</span> <span class="nv">$id</span><span class="p">;</span>
         <span class="k">public</span> <span class="nv">$email</span><span class="p">;</span>
@@ -550,7 +552,7 @@ take a class name to return the results as: <code class="docutils literal notran
 <p>Returns the entire result set as an array of instances of the class requested.
 The only parameter is the name of the class to instantiate.</p>
 <p>Example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getCustomResultObject</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">);</span>
 
@@ -566,7 +568,7 @@ The only parameter is the name of the class to instantiate.</p>
 <p>Returns a single row from your query results. The first parameter is the row
 number of the results. The second parameter is the class name to instantiate.</p>
 <p>Example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getCustomRowObject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">);</span>
 
@@ -579,7 +581,7 @@ number of the results. The second parameter is the class name to instantiate.</p
 </div>
 <p>You can also use the <code class="docutils literal notranslate"><span class="pre">getRow()</span></code> method in exactly the same way.</p>
 <p>Example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getCustomRowObject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getCustomRowObject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -588,7 +590,7 @@ number of the results. The second parameter is the class name to instantiate.</p
 <p><strong>getFieldCount()</strong></p>
 <p>The number of FIELDS (columns) returned by the query. Make sure to call
 the method using your query result object:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="p">);</span>
 
 <span class="k">echo</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getFieldCount</span><span class="p">();</span>
 </pre></div>
@@ -596,7 +598,7 @@ the method using your query result object:</p>
 <p><strong>getFieldNames()</strong></p>
 <p>Returns an array with the names of the FIELDS (columns) returned by the query.
 Make sure to call the method using your query result object:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="p">);</span>
 
     <span class="k">echo</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getFieldNames</span><span class="p">();</span>
 </pre></div>
@@ -608,7 +610,7 @@ script execution. However, if you are running a lot of queries in a
 particular script you might want to free the result after each query
 result has been generated in order to cut down on memory consumption.</p>
 <p>Example:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$thisdb</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT title FROM my_table&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$thisdb</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT title FROM my_table&#39;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
 <span class="p">{</span>
@@ -629,7 +631,7 @@ result has been generated in order to cut down on memory consumption.</p>
 fetched. It is only useful in combination with <code class="docutils literal notranslate"><span class="pre">getUnbufferedRow()</span></code>.</p>
 <p>It accepts a positive integer value, which defaults to 0 and returns
 TRUE on success or FALSE on failure.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT `field_name` FROM `table_name`&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT `field_name` FROM `table_name`&#39;</span><span class="p">);</span>
 <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">dataSeek</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Skip the first 5 rows</span>
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">();</span>
 </pre></div>
@@ -1075,10 +1077,10 @@ field meta-data.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="helpers.html" class="btn btn-neutral float-right" title="查询语句辅助函数" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="helpers.html" class="btn btn-neutral float-right" title="查询语句辅助函数" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="queries.html" class="btn btn-neutral float-left" title="Queries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="queries.html" class="btn btn-neutral float-left" title="Queries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -1087,15 +1089,22 @@ field meta-data.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -1103,10 +1112,10 @@ field meta-data.</p>
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -1117,7 +1126,6 @@ field meta-data.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

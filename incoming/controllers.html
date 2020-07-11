@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>控制器 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>控制器 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="URI 路由" href="routing.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">控制器和路由</a> &raquo;</li>
         
@@ -364,7 +366,7 @@
 <h2><a class="toc-backref" href="#id13">什么是控制器?</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>简而言之，一个控制器就是一个类文件，是以一种能够和 URI 关联在一起的方式来命名的。</p>
 <p>考虑下面的 URI:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span>
 </pre></div>
 </div>
 <p>上例中，CodeIgniter 将会尝试查询一个名为 Blog.php 的控制器并加载它。</p>
@@ -373,7 +375,7 @@
 <div class="section" id="hello-world">
 <h2><a class="toc-backref" href="#id14">让我们试试看：Hello World！</a><a class="headerlink" href="#hello-world" title="永久链接至标题">¶</a></h2>
 <p>接下来你会看到如何创建一个简单的控制器，打开你的文本编辑器，新建一个文件 Blog.php ， 然后放入以下代码:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
 <span class="p">{</span>
         <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
@@ -399,14 +401,14 @@
 <p class="last">类名必须以大写字母开头。</p>
 </div>
 <p>这是有效的:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span> <span class="p">{</span>
 
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>这是 <strong>无效</strong> 的:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span> <span class="p">{</span>
 
 <span class="p">}</span>
@@ -417,12 +419,12 @@
 <div class="section" id="id4">
 <h2><a class="toc-backref" href="#id15">方法</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>上例中，方法名为 <code class="docutils literal notranslate"><span class="pre">index()</span></code> 。”index” 方法总是在 URI 的 <strong>第二段</strong> 为空时被调用。 另一种显示 “Hello World” 消息的方法是:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">index</span><span class="o">/</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">index</span><span class="o">/</span>
 </pre></div>
 </div>
 <p><strong>URI 中的第二段用于决定调用控制器中的哪个方法。</strong></p>
 <p>让我们试一下，向你的控制器添加一个新的方法:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span> <span class="p">{</span>
 
         <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
@@ -438,7 +440,7 @@
 </pre></div>
 </div>
 <p>现在，通过下面的 URL 来调用 comments 方法:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">comments</span><span class="o">/</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">comments</span><span class="o">/</span>
 </pre></div>
 </div>
 <p>你应该能看到你的新消息了。</p>
@@ -447,11 +449,11 @@
 <h2><a class="toc-backref" href="#id16">通过 URI 分段向你的方法传递参数</a><a class="headerlink" href="#uri" title="永久链接至标题">¶</a></h2>
 <p>如果你的 URI 多于两个段，多余的段将作为参数传递到你的方法中。</p>
 <p>例如，假设你的 URI 是这样:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">sandals</span><span class="o">/</span><span class="mi">123</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">sandals</span><span class="o">/</span><span class="mi">123</span>
 </pre></div>
 </div>
 <p>你的方法将会收到第三段和第四段两个参数（”sandals” 和 “123”）:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Products</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span> <span class="p">{</span>
 
         <span class="k">public</span> <span class="k">function</span> <span class="nf">shoes</span><span class="p">(</span><span class="nv">$sandals</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span>
@@ -470,7 +472,7 @@
 <div class="section" id="id5">
 <h2><a class="toc-backref" href="#id17">定义默认控制器</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 <p>CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时加载，例如当用户直接访问你网站的首页时。 打开 <strong>application/config/routes.php</strong> 文件，通过下面的参数指定一个默认的控制器:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">setDefaultController</span><span class="p">(</span><span class="s1">&#39;Blog&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">setDefaultController</span><span class="p">(</span><span class="s1">&#39;Blog&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>其中，“Blog”是你想加载的控制器类名，如果你现在通过不带任何参数的 index.php 访问你的站点，你将看到你的“Hello World”消息。</p>
@@ -479,7 +481,7 @@
 <div class="section" id="id6">
 <h2><a class="toc-backref" href="#id18">重映射方法</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>正如上文所说，URI 的第二段通常决定控制器的哪个方法被调用。CodeIgniter 允许你使用 <code class="docutils literal notranslate"><span class="pre">_remap()</span></code> 方法来重写该规则:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">()</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="c1">// Some code here...</span>
 <span class="p">}</span>
@@ -490,7 +492,7 @@
 <p class="last">如果你的控制包含一个 _remap() 方法，那么无论 URI 中包含什么参数时都会调用该方法。 它允许你定义你自己的路由规则，重写默认的使用 URI 中的分段来决定调用哪个方法这种行为。</p>
 </div>
 <p>被重写的方法（通常是 URI 的第二段）将被作为参数传递到 <code class="docutils literal notranslate"><span class="pre">_remap()</span></code> 方法:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">(</span><span class="nv">$method</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">(</span><span class="nv">$method</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nv">$method</span> <span class="o">===</span> <span class="s1">&#39;some_method&#39;</span><span class="p">)</span>
         <span class="p">{</span>
@@ -505,7 +507,7 @@
 </div>
 <p>方法名之后的所有其他段将作为 <code class="docutils literal notranslate"><span class="pre">_remap()</span></code> 方法的第二个参数，它是可选的。这个参数可以使用 PHP 的 call_user_func_array() 函数来模拟 CodeIgniter 的默认行为。</p>
 <p>例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="o">...</span><span class="nv">$params</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">_remap</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="o">...</span><span class="nv">$params</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="nv">$method</span> <span class="o">=</span> <span class="s1">&#39;process_&#39;</span><span class="o">.</span><span class="nv">$method</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">method_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$method</span><span class="p">))</span>
@@ -520,14 +522,14 @@
 <div class="section" id="id7">
 <h2><a class="toc-backref" href="#id19">私有方法</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>有时候你可能希望某些方法不能被公开访问，要实现这点，只要简单的将方法声明为 private 或 protected ， 这样这个方法就不能被 URL 访问到了。例如，如果你有一个下面这个方法:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="k">function</span> <span class="nf">utility</span><span class="p">()</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">protected</span> <span class="k">function</span> <span class="nf">utility</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="c1">// some code</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>使用下面的 URL 尝试访问它，你会发现是无法访问的:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">utility</span><span class="o">/</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">utility</span><span class="o">/</span>
 </pre></div>
 </div>
 </div>
@@ -538,11 +540,11 @@
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
 <p>当使用该功能时，URI 的第一段必须指定目录，例如，假设你在如下位置有一个控制器:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">application</span><span class="o">/</span><span class="nx">controllers</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">Shoes</span><span class="o">.</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">application</span><span class="o">/</span><span class="nx">controllers</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">Shoes</span><span class="o">.</span><span class="nx">php</span>
 </pre></div>
 </div>
 <p>为了调用该控制器，你的 URI 应该像下面这样:</p>
-<div class="last highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">show</span><span class="o">/</span><span class="mi">123</span>
+<div class="last highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">show</span><span class="o">/</span><span class="mi">123</span>
 </pre></div>
 </div>
 </div>
@@ -556,7 +558,7 @@
 <div>parent::__construct(…$params);</div></blockquote>
 <p>原因是你的构造函数将会覆盖父类的构造函数，所以我们要手工的调用它。</p>
 <p>例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
 <span class="p">{</span>
         <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="o">...</span><span class="nv">$params</span><span class="p">)</span>
@@ -588,14 +590,14 @@
 <div class="section" id="forcehttps">
 <h3><a class="toc-backref" href="#id26">forceHTTPS</a><a class="headerlink" href="#forcehttps" title="永久链接至标题">¶</a></h3>
 <p>一种强制通过 HTTPS 访问方法的便捷方法，在所有控制器中都是可用的:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">())</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">())</span>
 <span class="p">{</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forceHTTPS</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>默认情况下，在支持 HTTP 严格传输安全报头的现代浏览器中，此调用应强制浏览器将非 HTTPS 调用转换为一年的 HTTPS 调用。你可以通过将持续时间（以秒为单位）作为第一个参数来修改。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">())</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">())</span>
 <span class="p">{</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forceHTTPS</span><span class="p">(</span><span class="mi">31536000</span><span class="p">);</span>    <span class="c1">// one year</span>
 <span class="p">}</span>
@@ -610,7 +612,7 @@
 <h3><a class="toc-backref" href="#id27">辅助函数</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p>你可以定义一个辅助文件数组作为类属性。每当控制器被加载时，
 这些辅助文件将自动加载到内存中，这样就可以在控制器的任何地方使用它们的方法。:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyController</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyController</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
 <span class="p">{</span>
         <span class="k">protected</span> <span class="nv">$helpers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="s1">&#39;form&#39;</span><span class="p">];</span>
 <span class="p">}</span>
@@ -621,7 +623,7 @@
 <div class="section" id="post">
 <h2><a class="toc-backref" href="#id28">验证 $_POST 数据</a><a class="headerlink" href="#post" title="永久链接至标题">¶</a></h2>
 <p>控制器还提供了一个简单方便的方法来验证 $_POST 数据，将一组规则作为第一个参数进行验证，如果验证不通过，可以选择显示一组自定义错误消息。你可以通过 <strong>$this-&gt;request</strong> 这个用法获取 POST 数据。 <span class="xref std std-doc">Validation Library docs</span> 是有关规则和消息数组的格式以及可用规则的详细信息。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">updateUser</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$userID</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">updateUser</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$userID</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([</span>
         <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;required|is_unique[users.email,id,</span><span class="si">{</span><span class="nv">$userID</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
@@ -638,7 +640,7 @@
 </pre></div>
 </div>
 <p>如果你觉得在配置文件中保存规则更简单，你可以通过在 <code class="docutils literal notranslate"><span class="pre">Config\Validation.php</span></code> 中定义代替 $rules 数组</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">updateUser</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$userID</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">updateUser</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$userID</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">(</span><span class="s1">&#39;userRules&#39;</span><span class="p">))</span>
     <span class="p">{</span>
@@ -670,10 +672,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="routing.html" class="btn btn-neutral float-right" title="URI 路由" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="routing.html" class="btn btn-neutral float-right" title="URI 路由" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="控制器和路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="控制器和路由" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -682,15 +684,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -698,10 +707,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -712,7 +721,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

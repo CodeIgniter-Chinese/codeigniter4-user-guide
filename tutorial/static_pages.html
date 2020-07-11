@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>加载静态页 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>加载静态页 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="新闻展示功能" href="news_section.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">构建你的第一个应用</a> &raquo;</li>
         
@@ -347,7 +349,7 @@
 <div><a class="reference external" href="http://example.com/[controller-class]/[controller-method]/[arguments">http://example.com/[controller-class]/[controller-method]/[arguments</a>]</div></blockquote>
 <p>在正式环境下 URL 的格式可能会更复杂，但现在，我们只需要知道这些就够了。</p>
 <p>新建一个文件 <em>application/Controllers/Pages.php</em>，然后添加如下代码：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Pages</span> <span class="k">extends</span> <span class="nx">CodeIgniter\Controller</span> <span class="p">{</span>
 
         <span class="k">public</span> <span class="k">function</span> <span class="nf">view</span><span class="p">(</span><span class="nv">$page</span> <span class="o">=</span> <span class="s1">&#39;home&#39;</span><span class="p">)</span>
@@ -360,7 +362,7 @@
 <p>控制器将是你 Web 应用程序中处理请求的核心。和其他的 PHP 类一样，可以在你的控制器中使用 <code class="docutils literal notranslate"><span class="pre">$this</span></code> 来访问它。</p>
 <p>现在，你已经创建了你的第一个方法，是时候创建一些基本的页面模板了。我们将新建两个 “views” (页面模板) 分别作为我们的页头和页脚。</p>
 <p>新建页头文件 <em>application/Views/Templates/Header.php</em> 并添加以下代码：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;!</span><span class="nx">doctype</span> <span class="nx">html</span><span class="o">&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;!</span><span class="nx">doctype</span> <span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">CodeIgniter</span> <span class="nx">Tutorial</span><span class="o">&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
@@ -372,7 +374,7 @@
 </div>
 <p>页头包含了一些基本的 HTML 代码，用于展示页面主视图之前的内容。同时，它还打印出了 <code class="docutils literal notranslate"><span class="pre">$title</span></code> 变量，这个我们之后讲控制器的时候再细说。
 现在，再新建个页脚文件 <em>application/Views/Templates/Footer.php</em>，然后添加以下代码：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span>                <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;&amp;</span><span class="nb">copy</span><span class="p">;</span> <span class="mi">2016</span><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>                <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;&amp;</span><span class="nb">copy</span><span class="p">;</span> <span class="mi">2016</span><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;</span>
         <span class="o">&lt;/</span><span class="nx">body</span><span class="o">&gt;</span>
 <span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
 </pre></div>
@@ -382,7 +384,7 @@
 <p>你刚新建的控制器中有一个 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 方法，这个方法可接受一个用于指定要加载页面的参数。静态页面的模板目录为：<em>application/Views/Pages/</em>。</p>
 <p>在该目录中，新建 <em>Home.php</em> 和 <em>About.php</em> 模板文件。在每个文件中任意输入一些文本然后保存它们。如果你不知道写什么，那就写 “Hello World!” 吧。</p>
 <p>为了加载这些界面，你需要检查下请求的页面是否存在：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">view</span><span class="p">(</span><span class="nv">$page</span> <span class="o">=</span> <span class="s1">&#39;home&#39;</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">view</span><span class="p">(</span><span class="nv">$page</span> <span class="o">=</span> <span class="s1">&#39;home&#39;</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nb">file_exists</span><span class="p">(</span><span class="nx">APPPATH</span><span class="o">.</span><span class="s1">&#39;/Views/Pages/&#39;</span><span class="o">.</span><span class="nv">$page</span><span class="o">.</span><span class="s1">&#39;.php&#39;</span><span class="p">))</span>
         <span class="p">{</span>
@@ -409,7 +411,7 @@
 <p>使用自定义的路由规则，你可以将任意的 URL 映射到任意的控制器和方法上，从而打破默认的规则：
 <code class="docutils literal notranslate"><span class="pre">http://example.com/[controller-class]/[controller-method]/[arguments]</span></code></p>
 <p>让我们来试试。打开路由文件 <em>application/Config/Routes.php</em> 然后添加如下两行代码，并删除掉其它对 <code class="docutils literal notranslate"><span class="pre">$route</span></code> 数组赋值的代码。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">setDefaultController</span><span class="p">(</span><span class="s1">&#39;Pages/view&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">setDefaultController</span><span class="p">(</span><span class="s1">&#39;Pages/view&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;(:any)&#39;</span><span class="p">,</span> <span class="s1">&#39;Pages::view/$1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -431,10 +433,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="news_section.html" class="btn btn-neutral float-right" title="新闻展示功能" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="news_section.html" class="btn btn-neutral float-right" title="新闻展示功能" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="构建你的第一个应用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="构建你的第一个应用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -443,15 +445,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -459,10 +468,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -473,7 +482,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

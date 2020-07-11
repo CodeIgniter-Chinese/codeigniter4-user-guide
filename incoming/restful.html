@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>处理RESTful请求资源 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>处理RESTful请求资源 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="构建响应" href="../outgoing/index.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">控制器和路由</a> &raquo;</li>
         
@@ -363,7 +365,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <h2><a class="toc-backref" href="#id11">资源路由</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>对单个资源，你可以通过 <code class="docutils literal notranslate"><span class="pre">resource()</span></code> 方法来创建一个方便的RESTful路由。这种方式可以创建五种对于操作资源的CRUD方式，最为常见的比如：
 创建一个资源，更新一个已存在的资源，列出所有这类资源，获取一个单独资源以及删除一个单独的资源。第一个参数就是这个资源的名字:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">);</span>
 
 <span class="c1">// 与以下方式等同:</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;photos/new&#39;</span><span class="p">,</span>             <span class="s1">&#39;Photos::new&#39;</span><span class="p">);</span>
@@ -385,7 +387,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <p class="last">路由是由它们所定义的顺序而进行匹配的，因此如果像上面一样，如果你有一个GET资源图片请求，类似 “photos/poll” 一样，那么show的请求路由会比get请求优先被匹配。为了解决这个问题，将get请求这行移到资源行的顶部，从而它可以被首先匹配。</p>
 </div>
 <p>第二个参数接受的是一个包含着用于修改生成路由方式的选项数组。尽管这些路由通过API调用的，且这里支持更多的请求类型，你还是可以通过传递“websafe”选项来生成update和delete请求类型来处理HTML表单:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;websafe&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;websafe&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span>
 
 <span class="c1">// 将会创建以下的同等效应的路由:</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;photos/(:segment)/delete&#39;</span><span class="p">,</span> <span class="s1">&#39;Photos::delete/$1&#39;</span><span class="p">);</span>
@@ -395,7 +397,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <div class="section" id="id3">
 <h3><a class="toc-backref" href="#id12">更改所使用的控制器</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>你可以通过指定所使用的控制器，通过为 <code class="docutils literal notranslate"><span class="pre">controller</span></code> 选项传值:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span><span class="s1">&#39;App\Gallery&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span><span class="s1">&#39;App\Gallery&#39;</span><span class="p">]);</span>
 
 <span class="c1">// 将会创建如下路由</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Gallery::index&#39;</span><span class="p">);</span>
@@ -405,7 +407,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <div class="section" id="id4">
 <h3><a class="toc-backref" href="#id13">更改使用的通配符</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>默认情况下，在需要资源ID时，我们需要使用 <code class="docutils literal notranslate"><span class="pre">segment</span></code> 占位符。你可以通过为 <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> 选项传值一个新的字符串来实现这一操作:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;(:id)&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;(:id)&#39;</span><span class="p">]);</span>
 
 <span class="c1">// 将会创建如下路由:</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;photos/(:id)&#39;</span><span class="p">,</span> <span class="s1">&#39;Photos::show/$1&#39;</span><span class="p">);</span>
@@ -415,11 +417,11 @@ the Design of Network-based Software Architectures</a> 所提出。
 <div class="section" id="id5">
 <h3><a class="toc-backref" href="#id14">限制生成的路由</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>你可以通过 <code class="docutils literal notranslate"><span class="pre">only</span></code> 选项来限制所生成的路由。这个选项的传值可以是一个数组或者是一个由逗号分隔的列表，其中包含着需要创建的类型名。而剩余的将会被忽略:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;only&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;show&#39;</span><span class="p">]]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;only&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;show&#39;</span><span class="p">]]);</span>
 </pre></div>
 </div>
 <p>反过来你也可以通过 <code class="docutils literal notranslate"><span class="pre">except</span></code> 选项来移除那些不使用的路由。该选项就在 <code class="docutils literal notranslate"><span class="pre">only</span></code> 后运行:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new,edit&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new,edit&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p>合理的请求类型为: index, show, create, update, new, edit and delete.</p>
@@ -429,7 +431,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <h2><a class="toc-backref" href="#id15">资源控制器</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p><cite>ResourceController</cite> 为开始你的RESTful API的构建提供了一个非常便利的起点，实现了上述列举的资源路由的请求类型。</p>
 <p>继承或重载 <cite>modelName</cite> 和 <cite>format</cite> 属性，并实现你想要处理的请求类型:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\RESTful\ResourceController</span><span class="p">;</span>
 
@@ -449,7 +451,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 </pre></div>
 </div>
 <p>上述路由结构如下:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -458,7 +460,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">presenter()</span></code> 方法来创建一个表现层路由，并分配给对应的资源控制器。
 这将会为那些给你的资源返回视图的的控制器方法创建路由，或者处理从这些控制器所创建的视图里发送的表单请求。</p>
 <p>由于表现层惯例是由一个通用控制器来处理，这个功能不是必需的。它的用法与一个资源路由类似:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">);</span>
 
 <span class="c1">// 与如下等同:</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;photos/new&#39;</span><span class="p">,</span>                <span class="s1">&#39;Photos::new&#39;</span><span class="p">);</span>
@@ -478,7 +480,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <p class="last">上述的排序方式是为了排版清晰起见，而实际上这些路由在RouteCollection中的创建顺序已经确保了路由可以被正确地解析</p>
 </div>
 <p>可能对于 <cite>photos</cite> 你可能并不准备同时构建资源和表现层控制器，因此你需要对它们进行区分，例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;api/photo&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;api/photo&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;admin/photos&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -486,7 +488,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id17">更改所使用的控制器</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>你可以通过为 <code class="docutils literal notranslate"><span class="pre">controller</span></code> 选项传递需要更改的控制器的名字来指定实际用到的控制器:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span><span class="s1">&#39;App\Gallery&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span><span class="s1">&#39;App\Gallery&#39;</span><span class="p">]);</span>
 
 <span class="c1">// 创建的路由如下:</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Gallery::index&#39;</span><span class="p">);</span>
@@ -496,7 +498,7 @@ the Design of Network-based Software Architectures</a> 所提出。
 <div class="section" id="id9">
 <h3><a class="toc-backref" href="#id18">更改所使用的通配符</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>默认情况下，当需要资源ID时，我们使用 <code class="docutils literal notranslate"><span class="pre">segment</span></code> 通配符。你可以通过为 <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> 选项传值一个新的字符串来指定新的通配符:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;(:id)&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;(:id)&#39;</span><span class="p">]);</span>
 
 <span class="c1">// 生成路由如下:</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;photos/(:id)&#39;</span><span class="p">,</span> <span class="s1">&#39;Photos::show/$1&#39;</span><span class="p">);</span>
@@ -506,11 +508,11 @@ the Design of Network-based Software Architectures</a> 所提出。
 Limit the Routes Made
 ———————</p>
 <p>你可以通过 <code class="docutils literal notranslate"><span class="pre">only</span></code> 选项来限制生成的路由。该选项的传值应当是一个数组或者是一个逗号分隔的，由所需要创建的方法的名字构成的列表。只有匹配上述方法的路由会被创建而其余的会被忽略:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;only&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;show&#39;</span><span class="p">]]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;only&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;show&#39;</span><span class="p">]]);</span>
 </pre></div>
 </div>
 <p>反过来你也可以通过 <code class="docutils literal notranslate"><span class="pre">except</span></code> 选项来去除那些无用的路由，该选项位于 <code class="docutils literal notranslate"><span class="pre">only</span></code> 之后:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new,edit&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;except&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new,edit&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p>可使用的方法为： index, show, new, create, edit, update, remove 和 delete.</p>
@@ -519,7 +521,7 @@ ResourcePresenter
 ============================================================</p>
 <p><cite>ResourcePresenter</cite> 为你输出一个资源对应的视图提供了一个便捷的起点，而它同样也可利用属于该资源路由的方法来处理这些视图里提交的表单。</p>
 <p>继承或重载 <cite>modelName</cite> 属性，并实现那些你所需要调用的方法:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\RESTful\ResourcePresenter</span><span class="p">;</span>
 
@@ -538,7 +540,7 @@ ResourcePresenter
 </pre></div>
 </div>
 <p>上述路由如下所示:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">presenter</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -662,10 +664,10 @@ ResourcePresenter
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../outgoing/index.html" class="btn btn-neutral float-right" title="构建响应" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../outgoing/index.html" class="btn btn-neutral float-right" title="构建响应" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="methodspoofing.html" class="btn btn-neutral float-left" title="HTTP类型伪装" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="methodspoofing.html" class="btn btn-neutral float-left" title="HTTP类型伪装" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -674,15 +676,22 @@ ResourcePresenter
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -690,10 +699,10 @@ ResourcePresenter
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -704,7 +713,6 @@ ResourcePresenter
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

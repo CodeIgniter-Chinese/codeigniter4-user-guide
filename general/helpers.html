@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>辅助函数 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>辅助函数 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="公共函数和全局常量" href="common_functions.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">常规主题</a> &raquo;</li>
         
@@ -359,16 +361,16 @@ CI就会在你的全局 <em>system/Helpers/</em> 目录下进行搜索。</p>
 <div class="section" id="id7">
 <h2><a class="toc-backref" href="#id14">加载一个辅助文件</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>可以使用如下方法来轻易地加载辅助文件:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>其中 <strong>name</strong> 是辅助文件的文件名，并不需要带有.php的文件扩展名或者是”helper”这部分。</p>
 <p>举例来说，为了加载名为**cookie_helper.php**的**Cookie辅助文件**，你需要这样做:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>如果你需要加载多个辅助文件，可以通过传值一个文件名构成的数组，这样一来这些文件就都会被加载了:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">([</span><span class="s1">&#39;cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">([</span><span class="s1">&#39;cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p>一个辅助函数文件可以在你的控制器方法里的任意位置被加载（甚至在你的视图文件里，虽然这样做并不符合最佳实践），
@@ -391,7 +393,7 @@ CI就会在你的全局 <em>system/Helpers/</em> 目录下进行搜索。</p>
 <p>举例来说，假设我们把所有博客相关的代码都放在了我们的命名空间 <code class="docutils literal notranslate"><span class="pre">Example\Blog</span></code> 中。而文件存在于我们服务器的**/Modules/Blog/<strong>命名空间下。
 那么我们就应该把博客模块对应的辅助文件放在</strong>/Modules/Blog/Helpers/<strong>命名空间里。**blog_helper</strong> 文件就应该位于**/Modules/Blog/Helpers/blog_helper.php**的位置。
 在控制器中我们可以使用如下指令来加载该辅助文件:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;Modules\Blog\blog&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;Modules\Blog\blog&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -404,7 +406,7 @@ CI就会在你的全局 <em>system/Helpers/</em> 目录下进行搜索。</p>
 <h2><a class="toc-backref" href="#id16">使用一个辅助函数</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
 <p>当你加载完包含有你想要使用的辅助函数的文件后，就可以像调用一个标准的PHP函数一样调用它。</p>
 <p>举例来说，在你的视图文件中使用 <code class="docutils literal notranslate"><span class="pre">anchor</span></code> 函数来创建一个链接，可以这样做:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nx">anchor</span><span class="p">(</span><span class="s1">&#39;blog/comments&#39;</span><span class="p">,</span> <span class="s1">&#39;Click Here&#39;</span><span class="p">);</span><span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nx">anchor</span><span class="p">(</span><span class="s1">&#39;blog/comments&#39;</span><span class="p">,</span> <span class="s1">&#39;Click Here&#39;</span><span class="p">);</span><span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <p>其中”Click Here”是链接名，而”blogs/comments”是你希望链接到的控制器/方法名所对应的的URI</p>
@@ -419,7 +421,7 @@ CI就会在你的全局 <em>system/Helpers/</em> 目录下进行搜索。</p>
 <p class="last">“继承”这个词语在这里用起来太过于泛化了，因为辅助函数是面向过程且离散的，并不能像传统的场景一样被继承。在这种情况下，这里的”继承”的意思是，让你可以添加或替换原本的辅助文件所提供的函数。</p>
 </div>
 <p>举个例子，为了继承原生的 <strong>数组辅助函数</strong>，你可以创建一个名为 <strong>app/Helpers/array_helper.php</strong> 的文件并增加或重载以下函数:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// any_in_array() 并不是数组辅助函数，因为被定义为一个新的函数</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// any_in_array() 并不是数组辅助函数，因为被定义为一个新的函数</span>
 <span class="k">function</span> <span class="nf">any_in_array</span><span class="p">(</span><span class="nv">$needle</span><span class="p">,</span> <span class="nv">$haystack</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="nv">$needle</span> <span class="o">=</span> <span class="nb">is_array</span><span class="p">(</span><span class="nv">$needle</span><span class="p">)</span> <span class="o">?</span> <span class="nv">$needle</span> <span class="o">:</span> <span class="p">[</span><span class="nv">$needle</span><span class="p">];</span>
@@ -465,10 +467,10 @@ CI就会在你的全局 <em>system/Helpers/</em> 目录下进行搜索。</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="common_functions.html" class="btn btn-neutral float-right" title="公共函数和全局常量" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="common_functions.html" class="btn btn-neutral float-right" title="公共函数和全局常量" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="urls.html" class="btn btn-neutral float-left" title="CodeIgniter URL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="urls.html" class="btn btn-neutral float-left" title="CodeIgniter URL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -477,15 +479,22 @@ CI就会在你的全局 <em>system/Helpers/</em> 目录下进行搜索。</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -493,10 +502,10 @@ CI就会在你的全局 <em>system/Helpers/</em> 目录下进行搜索。</p>
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -507,7 +516,6 @@ CI就会在你的全局 <em>system/Helpers/</em> 目录下进行搜索。</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

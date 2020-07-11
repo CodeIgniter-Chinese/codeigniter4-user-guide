@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Working With Entities &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Working With Entities &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="管理数据库" href="../dbmgmt/index.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">数据建模</a> &raquo;</li>
         
@@ -370,7 +372,7 @@ use JSON or XML files to store the objects during a rapid prototyping stage, and
 database when you’ve proven the concept works.</p>
 <p>Let’s walk through a very simple User Entity and how we’d work with it to help make things clear.</p>
 <p>Assume you have a database table named <code class="docutils literal notranslate"><span class="pre">users</span></code> that has the following schema:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">id</span>          <span class="o">-</span> <span class="nx">integer</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">id</span>          <span class="o">-</span> <span class="nx">integer</span>
 <span class="nx">username</span>    <span class="o">-</span> <span class="nx">string</span>
 <span class="nx">email</span>       <span class="o">-</span> <span class="nx">string</span>
 <span class="nx">password</span>    <span class="o">-</span> <span class="nx">string</span>
@@ -382,7 +384,7 @@ database when you’ve proven the concept works.</p>
 <p>Now create a new Entity class. Since there’s no default location to store these classes, and it doesn’t fit
 in with the existing directory structure, create a new directory at <strong>app/Entities</strong>. Create the
 Entity itself at <strong>app/Entities/User.php</strong>.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Entity</span><span class="p">;</span>
 
@@ -397,7 +399,7 @@ Entity itself at <strong>app/Entities/User.php</strong>.</p>
 <div class="section" id="create-the-model">
 <h3><a class="toc-backref" href="#id4">Create the Model</a><a class="headerlink" href="#create-the-model" title="永久链接至标题">¶</a></h3>
 <p>Create the model first at <strong>app/Models/UserModel.php</strong> so that we can interact with it:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Model</span><span class="p">;</span>
 
@@ -421,7 +423,7 @@ instances of our User Entity class instead of an object or array like normal.</p
 <div class="section" id="working-with-the-entity-class">
 <h3><a class="toc-backref" href="#id5">Working With the Entity Class</a><a class="headerlink" href="#working-with-the-entity-class" title="永久链接至标题">¶</a></h3>
 <p>Now that all of the pieces are in place, you would work with the Entity class as you would any other class:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
 
 <span class="c1">// Display</span>
 <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">username</span><span class="p">;</span>
@@ -456,7 +458,7 @@ a new row, or update an existing one.</p>
 and populate the class properties. Any property in the array will be set on the Entity. However, when saving through
 the model, only the fields in $allowedFields will actually be saved to the database, so you can store additional data
 on your entities without worrying much about stray fields getting saved incorrectly.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">();</span>
 
 <span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">App\Entities\User</span><span class="p">();</span>
 <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">fill</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
@@ -464,7 +466,7 @@ on your entities without worrying much about stray fields getting saved incorrec
 </pre></div>
 </div>
 <p>You can also pass the data in the constructor and the data will be passed through the <cite>fill()</cite> method during instantiation.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">();</span>
 
 <span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">App\Entities\User</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
@@ -478,7 +480,7 @@ on your entities without worrying much about stray fields getting saved incorrec
 some smart <code class="docutils literal notranslate"><span class="pre">__get()</span></code> and <code class="docutils literal notranslate"><span class="pre">__set()</span></code> methods that will check for special methods and use those instead of using
 the attributes directly, allowing you to enforce any business logic or data conversion that you need.</p>
 <p>Here’s an updated User entity to provide some examples of how this could be used:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Entity</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
@@ -529,7 +531,7 @@ is UTC so we can easily convert the viewer’s current timezone. In <code class=
 a formatted string in the application’s current timezone.</p>
 <p>While fairly simple, these examples show that using Entity classes can provide a very flexible way to enforce
 business logic and create objects that are pleasant to use.</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Auto-hash the password - both do the same thing</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Auto-hash the password - both do the same thing</span>
 <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">password</span> <span class="o">=</span> <span class="s1">&#39;my great password&#39;</span><span class="p">;</span>
 <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">setPassword</span><span class="p">(</span><span class="s1">&#39;my great password&#39;</span><span class="p">);</span>
 </pre></div>
@@ -542,7 +544,7 @@ original column names in the database no longer make sense. Or you find that you
 class properties, but your database schema required snake_case names. These situations can be easily handled
 with the Entity class’ data mapping features.</p>
 <p>As an example, imagine you have the simplified User Entity that is used throughout your application:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Entity</span><span class="p">;</span>
 
@@ -566,7 +568,7 @@ in the database you whip up a migration to rename the <cite>name</cite> field to
 <p>Ignoring how contrived this example is, we now have two choices on how to fix the User class. We could modify the class
 property from <code class="docutils literal notranslate"><span class="pre">$name</span></code> to <code class="docutils literal notranslate"><span class="pre">$full_name</span></code>, but that would require  changes throughout the application. Instead, we can
 simply map the <code class="docutils literal notranslate"><span class="pre">full_name</span></code> column in the database to the <code class="docutils literal notranslate"><span class="pre">$name</span></code> property, and be done with the Entity changes:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Entity</span><span class="p">;</span>
 
@@ -604,7 +606,7 @@ to the database. However, <code class="docutils literal notranslate"><span class
 <a class="reference internal" href="../libraries/time.html"><span class="doc">Time</span></a> instances whenever they are set or retrieved. The Time class provides a large number
 of helpful methods in an immutable, localized way.</p>
 <p>You can define which properties are automatically converted by adding the name to the <strong>options[‘dates’]</strong> array:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Entity</span><span class="p">;</span>
 
@@ -616,7 +618,7 @@ of helpful methods in an immutable, localized way.</p>
 </div>
 <p>Now, when any of those properties are set, they will be converted to a Time instance, using the application’s
 current timezone, as set in <strong>app/Config/App.php</strong>:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">App\Entities\User</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">App\Entities\User</span><span class="p">();</span>
 
 <span class="c1">// Converted to Time instance</span>
 <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">created_at</span> <span class="o">=</span> <span class="s1">&#39;April 15, 2017 10:30:00&#39;</span><span class="p">;</span>
@@ -636,7 +638,7 @@ either the entity or the database. Properties can be cast to any of the followin
 <strong>integer</strong>, <strong>float</strong>, <strong>double</strong>, <strong>string</strong>, <strong>boolean</strong>, <strong>object</strong>, <strong>array</strong>, <strong>datetime</strong>, and <strong>timestamp</strong>.
 Add a question mark at the beginning of type to mark property as nullable, i.e. <strong>?string</strong>, <strong>?integer</strong>.</p>
 <p>For example, if you had a User entity with an <strong>is_banned</strong> property, you can cast it as a boolean:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Entity</span><span class="p">;</span>
 
@@ -665,7 +667,7 @@ Unlike the rest of the data types that you can cast properties into, the:</p>
 <li><strong>json</strong> and <strong>json-array</strong> cast will use json_encode function on</li>
 </ul>
 <p>the value whenever the property is set:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Entities</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Entity</span><span class="p">;</span>
 
@@ -692,7 +694,7 @@ Unlike the rest of the data types that you can cast properties into, the:</p>
 <h3><a class="toc-backref" href="#id13">Checking for Changed Attributes</a><a class="headerlink" href="#checking-for-changed-attributes" title="永久链接至标题">¶</a></h3>
 <p>You can check if an Entity attribute has changed since it was created. The only parameter is the name of the
 attribute to check:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">();</span>
 <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">hasChanged</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>      <span class="c1">// false</span>
 
 <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;Fred&#39;</span><span class="p">;</span>
@@ -700,7 +702,7 @@ attribute to check:</p>
 </pre></div>
 </div>
 <p>Or to check the whole entity for changed values omit the parameter:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">hasChanged</span><span class="p">();</span>            <span class="c1">// true</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">hasChanged</span><span class="p">();</span>            <span class="c1">// true</span>
 </pre></div>
 </div>
 </div>
@@ -715,10 +717,10 @@ attribute to check:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../dbmgmt/index.html" class="btn btn-neutral float-right" title="管理数据库" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../dbmgmt/index.html" class="btn btn-neutral float-right" title="管理数据库" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="model.html" class="btn btn-neutral float-left" title="Using CodeIgniter’s Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="model.html" class="btn btn-neutral float-left" title="Using CodeIgniter’s Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -727,15 +729,22 @@ attribute to check:</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -743,10 +752,10 @@ attribute to check:</p>
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -757,7 +766,6 @@ attribute to check:</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>新闻展示功能 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>新闻展示功能 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="创建新闻项目" href="create_news_items.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">构建你的第一个应用</a> &raquo;</li>
         
@@ -346,7 +348,7 @@
 <p>下面我们就来教你如何为本教程创建一个数据库，并且正确配置CodeIgniter来使用这个数据库。</p>
 <p>用你安装好的数据库客户端工具打开数据库，然后运行下面的两段SQL代码（MySQL适用）来创建一个数据表和插入一些测试数据。
 随着你对 CodeIgniter 的熟悉程度越来越高，这些数据库相关的操作也可以通过程序代码在CodeIgniter框架下完成，你可以阅读 :doc: <cite>数据迁移 &lt;../dbmgmt/migration&gt;</cite> 和 :doc: <a href="#id3"><span class="problematic" id="id4">`</span></a>数据填充 &lt;../dbmgmt/seeds&gt;`这两个章节来了解相关内容，以便掌握用程序代码操作数据库的相关技能。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">CREATE</span> <span class="nx">TABLE</span> <span class="nx">news</span> <span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CREATE</span> <span class="nx">TABLE</span> <span class="nx">news</span> <span class="p">(</span>
                       <span class="nx">id</span> <span class="nx">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="nx">AUTO_INCREMENT</span><span class="p">,</span>
                       <span class="nx">title</span> <span class="nx">varchar</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
                       <span class="nx">slug</span> <span class="nx">varchar</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
@@ -359,7 +361,7 @@
 <p><strong>Note:</strong>  数据表里的 <strong>slug</strong> 字段在基于互联网访问的网站上是个非常有用的字段。
 一般在这个字段里存放简短的词语来概括性描述数据内容，这将提升用户打开网址时候的访问体验，并且这种网址也是搜索引擎友好的网址，有利于网站内容的SEO优化。</p>
 <p>然后我们在数据表里插入如下测试数据：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">INSERT</span> <span class="nx">INTO</span> <span class="nx">news</span> <span class="nx">VALUES</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">INSERT</span> <span class="nx">INTO</span> <span class="nx">news</span> <span class="nx">VALUES</span>
 <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Elvis sighted&#39;</span><span class="p">,</span><span class="s1">&#39;elvis-sighted&#39;</span><span class="p">,</span><span class="s1">&#39;Elvis was sighted at the Podunk internet cafe. It looked like he was writing a CodeIgniter app.&#39;</span><span class="p">),</span>
 <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Say it isn\&#39;t so!&#39;</span><span class="p">,</span><span class="s1">&#39;say-it-isnt-so&#39;</span><span class="p">,</span><span class="s1">&#39;Scientists conclude that some programmers have a sense of humor.&#39;</span><span class="p">),</span>
 <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;Caffeination, Yes!&#39;</span><span class="p">,</span><span class="s1">&#39;caffeination-yes&#39;</span><span class="p">,</span><span class="s1">&#39;World\&#39;s largest coffee shop open onsite nested coffee shop for staff only.&#39;</span><span class="p">);</span>
@@ -369,7 +371,7 @@
 <div class="section" id="id5">
 <h2>连接到你的数据库<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 <p><a href="#id6"><span class="problematic" id="id7">**</span></a>CodeIgniter**安装时会自动生成一个 <code class="docutils literal notranslate"><span class="pre">.env</span></code> 文件，确保里面的配置信息没有被注释掉，并且和你本地的数据库实际情况相吻合：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">hostname</span> <span class="o">=</span> <span class="nx">localhost</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">hostname</span> <span class="o">=</span> <span class="nx">localhost</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">database</span> <span class="o">=</span> <span class="nx">ci4tutorial</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">username</span> <span class="o">=</span> <span class="nx">root</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">password</span> <span class="o">=</span> <span class="nx">root</span>
@@ -383,7 +385,7 @@
 你的模型文件们应该成为你处理数据库相关的增、删、改、查操作的默认地方。交由模型文件来操作数据库或者其他格数的数据文件。</p>
 <p>打开 <strong>app/Models/</strong> 目录，在这个目录下面创建一个名字为 <strong>NewsModel.php</strong> 的文件，并在文件里加入如下代码。
 为了保证代码运行顺利，你需要确认一下已经正确的完成了数据库的相关配置:doc:<cite>这里 &lt;../database/configuration&gt;</cite>。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
     <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
 
@@ -400,7 +402,7 @@
 我们首先写一个方法从数据库中获取所有的新闻文章。
 为实现这点，我们将使用 <strong>CodeIgniter</strong> 的数据库抽象层工具 <a class="reference internal" href="../database/query_builder.html"><span class="doc">查询构建器</span></a>，通过它你可以编写你的查询代码，并在:doc:<a href="#id9"><span class="problematic" id="id10">`</span></a>所有支持的数据库平台 &lt;../intro/requirements&gt;`上运行。
 数据模型文件可以方便的和 <strong>查询构建器</strong> 一起工作，并且提供了一些方法让你操作数据的时候更加简单。现在向你的模型中添加如下代码。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">getNews</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">getNews</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nv">$slug</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span>
         <span class="p">{</span>
@@ -423,7 +425,7 @@
 <h2>显示新闻<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h2>
 <p>现在，查询已经在数据模型文件里写好了，接下来我们需要将数据模型绑定到视图上，向用户显示新闻条目了。
 这可以在之前写的 <code class="docutils literal notranslate"><span class="pre">Pages</span></code> 控制器里来做，但为了更清楚的阐述，我们定义了一个新的 <code class="docutils literal notranslate"><span class="pre">News</span></code> 控制器，创建在 <em>app/controllers/News.php</em> 文件中。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">App\Models\NewsModel</span><span class="p">;</span>
 
@@ -452,7 +454,7 @@
 <p>现在，通过模型，控制器已经获取到数据了，但还没有显示出来。
 下一步要做的就是将数据传递给视图。
 我们修改 <code class="docutils literal notranslate"><span class="pre">index()</span></code> 方法成下面的样子：:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NewsModel</span><span class="p">();</span>
 
@@ -470,7 +472,7 @@
 <p>上面的代码从模型中获取所有的新闻条目，并赋值给一个变量（<em>news</em>）。
 另外页面的标题赋值给了 <code class="docutils literal notranslate"><span class="pre">$data['title']</span></code> 元素，然后所有的数据被传递给视图。
 现在你需要创建一个视图文件来显示新闻条目了，新建 <em>app/Views/news/index.php</em> 文件并添加如下代码。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;&lt;?=</span> <span class="nv">$title</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;&lt;?=</span> <span class="nv">$title</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 
 <span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$news</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nb">is_array</span><span class="p">(</span><span class="nv">$news</span><span class="p">))</span> <span class="o">:</span> <span class="cp">?&gt;</span>
 
@@ -499,7 +501,7 @@
 <p>新闻的列表页就做好了，但是我们还缺少一个显示特定新闻条目的页面。
 我们可以调用之前创建的模型里的数据来实现这个功能，你只需要向控制器中添加一些代码，然后再新建一个视图就可以了。
 回到 <code class="docutils literal notranslate"><span class="pre">News</span></code> 控制器，使用下面的代码替换掉 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 方法：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">view</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">NULL</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">view</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">NULL</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NewsModel</span><span class="p">();</span>
 
@@ -531,7 +533,7 @@ echo $news[‘body’];</div></blockquote>
 修改路由配置文件（<strong>app/config/routes.php</strong>）添加类似下面的代码。
 该规则可以让地址中带*news*的请求访问 <code class="docutils literal notranslate"><span class="pre">News</span></code> 控制器而不是去访问之前默认的 <code class="docutils literal notranslate"><span class="pre">Pages</span></code> 控制器。
 第一行代码可以让访问 <em>news/slug</em> 地址的 URI 重定向到 News 控制器的 view() 方法。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news/(:segment)&#39;</span><span class="p">,</span> <span class="s1">&#39;News::view/$1&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news/(:segment)&#39;</span><span class="p">,</span> <span class="s1">&#39;News::view/$1&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="s1">&#39;News::index&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;(:any)&#39;</span><span class="p">,</span> <span class="s1">&#39;Pages::view/$1&#39;</span><span class="p">);</span>
 </pre></div>
@@ -550,10 +552,10 @@ echo $news[‘body’];</div></blockquote>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="create_news_items.html" class="btn btn-neutral float-right" title="创建新闻项目" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="create_news_items.html" class="btn btn-neutral float-right" title="创建新闻项目" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="static_pages.html" class="btn btn-neutral float-left" title="加载静态页" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="static_pages.html" class="btn btn-neutral float-left" title="加载静态页" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -562,15 +564,22 @@ echo $news[‘body’];</div></blockquote>
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -578,10 +587,10 @@ echo $news[‘body’];</div></blockquote>
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -592,7 +601,6 @@ echo $news[‘body’];</div></blockquote>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>代码模块 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>代码模块 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="管理多个应用" href="managing_apps.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">常规主题</a> &raquo;</li>
         
@@ -368,7 +370,7 @@
 虽然所有的代码都可以使用PSR4的自动加载和命名空间，最主要的充分使用模块优势的方式还是为你的代码加上命名空间，并将其添加到 <strong>app/Config/Autoload.php</strong> 中，在 <code class="docutils literal notranslate"><span class="pre">psr4</span></code> 这节中。</p>
 <p>举例而言，比如我们需要维护一个在应用间复用的简单的博客模块。我们可能会创建一个带有公司名（比如acme）的文件夹来保存所有的模块。
 我们可能会将其置于我们的 <strong>application</strong> 目录旁边，在主项目目录下:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nx">acme</span>        <span class="c1">// 新的模块目录</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nx">acme</span>        <span class="c1">// 新的模块目录</span>
 <span class="o">/</span><span class="nx">application</span>
 <span class="o">/</span><span class="k">public</span>
 <span class="o">/</span><span class="nb">system</span>
@@ -377,7 +379,7 @@
 </pre></div>
 </div>
 <p>打开 <strong>app/Config/Autoload.php</strong> 并将 <strong>Acme</strong> 命名空间加入到 <code class="docutils literal notranslate"><span class="pre">psr4</span></code> 数组成员中:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$psr4</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$psr4</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;Config&#39;</span>        <span class="o">=&gt;</span> <span class="nx">APPPATH</span> <span class="o">.</span> <span class="s1">&#39;Config&#39;</span><span class="p">,</span>
     <span class="nx">APP_NAMESPACE</span>   <span class="o">=&gt;</span> <span class="nx">APPPATH</span><span class="p">,</span>                <span class="c1">// 自定义命名空间</span>
     <span class="s1">&#39;App&#39;</span>           <span class="o">=&gt;</span> <span class="nx">APPPATH</span><span class="p">,</span>                <span class="c1">// 确保筛选器等组件可找到,</span>
@@ -388,7 +390,7 @@
 <p>当我们设置完以上流程后，就可以通过 <code class="docutils literal notranslate"><span class="pre">Acme</span></code> 命名空间来访问 <strong>acme</strong> 目录下的文件夹内容。这已经完成了80%的模块工作所需要的内容，
 所以你可以通过熟悉命名空间来适应这种使用方式。这样多种文件类型将会被自动扫描并在整个定义的命名空间中使用——这也是使用模块的关键。</p>
 <p>在模块中的常见目录结构和主程序目录类似:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nx">acme</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nx">acme</span>
     <span class="o">/</span><span class="nx">Blog</span>
         <span class="o">/</span><span class="nx">Config</span>
         <span class="o">/</span><span class="nx">Controllers</span>
@@ -430,7 +432,7 @@
 <h3><a class="toc-backref" href="#id21">自动发现与Composer</a><a class="headerlink" href="#composer" title="永久链接至标题">¶</a></h3>
 <p>通过Composer安装的包将会默认被自动发现。这只需要Composer识别所需要加载的命名空间是符合PSR4规范的命名空间，PSR0类型的命名空间将不会被发现。</p>
 <p>如果在定位文件时，你不想扫描所有Composer已识别的的目录，可以通过编辑 <code class="docutils literal notranslate"><span class="pre">Config\Modules.php</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">$discoverInComposer</span></code> 变量来关闭这一功能:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$discoverInComposer</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$discoverInComposer</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -449,12 +451,12 @@
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id24">控制器</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>在主 <strong>app/Controller</strong> 目录下定义的控制器不会自动被URI路由自动调用，所以需要在路由文件内部手动声明:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// Routes.php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Routes.php</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">,</span> <span class="s1">&#39;Acme\Blog\Controllers\Blog::index&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>为了减少不必要的输入， <strong>group</strong> 路由特性（译者注： <cite>分组路由 &lt;/incoming/routing#分组路由&gt;</cite> ）是一个不错的选择:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;namespace&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Acme\Blog\Controllers&#39;</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$routes</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;namespace&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Acme\Blog\Controllers&#39;</span><span class="p">],</span> <span class="k">function</span><span class="p">(</span><span class="nv">$routes</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;Blog::index&#39;</span><span class="p">);</span>
 <span class="p">});</span>
@@ -465,7 +467,7 @@
 <h3><a class="toc-backref" href="#id25">配置文件</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>No special change is needed when working with configuration files. These are still namespaced classes and loaded
 with the <code class="docutils literal notranslate"><span class="pre">new</span></code> command:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Acme\Blog\Config\Blog</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Acme\Blog\Config\Blog</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>Config files are automatically discovered whenever using the <strong>config()</strong> function that is always available.</p>
@@ -477,14 +479,14 @@ with the <code class="docutils literal notranslate"><span class="pre">new</span>
 <div class="section" id="id11">
 <h3><a class="toc-backref" href="#id27">种子</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p>种子文件可在CLI或其他种子文件里使用，只要提供了完整的命名空间名。如果通过CLI调用，就需要提供双反斜杠定义的类名格式(\):</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="k">public</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span> <span class="nx">migrations</span> <span class="nx">seed</span> <span class="nx">Acme\\Blog\\Database\\Seeds\\TestPostSeeder</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="k">public</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span> <span class="nx">migrations</span> <span class="nx">seed</span> <span class="nx">Acme\\Blog\\Database\\Seeds\\TestPostSeeder</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id12">
 <h3><a class="toc-backref" href="#id28">辅助函数</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
 <p>当使用 <code class="docutils literal notranslate"><span class="pre">helper()</span></code> 方法时，辅助函数将会通过定义的命名空间自动定位。只要它存在于 <strong>Helpers</strong> 命名空间目录下:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -495,21 +497,21 @@ with the <code class="docutils literal notranslate"><span class="pre">new</span>
 <div class="section" id="id14">
 <h3><a class="toc-backref" href="#id30">库</a><a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
 <p>库总是通过完全命名空间化的类名进行实例化，所以不需要额外的操作:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$lib</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Acme\Blog\Libraries\BlogLib</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$lib</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Acme\Blog\Libraries\BlogLib</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id15">
 <h3><a class="toc-backref" href="#id31">模型</a><a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
 <p>模型总是通过完全命名空间化的类名进行实例化，所以不需要额外的操作:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Acme\Blog\Models\PostModel</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Acme\Blog\Models\PostModel</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id16">
 <h3><a class="toc-backref" href="#id32">视图</a><a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
 <p>视图文件可通过 <a class="reference internal" href="../outgoing/views.html"><span class="doc">视图</span></a> 文档中所述的类命名空间进行加载:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;Acme\Blog\Views\index&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;Acme\Blog\Views\index&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -524,10 +526,10 @@ with the <code class="docutils literal notranslate"><span class="pre">new</span>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="managing_apps.html" class="btn btn-neutral float-right" title="管理多个应用" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="managing_apps.html" class="btn btn-neutral float-right" title="管理多个应用" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ajax.html" class="btn btn-neutral float-left" title="AJAX请求" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="ajax.html" class="btn btn-neutral float-left" title="AJAX请求" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -536,15 +538,22 @@ with the <code class="docutils literal notranslate"><span class="pre">new</span>
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -552,10 +561,10 @@ with the <code class="docutils literal notranslate"><span class="pre">new</span>
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -566,7 +575,6 @@ with the <code class="docutils literal notranslate"><span class="pre">new</span>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

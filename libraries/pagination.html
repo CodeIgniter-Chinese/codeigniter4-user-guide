@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>分页类 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>分页类 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="安全类" href="security.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">类库参考</a> &raquo;</li>
         
@@ -340,7 +342,7 @@
 <div class="section" id="id2">
 <h2>加载库<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>与 CodeIgniter 中的所有服务一样，它可以通过 <code class="docutils literal notranslate"><span class="pre">Config\Services</span></code> 进行加载，尽管通常它并不需要手动加载：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$pager</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">pager</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$pager</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">pager</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
@@ -349,7 +351,7 @@
 <p>通常，可以使用分页器库对从数据库中检索到的结果进行分页。使用 <a class="reference internal" href="../models/model.html"><span class="doc">Model</span></a> 类时，可以使用其内置的 <code class="docutils literal notranslate"><span class="pre">paginate()</span></code>
 方法来自动检索当前批次的结果，并设置 Pager 库，以便可以在控制器中使用它。它甚至可以通过 <code class="docutils literal notranslate"><span class="pre">page=X</span></code> 变量从当前 URL 读取当前应显示的页面。</p>
 <p>在你的应用程序中提供用户的分页列表时，控制器的方法应类似于：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Controller</span><span class="p">;</span>
 
@@ -373,19 +375,19 @@
 这将针对正确的页面进行检索，每页会返回 10 个用户。发送到视图的第二个必须的项是 Pager 实例本身。为了方便起见，Model 将会保留所使用的实例，
 并将其存储在 public 类变量 <strong>$pager</strong> 中。因此，我们将其获取并将其分配给视图中的 $pager 变量。</p>
 <p>然后，在视图内，我们需要告诉它应该在哪里显示结果的链接：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">()</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <p>就是这样。Pager 类将为当前页面两侧超过两个页面的任何页面呈现“首页”和“末页”的链接，以及“下一页”和“上一页”的链接。</p>
 <p>如果你更喜欢简单的输出，则可以使用 <code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 方法，它会输出“较旧”和“较新”链接而不是有着详细信息的分页链接：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">simpleLinks</span><span class="p">()</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">simpleLinks</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <p>在后台中，库加载了一个视图文件，文件确定链接的格式，从而可以轻松地根据需要进行修改。有关如何完全自定义输出的详细信息，请参见下文。</p>
 <div class="section" id="id4">
 <h3>分页多个结果<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>如果需要提供来自两个不同的结果集的链接，则可以将组名传递给大多数分页方法，以使数据分开：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在控制器文件中：</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在控制器文件中：</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="nv">$userModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\App\Models\UserModel</span><span class="p">();</span>
@@ -410,21 +412,21 @@
 <h3>手动分页<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>你可能会发现有时候只需要根据已知数据来创建分页。这时你可以使用 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 方法来手动创建链接，这个方法分别将当前页面，
 每页的结果数和项目总数作为第一个，第二个和第三个参数：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <p>默认情况下，这将以正常方式将链接显示为一组链接，你还可以通过将模板名称作为第四个参数传入来更改使用的显示模板。在以下各节中可以找到更多详细信息。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;template_name&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;template_name&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <p>也可以使用 URI 字段（segment）而不是用查询参数来表示页码，只需指定字段号即可用作的第五个参数 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 。然后，由分页器生成的 URI 看起来会像
 <em>https://domain.tld/model/『页码』</em> 而不是 <em>https://domain.tld/model?page=『页码』</em> 。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;template_name&#39;</span><span class="p">,</span> <span class="nv">$segment</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;template_name&#39;</span><span class="p">,</span> <span class="nv">$segment</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <p>请注意： <code class="docutils literal notranslate"><span class="pre">$segment</span></code> 的值不能大于 URI 字段的数量加 1。</p>
 <p>如果你需要在一页上显示很多分页器，那么定义组的其他参数可能会有所帮助：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$pager</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;pager&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$pager</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;pager&#39;</span><span class="p">);</span>
 <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">setPath</span><span class="p">(</span><span class="s1">&#39;path/for/my-group&#39;</span><span class="p">,</span> <span class="s1">&#39;my-group&#39;</span><span class="p">);</span> <span class="c1">// 另外，你可以为每个组定义路径</span>
 <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;template_name&#39;</span><span class="p">,</span> <span class="nv">$segment</span><span class="p">,</span> <span class="s1">&#39;my-group&#39;</span><span class="p">);</span>
 </pre></div>
@@ -434,12 +436,12 @@
 <h3>仅使用预期查询进行分页<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p>默认情况下，所有 GET 查询都显示在分页链接中。</p>
 <p>例如，当访问 URL <em>http://domain.tld?search=foo&amp;order=asc&amp;hello=i+am+here&amp;page=2</em> 时，可以生成 页面 3 链接以及其他链接，如下所示：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">();</span>
 <span class="c1">// 页面 3 链接： http://domain.tld?search=foo&amp;order=asc&amp;hello=i+am+here&amp;page=3</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">only()</span></code> 方法还允许你将其限制为仅已预期的查询：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">only</span><span class="p">([</span><span class="s1">&#39;search&#39;</span><span class="p">,</span> <span class="s1">&#39;order&#39;</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">only</span><span class="p">([</span><span class="s1">&#39;search&#39;</span><span class="p">,</span> <span class="s1">&#39;order&#39;</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">();</span>
 <span class="c1">// 页面 3 链接： http://domain.tld?search=foo&amp;order=asc&amp;page=3</span>
 </pre></div>
 </div>
@@ -451,7 +453,7 @@
 <div class="section" id="id8">
 <h3>查看配置<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>当链接呈现到页面时，它们使用视图文件来渲染 HTML。你可以通过编辑 <strong>app/Config/Pager.php</strong> 来轻松地更改使用的视图：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$templates</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$templates</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;default_full&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;CodeIgniter\Pager\Views\default_full&#39;</span><span class="p">,</span>
     <span class="s1">&#39;default_simple&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;CodeIgniter\Pager\Views\default_simple&#39;</span>
 <span class="p">];</span>
@@ -461,15 +463,15 @@
 视图会分别被用于 <code class="docutils literal notranslate"><span class="pre">links()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 方法。要更改在整个应用程序范围内显示的方式，你可以在处分配一个新视图。</p>
 <p>例如，假设你创建一个与 Foundation CSS 框架一起使用的新视图文件，然后将文件放在 <strong>app/Views/Pagers/foundation_full.php</strong> 中。
 由于 <strong>application</strong> 目录的命名空间为 <code class="docutils literal notranslate"><span class="pre">App</span></code> ，并且其下的所有目录都直接映射到命名空间的各个部分，因此你可以通过其命名空间找到视图文件：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;default_full&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;App\Views\Pagers\foundation_full&#39;</span><span class="p">,</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;default_full&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;App\Views\Pagers\foundation_full&#39;</span><span class="p">,</span>
 </pre></div>
 </div>
 <p>但是，由于它位于标准的 <strong>app/Views</strong> 目录下，因此不需要命名空间，因为``view()`` 方法可以按文件名定位它。在这种情况下，你只需提供子目录和文件名：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;default_full&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;Pagers/foundation_full&#39;</span><span class="p">,</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;default_full&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;Pagers/foundation_full&#39;</span><span class="p">,</span>
 </pre></div>
 </div>
 <p>创建视图并将其配置好后，将会自动使用它。你不必替换现有模板。你也可以在配置文件中根据需要创建的任意数量的其他模板。常见的情况是你的应用程序的前端和后端需要不同的样式。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$templates</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$templates</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;default_full&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;CodeIgniter\Pager\Views\default_full&#39;</span><span class="p">,</span>
     <span class="s1">&#39;default_simple&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;CodeIgniter\Pager\Views\default_simple&#39;</span><span class="p">,</span>
     <span class="s1">&#39;front_full&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;App\Views\Pagers\foundation_full&#39;</span><span class="p">,</span>
@@ -477,7 +479,7 @@
 </pre></div>
 </div>
 <p>配置完成后，你可以指定它作为 <code class="docutils literal notranslate"><span class="pre">links()</span></code> 、 <code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 以及 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 方法的最后的一个参数：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">(</span><span class="s1">&#39;group1&#39;</span><span class="p">,</span> <span class="s1">&#39;front_full&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">(</span><span class="s1">&#39;group1&#39;</span><span class="p">,</span> <span class="s1">&#39;front_full&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">simpleLinks</span><span class="p">(</span><span class="s1">&#39;group2&#39;</span><span class="p">,</span> <span class="s1">&#39;front_full&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;front_full&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
@@ -486,7 +488,7 @@
 <div class="section" id="id9">
 <h3>创建视图<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>创建新视图时，只需要创建生成分页链接本身所需的代码。你不应该创建不必要的包装 div，因为它可能会在多个地方使用，并且这会限制它们的用途。这里通过向你展示现有的 default_full 模板，来演示创建新视图：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">setSurroundCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">setSurroundCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
 <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Page navigation&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pagination&quot;</span><span class="p">&gt;</span>
@@ -537,7 +539,7 @@
 <p>与 <code class="docutils literal notranslate"><span class="pre">getPrevious()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">getNext()</span></code> 类似，这两个方法返回指向结果集中第一页和最后一页的链接。</p>
 <p><strong>links()</strong></p>
 <p>返回所有有关编号链接的数据数组。每个链接的数组都包含链接的 uri，标题（只是数字）和一个布尔值，布尔值表示链接为当前链接还是活动链接：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$link</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$link</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;active&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
         <span class="s1">&#39;uri&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com/foo?page=2&#39;</span><span class="p">,</span>
         <span class="s1">&#39;title&#39;</span>  <span class="o">=&gt;</span> <span class="mi">1</span>
@@ -556,10 +558,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="security.html" class="btn btn-neutral float-right" title="安全类" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="security.html" class="btn btn-neutral float-right" title="安全类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="images.html" class="btn btn-neutral float-left" title="图像处理类" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="images.html" class="btn btn-neutral float-left" title="图像处理类" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -568,15 +570,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -584,10 +593,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -598,7 +607,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

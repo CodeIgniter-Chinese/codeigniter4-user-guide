@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>视图布局 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>视图布局 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="View Parser" href="view_parser.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">构建响应</a> &raquo;</li>
         
@@ -350,7 +352,7 @@
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id7">创建布局</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>布局和其他视图一样。它们唯一的区别是它们的用途。布局就是使用 <code class="docutils literal notranslate"><span class="pre">renderSection()</span></code> 方法的视图文件。这个方法会充当内容的占位符。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;!</span><span class="nx">doctype</span> <span class="nx">html</span><span class="o">&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;!</span><span class="nx">doctype</span> <span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">My</span> <span class="nx">Layout</span><span class="o">&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
@@ -366,17 +368,17 @@
 <div class="section" id="id4">
 <h2><a class="toc-backref" href="#id8">在视图中使用布局</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>无论何时需要把视图插入到布局中时，都必须在文件开头使用 <code class="docutils literal notranslate"><span class="pre">extend()</span></code> 方法：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <p>extend() 方法采用你所希望使用的视图文件的名称。由于它们也是视图，因此它们的位置就像视图一样。默认情况下，
 会在应用程序的 View 目录中查找它们，但还会扫描其他 PSR-4 定义的命名空间。你还可以加上一个命名空间以在特定名称空间的 View 目录中定位视图：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;Blog\Views\default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;Blog\Views\default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 <p>拓展布局所有内容时，必须包含 <code class="docutils literal notranslate"><span class="pre">section($name)</span></code> 和 <code class="docutils literal notranslate"><span class="pre">endSection()</span></code> 方法的调用。这些调用之间的任何内容都将插入到与节名称匹配的
 <code class="docutils literal notranslate"><span class="pre">renderSection($name)</span></code> 调用所在的布局中：:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">section</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
     <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
@@ -388,7 +390,7 @@
 <div class="section" id="id5">
 <h2><a class="toc-backref" href="#id9">渲染视图</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 <p>渲染视图及其布局的方法与在控制器中显示的任何其他视图的方法完全相同：</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;some_view&#39;</span><span class="p">);</span>
 <span class="p">}</span>
@@ -400,7 +402,7 @@
 <h2><a class="toc-backref" href="#id10">引用局部视图</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>局部视图是不扩展任何布局的视图文件。它们通常是可以在视图之间重复使用的内容。 使用视图布局时，必须使用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;include()</span></code>
 来引用。</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">section</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
     <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
@@ -421,10 +423,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="view_parser.html" class="btn btn-neutral float-right" title="View Parser" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="view_parser.html" class="btn btn-neutral float-right" title="View Parser" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="view_renderer.html" class="btn btn-neutral float-left" title="视图渲染器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="view_renderer.html" class="btn btn-neutral float-left" title="视图渲染器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -433,15 +435,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -449,10 +458,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -463,7 +472,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

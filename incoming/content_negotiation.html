@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>内容协商 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>内容协商 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="HTTP类型伪装" href="methodspoofing.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">控制器和路由</a> &raquo;</li>
         
@@ -342,13 +344,13 @@
 <div class="section" id="id2">
 <h2>加载类文件<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>你可以通过 Service 类来手动加载一个该类的实例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$negotiator</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">negotiator</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$negotiator</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">negotiator</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>以上操作会获取所有的请求实例并自动将其自动注入到 Negotiator （协商，下同）类中。</p>
 <p>该类并不需要主动加载。而是通过请求的 <code class="docutils literal notranslate"><span class="pre">IncomingRequest</span></code> 实例来进行范文。
 尽管你并不能通过这一过程直接访问该实例，你可以通过 <code class="docutils literal notranslate"><span class="pre">negotiate()</span></code> 方法来调用它的所有方法:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p>当通过该方法访问实例时，第一个参数是你需要匹配的内容的类型，第二个是所支持的类型值构成的数组。</p>
@@ -360,12 +362,12 @@
 <h3>媒体<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>第一层首先要看的就是媒体协商。该协商方式是通过 <code class="docutils literal notranslate"><span class="pre">Accept</span></code> 请求头进行的，并且是可用的请求头中最为复杂的类型之一。
 一个常见的例子就是客户端告诉服务端其所需要的数据格式，而这种操作在 API 中最为常见。例如，一个客户端可能从一个 API 终点请求 JSON 编码的数据:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Accept</span><span class="o">:</span> <span class="nx">application</span><span class="o">/</span><span class="nx">json</span>
 </pre></div>
 </div>
 <p>该服务器需要提供一个所支持的该内容的类型列表。在本例中，API 可能需要返回像原生 HTML ，JSON 或者是 XML 格式的数据。而根据客户端偏好，该列表应顺序返回:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
         <span class="s1">&#39;text/html&#39;</span><span class="p">,</span>
         <span class="s1">&#39;application/xml&#39;</span>
@@ -378,7 +380,7 @@
 </div>
 <p>在本例中，客户端和服务器协商一致，将数据以 JSON 的格式返回，因此 ‘json’ 就会从协商方法中返回。默认情况下，如果没有匹配到，在 <code class="docutils literal notranslate"><span class="pre">$support</span></code> 数组中的第一个成员就会返回。
 尽管在某些情况下，你可能会强制要求服务端进行严格匹配格式。因此如果你将 <code class="docutils literal notranslate"><span class="pre">true</span></code> 作为最后参数传入时，在匹配不到时就会返回空字符串:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$format</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="nv">$supported</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$format</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="nv">$supported</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 <span class="c1">// 或</span>
 <span class="nv">$format</span> <span class="o">=</span> <span class="nv">$negotiate</span><span class="o">-&gt;</span><span class="na">media</span><span class="p">(</span><span class="nv">$supported</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 </pre></div>
@@ -388,12 +390,12 @@
 <h3>语言<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>另一个常见的用法就是用于决定需要返回的内容的语言。如果你运行的是一个单语言网站，该功能显然并没有什么影响。
 但是如果对于那些提供多语言内容的网站来说，该功能就会变得非常有用，基于浏览器将通常会在 <code class="docutils literal notranslate"><span class="pre">Accept-Language</span></code> 请求头中发送偏好的语言类型:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Accept</span><span class="o">-</span><span class="nx">Language</span><span class="o">:</span> <span class="nx">fr</span><span class="p">;</span> <span class="nx">q</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="nx">en</span><span class="p">;</span> <span class="nx">q</span><span class="o">=</span><span class="mf">0.5</span>
 </pre></div>
 </div>
 <p>本例中，浏览器偏好法语，并次偏好英语。如果你的网站支持英语或德语，那么你就会如下操作:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;en&#39;</span><span class="p">,</span>
         <span class="s1">&#39;de&#39;</span>
 <span class="p">];</span>
@@ -408,12 +410,12 @@
 <div class="section" id="id6">
 <h3>编码<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Accept-Encoding</span></code> 请求头包含了客户端所期望接收到的字符集，用于确定客户端支持哪种类型的压缩方式:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Accept</span><span class="o">-</span><span class="nx">Encoding</span><span class="o">:</span> <span class="nx">compress</span><span class="p">,</span> <span class="nx">gzip</span>
 </pre></div>
 </div>
 <p>你的 web 服务器将会定义可以使用的压缩类型。某些服务器，例如 Apache , 只支持了 <strong>gzip</strong></p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gzip&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gzip&#39;</span><span class="p">]);</span>
 <span class="c1">// 或</span>
 <span class="nv">$type</span> <span class="o">=</span> <span class="nv">$negotiate</span><span class="o">-&gt;</span><span class="na">encoding</span><span class="p">([</span><span class="s1">&#39;gzip&#39;</span><span class="p">]);</span>
 </pre></div>
@@ -423,12 +425,12 @@
 <div class="section" id="id7">
 <h3>字符集<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
 <p>所期待的字符集类型会通过 <code class="docutils literal notranslate"><span class="pre">Accept-Charset</span></code> 请求头来传值:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Accept</span><span class="o">-</span><span class="nx">Charset</span><span class="o">:</span> <span class="nx">utf</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span> <span class="nx">utf</span><span class="o">-</span><span class="mi">8</span>
 </pre></div>
 </div>
 <p>默认情况下，如果没有匹配的话就会返回 <strong>utf-8</strong></p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$charset</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;charset&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;utf-8&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$charset</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;charset&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;utf-8&#39;</span><span class="p">]);</span>
 <span class="c1">// 或者是</span>
 <span class="nv">$charset</span> <span class="o">=</span> <span class="nv">$negotiate</span><span class="o">-&gt;</span><span class="na">charset</span><span class="p">([</span><span class="s1">&#39;utf-8&#39;</span><span class="p">]);</span>
 </pre></div>
@@ -445,10 +447,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="methodspoofing.html" class="btn btn-neutral float-right" title="HTTP类型伪装" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="methodspoofing.html" class="btn btn-neutral float-right" title="HTTP类型伪装" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="incomingrequest.html" class="btn btn-neutral float-left" title="IncomingRequest 类" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="incomingrequest.html" class="btn btn-neutral float-left" title="IncomingRequest 类" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -457,15 +459,22 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -473,10 +482,10 @@
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -487,7 +496,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

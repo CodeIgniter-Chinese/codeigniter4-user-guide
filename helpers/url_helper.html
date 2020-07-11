@@ -8,15 +8,19 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>URL 辅助函数 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>URL 辅助函数 &mdash; CodeIgniter 4.0.3 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
   
-    <link rel="shortcut icon" href="../_static/ci-icon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
   
   
+
+  
+  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
 
   
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
@@ -27,15 +31,13 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/citheme.js"></script>
+        <script type="text/javascript" src="../_static/js/carbon.js"></script>
         <script type="text/javascript" src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="XML辅助函数" href="xml_helper.html" />
@@ -53,9 +55,12 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> CodeIgniter4
+            <a href="../index.html">
           
 
+          
+            
+            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -64,7 +69,7 @@
           
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -95,10 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_git.html">通过Git安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../installation/upgrade_4xx.html">从CodeIgniter 3系列版本升级到4系列版本</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从原先的版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
@@ -284,7 +286,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">CodeIgniter4</a>
+          <a href="../index.html">CodeIgniter</a>
         
       </nav>
 
@@ -313,7 +315,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">文档首页</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">辅助函数</a> &raquo;</li>
         
@@ -377,13 +379,13 @@ index.php 文件（或者在你的配置文件里任何你已经设置在你网�
 将会添加到 URL，如同你通过函数程序段的一些 URL，外加在你的配置文件中已经设置的 <strong>url_suffix</strong>.</p>
 <p>在你的 URL 改变的事件中，你被鼓励在任何时间使用函数生成本地 URL 以便你的页面将变得更加便携。
 程序段能随意地像 string 或者 array 通过函数。下文是 string 事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">site_url</span><span class="p">(</span><span class="s1">&#39;news/local/123&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">site_url</span><span class="p">(</span><span class="s1">&#39;news/local/123&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>上文的事例返回的地址如下:
 <em>http://example.com/index.php/news/local/123</em></p>
 <p>这里是一个通过数组程序段的事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$segments</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="s1">&#39;123&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$segments</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="s1">&#39;123&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nx">site_url</span><span class="p">(</span><span class="nv">$segments</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -413,21 +415,21 @@ index.php 文件（或者在你的配置文件里任何你已经设置在你网�
 </tbody>
 </table>
 <p>返回你网站的基地址 URL, 如同在你配置文件里具体说明的。事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">base_url</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">base_url</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>如同 <a class="reference internal" href="#site_url" title="site_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">site_url()</span></code></a> 该函数返回相同的事件,
 排除 <em>index_page</em> 或者 <em>url_suffix</em> 被附加的情况。</p>
 <p>也如函数 <a class="reference internal" href="#site_url" title="site_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">site_url()</span></code></a>, 你能提供程序段如 string 或者 array.
 这里是 string 事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">base_url</span><span class="p">(</span><span class="s2">&quot;blog/post/123&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">base_url</span><span class="p">(</span><span class="s2">&quot;blog/post/123&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>上文事例返回的地址如下:
 <em>http://example.com/blog/post/123</em></p>
 <p>因为不同的 <a class="reference internal" href="#site_url" title="site_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">site_url()</span></code></a> 函数是有用的, 你能提供 string 值到文件里，譬如图片或者层叠式样式表。
 例如:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">base_url</span><span class="p">(</span><span class="s2">&quot;images/icons/edit.png&quot;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">base_url</span><span class="p">(</span><span class="s2">&quot;images/icons/edit.png&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>上文的输出函数将给你如下面的链接:
@@ -501,11 +503,11 @@ base_url(uri_string());</p>
 </tbody>
 </table>
 <p>返回你的最近 URL 的路径部分。例如，如果你的 URL是这样的:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">some</span><span class="o">-</span><span class="nx">site</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">comments</span><span class="o">/</span><span class="mi">123</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">some</span><span class="o">-</span><span class="nx">site</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">blog</span><span class="o">/</span><span class="nx">comments</span><span class="o">/</span><span class="mi">123</span>
 </pre></div>
 </div>
 <p>函数将返回:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nx">blog</span><span class="o">/</span><span class="nx">comments</span><span class="o">/</span><span class="mi">123</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">blog</span><span class="o">/</span><span class="nx">comments</span><span class="o">/</span><span class="mi">123</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -532,7 +534,7 @@ base_url(uri_string());</p>
 </table>
 <p>返回你网站的 <strong>index_page</strong>, 如同在你的配置文件里明确说明的。
 事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">index_page</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">index_page</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>如同用 <a class="reference internal" href="#site_url" title="site_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">site_url()</span></code></a>,你也许要具体制定一个更替配置。
@@ -574,7 +576,7 @@ base_url(uri_string());</p>
 <p>第二参数是你想要链接表达的正文。如果你留下第二个程序为空，URL 将会被应用。</p>
 <p>第三个参数包含你想要添加到链接里的的属性列表。属性可以是简单的 string 或者组合数组。</p>
 <p>这里是一些事例</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">anchor</span><span class="p">(</span><span class="s1">&#39;news/local/123&#39;</span><span class="p">,</span> <span class="s1">&#39;My News&#39;</span><span class="p">,</span> <span class="s1">&#39;title=&quot;News title&quot;&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">anchor</span><span class="p">(</span><span class="s1">&#39;news/local/123&#39;</span><span class="p">,</span> <span class="s1">&#39;My News&#39;</span><span class="p">,</span> <span class="s1">&#39;title=&quot;News title&quot;&#39;</span><span class="p">);</span>
 <span class="c1">// Prints: &lt;a href=&quot;http://example.com/index.php/news/local/123&quot; title=&quot;News title&quot;&gt;My News&lt;/a&gt;</span>
 
 <span class="k">echo</span> <span class="nx">anchor</span><span class="p">(</span><span class="s1">&#39;news/local/123&#39;</span><span class="p">,</span> <span class="s1">&#39;My News&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The best news!&#39;</span><span class="p">));</span>
@@ -620,7 +622,7 @@ base_url(uri_string());</p>
 在第三个参数中你能明确说明 JavaScript 窗口属性去控制窗口如何被打开。
 如果第三个参数没有设定，它将会带着你自身的浏览器设定去简单地打开一个新窗口。</p>
 <p>这里是带着属性的事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$atts</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$atts</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
         <span class="s1">&#39;width&#39;</span>       <span class="o">=&gt;</span> <span class="mi">800</span><span class="p">,</span>
         <span class="s1">&#39;height&#39;</span>      <span class="o">=&gt;</span> <span class="mi">600</span><span class="p">,</span>
         <span class="s1">&#39;scrollbars&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span>
@@ -639,7 +641,7 @@ base_url(uri_string());</p>
 <p class="last">上文属性是默认函数因此你仅仅需要去设置哪些个不同于你需要的属性。</p>
 </div>
 <p>在第三个参数里如果你想要函数去简单地通过空数组使用所有它的默认值:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">anchor_popup</span><span class="p">(</span><span class="s1">&#39;news/local/123&#39;</span><span class="p">,</span> <span class="s1">&#39;Click Me!&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">());</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">anchor_popup</span><span class="p">(</span><span class="s1">&#39;news/local/123&#39;</span><span class="p">,</span> <span class="s1">&#39;Click Me!&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">());</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -684,7 +686,7 @@ base_url(uri_string());</p>
 </tbody>
 </table>
 <p>创建标准的 HTML 邮件链接。用法事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span>       <span class="k">echo</span> <span class="nx">mailto</span><span class="p">(</span><span class="s1">&#39;me@my-site.com&#39;</span><span class="p">,</span> <span class="s1">&#39;Click Here to Contact Me&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>       <span class="k">echo</span> <span class="nx">mailto</span><span class="p">(</span><span class="s1">&#39;me@my-site.com&#39;</span><span class="p">,</span> <span class="s1">&#39;Click Here to Contact Me&#39;</span><span class="p">);</span>
 
 <span class="nx">如同用上文</span> <span class="o">:</span><span class="nx">php</span><span class="o">:</span><span class="nx">func</span><span class="o">:</span><span class="sb">`anchor()`</span> <span class="nx">tab</span> <span class="nx">函数</span><span class="p">,</span>
 <span class="nx">你可以使用第三个参数设定属性</span><span class="o">::</span>
@@ -748,22 +750,22 @@ base_url(uri_string());</p>
 </tbody>
 </table>
 <p>在字符到链接里自动地转换包含 URLs 和 e-mail 地址。事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">auto_link</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">auto_link</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>第二参数决定是否 URLs 和 e-mail 是转换了仅仅一个或者其他什么的。如果参数不是明确的说明默认行为是兼有的。
 E-mail 链接编码如同上文显示的 <a class="reference internal" href="#safe_mailto" title="safe_mailto"><code class="xref php php-func docutils literal notranslate"><span class="pre">safe_mailto()</span></code></a> 一样。</p>
 <p>仅转换 URLs:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">auto_link</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">auto_link</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>仅转换 e-mail 地址:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">auto_link</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">auto_link</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>第三个参数决定是否链接在新窗口被显示。
 值是 TRUE 或者 FALSE （boolean）:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">auto_link</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">auto_link</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -796,21 +798,21 @@ E-mail 链接编码如同上文显示的 <a class="reference internal" href="#sa
 </table>
 <p>取 string 作为输入值并创建友好人性化的 URL string.
 这是有用的，例如，在 URL 里你有个blog ，在 blog 里你想要使用你的整个主题。事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$title</span>     <span class="o">=</span> <span class="s2">&quot;What&#39;s wrong with CSS?&quot;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$title</span>     <span class="o">=</span> <span class="s2">&quot;What&#39;s wrong with CSS?&quot;</span><span class="p">;</span>
 <span class="nv">$url_title</span> <span class="o">=</span> <span class="nx">url_title</span><span class="p">(</span><span class="nv">$title</span><span class="p">);</span>
 <span class="c1">// Produces: Whats-wrong-with-CSS</span>
 </pre></div>
 </div>
 <p>第二个参数决定词汇的定义符号。默认的破折号被使用。更好的选项是: <strong>-</strong> (破折号) 或者 <strong>_</strong> (下划线)。</p>
 <p>事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$title</span>     <span class="o">=</span> <span class="s2">&quot;What&#39;s wrong with CSS?&quot;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$title</span>     <span class="o">=</span> <span class="s2">&quot;What&#39;s wrong with CSS?&quot;</span><span class="p">;</span>
 <span class="nv">$url_title</span> <span class="o">=</span> <span class="nx">url_title</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="s1">&#39;underscore&#39;</span><span class="p">);</span>
 <span class="c1">// Produces: Whats_wrong_with_CSS</span>
 </pre></div>
 </div>
 <p>第三个参数决定是或者不是小写字符是被强迫的。默认他们不是。选项是 boolean TRUE/FALSE.</p>
 <p>事例:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$title</span>     <span class="o">=</span> <span class="s2">&quot;What&#39;s wrong with CSS?&quot;</span><span class="p">;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$title</span>     <span class="o">=</span> <span class="s2">&quot;What&#39;s wrong with CSS?&quot;</span><span class="p">;</span>
 <span class="nv">$url_title</span> <span class="o">=</span> <span class="nx">url_title</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="s1">&#39;underscore&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
 <span class="c1">// Produces: whats_wrong_with_css</span>
 </pre></div>
@@ -839,7 +841,7 @@ E-mail 链接编码如同上文显示的 <a class="reference internal" href="#sa
 </table>
 <p>在事件里这个函数正从一个 URL 错过，它将添加 <em>http://</em>  协议前缀。
 通过 URL string 的函数像下文这样:</p>
-<div class="highlight-ci notranslate"><div class="highlight"><pre><span></span><span class="nv">$url</span> <span class="o">=</span> <span class="nx">prep_url</span><span class="p">(</span><span class="s1">&#39;example.com&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$url</span> <span class="o">=</span> <span class="nx">prep_url</span><span class="p">(</span><span class="s1">&#39;example.com&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -855,10 +857,10 @@ E-mail 链接编码如同上文显示的 <a class="reference internal" href="#sa
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="xml_helper.html" class="btn btn-neutral float-right" title="XML辅助函数" accesskey="n" rel="next">下一个主题 <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="xml_helper.html" class="btn btn-neutral float-right" title="XML辅助函数" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="text_helper.html" class="btn btn-neutral float-left" title="文本辅助函数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一个主题</a>
+        <a href="text_helper.html" class="btn btn-neutral float-left" title="文本辅助函数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -867,15 +869,22 @@ E-mail 链接编码如同上文显示的 <a class="reference internal" href="#sa
 
   <div role="contentinfo">
     <p>
+        
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-05-11.
+        最后更新于 2020-07-11.
       </span>
 
     </p>
   </div>
-  
-  <p>基于 <a href="http://sphinx-doc.org/">Sphinx</a> 并使用 <a href="https://readthedocs.org">Read the Docs</a> 提供的<a href="https://github.com/rtfd/sphinx_rtd_theme">风格</a>构建</p>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
   <p>
     <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
@@ -883,10 +892,10 @@ E-mail 链接编码如同上文显示的 <a class="reference internal" href="#sa
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
     ·
     <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>
+    <!--·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
   </p>
-   
+
 
 </footer>
 
@@ -897,7 +906,6 @@ E-mail 链接编码如同上文显示的 <a class="reference internal" href="#sa
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
