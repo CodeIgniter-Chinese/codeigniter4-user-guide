@@ -11,8 +11,8 @@ zip -r ./codeigniter_user_guide.zip ./
 cd ../latex
 cp CodeIgniter.pdf ../../gh-pages/
 
-cd ../epub
-cp CodeIgniter4.epub ../../gh-pages/
+#cd ../epub
+#cp CodeIgniter4.epub ../../gh-pages/
 
 cd ../../gh-pages
 cp -Rf ../build/html/* .
