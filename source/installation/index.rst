@@ -13,7 +13,6 @@ CodeIgniter4 可以通过多种不同的方式安装：手动，使用 `Composer
 
     installing_manual
     installing_composer
-    installing_git
     running
     upgrading
     troubleshooting
