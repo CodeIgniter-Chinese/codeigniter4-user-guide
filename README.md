@@ -32,7 +32,7 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
 2. `easy_install "sphinx==1.8.5"`
 3. `easy_install "sphinxcontrib-phpdomain==0.7.0"`
 4. `easy_install "docutils==0.16"`
-5. `easy_install "sphinx-rtd-theme==0.4.3"`
+5. `easy_install "sphinx-rtd-theme>=0.4.3"`
 6. `easy_install "jieba==0.42.1"`
 7. `make html`
 

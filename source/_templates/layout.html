@@ -7,10 +7,10 @@
   {%- set titlesuffix = "" %}
 {%- endif %}
 {%- set lang_attr = 'en' if language == None else (language | replace('_', '-')) %}
+{%- set sphinx_writer = 'writer-html5' if html5_doctype else 'writer-html4' %}
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="{{ lang_attr }}" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ lang_attr }}" > <!--<![endif]-->
+<html class="{{ sphinx_writer }}" lang="{{ lang_attr }}" >
 <head>
   <meta charset="utf-8">
   {{ metatags }}
@@ -18,15 +18,6 @@
   {% block htmltitle %}
   <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
   {% endblock %}
-
-  {# FAVICON #}
-  {% if favicon %}
-    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
-  {% endif %}
-  {# CANONICAL URL #}
-  {% if theme_canonical_url %}
-    <link rel="canonical" href="{{ theme_canonical_url }}{{ pagename }}.html"/>
-  {% endif %}
 
   {# CSS #}
   <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
@@ -43,8 +34,20 @@
     <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
   {%- endfor %}
 
+  {# FAVICON #}
+  {% if favicon %}
+    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
+  {% endif %}
+  {# CANONICAL URL #}
+  {% if theme_canonical_url %}
+    <link rel="canonical" href="{{ theme_canonical_url }}{{ pagename }}.html"/>
+  {% endif %}
+
   {# JAVASCRIPTS #}
-  <script type="text/javascript" src="{{ pathto('_static/js/modernizr.min.js', 1) }}"></script>
+  {%- block scripts %}
+  <!--[if lt IE 9]>
+    <script src="{{ pathto('_static/js/html5shiv.min.js', 1) }}"></script>
+  <![endif]-->
   {%- if not embedded %}
   {# XXX Sphinx 1.8.0 made this an external js-file, quick fix until we refactor the template to inherert more blocks directly from sphinx #}
     {% if sphinx_version >= "1.8.0" %}
@@ -77,6 +80,7 @@
           href="{{ pathto('_static/opensearch.xml', 1) }}"/>
     {%- endif %}
   {%- endif %}
+  {%- endblock %}
 
   {%- block linktags %}
     {%- if hasdoc('about') %}
@@ -114,14 +118,14 @@
           {% if logo and theme_logo_only %}
             <a href="{{ pathto(master_doc) }}">
           {% else %}
-            <a href="{{ pathto(master_doc) }}" class="icon icon-home"> {{ project }}
+            <a href="{{ pathto(master_doc) }}" class="icon icon-home" alt="{{ _("Documentation Home") }}"> {{ project }}
           {% endif %}
 
           {% if logo %}
             {# Not strictly valid HTML, but it's the only way to display/scale
                it properly, without weird scripting or heaps of work
             #}
-            <img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="Logo"/>
+            <img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="{{ _('Logo') }}"/>
           {% endif %}
           </a>
 
@@ -142,6 +146,7 @@
           {% endblock %}
         </div>
 
+        {% block navigation %}
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           {% block menu %}
             {#
@@ -162,6 +167,7 @@
             {% endif %}
           {% endblock %}
         </div>
+        {% endblock %}
       </div>
     </nav>
 
