@@ -16,7 +16,7 @@
 
 ## 安装步骤
 
-CodeIgniter 的用户指南使用 Sphinx 软件进行管理，并可以生成各种不同的格式。 所有的页面都是采用 [ReStructured
+CodeIgniter 的用户指南使用 Sphinx 软件进行管理，并可以生成各种不同的格式。所有页面都采用 [ReStructured
 Text](https://en.wikipedia.org/wiki/ReStructuredText) 格式书写，这种格式非常方便人们阅读。
 
 ### 安装条件
