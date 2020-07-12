@@ -55,6 +55,7 @@ The :php:func:`esc()` 函数转换 HTML 特殊字节以便它能安全地使用:
 
     	 创建一个带着基地址URL的随时可用的表单标签**从你的配置优先选择营造**.
 	 它将随意地让你添加表单属性和隐藏输入字段，并且会常常在你的配置文件里添加基于 charset 值的 `accept-charset` 属性。
+	 
 	 宁可使用标签的绝对好处也不要艰苦的编码你自己的 HTML 是由于在事件里你的 URLs 曾改变而标签容许你的网址是更便携的。
 	
 
@@ -62,9 +63,18 @@ The :php:func:`esc()` 函数转换 HTML 特殊字节以便它能安全地使用:
 
 		echo form_open('email/send');
 
-	上面的例子将创建一个指向你的基地址 URL 和 "email/send" URL 部分的表单，像这样::
+	上面的例子将创建一个指向你的基地址 URL 和 "email/send" URI 部分的表单，像这样::
 
 		<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
+
+	You can also add {locale} like the following::
+
+                echo form_open('{locale}/email/send');
+
+        The above example would create a form that points to your base URL plus the current request locale with
+        "email/send" URI segments, like this::
+
+                <form method="post" accept-charset="utf-8" action="http://example.com/index.php/en/email/send">
 
 	**添加属性**
 
@@ -73,13 +83,22 @@ The :php:func:`esc()` 函数转换 HTML 特殊字节以便它能安全地使用:
 			$attributes = array('class' => 'email', 'id' => 'myform');
 			echo form_open('email/send', $attributes);
 
-		二选一地，你能明确的像字符串一样说明第二个参数::
+		此外,您可以指定第二个参数为字符串::
 
 			echo form_open('email/send', 'class="email" id="myform"');
 
 		上文的例子将会创建一个同样的表单相似于下文这个事例::
 
 			<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send" class="email" id="myform">
+			
+		If CSRF filter is turned on `form_open()` will generate CSRF field at the beginning of the form. You can specify ID of this field by passing csrf_id as one of the $attribute array:
+
+                        form_open('/u/sign-up', ['csrf_id' => 'my-id']);
+
+                will return:
+
+                        <form action="/u/sign-up" method="post" accept-charset="utf-8">
+                        <input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d" />
 
 	**添加隐藏输入字段**
 
@@ -90,7 +109,7 @@ The :php:func:`esc()` 函数转换 HTML 特殊字节以便它能安全地使用:
 
 		由正传达的任何false值到隐藏字段，你能忽略第二个参数.
 
-		上面的事例将创建类似于下面的句子::
+		上面的事例将创建类似于下面的表单::
 
 			<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
 				<input type="hidden" name="username" value="Joe" />
