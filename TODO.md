@@ -30,26 +30,36 @@
 1. - [x] 译文: [source/concepts/structure.rst](source/concepts/structure.rst)
          原文: [source/concepts/structure.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/structure.rst)
          @蓝色的风
-1. - [ ] 译文: [source/database/call_function.rst](source/database/call_function.rst)
+1. - [x] 译文: [source/database/call_function.rst](source/database/call_function.rst)
          原文: [source/database/call_function.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/call_function.rst)
-1. - [ ] 译文: [source/database/configuration.rst](source/database/configuration.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/configuration.rst](source/database/configuration.rst)
          原文: [source/database/configuration.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/configuration.rst)
-1. - [ ] 译文: [source/database/connecting.rst](source/database/connecting.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/connecting.rst](source/database/connecting.rst)
          原文: [source/database/connecting.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/connecting.rst)
-1. - [ ] 译文: [source/database/events.rst](source/database/events.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/events.rst](source/database/events.rst)
          原文: [source/database/events.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/events.rst)
-1. - [ ] 译文: [source/database/examples.rst](source/database/examples.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/examples.rst](source/database/examples.rst)
          原文: [source/database/examples.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/examples.rst)
-1. - [ ] 译文: [source/database/helpers.rst](source/database/helpers.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/helpers.rst](source/database/helpers.rst)
          原文: [source/database/helpers.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/helpers.rst)
-1. - [ ] 译文: [source/database/metadata.rst](source/database/metadata.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/metadata.rst](source/database/metadata.rst)
          原文: [source/database/metadata.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/metadata.rst)
-1. - [ ] 译文: [source/database/query_builder.rst](source/database/query_builder.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/query_builder.rst](source/database/query_builder.rst)
          原文: [source/database/query_builder.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/query_builder.rst)
-1. - [ ] 译文: [source/database/transactions.rst](source/database/transactions.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/transactions.rst](source/database/transactions.rst)
          原文: [source/database/transactions.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/transactions.rst)
-1. - [ ] 译文: [source/database/utilities.rst](source/database/utilities.rst)
+         @Visvoy
+1. - [x] 译文: [source/database/utilities.rst](source/database/utilities.rst)
          原文: [source/database/utilities.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/utilities.rst)
+         @Visvoy
 1. - [ ] 译文: [source/dbmgmt/forge.rst](source/dbmgmt/forge.rst)
          原文: [source/dbmgmt/forge.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/dbmgmt/forge.rst)
 1. - [ ] 译文: [source/dbmgmt/migration.rst](source/dbmgmt/migration.rst)
