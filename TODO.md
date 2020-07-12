@@ -92,8 +92,9 @@
          原文: [source/helpers/cookie_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/cookie_helper.rst)
 1. - [ ] 译文: [source/helpers/filesystem_helper.rst](source/helpers/filesystem_helper.rst)
          原文: [source/helpers/filesystem_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/filesystem_helper.rst)
-1. - [ ] 译文: [source/helpers/form_helper.rst](source/helpers/form_helper.rst)
+1. - [x] 译文: [source/helpers/form_helper.rst](source/helpers/form_helper.rst)
          原文: [source/helpers/form_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/form_helper.rst)
+         @binhaiIT
 1. - [ ] 译文: [source/helpers/html_helper.rst](source/helpers/html_helper.rst)
          原文: [source/helpers/html_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/html_helper.rst)
 1. - [ ] 译文: [source/helpers/inflector_helper.rst](source/helpers/inflector_helper.rst)
