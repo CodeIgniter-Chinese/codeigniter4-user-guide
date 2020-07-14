@@ -87,7 +87,7 @@
 
 	 File 写入数据要详细指明路径，如果确凿没有 File 文件函数将会创建它。.
 
-	事例::
+	示例::
 
 		$data = 'Some file data';
 		if ( ! write_file('./path/to/file.php', $data))
@@ -123,13 +123,13 @@
 
 	删除所有包含在备用路径里的文件。
 
-	事例::
+	示例::
 
 		delete_files('./path/to/directory/');
 
 	如果第二个参数设置为 TRUE，包含备用根路径的任何目录将也会被删除。
 
-	事例::
+	示例::
 
 		delete_files('./path/to/directory/', TRUE);
 
@@ -144,7 +144,7 @@
 
 	函数里取服务器路径输入并返回包含所有文件名的数组。设置第二参数为 TRUE 文件路径能很随意的被添加到文件名里。
 
-	事例::
+	示例::
 
 		$controllers = get_filenames(APPPATH.'controllers/');
 
@@ -159,7 +159,7 @@
 	如果传送第二个参数被阻止成 FALSE 包含指定目录的子文件夹一定是只读的，如同这是个强调操作。
 	
 
-	事例::
+	示例::
 
 		$models_info = get_dir_file_info(APPPATH.'models/');
 
@@ -211,7 +211,7 @@
 	函数会返回不带符号链接的服务器路径或者有关联的目录结构。
 	如果路径不能决定选项的次一级争议将触发一个错误。
 
-	事例::
+	示例::
 
 		$file = '/etc/php5/apache2/php.ini';
 		echo set_realpath($file); //  输出 '/etc/php5/apache2/php.ini'
