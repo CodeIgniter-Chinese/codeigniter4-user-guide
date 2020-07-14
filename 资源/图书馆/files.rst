@@ -95,7 +95,7 @@ CodeIgniter提供了一个文件类,它将提供 `SplFileInfo <http://php.net/ma
 
 	$file->move(WRITEPATH.'uploads', $newName);
 	
-move（）方法返回用于重定位文件的新File实例，因此如果需要结果位置，则捕获结果是必要的：
-	```
+move（）方法返回用于重定位文件的新File实例，因此如果需要结果位置，则捕获结果是必要的::
+
 	$ file = $ file-> move（WRITEPATH.'uploads'）;
-	```
+	
