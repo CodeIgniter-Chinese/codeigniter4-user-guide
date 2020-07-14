@@ -47,7 +47,7 @@ Cookie 辅助函数文件使用下面的代码加载::
 
 	辅助函数给你更友好的语法去 *获取* 浏览器的 Cookies. 辅助函数详细的使用说明参考 :doc:`传入请求库 </incoming/incomingrequest>` 
 	同时辅助函数的作用非常近似于 ``IncomingRequest::getCookie()``, 
-	你也许已经设置在你的 *application/Config/App.php* 文件里除了它也预置了 ``$cookiePrefix`` .
+	你也许已经设置在你的 *app/Config/App.php* 文件里除了它也预置了 ``$cookiePrefix`` .
 
 .. php:function:: delete_cookie($name[, $domain = ''[, $path = '/'[, $prefix = '']]])
 
