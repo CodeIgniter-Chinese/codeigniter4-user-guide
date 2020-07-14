@@ -43,7 +43,7 @@ HTML 辅助函数使用下面的代码加载::
 
 此外，组合数组能被作为第一参数传达，为了完成控制额外的所有属性和值。 如果不提供 *alt* 属性，CodeIgniter 将产生空字符串。
 
-    事例::
+    示例::
 
         $imageProperties = array(
             'src'    => 'images/picture.jpg',
@@ -75,12 +75,12 @@ HTML 辅助函数使用下面的代码加载::
     *indexPage* 是 boolean 值并规定如果 *href* 将经由 ``$config['indexPage']`` 被添加到地址并创建有明确说明的页面。
      
 
-    事例::
+    示例::
 
         echo link_tag('css/mystyles.css');
         // <link href="http://site.com/css/mystyles.css" rel="stylesheet" type="text/css" />
 
-    更多事例::
+    更多示例::
 
         echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
         // <link href="http://site.com/favicon.ico" rel="shortcut icon" type="image/ico" />
@@ -112,7 +112,7 @@ HTML 辅助函数使用下面的代码加载::
 	*indexPage* 是 boolean 值并规定如果 *src* 将经由 ``$config['indexPage']`` 被添加到地址并创建有明确说明的页面。
     
 
-    事例::
+    示例::
 
         echo script_tag('js/mystyles.js');
         // <script src="http://site.com/js/mystyles.js" type="text/javascript"></script>
@@ -131,7 +131,7 @@ HTML 辅助函数使用下面的代码加载::
     :returns:   HTML-formatted 无序目录
     :rtype: string
 
-   容许你从简单或者多倍空间的数组产生无序 HTML 目录。事例:::
+   容许你从简单或者多倍空间的数组产生无序 HTML 目录。示例:::
 
         $list = array(
             'red',
@@ -158,7 +158,7 @@ HTML 辅助函数使用下面的代码加载::
             <li>yellow</li>
         </ul>
 
-    下面是更复杂的事例，使用多维空间的数组::
+    下面是更复杂的示例，使用多维空间的数组::
 
         $attributes = array(
             'class' => 'boldlist',
@@ -339,7 +339,7 @@ HTML 辅助函数使用下面的代码加载::
     :returns:   HTML source tag
     :rtype: string
 
-   让你创建 HTML <source /> tags. 第一个参数包含起源 source. 事例::
+   让你创建 HTML <source /> tags. 第一个参数包含起源 source. 示例::
 
         echo source('movie.mp4', 'video/mp4', 'class="test"');
         // <source src="movie.mp4" type="video/mp4" class="test" />
@@ -353,7 +353,7 @@ HTML 辅助函数使用下面的代码加载::
     :returns:   HTML embed tag
     :rtype: string
 
-   让你创建 HTML <embed /> tags.第一参数包含 embed source. 事例::
+   让你创建 HTML <embed /> tags.第一参数包含 embed source. 示例::
    
 
         echo embed('movie.mov', 'video/quicktime', 'class="test"');
@@ -368,7 +368,7 @@ HTML 辅助函数使用下面的代码加载::
     :returns:   HTML object tag
     :rtype: string
 
-    让你创建 HTML <object /> tags. 第一参数包含 object data. 事例::
+    让你创建 HTML <object /> tags. 第一参数包含 object data. 示例::
 
         echo object('movie.swf', 'application/x-shockwave-flash', 'class="test"');
 
@@ -416,7 +416,7 @@ HTML 辅助函数使用下面的代码加载::
     :returns:   HTML track tag
     :rtype: string
 
-    产生一个跟踪元素去具体指定时间的轨迹。在 WebVVT 格式里轨迹已被格式化。事例::
+    产生一个跟踪元素去具体指定时间的轨迹。在 WebVVT 格式里轨迹已被格式化。示例::
 
         echo track('subtitles_no.vtt', 'subtitles', 'no', 'Norwegian No');
         // <track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian No" />
