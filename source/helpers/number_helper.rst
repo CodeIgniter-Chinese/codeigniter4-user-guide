@@ -36,7 +36,7 @@
     :returns:	格式化数据大小 string, 要不然如果提供的值不是数字的则是错误的
     :rtype:	string
 
-    像字节一样格式化数字,以大小为基础，并添加适事例当的词尾。事例::
+    像字节一样格式化数字,以大小为基础，并添加适当的词尾。示例::
 
         echo number_to_size(456); // 返回 456 Bytes
         echo number_to_size(4567); // 返回 4.5 KB
@@ -68,7 +68,7 @@
     :returns:	string 的可读版本， 要不然如果提供的值不是数字的为错误的
     :rtype:	string
 
-    为了计数能达到百万的四次方，转换数字格式为人类可读版本，像 **123.4 trillion**. 事例::
+    为了计数能达到百万的四次方，转换数字格式为人类可读版本，像 **123.4 trillion**. 示例::
 
         echo number_to_amount(123456); // 返回 123 thousand
         echo number_to_amount(123456789); // 返回 123 million
