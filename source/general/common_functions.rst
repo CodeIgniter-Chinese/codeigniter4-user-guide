@@ -2,7 +2,7 @@
 公共函数和全局常量
 ##############################
 
-CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 类库或辅助函数。
+CodeIgniter provides a few functions and variables that are globally defined, and are available to you at any point. These do not require loading any additional libraries or helpers.
 
 .. contents::
     :local:
@@ -68,23 +68,28 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	:param   string   $line:    检索文本的行
 	:param   array   $args:     一组数组数据，用于替代占位符.
-
-    :param string   $locale:  使用不同的地区，而不是默认的地区设置。
+	:param string   $locale:  使用不同的地区，而不是默认的地区设置。
 
 
 	检索一个基于某个别名字符串的本地特定文件。
 
     更多详细信息请见 :doc:`Localization </outgoing/localization>` 页。
 
+.. php:function:: model($name [, $getShared = true [, &$conn = null ]])
+
+    :param string                   $name:
+    :param boolean                  $getShared:
+    :param ConnectionInterface|null $conn:
+    :returns: More simple way of getting model instances
+    :rtype: mixed
+
 .. php:function:: old( $key[, $default = null, [, $escape = 'html' ]] )
 
 	:param string $key: 需要使用的原有的表单提交的键。
 	:param mixed  $default: 如果当$key不存在时返回的默认值。
-
-    :param mixed  $escape: 一个 `escape <#esc>`_ 的上下文，或传值false来禁用该功能。
-
+	:param mixed  $escape: 一个 `escape <#esc>`_ 的上下文，或传值false来禁用该功能。
 	:returns: 给定的键对应的值，或设置的默认值
-    :rtype: mixed
+	:rtype: mixed
 
     提供了一个简易的方式，在表单提交时访问 "原有的输入数据"。
 
@@ -154,9 +159,27 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 详情参见 the :doc:`Views </outgoing/views>` 页。
 
+.. php:function:: view_cell ( $library [, $params = null [, $ttl = 0 [, $cacheName = null]]] )
+
+    :param string      $library:
+    :param null        $params:
+    :param integer     $ttl:
+    :param string|null $cacheName:
+    :returns: View cells are used within views to insert HTML chunks that are managed by other classes.
+    :rtype: string
+
+    For more details, see the :doc:`View Cells </outgoing/view_cells>` page.
+    
 其他函数
 =======================
 
+.. php:function:: app_timezone ()
+
+    :returns: The timezone the application has been set to display dates in.
+    :rtype: string
+
+    Returns the timezone the application has been set to display dates in.
+    
 .. php:function:: csrf_token ()
 
 	:returns: 当前 CSRF token 名称。
@@ -205,10 +228,22 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	检查页面当前是否通过HTTPS访问，如果不是，则用户通过HTTPS重定向回当前URI。
 	将设置 HTTP 严格的传输安全标头，该命令指示现代浏览器自动将HTTP请求修改为 $duration 参数时间的HTTPS请求。
 
+.. php:function:: function_usable ( $function_name )
+
+    :param string $function_name: Function to check for
+    :returns: TRUE if the function exists and is safe to call, FALSE otherwise.
+    :rtype: bool
+
 .. php:function:: is_cli ()
 
 	:returns: 如果脚本是从命令行执行的，则为true，否则为false。
 	:rtype: bool
+
+.. php:function:: is_really_writable ( $file )
+
+    :param string $file: The filename being checked.
+    :returns: TRUE if you can write to the file, FALSE otherwise.
+    :rtype: bool
 
 .. php:function:: log_message ($level, $message [, $context])
 
@@ -250,16 +285,6 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
         // 跳转到一个命名路由或反向路由 URI
 		return redirect('named_route');
-
-.. php:function:: redirect_with_input( $uri[, ...$params] )
-
-	:param string $uri: 重定向URI。
-	:param mixed  $params: 一个或更多附加参数可被用于 the :meth:`RouteCollection::reverseRoute` 方法。
-
-	跟``redirect()``方法等同, 该session刷新的请求中的 $_GET 和 $_POST的值除外。
-	在下一页的请求, 表单辅助类的 ``set_*`` 方法将首先检查旧的输入数据, 若没发现, 则当前的 GET/POST 将被检查。
-
-	.. 注意:: 为了取回旧的值, session必须被启用，优先调用函数.
 
 .. php:function:: remove_invisible_characters($str[, $urlEncoded = TRUE])
 
@@ -309,6 +334,14 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	等同于前面所描述的 **service()** 函数, 除了所有调用该函数将返回一个类的新实例。
 	 **service** 返回的是相同的实例。
 
+.. php:function:: slash_item ( $item )
+
+    :param string $item: Config item name
+    :returns: The configuration item or NULL if the item doesn't exist
+    :rtype:  string|null
+
+    Fetch a config file item with slash appended (if not empty)
+
 .. php:function:: stringify_attributes ( $attributes [, $js] )
 
 	:param   mixed    $attributes: 字符串, 键值对数组, 或者对象
@@ -342,10 +375,6 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 .. php:const:: FCPATH
 
 	保存的前端控制器目录的路径。
-
-.. php:const:: SELF
-
-	前端控制器的路径, **index.php**.
 
 .. php:const:: WRITEPATH
 
