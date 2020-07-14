@@ -1,5 +1,5 @@
 ################
-CodeIgniter URL
+CodeIgniter URLs
 ################
 
 在默认情况下，CodeIgniter 中的 URL 被设计成对搜索引擎和用户友好的样式。 不同于使用传统的在动态系统中使用代词的标准 “查询字符串” 的方式，CodeIgniter 使用基于段的方法::
@@ -57,7 +57,7 @@ NGINX
 .. code-block:: nginx
 
 	location / {
-            try_files $uri $uri/ /index.php/$args;
+            try_files $uri $uri/ /index.php$is_args$args;
 	}
 
 
