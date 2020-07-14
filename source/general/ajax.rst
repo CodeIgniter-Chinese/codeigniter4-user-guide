@@ -12,17 +12,13 @@ AJAX请求
 Fetch API
 =========
 
-    fetch(url, {
-        method: "get",
-        headers: {
-
-          "Content-Type": "application/json",
-
-          "X-Requested-With": "XMLHttpRequest"
-
-        }
-
-    });
+fetch(url, {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Requested-With": "XMLHttpRequest"
+    }
+});
 
 
 jQuery
@@ -33,9 +29,7 @@ jQuery
 
     $.ajax({
         url: "your url",
-
         headers: {'X-Requested-With': 'XMLHttpRequest'}
-
     });  
 
 
@@ -49,7 +43,5 @@ VueJS
 
 React
 =====
-
-例如:
 
     axios.get("your url", {headers: {'Content-Type': 'application/json'}})
