@@ -34,14 +34,14 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	将会添加到 URL，如同你通过函数程序段的一些 URL，外加在你的配置文件中已经设置的 **url_suffix**.
 	
 	在你的 URL 改变的事件中，你被鼓励在任何时间使用函数生成本地 URL 以便你的页面将变得更加便携。
-	程序段能随意地像 string 或者 array 通过函数。下文是 string 事例::
+	程序段能随意地像 string 或者 array 通过函数。下文是 string 示例::
 
 		echo site_url('news/local/123');
 
-	上文的事例返回的地址如下:
+	上文的示例返回的地址如下:
 	*http://example.com/index.php/news/local/123*
 
-	这里是一个通过数组程序段的事例::
+	这里是一个通过数组程序段的示例::
 
 		$segments = array('news', 'local', '123');
 		echo site_url($segments);
@@ -57,12 +57,12 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	:returns:	基地址 URL
 	:rtype:	string
 
-	返回你网站的基地址 URL, 如同在你配置文件里具体说明的。事例::
+	返回你网站的基地址 URL, 如同在你配置文件里具体说明的。示例::
 
 		echo base_url();
 
 	如同 :php:func:`site_url()` 该函数返回相同的事件,  
-	排除 *index_page* 或者 *url_suffix* 被附加的情况。
+	排除 *index_page* 被附加的情况。
 
 	也如函数 :php:func:`site_url()`, 你能提供程序段如 string 或者 array. 
 	这里是 string 事例::
@@ -224,7 +224,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	:returns:	"mail to" 超连结
 	:rtype:	string
 
-	创建标准的 HTML 邮件链接。用法事例::
+	创建标准的 HTML 邮件链接。用法示例::
 
 		echo mailto('me@my-site.com', 'Click Here to Contact Me');
 
@@ -256,7 +256,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	:returns:	链接化的 string
 	:rtype:	string
 
-	在字符到链接里自动地转换包含 URLs 和 e-mail 地址。事例::
+	在字符到链接里自动地转换包含 URLs 和 e-mail 地址。示例::
 
 		$string = auto_link($string);
 
