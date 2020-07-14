@@ -4,6 +4,16 @@
 
 CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>`_ 和一些框架内自定义异常来生成系统错误报告。错误处理的行为取决于你部署环境的设置，当一个错误或异常被抛出时，只要应用不是在 ``production`` 环境下运行，就会默认展示出详细的错误报告。在这种情况下，应为用户显示一个更为通用的信息来保证最佳的用户体验。
 
+【原文此列表有调整，无法在线编辑】
+Using Exceptions 
+Configuration 
+Logging Exceptions 
+Custom Exceptions 
+PageNotFoundException 
+ConfigException 
+DatabaseException 
+RedirectException 
+
 .. contents::
     :local:
     :depth: 2
@@ -51,29 +61,47 @@ CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>
 
 .. important:: 如果发生错误，禁用错误报告将不会阻止日志的写入。
 
+记录异常
+========================
+By default, all Exceptions other than 404 - Page Not Found exceptions are logged. This can be turned on and off by setting the $log value of Config\Exceptions:
+
+class Exceptions
+{
+    public $log = true;
+}
+To ignore logging on other status codes, you can set the status code to ignore in the same file:
+
+class Exceptions
+{
+    public $ignoredCodes = [ 404 ];
+}
+Note
+
+It is possible that logging still will not happen for exceptions if your current Log settings are not set up to log critical errors, which all exceptions are logged as.
+
 自定义异常
 =================
 
 下列是可用的自定义异常:
 
-PageNotFoundException
+页面未找到异常
 ---------------------
 
 这是用来声明 404 ，页面无法找到的错误。当异常被抛出时，系统将显示后面的错误模板 ``/application/views/errors/html/error_404.php``。你应为你的站点自定义所有错误视图。如果在 ``Config/Routes.php`` 中，你指定了404 的重写规则，那么它将代替标准的 404 页来被调用 ::
 
-	if (! $page = $pageModel->find($id))
-	{
-		throw new \CodeIgniter\PageNotFoundException();
-	}
+if (! $page = $pageModel->find($id))
+{
+    throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+}
 
 你可以通过异常传递消息，它将在 404 页默认消息位置被展示。
 
-ConfigException
+配置异常
 ---------------
 
 当配置文件中的值无效或 class 类不是正确类型等情况时，请使用此异常 ::
 
-	throw new \CodeIgniter\ConfigException();
+	throw new \CodeIgniter\Exceptions\ConfigException();
 
 它将 HTTP 状态码置为 500，退出状态码被置为 3.
 
@@ -113,7 +141,7 @@ UserInputException
 
 它将 HTTP 状态码置为 500，退出状态码被置为 7.
 
-DatabaseException
+数据库异常
 -----------------
 
 当产生如连接不能建立或连接临时丢失的数据库错误时，请使用此异常 ::
@@ -121,3 +149,15 @@ DatabaseException
 	throw new \CodeIgniter\DatabaseException();
 
 它将 HTTP 状态码置为 500，退出状态码被置为 8.
+
+跳转异常
+-----------------
+
+This exception is a special case allowing for overriding of all other response routing and forcing a redirect to a specific route or URL:
+
+throw new \CodeIgniter\Router\Exceptions\RedirectException($route);
+$route may be a named route, relative URI, or a complete URL. You can also supply a redirect code to use instead of the default (302, "temporary redirect"):
+
+throw new \CodeIgniter\Router\Exceptions\RedirectException($route, 301);
+
+【退出状态码被置为 4 至 7 的说明，在原文手册中已经没有了，请酌情删除，估计原文手册落下了】
