@@ -43,6 +43,17 @@
 
 		echo plural('dog'); // 打印出 'dogs'
 
+.. php:function:: counted($count, $string)
+
+        :param  int     $count:  Number of items
+        :param  string  $string: Input string
+        :returns:       A singular or plural phrase
+        :rtype: string
+
+        Changes a word and its count to a phrase. Example::
+
+                echo counted(3, 'dog'); // Prints '3 dogs'
+		
 .. php:function:: camelize($string)
 
 	:param	string	$string: 输入 string
@@ -52,6 +63,17 @@
 	由空格或者下划线改变单词分割的字符串为驼峰式大小写。事例::
 
 		echo camelize('my_dog_spot'); // 打印出 'myDogSpot'
+
+.. php:function:: pascalize($string)
+
+        :param  string  $string: Input string
+        :returns:       Pascal case string
+        :rtype: string
+
+        Changes a string of words separated by spaces or underscores to Pascal
+        case, which is camel case with the first letter capitalized. Example::
+
+                echo pascalize('my_dog_spot'); // Prints 'MyDogSpot'
 
 .. php:function:: underscore($string)
 
