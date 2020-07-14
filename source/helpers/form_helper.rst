@@ -21,8 +21,7 @@
 换码（转义）字段值
 =====================
 
-你也许需要使用 HTML 和字符像在你的表单内部的元素里引用。为了安全地执行，你将需要使用:doc:`common function <../general/common_functions>`
-:func:`esc()`.
+你也许需要使用 HTML 和字符像在你的表单内部的元素里引用。为了安全地执行，你将需要使用: :doc:`common function <../general/common_functions>` :func:`esc()`.【注：需加两个链接】
 
 
 考虑下文的事例::
