@@ -39,7 +39,7 @@
 
         这是一个将无成像标签从 string 中剥去的安全函数。它留下成像 URL 就像清楚的文本一样。   
 
-    	事例::
+    	示例::
 
 		$string = strip_image_tags($string);
 
@@ -51,6 +51,6 @@
 
     	这是一个安全函数去转换 PHP 标签为实体。
 
-	事例::
+	示例::
 
 		$string = encode_php_tags($string);
