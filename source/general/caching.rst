@@ -23,7 +23,7 @@ CodeIgniter 可以让你通过缓存页面来达到更好的性能。
 
 	$this->cachePage($n);
 
-其中 ``$n`` 是缓存更新的时间（单位分钟）。
+Where $n is the number of seconds you wish the page to remain cached between refreshes.【其中 ``$n`` 是缓存更新的时间（单位秒）】。
 
 
 上面的代码可以放在方法的任何位置它出现的顺序对缓存没有影响，所以你可以把它放到任何你认为合理的地方。一旦该代码被放在方法内，你的页面就开始被缓存了。
