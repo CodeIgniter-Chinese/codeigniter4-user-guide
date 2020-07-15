@@ -5,7 +5,7 @@
 $db->callFunction();
 ============================
 
-该函数可以用平台无关的形来调用CodeIgniter中没有原生包含的PHP数据库方法。
+该函数可以用平台无关的形式来调用CodeIgniter中没有原生包含的PHP数据库方法。
 举例来说，假如你想调用 ``mysql_get_client_info``  函数，但是这一方法CodeIgniter **并没有** 原生支持。你可以这样做::
 
 
