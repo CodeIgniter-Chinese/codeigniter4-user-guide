@@ -340,14 +340,14 @@
             
   <div class="section" id="id1">
 <h1>数据库事件<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>数据库类包括着一些你可以用来了解关于数据库执行过程的 <a class="reference internal" href="../extending/events.html"><span class="doc">事件</span></a> 相关的内容。
-这些事件可以用来收集数据以供分析和报告。<a class="reference internal" href="../testing/debugging.html"><span class="doc">Debug 工具条</span></a> 类使用了这一特性来收集用于工具条中展示的语句。</p>
+<p>数据库类包括着一些你可以用来了解关于数据库执行过程的 <a class="reference internal" href="../extending/events.html"><span class="doc">事件</span></a>  相关的内容。
+这些事件可以用来收集数据以供分析和报告。<a class="reference internal" href="../testing/debugging.html"><span class="doc">Debug 工具条</span></a>  类使用了这一特性来收集用于工具条中展示的查询语句。</p>
 <div class="section" id="id2">
 <h2>事件<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p><strong>DBQuery</strong></p>
-<p>该事件会在一个新的语句运行完毕时，无论成功与否，都会触发。唯一的参数就是一个当前语句的 :doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>Query &lt;/database/queries&gt;`实例。
-你可以使用该方法在标准输出流，日志文件中输出所有的查询语句。甚至可以使用工具来进行自动化的语句分析来监测可能会出现的索引丢失，慢查询等情况。可行的用例如下:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在Config\Events.php文件中</span>
+<p>该事件会在一个新的查询语句运行完毕时触发，无论成功与否。唯一的参数就是一个当前查询语句  <a class="reference internal" href="queries.html"><span class="doc">Query</span></a> 的实例。
+你可以使用该方法在标准输出流、日志文件中输出所有的查询语句，甚至创建工具自动化地分析查询语句，帮你发现潜在的索引丢失、慢查询等情况。可行的用例如下:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在 Config\Events.php 文件中</span>
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;DBQuery&#39;</span><span class="p">,</span> <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Database::collect&#39;</span><span class="p">);</span>
 
 <span class="c1">// 收集所有的查询语句以备后来所需</span>
@@ -383,7 +383,7 @@
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-13.
+        最后更新于 2020-07-15.
       </span>
 
     </p>

@@ -342,12 +342,12 @@
 <h1>数据库配置<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#id3" id="id5">配置文件</a></li>
-<li><a class="reference internal" href="#id4" id="id6">参数解释:</a></li>
+<li><a class="reference internal" href="#env" id="id4">配置 .env 文件</a></li>
+<li><a class="reference internal" href="#id3" id="id5">参数解释:</a></li>
 </ul>
 </div>
-<p>CodeIgniter 中有一个用来保存数据库配置（用户名，密码，数据库名等）的文件，这个配置文件位于 application/Config/Database.php。你也可以在 .env 文件中配置数据库连接参数。接下来让我们详细看下配置信息。</p>
-<p>数据库配置信息存放在数组中:</p>
+<p>CodeIgniter 有一个用来保存数据库配置的文件（用户名，密码，数据库名等），这个配置文件位于 application/Config/Database.php。你也可以在 .env 文件里配置数据库连接参数。下面来看看详细配置信息。</p>
+<p>配置信息是一个数组，存储在类的属性里面，原型如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$default</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;DSN&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
@@ -370,8 +370,8 @@
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>类属性的名称就是连接名称，并且可以使用特殊的组名连接。</p>
-<p>有些数据库驱动（例如：PDO，PostgreSQL，Oracle，ODBC）可能需要提供完整的 DNS 信息。在这种情况下，你需要使用 DNS 配置参数，就像是使用该驱动的原生 PHP 扩展一样，例如:</p>
+<p>类的属性名称就是连接名称，并且在连接时可以作为指定配置组名称使用。</p>
+<p>有些数据库驱动（例如：PDO，PostgreSQL，Oracle，ODBC）可能需要提供完整的 DNS 信息。在这种情况下，你需要使用 DNS 配置参数，就像使用该驱动的原生 PHP 扩展一样，例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// PDO</span>
 <span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;DSN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;pgsql:host=localhost;port=5432;dbname=database_name&#39;</span><span class="p">;</span>
 
@@ -387,7 +387,7 @@
 <p class="first admonition-title">注解</p>
 <p class="last">如果你提供了一个 DNS 参数，但是缺少了某些配置（例如：数据库的字符集），若该配置存在在其它的配置项中，CodeIgniter 将自动在 DNS 上附加上该配置。</p>
 </div>
-<p>当主数据库由于某些原因无法连接时，你可以配置故障转移。例如可以像下面这样为一个连接配置故障转移:</p>
+<p>当主数据库由于某些原因无法连接时，你可以配置多个灾备数据库。例如可以像下面这样为一个连接配置灾备数据库:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;failover&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="p">[</span>
                         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost1&#39;</span><span class="p">,</span>
@@ -428,8 +428,8 @@
         <span class="p">];</span>
 </pre></div>
 </div>
-<p>你可以指定任意多个你喜欢的故障转移配置。</p>
-<p>你可以选择存储多组连接值的信息。例如，若你运行多个环境（开发、生产、测试等），你可以为每个环境单独建立连接组，并在组之间进行切换。举个例子：若要设置一个 ‘test’ 环境，你可以这么做:</p>
+<p>你可以指定任意多个灾备数据库配置。</p>
+<p>你可以选择性地存储多组连接信息。例如，在一个安装实例里面运行多个环境（开发、生产、测试等），你可以为每个环境配置连接组，然后在组之间进行切换。举个例子：若要设置一个 ‘test’ 环境，你可以这么做:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$test</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;DSN&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
         <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
@@ -452,15 +452,15 @@
 <span class="p">);</span>
 </pre></div>
 </div>
-<p>然后，设置配置文件中的变量并告诉系统要使用该组信息:</p>
+<p>然后，修改该配置文件中的属性值，告知系统使用该组信息:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$defaultGroup</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">组的名称为 ‘test’ 是任意的。它可以是你想要的任意名称。默认情况下，主连接使用 ‘default’ 这个名称，但你可以基于你的项目为它起一个更有意义的名字。</p>
+<p class="last">组名称 ‘test’ 是任意的。它可以是你想要的任意名称。默认情况下，主连接使用 ‘default’ 这个名称，但你也可以起一个与你项目更加相关的名称。</p>
 </div>
-<p>你可以修改配置文件来检测环境并且在类的构造函数中添加所需的逻辑来自动更新正确的 ‘defaultGroup’ 值:</p>
+<p>你可以修改配置文件里面类的构造函数，让它自动检测运行环境并将 ‘defaultGroup’ 更新为正确的值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Database</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nv">$development</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">];</span>
@@ -474,9 +474,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id5">配置文件</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>你可以将配置值保存在当前服务器数据库配置文件 <code class="docutils literal notranslate"><span class="pre">.env</span></code> 中。你只需要在默认组配置设置中输入你想要改变的值。该值在 <code class="docutils literal notranslate"><span class="pre">default</span></code> 组中的格式为:</p>
+<div class="section" id="env">
+<h2><a class="toc-backref" href="#id4">配置 .env 文件</a><a class="headerlink" href="#env" title="永久链接至标题">¶</a></h2>
+<p>你也可以将当前服务器的数据库配置保存到 <code class="docutils literal notranslate"><span class="pre">.env</span></code> 文件 中。你只需要在默认配置组中输入你想要变更的值。该值在 <code class="docutils literal notranslate"><span class="pre">default</span></code> 组中的格式为:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">database</span> <span class="o">=</span> <span class="s1">&#39;ci4&#39;</span><span class="p">;</span>
@@ -484,11 +484,101 @@
 </div>
 <p>其它信息</p>
 </div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id6">参数解释:</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id5">参数解释:</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">配置名</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>dsn</strong></td>
+<td>DNS 连接字符串 （该字符串包含了连接数据库的全部配置信息）</td>
+</tr>
+<tr class="row-odd"><td><strong>hostname</strong></td>
+<td>数据库的主机名，通常为本机的 ‘localhost’</td>
+</tr>
+<tr class="row-even"><td><strong>username</strong></td>
+<td>连接数据库的用户名</td>
+</tr>
+<tr class="row-odd"><td><strong>password</strong></td>
+<td>连接数据库的密码</td>
+</tr>
+<tr class="row-even"><td><strong>database</strong></td>
+<td>需要连接的数据库名</td>
+</tr>
+<tr class="row-odd"><td><strong>DBDriver</strong></td>
+<td>数据库类型，如：MySQLi、Postgre等。大小写必须与驱动名匹配</td>
+</tr>
+<tr class="row-even"><td><strong>DBPrefix</strong></td>
+<td>当使用 <a class="reference internal" href="query_builder.html"><span class="doc">查询构造器</span></a> 查询时，可以选择性的为表加个前缀，它允许多个 CodeIgniter 程序共用一个数据库</td>
+</tr>
+<tr class="row-odd"><td><strong>pConnect</strong></td>
+<td>TRUE/FALSE (boolean) - 是否使用持续连接</td>
+</tr>
+<tr class="row-even"><td><strong>DBDebug</strong></td>
+<td>TRUE/FALSE (boolean) - 是否显示数据库错误信息</td>
+</tr>
+<tr class="row-odd"><td><strong>cacheOn</strong></td>
+<td>TRUE/FALSE (boolean) - 是否开启数据库查询缓存</td>
+</tr>
+<tr class="row-even"><td><strong>cacheDir</strong></td>
+<td>数据库查询缓存目录，服务器绝对路径</td>
+</tr>
+<tr class="row-odd"><td><strong>charset</strong></td>
+<td>与数据库通信时所使用的字符集</td>
+</tr>
+<tr class="row-even"><td><strong>DBCollat</strong></td>
+<td><p class="first">与数据库通信时所使用的字符集规则</p>
+<div class="last admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">只用于 ‘MySQLi’ 数据库驱动</p>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>swapPre</strong></td>
+<td>替换默认的 dbprefix 表前缀，该项设置对于分布式应用是非常有用的， 你可以在查询中使用由最终用户定制的表前缀。</td>
+</tr>
+<tr class="row-even"><td><strong>schema</strong></td>
+<td>默认数据库模式为 ‘public’，用于 PostgreSQL 和 ODBC 驱动</td>
+</tr>
+<tr class="row-odd"><td><strong>encrypt</strong></td>
+<td><p class="first">是否是用加密连接</p>
+<ul class="last simple">
+<li>‘sqlsrv’ 和 ‘pdo/sqlsrv’ 驱动接受 TRUE/FALSE</li>
+<li>‘MySQLi’ 和 ‘pdo/mysql’ 驱动接受一个数组，选项如下:</li>
+<li>‘ssl_key’    - 私钥文件存放路径</li>
+<li>‘ssl_cert’   - 公钥证书文件存放路径</li>
+<li>‘ssl_ca’     - CA证书授权文件路径</li>
+<li>‘ssl_capath’ - PEM格式的受信任CA证书存放目录</li>
+<li>‘ssl_cipher’ -  <em>允许</em> 使用的加密算法列表，多项用 (‘:’) 分割</li>
+<li>‘ssl_verify’ - TRUE/FALSE; 是否验证服务器的证书 (仅限 MySQLi)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><strong>compress</strong></td>
+<td>是否使用客户端压缩协议（只用于 MySQL）</td>
+</tr>
+<tr class="row-odd"><td><strong>strictOn</strong></td>
+<td>TRUE/FALSE (boolean) - 是否强制使用 “Strict Mode” 连接。在程序开发时，使用 strict SQL 是一个好习惯</td>
+</tr>
+<tr class="row-even"><td><strong>port</strong></td>
+<td><p class="first">数据库端口号。 要使用这个值，你应该添加以下一行代码到数据库配置组中</p>
+<div class="last highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$default</span><span class="p">[</span><span class="s1">&#39;port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5432</span><span class="p">;</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">根据你使用的数据库平台（MySQL、PostgreSQL等）来筛选哪些参数是必须的。例如，当你使用 SQLite 时，你无需指定用户名和密码，数据库名称是你的数据库文件路径。以上内容假设你是用的是 MySQL 数据库。</p>
+<p class="last">根据你使用的数据库平台（MySQL、PostgreSQL等）不是所有参数都要配置。例如，当你使用 SQLite 时，你无需指定用户名和密码，数据库名称是你的数据库文件路径。以上内容假设你使用的是 MySQL 数据库。</p>
 </div>
 </div>
 </div>
@@ -516,7 +606,7 @@
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-13.
+        最后更新于 2020-07-15.
       </span>
 
     </p>

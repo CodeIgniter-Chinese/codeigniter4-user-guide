@@ -340,11 +340,15 @@
             
   <div class="section" id="id1">
 <h1>连接你的数据库<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>你可以在任意你需要的方法中添加以下代码来连接你的数据库，或者在你类的构造函数中去设置一个可用的全局参数。</p>
+<p>你可以在任意你需要的方法中添加以下代码来连接你的数据库，或在类的构造函数中添加这段代码让其在类里全局可用。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>如果上面的函数没有指定第一个参数，它将使用数据库配置文件中指定的组来链接数据库。对于大多数人而言，这是首选的方案。</p>
+<p>如果上面的函数没有指定第一个参数，它将使用数据库配置文件中指定的默认配置组来连接数据库，对于大多数人而言，这是首选的方案。</p>
+<p>有一个简便的、纯粹是封装上一段代码的方法，亦可以让你便捷的连接数据库:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">db_connect</span><span class="p">();</span>
+</pre></div>
+</div>
 <div class="section" id="id2">
 <h2>可用的参数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
@@ -354,49 +358,77 @@
 </div>
 <div class="section" id="id3">
 <h2>手动连接数据库<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>这个函数的第一个参数是 <strong>可选的</strong>，被用来从你的配置文件中指定一个特定的数据库组。例如:</p>
-<p>从你的配置文件中选择一个特定的组:</p>
+<p>这个函数的第一个参数是 <strong>可选的</strong> ，用来从你的配置文件中选取某个配置组（建立连接）。例如:</p>
+<p>从配置文件中选择一个特定的配置组，你可以这样做:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;group_name&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>其中 group_name 是你配置文件中连接组的名字。</p>
+<p>其中 group_name 是配置文件中配置组的名字。</p>
 </div>
 <div class="section" id="id4">
-<h2>连接多个数据库<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<p>默认情况下，<code class="docutils literal notranslate"><span class="pre">connect()</span></code> 方法每次返回数据库连接的同一实例。若你需要一个单独的连接到同一数据库，发送 <code class="docutils literal notranslate"><span class="pre">false</span></code> 作为第二个参数:</p>
+<h2>用多个链接连同一个数据库<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>默认情况下， <code class="docutils literal notranslate"><span class="pre">connect()</span></code>  方法每次返回数据库连接的同一实例。若你需要一个单独的连接到相同数据库，使用 <code class="docutils literal notranslate"><span class="pre">false</span></code>  作为第二个参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;group_name&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="id5">
-<h3>连接到多个数据库<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-<p>如果你需要同时连接到多个不同的数据库，你可以这样:</p>
+<h3>连接多个数据库<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>如果你需要同时连接到多个不同的数据库，你可以这样做:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db1</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;group_one&#39;</span><span class="p">);</span>
 <span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="s1">&#39;group_two&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>注意: 将 “group_one” 和 “group_two” 修改为你想要的连接的组名称</p>
+<p>注意: 将 “group_one” 和 “group_two” 修改为你想要连接的配置组名称</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p>如果只需要在同一连接上使用不同的数据库，则不需要创建单独的数据库配置。当你需要时，可以切换到不同的数据库，例如:</p>
+<p>如果只是在同一连接上使用不同的数据库，你不需要创建单独的数据库配置。当你需要时，可以切换到不同的数据库，例如:</p>
 <div class="last line-block">
 <div class="line">$db-&gt;dbSelect($database2_name);</div>
 </div>
 </div>
 </div>
 <div class="section" id="id6">
-<h3>重新连接/保持连接有效<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
-<p>当你在处理一些重量级的 PHP 操作时（例如处理图像），若超过了数据库的超时值，你应该考虑在执行后续查询前先调用 reconnect() 方法向数据库发送 ping 命令，这样可以优雅的保持连接有效或重新建立起连接。</p>
+<h3>使用自定义配置连接数据库<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>你可以传入一个数据库配置数组参数替代配置组名称，以此获得一个自定义的数据库连接。数组的格式必须与数据库配置文件的配置组格式相同:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$custom</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;DSN&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;database&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;DBDriver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;MySQLi&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;DBPrefix&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;pConnect&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+            <span class="s1">&#39;DBDebug&#39;</span>  <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">ENVIRONMENT</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;cacheOn&#39;</span>  <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+            <span class="s1">&#39;cacheDir&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;charset&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;DBCollat&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8_general_ci&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;swapPre&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;encrypt&#39;</span>  <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+            <span class="s1">&#39;compress&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+            <span class="s1">&#39;strictOn&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+            <span class="s1">&#39;failover&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+            <span class="s1">&#39;port&#39;</span>     <span class="o">=&gt;</span> <span class="mi">3306</span><span class="p">,</span>
+    <span class="p">];</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">(</span><span class="nv">$custom</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>重新连接/保持连接有效<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>当你在处理一些重量级的 PHP 操作时（例如处理图像），若超过了数据库的超时值，你应该考虑在执行后续查询前先调用 reconnect() 方法向数据库发送 ping 命令，这样可以优雅的保持连接有效或重新建立连接。</p>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
-<p class="last">若你使用 MySQLi 数据库驱动，reconnect() 方法不能 ping 通服务器但可以关闭连接然后再次连接。</p>
+<p class="last">若你使用 MySQLi 数据库驱动，reconnect() 方法并不能 ping 通服务器但它可以关闭连接然后再次连接。</p>
 </div>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">reconnect</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id7">
-<h3>手动关闭连接<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
-<p>虽然 CodeIgniter 可以智能的管理并自动关闭数据库连接，你仍可以用下面的方式来关闭连接。</p>
+<div class="section" id="id8">
+<h3>手动关闭连接<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>虽然 CodeIgniter 可以智能的管理并自动关闭数据库连接，你仍可以显式关闭连接。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -427,7 +459,7 @@
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-13.
+        最后更新于 2020-07-15.
       </span>
 
     </p>

@@ -342,23 +342,23 @@
 <h1>自定义函数调用<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="section" id="db-callfunction">
 <h2>$db-&gt;callFunction();<a class="headerlink" href="#db-callfunction" title="永久链接至标题">¶</a></h2>
-<p>该函数使你可以以平台无关的形式来调用CodeIgniter中并没有原生包含的PHP数据库方法。
-举例来说，假如你想调用 <code class="docutils literal notranslate"><span class="pre">mysql_get_client_info</span></code>  函数，但是这一方法CodeIgniter并**没有**原生支持。那么就可以像这样做:</p>
+<p>该函数可以用平台无关的形式来调用CodeIgniter中没有原生包含的PHP数据库方法。
+举例来说，假如你想调用 <code class="docutils literal notranslate"><span class="pre">mysql_get_client_info</span></code>  函数，但是这一方法CodeIgniter <strong>并没有</strong> 原生支持。你可以这样做:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">callFunction</span><span class="p">(</span><span class="s1">&#39;get_client_info&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>你必须在第一个参数里提供函数名，并且**不应该**带有 <code class="docutils literal notranslate"><span class="pre">mysql\_</span></code> 的前缀。
-该前缀实际上会根据所使用的数据库驱动而自动附加上。因此这一机制确保你可以在不同数据库平台下运行同样的方法。
-显而易见的，并不是所有的方法在不同的平台间都是一样的，因此对于该函数的使用应当适当地予以限制。</p>
-<p>需要被传递给你所需要调用的函数的任何参数都可以添加到第二个参数后面:</p>
+<p>第一个参数是函数名（必填），且 <strong>不应该</strong> 带有 <code class="docutils literal notranslate"><span class="pre">mysql\_</span></code> 的前缀。
+该函数会根据当前数据库自动附加前缀。这个机制可确保在不同数据库平台运行相同的函数。
+当然，各数据库的函数调用并不完全一致，因此，就可移植性而言，此函数的实用性有限。</p>
+<p>调用这个函数所需的任何参数可添加到第二、第三个参数，以此类推:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">callFunction</span><span class="p">(</span><span class="s1">&#39;some_function&#39;</span><span class="p">,</span> <span class="nv">$param1</span><span class="p">,</span> <span class="nv">$param2</span><span class="p">,</span> <span class="nx">etc</span><span class="o">..</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>一般来说，你应该要么提供一个数据库连接ID或者是一个数据库结果ID。当前连接ID可以通过该方法获得:</p>
+<p>这里，你经常要提供数据库连接ID或是查询结果ID作为参数，当前DB连接ID可以用该方法获得:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">connID</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>结果ID可以通过你的结果对象来获得，例如:</p>
+<p>查询结果ID可以用QUERY结果对象来获得，例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SOME QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">resultID</span><span class="p">;</span>
@@ -390,7 +390,7 @@
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-13.
+        最后更新于 2020-07-15.
       </span>
 
     </p>
