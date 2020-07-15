@@ -4,7 +4,7 @@
 > - [x] 表示已认领
 > - [x] ~~表示已完成~~
 
-## 待校验
+## 待校对
 
 1. - [x] 译文: [source/cli/cli_commands.rst](source/cli/cli_commands.rst)
          原文: [source/cli/cli_commands.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/cli/cli_commands.rst)
@@ -241,7 +241,7 @@
          原文: [source/tutorial/static_pages.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/tutorial/static_pages.rst)
          @Hex
 
-### 校验注意事项
+### 校对注意事项
 
 1. 同时打开译文和原文，各占屏幕50%（windows系统高点版本都可以通过拖拽自动占屏50%。实在不行就手工调整）
 2. 原文点击 Raw 看 .rst 文件源码（重要）、译文直接点击编辑就是 .rst 源码
