@@ -1,22 +1,21 @@
 ########################
-Generating Query Results
+生成查询结果
 ########################
 
-There are several ways to generate query results:
+有几种方式生成查询结果:
 
 .. contents::
     :local:
     :depth: 2
 
 *************
-Result Arrays
+结果数组
 *************
 
 **getResult()**
 
-This method returns the query result as an array of **objects**, or
-**an empty array** on failure. Typically you'll use this in a foreach
-loop, like this::
+这个方法返回 **对象数组** 类型的查询结果，或在失败时返回 **一个空数组** 。
+典型的用法是使用 foreach 循环，像这样::
 
     $query = $db->query("YOUR QUERY");
 
@@ -27,10 +26,9 @@ loop, like this::
         echo $row->body;
     }
 
-The above method is an alias of ``getResultObject()``.
+上面的方法是 ``getResultObject()`` 的别名。
 
-You can pass in the string 'array' if you wish to get your results
-as an array of arrays::
+如果你想返回一个二维数组，可以给第一个参数传字符串 'array' ::
 
     $query = $db->query("YOUR QUERY");
 
@@ -41,10 +39,9 @@ as an array of arrays::
         echo $row['body'];
     }
 
-The above usage is an alias of ``getResultArray()``.
+上面的方法是 ``getResultArray()`` 的别名。
 
-You can also pass a string to ``getResult()`` which represents a class to
-instantiate for each result object
+你也可以传字符串参数到 ``getResult()`` 方法，表示要为每个结果对象实例化的类
 
 ::
 
@@ -52,17 +49,16 @@ instantiate for each result object
 
     foreach ($query->getResult('User') as $user)
     {
-        echo $user->name; // access attributes
-        echo $user->reverseName(); // or methods defined on the 'User' class
+        echo $user->name; // 获取属性
+        echo $user->reverseName(); // 或访问 'User' 类定义的方法
     }
 
-The above method is an alias of ``getCustomResultObject()``.
+上面的方法是 ``getCustomResultObject()`` 的别名。
 
 **getResultArray()**
 
-This method returns the query result as a pure array, or an empty
-array when no result is produced. Typically you'll use this in a foreach
-loop, like this::
+这个方法返回一个纯数组的查询结果，查无结果时为空数组。
+典型的用法是使用 foreach 循环，像这样::
 
     $query = $db->query("YOUR QUERY");
 
@@ -74,14 +70,13 @@ loop, like this::
     }
 
 ***********
-Result Rows
+单行结果
 ***********
 
 **getRow()**
 
-This method returns a single result row. If your query has more than
-one row, it returns only the first row. The result is returned as an
-**object**. Here's a usage example::
+这个方法返回一个单行结果，如果你的查询有多行结果，它仅返回第一条。
+返回结果是一个 **对象** 。使用示例::
 
     $query = $db->query("YOUR QUERY");
 
@@ -94,24 +89,22 @@ one row, it returns only the first row. The result is returned as an
         echo $row->body;
     }
 
-If you want a specific row returned you can submit the row number as a
-digit in the first parameter::
+如果你想返回指定行的结果，可以在第一个参数里提供这个数字::
 
 	$row = $query->getRow(5);
 
-You can also add a second String parameter, which is the name of a class
-to instantiate the row with::
+你也可以传一个字符串到第二个参数，表示该结果实例化的对象类::
 
 	$query = $db->query("SELECT * FROM users LIMIT 1;");
 	$row = $query->getRow(0, 'User');
 
-	echo $row->name; // access attributes
-	echo $row->reverse_name(); // or methods defined on the 'User' class
+	echo $row->name; // 获取属性
+	echo $row->reverse_name(); // 或访问 'User' 类定义的方法
 
 **getRowArray()**
 
-Identical to the above ``row()`` method, except it returns an array.
-Example::
+这个与上面的 ``row()`` 方法基本相同，区别是它返回的是一个数组。
+示例::
 
     $query = $db->query("YOUR QUERY");
 
@@ -124,36 +117,31 @@ Example::
         echo $row['body'];
     }
 
-If you want a specific row returned you can submit the row number as a
-digit in the first parameter::
+如果你想返回指定行的结果，可以在第一个参数里提供这个数字::
 
 	$row = $query->getRowArray(5);
 
-In addition, you can walk forward/backwards/first/last through your
-results using these variations:
+另外，你可以用这些方法在结果集里做 前进/后退/首行/尾行 的游标操作:
 
 	| **$row = $query->getFirstRow()**
 	| **$row = $query->getLastRow()**
 	| **$row = $query->getNextRow()**
 	| **$row = $query->getPreviousRow()**
 
-By default they return an object unless you put the word "array" in the
-parameter:
+默认他们返回一个对象，除非第一个参数是字符串 "array" 才会返回数组:
 
 	| **$row = $query->getFirstRow('array')**
 	| **$row = $query->getLastRow('array')**
 	| **$row = $query->getNextRow('array')**
 	| **$row = $query->getPreviousRow('array')**
 
-.. note:: All the methods above will load the whole result into memory
-	(prefetching). Use ``getUnbufferedRow()`` for processing large
-	result sets.
+.. 注解:: 以上所有方法都会把整个查询结果载入内存（预加载）。
+	请使用 ``getUnbufferedRow()`` 方法处理大型结果集。
 
 **getUnbufferedRow()**
 
-This method returns a single result row without prefetching the whole
-result in memory as ``row()`` does. If your query has more than one row,
-it returns the current row and moves the internal data pointer ahead.
+这个方法返回单个结果，不会像 ``row()`` 把整个结果预加载到内存里。
+如果你的查询结果多于一个，它返回当前行并将内部数据指针向前移动。
 
 ::
 
@@ -166,25 +154,23 @@ it returns the current row and moves the internal data pointer ahead.
         echo $row->body;
     }
 
-You can optionally pass 'object' (default) or 'array' in order to specify
-the returned value's type::
+你可以选择性的传参 'object' (默认) 或 'array' 来指定返回数据的类型::
 
-	$query->getUnbufferedRow();         // object
-	$query->getUnbufferedRow('object'); // object
-	$query->getUnbufferedRow('array');  // associative array
+	$query->getUnbufferedRow();         // 对象
+	$query->getUnbufferedRow('object'); // 对象
+	$query->getUnbufferedRow('array');  // 关联数组
 
 *********************
-Custom Result Objects
+自定义结果对象
 *********************
 
-You can have the results returned as an instance of a custom class instead
-of a ``stdClass`` or array, as the ``getResult()`` and ``getResultArray()``
-methods allow. If the class is not already loaded into memory, the Autoloader
-will attempt to load it. The object will have all values returned from the
-database set as properties. If these have been declared and are non-public
-then you should provide a ``__set()`` method to allow them to be set.
+你可以用一个自定义的类实例作为返回结果，代替原来的 ``stdClass`` 对象或数组，
+ ``getResult()`` 和 ``getResultArray()`` 允许如此操作。
+如果该类（文件）尚未加载到内存，自动加载器会尝试载入它。
+对象的属性值会设置为数据库的返回数据，如果是非公开属性，
+你需要提供一个 ``__set()`` 方法以允许他们被赋予值。
 
-Example::
+示例::
 
 	class User
 	{
@@ -216,16 +202,16 @@ Example::
 		}
 	}
 
-In addition to the two methods listed below, the following methods also can
-take a class name to return the results as: ``getFirstRow()``, ``getLastRow()``,
-``getNextRow()``, and ``getPreviousRow()``.
+除了下面列出的两个方法之外，这些方法也可以指定类名
+返回类实例的结果集: ``getFirstRow()``, ``getLastRow()``,
+``getNextRow()`` 和 ``getPreviousRow()`` 。
 
 **getCustomResultObject()**
 
-Returns the entire result set as an array of instances of the class requested.
-The only parameter is the name of the class to instantiate.
+以要求的类实例数组的形式返回整个结果集。
+唯一的参数是要实例化的类的名称。
 
-Example::
+示例::
 
 	$query = $db->query("YOUR QUERY");
 
@@ -240,10 +226,10 @@ Example::
 
 **getCustomRowObject()**
 
-Returns a single row from your query results. The first parameter is the row
-number of the results. The second parameter is the class name to instantiate.
+以要求的类实例形式返回单个结果，第一个参数是它在结果集里的序号，
+第二个参数是要实例化的类的名称。
 
-Example::
+示例::
 
 	$query = $db->query("YOUR QUERY");
 
@@ -251,24 +237,23 @@ Example::
 
 	if (isset($row))
 	{
-		echo $row->email;                 // access attributes
-		echo $row->last_login('Y-m-d');   // access class methods
+		echo $row->email;                 // 获取属性
+		echo $row->last_login('Y-m-d');   // 或访问 'User' 类定义的方法
 	}
 
-You can also use the ``getRow()`` method in exactly the same way.
+你也可以用 ``getRow()`` 方法达到相同效果。
 
-Example::
+示例::
 
 	$row = $query->getCustomRowObject(0, 'User');
 
 *********************
-Result Helper Methods
+结果处理辅助方法
 *********************
 
 **getFieldCount()**
 
-The number of FIELDS (columns) returned by the query. Make sure to call
-the method using your query result object::
+返回查询结果的字段个数（列数），确保你是使用查询结果对象调用此方法::
 
 	$query = $db->query('SELECT * FROM my_table');
 
@@ -276,8 +261,7 @@ the method using your query result object::
 
 **getFieldNames()**
 
-Returns an array with the names of the FIELDS (columns) returned by the query.
-Make sure to call the method using your query result object::
+返回查询结果的字段名（列名）的数组，确保你是使用查询结果对象调用此方法::
 
     $query = $db->query('SELECT * FROM my_table');
 
@@ -285,13 +269,11 @@ Make sure to call the method using your query result object::
 
 **freeResult()**
 
-It frees the memory associated with the result and deletes the result
-resource ID. Normally PHP frees its memory automatically at the end of
-script execution. However, if you are running a lot of queries in a
-particular script you might want to free the result after each query
-result has been generated in order to cut down on memory consumption.
+它会释放查询结果占用的内存并删除资源ID。通常 PHP 会在脚本结束时自动释放内存，
+然而，如果你在某个脚本里执行了很多查询，你也许想处理完每个查询后即刻释放内存，
+以此减少内存消耗。
 
-Example::
+举例::
 
 	$query = $thisdb->query('SELECT title FROM my_table');
 
@@ -300,21 +282,19 @@ Example::
 		echo $row->title;
 	}
 
-	$query->freeResult();  // The $query result object will no longer be available
+	$query->freeResult();  // $query 的结果对象不再可用
 
 	$query2 = $db->query('SELECT name FROM some_table');
 
 	$row = $query2->getRow();
 	echo $row->name;
-	$query2->freeResult(); // The $query2 result object will no longer be available
+	$query2->freeResult(); // $query2 的结果对象不再可用
 
 **dataSeek()**
 
-This method sets the internal pointer for the next result row to be
-fetched. It is only useful in combination with ``getUnbufferedRow()``.
+该方法设置一个内部指针，用来获取下一个结果行，它仅和 ``getUnbufferedRow()`` 一起使用才有作用。
 
-It accepts a positive integer value, which defaults to 0 and returns
-TRUE on success or FALSE on failure.
+它接受一个正整数值，默认是0，返回 TRUE 表示成功，FALSE 表示失败。
 
 ::
 
@@ -322,188 +302,180 @@ TRUE on success or FALSE on failure.
 	$query->dataSeek(5); // Skip the first 5 rows
 	$row = $query->getUnbufferedRow();
 
-.. note:: Not all database drivers support this feature and will return FALSE.
-	Most notably - you won't be able to use it with PDO.
+.. 注解:: 不是所有数据库驱动支持这个特性，（不支持的）会返回 FALSE。
+	最值得注意的是 - 你无法在 PDO 中使用它。
 
 ***************
-Class Reference
+类库参考
 ***************
 
 .. php:class:: CodeIgniter\\Database\\BaseResult
 
 	.. php:method:: getResult([$type = 'object'])
 
-		:param	string	$type: Type of requested results - array, object, or class name
-		:returns:	Array containing the fetched rows
+		:param	string	$type: 要求的结果类型 - array, object, 或 类名
+		:returns:	包含查询到的行的数组
 		:rtype:	array
 
-		A wrapper for the ``getResultArray()``, ``getResultObject()``
-		and ``getCustomResultObject()`` methods.
+		它是这几种方法的包装： ``getResultArray()``, ``getResultObject()``
+		和 ``getCustomResultObject()`` 。
 
-		Usage: see `Result Arrays`_.
+		用法: 详见 `结果数组`_.
 
 	.. php:method:: getResultArray()
 
-		:returns:	Array containing the fetched rows
+		:returns:	包含查询到的行的数组
 		:rtype:	array
 
-		Returns the query results as an array of rows, where each
-		row is itself an associative array.
+		返回查询结果行的数组，每行都是关联数组。
 
-		Usage: see `Result Arrays`_.
+		用法: 详见 `结果数组`_.
 
 	.. php:method:: getResultObject()
 
-		:returns:	Array containing the fetched rows
+		:returns:	包含查询到的行的数组
 		:rtype:	array
 
-		Returns the query results as an array of rows, where each
-		row is an object of type ``stdClass``.
+		返回查询结果行的数组，每行都是 ``stdClass`` 类的实例。
 
-		Usage: see `Result Arrays`_.
+		用法: 详见 `结果数组`_.
 
 	.. php:method:: getCustomResultObject($class_name)
 
-		:param	string	$class_name: Class name for the resulting rows
-		:returns:	Array containing the fetched rows
+		:param	string	$class_name: 结果行的类实例名
+		:returns:	包含查询到的行的数组
 		:rtype:	array
 
-		Returns the query results as an array of rows, where each
-		row is an instance of the specified class.
+		返回查询结果行的数组，每行都是指定类的实例。
 
 	.. php:method:: getRow([$n = 0[, $type = 'object']])
 
-		:param	int	$n: Index of the query results row to be returned
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	The requested row or NULL if it doesn't exist
+		:param	int	$n: 想要返回的结果行的序号
+		:param	string	$type: 要求的结果类型 - array, object, 或 类名
+		:returns:	要求的行数据，不存在时返回 NULL
 		:rtype:	mixed
 
-		A wrapper for the ``getRowArray()``, ``getRowObject()`` and
-		``getCustomRowObject()`` methods.
+		它是这几种方法的包装： ``getRowArray()``, ``getRowObject()`` 和
+		``getCustomRowObject()`` 。
 
-		Usage: see `Result Rows`_.
+		用法: 详见 `单行结果`_.
 
 	.. php:method:: getUnbufferedRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	Next row from the result set or NULL if it doesn't exist
+		:param	string	$type: 要求的结果类型 - array, object, 或 类名
+		:returns:	结果集的下一行，不存在时返回 NULL
 		:rtype:	mixed
 
-		Fetches the next result row and returns it in the
-		requested form.
+		按要求的格式返回结果集的下一行。
 
-		Usage: see `Result Rows`_.
+		用法: 详见 `单行结果`_.
 
 	.. php:method:: getRowArray([$n = 0])
 
-		:param	int	$n: Index of the query results row to be returned
-		:returns:	The requested row or NULL if it doesn't exist
+		:param	int	$n: 想要返回的结果行的序号
+		:returns:	要求的行数据，不存在时返回 NULL
 		:rtype:	array
 
-		Returns the requested result row as an associative array.
+		返回结果行，格式为关联数组。
 
-		Usage: see `Result Rows`_.
+		用法: 详见 `单行结果`_.
 
 	.. php:method:: getRowObject([$n = 0])
 
-		:param	int	$n: Index of the query results row to be returned
-                :returns:	The requested row or NULL if it doesn't exist
+		:param	int	$n: 想要返回的结果行的序号
+                :returns:	要求的行数据，不存在时返回 NULL
 		:rtype:	stdClass
 
-		Returns the requested result row as an object of type
-		``stdClass``.
+		返回结果行，格式为 ``stdClass`` 的类实例。
 
-		Usage: see `Result Rows`_.
+		用法: 详见 `单行结果`_.
 
 	.. php:method:: getCustomRowObject($n, $type)
 
-		:param	int	$n: Index of the results row to return
-		:param	string	$class_name: Class name for the resulting row
-		:returns:	The requested row or NULL if it doesn't exist
+		:param	int	$n: 想要返回的结果行的序号
+		:param	string	$class_name: 结果行的类实例名
+		:returns:	要求的行数据，不存在时返回 NULL
 		:rtype:	$type
 
-		Returns the requested result row as an instance of the
-		requested class.
+		返回结果行，格式为要求的的类实例。
 
 	.. php:method:: dataSeek([$n = 0])
 
-		:param	int	$n: Index of the results row to be returned next
-		:returns:	TRUE on success, FALSE on failure
+		:param	int	$n: 即将返回的结果行的序号
+		:returns:	TRUE 表示成功，FALSE 表示失败
 		:rtype:	bool
 
-		Moves the internal results row pointer to the desired offset.
+		移动结果集的内部指针到指定位置。
 
-		Usage: see `Result Helper Methods`_.
+		用法: 详见 `结果处理辅助方法`_.
 
 	.. php:method:: setRow($key[, $value = NULL])
 
-		:param	mixed	$key: Column name or array of key/value pairs
-		:param	mixed	$value: Value to assign to the column, $key is a single field name
+		:param	mixed	$key: 列名或键值数组
+		:param	mixed	$value: 分配给列的值，$key 是单个字段名
 		:rtype:	void
 
-		Assigns a value to a particular column.
+		为特定列分配值。
 
 	.. php:method:: getNextRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	Next row of result set, or NULL if it doesn't exist
+		:param	string	$type: 要求的结果类型 - array, object, 或 类名
+		:returns:	结果集的下一行，不存在时返回 NULL
 		:rtype:	mixed
 
-		Returns the next row from the result set.
+		返回结果集的下一行。
 
 	.. php:method:: getPreviousRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	Previous row of result set, or NULL if it doesn't exist
+		:param	string	$type: 要求的结果类型 - array, object, 或 类名
+		:returns:	结果集的上一行，不存在时返回 NULL
 		:rtype:	mixed
 
-		Returns the previous row from the result set.
+		返回结果集的上一行。
 
 	.. php:method:: getFirstRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	First row of result set, or NULL if it doesn't exist
+		:param	string	$type: 要求的结果类型 - array, object, 或 类名
+		:returns:	结果集的第一行，不存在时返回 NULL
 		:rtype:	mixed
 
-		Returns the first row from the result set.
+		返回结果集的第一行。
 
 	.. php:method:: getLastRow([$type = 'object'])
 
-		:param	string	$type: Type of the requested result - array, object, or class name
-		:returns:	Last row of result set, or NULL if it doesn't exist
+		:param	string	$type: 要求的结果类型 - array, object, 或 类名
+		:returns:	结果集的最后一行，不存在时返回 NULL
 		:rtype:	mixed
 
-		Returns the last row from the result set.
+		返回结果集的最后一行。
 
 	.. php:method:: getFieldCount()
 
-		:returns:	Number of fields in the result set
+		:returns:	结果集中字段的个数
 		:rtype:	int
 
-		Returns the number of fields in the result set.
+		返回结果集中字段的个数。
 
-		Usage: see `Result Helper Methods`_.
+		用法: 详见 `结果处理辅助函数`_.
 
     .. php:method:: getFieldNames()
 
-		:returns:	Array of column names
+		:returns:	列名称的数组
 		:rtype:	array
 
-		Returns an array containing the field names in the
-		result set.
+		返回一个包含结果集中字段名的数组。
 
 	.. php:method:: getFieldData()
 
-		:returns:	Array containing field meta-data
+		:returns:	包含字段元数据的数组
 		:rtype:	array
 
-		Generates an array of ``stdClass`` objects containing
-		field meta-data.
+		生成一个包含字段元数据的 ``stdClass`` 对象的数组。
 
 	.. php:method:: freeResult()
 
 		:rtype:	void
 
-		Frees a result set.
+		释放一个结果集。
 
-		Usage: see `Result Helper Methods`_.
+		用法: 详见 `结果处理辅助函数`_.
