@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Generating Query Results &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>生成查询结果 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -42,7 +42,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="查询语句辅助函数" href="helpers.html" />
-    <link rel="prev" title="Queries" href="queries.html" /> 
+    <link rel="prev" title="执行查询" href="queries.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -177,10 +177,10 @@
 <li class="toctree-l2"><a class="reference internal" href="examples.html">数据库快速入门：示例代码</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">数据库配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connecting.html">连接数据库</a></li>
-<li class="toctree-l2"><a class="reference internal" href="queries.html">查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">执行查询</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">生成查询结果</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helpers.html">查询辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="query_builder.html">查询构造器类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transactions.html">事务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html">获取元数据</a></li>
 <li class="toctree-l2"><a class="reference internal" href="call_function.html">自定义函数调用</a></li>
@@ -321,7 +321,7 @@
         
           <li><a href="index.html">数据库参考</a> &raquo;</li>
         
-      <li>Generating Query Results</li>
+      <li>生成查询结果</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -338,24 +338,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="generating-query-results">
-<h1>Generating Query Results<a class="headerlink" href="#generating-query-results" title="永久链接至标题">¶</a></h1>
-<p>There are several ways to generate query results:</p>
-<div class="contents local topic" id="id1">
+  <div class="section" id="id1">
+<h1>生成查询结果<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>有几种方式生成查询结果:</p>
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#result-arrays" id="id2">Result Arrays</a></li>
-<li><a class="reference internal" href="#result-rows" id="id3">Result Rows</a></li>
-<li><a class="reference internal" href="#custom-result-objects" id="id4">Custom Result Objects</a></li>
-<li><a class="reference internal" href="#result-helper-methods" id="id5">Result Helper Methods</a></li>
-<li><a class="reference internal" href="#class-reference" id="id6">Class Reference</a></li>
+<li><a class="reference internal" href="#id3" id="id8">结果数组</a></li>
+<li><a class="reference internal" href="#id4" id="id9">单行结果</a></li>
+<li><a class="reference internal" href="#id5" id="id10">自定义结果对象</a></li>
+<li><a class="reference internal" href="#id6" id="id11">结果处理辅助方法</a></li>
+<li><a class="reference internal" href="#id7" id="id12">类库参考</a></li>
 </ul>
 </div>
-<div class="section" id="result-arrays">
-<h2><a class="toc-backref" href="#id2">Result Arrays</a><a class="headerlink" href="#result-arrays" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">结果数组</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p><strong>getResult()</strong></p>
-<p>This method returns the query result as an array of <strong>objects</strong>, or
-<strong>an empty array</strong> on failure. Typically you’ll use this in a foreach
-loop, like this:</p>
+<p>这个方法返回 <strong>对象数组</strong> 类型的查询结果，或在失败时返回 <strong>一个空数组</strong> 。
+典型的用法是使用 foreach 循环，像这样:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
@@ -366,9 +365,8 @@ loop, like this:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above method is an alias of <code class="docutils literal notranslate"><span class="pre">getResultObject()</span></code>.</p>
-<p>You can pass in the string ‘array’ if you wish to get your results
-as an array of arrays:</p>
+<p>上面的方法是 <code class="docutils literal notranslate"><span class="pre">getResultObject()</span></code> 的别名。</p>
+<p>如果你想返回一个二维数组，可以给第一个参数传字符串 ‘array’</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
@@ -379,23 +377,21 @@ as an array of arrays:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above usage is an alias of <code class="docutils literal notranslate"><span class="pre">getResultArray()</span></code>.</p>
-<p>You can also pass a string to <code class="docutils literal notranslate"><span class="pre">getResult()</span></code> which represents a class to
-instantiate for each result object</p>
+<p>上面的方法是 <code class="docutils literal notranslate"><span class="pre">getResultArray()</span></code> 的别名。</p>
+<p>你也可以传字符串参数到 <code class="docutils literal notranslate"><span class="pre">getResult()</span></code> 方法，表示要为每个结果对象实例化的类</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users;&quot;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$user</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span> <span class="c1">// access attributes</span>
-    <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">reverseName</span><span class="p">();</span> <span class="c1">// or methods defined on the &#39;User&#39; class</span>
+    <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span> <span class="c1">// 获取属性</span>
+    <span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">reverseName</span><span class="p">();</span> <span class="c1">// 或访问 &#39;User&#39; 类定义的方法</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above method is an alias of <code class="docutils literal notranslate"><span class="pre">getCustomResultObject()</span></code>.</p>
+<p>上面的方法是 <code class="docutils literal notranslate"><span class="pre">getCustomResultObject()</span></code> 的别名。</p>
 <p><strong>getResultArray()</strong></p>
-<p>This method returns the query result as a pure array, or an empty
-array when no result is produced. Typically you’ll use this in a foreach
-loop, like this:</p>
+<p>这个方法返回一个纯数组的查询结果，查无结果时为空数组。
+典型的用法是使用 foreach 循环，像这样:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResultArray</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
@@ -407,12 +403,11 @@ loop, like this:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="result-rows">
-<h2><a class="toc-backref" href="#id3">Result Rows</a><a class="headerlink" href="#result-rows" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id9">单行结果</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p><strong>getRow()</strong></p>
-<p>This method returns a single result row. If your query has more than
-one row, it returns only the first row. The result is returned as an
-<strong>object</strong>. Here’s a usage example:</p>
+<p>这个方法返回一个单行结果，如果你的查询有多行结果，它仅返回第一条。
+返回结果是一个 <strong>对象</strong> 。使用示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">();</span>
@@ -425,23 +420,21 @@ one row, it returns only the first row. The result is returned as an
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If you want a specific row returned you can submit the row number as a
-digit in the first parameter:</p>
+<p>如果你想返回指定行的结果，可以在第一个参数里提供这个数字:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>You can also add a second String parameter, which is the name of a class
-to instantiate the row with:</p>
+<p>你也可以传一个字符串到第二个参数，表示该结果实例化的对象类:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users LIMIT 1;&quot;</span><span class="p">);</span>
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">);</span>
 
-<span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span> <span class="c1">// access attributes</span>
-<span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">reverse_name</span><span class="p">();</span> <span class="c1">// or methods defined on the &#39;User&#39; class</span>
+<span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span> <span class="c1">// 获取属性</span>
+<span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">reverse_name</span><span class="p">();</span> <span class="c1">// 或访问 &#39;User&#39; 类定义的方法</span>
 </pre></div>
 </div>
 <p><strong>getRowArray()</strong></p>
-<p>Identical to the above <code class="docutils literal notranslate"><span class="pre">row()</span></code> method, except it returns an array.
-Example:</p>
+<p>这个与上面的 <code class="docutils literal notranslate"><span class="pre">row()</span></code> 方法基本相同，区别是它返回的是一个数组。
+示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRowArray</span><span class="p">();</span>
@@ -454,13 +447,11 @@ Example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>If you want a specific row returned you can submit the row number as a
-digit in the first parameter:</p>
+<p>如果你想返回指定行的结果，可以在第一个参数里提供这个数字:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getRowArray</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>In addition, you can walk forward/backwards/first/last through your
-results using these variations:</p>
+<p>另外，你可以用这些方法在结果集里做 前进/后退/首行/尾行 的游标操作:</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line"><strong>$row = $query-&gt;getFirstRow()</strong></div>
@@ -469,8 +460,7 @@ results using these variations:</p>
 <div class="line"><strong>$row = $query-&gt;getPreviousRow()</strong></div>
 </div>
 </div></blockquote>
-<p>By default they return an object unless you put the word “array” in the
-parameter:</p>
+<p>默认他们返回一个对象，除非第一个参数是字符串 “array” 才会返回数组:</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line"><strong>$row = $query-&gt;getFirstRow(‘array’)</strong></div>
@@ -481,14 +471,12 @@ parameter:</p>
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">All the methods above will load the whole result into memory
-(prefetching). Use <code class="docutils literal notranslate"><span class="pre">getUnbufferedRow()</span></code> for processing large
-result sets.</p>
+<p class="last">以上所有方法都会把整个查询结果载入内存（预加载）。
+请使用 <code class="docutils literal notranslate"><span class="pre">getUnbufferedRow()</span></code> 方法处理大型结果集。</p>
 </div>
 <p><strong>getUnbufferedRow()</strong></p>
-<p>This method returns a single result row without prefetching the whole
-result in memory as <code class="docutils literal notranslate"><span class="pre">row()</span></code> does. If your query has more than one row,
-it returns the current row and moves the internal data pointer ahead.</p>
+<p>这个方法返回单个结果，不会像 <code class="docutils literal notranslate"><span class="pre">row()</span></code> 把整个结果预加载到内存里。
+如果你的查询结果多于一个，它返回当前行并将内部数据指针向前移动。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">())</span>
@@ -499,23 +487,23 @@ it returns the current row and moves the internal data pointer ahead.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can optionally pass ‘object’ (default) or ‘array’ in order to specify
-the returned value’s type:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">();</span>         <span class="c1">// object</span>
-<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span> <span class="c1">// object</span>
-<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>  <span class="c1">// associative array</span>
+<p>你可以选择性的传参 ‘object’ (默认) 或 ‘array’ 来指定返回数据的类型:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">();</span>         <span class="c1">// 对象</span>
+<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">);</span> <span class="c1">// 对象</span>
+<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>  <span class="c1">// 关联数组</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="custom-result-objects">
-<h2><a class="toc-backref" href="#id4">Custom Result Objects</a><a class="headerlink" href="#custom-result-objects" title="永久链接至标题">¶</a></h2>
-<p>You can have the results returned as an instance of a custom class instead
-of a <code class="docutils literal notranslate"><span class="pre">stdClass</span></code> or array, as the <code class="docutils literal notranslate"><span class="pre">getResult()</span></code> and <code class="docutils literal notranslate"><span class="pre">getResultArray()</span></code>
-methods allow. If the class is not already loaded into memory, the Autoloader
-will attempt to load it. The object will have all values returned from the
-database set as properties. If these have been declared and are non-public
-then you should provide a <code class="docutils literal notranslate"><span class="pre">__set()</span></code> method to allow them to be set.</p>
-<p>Example:</p>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id10">自定义结果对象</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<dl class="docutils">
+<dt>你可以用一个自定义的类实例作为返回结果，代替原来的 <code class="docutils literal notranslate"><span class="pre">stdClass</span></code> 对象或数组，</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">getResult()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">getResultArray()</span></code> 允许如此操作。</dd>
+</dl>
+<p>如果该类（文件）尚未加载到内存，自动加载器会尝试载入它。
+对象的属性值会设置为数据库的返回数据，如果是非公开属性，
+你需要提供一个 <code class="docutils literal notranslate"><span class="pre">__set()</span></code> 方法以允许他们被赋予值。</p>
+<p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span>
 <span class="p">{</span>
         <span class="k">public</span> <span class="nv">$id</span><span class="p">;</span>
@@ -547,13 +535,13 @@ then you should provide a <code class="docutils literal notranslate"><span class
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In addition to the two methods listed below, the following methods also can
-take a class name to return the results as: <code class="docutils literal notranslate"><span class="pre">getFirstRow()</span></code>, <code class="docutils literal notranslate"><span class="pre">getLastRow()</span></code>,
-<code class="docutils literal notranslate"><span class="pre">getNextRow()</span></code>, and <code class="docutils literal notranslate"><span class="pre">getPreviousRow()</span></code>.</p>
+<p>除了下面列出的两个方法之外，这些方法也可以指定类名
+返回类实例的结果集: <code class="docutils literal notranslate"><span class="pre">getFirstRow()</span></code>, <code class="docutils literal notranslate"><span class="pre">getLastRow()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">getNextRow()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">getPreviousRow()</span></code> 。</p>
 <p><strong>getCustomResultObject()</strong></p>
-<p>Returns the entire result set as an array of instances of the class requested.
-The only parameter is the name of the class to instantiate.</p>
-<p>Example:</p>
+<p>以要求的类实例数组的形式返回整个结果集。
+唯一的参数是要实例化的类的名称。</p>
+<p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getCustomResultObject</span><span class="p">(</span><span class="s1">&#39;User&#39;</span><span class="p">);</span>
@@ -567,51 +555,47 @@ The only parameter is the name of the class to instantiate.</p>
 </pre></div>
 </div>
 <p><strong>getCustomRowObject()</strong></p>
-<p>Returns a single row from your query results. The first parameter is the row
-number of the results. The second parameter is the class name to instantiate.</p>
-<p>Example:</p>
+<p>以要求的类实例形式返回单个结果，第一个参数是它在结果集里的序号，
+第二个参数是要实例化的类的名称。</p>
+<p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
 
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getCustomRowObject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">);</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">))</span>
 <span class="p">{</span>
-        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">;</span>                 <span class="c1">// access attributes</span>
-        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">last_login</span><span class="p">(</span><span class="s1">&#39;Y-m-d&#39;</span><span class="p">);</span>   <span class="c1">// access class methods</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">;</span>                 <span class="c1">// 获取属性</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">last_login</span><span class="p">(</span><span class="s1">&#39;Y-m-d&#39;</span><span class="p">);</span>   <span class="c1">// 或访问 &#39;User&#39; 类定义的方法</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can also use the <code class="docutils literal notranslate"><span class="pre">getRow()</span></code> method in exactly the same way.</p>
-<p>Example:</p>
+<p>你也可以用 <code class="docutils literal notranslate"><span class="pre">getRow()</span></code> 方法达到相同效果。</p>
+<p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getCustomRowObject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;User&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="result-helper-methods">
-<h2><a class="toc-backref" href="#id5">Result Helper Methods</a><a class="headerlink" href="#result-helper-methods" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id11">结果处理辅助方法</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p><strong>getFieldCount()</strong></p>
-<p>The number of FIELDS (columns) returned by the query. Make sure to call
-the method using your query result object:</p>
+<p>返回查询结果的字段个数（列数），确保你是使用查询结果对象调用此方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="p">);</span>
 
 <span class="k">echo</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getFieldCount</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>getFieldNames()</strong></p>
-<p>Returns an array with the names of the FIELDS (columns) returned by the query.
-Make sure to call the method using your query result object:</p>
+<p>返回查询结果的字段名（列名）的数组，确保你是使用查询结果对象调用此方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="p">);</span>
 
     <span class="k">echo</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getFieldNames</span><span class="p">();</span>
 </pre></div>
 </div>
 <p><strong>freeResult()</strong></p>
-<p>It frees the memory associated with the result and deletes the result
-resource ID. Normally PHP frees its memory automatically at the end of
-script execution. However, if you are running a lot of queries in a
-particular script you might want to free the result after each query
-result has been generated in order to cut down on memory consumption.</p>
-<p>Example:</p>
+<p>它会释放查询结果占用的内存并删除资源ID。通常 PHP 会在脚本结束时自动释放内存，
+然而，如果你在某个脚本里执行了很多查询，你也许想处理完每个查询后即刻释放内存，
+以此减少内存消耗。</p>
+<p>举例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$thisdb</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT title FROM my_table&#39;</span><span class="p">);</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
@@ -619,20 +603,18 @@ result has been generated in order to cut down on memory consumption.</p>
         <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">freeResult</span><span class="p">();</span>  <span class="c1">// The $query result object will no longer be available</span>
+<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">freeResult</span><span class="p">();</span>  <span class="c1">// $query 的结果对象不再可用</span>
 
 <span class="nv">$query2</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM some_table&#39;</span><span class="p">);</span>
 
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query2</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">();</span>
 <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
-<span class="nv">$query2</span><span class="o">-&gt;</span><span class="na">freeResult</span><span class="p">();</span> <span class="c1">// The $query2 result object will no longer be available</span>
+<span class="nv">$query2</span><span class="o">-&gt;</span><span class="na">freeResult</span><span class="p">();</span> <span class="c1">// $query2 的结果对象不再可用</span>
 </pre></div>
 </div>
 <p><strong>dataSeek()</strong></p>
-<p>This method sets the internal pointer for the next result row to be
-fetched. It is only useful in combination with <code class="docutils literal notranslate"><span class="pre">getUnbufferedRow()</span></code>.</p>
-<p>It accepts a positive integer value, which defaults to 0 and returns
-TRUE on success or FALSE on failure.</p>
+<p>该方法设置一个内部指针，用来获取下一个结果行，它仅和 <code class="docutils literal notranslate"><span class="pre">getUnbufferedRow()</span></code> 一起使用才有作用。</p>
+<p>它接受一个正整数值，默认是0，返回 TRUE 表示成功，FALSE 表示失败。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT `field_name` FROM `table_name`&#39;</span><span class="p">);</span>
 <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">dataSeek</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Skip the first 5 rows</span>
 <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getUnbufferedRow</span><span class="p">();</span>
@@ -640,12 +622,12 @@ TRUE on success or FALSE on failure.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">Not all database drivers support this feature and will return FALSE.
-Most notably - you won’t be able to use it with PDO.</p>
+<p class="last">不是所有数据库驱动支持这个特性，（不支持的）会返回 FALSE。
+最值得注意的是 - 你无法在 PDO 中使用它。</p>
 </div>
 </div>
-<div class="section" id="class-reference">
-<h2><a class="toc-backref" href="#id6">Class Reference</a><a class="headerlink" href="#class-reference" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id12">类库参考</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <dl class="class">
 <dt>
 <code class="descname">CodeIgniter\Database\BaseResult</code></dt>
@@ -658,11 +640,11 @@ Most notably - you won’t be able to use it with PDO.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$type</strong> (<em>string</em>) – Type of requested results - array, object, or class name</li>
+<li><strong>$type</strong> (<em>string</em>) – 要求的结果类型 - array, object, 或 类名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Array containing the fetched rows</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">包含查询到的行的数组</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">array</p>
@@ -670,9 +652,9 @@ Most notably - you won’t be able to use it with PDO.</p>
 </tr>
 </tbody>
 </table>
-<p>A wrapper for the <code class="docutils literal notranslate"><span class="pre">getResultArray()</span></code>, <code class="docutils literal notranslate"><span class="pre">getResultObject()</span></code>
-and <code class="docutils literal notranslate"><span class="pre">getCustomResultObject()</span></code> methods.</p>
-<p>Usage: see <a class="reference internal" href="#result-arrays">Result Arrays</a>.</p>
+<p>它是这几种方法的包装： <code class="docutils literal notranslate"><span class="pre">getResultArray()</span></code>, <code class="docutils literal notranslate"><span class="pre">getResultObject()</span></code>
+和 <code class="docutils literal notranslate"><span class="pre">getCustomResultObject()</span></code> 。</p>
+<p>用法: 详见 <a class="reference internal" href="#id3">结果数组</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -682,15 +664,14 @@ and <code class="docutils literal notranslate"><span class="pre">getCustomResult
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">Array containing the fetched rows</td>
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">包含查询到的行的数组</td>
 </tr>
 <tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">array</td>
 </tr>
 </tbody>
 </table>
-<p>Returns the query results as an array of rows, where each
-row is itself an associative array.</p>
-<p>Usage: see <a class="reference internal" href="#result-arrays">Result Arrays</a>.</p>
+<p>返回查询结果行的数组，每行都是关联数组。</p>
+<p>用法: 详见 <a class="reference internal" href="#id3">结果数组</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -700,15 +681,14 @@ row is itself an associative array.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">Array containing the fetched rows</td>
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">包含查询到的行的数组</td>
 </tr>
 <tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">array</td>
 </tr>
 </tbody>
 </table>
-<p>Returns the query results as an array of rows, where each
-row is an object of type <code class="docutils literal notranslate"><span class="pre">stdClass</span></code>.</p>
-<p>Usage: see <a class="reference internal" href="#result-arrays">Result Arrays</a>.</p>
+<p>返回查询结果行的数组，每行都是 <code class="docutils literal notranslate"><span class="pre">stdClass</span></code> 类的实例。</p>
+<p>用法: 详见 <a class="reference internal" href="#id3">结果数组</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -719,11 +699,11 @@ row is an object of type <code class="docutils literal notranslate"><span class=
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$class_name</strong> (<em>string</em>) – Class name for the resulting rows</li>
+<li><strong>$class_name</strong> (<em>string</em>) – 结果行的类实例名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Array containing the fetched rows</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">包含查询到的行的数组</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">array</p>
@@ -731,8 +711,7 @@ row is an object of type <code class="docutils literal notranslate"><span class=
 </tr>
 </tbody>
 </table>
-<p>Returns the query results as an array of rows, where each
-row is an instance of the specified class.</p>
+<p>返回查询结果行的数组，每行都是指定类的实例。</p>
 </dd></dl>
 
 <dl class="method">
@@ -743,12 +722,12 @@ row is an instance of the specified class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$n</strong> (<em>int</em>) – Index of the query results row to be returned</li>
-<li><strong>$type</strong> (<em>string</em>) – Type of the requested result - array, object, or class name</li>
+<li><strong>$n</strong> (<em>int</em>) – 想要返回的结果行的序号</li>
+<li><strong>$type</strong> (<em>string</em>) – 要求的结果类型 - array, object, 或 类名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The requested row or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">要求的行数据，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -756,9 +735,9 @@ row is an instance of the specified class.</p>
 </tr>
 </tbody>
 </table>
-<p>A wrapper for the <code class="docutils literal notranslate"><span class="pre">getRowArray()</span></code>, <code class="docutils literal notranslate"><span class="pre">getRowObject()</span></code> and
-<code class="docutils literal notranslate"><span class="pre">getCustomRowObject()</span></code> methods.</p>
-<p>Usage: see <a class="reference internal" href="#result-rows">Result Rows</a>.</p>
+<p>它是这几种方法的包装： <code class="docutils literal notranslate"><span class="pre">getRowArray()</span></code>, <code class="docutils literal notranslate"><span class="pre">getRowObject()</span></code> 和
+<code class="docutils literal notranslate"><span class="pre">getCustomRowObject()</span></code> 。</p>
+<p>用法: 详见 <a class="reference internal" href="#id4">单行结果</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -769,11 +748,11 @@ row is an instance of the specified class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$type</strong> (<em>string</em>) – Type of the requested result - array, object, or class name</li>
+<li><strong>$type</strong> (<em>string</em>) – 要求的结果类型 - array, object, 或 类名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Next row from the result set or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">结果集的下一行，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -781,9 +760,8 @@ row is an instance of the specified class.</p>
 </tr>
 </tbody>
 </table>
-<p>Fetches the next result row and returns it in the
-requested form.</p>
-<p>Usage: see <a class="reference internal" href="#result-rows">Result Rows</a>.</p>
+<p>按要求的格式返回结果集的下一行。</p>
+<p>用法: 详见 <a class="reference internal" href="#id4">单行结果</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -794,11 +772,11 @@ requested form.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$n</strong> (<em>int</em>) – Index of the query results row to be returned</li>
+<li><strong>$n</strong> (<em>int</em>) – 想要返回的结果行的序号</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The requested row or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">要求的行数据，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">array</p>
@@ -806,8 +784,8 @@ requested form.</p>
 </tr>
 </tbody>
 </table>
-<p>Returns the requested result row as an associative array.</p>
-<p>Usage: see <a class="reference internal" href="#result-rows">Result Rows</a>.</p>
+<p>返回结果行，格式为关联数组。</p>
+<p>用法: 详见 <a class="reference internal" href="#id4">单行结果</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -818,11 +796,11 @@ requested form.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$n</strong> (<em>int</em>) – Index of the query results row to be returned</li>
+<li><strong>$n</strong> (<em>int</em>) – 想要返回的结果行的序号</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The requested row or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">要求的行数据，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">stdClass</p>
@@ -830,9 +808,8 @@ requested form.</p>
 </tr>
 </tbody>
 </table>
-<p>Returns the requested result row as an object of type
-<code class="docutils literal notranslate"><span class="pre">stdClass</span></code>.</p>
-<p>Usage: see <a class="reference internal" href="#result-rows">Result Rows</a>.</p>
+<p>返回结果行，格式为 <code class="docutils literal notranslate"><span class="pre">stdClass</span></code> 的类实例。</p>
+<p>用法: 详见 <a class="reference internal" href="#id4">单行结果</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -843,12 +820,12 @@ requested form.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$n</strong> (<em>int</em>) – Index of the results row to return</li>
-<li><strong>$class_name</strong> (<em>string</em>) – Class name for the resulting row</li>
+<li><strong>$n</strong> (<em>int</em>) – 想要返回的结果行的序号</li>
+<li><strong>$class_name</strong> (<em>string</em>) – 结果行的类实例名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">The requested row or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">要求的行数据，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">$type</p>
@@ -856,8 +833,7 @@ requested form.</p>
 </tr>
 </tbody>
 </table>
-<p>Returns the requested result row as an instance of the
-requested class.</p>
+<p>返回结果行，格式为要求的的类实例。</p>
 </dd></dl>
 
 <dl class="method">
@@ -868,11 +844,11 @@ requested class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$n</strong> (<em>int</em>) – Index of the results row to be returned next</li>
+<li><strong>$n</strong> (<em>int</em>) – 即将返回的结果行的序号</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE 表示成功，FALSE 表示失败</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
@@ -880,8 +856,8 @@ requested class.</p>
 </tr>
 </tbody>
 </table>
-<p>Moves the internal results row pointer to the desired offset.</p>
-<p>Usage: see <a class="reference internal" href="#result-helper-methods">Result Helper Methods</a>.</p>
+<p>移动结果集的内部指针到指定位置。</p>
+<p>用法: 详见 <a class="reference internal" href="#id6">结果处理辅助方法</a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -892,8 +868,8 @@ requested class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$key</strong> (<em>mixed</em>) – Column name or array of key/value pairs</li>
-<li><strong>$value</strong> (<em>mixed</em>) – Value to assign to the column, $key is a single field name</li>
+<li><strong>$key</strong> (<em>mixed</em>) – 列名或键值数组</li>
+<li><strong>$value</strong> (<em>mixed</em>) – 分配给列的值，$key 是单个字段名</li>
 </ul>
 </td>
 </tr>
@@ -902,7 +878,7 @@ requested class.</p>
 </tr>
 </tbody>
 </table>
-<p>Assigns a value to a particular column.</p>
+<p>为特定列分配值。</p>
 </dd></dl>
 
 <dl class="method">
@@ -913,11 +889,11 @@ requested class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$type</strong> (<em>string</em>) – Type of the requested result - array, object, or class name</li>
+<li><strong>$type</strong> (<em>string</em>) – 要求的结果类型 - array, object, 或 类名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Next row of result set, or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">结果集的下一行，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -925,7 +901,7 @@ requested class.</p>
 </tr>
 </tbody>
 </table>
-<p>Returns the next row from the result set.</p>
+<p>返回结果集的下一行。</p>
 </dd></dl>
 
 <dl class="method">
@@ -936,11 +912,11 @@ requested class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$type</strong> (<em>string</em>) – Type of the requested result - array, object, or class name</li>
+<li><strong>$type</strong> (<em>string</em>) – 要求的结果类型 - array, object, 或 类名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Previous row of result set, or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">结果集的上一行，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -948,7 +924,7 @@ requested class.</p>
 </tr>
 </tbody>
 </table>
-<p>Returns the previous row from the result set.</p>
+<p>返回结果集的上一行。</p>
 </dd></dl>
 
 <dl class="method">
@@ -959,11 +935,11 @@ requested class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$type</strong> (<em>string</em>) – Type of the requested result - array, object, or class name</li>
+<li><strong>$type</strong> (<em>string</em>) – 要求的结果类型 - array, object, 或 类名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">First row of result set, or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">结果集的第一行，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -971,7 +947,7 @@ requested class.</p>
 </tr>
 </tbody>
 </table>
-<p>Returns the first row from the result set.</p>
+<p>返回结果集的第一行。</p>
 </dd></dl>
 
 <dl class="method">
@@ -982,11 +958,11 @@ requested class.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$type</strong> (<em>string</em>) – Type of the requested result - array, object, or class name</li>
+<li><strong>$type</strong> (<em>string</em>) – 要求的结果类型 - array, object, 或 类名</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">Last row of result set, or NULL if it doesn’t exist</p>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">结果集的最后一行，不存在时返回 NULL</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">mixed</p>
@@ -994,7 +970,7 @@ requested class.</p>
 </tr>
 </tbody>
 </table>
-<p>Returns the last row from the result set.</p>
+<p>返回结果集的最后一行。</p>
 </dd></dl>
 
 <dl class="method">
@@ -1004,14 +980,14 @@ requested class.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">Number of fields in the result set</td>
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">结果集中字段的个数</td>
 </tr>
 <tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">int</td>
 </tr>
 </tbody>
 </table>
-<p>Returns the number of fields in the result set.</p>
-<p>Usage: see <a class="reference internal" href="#result-helper-methods">Result Helper Methods</a>.</p>
+<p>返回结果集中字段的个数。</p>
+<p>用法: 详见 <a href="#id13"><span class="problematic" id="id14">`结果处理辅助函数`_</span></a>.</p>
 </dd></dl>
 
 </div></blockquote>
@@ -1023,14 +999,13 @@ requested class.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">Array of column names</td>
+<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">列名称的数组</td>
 </tr>
 <tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">array</td>
 </tr>
 </tbody>
 </table>
-<p>Returns an array containing the field names in the
-result set.</p>
+<p>返回一个包含结果集中字段名的数组。</p>
 </div></blockquote>
 <dl class="method">
 <dt id="getFieldData">
@@ -1039,14 +1014,13 @@ result set.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">Array containing field meta-data</td>
+<tr class="field-odd field"><th class="field-name">返回:</th><td class="field-body">包含字段元数据的数组</td>
 </tr>
 <tr class="field-even field"><th class="field-name">返回类型:</th><td class="field-body">array</td>
 </tr>
 </tbody>
 </table>
-<p>Generates an array of <code class="docutils literal notranslate"><span class="pre">stdClass</span></code> objects containing
-field meta-data.</p>
+<p>生成一个包含字段元数据的 <code class="docutils literal notranslate"><span class="pre">stdClass</span></code> 对象的数组。</p>
 </dd></dl>
 
 <dl class="method">
@@ -1060,8 +1034,8 @@ field meta-data.</p>
 </tr>
 </tbody>
 </table>
-<p>Frees a result set.</p>
-<p>Usage: see <a class="reference internal" href="#result-helper-methods">Result Helper Methods</a>.</p>
+<p>释放一个结果集。</p>
+<p>用法: 详见 <a href="#id15"><span class="problematic" id="id16">`结果处理辅助函数`_</span></a>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1082,7 +1056,7 @@ field meta-data.</p>
         <a href="helpers.html" class="btn btn-neutral float-right" title="查询语句辅助函数" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="queries.html" class="btn btn-neutral float-left" title="Queries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+        <a href="queries.html" class="btn btn-neutral float-left" title="执行查询" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -1094,7 +1068,7 @@ field meta-data.</p>
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-15.
+        最后更新于 2020-07-19.
       </span>
 
     </p>

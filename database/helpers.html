@@ -42,7 +42,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="查询构造器类" href="query_builder.html" />
-    <link rel="prev" title="Generating Query Results" href="results.html" /> 
+    <link rel="prev" title="生成查询结果" href="results.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -177,10 +177,10 @@
 <li class="toctree-l2"><a class="reference internal" href="examples.html">数据库快速入门：示例代码</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">数据库配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connecting.html">连接数据库</a></li>
-<li class="toctree-l2"><a class="reference internal" href="queries.html">查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">执行查询</a></li>
 <li class="toctree-l2"><a class="reference internal" href="results.html">生成查询结果</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">查询辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="query_builder.html">查询构造器类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transactions.html">事务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html">获取元数据</a></li>
 <li class="toctree-l2"><a class="reference internal" href="call_function.html">自定义函数调用</a></li>
@@ -346,29 +346,29 @@
 <p>当执行插入语句时，插入行的ID</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">如果使用PDO驱动来操作PostgreSQL，或使用Interbase驱动，该函数需要一个 $name 参数，用于在查找插入ID时使用正确的顺序。</p>
+<p class="last">如果使用PDO驱动来操作PostgreSQL，或使用Interbase驱动，该函数需要一个 $name  参数，用于在查找插入ID时使用正确的顺序（译者注：v4.0.3代码里并不处理这个入参，可能是英文手册勘误 2020-07-14）。</p>
 </div>
 <p><strong>$db-&gt;affectedRows()</strong></p>
-<p>返回在”写入”类型的语句（insert，update等）执行时有多少行受到了变动</p>
+<p>执行”写入”类型的语句（insert，update等）时返回有多少行受影响</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">在MYSQL中 “DELETE FROM TABLE” 会返回0行受影响。所以数据库类进行了一些微小的更改，从而使得该语句可以返回真正受影响的行数。默认情况下这项更改是启用的，不过可以通过修改数据库驱动配置文件来进行关闭。</p>
+<p class="last">在MYSQL中 “DELETE FROM TABLE” 会返回0行受影响。所以数据库类做了一个小的hack，使其可以返回受影响的正确行数。这个功能默认是启用的，不过可以通过修改数据库驱动文件关闭。</p>
 </div>
 <p><strong>$db-&gt;getLastQuery()</strong></p>
-<p>返回一个最近一次运行的查询语句的实例（查询语句本身，而非查询结果）</p>
+<p>返回最近一次执行的查询语句（查询语句字符串，而非查询结果）</p>
 </div>
 <div class="section" id="id3">
 <h2>关于数据库的信息<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p><strong>$db-&gt;countAll()</strong></p>
-<p>帮助你了解一张特定表里的总共行数，通过在第一个参数里给出表名即可。
-这也是语句构建器的一部分，例如:</p>
+<p>帮你确认一张数据表的总共行数，第一个参数是表名。
+这也是查询构建器的一部分，例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;my_table&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">countAll</span><span class="p">();</span>
 
 <span class="c1">// 输出一个整数，例如25</span>
 </pre></div>
 </div>
 <p><strong>$db-&gt;getPlatform()</strong></p>
-<p>数据当前运行的数据库平台(MySQL, MS SQL, Postgres等):</p>
+<p>输出当前运行的数据库平台(MySQL, MS SQL, Postgres等):</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getPlatform</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -391,7 +391,7 @@
         <a href="query_builder.html" class="btn btn-neutral float-right" title="查询构造器类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="results.html" class="btn btn-neutral float-left" title="Generating Query Results" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+        <a href="results.html" class="btn btn-neutral float-left" title="生成查询结果" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
       
     </div>
   
@@ -403,7 +403,7 @@
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-15.
+        最后更新于 2020-07-19.
       </span>
 
     </p>

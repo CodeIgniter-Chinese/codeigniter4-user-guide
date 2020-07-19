@@ -177,10 +177,10 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">数据库快速入门：示例代码</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">数据库配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="connecting.html">连接数据库</a></li>
-<li class="toctree-l2"><a class="reference internal" href="queries.html">查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="queries.html">执行查询</a></li>
 <li class="toctree-l2"><a class="reference internal" href="results.html">生成查询结果</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helpers.html">查询辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="query_builder.html">查询构造器类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transactions.html">事务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html">获取元数据</a></li>
 <li class="toctree-l2"><a class="reference internal" href="call_function.html">自定义函数调用</a></li>
@@ -340,10 +340,10 @@
             
   <div class="section" id="id1">
 <h1>数据库快速入门: 示例代码<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>这个页面包含的示例代码将简单介绍如何使用数据库类。更详细的信息请参考每个函数单独的介绍页面。</p>
+<p>这个页面包含的示例代码将简单介绍如何使用数据库类。更完整的信息请参考每个函数/类单独的介绍页面。</p>
 <div class="section" id="id2">
 <h2>初始化数据库类<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>下面的代码将根据你的 <a class="reference internal" href="configuration.html"><span class="doc">数据库配置</span></a> 加载并初始化数据库类</p>
+<p>下面的代码将根据你的 <a class="reference internal" href="configuration.html"><span class="doc">数据库配置</span></a> 加载并初始化数据库类:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">connect</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -380,7 +380,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>上面的 getResultArray() 函数返回一个 <strong>数组的数组</strong> 。例如：$row[‘title’]</p>
+<p>上面的 getResultArray() 函数返回一个 <strong>二维数组</strong> 。例如：$row[‘title’]</p>
 </div>
 <div class="section" id="id5">
 <h2>单结果标准查询（对象形式）<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
@@ -398,7 +398,7 @@
 <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>上面的 getRowArray() 函数返回一个 <strong>数组</strong> 。例如：$row[‘name’]</p>
+<p>上面的 getRowArray() 函数返回一个 <strong>一维数组</strong> 。例如：$row[‘name’]</p>
 </div>
 <div class="section" id="id7">
 <h2>标准插入<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
@@ -411,7 +411,7 @@
 <div class="section" id="id8">
 <h2>使用查询构造器查询数据<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <blockquote>
-<div><p><a class="reference internal" href="query_builder.html"><span class="doc">查询构造器模式</span></a> 提供给我们一种简单的查询数据的途径</p>
+<div><p><a class="reference internal" href="query_builder.html"><span class="doc">查询构造器模式</span></a> 提供给我们一种简单的查询数据的途径:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
 
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
@@ -421,7 +421,7 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>上面的 get() 函数从给定的表中查询出所有的结果。<a class="reference internal" href="query_builder.html"><span class="doc">查询构造器</span></a> 提供了所有数据库操作的快捷函数。</p>
+<p>上面的 get() 函数从给定的表中查询出所有结果。 <a class="reference internal" href="query_builder.html"><span class="doc">查询构造器</span></a>  提供了所有数据库操作的快捷函数。</p>
 </div>
 <div class="section" id="id9">
 <h2>使用查询构造器插入数据<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
@@ -431,7 +431,7 @@
         <span class="s1">&#39;date&#39;</span> <span class="o">=&gt;</span> <span class="nv">$date</span>
 <span class="p">);</span>
 
-<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>  <span class="c1">// Produces: INSERT INTO mytable (title, name, date) VALUES (&#39;{$title}&#39;, &#39;{$name}&#39;, &#39;{$date}&#39;)</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>  <span class="c1">// 生成: INSERT INTO mytable (title, name, date) VALUES (&#39;{$title}&#39;, &#39;{$name}&#39;, &#39;{$date}&#39;)</span>
 </pre></div>
 </div>
 </div>
@@ -460,7 +460,7 @@
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-15.
+        最后更新于 2020-07-19.
       </span>
 
     </p>
