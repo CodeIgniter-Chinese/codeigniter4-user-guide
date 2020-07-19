@@ -2,7 +2,7 @@
 执行查询
 #######
 
-.. 目录::
+.. contents::
     :local:
     :depth: 2
 
@@ -46,7 +46,7 @@
 		echo "Query failed!";
 	}
 
-.. 注解:: PostgreSQL的 ``pg_exec()`` 方法 (举例) 执行成功时
+.. note:: PostgreSQL的 ``pg_exec()`` 方法 (举例) 执行成功时
 	总是返回一个资源值，即使执行写入型查询也是如此。
 	所以当你判断布尔值时要切记此点。
 
@@ -112,7 +112,7 @@
         $sql = "SELECT id FROM table WHERE column LIKE '%" .
         $db->escapeLikeString($search)."%' ESCAPE '!'";
 
-.. 重要::  ``escapeLikeString()`` 方法使用 '!' (感叹号)
+.. important::  ``escapeLikeString()`` 方法使用 '!' (感叹号)
 	转义 *LIKE* 条件中的特殊字符，因为这个方法只转义引号里的字符串，
 	它不能自动添加 ``ESCAPE '!'`` 条件，因此你必须手动添加。
 
@@ -151,7 +151,7 @@
                 'name'   => 'Rick'
         ]);
 
-.. 注解:: 查询语句中的每个键名前后【必须】加英文冒号。
+.. note:: 查询语句中的每个键名前后【必须】加英文冒号。
 
 ***************
 错误处理
