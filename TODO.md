@@ -30,6 +30,9 @@
 1. - [x] 译文: [source/concepts/structure.rst](source/concepts/structure.rst)
          原文: [source/concepts/structure.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/structure.rst)
          @蓝色的风
+1. - [x] 译文: [source/database/query_builder.rst](source/database/query_builder.rst)
+         原文: [source/database/query_builder.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/query_builder.rst)
+         @Visvoy
 1. - [ ] 译文: [source/dbmgmt/forge.rst](source/dbmgmt/forge.rst)
          原文: [source/dbmgmt/forge.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/dbmgmt/forge.rst)
 1. - [ ] 译文: [source/dbmgmt/migration.rst](source/dbmgmt/migration.rst)
