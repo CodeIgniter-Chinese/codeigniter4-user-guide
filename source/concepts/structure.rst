@@ -30,7 +30,7 @@ app
 
 由于app目录已经是命名空间，因此你可以随意修改此目录的结构以满足应用程序的需要。例如，你可能决定开始使用存储库模式和实体模型来处理数据。在这种情况下，你可以将Models目录重命名为 Repositories，并添加新Entities目录。
 
-.. note:: 如果重命名 ``Controllers``目录，则无法使用路由到控制器的自动方法，并且需要在你的路由文件中定义所有路由。
+.. note:: 如果重命名 ``Controllers`` 目录，则无法使用路由到控制器的自动方法，并且需要在你的路由文件中定义所有路由。
 
 此目录中的所有文件都位于 ``App`` 命名空间下，你可以在 **app/Config/Constants.php** 文件中自由更改 。
 
@@ -63,4 +63,4 @@ Modifying Directory Locations(修改目录位置)
 
 如果你需要重置任何主目录位置，可以在 ``app/Config/Paths`` 更改你需要更改的配置设置。
 
-请参考 `Managing your Applications`_
+请参考 `Managing your Applications <../general/managing_apps.html>`_
