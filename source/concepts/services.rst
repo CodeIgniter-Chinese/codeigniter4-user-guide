@@ -109,11 +109,11 @@ CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。�
 服务发现
 -----------------
 
-CodeIgniter可以自动发现所有你在其他命名空间里可能定义的 ``Config\\Services.php`` 文件。这一功能允许了任何模块服务化文件的简单使用。
+CodeIgniter可以自动发现所有你在其他命名空间里可能定义的 ``Config\Services.php`` 文件。这一功能允许了任何模块服务化文件的简单使用。
 为了这些定制化的服务文件可以被自动发现，他们需要满足这些要求
 
 - 它们的命名空间必须在 ``Config\Autoload.php`` 中已定义
-- 在命名空间内部，该文件必须可以在 ``Config\Services.php`` 里被定位
+- 在命名空间内部，该文件必须可以在 ``Config\Services.php`` 里被找到
 - 它们必须继承 ``CodeIgniter\Config\BaseService`` 类
 
 一个小例子可以帮助我们更好地理解。

@@ -29,7 +29,7 @@ CodeIgniter提供了一个非常灵活且需要极少配置的自动加载器。
 
 	$psr4 = [
 		'App'         => APPPATH,
-		'CodeIgniter' => BASEPATH,
+		'CodeIgniter' => SYSTEMPATH,
 	];
 
 数组的每一行的键就是命名空间本身，不需要反斜杠(\)。如果你需要在定义数组时使用双引号，确保使用反斜杠进行转义。
@@ -63,3 +63,12 @@ CodeIgniter提供了一个非常灵活且需要极少配置的自动加载器。
 这为从以前版本升级提供了一个简洁的方式。
 
 对于支持从前版本而言，没有额外的配置选项。
+
+支持Composer
+=============
+
+默认情况下CodeIgniter自动初始化支持Composer. 默认情况下，它将在 ``ROOTPATH.'vendor / autoload.php'`` 中查找Composer的自动加载文件。
+如果因为一些原因需要更改这个文件的位置，你可以修改定义在 ``Config\Constants.php`` 的值
+
+.. note:: 如果在CodeIgniter和Composer中都定义了相同的名称空间，则CodeIgniter的自动加载器将首先定位文件。
+
