@@ -1,45 +1,39 @@
 #######
-Queries
+执行查询
 #######
 
-.. contents::
+.. 目录::
     :local:
     :depth: 2
 
 ************
-Query Basics
+基础查询
 ************
 
-Regular Queries
+执行常规查询
 ===============
 
-To submit a query, use the **query** function::
+使用 **query** 方法提交一个查询::
 
 	$db->query('YOUR QUERY HERE');
 
-The query() function returns a database result **object** when "read"
-type queries are run which you can use to :doc:`show your
-results <results>`. When "write" type queries are run it simply
-returns TRUE or FALSE depending on success or failure. When retrieving
-data you will typically assign the query to your own variable, like
-this::
+执行 "读取" 类型查询时，query() 方法返回一个数据库查询结果 **对象** ，
+如何使用参考 :doc:`显示查询结果 <results>` ；执行 "写入" 类查询时，
+只返回 TRUE 或 FALSE ，表示执行成功或失败。检索数据时，你通常需要自行
+编写查询语句，例如::
 
 	$query = $db->query('YOUR QUERY HERE');
 
-Simplified Queries
+执行简单查询
 ==================
 
-The **simpleQuery** method is a simplified version of the
-$db->query() method. It DOES
-NOT return a database result set, nor does it set the query timer, or
-compile bind data, or store your query for debugging. It simply lets you
-submit a query. Most users will rarely use this function.
+ **simpleQuery** 方法是 $db->query() 的简化版本。它不会返回查询结果，
+不记录查询耗时，不会绑定变量，也不保存查询语句（用于调试）。它只是简单的
+让你执行一个查询语句，可能大多数用户鲜有使用。
 
-It returns whatever the database drivers' "execute" function returns.
-That typically is TRUE/FALSE on success or failure for write type queries
-such as INSERT, DELETE or UPDATE statements (which is what it really
-should be used for) and a resource/object on success for queries with
-fetchable results.
+它只返回 "execute" 方法执行的返回值，无关数据库类型。
+典型的返回值是 TRUE/FALSE ，当执行类型是写入型时，它表示写操作的成功或失败（
+插入、删除或修改，实际就如此使用）；执行读取类型时，表示能否成功获取查询结果资源/对象。
 
 ::
 
@@ -52,77 +46,65 @@ fetchable results.
 		echo "Query failed!";
 	}
 
-.. note:: PostgreSQL's ``pg_exec()`` function (for example) always
-	returns a resource on success even for write type queries.
-	So keep that in mind if you're looking for a boolean value.
+.. 注解:: PostgreSQL的 ``pg_exec()`` 方法 (举例) 执行成功时
+	总是返回一个资源值，即使执行写入型查询也是如此。
+	所以当你判断布尔值时要切记此点。
 
 ***************************************
-Working with Database prefixes manually
+手动指定数据表前缀
 ***************************************
 
-If you have configured a database prefix and would like to prepend it to
-a table name for use in a native SQL query for example, then you can use
-the following::
+当你配置了数据库的表前缀，执行原生SQL查询等类似操作，应当给数据表增加前缀，
+你可以使用如下操作::
 
-	$db->prefixTable('tablename'); // outputs prefix_tablename
+	$db->prefixTable('tablename'); // 输出 prefix_tablename
 
-If for any reason you would like to change the prefix programmatically
-without needing to create a new connection you can use this method::
+出于某些原因，你想以编程的方式修改表前缀，且不想创建新数据库连接时，可以这样做::
 
 	$db->setPrefix('newprefix');
-	$db->prefixTable('tablename'); // outputs newprefix_tablename
+	$db->prefixTable('tablename'); // 输出 newprefix_tablename
 
-You can get the current prefix any time with this method::
+你可以用此方法随时随地获取当前的表前缀::
 	
 	$DBPrefix = $db->getPrefix();
 
 **********************
-Protecting identifiers
+保护标识符
 **********************
 
-In many databases, it is advisable to protect table and field names - for
-example with backticks in MySQL. **Query Builder queries are
-automatically protected**, but if you need to manually protect an
-identifier you can use::
+许多数据库建议保护表名和字段名 - 比如 MySQL 使用反引号。
+ **查询构造器会自动保护它们**, 但如果你需要手动保护标识符时，可以这么做::
 
 	$db->protectIdentifiers('table_name');
 
-.. important:: Although the Query Builder will try its best to properly
-	quote any field and table names that you feed it. Note that it
-	is NOT designed to work with arbitrary user input. DO NOT feed it
-	with unsanitized user data.
+.. 重要:: 尽管查询构造器会尽可能且适当的引用你所需的字段名和表名，
+	但请注意它不适用于恶意用户输入，勿将其用于未处理的用户数据。
 
-This function will also add a table prefix to your table, assuming you
-have a prefix specified in your database config file. To enable the
-prefixing set TRUE (boolean) via the second parameter::
+当你在数据库配置文件里配有表前缀，这个方法还能给表加上前缀，
+开启这个功能请在第二个参数填写 TRUE（布尔值）::
 
 	$db->protectIdentifiers('table_name', TRUE);
 
 ****************
-Escaping Queries
+查询转义
 ****************
 
-It's a very good security practice to escape your data before submitting
-it into your database. CodeIgniter has three methods that help you do
-this:
+执行数据库查询前做数据转义是又好又安全的实践，CodeIgniter 有三种方法帮到你:
 
-#. **$db->escape()** This function determines the data type so
-   that it can escape only string data. It also automatically adds
-   single quotes around the data so you don't have to:
+#. **$db->escape()** 这个方法会判断数据类型，对字符串数据做转义，
+   它也会自动给数据加单引号，你无需额外处理:
    ::
 
 	$sql = "INSERT INTO table (title) VALUES(".$db->escape($title).")";
 
-#. **$db->escapeString()** This function escapes the data passed to
-   it, regardless of type. Most of the time you'll use the above
-   function rather than this one. Use the function like this:
+#. **$db->escapeString()** 这个方法对传入数据做强制转义，且无关类型，
+   多数时候你会用上面的方法而非这个。此方法使用举例:
    ::
 
 	$sql = "INSERT INTO table (title) VALUES('".$db->escapeString($title)."')";
 
-#. **$db->escapeLikeString()** This method should be used when
-   strings are to be used in LIKE conditions so that LIKE wildcards
-   ('%', '\_') in the string are also properly escaped.
+#. **$db->escapeLikeString()** 这个方法用于 LIKE 条件字符串转义，
+    以确保 LIKE 的通配符 ('%', '\_') 也能正确的转义。
 
 ::
 
@@ -130,44 +112,37 @@ this:
         $sql = "SELECT id FROM table WHERE column LIKE '%" .
         $db->escapeLikeString($search)."%' ESCAPE '!'";
 
-.. important:: The ``escapeLikeString()`` method uses '!' (exclamation mark)
-	to escape special characters for *LIKE* conditions. Because this
-	method escapes partial strings that you would wrap in quotes
-	yourself, it cannot automatically add the ``ESCAPE '!'``
-	condition for you, and so you'll have to manually do that.
+.. 重要::  ``escapeLikeString()`` 方法使用 '!' (感叹号)
+	转义 *LIKE* 条件中的特殊字符，因为这个方法只转义引号里的字符串，
+	它不能自动添加 ``ESCAPE '!'`` 条件，因此你必须手动添加。
 
 **************
-Query Bindings
+查询绑定
 **************
 
-Bindings enable you to simplify your query syntax by letting the system
-put the queries together for you. Consider the following example::
+绑定可以让你用简单的查询语法，让系统将查询语句合在一起，考虑下这个例子::
 
 	$sql = "SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?";
 	$db->query($sql, [3, 'live', 'Rick']);
 
-The question marks in the query are automatically replaced with the
-values in the array in the second parameter of the query function.
+查询语句的问号会被方法第二个参数的数组顺次替换。
 
-Binding also work with arrays, which will be transformed to IN sets::
+使用IN条件时，绑定用多维数组搞定集合::
 
 	$sql = "SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?";
 	$db->query($sql, [[3, 6], 'live', 'Rick']);
 
-The resulting query will be::
+转化后的语句是::
 
 	SELECT * FROM some_table WHERE id IN (3,6) AND status = 'live' AND author = 'Rick'
 
-The secondary benefit of using binds is that the values are
-automatically escaped producing safer queries.
-You don't have to remember to manually escape data — the engine does it automatically for you.
+使用绑定的第二个好处是，它会自动转义输入值，生成安全的查询语句。
+你无需记住要手动转义数据这件事 - 引擎会自动帮你完成。
 
-Named Bindings
+命名绑定
 ==============
 
-Instead of using the question mark to mark the location of the bound values,
-you can name the bindings, allowing the keys of the values passed in to match
-placeholders in the query::
+你可以用命名绑定，而不用问号标记绑定值的位置，从而允许在查询中使用键名匹配占位符::
 
         $sql = "SELECT * FROM some_table WHERE id = :id: AND status = :status: AND author = :name:";
         $db->query($sql, [
@@ -176,17 +151,16 @@ placeholders in the query::
                 'name'   => 'Rick'
         ]);
 
-.. note:: Each name in the query MUST be surrounded by colons.
+.. 注解:: 查询语句中的每个键名前后【必须】加英文冒号。
 
 ***************
-Handling Errors
+错误处理
 ***************
 
 **$db->error();**
 
-If you need to get the last error that has occurred, the error() method
-will return an array containing its code and message. Here's a quick
-example::
+如果你需要获取最近一次发生的数据库报错，error() 方法会返回一个数组，
+包含错误号和错误信息，来看下用例::
 
 	if ( ! $db->simpleQuery('SELECT `example_field` FROM `example_table`'))
 	{
@@ -194,25 +168,20 @@ example::
 	}
 
 ****************
-Prepared Queries
+预编译查询
 ****************
 
-Most database engines support some form of prepared statements, that allow you to prepare a query once, and then run
-that query multiple times with new sets of data. This eliminates the possibility of SQL injection since the data is
-passed to the database in a different format than the query itself. When you need to run the same query multiple times
-it can be quite a bit faster, too. However, to use it for every query can have major performance hits, since you're calling
-out to the database twice as often. Since the Query Builder and Database connections already handle escaping the data
-for you, the safety aspect is already taken care of for you. There will be times, though, when you need to ability
-to optimize the query by running a prepared statement, or prepared query.
+大部分数据库引擎支持某种形式的预编译语句，使你仅做一次预编译，然后在新数据集上多次查询。它消除了SQL注入的可能性，因为数据是以另一种形式传给数据库而非查询语句。
+当你需要多次执行相同查询时，它也相当快速。然而，若你想应用于所有查询，这会极大影响性能，因为它通常要访问数据库两次。
+由于查询构造器和数据库连接已经处理了转义数据，对于你来说，安全方面已经为解决了， 但有时候，你也需要通过预编译语句或预编译查询来优化查询的能力。
 
-Preparing the Query
+编译查询语句
 ===================
 
-This can be easily done with the ``prepare()`` method. This takes a single parameter, which is a Closure that returns
-a query object. Query objects are automatically generated by any of the "final" type queries, including **insert**,
-**update**, **delete**, **replace**, and **get**. This is handled the easiest by using the Query Builder to
-run a query. The query is not actually run, and the values don't matter since they're never applied, acting instead
-as placeholders. This returns a PreparedQuery object::
+使用 ``prepare()`` 方法可轻松完成编译，它有一个参数，是函数闭包，返回一个查询对象。
+查询对象由任一 "最终" 类型的查询自动生成，包括 **insert** , **update** , **delete** ,  **replace** 和 **get** 。使用查询构造器执行查询可以最轻松地处理此问题。
+查询实际没有执行，传入的值不重要也不会被处理，仅做占位使用。
+这样会返回一个预编译查询对象::
 
     $pQuery = $db->prepare(function($db)
     {
@@ -224,8 +193,7 @@ as placeholders. This returns a PreparedQuery object::
                    ]);
     });
 
-If you don't want to use the Query Builder you can create the Query object manually using question marks for
-value placeholders::
+如果你不想使用查询构造器，你可以手动创建查询对象，用问号做占位符::
 
     use CodeIgniter\Database\Query;
 
@@ -236,8 +204,7 @@ value placeholders::
         return (new Query($db))->setQuery($sql);
     });
 
-If the database requires an array of options passed to it during the prepare statement phase you can pass that
-array through in the second parameter::
+如果数据库要求在预编译阶段提供选项数组，可以将数组放到第二个参数::
 
     use CodeIgniter\Database\Query;
 
@@ -248,15 +215,13 @@ array through in the second parameter::
         return (new Query($db))->setQuery($sql);
     }, $options);
 
-Executing the Query
+执行预编译查询
 ===================
 
-Once you have a prepared query you can use the ``execute()`` method to actually run the query. You can pass in as
-many variables as you need in the query parameters. The number of parameters you pass must match the number of
-placeholders in the query. They must also be passed in the same order as the placeholders appear in the original
-query::
+一旦你有了一个预编译查询，你可以使用 ``execute()`` 方法真正的执行查询。
+你可以传递多个你需要的查询参数，参数的个数必须与占位符个数相同，参数的顺序也要与原始占位符保持一致::
 
-    // Prepare the Query
+    // 编译查询语句
     $pQuery = $db->prepare(function($db)
     {
         return $db->table('user')
@@ -267,87 +232,79 @@ query::
                    ]);
     });
 
-    // Collect the Data
+    // 准备数据
     $name    = 'John Doe';
     $email   = 'j.doe@example.com';
     $country = 'US';
 
-    // Run the Query
+    // 执行查询
     $results = $pQuery->execute($name, $email, $country);
 
-This returns a standard :doc:`result set </database/results>`.
+这会返回标准的 :doc:`结果集 </database/results>`.
 
-Other Methods
+其他方法
 =============
 
-In addition to these two primary methods, the prepared query object also has the following methods:
+除了上述两个主要方法，预编译查询还有以下方法可用:
 
 **close()**
 
-While PHP does a pretty good job of closing all open statements with the database it's always a good idea to
-close out the prepared statement when you're done with it::
+虽然 PHP 在（自动）关闭所有打开的查询资源时做的非常好，但手动关闭执行完的预编译查询同样也是好的主意::
 
     $pQuery->close();
 
 **getQueryString()**
 
-This returns the prepared query as a string.
+返回预编译查询的字符串。
 
 **hasError()**
 
-Returns boolean true/false if the last execute() call created any errors.
+返回布尔值 true/false ，表示调用最近一次是否有执行错误。
 
 **getErrorCode()**
 **getErrorMessage()**
 
-If any errors were encountered these methods can be used to retrieve the error code and string.
+如果有报错，可以用这两个方法获取错误号和错误信息。
 
 **************************
-Working with Query Objects
+使用查询对象
 **************************
 
-Internally, all queries are processed and stored as instances of
-\CodeIgniter\Database\Query. This class is responsible for binding
-the parameters, otherwise preparing the query, and storing performance
-data about its query.
+在内部，所有查询的处理和存储都在 \CodeIgniter\Database\Query 的实例中进行。
+这个类负责绑定参数、也做预编译查询、还能保存查询时的性能数据。
 
 **getLastQuery()**
 
-When you just need to retrieve the last Query object, use the
-getLastQuery() method::
+当你需要获取最近一次的查询对象，请使用 getLastQuery() 方法::
 
 	$query = $db->getLastQuery();
 	echo (string)$query;
 
-The Query Class
+查询类
 ===============
 
-Each query object stores several pieces of information about the query itself.
-This is used, in part, by the Timeline feature, but is available for your use
-as well.
+每个查询对象都保存了此次查询的一些信息，它有部分被时间线功能使用，
+但你也可以使用（译者注：此处时间线指数据库执行SQL过程，记录它们方便调试和优化性能）。
 
 **getQuery()**
 
-Returns the final query after all processing has happened. This is the exact
-query that was sent to the database::
+返回各种编译构造之后的最终查询语句，也就是发送到数据库执行的语句::
 
 	$sql = $query->getQuery();
 
-This same value can be retrieved by casting the Query object to a string::
+将查询对象做字符串转换也能获得相同的值::
 
 	$sql = (string)$query;
 
 **getOriginalQuery()**
 
-Returns the raw SQL that was passed into the object. This will not have any
-binds in it, or prefixes swapped out, etc::
+返回初始传入对象里的 SQL 语句，没有任何绑定或前缀修饰等等::
 
 	$sql = $query->getOriginalQuery();
 
 **hasError()**
 
-If an error was encountered during the execution of this query this method
-will return true::
+如果执行时有任何错误，这个方法将返回 true::
 
 	if ($query->hasError())
 	{
@@ -357,8 +314,7 @@ will return true::
 
 **isWriteType()**
 
-Returns true if the query was determined to be a write-type query (i.e.
-INSERT, UPDATE, DELETE, etc)::
+如果当前查询是写入型 (例如 INSERT, UPDATE, DELETE, 等)，此方法返回 true::
 
 	if ($query->isWriteType())
 	{
@@ -367,20 +323,19 @@ INSERT, UPDATE, DELETE, etc)::
 
 **swapPrefix()**
 
-Replaces one table prefix with another value in the final SQL. The first
-parameter is the original prefix that you want replaced, and the second
-parameter is the value you want it replaced with::
+替换最终执行的 SQL 里的表前缀，第一个参数是原始你想替换的前缀，
+第二个参数是替换之后你想要的前缀::
 
 	$sql = $query->swapPrefix('ci3_', 'ci4_');
 
 **getStartTime()**
 
-Gets the time the query was executed in seconds with microseconds::
+获取查询执行时间，以秒为单位，精确到毫秒级::
 
 	$microtime = $query->getStartTime();
 
 **getDuration()**
 
-Returns a float with the duration of the query in seconds with microseconds::
+返回执行查询的时长（秒），浮点数，精确到毫秒::
 
 	$microtime = $query->getDuration();

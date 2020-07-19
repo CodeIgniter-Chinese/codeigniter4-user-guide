@@ -2,12 +2,12 @@
 数据库快速入门: 示例代码
 ##################################
 
-这个页面包含的示例代码将简单介绍如何使用数据库类。更详细的信息请参考每个函数单独的介绍页面。
+这个页面包含的示例代码将简单介绍如何使用数据库类。更完整的信息请参考每个函数/类单独的介绍页面。
 
 初始化数据库类
 ===============================
 
-下面的代码将根据你的 :doc:`数据库配置 <configuration>` 加载并初始化数据库类 ::
+下面的代码将根据你的 :doc:`数据库配置 <configuration>` 加载并初始化数据库类::
 
 	$db = \Config\Database::connect();
 
@@ -49,7 +49,7 @@
 		echo $row['email'];
 	}
 
-上面的 getResultArray() 函数返回一个 **数组的数组** 。例如：$row['title']
+上面的 getResultArray() 函数返回一个 **二维数组** 。例如：$row['title']
 
 单结果标准查询（对象形式）
 =================================
@@ -71,7 +71,7 @@
 	$row = $query->getRowArray();
 	echo $row['name'];
 
-上面的 getRowArray() 函数返回一个 **数组** 。例如：$row['name']
+上面的 getRowArray() 函数返回一个 **一维数组** 。例如：$row['name']
 
 标准插入
 ===============
@@ -85,7 +85,7 @@
 使用查询构造器查询数据
 ===========================
 
- :doc:`查询构造器模式 <query_builder>` 提供给我们一种简单的查询数据的途径 ::
+ :doc:`查询构造器模式 <query_builder>` 提供给我们一种简单的查询数据的途径::
 
 	$query = $db->table('table_name')->get();
 	
@@ -94,7 +94,7 @@
 		echo $row->title;
 	}
 
-上面的 get() 函数从给定的表中查询出所有的结果。:doc:`查询构造器 <query_builder>` 提供了所有数据库操作的快捷函数。
+上面的 get() 函数从给定的表中查询出所有结果。 :doc:`查询构造器 <query_builder>`  提供了所有数据库操作的快捷函数。
 
 使用查询构造器插入数据
 ============================
@@ -107,5 +107,5 @@
 		'date' => $date
 	);
 	
-	$db->table('mytable')->insert($data);  // Produces: INSERT INTO mytable (title, name, date) VALUES ('{$title}', '{$name}', '{$date}')
+	$db->table('mytable')->insert($data);  // 生成: INSERT INTO mytable (title, name, date) VALUES ('{$title}', '{$name}', '{$date}')
 

@@ -2,7 +2,7 @@
 数据库元数据
 #################
 
-.. contents::
+.. 目录::
     :local:
     :depth: 2
 
@@ -17,7 +17,7 @@
 
 **$db->listTables();**
 
-返回一个数组，其中包含当前连接到的数据库中所有表的数组。例如::
+返回一个数组，包含当前连接数据库的全部表名称。例如::
 
 	$tables = $db->listTables();
 
@@ -31,7 +31,7 @@
 
 **$db->tableExists();**
 
-有时，在对其执行操作之前知道特定表是否存在是有帮助的。
+有时先检查某个表是否存在再进行操作会比较有用，
 返回布尔值 TRUE/FALSE. 例如::
 
 	if ($db->tableExists('table_name'))
@@ -45,14 +45,14 @@
 字段元数据
 **************
 
-列出表中的所有列
+列出表的所有字段
 ==========================
 
 **$db->getFieldNames()**
 
-返回包含字段名称的数组。 有两种不同的调用方式：
+返回包含字段名称的数组，有两种不同的调用方式：
 
-1.你可以提供表名称从 $db->object 中调用它::
+1. 你可以调用 $db->object 的方法获取表的字段::
 
 	$fields = $db->getFieldNames('table_name');
 
@@ -61,7 +61,7 @@
 		echo $field;
 	}
 
-2.你可以从任何查询结果对象上调用该方法，获取查询返回的所有字段::
+2. 你可以调用任何查询结果对象的方法获取所有字段::
 
 	$query = $db->query('SELECT * FROM some_table');
 
@@ -75,7 +75,8 @@
 
 **$db->fieldExists()**
 
-有时，在执行一个操作之前先确定某个字段是否存在是很有用的。该方法返回布尔值 TRUE/FALSE。
+有时先确定某个字段是否存在再进行操作也比较有用，
+该方法返回布尔值 TRUE/FALSE。
 使用示例::
 
 	if ($db->fieldExists('field_name', 'table_name'))
@@ -83,7 +84,7 @@
 		// some code...
 	}
 
-.. note:: 将 *field_name* 替换为你要查找的字段名, 并且将 *table_name* 替换为你要查找的表的名称
+.. note:: 将 *field_name* 替换为你要查找的字段名, 并且将 *table_name*  替换为你要查找的表的名称
 
 获取字段的元数据
 =======================
@@ -92,7 +93,7 @@
 
 该方法返回一个包含字段信息的对象数组。
 
-有时，收集字段名称或相关的元数据会很有用的，例如数据类型，最大长度等。
+有时，收集字段名称或相关的元数据会很有用，例如数据类型，最大长度等。
 
 .. note:: 并非所有的数据库都支持元数据。
 
@@ -108,21 +109,55 @@
 		echo $field->primary_key;
 	}
 
-如果你已经进行了查询，则可以使用结果对象而不是提供表格名::
+如果你已经进行了查询，则可以使用结果对象而且不用提供表名::
 
 	$query = $db->query("YOUR QUERY");
 	$fields = $query->fieldData();
 
-如果你的数据库支持，则可以从此函数获得以下数据:
+如果你的数据库支持，则可以用此方法获得以下数据:
 
 -  name - 字段名
 -  max_length - 字段的最大长度
 -  primary_key - 等于1的话表示此字段是主键
 -  type - 字段的数据类型
 
-列出表格中的索引
+获取表的索引
 ===========================
 
 **$db->getIndexData()**
 
-请写下来，有人……
+返回一个包含索引信息的对象数组。
+
+使用示例::
+
+	$keys = $db->getIndexData('table_name');
+
+	foreach ($keys as $key)
+	{
+		echo $key->name;
+		echo $key->type;
+		echo $key->fields;  // 字段名的数组
+	}
+
+根据数据库不同 type 会有所区别。
+例如，MySQL会返回 primary、fulltext、spatial、index 或 unique 其中之一，
+每个（索引）关联一张表。
+
+**$db->getForeignKeyData()**
+
+返回一个包含外键信息的对象数组。
+
+使用示例::
+
+	$keys = $db->getForeignKeyData('table_name');
+
+	foreach ($keys as $key)
+	{
+		echo $key->constraint_name;
+		echo $key->table_name;
+		echo $key->column_name;
+		echo $key->foreign_table_name;
+		echo $key->foreign_column_name;
+	}
+
+对象字段根据你用的数据库会有不同，例如 SQLite3 不返回 column_name 字段，但会附加 *sequence* 字段用于解释复合外键。
