@@ -2,15 +2,14 @@
 查询构造器类
 ###################
 
-CodeIgniter 提供了查询构造器类， 查询构造器允许你使用较少的代码来在数据库中获取、新增
-或更新数据。 有时只需要一两行代码就能完成数据库操作。 CodeIgniter并不需要为每个数据表
-提供一个类， 而是使用了一种更简单的接口。
+CodeIgniter 提供了查询构造器类，它允许你用较少的代码量获取数据库的信息、新增
+或更新数据。有时只需要一两行代码就能完成数据库操作。CodeIgniter 不要求每个数据表
+有一个类文件，它使用了一种更简单的接口。
 
-除了简单， 使用查询构造器的另一个好处是可以让你创建数据库独立的应用程序， 这是因为查询语句
-是由每个独立的数据库适配器生成的。另外，由于系统会自动对数据进行转义，所以它还能提供更安全
-的查询。
+除了简单，使用查询构造器的主要好处是可以让你创建跨数据库的应用程序，因为查询语句
+是由每种数据库适配器生成的。它也允许用于更安全的查询，因为系统会自动转义传入数据。
 
-.. contents::
+.. 内容::
     :local:
     :depth: 2
 
@@ -18,36 +17,36 @@ CodeIgniter 提供了查询构造器类， 查询构造器允许你使用较少�
 加载查询构造器
 *************************
 
-查询构造器通过 ``table()`` 数据库连接上的方法加载。 ``FROM`` 将为你设置查询部分并
-返回查询构造类的新实例::
+查询构造器通过数据库连接对象的 ``table()`` 方法加载，
+这会设置查询语句 ``FROM`` 的部分并且返回一个查询构造器的新实例::
 
     $db      = \Config\Database::connect();
     $builder = $db->table('users');
 
-查询构造器仅在你专门请求类时才加载到内存中，因此默认情况下不使用任何资源。
+查询构造器仅在你明确请求类时才加载到内存中，因此默认不使用（消耗）任何资源。
 
 **************
-查询数据
+选择数据
 **************
 
 下面的方法用来构建 SQL **SELECT** 语句。
 
 **$builder->get()**
 
-执行选择查询并返回查询结果，可以得到一个表的所有数据::
+执行选择查询并返回结果，可用于获取一个表的所有记录::
 
     $builder = $db->table('mytable');
-    $query   = $builder->get();  // Produces: SELECT * FROM mytable
+    $query   = $builder->get();  // 生成: SELECT * FROM mytable
 
 第一个和第二个参数用于设置 limit 和 offset 子句::
 
 	$query = $builder->get(10, 20);
 
-	// Executes: SELECT * FROM mytable LIMIT 20, 10
-	// (在 MySQL 的情况。其他数据库的语法略有不同)
+	// 执行: SELECT * FROM mytable LIMIT 20, 10
+	// (在 MySQL 里的情况，其他数据库的语法略有不同）
 
-你应该已经注意到了， 上面的方法的结果都赋值给了一个 $query 变量， 通过这个变量， 我们
-可以得到查询的结果::
+你应该已经注意到了，上面方法的结果赋值给了一个 $query 变量，
+我们可以用它输出查询结果::
 
 	$query = $builder->get();
 
@@ -56,60 +55,59 @@ CodeIgniter 提供了查询构造器类， 查询构造器允许你使用较少�
 		echo $row->title;
 	}
 
-请访问: doc:`result functions <results>` 页面获得完整的结果关于结果生成的讨论.
+请访问 :doc:`结果方法 <results>` 页面获得结果生成的完整论述。
 
 **$builder->getCompiledSelect()**
 
-该方法和 **$builder->get()** 方法一样编译选择查询并返回查询的 SQL 语句，
-但是， 该方法并不执行它。 此方法只是将SQL查询作为字符串返回。
+和 **$builder->get()** 方法一样编译选择查询但是并不执行，
+此方法只是将 SQL 查询语句作为字符串返回。
 
 例如::
 
 	$sql = $builder->getCompiledSelect();
 	echo $sql;
 
-	// Prints string: SELECT * FROM mytable
+	// 输出字符串: SELECT * FROM mytable
 
-第一个参数使您能够设置查询生成器是否查询
-将重置(默认情况下将重置，就像使用 `$builder->get()` 时一样)::
+第一个参数使你能设置是否重置查询构造器（默认重置，
+就像使用 `$builder->get()` 时一样)::
 
 	echo $builder->limit(10,20)->getCompiledSelect(false);
 
-	// Prints string: SELECT * FROM mytable LIMIT 20, 10
-	// (在 MySQL 的情况。其他数据库的语法略有不同)
+	// 输出字符串: SELECT * FROM mytable LIMIT 20, 10
+	// (在 MySQL 里的情况，其他数据库的语法略有不同）
 
 	echo $builder->select('title, content, date')->getCompiledSelect();
 
-	// Prints string: SELECT title, content, date FROM mytable LIMIT 20, 10
+	// 输出字符串: SELECT title, content, date FROM mytable LIMIT 20, 10
 
-上面的Executes中，最值得注意的是，第二个查询并没有用到 **$builder->from()** 方法， 
-也没有为查询指定表名参数。 这是因为查询并没有使用 **$builder->get()** 方法执行， 
-它会重置值或使用 **$builder->resetQuery()** 方法直接重置。
+最值得注意的是，上例第二个查询并没有用到 **$builder->from()** 方法， 
+也没有为查询指定表名参数。因为这个查询没有被可重置值的 **$builder->get()** 方法执行，或是使用 **$builder->resetQuery()** 方法直接重置。
 
 **$builder->getWhere()**
 
-与 ``get()`` 函数相同，只是它允许您添加一个
-在第一个参数中使用 "where" 子句，而不是使用 db->where()
-功能::
+与 ``get()`` 函数相同，只是它允许你用第一个参数中添加 "where" 子句，
+而不是使用 db->where() 功能::
 
 	$query = $builder->getWhere(['id' => $id], $limit, $offset);
 
-Please read the about the where function below for more information.
+请阅读下面 `where` 方法获得更多信息。
 
 **$builder->select()**
 
-允许您编写查询的 SELECT 部分::
+允许你编写查询的 SELECT 部分::
 
 	$builder->select('title, content, date');
 	$query = $builder->get();
 
-	// Executes: SELECT title, content, date FROM mytable
+	// 执行: SELECT title, content, date FROM mytable
 
-.. note:: 如果要从表中选择全部 (\*)， 则不需要这样做使用这个函数。 当省略时，CodeIgniter 假定您希望这样做选择所有字段并自动添加 'SELECT \*'。
+.. 注解:: 如果要从表中选择全部字段 (\*) ，不需要使用这个函数。
+    当省略它时，CodeIgniter 假定你希望选择所有字段并自动添加 'SELECT \*' 。
 
-``$builder->select()`` 方法的第二个参数可选，如果设置
-为 FALSE，CodeIgniter 将不保护你的表名和字段名，这在当
-你编写复合查询语句时很有用，不会破坏你编写的语句。
+``$builder->select()`` 方法的第二个参数可选，如果设置为 FALSE，
+CodeIgniter 将不保护你的表名和字段名。当你编写复合查询语句时很有用，
+它不会因为自动转义而搞坏你的语句。
 
 ::
 
@@ -118,46 +116,59 @@ Please read the about the where function below for more information.
 
 **$builder->selectMax()**
 
-该方法用于编写查询语句中的 ``SELECT MAX(field)`` 部分，你
-可以使用第二个参数重命名结果字段。
+该方法用于编写查询语句中的 ``SELECT MAX(field)`` 部分，
+你可以使用第二个参数重命名结果字段（可选）。
 
 ::
 
 	$builder->selectMax('age');
-	$query = $builder->get();  // Produces: SELECT MAX(age) as age FROM mytable
+	$query = $builder->get();  // 生成: SELECT MAX(age) as age FROM mytable
 
 	$builder->selectMax('age', 'member_age');
-	$query = $builder->get(); // Produces: SELECT MAX(age) as member_age FROM mytable
+	$query = $builder->get(); // 生成: SELECT MAX(age) as member_age FROM mytable
 
 **$builder->selectMin()**
 
-该方法用于编写查询语句中的 "SELECT MIN(field)" 部分，和 
-selectMax() 方法一样， 你可以使用第二个参数（可选）重命名结果字段。
+该方法用于编写查询语句中的 "SELECT MIN(field)" 部分，
+和 selectMax() 一样，你可以使用第二个参数重命名结果字段（可选）。
 
 ::
 
 	$builder->selectMin('age');
-	$query = $builder->get(); // Produces: SELECT MIN(age) as age FROM mytable
+	$query = $builder->get(); // 生成: SELECT MIN(age) as age FROM mytable
 
 **$builder->selectAvg()**
 
-该方法用于编写查询语句中的 "SELECT AVG(field)" 部分，和 
-selectMax() 方法一样， 你可以使用第二个参数（可选）重命名结果字段。
+该方法用于编写查询语句中的 "SELECT AVG(field)" 部分，
+和 selectMax() 一样，你可以使用第二个参数重命名结果字段（可选）。
 
 ::
 
 	$builder->selectAvg('age');
-	$query = $builder->get(); // Produces: SELECT AVG(age) as age FROM mytable
+	$query = $builder->get(); // 生成: SELECT AVG(age) as age FROM mytable
 
 **$builder->selectSum()**
 
-该方法用于编写查询语句中的 "SELECT SUM(field)" 部分，和 
-selectMax() 方法一样， 你可以使用第二个参数重命名结果字段。
+该方法用于编写查询语句中的 "SELECT SUM(field)" 部分，
+和 selectMax() 一样，你可以使用第二个参数重命名结果字段（可选）。
 
 ::
 
 	$builder->selectSum('age');
-	$query = $builder->get(); // Produces: SELECT SUM(age) as age FROM mytable
+	$query = $builder->get(); // 生成: SELECT SUM(age) as age FROM mytable
+
+**$builder->selectCount()**
+
+该方法用于编写查询语句中的 "SELECT COUNT(field)" 部分，
+和 selectMax() 一样，你可以使用第二个参数重命名结果字段（可选）。
+
+.. 注解:: 该方法在使用 ``groupBy()`` 时特别有用。
+        用于一般的结果计数详见 ``countAll()`` 或 ``countAllResults()`` 。
+
+::
+
+	$builder->selectCount('age');
+	$query = $builder->get(); // 生成: SELECT COUNT(age) as age FROM mytable
 
 **$builder->from()**
 
@@ -165,9 +176,10 @@ selectMax() 方法一样， 你可以使用第二个参数重命名结果字段�
 
 	$builder->select('title, content, date');
 	$builder->from('mytable');
-	$query = $builder->get();  // Produces: SELECT title, content, date FROM mytable
+	$query = $builder->get();  // 生成: SELECT title, content, date FROM mytable
 
-.. note:: 正如前面所说，查询中的 FROM 部分可以在方法 $db->table() 中指定。 对 from() 的其他调用将向查询的FROM部分添加更多表。
+.. 注解:: 正如前面所说，查询中的 FROM 部分可以在方法 $db->table() 中指定。
+    额外调用 from() 将向查询的 FROM 部分添加更多表。
 
 **$builder->join()**
 
@@ -178,38 +190,38 @@ selectMax() 方法一样， 你可以使用第二个参数重命名结果字段�
     $builder->join('comments', 'comments.id = blogs.id');
     $query = $builder->get();
 
-    // Produces:
+    // 生成:
     // SELECT * FROM blogs JOIN comments ON comments.id = blogs.id
 
-如果你的查询中有多个连接，你可以多次调用这个方法.
+如果你的查询有多个连接，可以多次调用这个方法。
 
-你可以传入第三个参数指定连接的类型， 有这样几种选择： left， right， 
-outer， inner， left outer 和 right outer 。
+你可以传入第三个参数指定连接的类型，可选: left，right, 
+outer, inner, left outer 和 right outer 。
 
 ::
 
 	$builder->join('comments', 'comments.id = blogs.id', 'left');
-	// Produces: LEFT JOIN comments ON comments.id = blogs.id
+	// 生成: LEFT JOIN comments ON comments.id = blogs.id
 
 *************************
-查找特定数据
+查找具体数据
 *************************
 
 **$builder->where()**
 
 该方法提供了4中方式让你编写查询语句中的 **WHERE** 子句:
 
-.. note:: 所有的数据将会自动转义，生成安全的查询语句。
+.. 注解:: 所有传入数据将会自动转义，生成安全的查询语句。
 
 #. **简单的 key/value 方式:**
 
 	::
 
-		$builder->where('name', $name); // Produces: WHERE name = 'Joe'
+		$builder->where('name', $name); // 生成: WHERE name = 'Joe'
 
-	注意自动为你加上了等号。
+	注意它自动为你加上了等号。
 
-	如果你多次调用该方法，那么多个 WHERE 条件将会使用 AND 连接起来:
+	如果你多次调用该方法，那么多个 WHERE 条件将会使用 AND 连接:
 
 	::
 
@@ -220,12 +232,12 @@ outer， inner， left outer 和 right outer 。
 
 #. **自定义 key/value 方式:**
 
-	为了控制比较，你可以在第一个参数中包含一个比较运算符:
+	你可以在第一个参数中包含一个比较运算符，用来控制比较条件:
 
 	::
 
 		$builder->where('name !=', $name);
-		$builder->where('id <', $id); // Produces: WHERE name != 'Joe' AND id < 45
+		$builder->where('id <', $id); // 生成: WHERE name != 'Joe' AND id < 45
 
 #. **关联数组方式:**
 
@@ -233,9 +245,9 @@ outer， inner， left outer 和 right outer 。
 
 		$array = ['name' => $name, 'title' => $title, 'status' => $status];
 		$builder->where($array);
-		// Produces: WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
+		// 生成: WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
 
-	你也可以在这个方法里包含你自己的比较运算符:
+	你也可以在这个方法里包含你自己的运算符:
 
 	::
 
@@ -243,64 +255,116 @@ outer， inner， left outer 和 right outer 。
 		$builder->where($array);
 
 #. **自定义字符串:**
-	你可以完全手动编写子句::
+	你可以手动编写子句::
 
 		$where = "name='Joe' AND status='boss' OR status='active'";
 		$builder->where($where);
 
-``$builder->where()`` 方法有一个可选的第三个参数，如果设置为 FALSE，CodeIgniter 
+``$builder->where()`` 的第三个参数（可选），如果设置为 FALSE，CodeIgniter 
 将不保护你的表名和字段名。
 
 ::
 
 	$builder->where('MATCH (field) AGAINST ("value")', NULL, FALSE);
 
+#. **子查询:**
+    你可以使用匿名函数生成一个子查询。
+
+    ::
+
+        $builder->where('advance_amount <', function(BaseBuilder $builder) {
+            return $builder->select('MAX(advance_amount)', false)->from('orders')->where('id >', 2);
+        });
+        // 生成: WHERE "advance_amount" < (SELECT MAX(advance_amount) FROM "orders" WHERE "id" > 2)
+
 **$builder->orWhere()**
 
-这个方法和上面的方法一样，只是多个条件之间使用 OR 进行连接::
+这个方法和上面的方法一样，只是多个条件之间使用 OR 进行连接
+
+    ::
 
 	$builder->where('name !=', $name);
-	$builder->orWhere('id >', $id);  // Produces: WHERE name != 'Joe' OR id > 50
+	$builder->orWhere('id >', $id);  // 生成: WHERE name != 'Joe' OR id > 50
 
 **$builder->whereIn()**
 
 该方法用于生成 WHERE IN('item', 'item') 子句，多个子句之间使用 AND 连接
 
-::
+    ::
 
-	$names = array('Frank', 'Todd', 'James');
-	$builder->whereIn('username', $names);
-	// Produces: WHERE username IN ('Frank', 'Todd', 'James')
+        $names = ['Frank', 'Todd', 'James'];
+        $builder->whereIn('username', $names);
+        // 生成: WHERE username IN ('Frank', 'Todd', 'James')
+
+你可以用子查询替代数组值。
+
+    ::
+
+        $builder->whereIn('id', function(BaseBuilder $builder) {
+            return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
+        });
+        // 生成: WHERE "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
 
 **$builder->orWhereIn()**
 
 该方法用于生成 WHERE IN('item', 'item') 子句，多个子句之间使用 OR 连接
 
-::
+    ::
 
-	$names = array('Frank', 'Todd', 'James');
-	$builder->orWhereIn('username', $names);
-	// Produces: OR username IN ('Frank', 'Todd', 'James')
+        $names = ['Frank', 'Todd', 'James'];
+        $builder->orWhereIn('username', $names);
+        // 生成: OR username IN ('Frank', 'Todd', 'James')
+
+你可以用子查询替代数组值。
+
+    ::
+
+        $builder->orWhereIn('id', function(BaseBuilder $builder) {
+            return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
+        });
+
+        // 生成: OR "id" IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
 
 **$builder->whereNotIn()**
 
 该方法用于生成 WHERE NOT IN('item', 'item') 子句，多个子句之间使用 AND 连接
 
-::
+    ::
 
-	$names = array('Frank', 'Todd', 'James');
-	$builder->whereNotIn('username', $names);
-	// Produces: WHERE username NOT IN ('Frank', 'Todd', 'James')
+        $names = ['Frank', 'Todd', 'James'];
+        $builder->whereNotIn('username', $names);
+        // 生成: WHERE username NOT IN ('Frank', 'Todd', 'James')
+
+你可以用子查询替代数组值。
+
+    ::
+
+        $builder->whereNotIn('id', function(BaseBuilder $builder) {
+            return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
+        });
+
+        // 生成: WHERE "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
+
 
 **$builder->orWhereNotIn()**
 
 该方法用于生成 WHERE NOT IN('item', 'item') 子句，多个子句之间使用 OR 连接
 
-::
+    ::
 
-	$names = array('Frank', 'Todd', 'James');
-	$builder->orWhereNotIn('username', $names);
-	// Produces: OR username NOT IN ('Frank', 'Todd', 'James')
+        $names = ['Frank', 'Todd', 'James'];
+        $builder->orWhereNotIn('username', $names);
+        // 生成: OR username NOT IN ('Frank', 'Todd', 'James')
+
+你可以用子查询替代数组值。
+
+    ::
+
+        $builder->orWhereNotIn('id', function(BaseBuilder $builder) {
+            return $builder->select('job_id')->from('users_jobs')->where('user_id', 3);
+        });
+
+        // 生成: OR "id" NOT IN (SELECT "job_id" FROM "users_jobs" WHERE "user_id" = 3)
 
 ************************
 查找相似的数据
@@ -308,21 +372,21 @@ outer， inner， left outer 和 right outer 。
 
 **$builder->like()**
 
-这个方法使您能够生成类似 **LIKE** 子句，在进行搜索时非常有用。
+这个方法使您能够生成类似 **LIKE** 子句，做搜索时非常有用。
 
-.. note:: 所有数据将会自动被转义。
+.. 注解:: 所有传入数据将被自动转义。
 
-.. note:: ``like*`` 通过将第五个参数传递给方法，可以强制所有方法变体
-	执行不区分大小写的搜索 ``true``。 这将使用特定于平台的功能，否则将强制值
-	为小写，即 ``WHERE LOWER(column) LIKE '%search%'``。这可能需要制作
-	索引 ``LOWER(column)`` 而不是 ``column`` 有效。
+.. 注解:: ``like*`` 通过传第五个参数传递值 ``true`` 可以强制在
+	执行查询时不区分大小写。这项特性可用性跟平台相关，否则将强制值转为小写，
+	例如 ``WHERE LOWER(column) LIKE '%search%'``，让其生效可能需要
+	在制作索引时用 ``LOWER(column)`` 而不是 ``column`` 。
 
 #. **简单 key/value 方式:**
 
 	::
 
 		$builder->like('title', 'match');
-		// Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
+		// 生成: WHERE `title` LIKE '%match%' ESCAPE '!'
 
 	如果你多次调用该方法，那么多个 WHERE 条件将会使用 AND 连接起来::
 
@@ -330,14 +394,14 @@ outer， inner， left outer 和 right outer 。
 		$builder->like('body', 'match');
 		// WHERE `title` LIKE '%match%' ESCAPE '!' AND  `body` LIKE '%match% ESCAPE '!'
 
-	可以传入第三个可选的参数来控制 LIKE 通配符（%）的位置，可用选项有：
-	'before'，'after' 和 'both' (默认为 'both')。
+	如果你想控制通配符通配符（%）的位置，可以指定第三个参数，
+	可用选项：'before'，'after' 和 'both' (默认) 。
 
 	::
 
-		$builder->like('title', 'match', 'before');	// Produces: WHERE `title` LIKE '%match' ESCAPE '!'
-		$builder->like('title', 'match', 'after');	// Produces: WHERE `title` LIKE 'match%' ESCAPE '!'
-		$builder->like('title', 'match', 'both');	// Produces: WHERE `title` LIKE '%match%' ESCAPE '!'
+		$builder->like('title', 'match', 'before');	// 生成: WHERE `title` LIKE '%match' ESCAPE '!'
+		$builder->like('title', 'match', 'after');	// 生成: WHERE `title` LIKE 'match%' ESCAPE '!'
+		$builder->like('title', 'match', 'both');	// 生成: WHERE `title` LIKE '%match%' ESCAPE '!'
 
 #. **关联数组方式:**
 
@@ -356,14 +420,13 @@ outer， inner， left outer 和 right outer 。
 
 **$builder->notLike()**
 
-这个方法和 ``like()`` 方法一样，只是生成 
-NOT LIKE 子句::
+这个方法和 ``like()`` 方法一样，只是生成 NOT LIKE 子句::
 
 	$builder->notLike('title', 'match');	// WHERE `title` NOT LIKE '%match% ESCAPE '!'
 
 **$builder->orNotLike()**
 
-这个方法和 ``notLike()``，方法一样，只是多个条件之间使用 OR 进行连接::
+这个方法和 ``notLike()`` 方法一样，只是多个条件之间使用 OR 连接::
 
 	$builder->like('title', 'match');
 	$builder->orNotLike('body', 'match');
@@ -373,11 +436,11 @@ NOT LIKE 子句::
 
 该方法用于生成 GROUP BY 子句::
 
-	$builder->groupBy("title"); // Produces: GROUP BY title
+	$builder->groupBy("title"); // 生成: GROUP BY title
 
 你也可以通过一个数组传入多个值::
 
-	$builder->groupBy(array("title", "date"));  // Produces: GROUP BY title, date
+	$builder->groupBy(["title", "date"]);  // 生成: GROUP BY title, date
 
 **$builder->distinct()**
 
@@ -386,56 +449,201 @@ NOT LIKE 子句::
 ::
 
 	$builder->distinct();
-	$builder->get(); // Produces: SELECT DISTINCT * FROM mytable
+	$builder->get(); // 生成: SELECT DISTINCT * FROM mytable
 
 **$builder->having()**
 
-该方法用于生成 HAVING 子句， 有下面两种不同的语法. 有两个
-可能的语法， 1 个或 2 个参数::
+该方法用于生成 HAVING 子句，有下面两种不同的语法。
+有两种可用语法，单参数或双参数::
 
-	$builder->having('user_id = 45');  // Produces: HAVING user_id = 45
-	$builder->having('user_id',  45);  // Produces: HAVING user_id = 45
+	$builder->having('user_id = 45');  // 生成: HAVING user_id = 45
+	$builder->having('user_id',  45);  // 生成: HAVING user_id = 45
 
-您还可以传递一个包含多个值的数组::
+你还可以传递一个包含多个值的数组::
 
 	$builder->having(['title =' => 'My Title', 'id <' => $id]);
-	// Produces: HAVING title = 'My Title', id < 45
+	// 生成: HAVING title = 'My Title', id < 45
 
-如果您正在使用 CodeIgniter 为其转义查询的数据库，那么您
-是否可以通过传递可选的第三个参数来防止转义内容
-设置为 FALSE .
-.
+如果你正在使用 CodeIgniter 为其转义查询的数据库，
+你可以传第三个可选参数来防止转义内容，设为 FALSE 。
 
 ::
 
-	$builder->having('user_id',  45);  // Produces: HAVING `user_id` = 45 in some databases such as MySQL
-	$builder->having('user_id',  45, FALSE);  // Produces: HAVING user_id = 45
+	$builder->having('user_id',  45);  // 生成: HAVING `user_id` = 45 in some databases such as MySQL
+	$builder->having('user_id',  45, FALSE);  // 生成: HAVING user_id = 45
 
 **$builder->orHaving()**
 
 该方法和 having() 方法一样，只是多个条件之间使用 "OR" 进行连接。
 
+**$builder->havingIn()**
+
+生成一个 HAVING 字段的 IN ('item', 'item') SQL 查询子句，
+多个条件之间使用 AND 连接
+
+    ::
+
+        $groups = [1, 2, 3];
+        $builder->havingIn('group_id', $groups);
+        // 生成: HAVING group_id IN (1, 2, 3)
+
+你可以用子查询代替数组。
+
+    ::
+
+        $builder->havingIn('id', function(BaseBuilder $builder) {
+            return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
+        });
+        // 生成: HAVING "id" IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+
+**$builder->orHavingIn()**
+
+生成一个 HAVING 字段的 IN ('item', 'item') SQL 查询子句，
+多个条件之间使用 OR 连接
+
+    ::
+
+        $groups = [1, 2, 3];
+        $builder->orHavingIn('group_id', $groups);
+        // 生成: OR group_id IN (1, 2, 3)
+
+你可以用子查询代替数组。
+
+    ::
+
+        $builder->orHavingIn('id', function(BaseBuilder $builder) {
+            return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
+        });
+
+        // 生成: OR "id" IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+
+**$builder->havingNotIn()**
+
+生成一个 HAVING 字段的 NOT IN ('item', 'item') SQL 查询子句，
+多个条件之间使用 AND 连接
+
+    ::
+
+        $groups = [1, 2, 3];
+        $builder->havingNotIn('group_id', $groups);
+        // 生成: HAVING group_id NOT IN (1, 2, 3)
+
+你可以用子查询代替数组。
+
+    ::
+
+        $builder->havingNotIn('id', function(BaseBuilder $builder) {
+            return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
+        });
+
+        // 生成: HAVING "id" NOT IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+
+
+**$builder->orHavingNotIn()**
+
+生成一个 HAVING 字段的 NOT IN ('item', 'item') SQL 查询子句，
+多个条件之间使用 OR 连接
+
+    ::
+
+        $groups = [1, 2, 3];
+        $builder->havingNotIn('group_id', $groups);
+        // 生成: OR group_id NOT IN (1, 2, 3)
+
+你可以用子查询代替数组。
+
+    ::
+
+        $builder->orHavingNotIn('id', function(BaseBuilder $builder) {
+            return $builder->select('user_id')->from('users_jobs')->where('group_id', 3);
+        });
+
+        // 生成: OR "id" NOT IN (SELECT "user_id" FROM "users_jobs" WHERE "group_id" = 3)
+
+**$builder->havingLike()**
+
+该方法让你能够在 HAVING 查询部分生成 **LIKE** 子句，常用于搜索。
+
+.. 注解:: 该方法所有传入参数会被自动转义。
+
+.. 注解:: ``havingLike*`` 通过传第五个参数传递值 ``true`` 可以强制在
+	执行查询时不区分大小写。这项特性可用性跟平台相关，否则将强制值转为小写，
+	例如 ``HAVING LOWER(column) LIKE '%search%'``，让其生效可能需要
+	在制作索引时用 ``LOWER(column)`` 而不是 ``column`` 。
+
+#. **简单 key/value 方式:**
+
+	::
+
+		$builder->havingLike('title', 'match');
+		// 生成: HAVING `title` LIKE '%match%' ESCAPE '!'
+
+	如果你多次调用该方法，那么多个 WHERE 条件将会使用 AND 连接起来::
+
+		$builder->havingLike('title', 'match');
+		$builder->havingLike('body', 'match');
+		// HAVING `title` LIKE '%match%' ESCAPE '!' AND  `body` LIKE '%match% ESCAPE '!'
+
+	如果你想控制通配符通配符（%）的位置，可以指定第三个参数，
+	可用选项：'before'，'after' 和 'both' (默认) 。
+
+	::
+
+		$builder->havingLike('title', 'match', 'before');	// 生成: HAVING `title` LIKE '%match' ESCAPE '!'
+		$builder->havingLike('title', 'match', 'after');	// 生成: HAVING `title` LIKE 'match%' ESCAPE '!'
+		$builder->havingLike('title', 'match', 'both');	// 生成: HAVING `title` LIKE '%match%' ESCAPE '!'
+
+#. **关联数组方式:**
+
+	::
+
+		$array = ['title' => $match, 'page1' => $match, 'page2' => $match];
+		$builder->havingLike($array);
+		// HAVING `title` LIKE '%match%' ESCAPE '!' AND  `page1` LIKE '%match%' ESCAPE '!' AND  `page2` LIKE '%match%' ESCAPE '!'
+
+**$builder->orHavingLike()**
+
+这个方法和上面的方法一样，只是多个条件之间使用 OR 进行连接::
+
+	$builder->havingLike('title', 'match'); $builder->orHavingLike('body', $match);
+	// HAVING `title` LIKE '%match%' ESCAPE '!' OR  `body` LIKE '%match%' ESCAPE '!'
+
+**$builder->notHavingLike()**
+
+这个方法和 ``havingLike()`` 一样，只是它生成的是 NOT LIKE 子句::
+
+	$builder->notHavingLike('title', 'match');	// HAVING `title` NOT LIKE '%match% ESCAPE '!'
+
+**$builder->orNotHavingLike()**
+
+这个方法和 ``notHavingLike()`` 一样，只是多个条件之间使用 OR 进行连接::
+
+	$builder->havingLike('title', 'match');
+	$builder->orNotHavingLike('body', 'match');
+	// HAVING `title` LIKE '%match% OR  `body` NOT LIKE '%match%' ESCAPE '!'
+
 ****************
-排序
+结果排序
 ****************
 
 **$builder->orderBy()**
 
 该方法用于生成 ORDER BY 子句。
 
-第一个参数包含需要排序的列的名称。
+第一个参数包含你要排序的列名。
 
-第一个参数为你想要排序的字段名，第二个参数用于设置排序的方向， 可选项有： **ASC**，**DESC**和**RANDOM**。
+第二个参数用于设置排序的方向，
+可选项有： **ASC** ， **DESC** 和 **RANDOM** 。
 
 ::
 
 	$builder->orderBy('title', 'DESC');
-	// Produces: ORDER BY `title` DESC
+	// 生成: ORDER BY `title` DESC
 
 第一个参数也可以是你自己的排序字符串::
 
 	$builder->orderBy('title DESC, name ASC');
-	// Produces: ORDER BY `title` DESC, `name` ASC
+	// 生成: ORDER BY `title` DESC, `name` ASC
 
 如果需要根据多个字段进行排序，可以多次调用该方法。
 
@@ -443,62 +651,68 @@ NOT LIKE 子句::
 
 	$builder->orderBy('title', 'DESC');
 	$builder->orderBy('name', 'ASC');
-	// Produces: ORDER BY `title` DESC, `name` ASC
+	// 生成: ORDER BY `title` DESC, `name` ASC
 
-如果你选择了 **RANDOM**， 第一个参数会被忽略， 但是你可以传入一个数字值， 作为随机数的种子。
+如果你选择了 **RANDOM** 选项，第一个参数会被忽略，
+除非你指定第一个参数作为随机数的种子。
 
 ::
 
 	$builder->orderBy('title', 'RANDOM');
-	// Produces: ORDER BY RAND()
+	// 生成: ORDER BY RAND()
 
 	$builder->orderBy(42, 'RANDOM');
-	// Produces: ORDER BY RAND(42)
+	// 生成: ORDER BY RAND(42)
 
-.. note:: Oracle 暂时还不支持随机排序，会默认使用ASC。
+.. 注解:: Oracle 目前还不支持随机排序，会默认使用 ASC 替代。
 
 ****************************
-分页与计数
+结果分页与计数
 ****************************
 
 **$builder->limit()**
 
-该方法用于限制你的查询返回结果的数量::
+该方法可以让你限制查询结果的返回行数::
 
-	$builder->limit(10);  // Produces: LIMIT 10
+	$builder->limit(10);  // 生成: LIMIT 10
 
-第二个参数可以用来设置偏移.
+第二个参数可以用来设置偏移。
 
 ::
 
-	$builder->limit(10, 20);  // Produces: LIMIT 20, 10 (在 MySQL。 其他数据库的语法略有不同）
+	$builder->limit(10, 20);  // 生成: LIMIT 20, 10 (在 MySQL 里的情况，其他数据库的语法略有不同）
+
 
 **$builder->countAllResults()**
 
-该方法用于获取特定查询返回结果的数量，也可以使用查询构造器的这些方法：
-``where()``, ``orWhere()``, ``like()``, ``orLike()`` 等等。例如::
+该方法用于获取指定构造器查询返回的结果数量，接受的构造器方法有
+ ``where()`` , ``orWhere()`` , ``like()`` , ``orLike()`` 等，例如::
 
 	echo $builder->countAllResults('my_table');  // 生成一个整数，比如 25
 	$builder->like('title', 'match');
 	$builder->from('my_table');
 	echo $builder->countAllResults(); // 生成一个整数，比如 17
 
-但是， 这个方法会重置你在 ``select()``。 方法里设置的所有值，如果你希望
-保留它们，可以将第二个参数设置为 FALSE::
+然而，这个方法会重置你在 ``select()`` 里设置的所有值，
+如果你要保留它们，可以将第一个参数设置为 FALSE::
 
-	echo $builder->countAllResults('my_table', FALSE);
+	echo $builder->countAllResults(false); // 生成一个整数，比如 17
 
 **$builder->countAll()**
 
-该方法用于获取某个表的总行数，第一个参数为表名。例如::
+该方法用于获取指定表的总行数，例如::
 
-	echo $builder->countAll('my_table');  // Produces an integer, like 25
+	echo $builder->countAll();  // 生成一个整数，比如 25
+
+与 countAllResult 方法一样，该方法也会重置你在 ``select()`` 里设置的所有值，
+如果你要保留它们，可以将第一个参数设置为 FALSE::
 
 **************
 查询分组
 **************
 
-查询分组可以让你生成用括号括起来的一组 WHERE 条件，这能创造出非常复杂的 WHERE 子句， 支持嵌套的条件组。 
+查询分组可以让你生成用括号括起来的一组 WHERE 条件，
+这能创造出非常复杂的 WHERE 子句，支持嵌套的条件组。
 例如::
 
 	$builder->select('*')->from('my_table')
@@ -515,7 +729,8 @@ NOT LIKE 子句::
 	// 生成:
 	// SELECT * FROM (`my_table`) WHERE ( `a` = 'a' OR ( `b` = 'b' AND `c` = 'c' ) ) AND `d` = 'd'
 
-.. note:: 条件组必须要配对，确保每个 groupStart() 方法都有一个 groupEnd() 方法与之配对。
+.. 注解:: 条件组必须要配对，确保每个 groupStart() 方法
+    都有一个 groupEnd() 方法与之配对。
 
 **$builder->groupStart()**
 
@@ -537,13 +752,34 @@ NOT LIKE 子句::
 
 结束当前的条件组，为查询中的 WHERE 条件添加一个右括号。
 
+**$builder->groupHavingStart()**
+
+开始一个新的条件组，为查询中的 HAVING 条件添加一个左括号。
+
+**$builder->orGroupHavingStart()**
+
+开始一个新的条件组，为查询中的 HAVING 条件添加一个左括号，并在前面加上 "OR" 。
+
+**$builder->notGroupHavingStart()**
+
+开始一个新的条件组，为查询中的 HAVING 条件添加一个左括号，并在前面加上 "NOT" 。
+
+**$builder->orNotGroupHavingStart()**
+
+开始一个新的条件组，为查询中的 HAVING 条件添加一个左括号，并在前面加上 "OR NOT" 。
+
+**$builder->groupHavingEnd()**
+
+结束当前的条件组，为查询中的 HAVING 条件添加一个右括号。
+
 **************
 插入数据
 **************
 
 **$builder->insert()**
 
-该方法根据你提供的数据生成一条 INSERT 语句并执行，它的参数是一个**数组** 或一个**对象**，
+该方法根据你提供的数据生成一条 INSERT 语句并执行，
+它的参数是一个 **数组** 或一个 **对象** ，
 下面是使用数组的例子::
 
 	$data = array(
@@ -553,7 +789,7 @@ NOT LIKE 子句::
 	);
 
 	$builder->insert($data);
-	// Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
+	// 生成: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
 
 第一个参数为要插入的数据，是个关联数组。
 
@@ -569,16 +805,33 @@ NOT LIKE 子句::
 
 	$object = new Myclass;
 	$builder->insert($object);
-	// Produces: INSERT INTO mytable (title, content, date) VALUES ('My Title', 'My Content', 'My Date')
+	// 生成: INSERT INTO mytable (title, content, date) VALUES ('My Title', 'My Content', 'My Date')
 
 第一个参数为要插入的数据，是个对象。
 
-.. note:: 所有数据会被自动转义，生成安全的查询语句。
+.. 注解:: 所有数据会被自动转义，生成安全的查询语句。
+
+**$builder->ignore()**
+
+该方法根据你提供的数据生成一条 INSERT IGNORE 语句并执行，
+如果已经存在相同主键，该数据不会被插入。
+你可以给该方法传入一个可选参数，类型是 **boolean** 。
+下面是使用数组的例子::
+
+	$data = [
+		'title' => 'My title',
+		'name'  => 'My Name',
+		'date'  => 'My date'
+	];
+
+	$builder->ignore(true)->insert($data);
+	// 生成: INSERT OR IGNORE INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
+
 
 **$builder->getCompiledInsert()**
 
-该方法和 $builder->insert() 方法一样编译插入查询，但是并不
-执行。此方法只是将 SQL 查询作为字符串返回。
+该方法和 $builder->insert() 方法一样编译插入查询，但是 *并不执行* 。
+此方法只是将 SQL 查询作为字符串返回。
 
 例如::
 
@@ -591,27 +844,27 @@ NOT LIKE 子句::
 	$sql = $builder->set($data)->getCompiledInsert('mytable');
 	echo $sql;
 
-	// Produces string: INSERT INTO mytable (`title`, `name`, `date`) VALUES ('My title', 'My name', 'My date')
+	// 生成字符串: INSERT INTO mytable (`title`, `name`, `date`) VALUES ('My title', 'My name', 'My date')
 
-第二个参数用于设置是否重置查询（默认情况下会重置，正如 $builder->insert() 方法一样）::
+第二个参数用于设置是否重置查询（默认会重置，如 $builder->insert() 方法一样）::
 
 	echo $builder->set('title', 'My Title')->getCompiledInsert('mytable', FALSE);
 
-	// Produces string: INSERT INTO mytable (`title`) VALUES ('My Title')
+	// 生成字符串: INSERT INTO mytable (`title`) VALUES ('My Title')
 
 	echo $builder->set('content', 'My Content')->getCompiledInsert();
 
-	// Produces string: INSERT INTO mytable (`title`, `content`) VALUES ('My Title', 'My Content')
+	// 生成字符串: INSERT INTO mytable (`title`, `content`) VALUES ('My Title', 'My Content')
 
-上面的例子中，最值得注意的是，第二个查询并没有用到 `$builder->from()` 方法， 也没有将表名传递给
-第一个参数。 这样做的原因是因为查询尚未使用 `$builder->insert()` 执行，它使用 `$builder->insert()` 重置
-值或直接重置。
+最值得注意的是，上例第二个查询并没有用到 **$builder->from()** 方法， 
+也没有为查询指定表名参数。因为这个查询没有被可重置值的 **$builder->insert()** 方法执行，或是使用 **$builder->resetQuery()** 方法直接重置。
 
-.. note:: 这个方法不支持批量插入。
+.. 注解:: 这个方法不支持批量插入。
 
 **$builder->insertBatch()**
 
-该方法根据你提供的数据生成一条 INSERT 语句并执行，它的参数是一个**数组** 或一个**对象**，
+该方法根据你提供的数据生成一条 INSERT 语句并执行，
+它的参数可以是一个 **数组** 或一个 **对象** ，
 下面是使用数组的例子::
 
 	$data = array(
@@ -628,11 +881,11 @@ NOT LIKE 子句::
 	);
 
 	$builder->insertBatch($data);
-	// Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date'),  ('Another title', 'Another name', 'Another date')
+	// 生成: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date'),  ('Another title', 'Another name', 'Another date')
 
 第一个参数为要插入的数据，是个二维数组。
 
-.. note:: 所有数据会被自动转义，生成安全的查询语句。
+.. 注解:: 所有数据会被自动转义，生成安全的查询语句。
 
 *************
 更新数据
@@ -640,10 +893,10 @@ NOT LIKE 子句::
 
 **$builder->replace()**
 
-
-该方法用于执行一条 REPLACE 语句， 该语句基本上是（可选）DELETE + INSERT的SQL标准，
-使用 *PRIMARY* 和 *UNIQUE* 键作为决定因素。在我们的例子中，它可以使你免于需要实现与不同的
-组合复杂的逻辑 ``select()``， ``update()``， ``delete()`` 和 ``insert()``。
+该方法用于执行一条 REPLACE 语句，基本上是（可选）DELETE + INSERT 的 SQL 标准，
+使用 *PRIMARY* 和 *UNIQUE* 键作为决定因素。
+在我们的例子中，它可以使你免于实现各种不同逻辑的组合： ``select()`` ，
+ ``update()`` ， ``delete()`` 和 ``insert()`` 。
 
 例如::
 
@@ -657,21 +910,21 @@ NOT LIKE 子句::
 
 	// Executes: REPLACE INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
 
-上面的例子中，我们假设 *title* 字段是我们的主键，那么如果我们数据库里有一行
-包含 'My title'作为标题，这一行将会被删除并被我们的新数据所取代。
+上面的例子中，我们假设 *title* 字段是主键，那么如果我们数据库里有一行
+包含 'My title' 为标题的数据，那行将被删除并被我们的新数据取代。
 
 也可以使用 ``set()`` 方法，而且所有字段都被自动转义，正如 ``insert()`` 方法一样。
 
 **$builder->set()**
 
-**该方法可以取代直接传递数据数组到 insert 或 update 方法：**
+该方法可以设置 insert 或 update 用到的数据。
 
-**它可以用来代替直接将数据数组传递给 insert 或 update 功能:**
+**它可以用来代替直接将数据数组传递给 insert 或 update 方法:**
 
 ::
 
 	$builder->set('name', $name);
-	$builder->insert();  // Produces: INSERT INTO mytable (`name`) VALUES ('{$name}')
+	$builder->insert();  // 生成: INSERT INTO mytable (`name`) VALUES ('{$name}')
 
 如果你多次调用该方法，它会正确组装出 insert 或 update 语句来::
 
@@ -680,18 +933,19 @@ NOT LIKE 子句::
 	$builder->set('status', $status);
 	$builder->insert();
 
-**set()** 将方法也接受可选的第三个参数（``$escape``），如果设置为 FALSE，数据将不会自动
-转义。为了说明两者之间的区别，这里有一个带转义的 ``set()`` 方法和不带转义的例子。
+**set()** 将方法也接受可选的第三个参数（``$escape``），
+如果设置为 FALSE ，数据将不会自动转义。
+为了说明区别，这里有一个带转义的 ``set()`` 方法和不带转义的例子。
 
 ::
 
 	$builder->set('field', 'field+1', FALSE);
 	$builder->where('id', 2);
-	$builder->update(); // gives UPDATE mytable SET field = field+1 WHERE `id` = 2
+	$builder->update(); // 生成 UPDATE mytable SET field = field+1 WHERE `id` = 2
 
 	$builder->set('field', 'field+1');
 	$builder->where('id', 2);
-	$builder->update(); // gives UPDATE `mytable` SET `field` = 'field+1' WHERE `id` = 2
+	$builder->update(); // 生成 UPDATE `mytable` SET `field` = 'field+1' WHERE `id` = 2
 
 你也可以传一个关联数组作为参数::
 
@@ -720,8 +974,8 @@ NOT LIKE 子句::
 
 **$builder->update()**
 
-该方法根据你提供的数据生成更新字符串并执行，它的参数是一个 **数组** 或一个 **对象** ，
-下面是使用数组的例子::
+该方法根据你提供的数据生成更新字符串并执行，它的参数是一个 **数组** 
+或一个 **对象** ，下面是使用数组的例子::
 
 	$data = array(
 		'title' => $title,
@@ -731,7 +985,7 @@ NOT LIKE 子句::
 
 	$builder->where('id', $id);
 	$builder->update($data);
-	// Produces:
+	// 生成:
 	//
 	//	UPDATE mytable
 	//	SET title = '{$title}', name = '{$name}', date = '{$date}'
@@ -750,16 +1004,16 @@ NOT LIKE 子句::
 	$object = new Myclass;
 	$builder->where('id', $id);
 	$builder->update($object);
-	// Produces:
+	// 生成:
 	//
 	// UPDATE `mytable`
 	// SET `title` = '{$title}', `name` = '{$name}', `date` = '{$date}'
 	// WHERE id = `$id`
 
-.. note:: 所有数据会被自动转义，生成安全的查询语句。
+.. 注解:: 所有数据会被自动转义，生成安全的查询语句。
 
-你应该注意到 $builder->where() 方法的使用，它可以为你设置 WHERE 子句。 
-你也可以直接使用字符串形式直接传递给更新函数::
+你应该注意到用 $builder->where() 方法可以为你设置 WHERE 子句。
+你可以选择性的将这些（条件）信息直接以字符串传入 update 方法::
 
 	$builder->update($data, "id = 4");
 
@@ -771,7 +1025,8 @@ NOT LIKE 子句::
 
 **$builder->updateBatch()**
 
-该方法根据你提供的数据生成一条 UPDATE 语句并执行，它的参数是一个 **数组** 或一个 **对象**，下面是使用数组的例子::
+该方法根据你提供的数据生成一条 UPDATE 语句并执行，它的参数是一个 **数组** 
+或一个 **对象** ，下面是使用数组的例子::
 
 	$data = array(
 	   array(
@@ -788,7 +1043,7 @@ NOT LIKE 子句::
 
 	$builder->updateBatch($data, 'title');
 
-	// Produces:
+	// 生成:
 	// UPDATE `mytable` SET `name` = CASE
 	// WHEN `title` = 'My title' THEN 'My Name 2'
 	// WHEN `title` = 'Another title' THEN 'Another Name 2'
@@ -801,14 +1056,16 @@ NOT LIKE 子句::
 
 第一个参数为要更新的数据，是个二维数组，第二个参数是 where 语句的键。
 
-.. note:: 所有数据会被自动转义，生成安全的查询语句。
+.. 注解:: 所有数据会被自动转义，生成安全的查询语句。
 
-.. note:: 取决于该方法的内部实现，在这个方法之后调用 ``affectedRows()`` 方法返回的结果可能会不正确。 但是你可以使用 ``updateBatch()`` 方法的返回值， 代表了受影响的行数。
+.. 注解:: 由于该方法的内部实现，在这之后调用 ``affectedRows()`` 
+    方法的返回值可能不正确，替代办法是用 ``updateBatch()`` 的返回值，
+	表示受影响的行数。
 
 **$builder->getCompiledUpdate()**
 
-该方法和 ``$builder->getCompiledInsert()`` 方法完全一样，除了生成的 SQL 语句
-是 UPDATE 而不是 INSERT。
+该方法和 ``$builder->getCompiledInsert()`` 方法完全一样，
+除了生成的 SQL 语句是 UPDATE 而不是 INSERT。
 
 查看 `$builder->getCompiledInsert()` 方法的文档获取更多信息。
 
@@ -824,42 +1081,42 @@ NOT LIKE 子句::
 
 ::
 
-	$builder->delete(array('id' => $id));  // Produces: // DELETE FROM mytable  // WHERE id = $id
+	$builder->delete(array('id' => $id));  // 生成: // DELETE FROM mytable  // WHERE id = $id
 
-第一个参数为 where 条件。你也可以不用第一个参数， 使用 where() 或者 or_where() 
-函数来替代它::
+第一个参数为 where 子句。你也可以使用 where() 或 or_where() 方法替代第一个参数::
 
 	$builder->where('id', $id);
 	$builder->delete();
 
-	// Produces:
+	// 生成:
 	// DELETE FROM mytable
 	// WHERE id = $id
 
-如果你想要删除一个表中的所有数据，可以使用 truncate() 或 empty_table() 方法。.
+如果你想删除一个表中的全部数据，可以使用 truncate() 或 emptyTable() 方法。
 
 **$builder->emptyTable()**
 
-该方法生成删除SQl语句并执行::
+该方法生成删除 SQl 语句并执行::
 
-	  $builder->emptyTable('mytable'); // Produces: DELETE FROM mytable
+	  $builder->emptyTable('mytable'); // 生成: DELETE FROM mytable
 
 **$builder->truncate()**
 
-该方法生截断SQL语句并执行。
+该方法生截断 SQL 语句并执行。
 
 ::
 
 	$builder->truncate();
 
-	// Produces:
+	// 生成:
 	// TRUNCATE mytable
 
-.. note:: 如果 TRUNCATE 语句不可用，truncate() 方法将执行 "DELETE FROM table"。
+.. 注解:: 如果 TRUNCATE 命令不可用，truncate() 方法将执行 "DELETE FROM table"。
 
 **$builder->getCompiledDelete()**
 
-该方法和 ``$builder->getCompiledInsert()`` 方法完全一样，除了生成的 SQL 语句是 DELETE 而不是 INSERT。
+该方法和 ``$builder->getCompiledInsert()`` 方法完全一样，
+除了生成的 SQL 语句是 DELETE 而不是 INSERT。
 
 查看 $builder->getCompiledInsert() 方法的文档获取更多信息。
 
@@ -867,7 +1124,7 @@ NOT LIKE 子句::
 链式方法
 ***************
 
-通过将多个方法连接在一起，链式方法可以大大的简化你的语法。感受一下这个例子::
+通过将多个方法连接在一起，链式方法可以大大简化你的语法。感受一下这个例子::
 
 	$query = $builder->select('title')
 			 ->where('id', $id)
@@ -882,12 +1139,14 @@ NOT LIKE 子句::
 
 **$builder->resetQuery()**
 
-该方法无需执行就能重置查询构造器中的查询，$builder->get() 或 $builder->insert() 方法也可以用于重置查询，但是必须要先执行它。
+该方法使你可以重置查询构造器，而无需先执行例如 $builder->get() 
+或 $builder->insert() 这类方法。
 
-当你在使用查询构造器生成 SQL 语句（如：``$builder->getCompiledSelect()``）， 之后再执行它。这种情况下，不重置查询缓存将非常有用::
+当你要用查询构造器生成 SQL 语句（如： ``$builder->getCompiledSelect()`` ）， 
+之后再执行它，这种情况下，不重置查询构造器很有用::
 
-		// 注意 get_compiled_select 方法的第二个参数为 FALSE
-    $sql = $builder->select(array('field1','field2'))
+	// 注意 get_compiled_select 方法的第二个参数为 FALSE
+    $sql = $builder->select(['field1','field2'])
                    ->where('field3',5)
                    ->getCompiledSelect(false);
 
@@ -902,7 +1161,7 @@ NOT LIKE 子句::
     // SELECT field1, field1 from mytable where field3 = 5;
 
 ***************
-类引用
+类库参考
 ***************
 
 .. php:class:: \CodeIgniter\Database\BaseBuilder
@@ -912,34 +1171,42 @@ NOT LIKE 子句::
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		重置当前查询生成器状态。在你需要的时候有用要构建可以在特定条件下取消的查询.
+		重置当前查询构造器状态。当你需要构建一个可在某些情况下取消的查询时有用。
 
 	.. php:method:: countAllResults([$reset = TRUE])
 
-		:param	bool	$reset: 是否重置SELECT的值
+		:param	bool	$reset: 是否重置 SELECT 的值
 		:returns:	查询结果中的行数
 		:rtype:	int
 
-		生成一个特定于平台的查询字符串，查询生成器查询返回的所有记录。
+		生成特定于平台的查询语句，用于计数查询构造器返回的行数。
+
+	.. php:method:: countAll([$reset = TRUE])
+
+		:param	bool	$reset: 是否重置 SELECT 的值
+		:returns:	查询结果中的行数
+		:rtype:	int
+
+		生成特定于平台的查询语句，用于计数查询构造器返回的行数。
 
 	.. php:method:: get([$limit = NULL[, $offset = NULL]])
 
-		:param	int	$limit: The LIMIT clause
-		:param	int	$offset: The OFFSET clause
+		:param	int	$limit: LIMIT 子句
+		:param	int	$offset: OFFSET 子句
 		:returns:	\CodeIgniter\Database\ResultInterface instance (方法链)
 		:rtype:	\CodeIgniter\Database\ResultInterface
 
-		基于已经编译并运行SELECT语句， 称为Query Builder方法。
+		基于已经调用过的查询构造器方法，编译执行 SELECT 查询。
 
 	.. php:method:: getWhere([$where = NULL[, $limit = NULL[, $offset = NULL]]])
 
-		:param	string	$where: The WHERE clause
-		:param	int	$limit: The LIMIT clause
-		:param	int	$offset: The OFFSET clause
+		:param	string	$where: WHERE 子句
+		:param	int	$limit: LIMIT 子句
+		:param	int	$offset: OFFSET 子句
 		:returns:	\CodeIgniter\Database\ResultInterface instance (方法链)
 		:rtype:	\CodeIgniter\Database\ResultInterface
 
-		与 ``get()`` 相同，但也允许直接添加 WHERE。
+		与 ``get()`` 相同，但也允许直接添加 WHERE 。
 
 	.. php:method:: select([$select = '*'[, $escape = NULL]])
 
@@ -986,17 +1253,27 @@ NOT LIKE 子句::
 
 		向查询添加 SELECT SUM(field) 子句。
 
-	.. php:method:: distinct([$val = TRUE])
+	.. php:method:: selectCount([$select = ''[, $alias = '']])
 
-		:param	bool	$val: 期望值的 "distinct" 标志
+		:param	string	$select: 用于计算记录总和的字段
+		:param	string	$alias: 结果值名称的别名
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		设置一个标志， 告诉查询构建器添加查询的 SELECT 部分的 DISTINCT 子句。
+		向查询添加 SELECT COUNT(field) 子句。
 
-	.. php:method:: from($from)
+	.. php:method:: distinct([$val = TRUE])
+
+		:param	bool	$val: 预期的 "distinct" 标志值
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		设置一个标志， 告诉查询构建器给 SELECT 部分添加 DISTINCT 子句。
+
+	.. php:method:: from($from[, $overwrite = FALSE])
 
 		:param	mixed	$from: Table name(s); 字符串或数组
+        :param	bool	$overwrite: 是否移除第一个设置的表？
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
@@ -1004,9 +1281,9 @@ NOT LIKE 子句::
 
 	.. php:method:: join($table, $cond[, $type = ''[, $escape = NULL]])
 
-		:param	string	$table: Table name to join
-		:param	string	$cond: The JOIN ON condition
-		:param	string	$type: The JOIN type
+		:param	string	$table: 要 join 的表名
+		:param	string	$cond: JOIN ON 条件
+		:param	string	$type: JOIN 类型
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
@@ -1021,7 +1298,7 @@ NOT LIKE 子句::
 		:returns:	BaseBuilder instance
 		:rtype:	object
 
-		生成查询的WHERE部分。 用 'AND' 分隔多个调用。
+		生成查询的 WHERE 部分，用 'AND' 分隔多个调用。
 
 	.. php:method:: orWhere($key[, $value = NULL[, $escape = NULL]])
 
@@ -1031,125 +1308,126 @@ NOT LIKE 子句::
 		:returns:	BaseBuilder instance
 		:rtype:	object
 
-		生成查询的WHERE部分。 用'OR'分隔多个调用。
+		生成查询的 WHERE 部分，用 'OR' 分隔多个调用。
 
 	.. php:method:: orWhereIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
 
 		:param	string	$key: 要搜索的字段
-		:param	array	$values: 搜索的值
+		:param	array|Closure   $values: 目标值的数组，或子查询的匿名函数
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance
 		:rtype:	object
 
-		生成一个 WHERE 字段 IN('item'，'item') SQL 查询，
-		如果合适，加上 'OR' 。
+		生成一个 WHERE 字段 IN('item', 'item') SQL 查询，多个用 'OR' 连接。
 
 	.. php:method:: orWhereNotIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
 
 		:param	string	$key: 要搜索的字段
-		:param	array	$values: 搜索的值
+		:param	array|Closure   $values: 目标值的数组，或子查询的匿名函数
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance
 		:rtype:	object
 
-		生成一个 WHERE 字段 NOT IN('item'，'item') SQL 查询，
-		如果合适，加上 'OR' 。
+		生成一个 WHERE 字段 NOT IN('item', 'item') SQL 查询，多个用 'OR' 连接。
 
 	.. php:method:: whereIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
 
 		:param	string	$key: 要检查的字段的名称
-		:param	array	$values: 目标值数组
+		:param	array|Closure   $values: 目标值的数组，或子查询的匿名函数
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance
 		:rtype:	object
 
-		生成一个 WHERE 字段 IN('item'，'item') SQL 查询， 如果合适，加入 'AND' 。
+		生成一个 WHERE 字段 IN('item', 'item') SQL 查询，多个用 'AND' 连接。
 
 	.. php:method:: whereNotIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
 
 		:param	string	$key: 要检查的字段的名称
-		:param	array	$values: 目标值数组
+		:param	array|Closure   $values: 目标值的数组，或子查询的匿名函数
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance
 		:rtype:	object
 
-		生成一个 WHERE 字段 NOT IN('item'，'item') SQL 查询，
-		如果合适，加入 'AND' 。
+		生成一个 WHERE 字段 NOT IN('item', 'item') SQL 查询，多个用 'AND' 连接。
 
 	.. php:method:: groupStart()
 
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		启动组表达式，使用 ANDs 表示其中的条件。
+		启动组表达式，使用 AND 连接其中的条件。
 
 	.. php:method:: orGroupStart()
 
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		启动组表达式，使用 ORs 表示其中的条件。
+		启动组表达式，使用 OR 连接其中的条件。
 
 	.. php:method:: notGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
+		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		启动组表达式，使用 AND NOTs 表示其中的条件。
+		启动组表达式，使用 AND NOT 连接其中的条件。
 
 	.. php:method:: orNotGroupStart()
 
-		:returns:	BaseBuilder instance (method chaining)
+		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		启动组表达式，使用 OR NOTs 表示其中的条件。
+		启动组表达式，使用 OR NOT 连接其中的条件。
 
 	.. php:method:: groupEnd()
 
 		:returns:	BaseBuilder instance
 		:rtype:	object
 
-		Ends a group expression.
+		完成一个组表达式。
 
-	.. php:method:: like($field[, $match = ''[, $side = 'both'[, $escape = NULL]]])
+	.. php:method:: like($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
 
 		:param	string	$field: 字段名
 		:param	string	$match: 匹配的文本部分
 		:param	string	$side: 将 '%' 通配符放在表达式的哪一侧
 		:param	bool	$escape: 是否转义值和标识符
+		:param	bool    $insensitiveSearch: 是否强制大小写不敏感检索
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
 		向查询添加 LIKE 子句，用 AND 分隔多个调用。
 
-	.. php:method:: orLike($field[, $match = ''[, $side = 'both'[, $escape = NULL]]])
+	.. php:method:: orLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
 
 		:param	string	$field: 字段名
 		:param	string	$match: 匹配的文本部分
 		:param	string	$side: 将 '%' 通配符放在表达式的哪一侧
 		:param	bool	$escape: 是否转义值和标识符
+		:param	bool    $insensitiveSearch: 是否强制大小写不敏感检索
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
 		向查询添加 LIKE 子句，用 OR 分隔多个调用。
 
-	.. php:method:: notLike($field[, $match = ''[, $side = 'both'[, $escape = NULL]]])
+	.. php:method:: notLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
 
 		:param	string	$field: 字段名
 		:param	string	$match: 匹配的文本部分
 		:param	string	$side: 将 '%' 通配符放在表达式的哪一侧
 		:param	bool	$escape: 是否转义值和标识符
+		:param	bool    $insensitiveSearch: 是否强制大小写不敏感检索
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
 		向查询添加 NOT LIKE 子句，用 AND 分隔多个调用。
 
-	.. php:method:: orNotLike($field[, $match = ''[, $side = 'both'[, $escape = NULL]]])
+	.. php:method:: orNotLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
 
 		:param	string	$field: 字段名
 		:param	string	$match: 匹配的文本部分
 		:param	string	$side: 将 '%' 通配符放在表达式的哪一侧
 		:param	bool	$escape: 是否转义值和标识符
+		:param	bool    $insensitiveSearch: 是否强制大小写不敏感检索
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
@@ -1158,7 +1436,7 @@ NOT LIKE 子句::
 	.. php:method:: having($key[, $value = NULL[, $escape = NULL]])
 
 		:param	mixed	$key: 标识符（字符串）或 field/value 对的关联数组
-		:param	string	$value: 如果 $key 是标识符，则寻求值
+		:param	string	$value: 如果 $key 是标识符，则寻求此值
 		:param	string	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
@@ -1168,12 +1446,135 @@ NOT LIKE 子句::
 	.. php:method:: orHaving($key[, $value = NULL[, $escape = NULL]])
 
 		:param	mixed	$key: 标识符（字符串）或 field/value 对的关联数组
-		:param	string	$value: 如果 $key 是标识符，则寻求值
+		:param	string	$value: 如果 $key 是标识符，则寻求此值
 		:param	string	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
 		向查询添加 HAVING 子句，用 OR 分隔多个调用。
+
+	.. php:method:: orHavingIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+
+		:param	string	        $key: 要检索的字段名
+		:param	array|Closure   $values: 目标值的数组，或子查询的匿名函数
+		:param	bool	        $escape: 是否转义值和标识符
+		:returns:	BaseBuilder instance
+		:rtype:	object
+
+		向查询添加 HAVING 字段 IN('item', 'item') 子句，多个用 OR 连接。
+
+	.. php:method:: orHavingNotIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+
+		:param	string	        $key: 要检索的字段名
+		:param	array|Closure   $values: 目标值的数组，或子查询的匿名函数
+		:param	bool	        $escape: 是否转义值和标识符
+		:returns:	BaseBuilder instance
+		:rtype:	object
+
+		向查询添加 HAVING 字段 NOT IN('item', 'item') 子句，多个用 OR 连接。
+
+	.. php:method:: havingIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+
+		:param	string	        $key: 要检索的字段名
+		:param	array|Closure   $values: 目标值的数组，或子查询的匿名函数
+		:param	bool	        $escape: 是否转义值和标识符
+		:returns:	BaseBuilder instance
+		:rtype:	object
+
+		向查询添加 HAVING 字段 IN('item', 'item') 子句，多个用 AND 连接。
+
+	.. php:method:: havingNotIn([$key = NULL[, $values = NULL[, $escape = NULL]]])
+
+		:param	string	        $key: 要检索的字段名
+		:param	array|Closure   $values: 目标值的数组，或子查询的匿名函数
+		:param	bool	        $escape: 是否转义值和标识符
+		:returns:	BaseBuilder instance
+		:rtype:	object
+
+		向查询添加 HAVING 字段 NOT IN('item', 'item') 子句，多个用 AND 连接。
+
+	.. php:method:: havingLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+
+		:param	string	$field: 字段名
+		:param	string	$match: 匹配的文本部分
+		:param	string	$side: 将 '%' 通配符放在表达式的哪一侧
+		:param	bool	$escape: 是否转义值和标识符
+		:param	bool    $insensitiveSearch: 是否强制大小写不敏感检索
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		向查询的 HAVING 部分添加 LIKE 子句，用 AND 分隔多个调用。
+
+	.. php:method:: orHavingLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+
+		:param	string	$field: 字段名
+		:param	string	$match: 匹配的文本部分
+		:param	string	$side: 将 '%' 通配符放在表达式的哪一侧
+		:param	bool	$escape: 是否转义值和标识符
+		:param	bool    $insensitiveSearch: 是否强制大小写不敏感检索
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		向查询的 HAVING 部分添加 LIKE 子句，用 OR 分隔多个调用。
+
+	.. php:method:: notHavingLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+
+		:param	string	$field: 字段名
+		:param	string	$match: 匹配的文本部分
+		:param	string	$side: 将 '%' 通配符放在表达式的哪一侧
+		:param	bool	$escape: 是否转义值和标识符
+		:param	bool    $insensitiveSearch: 是否强制大小写不敏感检索
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		向查询的 HAVING 部分添加 NOT LIKE 子句，用 AND 分隔多个调用。
+
+	.. php:method:: orNotHavingLike($field[, $match = ''[, $side = 'both'[, $escape = NULL[, $insensitiveSearch = FALSE]]]])
+
+		:param	string	$field: 字段名
+		:param	string	$match: 匹配的文本部分
+		:param	string	$side: 将 '%' 通配符放在表达式的哪一侧
+		:param	bool	$escape: 是否转义值和标识符
+		:param	bool    $insensitiveSearch: 是否强制大小写不敏感检索
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		向查询的 HAVING 部分添加 NOT LIKE 子句，用 OR 分隔多个调用。
+
+	.. php:method:: havingGroupStart()
+
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		启动 HAVING 子句的组表达式，使用 AND 连接其中的条件。
+
+	.. php:method:: orHavingGroupStart()
+
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		启动 HAVING 子句的组表达式，使用 OR 连接其中的条件。
+
+	.. php:method:: notHavingGroupStart()
+
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		启动 HAVING 子句的组表达式，使用 AND NOT 连接其中的条件。
+
+	.. php:method:: orNotHavingGroupStart()
+
+		:returns:	BaseBuilder instance (方法链)
+		:rtype:	BaseBuilder
+
+		启动 HAVING 子句的组表达式，使用 OR NOT 连接其中的条件。
+
+	.. php:method:: havingGroupEnd()
+
+		:returns:	BaseBuilder instance
+		:rtype:	object
+
+		完成一个 HAVING 子句的组表达式。
 
 	.. php:method:: groupBy($by[, $escape = NULL])
 
@@ -1186,7 +1587,7 @@ NOT LIKE 子句::
 	.. php:method:: orderBy($orderby[, $direction = ''[, $escape = NULL]])
 
 		:param	string	$orderby: 根据字段排序
-		:param	string	$direction: 请求的排序 - ASC， DESC 或随机
+		:param	string	$direction: 要求的排序 - ASC ， DESC 或 RANDOM
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
@@ -1212,13 +1613,13 @@ NOT LIKE 子句::
 
 	.. php:method:: set($key[, $value = ''[, $escape = NULL]])
 
-		:param	mixed	$key: 标识符（字符串）或 field/value 对的关联数组
+		:param	mixed	$key: 字段名或 field/value 对的关联数组
 		:param	string	$value: 字段值，如果 $key 是单个字段
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		添加要稍后传递给 ``insert()`` 的 field/value 对， ``update()`` 或 ``replace()``。
+		添加 field/value 键值对，稍后用于传递给 ``insert()`` ， ``update()`` 或 ``replace()`` 。
 
 	.. php:method:: insert([$set = NULL[, $escape = NULL]])
 
@@ -1231,33 +1632,32 @@ NOT LIKE 子句::
 
 	.. php:method:: insertBatch([$set = NULL[, $escape = NULL[, $batch_size = 100]]])
 
-		:param	array	$set: 插入数据
+		:param	array	$set: 要插入的数据
 		:param	bool	$escape: 是否转义值和标识符
 		:param	int	$batch_size: 要一次插入的行数
 		:returns:	插入的行数或失败时的 FALSE
 		:rtype:	mixed
 
-		编译并执行批处理 ``INSERT`` 语句。
+		编译并执行批量的 ``INSERT`` 语句。
 
-		.. note:: 当提供超过 ``$batch_size`` 行时， 多个将执行``INSERT``
-		
-		查询， 每次尝试插入最多为 ``$batch_size`` 行。
+		.. 注解:: 当数据超过 ``$batch_size`` 行时，将执行多个 ``INSERT`` 查询，
+		    每次尝试插入最多为 ``$batch_size`` 行。
 
 	.. php:method:: setInsertBatch($key[, $value = ''[, $escape = NULL]])
 
-		:param	mixed	$key: field/value 对应的关联数组
+		:param	mixed	$key: 字段名或 field/value 对应的关联数组
 		:param	string	$value: 字段值，如果 $key 是单个字段
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		稍后通过 ``insertBatch()`` 添加要插入表中的 field/value 对。
+		添加 field/value 键值对，稍后通过 ``insertBatch()`` 向一个表插入。
 
 	.. php:method:: update([$set = NULL[, $where = NULL[, $limit = NULL]]])
 
 		:param	array	$set: field/value 对应的关联数组
-		:param	string	$where: The WHERE clause
-		:param	int	$limit: The LIMIT clause
+		:param	string	$where: WHERE 子句
+		:param	int	$limit: LIMIT 子句
 		:returns:	TRUE 为成功, FALSE 为失败
 		:rtype:	bool
 
@@ -1265,26 +1665,26 @@ NOT LIKE 子句::
 
 	.. php:method:: updateBatch([$set = NULL[, $value = NULL[, $batch_size = 100]]])
 
-		:param	array	$set: 字段名， 或 field/value 对的关联数组
+		:param	array	$set: 字段名，或 field/value 对的关联数组
 		:param	string	$value: 字段值，如果 $set 是单个字段
 		:param	int	$batch_size: 在单个查询中分组的条件计数
 		:returns:	更新的行数或失败时的 FALSE
 		:rtype:	mixed
 
-		编译并执行批处理 ``UPDATE`` 语句。
+		编译并执行批量的 ``UPDATE`` 语句。
 
-		当提供超过 ``$batch_size`` field/value 对时，
-		将执行多个查询，每个处理最多 ``$batch_size`` field/value 对。
+		.. 注解:: 当数据超过 ``$batch_size`` 行时，将执行多个 ``INSERT`` 查询，
+		    每次最多处理 ``$batch_size`` 行。
 
 	.. php:method:: setUpdateBatch($key[, $value = ''[, $escape = NULL]])
 
-		:param	mixed	$key: 字段名， 或 field/value 对的关联数组
+		:param	mixed	$key: 字段名，或 field/value 对的关联数组
 		:param	string	$value: 字段值，如果 $key 是单个字段
 		:param	bool	$escape: 是否转义值和标识符
 		:returns:	BaseBuilder instance (方法链)
 		:rtype:	BaseBuilder
 
-		稍后通过``updateBatch（）``添加要在表中更新的 field/value 对。
+		添加 field/value 键值对，稍后通过 ``updateBatch()`` 更新一个表。
 
 	.. php:method:: replace([$set = NULL])
 
@@ -1292,13 +1692,13 @@ NOT LIKE 子句::
 		:returns:	TRUE 为成功, FALSE 为失败
 		:rtype:	bool
 
-		编译并执行REPLACE语句。
+		编译并执行 REPLACE 语句。
 
 	.. php:method:: delete([$where = ''[, $limit = NULL[, $reset_data = TRUE]]])
 
-		:param	string	$where: The WHERE clause
-		:param	int	$limit: The LIMIT clause
-		:param	bool	$reset_data: TRUE 重置查询 "write" 子句
+		:param	string	$where: WHERE 子句
+		:param	int	$limit: LIMIT 子句
+		:param	bool	$reset_data: TRUE 会重置查询 "write" 子句
 		:returns:	BaseBuilder instance (方法链) 或者失败时为 FALSE
 		:rtype:	mixed
 
@@ -1307,16 +1707,18 @@ NOT LIKE 子句::
     .. php:method:: increment($column[, $value = 1])
 
         :param string $column: 要递增的列的名称
-        :param int    $value:  要增加列的数量
+        :param int    $value:  要给列增加的数值
 
-				按指定的数量增加字段的值。 如果是这个领域不是 numeric 字段，如 VARCHAR， 它可能会被替换价值 $value。
+		给一个字段增加指定量的数值，如果该字段不是数字型字段，比如如 VARCHAR ，
+		它可能会被新的 $value 值替换。
 
     .. php:method:: decrement($column[, $value = 1])
 
         :param string $column: 要减少的列的名称
-        :param int    $value:  减少列的数量
+        :param int    $value:  要给列减少的数值
 
-				按指定的数量减去字段的值。 如果是这个领域不是 numeric 字段，如 VARCHAR， 它可能会被替换价值 $value。
+		给一个字段减去指定量的数值，如果该字段不是数字型字段，比如如 VARCHAR ，
+		它可能会被新的 $value 值替换。
 
 	.. php:method:: truncate()
 
@@ -1325,18 +1727,18 @@ NOT LIKE 子句::
 
 		在表上执行 TRUNCATE 语句。
 
-		.. note:: 如果使用的数据库平台不支持 TRUNCATE， 将使用DELETE语句。
+		.. note:: 如果所用的数据库平台不支持 TRUNCATE ，将使用 DELETE 语句替代。
 
 	.. php:method:: emptyTable()
 
 		:returns:	TRUE 为成功, FALSE 为失败
 		:rtype:	bool
 
-		通过 DELETE 语句删除表中的所有记录。
+		通过 DELETE 语句删除表中所有记录。
 
 	.. php:method:: getCompiledSelect([$reset = TRUE])
 
-		:param	bool	$reset: 是否重置当前 QB 值
+		:param	bool	$reset: 是否重置当前查询构造器（QB）的值
 		:returns:	已编译的 SQL 语句为字符串
 		:rtype:	string
 
@@ -1344,7 +1746,7 @@ NOT LIKE 子句::
 
 	.. php:method:: getCompiledInsert([$reset = TRUE])
 
-		:param	bool	$reset: 是否重置当前 QB 值
+		:param	bool	$reset: 是否重置当前查询构造器（QB）的值
 		:returns:	已编译的 SQL 语句为字符串
 		:rtype:	string
 
@@ -1352,7 +1754,7 @@ NOT LIKE 子句::
 
 	.. php:method:: getCompiledUpdate([$reset = TRUE])
 
-		:param	bool	$reset: 是否重置当前 QB 值
+		:param	bool	$reset: 是否重置当前查询构造器（QB）的值
 		:returns:	已编译的 SQL 语句为字符串
 		:rtype:	string
 
@@ -1360,7 +1762,7 @@ NOT LIKE 子句::
 
 	.. php:method:: getCompiledDelete([$reset = TRUE])
 
-		:param	bool	$reset: 是否重置当前 QB 值
+		:param	bool	$reset: 是否重置当前查询构造器（QB）的值
 		:returns:	已编译的 SQL 语句为字符串
 		:rtype:	string
 
