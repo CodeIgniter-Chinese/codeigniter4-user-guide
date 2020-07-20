@@ -2,7 +2,7 @@
 处理 HTTP 请求
 ##############
 
-为了充分地使用 CodeIgniter，你需要对 HTTP 请求和响应的工作方式有基本的了解。对于所有想要成功的开发者来说，
+为了充分地使用 CodeIgniter，你需要对 HTTP 请求和响应的工作方式有基本的了解。因为在开发Web应用时需要处理 HTTP 请求，所以对于所有想要成功的开发者来说，
 理解 HTTP 背后的概念是 **必须** 的。
 
 本章的第一部分会给出一些关于 HTTP 的概述，接着我们会讨论怎样用 CodeIgniter 来处理 HTTP 请求与响应。
@@ -28,7 +28,7 @@ HTTP 请求
 	Accept: text/html
 	User-Agent: Chrome/46.0.2490.80
 
-这条消息包含了所有服务器可能需要的信息。比如它请求的 method（GET，POST，DELETE 等）、它的 HTTP 版本。
+这条消息包含了所有服务器可能需要的信息。比如它请求的 method（GET，POST，DELETE 等）、它所支持的 HTTP 版本。
 
 该请求还包括许多可选的请求头字段，这些头字段可以包含各种信息，例如客户端希望内容显示为哪种语言，
 客户端接受的格式类型等等。 Wikipedia 上有一篇文章，列出了 `所有的请求头字段
@@ -63,15 +63,17 @@ HTTP 响应
 
 	use CodeIgniter\HTTP\IncomingRequest;
 
-	$request = new IncomingRequest(new \Config\App(), new \CodeIgniter\HTTP\URI());
+	$request = service('request');
 
 	// 请求的 uri（如 /about ）
 	$request->uri->getPath();
 
 	// 检索 $_GET 与 $_POST 变量
-	$request->getVar('foo');
 	$request->getGet('foo');
 	$request->getPost('foo');
+
+	// 从 $_REQUEST 检索，其中应同时包含 $_GET 和 $_POST 内容
+	$request->getVar('foo');
 
 	// 从 AJAX 调用中检索 JSON
 	$request->getJSON();
@@ -88,12 +90,14 @@ HTTP 响应
 request 类会在后台为你做很多工作，你无需担心。 ``isAJAX()`` 和 ``isSecure()`` 函数会自动检查几种不同的 method 来
 最后确定正确的答案。
 
+.. note:: ``isAJAX()`` 函数依赖于 ``X-Requested-With`` 头部，这个头部在一些情况下，不会在 XHR 请求中通过 JavaScript 默认发送。想要了解如何避免这个问题，请参考 :doc:`AJAX Requests </general/ajax>` 章节
+
 CodeIgniter 还提供了 :doc:`Response 类 </outgoing/response>` ，它是 HTTP 响应的面向对象式表示。
 它为你提供一种简单而强大的方法来构造对客户的响应： ::
 
   use CodeIgniter\HTTP\Response;
 
-  $response = new Response();
+  $response = service('response');
 
   $response->setStatusCode(Response::HTTP_OK);
   $response->setBody($output);

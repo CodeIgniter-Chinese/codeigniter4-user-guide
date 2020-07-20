@@ -7,29 +7,32 @@
 默认目录
 ===================
 
-新安装的应用程序中有六个目录：``/application``，``/system``，``/public``， ``/writable``，``/tests`` 和 ``/docs``。这些目录中的每一个都有一个非常具体的使用规范。
+新安装的应用程序中有六个目录：``/app``，``/system``，``/public``， ``/writable``，``/tests`` 和 ``/docs``。这些目录中的每一个都有一个非常具体的使用规范。
 
-application
+app
 -----------
 
-``application`` 目录是你所有应用程序代码所在的目录。它带有一个默认的目录结构，适用于许多应用程序。以下文件夹构成基本内容::
+``app`` 目录是你所有应用程序代码所在的目录。它带有一个默认的目录结构，适用于许多应用程序。以下文件夹构成基本内容::
 
 .. code-block:: none
 
-	/application
+	/app
 		/Config         Stores the configuration files
 		/Controllers    Controllers determine the program flow
+		/Database       Stores the database migrations and seeds files
+		/Filters        Stores filter classes that can run before and after controller
 		/Helpers        Helpers store collections of standalone functions
 		/Language       Multiple language support reads the language strings from here
 		/Libraries      Useful classes that don't fit in another category
 		/Models         Models work with the database to represent the business entities.
+		/ThirdParty     ThirdParty libraries that can be used in application
 		/Views          Views make up the HTML that is displayed to the client.
 
-由于application目录已经是命名空间，因此你可以随意修改此目录的结构以满足应用程序的需要。例如，你可能决定开始使用存储库模式和实体模型来处理数据。在这种情况下，你可以将Models目录重命名为 Repositories，并添加新Entities目录。
+由于app目录已经是命名空间，因此你可以随意修改此目录的结构以满足应用程序的需要。例如，你可能决定开始使用存储库模式和实体模型来处理数据。在这种情况下，你可以将Models目录重命名为 Repositories，并添加新Entities目录。
 
-.. 注意:: 如果重命名 ``Controllers``目录，则无法使用路由到控制器的自动方法，并且需要在你的路由文件中定义所有路由。
+.. note:: 如果重命名 ``Controllers`` 目录，则无法使用路由到控制器的自动方法，并且需要在你的路由文件中定义所有路由。
 
-此目录中的所有文件都位于 ``App`` 命名空间下，你可以在 **application/Config/Constants.php** 文件中自由更改 。
+此目录中的所有文件都位于 ``App`` 命名空间下，你可以在 **app/Config/Constants.php** 文件中自由更改 。
 
 system
 ------
@@ -53,8 +56,11 @@ tests
 
 docs
 ----
-此目录包含 CodeIgniter4 用户指南的本地副本。
+如果此目录是你项目中的一部分，那么此目录包含 CodeIgniter4 用户指南的本地副本。
 
 Modifying Directory Locations(修改目录位置)
------------------------------
-如果你需要重置任何主目录位置，可以在 ``application/Config/Paths``更改你需要更改的配置设置。
+------------------------------------------
+
+如果你需要重置任何主目录位置，可以在 ``app/Config/Paths`` 更改你需要更改的配置设置。
+
+请参考 `Managing your Applications <../general/managing_apps.html>`_
