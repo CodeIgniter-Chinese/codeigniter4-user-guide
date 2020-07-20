@@ -58,9 +58,9 @@ docs
 ----
 如果此目录是你项目中的一部分，那么此目录包含 CodeIgniter4 用户指南的本地副本。
 
-Modifying Directory Locations(修改目录位置)
-----------------------------------------------
+修改目录位置
+-----------------------------
 
-如果你需要重置任何主目录位置，可以在 ``app/Config/Paths`` 更改你需要更改的配置设置。
+如果你需要重定位任何主目录位置，可以在 ``app/Config/Paths`` 更改配置。
 
-请参考 `Managing your Applications <../general/managing_apps.html>`_
+详情请参考 `管理你的应用 <../general/managing_apps.html>`_
