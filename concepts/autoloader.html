@@ -359,7 +359,7 @@
 配置文件中的 <code class="docutils literal notranslate"><span class="pre">psr4</span></code> 数组允许你将命名空间和对应的类所存在的目录进行映射:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$psr4</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;App&#39;</span>         <span class="o">=&gt;</span> <span class="nx">APPPATH</span><span class="p">,</span>
-        <span class="s1">&#39;CodeIgniter&#39;</span> <span class="o">=&gt;</span> <span class="nx">BASEPATH</span><span class="p">,</span>
+        <span class="s1">&#39;CodeIgniter&#39;</span> <span class="o">=&gt;</span> <span class="nx">SYSTEMPATH</span><span class="p">,</span>
 <span class="p">];</span>
 </pre></div>
 </div>
@@ -392,6 +392,15 @@
 <p>如果以上的所有方法都找不到对应的类文件，且这个类没有对应的命名空间，自动加载器将会查找 <strong>/application/Libraries</strong> 和 <strong>/application/Models</strong> 目录来尝试定位文件。
 这为从以前版本升级提供了一个简洁的方式。</p>
 <p>对于支持从前版本而言，没有额外的配置选项。</p>
+</div>
+<div class="section" id="id6">
+<h2>支持Composer<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>默认情况下CodeIgniter自动初始化支持Composer. 默认情况下，它将在 <code class="docutils literal notranslate"><span class="pre">ROOTPATH.'vendor</span> <span class="pre">/</span> <span class="pre">autoload.php'</span></code> 中查找Composer的自动加载文件。
+如果因为一些原因需要更改这个文件的位置，你可以修改定义在 <code class="docutils literal notranslate"><span class="pre">Config\Constants.php</span></code> 的值</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">如果在CodeIgniter和Composer中都定义了相同的名称空间，则CodeIgniter的自动加载器将首先定位文件。</p>
+</div>
 </div>
 </div>
 

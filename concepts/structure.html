@@ -343,10 +343,10 @@
 <p>为了可以充分利用 CodeIgniter，你需要了解应用程序的结构，默认情况下，你可以更改内容以满足你的应用程序的需求。</p>
 <div class="section" id="id2">
 <h2>默认目录<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>新安装的应用程序中有六个目录：<code class="docutils literal notranslate"><span class="pre">/application</span></code>，<code class="docutils literal notranslate"><span class="pre">/system</span></code>，<code class="docutils literal notranslate"><span class="pre">/public</span></code>， <code class="docutils literal notranslate"><span class="pre">/writable</span></code>，<code class="docutils literal notranslate"><span class="pre">/tests</span></code> 和 <code class="docutils literal notranslate"><span class="pre">/docs</span></code>。这些目录中的每一个都有一个非常具体的使用规范。</p>
-<div class="section" id="application">
-<h3>application<a class="headerlink" href="#application" title="永久链接至标题">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">application</span></code> 目录是你所有应用程序代码所在的目录。它带有一个默认的目录结构，适用于许多应用程序。以下文件夹构成基本内容:</p>
+<p>新安装的应用程序中有六个目录：<code class="docutils literal notranslate"><span class="pre">/app</span></code>，<code class="docutils literal notranslate"><span class="pre">/system</span></code>，<code class="docutils literal notranslate"><span class="pre">/public</span></code>， <code class="docutils literal notranslate"><span class="pre">/writable</span></code>，<code class="docutils literal notranslate"><span class="pre">/tests</span></code> 和 <code class="docutils literal notranslate"><span class="pre">/docs</span></code>。这些目录中的每一个都有一个非常具体的使用规范。</p>
+<div class="section" id="app">
+<h3>app<a class="headerlink" href="#app" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">app</span></code> 目录是你所有应用程序代码所在的目录。它带有一个默认的目录结构，适用于许多应用程序。以下文件夹构成基本内容:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="nx">code</span><span class="o">-</span><span class="nx">block</span><span class="o">::</span> <span class="na">none</span>
 </pre></div>
 </div>
@@ -356,7 +356,7 @@
 <col class="description" />
 <tbody valign="top">
 <tr><td class="option-group">
-<kbd><span class="option">/application</span></kbd></td>
+<kbd><span class="option">/app</span></kbd></td>
 <td><table class="first last docutils option-list" frame="void" rules="none">
 <col class="option" />
 <col class="description" />
@@ -367,6 +367,12 @@
 <tr><td class="option-group">
 <kbd><span class="option">/Controllers</span></kbd></td>
 <td>Controllers determine the program flow</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">/Database</span></kbd></td>
+<td>Stores the database migrations and seeds files</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">/Filters</span></kbd></td>
+<td>Stores filter classes that can run before and after controller</td></tr>
 <tr><td class="option-group">
 <kbd><span class="option">/Helpers</span></kbd></td>
 <td>Helpers store collections of standalone functions</td></tr>
@@ -380,6 +386,9 @@
 <kbd><span class="option">/Models</span></kbd></td>
 <td>Models work with the database to represent the business entities.</td></tr>
 <tr><td class="option-group">
+<kbd><span class="option">/ThirdParty</span></kbd></td>
+<td>ThirdParty libraries that can be used in application</td></tr>
+<tr><td class="option-group">
 <kbd><span class="option">/Views</span></kbd></td>
 <td>Views make up the HTML that is displayed to the client.</td></tr>
 </tbody>
@@ -388,12 +397,12 @@
 </tbody>
 </table>
 </div></blockquote>
-<p>由于application目录已经是命名空间，因此你可以随意修改此目录的结构以满足应用程序的需要。例如，你可能决定开始使用存储库模式和实体模型来处理数据。在这种情况下，你可以将Models目录重命名为 Repositories，并添加新Entities目录。</p>
-<div class="admonition attention">
-<p class="first admonition-title">注意</p>
-<p class="last">如果重命名 <a href="#id3"><span class="problematic" id="id4">``</span></a>Controllers``目录，则无法使用路由到控制器的自动方法，并且需要在你的路由文件中定义所有路由。</p>
+<p>由于app目录已经是命名空间，因此你可以随意修改此目录的结构以满足应用程序的需要。例如，你可能决定开始使用存储库模式和实体模型来处理数据。在这种情况下，你可以将Models目录重命名为 Repositories，并添加新Entities目录。</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">如果重命名 <code class="docutils literal notranslate"><span class="pre">Controllers</span></code> 目录，则无法使用路由到控制器的自动方法，并且需要在你的路由文件中定义所有路由。</p>
 </div>
-<p>此目录中的所有文件都位于 <code class="docutils literal notranslate"><span class="pre">App</span></code> 命名空间下，你可以在 <strong>application/Config/Constants.php</strong> 文件中自由更改 。</p>
+<p>此目录中的所有文件都位于 <code class="docutils literal notranslate"><span class="pre">App</span></code> 命名空间下，你可以在 <strong>app/Config/Constants.php</strong> 文件中自由更改 。</p>
 </div>
 <div class="section" id="system">
 <h3>system<a class="headerlink" href="#system" title="永久链接至标题">¶</a></h3>
@@ -415,11 +424,12 @@
 </div>
 <div class="section" id="docs">
 <h3>docs<a class="headerlink" href="#docs" title="永久链接至标题">¶</a></h3>
-<p>此目录包含 CodeIgniter4 用户指南的本地副本。</p>
+<p>如果此目录是你项目中的一部分，那么此目录包含 CodeIgniter4 用户指南的本地副本。</p>
 </div>
 <div class="section" id="modifying-directory-locations">
 <h3>Modifying Directory Locations(修改目录位置)<a class="headerlink" href="#modifying-directory-locations" title="永久链接至标题">¶</a></h3>
-<p>如果你需要重置任何主目录位置，可以在 <a href="#id5"><span class="problematic" id="id6">``</span></a>application/Config/Paths``更改你需要更改的配置设置。</p>
+<p>如果你需要重置任何主目录位置，可以在 <code class="docutils literal notranslate"><span class="pre">app/Config/Paths</span></code> 更改你需要更改的配置设置。</p>
+<p>请参考 <a class="reference external" href="../general/managing_apps.html">Managing your Applications</a></p>
 </div>
 </div>
 </div>

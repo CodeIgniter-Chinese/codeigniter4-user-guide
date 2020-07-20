@@ -340,7 +340,7 @@
             
   <div class="section" id="http">
 <h1>处理 HTTP 请求<a class="headerlink" href="#http" title="永久链接至标题">¶</a></h1>
-<p>为了充分地使用 CodeIgniter，你需要对 HTTP 请求和响应的工作方式有基本的了解。对于所有想要成功的开发者来说，
+<p>为了充分地使用 CodeIgniter，你需要对 HTTP 请求和响应的工作方式有基本的了解。因为在开发Web应用时需要处理 HTTP 请求，所以对于所有想要成功的开发者来说，
 理解 HTTP 背后的概念是 <strong>必须</strong> 的。</p>
 <p>本章的第一部分会给出一些关于 HTTP 的概述，接着我们会讨论怎样用 CodeIgniter 来处理 HTTP 请求与响应。</p>
 <div class="section" id="id1">
@@ -359,7 +359,7 @@
 <span class="nx">User</span><span class="o">-</span><span class="nx">Agent</span><span class="o">:</span> <span class="nx">Chrome</span><span class="o">/</span><span class="mf">46.0</span><span class="o">.</span><span class="mf">2490.80</span>
 </pre></div>
 </div>
-<p>这条消息包含了所有服务器可能需要的信息。比如它请求的 method（GET，POST，DELETE 等）、它的 HTTP 版本。</p>
+<p>这条消息包含了所有服务器可能需要的信息。比如它请求的 method（GET，POST，DELETE 等）、它所支持的 HTTP 版本。</p>
 <p>该请求还包括许多可选的请求头字段，这些头字段可以包含各种信息，例如客户端希望内容显示为哪种语言，
 客户端接受的格式类型等等。 Wikipedia 上有一篇文章，列出了 <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">所有的请求头字段</a> （译者注：国内用户如果无法访问的话，
 可以查看 <a class="reference external" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers">在MDN上的页面</a> ）。</p>
@@ -389,15 +389,17 @@
 它提供你所需要的一切：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\HTTP\IncomingRequest</span><span class="p">;</span>
 
-<span class="nv">$request</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IncomingRequest</span><span class="p">(</span><span class="k">new</span> <span class="nx">\Config\App</span><span class="p">(),</span> <span class="k">new</span> <span class="nx">\CodeIgniter\HTTP\URI</span><span class="p">());</span>
+<span class="nv">$request</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">);</span>
 
 <span class="c1">// 请求的 uri（如 /about ）</span>
 <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">uri</span><span class="o">-&gt;</span><span class="na">getPath</span><span class="p">();</span>
 
 <span class="c1">// 检索 $_GET 与 $_POST 变量</span>
-<span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
 <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getGet</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
 <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+
+<span class="c1">// 从 $_REQUEST 检索，其中应同时包含 $_GET 和 $_POST 内容</span>
+<span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getVar</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
 
 <span class="c1">// 从 AJAX 调用中检索 JSON</span>
 <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getJSON</span><span class="p">();</span>
@@ -414,11 +416,15 @@
 </div>
 <p>request 类会在后台为你做很多工作，你无需担心。 <code class="docutils literal notranslate"><span class="pre">isAJAX()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">isSecure()</span></code> 函数会自动检查几种不同的 method 来
 最后确定正确的答案。</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">isAJAX()</span></code> 函数依赖于 <code class="docutils literal notranslate"><span class="pre">X-Requested-With</span></code> 头部，这个头部在一些情况下，不会在 XHR 请求中通过 JavaScript 默认发送。想要了解如何避免这个问题，请参考 <a class="reference internal" href="../general/ajax.html"><span class="doc">AJAX Requests</span></a> 章节</p>
+</div>
 <p>CodeIgniter 还提供了 <a class="reference internal" href="../outgoing/response.html"><span class="doc">Response 类</span></a> ，它是 HTTP 响应的面向对象式表示。
 它为你提供一种简单而强大的方法来构造对客户的响应：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\HTTP\Response</span><span class="p">;</span>
 
-<span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">);</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setStatusCode</span><span class="p">(</span><span class="nx">Response</span><span class="o">::</span><span class="na">HTTP_OK</span><span class="p">);</span>
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setBody</span><span class="p">(</span><span class="nv">$output</span><span class="p">);</span>
