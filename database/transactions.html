@@ -340,20 +340,24 @@
             
   <div class="section" id="id1">
 <h1>事务<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter 的数据库抽象类，允许你将事务和支持事务安全表类型的数据库一起使用。在 MySQL 中，你需要将表设置为 InnoDB 或者 BDB 类型，
+<p>CodeIgniter 的数据库抽象类允许你将事务和支持事务安全表类型的数据库一起使用。
+在 MySQL 中，你需要将表设置为 InnoDB 或者 BDB 类型，
 而不是更常见的 MyISAM。大多数的数据库本身支持事务。</p>
-<p>如果你不熟悉事务，我们建议你找到一个很好的在线资源，以了解你使用的数据库。以下的信息假定你对事务有基本的了解</p>
+<p>如果你不熟悉事务，我们建议找个好的在线资源学习下，了解你正用的数据库。
+以下的信息假定你对事务有基本的了解。</p>
 <div class="section" id="codeigniter">
 <h2>CodeIgniter 的事务方法<a class="headerlink" href="#codeigniter" title="永久链接至标题">¶</a></h2>
-<p>CodeIgniter 使用的方法与流行的数据库类 ADODB 使用的流程非常相似。我们选择了这种方法，因为它极大地简化了运行事务的过程。
+<p>CodeIgniter 采用一种与流行的 ADODB 数据库类很相似的方式处理事务。
+我们选用这种方法因为它极大地简化了运行事务的过程。
 在大多数情况下，所需要的只是两行代码。</p>
-<p>传统上的事务需要相当多的工作才能实现，因为它们要求你跟踪查询并根据查询的成功或失败来确定是提交还是回滚。
-嵌套查询这一点特别麻烦。相比之下，我们已经实施了一个智能事务系统，可以自动为你完成所有这些（如果你选择，
-你也可以手动管理你的事务，但实际上没有任何好处）。</p>
+<p>传统的事务需要相当多的工序才能实现，因为它要求你跟踪查询并根据查询的成功或失败来决定提交
+还是回滚，这在嵌套查询时尤为麻烦。相比之下，我们已经实现了一个智能事务系统，可以自动为你
+完成这些工作（如果你想要手动管理你的事务也可以，但这实际上没有任何好处）。</p>
 </div>
 <div class="section" id="id2">
 <h2>运行事务<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>要使用事务运行查询，你将使用 $this-&gt;db-&gt;transStart() 和 $this-&gt;db-&gt;transComplete() 函数，如下所示:</p>
+<p>要使用事务运行查询，你将使用 $this-&gt;db-&gt;transStart()
+和 $this-&gt;db-&gt;transComplete() 方法，如下所示:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transStart</span><span class="p">();</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;AN SQL QUERY...&#39;</span><span class="p">);</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;ANOTHER QUERY...&#39;</span><span class="p">);</span>
@@ -361,19 +365,23 @@
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transComplete</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>你可以在启动/完成功能之间运行任意数量的查询，并且它们将根据任何给定查询的成功或失败提交或回滚。</p>
+<p>你可以在启动/完成方法之间运行任意多的查询，并且根据任何给定查询的成功或失败结果，
+他们都能被提交或回滚。</p>
 </div>
 <div class="section" id="id3">
 <h2>严格模式<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>默认情况下，CodeIgniter 以严格模式运行所有事务。启用严格模式时，如果你正在运行多组事务，则如果一个组失败，则将回滚所有组。如果禁用严格模式，则会独立处理每个组，这意味着一个组的故障不会影响任何其他组。</p>
+<p>默认情况下，CodeIgniter 以严格模式运行所有事务。
+启用严格模式时，如果你正在运行多组事务，假如一个组失败，所有组都将被回滚。
+如果禁用严格模式，则会独立处理每个组，这意味着一个组的失败不会影响其他组。</p>
 <p>可以按如下方式禁用严格模式:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transStrict</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id4">
-<h2>管理错误<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<p>如果在 Config / Database.php 文件中启用了错误报告，则在提交失败时会看到标准错误消息。如果关闭调试，你可以像下面这样管理自己的错误:</p>
+<h2>错误处理<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>如果在 Config / Database.php 文件中启用了错误报告，在提交失败时会看到标准错误消息。
+如果关闭调试，你可以像下面这样处理自己的错误:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transStart</span><span class="p">();</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;AN SQL QUERY...&#39;</span><span class="p">);</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;ANOTHER QUERY...&#39;</span><span class="p">);</span>
@@ -387,21 +395,22 @@
 </div>
 </div>
 <div class="section" id="id5">
-<h2>启用事务<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
-<p>使用 $this-&gt;db-&gt;transStart() 时，会自动启用事务。如果要禁用事务，可以使用 $this-&gt;db-&gt;transOff() 来执行此操作:</p>
+<h2>禁用事务<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>事务功能是默认开启的，如果要禁用事务，可以执行 $this-&gt;db-&gt;transOff() 操作:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transOff</span><span class="p">();</span>
 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">trans_Start</span><span class="p">();</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transStart</span><span class="p">();</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;AN SQL QUERY...&#39;</span><span class="p">);</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transComplete</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>禁用事务时，你的查询将自动提交，就像在没有事务的情况下运行查询时一样。</p>
+<p>禁用事务时，你的查询将自动提交，就像平时没事务那样的执行查询。</p>
 </div>
 <div class="section" id="id6">
 <h2>测试模式<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
-<p>你可以选择将事务系统置于“测试模式”，这将导致你的查询被回滚 - 即使查询产生有效结果。要使用测试模式，只需将 $this-&gt;db-&gt;transStart() 函数中的第一个参数设置为 TRUE:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transStart</span><span class="p">(</span><span class="k">true</span><span class="p">);</span> <span class="c1">// 查询将回滚</span>
+<p>你可以选择将事务系统置于 “测试模式” ，这将导致你的查询被回滚 –
+即使查询产生有效结果。要使用测试模式，只需将 $this-&gt;db-&gt;transStart() 方法的第一个参数设置为 TRUE:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transStart</span><span class="p">(</span><span class="k">true</span><span class="p">);</span> <span class="c1">// 查询将被回滚</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;AN SQL QUERY...&#39;</span><span class="p">);</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">transComplete</span><span class="p">();</span>
 </pre></div>
@@ -428,7 +437,8 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">确保在运行手动事务时使用 $this-&gt;db-&gt;transBegin(), <strong>而不是</strong> $this-&gt;db-&gt;transStart().</p>
+<p class="last">确保在手动运行事务时使用 $this-&gt;db-&gt;transBegin()，
+<strong>而不是</strong> $this-&gt;db-&gt;transStart()。</p>
 </div>
 </div>
 </div>
@@ -456,7 +466,7 @@
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-19.
+        最后更新于 2020-07-20.
       </span>
 
     </p>
