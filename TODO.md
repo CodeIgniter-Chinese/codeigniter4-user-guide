@@ -12,27 +12,6 @@
 1. - [x] 译文: [source/cli/cli.rst](source/cli/cli.rst)
          原文: [source/cli/cli.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/cli/cli.rst)
          @Hex
-1. - [x] 译文: [source/concepts/autoloader.rst](source/concepts/autoloader.rst)
-         原文: [source/concepts/autoloader.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/autoloader.rst)
-         @蓝色的风
-1. - [x] 译文: [source/concepts/http.rst](source/concepts/http.rst)
-         原文: [source/concepts/http.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/http.rst)
-         @蓝色的风
-1. - [x] 译文: [source/concepts/mvc.rst](source/concepts/mvc.rst)
-         原文: [source/concepts/mvc.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/mvc.rst)
-         @蓝色的风
-1. - [x] 译文: [source/concepts/security.rst](source/concepts/security.rst)
-         原文: [source/concepts/security.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/security.rst)
-         @蓝色的风
-1. - [x] 译文: [source/concepts/services.rst](source/concepts/services.rst)
-         原文: [source/concepts/services.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/services.rst)
-         @蓝色的风
-1. - [x] 译文: [source/concepts/structure.rst](source/concepts/structure.rst)
-         原文: [source/concepts/structure.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/concepts/structure.rst)
-         @蓝色的风
-1. - [x] 译文: [source/database/query_builder.rst](source/database/query_builder.rst)
-         原文: [source/database/query_builder.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/database/query_builder.rst)
-         @Visvoy
 1. - [ ] 译文: [source/dbmgmt/forge.rst](source/dbmgmt/forge.rst)
          原文: [source/dbmgmt/forge.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/dbmgmt/forge.rst)
 1. - [ ] 译文: [source/dbmgmt/migration.rst](source/dbmgmt/migration.rst)
