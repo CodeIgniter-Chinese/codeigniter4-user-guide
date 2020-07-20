@@ -4,7 +4,7 @@
 
 数据库实用工具类包含一系列可以帮助你管理数据库的方法。
 
-.. contents::
+.. 目录::
     :local:
     :depth: 2
 
@@ -14,7 +14,7 @@
 
 **getXMLFromResult()**
 
-该方法用于从数据库查询结果中返回xml结果，可以如下所示::
+该方法从数据库查询结果中返回xml结果，可以如下进行::
 
     $model = new class extends \CodeIgniter\Model {
         protected $table      = 'foo';
