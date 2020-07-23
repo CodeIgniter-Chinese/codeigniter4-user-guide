@@ -1,39 +1,41 @@
 ****************
-CLIRequest Class
+CLI 请求类
 ****************
 
-If a request comes from a command line invocation, the request object is actually a
-``CLIRequest``. It behaves the same as a :doc:`conventional request </incoming/request>`
-but adds some accessor methods for convenience.
+如果对象来自命令行的调用，请求的对象实际上是 ``CLIRequest``.
+它表现得如同 :doc:`conventional request </incoming/request>` , 但是为了便捷添加了一些访问函数方法。
+
 
 ====================
-Additional Accessors
+附加函数方法
 ====================
 
 **getSegments()**
 
-Returns an array of the command line arguments deemed to be part of a path::
+返回命令行实参的一组数组视为路径的部分::
 
     // command line: php index.php users 21 profile -foo bar
     echo $request->getSegments();  // ['users', '21', 'profile']
 
 **getPath()**
 
-Returns the reconstructed path as a string::
+以字符串返回重组的路径::
+
 
     // command line: php index.php users 21 profile -foo bar
     echo $request->getPath();  // users/21/profile
 
 **getOptions()**
 
-Returns an array of the command line arguments deemed to be options::
+返回命令行实参的一组数组视为选项::
 
     // command line: php index.php users 21 profile -foo bar
     echo $request->getOptions();  // ['foo' => 'bar']
 
 **getOption($which)**
 
-Returns the value of a specific command line argument deemed to be an option::
+返回一个特殊的命令行实参的值视为一个选项::
+
 
     // command line: php index.php users 21 profile -foo bar
     echo $request->getOption('foo');  // bar
@@ -41,7 +43,7 @@ Returns the value of a specific command line argument deemed to be an option::
 
 **getOptionString()**
 
-Returns the reconstructed command line string for the options::
+为选项返回重组的命令行字符串::
 
     // command line: php index.php users 21 profile -foo bar
     echo $request->getOptionPath();  // -foo bar
