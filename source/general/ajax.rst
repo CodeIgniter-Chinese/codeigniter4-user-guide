@@ -12,16 +12,14 @@ AJAX请求
 Fetch API
 =========
 
+.. code-block:: javascript
+
     fetch(url, {
         method: "get",
         headers: {
-
           "Content-Type": "application/json",
-
           "X-Requested-With": "XMLHttpRequest"
-
         }
-
     });
 
 
@@ -31,12 +29,12 @@ jQuery
 对于类似jQuery之类的库来说，不需要额外发送这个头，因为根据 `官方文档 <https://api.jquery.com/jquery.ajax/>`_ ，对于所有 ``$.ajax()`` 请求来说，这都是一个标准头。
 但是如果你还是不想担风险并强制发送这个头，就像下面这样做吧:
 
+.. code-block:: javascript
+
     $.ajax({
         url: "your url",
-
         headers: {'X-Requested-With': 'XMLHttpRequest'}
-
-    });  
+    });
 
 
 VueJS
@@ -44,12 +42,14 @@ VueJS
 
 在VueJS中你只需要在 ``created`` 函数中增加以下代码，只要你在这类请求时使用Axios:
 
+.. code-block:: javascript
+
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
 React
 =====
 
-例如:
+.. code-block:: javascript
 
     axios.get("your url", {headers: {'Content-Type': 'application/json'}})
