@@ -42,6 +42,8 @@ VueJS
 
 在VueJS中你只需要在 ``created`` 函数中增加以下代码，只要你在这类请求时使用Axios:
 
+.. code-block:: javascript
+
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
