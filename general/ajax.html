@@ -346,46 +346,39 @@
 <p>以下就是如何迫使在Fetch API和其他JavaScript库中发送 <code class="docutils literal notranslate"><span class="pre">X-Requested-With</span></code> 请求头。</p>
 <div class="section" id="fetch-api">
 <h2>Fetch API<a class="headerlink" href="#fetch-api" title="永久链接至标题">¶</a></h2>
-<blockquote>
-<div><dl class="docutils">
-<dt>fetch(url, {</dt>
-<dd><p class="first">method: “get”,
-headers: {</p>
-<blockquote>
-<div><p>“Content-Type”: “application/json”,</p>
-<p>“X-Requested-With”: “XMLHttpRequest”</p>
-</div></blockquote>
-<p class="last">}</p>
-</dd>
-</dl>
-<p>});</p>
-</div></blockquote>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;get&quot;</span><span class="p">,</span>
+    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;X-Requested-With&quot;</span><span class="o">:</span> <span class="s2">&quot;XMLHttpRequest&quot;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="jquery">
 <h2>jQuery<a class="headerlink" href="#jquery" title="永久链接至标题">¶</a></h2>
 <p>对于类似jQuery之类的库来说，不需要额外发送这个头，因为根据 <a class="reference external" href="https://api.jquery.com/jquery.ajax/">官方文档</a> ，对于所有 <code class="docutils literal notranslate"><span class="pre">$.ajax()</span></code> 请求来说，这都是一个标准头。
 但是如果你还是不想担风险并强制发送这个头，就像下面这样做吧:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>$.ajax({</dt>
-<dd><p class="first">url: “your url”,</p>
-<p class="last">headers: {‘X-Requested-With’: ‘XMLHttpRequest’}</p>
-</dd>
-</dl>
-<p>});</p>
-</div></blockquote>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;your url&quot;</span><span class="p">,</span>
+    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;X-Requested-With&#39;</span><span class="o">:</span> <span class="s1">&#39;XMLHttpRequest&#39;</span><span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="vuejs">
 <h2>VueJS<a class="headerlink" href="#vuejs" title="永久链接至标题">¶</a></h2>
 <p>在VueJS中你只需要在 <code class="docutils literal notranslate"><span class="pre">created</span></code> 函数中增加以下代码，只要你在这类请求时使用Axios:</p>
-<blockquote>
-<div>axios.defaults.headers.common[‘X-Requested-With’] = ‘XMLHttpRequest’;</div></blockquote>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">axios</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">common</span><span class="p">[</span><span class="s1">&#39;X-Requested-With&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;XMLHttpRequest&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="react">
 <h2>React<a class="headerlink" href="#react" title="永久链接至标题">¶</a></h2>
-<p>例如:</p>
-<blockquote>
-<div>axios.get(“your url”, {headers: {‘Content-Type’: ‘application/json’}})</div></blockquote>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;your url&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}})</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -412,7 +405,7 @@ headers: {</p>
         
         &copy; 版权所有 2019-2020 CodeIgniter 基金会
       <span class="lastupdated">
-        最后更新于 2020-07-20.
+        最后更新于 2020-07-24.
       </span>
 
     </p>
