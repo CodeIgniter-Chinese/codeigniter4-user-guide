@@ -1,21 +1,23 @@
 =====================
-Honeypot Class
+蜜罐类
 =====================
 
-The Honeypot Class makes it possible to determine when a Bot makes a request to a CodeIgniter4 application,
-if it's enabled in ``Application\Config\Filters.php`` file. This is done by attaching form fields to any form,
-and this form field is hidden from a human but accessible to a Bot. When data is entered into the field, it's
-assumed the request is coming from a Bot, and you can throw a ``HoneypotException``.
+当一个机器人程序向 CodeIgniter4 应用做请求时蜜罐类可能成功终止它。
+如果蜜罐类在 ``Application\Config\Filters.php`` 文件里授权。
+作为附件的表格字段的任意表格已经完成，并且这个表格字段是人性化隐藏的，但会受机器人程序影响。
+当数据进入到字段时，假设的请求来自于一个机器人程序，并且你能抛出一个 ``HoneypotException``.
+
 
 .. contents::
     :local:
     :depth: 2
 
-Enabling Honeypot
+授权中的蜜罐
 =====================
 
-To enable a Honeypot, changes have to be made to the ``app/Config/Filters.php``. Just uncomment honeypot
-from the ``$globals`` array, like...::
+去授权一个蜜罐，必须使用 ``app/Config/Filters.php`` 来改变。
+恰好从 ``$globals`` 数组取消批注的蜜罐，如同……::
+
 
     public $globals = [
             'before' => [
@@ -28,17 +30,18 @@ from the ``$globals`` array, like...::
             ]
         ];
 
-A sample Honeypot filter is bundled, as ``system/Filters/Honeypot.php``.
-If it is not suitable, make your own at ``app/Filters/Honeypot.php``,
-and modify the ``$aliases`` in the configuration appropriately.
+一个蜜罐样本过滤器是捆绑的，例如 ``system/Filters/Honeypot.php``.
+如果蜜罐样本过滤器不是合适的，确保你自身在  ``app/Filters/Honeypot.php`` 里，
+并且在适当的配置里修改 ``$aliases`` 。
 
-Customizing Honeypot
+
+自定义蜜罐
 =====================
 
-Honeypot can be customized. The fields below can be set either in
-``app/Config/Honeypot.php`` or in ``.env``.
+蜜罐能被定制。接下来的字段能被或许被设置在 ``app/Config/Honeypot.php`` 里或者在 ``.env`` 里。
 
-* ``hidden`` - true|false to control visibility of the honeypot field; default is ``true``
-* ``label`` - HTML label for the honeypot field, default is 'Fill This Field'
-* ``name`` - name of the HTML form field used for the template; default is 'honeypot'
-* ``template`` - form field template used for the honeypot; default is '<label>{label}</label><input type="text" name="{name}" value=""/>'
+
+* ``hidden`` - true|false 去控制蜜罐字段的可见性，默认是 ``true``
+* ``label`` - 为蜜罐字段准备的 HTML 标签，默认是 'Fill This Field'/填充字段
+* ``name`` - HTML 表格字段的名字常习惯于为了模板使用；默认是 'honeypot'
+* ``template`` - 表格字段模板习惯于为了蜜罐使用；默认是 '<label>{label}</label><input type="text" name="{name}" value=""/>'
