@@ -88,6 +88,7 @@
     :param mixed $num: 数字格式
     :param string $currency: 货币类型, 例如 USD, EUR, 等等
     :param string $locale: 为了格式化区域使用
+    :param integer $fraction: Number of fraction digits after decimal point
     :returns: 为了本地化数字应与货币相称
     :rtype: string
 
@@ -110,5 +111,5 @@
         echo number_to_roman(324);  // 返回 CCCXXIV
         echo number_to_roman(2534);  // 返回 MMDXXXIV
 
-    函数仅处理1到3999之间的数字。
+    函数仅处理 1 到 3999 之间的数字。
     超出范围的任何值它将返回空。
