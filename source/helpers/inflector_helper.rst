@@ -29,7 +29,7 @@
 	:returns:	单数单词
 	:rtype:	string
 
-	改变复数单词为单数。事例::
+	改变复数单词为单数。例如::
 
 		echo singular('dogs'); //  打印出 'dog'
 
@@ -39,9 +39,20 @@
 	:returns:	复数单词
 	:rtype:	string
 
-	 改变单数单词为复数。事例::
+	 改变单数单词为复数。例如::
 
 		echo plural('dog'); // 打印出 'dogs'
+		
+.. php:function:: counted($count, $string)
+
+	:param	int 	$count:  Number of items
+	:param	string	$string: Input string
+	:returns:	A singular or plural phrase
+	:rtype:	string
+
+	Changes a word and its count to a phrase. 例如::
+
+		echo counted(3, 'dog'); // 打印出 '3 dogs'
 
 .. php:function:: camelize($string)
 
@@ -49,9 +60,20 @@
 	:returns:	驼峰化 string
 	:rtype:	string
 
-	由空格或者下划线改变单词分割的字符串为驼峰式大小写。事例::
+	由空格或者下划线改变单词分割的字符串为驼峰式大小写。例如::
 
 		echo camelize('my_dog_spot'); // 打印出 'myDogSpot'
+
+.. php:function:: pascalize($string)
+
+	:param	string	$string: Input string
+	:returns:	Pascal case string
+	:rtype:	string
+
+	Changes a string of words separated by spaces or underscores to Pascal
+	case, which is camel case with the first letter capitalized. 例如::
+
+		echo pascalize('my_dog_spot'); // 打印出 'MyDogSpot'
 
 .. php:function:: underscore($string)
 
