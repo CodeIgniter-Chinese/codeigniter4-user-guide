@@ -63,7 +63,7 @@ Cookie 辅助函数文件使用下面的代码加载::
 		delete_cookie('name');
 
 	这个函数除了没有值和截止参数，它对 ``set_cookie()`` 来说在其他方面是恒等的。
-	你能在第一参数里确定数组值或者你要设置 *非连续* 参数。 
+	你能在第一参数里确定数组值或者你要设置离散参数。 
 	::
 
 		delete_cookie($name, $domain, $path, $prefix);
