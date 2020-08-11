@@ -2,7 +2,7 @@
 代码模块
 ############
 
-CodeIgniter支持代码模块化组合，以便于你构建可重用的代码。模块通常来说是以一个特定主题为中心而构建的，并可被认为是在大型的程序中的一系列微型程序。
+CodeIgniter 支持代码模块化组合，以便于你构建可重用的代码。模块通常来说是以一个特定主题为中心而构建的，并可被认为是在大型的程序中的一系列微型程序。
 我们支持框架中所有标准的文件类型，例如控制器，模型，视图，配置文件，辅助函数，语言文件等。模块可能包含着或多或少的你所需要的以上这些类型中。
 
 .. contents::
@@ -71,8 +71,8 @@ CodeIgniter所使用的模块功能的核心组件来自于 :doc:`与PSR4相适�
 
 自动发现系统通过扫描所有在 **Config/Autoload.php** 中定义的PSR4类型的命名空间来实现对于目录/文件的识别。
 
-当我们回顾上面的 **acme** 命名空间时，需要进行一个小小的调整，使得文件被发现: 每个命名空间中的“模块”需要拥有自己独立定义的命名空间。
-**Acme** 需要被换成 **Acme\Blog**。当你的模块文件夹确定下来后，如果我们要去找一个Routes文件，自动发现的流程就会去寻找 **/acme/Blog/Config/Routes.php** 以防在别的应用中进行了查找。
+To make auto-discovery work for our **Blog** namespace, we need to make one small adjustment.
+**Acme** needs to be changed to **Acme\\Blog** because each "module" within the namespace needs to be fully defined. Once your module folder path is defined, the discovery process would look for discoverable items on that path and should, for example, find the routes file at **/acme/Blog/Config/Routes.php**.
 
 开启/关闭自动发现
 =======================
@@ -94,7 +94,7 @@ CodeIgniter所使用的模块功能的核心组件来自于 :doc:`与PSR4相适�
     public $discoverInComposer = false;
 
 ==================
-和文件打交道Working With Files
+处理文件
 ==================
 
 这节将会详细介绍每种文件类型（控制器，视图，语言文件等）以及在模块中如果使用它们。其中的某些信息在用户手册中将会更为详细地描述，不过在这里重新介绍一下以便了解全局的情况。
