@@ -28,11 +28,10 @@ URI 分段
 	example.com/index.php/news/article/my_article
 
 
-如果你的服务器支持重写 URL ，那么通过 URL 重写，我们可以轻易的去除这个文件。在不同的服务器中，处理方式各异，故而如下我们主要展示两个最为通用的Web服务器。
+如果你的服务器支持重写 URL ，那么通过 URL 重写，我们可以轻易的去除这个文件。在不同的服务器中，处理方式各异，故而如下我们主要展示两个最为通用的 Web 服务器。
 
 Apache服务器
 -----------------
-
 
 Apache需要开启 *mod_rewrite* 扩展。当开启时，我们可以使用一个 ``.htaccess`` 文件以及一些简单的规则来实现 URL 重写。如下为这个文件的一个样例，其中使用了”否定“方法来排除某些不需要重定向的项目:
 
@@ -42,7 +41,6 @@ Apache需要开启 *mod_rewrite* 扩展。当开启时，我们可以使用一�
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ index.php/$1 [L]
-
 
 在上面的例子中，除已存在的目录和文件外，其他的 HTTP 请求都会经过你的 index.php 文件。
 
@@ -59,6 +57,5 @@ NGINX
 	location / {
             try_files $uri $uri/ /index.php/$args;
 	}
-
 
 服务器将会首先寻找符合对应 URI 的文件或目录（对于每个文件，通过根目录和别名目录来构建其完整的路径），然后再将其他的请求发送至 index.php 文件中。
