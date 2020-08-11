@@ -25,10 +25,10 @@
     	:returns:	净化文件名
     	:rtype:	string
 
-    	 提供保护来应对磁盘遍历。
+    	提供保护来应对磁盘遍历。
 
     	对于 ``\CodeIgniter\Security::sanitize_filename()`` 本函数仅是别名。
-	更多信息，请查看文档  :doc:`Security Library <../libraries/security>` .
+	更多信息，请查看文档  :doc:`Security Library <../libraries/security>` 。
 
 
 .. php:function:: strip_image_tags($str)
@@ -39,7 +39,7 @@
 
         这是一个将无成像标签从 string 中剥去的安全函数。它留下成像 URL 就像清楚的文本一样。   
 
-    	事例::
+    	例如::
 
 		$string = strip_image_tags($string);
 
@@ -51,6 +51,6 @@
 
     	这是一个安全函数去转换 PHP 标签为实体。
 
-	事例::
+	例如::
 
 		$string = encode_php_tags($string);
