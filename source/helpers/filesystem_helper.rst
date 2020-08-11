@@ -33,7 +33,7 @@
 	:returns:	文件数组
 	:rtype:	array
 
-	例子::
+	例如::
 
 		$map = directory_map('./mydirectory/');
 
@@ -85,9 +85,9 @@
 	:returns:	如果写入成功为 TRUE , 万一错误是 FALSE
 	:rtype:	bool
 
-	 File 写入数据要详细指明路径，如果确凿没有 File 文件函数将会创建它。.
+	将数据写入指定路径中的文件。如果文件不存在，这个函数将创建文件。
 
-	事例::
+	例如::
 
 		$data = 'Some file data';
 		if ( ! write_file('./path/to/file.php', $data))
@@ -123,13 +123,13 @@
 
 	删除所有包含在备用路径里的文件。
 
-	事例::
+	例如::
 
 		delete_files('./path/to/directory/');
 
 	如果第二个参数设置为 TRUE，包含备用根路径的任何目录将也会被删除。
 
-	事例::
+	例如::
 
 		delete_files('./path/to/directory/', TRUE);
 
@@ -144,7 +144,7 @@
 
 	函数里取服务器路径输入并返回包含所有文件名的数组。设置第二参数为 TRUE 文件路径能很随意的被添加到文件名里。
 
-	事例::
+	例如::
 
 		$controllers = get_filenames(APPPATH.'controllers/');
 
@@ -211,7 +211,7 @@
 	函数会返回不带符号链接的服务器路径或者有关联的目录结构。
 	如果路径不能决定选项的次一级争议将触发一个错误。
 
-	事例::
+	例如::
 
 		$file = '/etc/php5/apache2/php.ini';
 		echo set_realpath($file); //  输出 '/etc/php5/apache2/php.ini'
