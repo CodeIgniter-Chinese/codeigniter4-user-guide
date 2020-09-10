@@ -17,7 +17,7 @@ CodeIgniter 的核心类 Controller 不应该被修改, 但是在 **app/Controll
 组件预加载
 =====================
 
-基础控制器是每次运行项目时，加载你希望使用的任何 helpers, modelds, Libraries, services 等的好位置。 
+基础控制器是每次运行项目时，加载你希望使用的任何 helpers, models, libraries, services 等的好位置。 
 Helpers 应该添加到预先提供的 ``$helpers`` 数组。例如, 如果你想要 HTML 和 Text 帮助类在控制器中通用：
 ::
 
