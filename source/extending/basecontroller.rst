@@ -18,12 +18,12 @@ CodeIgniter 的核心类 Controller 不应该被修改, 但是在 **app/Controll
 =====================
 
 基础控制器是每次运行项目时，加载你希望使用的任何 helpers, models, libraries, services 等的好位置。 
-Helpers 应该添加到预先提供的 ``$helpers`` 数组。例如, 如果你想要 HTML 和 Text 帮助类在控制器中通用：
+Helpers 应该添加到预先提供的 ``$helpers`` 数组。例如, 如果你想要在所有控制器中使用 HTML 和 Text 辅助函数：
 ::
 
 	protected $helpers = ['html', 'text'];
 
-其他任何要加载的组件或者要处理的数据，都应该添加到 ``initController()`` 中。 例如，如何你的项目要大量使用 Session 类，那你可以在这里启动它：
+其他任何要加载的组件或者要处理的数据，都应该添加到 ``initController()`` 中。 例如，如果你的项目要大量使用 Session 类，那你可以在这里启动它：
 ::
 
 	public function initController(...)
