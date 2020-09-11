@@ -205,7 +205,6 @@
 1. - [ ] [source/cli/cli_request.rst](source/cli/cli_request.rst)
 1. - [ ] [source/database/queries.rst](source/database/queries.rst)
 1. - [ ] [source/database/results.rst](source/database/results.rst)
-1. - [ ] [source/extending/basecontroller.rst](source/extending/basecontroller.rst)
 1. - [ ] [source/helpers/array_helper.rst](source/helpers/array_helper.rst)
 1. - [ ] [source/helpers/date_helper.rst](source/helpers/date_helper.rst)
 1. - [ ] [source/libraries/email.rst](source/libraries/email.rst)
@@ -224,3 +223,5 @@
 ## 翻译中
 
 ## 已完成
+
+1. [source/extending/basecontroller.rst](source/extending/basecontroller.rst)
