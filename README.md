@@ -1,7 +1,7 @@
 # CodeIgniter 4 中文手册翻译项目
 
 [![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## 翻译准则
@@ -109,6 +109,7 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
     <td align="center"><a href="https://github.com/visvoy"><img src="https://avatars1.githubusercontent.com/u/376332?v=4" width="100px;" alt=""/><br /><sub><b>visvoy</b></sub></a><br /><a href="#translation-visvoy" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/yeye978151"><img src="https://avatars1.githubusercontent.com/u/23291154?v=4" width="100px;" alt=""/><br /><sub><b>张叶</b></sub></a><br /><a href="#translation-yeye978151" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/binhaiit"><img src="https://avatars0.githubusercontent.com/u/68095133?v=4" width="100px;" alt=""/><br /><sub><b>binhaiit</b></sub></a><br /><a href="#translation-binhaiit" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://www.orz2.com"><img src="https://avatars2.githubusercontent.com/u/9927289?v=4" width="100px;" alt=""/><br /><sub><b>Kang Jing</b></sub></a><br /><a href="#translation-Instrye" title="Translation">🌍</a></td>
   </tr>
 </table>
 
