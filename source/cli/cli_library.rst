@@ -1,24 +1,25 @@
 ###########
-CLI Library
+命令行界面（CLI）类库
 ###########
 
-CodeIgniter's CLI library makes creating interactive command-line scripts simple, including:
+Codeigniter 的 CLI 类库构造简单的设计交互式的命令行脚本，包括:
 
-* Prompting the user for more information
-* Writing multi-colored text the terminal
-* Beeping (be nice!)
-* Showing progress bars during long tasks
-* Wrapping long text lines to fit the window.
+* 提示用户获取更多信息
+* 著述多彩的文本终端
+* 报警声（要友好！）
+* 在长时间任务期间显示进度条
+* 去配合窗口换行长文本。
+
 
 .. contents::
     :local:
     :depth: 2
 
-Initializing the Class
+初始化类
 ======================
 
-You do not need to create an instance of the CLI library, since all of it's methods are static. Instead, you simply
-need to ensure your controller can locate it via a ``use`` statement above your class::
+你不需要创建 CLI 类库的接口，此后它的所有方法是静态的。反而在你的类上，你要简单地确保你的的控制器通过 ``use`` 声明能找出它::
+
 
 	<?php namespace App\Controllers;
 
@@ -29,89 +30,91 @@ need to ensure your controller can locate it via a ``use`` statement above your 
 		. . .
 	}
 
-The class is automatically initialized when the file is loaded the first time.
+当文件第一时间被加载时，类是自动地被初始化的。
 
-Getting Input from the User
+
+
+从用户获取输入信息
 ===========================
 
-Sometimes you need to ask the user for more information. They might not have provided optional command-line
-arguments, or the script may have encountered an existing file and needs confirmation before overwriting. This is
-handled with the ``prompt()`` method.
+因为更多信息有时候你需要询问用户。他们也许不会提供可选择的命令行参数数组，要不然脚本在改写以前也许会遭遇一个现存的文件并需要确认。用 ``prompt()`` 方法是易于操作的。
 
-You can provide a question by passing it in as the first parameter::
+通过 ``prompt()`` 方法你可以规定一个问题作为第一参数::
 
 	$color = CLI::prompt('What is your favorite color?');
 
-You can provide a default answer that will be used if the user just hits enter by passing the default in the
-second parameter::
+在第二参数值里，通过默认值如果用户仅按回车键，则你能规定一个要被使用的默认答案::
 
 	$color = CLI::prompt('What is your favorite color?', 'blue');
-
-You can restrict the acceptable answers by passing in an array of allowed answers as the second parameter::
+	
+通过允许回答的数组你能约束可以接受的问题作为第二参数::
 
 	$overwrite = CLI::prompt('File exists. Overwrite?', ['y','n']);
 
-Finally, you can pass validation rules to the answer input as the third parameter::
+最终，你能通过合法授权规范去应答输入并作为第三个参数::
 
 	$email = CLI::prompt('What is your email?', null, 'required|valid_email');
 
-Providing Feedback
+
+提供反馈
 ==================
 
 **write()**
 
-Several methods are provided for you to provide feedback to your users. This can be as simple as a single status update
-or a complex table of information that wraps to the user's terminal window. At the core of this is the ``write()``
-method which takes the string to output as the first parameter::
+为了给你的用户你要提供反馈，一些方法要被提供。
+这些方法能被简单的做为单一的状态更新或者适应用户终端窗口换行的一个复杂信息的表格。
+在这个 ``write()`` 方法的核心里，该方法要输出字符串作为第一参数::
 
 	CLI::write('The rain in Spain falls mainly on the plains.');
-
-You can change the color of the text by passing in a color name as the second parameter::
+	
+通过一个颜色名称你能改变文本的颜色作为第二参数::	
 
 	CLI::write('File created.', 'green');
 
-This could be used to differentiate messages by status, or create 'headers' by using a different color. You can
-even set background colors by passing the color name in as the third parameter::
+根据状况，这个方法能被使用在差异的信息中，或者通过使用不同的颜色创建 'headers'。
+你能通过颜色名字设置背景颜色作为第三参数::
 
 	CLI::write('File overwritten.', 'light_red', 'dark_gray');
 
-The following foreground colors are available:
+接下来的前景颜色是可用的:
 
-* black
-* dark_gray
-* blue
-* dark_blue
-* light_blue
-* green
-* light_green
-* cyan
-* light_cyan
-* red
-* light_red
-* purple
-* light_purple
-* light_yellow
-* yellow
-* light_gray
-* white
+* 黑色
+* 灰色
+* 蓝色
+* 深蓝色
+* 浅蓝色
+* 绿色
+* 浅绿色
+* 青色
+* 浅青色
+* 红色
+* 浅红色
+* 紫色
+* 浅紫色
+* 浅黄色
+* 黄色
+* 浅灰色
+* 白色
 
-And a smaller number are available as background colors:
+并且做为背景色更小的数字是可用的:
 
-* black
-* blue
-* green
-* cyan
-* red
-* yellow
-* light_gray
-* magenta
+* 黑色
+* 蓝色
+* 绿色
+* 青色
+* 红色
+* 黄色
+* 浅灰色
+* 洋红
+
 
 **print()**
 
-Print functions identically to the ``write()`` method, except that it does not force a newline either before or after.
-Instead it prints it to the screen wherever the cursor is currently. This allows you to print multiple items all on
-the same line, from different calls. This is especially helpful when you want to show a status, do something, then
-print "Done" on the same line::
+打印功能完全同等地对待 ``write()`` 方法，除非它不会在换行符前或换行符后阻止打印。
+更换它，打印它到屏幕里的任何地方指针是当前地。
+这个方法允许你在同一行，来自不同调用函数打印所有混合项。
+当你想展示一个状态，做某事，然后在同一行打印 "Done" 这个方法是特别有帮助的::
+
 
     for ($i = 0; $i <= 10; $i++)
     {
@@ -120,65 +123,63 @@ print "Done" on the same line::
 
 **color()**
 
-While the ``write()`` command will write a single line to the terminal, ending it with a EOL character, you can
-use the ``color()`` method to make a string fragment that can be used in the same way, except that it will not force
-an EOL after printing. This allows you to create multiple outputs on the same row. Or, more commonly, you can use
-it inside of a ``write()`` method to create a string of a different color inside::
+当 ``write()`` 命令将写到终端的单独行时，用项目终止字符 （EOL） 结束它，你能用 ``color()`` 方法改变字符碎片，
+并且字符碎片能以相同的方式使用，除非该字符碎片会在打印后阻止终止字符。
+这个方法允许你在相同的列上创造多行输出信息。或者，更一般地，你能用它在 ``write()`` 方法内去创建不同颜色里的字符::
+
 
 	CLI::write("fileA \t". CLI::color('/path/to/file', 'white'), 'yellow');
 
-This example would write a single line to the window, with ``fileA`` in yellow, followed by a tab, and then
-``/path/to/file`` in white text.
+这个示例将会写单独行到窗口，以 ``fileA`` 用黄色，遵循跳格键，然后 ``/path/to/file`` 用白色文本。
+
 
 **error()**
 
-If you need to output errors, you should use the appropriately named ``error()`` method. This writes light-red text
-to STDERR, instead of STDOUT, like ``write()`` and ``color()`` do. This can be useful if you have scripts watching
-for errors so they don't have to sift through all of the information, only the actual error messages. You use it
-exactly as you would the ``write()`` method::
+如果你需要输出错误，你应当使用适当的命名的 ``error()`` 方法。
+这个方法用浅红色文本书写到 STDERR（标准错误输出设备），代替 STDOUT（标准输出），就像 ``write()`` 和 ``color()`` 做的。
+对于错误如果你有脚本监视这个方法是有帮助的，因此他们不要通过所有信息去删选，仅要实际的错误信息。
+你正确地使用它就像你用过的 ``write()`` 方法一样::
 
 	CLI::error('Cannot write to file: ' . $file);
 
 **wrap()**
 
-This command will take a string, start printing it on the current line, and wrap it to a set length on new lines.
-This might be useful when displaying a list of options with descriptions that you want to wrap in the current
-window and not go off screen::
+这个命令将会取得一个字符串，开始打印它在最近的行上，并且按照设置的长度换到新行输出字符串。
+当显示带你想在最近的窗口换行或者不要离开屏幕的描述选项列表时，这个方法是有用的::
 
 	CLI::color("task1\t", 'yellow');
 	CLI::wrap("Some long description goes here that might be longer than the current window.");
 
-By default, the string will wrap at the terminal width. Windows currently doesn't provide a way to determine
-the window size, so we default to 80 characters. If you want to restrict the width to something shorter that
-you can be pretty sure fits within the window, pass the maximum line-length as the second parameter. This
-will break the string at the nearest word barrier so that words are not broken.
+默认情况下，字符串将会在终端宽度上换行。
+最近地窗口不提供到终端窗口的尺寸，因此我们默认 80 个字母。
+如果你想对某个更短字符串制约宽度，并且你能相当确定适应窗口，通过最大行长度作为第二参数。
+在附近的文字分界线里这将会破坏字符串以便破坏文字。
 ::
 
 	// Wrap the text at max 20 characters wide
 	CLI::wrap($description, 20);
 
-You may find that you want a column on the left of titles, files, or tasks, while you want a column of text
-on the right with their descriptions. By default, this will wrap back to the left edge of the window, which
-doesn't allow things to line up in columns. In cases like this, you can pass in a number of spaces to pad
-every line after the first line, so that you will have a crisp column edge on the left::
+当你想带描述的文本专栏在右侧时，你也许找到了你需要的专栏在左面的标题，文件或者任务上。
+默认情况下，这个方法将会换行回到窗口的左边界，该方法不允许任何事件在专栏里排队。
+万一出现上文叙述的情况，你能在第一行后通过一定数量的空格去填充每一行，以便你在左侧有一个干净利落的专栏边界::
 
-	// Determine the maximum length of all titles
-	// to determine the width of the left column
+	// 决定所有标题的最大长度
+	// 去决定左面专栏的宽度
 	$maxlen = max(array_map('strlen', $titles));
 
 	for ($i=0; $i <= count($titles); $i++)
 	{
 		CLI::write(
-			// Display the title on the left of the row
+			// 在列左面显示标题
 			$title[$i] . '   ' .
-			// Wrap the descriptions in a right-hand column
-			// with its left side 3 characters wider than
-			// the longest item on the left.
+			// 在右手专栏对叙述换行
+			// 用它的左边更宽 3 个字母
+			// 在左侧最长的项目
 			CLI::wrap($descriptions[$i], 40, $maxlen + 3)
 		);
 	}
 
-Would create something like this:
+愿创建的事件像下面描述的一样:
 
 .. code-block:: none
 
@@ -190,32 +191,31 @@ Would create something like this:
 
 **newLine()**
 
-The ``newLine()`` method displays a blank line to the user. It does not take any parameters::
+ ``newLine()`` 方法显示到用户的空行。它不带任何参数::
 
 	CLI::newLine();
 
 **clearScreen()**
 
-You can clear the current terminal window with the ``clearScreen()`` method. In most versions of Windows, this will
-simply insert 40 blank lines since Windows doesn't support this feature. Windows 10 bash integration should change
-this::
+你能用  ``clearScreen()`` 方法清理最近的终端窗口。
+在 Windows 的多数版本里，从 Windows 不支持这个特征以来这个方法将简单地插入 40 个空白行。
+Windows 10 bash integration 能被改成下面的语句::
 
 	CLI::clearScreen();
 
 **showProgress()**
 
-If you have a long-running task that you would like to keep the user updated with the progress, you can use the
-``showProgress()`` method which displays something like the following:
+如果你有长期运行的任务并且你想要保持用户更新进度，你能使用 ``showProgress()`` 方法显示某些事像下面描述的一样:
 
 .. code-block:: none
 
 	[####......] 40% Complete
 
-This block is animated in place for a very nice effect.
+为了一个非常好的效果这块的位置是动态的。
 
-To use it, pass in the current step as the first parameter, and the total number of steps as the second parameter.
-The percent complete and the length of the display will be determined based on that number. When you are done,
-pass ``false`` as the first parameter and the progress bar will be removed.
+使用进度，经过最近的步骤作为第一参数，并且步骤的总数字作为第二参数。
+百分比完成和显示长度将会基于上面的数字被决定。
+当你已经做完了，通过 ``false`` 作为第一参数并且进度条将会被移除。
 ::
 
 	$totalSteps = count($tasks);
@@ -227,7 +227,7 @@ pass ``false`` as the first parameter and the progress bar will be removed.
 		$task->run();
 	}
 
-	// Done, so erase it...
+	// 做完了，所以擦除它……
 	CLI::showProgress(false);
 
 **table()**
@@ -253,16 +253,14 @@ pass ``false`` as the first parameter and the progress bar will be removed.
 
 **wait()**
 
-Waits a certain number of seconds, optionally showing a wait message and
-waiting for a key press.
-
+等待确定的秒数，可选择地显示等待信息并且等待按键。
 ::
 
-        // wait for specified interval, with countdown displayed
+        // 等待具体指定的间隔，用倒数几秒显示
         CLI::wait($seconds, true);
 
-        // show continuation message and wait for input
+        // 显示延长信息并且等待输入
         CLI::wait(0, false);
 
-        // wait for specified interval
+        // 等带具体指定的间隔
         CLI::wait($seconds, false);
