@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Validation &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
+  <title>验证类 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
   
 
   
@@ -222,7 +222,7 @@
 <li class="toctree-l2"><a class="reference internal" href="uploaded_files.html">使用文件上传类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uri.html">使用 URI 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="user_agent.html">User Agent Class</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Validation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">验证类</a></li>
 </ul>
 </li>
 </ul>
@@ -321,7 +321,7 @@
         
           <li><a href="index.html">类库参考</a> &raquo;</li>
         
-      <li>Validation</li>
+      <li>验证类</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -338,105 +338,89 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="validation">
-<h1>Validation<a class="headerlink" href="#validation" title="永久链接至标题">¶</a></h1>
-<p>CodeIgniter provides a comprehensive data validation class that
-helps minimize the amount of code you’ll write.</p>
-<div class="contents local topic" id="id1">
+  <div class="section" id="id1">
+<h1>验证类<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>CodeIgniter 提供了全面的数据验证类，最大程度减少你需要编写的代码量。</p>
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#overview" id="id2">Overview</a></li>
-<li><a class="reference internal" href="#form-validation-tutorial" id="id3">Form Validation Tutorial</a><ul>
-<li><a class="reference internal" href="#the-form" id="id4">The Form</a></li>
-<li><a class="reference internal" href="#the-success-page" id="id5">The Success Page</a></li>
-<li><a class="reference internal" href="#the-controller" id="id6">The Controller</a></li>
-<li><a class="reference internal" href="#try-it" id="id7">Try it!</a></li>
-<li><a class="reference internal" href="#explanation" id="id8">Explanation</a></li>
-<li><a class="reference internal" href="#loading-the-library" id="id9">Loading the Library</a></li>
-<li><a class="reference internal" href="#setting-validation-rules" id="id10">Setting Validation Rules</a></li>
+<li><a class="reference internal" href="#id3" id="id33">概述</a></li>
+<li><a class="reference internal" href="#id4" id="id34">表单验证教程</a><ul>
+<li><a class="reference internal" href="#id5" id="id35">表单</a></li>
+<li><a class="reference internal" href="#id6" id="id36">成功页</a></li>
+<li><a class="reference internal" href="#id7" id="id37">控制器</a></li>
+<li><a class="reference internal" href="#id8" id="id38">试一试!</a></li>
+<li><a class="reference internal" href="#id9" id="id39">说明</a></li>
+<li><a class="reference internal" href="#validation" id="id40">加载 validation 库</a></li>
+<li><a class="reference internal" href="#id10" id="id41">设置验证规则</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#working-with-validation" id="id11">Working with Validation</a><ul>
-<li><a class="reference internal" href="#validating-keys-that-are-arrays" id="id12">Validating Keys that are Arrays</a></li>
-<li><a class="reference internal" href="#validate-1-value" id="id13">Validate 1 Value</a></li>
-<li><a class="reference internal" href="#saving-sets-of-validation-rules-to-the-config-file" id="id14">Saving Sets of Validation Rules to the Config File</a></li>
-<li><a class="reference internal" href="#running-multiple-validations" id="id15">Running Multiple Validations</a></li>
-<li><a class="reference internal" href="#validation-placeholders" id="id16">Validation Placeholders</a></li>
+<li><a class="reference internal" href="#id11" id="id42">处理 Validation</a><ul>
+<li><a class="reference internal" href="#id12" id="id43">验证数组的键</a></li>
+<li><a class="reference internal" href="#id13" id="id44">验证单个值</a></li>
+<li><a class="reference internal" href="#id14" id="id45">将验证规则集合保存到配置文件</a></li>
+<li><a class="reference internal" href="#id17" id="id46">运行多个 Validation</a></li>
+<li><a class="reference internal" href="#id18" id="id47">Validation 占位符</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#working-with-errors" id="id17">Working With Errors</a><ul>
-<li><a class="reference internal" href="#setting-custom-error-messages" id="id18">Setting Custom Error Messages</a></li>
-<li><a class="reference internal" href="#translation-of-messages-and-validation-labels" id="id19">Translation Of Messages And Validation Labels</a></li>
-<li><a class="reference internal" href="#getting-all-errors" id="id20">Getting All Errors</a></li>
-<li><a class="reference internal" href="#getting-a-single-error" id="id21">Getting a Single Error</a></li>
-<li><a class="reference internal" href="#check-if-error-exists" id="id22">Check If Error Exists</a></li>
+<li><a class="reference internal" href="#id19" id="id48">处理错误</a><ul>
+<li><a class="reference internal" href="#validation-custom-errors" id="id49">设置自定义错误消息</a></li>
+<li><a class="reference internal" href="#id21" id="id50">消息和验证标签的翻译</a></li>
+<li><a class="reference internal" href="#id22" id="id51">获取所有错误</a></li>
+<li><a class="reference internal" href="#id23" id="id52">获取单个错误</a></li>
+<li><a class="reference internal" href="#id24" id="id53">检查是否存在错误</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#customizing-error-display" id="id23">Customizing Error Display</a><ul>
-<li><a class="reference internal" href="#creating-the-views" id="id24">Creating the Views</a></li>
-<li><a class="reference internal" href="#configuration" id="id25">Configuration</a></li>
-<li><a class="reference internal" href="#specifying-the-template" id="id26">Specifying the Template</a></li>
+<li><a class="reference internal" href="#id25" id="id54">自定义错误显示</a><ul>
+<li><a class="reference internal" href="#id26" id="id55">创建视图</a></li>
+<li><a class="reference internal" href="#id27" id="id56">配置</a></li>
+<li><a class="reference internal" href="#id28" id="id57">指定模板</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#creating-custom-rules" id="id27">Creating Custom Rules</a><ul>
-<li><a class="reference internal" href="#allowing-parameters" id="id28">Allowing Parameters</a></li>
+<li><a class="reference internal" href="#id29" id="id58">创建自定义规则</a><ul>
+<li><a class="reference internal" href="#id30" id="id59">允许参数</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#available-rules" id="id29">Available Rules</a><ul>
-<li><a class="reference internal" href="#rules-for-file-uploads" id="id30">Rules for File Uploads</a></li>
+<li><a class="reference internal" href="#id31" id="id60">可用规则</a><ul>
+<li><a class="reference internal" href="#id32" id="id61">文件上传规则</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="overview">
-<h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="永久链接至标题">¶</a></h2>
-<p>Before explaining CodeIgniter’s approach to data validation, let’s
-describe the ideal scenario:</p>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id33">概述</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>在解释 CodeIgniter 的数据验证之前，我们先介绍理想的状况：</p>
 <ol class="arabic simple">
-<li>A form is displayed.</li>
-<li>You fill it in and submit it.</li>
-<li>If you submitted something invalid, or perhaps missed a required
-item, the form is redisplayed containing your data along with an
-error message describing the problem.</li>
-<li>This process continues until you have submitted a valid form.</li>
+<li>显示一个表单。</li>
+<li>你填写并提交。</li>
+<li>如果你提交的表单数据无效，或者丢失了必填项，将重新显示包含了你的数据和错误消息的表单。</li>
+<li>这个过长将一直持续到你提交的表单数据有效为止。</li>
 </ol>
-<p>On the receiving end, the script must:</p>
+<p>在接收端，脚本必须：</p>
 <ol class="arabic simple">
-<li>Check for required data.</li>
-<li>Verify that the data is of the correct type, and meets the correct
-criteria. For example, if a username is submitted it must be
-validated to contain only permitted characters. It must be of a
-minimum length, and not exceed a maximum length. The username can’t
-be someone else’s existing username, or perhaps even a reserved word.
-Etc.</li>
-<li>Sanitize the data for security.</li>
-<li>Pre-format the data if needed (Does the data need to be trimmed? HTML
-encoded? Etc.)</li>
-<li>Prep the data for insertion in the database.</li>
+<li>检查需要的数据。</li>
+<li>验证数据的类型是否正确，并且符合要求的标准。例如，如果提交了用户名，则必须仅包含允许的字符。
+它必须大于最小长度，小于最大长度。用户名不能是系统中已经存在的用户名，甚至是保留的关键词。
+等等。</li>
+<li>处理数据以保证安全。</li>
+<li>如果有必要，对数据进行格式化 (是否需要裁剪数据 ? HTML 编码? 等等。)</li>
+<li>准备要插入数据库的数据。</li>
 </ol>
-<p>Although there is nothing terribly complex about the above process, it
-usually requires a significant amount of code, and to display error
-messages, various control structures are usually placed within the form
-HTML. Form validation, while simple to create, is generally very messy
-and tedious to implement.</p>
+<p>尽管上述过程没有什么非常复杂的，但是通常需要编写大量的代码，并且显示各种错误消息，在 HTML 表单中
+放置各种控制结构。表单验证虽然容易创建，但是通常十分混乱，实现起来很繁琐。</p>
 </div>
-<div class="section" id="form-validation-tutorial">
-<h2><a class="toc-backref" href="#id3">Form Validation Tutorial</a><a class="headerlink" href="#form-validation-tutorial" title="永久链接至标题">¶</a></h2>
-<p>What follows is a “hands on” tutorial for implementing CodeIgniter’s Form
-Validation.</p>
-<p>In order to implement form validation you’ll need three things:</p>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id34">表单验证教程</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>以下是实现 CodeIgniter 表单验证的“动手”教程。</p>
+<p>为了实现表单验证，你需要做三件事：</p>
 <ol class="arabic simple">
-<li>A <a class="reference internal" href="../outgoing/views.html"><span class="doc">View</span></a> file containing a form.</li>
-<li>A View file containing a “success” message to be displayed upon
-successful submission.</li>
-<li>A <a class="reference internal" href="../incoming/controllers.html"><span class="doc">controller</span></a> method to receive and
-process the submitted data.</li>
+<li>一个包含表单的 <a class="reference internal" href="../outgoing/views.html"><span class="doc">View</span></a> 文件。</li>
+<li>一个提交成功后显示 “success” 的 View 文件。</li>
+<li>一个 <a class="reference internal" href="../incoming/controllers.html"><span class="doc">controller</span></a> 方法用来接收和处理提交的数据。</li>
 </ol>
-<p>Let’s create those three things, using a member sign-up form as the
-example.</p>
-<div class="section" id="the-form">
-<h3><a class="toc-backref" href="#id4">The Form</a><a class="headerlink" href="#the-form" title="永久链接至标题">¶</a></h3>
-<p>Using a text editor, create a form called <strong>Signup.php</strong>. In it, place this
-code and save it to your <strong>app/Views/</strong> folder:</p>
+<p>让我们以会员注册表单为例来做这三件事。</p>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id35">表单</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>使用编辑器创建一个名为 <strong>Signup.php</strong> 的视图文件，将代码复制到文件中，并保存到 <strong>app/Views/</strong> 文件夹：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">My</span> <span class="nx">Form</span><span class="o">&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
@@ -468,10 +452,9 @@ code and save it to your <strong>app/Views/</strong> folder:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="the-success-page">
-<h3><a class="toc-backref" href="#id5">The Success Page</a><a class="headerlink" href="#the-success-page" title="永久链接至标题">¶</a></h3>
-<p>Using a text editor, create a form called <strong>Success.php</strong>. In it, place
-this code and save it to your <strong>app/Views/</strong> folder:</p>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id36">成功页</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>使用编辑器创建一个名为 <strong>Success.php</strong> 的视图文件，将代码复制到文件中，并保存到 <strong>app/Views/</strong> 文件夹：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">My</span> <span class="nx">Form</span><span class="o">&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
@@ -487,10 +470,9 @@ this code and save it to your <strong>app/Views/</strong> folder:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="the-controller">
-<h3><a class="toc-backref" href="#id6">The Controller</a><a class="headerlink" href="#the-controller" title="永久链接至标题">¶</a></h3>
-<p>Using a text editor, create a controller called <strong>Form.php</strong>. In it, place
-this code and save it to your <strong>app/Controllers/</strong> folder:</p>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id37">控制器</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>使用编辑器创建一个名为 <strong>Form.php</strong>  的控制器文件，将代码复制到文件中，并保存到 <strong>app/Controllers/</strong> 文件夹：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Controller</span><span class="p">;</span>
@@ -516,89 +498,74 @@ this code and save it to your <strong>app/Controllers/</strong> folder:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="try-it">
-<h3><a class="toc-backref" href="#id7">Try it!</a><a class="headerlink" href="#try-it" title="永久链接至标题">¶</a></h3>
-<p>To try your form, visit your site using a URL similar to this one:</p>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id38">试一试!</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>要尝试使用表单，请使用与此网址相似的网址访问你的网站</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">form</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>If you submit the form you should simply see the form reload. That’s
-because you haven’t set up any validation rules yet.</p>
+<p>如果你提交表单，则应该只看到表单重新加载。那是因为你没有设置任何验证规则。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">Since you haven’t told the <strong>Validation class</strong> to validate anything
-yet, it <strong>returns false</strong> (boolean false) <strong>by default</strong>. The <code class="docutils literal notranslate"><span class="pre">validate()</span></code>
-method only returns true if it has successfully applied your rules without
-any of them failing.</p>
+<p class="last">由于你没有告诉 <strong>Validation 类</strong> 进行任何验证, 它在 <strong>默认情况</strong> 下 <strong>返回 false</strong> (boolean false)。 <code class="docutils literal notranslate"><span class="pre">validate()</span></code>
+方法仅在验证你设置的 <strong>所有规则</strong> 并且没有 <strong>任何失败</strong> 的情况下返回 true 。</p>
 </div>
 </div>
-<div class="section" id="explanation">
-<h3><a class="toc-backref" href="#id8">Explanation</a><a class="headerlink" href="#explanation" title="永久链接至标题">¶</a></h3>
-<p>You’ll notice several things about the above pages:</p>
-<p>The form (Signup.php) is a standard web form with a couple of exceptions:</p>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id39">说明</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>你会注意到上述页面的几件事情：</p>
+<p>表单 (Signup.php) 是一个标准的 web 表单，但有一些例外：</p>
 <ol class="arabic">
-<li><p class="first">It uses a form helper to create the form opening. Technically, this
-isn’t necessary. You could create the form using standard HTML.
-However, the benefit of using the helper is that it generates the
-action URL for you, based on the URL in your config file. This makes
-your application more portable in the event your URLs change.</p>
+<li><p class="first">它使用表单辅助类来创建表单。从技术上讲这没必要，你可以使用标准的 HTML 代码来创建表单。
+但是，使用表单辅助类可以根据配置文件中的 URL 来生成表单的 action URL。当你的网址发生
+更改时，则你的程序更容易进行移植。</p>
 </li>
-<li><p class="first">At the top of the form you’ll notice the following function call:</p>
+<li><p class="first">在表单的顶部，你会注意到调用了以下函数：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>This function will return any error messages sent back by the
-validator. If there are no messages it returns an empty string.</p>
+<p>该函数将返回 validator 发送的所有错误消息。如果没有消息，则返回一个空字符串。</p>
 </li>
 </ol>
-<p>The controller (Form.php) has one method: <code class="docutils literal notranslate"><span class="pre">index()</span></code>. This method
-uses the Controller-provided validate method and loads the form helper and URL
-helper used by your view files. It also runs the validation routine.
-Based on whether the validation was successful it either presents the
-form or the success page.</p>
+<p>控制器 (Form.php) 拥有一个方法： <code class="docutils literal notranslate"><span class="pre">index()</span></code>。这个方法使用控制器提供的 validate 方法，
+并加载表单辅助类和 URL 辅助类。它还运行验证程序，根据验证程序是否验证成功，它将显示表单或成功页。</p>
 </div>
-<div class="section" id="loading-the-library">
-<h3><a class="toc-backref" href="#id9">Loading the Library</a><a class="headerlink" href="#loading-the-library" title="永久链接至标题">¶</a></h3>
-<p>The library is loaded as a service named <strong>validation</strong>:</p>
+<div class="section" id="validation">
+<h3><a class="toc-backref" href="#id40">加载 validation 库</a><a class="headerlink" href="#validation" title="永久链接至标题">¶</a></h3>
+<p>该库通过名叫 <strong>validation</strong> 的服务进行加载：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span>  <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>This automatically loads the <code class="docutils literal notranslate"><span class="pre">Config\Validation</span></code> file which contains settings
-for including multiple Rulesets, and collections of rules that can be easily reused.</p>
+<p>这将自动加载 <code class="docutils literal notranslate"><span class="pre">Config\Validation</span></code> 文件，文件中包含了多个规则类，以及便于重用的规则集合。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">You may never need to use this method, as both the <a class="reference internal" href="../incoming/controllers.html"><span class="doc">Controller</span></a> and
-the <a class="reference internal" href="../models/model.html"><span class="doc">Model</span></a> provide methods to make validation even easier.</p>
+<p class="last">你可用永远都不会使用该方法，因为 <a class="reference internal" href="../incoming/controllers.html"><span class="doc">Controller</span></a> 和
+<a class="reference internal" href="../models/model.html"><span class="doc">Model</span></a> 中都提供了更简便的验证方法。</p>
 </div>
 </div>
-<div class="section" id="setting-validation-rules">
-<h3><a class="toc-backref" href="#id10">Setting Validation Rules</a><a class="headerlink" href="#setting-validation-rules" title="永久链接至标题">¶</a></h3>
-<p>CodeIgniter lets you set as many validation rules as you need for a
-given field, cascading them in order. To set validation rules you
-will use the <code class="docutils literal notranslate"><span class="pre">setRule()</span></code>, <code class="docutils literal notranslate"><span class="pre">setRules()</span></code>, or <code class="docutils literal notranslate"><span class="pre">withRequest()</span></code>
-methods.</p>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id41">设置验证规则</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>CodeIgniter 允许你为给定字段设置多个验证规则，并按顺序执行它们。要设置验证规则，你将使用
+<code class="docutils literal notranslate"><span class="pre">setRule()</span></code>，<code class="docutils literal notranslate"><span class="pre">setRules()</span></code> 方法。</p>
 <div class="section" id="setrule">
 <h4>setRule()<a class="headerlink" href="#setrule" title="永久链接至标题">¶</a></h4>
-<p>This method sets a single rule. It takes the name of the field as
-the first parameter, an optional label and a string with a pipe-delimited list of rules
-that should be applied:</p>
+<p>该方法设置单个规则，它使用 <strong>字段名称</strong> 作为第一个参数，第二个参数是一个可选的标签，第三个参数是以竖线
+分隔的规则列表的字符串：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRule</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The <strong>field name</strong> must match the key of any data array that is sent in. If
-the data is taken directly from $_POST, then it must be an exact match for
-the form input name.</p>
+<p><strong>字段名称</strong> 必须与需要验证的任何数据数组的键匹配。如果直接从 $_POST 获取数组，则它必须与表单的 input name 完全匹配。</p>
 </div>
 <div class="section" id="setrules">
 <h4>setRules()<a class="headerlink" href="#setrules" title="永久链接至标题">¶</a></h4>
-<p>Like, <code class="docutils literal notranslate"><span class="pre">setRule()</span></code>, but accepts an array of field names and their rules:</p>
+<p>与 <code class="docutils literal notranslate"><span class="pre">setRule()</span></code> 类似，但其接受字段名称与其规则所组成的数组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
     <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
-<p>To give a labeled error message you can set up as:</p>
+<p>想设置带标签的错误消息，你可以像这样设置：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">],</span>
     <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">]</span>
@@ -608,10 +575,8 @@ the form input name.</p>
 </div>
 <div class="section" id="withrequest">
 <h4>withRequest()<a class="headerlink" href="#withrequest" title="永久链接至标题">¶</a></h4>
-<p>One of the most common times you will use the validation library is when validating
-data that was input from an HTTP Request. If desired, you can pass an instance of the
-current Request object and it will take all of the input data and set it as the
-data to be validated:</p>
+<p>使用验证库最常见的场景之一是验证从 HTTP 请求输入的数据。如果需要，你可以传递当前的 Request 对象的实例，
+它将接收所有输入数据，并将其设置为待验证的数据：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">withRequest</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">)</span>
            <span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
 </pre></div>
@@ -619,12 +584,11 @@ data to be validated:</p>
 </div>
 </div>
 </div>
-<div class="section" id="working-with-validation">
-<h2><a class="toc-backref" href="#id11">Working with Validation</a><a class="headerlink" href="#working-with-validation" title="永久链接至标题">¶</a></h2>
-<div class="section" id="validating-keys-that-are-arrays">
-<h3><a class="toc-backref" href="#id12">Validating Keys that are Arrays</a><a class="headerlink" href="#validating-keys-that-are-arrays" title="永久链接至标题">¶</a></h3>
-<p>If your data is in a nested associative array, you can use “dot array syntax” to
-easily validate your data:</p>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id42">处理 Validation</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id43">验证数组的键</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<p>如果需要验证的数据在嵌套的关联数组中，则可以使用 “点数组语法” 轻松验证数据：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// The data to test:</span>
 <span class="s1">&#39;contacts&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
     <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Joe Smith&#39;</span><span class="p">,</span>
@@ -649,15 +613,14 @@ easily validate your data:</p>
 <span class="p">]);</span>
 </pre></div>
 </div>
-<p>You can use the ‘*’ wildcard symbol to match any one level of the array:</p>
+<p>你可以使用通配符 “*” 来匹配数组的任何一个层级：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Fred Flintsone &amp; Wilma</span>
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;contacts.*.name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
-<p>“dot array syntax” can also be useful when you have single dimension array data.
-For example, data returned by multi select dropdown:</p>
+<p>“点数组语法” 也通常用于一维数组。例如，多选下拉列表返回的数据：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// The data to test:</span>
 <span class="s1">&#39;user_ids&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
     <span class="mi">1</span><span class="p">,</span>
@@ -671,24 +634,21 @@ For example, data returned by multi select dropdown:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="validate-1-value">
-<h3><a class="toc-backref" href="#id13">Validate 1 Value</a><a class="headerlink" href="#validate-1-value" title="永久链接至标题">¶</a></h3>
-<p>Validate one value against a rule:</p>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id44">验证单个值</a><a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<p>根据规则验证单个值：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">check</span><span class="p">(</span><span class="nv">$value</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="saving-sets-of-validation-rules-to-the-config-file">
-<h3><a class="toc-backref" href="#id14">Saving Sets of Validation Rules to the Config File</a><a class="headerlink" href="#saving-sets-of-validation-rules-to-the-config-file" title="永久链接至标题">¶</a></h3>
-<p>A nice feature of the Validation class is that it permits you to store all
-your validation rules for your entire application in a config file. You organize
-the rules into “groups”. You can specify a different group every time you run
-the validation.</p>
-<div class="section" id="how-to-save-your-rules">
-<span id="validation-array"></span><h4>How to save your rules<a class="headerlink" href="#how-to-save-your-rules" title="永久链接至标题">¶</a></h4>
-<p>To store your validation rules, simply create a new public property in the <code class="docutils literal notranslate"><span class="pre">Config\Validation</span></code>
-class with the name of your group. This element will hold an array with your validation
-rules. As shown earlier, the validation array will have this prototype:</p>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id45">将验证规则集合保存到配置文件</a><a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<p>Validation 类一个好的功能是，它允许你将整个程序的验证规则存储在配置文件中。将规则组合成一个 “group”
+，可以在运行验证时指定不同的组。</p>
+<div class="section" id="validation-array">
+<span id="id15"></span><h4>如何保存你的规则<a class="headerlink" href="#validation-array" title="永久链接至标题">¶</a></h4>
+<p>要存储你的验证规则，只需在 <code class="docutils literal notranslate"><span class="pre">Config\Validation</span></code> 类中使用 group 名创建一个新的公共属性，
+该元素将包含你的验证规则数组。验证规则数组的原型如下所示：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Validation</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
@@ -700,13 +660,12 @@ rules. As shown earlier, the validation array will have this prototype:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>You can specify the group to use when you call the <code class="docutils literal notranslate"><span class="pre">run()</span></code> method:</p>
+<p>你可以在调用 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法时指定要使用的组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="s1">&#39;signup&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>You can also store custom error messages in this configuration file by naming the
-property the same as the group, and appended with <code class="docutils literal notranslate"><span class="pre">_errors</span></code>. These will automatically
-be used for any errors when this group is used:</p>
+<p>你也可以将自定义错误消息存储在配置文件中，属性名称与组名相同并添加 <code class="docutils literal notranslate"><span class="pre">_errors</span></code>。
+当使用该组时，默认的错误消息将被替换：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Validation</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
@@ -727,7 +686,7 @@ be used for any errors when this group is used:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Or pass all settings in an array:</p>
+<p>或者在组中传递所有的设置：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Validation</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
@@ -747,34 +706,32 @@ be used for any errors when this group is used:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>See below for details on the formatting of the array.</p>
+<p>有关数组格式的详细信息请查看下文。</p>
 </div>
-<div class="section" id="getting-setting-rule-groups">
-<h4>Getting &amp; Setting Rule Groups<a class="headerlink" href="#getting-setting-rule-groups" title="永久链接至标题">¶</a></h4>
-<p><strong>Get Rule Group</strong></p>
-<p>This method gets a rule group from the validation configuration:</p>
+<div class="section" id="id16">
+<h4>获取与设置规则组<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h4>
+<p><strong>获取规则组</strong></p>
+<p>该方法从验证配置中获取规则组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getRuleGroup</span><span class="p">(</span><span class="s1">&#39;signup&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><strong>Set Rule Group</strong></p>
-<p>This method sets a rule group from the validation configuration to the validation service:</p>
+<p><strong>设置规则组</strong></p>
+<p>该方法设置将规则组从验证配置设置到验证服务：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRuleGroup</span><span class="p">(</span><span class="s1">&#39;signup&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="running-multiple-validations">
-<h3><a class="toc-backref" href="#id15">Running Multiple Validations</a><a class="headerlink" href="#running-multiple-validations" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id46">运行多个 Validation</a><a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">run()</span></code> method will not reset error state. Should a previous run fail,
-<code class="docutils literal notranslate"><span class="pre">run()</span></code> will always return false and <code class="docutils literal notranslate"><span class="pre">getErrors()</span></code> will return
-all previous errors until explicitly reset.</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法不会重置错误状态。如果上次运行失败，<code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法将始终返回 false ，
+<code class="docutils literal notranslate"><span class="pre">getErrors()</span></code> 方法将始终返回上次的所有错误，直至状态被显式重置。</p>
 </div>
-<p>If you intend to run multiple validations, for instance on different data sets or with different
-rules after one another, you might need to call <code class="docutils literal notranslate"><span class="pre">$validation-&gt;reset()</span></code> before each run to get rid of
-errors from previous run. Be aware that <code class="docutils literal notranslate"><span class="pre">reset()</span></code> will invalidate any data, rule or custom error
-you previously set, so <code class="docutils literal notranslate"><span class="pre">setRules()</span></code>, <code class="docutils literal notranslate"><span class="pre">setRuleGroup()</span></code> etc. need to be repeated:</p>
+<p>如果需要运行多个验证，例如在不同的数据集上运行或者一个接一个的运行不同的规则，你应该在每次运行前
+调用 <code class="docutils literal notranslate"><span class="pre">$validation-&gt;reset()</span></code> 清除上次运行产生的错误。需要注意的是 <code class="docutils literal notranslate"><span class="pre">reset()</span></code> 将重置之前的所有数据、规则
+或是自定义错误消息。所以需要重复 <code class="docutils literal notranslate"><span class="pre">setRules()</span></code>，<code class="docutils literal notranslate"><span class="pre">setRuleGroup()</span></code> 等方法：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$userAccounts</span> <span class="k">as</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
     <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">reset</span><span class="p">();</span>
     <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">(</span><span class="nv">$userAccountRules</span><span class="p">);</span>
@@ -785,50 +742,47 @@ you previously set, so <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 </div>
-<div class="section" id="validation-placeholders">
-<h3><a class="toc-backref" href="#id16">Validation Placeholders</a><a class="headerlink" href="#validation-placeholders" title="永久链接至标题">¶</a></h3>
-<p>The Validation class provides a simple method to replace parts of your rules based on data that’s being passed into it. This
-sounds fairly obscure but can be especially handy with the <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> validation rule. Placeholders are simply
-the name of the field (or array key) that was passed in as $data surrounded by curly brackets. It will be
-replaced by the <strong>value</strong> of the matched incoming field. An example should clarify this:</p>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id47">Validation 占位符</a><a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<p>Validation 类提供了一个简单的方法，可以根据传入的数据替换部分规则。这听起来十分晦涩，但在使用 <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> 进行验证时
+十分方便。 占位符是字段的名称（或数组的键），该字段名称（或数组的键）将用花括号包起来作为 $data 传入。它将被替换为匹配的
+传入字段的 <strong>值</strong>。 以下例子可以解释这些：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email,id,{id}]&#39;</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
-<p>In this set of rules, it states that the email address should be unique in the database, except for the row
-that has an id matching the placeholder’s value. Assuming that the form POST data had the following:</p>
+<p>在这组规则中，它声明 email 在数据库中是唯一的，除了具有与占位符匹配的 id 信息，
+假设表单 POST 数据中有以下内容：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$_POST</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
     <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo@example.com&#39;</span>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>then the <code class="docutils literal notranslate"><span class="pre">{id}</span></code> placeholder would be replaced with the number <strong>4</strong>, giving this revised rule:</p>
+<p>那么占位符 <code class="docutils literal notranslate"><span class="pre">{id}</span></code> 将被修改为数字 <strong>4</strong>，以下是修改后的规则：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email,id,4]&#39;</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
-<p>So it will ignore the row in the database that has <code class="docutils literal notranslate"><span class="pre">id=4</span></code> when it verifies the email is unique.</p>
-<p>This can also be used to create more dynamic rules at runtime, as long as you take care that any dynamic
-keys passed in don’t conflict with your form data.</p>
+<p>因此，在验证 email 唯一时，将忽略数据库中 <code class="docutils literal notranslate"><span class="pre">id=4</span></code> 的行。</p>
+<p>这也可以用于在运行时动态创建更多的规则，只要你确保传入的任何动态键都不会与表单
+数据产生冲突。</p>
 </div>
 </div>
-<div class="section" id="working-with-errors">
-<h2><a class="toc-backref" href="#id17">Working With Errors</a><a class="headerlink" href="#working-with-errors" title="永久链接至标题">¶</a></h2>
-<p>The Validation library provides several methods to help you set error messages, provide
-custom error messages, and retrieve one or more errors to display.</p>
-<p>By default, error messages are derived from language strings in <code class="docutils literal notranslate"><span class="pre">system/Language/en/Validation.php</span></code>, where
-each rule has an entry.</p>
-<div class="section" id="setting-custom-error-messages">
-<span id="validation-custom-errors"></span><h3><a class="toc-backref" href="#id18">Setting Custom Error Messages</a><a class="headerlink" href="#setting-custom-error-messages" title="永久链接至标题">¶</a></h3>
-<p>Both the <code class="docutils literal notranslate"><span class="pre">setRule()</span></code> and <code class="docutils literal notranslate"><span class="pre">setRules()</span></code> methods can accept an array of custom messages
-that will be used as errors specific to each field as their last parameter. This allows
-for a very pleasant experience for the user since the errors are tailored to each
-instance. If not custom error message is provided, the default value will be used.</p>
-<p>These are two ways to provide custom error messages.</p>
-<p>As the last parameter:</p>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id48">处理错误</a><a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h2>
+<p>Validation 库提供了几种方法帮助你设置错误消息，提供自定义错误消息，以及显示一个
+或多个错误消息。</p>
+<p>默认情况下，错误消息来自 <code class="docutils literal notranslate"><span class="pre">system/Language/en/Validation.php</span></code> 中的语言字符串，
+其中每个规则都有一个条目。</p>
+<div class="section" id="validation-custom-errors">
+<span id="id20"></span><h3><a class="toc-backref" href="#id49">设置自定义错误消息</a><a class="headerlink" href="#validation-custom-errors" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">setRule()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setRules()</span></code> 允许自定义错误消息数据作为最后一个参数传入。每一个错误的
+错误消息都是定制的，这将带来愉快的用户体验。如果没有设置自定义错误消息，则提供默认值。</p>
+<p>这是两种设置错误消息的方式。</p>
+<p>作为最后一个参数：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|is_unique[users.username]&#39;</span><span class="p">,</span>
         <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span>
@@ -844,7 +798,7 @@ instance. If not custom error message is provided, the default value will be use
 <span class="p">);</span>
 </pre></div>
 </div>
-<p>Or as a labeled style:</p>
+<p>或者作为标签样式：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span>
@@ -864,23 +818,22 @@ instance. If not custom error message is provided, the default value will be use
 <span class="p">);</span>
 </pre></div>
 </div>
-<p>If you’d like to include a field’s “human” name, or the optional parameter some rules allow for (such as max_length),
-or the value that was validated you can add the <code class="docutils literal notranslate"><span class="pre">{field}</span></code>, <code class="docutils literal notranslate"><span class="pre">{param}</span></code> and <code class="docutils literal notranslate"><span class="pre">{value}</span></code> tags to your message, respectively:</p>
+<p>如果你希望包含字段的“human”名称，或者某些规则允许的可选参数 (比如 max_length)，或当前参与验证的值，
+则可以分别将 <code class="docutils literal notranslate"><span class="pre">{field}</span></code>，<code class="docutils literal notranslate"><span class="pre">{param}</span></code>，<code class="docutils literal notranslate"><span class="pre">{value}</span></code> 标记添加到你的消息中：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;min_length&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Supplied value ({value}) for {field} must have at least {param} characters.&#39;</span>
 </pre></div>
 </div>
-<p>On a field with the human name Username and a rule of min_length[6] with a value of “Pizza”, an error would display: “Supplied value (Pizza) for Username must have
-at least 6 characters.”</p>
+<p>在一个用户名字段为 Username ，验证规则为 min_length[6] ，字段值为 “Pizza” 的验证中，将显示错误消息
+“Supplied value (Pizza) for Username must have at least 6 characters”</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">If you pass the last parameter the labeled style error messages will be ignored.</p>
+<p class="last">如果你传递最后一个参数，则标签样式的错误信息将被忽略。</p>
 </div>
 </div>
-<div class="section" id="translation-of-messages-and-validation-labels">
-<h3><a class="toc-backref" href="#id19">Translation Of Messages And Validation Labels</a><a class="headerlink" href="#translation-of-messages-and-validation-labels" title="永久链接至标题">¶</a></h3>
-<p>To use translated strings from language files, we can simply use the dot syntax.
-Let’s say we have a file with translations located here: <code class="docutils literal notranslate"><span class="pre">app/Languages/en/Rules.php</span></code>.
-We can simply use the language lines defined in this file, like this:</p>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id50">消息和验证标签的翻译</a><a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h3>
+<p>要使用语言文件中的翻译字符串，可以简单的使用点语法。假设我们有一个包含翻译的文件位
+于 <code class="docutils literal notranslate"><span class="pre">app/Languages/en/Rules.php</span></code>。我们可以简单的使用定义在文件中的语言行，如下：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Rules.username&#39;</span><span class="p">,</span>
@@ -901,9 +854,9 @@ We can simply use the language lines defined in this file, like this:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="getting-all-errors">
-<h3><a class="toc-backref" href="#id20">Getting All Errors</a><a class="headerlink" href="#getting-all-errors" title="永久链接至标题">¶</a></h3>
-<p>If you need to retrieve all error messages for failed fields, you can use the <code class="docutils literal notranslate"><span class="pre">getErrors()</span></code> method:</p>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id51">获取所有错误</a><a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
+<p>如果你需要检索所有验证失败字段的错误消息，你可以使用 <code class="docutils literal notranslate"><span class="pre">getErrors()</span></code> 方法：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$errors</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">();</span>
 
 <span class="c1">// Returns:</span>
@@ -913,20 +866,19 @@ We can simply use the language lines defined in this file, like this:</p>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>If no errors exist, an empty array will be returned.</p>
+<p>如果没有错误，则返回空数组。</p>
 </div>
-<div class="section" id="getting-a-single-error">
-<h3><a class="toc-backref" href="#id21">Getting a Single Error</a><a class="headerlink" href="#getting-a-single-error" title="永久链接至标题">¶</a></h3>
-<p>You can retrieve the error for a single field with the <code class="docutils literal notranslate"><span class="pre">getError()</span></code> method. The only parameter is the field
-name:</p>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id52">获取单个错误</a><a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h3>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">getError()</span></code> 方法检索单个字段的错误消息。参数名是唯一的参数：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$error</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>If no error exists, an empty string will be returned.</p>
+<p>如果没有错误，则返回空字符串。</p>
 </div>
-<div class="section" id="check-if-error-exists">
-<h3><a class="toc-backref" href="#id22">Check If Error Exists</a><a class="headerlink" href="#check-if-error-exists" title="永久链接至标题">¶</a></h3>
-<p>You can check to see if an error exists with the <code class="docutils literal notranslate"><span class="pre">hasError()</span></code> method. The only parameter is the field name:</p>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id53">检查是否存在错误</a><a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h3>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">hasError()</span></code> 方法检查字段是否存在错误。字段名是唯一的参数：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">hasError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">))</span>
 <span class="p">{</span>
     <span class="k">echo</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
@@ -935,16 +887,15 @@ name:</p>
 </div>
 </div>
 </div>
-<div class="section" id="customizing-error-display">
-<h2><a class="toc-backref" href="#id23">Customizing Error Display</a><a class="headerlink" href="#customizing-error-display" title="永久链接至标题">¶</a></h2>
-<p>When you call <code class="docutils literal notranslate"><span class="pre">$validation-&gt;listErrors()</span></code> or <code class="docutils literal notranslate"><span class="pre">$validation-&gt;showError()</span></code>, it loads a view file in the background
-that determines how the errors are displayed. By default, they display with a class of <code class="docutils literal notranslate"><span class="pre">errors</span></code> on the wrapping div.
-You can easily create new views and use them throughout your application.</p>
-<div class="section" id="creating-the-views">
-<h3><a class="toc-backref" href="#id24">Creating the Views</a><a class="headerlink" href="#creating-the-views" title="永久链接至标题">¶</a></h3>
-<p>The first step is to create custom views. These can be placed anywhere that the <code class="docutils literal notranslate"><span class="pre">view()</span></code> method can locate them,
-which means the standard View directory, or any namespaced View folder will work. For example, you could create
-a new view at <strong>/app/Views/_errors_list.php</strong>:</p>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id54">自定义错误显示</a><a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h2>
+<p>当你调用 <code class="docutils literal notranslate"><span class="pre">$validation-&gt;listErrors()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">$validation-&gt;showError()</span></code> ，它将在后台加载一个视图文件，
+该文件确定错误的显示方法。默认情况下，它在经过包装的 div 上显示 <code class="docutils literal notranslate"><span class="pre">errors</span></code> 。你可以轻松的创建视图并在整个程序
+中使用它。</p>
+<div class="section" id="id26">
+<h3><a class="toc-backref" href="#id55">创建视图</a><a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h3>
+<p>第一步是创建视图文件，它可以放在 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 方法可以加载的任何地方。这意味着标准的 View 目录，或者任何命名空间
+下的 View 目录都可以正常工作。例如，可以在  <strong>/app/Views/_errors_list.php</strong> 创建新的视图文件：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;alert alert-danger&quot;</span> <span class="nx">role</span><span class="o">=</span><span class="s2">&quot;alert&quot;</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
     <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$errors</span> <span class="k">as</span> <span class="nv">$error</span><span class="p">)</span> <span class="o">:</span> <span class="cp">?&gt;</span>
@@ -954,26 +905,23 @@ a new view at <strong>/app/Views/_errors_list.php</strong>:</p>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>An array named <code class="docutils literal notranslate"><span class="pre">$errors</span></code> is available within the view that contains a list of the errors, where the key is
-the name of the field that had the error, and the value is the error message, like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$errors</span></code> 数组可以在包含错误列表的视图中使用，其中键是发生错误的字段名，值是错误消息，如下所示：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$errors</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The username field must be unique.&#39;</span><span class="p">,</span>
     <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;You must provide a valid email address.&#39;</span>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>There are actually two types of views that you can create. The first has an array of all of the errors, and is what
-we just looked at. The other type is simpler, and only contains a single variable, <code class="docutils literal notranslate"><span class="pre">$error</span></code> that contains the
-error message. This is used with the <code class="docutils literal notranslate"><span class="pre">showError()</span></code> method where a field must be specified:</p>
+<p>实际上可以创建两种类型的视图文件。第一种包含所有错误消息，这就是我们刚才看到的。另一种更简单，只包含一个错误消息变量 <code class="docutils literal notranslate"><span class="pre">$error</span></code>。
+它与指定字段名的 <code class="docutils literal notranslate"><span class="pre">showError()</span></code> 方法一起使用。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;help-block&quot;</span><span class="o">&gt;&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$error</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="configuration">
-<h3><a class="toc-backref" href="#id25">Configuration</a><a class="headerlink" href="#configuration" title="永久链接至标题">¶</a></h3>
-<p>Once you have your views created, you need to let the Validation library know about them. Open <code class="docutils literal notranslate"><span class="pre">Config/Validation.php</span></code>.
-Inside, you’ll find the <code class="docutils literal notranslate"><span class="pre">$templates</span></code> property where you can list as many custom views as you want, and provide an
-short alias they can be referenced by. If we were to add our example file from above, it would look something like:</p>
+<div class="section" id="id27">
+<h3><a class="toc-backref" href="#id56">配置</a><a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h3>
+<p>创建视图后，需要让 Validation 库知道它们。 打开 <code class="docutils literal notranslate"><span class="pre">Config/Validation.php</span></code>，在里面找到 <code class="docutils literal notranslate"><span class="pre">$templates</span></code> 属性。
+你可以在其中列出任意多个自定义视图，并提供一个可以引用他们的短别名。我们将添加上边的示例文件，它看起来像：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$templates</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;list&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;CodeIgniter\Validation\Views\list&#39;</span><span class="p">,</span>
     <span class="s1">&#39;single&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;CodeIgniter\Validation\Views\single&#39;</span><span class="p">,</span>
@@ -982,24 +930,22 @@ short alias they can be referenced by. If we were to add our example file from a
 </pre></div>
 </div>
 </div>
-<div class="section" id="specifying-the-template">
-<h3><a class="toc-backref" href="#id26">Specifying the Template</a><a class="headerlink" href="#specifying-the-template" title="永久链接至标题">¶</a></h3>
-<p>You can specify the template to use by passing it’s alias as the first parameter in <code class="docutils literal notranslate"><span class="pre">listErrors</span></code>:</p>
+<div class="section" id="id28">
+<h3><a class="toc-backref" href="#id57">指定模板</a><a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h3>
+<p>通过将别名作为 <code class="docutils literal notranslate"><span class="pre">listErrors</span></code> 方法的第一个参数，来指定要使用的模板：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">(</span><span class="s1">&#39;my_list&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>When showing field-specific errors, you can pass the alias as the second parameter to the <code class="docutils literal notranslate"><span class="pre">showError</span></code> method,
-right after the name of the field the error should belong to:</p>
+<p>当显示特定字段错误时，你可以将别名作为第二个参数传递给 <code class="docutils literal notranslate"><span class="pre">showError</span></code> 方法，别名参数应该在字段名称之后：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">showError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;my_single&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="creating-custom-rules">
-<h2><a class="toc-backref" href="#id27">Creating Custom Rules</a><a class="headerlink" href="#creating-custom-rules" title="永久链接至标题">¶</a></h2>
-<p>Rules are stored within simple, namespaced classes. They can be stored any location you would like, as long as the
-autoloader can find it. These files are called RuleSets. To add a new RuleSet, edit <strong>Config/Validation.php</strong> and
-add the new file to the <code class="docutils literal notranslate"><span class="pre">$ruleSets</span></code> array:</p>
+<div class="section" id="id29">
+<h2><a class="toc-backref" href="#id58">创建自定义规则</a><a class="headerlink" href="#id29" title="永久链接至标题">¶</a></h2>
+<p>规则简单的存储在命名空间类中。只要自动加载器能找到它们，你可将他们存储到任何位置。这些文件称作规则集。要添加新的规则集，
+请编辑 <strong>Config/Validation.php</strong> 并将新文件添加到 <code class="docutils literal notranslate"><span class="pre">$ruleSets</span></code> 数组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$ruleSets</span> <span class="o">=</span> <span class="p">[</span>
     <span class="nx">\CodeIgniter\Validation\Rules</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
     <span class="nx">\CodeIgniter\Validation\FileRules</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
@@ -1007,10 +953,10 @@ add the new file to the <code class="docutils literal notranslate"><span class="
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>You can add it as either a simple string with the fully qualified class name, or using the <code class="docutils literal notranslate"><span class="pre">::class</span></code> suffix as
-shown above. The primary benefit here is that it provides some extra navigation capabilities in more advanced IDEs.</p>
-<p>Within the file itself, each method is a rule and must accept a string as the first parameter, and must return
-a boolean true or false value signifying true if it passed the test or false if it did not:</p>
+<p>你可以将其添加为具有完全限定类的简单字符串，或者使用 <code class="docutils literal notranslate"><span class="pre">::class</span></code> 后缀进行添加。如上所示，这里的好处是，它在更高级的 IED
+中提供了额外的一些导航功能。</p>
+<p>在文件中，每一个方法都是一个规则，它必须接受字符串作为第一个字符串，并且必须返回布尔值 true 或 false 。如果通过测试则返回
+true ，否则返回 false 。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyRules</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">even</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$str</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
@@ -1020,9 +966,8 @@ a boolean true or false value signifying true if it passed the test or false if 
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>By default, the system will look within <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Language\en\Validation.php</span></code> for the language strings used
-within errors. In custom rules, you may provide error messages by accepting a $error variable by reference in the
-second parameter:</p>
+<p>默认情况下，系统将在 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Language\en\Validation.php</span></code> 中查找错误要使用语言字符串。在自定义规则中，你可以通过第二个参数 $error 的引用来
+提供错误消息：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">even</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$str</span><span class="p">,</span> <span class="nx">string</span> <span class="o">&amp;</span><span class="nv">$error</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">((</span><span class="nx">int</span><span class="p">)</span><span class="nv">$str</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
@@ -1035,17 +980,16 @@ second parameter:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Your new custom rule could now be used just like any other rule:</p>
+<p>现在你可像其他规则一样使用新的自定义规则：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="p">[</span>
     <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|even&#39;</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
-<div class="section" id="allowing-parameters">
-<h3><a class="toc-backref" href="#id28">Allowing Parameters</a><a class="headerlink" href="#allowing-parameters" title="永久链接至标题">¶</a></h3>
-<p>If your method needs to work with parameters, the function will need a minimum of three parameters: the string to validate,
-the parameter string, and an array with all of the data that was submitted the form. The $data array is especially handy
-for rules like <code class="docutils literal notranslate"><span class="pre">require_with</span></code> that needs to check the value of another submitted field to base its result on:</p>
+<div class="section" id="id30">
+<h3><a class="toc-backref" href="#id59">允许参数</a><a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h3>
+<p>如果你的方法需要使用参数，则该函数至少需要三个参数：要验证的字符串、参数字符串以及包含提交表单所有数据的数组。
+$data 数组对于像 require_with 这样需要检查另一个提交字段的值作为其结果基础的规则来说十分方便：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">required_with</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$fields</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$data</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 <span class="p">{</span>
     <span class="nv">$fields</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">);</span>
@@ -1083,16 +1027,16 @@ for rules like <code class="docutils literal notranslate"><span class="pre">requ
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Custom errors can be returned as the fourth parameter, just as described above.</p>
+<p>自定义错误可以通过第四个参数传递，如上所述。</p>
 </div>
 </div>
-<div class="section" id="available-rules">
-<h2><a class="toc-backref" href="#id29">Available Rules</a><a class="headerlink" href="#available-rules" title="永久链接至标题">¶</a></h2>
-<p>The following is a list of all the native rules that are available to use:</p>
+<div class="section" id="id31">
+<h2><a class="toc-backref" href="#id60">可用规则</a><a class="headerlink" href="#id31" title="永久链接至标题">¶</a></h2>
+<p>以下是可供使用的所有本地规则的列表：</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">Rule is a string; there must be <strong>no spaces</strong> between the parameters, especially the <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> rule.
-There can be no spaces before and after <code class="docutils literal notranslate"><span class="pre">ignore_value</span></code>.</p>
+<p class="last">规则是一个字符串；参数之间 <strong>不能有空格</strong>，尤其是 <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> 规则。
+<code class="docutils literal notranslate"><span class="pre">ignore_value</span></code> 前后不能有空格。</p>
 </div>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// is_unique[table.field,ignore_field,ignore_value]</span>
 
@@ -1337,12 +1281,12 @@ HSBC Canada Card (hsbc)</td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="rules-for-file-uploads">
-<h3><a class="toc-backref" href="#id30">Rules for File Uploads</a><a class="headerlink" href="#rules-for-file-uploads" title="永久链接至标题">¶</a></h3>
-<p>These validation rules enable you to do the basic checks you might need to verify that uploaded files meet your business needs.
-Since the value of a file upload HTML field doesn’t exist, and is stored in the $_FILES global, the name of the input field will
-need to be used twice. Once to specify the field name as you would for any other rule, but again as the first parameter of all
-file upload related rules:</p>
+<div class="section" id="id32">
+<h3><a class="toc-backref" href="#id61">文件上传规则</a><a class="headerlink" href="#id32" title="永久链接至标题">¶</a></h3>
+<p>这些验证规则可以让你进行基本的检查，验证上传的文件是否满足你的业务需求。
+由于文件上传字段在 HTML 字段中不存在，并且存储在 $_FILES 全局变量中，
+因此字段名需要输入两次，第一个用于指定验证的字段，像其他规则一样，第二次
+作为所有文件上传规则的第一个参数：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In the HTML</span>
 <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;file&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;avatar&quot;</span><span class="o">&gt;</span>
 
@@ -1402,12 +1346,11 @@ the file cannot be determined to be an image.</td>
 </tr>
 </tbody>
 </table>
-<p>The file validation rules apply for both single and multiple file uploads.</p>
+<p>文件验证规则适用于单个和多个文件上传。</p>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
-<p class="last">You can also use any native PHP functions that permit up
-to two parameters, where at least one is required (to pass
-the field data).</p>
+<p class="last">你也可以使用任何最多允许两个参数的本地 PHP 函数，
+其中至少需要一个参数（传递字段数据）。</p>
 </div>
 </div>
 </div>
