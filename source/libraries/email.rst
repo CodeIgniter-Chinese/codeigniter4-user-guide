@@ -1,19 +1,19 @@
 ###########
-电子邮件类
+Email 类
 ###########
 
-Codeigniter 的健全的电子邮件类支持下面的特征:
+Codeigniter 的健全的 Email 类支持下面的特征:
 
-- 多样的协议: 邮件，发送邮件，以及SMTP（简单邮件传送协议）
-- 为 SMTP（简单邮件传送协议）的 TLS（安全传输层协议）和 SSL（安全套接字协议）数据加密技术
-- 多样协议的接收器
-- CC（抄送）和暗抄送（BCCs）
-- HTML（超文本标记语言）或者明文邮件
+- 多样的协议: Mail，Sendmail，以及 SMTP（简单邮件传送协议）
+- SMTP TLS 和 SSL 加密
+- 多接收方
+- CC（抄送）和暗送（BCCs）
+- HTML 或文本邮件
 - 附件
 - 文字换行
 - 优先权
-- 密件抄送批处理模式，授权大型电子邮件列表分成小型密件抄送批处理
-- 电子邮件调试工具
+- BCC Batch Mode, enabling large email lists to be broken into small BCC batches.
+- Email 调试工具
 
 
 .. contents::
@@ -25,7 +25,7 @@ Codeigniter 的健全的电子邮件类支持下面的特征:
   <div class="custom-index container"></div>
 
 ***********************
-使用电子邮件类库
+使用 Email 类库
 ***********************
 
 
