@@ -35,7 +35,7 @@ they can find the ``Paths`` configuration file:
 
 如果你想要让多个不同的应用来共享一次CodeIgniter的安装文件，只需要将你的应用目录下的所有目录都移动到他们对应的子目录中即可。
 
-举例而言，加入你想要创建两个应用程序，命名为"foo"和"bar"，你可以将你的应用目录排列如下::
+举例而言，加入你想要创建两个应用程序，命名为"foo"和"bar"，你可以将你的应用目录排列如下:
 
 .. code-block:: text
 
@@ -53,7 +53,8 @@ they can find the ``Paths`` configuration file:
         /system
         /docs
 
-为了选择指定的应用目录，你需要打开主index.php文件并设置 ``$application_directory`` 变量。例如，选择"foo"应用，进行以下操作::
+This would have two apps, "foo" and "bar", both having standard application directories
+and a ``public`` folder, and sharing a common codeigniter framework.
 
 The ``index.php`` inside each application would refer to its own configuration,
 ``../app/Config/Paths.php``, and the ``$systemDirectory`` variable inside each
