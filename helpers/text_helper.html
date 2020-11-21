@@ -129,7 +129,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">利用配置文件开始工作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">公共函数和全局常量</a></li>
@@ -360,28 +360,27 @@
 <dl class="function">
 <dt id="random_string">
 <code class="descname">random_string</code><span class="sig-paren">(</span><span class="optional">[</span><em>$type = 'alnum'</em><span class="optional">[</span>, <em>$len = 8</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#random_string" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $type:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">需要随机输出的类型</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$type</strong> (<em>string</em>) – 需要随机输出的类型</li>
+<li><strong>$len</strong> (<em>int</em>) – 输出的字符串长度</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  int     $len:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">输出的字符串长度</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">一个随机字符串</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">一个随机字符串</td>
-</tr>
-<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
-<p>基于类型和长度生成一个随机字符串。</p>
-</div></blockquote>
-<p>对于创建密码或随机哈希等非常有用。</p>
-<blockquote>
-<div><p>第一个参数给定字符串类型，第二个参数给定字符串长度，可使用以下类型:</p>
+<p>基于类型和长度生成一个随机字符串。
+对于创建密码或随机哈希等非常有用。</p>
+<p>第一个参数给定字符串类型，第二个参数给定字符串长度，可使用以下类型:</p>
 <ul class="simple">
 <li><strong>alpha</strong>: 仅有大小写字母构成的字符串</li>
 <li><strong>alnum</strong>: 含有大小写字母和数字的字符串</li>
@@ -390,53 +389,43 @@
 <li><strong>nozero</strong>: 数字类型字符串，其中不含有零</li>
 <li><strong>md5</strong>: 基于 <code class="docutils literal notranslate"><span class="pre">md5()</span></code> 的加密随机数（固定长度32位）</li>
 <li><strong>sha1</strong>: 基于 <code class="docutils literal notranslate"><span class="pre">sha1()</span></code> 的加密随机数（固定长度40位）</li>
+<li><strong>crypto</strong>: 基于 <code class="docutils literal notranslate"><span class="pre">random_bytes()</span></code> 的随机字符串</li>
 </ul>
-</div></blockquote>
-<ul>
-<li><p class="first"><strong>crypto</strong>: 基于 <code class="docutils literal notranslate"><span class="pre">random_bytes()</span></code> 的随机字符串</p>
-<blockquote>
-<div><p>用例如下:</p>
+<p>用例如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">random_string</span><span class="p">(</span><span class="s1">&#39;alnum&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
 </pre></div>
 </div>
-</div></blockquote>
-</li>
-</ul>
 </dd></dl>
 
 <dl class="function">
 <dt id="increment_string">
 <code class="descname">increment_string</code><span class="sig-paren">(</span><em>$str</em><span class="optional">[</span>, <em>$separator = '_'</em><span class="optional">[</span>, <em>$first = 1</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#increment_string" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入的字符串</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – 输入的字符串</li>
+<li><strong>$separator</strong> (<em>string</em>) – 用于增加一个数字的分隔符</li>
+<li><strong>$first</strong> (<em>int</em>) – 起始数字</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  string  $separator:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">用于增加一个数字的分隔符</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">递增字符串</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param  int     $first:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">起始数字</td>
-</tr>
-<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">递增字符串</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <p>通过将一个每次在尾部递增数字的方式，递增一个字符串。用于创建”拷贝”或者用于拥有唯一标题或简介的文件或数据库内容。</p>
-<blockquote>
-<div><p>用例如下:</p>
+<p>用例如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">increment_string</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">);</span> <span class="c1">// &quot;file_1&quot;</span>
 <span class="k">echo</span> <span class="nx">increment_string</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// &quot;file-2&quot;</span>
 <span class="k">echo</span> <span class="nx">increment_string</span><span class="p">(</span><span class="s1">&#39;file_4&#39;</span><span class="p">);</span> <span class="c1">// &quot;file_5&quot;</span>
 </pre></div>
 </div>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -466,7 +455,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>如果你需要的话也可以增加尽可能多的参数，在下一次迭代时，下一个项目将会被返回:</p>
+<p>如果你需要的话也可以增加尽可能多的参数，在下一次迭代时，下一个项目将会被返回。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
         <span class="k">echo</span> <span class="nx">alternator</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="s1">&#39;four&#39;</span><span class="p">,</span> <span class="s1">&#39;five&#39;</span><span class="p">);</span>
@@ -710,31 +699,31 @@ alias for <code class="docutils literal notranslate"><span class="pre">stripslas
 <dl class="function">
 <dt id="ascii_to_entities">
 <code class="descname">ascii_to_entities</code><span class="sig-paren">(</span><em>$str</em><span class="sig-paren">)</span><a class="headerlink" href="#ascii_to_entities" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">一个将 ASCII 值转化为实体的字符串</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">一个将 ASCII 值转化为实体的字符串</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
 <p>将 ASCII 码转化为字符实体，包括可能导致 web 页面中出现问题的高位 ASCII 码以及一些 Word 字符串。
-通过这一方法可以使得这些字符无论是浏览器设置或是存储于数据库中都可以正确地显示。</p>
-</div></blockquote>
-<p>不过该方法依赖于你浏览器所支持的字符集，因此不一定100%可靠。
+通过这一方法可以使得这些字符无论是浏览器设置或是存储于数据库中都可以正确地显示。
+不过该方法依赖于你浏览器所支持的字符集，因此不一定100%可靠。
 不过在大多数情况下，该方法可以正确识别非正常类型的字符（例如方言字符等）</p>
-<blockquote>
-<div><p>例如:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">ascii_to_entities</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
 </pre></div>
 </div>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -795,95 +784,87 @@ alias for <code class="docutils literal notranslate"><span class="pre">stripslas
 <dl class="function">
 <dt id="word_censor">
 <code class="descname">word_censor</code><span class="sig-paren">(</span><em>$str</em>, <em>$censored</em><span class="optional">[</span>, <em>$replacement = ''</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#word_censor" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+<li><strong>$censored</strong> (<em>array</em>) – 一系列需要被探测的有问题的单词</li>
+<li><strong>$replacement</strong> (<em>string</em>) – 用于替换问题单词的字符串</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  array   $censored:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">一系列需要被探测的有问题的单词</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">探测后的字符串</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $replacement:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">用于替换问题单词的字符串</td>
-</tr>
-<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">探测后的字符串</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <p>用于检测文本字符串中的敏感词。第一个参数为原有的字符串，第二个是一个含有你需要拦截的敏感词的数组。第三个参数（可选）为需要用于替换的单词。
 如果不声明的话就会用井号替换: ###</p>
-<blockquote>
-<div><p>例如:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$disallowed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;darn&#39;</span><span class="p">,</span> <span class="s1">&#39;shucks&#39;</span><span class="p">,</span> <span class="s1">&#39;golly&#39;</span><span class="p">,</span> <span class="s1">&#39;phooey&#39;</span><span class="p">];</span>
 <span class="nv">$string</span>     <span class="o">=</span> <span class="nx">word_censor</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="nv">$disallowed</span><span class="p">,</span> <span class="s1">&#39;Beep!&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="highlight_code">
 <code class="descname">highlight_code</code><span class="sig-paren">(</span><em>$str</em><span class="sig-paren">)</span><a class="headerlink" href="#highlight_code" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body">HTML 格式代码高亮的字符串</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">HTML 格式代码高亮的字符串</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <p>将一个代码字符串 （PHP, HTML, 等）加上颜色。例如:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>        <span class="nv">$string</span> <span class="o">=</span> <span class="nx">highlight_code</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
-
-<span class="nx">该函数使用了</span> <span class="nx">PHP</span> <span class="nx">的</span> <span class="sb">``</span><span class="nb">highlight_string</span><span class="p">()</span><span class="sb">``</span> <span class="nx">方法，因此使用的颜色是在你的</span> <span class="nx">php</span><span class="o">.</span><span class="nx">ini</span> <span class="nx">文件中定义的。</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">highlight_code</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
 </pre></div>
 </div>
+<p>该函数使用了 PHP 的 <code class="docutils literal notranslate"><span class="pre">highlight_string()</span></code> 方法，因此使用的颜色是在你的 php.ini 文件中定义的。</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="highlight_phrase">
 <code class="descname">highlight_phrase</code><span class="sig-paren">(</span><em>$str</em>, <em>$phrase</em><span class="optional">[</span>, <em>$tag_open = '&lt;mark&gt;'</em><span class="optional">[</span>, <em>$tag_close = '&lt;/mark&gt;'</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#highlight_phrase" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+<li><strong>$phrase</strong> (<em>string</em>) – 高亮的片段</li>
+<li><strong>$tag_open</strong> (<em>string</em>) – 用于高亮的开括号</li>
+<li><strong>$tag_close</strong> (<em>string</em>) – 用于高亮的闭括号</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  string  $phrase:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">高亮的片段</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">通过 HTML 进行片段高亮后的字符串</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $tag_open:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">用于高亮的开括号</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  string  $tag_close:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">用于高亮的闭括号</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">通过 HTML 进行片段高亮后的字符串</td>
-</tr>
-<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <p>在一个文本字符串中高亮一个片段。第一个参数是原本的字符串，第二个参数是你需要高亮的片段。
 第三个第四个参数包含你需要用于包裹高亮片段的 HTML 标签。</p>
-<blockquote>
-<div><p>例如:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Here is a nice text string about nothing in particular.&quot;</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nx">highlight_phrase</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="s2">&quot;nice text&quot;</span><span class="p">,</span> <span class="s1">&#39;&lt;span style=&quot;color:#990000;&quot;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">);</span>
 </pre></div>
@@ -903,33 +884,31 @@ alias for <code class="docutils literal notranslate"><span class="pre">stripslas
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="word_wrap">
 <code class="descname">word_wrap</code><span class="sig-paren">(</span><em>$str</em><span class="optional">[</span>, <em>$charlim = 76</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#word_wrap" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+<li><strong>$charlim</strong> (<em>int</em>) – 字符限制</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  int     $charlim:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">字符限制</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">单词换行过的字符串</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">单词换行过的字符串</td>
-</tr>
-<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <p>将一个文本以指定的字符长度进行换行，并保持单词完整性</p>
-<blockquote>
-<div><p>例如:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s2">&quot;Here is a simple string of text that will help us demonstrate this function.&quot;</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nx">word_wrap</span><span class="p">(</span><span class="nv">$string</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
 
@@ -941,42 +920,36 @@ alias for <code class="docutils literal notranslate"><span class="pre">stripslas
 </pre></div>
 </div>
 <p>过长的单词会被截断，不过 URL 不会</p>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="ellipsize">
 <code class="descname">ellipsize</code><span class="sig-paren">(</span><em>$str</em>, <em>$max_length</em><span class="optional">[</span>, <em>$position = 1</em><span class="optional">[</span>, <em>$ellipsis = '&amp;hellip;'</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#ellipsize" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $str:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">输入字符串</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$str</strong> (<em>string</em>) – 输入字符串</li>
+<li><strong>$max_length</strong> (<em>int</em>) – 字符串长度限制</li>
+<li><strong>$position</strong> (<em>mixed</em>) – 需要截断的位置（整数或浮点数）</li>
+<li><strong>$ellipsis</strong> (<em>string</em>) – 作为省略的标记符</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  int     $max_length:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">字符串长度限制</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">省略后的字符串</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param  mixed   $position:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">需要截断的位置（整数或浮点数）</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  string  $ellipsis:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">作为省略的标记符</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">省略后的字符串</td>
-</tr>
-<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
 <p>该函数将去除字符串中的标记并将其截断为指定长度，同时加上一个省略标记符</p>
-</div></blockquote>
 <p>第一个参数是需要省略的字符串，第二个是在输出的字符串中的字符长度。第三个参数是在省略后的字符串中，省略标记符号是否需要从0-1，从左到右的方式出现。
-例如，值为1时，就会在右边，0.5就是中间，0就是在左边</p>
+例如，值为 1 时，就会在右边，0.5 就是中间，0 就是在左边。</p>
 <p>第四个可选的参数是省略符号类型，默认情况下会插入一个 &amp;hellip;</p>
-<blockquote>
-<div><p>例如:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$str</span> <span class="o">=</span> <span class="s1">&#39;this_string_is_entirely_too_long_and_might_break_my_design.jpg&#39;</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nx">ellipsize</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">);</span>
 </pre></div>
@@ -985,41 +958,35 @@ alias for <code class="docutils literal notranslate"><span class="pre">stripslas
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">this_string_is_e</span><span class="o">&amp;</span><span class="nx">hellip</span><span class="p">;</span><span class="nx">ak_my_design</span><span class="o">.</span><span class="nx">jpg</span>
 </pre></div>
 </div>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">
 <dt id="excerpt">
 <code class="descname">excerpt</code><span class="sig-paren">(</span><em>$text</em>, <em>$phrase = false</em>, <em>$radius = 100</em>, <em>$ellipsis = '...'</em><span class="sig-paren">)</span><a class="headerlink" href="#excerpt" title="永久链接至目标">¶</a></dt>
-<dd><blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param  string  $text:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">需要截取摘要的文本</td>
+<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
+<li><strong>$text</strong> (<em>string</em>) – 需要截取摘要的文本</li>
+<li><strong>$phrase</strong> (<em>string</em>) – 需要截取的文本附近的片段或单词</li>
+<li><strong>$radius</strong> (<em>int</em>) – 在片段前后截取的字符数量</li>
+<li><strong>$ellipsis</strong> (<em>string</em>) – 省略标记符</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  string  $phrase:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">需要截取的文本附近的片段或单词</td>
+<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">摘要.</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param  int             $radius:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">在片段前后截取的字符数量</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param  string  $ellipsis:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">省略标记符</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">returns:</th><td class="field-body">摘要.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">string</td>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
 <p>该函数会取出指定 <code class="docutils literal notranslate"><span class="pre">$phrase</span></code> 前后各 <code class="docutils literal notranslate"><span class="pre">$radius</span></code> 个数量的字符。</p>
 <p>第一个参数是需要截取摘要的文本，第二个是需要截取的中心单词或片段。
 第三个参数是需要截取的数量。如果不传 <code class="docutils literal notranslate"><span class="pre">$phrase</span></code> 参数的话就会从头开始获取 <code class="docutils literal notranslate"><span class="pre">$radius</span></code> 个字符并加上省略标记符</p>
-<blockquote>
-<div><p>例如:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$text</span> <span class="o">=</span> <span class="s1">&#39;Ut vel faucibus odio. Quisque quis congue libero. Etiam gravida</span>
 <span class="s1">eros lorem, eget porttitor augue dignissim tincidunt. In eget risus eget</span>
 <span class="s1">mauris faucibus molestie vitae ultricies odio. Vestibulum id ultricies diam.</span>
@@ -1038,7 +1005,6 @@ alias for <code class="docutils literal notranslate"><span class="pre">stripslas
 <span class="nx">vitae</span> <span class="nx">nisl</span><span class="o">.</span> <span class="nx">Cras</span> <span class="nx">sed</span> <span class="nx">auctor</span> <span class="nx">mauris</span><span class="p">,</span> <span class="nx">non</span> <span class="nx">dictum</span> <span class="o">...</span>
 </pre></div>
 </div>
-</div></blockquote>
 </dd></dl>
 
 </div>

@@ -129,7 +129,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">常规主题</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="configuration.html">利用配置文件开始工作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">配置文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helpers.html">辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">公共函数和全局常量</a></li>
@@ -340,35 +340,35 @@
             
   <div class="section" id="id1">
 <h1>处理多环境<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>开发者常常希望根据是生产环境还是开发环境能够区分不同的定制行为，例如，如果在开发环境的程序当中输出详细的错误信息这样做对开发者来说是非常有帮助的，但是这样做的话在生产环境中会造成一些安全问题。</p>
+<p>开发者常常希望根据是生产环境还是开发环境能够区分不同的定制行为，例如，如果在开发环境的程序当中输出详细的错误信息这样做对开发者来说是非常有帮助的，但是这样做的话在生产环境中会造成一些安全问题。 In development environments, you might want additional tools loaded that you don’t in production environments, etc.</p>
 <div class="section" id="id2">
 <h2>环境常量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>CodeIgniter 默认使用 $_SERVER[‘CI_ENVIRONMENT’] 的值作为 ENVIRONMENT 常量，否则默认就是 ‘production’。这样能够根据不同服务器安装环境定制不同的环境依赖。</p>
 <div class="section" id="env">
 <h3>.env<a class="headerlink" href="#env" title="永久链接至标题">¶</a></h3>
-<p>最简单的方式是在你的 <a class="reference external" href="/general/configuration">.env</a> 配置文件里设置:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CI_ENVIRONMENT</span> <span class="o">=</span> <span class="nx">development</span>
+<p>最简单的方式是在你的 <a class="reference external" href="/general/configuration">.env</a> 配置文件里设置。</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">CI_ENVIRONMENT</span> <span class="o">=</span> <span class="s">development</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="apache">
 <h3>Apache<a class="headerlink" href="#apache" title="永久链接至标题">¶</a></h3>
 <p>如果要获取 $_SERVER[‘CI_ENVIRONMENT’] 的值可以在 .htaccess 的文件里，或者可以在Apache的配置文件里使用 <a class="reference external" href="https://httpd.apache.org/docs/2.2/mod/mod_env.html#setenv">SetEnv</a> 命令进行设置</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">SetEnv</span> <span class="nx">CI_ENVIRONMENT</span> <span class="nx">development</span>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">SetEnv</span> CI_ENVIRONMENT development
 </pre></div>
 </div>
 </div>
 <div class="section" id="nginx">
 <h3>nginx<a class="headerlink" href="#nginx" title="永久链接至标题">¶</a></h3>
 <p>在 nginx 下，为了能够在 $_SERVER 里显示环境变量的值你必须通过 fastcgi_params 来传递。这样允许它在虚拟主机上工作来替代使用 env 去为整个服务器设置它，即使在专用服务器上运行良好。你可以修改该服务器的配置为:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">server</span> <span class="p">{</span>
-    <span class="nx">server_name</span> <span class="nx">localhost</span><span class="p">;</span>
-    <span class="k">include</span>     <span class="nx">conf</span><span class="o">/</span><span class="nx">defaults</span><span class="o">.</span><span class="nx">conf</span><span class="p">;</span>
-    <span class="nx">root</span>        <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nx">www</span><span class="p">;</span>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+    <span class="kn">server_name</span> <span class="s">localhost</span><span class="p">;</span>
+    <span class="kn">include</span>     <span class="s">conf/defaults.conf</span><span class="p">;</span>
+    <span class="kn">root</span>        <span class="s">/var/www</span><span class="p">;</span>
 
-    <span class="nx">location</span>    <span class="o">~*</span> <span class="s2">&quot;\.php$&quot;</span> <span class="p">{</span>
-        <span class="nx">fastcgi_param</span> <span class="nx">CI_ENVIRONMENT</span> <span class="s2">&quot;production&quot;</span><span class="p">;</span>
-        <span class="k">include</span> <span class="nx">conf</span><span class="o">/</span><span class="nx">fastcgi</span><span class="o">-</span><span class="nx">php</span><span class="o">.</span><span class="nx">conf</span><span class="p">;</span>
+    <span class="kn">location</span>    <span class="p">~</span><span class="sr">*</span> <span class="s">&quot;\.php</span><span class="nv">$&quot;</span> <span class="p">{</span>
+        <span class="kn">fastcgi_param</span> <span class="s">CI_ENVIRONMENT</span> <span class="s">&quot;production&quot;</span><span class="p">;</span>
+        <span class="kn">include</span> <span class="s">conf/fastcgi-php.conf</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

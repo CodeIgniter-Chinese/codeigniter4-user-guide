@@ -129,7 +129,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">利用配置文件开始工作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">公共函数和全局常量</a></li>
@@ -359,7 +359,7 @@
 <h2><a class="toc-backref" href="#id7">换码（转义）字段值</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>你也许需要使用 HTML 和字符像在你的表单内部的元素里引用。为了安全地执行，你将需要使用:doc:<cite>common function &lt;../general/common_functions&gt;</cite>
 <code class="xref py py-func docutils literal notranslate"><span class="pre">esc()</span></code>.</p>
-<p>考虑下文的事例:</p>
+<p>考虑下文的示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;Here is a string containing &quot;quoted&quot; text.&#39;</span><span class="p">;</span>
 
 <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;myfield&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&lt;?= </span><span class="si">$string</span><span class="s2">; ?&gt;&quot;</span> <span class="o">/&gt;</span>
@@ -396,15 +396,14 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 <tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">HTML 表单随时可用的 tag</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><p>string</p>
-<p>创建一个带着基地址URL的随时可用的表单标签**从你的配置优先选择营造**.
-它将随意地让你添加表单属性和隐藏输入字段，并且会常常在你的配置文件里添加基于 charset 值的 <cite>accept-charset</cite> 属性。
-宁可使用标签的绝对好处也不要艰苦的编码你自己的 HTML 是由于在事件里你的 URLs 曾改变而标签容许你的网址是更便携的。</p>
-</p>
+<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">string</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>创建一个带着基地址URL的随时可用的表单标签**从你的配置优先选择营造**.
+它将随意地让你添加表单属性和隐藏输入字段，并且会常常在你的配置文件里添加基于 charset 值的 <cite>accept-charset</cite> 属性。</p>
+<p>宁可使用标签的绝对好处也不要艰苦的编码你自己的 HTML 是由于在事件里你的 URLs 曾改变而标签容许你的网址是更便携的。</p>
 <p>下面是一则简单的例子:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">form_open</span><span class="p">(</span><span class="s1">&#39;email/send&#39;</span><span class="p">);</span>
 </pre></div>
@@ -413,10 +412,19 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">form</span> <span class="nx">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span> <span class="nx">accept</span><span class="o">-</span><span class="nx">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span> <span class="nx">action</span><span class="o">=</span><span class="s2">&quot;http://example.com/index.php/email/send&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
+<p>You can also add {locale} like the following:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">form_open</span><span class="p">(</span><span class="s1">&#39;{locale}/email/send&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The above example would create a form that points to your base URL plus the current request locale with
+“email/send” URI segments, like this:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">form</span> <span class="nx">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span> <span class="nx">accept</span><span class="o">-</span><span class="nx">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span> <span class="nx">action</span><span class="o">=</span><span class="s2">&quot;http://example.com/index.php/en/email/send&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p><strong>添加属性</strong></p>
 <blockquote>
 <div><p>由正传达组合的数组到第二个参数的属性能被加入，像这样:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;myform&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;myform&#39;</span><span class="p">];</span>
 <span class="k">echo</span> <span class="nx">form_open</span><span class="p">(</span><span class="s1">&#39;email/send&#39;</span><span class="p">,</span> <span class="nv">$attributes</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -428,11 +436,18 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">form</span> <span class="nx">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span> <span class="nx">accept</span><span class="o">-</span><span class="nx">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span> <span class="nx">action</span><span class="o">=</span><span class="s2">&quot;http://example.com/index.php/email/send&quot;</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;myform&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
+<p>If CSRF filter is turned on <cite>form_open()</cite> will generate CSRF field at the beginning of the form. You can specify ID of this field by passing csrf_id as one of the $attribute array:</p>
+<blockquote>
+<div>form_open(‘/u/sign-up’, [‘csrf_id’ =&gt; ‘my-id’]);</div></blockquote>
+<p>will return:</p>
+<blockquote>
+<div>&lt;form action=”/u/sign-up” method=”post” accept-charset=”utf-8”&gt;
+&lt;input type=”hidden” id=”my-id” name=”csrf_field” value=”964ede6e0ae8a680f7b8eab69136717d” /&gt;</div></blockquote>
 </div></blockquote>
 <p><strong>添加隐藏输入字段</strong></p>
 <blockquote>
 <div><p>由正传达组合的数组到第三个参数的隐藏字段能被添加，像这样:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$hidden</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Joe&#39;</span><span class="p">,</span> <span class="s1">&#39;member_id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;234&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$hidden</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Joe&#39;</span><span class="p">,</span> <span class="s1">&#39;member_id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;234&#39;</span><span class="p">];</span>
 <span class="k">echo</span> <span class="nx">form_open</span><span class="p">(</span><span class="s1">&#39;email/send&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$hidden</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -499,11 +514,11 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>… 或者你能提交组合数组去创建复合字段:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
         <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;john@example.com&#39;</span><span class="p">,</span>
         <span class="s1">&#39;url&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 
 <span class="k">echo</span> <span class="nx">form_hidden</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 
@@ -516,11 +531,11 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>你也能传达组合的数组给字段值:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
         <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;john@example.com&#39;</span><span class="p">,</span>
         <span class="s1">&#39;url&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 
 <span class="k">echo</span> <span class="nx">form_hidden</span><span class="p">(</span><span class="s1">&#39;my_array&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 
@@ -534,13 +549,13 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>倘若你想创建额外属性的隐藏输入字段:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;type&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;hidden&#39;</span><span class="p">,</span>
         <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span>
         <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;hiddenemail&#39;</span><span class="p">,</span>
         <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;john@example.com&#39;</span><span class="p">,</span>
         <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;hiddenemail&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 
 <span class="k">echo</span> <span class="nx">form_input</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 
@@ -581,14 +596,14 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>或者你能传达包含你希望你的表单要包含的任何数据的组合的数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;name&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span>
         <span class="s1">&#39;id&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span>
         <span class="s1">&#39;value&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;johndoe&#39;</span><span class="p">,</span>
         <span class="s1">&#39;maxlength&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
         <span class="s1">&#39;size&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;50&#39;</span><span class="p">,</span>
         <span class="s1">&#39;style&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;width:50%&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 
 <span class="k">echo</span> <span class="nx">form_input</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 
@@ -605,7 +620,7 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>或者你能像数组一样传达参数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>       <span class="nv">$js</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;onClick&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some_function();&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>       <span class="nv">$js</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;onClick&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some_function();&#39;</span><span class="p">];</span>
        <span class="k">echo</span> <span class="nx">form_input</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;johndoe&#39;</span><span class="p">,</span> <span class="nv">$js</span><span class="p">);</span>
 
 <span class="nx">支持HTML5</span> <span class="nx">输入字段扩充范围，你能像第四个参数一样传达一个输入键入信息</span><span class="o">::</span>
@@ -711,14 +726,14 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </table>
 <p>让你创建一个下拉菜单字段。第一个参数会包含字段名，第二个参数会包含一个组合的数组选项，而第三参数会包含你希望被选择的值。你也能通过第三参数传达一个符合选项数组，并且辅助函数会为你创建一个复合选项。</p>
 <p>例如:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>       <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>       <span class="nv">$options</span> <span class="o">=</span> <span class="p">[</span>
                <span class="s1">&#39;small&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Small Shirt&#39;</span><span class="p">,</span>
                <span class="s1">&#39;med&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Medium Shirt&#39;</span><span class="p">,</span>
                <span class="s1">&#39;large&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Large Shirt&#39;</span><span class="p">,</span>
                <span class="s1">&#39;xlarge&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Extra Large Shirt&#39;</span><span class="p">,</span>
-       <span class="p">);</span>
+       <span class="p">];</span>
 
-       <span class="nv">$shirts_on_sale</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="s1">&#39;large&#39;</span><span class="p">);</span>
+       <span class="nv">$shirts_on_sale</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;small&#39;</span><span class="p">,</span> <span class="s1">&#39;large&#39;</span><span class="p">];</span>
        <span class="k">echo</span> <span class="nx">form_dropdown</span><span class="p">(</span><span class="s1">&#39;shirts&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">,</span> <span class="s1">&#39;large&#39;</span><span class="p">);</span>
 
        <span class="cm">/*</span>
@@ -752,14 +767,14 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>或者你能像传达数组一样传达参数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$js</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$js</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;id&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;shirts&#39;</span><span class="p">,</span>
         <span class="s1">&#39;onChange&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some_function();&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 <span class="k">echo</span> <span class="nx">form_dropdown</span><span class="p">(</span><span class="s1">&#39;shirts&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">,</span> <span class="s1">&#39;large&#39;</span><span class="p">,</span> <span class="nv">$js</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>如果数组被传达像 <code class="docutils literal notranslate"><span class="pre">$options</span></code> 一样是一个多维数组，那么 <code class="docutils literal notranslate"><span class="pre">form_dropdown()</span></code> 将会产生一个像 label 一样带着数组键码的 &lt;optgroup&gt; 。</p>
+<p>如果数组被传达象 <code class="docutils literal notranslate"><span class="pre">$options</span></code> 一样是一个多维数组，那么 <code class="docutils literal notranslate"><span class="pre">form_dropdown()</span></code> 将会产生一个像 label 一样带着数组键码的 &lt;optgroup&gt; 。</p>
 </dd></dl>
 
 <dl class="function">
@@ -786,8 +801,8 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </tbody>
 </table>
 <p>让你创建一个标准的混合字段。第一个参数将包含字段名，第二个参数会包含选项的一个组合的数组，
-而第三个参数会包含值或者你想要被选择的值。
-参数用法是完全相似于上文去使用的 <a class="reference internal" href="#form_dropdown" title="form_dropdown"><code class="xref php php-func docutils literal notranslate"><span class="pre">form_dropdown()</span></code></a> ，除了当然地字段名将需要去用 POST 数组语法，例如：foo[].</p>
+而第三个参数会包含值或者你想要被选择的值。</p>
+<p>参数用法是完全相似于上文去使用的 <a class="reference internal" href="#form_dropdown" title="form_dropdown"><code class="xref php php-func docutils literal notranslate"><span class="pre">form_dropdown()</span></code></a> ，除了当然地字段名将需要去用 POST 数组语法，例如：foo[].</p>
 </dd></dl>
 
 <dl class="function">
@@ -812,7 +827,7 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </tbody>
 </table>
 <p>让你生成 fieldset/legend 字段。</p>
-<p>事例:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">form_fieldset</span><span class="p">(</span><span class="s1">&#39;Address Information&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="s2">&quot;&lt;p&gt;fieldset content here&lt;/p&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
 <span class="k">echo</span> <span class="nx">form_fieldset_close</span><span class="p">();</span>
@@ -828,10 +843,10 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>相似于其他函数，如果你更喜欢设置额外属性你能在第二参数里提交一个组合的数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;address_info&#39;</span><span class="p">,</span>
         <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;address_info&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 
 <span class="k">echo</span> <span class="nx">form_fieldset</span><span class="p">(</span><span class="s1">&#39;Address Information&#39;</span><span class="p">,</span> <span class="nv">$attributes</span><span class="p">);</span>
 <span class="k">echo</span> <span class="s2">&quot;&lt;p&gt;fieldset content here&lt;/p&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
@@ -901,20 +916,20 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </tr>
 </tbody>
 </table>
-<p>L让你产生一个 checkbox 字段. 简单的例子:</p>
+<p>让你产生一个 checkbox 字段. 简单的例子:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">form_checkbox</span><span class="p">(</span><span class="s1">&#39;newsletter&#39;</span><span class="p">,</span> <span class="s1">&#39;accept&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
 <span class="c1">// 将生成:  &lt;input type=&quot;checkbox&quot; name=&quot;newsletter&quot; value=&quot;accept&quot; checked=&quot;checked&quot; /&gt;</span>
 </pre></div>
 </div>
-<p>第三个参数包含一个布尔值 TRUE/FALSE 去决定是否 box 应该被记号或者未记号。
-在这个辅助函数里类似的对于其他的表单函数来说，你也能传达属性的数组给函数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<p>第三个参数包含一个布尔值 TRUE/FALSE 去决定是否 box 应该被记号或者未记号。</p>
+<p>在这个辅助函数里类似的对于其他的表单函数来说，你也能传达属性的数组给函数:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;name&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;newsletter&#39;</span><span class="p">,</span>
         <span class="s1">&#39;id&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;newsletter&#39;</span><span class="p">,</span>
         <span class="s1">&#39;value&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;accept&#39;</span><span class="p">,</span>
         <span class="s1">&#39;checked&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">,</span>
         <span class="s1">&#39;style&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;margin:10px&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 
 <span class="k">echo</span> <span class="nx">form_checkbox</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 <span class="c1">// 将生成: &lt;input type=&quot;checkbox&quot; name=&quot;newsletter&quot; id=&quot;newsletter&quot; value=&quot;accept&quot; checked=&quot;checked&quot; style=&quot;margin:10px&quot; /&gt;</span>
@@ -926,7 +941,7 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>或者你能像数组一样传达它:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$js</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;onClick&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some_function();&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$js</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;onClick&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some_function();&#39;</span><span class="p">];</span>
 <span class="k">echo</span> <span class="nx">form_checkbox</span><span class="p">(</span><span class="s1">&#39;newsletter&#39;</span><span class="p">,</span> <span class="s1">&#39;accept&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">,</span> <span class="nv">$js</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -986,11 +1001,11 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>相似于其他函数，如果你更喜欢设置额外的属性你能在第三个参数里提交一个组合的数组.</p>
-<p>事例:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<p>例如:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mycustomclass&#39;</span><span class="p">,</span>
         <span class="s1">&#39;style&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;color: #000;&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 
 <span class="k">echo</span> <span class="nx">form_label</span><span class="p">(</span><span class="s1">&#39;What is your Name&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$attributes</span><span class="p">);</span>
 <span class="c1">// 将生成:  &lt;label for=&quot;username&quot; class=&quot;mycustomclass&quot; style=&quot;color: #000;&quot;&gt;What is your Name&lt;/label&gt;</span>
@@ -1025,7 +1040,7 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 <span class="c1">// 将生成:  &lt;input type=&quot;submit&quot; name=&quot;mysubmit&quot; value=&quot;Submit Post!&quot; /&gt;</span>
 </pre></div>
 </div>
-<p>相似于其他函数，如果你更喜欢设置你的本身的属性你能在第一个参数里提交一个组合数组。第三个参数让你添加额外的数据到你的表单，像 JavaScript.</p>
+<p>相似于其他函数，如果你更喜欢设置你的本身的属性你能在第一个参数里提交一个组合数组。第三个参数让你添加额外的数据到你的表单，象 JavaScript.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1081,13 +1096,13 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </pre></div>
 </div>
 <p>或者你能传达你的表单去包含你希望包含任何数据的一个组合的数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;name&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span>
         <span class="s1">&#39;id&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span>
         <span class="s1">&#39;value&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span>
         <span class="s1">&#39;type&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;reset&#39;</span><span class="p">,</span>
         <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Reset&#39;</span>
-<span class="p">);</span>
+<span class="p">];</span>
 
 <span class="k">echo</span> <span class="nx">form_button</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 <span class="c1">// 将生成: &lt;button name=&quot;button&quot; id=&quot;button&quot; value=&quot;true&quot; type=&quot;reset&quot;&gt;Reset&lt;/button&gt;</span>
@@ -1151,15 +1166,11 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </tbody>
 </table>
 <p>容许你去设置输入表单或者文本区域的值。你必须经过函数的第一个参数提供字段名。第二个操作参数允许你为表单设置一个默认值。第三个操作参数允许你去关闭 HTML 值的转义，万一你需要使用此函数联合， 即 <a class="reference internal" href="#form_input" title="form_input"><code class="xref php php-func docutils literal notranslate"><span class="pre">form_input()</span></code></a> 并规避双层转义。</p>
-<p>事例:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;quantity&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&lt;?php echo set_value(&#39;quantity&#39;, &#39;0&#39;); ?&gt;&quot;</span> <span class="nx">size</span><span class="o">=</span><span class="s2">&quot;50&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>当第一次加载时下文的表单将显示 “0”.</p>
-<div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">如果你已经加载了 <a class="reference internal" href="../libraries/validation.html"><span class="doc">表单验证库</span></a>  并且在使用这个辅助函数中为了字段名已经设置了正确性检测规范，那么它将朝向叫做 <a class="reference internal" href="../libraries/validation.html"><span class="doc">表单验证库</span></a>  的特有的  <code class="docutils literal notranslate"><span class="pre">set_value()</span></code> 方法。否则，为了字段值这个函数查看  <code class="docutils literal notranslate"><span class="pre">$_POST</span></code> 。</p>
-</div>
 </dd></dl>
 
 <dl class="function">
@@ -1187,7 +1198,7 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 <p>如果你使用 &lt;select&gt; 菜单, 此函数允许你显示已经被选择的菜单题目。.</p>
 <p>第一个参数必须包含选择菜单的包含名，第二个参数必须包含选择菜单包含值，
 而第三个操作参数仍你设置像默认值 (use boolean TRUE/FALSE) 的一个项.</p>
-<p>事例:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">select</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;myselect&quot;</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">option</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;one&quot;</span> <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span>  <span class="nx">set_select</span><span class="p">(</span><span class="s1">&#39;myselect&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> <span class="cp">?&gt;</span> &gt;One<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;two&quot;</span> <span class="cp">&lt;?php</span> <span class="k">echo</span>  <span class="nx">set_select</span><span class="p">(</span><span class="s1">&#39;myselect&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span> <span class="p">&gt;</span>Two<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
@@ -1221,7 +1232,7 @@ The <a class="reference internal" href="../general/common_functions.html#esc" ti
 </table>
 <p>容许你在已经提交状况下显示一个 checkbox.</p>
 <p>第一个参数必须包含 checkbox 的名，第二个参数必须包含它的值，并且第三个操作参数让你设置一个像默认值 (use boolean TRUE/FALSE) 的项.</p>
-<p>事例:</p>
+<p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;checkbox&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;mycheck&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">echo</span> <span class="nx">set_checkbox</span><span class="p">(</span><span class="s1">&#39;mycheck&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span> /&gt;
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;mycheck&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;2&quot;</span> <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">set_checkbox</span><span class="p">(</span><span class="s1">&#39;mycheck&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span> <span class="p">/&gt;</span>
 </pre></div>

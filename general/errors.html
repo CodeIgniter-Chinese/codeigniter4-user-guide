@@ -129,7 +129,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">常规主题</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="configuration.html">利用配置文件开始工作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">配置文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helpers.html">辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">公共函数和全局常量</a></li>
@@ -343,22 +343,26 @@
 <p>CodeIgniter 通过 <a class="reference external" href="http://php.net/manual/en/spl.exceptions.php">SPL collection</a> 和一些框架内自定义异常来生成系统错误报告。错误处理的行为取决于你部署环境的设置，当一个错误或异常被抛出时，只要应用不是在 <code class="docutils literal notranslate"><span class="pre">production</span></code> 环境下运行，就会默认展示出详细的错误报告。在这种情况下，应为用户显示一个更为通用的信息来保证最佳的用户体验。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#id3" id="id6">使用异常处理</a></li>
-<li><a class="reference internal" href="#id4" id="id7">配置</a></li>
-<li><a class="reference internal" href="#id5" id="id8">自定义异常</a><ul>
-<li><a class="reference internal" href="#pagenotfoundexception" id="id9">PageNotFoundException</a></li>
-<li><a class="reference internal" href="#configexception" id="id10">ConfigException</a></li>
-<li><a class="reference internal" href="#unknownfileexception" id="id11">UnknownFileException</a></li>
-<li><a class="reference internal" href="#unknownclassexception" id="id12">UnknownClassException</a></li>
-<li><a class="reference internal" href="#unknownmethodexception" id="id13">UnknownMethodException</a></li>
-<li><a class="reference internal" href="#userinputexception" id="id14">UserInputException</a></li>
-<li><a class="reference internal" href="#databaseexception" id="id15">DatabaseException</a></li>
+<li><a class="reference internal" href="#id3" id="id7">使用异常处理</a></li>
+<li><a class="reference internal" href="#id4" id="id8">配置</a><ul>
+<li><a class="reference internal" href="#id5" id="id9">记录异常</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id10">自定义异常</a><ul>
+<li><a class="reference internal" href="#pagenotfoundexception" id="id11">PageNotFoundException</a></li>
+<li><a class="reference internal" href="#configexception" id="id12">ConfigException</a></li>
+<li><a class="reference internal" href="#unknownfileexception" id="id13">UnknownFileException</a></li>
+<li><a class="reference internal" href="#unknownclassexception" id="id14">UnknownClassException</a></li>
+<li><a class="reference internal" href="#unknownmethodexception" id="id15">UnknownMethodException</a></li>
+<li><a class="reference internal" href="#userinputexception" id="id16">UserInputException</a></li>
+<li><a class="reference internal" href="#databaseexception" id="id17">DatabaseException</a></li>
+<li><a class="reference internal" href="#redirectexception" id="id18">RedirectException</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id6">使用异常处理</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">使用异常处理</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>本节为新手程序员或没有多少异常处理使用经验的开发人员做一个简单概述。</p>
 <p>异常处理是在异常被”抛出”的时候产生的事件。它会暂停当前脚本的执行，并将捕获到的异常发送到错误处理程序后显示适当的错误提示页</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\Exception</span><span class="p">(</span><span class="s2">&quot;Some message goes here&quot;</span><span class="p">);</span>
@@ -393,37 +397,60 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id7">配置</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">配置</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>默认情况下，CodeIgniter 将在 <code class="docutils literal notranslate"><span class="pre">development</span></code> 和 <code class="docutils literal notranslate"><span class="pre">testing</span></code> 环境中展示所有的错误，而在 <code class="docutils literal notranslate"><span class="pre">production</span></code> 环境中不展示任何错误。你可以在主 <code class="docutils literal notranslate"><span class="pre">index.php</span></code> 文件的顶部找到环境配置部分来更改此设置。</p>
 <div class="admonition important">
 <p class="first admonition-title">重要</p>
 <p class="last">如果发生错误，禁用错误报告将不会阻止日志的写入。</p>
 </div>
-</div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id8">自定义异常</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<h3><a class="toc-backref" href="#id9">记录异常</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>By default, all Exceptions other than 404 - Page Not Found exceptions are logged. This can be turned on and off
+by setting the <strong>$log</strong> value of <code class="docutils literal notranslate"><span class="pre">Config\Exceptions</span></code>:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Exceptions</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$log</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To ignore logging on other status codes, you can set the status code to ignore in the same file:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Exceptions</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$ignoredCodes</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">404</span> <span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">It is possible that logging still will not happen for exceptions if your current Log settings
+are not set up to log <strong>critical</strong> errors, which all exceptions are logged as.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id10">自定义异常</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>下列是可用的自定义异常:</p>
 <div class="section" id="pagenotfoundexception">
-<h3><a class="toc-backref" href="#id9">PageNotFoundException</a><a class="headerlink" href="#pagenotfoundexception" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">PageNotFoundException</a><a class="headerlink" href="#pagenotfoundexception" title="永久链接至标题">¶</a></h3>
 <p>这是用来声明 404 ，页面无法找到的错误。当异常被抛出时，系统将显示后面的错误模板 <code class="docutils literal notranslate"><span class="pre">/application/views/errors/html/error_404.php</span></code>。你应为你的站点自定义所有错误视图。如果在 <code class="docutils literal notranslate"><span class="pre">Config/Routes.php</span></code> 中，你指定了404 的重写规则，那么它将代替标准的 404 页来被调用</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$pageModel</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">))</span>
 <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\PageNotFoundException</span><span class="p">();</span>
+        <span class="k">throw</span> <span class="nx">\CodeIgniter\Exceptions\PageNotFoundException</span><span class="o">::</span><span class="na">forPageNotFound</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>你可以通过异常传递消息，它将在 404 页默认消息位置被展示。</p>
 </div>
 <div class="section" id="configexception">
-<h3><a class="toc-backref" href="#id10">ConfigException</a><a class="headerlink" href="#configexception" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">ConfigException</a><a class="headerlink" href="#configexception" title="永久链接至标题">¶</a></h3>
 <p>当配置文件中的值无效或 class 类不是正确类型等情况时，请使用此异常</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\ConfigException</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Exceptions\ConfigException</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>它将 HTTP 状态码置为 500，退出状态码被置为 3.</p>
 </div>
 <div class="section" id="unknownfileexception">
-<h3><a class="toc-backref" href="#id11">UnknownFileException</a><a class="headerlink" href="#unknownfileexception" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">UnknownFileException</a><a class="headerlink" href="#unknownfileexception" title="永久链接至标题">¶</a></h3>
 <p>在文件没有被找到时，请使用此异常</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\UnknownFileException</span><span class="p">();</span>
 </pre></div>
@@ -431,7 +458,7 @@
 <p>它将 HTTP 状态码置为 500，退出状态码被置为 4.</p>
 </div>
 <div class="section" id="unknownclassexception">
-<h3><a class="toc-backref" href="#id12">UnknownClassException</a><a class="headerlink" href="#unknownclassexception" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">UnknownClassException</a><a class="headerlink" href="#unknownclassexception" title="永久链接至标题">¶</a></h3>
 <p>当一个类没有被找到时，请使用此异常</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\UnknownClassException</span><span class="p">(</span><span class="nv">$className</span><span class="p">);</span>
 </pre></div>
@@ -439,7 +466,7 @@
 <p>它将 HTTP 状态码置为 500，退出状态码被置为 5.</p>
 </div>
 <div class="section" id="unknownmethodexception">
-<h3><a class="toc-backref" href="#id13">UnknownMethodException</a><a class="headerlink" href="#unknownmethodexception" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">UnknownMethodException</a><a class="headerlink" href="#unknownmethodexception" title="永久链接至标题">¶</a></h3>
 <p>当一个类的方法不存在时，请使用此异常</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\UnknownMethodException</span><span class="p">();</span>
 </pre></div>
@@ -447,7 +474,7 @@
 <p>它将 HTTP 状态码置为 500，退出状态码被置为 6.</p>
 </div>
 <div class="section" id="userinputexception">
-<h3><a class="toc-backref" href="#id14">UserInputException</a><a class="headerlink" href="#userinputexception" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">UserInputException</a><a class="headerlink" href="#userinputexception" title="永久链接至标题">¶</a></h3>
 <p>当用户的输入无效时，请使用此异常</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\UserInputException</span><span class="p">();</span>
 </pre></div>
@@ -455,12 +482,25 @@
 <p>它将 HTTP 状态码置为 500，退出状态码被置为 7.</p>
 </div>
 <div class="section" id="databaseexception">
-<h3><a class="toc-backref" href="#id15">DatabaseException</a><a class="headerlink" href="#databaseexception" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">DatabaseException</a><a class="headerlink" href="#databaseexception" title="永久链接至标题">¶</a></h3>
 <p>当产生如连接不能建立或连接临时丢失的数据库错误时，请使用此异常</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\DatabaseException</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>它将 HTTP 状态码置为 500，退出状态码被置为 8.</p>
+</div>
+<div class="section" id="redirectexception">
+<h3><a class="toc-backref" href="#id18">RedirectException</a><a class="headerlink" href="#redirectexception" title="永久链接至标题">¶</a></h3>
+<p>This exception is a special case allowing for overriding of all other response routing and
+forcing a redirect to a specific route or URL:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Router\Exceptions\RedirectException</span><span class="p">(</span><span class="nv">$route</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">$route</span></code> may be a named route, relative URI, or a complete URL. You can also supply a
+redirect code to use instead of the default (<code class="docutils literal notranslate"><span class="pre">302</span></code>, “temporary redirect”):</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Router\Exceptions\RedirectException</span><span class="p">(</span><span class="nv">$route</span><span class="p">,</span> <span class="mi">301</span><span class="p">);</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

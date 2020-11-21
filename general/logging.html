@@ -129,7 +129,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">常规主题</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="configuration.html">利用配置文件开始工作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">配置文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="urls.html">CodeIgniter URL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="helpers.html">辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="common_functions.html">公共函数和全局常量</a></li>
@@ -360,16 +360,20 @@
 </pre></div>
 </div>
 <p>总共有八种不同的事件报错级别，与 <a class="reference external" href="http://tools.ietf.org/html/rfc5424">RFC 5424</a> 中所定义的错误级别一一对应，它们是:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="o">**</span><span class="nx">debug</span><span class="o">**</span> <span class="o">-</span> <span class="nx">详细的debug信息。</span>
-<span class="o">*</span> <span class="o">**</span><span class="nx">info</span><span class="o">**</span> <span class="o">-</span> <span class="nx">你的应用中的一些有意义的事件，例如用户登录，记录SQL语句等。</span>
-<span class="o">*</span> <span class="o">**</span><span class="nx">notice</span><span class="o">**</span> <span class="o">-</span> <span class="nx">你的应用中的一些正常但明显有价值的事件。</span>
-<span class="o">*</span> <span class="o">**</span><span class="nx">warning</span><span class="o">**</span> <span class="o">-</span> <span class="nx">出现了异常，但不是错误，例如使用了被废弃的API，某个API的调用异常，或其他不期望出现的，但不是错误的情况。</span>
-<span class="o">*</span> <span class="o">**</span><span class="nx">error</span><span class="o">**</span> <span class="o">-</span> <span class="nx">运行时错误，不需要立即被处理但通常需要被记录或者监控。</span>
-<span class="o">*</span> <span class="o">**</span><span class="nx">critical</span><span class="o">**</span> <span class="o">-</span> <span class="nx">危险情况，例如某个程序组件不可用，或出现未被捕获的异常等。</span>
-<span class="o">*</span> <span class="o">**</span><span class="nx">alert</span><span class="o">**</span> <span class="o">-</span> <span class="nx">告警，必须采取行动来修复，例如整个网站宕机或数据库无法访问等。</span>
-<span class="o">*</span> <span class="o">**</span><span class="nx">emergency</span><span class="o">**</span> <span class="o">-</span> <span class="nx">系统不可用。</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">===========</span> <span class="o">==================================================================</span>
 </pre></div>
 </div>
+<p>级别        描述
+=========== ==================================================================
+debug       详细的debug信息。
+info        你的应用中的一些有意义的事件，例如用户登录，记录SQL语句等。
+notice      你的应用中的一些正常但明显有价值的事件。
+warning     出现了异常，但不是错误，例如使用了被废弃的 APIs ，某个 API的 调用异常，或其他不期望出现的，但不是错误的情况。
+error       运行时错误，不需要立即被处理但通常需要被记录或者监控。
+critical    危险情况，例如某个程序组件不可用，或出现未被捕获的异常等。
+alert       告警，必须采取行动来修复，例如整个网站宕机或数据库无法访问等。
+emergency   系统不可用。
+=========== ==================================================================</p>
 <p>日志系统不提供警告系统管理员或网站管理者的方法，只是单纯的记录信息。对于诸多更为危险的错误级别，日志就会被异常调度器自动抛出，如上所述。</p>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id7">配置</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
@@ -452,27 +456,27 @@
 +—————-+—————————————————+
 | {session_vars} | $_SESSION 变量                                     |
 +—————-+—————————————————+
-| {env}          | 当前环境名，例如development                         |
+| {env}          | 当前环境名，例如 development                         |
 +—————-+—————————————————+
 | {file}         | 生成日志的文件的名字                                 |
 +—————-+—————————————————+
-| {line}         | {file}中生成日志的指定行号                           |
+| {line}         | {file} 中生成日志的指定行号                           |
 +—————-+—————————————————+
-| {env:foo}      | 在$_ENV数组中foo这个键对应的值                        |
+| {env:foo}      | 在$_ENV 数组中foo这个键对应的值                        |
 +—————-+—————————————————+</p>
 </div>
 <div class="section" id="id6">
 <h2><a class="toc-backref" href="#id10">使用第三方日志器</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>你可以使用任何自己喜欢的日志器，只要它继承了 <code class="docutils literal notranslate"><span class="pre">Psr\Log\LoggerInterface</span></code> 并符合 <a class="reference external" href="http://www.php-fig.org/psr/psr-3/">PSR3</a> 规范。
-这意味着你可以使用任何符合PSR-3规范的日志器，或者造一个自己的。</p>
+这意味着你可以使用任何符合 PSR-3 规范的日志器，或者造一个自己的。</p>
 <p>你需要将第三方日志器放入 <code class="docutils literal notranslate"><span class="pre">/app/Config/Autoload.php</span></code> 配置文件中或者通过某个自动加载器，比如Composer，来保证第三方日志器在系统中可被找到。
 接下来你需要修改 <code class="docutils literal notranslate"><span class="pre">/app/Config/Services.php</span></code> ，将 <code class="docutils literal notranslate"><span class="pre">logger</span></code> 的别名设置为新的日志器的类名。</p>
 <p>现在开始，对 <code class="docutils literal notranslate"><span class="pre">log_message()</span></code> 的所有调用都会使用你自定义的日志器进行日志记录。</p>
 </div>
 <div class="section" id="loggeraware-trait">
 <h2><a class="toc-backref" href="#id11">LoggerAware Trait（代码复用）</a><a class="headerlink" href="#loggeraware-trait" title="永久链接至标题">¶</a></h2>
-<p>当你需要将你的日志库以框架不感知的形式调用时，你可以使用实现了 <code class="docutils literal notranslate"><span class="pre">setLogger</span></code> 方法的 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Log\LoggerAwareTrait</span></code> 。
-从而当在不同框架环境下使用日志库时，你的日志器依旧可如同预期一般运行，只要它能找到一个符合PSR3的日志器。</p>
+<p>当你需要将你的日志库以框架不感知的形式调用时，你可以使用实现了 <code class="docutils literal notranslate"><span class="pre">setLogger()</span></code> 方法的 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Log\LoggerAwareTrait</span></code> 。
+从而当在不同框架环境下使用日志库时，你的日志器依旧可如同预期一般运行，只要它能找到一个符合 PSR3 的日志器。</p>
 </div>
 </div>
 
