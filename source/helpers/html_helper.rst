@@ -1,6 +1,6 @@
-###########
+###############
 HTML 辅助函数
-###########
+###############
 
 HTML 辅助函数包含的函数辅助 HTML 运行。
 
@@ -69,11 +69,10 @@ HTML 辅助函数使用下面的代码加载::
     :returns:   HTML link tag
     :rtype: string
 
-     让你创建 HTML <link /> tags. 这对样式表链接是有用的,和其他链接一样。参数是 *href* ，带着可选择的 *rel*,
+    让你创建 HTML <link /> tags. 这对样式表链接是有用的,和其他链接一样。参数是 *href* ，带着可选择的 *rel*,
     *type*, *title*, *media* 和 *indexPage*.
 
     *indexPage* 是 boolean 值并规定如果 *href* 将经由 ``$config['indexPage']`` 被添加到地址并创建有明确说明的页面。
-     
 
     例如::
 
@@ -400,8 +399,7 @@ HTML 辅助函数使用下面的代码加载::
     :returns:   HTML param tag
     :rtype: string
 
-     让你创建 HTML <param /> tags. 第一个参数包含 
-    param source. 事例::
+    让你创建 HTML <param /> tags. 第一个参数包含 param source. 事例::
 
         echo param('movie.mov', 'video/quicktime', 'class="test"');
         // <param src="movie.mov" type="video/quicktime" class="test"/>
