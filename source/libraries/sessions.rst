@@ -39,7 +39,7 @@ CodeIgniter 有一些用于会话（session）储存的驱动程序，你可以�
     $session = session();
 
 Session 是怎样工作的？
-=====================
+========================
 
 加载页面后，Session 类将检查用户的浏览器是否发送了有效的会话 cookie。如果会话 Cookie **不存在** （或者如果它不匹配一个存储在服务器上的会话ID或已过期）, 新会话将被创建和保存。
 
@@ -181,8 +181,8 @@ $session->push('hobbies', ['sport'=>'tennis']);
     $array_items = ['username', 'email'];
     $session->remove($array_items);
 
-闪存数据（Flashdata）
-==================
+闪存数据
+=======================
 
 CodeIgniter 支持“flashdata”，这是仅对下一个请求可用的会话数据，然后将其自动清除。
 
@@ -232,7 +232,7 @@ CodeIgniter 支持“flashdata”，这是仅对下一个请求可用的会话�
     $session->keepFlashdata('item');
     $session->keepFlashdata(['item1', 'item2', 'item3']);
 
-临时数据（Tempdata）
+临时数据
 ========
 
 CodeIgniter 还支持“tempdata”这种具有特定到期时间的会话数据。该值过期或会话过期或被删除后，该值将自动删除。

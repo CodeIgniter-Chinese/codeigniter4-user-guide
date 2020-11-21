@@ -1,6 +1,6 @@
-##########
+##################
 Typography 类
-##########
+##################
 
 Typography 库包含一些方法用于帮助您以语义相关的方式设置文本格式。
 
@@ -28,7 +28,7 @@ Typography 库包含一些方法用于帮助您以语义相关的方式设置文
 	:rtype: string
 
 	格式化文本使其成为语义和排版正确的 HTML 。
-	
+
 	使用示例::
 
 		$string = $typography->autoTypography($string);
@@ -45,7 +45,7 @@ Typography 库包含一些方法用于帮助您以语义相关的方式设置文
 	:rtype:	string
 
 	将双引号或单引号转成正确的实体，也会转化—破折号，双空格和&符号。
-	
+
 	使用示例::
 
 		$string = $typography->formatCharacters($string);

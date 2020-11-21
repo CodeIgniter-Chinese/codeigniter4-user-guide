@@ -46,6 +46,7 @@
 			'csrf' => ['except' => ['api/record/[0-9]+']]
 		]
 	];
+
 如果你使用 :doc:`表单辅助函数 <../helpers/form_helper>` ，:func:`form_open()`
 函数将会自动地在你的表单中插入一个隐藏的 CSRF 字段。如果没有插入这个字段，
 你可以手动调用 ``get_csrf_token_name()`` 和 ``get_csrf_hash()`` 这两个函数。
@@ -57,6 +58,7 @@
 
 	// Generates: <input type="hidden" name="{csrf_token}" value="{csrf_hash}" />
 	<?= csrf_field() ?>
+
 令牌（tokens）默认会在每一次提交时重新生成，或者你也可以设置成在 CSRF cookie
 的生命周期内一直有效。默认情况下令牌重新生成提供了更严格的安全机制，但可能会对
 可用性带来一定的影响，因为令牌很可能会变得失效（例如使用浏览器的返回前进按钮、
@@ -75,7 +77,7 @@
 
 尝试对文件名进行净化，防止目录遍历尝试以及其他的安全威胁，这在文件名作为用户输入的参数时格外有用。第一个参数是需要净化的路径名。
 
-如果用户输入包含相对路径是可以接受的，例如： file/in/some/approved/folder.txt ,那么你可以设置第二个可选参数， $relative_path 
+如果用户输入包含相对路径是可以接受的，例如： file/in/some/approved/folder.txt ,那么你可以设置第二个可选参数， $relative_path
 为 true 。
 ::
 

@@ -80,7 +80,7 @@ CURLRequest类
 * $client->post('http://example.com');
 
 base_uri （基础 URI ）
---------
+---------------------------
 
 ``base_uri`` 可以在该类实例化时作为一个选项进行设置。
 该参数使得你可以设置一个基础 URI ，并在该实例对象进行请求时使用相对 URL 路径。这一操作在和 API 通信时特别管用::
@@ -99,7 +99,7 @@ base_uri （基础 URI ）
 以下是一些组合的例子
 
 	=====================   ================   ========================
-	base_uri              URI              Result
+	base_uri                URI                Result
 	=====================   ================   ========================
 	`http://foo.com`        /bar               `http://foo.com/bar`
 	`http://foo.com/foo`    /bar               `http://foo.com/bar`
@@ -146,7 +146,7 @@ base_uri （基础 URI ）
 
 本节描述了在构造函数， ``request()`` 方法以及所有简称方法中可以传递的所有可用选项。
 
-allow_redirects （运行重定向）
+allow_redirects
 ===============
 
 默认情况下， CURL 会遵循远端服务器返回的所有的 "Location:" 响应头规则。 ``allow_redirects`` 选项使得你可以修改这一执行过程。
@@ -173,7 +173,7 @@ allow_redirects （运行重定向）
 
 .. note:: 当 PHP 在 safe_mode 或者 open_basedir 选项开启时，不会进行重定向。
 
-auth （认证）
+auth
 ====
 
 使得你可以为 `HTTP Basic <https://www.ietf.org/rfc/rfc2069.txt>`_ 和 `Digest <https://www.ietf.org/rfc/rfc2069.txt>`_ 和认证过程提供细节信息。
@@ -181,7 +181,7 @@ auth （认证）
 
 	$client->request('GET', 'http://example.com', ['auth' => ['username', 'password', 'digest']]);
 
-body （请求体）
+body
 ====
 
 对于支持请求体的方法，例如 PUT 或者是 POST 来说，有两种方法来设置请求体。
@@ -194,7 +194,7 @@ body （请求体）
 
 	$client->request('put', 'http://example.com', ['body' => $body]);
 
-cert (证书）
+cert
 ====
 
 指定一个 PEM 格式的客户端证书的位置，通过为 ``cert`` 选项来传递绝对路径的方式来实现。
@@ -202,7 +202,7 @@ cert (证书）
 
     $client->request('get', '/', ['cert' => ['/path/getServer.pem', 'password']);
 
-connect_timeout （连接超时）
+connect_timeout
 ===============
 
 默认情况下， CodeIgniter 并未对 cURL 尝试连接一个网站的时间进行限制。
@@ -218,7 +218,7 @@ cookie
 
 	$response->request('GET', 'http://example.com', ['cookie' => WRITEPATH . 'CookieSaver.txt']);
 
-debug （调试bug）
+debug
 =====
 
 当 ``debug`` 被传递并设为 ``true`` 时，就会启动额外的调试模式并在脚本执行时输出标准错误流信息( STDERR )。
@@ -231,7 +231,7 @@ debug （调试bug）
 
 	$response->request('GET', 'http://example.com', ['debug' => '/usr/local/curl_log.txt']);
 
-delay （延时）
+delay
 =====
 
 使得你可以在发送请求前延迟指定的毫秒时间::
@@ -239,7 +239,7 @@ delay （延时）
 	// 延时2秒
 	$response->request('GET', 'http://example.com', ['delay' => 2000]);
 
-form_params （表单参数）
+form_params
 ===========
 
 你可以通过为 ``form_params`` 选项传递关联数组的方式，在一个 application/x-www-form-urlencoded POST 请求里发送表单数据。
@@ -254,7 +254,7 @@ form_params （表单参数）
 
 .. note:: ``form_params`` 不能和 ``multipart`` 选项一起使用。你可以非此即彼地使用这两个选项。``form_params`` 用于 ``application/x-www-form-urlencoded`` 请求，而 ``multipart`` 用于 ``multipart/form-data`` 请求。
 
-headers （请求头）
+headers
 =======
 
 尽管你可以通过 ``setHeader()`` 方法来传递任何请求头，你也可以通过为选项传递关联数组作为参数的方式来实现自定义请求头。
@@ -270,7 +270,7 @@ headers （请求头）
 
 如果请求头在构造函数中被传入时，就会被设为默认选项。而默认选项会被后续设置的选项或者 ``setHeader()`` 的调用所覆盖。
 
-http_errors （http错误）
+http_errors
 ===========
 
 默认情况下，CURLRequest 类会在 HTTP 状态码大于等于400时结束请求并报错。
@@ -308,7 +308,7 @@ multipart
 .. note:: ``multipart`` 不能和 ``form_params`` 选项一起使用。你可以非此即彼地使用这两个选项。
         ``form_params`` 用于 ``application/x-www-form-urlencoded`` 请求，而 ``multipart`` 用于 ``multipart/form-data`` 请求。
 
-query （查询语句）
+query
 =====
 
 你可以通过为 ``query`` 选项传递一个关联数组的方式来发送查询字符串信息::
@@ -316,14 +316,14 @@ query （查询语句）
 	// 发送一个 GET 请求来获取 /get?foo=bar 的结果
 	$client->request('GET', '/get', ['query' => ['foo' => 'bar']]);
 
-timeout（超时）
+timeout
 =======
 
 默认情况下， cURL 函数可以执行任意长的时间，不受时间限制。你可以通过 ``timeout`` 选项来修改这一过程。选项值是你需要这个函数运行的时间。使用0来无限等待::
 
 	$response->request('GET', 'http://example.com', ['timeout' => 5]);
 
-verify（鉴权）
+verify
 ======
 
 该选项描述了 SSL 验证鉴权行为。
@@ -339,7 +339,7 @@ verify（鉴权）
 	// 完全禁用鉴权（不安全！）
 	$client->request('GET', '/', ['verify' => false]);
 
-version（版本）
+version
 =======
 
 你可以通过为版本参数传递一个字符串或者浮点数（特别是1.0，或1.1，尚未支持2.0）的方式来设置协议版本::

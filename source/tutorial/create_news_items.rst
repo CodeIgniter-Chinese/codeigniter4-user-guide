@@ -27,10 +27,10 @@
 
     </form>
 
-这里只有两个函数你可能不熟悉:`form_open()`函数和`\Config\Services::validation()->listErrors()`函数。
-第一个函数由:doc:`form helper <../helpers/form_helper>`提供，并呈现表格元素并添加额外的功能，例如添加一个隐藏的:doc:`CSRF prevention field <../libraries/security>`。后者用于报告与表格验证相关的错误。
+这里只有两个函数你可能不熟悉: `form_open()` 函数和 `\Config\Services::validation()->listErrors()` 函数。
+第一个函数由 :doc:`form helper <../helpers/form_helper>` 提供，并呈现表格元素并添加额外的功能，例如添加一个隐藏的 :doc:`CSRF prevention field <../libraries/security>`。后者用于报告与表格验证相关的错误。
 
-回到你的新闻控制器。你将在此处执行两项操作，检查表格是否已提交以及提交的数据是否通过了验证规则。你将使用:doc:`form validation <../libraries/validation>`库来执行此操作。
+回到你的新闻控制器。你将在此处执行两项操作，检查表格是否已提交以及提交的数据是否通过了验证规则。你将使用 :doc:`form validation <../libraries/validation>` 库来执行此操作。
 
 ::
 
@@ -64,9 +64,9 @@
 
 如上所示，CodeIgniter具有强大的验证库。你可以阅读:doc:`more about this library here <../libraries/validation>`。
 
-接下来，你可以看到检查表格验证是否成功运行的条件。如果没有，则显示表格，如果提交并传递了所有规则，则调用模型。这将负责将新闻项传递到模型中。这包含一个新函数url_title()。这个函数由:doc:`URL helper <../helpers/url_helper>`提供， 它将你传递的字符串剥离出来，用短划线(-)替换所有空格，并确保所有内容都是小写字符。这给你留下了一个漂亮的slug，非常适合创建URI。
+接下来，你可以看到检查表格验证是否成功运行的条件。如果没有，则显示表格，如果提交并传递了所有规则，则调用模型。这将负责将新闻项传递到模型中。这包含一个新函数url_title()。这个函数由 :doc:`URL helper <../helpers/url_helper>` 提供，它将你传递的字符串剥离出来，用短划线(-)替换所有空格，并确保所有内容都是小写字符。这给你留下了一个漂亮的slug，非常适合创建URI。
 
-在此之后，加载视图以显示成功消息。在**application/Views/news/success.php**创建一个视图 并写一条成功消息。
+在此之后，加载视图以显示成功消息。在 **application/Views/news/success.php** 创建一个视图 并写一条成功消息。
 
 模型
 -----

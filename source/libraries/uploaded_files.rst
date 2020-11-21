@@ -102,6 +102,7 @@
 	<input type="file" name="images[]" multiple />
 
 在控制器中::
+
 	if($imagefile = $this->request->getFiles())
 	{
 	   foreach($imagefile['images'] as $img)
@@ -113,7 +114,6 @@
 	      }
 	   }
 	}
-
 
 	循环中的 **images** 是表单中的字段名称
 
@@ -201,11 +201,10 @@
 
 	echo $type; // image/png
 
-
 移动文件
 ------------
 
-每个文件都可以使用恰如其名的 ``move()` 方法来移动到新的位置。使用第一个参数为目标目录来移动文件::
+每个文件都可以使用恰如其名的 ``move()`` 方法来移动到新的位置。使用第一个参数为目标目录来移动文件::
 
 	$file->move(WRITEPATH.'uploads');
 
