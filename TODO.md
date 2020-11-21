@@ -138,7 +138,6 @@
 
 ## 待翻译
 
-1. - [ ] [source/cli/cli_library.rst](source/cli/cli_library.rst)
 1. - [ ] [source/cli/cli_request.rst](source/cli/cli_request.rst)
 1. - [ ] [source/database/queries.rst](source/database/queries.rst)
 1. - [ ] [source/database/results.rst](source/database/results.rst)
@@ -147,7 +146,6 @@
 1. - [ ] [source/libraries/email.rst](source/libraries/email.rst)
 1. - [ ] [source/libraries/honeypot.rst](source/libraries/honeypot.rst)
 1. - [ ] [source/libraries/user_agent.rst](source/libraries/user_agent.rst)
-1. - [ ] [source/libraries/validation.rst](source/libraries/validation.rst)
 1. - [ ] [source/models/entities.rst](source/models/entities.rst)
 1. - [ ] [source/models/model.rst](source/models/model.rst)
 1. - [ ] [source/outgoing/table.rst](source/outgoing/table.rst)
