@@ -347,24 +347,24 @@
 </div>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#id3" id="id16">访问文件</a><ul>
-<li><a class="reference internal" href="#id4" id="id17">所有文件</a></li>
-<li><a class="reference internal" href="#id5" id="id18">单个文件</a></li>
+<li><a class="reference internal" href="#id3" id="id14">访问文件</a><ul>
+<li><a class="reference internal" href="#id4" id="id15">所有文件</a></li>
+<li><a class="reference internal" href="#id5" id="id16">单个文件</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9" id="id19">使用文件</a><ul>
-<li><a class="reference internal" href="#id10" id="id20">验证文件</a></li>
-<li><a class="reference internal" href="#id11" id="id21">文件名称</a></li>
-<li><a class="reference internal" href="#id12" id="id22">其他文件信息</a></li>
-<li><a class="reference internal" href="#id13" id="id23">移动文件</a></li>
+<li><a class="reference internal" href="#id9" id="id17">使用文件</a><ul>
+<li><a class="reference internal" href="#id10" id="id18">验证文件</a></li>
+<li><a class="reference internal" href="#id11" id="id19">文件名称</a></li>
+<li><a class="reference internal" href="#id12" id="id20">其他文件信息</a></li>
+<li><a class="reference internal" href="#id13" id="id21">移动文件</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id16">访问文件</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">访问文件</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id17">所有文件</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">所有文件</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>当你上传文件时，PHP 可以在本地使用全局数组 <code class="docutils literal notranslate"><span class="pre">$_FILES</span></code> 来访问这些文件。当你同时上传多个文件时，这个数组存在一些不可忽视的缺点和很多开发者没有意识到的安全方面的潜在缺陷。CodeIgniter 通过一个公共接口来规范你对文件的使用，从而改善这些问题。</p>
 <p>通过当前的 <code class="docutils literal notranslate"><span class="pre">IncomingRequest</span></code> 实例来访问文件。使用 <code class="docutils literal notranslate"><span class="pre">getFiles()</span></code> 方法来获取本次请求中上传的所有文件。方法将会返回由 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Files\UploadedFile</span></code> 实例表示的文件数组:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$files</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">();</span>
@@ -413,7 +413,7 @@
 </div>
 </div>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id18">单个文件</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">单个文件</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>如果你只需要访问单个文件，你可以使用 <code class="docutils literal notranslate"><span class="pre">getFile()</span></code> 方法来直接获取文件实例。其将会返回一个 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Files\UploadedFile</span></code> 实例:</p>
 <div class="section" id="id6">
 <h4>最简使用<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
@@ -441,27 +441,22 @@
 <h4>多文件<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
 <blockquote>
 <div>&lt;input type=”file” name=”images[]” multiple /&gt;</div></blockquote>
-<dl class="docutils">
-<dt>在控制器中::</dt>
-<dd><p class="first">if($imagefile = $this-&gt;request-&gt;getFiles())
-{</p>
-<blockquote>
-<div><p>foreach($imagefile[‘images’] as $img)
-{</p>
-<blockquote>
-<div><p>if ($img-&gt;isValid() &amp;&amp; ! $img-&gt;hasMoved())
-{</p>
-<blockquote>
-<div>$newName = $img-&gt;getRandomName();
-$img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-<p class="last">循环中的 <strong>images</strong> 是表单中的字段名称</p>
-</dd>
-</dl>
+<p>在控制器中:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="nv">$imagefile</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">())</span>
+<span class="p">{</span>
+   <span class="k">foreach</span><span class="p">(</span><span class="nv">$imagefile</span><span class="p">[</span><span class="s1">&#39;images&#39;</span><span class="p">]</span> <span class="k">as</span> <span class="nv">$img</span><span class="p">)</span>
+   <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nv">$img</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span> <span class="nv">$img</span><span class="o">-&gt;</span><span class="na">hasMoved</span><span class="p">())</span>
+      <span class="p">{</span>
+           <span class="nv">$newName</span> <span class="o">=</span> <span class="nv">$img</span><span class="o">-&gt;</span><span class="na">getRandomName</span><span class="p">();</span>
+           <span class="nv">$img</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span><span class="o">.</span><span class="s1">&#39;uploads&#39;</span><span class="p">,</span> <span class="nv">$newName</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">循环中的</span> <span class="o">**</span><span class="nx">images</span><span class="o">**</span> <span class="nx">是表单中的字段名称</span>
+</pre></div>
+</div>
 <p>如果多个文件使用相同名称提交，你可以使用 <code class="docutils literal notranslate"><span class="pre">getFile()</span></code> 去逐个获取每个文件::
 在控制器中:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getFile</span><span class="p">(</span><span class="s1">&#39;images.0&#39;</span><span class="p">);</span>
@@ -486,10 +481,10 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 </div>
 </div>
 <div class="section" id="id9">
-<h2><a class="toc-backref" href="#id19">使用文件</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">使用文件</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <p>一旦你获取到了 UploadedFile 实例,你可以以安全的方式检索到文件的信息，还能将文件移动到新的位置。</p>
 <div class="section" id="id10">
-<h3><a class="toc-backref" href="#id20">验证文件</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">验证文件</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <p>你可以调用 <code class="docutils literal notranslate"><span class="pre">isValid()</span></code> 方法来检查文件是否是通过 HTTP 无误上传的:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span>
 <span class="p">{</span>
@@ -509,7 +504,7 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 </ul>
 </div>
 <div class="section" id="id11">
-<h3><a class="toc-backref" href="#id21">文件名称</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">文件名称</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p><strong>getName()</strong></p>
 <p>你可以通过 <code class="docutils literal notranslate"><span class="pre">getName()</span></code> 提取到客户端提供的文件的原始名称。其通常是由客户端发送的文件名，不应受信。如果文件已经被移动，将返回移动文件的最终名称:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$name</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>
@@ -527,7 +522,7 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 </div>
 </div>
 <div class="section" id="id12">
-<h3><a class="toc-backref" href="#id22">其他文件信息</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">其他文件信息</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
 <p><strong>getClientExtension()</strong></p>
 <p>基于上传文件的名称，返回原始文件扩展名。这不是一个值得信赖的来源。对于可信的版本，请使用 <code class="docutils literal notranslate"><span class="pre">getExtension()</span></code> 来代替:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$ext</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getClientExtension</span><span class="p">();</span>
@@ -542,8 +537,8 @@ $img-&gt;move(WRITEPATH.’uploads’, $newName);</div></blockquote>
 </div>
 </div>
 <div class="section" id="id13">
-<h3><a class="toc-backref" href="#id23">移动文件</a><a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
-<p>每个文件都可以使用恰如其名的 <a href="#id14"><span class="problematic" id="id15">``</span></a>move()` 方法来移动到新的位置。使用第一个参数为目标目录来移动文件:</p>
+<h3><a class="toc-backref" href="#id21">移动文件</a><a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<p>每个文件都可以使用恰如其名的 <code class="docutils literal notranslate"><span class="pre">move()</span></code> 方法来移动到新的位置。使用第一个参数为目标目录来移动文件:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span><span class="o">.</span><span class="s1">&#39;uploads&#39;</span><span class="p">);</span>
 </pre></div>
 </div>

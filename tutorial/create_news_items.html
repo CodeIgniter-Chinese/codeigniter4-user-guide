@@ -361,9 +361,9 @@
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>这里只有两个函数你可能不熟悉:<cite>form_open()`函数和</cite>ConfigServices::validation()-&gt;listErrors()`函数。
-第一个函数由:doc:<cite>form helper &lt;../helpers/form_helper&gt;`提供，并呈现表格元素并添加额外的功能，例如添加一个隐藏的:doc:`CSRF prevention field &lt;../libraries/security&gt;</cite>。后者用于报告与表格验证相关的错误。</p>
-<p>回到你的新闻控制器。你将在此处执行两项操作，检查表格是否已提交以及提交的数据是否通过了验证规则。你将使用:doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>form validation &lt;../libraries/validation&gt;`库来执行此操作。</p>
+<p>这里只有两个函数你可能不熟悉: <cite>form_open()</cite> 函数和 <cite>ConfigServices::validation()-&gt;listErrors()</cite> 函数。
+第一个函数由 <a class="reference internal" href="../helpers/form_helper.html"><span class="doc">form helper</span></a> 提供，并呈现表格元素并添加额外的功能，例如添加一个隐藏的 <a class="reference internal" href="../libraries/security.html"><span class="doc">CSRF prevention field</span></a>。后者用于报告与表格验证相关的错误。</p>
+<p>回到你的新闻控制器。你将在此处执行两项操作，检查表格是否已提交以及提交的数据是否通过了验证规则。你将使用 <a class="reference internal" href="../libraries/validation.html"><span class="doc">form validation</span></a> 库来执行此操作。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
@@ -393,11 +393,11 @@
 </div>
 <p>上面的代码添加了很多功能。前几行加载表格helper和NewsModel。之后，Controller提供的辅助函数用于验证$_POST字段。在这种情况下，标题和文本字段是必需的。</p>
 <p>如上所示，CodeIgniter具有强大的验证库。你可以阅读:doc:<cite>more about this library here &lt;../libraries/validation&gt;</cite>。</p>
-<p>接下来，你可以看到检查表格验证是否成功运行的条件。如果没有，则显示表格，如果提交并传递了所有规则，则调用模型。这将负责将新闻项传递到模型中。这包含一个新函数url_title()。这个函数由:doc:<a href="#id5"><span class="problematic" id="id6">`</span></a>URL helper &lt;../helpers/url_helper&gt;`提供， 它将你传递的字符串剥离出来，用短划线(-)替换所有空格，并确保所有内容都是小写字符。这给你留下了一个漂亮的slug，非常适合创建URI。</p>
-<p>在此之后，加载视图以显示成功消息。在**application/Views/news/success.php**创建一个视图 并写一条成功消息。</p>
+<p>接下来，你可以看到检查表格验证是否成功运行的条件。如果没有，则显示表格，如果提交并传递了所有规则，则调用模型。这将负责将新闻项传递到模型中。这包含一个新函数url_title()。这个函数由 <a class="reference internal" href="../helpers/url_helper.html"><span class="doc">URL helper</span></a> 提供，它将你传递的字符串剥离出来，用短划线(-)替换所有空格，并确保所有内容都是小写字符。这给你留下了一个漂亮的slug，非常适合创建URI。</p>
+<p>在此之后，加载视图以显示成功消息。在 <strong>application/Views/news/success.php</strong> 创建一个视图 并写一条成功消息。</p>
 </div>
-<div class="section" id="id7">
-<h2>模型<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h2>模型<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>最适合剩下的就是确保你的模型设置为允许正确保存数据。使用的``save()``方法将根据主键的存在来确定是否应插入信息，或者行是否已存在且应更新。在这种情况下，没有``id``传递给它的字段，所以它会在它的表中插入一个新行，即**news**。</p>
 <p>但是，默认情况下，模型中的插入和更新方法实际上不会保存任何数据，因为它不知道哪些字段可以安全更新。编辑模型以在``$allowedFields``属性中为其提供可更新字段的列表。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -411,8 +411,8 @@
 </div>
 <p>此新属性现在包含我们允许保存到数据库的字段。请注意，我们遗漏了``id``？那是因为你几乎不需要这样做，因为它是数据库中的自动递增字段。这有助于防止批量分配漏洞。如果你的模型正在处理你的时间戳，你也可以将其保留。</p>
 </div>
-<div class="section" id="id8">
-<h2>路由<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h2>路由<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>在开始将新闻项添加到CodeIgniter应用程序之前，必须向*Config/Routes.php*文件添加额外的规则。确保你的文件包含以下内容。这可以确保CodeIgniter将’create’视为一种方法，而不是新闻项目的slug。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;news/create&#39;</span><span class="p">,</span> <span class="s1">&#39;News::create&#39;</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;news/(:segment)&#39;</span><span class="p">,</span> <span class="s1">&#39;News::view/$1&#39;</span><span class="p">);</span>

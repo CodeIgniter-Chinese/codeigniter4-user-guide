@@ -344,34 +344,34 @@
 <p>CodeIgniter 有一些用于会话（session）储存的驱动程序，你可以在目录的最后部分中看到它们：</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><a class="reference internal" href="#id2" id="id17">使用 Session 类</a><ul>
-<li><a class="reference internal" href="#id3" id="id18">初始化会话</a></li>
-<li><a class="reference internal" href="#id4" id="id19">Session 是怎样工作的？</a></li>
-<li><a class="reference internal" href="#id6" id="id20">什么是会话数据？</a></li>
-<li><a class="reference internal" href="#id8" id="id21">检索会话数据</a></li>
-<li><a class="reference internal" href="#id9" id="id22">添加会话数据</a></li>
-<li><a class="reference internal" href="#id10" id="id23">向会话数据推送新值</a></li>
-<li><a class="reference internal" href="#id11" id="id24">删除会话数据</a></li>
-<li><a class="reference internal" href="#flashdata" id="id25">闪存数据（Flashdata）</a></li>
-<li><a class="reference internal" href="#tempdata" id="id26">临时数据（Tempdata）</a></li>
-<li><a class="reference internal" href="#id12" id="id27">销毁会话</a></li>
-<li><a class="reference internal" href="#id13" id="id28">访问会话元数据</a></li>
+<li><a class="reference internal" href="#id2" id="id19">使用 Session 类</a><ul>
+<li><a class="reference internal" href="#id3" id="id20">初始化会话</a></li>
+<li><a class="reference internal" href="#id4" id="id21">Session 是怎样工作的？</a></li>
+<li><a class="reference internal" href="#id6" id="id22">什么是会话数据？</a></li>
+<li><a class="reference internal" href="#id8" id="id23">检索会话数据</a></li>
+<li><a class="reference internal" href="#id9" id="id24">添加会话数据</a></li>
+<li><a class="reference internal" href="#id10" id="id25">向会话数据推送新值</a></li>
+<li><a class="reference internal" href="#id11" id="id26">删除会话数据</a></li>
+<li><a class="reference internal" href="#id12" id="id27">闪存数据</a></li>
+<li><a class="reference internal" href="#id13" id="id28">临时数据</a></li>
+<li><a class="reference internal" href="#id14" id="id29">销毁会话</a></li>
+<li><a class="reference internal" href="#id15" id="id30">访问会话元数据</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id14" id="id29">会话首选项</a></li>
-<li><a class="reference internal" href="#id15" id="id30">Session 驱动程序</a><ul>
-<li><a class="reference internal" href="#filehandler" id="id31">FileHandler 驱动程序（默认）</a></li>
-<li><a class="reference internal" href="#databasehandler" id="id32">DatabaseHandler 驱动程序</a></li>
-<li><a class="reference internal" href="#redishandler" id="id33">RedisHandler 驱动程序</a></li>
-<li><a class="reference internal" href="#memcachedhandler" id="id34">MemcachedHandler 驱动程序</a></li>
+<li><a class="reference internal" href="#id16" id="id31">会话首选项</a></li>
+<li><a class="reference internal" href="#id17" id="id32">Session 驱动程序</a><ul>
+<li><a class="reference internal" href="#filehandler" id="id33">FileHandler 驱动程序（默认）</a></li>
+<li><a class="reference internal" href="#databasehandler" id="id34">DatabaseHandler 驱动程序</a></li>
+<li><a class="reference internal" href="#redishandler" id="id35">RedisHandler 驱动程序</a></li>
+<li><a class="reference internal" href="#memcachedhandler" id="id36">MemcachedHandler 驱动程序</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="custom-index container"></div><div class="section" id="id2">
-<h2><a class="toc-backref" href="#id17">使用 Session 类</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id19">使用 Session 类</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id3">
-<h3><a class="toc-backref" href="#id18">初始化会话</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">初始化会话</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>会话通常会在每次加载页面时在全局范围内运行，因此应该恰当地初始化 Session 类。</p>
 <p>访问并初始化会话：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$session</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">session</span><span class="p">(</span><span class="nv">$config</span><span class="p">);</span>
@@ -388,7 +388,7 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id19">Session 是怎样工作的？</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">Session 是怎样工作的？</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>加载页面后，Session 类将检查用户的浏览器是否发送了有效的会话 cookie。如果会话 Cookie <strong>不存在</strong> （或者如果它不匹配一个存储在服务器上的会话ID或已过期）, 新会话将被创建和保存。</p>
 <p>如果确实存在有效的会话，则其信息将被更新。对于每次更新，如果配置了会话 ID ，则可以对其进行重新生成。</p>
 <p>对你来说很重要的一点是，一旦初始化，Session 类就会自动运行。你无需执行任何操作即可导致上述现象发生。如下所示，你可以使用会话数据，但是读取，写入和更新会话的过程是自动的。</p>
@@ -410,14 +410,14 @@
 </div>
 </div>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id20">什么是会话数据？</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">什么是会话数据？</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p>会话数据是与特定会话 ID（cookie）关联的数组。</p>
 <p>如果你以前在 PHP 中使用过会话，则应该熟悉 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/reserved.variables.session.php">$_SESSION 全局变量</a> （如果不熟悉，请阅读该链接上的内容）。</p>
 <p>CodeIgniter 使用与 PHP 提供的会话处理程序机制相同的方式来访问其会话数据。使用会话数据就像操作（读取，设置和删除） <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code>  数组一样简单。</p>
 <p>此外，CodeIgniter 还提供 2 种特殊类型的会话数据，下面将进一步说明：闪存数据（flashdata）和临时数据（tempdata）。</p>
 </div>
 <div class="section" id="id8">
-<h3><a class="toc-backref" href="#id21">检索会话数据</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">检索会话数据</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>会话数组中的任何信息都可以通过 <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 全局变量获得：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;item&#39;</span><span class="p">]</span>
 </pre></div>
@@ -457,7 +457,7 @@
 </div>
 </div>
 <div class="section" id="id9">
-<h3><a class="toc-backref" href="#id22">添加会话数据</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">添加会话数据</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>假设某个特定用户登录到你的网站。身份验证后，你可以将其用户名和电子邮件地址添加到会话中，从而使你可以全局使用该数据，而不必在需要时运行数据库查询。</p>
 <p>你可以把 <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 看作像其他变量一样，将数据简单地分配给数组。或作为 <code class="docutils literal notranslate"><span class="pre">$session</span></code> 的属性。</p>
 <p>以前的 userdata 方法已被废弃，但是你可以将包含新会话数据的数组传递给该 <code class="docutils literal notranslate"><span class="pre">set()</span></code> 方法：</p>
@@ -489,14 +489,14 @@
 </div>
 </div>
 <div class="section" id="id10">
-<h3><a class="toc-backref" href="#id23">向会话数据推送新值</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">向会话数据推送新值</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <p>push 方法用于将新值推送到作为数组的会话值上。例如，如果“兴趣爱好”键包含一个兴趣爱好数组，则可以将新值添加到数组中，如下所示：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$session</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="s1">&#39;hobbies&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;sport&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;tennis&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id11">
-<h3><a class="toc-backref" href="#id24">删除会话数据</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">删除会话数据</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p>与其他任何变量一样， <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 使用 <code class="docutils literal notranslate"><span class="pre">unset()</span></code> 通过以下方式取消设置的值：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nb">unset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;some_name&#39;</span><span class="p">]);</span>
 
@@ -518,8 +518,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="flashdata">
-<h3><a class="toc-backref" href="#id25">闪存数据（Flashdata）</a><a class="headerlink" href="#flashdata" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id27">闪存数据</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
 <p>CodeIgniter 支持“flashdata”，这是仅对下一个请求可用的会话数据，然后将其自动清除。</p>
 <p>这可能非常有用，特别是对于一次性的信息，错误或状态消息（例如：“记录 2 已删除”）。</p>
 <p>应当注意，flashdata 变量是常规会话变量，在 CodeIgniter 会话处理程序内部进行管理。</p>
@@ -567,8 +567,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="tempdata">
-<h3><a class="toc-backref" href="#id26">临时数据（Tempdata）</a><a class="headerlink" href="#tempdata" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id28">临时数据</a><a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
 <p>CodeIgniter 还支持“tempdata”这种具有特定到期时间的会话数据。该值过期或会话过期或被删除后，该值将自动删除。</p>
 <p>与 flashdata 相似，tempdata 变量由 CodeIgniter 会话处理程序在内部进行管理。</p>
 <p>要将现有项目标记为“tempdata”，只需将其密钥和有效时间（以秒为单位）传递给该 <code class="docutils literal notranslate"><span class="pre">mark_as_temp()</span></code> 方法：</p>
@@ -634,8 +634,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id12">
-<h3><a class="toc-backref" href="#id27">销毁会话</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id29">销毁会话</a><a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
 <p>要清除当前会话（例如，在注销过程中），你可以简单地使用 PHP 的 <a class="reference external" href="https://www.php.net/session_destroy">session_destroy()</a> 函数或库的 <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> 方法。两者将以完全相同的方式工作：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nb">session_destroy</span><span class="p">();</span>
 
@@ -653,8 +653,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id13">
-<h3><a class="toc-backref" href="#id28">访问会话元数据</a><a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id30">访问会话元数据</a><a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
 <p>在以前的 CodeIgniter 版本中，默认情况下，会话数据数组包括 4 个项目：“session_id”，“ip_address”，“user_agent”，“last_activity”。</p>
 <p>这是由于会话如何工作的细节所致，但现在在我们的新实现中不再需要。但是，你的应用程序可能会依赖这些值，因此下面是访问它们的替代方法：</p>
 <blockquote>
@@ -667,8 +667,8 @@
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="id14">
-<h2><a class="toc-backref" href="#id29">会话首选项</a><a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id31">会话首选项</a><a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
 <p>通常，CodeIgniter 可以使所有工作立即可用。但是，会话是任何应用程序中非常敏感的组件，因此必须进行一些仔细的配置。请花点时间考虑所有选项及其效果。</p>
 <p>你将在 <strong>app/Config/App.php</strong> 文件中找到以下与会话相关的首选项：</p>
 <table border="1" class="docutils">
@@ -766,8 +766,8 @@ CodeIgniterSessionHandlersArrayHandler</td>
 <p class="last">“cookieHTTPOnly”设置对会话没有影响。出于安全原因，始终启用 HttpOnly 参数。此外，“cookiePrefix”设置被完全忽略。</p>
 </div>
 </div>
-<div class="section" id="id15">
-<h2><a class="toc-backref" href="#id30">Session 驱动程序</a><a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id32">Session 驱动程序</a><a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h2>
 <p>如前所述，Session 库带有 4 个处理程序或存储引擎，你可以使用它们：</p>
 <blockquote>
 <div><ul class="simple">
@@ -785,7 +785,7 @@ CodeIgniterSessionHandlersArrayHandler</td>
 <p class="last">在测试期间使用 ArrayHandler 并将其存储在 PHP 数组中，同时防止数据被持久保存。</p>
 </div>
 <div class="section" id="filehandler">
-<h3><a class="toc-backref" href="#id31">FileHandler 驱动程序（默认）</a><a class="headerlink" href="#filehandler" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id33">FileHandler 驱动程序（默认）</a><a class="headerlink" href="#filehandler" title="永久链接至标题">¶</a></h3>
 <p>“FileHandler”驱动程序使用你的文件系统来存储会话数据。</p>
 <p>可以肯定地说，它的工作原理与 PHP 自己的默认会话实现完全相同，但是如果这对你来说是一个重要的细节，请记住，它实际上不是相同的代码，并且有一些限制（和优点）。</p>
 <p>更具体地说，它不支持 <a class="reference external" href="https://www.php.net/manual/en/session.configuration.php#ini.session.save-path">directory level and mode
@@ -807,7 +807,7 @@ formats used in session.save_path</a> ，并且为了安全起见，大多数选
 </div>
 </div>
 <div class="section" id="databasehandler">
-<h3><a class="toc-backref" href="#id32">DatabaseHandler 驱动程序</a><a class="headerlink" href="#databasehandler" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">DatabaseHandler 驱动程序</a><a class="headerlink" href="#databasehandler" title="永久链接至标题">¶</a></h3>
 <p>“DatabaseHandler”驱动程序使用关系数据库（例如 MySQL 或 PostgreSQL）来存储会话。这是许多用户中的一个流行选择，因为它使开发人员可以轻松访问应用程序中的会话数据 - 它只是数据库中的另一个表。</p>
 <p>但是，必须满足一些条件：</p>
 <blockquote>
@@ -870,7 +870,7 @@ formats used in session.save_path</a> ，并且为了安全起见，大多数选
 </div>
 </div>
 <div class="section" id="redishandler">
-<h3><a class="toc-backref" href="#id33">RedisHandler 驱动程序</a><a class="headerlink" href="#redishandler" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id35">RedisHandler 驱动程序</a><a class="headerlink" href="#redishandler" title="永久链接至标题">¶</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
 <p class="last">由于 Redis 没有公开锁定机制，因此该驱动程序的锁定由一个单独的值模拟，该值最多可保留 300 秒。</p>
@@ -892,7 +892,7 @@ formats used in session.save_path</a> ，并且为了安全起见，大多数选
 </div>
 </div>
 <div class="section" id="memcachedhandler">
-<h3><a class="toc-backref" href="#id34">MemcachedHandler 驱动程序</a><a class="headerlink" href="#memcachedhandler" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id36">MemcachedHandler 驱动程序</a><a class="headerlink" href="#memcachedhandler" title="永久链接至标题">¶</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">注解</p>
 <p class="last">由于 Memcached 没有公开锁定机制，因此该驱动程序的锁定由一个单独的值模拟，该值最多保留 300 秒。</p>
@@ -905,8 +905,8 @@ formats used in session.save_path</a> ，并且为了安全起见，大多数选
 <span class="k">public</span> <span class="nv">$sessionSavePath</span> <span class="o">=</span> <span class="s1">&#39;localhost:11211&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
-<div class="section" id="id16">
-<h4>Bonus Tip<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id18">
+<h4>Bonus Tip<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h4>
 <p>还支持使用可选的 <em>weight</em> 参数作为第三个冒号 ( <code class="docutils literal notranslate"><span class="pre">:weight</span></code> ) 值的多服务器配置，但是我们必须注意，我们尚未测试这是否可靠。</p>
 <p>如果要尝试使用此功能（后果自负），只需用逗号分隔多个服务器路径：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 相比于 192.0.2.1 权重为 1，本地主机将获得更高的优先级（5）。</span>

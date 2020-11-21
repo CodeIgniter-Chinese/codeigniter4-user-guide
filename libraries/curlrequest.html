@@ -351,23 +351,23 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#id6" id="id11">请求选项</a><ul>
-<li><a class="reference internal" href="#allow-redirects" id="id12">allow_redirects （运行重定向）</a></li>
-<li><a class="reference internal" href="#auth" id="id13">auth （认证）</a></li>
-<li><a class="reference internal" href="#body" id="id14">body （请求体）</a></li>
-<li><a class="reference internal" href="#cert" id="id15">cert (证书）</a></li>
-<li><a class="reference internal" href="#connect-timeout" id="id16">connect_timeout （连接超时）</a></li>
+<li><a class="reference internal" href="#allow-redirects" id="id12">allow_redirects</a></li>
+<li><a class="reference internal" href="#auth" id="id13">auth</a></li>
+<li><a class="reference internal" href="#body" id="id14">body</a></li>
+<li><a class="reference internal" href="#cert" id="id15">cert</a></li>
+<li><a class="reference internal" href="#connect-timeout" id="id16">connect_timeout</a></li>
 <li><a class="reference internal" href="#cookie" id="id17">cookie</a></li>
-<li><a class="reference internal" href="#debug-bug" id="id18">debug （调试bug）</a></li>
-<li><a class="reference internal" href="#delay" id="id19">delay （延时）</a></li>
-<li><a class="reference internal" href="#form-params" id="id20">form_params （表单参数）</a></li>
-<li><a class="reference internal" href="#headers" id="id21">headers （请求头）</a></li>
-<li><a class="reference internal" href="#http-errors-http" id="id22">http_errors （http错误）</a></li>
+<li><a class="reference internal" href="#debug" id="id18">debug</a></li>
+<li><a class="reference internal" href="#delay" id="id19">delay</a></li>
+<li><a class="reference internal" href="#form-params" id="id20">form_params</a></li>
+<li><a class="reference internal" href="#headers" id="id21">headers</a></li>
+<li><a class="reference internal" href="#http-errors" id="id22">http_errors</a></li>
 <li><a class="reference internal" href="#json" id="id23">json</a></li>
 <li><a class="reference internal" href="#multipart" id="id24">multipart</a></li>
-<li><a class="reference internal" href="#query" id="id25">query （查询语句）</a></li>
-<li><a class="reference internal" href="#timeout" id="id26">timeout（超时）</a></li>
-<li><a class="reference internal" href="#verify" id="id27">verify（鉴权）</a></li>
-<li><a class="reference internal" href="#version" id="id28">version（版本）</a></li>
+<li><a class="reference internal" href="#query" id="id25">query</a></li>
+<li><a class="reference internal" href="#timeout" id="id26">timeout</a></li>
+<li><a class="reference internal" href="#verify" id="id27">verify</a></li>
+<li><a class="reference internal" href="#version" id="id28">version</a></li>
 </ul>
 </li>
 </ul>
@@ -455,7 +455,46 @@
 <p>当 <code class="docutils literal notranslate"><span class="pre">request()</span></code> 方法或者其他简称方法接受相对 URI 作为参数时，就会将 base_uri 和该相对 URI 根据 <a class="reference external" href="https://tools.ietf.org/html/rfc3986#section-5.2">RFC 2986, section 2</a> 进行组合
 以下是一些组合的例子</p>
 <blockquote>
-<div></div></blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="26%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">base_uri</th>
+<th class="head">URI</th>
+<th class="head">Result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><cite>http://foo.com</cite></td>
+<td>/bar</td>
+<td><cite>http://foo.com/bar</cite></td>
+</tr>
+<tr class="row-odd"><td><cite>http://foo.com/foo</cite></td>
+<td>/bar</td>
+<td><cite>http://foo.com/bar</cite></td>
+</tr>
+<tr class="row-even"><td><cite>http://foo.com/foo</cite></td>
+<td>bar</td>
+<td><cite>http://foo.com/bar</cite></td>
+</tr>
+<tr class="row-odd"><td><cite>http://foo.com/foo/</cite></td>
+<td>bar</td>
+<td><cite>http://foo.com/foo/bar</cite></td>
+</tr>
+<tr class="row-even"><td><cite>http://foo.com</cite></td>
+<td><cite>http://baz.com</cite></td>
+<td><cite>http://baz.com</cite></td>
+</tr>
+<tr class="row-odd"><td><cite>http://foo.com/?bar</cite></td>
+<td>bar</td>
+<td><cite>http://foo.com/bar</cite></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="id5">
@@ -494,7 +533,7 @@
 <h2><a class="toc-backref" href="#id11">请求选项</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>本节描述了在构造函数， <code class="docutils literal notranslate"><span class="pre">request()</span></code> 方法以及所有简称方法中可以传递的所有可用选项。</p>
 <div class="section" id="allow-redirects">
-<h3><a class="toc-backref" href="#id12">allow_redirects （运行重定向）</a><a class="headerlink" href="#allow-redirects" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">allow_redirects</a><a class="headerlink" href="#allow-redirects" title="永久链接至标题">¶</a></h3>
 <p>默认情况下， CURL 会遵循远端服务器返回的所有的 “Location:” 响应头规则。 <code class="docutils literal notranslate"><span class="pre">allow_redirects</span></code> 选项使得你可以修改这一执行过程。</p>
 <p>如果该值被设为 <code class="docutils literal notranslate"><span class="pre">false</span></code> ，就不会执行任何的重定向规则。</p>
 <blockquote>
@@ -521,7 +560,7 @@
 </div>
 </div>
 <div class="section" id="auth">
-<h3><a class="toc-backref" href="#id13">auth （认证）</a><a class="headerlink" href="#auth" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">auth</a><a class="headerlink" href="#auth" title="永久链接至标题">¶</a></h3>
 <p>使得你可以为 <a class="reference external" href="https://www.ietf.org/rfc/rfc2069.txt">HTTP Basic</a> 和 <a class="reference external" href="https://www.ietf.org/rfc/rfc2069.txt">Digest</a> 和认证过程提供细节信息。
 你的脚本文件需要执行额外操作以支持诊断认证——只需要在访问时传递用户名和密码。第三个参数是认证的类型，可以是 <code class="docutils literal notranslate"><span class="pre">basic</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">digest</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;http://example.com&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;digest&#39;</span><span class="p">]]);</span>
@@ -529,7 +568,7 @@
 </div>
 </div>
 <div class="section" id="body">
-<h3><a class="toc-backref" href="#id14">body （请求体）</a><a class="headerlink" href="#body" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">body</a><a class="headerlink" href="#body" title="永久链接至标题">¶</a></h3>
 <p>对于支持请求体的方法，例如 PUT 或者是 POST 来说，有两种方法来设置请求体。
 第一种是使用 <code class="docutils literal notranslate"><span class="pre">setBody()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">setBody</span><span class="p">(</span><span class="nv">$body</span><span class="p">)</span>
@@ -542,7 +581,7 @@
 </div>
 </div>
 <div class="section" id="cert">
-<h3><a class="toc-backref" href="#id15">cert (证书）</a><a class="headerlink" href="#cert" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">cert</a><a class="headerlink" href="#cert" title="永久链接至标题">¶</a></h3>
 <p>指定一个 PEM 格式的客户端证书的位置，通过为 <code class="docutils literal notranslate"><span class="pre">cert</span></code> 选项来传递绝对路径的方式来实现。
 如果需要密码的话，为该选项数组的第一个元素的值为路径，第二个元素的值设为密码:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;cert&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;/path/getServer.pem&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">]);</span>
@@ -550,7 +589,7 @@
 </div>
 </div>
 <div class="section" id="connect-timeout">
-<h3><a class="toc-backref" href="#id16">connect_timeout （连接超时）</a><a class="headerlink" href="#connect-timeout" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">connect_timeout</a><a class="headerlink" href="#connect-timeout" title="永久链接至标题">¶</a></h3>
 <p>默认情况下， CodeIgniter 并未对 cURL 尝试连接一个网站的时间进行限制。
 如果你需要修改这个值，可以通过为 <code class="docutils literal notranslate"><span class="pre">connect_timeout</span></code> 选项提供时间秒数值的方式来进行。传值为0时，无限等待:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$response</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;http://example.com&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;connect_timeout&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">]);</span>
@@ -565,8 +604,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="debug-bug">
-<h3><a class="toc-backref" href="#id18">debug （调试bug）</a><a class="headerlink" href="#debug-bug" title="永久链接至标题">¶</a></h3>
+<div class="section" id="debug">
+<h3><a class="toc-backref" href="#id18">debug</a><a class="headerlink" href="#debug" title="永久链接至标题">¶</a></h3>
 <p>当 <code class="docutils literal notranslate"><span class="pre">debug</span></code> 被传递并设为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 时，就会启动额外的调试模式并在脚本执行时输出标准错误流信息( STDERR )。
 该操作是通过传递 CURLOPT_VERBOSE 并返回输出来实现的。
 因此当你需要利用 <code class="docutils literal notranslate"><span class="pre">spark</span> <span class="pre">serve</span></code> 运行一个内置服务器时，将会看到命令行中的输出内容。否则输出就会被写入到服务器的错误日志中:</p>
@@ -579,7 +618,7 @@
 </div>
 </div>
 <div class="section" id="delay">
-<h3><a class="toc-backref" href="#id19">delay （延时）</a><a class="headerlink" href="#delay" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">delay</a><a class="headerlink" href="#delay" title="永久链接至标题">¶</a></h3>
 <p>使得你可以在发送请求前延迟指定的毫秒时间:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 延时2秒</span>
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;http://example.com&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;delay&#39;</span> <span class="o">=&gt;</span> <span class="mi">2000</span><span class="p">]);</span>
@@ -587,7 +626,7 @@
 </div>
 </div>
 <div class="section" id="form-params">
-<h3><a class="toc-backref" href="#id20">form_params （表单参数）</a><a class="headerlink" href="#form-params" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">form_params</a><a class="headerlink" href="#form-params" title="永久链接至标题">¶</a></h3>
 <p>你可以通过为 <code class="docutils literal notranslate"><span class="pre">form_params</span></code> 选项传递关联数组的方式，在一个 application/x-www-form-urlencoded POST 请求里发送表单数据。
 该操作会将 <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> 请求头强制设为 <code class="docutils literal notranslate"><span class="pre">application/x-www-form-urlencoded</span></code></p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/post&#39;</span><span class="p">,</span> <span class="p">[</span>
@@ -604,7 +643,7 @@
 </div>
 </div>
 <div class="section" id="headers">
-<h3><a class="toc-backref" href="#id21">headers （请求头）</a><a class="headerlink" href="#headers" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">headers</a><a class="headerlink" href="#headers" title="永久链接至标题">¶</a></h3>
 <p>尽管你可以通过 <code class="docutils literal notranslate"><span class="pre">setHeader()</span></code> 方法来传递任何请求头，你也可以通过为选项传递关联数组作为参数的方式来实现自定义请求头。
 该关联数组中每个键都是请求头的名字，而值就是一个字符串或者是一个字符串数组，包括着请求头字段的值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="p">[</span>
@@ -618,8 +657,8 @@
 </div>
 <p>如果请求头在构造函数中被传入时，就会被设为默认选项。而默认选项会被后续设置的选项或者 <code class="docutils literal notranslate"><span class="pre">setHeader()</span></code> 的调用所覆盖。</p>
 </div>
-<div class="section" id="http-errors-http">
-<h3><a class="toc-backref" href="#id22">http_errors （http错误）</a><a class="headerlink" href="#http-errors-http" title="永久链接至标题">¶</a></h3>
+<div class="section" id="http-errors">
+<h3><a class="toc-backref" href="#id22">http_errors</a><a class="headerlink" href="#http-errors" title="永久链接至标题">¶</a></h3>
 <p>默认情况下，CURLRequest 类会在 HTTP 状态码大于等于400时结束请求并报错。
 你可以通过将 <code class="docutils literal notranslate"><span class="pre">http_errors</span></code> 选项设为 <code class="docutils literal notranslate"><span class="pre">false</span></code> 的方式来返回内容:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/status/500&#39;</span><span class="p">);</span>
@@ -661,7 +700,7 @@
 </div>
 </div>
 <div class="section" id="query">
-<h3><a class="toc-backref" href="#id25">query （查询语句）</a><a class="headerlink" href="#query" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">query</a><a class="headerlink" href="#query" title="永久链接至标题">¶</a></h3>
 <p>你可以通过为 <code class="docutils literal notranslate"><span class="pre">query</span></code> 选项传递一个关联数组的方式来发送查询字符串信息:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 发送一个 GET 请求来获取 /get?foo=bar 的结果</span>
 <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/get&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;query&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span><span class="p">]]);</span>
@@ -669,14 +708,14 @@
 </div>
 </div>
 <div class="section" id="timeout">
-<h3><a class="toc-backref" href="#id26">timeout（超时）</a><a class="headerlink" href="#timeout" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">timeout</a><a class="headerlink" href="#timeout" title="永久链接至标题">¶</a></h3>
 <p>默认情况下， cURL 函数可以执行任意长的时间，不受时间限制。你可以通过 <code class="docutils literal notranslate"><span class="pre">timeout</span></code> 选项来修改这一过程。选项值是你需要这个函数运行的时间。使用0来无限等待:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$response</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;http://example.com&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;timeout&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="verify">
-<h3><a class="toc-backref" href="#id27">verify（鉴权）</a><a class="headerlink" href="#verify" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">verify</a><a class="headerlink" href="#verify" title="永久链接至标题">¶</a></h3>
 <p>该选项描述了 SSL 验证鉴权行为。
 如果 <code class="docutils literal notranslate"><span class="pre">verify</span></code> 选项被设为 <code class="docutils literal notranslate"><span class="pre">true</span></code> ，就开始 SSL 鉴权操作并使用系统提供默认的 CA 包文件。如果设为 <code class="docutils literal notranslate"><span class="pre">false</span></code> ，就会禁用鉴权操作（这一行为不安全，并可能导致中间人攻击！）。
 你可以将该参数设为一个 CA 包文件所在的路径，从而进行自定义的鉴权操作。该选项默认值为 true</p>
@@ -692,7 +731,7 @@
 </div>
 </div>
 <div class="section" id="version">
-<h3><a class="toc-backref" href="#id28">version（版本）</a><a class="headerlink" href="#version" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">version</a><a class="headerlink" href="#version" title="永久链接至标题">¶</a></h3>
 <p>你可以通过为版本参数传递一个字符串或者浮点数（特别是1.0，或1.1，尚未支持2.0）的方式来设置协议版本:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 强制使用 HTTP/1.0</span>
 <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="mf">1.0</span><span class="p">]);</span>

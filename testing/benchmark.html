@@ -344,20 +344,20 @@
 <p>Timer类始终处于活动状态，从框架被调用的那一刻开始，直到发送输出到用户之前，才能使整个系统执行的时间非常准确。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><a class="reference internal" href="#id3" id="id11">使用定时器</a><ul>
-<li><a class="reference internal" href="#id4" id="id12">查看你的基准点</a></li>
-<li><a class="reference internal" href="#id5" id="id13">显示执行时间</a></li>
+<li><a class="reference internal" href="#id3" id="id9">使用定时器</a><ul>
+<li><a class="reference internal" href="#id4" id="id10">查看你的基准点</a></li>
+<li><a class="reference internal" href="#id5" id="id11">显示执行时间</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8" id="id14">使用迭代器</a><ul>
-<li><a class="reference internal" href="#id9" id="id15">创建任务运行</a></li>
-<li><a class="reference internal" href="#id10" id="id16">运行任务</a></li>
+<li><a class="reference internal" href="#id6" id="id12">使用迭代器</a><ul>
+<li><a class="reference internal" href="#id7" id="id13">创建任务运行</a></li>
+<li><a class="reference internal" href="#id8" id="id14">运行任务</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id11">使用定时器</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">使用定时器</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>使用Timer，你可以测量执行应用程序的两个时刻之间的时间。这样可以轻松测量应用程序的不同方面的性能。所有测量都是使用 <code class="docutils literal notranslate"><span class="pre">start()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">stop()</span></code> 方法完成的。</p>
 <p>该 <code class="docutils literal notranslate"><span class="pre">start()</span></code> 方法采用单个参数：此定时器的名称。你可以使用任何字符串作为计时器的名称。它仅用于你以后参考以了解哪个测量是:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$benchmark</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">timer</span><span class="p">();</span>
@@ -378,7 +378,7 @@
 </pre></div>
 </div>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id12">查看你的基准点</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">查看你的基准点</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>当你的应用程序运行时，你设置的所有定时器都将由Timer类收集。它不会自动显示它们。你可以通过调用 <code class="docutils literal notranslate"><span class="pre">getTimers()</span></code> 方法检索所有的计时器。该方法返回一组基准信息，包括开始，结束和持续时间:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$timers</span> <span class="o">=</span> <span class="nv">$benchmark</span><span class="o">-&gt;</span><span class="na">getTimers</span><span class="p">();</span>
 
@@ -399,19 +399,19 @@
 <p>计时器会自动显示在 <span class="xref std std-doc">Debub 工具栏中</span>。</p>
 </div>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id13">显示执行时间</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-<p>该 <code class="docutils literal notranslate"><span class="pre">getTimers()</span></code> 方法将为你的项目中的所有计时器提供原始数据，你可以使用 <a href="#id6"><span class="problematic" id="id7">`</span></a>getElapsedTime()`方法检索单个计时器的持续时间（以秒为单位）。第一个参数是要显示的定时器的名称。第二个是要显示的小数位数。默认为4:</p>
+<h3><a class="toc-backref" href="#id11">显示执行时间</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>该 <code class="docutils literal notranslate"><span class="pre">getTimers()</span></code> 方法将为你的项目中的所有计时器提供原始数据，你可以使用 <cite>getElapsedTime()</cite> 方法检索单个计时器的持续时间（以秒为单位）。第一个参数是要显示的定时器的名称。第二个是要显示的小数位数。默认为4:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">timer</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getElapsedTime</span><span class="p">(</span><span class="s1">&#39;render view&#39;</span><span class="p">);</span>
 <span class="c1">// Displays: 0.0234</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="id8">
-<h2><a class="toc-backref" href="#id14">使用迭代器</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id12">使用迭代器</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>Iterator是一个简单的工具，旨在让你尝试解决方案中的多个变体，以查看速度差异和不同内存使用模式。你可以添加任何数量的 “任务”，以便运行，该类将运行任务数百或数千次以获得更清晰的性能。然后，你的脚本可以检索和使用结果，或显示为HTML表格。</p>
-<div class="section" id="id9">
-<h3><a class="toc-backref" href="#id15">创建任务运行</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id13">创建任务运行</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
 <p>任务在 Closures 内定义。任务创建的任何输出将被自动丢弃。它们通过 <cite>add()</cite> 方法添加到 Iterator 类中。第一个参数是您想要引用这个测试的名称;第二个参数是 Closure，它自己本身:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$iterator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Benchmark\Iterator</span><span class="p">();</span>
 
@@ -431,8 +431,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h3><a class="toc-backref" href="#id16">运行任务</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id14">运行任务</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>你一旦添加了要运行的任务，你可以使用 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法多次循环任务。默认情况下，它将循环运行 1000 次。这对大多数简单的测试来说可能就足够了，如果你需要运行测试多次，你可以将你希望运行数字作为第一个参数传递值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Run the tests 3000 times.</span>
 <span class="nv">$iterator</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
