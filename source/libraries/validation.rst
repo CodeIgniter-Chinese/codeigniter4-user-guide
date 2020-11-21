@@ -1,68 +1,53 @@
-Validation
+验证类
 ##################################################
 
-CodeIgniter provides a comprehensive data validation class that
-helps minimize the amount of code you'll write.
+CodeIgniter 提供了全面的数据验证类，最大程度减少你需要编写的代码量。
 
 .. contents::
     :local:
     :depth: 2
 
-Overview
+概述
 ************************************************
 
-Before explaining CodeIgniter's approach to data validation, let's
-describe the ideal scenario:
+在解释 CodeIgniter 的数据验证之前，我们先介绍理想的状况：
 
-#. A form is displayed.
-#. You fill it in and submit it.
-#. If you submitted something invalid, or perhaps missed a required
-   item, the form is redisplayed containing your data along with an
-   error message describing the problem.
-#. This process continues until you have submitted a valid form.
+#. 显示一个表单。
+#. 你填写并提交。
+#. 如果你提交的表单数据无效，或者丢失了必填项，将重新显示包含了你的数据和错误消息的表单。
+#. 这个过长将一直持续到你提交的表单数据有效为止。
 
-On the receiving end, the script must:
+在接收端，脚本必须：
 
-#. Check for required data.
-#. Verify that the data is of the correct type, and meets the correct
-   criteria. For example, if a username is submitted it must be
-   validated to contain only permitted characters. It must be of a
-   minimum length, and not exceed a maximum length. The username can't
-   be someone else's existing username, or perhaps even a reserved word.
-   Etc.
-#. Sanitize the data for security.
-#. Pre-format the data if needed (Does the data need to be trimmed? HTML
-   encoded? Etc.)
-#. Prep the data for insertion in the database.
+#. 检查需要的数据。
+#. 验证数据的类型是否正确，并且符合要求的标准。例如，如果提交了用户名，则必须仅包含允许的字符。
+   它必须大于最小长度，小于最大长度。用户名不能是系统中已经存在的用户名，甚至是保留的关键词。
+   等等。
+#. 处理数据以保证安全。
+#. 如果有必要，对数据进行格式化 (是否需要裁剪数据 ? HTML 编码? 等等。)
+#. 准备要插入数据库的数据。
 
-Although there is nothing terribly complex about the above process, it
-usually requires a significant amount of code, and to display error
-messages, various control structures are usually placed within the form
-HTML. Form validation, while simple to create, is generally very messy
-and tedious to implement.
+尽管上述过程没有什么非常复杂的，但是通常需要编写大量的代码，并且显示各种错误消息，在 HTML 表单中
+放置各种控制结构。表单验证虽然容易创建，但是通常十分混乱，实现起来很繁琐。
 
-Form Validation Tutorial
+表单验证教程
 ************************************************
 
-What follows is a "hands on" tutorial for implementing CodeIgniter's Form
-Validation.
+以下是实现 CodeIgniter 表单验证的“动手”教程。
 
-In order to implement form validation you'll need three things:
+为了实现表单验证，你需要做三件事：
 
-#. A :doc:`View </outgoing/views>` file containing a form.
-#. A View file containing a "success" message to be displayed upon
-   successful submission.
-#. A :doc:`controller </incoming/controllers>` method to receive and
-   process the submitted data.
+#. 一个包含表单的 :doc:`View </outgoing/views>` 文件。
+#. 一个提交成功后显示 "success" 的 View 文件。
+#. 一个 :doc:`controller </incoming/controllers>` 方法用来接收和处理提交的数据。
 
-Let's create those three things, using a member sign-up form as the
-example.
+让我们以会员注册表单为例来做这三件事。
 
-The Form
+表单
 ================================================
 
-Using a text editor, create a form called **Signup.php**. In it, place this
-code and save it to your **app/Views/** folder::
+使用编辑器创建一个名为 **Signup.php** 的视图文件，将代码复制到文件中，并保存到 **app/Views/** 文件夹：
+::
 
     <html>
     <head>
@@ -93,11 +78,11 @@ code and save it to your **app/Views/** folder::
     </body>
     </html>
 
-The Success Page
+成功页
 ================================================
 
-Using a text editor, create a form called **Success.php**. In it, place
-this code and save it to your **app/Views/** folder::
+使用编辑器创建一个名为 **Success.php** 的视图文件，将代码复制到文件中，并保存到 **app/Views/** 文件夹：
+::
 
     <html>
     <head>
@@ -112,11 +97,11 @@ this code and save it to your **app/Views/** folder::
     </body>
     </html>
 
-The Controller
+控制器
 ================================================
 
-Using a text editor, create a controller called **Form.php**. In it, place
-this code and save it to your **app/Controllers/** folder::
+使用编辑器创建一个名为 **Form.php**  的控制器文件，将代码复制到文件中，并保存到 **app/Controllers/** 文件夹：
+::
 
     <?php namespace App\Controllers;
 
@@ -141,92 +126,82 @@ this code and save it to your **app/Controllers/** folder::
         }
     }
 
-Try it!
+试一试!
 ================================================
 
-To try your form, visit your site using a URL similar to this one::
+要尝试使用表单，请使用与此网址相似的网址访问你的网站
+::
 
     example.com/index.php/form/
 
-If you submit the form you should simply see the form reload. That's
-because you haven't set up any validation rules yet.
+如果你提交表单，则应该只看到表单重新加载。那是因为你没有设置任何验证规则。
 
-.. note:: Since you haven't told the **Validation class** to validate anything
-    yet, it **returns false** (boolean false) **by default**. The ``validate()``
-    method only returns true if it has successfully applied your rules without
-    any of them failing.
+.. note:: 由于你没有告诉 **Validation 类** 进行任何验证, 它在 **默认情况** 下 **返回 false** (boolean false)。 ``validate()``
+    方法仅在验证你设置的 **所有规则** 并且没有 **任何失败** 的情况下返回 true 。
 
-Explanation
+说明
 ================================================
 
-You'll notice several things about the above pages:
+你会注意到上述页面的几件事情：
 
-The form (Signup.php) is a standard web form with a couple of exceptions:
+表单 (Signup.php) 是一个标准的 web 表单，但有一些例外：
 
-#. It uses a form helper to create the form opening. Technically, this
-   isn't necessary. You could create the form using standard HTML.
-   However, the benefit of using the helper is that it generates the
-   action URL for you, based on the URL in your config file. This makes
-   your application more portable in the event your URLs change.
-#. At the top of the form you'll notice the following function call:
+#. 它使用表单辅助类来创建表单。从技术上讲这没必要，你可以使用标准的 HTML 代码来创建表单。
+   但是，使用表单辅助类可以根据配置文件中的 URL 来生成表单的 action URL。当你的网址发生
+   更改时，则你的程序更容易进行移植。
+#. 在表单的顶部，你会注意到调用了以下函数：
    ::
 
     <?= $validation->listErrors() ?>
 
-   This function will return any error messages sent back by the
-   validator. If there are no messages it returns an empty string.
+   该函数将返回 validator 发送的所有错误消息。如果没有消息，则返回一个空字符串。
 
-The controller (Form.php) has one method: ``index()``. This method
-uses the Controller-provided validate method and loads the form helper and URL
-helper used by your view files. It also runs the validation routine.
-Based on whether the validation was successful it either presents the
-form or the success page.
+控制器 (Form.php) 拥有一个方法： ``index()``。这个方法使用控制器提供的 validate 方法，
+并加载表单辅助类和 URL 辅助类。它还运行验证程序，根据验证程序是否验证成功，它将显示表单或成功页。
 
-Loading the Library
+加载 validation 库
 ================================================
 
-The library is loaded as a service named **validation**::
+该库通过名叫 **validation** 的服务进行加载：
+::
 
     $validation =  \Config\Services::validation();
 
-This automatically loads the ``Config\Validation`` file which contains settings
-for including multiple Rulesets, and collections of rules that can be easily reused.
+这将自动加载 ``Config\Validation`` 文件，文件中包含了多个规则类，以及便于重用的规则集合。
 
-.. note:: You may never need to use this method, as both the :doc:`Controller </incoming/controllers>` and
-    the :doc:`Model </models/model>` provide methods to make validation even easier.
+.. note:: 你可用永远都不会使用该方法，因为 :doc:`Controller </incoming/controllers>` 和
+ :doc:`Model </models/model>` 中都提供了更简便的验证方法。
 
-Setting Validation Rules
+设置验证规则
 ================================================
 
-CodeIgniter lets you set as many validation rules as you need for a
-given field, cascading them in order. To set validation rules you
-will use the ``setRule()``, ``setRules()``, or ``withRequest()``
-methods.
+CodeIgniter 允许你为给定字段设置多个验证规则，并按顺序执行它们。要设置验证规则，你将使用
+``setRule()``，``setRules()`` 方法。
 
 setRule()
 ---------
 
-This method sets a single rule. It takes the name of the field as
-the first parameter, an optional label and a string with a pipe-delimited list of rules
-that should be applied::
+该方法设置单个规则，它使用 **字段名称** 作为第一个参数，第二个参数是一个可选的标签，第三个参数是以竖线
+分隔的规则列表的字符串：
+::
 
     $validation->setRule('username', 'Username', 'required');
 
-The **field name** must match the key of any data array that is sent in. If
-the data is taken directly from $_POST, then it must be an exact match for
-the form input name.
+**字段名称** 必须与需要验证的任何数据数组的键匹配。如果直接从 $_POST 获取数组，则它必须与表单的 input name 完全匹配。
 
 setRules()
 ----------
 
-Like, ``setRule()``, but accepts an array of field names and their rules::
+与 ``setRule()`` 类似，但其接受字段名称与其规则所组成的数组：
+::
 
     $validation->setRules([
         'username' => 'required',
         'password' => 'required|min_length[10]'
     ]);
 
-To give a labeled error message you can set up as::
+想设置带标签的错误消息，你可以像这样设置：
+::
 
     $validation->setRules([
         'username' => ['label' => 'Username', 'rules' => 'required'],
@@ -236,22 +211,21 @@ To give a labeled error message you can set up as::
 withRequest()
 -------------
 
-One of the most common times you will use the validation library is when validating
-data that was input from an HTTP Request. If desired, you can pass an instance of the
-current Request object and it will take all of the input data and set it as the
-data to be validated::
+使用验证库最常见的场景之一是验证从 HTTP 请求输入的数据。如果需要，你可以传递当前的 Request 对象的实例，
+它将接收所有输入数据，并将其设置为待验证的数据：
+::
 
     $validation->withRequest($this->request)
                ->run();
 
-Working with Validation
+处理 Validation
 ************************************************
 
-Validating Keys that are Arrays
+验证数组的键
 ================================================
 
-If your data is in a nested associative array, you can use "dot array syntax" to
-easily validate your data::
+如果需要验证的数据在嵌套的关联数组中，则可以使用 “点数组语法” 轻松验证数据：
+::
 
     // The data to test:
     'contacts' => [
@@ -276,15 +250,16 @@ easily validate your data::
         'contacts.friends.name' => 'required'
     ]);
 
-You can use the '*' wildcard symbol to match any one level of the array::
+你可以使用通配符 “*” 来匹配数组的任何一个层级：
+::
 
     // Fred Flintsone & Wilma
     $validation->setRules([
         'contacts.*.name' => 'required'
     ]);
 
-"dot array syntax" can also be useful when you have single dimension array data.
-For example, data returned by multi select dropdown::
+“点数组语法” 也通常用于一维数组。例如，多选下拉列表返回的数据：
+::
 
     // The data to test:
     'user_ids' => [
@@ -297,29 +272,28 @@ For example, data returned by multi select dropdown::
         'user_ids.*' => 'required'
     ]);
 
-Validate 1 Value
+验证单个值
 ================================================
 
-Validate one value against a rule::
+根据规则验证单个值：
+::
 
     $validation->check($value, 'required');
 
-Saving Sets of Validation Rules to the Config File
+将验证规则集合保存到配置文件
 =======================================================
 
-A nice feature of the Validation class is that it permits you to store all
-your validation rules for your entire application in a config file. You organize
-the rules into "groups". You can specify a different group every time you run
-the validation.
+Validation 类一个好的功能是，它允许你将整个程序的验证规则存储在配置文件中。将规则组合成一个 “group” 
+，可以在运行验证时指定不同的组。
 
 .. _validation-array:
 
-How to save your rules
+如何保存你的规则
 -------------------------------------------------------
 
-To store your validation rules, simply create a new public property in the ``Config\Validation``
-class with the name of your group. This element will hold an array with your validation
-rules. As shown earlier, the validation array will have this prototype::
+要存储你的验证规则，只需在 ``Config\Validation`` 类中使用 group 名创建一个新的公共属性，
+该元素将包含你的验证规则数组。验证规则数组的原型如下所示：
+::
 
     class Validation
     {
@@ -331,13 +305,14 @@ rules. As shown earlier, the validation array will have this prototype::
         ];
     }
 
-You can specify the group to use when you call the ``run()`` method::
+你可以在调用 ``run()`` 方法时指定要使用的组：
+::
 
     $validation->run($data, 'signup');
 
-You can also store custom error messages in this configuration file by naming the
-property the same as the group, and appended with ``_errors``. These will automatically
-be used for any errors when this group is used::
+你也可以将自定义错误消息存储在配置文件中，属性名称与组名相同并添加 ``_errors``。
+当使用该组时，默认的错误消息将被替换：
+::
 
     class Validation
     {
@@ -358,7 +333,8 @@ be used for any errors when this group is used::
         ];
     }
 
-Or pass all settings in an array::
+或者在组中传递所有的设置：
+::
 
     class Validation
     {
@@ -378,34 +354,35 @@ Or pass all settings in an array::
         ];
     }
 
-See below for details on the formatting of the array.
+有关数组格式的详细信息请查看下文。
 
-Getting & Setting Rule Groups
+获取与设置规则组
 -------------------------------------------------------
 
-**Get Rule Group**
+**获取规则组**
 
-This method gets a rule group from the validation configuration::
+该方法从验证配置中获取规则组：
+::
 
     $validation->getRuleGroup('signup');
 
-**Set Rule Group**
+**设置规则组**
 
-This method sets a rule group from the validation configuration to the validation service::
+该方法设置将规则组从验证配置设置到验证服务：
+::
 
     $validation->setRuleGroup('signup');
 
-Running Multiple Validations
+运行多个 Validation
 =======================================================
 
-.. note:: ``run()`` method will not reset error state. Should a previous run fail,
-   ``run()`` will always return false and ``getErrors()`` will return
-   all previous errors until explicitly reset.
+.. note:: ``run()`` 方法不会重置错误状态。如果上次运行失败，``run()`` 方法将始终返回 false ，
+   ``getErrors()`` 方法将始终返回上次的所有错误，直至状态被显式重置。
 
-If you intend to run multiple validations, for instance on different data sets or with different
-rules after one another, you might need to call ``$validation->reset()`` before each run to get rid of
-errors from previous run. Be aware that ``reset()`` will invalidate any data, rule or custom error
-you previously set, so ``setRules()``, ``setRuleGroup()`` etc. need to be repeated::
+如果需要运行多个验证，例如在不同的数据集上运行或者一个接一个的运行不同的规则，你应该在每次运行前
+调用 ``$validation->reset()`` 清除上次运行产生的错误。需要注意的是 ``reset()`` 将重置之前的所有数据、规则
+或是自定义错误消息。所以需要重复 ``setRules()``，``setRuleGroup()`` 等方法：
+::
 
     for ($userAccounts as $user) {
         $validation->reset();
@@ -415,59 +392,60 @@ you previously set, so ``setRules()``, ``setRuleGroup()`` etc. need to be repeat
         }
     }
 
-Validation Placeholders
+Validation 占位符
 =======================================================
 
-The Validation class provides a simple method to replace parts of your rules based on data that's being passed into it. This
-sounds fairly obscure but can be especially handy with the ``is_unique`` validation rule. Placeholders are simply
-the name of the field (or array key) that was passed in as $data surrounded by curly brackets. It will be
-replaced by the **value** of the matched incoming field. An example should clarify this::
+Validation 类提供了一个简单的方法，可以根据传入的数据替换部分规则。这听起来十分晦涩，但在使用 ``is_unique`` 进行验证时
+十分方便。 占位符是字段的名称（或数组的键），该字段名称（或数组的键）将用花括号包起来作为 $data 传入。它将被替换为匹配的
+传入字段的 **值**。 以下例子可以解释这些：
+::
 
     $validation->setRules([
         'email' => 'required|valid_email|is_unique[users.email,id,{id}]'
     ]);
 
-In this set of rules, it states that the email address should be unique in the database, except for the row
-that has an id matching the placeholder's value. Assuming that the form POST data had the following::
+在这组规则中，它声明 email 在数据库中是唯一的，除了具有与占位符匹配的 id 信息，
+假设表单 POST 数据中有以下内容：
+::
 
     $_POST = [
         'id' => 4,
         'email' => 'foo@example.com'
     ];
 
-then the ``{id}`` placeholder would be replaced with the number **4**, giving this revised rule::
+那么占位符 ``{id}`` 将被修改为数字 **4**，以下是修改后的规则：
+::
 
     $validation->setRules([
         'email' => 'required|valid_email|is_unique[users.email,id,4]'
     ]);
 
-So it will ignore the row in the database that has ``id=4`` when it verifies the email is unique.
+因此，在验证 email 唯一时，将忽略数据库中 ``id=4`` 的行。
 
-This can also be used to create more dynamic rules at runtime, as long as you take care that any dynamic
-keys passed in don't conflict with your form data.
+这也可以用于在运行时动态创建更多的规则，只要你确保传入的任何动态键都不会与表单
+数据产生冲突。
 
-Working With Errors
+处理错误
 ************************************************
 
-The Validation library provides several methods to help you set error messages, provide
-custom error messages, and retrieve one or more errors to display.
+Validation 库提供了几种方法帮助你设置错误消息，提供自定义错误消息，以及显示一个
+或多个错误消息。
 
-By default, error messages are derived from language strings in ``system/Language/en/Validation.php``, where
-each rule has an entry.
+默认情况下，错误消息来自 ``system/Language/en/Validation.php`` 中的语言字符串，
+其中每个规则都有一个条目。 
 
 .. _validation-custom-errors:
 
-Setting Custom Error Messages
+设置自定义错误消息
 =============================
 
-Both the ``setRule()`` and ``setRules()`` methods can accept an array of custom messages
-that will be used as errors specific to each field as their last parameter. This allows
-for a very pleasant experience for the user since the errors are tailored to each
-instance. If not custom error message is provided, the default value will be used.
+``setRule()`` 和 ``setRules()`` 允许自定义错误消息数据作为最后一个参数传入。每一个错误的
+错误消息都是定制的，这将带来愉快的用户体验。如果没有设置自定义错误消息，则提供默认值。
 
-These are two ways to provide custom error messages.
+这是两种设置错误消息的方式。
 
-As the last parameter::
+作为最后一个参数：
+::
 
     $validation->setRules([
             'username' => 'required|is_unique[users.username]',
@@ -483,7 +461,8 @@ As the last parameter::
         ]
     );
 
-Or as a labeled style::
+或者作为标签样式：
+::
 
     $validation->setRules([
             'username' => [
@@ -503,22 +482,23 @@ Or as a labeled style::
         ]
     );
 
-If you’d like to include a field’s “human” name, or the optional parameter some rules allow for (such as max_length),
-or the value that was validated you can add the ``{field}``, ``{param}`` and ``{value}`` tags to your message, respectively::
+如果你希望包含字段的“human”名称，或者某些规则允许的可选参数 (比如 max_length)，或当前参与验证的值，
+则可以分别将 ``{field}``，``{param}``，``{value}`` 标记添加到你的消息中：
+::
 
     'min_length' => 'Supplied value ({value}) for {field} must have at least {param} characters.'
 
-On a field with the human name Username and a rule of min_length[6] with a value of “Pizza”, an error would display: “Supplied value (Pizza) for Username must have
-at least 6 characters.”
+在一个用户名字段为 Username ，验证规则为 min_length[6] ，字段值为 “Pizza” 的验证中，将显示错误消息
+“Supplied value (Pizza) for Username must have at least 6 characters”
 
-.. note:: If you pass the last parameter the labeled style error messages will be ignored.
+.. note:: 如果你传递最后一个参数，则标签样式的错误信息将被忽略。
 
-Translation Of Messages And Validation Labels
+消息和验证标签的翻译
 =============================================
 
-To use translated strings from language files, we can simply use the dot syntax.
-Let's say we have a file with translations located here: ``app/Languages/en/Rules.php``.
-We can simply use the language lines defined in this file, like this::
+要使用语言文件中的翻译字符串，可以简单的使用点语法。假设我们有一个包含翻译的文件位
+于 ``app/Languages/en/Rules.php``。我们可以简单的使用定义在文件中的语言行，如下：
+::
 
     $validation->setRules([
             'username' => [
@@ -538,10 +518,11 @@ We can simply use the language lines defined in this file, like this::
         ]
     );
 
-Getting All Errors
+获取所有错误
 ==================
 
-If you need to retrieve all error messages for failed fields, you can use the ``getErrors()`` method::
+如果你需要检索所有验证失败字段的错误消息，你可以使用 ``getErrors()`` 方法：
+::
 
     $errors = $validation->getErrors();
 
@@ -551,41 +532,42 @@ If you need to retrieve all error messages for failed fields, you can use the ``
         'field2' => 'error message',
     ]
 
-If no errors exist, an empty array will be returned.
+如果没有错误，则返回空数组。
 
-Getting a Single Error
+获取单个错误
 ======================
 
-You can retrieve the error for a single field with the ``getError()`` method. The only parameter is the field
-name::
+你可以使用 ``getError()`` 方法检索单个字段的错误消息。参数名是唯一的参数：
+::
 
     $error = $validation->getError('username');
 
-If no error exists, an empty string will be returned.
+如果没有错误，则返回空字符串。
 
-Check If Error Exists
+检查是否存在错误
 =====================
 
-You can check to see if an error exists with the ``hasError()`` method. The only parameter is the field name::
+你可以使用 ``hasError()`` 方法检查字段是否存在错误。字段名是唯一的参数：
+::
 
     if ($validation->hasError('username'))
     {
         echo $validation->getError('username');
     }
 
-Customizing Error Display
+自定义错误显示
 ************************************************
 
-When you call ``$validation->listErrors()`` or ``$validation->showError()``, it loads a view file in the background
-that determines how the errors are displayed. By default, they display with a class of ``errors`` on the wrapping div.
-You can easily create new views and use them throughout your application.
+当你调用 ``$validation->listErrors()`` 或 ``$validation->showError()`` ，它将在后台加载一个视图文件，
+该文件确定错误的显示方法。默认情况下，它在经过包装的 div 上显示 ``errors`` 。你可以轻松的创建视图并在整个程序
+中使用它。
 
-Creating the Views
+创建视图
 ==================
 
-The first step is to create custom views. These can be placed anywhere that the ``view()`` method can locate them,
-which means the standard View directory, or any namespaced View folder will work. For example, you could create
-a new view at **/app/Views/_errors_list.php**::
+第一步是创建视图文件，它可以放在 ``view()`` 方法可以加载的任何地方。这意味着标准的 View 目录，或者任何命名空间
+下的 View 目录都可以正常工作。例如，可以在  **/app/Views/_errors_list.php** 创建新的视图文件：
+::
 
     <div class="alert alert-danger" role="alert">
         <ul>
@@ -595,26 +577,26 @@ a new view at **/app/Views/_errors_list.php**::
         </ul>
     </div>
 
-An array named ``$errors`` is available within the view that contains a list of the errors, where the key is
-the name of the field that had the error, and the value is the error message, like this::
+``$errors`` 数组可以在包含错误列表的视图中使用，其中键是发生错误的字段名，值是错误消息，如下所示：
+::
 
     $errors = [
         'username' => 'The username field must be unique.',
         'email'    => 'You must provide a valid email address.'
     ];
 
-There are actually two types of views that you can create. The first has an array of all of the errors, and is what
-we just looked at. The other type is simpler, and only contains a single variable, ``$error`` that contains the
-error message. This is used with the ``showError()`` method where a field must be specified::
+实际上可以创建两种类型的视图文件。第一种包含所有错误消息，这就是我们刚才看到的。另一种更简单，只包含一个错误消息变量 ``$error``。
+它与指定字段名的 ``showError()`` 方法一起使用。
+::
 
     <span class="help-block"><?= esc($error) ?></span>
 
-Configuration
+配置
 =============
 
-Once you have your views created, you need to let the Validation library know about them. Open ``Config/Validation.php``.
-Inside, you'll find the ``$templates`` property where you can list as many custom views as you want, and provide an
-short alias they can be referenced by. If we were to add our example file from above, it would look something like::
+创建视图后，需要让 Validation 库知道它们。 打开 ``Config/Validation.php``，在里面找到 ``$templates`` 属性。
+你可以在其中列出任意多个自定义视图，并提供一个可以引用他们的短别名。我们将添加上边的示例文件，它看起来像：
+::
 
     public $templates = [
         'list'    => 'CodeIgniter\Validation\Views\list',
@@ -622,24 +604,25 @@ short alias they can be referenced by. If we were to add our example file from a
         'my_list' => '_errors_list'
     ];
 
-Specifying the Template
+指定模板
 =======================
 
-You can specify the template to use by passing it's alias as the first parameter in ``listErrors``::
+通过将别名作为 ``listErrors`` 方法的第一个参数，来指定要使用的模板：
+::
 
     <?= $validation->listErrors('my_list') ?>
 
-When showing field-specific errors, you can pass the alias as the second parameter to the ``showError`` method,
-right after the name of the field the error should belong to::
+当显示特定字段错误时，你可以将别名作为第二个参数传递给 ``showError`` 方法，别名参数应该在字段名称之后：
+::
 
     <?= $validation->showError('username', 'my_single') ?>
 
-Creating Custom Rules
+创建自定义规则
 ************************************************
 
-Rules are stored within simple, namespaced classes. They can be stored any location you would like, as long as the
-autoloader can find it. These files are called RuleSets. To add a new RuleSet, edit **Config/Validation.php** and
-add the new file to the ``$ruleSets`` array::
+规则简单的存储在命名空间类中。只要自动加载器能找到它们，你可将他们存储到任何位置。这些文件称作规则集。要添加新的规则集，
+请编辑 **Config/Validation.php** 并将新文件添加到 ``$ruleSets`` 数组：
+::
 
     public $ruleSets = [
         \CodeIgniter\Validation\Rules::class,
@@ -647,11 +630,12 @@ add the new file to the ``$ruleSets`` array::
         \CodeIgniter\Validation\CreditCardRules::class,
     ];
 
-You can add it as either a simple string with the fully qualified class name, or using the ``::class`` suffix as
-shown above. The primary benefit here is that it provides some extra navigation capabilities in more advanced IDEs.
+你可以将其添加为具有完全限定类的简单字符串，或者使用 ``::class`` 后缀进行添加。如上所示，这里的好处是，它在更高级的 IED 
+中提供了额外的一些导航功能。
 
-Within the file itself, each method is a rule and must accept a string as the first parameter, and must return
-a boolean true or false value signifying true if it passed the test or false if it did not::
+在文件中，每一个方法都是一个规则，它必须接受字符串作为第一个字符串，并且必须返回布尔值 true 或 false 。如果通过测试则返回
+true ，否则返回 false 。
+::
 
     class MyRules
     {
@@ -661,9 +645,9 @@ a boolean true or false value signifying true if it passed the test or false if 
         }
     }
 
-By default, the system will look within ``CodeIgniter\Language\en\Validation.php`` for the language strings used
-within errors. In custom rules, you may provide error messages by accepting a $error variable by reference in the
-second parameter::
+默认情况下，系统将在 ``CodeIgniter\Language\en\Validation.php`` 中查找错误要使用语言字符串。在自定义规则中，你可以通过第二个参数 $error 的引用来
+提供错误消息：
+::
 
     public function even(string $str, string &$error = null): bool
     {
@@ -676,18 +660,19 @@ second parameter::
         return true;
     }
 
-Your new custom rule could now be used just like any other rule::
+现在你可像其他规则一样使用新的自定义规则：
+::
 
     $this->validate($request, [
         'foo' => 'required|even'
     ]);
 
-Allowing Parameters
+允许参数
 ===================
 
-If your method needs to work with parameters, the function will need a minimum of three parameters: the string to validate,
-the parameter string, and an array with all of the data that was submitted the form. The $data array is especially handy
-for rules like ``require_with`` that needs to check the value of another submitted field to base its result on::
+如果你的方法需要使用参数，则该函数至少需要三个参数：要验证的字符串、参数字符串以及包含提交表单所有数据的数组。
+$data 数组对于像 require_with 这样需要检查另一个提交字段的值作为其结果基础的规则来说十分方便：
+::
 
     public function required_with($str, string $fields, array $data): bool
     {
@@ -725,15 +710,15 @@ for rules like ``require_with`` that needs to check the value of another submitt
         return empty($requiredFields);
     }
 
-Custom errors can be returned as the fourth parameter, just as described above.
+自定义错误可以通过第四个参数传递，如上所述。
 
-Available Rules
+可用规则
 ***************
 
-The following is a list of all the native rules that are available to use:
+以下是可供使用的所有本地规则的列表：
 
-.. note:: Rule is a string; there must be **no spaces** between the parameters, especially the ``is_unique`` rule.
-    There can be no spaces before and after ``ignore_value``.
+.. note:: 规则是一个字符串；参数之间 **不能有空格**，尤其是 ``is_unique`` 规则。
+   ``ignore_value`` 前后不能有空格。
 
 ::
 
@@ -808,13 +793,14 @@ valid_cc_number         Yes         Verifies that the credit card number matches
                                     HSBC Canada Card (hsbc)
 ======================= =========== =============================================================================================== ===================================================
 
-Rules for File Uploads
+文件上传规则
 ======================
 
-These validation rules enable you to do the basic checks you might need to verify that uploaded files meet your business needs.
-Since the value of a file upload HTML field doesn't exist, and is stored in the $_FILES global, the name of the input field will
-need to be used twice. Once to specify the field name as you would for any other rule, but again as the first parameter of all
-file upload related rules::
+这些验证规则可以让你进行基本的检查，验证上传的文件是否满足你的业务需求。
+由于文件上传字段在 HTML 字段中不存在，并且存储在 $_FILES 全局变量中，
+因此字段名需要输入两次，第一个用于指定验证的字段，像其他规则一样，第二次
+作为所有文件上传规则的第一个参数：
+::
 
     // In the HTML
     <input type="file" name="avatar">
@@ -838,8 +824,7 @@ ext_in                  Yes         Fails if the file's extension is not one lis
 is_image                Yes         Fails if the file cannot be determined to be an image based on the mime type.                   is_image[field_name]
 ======================= =========== =============================================================================================== ========================================
 
-The file validation rules apply for both single and multiple file uploads.
+文件验证规则适用于单个和多个文件上传。
 
-.. note:: You can also use any native PHP functions that permit up
-    to two parameters, where at least one is required (to pass
-    the field data).
+.. note:: 你也可以使用任何最多允许两个参数的本地 PHP 函数，
+    其中至少需要一个参数（传递字段数据）。
