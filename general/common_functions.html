@@ -530,18 +530,18 @@
 <p>提供了一个简易的方式，在表单提交时访问 “原有的输入数据”。</p>
 <p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在控制器中查看表单提交</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$user</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// &#39;withInput&#39;方法意味着&quot;原有的数据&quot;需要被存储。</span>
+    <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">withInput</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// 视图中</span>
+<span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&lt;?= old(&#39;email&#39;) ?&gt;&quot;</span><span class="o">&gt;</span>
+<span class="c1">// 以数组的形式</span>
+<span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;user[email]&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&lt;?= old(&#39;user.email&#39;) ?&gt;&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>if (! $model-&gt;save($user))
-{</p>
-<blockquote>
-<div>// ‘withInput’方法意味着”原有的数据”需要被存储。
-return redirect()-&gt;back()-&gt;withInput();</div></blockquote>
-<p>}</p>
-<p>// 视图中
-&lt;input type=”email” name=”email” value=”&lt;?= old(‘email’) ?&gt;”&gt;
-// 以数组的形式
-&lt;input type=”email” name=”user[email]” value=”&lt;?= old(‘user.email’) ?&gt;”&gt;</p>
 </dd></dl>
 
 <div class="admonition note">
