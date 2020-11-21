@@ -375,50 +375,44 @@
 </div>
 <div class="section" id="id3">
 <h2>创建迁移<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>这将是新博客站点的首次迁移。所有迁移都在**application/Database/Migrations/** 目录中，并命名，如*20121031100537_Add_blog.php*。</p>
-<blockquote>
-<div><p>&lt;?php namespace AppDatabaseMigrations;</p>
-<p>class Migration_Add_blog extends CodeIgniterDatabaseMigration {</p>
-<blockquote>
-<div><p>public function up()
-{</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>$this-&gt;forge-&gt;addField([</dt>
-<dd><dl class="first docutils">
-<dt>‘blog_id’          =&gt; [</dt>
-<dd>‘type’           =&gt; ‘INT’,
-‘constraint’     =&gt; 5,
-‘unsigned’       =&gt; TRUE,
-‘auto_increment’ =&gt; TRUE</dd>
-</dl>
-<p>],
-‘blog_title’       =&gt; [</p>
-<blockquote>
-<div>‘type’           =&gt; ‘VARCHAR’,
-‘constraint’     =&gt; ‘100’,</div></blockquote>
-<p>],
-‘blog_description’ =&gt; [</p>
-<blockquote>
-<div>‘type’           =&gt; ‘TEXT’,
-‘null’           =&gt; TRUE,</div></blockquote>
-<p class="last">],</p>
-</dd>
-</dl>
-<p>]);
-$this-&gt;forge-&gt;addKey(‘blog_id’, TRUE);
-$this-&gt;forge-&gt;createTable(‘blog’);</p>
-</div></blockquote>
-<p>}</p>
-<p>public function down()
-{</p>
-<blockquote>
-<div>$this-&gt;forge-&gt;dropTable(‘blog’);</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>然后在**application/Config/Migrations.php**中设置$currentVersion = 20121031100537;。</p>
+<p>这将是新博客站点的首次迁移。所有迁移都在 <strong>application/Database/Migrations/</strong> 目录中，并命名，如 <em>20121031100537_Add_blog.php</em>。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Database\Migrations</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Database\Migration</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">AddBlog</span> <span class="k">extends</span> <span class="nx">Migration</span>
+<span class="p">{</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">([</span>
+                        <span class="s1">&#39;blog_id&#39;</span>          <span class="o">=&gt;</span> <span class="p">[</span>
+                                <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;INT&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;constraint&#39;</span>     <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+                                <span class="s1">&#39;unsigned&#39;</span>       <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+                                <span class="s1">&#39;auto_increment&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+                        <span class="p">],</span>
+                        <span class="s1">&#39;blog_title&#39;</span>       <span class="o">=&gt;</span> <span class="p">[</span>
+                                <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;constraint&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
+                        <span class="p">],</span>
+                        <span class="s1">&#39;blog_description&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                                <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;null&#39;</span>           <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+                        <span class="p">],</span>
+                <span class="p">]);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">dropTable</span><span class="p">(</span><span class="s1">&#39;blog&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>然后在 <strong>application/Config/Migrations.php</strong> 中设置 $currentVersion = 20121031100537;。</p>
 <p>数据库连接和数据库Forge类都可以通过 $this-&gt;db和$this-&gt;forge分别使用。</p>
 <p>或者，你可以使用命令行调用来生成框架迁移文件。请参阅下面的更多细节。</p>
 </div>
@@ -428,104 +422,83 @@ $this-&gt;forge-&gt;createTable(‘blog’);</p>
 </div>
 <div class="section" id="id4">
 <h2>数据库组<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<p>只能针对单个数据库组运行迁移。如果**在application/Config/Database.php**中定义了多个组 ，则它将针对该$defaultGroup同一配置文件中指定的组运行。有时你可能需要为不同的数据库组使用不同的模式。也许你有一个用于所有常规站点信息的数据库，而另一个数据库用于关键任务数据。通过$DBGroup在迁移上设置属性，可以确保仅针对正确的组运行迁移。此名称必须与数据库组的名称完全匹配：</p>
-<blockquote>
-<div><p>class Migration_Add_blog extends CodeIgniterDatabaseMigration
-{</p>
-<blockquote>
-<div><p>protected $DBGroup = ‘alternate_db_group’;</p>
-<p>public function up() { … }</p>
-<p>public function down() { … }</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<p>只能针对单个数据库组运行迁移。如果 <strong>在application/Config/Database.php</strong> 中定义了多个组 ，则它将针对该$defaultGroup同一配置文件中指定的组运行。有时你可能需要为不同的数据库组使用不同的模式。也许你有一个用于所有常规站点信息的数据库，而另一个数据库用于关键任务数据。通过$DBGroup在迁移上设置属性，可以确保仅针对正确的组运行迁移。此名称必须与数据库组的名称完全匹配:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Migration_Add_blog</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Database\Migration</span>
+<span class="p">{</span>
+  <span class="k">protected</span> <span class="nv">$DBGroup</span> <span class="o">=</span> <span class="s1">&#39;alternate_db_group&#39;</span><span class="p">;</span>
+
+  <span class="k">public</span> <span class="k">function</span> <span class="nf">up</span><span class="p">()</span> <span class="p">{</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">}</span>
+
+  <span class="k">public</span> <span class="k">function</span> <span class="nf">down</span><span class="p">()</span> <span class="p">{</span> <span class="o">.</span> <span class="o">.</span> <span class="o">.</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id5">
 <h2>命名空间<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
-<p>迁移库可以自动扫描你在**application/Config/Autoload.php**中定义的所有名称空间 及其$psr4属性以匹配目录名称。它将包括它在Database/Migrations中找到的所有迁移。</p>
+<p>迁移库可以自动扫描你在 <strong>application/Config/Autoload.php</strong> 中定义的所有名称空间 及其$psr4属性以匹配目录名称。它将包括它在Database/Migrations中找到的所有迁移。</p>
 <p>每个命名空间都有自己的版本序列，这将帮助您升级和降级每个模块（命名空间），而不会影响其他命名空间。</p>
-<p>例如，假设我们在Autoload配置文件中定义了以下命名空间：</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>$psr4 = [</dt>
-<dd>‘App’       =&gt; APPPATH,
-‘MyCompany’ =&gt; ROOTPATH.’MyCompany’</dd>
-</dl>
-<p>];</p>
-</div></blockquote>
+<p>例如，假设我们在Autoload配置文件中定义了以下命名空间:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$psr4</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;App&#39;</span>       <span class="o">=&gt;</span> <span class="nx">APPPATH</span><span class="p">,</span>
+        <span class="s1">&#39;MyCompany&#39;</span> <span class="o">=&gt;</span> <span class="nx">ROOTPATH</span><span class="o">.</span><span class="s1">&#39;MyCompany&#39;</span>
+<span class="p">];</span>
+</pre></div>
+</div>
 <p>这将查找位于**APPPATH/Database/Migrations**和**ROOTPATH/Database/Migrations**的任何迁移。这使得在可重用的模块化代码套件中包含迁移变得简单。</p>
 </div>
 <div class="section" id="id6">
 <h2>用法示例<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
-<p>在此示例中，一些简单的代码放在**application/Controllers/Migrate.php**中以更新架构：</p>
-<blockquote>
-<div><p>&lt;?php</p>
-<p>class Migrate extends CodeIgniterController
-{</p>
-<blockquote>
-<div><p>public function index()
-{</p>
-<blockquote>
-<div><p>$migrate = ConfigServices::migrations();</p>
-<p>try
-{
-$migrate-&gt;current();
-}
-catch (Exception $e)
-{</p>
-<blockquote>
-<div>// Do something with the error here…</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
+<p>在此示例中，一些简单的代码放在 <strong>application/Controllers/Migrate.php</strong> 中以更新架构:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">class</span> <span class="nc">Migrate</span> <span class="k">extends</span> <span class="nx">\CodeIgniter\Controller</span>
+<span class="p">{</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+        <span class="p">{</span>
+                <span class="nv">$migrate</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">migrations</span><span class="p">();</span>
+
+                <span class="k">try</span>
+                <span class="p">{</span>
+                <span class="nv">$migrate</span><span class="o">-&gt;</span><span class="na">current</span><span class="p">();</span>
+                <span class="p">}</span>
+                <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span>
+                <span class="p">{</span>
+                  <span class="c1">// Do something with the error here...</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id7">
 <h2>命令行工具<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>CodeIgniter附带了几个:doc:<cite>commands &lt;/cli/cli_commands&gt;</cite>，它们可以从命令行获得，以帮助你处理迁移。这些工具不需要使用迁移，但可能会使那些希望使用它们的人更容易。这些工具主要提供对MigrationRunner类中可用的相同方法的访问。</p>
-<p><strong>latest</strong></p>
-<p>将所有数据库组迁移到最新的可用迁移：</p>
-<blockquote>
-<div>&gt; php spark migrate:latest</div></blockquote>
-<p>你可以使用（latest）以下选项：</p>
+<p><strong>migrate</strong></p>
+<p>Migrates a database group with all available migrations:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span>
+</pre></div>
+</div>
+<p>You can use (migrate) with the following options:</p>
 <ul class="simple">
-<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
-<li>（-n）选择名称空间，否则将使用（App）名称空间。</li>
-<li>（all）将所有名称空间迁移到最新的迁移</li>
+<li><code class="docutils literal notranslate"><span class="pre">-g</span></code> - to chose database group, otherwise default database group will be used.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-n</span></code> - to choose namespace, otherwise (App) namespace will be used.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-all</span></code> - to migrate all namespaces to the latest migration</li>
 </ul>
-<p>此示例将Blog名称空间迁移到latest：</p>
-<blockquote>
-<div>&gt; php spark migrate:latest -g test -n Blog</div></blockquote>
-<p><strong>current</strong></p>
-<p>迁移（App）命名空间以匹配中设置的版本$currentVersion。这将根据需要上下移动以匹配指定的版本：</p>
-<blockquote>
-<div>&gt; php spark migrate:current</div></blockquote>
-<p>你可以使用（current）以下选项：</p>
-<ul class="simple">
-<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
-</ul>
-<p><strong>version</strong></p>
-<p>迁移到指定的版本。如果未提供任何版本，系统将提示你输入该版本。</p>
-<blockquote>
-<div><p>// Asks you for the version…
-&gt; php spark migrate:version
-&gt; Version:</p>
-<p>// Sequential
-&gt; php spark migrate:version 007</p>
-<p>// Timestamp
-&gt; php spark migrate:version 20161426211300</p>
-</div></blockquote>
-<p>你可以使用（version）以下选项：</p>
-<ul class="simple">
-<li>（-g）选择数据库组，否则将使用默认数据库组。</li>
-<li>（-n）选择名称空间，否则将使用（App）名称空间。</li>
-</ul>
+<p>This example will migrate Blog namespace with any new migrations on the test database group:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span> <span class="o">-</span><span class="nx">g</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">n</span> <span class="nx">Blog</span>
+</pre></div>
+</div>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">-all</span></code> option, it will scan through all namespaces attempting to find any migrations that have
+not been run. These will all be collected and then sorted as a group by date created. This should help
+to minimize any potential conflicts between the main application and any modules.</p>
 <p><strong>rollback</strong></p>
-<p>回滚所有迁移，将所有数据库组转为空白平板，有效迁移0：</p>
-<blockquote>
-<div>&gt; php spark migrate:rollback</div></blockquote>
+<p>回滚所有迁移，将所有数据库组转为空白平板，有效迁移0:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">rollback</span>
+</pre></div>
+</div>
 <p>你可以使用（rollback）以下选项：</p>
 <ul class="simple">
 <li>（-g）选择数据库组，否则将使用默认数据库组。</li>
@@ -533,9 +506,10 @@ catch (Exception $e)
 <li>（all）将所有名称空间迁移到最新的迁移</li>
 </ul>
 <p><strong>refresh</strong></p>
-<p>首先回滚所有迁移，然后迁移到最新版本，刷新数据库状态：</p>
-<blockquote>
-<div>&gt; php spark migrate:refresh</div></blockquote>
+<p>首先回滚所有迁移，然后迁移到最新版本，刷新数据库状态:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">refresh</span>
+</pre></div>
+</div>
 <p>你可以使用（refresh）以下选项：</p>
 <ul class="simple">
 <li>（-g）选择数据库组，否则将使用默认数据库组。</li>
@@ -543,37 +517,67 @@ catch (Exception $e)
 <li>（all）将所有名称空间迁移到最新的迁移</li>
 </ul>
 <p><strong>status</strong></p>
-<p>显示所有迁移的列表及其运行的日期和时间，如果尚未运行，则显示’–’：</p>
-<blockquote>
-<div>&gt; php spark migrate:status
-Filename               Migrated On
-First_migration.php    2016-04-25 04:44:22</div></blockquote>
+<p>显示所有迁移的列表及其运行的日期和时间，如果尚未运行，则显示’–’:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">status</span>
+<span class="nx">Filename</span>               <span class="nx">Migrated</span> <span class="nx">On</span>
+<span class="nx">First_migration</span><span class="o">.</span><span class="nx">php</span>    <span class="mi">2016</span><span class="o">-</span><span class="mo">04</span><span class="o">-</span><span class="mi">25</span> <span class="mo">04</span><span class="o">:</span><span class="mi">44</span><span class="o">:</span><span class="mi">22</span>
+</pre></div>
+</div>
 <p>你可以使用（status）以下选项：</p>
 <ul class="simple">
 <li>（-g）选择数据库组，否则将使用默认数据库组。</li>
 </ul>
-<p><strong>create</strong></p>
-<p>使用时间戳格式在application/Database/Migrations中创建框架迁移文件：</p>
-<blockquote>
-<div>&gt; php spark migrate:create [filename]</div></blockquote>
-<p>你可以使用（create）以下选项：</p>
+<p><strong>make:migration</strong></p>
+<p>Creates a skeleton migration file in <strong>app/Database/Migrations</strong>.
+It automatically prepends the current timestamp. The class name it
+creates is the Pascal case version of the filename.</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">make</span><span class="o">:</span><span class="nx">migration</span> <span class="o">&lt;</span><span class="nx">class</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">options</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can use (make:migration) with the following options:</p>
 <ul class="simple">
-<li>（-n）选择名称空间，否则将使用（App）名称空间。</li>
+<li><code class="docutils literal notranslate"><span class="pre">-n</span></code> - to choose namespace, otherwise the value of <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> will be used.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-force</span></code> - If a similarly named migration file is present in destination, this will be overwritten.</li>
 </ul>
 </div>
 <div class="section" id="id8">
 <h2>迁移参数<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
-<p>以下是**application/Config/Migrations.php**中提供的所有迁移配置选项的表。</p>
-<p><strong>参数</strong> | <strong>默认值</strong> | <strong>可选项</strong> | <strong>描述</strong>
-—<a href="#id12"><span class="problematic" id="id13">|---|</span></a>—<a href="#id9"><span class="problematic" id="id10">|</span></a>—
-<strong>enabled</strong> | FALSE | TRUE/FALSE | 启用或者禁用迁移
-<strong>path</strong> | ‘Datebase/Migrations/’ | None | 迁移文件夹的路径
-<strong>currentVersion</strong> | 0 | None | 数据库所使用的当前版本
-<strong>table</strong> | migrations | None | 用于存储当前版本的数据库表名
-<strong>type</strong> | ‘timestamp’ | ‘timestamp’/’sequential’ | 用于命名迁移文件的数字标识符的类型</p>
+<p>以下是 <strong>app/Config/Migrations.php</strong> 中提供的所有迁移配置选项的表。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="16%" />
+<col width="19%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">参数</th>
+<th class="head">默认值</th>
+<th class="head">可选项</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>enabled</strong></td>
+<td>true</td>
+<td>true / false</td>
+<td>启用或者禁用迁移</td>
+</tr>
+<tr class="row-odd"><td><strong>table</strong></td>
+<td>migrations</td>
+<td>None</td>
+<td>用于存储当前版本的数据库表名</td>
+</tr>
+<tr class="row-even"><td><strong>timestampFormat</strong></td>
+<td>Y-m-d-His_</td>
+<td>&#160;</td>
+<td>The format to use for timestamps when creating a migration.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="section" id="id11">
-<h2>类参考<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id9">
+<h2>类参考<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
 <blockquote>
 <div><dl class="class">
 <dt id="CodeIgniterDatabaseMigrationRunner">
