@@ -144,7 +144,7 @@ Config files are automatically discovered whenever using the **config()** functi
     > php public/index.php migrations seed Acme\\Blog\\Database\\Seeds\\TestPostSeeder
 
 辅助函数
-=======
+==========
 
 当使用 ``helper()`` 方法时，辅助函数将会通过定义的命名空间自动定位。只要它存在于 **Helpers** 命名空间目录下::
 
