@@ -89,8 +89,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 	返回最近被浏览过的页面的正确的 URL (包括程序段)。
 
-	.. note:: 引用下面的函数是同样的:
-	::
+	.. note:: 引用下面的函数是同样的::
 
 		base_url(uri_string());
 
@@ -148,8 +147,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	第一个参数能包含任意你希望应用到 URL 的程序段。
 	如同上文用 :php:func:`site_url()` 函数，程序段可以是 string 或者 array.
 	
-	.. note:: 如果你正在构造的链接对于你的应用是内部的则不包含基地址 URL (http://...).
-	在你的配置文件里函数将会明确说明的从信息里被自动添加。你希望附加到的 URL 仅仅包含 URI 的程序段。
+	.. note:: 如果你正在构造的链接对于你的应用是内部的则不包含基地址 URL (http://...).在你的配置文件里函数将会明确说明的从信息里被自动添加。你希望附加到的 URL 仅仅包含 URI 的程序段。
 
 	第二参数是你想要链接表达的正文。如果你留下第二个程序为空，URL 将会被应用。
 
@@ -209,9 +207,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 		echo anchor_popup('news/local/123', 'Click Me!', []);
 
-	.. note::  **window_name** 不是真实的属性，但是对于 JavaScript 
-	        争论 `window.open()  <http://www.w3schools.com/jsref/met_win_open.asp>`_ 方法，
-		它接受任何一方的窗口名或者窗口目标。
+	.. note::  **window_name** 不是真实的属性，但是对于 JavaScript 争论 `window.open()  <http://www.w3schools.com/jsref/met_win_open.asp>`_ 方法，它接受任何一方的窗口名或者窗口目标。
 
 	.. note:: 任何超过上文列表的其他属性将会被分列就像 HTML 属性对于锚定 tag.
 	       如同上文描述的，你也许可以明确说明更替配置。
