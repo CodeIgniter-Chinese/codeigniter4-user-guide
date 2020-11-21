@@ -204,6 +204,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	We use this for unit testing the framework itself.
     
 	.. note:: 上文属性是默认函数因此你仅仅需要去设置哪些个不同于你需要的属性。在第三个参数里如果你想要函数去简单地通过空数组使用所有它的默认值:
+
 	::
 		echo anchor_popup('news/local/123', 'Click Me!', []);
 
