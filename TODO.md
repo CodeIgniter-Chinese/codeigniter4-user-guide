@@ -28,69 +28,6 @@
          原文: [source/extending/core_classes.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/extending/core_classes.rst)
 1. - [ ] 译文: [source/extending/events.rst](source/extending/events.rst)
          原文: [source/extending/events.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/extending/events.rst)
-1. - [x] 译文: [source/general/ajax.rst](source/general/ajax.rst)
-         原文: [source/general/ajax.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/ajax.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/caching.rst](source/general/caching.rst)
-         原文: [source/general/caching.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/caching.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/common_functions.rst](source/general/common_functions.rst)
-         原文: [source/general/common_functions.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/common_functions.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/configuration.rst](source/general/configuration.rst)
-         原文: [source/general/configuration.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/configuration.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/environments.rst](source/general/environments.rst)
-         原文: [source/general/environments.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/environments.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/errors.rst](source/general/errors.rst)
-         原文: [source/general/errors.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/errors.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/helpers.rst](source/general/helpers.rst)
-         原文: [source/general/helpers.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/helpers.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/logging.rst](source/general/logging.rst)
-         原文: [source/general/logging.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/logging.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/managing_apps.rst](source/general/managing_apps.rst)
-         原文: [source/general/managing_apps.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/managing_apps.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/modules.rst](source/general/modules.rst)
-         原文: [source/general/modules.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/modules.rst)
-         @binhaiIT
-1. - [x] 译文: [source/general/urls.rst](source/general/urls.rst)
-         原文: [source/general/urls.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/general/urls.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/cookie_helper.rst](source/helpers/cookie_helper.rst)
-         原文: [source/helpers/cookie_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/cookie_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/filesystem_helper.rst](source/helpers/filesystem_helper.rst)
-         原文: [source/helpers/filesystem_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/filesystem_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/form_helper.rst](source/helpers/form_helper.rst)
-         原文: [source/helpers/form_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/form_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/html_helper.rst](source/helpers/html_helper.rst)
-         原文: [source/helpers/html_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/html_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/inflector_helper.rst](source/helpers/inflector_helper.rst)
-         原文: [source/helpers/inflector_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/inflector_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/number_helper.rst](source/helpers/number_helper.rst)
-         原文: [source/helpers/number_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/number_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/security_helper.rst](source/helpers/security_helper.rst)
-         原文: [source/helpers/security_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/security_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/text_helper.rst](source/helpers/text_helper.rst)
-         原文: [source/helpers/text_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/text_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/url_helper.rst](source/helpers/url_helper.rst)
-         原文: [source/helpers/url_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/url_helper.rst)
-         @binhaiIT
-1. - [x] 译文: [source/helpers/xml_helper.rst](source/helpers/xml_helper.rst)
-         原文: [source/helpers/xml_helper.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/helpers/xml_helper.rst)
-         @binhaiIT
 1. - [ ] 译文: [source/incoming/content_negotiation.rst](source/incoming/content_negotiation.rst)
          原文: [source/incoming/content_negotiation.rst](https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/blob/original/source/incoming/content_negotiation.rst)
 1. - [ ] 译文: [source/incoming/controllers.rst](source/incoming/controllers.rst)
