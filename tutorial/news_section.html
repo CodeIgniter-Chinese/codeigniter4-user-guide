@@ -349,7 +349,7 @@
 我们也假设你会使用数据库管理的客户端工具（mysql，MySQL Workbench或者phpMyAdmin等）来运行稍后教程里提供的创建数据库表和插入测试数据所需的SQL代码。</p>
 <p>下面我们就来教你如何为本教程创建一个数据库，并且正确配置CodeIgniter来使用这个数据库。</p>
 <p>用你安装好的数据库客户端工具打开数据库，然后运行下面的两段SQL代码（MySQL适用）来创建一个数据表和插入一些测试数据。
-随着你对 CodeIgniter 的熟悉程度越来越高，这些数据库相关的操作也可以通过程序代码在CodeIgniter框架下完成，你可以阅读 <a class="reference internal" href="../dbmgmt/migration.html"><span class="doc">数据迁移</span></a> 和 :doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>数据填充 &lt;../dbmgmt/seeds&gt;`这两个章节来了解相关内容，以便掌握用程序代码操作数据库的相关技能。</p>
+随着你对 CodeIgniter 的熟悉程度越来越高，这些数据库相关的操作也可以通过程序代码在CodeIgniter框架下完成，你可以阅读 <a class="reference internal" href="../dbmgmt/migration.html"><span class="doc">数据迁移</span></a> 和 <a class="reference internal" href="../dbmgmt/seeds.html"><span class="doc">数据填充</span></a> 这两个章节来了解相关内容，以便掌握用程序代码操作数据库的相关技能。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CREATE</span> <span class="nx">TABLE</span> <span class="nx">news</span> <span class="p">(</span>
                       <span class="nx">id</span> <span class="nx">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="nx">AUTO_INCREMENT</span><span class="p">,</span>
                       <span class="nx">title</span> <span class="nx">varchar</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
@@ -370,8 +370,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>连接到你的数据库<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h2>连接到你的数据库<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p><strong>CodeIgniter</strong> 安装时会自动生成一个 <code class="docutils literal notranslate"><span class="pre">.env</span></code> 文件，确保里面的配置信息没有被注释掉，并且和你本地的数据库实际情况相吻合：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">hostname</span> <span class="o">=</span> <span class="nx">localhost</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">database</span> <span class="o">=</span> <span class="nx">ci4tutorial</span>
@@ -381,8 +381,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>创建你的数据模型文件<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h2>创建你的数据模型文件<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>我们要求你将数据库的操作代码写在模型（Model）文件里面，以便以后代码重用，不要将这些代码写在控制器（Controller）里。
 你的模型文件们应该成为你处理数据库相关的增、删、改、查操作的默认地方。交由模型文件来操作数据库或者其他格数的数据文件。</p>
 <p>打开 <strong>app/Models/</strong> 目录，在这个目录下面创建一个名字为 <strong>NewsModel.php</strong> 的文件，并在文件里加入如下代码。
@@ -402,7 +402,7 @@
 后面我们可以在代码里通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;db</span></code> 来调用数据库的相关操作类库。</p>
 <p>现在我们的数据库和数据模型文件已经建立好了。
 我们首先写一个方法从数据库中获取所有的新闻文章。
-为实现这点，我们将使用 <strong>CodeIgniter</strong> 的数据库抽象层工具 <a class="reference internal" href="../database/query_builder.html"><span class="doc">查询构建器</span></a>，通过它你可以编写你的查询代码，并在:doc:<a href="#id7"><span class="problematic" id="id8">`</span></a>所有支持的数据库平台 &lt;../intro/requirements&gt;`上运行。
+为实现这点，我们将使用 <strong>CodeIgniter</strong> 的数据库抽象层工具 <a class="reference internal" href="../database/query_builder.html"><span class="doc">查询构建器</span></a>，通过它你可以编写你的查询代码，并在 <a class="reference internal" href="../intro/requirements.html"><span class="doc">所有支持的数据库平台</span></a> 上运行。
 数据模型文件可以方便的和 <strong>查询构建器</strong> 一起工作，并且提供了一些方法让你操作数据的时候更加简单。现在向你的模型中添加如下代码。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">getNews</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
 <span class="p">{</span>
@@ -420,11 +420,11 @@
 <p>通过这段代码，你可以执行两种不同的查询，一种是获取所有的新闻条目，另一种是根据特定的 <cite>slug</cite> 来获取指定的新闻条目。
 你可能注意到了，我们直接的进行了基于``$slug`` 变量的数据对比命令，并不需要预先执行相应字段的查询操作，因为:doc:<cite>查询构建器 &lt;../database/query_builder&gt;</cite> 自动帮我们完成了这个工作。</p>
 <p>我们在这里用到的 <code class="docutils literal notranslate"><span class="pre">findAll()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">first()</span></code> 都是 <em>CodeIgniter4</em> 的数据模型（Model）基础类里面内置的方法。
-他们根据我们在数据模型文件里（本例中是 <strong>NewsModel</strong> 文件）声明的``$table``变量而知道该对哪个数据表进行操作。
-这些方法通过 <strong>查询构建器</strong> 运行指令操作当前数据表，并且会以数组的形式返回数据查询结果。在这个例子里面，<a href="#id9"><span class="problematic" id="id10">``</span></a>findAll()``的返回值是包含了指定数据表中的所有数据对象的一个数组。</p>
+他们根据我们在数据模型文件里（本例中是 <strong>NewsModel</strong> 文件）声明的 <code class="docutils literal notranslate"><span class="pre">$table</span></code> 变量而知道该对哪个数据表进行操作。
+这些方法通过 <strong>查询构建器</strong> 运行指令操作当前数据表，并且会以数组的形式返回数据查询结果。在这个例子里面，<code class="docutils literal notranslate"><span class="pre">findAll()</span></code> 的返回值是包含了指定数据表中的所有数据对象的一个数组。</p>
 </div>
-<div class="section" id="id11">
-<h2>显示新闻<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id5">
+<h2>显示新闻<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 <p>现在，查询已经在数据模型文件里写好了，接下来我们需要将数据模型绑定到视图上，向用户显示新闻条目了。
 这可以在之前写的 <code class="docutils literal notranslate"><span class="pre">Pages</span></code> 控制器里来做，但为了更清楚的阐述，我们定义了一个新的 <code class="docutils literal notranslate"><span class="pre">News</span></code> 控制器，创建在 <em>app/controllers/News.php</em> 文件中。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
@@ -529,8 +529,8 @@
 echo ‘&lt;h2&gt;’.$news[‘title’].’&lt;/h2&gt;’;
 echo $news[‘body’];</div></blockquote>
 </div>
-<div class="section" id="id12">
-<h2>路由<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h2>路由<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>由于之前我们创建了基于通配符的路由规则，所以现在需要新增一条路由以便能访问到你刚刚创建的控制器。
 修改路由配置文件（<strong>app/config/routes.php</strong>）添加类似下面的代码。
 该规则可以让地址中带*news*的请求访问 <code class="docutils literal notranslate"><span class="pre">News</span></code> 控制器而不是去访问之前默认的 <code class="docutils literal notranslate"><span class="pre">Pages</span></code> 控制器。
