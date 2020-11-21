@@ -12,7 +12,7 @@ CodeIgniter 默认使用 $_SERVER['CI_ENVIRONMENT'] 的值作为 ENVIRONMENT 常
 .env
 ----
 
-最简单的方式是在你的 `.env </general/configuration>`_ 配置文件里设置::
+最简单的方式是在你的 `.env </general/configuration>`_ 配置文件里设置。
 
 .. code-block:: ini
 
@@ -30,7 +30,7 @@ Apache
 nginx
 -----
 
-在 nginx 下，为了能够在 $_SERVER 里显示环境变量的值你必须通过 fastcgi_params 来传递。这样允许它在虚拟主机上工作来替代使用 env 去为整个服务器设置它，即使在专用服务器上运行良好。你可以修改该服务器的配置为::
+在 nginx 下，为了能够在 $_SERVER 里显示环境变量的值你必须通过 fastcgi_params 来传递。这样允许它在虚拟主机上工作来替代使用 env 去为整个服务器设置它，即使在专用服务器上运行良好。你可以修改该服务器的配置为:
 
 .. code-block:: nginx
 
