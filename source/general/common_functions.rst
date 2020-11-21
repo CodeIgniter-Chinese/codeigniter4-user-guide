@@ -94,17 +94,17 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	示例::
 
-        // 在控制器中查看表单提交
-        if (! $model->save($user))
-        {
-            // 'withInput'方法意味着"原有的数据"需要被存储。
-            return redirect()->back()->withInput();
-        }
+		// 在控制器中查看表单提交
+		if (! $model->save($user))
+		{
+		    // 'withInput'方法意味着"原有的数据"需要被存储。
+		    return redirect()->back()->withInput();
+		}
 
-        // 视图中
-        <input type="email" name="email" value="<?= old('email') ?>">
-        // 以数组的形式
-        <input type="email" name="user[email]" value="<?= old('user.email') ?>">
+		// 视图中
+		<input type="email" name="email" value="<?= old('email') ?>">
+		// 以数组的形式
+		<input type="email" name="user[email]" value="<?= old('user.email') ?>">
 
 .. note:: 如果你正使用 :doc: `form helper </helpers/form_helper>` , 这个特性就是内置的。只有在你不使用form helper的时候才需要手动调用。
 
