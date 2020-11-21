@@ -2,7 +2,7 @@
 处理多环境
 ##############################
 
-开发者常常希望根据是生产环境还是开发环境能够区分不同的定制行为，例如，如果在开发环境的程序当中输出详细的错误信息这样做对开发者来说是非常有帮助的，但是这样做的话在生产环境中会造成一些安全问题。
+开发者常常希望根据是生产环境还是开发环境能够区分不同的定制行为，例如，如果在开发环境的程序当中输出详细的错误信息这样做对开发者来说是非常有帮助的，但是这样做的话在生产环境中会造成一些安全问题。 In development environments, you might want additional tools loaded that you don't in production environments, etc.
 
 环境常量
 ========================
@@ -12,7 +12,9 @@ CodeIgniter 默认使用 $_SERVER['CI_ENVIRONMENT'] 的值作为 ENVIRONMENT 常
 .env
 ----
 
-最简单的方式是在你的 `.env </general/configuration>`_ 配置文件里设置::
+最简单的方式是在你的 `.env </general/configuration>`_ 配置文件里设置。
+
+.. code-block:: ini
 
     CI_ENVIRONMENT = development
 
@@ -20,14 +22,17 @@ Apache
 ------
 
 如果要获取 $_SERVER['CI_ENVIRONMENT'] 的值可以在 .htaccess 的文件里，或者可以在Apache的配置文件里使用 `SetEnv <https://httpd.apache.org/docs/2.2/mod/mod_env.html#setenv>`_ 命令进行设置
-::
+
+.. code-block:: apache
 
     SetEnv CI_ENVIRONMENT development
 
 nginx
 -----
 
-在 nginx 下，为了能够在 $_SERVER 里显示环境变量的值你必须通过 fastcgi_params 来传递。这样允许它在虚拟主机上工作来替代使用 env 去为整个服务器设置它，即使在专用服务器上运行良好。你可以修改该服务器的配置为::
+在 nginx 下，为了能够在 $_SERVER 里显示环境变量的值你必须通过 fastcgi_params 来传递。这样允许它在虚拟主机上工作来替代使用 env 去为整个服务器设置它，即使在专用服务器上运行良好。你可以修改该服务器的配置为:
+
+.. code-block:: nginx
 
 	server {
 	    server_name localhost;

@@ -1,11 +1,14 @@
 ################################
-利用配置文件开始工作
+配置文件
 ################################
 
 每一个项目，都需要一种方法来定义不同的全局配置项，而这通常是借助配置文件来实现的。
 而配置文件，一般来说，是通过声明一个将所有的配置项作为公开属性的类，来实现这一配置过程的。
-不同于许多其他的框架，在CI4中，不需要访问某个具体的类来修改我们的配置项信息。
-取而代之的是，我们仅仅需要创建一个配置类的实例，从而轻而易举的实现配置流程。
+
+Unlike many other frameworks, CodeIgniter configurable items aren't contained in
+a single file. Instead, each class that needs configurable items will have a
+configuration file with the same name as the class that uses it. You will find
+the application configuration files in the **/app/Config** folder.
 
 .. contents::
     :local:
@@ -14,24 +17,36 @@
 访问配置文件
 ======================
 
-我们可以通过创建一个新的配置类实例或者使用config函数，来访问类中的配置项。
-配置类中所有的这些属性都是公开的，故而可以如调用其他属性一样调用相应的配置项::
+You can access configuration files for your classes in several different ways.
 
-	// 手动创建一个新的配置类实例
+- By using the ``new`` keyword to create an instance::
+
+	// Creating new configuration object by hand
 	$config = new \Config\Pager();
-	// 使用config函数创建一个新的配置类实例
-	$config = config( 'Pager', false );
-	// 通过config函数使用共享的配置类实例
-	$config = config( 'Pager' );
-	// 通过namespace(命名空间)使用配置类
+
+- By using the ``config()`` function::
+
+	// Get shared instance with config function
+	$config = config('Pager');
+
+	// Access config class with namespace
 	$config = config( 'Config\\Pager' );
-	// 以类属性成员的形式使用配置
+
+	// Creating a new object with config function
+	$config = config('Pager', false);
+
+All configuration object properties are public, so you access the settings like any other property::
+
+        $config = config('Pager');
+	// Access settings as object properties
 	$pageSize = $config->perPage;
 
 
 若没有给定namespace(命名空间），框架会在所有可用的、已被定义的命名空间中搜寻所需的文件，就如同 **/app/Config/** 一样。
-所以Codeigniter里所有的配置文件都应当被放置在 ``Config`` 这一命名空间下。
-由于框架可以确切地了解配置文件所在目录的的位置，从而不必扫描文件系统中的不同区域；故而在我们的项目中，使用命名空间将会有效地提升性能。
+
+All of the configuration files that ship with CodeIgniter are namespaced with
+``Config``. Using this namespace in your application will provide the best
+performance since it knows exactly where to find the files.
 
 我们也可以通过使用一个不同的命名空间，从而在服务器的任意位置上部署所需的配置文件。
 这一举措可以让我们将生产环境的服务器中的配置文件移动到一个不能通过Web访问的位置；而在开发环境中，将其放置在 **/app** 目录下以便访问。
@@ -39,49 +54,61 @@
 创建配置文件
 ============================
 
-当我们需要创建一个新的配置文件时，需要在指定位置创建一个新的文件，例如在默认的 **/app/Config** 目录下。然后创建一个带有公开属性的类，从而放置相应的配置信息::
+When you need a new configuration, first you create a new file at your desired location.
+The default file location (recommended for most cases) is **/app/Config**.
+The class should use the appropriate namespace, and it should extend
+``CodeIgniter\Config\BaseConfig`` to ensure that it can receive environment-specific settings.
 
+Define the class and fill it with public properties that represent your settings.::
 
     <?php namespace Config;
+
     use CodeIgniter\Config\BaseConfig;
-    class App extends BaseConfig
+
+    class CustomClass extends BaseConfig
     {
     	public $siteName  = 'My Great Site';
     	public $siteEmail = 'webmaster@example.com';
+
     }
 
+环境变量
+=====================
 
+One of today’s best practices for application setup is to use Environment Variables. One reason for this is that Environment Variables are easy to change between deploys without changing any code. Configuration can change a lot across deploys, but code does not. For instance, multiple environments, such as the developer’s local machine and the production server, usually need different configuration values for each particular setup.
 
-这个类应当继承 ``\CodeIgniter\Config\BaseConfig`` 从而保证框架可以得到具体环境下的配置信息。
+Environment Variables should also be used for anything private such as passwords, API keys, or other sensitive data.
 
-针对不同的环境
-===============================
+Environment Variables and CodeIgniter
+=====================================
 
-由于我们的站点将会在不同的环境中运行，例如开发者的本地机器上，或是用于部署的远端服务器上，我们可以基于环境来修改配置信息。
-在这基础上，我们将能够根据站点所运行的服务器，来使用不同的配置信息。这些包括并不限于数据库配置信息，API认证信息，以及其他的根据部署环境而改变的配置信息。
+CodeIgniter makes it simple and painless to set Environment Variables by using a “dotenv” file. The term comes from the file name, which starts with a dot before the text “env”.
 
-我们可以将这些值保存在根目录下的一个 **.env** 文件中，就如system和application目录一样。这个文件就如一个 ".ini" 配置文件一样，由许多对被等号分割的键/值对所组成::
+CodeIgniter expects **.env** to be at the root of your project alongside the ``system``
+and ``app`` directories. There is a template file distributed with CodeIgniter that’s
+located at the project root named **env** (Notice there’s no dot (**.**) at the start?).
+It has a large collection of variables your project might use that have been assigned
+empty, dummy, or default values. You can use this file as a starting place for your
+application by either renaming the template to **.env**, or by making a copy of it named **.env**.
 
-	S3_BUCKET="dotenv"
-	SECRET_KEY="super_secret_key"
+.. important:: Make sure the **.env** file is NOT tracked by your version control system. For *git* that means adding it to **.gitignore**. Failure to do so could result in sensitive credentials being exposed to the public.
 
+Settings are stored in **.env** files as a simple a collection of name/value pairs separated by an equal sign.
+::
 
-当这些变量已经在环境中被定义时，它们将不会被重复定义。
+	S3_BUCKET = dotenv
+	SECRET_KEY = super_secret_key
+        CI_ENVIRONMENT = development
 
-.. important:: 确保 **.env** 类型的文件已经添加到 **.gitignore** （或是相同类型的其他版本控制系统）中，从而保证在代码中不会被上传。
-    若这一举措未能成功，则可能会导致该目录中的相关敏感认证信息能够被任何人随意访问。
-
-创建一个类似于 **.env.example** 的，其中包含了所有我们的项目所需的，仅设置了配置项的空值或默认值的模板文件，是一个不错的方法。
-在不同的环境里，我们可以把这个文件复制到 **.env** 目录下并填充这个环境相对应的配置项的值。
-
-当应用开始运行时，这个文件将会被自动加载，同时这些变量也会被运行环境所调用——这一过程适用于所有环境的部署。
-在这之后，这些变量将通过 ``getenv()``, ``$_SERVER``, and ``$_ENV`` 的方式被调用。在这三者中， ``getenv()`` 方法由于其大小写不敏感而被推荐使用::
+When your application runs, **.env** will be loaded automatically, and the variables put
+into the environment. If a variable already exists in the environment, it will NOT be
+overwritten. The loaded Environment variables are accessed using any of the following:
+``getenv()``, ``$_SERVER``, or ``$_ENV``.
+::
 
 	$s3_bucket = getenv('S3_BUCKET');
 	$s3_bucket = $_ENV['S3_BUCKET'];
 	$s3_bucket = $_SERVER['S3_BUCKET'];
-
-.. 注意:: 如果你正在使用Apache服务器，CI_ENVIRONMENT 可以被设置于 ``public/.htaccess``文件的头部，一般会显示为一个被注释的一行。通过去除这行的注释来更改成你所需要使用的环境设定。
 
 嵌套变量
 =================
@@ -92,7 +119,6 @@
 	CACHE_DIR="${BASE_DIR}/cache"
 	TMP_DIR="${BASE_DIR}/tmp"
 
-
 命名空间中的变量
 ====================
 
@@ -100,8 +126,6 @@
 我们可以通过将这些变量放入”命名空间“中，来放置这一情况的出现。
 
 在配置文件中，点号(.)通常被用来表示一个变量是命名空间变量。这种变量通常是由一个独立前缀，后接一个点号(.)然后才是变量名称本身所组成的::
-
-
 
     // 非命名空间变量
     name = "George"
@@ -114,16 +138,37 @@
     backend.db = admin
     BackEnd.db = admin
 
+Configuration Classes and Environment Variables
+===============================================
 
-将环境变量并入配置中
-========================================================
-当实例化一个配置文件时，所有的命名空间中的环境变量都将会被并入到这个实例对象的属性中。
+When you instantiate a configuration class, any *namespaced* environment variables
+are considered for merging into the configuration object's properties.
 
-如果一个命名空间变量的前缀（以大小写敏感的方式）可以正确匹配到配置类的名称，那么这个变量名的剩余部分（点号后面的部分）将会被当做一个配置项属性。
-如果这个变量能够匹配到一个已经存在的配置项属性，那么相对应的配置项属性值将会被覆盖。当没有匹配到时，配置项属性值将不会被更改。
+If the prefix of a namespaced variable exactly matches the namespace of the configuration
+class, then the trailing part of the setting (after the dot) is treated as a configuration
+property. If it matches an existing configuration property, the environment variable's
+value will replace the corresponding value from the configuration file. If there is no match,
+the configuration class properties are left unchanged. In this usage, the prefix must be
+the full (case-sensitive) namespace of the class.
+::
 
-对于”短前缀“而言也是如此，当环境变量的前缀匹配到一个被转换到小写的配置类名时，首字母也将被替换成相对应的大小写情况。
+    Config\App.CSRFProtection  = true
+    Config\App.CSRFCookieName = csrf_cookie
+    Config\App.CSPEnabled = true
 
+
+.. note:: Both the namespace prefix and the property name are case-sensitive. They must exactly match the full namespace and property names as defined in the configuration class file.
+
+The same holds for a *short prefix*, which is a namespace using only the lowercase version of
+the configuration class name. If the short prefix matches the class name,
+the value from **.env** replaces the configuration file value.
+::
+
+    app.CSRFProtection  = true
+    app.CSRFCookieName = csrf_cookie
+    app.CSPEnabled = true
+
+.. note:: When using the *short prefix* the property names must still exactly match the class defined name.
 
 以数组的方式调用环境变量
 ========================================
@@ -132,11 +177,11 @@
 如果一个命名空间环境变量的前缀与某个配置类所匹配，那么这个变量的剩余部分，若同样包含点号，则将会被当做一个数组的引用来调用::
 
     // 常规的命名空间变量
-    SimpleConfig.name = George
+    Config\SimpleConfig.name = George
 
     // 数组化的命名空间变量
-    SimpleConfig.address.city = "Berlin"
-    SimpleConfig.address.country = "Germany"
+    Config\SimpleConfig.address.city = "Berlin"
+    Config\SimpleConfig.address.country = "Germany"
 
 
 如果这个变量是对SimpleConfig配置类的成员的引用，上述例子将会如下图所示::
@@ -149,10 +194,19 @@
 我们同样可以将数组属性名作为前缀来使用，当配置文件如下所示时::
 
     // array namespaced variables
-    SimpleConfig.address.city = "Berlin"
+    Config\SimpleConfig.address.city = "Berlin"
     address.country = "Germany"
 
-结果与原来的相同
+Handling Different Environments
+===============================
+
+Configuring multiple environments is easily accomplished by using a separate **.env** file with values modified to meet that environment's needs.
+
+The file should not contain every possible setting for every configuration class used by the application. In truth, it should include only those items that are specific to the environment or are sensitive details like passwords and API keys and other information that should not be exposed. But anything that changes between deployments is fair-game.
+
+In each environment, place the **.env** file in the project's root folder. For most setups, this will be the same level as the ``system`` and ``app`` directories.
+
+Do not track **.env** files with your version control system. If you do, and the repository is made public, you will have put sensitive information where everybody can find it.
 
 .. _registrars:
 
@@ -166,7 +220,7 @@
         SupportingPackageRegistrar::class
     ];
 
-为了实现”注册器“的功能，这些类中必须声明一个与配置类同名的静态方法，而这一方法应当返回一个包含有属性配置项的关联数组。
+为了实现“注册器”的功能，这些类中必须声明一个与配置类同名的静态方法，而这一方法应当返回一个包含有属性配置项的关联数组。
 
 当我们实例化了一个配置类的对象后，系统将自动循环搜索在 ``$registrars`` 中指定的类。
 对于这些类而言，当其中包含有与该配置类同名的方法时，框架将调用这一方法，并将其返回的所有属性，如同上节所述的命名空间变量一样，并入到配置项中。
@@ -174,7 +228,9 @@
 配置类举例如下::
 
     <?php namespace App\Config;
+    
     use CodeIgniter\Config\BaseConfig;
+    
     class MySalesConfig extends BaseConfig
     {
         public $target        = 100;
@@ -187,6 +243,7 @@
 ... 所关联的地区销售模型将如下所示::
 
     <?php namespace App\Models;
+    
     class RegionalSales
     {
         public static function MySalesConfig()

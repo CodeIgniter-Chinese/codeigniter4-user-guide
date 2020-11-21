@@ -38,7 +38,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	用于检索事前设置在环境变量中的变量值,若无设置则返回默认值.
 	若没有找到健值则返回一个布尔值结果（false）.
 
-        在特定的运行环境中利用 .env 文件设置环境变量非常有用，例如数据库设置，API健值等.
+        在特定的运行环境中利用 .env 文件设置环境变量非常有用，例如数据库设置，API 健值等.
 
 .. php:function:: esc ( $data, $context='html' [, $encoding])
 
@@ -68,27 +68,31 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	:param   string   $line:    检索文本的行
 	:param   array   $args:     一组数组数据，用于替代占位符.
-
-    :param string   $locale:  使用不同的地区，而不是默认的地区设置。
-
+	:param string   $locale:  使用不同的地区，而不是默认的地区设置。
 
 	检索一个基于某个别名字符串的本地特定文件。
 
-    更多详细信息请见 :doc:`Localization </outgoing/localization>` 页。
+	更多详细信息请见 :doc:`Localization </outgoing/localization>` 页。
+	
+.. php:function:: model($name [, $getShared = true [, &$conn = null ]])
+
+    :param string                   $name:
+    :param boolean                  $getShared:
+    :param ConnectionInterface|null $conn:
+    :returns: More simple way of getting model instances
+    :rtype: mixed
 
 .. php:function:: old( $key[, $default = null, [, $escape = 'html' ]] )
 
 	:param string $key: 需要使用的原有的表单提交的键。
 	:param mixed  $default: 如果当$key不存在时返回的默认值。
-
-    :param mixed  $escape: 一个 `escape <#esc>`_ 的上下文，或传值false来禁用该功能。
-
+	:param mixed  $escape: 一个 `escape <#esc>`_ 的上下文，或传值false来禁用该功能。
 	:returns: 给定的键对应的值，或设置的默认值
-    :rtype: mixed
+	:rtype: mixed
 
-    提供了一个简易的方式，在表单提交时访问 "原有的输入数据"。
+	提供了一个简易的方式，在表单提交时访问 "原有的输入数据"。
 
-    示例::
+	示例::
 
         // 在控制器中查看表单提交
         if (! $model->save($user))
@@ -146,16 +150,34 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	$option 数组主要用于与第三方库整合，例如Twig。
 
-	Example::
+	示例::
 
 		$data = ['user' => $user];
 
 		echo view('user_profile', $data);
 
-详情参见 the :doc:`Views </outgoing/views>` 页。
+	详情参见 the :doc:`Views </outgoing/views>` 页。
+	
+.. php:function:: view_cell ( $library [, $params = null [, $ttl = 0 [, $cacheName = null]]] )
+
+    :param string      $library:
+    :param null        $params:
+    :param integer     $ttl:
+    :param string|null $cacheName:
+    :returns: View cells are used within views to insert HTML chunks that are managed by other classes.
+    :rtype: string
+
+    For more details, see the :doc:`View Cells </outgoing/view_cells>` page.
 
 其他函数
 =======================
+
+.. php:function:: app_timezone ()
+
+    :returns: The timezone the application has been set to display dates in.
+    :rtype: string
+
+    Returns the timezone the application has been set to display dates in.
 
 .. php:function:: csrf_token ()
 
@@ -192,9 +214,9 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	:returns: A string with the HTML for meta tag with all required CSRF information.
 	:rtype: string
 
-    Returns a meta tag with the CSRF information already inserted:
+	Returns a meta tag with the CSRF information already inserted:
 
-        <meta name="{csrf_header}" content="{csrf_hash}">
+		<meta name="{csrf_header}" content="{csrf_hash}">
 
 .. php:function:: force_https ( $duration = 31536000 [, $request = null [, $response = null]] )
 
@@ -204,11 +226,23 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	检查页面当前是否通过HTTPS访问，如果不是，则用户通过HTTPS重定向回当前URI。
 	将设置 HTTP 严格的传输安全标头，该命令指示现代浏览器自动将HTTP请求修改为 $duration 参数时间的HTTPS请求。
+	
+.. php:function:: function_usable ( $function_name )
+
+    :param string $function_name: Function to check for
+    :returns: TRUE if the function exists and is safe to call, FALSE otherwise.
+    :rtype: bool
 
 .. php:function:: is_cli ()
 
 	:returns: 如果脚本是从命令行执行的，则为true，否则为false。
 	:rtype: bool
+
+.. php:function:: is_really_writable ( $file )
+
+    :param string $file: The filename being checked.
+    :returns: TRUE if you can write to the file, FALSE otherwise.
+    :rtype: bool
 
 .. php:function:: log_message ($level, $message [, $context])
 
@@ -229,12 +263,12 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	:param  string  $uri: 需要引导用户重定向到的页面.
 
-    返回以后RedirectResponse的实例以便创建重定向::
+	返回以后RedirectResponse的实例以便创建重定向::
 
-		// 回到上一个页面Go back to the previous page
+		// 回到上一个页面
 		return redirect()->back();
 
-		// 跳转至具体的URI
+		// 跳转至具体的 URL
 		return redirect()->to('/admin');
 
 		// 跳转到一个命名路由或反向路由 URI
@@ -246,20 +280,10 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 		// 显示一个消息
 		return redirect()->back()->with('foo', 'message');
 
-	当将URI传给这个函数时。它将会被作为一个反向路由请求，而不是一个完整的URI，就像使用 redirect()->route()一样::
+	当将URI传给这个函数时。它将会被作为一个反向路由请求，而不是一个完整的 URI ，就像使用 redirect()->route()一样::
 
-        // 跳转到一个命名路由或反向路由 URI
-		return redirect('named_route');
-
-.. php:function:: redirect_with_input( $uri[, ...$params] )
-
-	:param string $uri: 重定向URI。
-	:param mixed  $params: 一个或更多附加参数可被用于 the :meth:`RouteCollection::reverseRoute` 方法。
-
-	跟``redirect()``方法等同, 该session刷新的请求中的 $_GET 和 $_POST的值除外。
-	在下一页的请求, 表单辅助类的 ``set_*`` 方法将首先检查旧的输入数据, 若没发现, 则当前的 GET/POST 将被检查。
-
-	.. 注意:: 为了取回旧的值, session必须被启用，优先调用函数.
+               // 跳转到一个命名路由或反向路由 URI
+               return redirect('named_route');
 
 .. php:function:: remove_invisible_characters($str[, $urlEncoded = TRUE])
 
@@ -270,7 +294,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	这个函数防止在 ASCII 字符之间插入空字符(NULL)，例如 Java\\0script。
 
-	范例::
+	示例::
 
 		remove_invisible_characters('Java\\0script');
 		// 返回: 'Javascript'
@@ -294,7 +318,7 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 	提供简易访问任何在系统中定义的服务，详见the :doc:`Services <../concepts/services>` 。
 	这将总是返回类的共享实例，因此不管在单个请求中调用多少次，都只会创建一个类实例。
 
-	范例::
+	示例::
 
 		$logger = service('logger');
 		$renderer = service('renderer', APPPATH.'views/');
@@ -308,6 +332,14 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 
 	等同于前面所描述的 **service()** 函数, 除了所有调用该函数将返回一个类的新实例。
 	 **service** 返回的是相同的实例。
+
+.. php:function:: slash_item ( $item )
+
+    :param string $item: Config item name
+    :returns: The configuration item or NULL if the item doesn't exist
+    :rtype:  string|null
+
+    Fetch a config file item with slash appended (if not empty)
 
 .. php:function:: stringify_attributes ( $attributes [, $js] )
 
@@ -342,10 +374,6 @@ CodeIgniter 你可以在任何地方使用它们，并且不需要加载任何 �
 .. php:const:: FCPATH
 
 	保存的前端控制器目录的路径。
-
-.. php:const:: SELF
-
-	前端控制器的路径, **index.php**.
 
 .. php:const:: WRITEPATH
 

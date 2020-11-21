@@ -70,7 +70,7 @@ CI就会在你的全局 *system/Helpers/* 目录下进行搜索。
 
 	<?php echo anchor('blog/comments', 'Click Here');?>
 
-其中"Click Here"是链接名，而"blogs/comments"是你希望链接到的控制器/方法名所对应的的URI
+其中"Click Here"是链接名，而"blogs/comments"是你希望链接到的控制器/方法名所对应的的 URI
 
 "继承"辅助函数
 ===================
@@ -114,7 +114,7 @@ CI就会在你的全局 *system/Helpers/* 目录下进行搜索。
 2. {namespace}/Helpers - 所有的命名空间都会通过所定义的顺序遍历
 3. system/Helpers - 系统辅助文件在最后加载
 
-然后呢?
+然后呢？
 =========
 
-在内容表里你可以找到所有可用的辅助函数文件。请逐一浏览它们的用途吧。
+在内容表里你可以找到所有可用的辅助函数文件 :doc:`Helpers </helpers/index>` 。请逐一浏览它们的用途吧。

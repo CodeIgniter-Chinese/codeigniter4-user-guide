@@ -34,6 +34,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	将会添加到 URL，如同你通过函数程序段的一些 URL，外加在你的配置文件中已经设置的 **url_suffix**.
 	
 	在你的 URL 改变的事件中，你被鼓励在任何时间使用函数生成本地 URL 以便你的页面将变得更加便携。
+	
 	程序段能随意地像 string 或者 array 通过函数。下文是 string 事例::
 
 		echo site_url('news/local/123');
@@ -43,7 +44,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 	这里是一个通过数组程序段的事例::
 
-		$segments = array('news', 'local', '123');
+		$segments = ['news', 'local', '123'];
 		echo site_url($segments);
 
         对不同的网站如果生成 URLs 你或许会找到比你的配置更有用的更替配置，该函数包含不同配置优先权。
@@ -82,13 +83,15 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 .. php:function:: current_url([$returnObject = false])
 
-	:param	boolean	$returnObject: True 如果你想要 URI 事例返回，代替 string.
+	:param	boolean	$returnObject: True 如果你想要 URI 事例返回，代替 string。
 	:returns:	最近的 URL
 	:rtype:	string|URI
 
-	返回最近被浏览过的页面的正确的 URL (包括程序段).
+	返回最近被浏览过的页面的正确的 URL (包括程序段)。
 
-	.. note:: 引用下面的函数是同样的::
+	.. note:: 引用下面的函数是同样的:
+        ::
+	
 		base_url(uri_string());
 
 .. php:function:: previous_url([$returnObject = false])
@@ -108,7 +111,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	:returns:	An URI string
 	:rtype:	string
 
-	返回你的最近 URL 的路径部分。例如，如果你的 URL是这样的::
+	返回你的最近 URL 的路径部分。例如，如果你的 URL 是这样的::
 
 		http://some-site.com/blog/comments/123
 
@@ -118,7 +121,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 .. php:function:: index_page([$altConfig = NULL])
 
-	:param	\Config\App	$altConfig: 使用更替配置
+	:param	\\Config\\App $altConfig: 使用更替配置
 	:returns:	'index_page' 值
 	:rtype:	mixed
 
@@ -130,7 +133,6 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
         如同用 :php:func:`site_url()`,你也许要具体制定一个更替配置。
 	对不同的网站如果生成 URLs 你或许会找到比你现有的更有用的更替配置，函数包含不同配置优先权。
 	我们为单元测试框架本身使用这个函数。
-	
 
 .. php:function:: anchor([$uri = ''[, $title = ''[, $attributes = ''[, $altConfig = NULL]]]])
 
@@ -153,7 +155,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 	第三个参数包含你想要添加到链接里的的属性列表。属性可以是简单的 string 或者组合数组。 
 
-	这里是一些事例 ::
+	这里是一些示例 ::
 
 		echo anchor('news/local/123', 'My News', 'title="News title"');
 		// Prints: <a href="http://example.com/index.php/news/local/123" title="News title">My News</a>
@@ -169,7 +171,6 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	我们为单元测试框架自身使用这个函数。
 	
 	.. note:: 属性载入锚定函数是自动地退出对 XSS 攻击不利的保护。
-	
 
 .. php:function:: anchor_popup([$uri = ''[, $title = ''[, $attributes = FALSE[, $altConfig = NULL]]]])
 
@@ -186,28 +187,32 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 	这里是带着属性的事例::
 
-		$atts = array(
-			'width'       => 800,
-			'height'      => 600,
-			'scrollbars'  => 'yes',
-			'status'      => 'yes',
-			'resizable'   => 'yes',
-			'screenx'     => 0,
-			'screeny'     => 0,
-			'window_name' => '_blank'
-		);
+        $atts = [
+            'width'       => 800,
+            'height'      => 600,
+            'scrollbars'  => 'yes',
+            'status'      => 'yes',
+            'resizable'   => 'yes',
+            'screenx'     => 0,
+            'screeny'     => 0,
+            'window_name' => '_blank'
+        ];
 
-		echo anchor_popup('news/local/123', 'Click Me!', $atts);
+	echo anchor_popup('news/local/123', 'Click Me!', $atts);
 
+	As above, you may specify an alternate configuration.
+	You may find the alternate configuration useful if generating links for a
+	different site than yours, which contains different configuration preferences.
+	We use this for unit testing the framework itself.
+    
 	.. note:: 上文属性是默认函数因此你仅仅需要去设置哪些个不同于你需要的属性。
 	在第三个参数里如果你想要函数去简单地通过空数组使用所有它的默认值::
 
-                    echo anchor_popup('news/local/123', 'Click Me!', array());
+		echo anchor_popup('news/local/123', 'Click Me!', []);
 
 	.. note::  **window_name** 不是真实的属性，但是对于 JavaScript 
 	        争论 `window.open()  <http://www.w3schools.com/jsref/met_win_open.asp>`_ 方法，
 		它接受任何一方的窗口名或者窗口目标。
-		
 
 	.. note:: 任何超过上文列表的其他属性将会被分列就像 HTML 属性对于锚定 tag.
 	       如同上文描述的，你也许可以明确说明更替配置。
@@ -295,7 +300,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 	第二个参数决定词汇的定义符号。默认的破折号被使用。更好的选项是: **-** (破折号) 或者 **_** (下划线)。
 
-	事例::
+	例如::
 
 		$title     = "What's wrong with CSS?";
 		$url_title = url_title($title, 'underscore');
@@ -303,7 +308,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 	第三个参数决定是或者不是小写字符是被强迫的。默认他们不是。选项是 boolean TRUE/FALSE.
 
-	事例::
+	例如::
 
 		$title     = "What's wrong with CSS?";
 		$url_title = url_title($title, 'underscore', TRUE);

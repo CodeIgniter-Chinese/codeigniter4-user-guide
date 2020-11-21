@@ -51,6 +51,27 @@ CodeIgniter 通过 `SPL collection <http://php.net/manual/en/spl.exceptions.php>
 
 .. important:: 如果发生错误，禁用错误报告将不会阻止日志的写入。
 
+记录异常
+------------------
+
+By default, all Exceptions other than 404 - Page Not Found exceptions are logged. This can be turned on and off
+by setting the **$log** value of ``Config\Exceptions``::
+
+    class Exceptions
+    {
+        public $log = true;
+    }
+
+To ignore logging on other status codes, you can set the status code to ignore in the same file::
+
+    class Exceptions
+    {
+        public $ignoredCodes = [ 404 ];
+    }
+
+.. note:: It is possible that logging still will not happen for exceptions if your current Log settings
+    are not set up to log **critical** errors, which all exceptions are logged as.
+
 自定义异常
 =================
 
@@ -63,7 +84,7 @@ PageNotFoundException
 
 	if (! $page = $pageModel->find($id))
 	{
-		throw new \CodeIgniter\PageNotFoundException();
+		throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 	}
 
 你可以通过异常传递消息，它将在 404 页默认消息位置被展示。
@@ -73,7 +94,7 @@ ConfigException
 
 当配置文件中的值无效或 class 类不是正确类型等情况时，请使用此异常 ::
 
-	throw new \CodeIgniter\ConfigException();
+	throw new \CodeIgniter\Exceptions\ConfigException();
 
 它将 HTTP 状态码置为 500，退出状态码被置为 3.
 
@@ -121,3 +142,16 @@ DatabaseException
 	throw new \CodeIgniter\DatabaseException();
 
 它将 HTTP 状态码置为 500，退出状态码被置为 8.
+
+RedirectException
+-----------------
+
+This exception is a special case allowing for overriding of all other response routing and
+forcing a redirect to a specific route or URL::
+
+    throw new \CodeIgniter\Router\Exceptions\RedirectException($route);
+
+``$route`` may be a named route, relative URI, or a complete URL. You can also supply a
+redirect code to use instead of the default (``302``, "temporary redirect")::
+
+    throw new \CodeIgniter\Router\Exceptions\RedirectException($route, 301);
