@@ -1,6 +1,6 @@
-##########
+#############
 URL 辅助函数
-##########
+#############
 
 URL 辅助函数文件包含的函数辅助 URLs 运行。
 
@@ -90,8 +90,8 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	返回最近被浏览过的页面的正确的 URL (包括程序段)。
 
 	.. note:: 引用下面的函数是同样的:
-        ::
-	
+	::
+
 		base_url(uri_string());
 
 .. php:function:: previous_url([$returnObject = false])
@@ -150,7 +150,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	
 	.. note:: 如果你正在构造的链接对于你的应用是内部的则不包含基地址 URL (http://...).
 	在你的配置文件里函数将会明确说明的从信息里被自动添加。你希望附加到的 URL 仅仅包含 URI 的程序段。
-	
+
 	第二参数是你想要链接表达的正文。如果你留下第二个程序为空，URL 将会被应用。
 
 	第三个参数包含你想要添加到链接里的的属性列表。属性可以是简单的 string 或者组合数组。 
@@ -187,16 +187,16 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 
 	这里是带着属性的事例::
 
-        $atts = [
-            'width'       => 800,
-            'height'      => 600,
-            'scrollbars'  => 'yes',
-            'status'      => 'yes',
-            'resizable'   => 'yes',
-            'screenx'     => 0,
-            'screeny'     => 0,
-            'window_name' => '_blank'
-        ];
+		$atts = [
+		    'width'       => 800,
+		    'height'      => 600,
+		    'scrollbars'  => 'yes',
+		    'status'      => 'yes',
+		    'resizable'   => 'yes',
+		    'screenx'     => 0,
+		    'screeny'     => 0,
+		    'window_name' => '_blank'
+		];
 
 	echo anchor_popup('news/local/123', 'Click Me!', $atts);
 
@@ -205,8 +205,7 @@ URL 辅助函数文件包含的函数辅助 URLs 运行。
 	different site than yours, which contains different configuration preferences.
 	We use this for unit testing the framework itself.
     
-	.. note:: 上文属性是默认函数因此你仅仅需要去设置哪些个不同于你需要的属性。
-	在第三个参数里如果你想要函数去简单地通过空数组使用所有它的默认值::
+	.. note:: 上文属性是默认函数因此你仅仅需要去设置哪些个不同于你需要的属性。在第三个参数里如果你想要函数去简单地通过空数组使用所有它的默认值::
 
 		echo anchor_popup('news/local/123', 'Click Me!', []);
 
