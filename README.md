@@ -1,7 +1,7 @@
 # CodeIgniter 4 中文手册翻译项目
 
 [![image](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide.svg?branch=master)](https://travis-ci.org/CodeIgniter-Chinese/codeigniter4-user-guide) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## 翻译准则
@@ -76,45 +76,49 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://alexfu.cc"><img src="https://avatars3.githubusercontent.com/u/9924787?v=4" width="100px;" alt=""/><br /><sub><b>Alexander.Fu</b></sub></a><br /><a href="#translation-FlyingWings" title="Translation">🌍</a></td>
-    <td align="center"><a href="http://www.wazidw.com"><img src="https://avatars0.githubusercontent.com/u/4579995?v=4" width="100px;" alt=""/><br /><sub><b>wazidw</b></sub></a><br /><a href="#translation-wazidw" title="Translation">🌍</a> <a href="#projectManagement-wazidw" title="Project Management">📆</a> <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/pulls?q=is%3Apr+reviewed-by%3Awazidw" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/zhangxiaoshua"><img src="https://avatars3.githubusercontent.com/u/31472394?v=4" width="100px;" alt=""/><br /><sub><b>zhangxiaoshua</b></sub></a><br /><a href="#translation-zhangxiaoshua" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://www.qichengzx.com"><img src="https://avatars0.githubusercontent.com/u/1927478?v=4" width="100px;" alt=""/><br /><sub><b>xin zhao</b></sub></a><br /><a href="#translation-qichengzx" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://www.minipudding.com"><img src="https://avatars0.githubusercontent.com/u/11162253?v=4" width="100px;" alt=""/><br /><sub><b>icicle198514</b></sub></a><br /><a href="#translation-icicle198514" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/calciferlh"><img src="https://avatars0.githubusercontent.com/u/14966692?v=4" width="100px;" alt=""/><br /><sub><b>Calcifer</b></sub></a><br /><a href="#translation-calciferlh" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/DuXuanXuan"><img src="https://avatars1.githubusercontent.com/u/17022815?v=4" width="100px;" alt=""/><br /><sub><b>DuXuanXuan</b></sub></a><br /><a href="#translation-DuXuanXuan" title="Translation">🌍</a></td>
+    <td align="center"><a href="http://alexfu.cc"><img src="https://avatars3.githubusercontent.com/u/9924787?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alexander.Fu</b></sub></a><br /><a href="#translation-FlyingWings" title="Translation">🌍</a></td>
+    <td align="center"><a href="http://www.wazidw.com"><img src="https://avatars0.githubusercontent.com/u/4579995?v=4?s=100" width="100px;" alt=""/><br /><sub><b>wazidw</b></sub></a><br /><a href="#translation-wazidw" title="Translation">🌍</a> <a href="#projectManagement-wazidw" title="Project Management">📆</a> <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/pulls?q=is%3Apr+reviewed-by%3Awazidw" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/zhangxiaoshua"><img src="https://avatars3.githubusercontent.com/u/31472394?v=4?s=100" width="100px;" alt=""/><br /><sub><b>zhangxiaoshua</b></sub></a><br /><a href="#translation-zhangxiaoshua" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://www.qichengzx.com"><img src="https://avatars0.githubusercontent.com/u/1927478?v=4?s=100" width="100px;" alt=""/><br /><sub><b>xin zhao</b></sub></a><br /><a href="#translation-qichengzx" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://www.minipudding.com"><img src="https://avatars0.githubusercontent.com/u/11162253?v=4?s=100" width="100px;" alt=""/><br /><sub><b>icicle198514</b></sub></a><br /><a href="#translation-icicle198514" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/calciferlh"><img src="https://avatars0.githubusercontent.com/u/14966692?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Calcifer</b></sub></a><br /><a href="#translation-calciferlh" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/DuXuanXuan"><img src="https://avatars1.githubusercontent.com/u/17022815?v=4?s=100" width="100px;" alt=""/><br /><sub><b>DuXuanXuan</b></sub></a><br /><a href="#translation-DuXuanXuan" title="Translation">🌍</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="http://amberoracle.blog.163.com/"><img src="https://avatars0.githubusercontent.com/u/9973560?v=4" width="100px;" alt=""/><br /><sub><b>amberhu</b></sub></a><br /><a href="#translation-amberzizi" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/te-riper"><img src="https://avatars3.githubusercontent.com/u/33308188?v=4" width="100px;" alt=""/><br /><sub><b>te-riper</b></sub></a><br /><a href="#translation-te-riper" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/tlingYX"><img src="https://avatars3.githubusercontent.com/u/28684950?v=4" width="100px;" alt=""/><br /><sub><b>tlingYX</b></sub></a><br /><a href="#translation-tlingYX" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.red"><img src="https://avatars3.githubusercontent.com/u/12731778?v=4" width="100px;" alt=""/><br /><sub><b>John Wu</b></sub></a><br /><a href="#translation-wuhan005" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/FirstPunch"><img src="https://avatars0.githubusercontent.com/u/47411716?v=4" width="100px;" alt=""/><br /><sub><b>FirstPunch</b></sub></a><br /><a href="#translation-FirstPunch" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/chengshao2014"><img src="https://avatars2.githubusercontent.com/u/6170936?v=4" width="100px;" alt=""/><br /><sub><b>chengshao2014</b></sub></a><br /><a href="#translation-chengshao2014" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/wuzheng40"><img src="https://avatars2.githubusercontent.com/u/1391798?v=4" width="100px;" alt=""/><br /><sub><b>Ryan Wu</b></sub></a><br /><a href="#translation-wuzheng40" title="Translation">🌍</a></td>
+    <td align="center"><a href="http://amberoracle.blog.163.com/"><img src="https://avatars0.githubusercontent.com/u/9973560?v=4?s=100" width="100px;" alt=""/><br /><sub><b>amberhu</b></sub></a><br /><a href="#translation-amberzizi" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/te-riper"><img src="https://avatars3.githubusercontent.com/u/33308188?v=4?s=100" width="100px;" alt=""/><br /><sub><b>te-riper</b></sub></a><br /><a href="#translation-te-riper" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/tlingYX"><img src="https://avatars3.githubusercontent.com/u/28684950?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tlingYX</b></sub></a><br /><a href="#translation-tlingYX" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.red"><img src="https://avatars3.githubusercontent.com/u/12731778?v=4?s=100" width="100px;" alt=""/><br /><sub><b>John Wu</b></sub></a><br /><a href="#translation-wuhan005" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/FirstPunch"><img src="https://avatars0.githubusercontent.com/u/47411716?v=4?s=100" width="100px;" alt=""/><br /><sub><b>FirstPunch</b></sub></a><br /><a href="#translation-FirstPunch" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/chengshao2014"><img src="https://avatars2.githubusercontent.com/u/6170936?v=4?s=100" width="100px;" alt=""/><br /><sub><b>chengshao2014</b></sub></a><br /><a href="#translation-chengshao2014" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/wuzheng40"><img src="https://avatars2.githubusercontent.com/u/1391798?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ryan Wu</b></sub></a><br /><a href="#translation-wuzheng40" title="Translation">🌍</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/lsc77"><img src="https://avatars2.githubusercontent.com/u/17445192?v=4" width="100px;" alt=""/><br /><sub><b>lsc77</b></sub></a><br /><a href="#translation-lsc77" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/lockemgt"><img src="https://avatars0.githubusercontent.com/u/50262134?v=4" width="100px;" alt=""/><br /><sub><b>LockeMGT</b></sub></a><br /><a href="#translation-lockemgt" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://www.cnblogs.com/Andres/"><img src="https://avatars2.githubusercontent.com/u/24663432?v=4" width="100px;" alt=""/><br /><sub><b>Li Wang</b></sub></a><br /><a href="#translation-leven87" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/crazePhper"><img src="https://avatars2.githubusercontent.com/u/21233129?v=4" width="100px;" alt=""/><br /><sub><b>小叮当的肚兜</b></sub></a><br /><a href="#translation-crazePhper" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/arcsinw"><img src="https://avatars3.githubusercontent.com/u/10514065?v=4" width="100px;" alt=""/><br /><sub><b>arcsinw</b></sub></a><br /><a href="#translation-arcsinw" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/Qnurye"><img src="https://avatars0.githubusercontent.com/u/50016379?v=4" width="100px;" alt=""/><br /><sub><b>Qnurye</b></sub></a><br /><a href="#translation-Qnurye" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/JerryGai"><img src="https://avatars2.githubusercontent.com/u/38777583?v=4" width="100px;" alt=""/><br /><sub><b>JerryGai</b></sub></a><br /><a href="#translation-JerryGai" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/lsc77"><img src="https://avatars2.githubusercontent.com/u/17445192?v=4?s=100" width="100px;" alt=""/><br /><sub><b>lsc77</b></sub></a><br /><a href="#translation-lsc77" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/lockemgt"><img src="https://avatars0.githubusercontent.com/u/50262134?v=4?s=100" width="100px;" alt=""/><br /><sub><b>LockeMGT</b></sub></a><br /><a href="#translation-lockemgt" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://www.cnblogs.com/Andres/"><img src="https://avatars2.githubusercontent.com/u/24663432?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Li Wang</b></sub></a><br /><a href="#translation-leven87" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/crazePhper"><img src="https://avatars2.githubusercontent.com/u/21233129?v=4?s=100" width="100px;" alt=""/><br /><sub><b>小叮当的肚兜</b></sub></a><br /><a href="#translation-crazePhper" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/arcsinw"><img src="https://avatars3.githubusercontent.com/u/10514065?v=4?s=100" width="100px;" alt=""/><br /><sub><b>arcsinw</b></sub></a><br /><a href="#translation-arcsinw" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/Qnurye"><img src="https://avatars0.githubusercontent.com/u/50016379?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Qnurye</b></sub></a><br /><a href="#translation-Qnurye" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/JerryGai"><img src="https://avatars2.githubusercontent.com/u/38777583?v=4?s=100" width="100px;" alt=""/><br /><sub><b>JerryGai</b></sub></a><br /><a href="#translation-JerryGai" title="Translation">🌍</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://codeigniter.org.cn"><img src="https://avatars1.githubusercontent.com/u/13709?v=4" width="100px;" alt=""/><br /><sub><b>Hex</b></sub></a><br /><a href="#translation-hex-ci" title="Translation">🌍</a> <a href="#maintenance-hex-ci" title="Maintenance">🚧</a> <a href="#projectManagement-hex-ci" title="Project Management">📆</a> <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/pulls?q=is%3Apr+reviewed-by%3Ahex-ci" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/bangbangda"><img src="https://avatars1.githubusercontent.com/u/13864407?v=4" width="100px;" alt=""/><br /><sub><b>24Kdabaiyang</b></sub></a><br /><a href="#translation-bangbangda" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/tianpanhaha"><img src="https://avatars3.githubusercontent.com/u/8691684?v=4" width="100px;" alt=""/><br /><sub><b>tianpanhaha</b></sub></a><br /><a href="#translation-tianpanhaha" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/visvoy"><img src="https://avatars1.githubusercontent.com/u/376332?v=4" width="100px;" alt=""/><br /><sub><b>visvoy</b></sub></a><br /><a href="#translation-visvoy" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/yeye978151"><img src="https://avatars1.githubusercontent.com/u/23291154?v=4" width="100px;" alt=""/><br /><sub><b>张叶</b></sub></a><br /><a href="#translation-yeye978151" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/binhaiit"><img src="https://avatars0.githubusercontent.com/u/68095133?v=4" width="100px;" alt=""/><br /><sub><b>binhaiit</b></sub></a><br /><a href="#translation-binhaiit" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://www.orz2.com"><img src="https://avatars2.githubusercontent.com/u/9927289?v=4" width="100px;" alt=""/><br /><sub><b>Kang Jing</b></sub></a><br /><a href="#translation-Instrye" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://codeigniter.org.cn"><img src="https://avatars1.githubusercontent.com/u/13709?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hex</b></sub></a><br /><a href="#translation-hex-ci" title="Translation">🌍</a> <a href="#maintenance-hex-ci" title="Maintenance">🚧</a> <a href="#projectManagement-hex-ci" title="Project Management">📆</a> <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide/pulls?q=is%3Apr+reviewed-by%3Ahex-ci" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/bangbangda"><img src="https://avatars1.githubusercontent.com/u/13864407?v=4?s=100" width="100px;" alt=""/><br /><sub><b>24Kdabaiyang</b></sub></a><br /><a href="#translation-bangbangda" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/tianpanhaha"><img src="https://avatars3.githubusercontent.com/u/8691684?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tianpanhaha</b></sub></a><br /><a href="#translation-tianpanhaha" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/visvoy"><img src="https://avatars1.githubusercontent.com/u/376332?v=4?s=100" width="100px;" alt=""/><br /><sub><b>visvoy</b></sub></a><br /><a href="#translation-visvoy" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/yeye978151"><img src="https://avatars1.githubusercontent.com/u/23291154?v=4?s=100" width="100px;" alt=""/><br /><sub><b>张叶</b></sub></a><br /><a href="#translation-yeye978151" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/binhaiit"><img src="https://avatars0.githubusercontent.com/u/68095133?v=4?s=100" width="100px;" alt=""/><br /><sub><b>binhaiit</b></sub></a><br /><a href="#translation-binhaiit" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://www.orz2.com"><img src="https://avatars2.githubusercontent.com/u/9927289?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kang Jing</b></sub></a><br /><a href="#translation-Instrye" title="Translation">🌍</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/honwooh"><img src="https://avatars.githubusercontent.com/u/46131621?v=4?s=100" width="100px;" alt=""/><br /><sub><b>honwooh</b></sub></a><br /><a href="#translation-honwooh" title="Translation">🌍</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 本项目遵循 [all-contributors](https://github.com/all-contributors/all-contributors) 规范。欢迎任何形式的贡献！
