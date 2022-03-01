@@ -12,7 +12,7 @@ CodeIgniter 默认使用 $_SERVER['CI_ENVIRONMENT'] 的值作为 ENVIRONMENT 常
 .env
 ----
 
-最简单的方式是在你的 `.env </general/configuration>`_ 配置文件里设置。
+最简单的方式是在你的 :doc: `.env </general/configuration>`_ 配置文件里设置。
 
 .. code-block:: ini
 
@@ -66,10 +66,9 @@ CodeIgniter 系统中有几个地方用到了 ENVIRONMENT 常量。这一节将�
 错误报告
 ---------------
 
-将 ENVIRONMENT 常量值设置为 'development'，这将导致所有发生的 PHP 错误在客户端请求页面时显示在浏览器上。相反，如果将常量设置为 'production' 将禁用所有错误输出。在生产环境禁用错误输出是 
-`良好的安全实践 </concepts/security>`_。
+将 ENVIRONMENT 常量值设置为 'development'，这将导致所有发生的 PHP 错误在客户端请求页面时显示在浏览器上。相反，如果将常量设置为 'production' 将禁用所有错误输出。在生产环境禁用错误输出是 :doc: `良好的安全实践 </concepts/security>`_。
 
 配置文件
 -------------------
 
-另外，CodeIgnite 还可以根据不同的环境自动加载不同的配置文件，这在处理例如不同环境下有着不同的API Key的情况时相当有用。这在 `配置类 </general/configuration>`_ 文档中的“环境”一节有着更详细的介绍。
+另外，CodeIgnite 还可以根据不同的环境自动加载不同的配置文件，这在处理例如不同环境下有着不同的API Key的情况时相当有用。这在 :doc: `配置类 </general/configuration>`_ 文档中的“环境”一节有着更详细的介绍。
