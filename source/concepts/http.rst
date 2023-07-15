@@ -1,111 +1,69 @@
-##############
+##########################
 处理 HTTP 请求
-##############
+##########################
 
-为了充分地使用 CodeIgniter，你需要对 HTTP 请求和响应的工作方式有基本的了解。因为在开发Web应用时需要处理 HTTP 请求，所以对于所有想要成功的开发者来说，
-理解 HTTP 背后的概念是 **必须** 的。
+为了充分利用 CodeIgniter,您需要对 HTTP 请求和响应的工作原理有基本的了解。由于这是您在开发 Web 应用程序时使用的内容,所以所有想要成功的开发人员都必须了解 HTTP 背后的概念。
 
-本章的第一部分会给出一些关于 HTTP 的概述，接着我们会讨论怎样用 CodeIgniter 来处理 HTTP 请求与响应。
+本章的第一部分概述了概念。在概念说明清楚之后,我们将讨论在 CodeIgniter 中如何处理请求和响应。
 
-什么是 HTTP ？
-==============
+.. contents::
+    :local:
+    :depth: 2
 
-HTTP 是两台计算机相互通信的一种基于文本的协议。当浏览器请求页面时，它会询问服务器是否可以获取该页面。然后，
-服务器准备页面并将响应发送回发送请求的浏览器。就是这样简单，也可以说复杂些，但基本就是这样。
+什么是 HTTP?
+*************
 
-HTTP 是用于描述该交换约定的术语。它代表超文本传输协议（Hypertext Transfer Protocol）。开发 web 应用程序时，
-你的目标只是了解浏览器的要求，并能够做出适当的响应。
+HTTP 简单来说就是一种基于文本的约定,允许两台机器互相通信。当浏览器请求一个页面时,它会问服务器是否可以获取该页面。然后服务器准备好页面,并向请求它的浏览器发送响应。基本上就这么简单。显然,您可以使用一些复杂的功能,但基础真的非常简单。
 
-HTTP 请求
------------
+HTTP 是用于描述该交换约定的术语。它代表超文本传输协议(HyperText Transfer Protocol)。您开发 Web 应用程序的目标是始终了解浏览器正在请求什么,并能够做出适当的响应。
 
-当客户端（浏览器，手机软件等）尝试发送 HTTP 请求时，客户端会向服务器发出一条文本消息然后等待响应。
+请求
+===========
 
-这条文本消息会像这样： ::
+每当客户端(Web 浏览器、智能手机应用等)发出请求时,它都会向服务器发送一小段文本消息并等待响应。
 
-	GET / HTTP/1.1
-	Host codeigniter.com
-	Accept: text/html
-	User-Agent: Chrome/46.0.2490.80
+请求看起来类似这样::
 
-这条消息包含了所有服务器可能需要的信息。比如它请求的 method（GET，POST，DELETE 等）、它所支持的 HTTP 版本。
+    GET / HTTP/1.1
+    Host codeigniter.com
+    Accept: text/html
+    User-Agent: Chrome/46.0.2490.80
 
-该请求还包括许多可选的请求头字段，这些头字段可以包含各种信息，例如客户端希望内容显示为哪种语言，
-客户端接受的格式类型等等。 Wikipedia 上有一篇文章，列出了 `所有的请求头字段
-<https://en.wikipedia.org/wiki/List_of_HTTP_header_fields>`_ （译者注：国内用户如果无法访问的话，
-可以查看 `在MDN上的页面 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers>`_ ）。
+此消息显示了客户端请求所需的所有信息。它告诉请求的方法(GET、POST、DELETE 等)和它支持的 HTTP 版本。
 
-HTTP 响应
-------------
+请求还包括可以包含广泛信息的可选请求头,例如客户端希望以什么语言显示内容,客户端接受的格式类型等等。如果您想查看一下,Wikipedia 有一篇文章列出了`所有标题字段 <https://en.wikipedia.org/wiki/List_of_HTTP_header_fields>`_。
 
-服务器收到请求后，你的 web 应用程序会处理这条信息然后输出一些响应结果。服务器会将你的响应结果打包为对
-客户端的的你的响应结果打包为对客户端的响应的一部分。服务器对客户端的响应消息看起来会像这样： ::
+响应
+============
 
-	HTTP/1.1 200 OK
-	Server: nginx/1.8.0
-	Date: Thu, 05 Nov 2015 05:33:22 GMT
-	Content-Type: text/html; charset=UTF-8
+一旦服务器接收到请求,您的应用程序将获取该信息并生成一些输出。服务器将您的输出作为其对客户端的响应的一部分进行打包。这也表示为类似这样的简单文本消息:
 
-	<html>
-		. . .
-	</html>
+::
 
-响应消息告诉客户端服务器正在使用的 HTTP 版本规范，以及响应状态码（200）。状态码是标准化的对客户端具有非常特定
-含义的代码。它可以告诉客户端响应成功（200），或者找不到页面（404）等等。 在 IANA 可以找到 
-`完整的响应状态码列表 <https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml>`_ 。
+    HTTP/1.1 200 OK
+    Server: nginx/1.8.0
+    Date: Thu, 05 Nov 2015 05:33:22 GMT
+    Content-Type: text/html; charset=UTF-8
 
-对 HTTP 请求和响应的处理
------------------------------------
+    <html>
+        . . .
+    </html>
 
-虽然 PHP 提供了与 HTTP 请求和响应进行交互的原生方式，但 CodeIgniter 像大多数框架一样，将它们抽象化，让你拥有一个
-一致、简单的接口。:doc:`IncomingRequest 类 </incoming/incomingrequest>` 类是 HTTP 请求的面向对象的表示形式。
-它提供你所需要的一切： ::
+响应告诉客户端它使用的 HTTP 规范版本,可能最重要的是状态码(200)。状态码是对客户端具有非常特定含义的标准化代码之一。这可以告诉它请求成功(200),或者页面未找到(404)。如果您想查看完整的 HTTP 状态码列表,请访问 IANA 的 `完整 HTTP 状态码列表 <https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml>`_。
 
-	use CodeIgniter\HTTP\IncomingRequest;
+使用请求和响应
+***********************************
 
-	$request = service('request');
+虽然 PHP 提供了与请求和响应标头交互的方式,但 CodeIgniter 和大多数框架一样,将它们抽象化,以便为它们提供一致、简单的接口。:doc:`IncomingRequest 类 </incoming/incomingrequest>` 是 HTTP 请求的面向对象表示。它提供了您需要的一切:
 
-	// 请求的 uri（如 /about ）
-	$request->uri->getPath();
+.. literalinclude:: http/001.php
 
-	// 检索 $_GET 与 $_POST 变量
-	$request->getGet('foo');
-	$request->getPost('foo');
+请求类会默默地为您完成很多工作,您永远不需要担心。``isAJAX()`` 和 ``isSecure()`` 方法检查了几种不同的方法来确定正确的答案。
 
-	// 从 $_REQUEST 检索，其中应同时包含 $_GET 和 $_POST 内容
-	$request->getVar('foo');
+.. note:: ``isAJAX()`` 方法依赖于 ``X-Requested-With`` 标头,在某些情况下,这在通过 JavaScript 发出的 XHR 请求中默认不会发送(即 fetch)。请参阅 :doc:`AJAX 请求 </general/ajax>` 部分了解如何避免此问题。
 
-	// 从 AJAX 调用中检索 JSON
-	$request->getJSON();
+CodeIgniter 还提供了一个 :doc:`Response 类 </outgoing/response>`,它是 HTTP 响应的面向对象表示。这为您构建对客户端的响应提供了一个简单而强大的方式:
 
-	// 检索 server 变量
-	$request->getServer('Host');
+.. literalinclude:: http/002.php
 
-	// 检索 HTTP 请求头，使用不区分大小写的名称
-	$request->getHeader('host');
-	$request->getHeader('Content-Type');
-
-	$request->getMethod();  // GET, POST, PUT 等等
-
-request 类会在后台为你做很多工作，你无需担心。 ``isAJAX()`` 和 ``isSecure()`` 函数会自动检查几种不同的 method 来
-最后确定正确的答案。
-
-.. note:: ``isAJAX()`` 函数依赖于 ``X-Requested-With`` 头部，这个头部在一些情况下，不会在 XHR 请求中通过 JavaScript 默认发送。想要了解如何避免这个问题，请参考 :doc:`AJAX Requests </general/ajax>` 章节
-
-CodeIgniter 还提供了 :doc:`Response 类 </outgoing/response>` ，它是 HTTP 响应的面向对象式表示。
-它为你提供一种简单而强大的方法来构造对客户的响应： ::
-
-  use CodeIgniter\HTTP\Response;
-
-  $response = service('response');
-
-  $response->setStatusCode(Response::HTTP_OK);
-  $response->setBody($output);
-  $response->setHeader('Content-type', 'text/html');
-  $response->noCache();
-
-  // 把响应结果发给浏览器
-  $response->send();
-
-另外， :doc:`Response 类 </outgoing/response>` 还允许你处理 HTTP 缓存层以获得最佳性能。
-
+此外,Response 类允许您使用 HTTP 缓存层进行工作以获得最佳性能。

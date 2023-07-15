@@ -1,47 +1,48 @@
 ****************
-CLIRequest Class
+CLIRequest 类
 ****************
 
-If a request comes from a command line invocation, the request object is actually a
-``CLIRequest``. It behaves the same as a :doc:`conventional request </incoming/request>`
-but adds some accessor methods for convenience.
+如果请求来自命令行调用,则请求对象实际上是一个 ``CLIRequest``。它的行为与 :doc:`常规请求 </incoming/request>` 相同,但添加了一些方便的访问器方法。
 
 ====================
-Additional Accessors
+额外的访问器
 ====================
 
-**getSegments()**
+getSegments()
+-------------
 
-Returns an array of the command line arguments deemed to be part of a path::
+返回被视为路径一部分的命令行参数数组:
 
-    // command line: php index.php users 21 profile -foo bar
-    echo $request->getSegments();  // ['users', '21', 'profile']
+.. literalinclude:: cli_request/001.php
 
-**getPath()**
+getPath()
+---------
 
-Returns the reconstructed path as a string::
+返回重构后的路径字符串:
 
-    // command line: php index.php users 21 profile -foo bar
-    echo $request->getPath();  // users/21/profile
+.. literalinclude:: cli_request/002.php
 
-**getOptions()**
+getOptions()
+------------
 
-Returns an array of the command line arguments deemed to be options::
+返回被视为选项的命令行参数数组:
 
-    // command line: php index.php users 21 profile -foo bar
-    echo $request->getOptions();  // ['foo' => 'bar']
+.. literalinclude:: cli_request/003.php
 
-**getOption($which)**
+getOption($which)
+-----------------
 
-Returns the value of a specific command line argument deemed to be an option::
+返回被视为选项的特定命令行参数的值:
 
-    // command line: php index.php users 21 profile -foo bar
-    echo $request->getOption('foo');  // bar
-    echo $request->getOption('notthere'); // NULL
+.. literalinclude:: cli_request/004.php
 
-**getOptionString()**
+getOptionString()
+-----------------
 
-Returns the reconstructed command line string for the options::
+返回重构后的命令行选项字符串:
 
-    // command line: php index.php users 21 profile -foo bar
-    echo $request->getOptionPath();  // -foo bar
+.. literalinclude:: cli_request/005.php
+
+向第一个参数传递 ``true`` 将尝试使用两个破折号编写长选项:
+
+.. literalinclude:: cli_request/006.php

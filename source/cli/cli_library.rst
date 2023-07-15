@@ -1,84 +1,104 @@
 ###########
-CLI Library
+CLI 库
 ###########
 
-CodeIgniter 的 CLI 库，让创建命令行交互脚本变得简单。其中包括：
+CodeIgniter 的 CLI 库可以轻松创建交互式命令行脚本,包括:
 
-* 为用户提供更多信息
-* 在终端上打印彩色文本
-* Beeping (be nice!)
-* 在长任务中显示进度条
-* 让长文本行适应窗口
+* 提示用户提供更多信息
+* 在终端上写入多彩文本
+* 蜂鸣声(要友好!)
+* 在长时间任务期间显示进度条
+* 将过长的文本行包装以适应窗口
 
 .. contents::
     :local:
     :depth: 2
 
 初始化类
-======================
+**********************
 
-你不需要创建 CLI 库的实例，因为它的所有方法都是静态方法。你只需要确保你的控制器可以通过 ``use`` 声明找到它： 
-::
+您不需要创建 CLI 库的实例,因为它的所有方法都是静态的。相反,您只需要通过控制器顶部的 ``use`` 语句确保控制器可以定位它:
 
-	<?php namespace App\Controllers;
+.. literalinclude:: cli_library/001.php
 
-	use CodeIgniter\CLI\CLI;
-
-	class MyController extends \CodeIgniter\Controller
-	{
-		. . .
-	}
-
-首次加载该文件时，这个类会自动初始化。
+该类在首次加载文件时会自动初始化。
 
 获取用户输入
-===========================
+***************************
 
-有时你需要询问用户更多的信息。他们可能没有提供可选的命令行参数，或者脚本遇到了存在的文件，在覆写前需要进行确认。
-这时使用 ``prompt()`` 方法处理
+有时您需要询问用户更多信息。他们可能没有提供可选的命令行参数,或者脚本可能遇到现有文件并需要确认才能覆盖。这通过 ``prompt()`` 或 ``promptByKey()`` 方法来处理。
 
-你可以提供一个问题作为方法的第一个参数：
-::
+.. note:: 从 v4.3.0 开始,您可以用 ``PhpStreamWrapper`` 为这些方法编写测试。
+    请参阅 :ref:`testing-cli-input`。
 
-	$color = CLI::prompt('What is your favorite color?');
+prompt()
+========
 
-你可以提供一个默认的答案作为方法的第二个参数。如果用户没有任何输入，只是按下 Enter 键，则将使用该默认答案：
-::
+您可以通过作为第一个参数传递问题来提供一个问题:
 
-	$color = CLI::prompt('What is your favorite color?', 'blue');
+.. literalinclude:: cli_library/002.php
 
-你可以向第二个参数传入允许答案的数组，以限制可以接受的答案：
-::
+您可以通过在第二个参数中传递默认值,为用户只需按 Enter 提供默认答案:
 
-	$overwrite = CLI::prompt('File exists. Overwrite?', ['y','n']);
+.. literalinclude:: cli_library/003.php
 
-最后你可以将验证规则作为第三个参数，以限制输入的答案：
-::
+您可以通过作为第二个参数传递允许答案的数组来限制可接受的答案:
 
-	$email = CLI::prompt('What is your email?', null, 'required|valid_email');
+.. literalinclude:: cli_library/004.php
+
+最后,您可以将答案输入的 :ref:`验证 <validation>` 规则作为第三个参数传递:
+
+.. literalinclude:: cli_library/005.php
+
+验证规则也可以以数组语法编写:
+
+.. literalinclude:: cli_library/006.php
+
+promptByKey()
+=============
+
+预定义的提示答案(选项)有时需要描述或过于复杂,无法通过其值进行选择。``promptByKey()`` 允许用户通过其键而不是值来选择选项:
+
+.. literalinclude:: cli_library/007.php
+
+命名键也是可能的:
+
+.. literalinclude:: cli_library/008.php
+
+最后,您可以将答案输入的 :ref:`验证 <validation>` 规则作为第三个参数传递,可接受的答案会自动限制为传入的选项。
+
+.. _prompt-by-multiple-keys:
+
+promptByMultipleKeys()
+======================
+
+.. versionadded:: 4.3.0
+
+这个方法与 ``promptByKey()`` 相同,但它支持多个值。
+
+.. literalinclude:: cli_library/023.php
+
+.. important:: 与 ``promptByKey()`` 不同,``promptByMultipleKeys()`` 方法不支持命名键或验证。
 
 提供反馈
-==================
+******************
 
-**write()**
+write()
+=======
 
-多个方法可以用来向用户提供反馈。它可以像更新单个状态一样简单，也可以包装复杂的信息表到用户终端。
-其核心是 ``write()`` 方法，该方法将要输出的字符串作为第一个参数：
-::
+提供了几种方法来向用户提供反馈。这可以是简单的单个状态更新,也可以是复杂的信息表格,会换行到用户的终端窗口。这其核心是 ``write()`` 方法,它以要输出的字符串作为第一个参数:
 
-	CLI::write('The rain in Spain falls mainly on the plains.');
+.. literalinclude:: cli_library/009.php
 
-你可以输入颜色名称作为第二个参数来更改文本的颜色：
-::
+您可以通过在第二个参数中传递颜色名称来更改文本颜色:
 
-	CLI::write('File created.', 'green');
+.. literalinclude:: cli_library/010.php
 
-你可以向第三个参数输入颜色名称来设置背景颜色。这可以用于按状态区分消息，或使用其他颜色创建“标题”：
-::
+这可以用来按状态区分消息,或通过使用不同的颜色创建“标题”。您甚至可以通过将颜色名称作为第三个参数传递来设置背景颜色:
 
-	CLI::write('File overwritten.', 'light_red', 'dark_gray');
+.. literalinclude:: cli_library/011.php
 
-可以使用以下前景色：
+以下前景色可用:
 
 * black
 * dark_gray
@@ -98,7 +118,7 @@ CodeIgniter 的 CLI 库，让创建命令行交互脚本变得简单。其中包
 * light_gray
 * white
 
-少数可以用作背景色：
+并且有更小数量的背景色可用:
 
 * black
 * blue
@@ -109,154 +129,101 @@ CodeIgniter 的 CLI 库，让创建命令行交互脚本变得简单。其中包
 * light_gray
 * magenta
 
-**print()**
+print()
+=======
 
-Print 方法的功能和 ``write`` 相同，不同的是它不会在行前或者行尾强制换行。它将信息打印到当前屏幕光标所在的位置上，
-这让你可以在不同的代码位置，打印信息到屏幕的同一行上。当你显示状态，执行某些操作后在同一行打印 “Done”  时，这十分有用：
-::
+``print()`` 的作用与 ``write()`` 方法相同,只是它不会在前后强制换行。相反,它会将内容打印到光标当前所在的屏幕上。这允许您从不同的调用中在同一行上打印多个项目。当您想显示一个状态,执行一些操作,然后在同一行上打印“Done”时,这特别有用:
 
-    for ($i = 0; $i <= 10; $i++)
-    {
-        CLI::print($i);
-    }
+.. literalinclude:: cli_library/012.php
 
-**color()**
+.. _cli-library-color:
 
-``write()`` 方法将单行文本打印到终端，并打印 EOL 标识符结尾。``color()`` 方法以相同的方式处理文本，不同的是它不会在结尾打印 EOL 标识符。
-这可以让你在同一行创建多个输出。更常见的用法是在 ``write()`` 方法内部使用，以在同一行中显示不同颜色的文本：
-::
+color()
+=======
 
-	CLI::write("fileA \t". CLI::color('/path/to/file', 'white'), 'yellow');
+虽然 ``write()`` 命令会将单行写入终端,并在结束时带有 EOL 字符,但您可以使用 ``color()`` 方法来制作一个字符串片段,可以以相同的方式使用,不同之处在于打印后不会强制 EOL。这允许您在同一行上创建多个输出。或者,更常见的是,您可以在 ``write()`` 方法中使用它来创建不同颜色的字符串:
 
-该示例将打印一行文本到终端。首先用黄色打印 ``fileA`` ，接着打印一个制表符，最后用白色打印 ``/path/to/file``。
+.. literalinclude:: cli_library/013.php
 
-**error()**
+这个示例将在窗口中写入一行,``fileA`` 为黄色,后跟一个制表符,然后是白色的 ``/path/to/file``。
 
-如果你需要输出错误信息，则应该使用 ``error`` 方法。它会将浅红色的文本写入到 ``STDERR``，而不是像 ``write()`` 和 ``color()`` 一样写入到 ``STDOUT``。
-如果你使用脚本监视错误信息，这样就可以只捕获到实际的错误信息，不必从所有信息中进行筛选：
-::
+error()
+=======
 
-	CLI::error('Cannot write to file: ' . $file);
+如果需要输出错误,您应该使用适当命名的 ``error()`` 方法。这会将浅红色文本写入 STDERR,而不是像 ``write()`` 和 ``color()`` 那样写入 STDOUT。如果您有监视错误的脚本,这样可以方便它们不必筛选所有信息,而只提取实际的错误消息。您可以像使用 ``write()`` 方法一样使用它:
 
-**wrap()**
+.. literalinclude:: cli_library/014.php
 
-该方法将获取一个字符串，并开始在当前行开始打印。它将会根据设置的长度对字符串进行包装，每行只显示设置的长度的内容。
-他可以用来显示带有说明的显示列表，避免过多内容显示在一行内，影响阅读：
-::
+wrap()
+======
 
-	CLI::color("task1\t", 'yellow');
-	CLI::wrap("Some long description goes here that might be longer than the current window.");
+这个命令将获取一个字符串,开始在当前行打印它,并将其换行到设置的长度。当显示您想要在当前窗口中换行而不是超出屏幕的选项及其描述时,这可能很有用:
 
-默认情况下，字符串将用终端宽度进行包装。Windows 目前无法提供确定的窗口大小，所以默认使用 80 个字符。如果你希望将宽度设置的更短一些，
-可以将最大行长度作为第二个参数传递。这将在最接近该长度的单词处断开字符，以避免破坏单词：
-::
+.. literalinclude:: cli_library/015.php
 
-	// Wrap the text at max 20 characters wide
-	CLI::wrap($description, 20);
+默认情况下,字符串将换行到终端宽度。Windows 当前没有提供确定窗口大小的方法,因此我们默认为 80 个字符。如果您想将宽度限制为一些可以相当确定适合窗口的较短长度,请将最大行长度作为第二个参数传递。这将在最接近的词边界处中断字符串,以免单词被断开。
 
-你会发现需要左边需要一列显示标题、文件或任务，而右边需要一列显示文本和他的说明。默认情况下，
-这将换行到窗口的左边缘，即不允许信息按列排列。这时你可以用空格来填充第一行之后的每一行，
-以便让左侧具有清晰的列边缘：
-::
+.. literalinclude:: cli_library/016.php
 
-	// 确定所有标题的最大长度
-	// 确定左列的宽度
-	$maxlen = max(array_map('strlen', $titles));
+您可能会发现,您想要标题、文件或任务的左边有一列,而右边有描述文本的一列。默认情况下,这将回绕到窗口的左边缘,这不允许项目按列对齐。在这种情况下,您可以传入换行后要填充的空格数,以便在左边有一个整齐的列边界:
 
-	for ($i=0; $i < count($titles); $i++)
-	{
-		CLI::write(
-			// 在行的左侧列显示标题
-			$titles[$i] . '   ' .
-			// 在行的右侧列包装信息
-			// 与左侧最宽的内容间隔三个宽度
-			CLI::wrap($descriptions[$i], 40, $maxlen + 3)
-		);
-	}
+.. literalinclude:: cli_library/017.php
 
-将创建以下内容：
+这将创建类似如下的内容:
 
 .. code-block:: none
 
-    task1a   Lorem Ipsum is simply dummy
-               text of the printing and typesetting
-               industry.
-    task1abc   Lorem Ipsum has been the industry's
-               standard dummy text ever since the
+    task1a     Lorem Ipsum 只是印刷和排版
+               行业的虚构文字
+    task1abc   Lorem Ipsum 从1500年代起
+               就一直是行业的标准虚构文字
 
-**newLine()**
+newLine()
+=========
 
-``newLine()`` 方法向用户显示一个空行，它不需要任何参数：
-::
+``newLine()`` 方法向用户显示一个空行。它不接受任何参数:
 
-	CLI::newLine();
+.. literalinclude:: cli_library/018.php
 
-**clearScreen()**
+clearScreen()
+=============
 
-你可以使用 ``clearScreen()`` 方法清除当前窗口。在多数的 Windows 系统中，它将插入 40 行空白行，因为 Windows 不支持该功能。
-Windows 10 bash 因该能改变这点：
-::
+您可以使用 ``clearScreen()`` 方法清除当前的终端窗口。在大多数 Windows 版本中,这只会插入 40 行空白行,因为 Windows 不支持此功能。Windows 10 bash 集成应该会改变这一点:
 
-	CLI::clearScreen();
+.. literalinclude:: cli_library/019.php
 
-**showProgress()**
+showProgress()
+==============
 
-如果你有一个长时间运行的任务，你希望让用户了解当前的执行进度，则可以使用 ``showProgress()`` 方法，它显示以下内容：
-
-.. code-block:: none
-
-	[####......] 40% Complete
-
-该行将设置为动态显示，以获得良好的展示效果。
-
-将当前的步骤作为第一个参数传入，并将总步骤作为第二个参数传入。完成的百分比和显示长度将根据该数字确认。当任务完成后，传递 false 
-作为第一个参数，进度条将被删除：
-::
-
-	$totalSteps = count($tasks);
-	$currStep   = 1;
-
-	foreach ($tasks as $task)
-	{
-		CLI::showProgress($currStep++, $totalSteps);
-		$task->run();
-	}
-
-	// Done, so erase it...
-	CLI::showProgress(false);
-
-**table()**
-
-::
-
-	$thead = ['ID', 'Title', 'Updated At', 'Active'];
-	$tbody = [
-		[7, 'A great item title', '2017-11-15 10:35:02', 1],
-		[8, 'Another great item title', '2017-11-16 13:46:54', 0]
-	];
-
-	CLI::table($tbody, $thead);
+如果您有一个长时间运行的任务,希望保持用户了解进度,可以使用 ``showProgress()`` 方法,它会显示类似以下内容:
 
 .. code-block:: none
 
-	+----+--------------------------+---------------------+--------+
-	| ID | Title                    | Updated At          | Active |
-	+----+--------------------------+---------------------+--------+
-	| 7  | A great item title       | 2017-11-16 10:35:02 | 1      |
-	| 8  | Another great item title | 2017-11-16 13:46:54 | 0      |
-	+----+--------------------------+---------------------+--------+
+    [####......] 40% Complete
 
-**wait()**
+此块会就地进行动画以产生非常好的效果。
 
-等待一定的秒数。可以选择显示等待消息，或等待按键：
+使用时,请将当前步骤作为第一个参数传递,将总步骤数作为第二个参数。完成百分比和显示长度将根据该数字确定。完成时,请将 ``false`` 作为第一个参数传入,进度条将被删除。
 
-::
+.. literalinclude:: cli_library/020.php
 
-        // 等待指定的时间间隔，并显示倒计时信息
-        CLI::wait($seconds, true);
+table()
+=======
 
-        // 显示等待输入的信息，并等待输入
-        CLI::wait(0, false);
+.. literalinclude:: cli_library/021.php
 
-        // 等待指定的时间间隔，不显示任何信息
-        CLI::wait($seconds, false);
+.. code-block:: none
+
+    +----+--------------------------+---------------------+--------+
+    | ID | 标题                     | 更新于              | 活动   |
+    +----+--------------------------+---------------------+--------+
+    | 7  | 一个很棒的标题           | 2017-11-16 10:35:02 | 1      |
+    | 8  | 另一个很棒的标题         | 2017-11-16 13:46:54 | 0      |
+    +----+--------------------------+---------------------+--------+
+
+wait()
+======
+
+等待一定的秒数,可选择显示等待消息并等待按键。
+
+.. literalinclude:: cli_library/022.php
