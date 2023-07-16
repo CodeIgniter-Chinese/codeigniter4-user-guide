@@ -12,19 +12,21 @@
 #
 # import os
 # import sys
+import datetime
 # sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
 project = 'CodeIgniter'
 author = 'CodeIgniter 基金会'
-copyright = '2019-2020 CodeIgniter 基金会'
+year_now = datetime.date.today().year
+copyright = '2019-' + str(year_now) + ' CodeIgniter 基金会'
 
 # The short X.Y version.
-version = '4.0'
+version = '4.3'
 
 # The full version, including alpha/beta/rc tags.
-release = '4.0.0'
+release = '4.3.6'
 
 # -- General configuration ---------------------------------------------------
 
@@ -44,7 +46,7 @@ extensions = [
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+# templates_path = ['_templates']
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -82,7 +84,6 @@ html_theme_options = {
 	'includehidden': False,
 	'logo_only': True,
 	'display_version': False,
-	'style_nav_header_background': '#DD4814',
 }
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
@@ -108,7 +109,9 @@ htmlhelp_basename = 'CodeIgniterdoc'
 html_copy_source = False
 
 # A list of CSS files.
-html_css_files = []
+html_css_files = [
+    'css/citheme_dark.css'
+]
 
 # A list of JS files.
 html_js_files = [
@@ -116,7 +119,7 @@ html_js_files = [
 	'js/carbon.js'
 ]
 
-html_title = u'CodeIgniter ' + release + u' 中文手册|用户手册|用户指南|中文文档'
+#html_title = u'CodeIgniter ' + release + u' 中文手册|用户手册|用户指南|中文文档'
 
 # -- Options for LaTeX output --------------------------------------------------
 
@@ -127,7 +130,7 @@ latex_engine = 'xelatex'
 # toctree_only)
 latex_documents = [
   ('index', 'CodeIgniter.tex', u'CodeIgniter4 中文手册',
-   ur'\hfill CodeIgniter 基金会\\CodeIgniter 中国开发者社区', 'manual'),
+   r'\hfill CodeIgniter 基金会\\CodeIgniter 中国开发者社区', 'manual'),
 ]
 
 latex_elements = {
@@ -167,4 +170,4 @@ man_pages = [
 epub_title = u'CodeIgniter4 中文手册 版本 ' + release
 epub_author = u'CodeIgniter 基金会 & CodeIgniter 中国开发者社区'
 epub_publisher = u'CodeIgniter 基金会 & CodeIgniter 中国开发者社区'
-epub_copyright = u'2019-2020 CodeIgniter 基金会'
+epub_copyright = copyright
