@@ -381,7 +381,7 @@ $builder->like()
 
     .. literalinclude:: query_builder/039.php
 
-    如果要控制通配符 (**%**) 的放置位置,可以使用可选的第三个参数。您的选项是 ``before``、``after`` 和 ``both``(默认)。
+    如果要控制通配符 (**%**) 的放置位置,可以使用可选的第三个参数。您的选项是 ``before``、``after`` 和 ``both`` (默认)。
 
     .. literalinclude:: query_builder/040.php
 
@@ -524,7 +524,7 @@ $builder->havingLike()
 
     .. literalinclude:: query_builder/060.php
 
-    如果要控制通配符 (**%**) 的放置位置,可以使用可选的第三个参数。您的选项是 ``before``、``after`` 和 ``both``(默认)。
+    如果要控制通配符 (**%**) 的放置位置,可以使用可选的第三个参数。您的选项是 ``before``、``after`` 和 ``both`` (默认)。
 
     .. literalinclude:: query_builder/061.php
 
@@ -745,7 +745,7 @@ $builder->ignore()
 ------------------
 
 根据您提供的数据生成 insert ignore 字符串并运行查询。所以如果具有相同主键的条目已经存在,则不会插入查询。
-您可以选择向方法传递一个**布尔值**。也可用于 **insertBatch**、**update** 和 **delete**(若支持)。
+您可以选择向方法传递一个**布尔值**。也可用于 **insertBatch**、**update** 和 **delete** (若支持)。
 下面是一个使用上述数组的示例:
 
 .. literalinclude:: query_builder/078.php

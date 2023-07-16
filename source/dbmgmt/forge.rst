@@ -191,7 +191,7 @@ $forge->addUniqueKey()
 删除表
 ***************
 
-删除表
+删除一张表
 ================
 
 执行 ``DROP TABLE`` 语句,并可选地添加 ``IF EXISTS`` 子句。
@@ -206,7 +206,7 @@ $forge->addUniqueKey()
 修改表
 ****************
 
-向表添加字段
+向表中添加字段
 =========================
 
 $forge->addColumn()
@@ -442,7 +442,7 @@ $forge->modifyColumn()
         :returns:    成功则为 true,失败则为 false
         :rtype:    bool
 
-        删除表。用法:参见 `删除表`_。
+        删除表。用法:参见 `删除一张表`_。
 
     .. php:method:: processIndexes($table)
 
