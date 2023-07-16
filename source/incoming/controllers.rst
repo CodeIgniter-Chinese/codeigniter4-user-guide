@@ -2,343 +2,489 @@
 控制器
 ###########
 
-控制器是你整个应用的核心，因为它们决定了 HTTP 请求将被如何处理。
+控制器是您应用程序的核心,因为它们确定了如何处理 HTTP 请求。
 
 .. contents::
     :local:
     :depth: 2
 
-
 什么是控制器?
+*********************
+
+一个控制器简单来说就是一个处理 HTTP 请求的类文件。:doc:`URI 路由 <routing>` 将一个 URI 与一个控制器关联起来。
+
+您创建的每个控制器都应该扩展 ``BaseController`` 类。
+这个类为您所有的控制器提供了几个可用的功能。
+
+.. _controller-constructor:
+
+构造函数
+***********
+
+CodeIgniter 的控制器有一个特殊的构造函数 ``initController()``。
+它会在 PHP 的构造函数 ``__construct()`` 执行后由框架调用。
+
+如果您想重写 ``initController()``,不要忘记在方法中添加 ``parent::initController($request, $response, $logger);`` :
+
+.. literalinclude:: controllers/023.php
+
+.. important:: 您不能在构造函数中使用 ``return``。所以 ``return redirect()->to('route');`` 不起作用。
+
+``initController()`` 方法设置了以下三个属性。
+
+包含的属性
+*******************
+
+CodeIgniter 的控制器提供了这些属性。
+
+请求对象
+==============
+
+应用程序的主要 :doc:`请求实例 </incoming/incomingrequest>` 始终作为类属性 ``$this->request`` 可用。
+
+响应对象
+===============
+
+应用程序的主要 :doc:`响应实例 </outgoing/response>` 始终作为类属性 ``$this->response`` 可用。
+
+日志对象
+=============
+
+:doc:`日志 <../general/logging>` 类的一个实例作为类属性 ``$this->logger`` 可用。
+
+.. _controllers-helpers:
+
+助手
+=======
+
+您可以将助手文件的数组定义为类属性。每当加载控制器时,这些助手文件都会自动加载到内存中,以便您可以在控制器内的任何地方使用它们的方法:
+
+.. literalinclude:: controllers/001.php
+
+forceHTTPS
+**********
+
+所有控制器中都可以使用强制通过 HTTPS 访问方法的便利方法:
+
+.. literalinclude:: controllers/002.php
+
+默认情况下,在支持 HTTP 严格传输安全头的现代浏览器中,此调用应强制浏览器将非 HTTPS 调用转换为一年的 HTTPS 调用。您可以通过传递持续时间(以秒为单位)作为第一个参数来修改此设置:
+
+.. literalinclude:: controllers/003.php
+
+.. note:: 您可以始终使用一些 :doc:`基于时间的常量 </general/common_functions>`,包括 ``YEAR``、``MONTH`` 等。
+
+
+.. _controllers-validating-data:
+
+验证数据
+***************
+
+.. _controller-validate:
+
+$this->validate()
+=================
+
+为了简化数据检查,控制器还提供了方便的 ``validate()`` 方法。
+该方法在第一个参数中接受规则数组,在可选的第二个参数中,接受自定义错误消息的数组,以在项目无效时显示。在内部,这使用控制器的 ``$this->request`` 实例来获取要验证的数据。
+
+.. warning::
+    ``validate()`` 方法使用 :ref:`Validation::withRequest() <validation-withrequest>` 方法。
+    它会验证来自 :ref:`$request->getJSON() <incomingrequest-getting-json-data>`
+    或 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>`
+    或 :ref:`$request->getVar() <incomingrequest-getting-data>` 的数据。
+    使用哪些数据取决于请求。请记住,攻击者可以自由地向服务器发送任何请求。
+
+:doc:`验证库文档 </libraries/validation>` 有关于规则和消息数组格式以及可用规则的详细信息:
+
+.. literalinclude:: controllers/004.php
+
+如果您发现在配置文件中保持规则更简单,您可以用 **app/Config/Validation.php** 中定义的组名替换 ``$rules`` 数组:
+
+.. literalinclude:: controllers/005.php
+
+.. note:: 验证也可以在模型中自动处理,但有时在控制器中更容易。由您决定在哪里。
+
+.. _controller-validatedata:
+
+$this->validateData()
 =====================
 
-简而言之，一个控制器就是一个类文件，是以一种能够和 URI 关联在一起的方式来命名的。
+.. versionadded:: 4.2.0
 
-考虑下面的 URI::
+有时您可能想检查控制器方法的参数或其他自定义数据。
+在这种情况下,您可以使用 ``$this->validateData()`` 方法。
+该方法在第一个参数中接受要验证的数据数组:
 
-	example.com/index.php/blog/
+.. literalinclude:: controllers/006.php
 
-上例中，CodeIgniter 将会尝试查询一个名为 Blog.php 的控制器并加载它。
+保护方法
+******************
 
-**当控制器的名称和 URI 的第一段匹配上时，它将会被加载。**
+在某些情况下,您可能希望某些方法隐藏不对公众开放。
+为此,只需将方法声明为 ``private`` 或 ``protected``。
+这将阻止通过 URL 请求提供服务。
 
+例如,如果您为 ``Helloworld`` 控制器定义了一个这样的方法:
 
-让我们试试看：Hello World！
-===============================
+.. literalinclude:: controllers/007.php
 
+并为该方法定义一个路由(``helloworld/utitilty``)。然后尝试使用以下 URL 访问它不会起作用::
 
-接下来你会看到如何创建一个简单的控制器，打开你的文本编辑器，新建一个文件 Blog.php ， 然后放入以下代码::
+    example.com/index.php/helloworld/utility
 
-	<?php
-	class Blog extends \CodeIgniter\Controller
-	{
-		public function index()
-		{
-			echo 'Hello World!';
-		}
-	}
+自动路由也不会起作用。
 
+.. _controller-auto-routing-improved:
 
-然后将文件保存到 **/application/controllers/** 目录下。
+自动路由(改进)
+************************
 
+.. versionadded:: 4.2.0
 
-.. important:: 文件名必须是大写字母开头，如：'Blog.php' 。
+自 v4.2.0 起,引入了新的更安全的自动路由。
 
+.. note:: 如果您熟悉自动路由,它在 CodeIgniter 3 到 4.1.x 中默认启用,您可以在
+    :ref:`ChangeLog v4.2.0 <v420-new-improved-auto-routing>` 中看到差异。
 
-现在使用类似下面的 URL 来访问你的站点:：
+本节描述了新自动路由的功能。
+它会自动路由 HTTP 请求,并执行相应的控制器方法,
+而无需路由定义。
 
-	example.com/index.php/blog
+自 v4.2.0 起,自动路由默认被禁用。要使用它,请参阅 :ref:`enabled-auto-routing-improved`。
 
+考虑这个 URI::
 
-如果一切正常，你将看到：:
+    example.com/index.php/helloworld/
 
-	Hello World!
+在上面的例子中,启用自动路由后,CodeIgniter 会尝试查找名为 ``App\Controllers\Helloworld`` 的控制器并加载它。
 
-.. important:: 类名必须以大写字母开头。
+.. note:: 当控制器的短名称与 URI 的第一段匹配时,它会被加载。
 
-这是有效的::
+让我们试一试:你好,世界!
+==========================
 
-	<?php
-	class Blog extends \CodeIgniter\Controller {
+让我们创建一个简单的控制器,以便您看到它的实际效果。使用文本编辑器,创建一个名为 **Helloworld.php** 的文件,并将以下代码放入其中。您会注意到 ``Helloworld`` 控制器正在扩展 ``BaseController``。您也可以扩展 ``CodeIgniter\Controller``,如果您不需要 BaseController 的功能的话。
 
-	}
+BaseController 为加载组件和执行所有控制器需要的函数提供了方便的位置。您可以在任何新控制器中扩展此类。
 
-这是 **无效** 的::
+.. literalinclude:: controllers/020.php
 
-	<?php
-	class blog extends \CodeIgniter\Controller {
+然后将该文件保存到您的 **app/Controllers** 目录中。
 
-	}
+.. important:: 该文件必须命名为 **Helloworld.php**,H 字母大写。当您使用自动路由时,控制器类名称必须以大写字母开头,并且只有第一个字符可以大写。
 
+.. important:: 通过自动路由(改进版)执行的控制器方法需要 HTTP 动词(``get``、``post``、``put`` 等)前缀,如 ``getIndex()``、``postCreate()``。
 
-另外，一定要确保你的控制器继承了父控制器类，这样它才能使用父类的方法。
+现在使用类似以下的 URL 访问您的站点::
 
+    example.com/index.php/helloworld
+
+如果您正确执行了,应该会看到::
+
+    Hello World!
+
+有效的写法:
+
+.. literalinclude:: controllers/009.php
+
+无效的写法:
+
+.. literalinclude:: controllers/010.php
+
+无效的写法:
+
+.. literalinclude:: controllers/011.php
+
+此外,始终确保您的控制器扩展父控制器类,以便它可以继承其所有方法。
+
+.. note::
+    如果没有与定义的路由匹配,系统将尝试通过匹配每个段与 **app/Controllers** 中的目录/文件来匹配 URI 与控制器。
+    这就是为什么您的目录/文件必须以大写字母开头,其余必须是小写字母。
+
+    如果您想要另一种命名约定,您需要使用 :ref:`定义路由 <defined-route-routing>` 手动定义它。
+    这里有一个基于 PSR-4 自动加载的例子:
+
+    .. literalinclude:: controllers/012.php
 
 方法
 =======
 
+方法可见性
+-----------------
 
-上例中，方法名为 ``index()`` 。"index" 方法总是在 URI 的 **第二段** 为空时被调用。 另一种显示 "Hello World" 消息的方法是::
+当您定义通过 HTTP 请求可执行的方法时,该方法必须声明为 ``public``。
 
-	example.com/index.php/blog/index/
+.. warning:: 为了安全起见,请确保将任何新实用程序方法声明为 ``protected`` 或 ``private``。
 
+默认方法
+--------------
 
-**URI 中的第二段用于决定调用控制器中的哪个方法。**
+在上面的示例中,方法名称是 ``getIndex()``。
+方法(HTTP 动词 + ``Index()``)称为**默认方法**,如果 URI 的**第二段**为空,则加载它。
 
-让我们试一下，向你的控制器添加一个新的方法::
+普通方法
+--------------
 
-	<?php
-	class Blog extends \CodeIgniter\Controller {
+URI 的第二段通常确定控制器中的哪个方法被调用。
 
-		public function index()
-		{
-			echo 'Hello World!';
-		}
+让我们试一试。向您的控制器添加一个新方法:
 
-		public function comments()
-		{
-			echo 'Look at this!';
-		}
-	}
+.. literalinclude:: controllers/021.php
 
+现在加载以下 URL 以查看 ``getComment()`` 方法::
 
-现在，通过下面的 URL 来调用 comments 方法::
+    example.com/index.php/helloworld/comment/
 
-	example.com/index.php/blog/comments/
+您应该会看到您的新消息。
 
-你应该能看到你的新消息了。
-
-
-通过 URI 分段向你的方法传递参数
+将 URI 段传递给您的方法
 ====================================
 
-如果你的 URI 多于两个段，多余的段将作为参数传递到你的方法中。
+如果 URI 包含超过两个段,它们将作为参数传递给您的方法。
 
-例如，假设你的 URI 是这样::
+例如,假设您有这样的 URI::
 
-	example.com/index.php/products/shoes/sandals/123
+    example.com/index.php/products/shoes/sandals/123
 
+您的方法将获取传入 URI 的第 3 和第 4 段(``'sandals'`` 和 ``'123'``):
 
-你的方法将会收到第三段和第四段两个参数（"sandals" 和 "123"）::
+.. literalinclude:: controllers/022.php
 
-	<?php
-	class Products extends \CodeIgniter\Controller {
+.. important:: 如果 URI 中的参数比方法的参数更多,
+    自动路由(改进版)不会执行该方法,并导致 404
+    未找到。
 
-		public function shoes($sandals, $id)
-		{
-			echo $sandals;
-			echo $id;
-		}
-	}
-
-
-.. important:: 如果你使用了 `URI 路由` ，传递到你的方法的参数将是路由后的参数。
-
-
-定义默认控制器
-=============================
-
-CodeIgniter 可以设置一个默认的控制器，当 URI 没有分段参数时加载，例如当用户直接访问你网站的首页时。 打开 **application/config/routes.php** 文件，通过下面的参数指定一个默认的控制器::
-
-	$routes->setDefaultController('Blog');
-
-
-其中，“Blog”是你想加载的控制器类名，如果你现在通过不带任何参数的 index.php 访问你的站点，你将看到你的“Hello World”消息。
-
-想要了解更多信息，请参阅 :doc:`./source/general/routing.rst` 部分文档。
-
-
-重映射方法
-======================
-
-
-正如上文所说，URI 的第二段通常决定控制器的哪个方法被调用。CodeIgniter 允许你使用 ``_remap()`` 方法来重写该规则::
-
-	public function _remap()
-	{
-		// Some code here...
-	}
-
-
-.. important:: 如果你的控制包含一个 _remap() 方法，那么无论 URI 中包含什么参数时都会调用该方法。 它允许你定义你自己的路由规则，重写默认的使用 URI 中的分段来决定调用哪个方法这种行为。
-
-
-被重写的方法（通常是 URI 的第二段）将被作为参数传递到 ``_remap()`` 方法::
-
-	public function _remap($method)
-	{
-		if ($method === 'some_method')
-		{
-			$this->$method();
-		}
-		else
-		{
-			$this->default_method();
-		}
-	}
-
-方法名之后的所有其他段将作为 ``_remap()`` 方法的第二个参数，它是可选的。这个参数可以使用 PHP 的 call_user_func_array() 函数来模拟 CodeIgniter 的默认行为。
-
-例如::
-
-	public function _remap($method, ...$params)
-	{
-		$method = 'process_'.$method;
-		if (method_exists($this, $method))
-		{
-			return $this->$method(...$params);
-		}
-		show_404();
-	}
-
-
-私有方法
-===============
-
-有时候你可能希望某些方法不能被公开访问，要实现这点，只要简单的将方法声明为 private 或 protected ， 这样这个方法就不能被 URL 访问到了。例如，如果你有一个下面这个方法::
-
-	protected function utility()
-	{
-		// some code
-	}
-
-
-使用下面的 URL 尝试访问它，你会发现是无法访问的::
-
-	example.com/index.php/blog/utility/
-
-
-将控制器放入子目录中
-================================================
-
-如果你正在构建一个比较大的应用，那么将控制器放到子目录下进行组织可能会方便一点。CodeIgniter 也可以实现这一点。
-
-你只需要简单的在 *application/controllers/* 目录下创建新的目录，并将控制器文件放到子目录下。
-
-.. note:: 当使用该功能时，URI 的第一段必须指定目录，例如，假设你在如下位置有一个控制器::
-
-		application/controllers/products/Shoes.php
-
-	为了调用该控制器，你的 URI 应该像下面这样::
-
-		example.com/index.php/products/shoes/show/123
-
-每个子目录包含一个默认控制器，将在 URL 只包含子目录的时候被调用。默认控制器在 *application/Config/Routes.php* 中定义。
-
-你也可以使用 CodeIgniter 的 :doc:`./source/general/routing.rst` 功能来重定向 URI。
-
-
-构造函数
+默认控制器
 ==================
 
+默认控制器是一个特殊的控制器,当 URI 以目录名称结束时使用,或者当 URI 不存在时使用,这种情况将在仅请求站点根 URL 时出现。
 
-如果你打算在你的控制器中使用构造函数，你 **必须** 将下面这行代码放在里面:：
+定义默认控制器
+-----------------------------
 
-	parent::__construct(...$params);
+让我们用 ``Helloworld`` 控制器试一试。
 
-原因是你的构造函数将会覆盖父类的构造函数，所以我们要手工的调用它。
+要指定默认控制器,请打开 **app/Config/Routes.php** 文件并设置此变量:
 
-例如::
+.. literalinclude:: controllers/015.php
 
-	<?php
-	class Blog extends \CodeIgniter\Controller
-	{
-		public function __construct(...$params)
-		{
-			parent::__construct(...$params);
+其中 ``Helloworld`` 是希望用作默认控制器的控制器类名称。
 
-			// Your own constructor code
-		}
-	}
+在 **Routes.php** 中的“路由定义”部分向下几行,注释掉该行:
 
-如果你需要在你的类被初始化时设置一些默认值，或者进行一些默认处理，构造函数将很有用。 构造函数没有返回值，但是可以执行一些默认操作。
+.. literalinclude:: controllers/016.php
 
-包含属性
-===================
+现在如果在不指定任何 URI 段的情况下浏览您的站点,您将看到 "Hello World" 消息。
 
-你创建的每一个 controller 都应该继承 ``CodeIgniter\Controller`` 类。这个类提供了适合所有控制器的几个属性。
+.. important:: 当您使用自动路由(改进版)时,您必须删除 ``$routes->get('/', 'Home::index');`` 这一行。因为定义的路由优先于自动路由,并且出于安全考虑,自动路由(改进版)拒绝定义路由中的控制器访问。
 
-Request 对象
---------------
-``$this->request`` 作为应用程序的主要属性 :doc:`./source/libraries/request.rst` 是可以一直被使用的类属性。
+有关更多信息,请参阅 :ref:`routes-configuration-options` 部分
+:ref:`URI 路由 <routing-auto-routing-improved-configuration-options>` 文档。
 
+将控制器组织到子目录中
+================================================
 
-Response 对象
----------------
-``$this->response`` 作为应用程序的主要属性 :doc:`./source/libraries/response.rst` 是可以一直被使用的类属性。
+如果您正在构建一个大型应用程序,您可能希望以分层的方式组织或结构化控制器到子目录中。CodeIgniter
+允许您执行此操作。
 
-Logger 对象
--------------
-``$this->logger`` 类实例 :doc:`./source/general/logging.rst` 是可以一直被使用的类属性。
+只需在主 **app/Controllers** 下创建子目录,并将控制器类放在其中。
 
-forceHTTPS
-----------
-一种强制通过 HTTPS 访问方法的便捷方法，在所有控制器中都是可用的::
+.. important:: 目录名称必须以大写字母开头,并且只有第一个字符可以大写。
 
-	if (! $this->request->isSecure())
-	{
-		$this->forceHTTPS();
-	}
+使用此功能时,URI 的第一段必须指定目录。例如,假设您有一个位于这里的控制器::
 
-默认情况下，在支持 HTTP 严格传输安全报头的现代浏览器中，此调用应强制浏览器将非 HTTPS 调用转换为一年的 HTTPS 调用。你可以通过将持续时间（以秒为单位）作为第一个参数来修改。 ::
+    app/Controllers/Products/Shoes.php
 
-	if (! $this->request->isSecure())
-	{
-		$this->forceHTTPS(31536000);    // one year
-	}
+要调用上面的控制器,您的 URI 将如下所示::
 
+    example.com/index.php/products/shoes/show/123
 
-.. note:: 你可以使用更多全局变量和函数 :doc:`./source/general/common_functions.rst` ，包括 年、月等等。
+.. note:: 您不能在 **app/Controllers** 和 **public** 中有相同名称的目录。
+    这是因为如果存在目录,web 服务器将搜索它,而不会路由到 CodeIgniter。
 
+您的每个子目录都可以包含一个默认控制器,如果 URL 只包含 *子目录*,则会调用该控制器。只需把一个控制器放在那里,使其与 **app/Config/Routes.php** 文件中指定的默认控制器名称匹配即可。
 
-辅助函数
--------------
+CodeIgniter 还允许您使用其 :ref:`定义的路由 <defined-route-routing>` 映射 URI。
 
-你可以定义一个辅助文件数组作为类属性。每当控制器被加载时，
-这些辅助文件将自动加载到内存中，这样就可以在控制器的任何地方使用它们的方法。::
+.. _controller-auto-routing-legacy:
 
-	class MyController extends \CodeIgniter\Controller
-	{
-		protected $helpers = ['url', 'form'];
-	}
+自动路由(传统)
+*********************
 
-验证 $_POST 数据
-======================
+本节描述自动路由(传统)的功能,这是 CodeIgniter 3 的路由系统。
+它会自动路由 HTTP 请求,并执行相应的控制器方法,
+而无需路由定义。自动路由默认被禁用。
 
-控制器还提供了一个简单方便的方法来验证 $_POST 数据，将一组规则作为第一个参数进行验证，如果验证不通过，可以选择显示一组自定义错误消息。你可以通过 **$this->request** 这个用法获取 POST 数据。 :doc:`Validation Library docs <./source/libraries/validation.rst>` 是有关规则和消息数组的格式以及可用规则的详细信息。 ::
+.. warning:: 为了防止配置错误和编码错误,我们建议您不要使用
+    自动路由(传统)。很容易创建漏洞应用,其中控制器过滤器
+    或 CSRF 保护被绕过。
 
-    public function updateUser(int $userID)
-    {
-        if (! $this->validate([
-            'email' => "required|is_unique[users.email,id,{$userID}]",
-            'name' => 'required|alpha_numeric_spaces'
-        ]))
-        {
-            return view('users/update', [
-                'errors' => $this->errors
-            ]);
-        }
+.. important:: 自动路由(传统)会将任何 HTTP 方法的 HTTP 请求路由到控制器方法。
 
-        // do something here if successful...
-    }
+考虑这个 URI::
 
-如果你觉得在配置文件中保存规则更简单，你可以通过在 ``Config\Validation.php`` 中定义代替 $rules 数组 ::
+    example.com/index.php/helloworld/
 
-    public function updateUser(int $userID)
-    {
-        if (! $this->validate('userRules'))
-        {
-            return view('users/update', [
-                'errors' => $this->errors
-            ]);
-        }
+在上面的例子中,CodeIgniter 会尝试查找一个名为 **Helloworld.php** 的控制器并加载它。
 
-        // do something here if successful...
-    }
+.. note:: 当控制器的短名称与 URI 的第一段匹配时,它会被加载。
 
-.. note:: 验证也可以在模型中自动处理。你可以在任何地方处理，你会发现控制器中的一些情况比模型简单，反之亦然。
+让我们试一试:你好,世界!(传统)
+===================================
+
+让我们创建一个简单的控制器,以便您看到它的实际效果。使用文本编辑器,创建一个名为 **Helloworld.php** 的文件,并将以下代码放入其中。您会注意到 ``Helloworld`` 控制器正在扩展 ``BaseController``。您也可以扩展 ``CodeIgniter\Controller``,如果您不需要 BaseController 的功能的话。
+
+BaseController 为加载组件和执行所有控制器需要的函数提供了方便的位置。您可以在任何新控制器中扩展此类。
+
+出于安全考虑,请确保将任何新实用程序方法声明为 ``protected`` 或 ``private``:
+
+.. literalinclude:: controllers/008.php
+
+然后将该文件保存到您的 **app/Controllers** 目录中。
+
+.. important:: 该文件必须命名为 **Helloworld.php**,H 字母大写。当您使用自动路由时,控制器类名称必须以大写字母开头,并且只有第一个字符可以大写。
+
+现在使用类似以下的 URL 访问您的站点::
+
+    example.com/index.php/helloworld
+
+如果您正确执行了,应该会看到::
+
+    Hello World!
+
+有效的写法:
+
+.. literalinclude:: controllers/009.php
+
+无效的写法:
+
+.. literalinclude:: controllers/010.php
+
+无效的写法:
+
+.. literalinclude:: controllers/011.php
+
+此外,始终确保您的控制器扩展父控制器类,以便它可以继承其所有方法。
+
+.. note::
+    如果没有与定义的路由匹配,系统将尝试通过匹配每个段与 **app/Controllers** 中的目录/文件来匹配 URI 与控制器。
+    这就是为什么您的目录/文件必须以大写字母开头,其余必须是小写字母。
+
+    如果您想要另一种命名约定,您需要使用 :ref:`定义路由 <defined-route-routing>` 手动定义它。
+    这里有一个基于 PSR-4 自动加载的例子:
+
+    .. literalinclude:: controllers/012.php
+
+方法(传统)
+=================
+
+在上面的示例中,方法名称是 ``index()``。``index()`` 方法如果 URI 的**第二段**为空,总是被默认加载。另一种显示“Hello World”消息的方法是::
+
+    example.com/index.php/helloworld/index/
+
+**URI的第二段决定了控制器中调用哪个方法。**
+
+让我们试一试。在您的控制器中添加一个新方法:
+
+.. literalinclude:: controllers/013.php
+
+现在使用下面的 URL 来查看 comment 方法的效果::
+
+    example.com/index.php/helloworld/comment/
+
+您应该可以看到新的消息。
+
+将 URI 段传递给您的方法(传统)
+=============================================
+
+如果 URI 包含两个以上段,则会作为参数传递给您的方法。
+
+例如,假设您有这样的一个 URI::
+
+    example.com/index.php/products/shoes/sandals/123
+
+您的方法将获取传入的 URI 的第 3 和第 4 段(``'sandals'`` 和 ``'123'``):
+
+.. literalinclude:: controllers/014.php
+
+默认控制器(传统)
+===========================
+
+默认控制器是一个特殊的控制器,在 URI 以目录名结束或者 URI 不存在的情况下使用,这通常发生在仅请求站点根 URL 的情况。
+
+定义默认控制器(传统)
+--------------------------------------
+
+让我们以 ``Helloworld`` 控制器为例。
+
+要指定默认控制器,打开配置文件 **app/Config/Routes.php**,设置如下变量:
+
+.. literalinclude:: controllers/015.php
+
+其中 ``Helloworld`` 是希望用作默认控制器的控制器类名称。
+
+在 **Routes.php** 的“路由定义”部分,注释掉如下行:
+
+.. literalinclude:: controllers/016.php
+
+现在如果在不指定任何 URI 段的情况下浏览您的站点,您将看到 "Hello World" 消息。
+
+.. note:: ``$routes->get('/', 'Home::index');`` 这一行是优化,在“真实的”应用中会使用。但是为了演示的目的,我们不想使用这个功能。``$routes->get()`` 在 :doc:`URI 路由 <routing>` 中有解释。
+
+有关更多信息,请参阅 :ref:`routes-configuration-options` 部分
+:ref:`URI 路由 <routing-auto-routing-legacy-configuration-options>` 文档。
+
+将控制器组织到子目录中(传统)
+==========================================================
+
+如果您正在构建一个大型应用程序,您可能需要分层组织控制器结构到子目录中。CodeIgniter 支持这种方式。
+
+只需要在主目录 **app/Controllers** 下创建子目录,并将控制器类放入其中即可。
+
+.. important:: 目录名称必须以大写字母开头,只有首字母可以大写。
+
+使用此功能时,URI 的第一段必须指定目录。例如,假设您有一个位于如下位置的控制器::
+
+    app/Controllers/Products/Shoes.php
+
+要调用上述控制器,您的 URI 将是这样::
+
+    example.com/index.php/products/shoes/show/123
+
+.. note:: 在 **app/Controllers** 和 **public** 中不能有同名的目录。这是因为如果目录存在,web 服务器会进行查找,路由不会转到 CodeIgniter。
+
+每个子目录下可以包含一个默认控制器,如果 URL 仅包含 **子目录**,则会调用该默认控制器。只需在相应位置放置一个控制器,使其与 **app/Config/Routes.php** 文件中指定的默认控制器名称匹配即可。
+
+CodeIgniter 也支持通过 :ref:`定义路由 <defined-route-routing>` 来映射 URI。
+
+重映射方法调用
+**********************
+
+.. note:: **自动路由(改进版)** 有意不支持此功能。
+
+如上所述,URI的第二段通常决定控制器中调用哪个方法。CodeIgniter 允许您通过使用 ``_remap()`` 方法来覆盖此行为:
+
+.. literalinclude:: controllers/017.php
+
+.. important:: 如果您的控制器包含名为 ``_remap()`` 的方法,无论 URI 包含什么,它都将**始终**被调用。它会覆盖 URI 决定调用哪个方法的正常行为,允许您定义自己的方法路由规则。
+
+被覆盖的方法调用(通常是 URI 的第二段)将作为参数传递给 ``_remap()`` 方法:
+
+.. literalinclude:: controllers/018.php
+
+在方法名之后任何多余的段也会作为参数传递给 ``_remap()``。这些参数可以传递给该方法,以模拟 CodeIgniter 的默认行为。
+
+例子:
+
+.. literalinclude:: controllers/019.php
+
+扩展控制器
+************************
+
+如果您想扩展控制器,请查看 :doc:`../extending/basecontroller`。
 
 就这样了！
-==========
+**********
 
-OK，总的来说，这就是关于控制器的所有内容了。
+这基本上就是关于控制器需要了解的所有内容。

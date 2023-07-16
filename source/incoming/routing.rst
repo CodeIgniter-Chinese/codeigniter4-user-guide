@@ -4,421 +4,708 @@ URI 路由
 
 .. contents::
     :local:
-    :depth: 2
+    :depth: 3
 
-一般情况下，一个 URL 字符串和它对应的控制器中类和方法是一一对应的关系。 URL 中的每一段通常遵循下面的规则::
+什么是 URI 路由?
+********************
 
-    example.com/class/function/id/
+URI 路由将一个 URI 与控制器的方法相关联。
 
-但是有时候，你可能想改变这种映射关系，调用一个不同的类或方法，而不是 URL 中对应的那样。
+CodeIgniter 有两种路由。一种是**定义路由**,另一种是**自动路由**。
+使用定义路由,您可以手动定义路由。它支持灵活的 URL。
+自动路由根据约定自动路由 HTTP 请求并执行相应的控制器方法。不需要手动定义路由。
 
-例如，假设你希望你的 URL 变成下面这样::
+首先,让我们看看定义路由。如果您想使用自动路由,请参阅 :ref:`auto-routing-improved`。
 
-    example.com/product/1/
-    example.com/product/2/
-    example.com/product/3/
-    example.com/product/4/
+.. _defined-route-routing:
 
-URL 的第二段通常表示方法的名称，但在上面的例子中，第二段是一个商品 ID ， 为了实现这一点，CodeIgniter 允许你重新定义 URL 的处理流程。
+设置路由规则
+*********************
 
-设置你自己的路由规则
-==============================
+路由规则定义在 **app/Config/Routes.php** 文件中。在其中您会看到它实例化了 RouteCollection 类(``$routes``),允许您指定自己的路由条件。
+路由可以使用占位符或正则表达式来指定。
 
-路由规则定义在 **app/config/Routes.php** 文件中。你将会在其中看到，该文件创建了一个RouteCollection类的实例，这一实例允许你定义自己的路由规则。
-路由中可使用通配符和正则表达式。
+当您指定一个路由时,您要选择一个方法来对应 HTTP 动词(请求方法)。
+如果您期望一个 GET 请求,请使用 ``get()`` 方法:
 
-路由通常将URI置于左侧，而将控制器和对应的方法以及任何可能存在的，并需要传递给控制器的参数映射在右侧。控制器与其方法的列出形式就像你调用一个类的静态方法一样，
-用双冒号来分隔一个充分命名空间化形式的类与其方法，例如 ``Users::list``。如果这个方法需要被传递参数，这些参数应被以正斜杠分割的形式在方法名后列出，如::
+.. literalinclude:: routing/001.php
 
-	// 调用 $Users->list()
-	Users::list
-	// 调用 $Users->list(1, 23)
-	Users::list/1/23
+一个路由在左侧获取**路由路径**(相对于 BaseURL 的 URI 路径 ``/``),
+并在右侧映射到**路由处理程序**(控制器和方法 ``Home::index``),
+以及应该传递给控制器的任何参数。
 
-通配符
-============
+控制器和方法应该列出它将使用的静态方法,
+通过用双冒号分隔类和它的方法,像 ``Users::list``。
 
-一个典型的路由规则看上去就像这样::
+如果该方法需要传递参数,那么它们应该在方法名之后列出,用正斜杠分隔:
 
-    $routes->add('product/(:num)', 'App\Catalog::productLookup');
-
-在一个路由中，第一个参数包含需要被匹配到的URI，而第二个参数包含着这个路由应被定位到的目标位置。在上述例子中，当单词"product"在URL的第一个分段中被发现，
-同时在第二个分段中出现了一个数字，那么 ``App\Catalog`` 类与 ``productLookup`` 方法就会调用。
-
-通配符是一系列简单的正则表达式类型的字符串。在路由处理过程中，通配符会被正则表达式的值所取代，故而这些通配符主要是为了可读性而设计的。
-
-当在你的路由处理过程中，可使用如下通配符:
-
-* **(:any)** 将会从当前位置开始到URI结束，匹配任何字符。这一通配符可能会包括多个URI分段。
-* **(:segment)** 将会匹配除了斜杠(/)以外的任何字符，从而将匹配结果限制在一个单独的分段中。
-* **(:num)** 将会匹配任何整数。
-* **(:alpha)** 将会匹配任何英文字母字符。
-* **(:alphanum)** 将会匹配任何英文字母或整数，或者是这两者的组合。
-* **(:hash)** 与 **:segment** 相同，但可用于方便地查看那个路由正在使用哈希id(参照 :doc:`Model </models/model>` )。
-
-.. note:: 因为 **{locale}** 是一个系统保留关键词，用于 :doc:`localization </outgoing/localization>` ，所以不可用于通配符或路由的其他部分。
+.. literalinclude:: routing/002.php
 
 示例
 ========
 
-以下是一些路由示例::
+以下是一些基本的路由示例。
 
-	$routes->add('journals', 'App\Blogs');
+如果 URI 的第一个段包含词汇 **journals**,它将映射到 ``\App\Controllers\Blogs`` 类,以及默认方法,通常是 ``index()``:
 
-一个第一个分段包含有单词"journals"的URL将会被映射于 ``App\Blogs`` 类，这个类的默认方法通常将会是 ``index()``::
+.. literalinclude:: routing/006.php
 
-	$routes->add('blog/joe', 'Blogs::users/34');
+如果 URI 包含 **blog/joe** 段,它将映射到 ``\App\Controllers\Blogs`` 类和 ``users()`` 方法。
+ID 将设置为 ``34``:
 
-一个包含有 "blog/joe" 的分段的URL将会被映射于 ``\Blogs`` 类和 ``users`` 方法，而其ID参数将会被置为34::
+.. literalinclude:: routing/007.php
 
-	$routes->add('product/(:any)', 'Catalog::productLookup');
+如果第一个段为 **product**,第二个段为任何内容,它将映射到 ``\App\Controllers\Catalog`` 类和 ``productLookup()`` 方法:
 
-一个第一个分段为"product"，并且第二个分段是任意字符的URl，将会被映射于 ``\Catalog`` 类的 ``productLookup`` 方法::
+.. literalinclude:: routing/008.php
 
-	$routes->add('product/(:num)', 'Catalog::productLookupByID/$1';
+如果第一个段为 **product**,第二个段为数字,它将映射到 ``\App\Controllers\Catalog`` 类和 ``productLookupByID()`` 方法,并将匹配项作为变量传递给该方法:
 
-一个第一个分段为"product"，并且第二个分段是数字的URl，将会被映射于 ``\Catalog`` 类的 ``productLookup`` 方法，并将这一数字传递为方法的一个变量参数。
+.. literalinclude:: routing/009.php
 
-.. important:: 尽管 ``add()`` 方法是相当方便的，我们还是推荐使用基于HTTP动词的路由结构，如下所述，并且这也更为安全。与此同时，这样也会带来轻微的性能提升，因为只有匹配当前请求方法的路由会被保存，从而在搜索路由时会减少搜索次数。
+HTTP 动词路由
+================
 
-自定义通配符
-===================
+您可以使用任何标准的 HTTP 动词(GET、POST、PUT、DELETE、OPTIONS 等):
 
-你也可以在路由文件中创建自己的通配符从而实现用户体验和可读性的定制需求。
+.. literalinclude:: routing/003.php
 
-你可以使用 ``addPlaceholder`` 方法来增加新的通配符。第一个参数是一个被用来作为通配符的字符串，第二个是该通配符应当被替换成的正则表达式。
-这一方法操作需要在你增加路由之前被调用::
+您可以通过将它们作为数组传递给 ``match()`` 方法,指定路由应匹配的多个动词:
 
-	$routes->addPlaceholder('uuid', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
-	$routes->add('users/(:uuid)', 'Users::show/$1');
+.. literalinclude:: routing/004.php
+
+指定路由处理程序
+=========================
+
+控制器的命名空间
+----------------------
+
+当您以字符串形式指定控制器和方法名称时,如果控制器没有前导的 ``\``,
+将会在控制器前加上 :ref:`routing-default-namespace` :
+
+.. literalinclude:: routing/063.php
+
+如果您在开头放置 ``\``,它将被视为完全限定的类名:
+
+.. literalinclude:: routing/064.php
+
+您还可以使用 ``namespace`` 选项指定命名空间:
+
+.. literalinclude:: routing/038.php
+
+有关详细信息,请参阅 :ref:`assigning-namespace`。
+
+数组可调用语法
+---------------------
+
+.. versionadded:: 4.2.0
+
+自 v4.2.0 起,您可以使用数组可调用语法来指定控制器:
+
+.. literalinclude:: routing/013.php
+   :lines: 2-
+
+或者使用 ``use`` 关键字:
+
+.. literalinclude:: routing/014.php
+   :lines: 2-
+
+如果您忘记添加 ``use App\Controllers\Home;``,控制器类名将被解释为
+``Config\Home``,而不是 ``App\Controllers\Home``,因为
+**app/Config/Routes.php** 顶部有 ``namespace Config;``。
+
+.. note:: 当您使用数组可调用语法时,类名总是被解释为完全限定的类名。
+    所以 :ref:`routing-default-namespace` 和 :ref:`namespace 选项 <assigning-namespace>` 都没有效果。
+
+数组可调用语法和占位符
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+如果有占位符,它将自动按指定顺序设置参数:
+
+.. literalinclude:: routing/015.php
+   :lines: 2-
+
+但是如果在路由中使用了正则表达式,自动配置的参数可能不正确。
+在这种情况下,您可以手动指定参数:
+
+.. literalinclude:: routing/016.php
+   :lines: 2-
+
+使用闭包
+--------------
+
+您可以使用匿名函数或闭包作为路由映射的目标。当用户访问该 URI 时,将执行此函数。这对于快速执行小任务或者简单显示视图很有用:
+
+.. literalinclude:: routing/020.php
+
+指定路由路径
+======================
+
+占位符
+------------
+
+一个典型的路由可能如下所示:
+
+.. literalinclude:: routing/005.php
+
+在路由中,第一个参数包含要匹配的 URI,而第二个参数包含它应该路由到的目标。在上面的示例中,如果在 URL 路径的第一个段中找到字面单词“product”,并在第二个段中找到一个数字,则使用 ``Catalog`` 类和 ``productLookup`` 方法。
+
+占位符只是表示正则表达式模式的字符串。在路由过程中,这些占位符被正则表达式的值替换。它们主要用于可读性。
+
+以下占位符可用于路由中:
+
+============ ===========================================================================================================
+占位符       描述
+============ ===========================================================================================================
+(:any)       将匹配从该点到 URI 结尾的所有字符。这可能包括多个 URI 段。
+(:segment)   将匹配任何字符,除了正斜杠 (``/``),限制结果为单个段。
+(:num)       将匹配任何整数。
+(:alpha)     将匹配任意字符串的字母字符
+(:alphanum)  将匹配任何字符串的字母字符或整数,或两者的任意组合。
+(:hash)      与 ``(:segment)`` 相同,但可以用来轻松看出哪些路由使用散列 id。
+============ ===========================================================================================================
+
+.. note:: ``{locale}`` 不能用作占位符或路由的其他部分,因为它保留用于 :doc:`localization </outgoing/localization>`。
+
+请注意,单个 ``(:any)`` 将在 URL 中存在多个段时匹配它们。例如,路由:
+
+.. literalinclude:: routing/010.php
+
+将匹配 **product/123**、**product/123/456**、**product/123/456/789** 等等。实现时控制器应考虑最大参数:
+
+.. literalinclude:: routing/011.php
+
+.. important:: 不要在 ``(:any)`` 之后放任何占位符。因为传递给控制器方法的参数数量可能会改变。
+
+如果不希望出现多段匹配,在定义路由时应使用 ``(:segment)``。使用上面的示例 URL:
+
+.. literalinclude:: routing/012.php
+
+将只匹配 **product/123** 并为其他示例生成 404 错误。
+
+自定义占位符
+-------------------
+
+您可以创建自己的占位符,在路由文件中使用它们以完全自定义体验和可读性。
+
+使用 ``addPlaceholder()`` 方法添加新的占位符。第一个参数是用作占位符的字符串。第二个参数是它应该被替换的正则表达式模式。这必须在添加路由之前调用:
+
+.. literalinclude:: routing/017.php
 
 正则表达式
-===================
+-------------------
 
-如果你更倾向于使用正则表达式的话，也可以用它来定义路由规则。允许任何有效的正则表达式，例如反向引用。
+如果您愿意,可以使用正则表达式定义路由规则。任何有效的正则表达式都是允许的,反向引用也允许。
 
-.. important:: Note:如果你使用逆向引用，你需要使用美元符号代替双斜线语法。一个典型的使用正则表达式的路由规则看起来像下面这样::
+.. important:: 注意:如果使用反向引用,您必须使用美元符号语法,而不是双反斜杠语法。
+    一个典型的正则表达式路由可能如下所示:
 
-	$routes->add('products/([a-z]+)/(\d+)', 'Products::show/$1/id_$2');
+    .. literalinclude:: routing/018.php
 
-上例中，一个类似于 products/shirts/123 这样的 URL 将会重定向到 ``Products`` 控制器的 ``show`` 方法。
-并且将原来的第一个第二个URI分段作为参数传递给它。通过正则表达式，你也可以捕获一个带有斜杠（'/'）的分段，而通常来说
-斜杠是用于多个分段时间的分隔符。
+在上面的示例中,类似于 **products/shirts/123** 的 URI 将调用 ``Products`` 控制器类的 ``show()`` 方法,并将原始的前两个段作为参数传递给它。
 
-例如，当一个用户访问你的 Web 应用中的某个受密码保护的页面时，如果他没有 登陆，会先跳转到登陆页面，你希望在他们在成功登陆后重定向回刚才那个页面， 那么这个例子会很有用::
+使用正则表达式,您还可以捕获包含正斜杠 (``/``) 的段,通常代表多个段之间的分隔符。
 
-	$routes->add('login/(.+)', 'Auth::login/$1');
+例如,如果用户访问您 Web 应用程序的密码保护区域,并希望在登录后将他们重定向回相同的页面,您可能会发现此示例很有用:
 
-对于诸位虽然不熟悉正则表达式而又想了解更多关于正则表达式的，`regular-expressions.info <http://www.regular-expressions.info/>`_ 可能是一个不错的起点。
+.. literalinclude:: routing/019.php
 
-.. important:: 注意：你也可以在你的路由规则中混用通配符和正则表达式。
+对于那些不知道正则表达式并想了解更多知识的人,`regular-expressions.info <https://www.regular-expressions.info/>`_ 可能是一个不错的起点。
 
-闭包
-========
+.. note:: 您也可以混合并匹配占位符和正则表达式。
 
-你可以使用一个匿名函数，或者闭包，作为路由的映射目标位置。这一函数将会在用户访问指定URI时执行。
-以上操作在执行小功能，或只是显示一个简单的视图时，是相当方便的::
+.. _view-routes:
 
-    $routes->add('feed', function()
-    {
-        $rss = new RSSFeeder();
-        return $rss->feed('general');
-    });
+视图路由
+===========
 
-映射多个路由
-=======================
+.. versionadded:: 4.3.0
 
-虽然add()方法非常简单易用，但是调用 ``map()`` 方法来同时处理多个路由通常更为方便。
-你可以通过定义一个路由的数组，并将其作为 ``map()`` 方法的第一个参数的批量处理的方式，来取代每次都要用 ``add()`` 方法来添加所需要路由::
+如果您只想渲染一个与之不关联的逻辑的视图,可以使用 ``view()`` 方法。这始终被视为 GET 请求。
+该方法接受要加载的视图名称作为第二个参数。
 
-	$routes = [];
-	$routes['product/(:num)']      = 'Catalog::productLookupById';
-	$routes['product/(:alphanum)'] = 'Catalog::productLookupByName';
+.. literalinclude:: routing/065.php
 
-	$collection->map($routes);
+如果在路由中使用了占位符,您可以在特殊变量 ``$segments`` 中访问它们。它们以出现在路由中的顺序作为数组提供。
+
+.. literalinclude:: routing/066.php
+
+.. _redirecting-routes:
 
 重定向路由
 ==================
 
-任何存在了足够长时间的网站都肯定存在移动过的页面。你可以通过 ``addRedirect()`` 方法来重定向需要跳转到其他路由的路由规则。
-第一个参数是原有的路由的URI规则，第二个参数是新的URI，或者是一个命名路由的名称。第三个参数是随着重定向一起发送的状态码，
-默认值 ``302`` ，这也是通常情况下用的比较多的，意味着暂时的重定向::
+任何长期存在的网站都会有页面移动。您可以使用 ``addRedirect()`` 方法指定应重定向到其他路由的路由。第一个参数是旧路由的 URI 模式。第二个参数是要重定向到的新 URI 或命名路由的名称。第三个参数是应随重定向一起发送的 HTTP 状态码。默认值为 ``302``,这是临时重定向,在大多数情况下都推荐:
 
-    $routes->add('users/profile', 'Users::profile', ['as' => 'profile']);
+.. literalinclude:: routing/022.php
 
-    // 重定向至命名路由
-    $routes->addRedirect('users/about', 'profile');
-    // 重定向至URI
-    $routes->addRedirect('users/about', 'users/profile');
+.. note:: 从 v4.2.0 开始,``addRedirect()`` 可以使用占位符。
 
-当页面加载时，若匹配到重定向路由，则用户将会在加载原有控制器之前被重定向到新页面。
+如果在页面加载期间匹配了重定向路由,用户将在加载控制器之前立即重定向到新页面。
 
-分组路由
-===============
-
-你可以使用 ``group()`` 将你的路由分组并设定一个通用的名字。分组名将作为URI的一个分段，用于组内所有定义的路由之前。
-这一方式可以帮助你在定义一大组有相同前缀的路由时，减少额外的打字输入，例如设置一个管理分组时::
-
-	$routes->group('admin', function($routes)
-	{
-		$routes->add('users', 'Admin\Users::index');
-		$routes->add('blog', 'Admin\Blog::index');
-	});
-
-如上，'users'和'blog'这些URI就会加上"amdin"的前缀，从而处理例如 ``/admin/users`` 和 ``/admin/blog`` 的URI。
-如果你需要的话，同样也可以嵌套分组以便管理::
-
-	$routes->group('admin', function($routes)
-	{
-		$routes->group('users', function($routes)
-		{
-			$routes->add('list', 'Admin\Users::list');
-		});
-
-	});
-
-这将用于处理例如 ``admin/users/list`` 的URI。
-
-如果你需要为一个分组指定指定选项，类似 `namespace <#assigning-namespace>`_ ，请在回调前使用::
-
-	$routes->group('api', ['namespace' => 'App\API\v1'], function($routes)
-	{
-		$routes->resource('users');
-	});
-
-这将能够使得如同 ``/api/users/`` 一样resource的路由映射于 ``App\API\v1\Users`` 控制器上。
-你也可以对一组路由使用一个特定的 `过滤器 <filers.html>`_ 。过滤器总是会在控制器的调用前或调用后运行，这一操作在认证或api日志时格外有用::
-
-    $routes->group('api', ['filter' => 'api-auth'], function($routes)
-    {
-        $routes->resource('users');
-    });
-
-控制器的值必须与定义在 ``app/Config/Filters.php`` 中的一系列别名中的至少一个所匹配。
-
-环境约束
+环境限制
 ========================
 
-你可以设置一组在特定环境下运行的路由。这方便了你创建一组只有开发者在本地环境中可使用，而在测试和生产环境不可见的工具。
-以上操作可通过 ``environment()`` 方法来实现。第一个参数是环境名。在这个闭包中的定义的所有路由，仅在当前环境下可访问::
+您可以通过在选项数组中与允许的域一起传递“hostname”选项,将一组路由的功能限制为仅在某些域或子域中运行您的应用程序,
 
-	$routes->environment('development', function($routes)
-	{
-		$routes->add('builder', 'Tools\Builder::index');
-	});
+.. literalinclude:: routing/039.php
+
+此示例仅当域完全匹配 **accounts.example.com** 时才允许指定的主机工作。它不会在主站点 **example.com** 上工作。
+
+限制子域
+===================
+
+当存在 ``subdomain`` 选项时,系统将限制只在该子域上可用的路由。只有在通过子域查看应用程序时,路由才会匹配:
+
+.. literalinclude:: routing/040.php
+
+您可以通过将值设置为星号 (``*``) 来限制任何子域。如果正在查看的 URL 没有任何子域,则不会匹配此路由:
+
+.. literalinclude:: routing/041.php
+
+.. important:: 该系统并不完美,在生产中使用之前,应针对特定域进行测试。
+    大多数域应正常工作,但某些边缘情况的域,尤其是域本身中包含句点(而不是用于分隔后缀或 www)的,可能会导致误报。
+
+偏移匹配参数
+=================================
+
+通过在选项中传递“offset”选项以及任何数字值,您可以以任何数字值偏移匹配的参数。
+
+这在开发 API 时很有用,其中第一个 URI 段是版本号。它也可以在第一个参数是语言字符串时使用:
+
+.. literalinclude:: routing/042.php
+
+.. _reverse-routing:
 
 反向路由
+***************
+
+反向路由允许您定义控制器和方法,以及任何参数,链接应该指向的位置,并使路由器查找当前路由。这允许路由定义更改,而无需更新应用程序代码。这通常在视图中用于创建链接。
+
+例如,如果您有一个指向相册的路由,您想要链接到它,可以使用 :php:func:`url_to()` 助手函数来获取应使用的路由。第一个参数是完全限定的控制器和方法,用双冒号(``::``)分隔,就像编写初始路由本身一样。任何应该传递给路由的参数随后传递:
+
+.. literalinclude:: routing/029.php
+
+.. _using-named-routes:
+
+命名路由
+**************
+
+您可以命名路由以使应用程序不那么脆弱。这会为稍后可以调用的路由分配名称,即使路由定义发生变化,使用 :php:func:`url_to()` 构建的应用程序中的所有链接也仍然有效。通过在选项中传递 ``as`` 及路由的名称来命名路由:
+
+.. literalinclude:: routing/030.php
+
+这也有助于使视图更具可读性。
+
+分组路由
+***************
+
+您可以使用 ``group()`` 方法在公共名称下对路由进行分组。组名称将成为出现在组内定义的路由之前的一个段。这允许您减少构建大量共享开头字符串的路由(如构建管理区域)所需的输入。
+
+.. literalinclude:: routing/023.php
+
+这将在 **users** 和 **blog** URI 前加上 **admin** 前缀,处理像 **admin/users** 和 **admin/blog** 这样的 URL。
+
+设置命名空间
+=================
+
+如果您需要为组分配选项,比如 :ref:`assigning-namespace`,请在回调之前执行此操作:
+
+.. literalinclude:: routing/024.php
+
+这将处理指向 ``App\API\v1\Users`` 控制器的资源路由,URI 为 **api/users**。
+
+设置过滤器
 ===============
 
-反向路由允许你定义一个链接与它需要查找的当前路由所需要使用的控制器和方法以及参数。这可以不需要改变程序代码而定义路由规则。通常用于视图内部以创建链接地址。
+您还可以为一组路由使用特定的 :doc:`过滤器 <filters>`。这将始终在控制器之前或之后运行过滤器。这在身份验证或 api 日志记录时特别方便:
 
-举例来说，如果你需要一个跳转到图片相册的路由，你可以使用 ``route_to()`` 辅助函数以获取当前应该使用的路由。
-第一个参数是完整的控制器类名与方法名以双英文冒号（::）区分，就像你在写一条原生的路由规则的格式一样。其他所有需要传递给这个路由的参数都将在后面被传递::
+.. literalinclude:: routing/025.php
 
-	// 该路由定义为:
-	$routes->add('users/(:id)/gallery(:any)', 'App\Controllers\Galleries::showUserGallery/$1/$2');
+过滤器的值必须匹配 **app/Config/Filters.php** 中定义的别名之一。
 
-	// 生成对应连接到用户ID1：5，图片ID：12的指定URL
-	// 生成:/users/15/gallery/12
-	<a href="<?= route_to('App\Controllers\Galleries::showUserGallery', 15, 12) ?>">查看相册</a>
+设置其他选项
+=====================
 
-使用命名路由
-==================
+在某些时候,您可能希望对路由分组以应用过滤器或其他路由配置选项,如命名空间、子域名等,而不一定需要为该组添加前缀。您可以在前缀位置传递空字符串,然后组中的路由将被路由,就像该组从未存在一样,但具有给定的路由配置选项:
 
-你可以为路由命名，从而提高系统健壮性（鲁棒性），这一操作可通过给一个路由命名从而在后面调用来实现。
-即使路由定义改变了，所有在系统中通过 ``route_to`` 创建的的连接将仍旧可用并且不需要进行任何变动。
-命名一个路由，通过与路由名一起传递 ``as`` 选项来实现::
+.. literalinclude:: routing/027.php
 
-    // 路由定义为:
-    $routes->add('users/(:id)/gallery(:any)', 'Galleries::showUserGallery/$1/$2', ['as' => 'user_gallery');
-
-    // 生成对应连接到用户ID1：5，图片ID：12的指定URL
-	// 生成:/users/15/gallery/12
-    <a href="<?= route_to('user_gallery', 15, 12) ?>">View Gallery</a>
-
-这同样使得视图更具有可读性。
-
-在路由中使用 HTTP 动词
-==========================
-
-还可以在你的路由规则中使用 HTTP 动词（请求方法），当你在创建 RESTFUL 应用时特别有用。
-你可以使用所有标准的 HTTP 动词（GET、PUT、POST、DELETE等），每个动词都拥有自己对应的方法供你使用::
-
-	$routes->get('products', 'Product::feature');
-	$routes->post('products', 'Product::feature');
-	$routes->put('products/(:num)', 'Product::feature');
-	$routes->delete('products/(:num)', 'Product::feature');
-
-你可以指定一个路由可以匹配多个动词，将其传递 ``match()`` 方法作为一个数组::
-
-	$routes->match(['get', 'put'], 'products', 'Product::feature');
-
-命令行专用的路由
-========================
-
-你可以使用 ``cli()`` 方法来创建命令行专用，浏览器不可访问的路由。
-这一方法中创建crojobs(定时任务)或命令行工具时相当有效。
-而基于HTTP动词的路由同样对于命令行也是不可访问的，除了通过 ``any()`` 方法创建的路由之外::
-
-	$routes->cli('migrate', 'App\Database::migrate');
-
-全局选项
+嵌套分组
 ==============
-所有用于创建路由的方法（例如add, get, post, `resource <restful.html>`_ 等）都可以调用一个选项数组来修改已生成的路由或限制它们的规则。而这一数组 ``$options`` 就是这些方法的最后一个参数::
 
-	$routes->add('from', 'to', $options);
-	$routes->get('from', 'to', $options);
-	$routes->post('from', 'to', $options);
-	$routes->put('from', 'to', $options);
-	$routes->head('from', 'to', $options);
-	$routes->options('from', 'to', $options);
-	$routes->delete('from', 'to', $options);
-	$routes->patch('from', 'to', $options);
-	$routes->match(['get', 'put'], 'from', 'to', $options);
-	$routes->resource('photos', $options);
-	$routes->map($array, $options);
-	$routes->group('name', $options, function());
+如果需要,可以将组嵌套在组中进行更精细的组织:
 
-应用过滤器
-----------------
+.. literalinclude:: routing/026.php
 
-你可以通过指定一个过滤器在控制器调用前或调用后运行的方式来改变指定路由的行为，这一操作通常在鉴权或API记录日志时非常有用::
+这将处理 **admin/users/list** 的 URL。
 
-    $routes->add('admin',' AdminController::index', ['filter' => 'admin-auth']);
+.. note:: 传递给外部 ``group()`` 的选项(例如 ``namespace`` 和 ``filter``)不会与内部 ``group()`` 选项合并。
 
-过滤器的值必须至少匹配 ``app/Config/Filters.php`` 中的一个别名。
-你也可以指定过滤器的 ``before()`` 和 ``after()`` 方法的参数::
+.. _routing-priority:
 
-    $routes->add('users/delete/(:segment)', 'AdminController::index', ['filter' => 'admin-auth:dual,noreturn']);
+路由优先级
+**************
 
-浏览 `Controller filters <filters.html>`_ 来获取更多有关设置筛选过滤器的信息。
+路由以它们被定义的顺序注册到路由表中。这意味着当访问一个 URI 时,将执行第一个匹配的路由。
 
-指定命名空间
--------------------
+.. warning:: 如果使用不同的处理程序定义了一个路由路径多次,则只注册第一个定义的路由。
 
-尽管默认的命名空间会在生成的控制器前自动附加（如下），你也可以通过 ``namespace`` 选项来指定一个别的命名空间在选项数组中。
-选项值应该与你想指定的命名空间一致::
+您可以通过运行 :ref:`spark routes <routing-spark-routes>` 命令来检查注册的路由。
 
-    // 路由指定至 \Admin\Users::index()
-	$routes->add('admin/users', 'Users::index', ['namespace' => 'Admin']);
+更改路由优先级
+=======================
 
-新的命名空间仅应用于创建一个单独路由的方法调用中，例如get, post等。对于创建多个路由的方法，新的命名空间将会被附在所有被这个方法锁生成的路由之前，例如在 ``group()`` 中，所有的路由都是在闭包中生成的。
+在使用模块时,如果应用程序中的路由包含通配符,则可能会成为一个问题。
+然后不会正确处理模块路由。
+您可以通过使用路由选项中定义的 ``priority`` 降低路由处理的优先级来解决此问题。
+该参数接受正整数和零。在 ``priority`` 中指定的数字越高,处理队列中的路由优先级越低:
 
-限制域名
------------------
+.. literalinclude:: routing/043.php
 
-你可以通过给选项数组的"hostname"选项传一个域名作为值的形式来限制一组路由只在你的应用的特定域名或子域名下生效::
+要禁用此功能,您必须使用 ``false`` 参数调用该方法:
 
-	$collection->get('from', 'to', ['hostname' => 'accounts.example.com']);
+.. literalinclude:: routing/044.php
 
-这个例子仅允许当前访问的路由在域名为"accounts.example.com"时生效，而在其主域名"example.com"下无法生效。
+.. note:: 默认情况下,所有路由的优先级都是 0。
+    负整数将转换为绝对值。
 
-限制子域名
--------------------
-
-当 ``subdomain`` 选项开启时，系统将会限制路由仅在此子域名生效。只有在访问该子域名时系统才会匹配这组路由规则::
-
-	// 限制子域名为media.example.com
-	$routes->add('from', 'to', ['subdomain' => 'media']);
-
-你可以通过设置该选项值为星号(*)的方式来对所有子域名生效。当你访问的URL不匹配任何子域名时，这项路由将不会被匹配到::
-
-	// 限制所有子域名访问
-	$routes->add('from', 'to', ['subdomain' => '*']);
-
-.. important:: 系统不是完美无缺的，所以在部署生产环境前需要在特定的子域名下进行测试。大多数域名都没有问题，但在一些边缘情况下，特别是某些域名本身中就含有点号(.)，而这个点号又不是拿来区分前缀或者后缀时，就可能会出错。
-
-Offsetting the Matched Parameters
----------------------------------
-
-你可以向后推移在路由中匹配到的参数的位置，通过在 ``offset`` 选项中传递任何数字值，该值指名了推移匹配的URI分段的数量。
-
-这将会为开发API带来好处，当URI第一个分段是版本号时，同样可以用于第一个参数是一个语言标识（例如en，fr等，译者注）::
-
-	$routes->get('users/(:num)', 'users/show/$1', ['offset' => 1]);
-
-	// 创建:
-	$routes['users/(:num)'] = 'users/show/$2';
-
-（译者注：实质就是将匹配的位置向后推移，由于第一个分段的位置可能会被其他参数占用，所以通配符的位置需要后移，
-例如/en/users/(:num)，这里/en/是第一个分段，不需要作为路由使用，所以(:num)实际上通过offset后移到了$2的位置。）
+.. _routes-configuration-options:
 
 路由配置选项
-============================
+****************************
 
-路由集合类提供了多个可影响到所有路由的选项配置，并可被修改以符合程序要求，这些选项可在 `/app/Config/Routes/php`` 文件的顶部被更改。
+RouteCollection 类提供了几个选项,这些选项会影响所有路由,并可以根据您的应用程序需求进行修改。这些选项在 **app/Config/Routes.php** 的顶部可用。
+
+.. _routing-default-namespace:
 
 默认命名空间
------------------
+=================
 
-当匹配到了一个需要路由的控制器，路由将会为该控制器增加一个默认的命名空间。默认设置下，这个命名空间的值为空，从而每个每个路由都需要完全对应到的带有命名空间的控制器类名::
+当匹配控制器与路由时,路由器会在路由指定的控制器前添加默认命名空间值。默认情况下,此值为 ``App\Controllers``。
 
-    $routes->setDefaultNamespace('');
+如果将值设置为空字符串 (``''``),它会让每个路由指定完全限定名称的控制器:
 
-    // 控制器为 \Users
-    $routes->add('users', 'Users::index');
+.. literalinclude:: routing/045.php
 
-    // 控制器为 \Admin\Users
-    $routes->add('users', 'Admin\Users::index');
+如果您的控制器没有明确指定命名空间,则无需更改此设置。如果您对控制器指定了命名空间,则可以更改此值以节省输入:
 
-如果你的控制器不是严格遵从命名空间的话，就没有更改的必要。如果你为控制器指定了命名空间，就可以通过更改默认命名空间的值来减少打字输入::
+.. literalinclude:: routing/046.php
 
-	$routes->setDefaultNamespace('App');
+转换 URI 破折号
+====================
 
-	// 控制器为 \App\Users
-	$routes->add('users', 'Users::index');
+此选项允许您自动将控制器和方法的 URI 段中的破折号(``-``)替换为下划线,因此如果您需要这样做,可以节省额外的路由条目。这是必需的,因为破折号在类或方法名称中是无效的,如果尝试使用它会导致致命错误:
 
-	// 控制器为 \App\Admin\Users
-	$routes->add('users', 'Admin\Users::index');
+.. literalinclude:: routing/049.php
+
+.. _use-defined-routes-only:
+
+仅使用定义的路由
+=======================
+
+从 v4.2.0 开始,自动路由默认被禁用。
+
+当没有找到匹配 URI 的定义路由时,如果启用了自动路由,系统将尝试将该 URI 与控制器和方法匹配。
+
+您可以通过将 ``setAutoRoute()`` 选项设置为 false 来禁用这种自动匹配,
+并将路由限制为您定义的路由:
+
+.. literalinclude:: routing/050.php
+
+.. warning:: 如果使用 :doc:`CSRF 保护 </libraries/security>`,它不会保护 **GET** 请求。
+    如果 URI 通过 GET 方法可以访问,CSRF 保护将不起作用。
+
+404 重写
+============
+
+当未找到与当前 URI 匹配的页面时,系统将显示一个通用的 404 视图。您可以通过 ``set404Override()`` 方法更改发生的操作。该值可以是与任何路由中的一样的有效类/方法对,或者是一个闭包:
+
+.. literalinclude:: routing/051.php
+
+.. note:: ``set404Override()`` 方法不会将响应状态码更改为 ``404``。
+    如果您在设置的控制器中没有设置状态码,将返回默认状态码 ``200``。有关如何设置状态码的信息,请参见 :php:meth:`CodeIgniter\\HTTP\\Response::setStatusCode()`。
+
+按优先级处理路由
+============================
+
+启用或禁用按优先级处理路由队列。通过在路由选项中定义降低优先级。默认禁用。此功能影响所有路由。
+有关降低优先级的示例用法,请参阅 :ref:`routing-priority`:
+
+.. literalinclude:: routing/052.php
+
+.. _auto-routing-improved:
+
+自动路由(改进版)
+***********************
+
+.. versionadded:: 4.2.0
+
+从 v4.2.0 开始,引入了新的更安全的自动路由。
+
+.. note:: 如果您熟悉自动路由,它在 CodeIgniter 3 到 4.1.x 中默认启用,您可以在
+    :ref:`ChangeLog v4.2.0 <v420-new-improved-auto-routing>` 中看到差异。
+
+当没有找到匹配 URI 的定义路由时,如果启用了自动路由,系统将尝试将该 URI 与控制器和方法匹配。
+
+.. important:: 出于安全考虑,如果控制器在定义的路由中使用,自动路由(改进版)不会路由到该控制器。
+
+自动路由可以根据约定自动路由 HTTP 请求,并执行相应的控制器方法。
+
+.. note:: 自动路由(改进版)默认被禁用。要使用它,请参阅下文。
+
+.. _enabled-auto-routing-improved:
+
+启用自动路由
+===================
+
+要使用它,您需要在 **app/Config/Routes.php** 中将设置 ``setAutoRoute()`` 选项更改为 true::
+
+    $routes->setAutoRoute(true);
+
+并且您需要在 **app/Config/Feature.php** 中将属性 ``$autoRoutesImproved`` 更改为 ``true``::
+
+    public bool $autoRoutesImproved = true;
+
+URI 段
+============
+
+URL 中的段通常遵循模型-视图-控制器方法::
+
+    example.com/class/method/ID
+
+1. 第一个段表示应调用的控制器 **类**。
+2. 第二个段表示应调用的类 **方法**。
+3. 第三个和任何其他段表示将传递给控制器的 ID 和任何变量。
+
+考虑这个 URI::
+
+    example.com/index.php/helloworld/hello/1
+
+在上面的示例中,当使用 **GET** 方法发送 HTTP 请求时,
+自动路由会尝试找到一个名为 ``App\Controllers\Helloworld`` 的控制器,
+并执行 ``getHello()`` 方法,并传递 ``'1'`` 作为第一个参数。
+
+.. note:: 通过自动路由(改进版)执行的控制器方法需要 HTTP 动词(``get``、``post``、``put`` 等)前缀,如 ``getIndex()``、``postCreate()``。
+
+有关更多信息,请参阅 :ref:`控制器中的自动路由 <controller-auto-routing-improved>`。
+
+.. _routing-auto-routing-improved-configuration-options:
+
+配置选项
+=====================
+
+这些选项在 **app/Config/Routes.php** 的顶部可用。
 
 默认控制器
 ------------------
 
-当用户直接访问你的站点的根路径时（例如example.com），所调用的控制器将会由 ``setDefaultController()`` 方法所设置的参数决定，除非有一个路由是显式声明过（默认控制器）。
-这一方法的默认值是 ``Home`` ，对应的控制器是 ``/app/Controllers/Home.php`` ::
+对于站点根 URI
+^^^^^^^^^^^^^^^^^^
 
+当用户访问站点的根目录(即 **example.com**)时,除非明确定义了路由,否则用于确定要使用的控制器的方法是由 ``setDefaultController()`` 方法设置的值。
+默认值为 ``Home``,它与 **app/Controllers/Home.php** 中的控制器匹配:
 
-	// example.com 对应的路由是app/Controllers/Welcome.php
-	$routes->setDefaultController('Welcome');
+.. literalinclude:: routing/047.php
 
-默认控制器同样也在找不到对应的路由规则，URI对应到控制器的对应目录下的情况下被用到。
-例如有个用户访问了 ``example.com/admin`` ，如果有个控制器被命名为 ``/app/Controllers/admin/Home.php`` ，那么就被调用到。
+对于目录 URI
+^^^^^^^^^^^^^^^^^^
+
+默认控制器也在没有找到匹配的路由且 URI 指向控制器目录中的目录时使用。
+例如,如果用户访问 **example.com/admin**,如果在 **app/Controllers/Admin/Home.php** 中找到了一个控制器,则会使用它。
+
+.. important:: 您无法使用控制器名称的 URI 访问默认控制器。
+    当默认控制器为 ``Home`` 时,您可以访问 **example.com/**,但是如果访问 **example.com/home**,将找不到它。
+
+参见 :ref:`控制器中的自动路由 <controller-auto-routing-improved>` 以获取更多信息。
 
 默认方法
 --------------
 
-与默认控制器的设置类似，用于设置设置默认方法。其应用场景是，找到了URI对应的控制器，但是URI分段对应不上控制器的方法时。默认值是 ``index`` ::
+这与默认控制器设置的作用类似,但用于在找到与 URI 匹配的控制器但没有用于方法的段时,确定要使用的默认方法。默认值为 ``index``。
 
-	$routes->setDefaultMethod('listAll');
+在此示例中,如果用户访问 **example.com/products**,并且存在 ``Products`` 控制器,
+将执行 ``Products::listAll()`` 方法:
 
-在这个例子中，当用户访问example.com/products时，Products控制器存在，从而执行 ``Products::listAll()`` 方法。
+.. literalinclude:: routing/048.php
 
-连字符(-)转换
---------------------
+.. important:: 您无法使用默认方法名称的 URI 访问控制器。
+    在上面的示例中,您可以访问 **example.com/products**,但是如果访问 **example.com/products/listall**,将找不到它。
 
-从它的布尔值就能看出来这其实并不是一个路由，这个选项可以自动的将 URL 中的控制器和方法中的连字符（'-'）转换为下划线（'_'），当你需要这样时， 它可以让你少写很多路由规则。由于连字符不是一个有效的类名或方法名， 如果你不使用它的话，将会引起一个严重错误::
+.. _auto-routing-legacy:
 
-	$routes->setTranslateURIDashes(true);
+自动路由(传统)
+*********************
 
-仅使用定义路由
+自动路由(传统)是 CodeIgniter 3 的路由系统。
+它可以根据约定自动路由 HTTP 请求,并执行相应的控制器方法。
+
+建议在 **app/Config/Routes.php** 文件中定义所有路由,
+或使用 :ref:`auto-routing-improved`,
+
+.. warning:: 为了防止配置错误和编码错误,我们建议您不要使用
+    自动路由(传统)功能。很容易创建漏洞应用,其中控制器过滤器
+    或 CSRF 保护被绕过。
+
+.. important:: 自动路由(传统)将任何 HTTP 方法的 HTTP 请求路由到控制器方法。
+
+启用自动路由(传统)
+============================
+
+从 v4.2.0 开始,自动路由默认被禁用。
+
+要使用它,您需要在 **app/Config/Routes.php** 中将设置 ``setAutoRoute()`` 选项更改为 true::
+
+    $routes->setAutoRoute(true);
+
+URI 段(传统)
+=====================
+
+URL 中的段通常遵循模型-视图-控制器方法::
+
+    example.com/class/method/ID
+
+1. 第一个段表示应调用的控制器 **类**。
+2. 第二个段表示应调用的类 **方法**。
+3. 第三个和任何其他段表示将传递给控制器的 ID 和任何变量。
+
+考虑这个 URI::
+
+    example.com/index.php/helloworld/index/1
+
+在上面的示例中,CodeIgniter 会尝试找到一个名为 **Helloworld.php** 的控制器,
+并执行 ``index()`` 方法,并传递 ``'1'`` 作为第一个参数。
+
+参见 :ref:`控制器中的自动路由(传统) <controller-auto-routing-legacy>` 以获取更多信息。
+
+.. _routing-auto-routing-legacy-configuration-options:
+
+配置选项(传统)
+==============================
+
+这些选项在 **app/Config/Routes.php** 的顶部可用。
+
+默认控制器(传统)
+---------------------------
+
+对于站点根 URI(传统)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+当用户访问站点的根目录(即 example.com)时,除非明确定义了路由,否则用于确定要使用的控制器的方法是由 ``setDefaultController()`` 方法设置的值。默认值为 ``Home``,它与 **app/Controllers/Home.php** 中的控制器匹配:
+
+.. literalinclude:: routing/047.php
+
+对于目录 URI(传统)
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+默认控制器也在没有找到匹配的路由且 URI 指向控制器目录中的目录时使用。
+例如,如果用户访问 **example.com/admin**,如果在 **app/Controllers/Admin/Home.php** 中找到了一个控制器,则会使用它。
+
+参见 :ref:`控制器中的自动路由(传统) <controller-auto-routing-legacy>` 以获取更多信息。
+
+默认方法(传统)
 -----------------------
 
-当指定的URI映射不到定义的路由时，系统将会将URI映射到如上所述的控制器和方法。
-你可以通过设置 ``setAutoRoute()`` 选项为false的方式来关闭这一自动映射，并限制系统仅使用你定义的路由::
+这与默认控制器设置的作用类似,但用于在找到与 URI 匹配的控制器但没有用于方法的段时,确定要使用的默认方法。默认值为 ``index``。
 
-	$routes->setAutoRoute(false);
+在此示例中,如果用户访问 **example.com/products**,并且存在 ``Products`` 控制器,
+将执行 ``Products::listAll()`` 方法:
 
-404 重载
-------------
+.. literalinclude:: routing/048.php
 
-如果当前URI匹配不到对应的页面，系统将输出一个通用的404视图。你可以通过使用 ``set404Override()`` 方法，定义一个操作来改变以上行为。
-这一方法的参数可以是一个合法的类/方法的组合，就如同你在任何路由或者闭包中定义的一样::
+确认路由
+*****************
 
-    // 将执行App\Errors类的show404方法
-    $routes->set404Override('App\Errors::show404');
+CodeIgniter 提供了以下 :doc:`命令 </cli/spark_commands>` 来显示所有路由。
 
-    // 将会输出一个自定义的视图
-    $routes->set404Override(function()
-    {
-        echo view('my_errors/not_found.html');
-    });
+.. _routing-spark-routes:
+
+spark routes
+============
+
+显示所有路由和过滤器::
+
+    > php spark routes
+
+输出如下所示:
+
+.. code-block:: none
+
+    +---------+---------+---------------+-------------------------------+----------------+---------------+
+    | 方法    | 路由    | 名称          | 处理程序                       | Before 过滤器 | After 过滤器 |
+    +---------+---------+---------------+-------------------------------+----------------+---------------+
+    | GET     | /       | »             | \App\Controllers\Home::index  |                | toolbar       |
+    | GET     | feed    | »             | (Closure)                     |                | toolbar       |
+    +---------+---------+---------------+-------------------------------+----------------+---------------+
+
+*Method* 列显示路由正在监听的 HTTP 方法。
+
+*Route* 列显示要匹配的路由路径。定义路由的路由路径以正则表达式表示。
+
+自 v4.3.0 起,*Name* 列显示路由名称。``»`` 表示名称与路由路径相同。
+
+.. important:: 该系统并不完美。如果使用自定义占位符,*Filters* 可能不正确。如果您想检查路由的过滤器,可以使用 :ref:`spark filter:check <spark-filter-check>` 命令。
+
+自动路由(改进版)
+-----------------------
+
+当您使用自动路由(改进版)时,输出如下所示:
+
+.. code-block:: none
+
+    +-----------+-------------------------+---------------+-----------------------------------+----------------+---------------+
+    | 方法      | 路由                    | 名称          | 处理程序                           | Before 过滤器 | After 过滤器 |
+    +-----------+-------------------------+---------------+-----------------------------------+----------------+---------------+
+    | GET(auto) | product/list/../..[/..] |               | \App\Controllers\Product::getList |                | toolbar       |
+    +-----------+-------------------------+---------------+-----------------------------------+----------------+---------------+
+
+*Method* 将是 ``GET(auto)``。
+
+*Route* 列中的 ``/..`` 表示一个段。``[/..]`` 表示它是可选的。
+
+.. note:: 当启用自动路由并且您有 ``home`` 路由时,它也可以通过 ``Home`` 或可能通过 ``hOme``、``hoMe``、``HOME`` 等访问,但命令将只显示 ``home``。
+
+如果您看到以 ``x`` 开头的路由,如下所示,它表示一个无效的路由,不会路由,但控制器具有用于路由的公共方法。
+
+.. code-block:: none
+
+    +-----------+----------------+------+-------------------------------------+----------------+---------------+
+    | 方法      | 路由            | 名称 | 处理程序                             | Before 过滤器 | After 过滤器 |
+    +-----------+----------------+------+-------------------------------------+----------------+---------------+
+    | GET(auto) | x home/foo     |      | \App\Controllers\Home::getFoo       | <未知>         | <未知>        |
+    +-----------+----------------+------+-------------------------------------+----------------+---------------+
+
+上面的示例向您显示了您具有 ``\App\Controllers\Home::getFoo()`` 方法,
+但由于它是默认控制器(默认为 ``Home``),默认控制器名称必须在 URI 中省略,因此它不会路由。您应该删除 ``getFoo()`` 方法。
+
+.. note:: 在 v4.3.4 之前,由于错误,无效路由会显示为正常路由。
+
+自动路由(传统)
+---------------------
+
+当您使用自动路由(传统)时,输出如下所示:
+
+.. code-block:: none
+
+    +--------+--------------------+---------------+-----------------------------------+----------------+---------------+
+    | 方法   | 路由                | 名称          | 处理程序                           | Before 过滤器 | After 过滤器 |
+    +--------+--------------------+---------------+-----------------------------------+----------------+---------------+
+    | auto   | product/list[/...] |               | \App\Controllers\Product::getList |                | toolbar       |
+    +--------+--------------------+---------------+-----------------------------------+----------------+---------------+
+
+*Method* 将是 ``auto``。
+
+*Route* 列中的 ``[/...]`` 表示任意数量的段
+
+.. note:: 当启用自动路由并且您有 ``home`` 路由时,它也可以通过 ``Home`` 或可能通过 ``hOme``、``hoMe``、``HOME`` 等访问,但命令将只显示 ``home``。
+
+.. _routing-spark-routes-sort-by-handler:
+
+按处理程序排序
+---------------
+
+.. versionadded:: 4.3.0
+
+您可以按 *Handler* 对路由进行排序::
+
+    > php spark routes -h

@@ -1,111 +1,104 @@
-*******************
+###################
 内容协商
-*******************
+###################
 
-内容协商是一种用来根据客户端和服务端可处理的资源类型，来决定返回给客户端哪种类型的内容的机制。
-该机制可用来决定客户端是想要 HTML 还是想要 JSON ，一个图片是应该以 JPG 还是以 PNG 格式返回，或者支持哪种类型的压缩方法等。
-这些决策是通过分析四个不同的请求头，而这些请求头里支持多个带有优先级的值选项。手动对这些值选项进行优先级匹配通常是较有挑战性的，因此 CodeIgniter提供了 ``Negotiator`` 来处理以上过程。
+.. contents::
+    :local:
+    :depth: 2
 
-=================
-加载类文件
-=================
+****************************
+什么是内容协商?
+****************************
 
-你可以通过 Service 类来手动加载一个该类的实例::
+内容协商是一种根据客户端的处理能力和服务器的处理能力,来确定返回给客户端什么类型的内容的方法。这可以用来确定是否应该返回 HTML 还是 JSON 给客户端,图片应该返回 JPEG 格式还是 PNG 格式,支持什么类型的压缩等等。这是通过分析四个不同的 header 来实现的,每个 header 都可以支持多种值选项,每个选项都有自己的优先级。
 
-	$negotiator = \Config\Services::negotiator();
+要手动匹配这些可以是非常具有挑战性的。CodeIgniter 提供了 ``Negotiator`` 类可以帮助您处理。
 
-以上操作会获取所有的请求实例并自动将其自动注入到 Negotiator （协商，下同）类中。
+内容协商的核心只是 HTTP 规范的一部分,它允许一个资源可以服务于多种类型的内容,允许客户端请求对其最有效的的数据类型。
 
-该类并不需要主动加载。而是通过请求的 ``IncomingRequest`` 实例来进行范文。
-尽管你并不能通过这一过程直接访问该实例，你可以通过 ``negotiate()`` 方法来调用它的所有方法::
+一个典型的例子是,一个不能显示 PNG 图片的浏览器可以请求只获取 GIF 或 JPEG 图片。当服务器收到请求时,它会查看客户端请求的可用文件类型,并从它支持的图片格式中选择最佳匹配,在这种情况下可能会选择返回一个 JPEG 图片。
 
-	$request->negotiate('media', ['foo', 'bar']);
+同样的协商可以发生在四种类型的数据上:
 
-当通过该方法访问实例时，第一个参数是你需要匹配的内容的类型，第二个是所支持的类型值构成的数组。
+* **媒体/文档类型** - 这可能是图像格式,或者 HTML 与 XML 或 JSON。
+* **字符集** - 返回的文档应该使用的字符集,通常是 UTF-8。
+* **文档编码** - 通常是对结果使用的压缩类型。
+* **文档语言** - 对于支持多种语言的网站,这有助于确定返回哪种语言。
 
-===========
+*****************
+加载类
+*****************
+
+您可以通过 Service 类手动加载类的一个实例:
+
+.. literalinclude:: content_negotiation/001.php
+
+这将获取当前的请求实例并自动注入 Negotiator 类。
+
+这个类不需要单独加载。相反,它可以通过这个请求的 ``IncomingRequest`` 实例访问。虽然您不能直接通过这种方式访问它,但您可以通过 ``negotiate()`` 方法轻松访问所有方法:
+
+.. literalinclude:: content_negotiation/002.php
+
+当以这种方式访问时,第一个参数是您正在尝试找到匹配项的内容类型,第二个是支持的值的数组。
+
+***********
 协商
-===========
+***********
 
-本节中，我们将讨论四种可以用来协商的类型，并展示如何通过上述两种方法来进行内容协商。
+在这一节中,我们将讨论可以协商的 4 种类型的内容,并展示使用上面描述的两种方法访问协商器的方式。
 
 媒体
 =====
 
-第一层首先要看的就是媒体协商。该协商方式是通过 ``Accept`` 请求头进行的，并且是可用的请求头中最为复杂的类型之一。
-一个常见的例子就是客户端告诉服务端其所需要的数据格式，而这种操作在 API 中最为常见。例如，一个客户端可能从一个 API 终点请求 JSON 编码的数据::
+首先要看的是处理“媒体”协商。这些是由 ``Accept`` 头提供的,它是可用的最复杂的头之一。一个常见的例子是客户端告诉服务器它希望数据的格式。这在 API 中特别常见。例如,一个客户端可能会从 API 端点请求 JSON 格式的数据::
 
-	GET /foo HTTP/1.1
-	Accept: application/json
+    GET /foo HTTP/1.1
+    Accept: application/json
 
-该服务器需要提供一个所支持的该内容的类型列表。在本例中，API 可能需要返回像原生 HTML ，JSON 或者是 XML 格式的数据。而根据客户端偏好，该列表应顺序返回::
+服务器现在需要提供它可以提供的内容类型列表。在这个例子中,API 可能可以以原始 HTML、JSON 或 XML 的形式返回数据。这个列表应该按首选项顺序提供:
 
-	$supported = [
-		'application/json',
-		'text/html',
-		'application/xml'
-	];
+.. literalinclude:: content_negotiation/003.php
 
-	$format = $request->negotiate('media', $supported);
-	// 或者是
-	$format = $negotiate->media($supported);
+在这种情况下,客户端和服务器都可以就将数据格式化为 JSON 达成一致,所以从 negotiate 方法返回的是 'json'。默认情况下,如果没有找到匹配项,将返回 ``$supported`` 数组中的第一个元素。然而,在某些情况下,您可能需要强制格式严格匹配。如果您传递 ``true`` 作为最后一个值,则如果未找到匹配项,它将返回一个空字符串:
 
-在本例中，客户端和服务器协商一致，将数据以 JSON 的格式返回，因此 'json' 就会从协商方法中返回。默认情况下，如果没有匹配到，在 ``$support`` 数组中的第一个成员就会返回。
-尽管在某些情况下，你可能会强制要求服务端进行严格匹配格式。因此如果你将 ``true`` 作为最后参数传入时，在匹配不到时就会返回空字符串::
-
-	$format = $request->negotiate('media', $supported, true);
-	// 或
-	$format = $negotiate->media($supported, true);
+.. literalinclude:: content_negotiation/004.php
 
 语言
 ========
 
-另一个常见的用法就是用于决定需要返回的内容的语言。如果你运行的是一个单语言网站，该功能显然并没有什么影响。
-但是如果对于那些提供多语言内容的网站来说，该功能就会变得非常有用，基于浏览器将通常会在 ``Accept-Language`` 请求头中发送偏好的语言类型::
+另一个常见的用法是确定应为内容提供的语言。如果您只运行单语言站点,这显然不会有太大差异,但任何可以提供内容多种翻译的站点都会发现这很有用,因为浏览器通常会在 ``Accept-Language`` 头中发送首选语言::
 
-	GET /foo HTTP/1.1
-	Accept-Language: fr; q=1.0, en; q=0.5
+    GET /foo HTTP/1.1
+    Accept-Language: fr; q=1.0, en; q=0.5
 
-本例中，浏览器偏好法语，并次偏好英语。如果你的网站支持英语或德语，那么你就会如下操作::
+在这个例子中,浏览器更倾向于法语,其次是英语。 如果您的网站支持英语和德语,您会这样做:
 
-	$supported = [
-		'en',
-		'de'
-	];
+.. literalinclude:: content_negotiation/005.php
 
-	$lang = $request->negotiate('language', $supported);
-	// 或
-	$lang = $negotiate->language($supported);
-
-本例中，"en"将作为当前语言返回。如果没有产生匹配，就会返回 ``$supported`` 数组的第一个成员，因此该成员将会一直作为偏好语言。
+在这个例子中,'en' 将作为当前语言返回。如果没有找到匹配,它将返回 ``$supported`` 数组中的第一个元素,所以那应该总是首选语言。
 
 编码
 ========
 
-``Accept-Encoding`` 请求头包含了客户端所期望接收到的字符集，用于确定客户端支持哪种类型的压缩方式::
+``Accept-Encoding`` 头包含客户端偏好接收的字符集,并用于指定客户端支持的压缩类型::
 
-	GET /foo HTTP/1.1
-	Accept-Encoding: compress, gzip
+    GET /foo HTTP/1.1
+    Accept-Encoding: compress, gzip
 
-你的 web 服务器将会定义可以使用的压缩类型。某些服务器，例如 Apache , 只支持了 **gzip** ::
+您的 Web 服务器将定义您可以使用的压缩类型。一些,比如 Apache,只支持 **gzip**:
 
-	$type = $request->negotiate('encoding', ['gzip']);
-	// 或
-	$type = $negotiate->encoding(['gzip']);
+.. literalinclude:: content_negotiation/006.php
 
-更多信息，参阅 `Wikipedia <https://en.wikipedia.org/wiki/HTTP_compression>`_.
+参见更多内容 `Wikipedia <https://en.wikipedia.org/wiki/HTTP_compression>`_。
 
 字符集
 =============
 
-所期待的字符集类型会通过 ``Accept-Charset`` 请求头来传值::
+期望的字符集通过 ``Accept-Charset`` 头传递::
 
-	GET /foo HTTP/1.1
-	Accept-Charset: utf-16, utf-8
+    GET /foo HTTP/1.1
+    Accept-Charset: utf-16, utf-8
 
-默认情况下，如果没有匹配的话就会返回 **utf-8** ::
+默认情况下,如果未找到匹配项,将返回 **utf-8**:
 
-	$charset = $request->negotiate('charset', ['utf-8']);
-	// 或者是
-	$charset = $negotiate->charset(['utf-8']);
-
+.. literalinclude:: content_negotiation/007.php

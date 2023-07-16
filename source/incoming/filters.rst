@@ -6,165 +6,183 @@
     :local:
     :depth: 2
 
-控制器过滤器可以是在控制器运行前或者运行后执行相应的操作，与 :doc:`事件 </extending/events>` 不同，你可以非常简单、方便的选择在应用程序的哪个 URI 上应用过滤器。
-过滤器可以修改传入的请求，也可以对响应做出修改，从而具有很大的灵活性和功能性。我们可以使用过滤器执行一些共同的常见的任务，例如：
+控制器过滤器允许您在控制器执行之前或之后执行操作。与 :doc:`事件 <../extending/events>` 不同,您可以选择应用过滤器的特定 URI。传入过滤器可以修改请求,而后置过滤器可以操作甚至修改响应,提供了很大的灵活性和能力。使用过滤器可以执行的一些常见任务示例:
 
-* 对于传入的请求执行 CSRF 验证
-* 根据用户角色控制显示的功能
-* 在某些功能或接口执行请求速率限制
-* 显示 “停机维护” 页面
-* 自动执行内容协商操作（例如设置 Accept-Language 值）
-* 更多
+* 对传入请求执行 CSRF 保护
+* 根据角色限制站点的区域访问
+* 对某些端点执行速率限制
+* 显示“维护中”页面
+* 执行自动内容协商
+* 等等...
 
 *****************
 创建过滤器
 *****************
 
-过滤器类必须实现 ``CodeIgniter\Filters\FilterInterface`` 接口。
-过滤器类必须有 2 个方法：``before()`` 和 ``after()``，它们会在控制器运行之前和之后执行。
-如果你的业务只需要其中一个方法，那另外的方法留空即可，不可以删除。
-一个标准的过滤器类模板如下::
+过滤器是简单的类,实现了 ``CodeIgniter\Filters\FilterInterface``。它们包含两个方法:``before()`` 和 ``after()``,这些方法分别包含在控制器之前和之后运行的代码。您的类必须包含这两个方法,但如果不需要可以留空。过滤器骨架类如下:
 
-    <?php namespace App\Filters;
+.. literalinclude:: filters/001.php
 
-    use CodeIgniter\HTTP\RequestInterface;
-    use CodeIgniter\HTTP\ResponseInterface;
-    use CodeIgniter\Filters\FilterInterface;
-
-    class MyFilter implements FilterInterface
-    {
-        public function before(RequestInterface $request)
-        {
-            // Do something here
-        }
-
-        //--------------------------------------------------------------------
-
-        public function after(RequestInterface $request, ResponseInterface $response)
-        {
-            // Do something here
-        }
-    }
-
-前置过滤器
+Before 过滤器
 ==============
 
-任何过滤器，你都可以返回 ``$request`` 对象并且可以对当前的请求进行更改替换，这些更改在后续的控制器执行时，仍然有效。
+替换请求
+-----------------
 
-因为是前置过滤器，它会在控制器被执行前触发，所以你有时会希望做一些验证操作，不执行后续的控制器，例如登录验证。那么你可以通过返回不是请求对象的任何形式来做到这一点。
-通常是执行重定向。
-例如以下的示例::
+在任何过滤器中,您都可以返回 ``$request`` 对象,它将替换当前的请求,允许您进行更改,这些更改在控制器执行时仍然存在。
 
-    public function before(RequestInterface $request)
-    {
-        $auth = service('auth');
+停止后续过滤器
+----------------------
 
-        if (! $auth->isLoggedIn())
-        {
-            return redirect('login');
-        }
-    }
+当您有一系列过滤器时,您可能还希望在某个过滤器后停止后续过滤器的执行。您可以通过返回任何非空结果轻松地实现这一点。如果 before 过滤器返回空结果,仍将执行控制器操作或后续过滤器。
 
-如果返回了 ``Response`` 对象，那么 ``Response`` 对象会发送到客户端，并且程序会停止运行。这对实现 API 速率限制很有作用，详细可以参考
-**app/Filters/Throttle.php** 相关示例。
+非空结果规则的一个例外是 ``Request`` 实例。在 before 过滤器中返回它不会停止执行,只会替换当前的 ``$request`` 对象。
 
-后置过滤器
+返回响应
+------------------
+
+由于 before 过滤器是在执行控制器之前执行的,所以有时您可能希望停止控制器中的操作。
+
+这通常用于执行重定向,如下面的示例:
+
+.. literalinclude:: filters/002.php
+
+如果返回 ``Response`` 实例,将向客户端发送响应,并停止脚本执行。这对于实现 API 的速率限制很有用。请参见 :doc:`Throttler <../libraries/throttler>` 以获取示例。
+
+.. _after-filters:
+
+After 过滤器
 =============
 
-后置过滤器与前置过滤器几乎一样，不同的是后置过滤器只返回 ``$response`` 对象。并且，你无法停止程序的运行。你只能对 ``$response`` 对象
-做一些修改，比如为了确保客户端可以正常识别而设置某些安全选项，或者使用缓存输出，甚至可以使用错别字过滤器过滤最终的输出内容。
+After 过滤器与 Before 过滤器几乎完全相同,只是您只能返回 ``$response`` 对象,并且无法停止脚本执行。这确实允许您修改最终输出,或者只是做一些最终输出的事情。这可以用于确保某些安全头正确设置,缓存最终输出,或者使用禁用词过滤器过滤最终输出。
 
 *******************
 配置过滤器
 *******************
 
-创建完过滤器后，你需要在 ``app/Config/Filters.php`` 配置它的运行时机。该文件包含了 4 个属性，可以精确控制过滤器的运行时机。
+创建过滤器后,您需要配置它们的运行时机。这是在 **app/Config/Filters.php** 中完成的。该文件包含四个属性,允许您配置过滤器的确切运行时机。
+
+.. note:: 最安全的应用过滤器方法是 :ref:`禁用自动路由 <use-defined-routes-only>`,并 :ref:`设置过滤器到路由 <applying-filters>`。
+
+.. warning:: 建议您在过滤器设置中的 URI 末尾始终添加 ``*``。因为控制器方法可能比您想象的通过不同的 URL 访问。例如,当启用 :ref:`auto-routing-legacy` 时,如果您有 ``Blog::index``,它可以通过 ``blog``、``blog/index`` 和 ``blog/index/1`` 等方式访问。
 
 $aliases
 ========
 
-``$aliases`` 数组可以将一个简单的名称与一个或多个完整类的路径进行绑定关联，这些完整的类就是需要运行的过滤器::
+``$aliases`` 数组用于将简单名称与一个或多个完全限定的类名相关联,这些类名是要运行的过滤器:
 
-    public $aliases = [
-        'csrf' => \CodeIgniter\Filters\CSRF::class
-    ];
+.. literalinclude:: filters/003.php
 
-别名是强制性的，如果你尝试使用完整的类名，系统会触发一个错误。以别名方式定义，可以很容易的切换实现类。例如当你需要替换其他过滤器时，只需
-要更改别名对应的类即可。
+别名是强制性的,如果您稍后尝试使用完整的类名,系统将抛出错误。以这种方式定义使得切换使用的类变得简单。非常适合当您决定需要更改到不同的身份验证系统时,因为您只需要更改过滤器的类即可完成。
 
-当然，你也可以将多个过滤器绑定到一个别名中，这样可以使复杂的过滤器组变得简单::
+您可以将多个过滤器组合成一个别名,使复杂的过滤器组非常简单:
 
-    public $aliases = [
-        'apiPrep' => [
-            \App\Filters\Negotiate::class,
-            \App\Filters\ApiAuth::class
-        ]
-    ];
+.. literalinclude:: filters/004.php
 
-你可以在 ``$aliases`` 中定义多个别名以满足系统需求。
+您应该根据需要定义尽可能多的别名。
 
 $globals
 ========
 
-这部分允许你定义应用程序中每个请求需要经过的过滤器。
-请一定要注意过滤器的数量，因为所有的请求都将经过这些过滤器，过多会导致影响性能。可以在 ``before`` 和 ``after`` 中添加别名来指定
-过滤器::
+第二部分允许您定义任何应用于框架的每个请求的过滤器。在这里使用太多可能会对性能产生影响,所以要小心。可以通过将别名添加到 before 或 after 数组来指定过滤器:
 
-	public $globals = [
-		'before' => [
-			'csrf'
-		],
-		'after'  => []
-	];
+.. literalinclude:: filters/005.php
 
-有时候你希望对绝大多数请求都使用过滤器处理，但个别请求需要单独处理时，这样的情况很常见。
-一个常见的场景，你需要在CSRF预防过滤器中排除一些请求，例如来自第三方的请求或者特定的 URI 地址，其他请求则必须经过 ``CSRF`` 验证。
-那么，我们可以通过 ``except`` 来实现，可以定义一个或多个排除的 URI 地址::
+除了少数 URI
+---------------------
 
-	public $globals = [
-		'before' => [
-			'csrf' => ['except' => 'api/*']
-		],
-		'after'  => []
-	];
+有时您希望将过滤器应用于几乎所有请求,但有一些应该不受影响。一个常见的示例是,如果您需要从 CSRF 保护过滤器中排除几个 URI,以允许第三方网站的请求访问一个或两个特定的 URI,同时保持其余 URI 受保护。要做到这一点,请在别名旁边添加一个包含 ``except`` 键和要匹配的 URI 值的数组:
 
-可以设置任意完整的 URI，也可以使用正则表达式，或者像本示例一样，设置 星号* 通配符的形式来设置。这样以 ``api/`` 开头的所有请求都将不受 CSRF
-过滤器的保护。但该应用程序的其他请求不受影响。如果你需要指定多个 URI，可以使用数组的形式即可，具体可以参考示例::
+.. literalinclude:: filters/006.php
 
-	public $globals = [
-		'before' => [
-			'csrf' => ['except' => ['foo/*', 'bar/*']]
-		],
-		'after'  => []
-	];
+在过滤器设置中可以使用 URI 的任何位置,您都可以使用正则表达式,或者像在这个例子中使用星号 (``*``) 作为通配符,匹配之后的所有字符。在这个例子中,任何以 ``api/`` 开头的 URL 都将被免于 CSRF 保护,但网站的表单将全部受保护。如果您需要指定多个 URI,可以使用 URI 模式数组:
+
+.. literalinclude:: filters/007.php
 
 $methods
 ========
 
-你可以将过滤器应用于请求的某些方法，例如 POST、GET、PUT等，在数组中使用全部小写的形式指定过滤器名称，与 ``$globals`` 或 ``$filters``
-属性设置目的不同，这些过滤器全部都是前置过滤器，也就是说都在控制器运行前执行::
+.. warning:: 如果使用 ``$methods`` 过滤器,您应该 :ref:`禁用自动路由(传统) <use-defined-routes-only>`,因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。以您不期望的方法访问控制器可能会绕过过滤器。
 
-    public $methods = [
-        'post' => ['foo', 'bar'],
-        'get'  => ['baz']
-    ]
+您可以将过滤器应用于所有某种 HTTP 方法的请求,如 POST、GET、PUT 等。在此数组中,您需要以**全小写**指定方法名称。它的值将是要运行的过滤器数组:
 
-除标准的 HTTP 方法外，还支持两种特殊的方法：'cli' 和 'ajax'。它们是所有的 'cli' 命令行运行的请求和 AJAX 请求。
+.. literalinclude:: filters/008.php
 
-.. note:: AJAX 请求的界定在 ``X-Requested-With`` 标志，在某些情况下，``X-Requested-With`` 不会通过 JavaScript 的 XHR 请求发送到后端，从而导致过滤器无法执行。如何避免此类问题，请参照文档的 :doc:`AJAX 请求 </general/ajax>` 章节。
+.. note:: 与 ``$globals`` 或 ``$filters`` 属性不同,这些只能作为 before 过滤器运行。
+
+除了标准的 HTTP 方法外,这也支持一个特殊情况:``cli``。``cli`` 方法将应用于所有从命令行运行的请求。
 
 $filters
 ========
 
-这个属性是过滤器别名数组，每个别名可以定义指定 URI 的前置或后置过滤器::
+该属性是一个过滤器别名数组。对于每个别名,您可以为 ``before`` 和 ``after`` 数组指定过滤器应该应用到的一系列 URI 模式:
 
-    public filters = [
-        'foo' => ['before' => ['admin/*'], 'after' => ['users/*']],
-        'bar' => ['before' => ['api/*', 'admin/*']]
-    ];
+.. literalinclude:: filters/009.php
+
+过滤器参数
+================
+
+在配置过滤器时,可以在设置路由时向过滤器传递其他参数:
+
+.. literalinclude:: filters/010.php
+
+在这个例子中,数组 ``['dual', 'noreturn']`` 将在过滤器的 ``before()`` 和 ``after()`` 实现方法的 ``$arguments`` 中传递。
+
+******************
+确认过滤器
+******************
+
+CodeIgniter 提供了以下 :doc:`命令 <../cli/spark_commands>` 来检查路由的过滤器。
+
+.. _spark-filter-check:
+
+filter:check
+============
+
+.. versionadded:: 4.3.0
+
+使用 **GET** 方法检查路由 ``/`` 的过滤器::
+
+    > php spark filter:check get /
+
+输出如下所示:
+
+.. code-block:: none
+
+    +--------+-------+----------------+---------------+
+    | Method | Route | Before Filters | After Filters |
+    +--------+-------+----------------+---------------+
+    | GET    | /     |                | toolbar       |
+    +--------+-------+----------------+---------------+
+
+您还可以通过 ``spark routes`` 命令查看路由和过滤器。
+参见 :ref:`URI 路由 <routing-spark-routes>`。
 
 ****************
-默认提供的过滤器
+提供的过滤器
 ****************
 
-CodeIgniter4 默认绑定了三个过滤器：Honeypot、Security 和 DebugToolbar。
+CodeIgniter4 提供的过滤器有: :doc:`Honeypot <../libraries/honeypot>`、:ref:`CSRF <cross-site-request-forgery>`、``InvalidChars``、``SecureHeaders`` 和 :ref:`DebugToolbar <the-debug-toolbar>`。
+
+.. note:: 过滤器按配置文件中定义的顺序执行。但是,如果启用,``DebugToolbar`` 总是最后执行,因为它应该能够捕获其他过滤器中发生的所有事情。
+
+InvalidChars
+=============
+
+此过滤器禁止用户输入数据(``$_GET``、``$_POST``、``$_COOKIE``、``php://input``)包含以下字符:
+
+- 无效的 UTF-8 字符
+- 除换行和制表符之外的控制字符
+
+.. _secureheaders:
+
+SecureHeaders
+=============
+
+此过滤器添加 HTTP 响应头,您的应用程序可以使用它们来提高应用程序的安全性。
+
+如果要自定义头,请扩展 ``CodeIgniter\Filters\SecureHeaders`` 并覆盖 ``$headers`` 属性。并在 **app/Config/Filters.php** 中更改 ``$aliases`` 属性:
+
+.. literalinclude:: filters/011.php
+
+如果您想了解安全头,请参阅 `OWASP 安全头项目 <https://owasp.org/www-project-secure-headers/>`_。

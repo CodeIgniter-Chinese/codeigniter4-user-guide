@@ -1,81 +1,128 @@
-*************
-Request 类
-*************
+#############
+请求类
+#############
 
-请求类是 HTTP 请求的面向对象表现形式。这意味着它可以用于传入请求，例如来自浏览器的请求，以及将请求从应用程序发到到第三方应用的传出请求。
+请求类是 HTTP 请求的面向对象表示。这旨在适用于传入请求,例如来自浏览器对应用程序的请求,以及传出请求,例如应用程序对第三方应用程序的请求所用的请求。
 
-这个类提供了它们需要的共同的功能，但是这两种情况都有自定义的类，它们继承请求类，然后添加特定的功能。
+这个类提供了它们都需要的常见功能,但这两种情况都有自定义类来扩展请求类以添加特定功能。在实践中,您需要使用这些类。
 
-从 :doc:`传入请求类 </libraries/incomingrequest>` 和 :doc:`CURL请求类 </libraries/curlrequest>` 了解更多信息。
+有关更多使用详细信息,请参阅 :doc:`IncomingRequest 类 <./incomingrequest>` 和 :doc:`CURLRequest 类 <../libraries/curlrequest>` 的文档。
 
-===============
+***************
 类参考
-===============
+***************
 
-.. php:class:: CodeIgniter\\HTTP\\IncomingRequest
+.. php:namespace:: CodeIgniter\HTTP
 
-	.. php:method:: getIPAddress()
+.. php:class:: Request
 
-		:returns: 可以检测到的用户 IP 地址，否则为 NULL ，如果 IP 地址无效，则返回 0.0.0.0
-		:rtype: string
+    .. php:method:: getIPAddress()
 
-		返回当前用户的 IP 地址。如果 IP 地址无效，返回 '0.0.0.0' ::
+        :returns: 如果可以检测到,则为用户的 IP 地址。如果 IP 地址不是有效的 IP 地址,则返回 ``0.0.0.0``。
+        :rtype:   string
 
-			echo $request->getIPAddress();
+        返回当前用户的 IP 地址。如果 IP 地址无效,该方法将返回 ``0.0.0.0``:
 
-		.. important:: 此方法会根据 ``App->proxy_ips`` 的配置，来返回 HTTP_X_FORWARDED_FOR、 HTTP_CLIENT_IP、HTTP_X_CLIENT_IP 或 HTTP_X_CLUSTER_CLIENT_IP 。
+        .. literalinclude:: request/001.php
 
-	.. php:method:: validIP($ip[, $which = ''])
+        .. important:: 该方法会考虑 ``Config\App::$proxyIPs`` 设置,并将 HTTP 头中报告的允许 IP 地址的客户端 IP 地址返回。
 
-		:param	string	$ip: IP 地址
-		:param	string	$which: IP 协议 ('ipv4' 或 'ipv6')
-		:returns:	IP 有效返回 true，否则返回 false
-		:rtype:	bool
+    .. php:method:: isValidIP($ip[, $which = ''])
 
-		传入一个 IP 地址，根据 IP 是否有效返回 true 或 false
+        .. deprecated:: 4.0.5
+           请改用 :doc:`../libraries/validation`。
 
-		.. note:: $request->getIPAddress() 自动检测 IP 地址是否有效
+        .. important:: 此方法已弃用。它将在未来版本中删除。
 
-                ::
+        :param    string $ip: IP 地址
+        :param    string $which: IP 协议(``ipv4`` 或 ``ipv6``)
+        :returns: 如果地址有效则为 true,如果无效则为 false
+        :rtype:   bool
 
-			if ( ! $request->validIP($ip))
-			{
-                            echo 'Not Valid';
-			}
-			else
-			{
-                            echo 'Valid';
-			}
+        将 IP 地址作为输入,并根据它是否有效返回 true 或 false(布尔值)。
 
-		第二个参数可选，可以为 'ipv4' 或 'ipv6'。默认这两种格式会全部检查。
+        .. note:: 上面的 ``$request->getIPAddress()`` 方法会自动验证 IP 地址。
 
+            .. literalinclude:: request/002.php
 
-	.. php:method:: method([$upper = FALSE])
+        可选的第二个字符串参数为“ipv4”或“ipv6”来指定 IP 格式。默认检查这两种格式。
 
-		:param	bool	$upper: 以大写还是小写返回方法名，TRUE 表示大写
-		:returns:	HTTP 请求方法
-		:rtype:	string
+    .. php:method:: getMethod([$upper = false])
 
-		返回 ``$_SERVER['REQUEST_METHOD']``, 并且转换字母到指定大写或小写
-		::
+        .. important:: ``$upper`` 参数的使用已被弃用。它将在未来版本中删除。
 
-			echo $request->method(TRUE); // Outputs: POST
-			echo $request->method(FALSE); // Outputs: post
-			echo $request->method(); // Outputs: post
+        :param bool $upper: 是否以大写或小写返回请求方法名称
+        :returns: HTTP 请求方法
+        :rtype: string
 
-	.. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
+        返回 ``$_SERVER['REQUEST_METHOD']``,可选择设置为大写或小写。
 
-		:param	mixed	$index: 要过滤的变量
-		:param  int     $filter: 要过滤的类型，过滤类型列表 `见此 <http://php.net/manual/en/filter.filters.php>`_.
-		:param  int     $flags: 过滤器ID. 完整列表 `见此 <http://php.net/manual/en/filter.filters.flags.php>`_.
-		:returns:	$_SERVER 值，如果不存在则返回NULL
-		:rtype:	mixed
+        .. literalinclude:: request/003.php
 
-		该方法与  :doc:`IncomingRequest 类 </libraries/incomingrequest>` 中的 ``post()``， ``get()`` 和 ``cookie()`` 方法相同。只是它只获取 getServer 数据(``$_SERVER``) ::
+    .. php:method:: setMethod($method)
 
-			$request->getServer('some_data');
+        .. deprecated:: 4.0.5
+           请改用 :php:meth:`CodeIgniter\\HTTP\\Request::withMethod()`。
 
-		要返回多个 ``$_SERVER`` 值的数组，请将所有键作为数组传递。
-		::
+        :param string $method: 设置请求方法。在伪造请求时使用。
+        :returns: 这个请求
+        :rtype: Request
 
-			$require->getServer(array('SERVER_PROTOCOL', 'REQUEST_URI'));
+    .. php:method:: withMethod($method)
+
+        .. versionadded:: 4.0.5
+
+        :param string $method: 设置请求方法。
+        :returns: 新的请求实例
+        :rtype: Request
+
+    .. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
+
+        :param    mixed     $index: 值名称
+        :param    int       $filter: 要应用的过滤类型。过滤器列表可在 `PHP 手册 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
+        :param    int|array $flags: 要应用的标志。标志列表可在 `PHP 手册 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
+        :returns: 如果找到,则返回 ``$_SERVER`` 项目的值,如果没有找到,则为 null
+        :rtype:   mixed
+
+        此方法与 :doc:`IncomingRequest 类 <./incomingrequest>` 中的 ``getPost()``、``getGet()`` 和 ``getCookie()`` 方法相同,只是它获取服务器数据(``$_SERVER``):
+
+        .. literalinclude:: request/004.php
+
+        要返回多个 ``$_SERVER`` 值的数组,请传递所有所需键的数组。
+
+        .. literalinclude:: request/005.php
+
+    .. php:method:: getEnv([$index = null[, $filter = null[, $flags = null]]])
+
+        :param    mixed     $index: 值名称
+        :param    int       $filter: 要应用的过滤类型。过滤器列表可在 `PHP 手册 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
+        :param    int|array $flags: 要应用的标志。标志列表可在 `PHP 手册 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
+        :returns: 如果找到,则返回 ``$_ENV`` 项目的值,如果没有找到,则为 null
+        :rtype:   mixed
+
+        此方法与 :doc:`IncomingRequest 类 <./incomingrequest>` 中的 ``getPost()``、``getGet()`` 和 ``getCookie()`` 方法相同,只是它获取环境数据(``$_ENV``):
+
+        .. literalinclude:: request/006.php
+
+        要返回多个 ``$_ENV`` 值的数组,请传递所有所需键的数组。
+
+        .. literalinclude:: request/007.php
+
+    .. php:method:: setGlobal($method, $value)
+
+        :param    string $method: 方法名称
+        :param    mixed  $value:  要添加的数据
+        :returns: 这个请求
+        :rtype:   Request
+
+        允许手动设置 PHP 全局变量的值,如 ``$_GET``、``$_POST`` 等。
+
+    .. php:method:: fetchGlobal($method [, $index = null[, $filter = null[, $flags = null]]])
+
+        :param    string    $method: 输入过滤常量
+        :param    mixed     $index: 值名称
+        :param    int       $filter: 要应用的过滤类型。过滤器列表可在 `PHP 手册 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
+        :param    int|array $flags: 要应用的标志。标志列表可在 `PHP 手册 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
+        :rtype:   mixed
+
+        从 cookie、get、post 等全局变量中获取一个或多个项目。可以通过传递过滤器在检索时可选地过滤输入。

@@ -1,413 +1,437 @@
-=====================
+#####################
 IncomingRequest 类
-=====================
+#####################
 
-IncomingRequest 类提供了一个客户端（比如 浏览器）HTTP 请求的面向对象封装。
-基于它可以访问所有 :doc:`Request </libraries/request>` 和 :doc:`Message </libraries/message>` 中的方法， 以及以下列出的方法。
+IncomingRequest 类为来自客户端(如浏览器)的 HTTP 请求提供了面向对象的表示。它扩展并可以访问 :doc:`Request </incoming/request>` 和 :doc:`Message </incoming/message>` 类的所有方法,以及下面列出的方法。
 
-.. contents::
-    :local:
-    :depth: 2
+访问请求
+*********************
 
-获得请求
-=====================
+如果当前类是 ``CodeIgniter\Controller`` 的后代,则已经为您填充了请求类的一个实例,可以将其作为类属性访问:
 
-如果当前控制器继承了 ``CodeIgniter\Controller``，则一个 Request 类的实例已被初始化并可作为属性被使用::
+.. literalinclude:: incomingrequest/001.php
 
-	class UserController extends CodeIgniter\Controller
-	{
-		public function index()
-		{
-			if ($this->request->isAJAX())
-			{
-				. . .
-			}
-		}
-	}
+如果您不在控制器中,但仍然需要访问应用程序的 Request 对象,您可以通过 :doc:`Services 类 </concepts/services>` 获取它的一个副本:
 
-如果在控制器外使用 Request 对象，可以通过 :doc:`Services class </concepts/services>` 获得实例::
+.. literalinclude:: incomingrequest/002.php
 
-	$request = \Config\Services::request();
+不过,如果类是控制器之外的任何其他类,最好是将请求作为依赖项传递,以便将其保存为类属性:
 
-推荐将 Request 对象作为一个依赖注入到当前类中并保存为一个属性::
+.. literalinclude:: incomingrequest/003.php
 
-	use CodeIgniter\HTTP\RequestInterface;
+确定请求类型
+************************
 
-	class SomeClass
-	{
-		protected $request;
+请求可以是几种类型,包括 AJAX 请求或来自命令行的请求。这可以通过 ``isAJAX()`` 和 ``isCLI()`` 方法检查:
 
-		public function __construct(RequestInterface $request)
-		{
-			$this->request = $request;
-		}
-	}
+.. literalinclude:: incomingrequest/004.php
 
-	$someClass = new SomeClass(\Config\Services::request());
+.. note:: ``isAJAX()`` 方法取决于 ``X-Requested-With`` 头,
+    但在通过 JavaScript 发出的 XHR 请求中(即 fetch),该头默认不会发送。
+    请参阅 :doc:`AJAX 请求 </general/ajax>` 部分了解如何避免此问题。
 
+.. _incomingrequest-is:
 
-判断请求类型
-========================
+is()
+====
 
-请求有多种来源，包含使用 AJAX 发起和使用 CLI 发起的。可通过 ``isAJAX()`` and ``isCLI()`` 来检测::
+.. versionadded:: 4.3.0
 
-	// Check for AJAX request.
-	if ($request->isAJAX())
-	{
-		. . .
-	}
+自 v4.3.0 起,您可以使用 ``is()`` 方法。它返回布尔值。
 
-	// Check for CLI Request
-	if ($request->isCLI())
-	{
-		. . .
-	}
+.. literalinclude:: incomingrequest/040.php
 
-你可以检测请求的 HTTP 类型::
+getMethod()
+===========
 
-	// Returns 'post'
-	$method = $request->getMethod();
+您可以使用 ``getMethod()`` 方法检查此请求所代表的 HTTP 方法:
 
-该方法默认返回类型是小写的字符串 （比如 'get', 'post' 等等），你可以通过传递 ``true`` 参数来获得大写的返回结果::
+.. literalinclude:: incomingrequest/005.php
 
-	// Returns 'GET'
-	$method = $request->getMethod(true);
+默认情况下,该方法以小写字符串形式返回(即 ``'get'``、``'post'`` 等)。
 
-还可以通过 ``isSecure()`` 方法检测请求是否是 HTTPS::
+.. important:: 将返回值转换为小写的功能已被弃用。它将在未来版本中删除,此方法将等效于 PSR-7。
 
-	if (! $request->isSecure())
-	{
-		force_https();
-	}
+您可以通过将调用包装在 ``strtoupper()`` 中获取大写版本::
 
+    // 返回 'GET'
+    $method = strtoupper($request->getMethod());
 
-数据读取
-================
+您还可以使用 ``isSecure()`` 方法检查请求是否通过 HTTPS 连接发出:
 
-你可以通过 Request 对象读取 $_SERVER, $_GET, $_POST, $_ENV, $_SESSION 内的信息。
-因为输入数据不会自动过滤，只会返回请求时的原始数据。而使用这些方法去替代直接获取数据的（比如 $_POST['something']）主要优点是当参数不存在时会返回 null ，而且你还能做数据过滤。这可以使你很方便的直接使用 数据而不需要先去判断某个参数是否存在。换句话说，一般情况下你以前会这么做::
+.. literalinclude:: incomingrequest/006.php
 
-	$something = isset($_POST['foo']) ? $_POST['foo'] : NULL;
+检索输入
+******************
 
-而使用 CodeIgniter 的内建方法你可以很简单的做到同样的事::
+您可以通过 Request 对象检索来自 ``$_SERVER``、``$_GET``、``$_POST`` 和 ``$_ENV`` 的输入。
+数据不会自动过滤,并以请求中传递的原始输入数据形式返回。
 
-	$something = $request->getVar('foo');
+.. note:: 使用全局变量是不好的做法。基本上,应该避免使用它,建议使用 Request 对象的方法。
 
-因为 ``getVar()`` 方法从 $_REQUEST 获得数据，所以使用它可以获得 $_GET, $POST, $_COOKIE 内的数据。虽然这很方便，但是你有时也需要使用一些特定的方法，比如:
+与直接访问它们(``$_POST['something']``)的主要优点是,如果项不存在,这些方法将返回 null,并且您可以对数据进行过滤。这使您可以方便地使用数据,而无需先测试一个项是否存在。换句话说,通常您可能会做这样的事情:
+
+.. literalinclude:: incomingrequest/007.php
+
+使用 CodeIgniter 内置的方法,您可以简单地这样做:
+
+.. literalinclude:: incomingrequest/008.php
+
+.. _incomingrequest-getting-data:
+
+获取数据
+============
+
+``getVar()`` 方法将从 ``$_REQUEST`` 中获取数据,因此将返回 ``$_GET``、``$_POST`` 或 ``$_COOKIE`` 中的任何数据(取决于 php.ini `request-order <https://www.php.net/manual/en/ini.core.php#ini.request-order>`_ )。
+
+.. note:: 如果传入请求的 ``Content-Type`` 标头设置为 ``application/json``,
+    ``getVar()`` 方法会返回 JSON 数据,而不是 ``$_REQUEST`` 数据。
+
+虽然这很方便,但您通常需要使用更具体的方法,如:
 
 * ``$request->getGet()``
 * ``$request->getPost()``
-* ``$request->getServer()``
 * ``$request->getCookie()``
+* ``$request->getServer()``
+* ``$request->getEnv()``
 
-另外，还有一些实用的方法可以同时获取 $_GET 或者 $_POST 的数据，因为有获取顺序的问题，我们提供了以下方法:
+另外,还有一些实用程序方法可以从 ``$_GET`` 或 ``$_POST`` 中检索信息,同时保持控制查找顺序的能力:
 
-* ``$request->getPostGet()`` - 先 $_POST, 后 $_GET
-* ``$request->getGetPost()`` - 先 $_GET, 后 $_POST
+* ``$request->getPostGet()`` - 首先检查 ``$_POST``,然后检查 ``$_GET``
+* ``$request->getGetPost()`` - 首先检查 ``$_GET``,然后检查 ``$_POST``
 
-**获取 JSON 数据**
+.. _incomingrequest-getting-json-data:
 
-你可以使用 ``getJSON()`` 去获取 php://input 传递的 JSON 格式的数据。
+获取 JSON 数据
+=================
 
-.. note::  因为无法检测来源数据是否具有有效的JSON格式，所以只有当你确认数据来源格式是JSON后才可使用。
+您可以使用 ``getJSON()`` 将 ``php://input`` 的内容作为 JSON 流获取。
 
-::
+.. note::  这无法检查传入的数据是否为有效的 JSON。您只应在知道正在期望 JSON 时使用此方法。
 
-	$json = $request->getJSON();
+.. literalinclude:: incomingrequest/009.php
 
-默认情况下，这会返回一个 JSON 数据对象。如果你需要一个数据，请传递 ``true`` 作为第一个参数。
+默认情况下,这将返回 JSON 数据中的任何对象作为对象。如果您想要将其转换为关联数组,请在第一个参数中传递 ``true``。
 
-该方法的第二和第三个参数则分别对应 `json_decode <http://php.net/manual/en/function.json-decode.php>`_ 方法的 ``depth`` 和 ``options`` 参数.
+第二和第三个参数与 `json_decode <https://www.php.net/manual/en/function.json-decode.php>`_ PHP 函数的 ``depth`` 和 ``options`` 参数对应。
 
-**获取原始数据（获取 Method 为 PUT, PATCH, DELETE 传递的数据）**
+如果传入请求的 ``Content-Type`` 标头设置为 ``application/json``,您也可以使用 ``getVar()`` 来获取 JSON 流。以这种方式使用 ``getVar()`` 将始终返回一个对象。
 
-最后，你可以通过 ``getRawInput()`` 去获取 php://input 传递的原始数据。
+从 JSON 获取特定数据
+===============================
 
-	$data = $request->getRawInput();
+您可以通过向 ``getVar()`` 传入变量名来从 JSON 流中获取特定的数据片段,用于获取所需的数据,或者可以使用“点”表示法深入到 JSON 中,以获取不在根级别的数据。
 
-这会返回数据并转换为数组。比如::
+.. literalinclude:: incomingrequest/010.php
 
-	var_dump($request->getRawInput());
+如果要结果是一个关联数组而不是对象,可以使用 ``getJsonVar()`` ,并在第二个参数中传递 true。如果您无法保证传入请求具有正确的 ``Content-Type`` 标头,也可以使用此函数。
 
-	[
-		'Param1' => 'Value1',
-		'Param2' => 'Value2'
-	]
+.. literalinclude:: incomingrequest/011.php
 
-数据过滤
---------------------
+.. note:: 有关“点”表示法的更多信息,请参阅 ``Array`` 助手中的 :php:func:`dot_array_search()` 文档。
 
-为了保证应用程序的安全，必须过滤所有输入的数据。你可以传递过滤类型到方法的最后一个参数里。会调用系统方法 ``filter_var()`` 去过滤。具体过滤类型可以参考 PHP 手册里的列表 `valid filter types <http://php.net/manual/en/filter.filters.php>`_.
+.. _incomingrequest-retrieving-raw-data:
 
-过滤一个 POST 变量可以这么做::
+检索原始数据(PUT、PATCH、DELETE)
+========================================
 
-	$email = $request->getVar('email', FILTER_SANITIZE_EMAIL);
+最后,您可以使用 ``getRawInput()`` 将 ``php://input`` 的内容作为原始流获取:
 
-以上提到的方法中除了 ``getJSON()`` 和 ``getRawInput()`` ，都支持给最后一个参数传递类型来实现过滤。
+.. literalinclude:: incomingrequest/012.php
 
-获取数据头
-==================
+这将检索数据并将其转换为数组。像这样:
 
-你可以通过 ``getHeaders()`` 方法获得请求的数据头，该方法会以数组形式返回所有的数据头信息，数据的键值为数据头名称，值则为一个 ``CodeIgniter\HTTP\Header`` 的实例::
+.. literalinclude:: incomingrequest/013.php
 
-	var_dump($request->getHeaders());
+您还可以使用 ``getRawInputVar()``,从原始流中获取指定的变量并对其进行过滤。
 
-	[
-		'Host' => CodeIgniter\HTTP\Header,
-		'Cache-Control' => CodeIgniter\HTTP\Header,
-		'Accept' => CodeIgniter\HTTP\Header,
-	]
+.. literalinclude:: incomingrequest/039.php
 
-如果你只是想获得某个头的信息，你可以将数据头名称作为参数传递给 ``getHeader()`` 方法。数据头名称无视大小写，如果存在则返回指定头信息。如果不存在则返回 ``null`` ::
+过滤输入数据
+====================
 
-	// 以下这些效果一样
-	$host = $request->getHeader('host');
-	$host = $request->getHeader('Host');
-	$host = $request->getHeader('HOST');
+为了保持应用程序的安全,您会想要过滤所有输入。您可以将要使用的过滤器类型作为这些方法的第二个参数传递。使用内置的 ``filter_var()`` 函数进行过滤。前往 PHP 手册获取 `有效过滤器类型列表 <https://www.php.net/manual/en/filter.filters.php>`_。
 
-你可以使用 ``hasHeader()`` 去判断请求头是否存在::
+过滤 POST 变量的代码如下:
 
-	if ($request->hasHeader('DNT'))
-	{
-		// Don't track something...
-	}
+.. literalinclude:: incomingrequest/014.php
 
-如果你需要某个头的值并在一行字符串内输出，可以使用 ``getHeaderLine()`` 方法::
+上面提到的所有方法都支持作为第二个参数传递过滤器类型,``getJSON()`` 和 ``getRawInput()`` 除外。
 
-	// Accept-Encoding: gzip, deflate, sdch
-	echo 'Accept-Encoding: '.$request->getHeaderLine('accept-encoding');
+检索标头
+******************
 
-如果你需要完整头信息，输出包括全部名称和值的字符串，可以使用如下方法做转换::
+您可以通过 ``headers()`` 方法访问与请求一起发送的任何标头,它返回一个数组,其中键是标头的名称,值是 ``CodeIgniter\HTTP\Header`` 的一个实例:
 
-	echo (string)$header;
+.. literalinclude:: incomingrequest/015.php
 
+如果您只需要单个标头,可以将名称传递给 ``header()`` 方法。这将以不区分大小写的方式获取指定的标头对象(如果存在)。如果不存在,则返回 ``null``::
 
-请求地址
-===============
+.. literalinclude:: incomingrequest/016.php
 
-你可以通过访问 ``$request->uri`` 属性获取代表当前访问信息的 doc:`URI <uri>` 对象。通过以下方法获取当前请求的完整访问地址::
+您可以始终使用 ``hasHeader()`` 来查看该请求中是否存在标头:
 
-	$uri = (string)$request->uri;
+.. literalinclude:: incomingrequest/017.php
 
-该对象赋予了你访问全部请求信息的能力::
+如果您需要将标头的值作为单行字符串,其中所有值在一行中,可以使用 ``getHeaderLine()`` 方法:
 
-	$uri = $request->uri;
+.. literalinclude:: incomingrequest/018.php
 
-	echo $uri->getScheme();         // http
-	echo $uri->getAuthority();      // snoopy:password@example.com:88
-	echo $uri->getUserInfo();       // snoopy:password
-	echo $uri->getHost();           // example.com
-	echo $uri->getPort();           // 88
-	echo $uri->getPath();           // /path/to/page
-	echo $uri->getQuery();          // foo=bar&bar=baz
-	echo $uri->getSegments();       // ['path', 'to', 'page']
-	echo $uri->getSegment(1);       // 'path'
-	echo $uri->getTotalSegments();  // 3
+如果您需要将标头及其名称和值合并为单个字符串,只需将标头转换为字符串:
 
-上传文件
-==============
+.. literalinclude:: incomingrequest/019.php
 
-所有上传文件的信息可以通过 ``$request->getFiles()`` 方法获得，该方法会返回一个 :doc:`FileCollection </libraries/uploaded_files>` 实例。这会有助于减少处理文件上传的工作量，以及使用最佳方案去降低安全风险。
-::
+请求 URL
+***************
 
-	$files = $request->getFiles();
+您可以通过 ``$request->getUri()`` 方法检索表示当前 URI 的 :doc:`URI </libraries/uri>` 对象。您可以将此对象转换为字符串以获取当前请求的完整 URL:
 
-	// Grab the file by name given in HTML form
-	if ($files->hasFile('uploadedFile')
-	{
-		$file = $files->getFile('uploadedfile');
+.. literalinclude:: incomingrequest/020.php
 
-		// Generate a new secure name
-		$name = $file->getRandomName();
+该对象使您能够自行获取请求的任何部分:
 
-		// Move the file to it's new home
-		$file->move('/path/to/dir', $name);
+.. literalinclude:: incomingrequest/021.php
 
-		echo $file->getSize('mb');      // 1.23
-		echo $file->getExtension();     // jpg
-		echo $file->getType();          // image/jpg
-	}
+您可以使用 ``getPath()`` 和 ``setPath()`` 方法使用当前请求的 URI 字符串(相对于 baseURL 的路径)。
+请注意,共享的 ``IncomingRequest`` 实例上的此相对路径是 :doc:`URL 助手 </helpers/url_helper>`
+函数使用的内容,因此这是一种有用的方法来“伪造”传入请求以进行测试:
 
-你也可以通过HTML中提交的文件名去获取单个上传文件::
+.. literalinclude:: incomingrequest/022.php
 
-	$file = $request->getFile('uploadedfile');
+上传的文件
+**************
+
+可以通过 ``$request->getFiles()`` 获取有关所有上传文件信息,它返回 ``CodeIgniter\HTTP\Files\UploadedFile`` 实例的数组。这有助于减轻使用上传文件时的痛苦,并使用最佳实践来最大程度地减少任何安全风险。
+
+.. literalinclude:: incomingrequest/023.php
+
+参见 :ref:`使用上传的文件 <uploaded-files-accessing-files>` 以获取详细信息。
+
+您可以根据 HTML 文件输入中给出的文件名检索单独上传的文件:
+
+.. literalinclude:: incomingrequest/024.php
+
+您可以检索作为多文件上传一部分上传的同名文件数组,基于 HTML 文件输入中给出的文件名:
+
+.. literalinclude:: incomingrequest/025.php
+
+.. note:: 这里的文件对应于 ``$_FILES``。即使用户仅点击表单的提交按钮而不上传任何文件,文件也会存在。您可以通过 UploadedFile 中的 ``isValid()`` 方法检查文件是否实际被上传。有关详细信息,请参阅 :ref:`verify-a-file`。
 
 内容协商
-===================
+*******************
 
-你可以很轻松的通过 ``negotiate()`` 方法来完成信息内容类型的协商::
+您可以通过 ``negotiate()`` 方法轻松地与请求协商内容类型:
 
-	$language    = $request->negotiate('language', ['en-US', 'en-GB', 'fr', 'es-mx']);
-	$imageType   = $request->negotiate('media', ['image/png', 'image/jpg']);
-	$charset     = $request->negotiate('charset', ['UTF-8', 'UTF-16']);
-	$contentType = $request->negotiate('media', ['text/html', 'text/xml']);
-	$encoding    = $request->negotiate('encoding', ['gzip', 'compress']);
+.. literalinclude:: incomingrequest/026.php
 
-查看 :doc:`Content Negotiation </libraries/content_negotiation>` 获得更多细节。
+有关更多详细信息,请参阅 :doc:`内容协商 </incoming/content_negotiation>` 页面。
 
-类信息参考
----------------
+类参考
+***************
 
-.. note:: 除了这里列出的，本类还继承了 :doc:`Request Class </libraries/request>`  和 :doc:`Message Class </libraries/message>` 的方法。
+.. note:: 除了这里列出的方法之外,此类还继承了 :doc:`请求类 </incoming/request>` 和 :doc:`消息类 </incoming/message>` 的方法。
 
-以下方法由父类提供:
+父类提供的可用方法有:
 
 * :meth:`CodeIgniter\\HTTP\\Request::getIPAddress`
-* :meth:`CodeIgniter\\HTTP\\Request::validIP`
+* :meth:`CodeIgniter\\HTTP\\Request::isValidIP`
 * :meth:`CodeIgniter\\HTTP\\Request::getMethod`
+* :meth:`CodeIgniter\\HTTP\\Request::setMethod`
 * :meth:`CodeIgniter\\HTTP\\Request::getServer`
-* :meth:`CodeIgniter\\HTTP\\Message::body`
+* :meth:`CodeIgniter\\HTTP\\Request::getEnv`
+* :meth:`CodeIgniter\\HTTP\\Request::setGlobal`
+* :meth:`CodeIgniter\\HTTP\\Request::fetchGlobal`
+* :meth:`CodeIgniter\\HTTP\\Message::getBody`
 * :meth:`CodeIgniter\\HTTP\\Message::setBody`
+* :meth:`CodeIgniter\\HTTP\\Message::appendBody`
 * :meth:`CodeIgniter\\HTTP\\Message::populateHeaders`
 * :meth:`CodeIgniter\\HTTP\\Message::headers`
 * :meth:`CodeIgniter\\HTTP\\Message::header`
-* :meth:`CodeIgniter\\HTTP\\Message::headerLine`
+* :meth:`CodeIgniter\\HTTP\\Message::hasHeader`
+* :meth:`CodeIgniter\\HTTP\\Message::getHeaderLine`
 * :meth:`CodeIgniter\\HTTP\\Message::setHeader`
 * :meth:`CodeIgniter\\HTTP\\Message::removeHeader`
 * :meth:`CodeIgniter\\HTTP\\Message::appendHeader`
-* :meth:`CodeIgniter\\HTTP\\Message::protocolVersion`
+* :meth:`CodeIgniter\\HTTP\\Message::prependHeader`
+* :meth:`CodeIgniter\\HTTP\\Message::getProtocolVersion`
 * :meth:`CodeIgniter\\HTTP\\Message::setProtocolVersion`
-* :meth:`CodeIgniter\\HTTP\\Message::negotiateMedia`
-* :meth:`CodeIgniter\\HTTP\\Message::negotiateCharset`
-* :meth:`CodeIgniter\\HTTP\\Message::negotiateEncoding`
-* :meth:`CodeIgniter\\HTTP\\Message::negotiateLanguage`
-* :meth:`CodeIgniter\\HTTP\\Message::negotiateLanguage`
 
-.. php:class:: CodeIgniter\\HTTP\\IncomingRequest
+.. php:namespace:: CodeIgniter\HTTP
 
-	.. php:method:: isCLI()
+.. php:class:: IncomingRequest
 
-		:returns: 由命令行发起的请求会返回 true ，其他返回 false。
-		:rtype: bool
+    .. php:method:: isCLI()
 
-	.. php:method:: isAJAX()
+        :returns: 如果请求是从命令行发起的,则为 True,否则为 False
+        :rtype: bool
 
-		:returns: AJAX请求返回 true ，其他返回 false。
-		:rtype: bool
+    .. php:method:: isAJAX()
 
-	.. php:method:: isSecure()
+        :returns: 如果请求是 AJAX 请求,则为 True,否则为 False
+        :rtype: bool
 
-		:returns: HTTPS请求返回 true ，其他返回 false。
-		:rtype: bool
+    .. php:method:: isSecure()
 
-	.. php:method:: getVar([$index = null[, $filter = null[, $flags = null]]])
+        :returns: 如果请求是 HTTPS 请求,则为 True,否则为 False
+        :rtype: bool
 
-		:param  string  $index: 需要查找的数据名。
-		:param  int     $filter: 过滤类型。参见列表 `查看 <http://php.net/manual/en/filter.filters.php>`_。
-		:param  int     $flags: 过滤器名，值为过滤器的预定义变量名。 参见列表 `查看 <http://php.net/manual/en/filter.filters.flags.php>`_。
-		:returns: 不传参数会返回 REQUEST 中的所有元素，传参并且参数存在则返回对应的 REQUEST 值，不存在返回 null
-		:rtype: mixed|null
+    .. php:method:: getVar([$index = null[, $filter = null[, $flags = null]]])
 
-		第一个参数包含需要查找的数据名 ::
+        :param  string  $index: 要查找的变量/键的名称。
+        :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+        :param  int     $flags: 要应用的标志。标志列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+        :returns:   如果没有提供参数,则返回 ``$_REQUEST``,否则如果找到则返回 REQUEST 值,如果没找到则为 null
+        :rtype: array|bool|float|int|object|string|null
 
-			$request->getVar('some_data');
+        第一个参数将包含要查找的 REQUEST 项的名称:
 
-		如数据不存在则返回 null 。
+        .. literalinclude:: incomingrequest/027.php
 
-		只需传递期望的过滤类型到第二个参数，就可以帮助你完成数据过滤 ::
+        如果尝试检索的项目不存在,该方法将返回 null。
 
-			$request->getVar('some_data', FILTER_SANITIZE_STRING);
+        第二个可选参数允许您通过 PHP 的过滤器运行数据。将所需的过滤器类型作为第二个参数传递:
 
-		不传任何参数会得到一个包含全部 REQUEST 数据的数组。
+        .. literalinclude:: incomingrequest/028.php
 
-		第一个参数 null ，第二个参数设置过滤类型，可获得一个被过滤的包涵全部 REQUEST 数据的数组 ::
+        若要返回所有 POST 项,请不带任何参数调用。
 
-			$request->getVar(null, FILTER_SANITIZE_STRING); // returns all POST items with string sanitation
+        要返回所有 POST 项并通过过滤器传递它们,请将第一个参数设置为 null,同时将第二个参数设置为要使用的过滤器:
 
-		获取多个键值的信息，可以将需要的键值以数组形式传递给第一个参数 ::
+        .. literalinclude:: incomingrequest/029.php
 
-			$request->getVar(['field1', 'field2']);
+        要返回多个 POST 参数的数组,请传递所有所需键的数组:
 
-		与之前一样，此时传递过滤类型给第二个参数，也可获得过滤后的数据 ::
+        .. literalinclude:: incomingrequest/030.php
 
-			$request->getVar(['field1', 'field2'], FILTER_SANITIZE_STRING);
+        这里也应用了相同的规则,要使用过滤检索参数,请将第二个参数设置为要应用的过滤器类型:
 
-	.. php:method:: getGet([$index = null[, $filter = null[, $flags = null]]])
+        .. literalinclude:: incomingrequest/031.php
 
-		:param  string  $index: 需要查找的数据名。
-		:param  int     $filter: 过滤类型。参见列表 `查看 <http://php.net/manual/en/filter.filters.php>`_。
-		:param  int     $flags: 过滤器名，值为过滤器的预定义变量名。 参见列表 `查看 <http://php.net/manual/en/filter.filters.flags.php>`_。
-		:returns: 不传参数会返回 GET 中的所有元素，传参并且参数存在则返回对应的 GET 值，不存在返回 null
-		:rtype: mixed|null
+    .. php:method:: getGet([$index = null[, $filter = null[, $flags = null]]])
 
-		该方法与 ``getVar()`` 类似, 只返回 GET 的数据。
+        :param  string  $index: 要查找的变量/键的名称。
+        :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+        :param  int     $flags: 要应用的标志。标志列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+        :returns:       如果没有提供参数,则返回 ``$_GET``,否则如果找到则返回 GET 值,如果没找到则为 null
+        :rtype: array|bool|float|int|object|string|null
 
-	.. php:method:: getPost([$index = null[, $filter = null[, $flags = null]]])
+        此方法与 ``getVar()`` 相同,只是它获取 GET 数据。
 
-		:param  string  $index: 需要查找的数据名。
-		:param  int     $filter: 过滤类型。参见列表 `查看 <http://php.net/manual/en/filter.filters.php>`_。
-		:param  int     $flags: 过滤器名，值为过滤器的预定义变量名。 参见列表 `查看 <http://php.net/manual/en/filter.filters.flags.php>`_。
-		:returns: 不传参数会返回 POST 中的所有元素，传参并且参数存在则返回对应的 POST 值，不存在返回 null
-		:rtype: mixed|null
+    .. php:method:: getPost([$index = null[, $filter = null[, $flags = null]]])
 
-		该方法与 ``getVar()`` 类似, 只返回 POST 的数据。
+        :param  string  $index: 要查找的变量/键的名称。
+        :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+        :param  int     $flags: 要应用的标志。标志列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+        :returns:       如果没有提供参数,则返回 ``$_POST``,否则如果找到则返回 POST 值,如果没找到则为 null
+        :rtype: array|bool|float|int|object|string|null
 
-	.. php:method:: getPostGet([$index = null[, $filter = null[, $flags = null]]])
+            此方法与 ``getVar()`` 相同,只是它获取 POST 数据。
 
-		:param  string  $index: 需要查找的数据名。
-		:param  int     $filter: 过滤类型。参见列表 `查看 <http://php.net/manual/en/filter.filters.php>`_。
-		:param  int     $flags: 过滤器名，值为过滤器的预定义变量名。 参见列表 `查看 <http://php.net/manual/en/filter.filters.flags.php>`_。
-		:returns: 不传参数会返回 POST／GET 中的所有元素，传参并且参数存在则返回对应的 POST／GET 值，不存在返回 null
-		:rtype: mixed|null
+    .. php:method:: getPostGet([$index = null[, $filter = null[, $flags = null]]])
 
-		该方法和 ``getPost()``，``getGet()`` 类似，它会同时查找 POST 和 GET 两个数组来获取数据， 先查找 POST ，再查找 GET::
+        :param  string  $index: 要查找的变量/键的名称。
+        :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+        :param  int     $flags: 要应用的标志。标志列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+        :returns:       如果没有指定参数,则返回 ``$_POST`` 和 ``$_GET`` 组合(冲突时优先 POST 值),
+                        否则首先查找 POST 值,找不到则查找 GET 值,如果没找到则返回 null
+        :rtype: array|bool|float|int|object|string|null
 
-			$request->getPostGet('field1');
+        这个方法的工作原理与 ``getPost()`` 和 ``getGet()`` 基本相同,只是结合了两者。
+        它将在 POST 和 GET 流中搜索数据,先在 POST 中查找,然后在 GET 中查找:
 
-	.. php:method:: getGetPost([$index = null[, $filter = null[, $flags = null]]])
+        .. literalinclude:: incomingrequest/032.php
 
-		:param  string  $index: 需要查找的数据名。
-		:param  int     $filter: 过滤类型。参见列表 `查看 <http://php.net/manual/en/filter.filters.php>`_。
-		:param  int     $flags: 过滤器名，值为过滤器的预定义变量名。 参见列表 `查看 <http://php.net/manual/en/filter.filters.flags.php>`_。
-		:returns: 不传参数会返回 POST／GET 中的所有元素，传参并且参数存在则返回对应的 POST／GET 值，不存在返回 null
-		:rtype: mixed|null
+        如果没有指定索引,它将返回 POST 和 GET 流组合。
+        如果名称冲突,将优先 POST 数据。
 
-		该方法和 ``getPost()``，``getGet()`` 类似，它会同时查找 POST 和 GET 两个数组来获取数据， 先查找 GET ，再查找 POST::
+    .. php:method:: getGetPost([$index = null[, $filter = null[, $flags = null]]])
 
-			$request->getGetPost('field1');
+        :param  string  $index: 要查找的变量/键的名称。
+        :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+        :param  int     $flags: 要应用的标志。标志列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+        :returns:       如果没有指定参数,则返回 ``$_GET`` 和 ``$_POST`` 组合(冲突时优先 GET 值),
+                        否则首先查找 GET 值,找不到则查找 POST 值,如果没找到则返回 null
+        :rtype: array|bool|float|int|object|string|null
 
-	.. php:method:: getCookie([$index = null[, $filter = null[, $flags = null]]])
+        这个方法的工作原理与 ``getPost()`` 和 ``getGet()`` 基本相同,只是结合了两者。
+        它将在 GET 和 POST 流中搜索数据,先在 GET 中查找,然后在 POST 中查找:
 
-		:param  string  $index: COOKIE 名。
-		:param  int     $filter: 过滤类型。参见列表 `查看 <http://php.net/manual/en/filter.filters.php>`_。
-		:param  int     $flags: 过滤器名，值为过滤器的预定义变量名。 参见列表 `查看 <http://php.net/manual/en/filter.filters.flags.php>`_。
-		:returns: 不传参数会返回 COOKIE 中的所有元素，传参并且参数存在则返回对应的 COOKIE 值，不存在返回 null
-		:rtype: mixed
+        .. literalinclude:: incomingrequest/033.php
 
-		该方法与 ``getPost()``，``getGet()`` 类似, 只返回 COOKIE 的数据 ::
+        如果没有指定索引,它将返回 GET 和 POST 流组合。
+        如果名称冲突,将优先 GET 数据。
 
-			$request->getCookie('some_cookie');
-			$request->getCookie('some_cookie', FILTER_SANITIZE_STRING); // with filter
+    .. php:method:: getCookie([$index = null[, $filter = null[, $flags = null]]])
 
-		获取多个键值的信息，可以将需要的键值以数组形式传递给第一个参数 ::
+        :param  array|string|null    $index: COOKIE 名称
+        :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+        :param  int     $flags: 要应用的标志。标志列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+        :returns:        如果没有提供参数,则返回 ``$_COOKIE``,否则如果找到则返回 COOKIE 值,如果没有找到则为 null
+        :rtype: array|bool|float|int|object|string|null
 
-			$request->getCookie(array('some_cookie', 'some_cookie2'));
+        此方法与 ``getPost()`` 和 ``getGet()`` 相同,只是它获取 cookie 数据:
 
-		.. note:: 与 :doc:`Cookie Helper <../helpers/cookie_helper>`
-			function :php:func:`get_cookie()` 不同, 该方法不会自动添加配置中 ``$config['cookie_prefix']`` 的值。
+        .. literalinclude:: incomingrequest/034.php
 
-	.. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
+        要返回多个 cookie 值的数组,请传递所有所需键的数组:
 
-		:param  string  $index: 服务器信息名。
-		:param  int     $filter: 过滤类型。参见列表 `查看 <http://php.net/manual/en/filter.filters.php>`_。
-		:param  int     $flags: 过滤器名，值为过滤器的预定义变量名。 参见列表 `查看 <http://php.net/manual/en/filter.filters.flags.php>`_。
-		:returns: 不传参数会返回 SERVER 中的所有元素，传参并且参数存在则返回对应的 SERVER 值，不存在返回 null
-		:rtype: mixed
+        .. literalinclude:: incomingrequest/035.php
 
-		该方法与 ``getPost()``，``getGet()`` ，``getCookie()`` 类似, 只返回 SERVER 的数据 ::
+        .. note:: 与 :doc:`Cookie 助手 <../helpers/cookie_helper>` 函数 :php:func:`get_cookie()` 不同,此方法不会在配置的 ``Config\Cookie::$prefix`` 值前加上前缀。
 
-			$request->getServer('some_data');
+    .. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
 
-		获取多个键值的信息，可以将需要的键值以数组形式传递给第一个参数 ::
+        :param  array|string|null    $index: 值名称
+        :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+        :param  int     $flags: 要应用的标志。标志列表可在
+                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+        :returns:        如果找到则返回 ``$_SERVER`` 项的值,否则为 null
+        :rtype: array|bool|float|int|object|string|null
 
-			$request->getServer(['SERVER_PROTOCOL', 'REQUEST_URI']);
+        此方法与 ``getPost()``、``getGet()`` 和 ``getCookie()`` 方法相同,只是它获取 getServer 数据(``$_SERVER``):
 
-	.. php:method:: getUserAgent([$filter = null])
+        .. literalinclude:: incomingrequest/036.php
 
-		:param  int  $filter: 过滤类型。参见列表 `查看  <http://php.net/manual/en/filter.filters.php>`_。
-		:returns:  包含 User Agent 信息的字符串，不存在返回 null
-		:rtype: mixed
+        要返回多个 ``$_SERVER`` 值的数组,请传递所有所需键的数组。
 
-		该方法从服务器信息哪查找并以字符串形式返回 User Agent ::
+        .. literalinclude:: incomingrequest/037.php
 
-			$request->getUserAgent();
+    .. php:method:: getUserAgent([$filter = null])
+
+        :param  int $filter: 要应用的过滤器类型。过滤器列表可在
+                    `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+        :returns:  在 SERVER 数据中找到的用户代理字符串,如果没有找到则为 null。
+        :rtype: CodeIgniter\\HTTP\\UserAgent
+
+        此方法返回来自 SERVER 数据的用户代理字符串:
+
+        .. literalinclude:: incomingrequest/038.php
+
+    .. php:method:: getPath()
+
+        :returns:        相对于 baseURL 的当前 URI 路径
+        :rtype:    string
+
+        这是确定“当前 URI”最安全的方法,因为 ``IncomingRequest::$uri``
+        可能不了解完整的 App 配置的 base URL。
+
+    .. php:method:: setPath($path)
+
+        :param    string    $path: 要用作当前 URI 的相对路径
+        :returns:        这个 IncomingRequest
+        :rtype:    IncomingRequest
+
+        主要用于测试目的,这允许您设置当前请求的相对路径值,而不是依赖于 URI 检测。这也会用新的路径更新底层的 ``URI`` 实例。
