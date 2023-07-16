@@ -6,7 +6,7 @@ RESTful 资源处理
     :local:
     :depth: 2
 
-表述性状态转移(REST)是一种用于分布式应用程序的架构风格,首先由 Roy Fielding 在他的 2000 年博士论文 `《Architectural Styles and the Design of Network-based Software Architectures》<https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_ 中描述。这可能有点枯燥,您可能会发现 Martin Fowler 的 `《Richardson 成熟度模型》<https://martinfowler.com/articles/richardsonMaturityModel.html>`_ 是一个更温和的介绍。
+表述性状态转移(REST)是一种用于分布式应用程序的架构风格,首先由 Roy Fielding 在他的 2000 年博士论文 `《Architectural Styles and the Design of Network-based Software Architectures》 <https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm>`_ 中描述。这可能有点枯燥,您可能会发现 Martin Fowler 的 `《Richardson 成熟度模型》 <https://martinfowler.com/articles/richardsonMaturityModel.html>`_ 是一个更温和的介绍。
 
 REST 的解释和误解的方式比大多数软件体系结构都要多,可以说您在体系结构中采用的 Roy Fielding 原则越多,您的应用程序就越被认为是“RESTful”。
 
