@@ -56,7 +56,7 @@
 ::
 
     > php spark make:seeder user --suffix
-    // 输出:UserSeeder.php文件位于app/Database/Seeds目录中。
+    // 输出: UserSeeder.php 文件位于 app/Database/Seeds 目录中。
 
 您可以通过提供 ``--namespace`` 选项来指定填充器文件要存储的 ``root`` 命名空间::
 

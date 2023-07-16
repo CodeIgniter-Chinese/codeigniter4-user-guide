@@ -1,11 +1,22 @@
-鉴权
+认证
 #####################################
 
-CodeIgniter本身不提供一个内部鉴权或认证的类。不过有许多优秀的第三方模块可以提供类似的服务，而且在社区里也有许多资源以帮助你自己实现一个类似的功能。
-我们鼓励开发者们基于以下原则来共享模块，项目以及框架本身。
+CodeIgniter 为 CodeIgniter 4 提供了一个官方的认证和授权框架
+:ref:`CodeIgniter Shield <shield>`,
+它旨在提供安全、灵活且易于扩展以满足不同类型网站的需求。
 
-Recommendations
+为了在开发者之间保持一致,以下是一些推荐的准则。
+
+推荐
 ===============
 
-* 处理登入和登出操作的模块需要在操作成功时触发 ``login`` 和 ``logout`` 事件
-* 定义了“当前用户”的模块应该定义一个 ``user_id()`` 方法来返回当前用户的唯一识别符，或者是在不存在当前用户时返回 ``null``
+* 处理登录和登出操作的模块在成功时应该触发 ``login`` 和 ``logout`` 事件
+* 定义“当前用户”的模块应该定义 ``user_id()`` 函数以返回用户的唯一标识符,如果没有当前用户则返回 ``null``
+
+符合这些推荐的模块可以在 **composer.json** 中添加以下内容表示兼容::
+
+    "provide": {
+        "codeigniter4/authentication-implementation": "1.0"
+    },
+
+您可以在 `Packagist <https://packagist.org/providers/codeigniter4/authentication-implementation>`_ 上查看提供该实现的模块列表。
