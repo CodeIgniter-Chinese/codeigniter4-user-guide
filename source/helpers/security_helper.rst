@@ -2,55 +2,56 @@
 安全辅助函数
 ###############
 
-安全辅助函数文件包含安全相关联的函数。
+安全辅助函数文件包含安全相关函数。
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
-加载安全辅助函数
+加载此辅助函数
 ===================
 
-安全辅助函数使用下面的代码加载::
+使用以下代码加载此辅助函数:
 
-	helper('security');
+.. literalinclude:: security_helper/001.php
 
-通用函数
+可用函数
 ===================
 
-下面是通用函数:
+以下函数可用:
 
 .. php:function:: sanitize_filename($filename)
 
-	:param	string	$filename: 文件名
-    	:returns:	净化文件名
-    	:rtype:	string
+    :param    string    $filename: 文件名
+    :returns:    安全的文件名
+    :rtype:    string
 
-    	提供保护来应对磁盘遍历。
+    提供对目录遍历的保护。
 
-    	对于 ``\CodeIgniter\Security::sanitize_filename()`` 本函数仅是别名。
-	更多信息，请查看文档  :doc:`Security Library <../libraries/security>` 。
-
+    此函数是 ``\CodeIgniter\Security::sanitizeFilename()`` 的别名。
+    更多信息,请参阅 :doc:`安全库 <../libraries/security>` 文档。
 
 .. php:function:: strip_image_tags($str)
 
-	:param	string	$str: 输入 string
-    	:returns:	无成像标签的输入
-    	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    不包含图像标签的输入字符串
+    :rtype:    string
 
-        这是一个将无成像标签从 string 中剥去的安全函数。它留下成像 URL 就像清楚的文本一样。   
+    这是一个安全函数,用于从字符串中剥离图像标签。
+    它将图像 URL 作为纯文本保留。
 
-    	例如::
+    例子:
 
-		$string = strip_image_tags($string);
+    .. literalinclude:: security_helper/002.php
 
 .. php:function:: encode_php_tags($str)
 
-	:param	string	$str: 输入 string
-    	:returns:	安全地格式化 string
-    	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    安全格式化的字符串
+    :rtype:    string
 
-    	这是一个安全函数去转换 PHP 标签为实体。
+    这是一个安全函数,用于将 PHP 标签转换为实体。
 
-	例如::
+    例子:
 
-		$string = encode_php_tags($string);
+    .. literalinclude:: security_helper/003.php

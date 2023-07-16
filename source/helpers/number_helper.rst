@@ -2,114 +2,93 @@
 数字辅助函数
 #############
 
-在本地化识别风格里数字辅助函数文件包含的函数帮助你与数字化的数据工作。
+数字辅助函数文件包含了帮助你以与区域设置相关的方式处理数字数据的函数。
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
-加载数字辅助函数
+加载此辅助函数
 ===================
 
-数字辅助函数使用下面的代码加载::
+使用以下代码加载此辅助函数:
 
-	helper('number');
+.. literalinclude:: number_helper/001.php
 
-当某些事情出岔子
+当事情出错时
 ====================
 
-如果 PHP 的国际化和本地化不能分给被提供的值，由于赋予了区域和选项，那么 ``BadFunctionCallException()`` 函数将会被掷出。
+如果 PHP 的国际化和本地化逻辑无法使用给定的区域设置和选项处理所提供的值,则会抛出 ``BadFunctionCallException()``。
 
-
-通用函数
+可用函数
 ===================
 
-下面的函数是通用的:
+以下函数可用:
 
-.. php:function:: number_to_size($num[, $precision = 1[, $locale = null])
+.. php:function:: number_to_size($num[, $precision = 1[, $locale = null]])
 
-    :param	mixed	$num: 字节的数目
-    :param	int	$precision: 浮点精确度
-    :returns:	格式化数据大小 string, 要不然如果提供的值不是数字的则是错误的
-    :rtype:	string
+    :param      mixed     $num: 字节数
+    :param      int       $precision: 浮点精度
+    :returns:   格式化的数据大小字符串,如果提供的值不是数字则返回 false
+    :rtype:     string
 
-    像字节一样格式化数字,以大小为基础，并添加适事例当的词尾。事例::
+    根据大小格式化数字,并添加适当的后缀。示例:
 
-        echo number_to_size(456); // 返回 456 Bytes
-        echo number_to_size(4567); // 返回 4.5 KB
-        echo number_to_size(45678); // 返回 44.6 KB
-        echo number_to_size(456789); // 返回 447.8 KB
-        echo number_to_size(3456789); // 返回 3.3 MB
-        echo number_to_size(12345678912345); // 返回 1.8 GB
-        echo number_to_size(123456789123456789); // 返回 11,228.3 TB
+    .. literalinclude:: number_helper/002.php
 
-    第二个可选的参数允许你设置结果的精确度::
+    可选的第二个参数允许你设置结果的精度:
 
-	    echo number_to_size(45678, 2); // 返回 44.61 KB
+    .. literalinclude:: number_helper/003.php
 
-    第三个可选的参数当产生数字时应该常被使用，并能对格式化产生作用，它允许你去具体指定区域。
-    如果没有区域被具体指定，请求将会被解析并且适当区域会减少头文件或者本地应用默认程序::
+    可选的第三个参数允许你指定在生成数字时应使用的区域设置,这可能会影响格式设置。如果未指定区域设置,则将分析请求并从标头或应用程序默认值中获取适当的区域设置:
 
-        // 产生 11.2 TB
-        echo number_to_size(12345678912345, 1, 'en_US');
-        // 产生 11,2 TB
-        echo number_to_size(12345678912345, 1, 'fr_FR');
+    .. literalinclude:: number_helper/004.php
 
-    .. note:: 由本段函数产生文本在接下来的语言文件中被找到: *language/<your_lang>/Number.php*
+    .. note:: 此函数生成的文本位于以下语言文件中:*language/<your_lang>/Number.php*
 
 .. php:function:: number_to_amount($num[, $precision = 1[, $locale = null])
 
-    :param	mixed	$num: 数字格式 
-    :param	int	$precision: 浮点精确度
-    :param  string $locale: 为了格式化区域使用
-    :returns:	string 的可读版本， 要不然如果提供的值不是数字的为错误的
-    :rtype:	string
+    :param      mixed     $num: 要格式化的数字
+    :param      int       $precision: 浮点精度
+    :param      string    $locale: 用于格式化的区域设置
+    :returns:   字符串的人类可读版本,如果提供的值不是数字则返回 false
+    :rtype:     string
 
-    为了计数能达到百万的四次方，转换数字格式为人类可读版本，像 **123.4 trillion**. 事例::
+    将数字转换为人类可读版本,如 **123.4 万亿** 用于高达四次方的数字。示例:
 
-        echo number_to_amount(123456); // 返回 123 thousand
-        echo number_to_amount(123456789); // 返回 123 million
-        echo number_to_amount(1234567890123, 2); // 返回 1.23 trillion
-        echo number_to_amount('123,456,789,012', 2); // 返回 123.46 billion
+    .. literalinclude:: number_helper/005.php
 
-    一个可选择的第二参数允许你去设置结果的精确度::
+    可选的第二个参数允许你设置结果的精度:
 
-        echo number_to_amount(45678, 2); // 返回 45.68 thousand
+    .. literalinclude:: number_helper/006.php
 
-    一个可选择的第三参数允许区域被具体指定::
+    可选的第三个参数允许指定区域设置:
 
-        echo number_to_amount('123,456,789,012', 2, 'de_DE'); // 返回 123,46 billion
+    .. literalinclude:: number_helper/007.php
 
-.. php:function:: number_to_currency($num, $currency[, $locale = null])
+.. php:function:: number_to_currency($num, $currency[, $locale = null[, $fraction = 0]])
 
-    :param mixed $num: 数字格式
-    :param string $currency: 货币类型, 例如 USD, EUR, 等等
-    :param string $locale: 为了格式化区域使用
-    :param integer $fraction: Number of fraction digits after decimal point
-    :returns: 为了本地化数字应与货币相称
+    :param float $num: 要格式化的数字
+    :param string $currency: 货币类型,即 USD、EUR 等
+    :param string|null $locale: 用于格式化的区域设置
+    :param integer $fraction: 小数点后小数位数
+    :returns: 适用于该区域设置的货币格式的数字
     :rtype: string
 
-    在公用的通货格式里转换数字, 例如 USD, EUR, GBP, 等等::
+    将数字转换为常见的货币格式,如 USD、EUR、GBP 等:
 
-        echo number_to_currency(1234.56, 'USD');  // 返回 $1,234.56
-        echo number_to_currency(1234.56, 'EUR');  // 返回 £1,234.56
-        echo number_to_currency(1234.56, 'GBP');  // 返回 £1,234.56
-        echo number_to_currency(1234.56, 'YEN');  // 返回 YEN1,234.56
+    .. literalinclude:: number_helper/008.php
+
+    如果你不指定区域设置,将使用请求区域设置。
 
 .. php:function:: number_to_roman($num)
 
-    :param string $num: 想要转换的数字
-    :returns: 来自赋予参数的被转换的 roman 数字
-    :rtype: string
+    :param string $num: 要转换的数字
+    :returns: 从给定参数转换后的罗马数字
+    :rtype: string|null
 
-    转换数字为 roman::
+    将数字转换为罗马数字:
 
-        echo number_to_roman(23);  // 返回 XXIII
-        echo number_to_roman(324);  // 返回 CCCXXIV
-        echo number_to_roman(2534);  // 返回 MMDXXXIV
+    .. literalinclude:: number_helper/009.php
 
-    函数仅处理 1 到 3999 之间的数字。
-    超出范围的任何值它将返回空。
+    此函数仅处理 1 到 3999 范围内的数字。对于该范围之外的任何值,它都将返回 null。

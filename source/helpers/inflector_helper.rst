@@ -1,144 +1,149 @@
-################
-偏转辅助函数
-################
+####################
+Inflector 辅助函数
+####################
 
-偏转辅助函数文件包含的函数容许你改变**英文**词汇到复数，单数，驼峰式大小写，等等。
+Inflector 辅助函数文件包含了允许你将 **英语** 单词更改为复数、单数、驼峰式等的函数。
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
-加载偏转辅助函数
+加载此辅助函数
 ===================
 
-偏转辅助函数使用下面的代码加载::
+使用以下代码加载此辅助函数:
 
-	helper('inflector');
+.. literalinclude:: inflector_helper/001.php
 
-通用函数
+可用函数
 ===================
 
-下面的函数是通用的:
+以下函数可用:
 
 .. php:function:: singular($string)
 
-	:param	string	$string: 输入 string
-	:returns:	单数单词
-	:rtype:	string
+    :param    string    $string: 输入字符串
+    :returns:    单数词
+    :rtype:    string
 
-	改变复数单词为单数。例如::
+    将复数词变为单数。示例:
 
-		echo singular('dogs'); //  打印出 'dog'
+    .. literalinclude:: inflector_helper/002.php
 
 .. php:function:: plural($string)
 
-	:param	string	$string: 输入 string
-	:returns:	复数单词
-	:rtype:	string
+    :param    string    $string: 输入字符串
+    :returns:    复数词
+    :rtype:    string
 
-	 改变单数单词为复数。例如::
+    将单数词变为复数。示例:
 
-		echo plural('dog'); // 打印出 'dogs'
-		
+    .. literalinclude:: inflector_helper/003.php
+
 .. php:function:: counted($count, $string)
 
-	:param	int 	$count:  Number of items
-	:param	string	$string: Input string
-	:returns:	A singular or plural phrase
-	:rtype:	string
+    :param    int     $count:  项目数量
+    :param    string    $string: 输入字符串
+    :returns:    单数或复数短语
+    :rtype:    string
 
-	Changes a word and its count to a phrase. 例如::
+    将词及其计数更改为短语。示例:
 
-		echo counted(3, 'dog'); // 打印出 '3 dogs'
+    .. literalinclude:: inflector_helper/004.php
 
 .. php:function:: camelize($string)
 
-	:param	string	$string: 输入 string
-	:returns:	驼峰化 string
-	:rtype:	string
+    :param    string    $string: 输入字符串
+    :returns:    驼峰字符串
+    :rtype:    string
 
-	由空格或者下划线改变单词分割的字符串为驼峰式大小写。例如::
+    将由空格或下划线分隔的词字符串更改为驼峰式。示例:
 
-		echo camelize('my_dog_spot'); // 打印出 'myDogSpot'
+    .. literalinclude:: inflector_helper/005.php
 
 .. php:function:: pascalize($string)
 
-	:param	string	$string: Input string
-	:returns:	Pascal case string
-	:rtype:	string
+    :param    string    $string: 输入字符串
+    :returns:    帕斯卡式字符串
+    :rtype:    string
 
-	Changes a string of words separated by spaces or underscores to Pascal
-	case, which is camel case with the first letter capitalized. 例如::
+    将由空格或下划线分隔的词字符串更改为帕斯卡式,即首字母大写的驼峰式。示例:
 
-		echo pascalize('my_dog_spot'); // 打印出 'MyDogSpot'
+    .. literalinclude:: inflector_helper/006.php
 
 .. php:function:: underscore($string)
 
-	:param	string	$string: 输入 string
-	:returns:	字符串包含下划线代替空格
-	:rtype:	string
+    :param    string    $string: 输入字符串
+    :returns:    包含下划线而不是空格的字符串
+    :rtype:    string
 
-	由多空格和下划线带来多样的单词分割。事例::
+    获取多个由空格分隔的词并在其下添加下划线。示例:
 
-		echo underscore('my dog spot'); // 打印出 'my_dog_spot'
+    .. literalinclude:: inflector_helper/007.php
+
+.. php:function:: decamelize($string)
+
+    :param    string    $string: 输入字符串
+    :returns:    在词中间包含下划线的字符串
+    :rtype:    string
+
+    获取多个驼峰或帕斯卡单词并将它们转换为下划线分隔的单词。示例:
+
+    .. literalinclude:: inflector_helper/007.php
 
 .. php:function:: humanize($string[, $separator = '_'])
 
-	:param	string	$string: 输入 string
-	:param	string	$separator: 输入分隔符Input separator
-	:returns:	人性化的 string
-	:rtype:	string
+    :param    string    $string: 输入字符串
+    :param    string    $separator: 输入分隔符
+    :returns:    人性化字符串
+    :rtype:    string
 
-	由空格带来复合单词的分割并在他们中间添加空格。每个单词用大写书写。
+    获取多个由下划线分隔的词并在它们之间添加空格。每个单词的首字母大写。
 
-	事例::
+    示例:
 
-		echo humanize('my_dog_spot'); // 打印出 'My Dog Spot'
+    .. literalinclude:: inflector_helper/008.php
 
-	使用波折号代替下划线::
+    要使用破折号代替下划线:
 
-		echo humanize('my-dog-spot', '-'); // 打印出 'My Dog Spot'
+    .. literalinclude:: inflector_helper/009.php
 
 .. php:function:: is_pluralizable($word)
 
-	:param	string	$word: 输入 string
-	:returns:	如果单词为可数的则 TRUE 否则 FALSE
-	:rtype:	bool
+    :param    string    $word: 输入字符串
+    :returns:    如果单词可数则为 true,如果不可数则为 false
+    :rtype:    bool
 
-	多次核对假设约定的单词已经有一个复数版本。事例::
+    检查给定单词是否有复数形式。示例:
 
-		is_pluralizable('equipment'); // 返回 FALSE
+    .. literalinclude:: inflector_helper/010.php
 
 .. php:function:: dasherize($string)
 
-	:param	string	$string: 输入 string
-	:returns:	底线转换 string
-	:rtype:	string
+    :param    string    $string: 输入字符串
+    :returns:    短划线字符串
+    :rtype:    string
 
-	在 string 里取代带着波折号的下划线。事例::
+    用破折号替换字符串中的下划线。示例:
 
-		dasherize('hello_world'); // 返回 'hello-world'
+    .. literalinclude:: inflector_helper/011.php
 
 .. php:function:: ordinal($integer)
 
-	:param	int	$integer: integer 决定词尾
-	:returns:	顺序的词尾
-	:rtype:	string
+    :param    int    $integer: 确定后缀的整数
+    :returns:    序数后缀
+    :rtype:    string
 
-	返回的词尾应该添加一个数目去表示位置例如 1st, 2nd, 3rd, 4th. 事例::
+    返回应添加到数字以表示位置的后缀,例如 1st、2nd、3rd、4th。示例:
 
-		ordinal(1); // 返回 'st'
+    .. literalinclude:: inflector_helper/012.php
 
 .. php:function:: ordinalize($integer)
 
-	:param	int	$integer: integer 序号 
-	:returns:	序数化 integer
-	:rtype:	string
+    :param    int    $integer: 要转为序数的整数
+    :returns:    序数整数
+    :rtype:    string
 
-	转换数目为顺序的字符串过去总是指示位置例如 1st, 2nd, 3rd, 4th.
-        事例::
+    将数字转换为用于表示位置的序数字符串,如 1st、2nd、3rd、4th。示例:
 
-		ordinalize(1); // 返回 '1st'
+    .. literalinclude:: inflector_helper/013.php

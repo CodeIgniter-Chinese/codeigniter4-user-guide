@@ -1,623 +1,507 @@
-##############
+############
 表单辅助函数
-##############
+############
 
-表单辅助函数包含的函数辅助表单运行.
+表单辅助函数文件包含了帮助处理表单的函数。
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
-.. raw:: html
+*************
+配置
+*************
 
-  <div class="custom-index container"></div>
+从 v4.3.0 开始,``form_helper`` 函数中的空 HTML 元素(如 ``<input>``)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 **app/Config/DocTypes.php** 中将 ``$html5`` 属性设置为 ``false``。
 
-加载表单辅助函数
-===================
+*******************
+加载此辅助函数
+*******************
 
-表单辅助函数使用下文的代码加载::
+使用以下代码加载此辅助函数:
 
-	helper('form');
+.. literalinclude:: form_helper/001.php
 
-换码（转义）字段值
-=====================
+*********************
+转义字段值
+*********************
 
-你也许需要使用 HTML 和字符像在你的表单内部的元素里引用。为了安全地执行，你将需要使用:doc:`common function <../general/common_functions>`
-:func:`esc()`.
+你可能需要在表单元素中使用 HTML 和诸如引号之类的字符。为了安全地做到这一点,你需要使用
+:doc:`common function <../general/common_functions>`
+:php:func:`esc()`。
 
-考虑下文的示例::
+考虑以下示例:
 
-	$string = 'Here is a string containing "quoted" text.';
+.. literalinclude:: form_helper/002.php
 
-	<input type="text" name="myfield" value="<?= $string; ?>" />
+由于上面的字符串包含一组引号,它会导致表单中断。:php:func:`esc()` 函数将 HTML 特殊字符转换,以便可以安全使用::
 
-由于上面字符串包含一套引用，那将导致表单中断。
-The :php:func:`esc()` 函数转换 HTML 特殊字节以便它能安全地使用::
+    <input type="text" name="myfield" value="<?= esc($string) ?>">
 
-	<input type="text" name="myfield" value="<?= esc($string); ?>" />
+.. note:: 如果使用此页面上列出的任何表单辅助函数,并以关联数组的形式传递值,则表单值将自动转义,因此不需要调用此函数。只有在以字符串形式创建自己的表单元素时,才需要调用它。
 
-.. note:: 如果你在页面使用任意表单辅助函数列举，并且你传达像组合的数组一样的值，表单值将会被自动换码，所以不需要调用这个函数。使用它只有你要创建你自己的将要传达作为字符串的表单元素。
+*******************
+可用函数
+*******************
 
-通用函数
-===================
+以下函数可用:
 
-接下来的函数是通用的:
+.. php:function:: form_open([$action = ''[, $attributes = ''[, $hidden = []]]])
 
-.. php:function:: form_open([$action = ''[, $attributes = ''[, $hidden = array()]]])
+    :param    string    $action: 表单操作/目标 URI 字符串
+    :param    mixed    $attributes: HTML 属性,作为数组或转义的字符串
+    :param    array    $hidden: 隐藏字段定义的数组
+    :returns:    一个 HTML 表单开启标签
+    :rtype:    string
 
-	:param	string	$action: 表单行为/目标 URI 字符串
-    	:param	mixed	$attributes: HTML 属性，就像数组或者换码字符串
-    	:param	array	$hidden: 隐藏字段的定义的一组数组An array of hidden fields' definitions
-    	:returns:	 HTML 表单随时可用的 tag
-    	:rtype:	string
+    使用从 **Config\App::$baseURL** 构建的站点 URL 创建一个开启的表单标签。它将可选地允许你添加表单属性和隐藏的输入字段,并将始终根据配置文件中的 charset 值添加 `accept-charset` 属性。
 
-    	创建一个带着基地址URL的随时可用的表单标签**从你的配置优先选择营造**.
-	它将随意地让你添加表单属性和隐藏输入字段，并且会常常在你的配置文件里添加基于 charset 值的 `accept-charset` 属性。
+    与硬编码你自己的 HTML 相比,使用此标签的主要好处在于,如果你的 URL 改变,它允许你的站点更便携。
 
-	宁可使用标签的绝对好处也不要艰苦的编码你自己的 HTML 是由于在事件里你的 URLs 曾改变而标签容许你的网址是更便携的。
+    这里是一个简单的例子:
 
-	下面是一则简单的例子::
+    .. literalinclude:: form_helper/003.php
 
-		echo form_open('email/send');
+    上面的示例将创建一个指向你的站点 URL 加上 “email/send” URI 段的表单,如下::
 
-	上面的例子将创建一个指向你的基地址 URL 和 "email/send" URL 部分的表单，像这样::
+        <form action="http://example.com/index.php/email/send" method="post" accept-charset="utf-8">
 
-		<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
-		
-	You can also add {locale} like the following::
+    你也可以像下面这样添加 ``{locale}`` :
 
-		echo form_open('{locale}/email/send');
+    .. literalinclude:: form_helper/004.php
 
-	The above example would create a form that points to your base URL plus the current request locale with
-	"email/send" URI segments, like this::
+    上面的示例将创建一个指向你的站点 URL 加上当前请求区域设置和 “email/send” URI 段的表单,如下::
 
-		<form method="post" accept-charset="utf-8" action="http://example.com/index.php/en/email/send">
-		
-	**添加属性**
+        <form action="http://example.com/index.php/en/email/send" method="post" accept-charset="utf-8">
 
-		由正传达组合的数组到第二个参数的属性能被加入，像这样::
+    **添加属性**
 
-			$attributes = ['class' => 'email', 'id' => 'myform'];
-			echo form_open('email/send', $attributes);
+        可以通过将关联数组作为第二个参数传递来添加属性,如下所示:
 
-		二选一地，你能明确的像字符串一样说明第二个参数::
+        .. literalinclude:: form_helper/005.php
 
-			echo form_open('email/send', 'class="email" id="myform"');
+        或者,你可以将第二个参数指定为字符串:
 
-		上文的例子将会创建一个同样的表单相似于下文这个事例::
+        .. literalinclude:: form_helper/006.php
 
-			<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send" class="email" id="myform">
-			
-		If CSRF filter is turned on `form_open()` will generate CSRF field at the beginning of the form. You can specify ID of this field by passing csrf_id as one of the $attribute array:
+        上面的示例将创建一个类似以下的表单::
 
-			form_open('/u/sign-up', ['csrf_id' => 'my-id']);
+            <form action="http://example.com/index.php/email/send" class="email" id="myform" method="post" accept-charset="utf-8">
 
-		will return:
+        如果 :ref:`CSRF <cross-site-request-forgery>` 过滤器已打开,``form_open()`` 将在表单开头生成 CSRF 字段。你可以通过传递 csrf_id 作为 ``$attribute`` 数组的一部分来指定此字段的 ID:
 
-			<form action="/u/sign-up" method="post" accept-charset="utf-8">
-			<input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d" />
+        .. literalinclude:: form_helper/007.php
 
-	**添加隐藏输入字段**
+         将返回::
 
-		由正传达组合的数组到第三个参数的隐藏字段能被添加，像这样::
+            <form action="http://example.com/index.php/u/sign-up" method="post" accept-charset="utf-8">
+            <input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d">
 
-			$hidden = ['username' => 'Joe', 'member_id' => '234'];
-			echo form_open('email/send', '', $hidden);
+        .. note:: 要使用 CSRF 字段的自动生成,你需要打开表单页面的 CSRF 过滤器。在大多数情况下,它使用 ``GET`` 方法请求。
 
-		由正传达的任何false值到隐藏字段，你能忽略第二个参数.
+    **添加隐藏输入字段**
 
-		上面的事例将创建类似于下面的句子::
+        可以通过将关联数组作为第三个参数传递来添加隐藏字段,如下所示:
 
-			<form method="post" accept-charset="utf-8" action="http://example.com/index.php/email/send">
-				<input type="hidden" name="username" value="Joe" />
-				<input type="hidden" name="member_id" value="234" />
+        .. literalinclude:: form_helper/008.php
 
-.. php:function:: form_open_multipart([$action = ''[, $attributes = ''[, $hidden = array()]]])
+        你可以通过向它传递任何 false 值来跳过第二个参数。
 
-	:param	string	$action: 表单行为/目标 URI 字符串
-    	:param	mixed	$attributes:  HTML 属性，就像数组或者换码字符串
-    	:param	array	$hidden: 隐藏字段的定义的一组数组 
-    	:returns:	HTML 多部件的表单随时可用的 tag
-    	:rtype:	string
+        上面的示例将创建一个类似以下的表单::
 
-    	这个函数对上文的 :php:func:`form_open()` 来说是类似的，
-	除了它附加了一个 *multipart* 属性，如果你喜欢使用表单上传文件这个属性是必须的。
+            <form action="http://example.com/index.php/email/send" method="post" accept-charset="utf-8">
+                <input type="hidden" name="username" value="Joe">
+                <input type="hidden" name="member_id" value="234">
+
+.. php:function:: form_open_multipart([$action = ''[, $attributes = ''[, $hidden = []]]])
+
+    :param    string    $action: 表单操作/目标 URI 字符串
+    :param    mixed    $attributes: HTML 属性,作为数组或转义的字符串
+    :param    array    $hidden: 隐藏字段定义的数组
+    :returns:    一个 HTML 多部分表单开启标签
+    :rtype:    string
+
+    此函数与上面的 :php:func:`form_open()` 完全相同,除了它添加了一个 *multipart* 属性,如果你想使用表单上传文件,这是必需的。
 
 .. php:function:: form_hidden($name[, $value = ''])
 
-	:param	string	$name: 字段名
-    	:param	string	$value: 字段值
-    	:returns:	HTML 隐藏输入字段 tag
-    	:rtype:	string
+    :param    string    $name: 字段名称
+    :param    string    $value: 字段值
+    :returns:    一个 HTML 隐藏输入字段标签
+    :rtype:    string
 
-    	让你生成隐藏输入字段。你也能提交名称/值字符串去创建一个字段::
+    让你生成隐藏的输入字段。你可以提交名称/值字符串以创建一个字段:
 
-		form_hidden('username', 'johndoe');
-		// 将产生: <input type="hidden" name="username" value="johndoe" />
+    .. literalinclude:: form_helper/009.php
 
-	... 或者你能提交组合数组去创建复合字段::
+    ... 或者你可以提交一个关联数组来创建多个字段:
 
-		$data = [
-			'name'	=> 'John Doe',
-			'email'	=> 'john@example.com',
-			'url'	=> 'http://example.com'
-		];
+    .. literalinclude:: form_helper/010.php
 
-		echo form_hidden($data);
+    你也可以将关联数组传递给值字段:
 
-		/*
-			将产生:
-			<input type="hidden" name="name" value="John Doe" />
-			<input type="hidden" name="email" value="john@example.com" />
-			<input type="hidden" name="url" value="http://example.com" />
-		*/
+    .. literalinclude:: form_helper/011.php
 
-	你也能传达组合的数组给字段值::
+    如果你想要带有额外属性的隐藏输入字段:
 
-		$data = [
-			'name'	=> 'John Doe',
-			'email'	=> 'john@example.com',
-			'url'	=> 'http://example.com'
-		];
-
-		echo form_hidden('my_array', $data);
-
-		/*
-			将产生:
-
-			<input type="hidden" name="my_array[name]" value="John Doe" />
-			<input type="hidden" name="my_array[email]" value="john@example.com" />
-			<input type="hidden" name="my_array[url]" value="http://example.com" />
-		*/
-
-	倘若你想创建额外属性的隐藏输入字段::
-
-		$data = [
-			'type'	=> 'hidden',
-			'name'	=> 'email',
-			'id'	=> 'hiddenemail',
-			'value'	=> 'john@example.com',
-			'class'	=> 'hiddenemail'
-		];
-
-		echo form_input($data);
-
-		/*
-			将产生:
-
-			<input type="hidden" name="email" value="john@example.com" id="hiddenemail" class="hiddenemail" />
-		*/
+    .. literalinclude:: form_helper/012.php
 
 .. php:function:: form_input([$data = ''[, $value = ''[, $extra = ''[, $type = 'text']]]])
 
-	:param	array	$data: 字段属性数据
-	:param	string	$value: 字段值
-	:param	mixed	$extra: 额外属性被添加到 tag 任何一方像数组或者文字字符串
-	:param  string  $type: 输入字段类型。例如： 'text', 'email', 'number', 等等.
-	:returns:	 HTML 文本输入字段 tag
-	:rtype:	string
+    :param    array    $data: 字段属性数据
+    :param    string    $value: 字段值
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :param    string    $type: 输入字段的类型。即,'text'、'email'、'number'等
+    :returns:    一个 HTML 文本输入字段标签
+    :rtype:    string
 
-	让你生成标准的文本输入字段。你能最低程度地在第一和第二参数里传达字段名和值::
+    允许你生成标准的文本输入字段。你可以至少在第一个和第二个参数中传递字段名称和值:
 
-		echo form_input('username', 'johndoe');
+    .. literalinclude:: form_helper/013.php
 
-	或者你能传达包含你希望你的表单要包含的任何数据的组合的数组::
+    或者你可以传递一个包含你希望表单包含的任何数据的关联数组:
 
-		$data = [
-			'name'      => 'username',
-			'id'        => 'username',
-			'value'     => 'johndoe',
-			'maxlength' => '100',
-			'size'      => '50',
-			'style'     => 'width:50%'
-		];
+    .. literalinclude:: form_helper/014.php
 
-		echo form_input($data);
+    如果你想要布尔属性,请传递布尔值(``true``/``false``)。在这种情况下,布尔值无关紧要:
 
-		/*
-			将产生:
+    .. literalinclude:: form_helper/035.php
 
-			<input type="text" name="username" value="johndoe" id="username" maxlength="100" size="50" style="width:50%"  />
-		*/
+    如果你希望你的表单包含一些额外的数据,如 JavaScript,你可以将其作为第三个参数中的字符串传递:
 
-	如果你想要你的表单包含一些额外的数据，像 JavaScript ，你能在第三参数里像字符串一样传达参数::
+    .. literalinclude:: form_helper/015.php
 
-		$js = 'onClick="some_function()"';
-		echo form_input('username', 'johndoe', $js);
+    或者你可以传递它作为数组:
 
-	或者你能像数组一样传达参数::
+    .. literalinclude:: form_helper/016.php
 
-		$js = ['onClick' => 'some_function();'];
-		echo form_input('username', 'johndoe', $js);
+    为了支持扩展的 HTML5 输入字段范围,你可以将输入类型作为第四个参数传递:
 
-	 支持HTML5 输入字段扩充范围，你能像第四个参数一样传达一个输入键入信息::
-
-		echo form_input('email', 'joe@example.com', ['placeholder' => 'Email Address...'], 'email');
-
-		/*
-			将产生:
-
-			<input type="email" name="email" value="joe@example.com" placeholder="Email Address..." />
-		*/
+    .. literalinclude:: form_helper/017.php
 
 .. php:function:: form_password([$data = ''[, $value = ''[, $extra = '']]])
 
-	:param	array	$data: 字段属性数据
-    	:param	string	$value: 字段值
-    	:param	mixed	$extra: 额外的属性被添加到tag任何一方像数组或者文字的字符串
-    	:returns:	HTML 密码输入字段 tag
-    	:rtype:	string
+    :param    array    $data: 字段属性数据
+    :param    string    $value: 字段值
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 密码输入字段标签
+    :rtype:    string
 
-    	此函数除了函数使用的 "password" 输入类型在完全关系到上文所述的 :php:func:`form_input()` 函数是完全相似的。
+    此函数在所有方面与上面的 :php:func:`form_input()` 函数相同,只是它使用 “password” 输入类型。
 
 .. php:function:: form_upload([$data = ''[, $value = ''[, $extra = '']]])
 
-	:param	array	$data:字段属性数据
-    	:param	string	$value:字段值 
-    	:param	mixed	$extra: 额外的属性被添加到 tag 任何一方像数组或者文字的字符串
-    	:returns:	HTML 文件上传输入字段 tag
-    	:rtype:	string
+    :param    array    $data: 字段属性数据
+    :param    string    $value: 字段值
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 文件上传输入字段标签
+    :rtype:    string
 
-    	此函数除了使用 "file" 输入类型在完全关系到上文所述的 :php:func:`form_input()` 函数是完全相似的，接受函数适用于上传文件。
+    此函数在所有方面与上面的 :php:func:`form_input()` 函数相同,只是它使用 “file” 输入类型,允许它用于上传文件。
 
 .. php:function:: form_textarea([$data = ''[, $value = ''[, $extra = '']]])
 
-	:param	array	$data: 字段属性数据
-    	:param	string	$value: 字段值
-    	:param	mixed	$extra: 额外的属性被添加到 tag 任何一方像数组或者文字的字符串
-    	:returns:	HTML 文本区域 tag
-    	:rtype:	string
+    :param    array    $data: 字段属性数据
+    :param    string    $value: 字段值
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML textarea 标签
+    :rtype:    string
 
-    	此函数除了产生 "textarea" 类型外在完全关系到上文所述的 :php:func:`form_input()`   函数是完全相似的。
+    此函数在所有方面与上面的 :php:func:`form_input()` 函数相同,只是它生成一个 “textarea” 类型。
 
-	.. note:: 上文的例子里代替 *maxlength* 和 *size* 属性，你会更换具体指定的 *rows* 和 *cols* 。
+    .. note:: 与上面的示例中的 *maxlength* 和 *size* 属性不同,你将指定 *rows* 和 *cols*。
 
-.. php:function:: form_dropdown([$name = ''[, $options = array()[, $selected = array()[, $extra = '']]]])
+.. php:function:: form_dropdown([$name = ''[, $options = [][, $selected = [][, $extra = '']]]])
 
-	:param	string	$name: 字段名
-	:param	array	$options: 选项的组合的数组被列举
-    	:param	array	$selected: 字段的列表要标明 *selected* 属性
-	:param	mixed	$extra: 额外的属性被添加到 tag 任何一方像数组或者文字的字符串 
-    	:returns:	HTML 下拉菜单选择字段 tag
-    	:rtype:	string
+    :param    string    $name: 字段名称
+    :param    array    $options: 要列出的选项的关联数组
+    :param    array    $selected: 要标记为 *selected* 属性的字段列表
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 下拉选择字段标签
+    :rtype:    string
 
-    	让你创建一个下拉菜单字段。第一个参数会包含字段名，第二个参数会包含一个组合的数组选项，而第三参数会包含你希望被选择的值。你也能通过第三参数传达一个符合选项数组，并且辅助函数会为你创建一个复合选项。
+    允许你创建一个标准的下拉字段。第一个参数将包含字段的名称,第二个参数将包含选项的关联数组,第三个参数将包含你希望选中的值。你还可以通过第三个参数传递多个项的数组,辅助函数将为你创建一个多选字段。
 
-    	例如::
+    示例:
 
-		$options = [
-			'small'  => 'Small Shirt',
-			'med'    => 'Medium Shirt',
-			'large'  => 'Large Shirt',
-			'xlarge' => 'Extra Large Shirt',
-		];
+    .. literalinclude:: form_helper/018.php
 
-		$shirts_on_sale = ['small', 'large'];
-		echo form_dropdown('shirts', $options, 'large');
+    如果你希望打开的 <select> 包含额外的数据,如 id 属性或 JavaScript,你可以将其作为第四个参数中的字符串传递:
 
-		/*
-			将产生:
+    .. literalinclude:: form_helper/019.php
 
-			<select name="shirts">
-				<option value="small">Small Shirt</option>
-				<option value="med">Medium  Shirt</option>
-				<option value="large" selected="selected">Large Shirt</option>
-				<option value="xlarge">Extra Large Shirt</option>
-			</select>
-		*/
+    或者你可以传入它作为数组:
 
-		echo form_dropdown('shirts', $options, $shirts_on_sale);
+    .. literalinclude:: form_helper/020.php
 
-		/*
-			将产生:
+    如果作为 ``$options`` 传递的数组是多维数组,那么 ``form_dropdown()`` 将使用数组键作为标签生产一个 <optgroup>。
 
-			<select name="shirts" multiple="multiple">
-				<option value="small" selected="selected">Small Shirt</option>
-				<option value="med">Medium  Shirt</option>
-				<option value="large" selected="selected">Large Shirt</option>
-				<option value="xlarge">Extra Large Shirt</option>
-			</select>
-		*/
+.. php:function:: form_multiselect([$name = ''[, $options = [][, $selected = [][, $extra = '']]]])
 
-	 如果你想要开始部分的 <select> 包含额外的数据，像 id 属性或者 JavaScript ，你能在第四个参数里像字符串一样传达它::
+    :param    string    $name: 字段名称
+    :param    array    $options: 要列出的选项的关联数组
+    :param    array    $selected: 要标记为 *selected* 属性的字段列表
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 下拉多选字段标签
+    :rtype:    string
 
-		$js = 'id="shirts" onChange="some_function();"';
-		echo form_dropdown('shirts', $options, 'large', $js);
+    允许你创建一个标准的多选字段。第一个参数将包含字段的名称,第二个参数将包含选项的关联数组,第三个参数将包含你希望选中的值或值。
 
-	或者你能像传达数组一样传达参数::
+    参数用法与使用上面的 :php:func:`form_dropdown()` 相同,当然字段名称需要使用 POST 数组语法,例如 foo[]。
 
-		$js = [
-			'id'       => 'shirts',
-			'onChange' => 'some_function();'
-		];
-		echo form_dropdown('shirts', $options, 'large', $js);
+.. php:function:: form_fieldset([$legend_text = ''[, $attributes = []]])
 
-	如果数组被传达象 ``$options`` 一样是一个多维数组，那么 ``form_dropdown()`` 将会产生一个像 label 一样带着数组键码的 <optgroup> 。
+    :param    string    $legend_text: 要放入 <legend> 标签中的文本
+    :param    array    $attributes: 要在 <fieldset> 标签上设置的属性
+    :returns:    一个 HTML fieldset 开启标签
+    :rtype:    string
 
-.. php:function:: form_multiselect([$name = ''[, $options = array()[, $selected = array()[, $extra = '']]]])
+    允许你生成 fieldset/legend 字段。
 
-	:param	string	$name: 字段名
-    	:param	array	$options: 选项的组合数组被列举
-    	:param	array	$selected: 字段的列表要标明 *selected* 属性
-	:param	mixed	$extra: 额外的属性被添加到 tag 任何一方像数组或者文字的字符串
-    	:returns:	HTML 下拉菜单混合选项字段 tag
-    	:rtype:	string
+    示例:
 
-    	让你创建一个标准的混合字段。第一个参数将包含字段名，第二个参数会包含选项的一个组合的数组，
-	而第三个参数会包含值或者你想要被选择的值。
+    .. literalinclude:: form_helper/021.php
 
-	参数用法是完全相似于上文去使用的 :php:func:`form_dropdown()` ，除了当然地字段名将需要去用 POST 数组语法，例如：foo[].
+    与其他函数类似,如果你希望设置其他属性,可以在第二个参数中提交关联数组:
 
-.. php:function:: form_fieldset([$legend_text = ''[, $attributes = array()]])
-
-	:param	string	$legend_text: Text 放进 <legend> tag 
-    	:param	array	$attributes: 属性被置位在 <fieldset> tag 上 
-    	:returns:	HTML 字段置位开始 tag
-    	:rtype:	string
-
-    	让你生成 fieldset/legend 字段。
-
-    	例如::
-
-		echo form_fieldset('Address Information');
-		echo "<p>fieldset content here</p>\n";
-		echo form_fieldset_close();
-
-		/*
-			生成:
-
-				<fieldset>
-					<legend>Address Information</legend>
-						<p>form content here</p>
-				</fieldset>
-		*/
-
-	相似于其他函数，如果你更喜欢设置额外属性你能在第二参数里提交一个组合的数组::
-
-		$attributes = [
-			'id'	=> 'address_info',
-			'class'	=> 'address_info'
-		];
-
-		echo form_fieldset('Address Information', $attributes);
-		echo "<p>fieldset content here</p>\n";
-		echo form_fieldset_close();
-
-		/*
-			生成:
-
-			<fieldset id="address_info" class="address_info">
-				<legend>Address Information</legend>
-				<p>form content here</p>
-			</fieldset>
-		*/
+    .. literalinclude:: form_helper/022.php
 
 .. php:function:: form_fieldset_close([$extra = ''])
 
-	:param	string	$extra: 闭合 tag 附加的任何字段, *as is*
-	:returns:	HTML 字段置位关闭 tag
-	:rtype:	string
+    :param    string    $extra: 在关闭标签后要追加的任何内容,*原样*
+    :returns:    一个 HTML fieldset 关闭标签
+    :rtype:    string
 
-	 产生一个正关闭的 </fieldset> tag. 使用这个函数仅有的优势是它允许你传达数据给将被添加的下文关联的 tag 。例如
+    产生一个关闭的 ``</fieldset>`` 标签。使用此函数的唯一优点是它允许你向其传递将添加在标签下方的数据。例如
 
-	::
+    .. literalinclude:: form_helper/023.php
 
-		$string = '</div></div>';
-		echo form_fieldset_close($string);
-		// 将生成: </fieldset></div></div>
+.. php:function:: form_checkbox([$data = ''[, $value = ''[, $checked = false[, $extra = '']]]])
 
-.. php:function:: form_checkbox([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
+    :param    array    $data: 字段属性数据
+    :param    string    $value: 字段值
+    :param    bool    $checked: 是否将复选框标记为 *checked*
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 复选框输入标签
+    :rtype:    string
 
-	:param	array	$data: 字段属性数据 
-    	:param	string	$value: 字段值
-    	:param	bool	$checked: 是否去标明 checkbox 在 *checked* 状态 
-	:param	mixed	$extra: 额外的属性被添加到 tag 任何一方像数组或者文字的字符串
-    	:returns:	HTML checkbox 输入 tag
-    	:rtype:	string
+    允许你生成一个复选框字段。简单示例:
 
-    	让你产生一个 checkbox 字段. 简单的例子::
+    .. literalinclude:: form_helper/024.php
 
-		echo form_checkbox('newsletter', 'accept', TRUE);
-		// 将生成:  <input type="checkbox" name="newsletter" value="accept" checked="checked" />
+    第三个参数包含一个布尔值 true/false 以确定是否应选中该框。
 
-	第三个参数包含一个布尔值 TRUE/FALSE 去决定是否 box 应该被记号或者未记号。
-	
-	在这个辅助函数里类似的对于其他的表单函数来说，你也能传达属性的数组给函数::
+    与此辅助函数中的其他表单函数类似,你也可以在第一个参数中传递属性的关联数组:
 
-		$data = [
-			'name'    => 'newsletter',
-			'id'      => 'newsletter',
-			'value'   => 'accept',
-			'checked' => TRUE,
-			'style'   => 'margin:10px'
-		];
+    .. literalinclude:: form_helper/025.php
 
-		echo form_checkbox($data);
-		// 将生成: <input type="checkbox" name="newsletter" id="newsletter" value="accept" checked="checked" style="margin:10px" />
+    与其他函数一样,如果你希望标签包含其他数据,如 JavaScript,可以将其作为第四个参数中的字符串传递:
 
-	也跟其他函数一样，如果你想要 tag 去包含像 JavaScript 的额外数据，你能在第四个参数里像传达字符串一样传达它::
+    .. literalinclude:: form_helper/026.php
 
-		$js = 'onClick="some_function()"';
-		echo form_checkbox('newsletter', 'accept', TRUE, $js);
+    或者你可以传递它作为数组:
 
-	或者你能像数组一样传达它::
+    .. literalinclude:: form_helper/027.php
 
-		$js = ['onClick' => 'some_function();'];
-		echo form_checkbox('newsletter', 'accept', TRUE, $js);
+.. php:function:: form_radio([$data = ''[, $value = ''[, $checked = false[, $extra = '']]]])
 
-.. php:function:: form_radio([$data = ''[, $value = ''[, $checked = FALSE[, $extra = '']]]])
+    :param    array    $data: 字段属性数据
+    :param    string    $value: 字段值
+    :param    bool    $checked: 是否将单选按钮标记为 *checked*
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 单选按钮输入标签
+    :rtype:    string
 
-	:param	array	$data: 字符串属性数据
-    	:param	string	$value: 字符串值
-    	:param	bool	$checked: 是否标明 radio 按钮是 *checked* 状态 
-	:param	mixed	$extra: 额外的属性被添加到tag任何一方像数组或者文字的字符串
-    	:returns:	HTML radio 输入 tag
-    	:rtype:	string
+    此函数在所有方面与上面的 :php:func:`form_checkbox()` 函数相同,只是它使用 “radio” 输入类型。
 
-    	除了函数使用 "radio" 输入类型此函数在完全关系到上文所述的 :php:func:`form_checkbox()` 函数是完全类似的。
+.. php:function:: form_label([$label_text = ''[, $id = ''[, $attributes = []]]])
 
-.. php:function:: form_label([$label_text = ''[, $id = ''[, $attributes = array()]]])
+    :param    string    $label_text: 要放入 <label> 标签中的文本
+    :param    string    $id: 我们为其创建标签的表单元素的 ID
+    :param    string    $attributes: HTML 属性
+    :returns:    一个 HTML 字段标签
+    :rtype:    string
 
-	:param	string	$label_text: Text 提交 <label> tag 
-    	:param	string	$id: 我们正在制作的一个 label 表单元素的 ID 
-    	:param	string	$attributes: HTML 属性
-    	:returns:	HTML 字段 label tag
-    	:rtype:	string
+    生成一个 <label>。简单示例:
 
-    	让你产生一个 <label>. 简单事例::
+    .. literalinclude:: form_helper/028.php
 
-		echo form_label('What is your Name', 'username');
-		// 将生成:  <label for="username">What is your Name</label>
+    与其他函数类似,如果你更喜欢设置其他属性,可以在第三个参数中提交关联数组。
 
-	相似于其他函数，如果你更喜欢设置额外的属性你能在第三个参数里提交一个组合的数组.
+    例子:
 
-	例如::
-	
-		$attributes = [
-			'class' => 'mycustomclass',
-			'style' => 'color: #000;'
-		];
-
-		echo form_label('What is your Name', 'username', $attributes);
-		// 将生成:  <label for="username" class="mycustomclass" style="color: #000;">What is your Name</label>
+    .. literalinclude:: form_helper/029.php
 
 .. php:function:: form_submit([$data = ''[, $value = ''[, $extra = '']]])
 
-	:param	string	$data: Button 名
-    	:param	string	$value: Button 值
-    	:param	mixed	$extra: 额外的属性被添加到 tag 任何一方像数组或者文字的字符串
-    	:returns:	HTML 输入submit tag
-    	:rtype:	string
+    :param    string    $data: 按钮名称
+    :param    string    $value: 按钮值
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 输入提交标签
+    :rtype:    string
 
-    	让你产生一个标准的 submit 按钮。简单事例::
+    允许你生成一个标准的提交按钮。简单示例:
 
-		echo form_submit('mysubmit', 'Submit Post!');
-		// 将生成:  <input type="submit" name="mysubmit" value="Submit Post!" />
+    .. literalinclude:: form_helper/030.php
 
-	相似于其他函数，如果你更喜欢设置你的本身的属性你能在第一个参数里提交一个组合数组。第三个参数让你添加额外的数据到你的表单，象 JavaScript.
+    与其他函数类似,如果你更喜欢设置自己的属性,可以在第一个参数中提交关联数组。第三个参数允许你向表单添加额外数据,如 JavaScript。
 
 .. php:function:: form_reset([$data = ''[, $value = ''[, $extra = '']]])
 
-	:param	string	$data: Button 名
-    	:param	string	$value: Button 值
-    	:param	mixed	$extra: 额外的属性被添加到tag任何一方像数组或者文字的字符串
-    	:returns:	HTML 输入重新设定 button tag
-    	:rtype:	string
+    :param    string    $data: 按钮名称
+    :param    string    $value: 按钮值
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 输入重置按钮标签
+    :rtype:    string
 
-    	让你生成标准重新设定 button 。 使用习惯对 :func:`form_submit()` 是完全相似的.
-	
+    允许你生成一个标准的重置按钮。用法与 :php:func:`form_submit()` 相同。
 
 .. php:function:: form_button([$data = ''[, $content = ''[, $extra = '']]])
 
-	:param	string	$data: Button 名
-    	:param	string	$content: Button label
-    	:param	mixed	$extra: 额外的属性被添加到tag任何一方像数组或者文字的字符串
-    	:returns:	An HTML button tag
-    	:rtype:	string
+    :param    string    $data: 按钮名称
+    :param    string    $content: 按钮标签
+    :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
+    :returns:    一个 HTML 按钮标签
+    :rtype:    string
 
-    	让你生成标准 button 元素. 你能在第一和第二参数里最低程度地传达 button 名称和内容::
+    允许你生成一个标准的按钮元素。你可以至少在第一个和第二个参数中传递按钮名称和内容:
 
-		echo form_button('name','content');
-		// 将生成: <button name="name" type="button">Content</button>
+    .. literalinclude:: form_helper/031.php
 
-	或者你能传达你的表单去包含你希望包含任何数据的一个组合的数组::
+    或者你可以传递一个关联数组,其中包含你希望表单包含的任何数据:
 
-		$data = [
-			'name'    => 'button',
-			'id'      => 'button',
-			'value'   => 'true',
-			'type'    => 'reset',
-			'content' => 'Reset'
-		];
+    .. literalinclude:: form_helper/032.php
 
-		echo form_button($data);
-		// 将生成: <button name="button" id="button" value="true" type="reset">Reset</button>
+    如果你希望表单包含一些额外的数据,如 JavaScript,可以将其作为第三个参数中的字符串传递:
 
-	如果你想要你的表单包含一些额外的数据，例如 JavaScript ， 你能在第三个参数里像字符串一样传达它::
-
-		$js = 'onClick="some_function()"';
-		echo form_button('mybutton', 'Click Me', $js);
+    .. literalinclude:: form_helper/033.php
 
 .. php:function:: form_close([$extra = ''])
 
-	:param	string	$extra: 在关闭 tag 后任何事要追加的, *as is*
-	:returns:	HTML 表单关闭 tag
-	:rtype:	string
+    :param    string    $extra: 在关闭标签后要追加的任何内容,*原样*
+    :returns:    一个 HTML 表单关闭标签
+    :rtype:    string
 
-	生成正关闭的 </form> tag. 最佳的优势去使用这个函数容许你去传达数据给它，它将会被添加如下文的 tag 。例如::
+    产生一个关闭的 ``</form>`` 标签。使用此函数的唯一优点是它允许你向其传递将添加在标签下方的数据。例如:
 
-		$string = '</div></div>';
-		echo form_close($string);
-		// 将生成:  </form> </div></div>
+    .. literalinclude:: form_helper/034.php
 
-.. php:function:: set_value($field[, $default = ''[, $html_escape = TRUE]])
+.. php:function:: set_value($field[, $default = ''[, $html_escape = true]])
 
-	:param	string	$field: 字段名
-    	:param	string	$default: 默认值
-    	:param  bool	$html_escape: 是否关闭 HTML 值的转义
-    	:returns:	字段值
-    	:rtype:	string
+    :param    string    $field: 字段名称
+    :param    string    $default: 默认值
+    :param    bool    $html_escape: 是否关闭 HTML 转义值
+    :returns:    字段值
+    :rtype:    string
 
-    	容许你去设置输入表单或者文本区域的值。你必须经过函数的第一个参数提供字段名。第二个操作参数允许你为表单设置一个默认值。第三个操作参数允许你去关闭 HTML 值的转义，万一你需要使用此函数联合， 即 :php:func:`form_input()` 并规避双层转义。
+    允许你设置输入表单或文本区域的值。你必须通过函数的第一个参数提供字段名称。第二个(可选)参数允许你为表单设置默认值。第三个(可选)参数允许你关闭值的 HTML 转义,以防你需要将此函数与 :php:func:`form_input()` 结合使用以避免双重转义。
 
-	例如::
+    示例::
 
-		<input type="text" name="quantity" value="<?php echo set_value('quantity', '0'); ?>" size="50" />
+        <input type="text" name="quantity" value="<?= set_value('quantity', '0') ?>" size="50">
 
-	当第一次加载时下文的表单将显示 "0".
+    上面的表单在首次加载时将显示“0”。
 
-.. php:function:: set_select($field[, $value = ''[, $default = FALSE]])
+.. php:function:: set_select($field[, $value = ''[, $default = false]])
 
-	:param	string	$field: 字段名
-    	:param	string	$value: 检测的值 
-    	:param	string	$default: 是否值也是默认的
-    	:returns:	'selected' 属性或者一个空字符串
-    	:rtype:	string
+    :param    string    $field: 字段名称
+    :param    string    $value: 要检查的值
+    :param    string    $default: 值是否也是默认值
+    :returns:    'selected' 属性或空字符串
+    :rtype:    string
 
-    	如果你使用 <select> 菜单, 此函数允许你显示已经被选择的菜单题目。.
+    如果使用 <select> 菜单,此函数允许你显示所选菜单项。
 
-    	第一个参数必须包含选择菜单的包含名，第二个参数必须包含选择菜单包含值，
-	而第三个操作参数仍你设置像默认值 (use boolean TRUE/FALSE) 的一个项.
+    第一个参数必须包含选择菜单的名称,第二个参数必须包含每个项目的值,第三个(可选)参数允许你将某个项目设置为默认值(使用布尔值 true/false)。
 
-    	例如::
+    示例::
 
-		<select name="myselect">
-			<option value="one" <?php echo  set_select('myselect', 'one', TRUE); ?> >One</option>
-			<option value="two" <?php echo  set_select('myselect', 'two'); ?> >Two</option>
-			<option value="three" <?php echo  set_select('myselect', 'three'); ?> >Three</option>
-		</select>
+        <select name="myselect">
+            <option value="one" <?= set_select('myselect', 'one', true) ?>>One</option>
+            <option value="two" <?= set_select('myselect', 'two') ?>>Two</option>
+            <option value="three" <?= set_select('myselect', 'three') ?>>Three</option>
+        </select>
 
-.. php:function:: set_checkbox($field[, $value = ''[, $default = FALSE]])
+.. php:function:: set_checkbox($field[, $value = ''[, $default = false]])
 
-	:param	string	$field: 字段名
-    	:param	string	$value: 检测的值
-    	:param	string	$default: 是否值也是默认的
-    	:returns:	'checked' 属性或者一个空字符串 
-    	:rtype:	string
+    :param    string    $field: 字段名称
+    :param    string    $value: 要检查的值
+    :param    string    $default: 值是否也是默认值
+    :returns:    'checked' 属性或空字符串
+    :rtype:    string
 
-    	容许你在已经提交状况下显示一个 checkbox.
+    允许你以提交的状态显示复选框。
 
-    	第一个参数必须包含 checkbox 的名，第二个参数必须包含它的值，并且第三个操作参数让你设置一个像默认值 (use boolean TRUE/FALSE) 的项.
+    第一个参数必须包含复选框的名称,第二个参数必须包含它的值,第三个(可选)参数允许你将某个项目设置为默认值(使用布尔值 true/false)。
 
-    	例如::
+    示例::
 
-		<input type="checkbox" name="mycheck" value="1" <?php echo set_checkbox('mycheck', '1'); ?> />
-		<input type="checkbox" name="mycheck" value="2" <?php echo set_checkbox('mycheck', '2'); ?> />
+        <input type="checkbox" name="mycheck" value="1" <?= set_checkbox('mycheck', '1') ?>>
+        <input type="checkbox" name="mycheck" value="2" <?= set_checkbox('mycheck', '2') ?>>
 
-.. php:function:: set_radio($field[, $value = ''[, $default = FALSE]])
+.. php:function:: set_radio($field[, $value = ''[, $default = false]])
 
-	:param	string	$field: 字段名
-    	:param	string	$value: 检测的值
-    	:param	string	$default: 是否值也是默认的
-    	:returns:	'checked' 属性或者空字符串
-    	:rtype:	string
+    :param    string    $field: 字段名称
+    :param    string    $value: 要检查的值
+    :param    string    $default: 值是否也是默认值
+    :returns:    'checked' 属性或空字符串
+    :rtype:    string
 
-    	容许你去显示它们已经提交状态下的 radio buttons . 此函数对于上文 :php:func:`set_checkbox()` 函数是完全相似的。
+    允许你以提交的状态显示单选按钮。这个函数在所有方面与上面的 :php:func:`set_checkbox()` 函数相同。
 
-	事例::
+    示例::
 
-		<input type="radio" name="myradio" value="1" <?php echo  set_radio('myradio', '1', TRUE); ?> />
-		<input type="radio" name="myradio" value="2" <?php echo  set_radio('myradio', '2'); ?> />
+        <input type="radio" name="myradio" value="1" <?= set_radio('myradio', '1', true) ?>>
+        <input type="radio" name="myradio" value="2" <?= set_radio('myradio', '2') ?>>
 
-	.. note:: 如果你正在使用表单验证类，你必须常常为你的字段明确说明一个规范，即使空的，适当的为了 ``set_*()`` 函数去工作。
-	          这是因为如果表单验证对象已经定义了，控制器为了 ``set_*()`` 已经送交了类方法替代一般的辅助函数。
+.. php:function:: validation_errors()
 
+    .. versionadded:: 4.3.0
+
+    :returns:   验证错误
+    :rtype:    array
+
+    返回验证错误。首先,此函数检查存储在会话中的验证错误。要在会话中存储错误,需要与 :php:func:`redirect() <redirect>` 一起使用 ``withInput()``。
+
+    返回的数组与 ``Validation::getErrors()`` 相同。详见 :ref:`验证 <validation-redirect-and-validation-errors>`。
+
+    示例::
+
+        <?php $errors = validation_errors(); ?>
+
+.. php:function:: validation_list_errors($template = 'list')
+
+    .. versionadded:: 4.3.0
+
+    :param    string    $template: 验证模板名称
+    :returns:    验证错误的渲染 HTML
+    :rtype:    string
+
+    返回验证错误的渲染 HTML。
+
+    参数 ``$template`` 是一个验证模板名称。详见 :ref:`validation-customizing-error-display`。
+
+    此函数在内部使用 :php:func:`validation_errors()`。
+
+    示例::
+
+        <?= validation_list_errors() ?>
+
+.. php:function:: validation_show_error($field, $template = 'single')
+
+    .. versionadded:: 4.3.0
+
+    :param    string    $field: 字段名称
+    :param    string    $template: 验证模板名称
+    :returns:    格式化的验证错误 HTML
+    :rtype:    string
+
+    为指定字段以格式化的 HTML 返回单个错误。
+
+    参数 ``$template`` 是一个验证模板名称。详见 :ref:`validation-customizing-error-display`。
+
+    此函数在内部使用 :php:func:`validation_errors()`。
+
+    示例::
+
+        <?= validation_show_error('username') ?>
