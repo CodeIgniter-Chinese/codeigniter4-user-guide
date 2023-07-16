@@ -92,7 +92,7 @@
 
         .. literalinclude:: form_helper/007.php
 
-         将返回::
+        将返回::
 
             <form action="http://example.com/index.php/u/sign-up" method="post" accept-charset="utf-8">
             <input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d">
