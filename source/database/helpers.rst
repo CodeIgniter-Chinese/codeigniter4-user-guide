@@ -1,46 +1,64 @@
 ####################
-查询语句辅助函数
+查询辅助方法
 ####################
 
-从语句的执行中获取信息
-==================================
+.. contents::
+    :local:
+    :depth: 2
 
-**$db->insertID()**
+执行查询的信息
+**********************************
 
-当执行插入语句时，插入行的ID
+$db->insertID()
+===============
 
-.. note:: 如果使用PDO驱动来操作PostgreSQL，或使用Interbase驱动，该函数需要一个 $name  参数，用于在查找插入ID时使用正确的顺序（译者注：v4.0.3代码里并不处理这个入参，可能是英文手册勘误 2020-07-14）。
+执行数据库插入时的插入 ID 号。
 
-**$db->affectedRows()**
+.. note:: 如果使用 PDO 驱动程序与 PostgreSQL 一起使用,或者使用 Interbase
+    驱动程序,此函数需要一个 $name 参数,该参数指定要检查插入 ID 的适当序列。
 
-执行"写入"类型的语句（insert，update等）时返回有多少行受影响
+$db->affectedRows()
+===================
 
-.. note:: 在MYSQL中 "DELETE FROM TABLE" 会返回0行受影响。所以数据库类做了一个小的hack，使其可以返回受影响的正确行数。这个功能默认是启用的，不过可以通过修改数据库驱动文件关闭。
+显示受影响的行数,当执行“写入”类型的查询时(插入、更新等)。
 
-**$db->getLastQuery()**
+.. note:: 在 MySQL 中,"DELETE FROM TABLE" 返回 0 受影响的行。数据库
+    类对此进行了一个小 Hack,允许它返回正确的受影响行数。默认情况下,此 Hack 已启用,但可以在数据库驱动程序文件中将其关闭。
 
-返回最近一次执行的查询语句（查询语句字符串，而非查询结果）
+$db->getLastQuery()
+===================
 
-关于数据库的信息
-===============================
+返回代表最后执行的查询的 Query 对象(查询字符串,而不是结果)。
 
-**$db->countAll()**
+有关数据库的信息
+*******************************
 
-帮你确认一张数据表的总共行数，第一个参数是表名。
-这也是查询构建器的一部分，例如::
+$db->countAll()
+===============
 
-	echo $db->table('my_table')->countAll();
+允许你确定特定表中的行数。在第一个参数中提交表名。这是查询构建器的一部分。
+例子:
 
-	// 输出一个整数，例如25
+.. literalinclude:: helpers/001.php
 
-**$db->getPlatform()**
+$db->countAllResults()
+======================
 
-输出当前运行的数据库平台(MySQL, MS SQL, Postgres等)::
+允许你确定特定结果集中的行数。在第一个参数中提交表名。这是查询构建器的一部分。
+例子:
 
-	echo $db->getPlatform();
+.. literalinclude:: helpers/002.php
 
-**$db->getVersion()**
+$db->getPlatform()
+==================
 
-输出当前运行的数据库版本::
+输出你正在运行的数据库平台(DBDriver)(MySQLi、SQLSRV、Postgre等):
 
-	echo $db->getVersion();
+.. literalinclude:: helpers/003.php
+
+$db->getVersion()
+=================
+
+输出你正在运行的数据库版本:
+
+.. literalinclude:: helpers/004.php

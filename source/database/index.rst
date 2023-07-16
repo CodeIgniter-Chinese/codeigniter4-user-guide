@@ -1,21 +1,21 @@
-##################
-数据库参考
-##################
+######################
+使用数据库
+######################
 
-CodeIgniter 内置了一个快速强大的数据库抽象类，支持传统的SQL语句以及查询构造器模式。数据库方法的语法简单明了。
+CodeIgniter 带有一个功能齐全且非常快速的抽象数据库类,它支持传统结构和查询构建器模式。数据库函数提供清晰、简单的语法。
 
 .. toctree::
     :titlesonly:
 
-    数据库快速入门：示例代码 <examples>
+    快速入门:使用示例 <examples>
     数据库配置 <configuration>
     连接数据库 <connecting>
-    执行查询 <queries>
+    运行查询 <queries>
     生成查询结果 <results>
     查询辅助函数 <helpers>
-    查询构造器类 <query_builder>
+    查询构建器类 <query_builder>
     事务 <transactions>
     获取元数据 <metadata>
     自定义函数调用 <call_function>
     数据库事件 <events>
-    数据库工具 <utilities>
+    数据库实用工具 <utilities>

@@ -2,162 +2,129 @@
 数据库元数据
 #################
 
-.. 目录::
+.. contents::
     :local:
     :depth: 2
 
 **************
-表元数据
+表格元数据
 **************
 
-下面这些方法用于获取表信息。
+这些函数让你获取表格信息。
 
-列出数据库中的所有表
+列出数据库中的表格
 ================================
 
-**$db->listTables();**
+$db->listTables()
+-----------------
 
-返回一个数组，包含当前连接数据库的全部表名称。例如::
+返回一个数组,其中包含当前连接数据库中的所有表格名称。例如:
 
-	$tables = $db->listTables();
+.. literalinclude:: metadata/001.php
 
-	foreach ($tables as $table)
-	{
-		echo $table;
-	}
+.. note:: 一些驱动程序有其他系统表被排除在此返回之外。
 
-检查表是否存在
+确定表格是否存在
 ===========================
 
-**$db->tableExists();**
+$db->tableExists()
+------------------
 
-有时先检查某个表是否存在再进行操作会比较有用，
-返回布尔值 TRUE/FALSE. 例如::
+在对表运行操作之前,知道特定表格是否存在有时很有帮助。返回布尔值 true/false。用法示例:
 
-	if ($db->tableExists('table_name'))
-	{
-		// some code...
-	}
+.. literalinclude:: metadata/002.php
 
-.. note:: 使用你要查找的表名替换掉 table_name
+.. note:: 用你要查找的表格名称替换 *table_name*。
 
 **************
 字段元数据
 **************
 
-列出表的所有字段
+列出表中的字段
 ==========================
 
-**$db->getFieldNames()**
+$db->getFieldNames()
+--------------------
 
-返回包含字段名称的数组，有两种不同的调用方式：
+返回包含字段名称的数组。可以通过两种方式调用此查询:
 
-1. 你可以调用 $db->object 的方法获取表的字段::
+1. 您可以提供表格名称并从 ``$db->object`` 调用它:
 
-	$fields = $db->getFieldNames('table_name');
+   .. literalinclude:: metadata/003.php
 
-	foreach ($fields as $field)
-	{
-		echo $field;
-	}
+2. 您可以通过从查询结果对象调用函数来收集与任何查询关联的字段名称:
 
-2. 你可以调用任何查询结果对象的方法获取所有字段::
+.. literalinclude:: metadata/004.php
 
-	$query = $db->query('SELECT * FROM some_table');
-
-	foreach ($query->getFieldNames() as $field)
-	{
-		echo $field;
-	}
-
-检查表中是否存在某字段 
+确定表中是否存在字段
 ==========================================
 
-**$db->fieldExists()**
+$db->fieldExists()
+------------------
 
-有时先确定某个字段是否存在再进行操作也比较有用，
-该方法返回布尔值 TRUE/FALSE。
-使用示例::
+在执行操作之前,有时知道某个特定字段是否存在很有帮助。返回布尔值 true/false。用法示例:
 
-	if ($db->fieldExists('field_name', 'table_name'))
-	{
-		// some code...
-	}
+.. literalinclude:: metadata/005.php
 
-.. note:: 将 *field_name* 替换为你要查找的字段名, 并且将 *table_name*  替换为你要查找的表的名称
+.. note:: 用你要查找的字段名称替换 *field_name*,并用你要查找的表格名称替换 *table_name*。
 
-获取字段的元数据
+检索字段元数据
 =======================
 
-**$db->getFieldData()**
+$db->getFieldData()
+-------------------
 
-该方法返回一个包含字段信息的对象数组。
+返回包含字段信息的对象数组。
 
-有时，收集字段名称或相关的元数据会很有用，例如数据类型，最大长度等。
+有时收集字段名称或其他元数据(如列类型、最大长度等)很有帮助。
 
-.. note:: 并非所有的数据库都支持元数据。
+.. note:: 并非所有数据库都提供元数据。
 
-使用示例::
+用法示例:
 
-	$fields = $db->getFieldData('table_name');
+.. literalinclude:: metadata/006.php
 
-	foreach ($fields as $field)
-	{
-		echo $field->name;
-		echo $field->type;
-		echo $field->max_length;
-		echo $field->primary_key;
-	}
+如果你已经运行了一个查询,你可以使用结果对象而不是提供表格名称:
 
-如果你已经进行了查询，则可以使用结果对象而且不用提供表名::
+.. literalinclude:: metadata/007.php
 
-	$query = $db->query("YOUR QUERY");
-	$fields = $query->fieldData();
+如果数据库支持,可以从此函数获取以下数据:
 
-如果你的数据库支持，则可以用此方法获得以下数据:
+- name - 列名称
+- type - 列的类型
+- max_length - 列的最大长度
+- primary_key - 如果列是主键,则为整数 ``1`` (即使有多个主键,也全部为整数 ``1``),否则为整数 ``0`` (此字段当前仅适用于 MySQL 和 SQLite3)
+- nullable - 如果列可为空,则为布尔值 ``true``,否则为布尔值 ``false`` (此字段当前在 SQL Server 中不可用)
+- default - 默认值
 
--  name - 字段名
--  max_length - 字段的最大长度
--  primary_key - 等于1的话表示此字段是主键
--  type - 字段的数据类型
-
-获取表的索引
+列出表中的索引
 ===========================
 
-**$db->getIndexData()**
+.. _db-metadata-getindexdata:
 
-返回一个包含索引信息的对象数组。
+$db->getIndexData()
+-------------------
 
-使用示例::
+返回包含索引信息的对象数组。
 
-	$keys = $db->getIndexData('table_name');
+用法示例:
 
-	foreach ($keys as $key)
-	{
-		echo $key->name;
-		echo $key->type;
-		echo $key->fields;  // 字段名的数组
-	}
+.. literalinclude:: metadata/008.php
 
-根据数据库不同 type 会有所区别。
-例如，MySQL会返回 primary、fulltext、spatial、index 或 unique 其中之一，
-每个（索引）关联一张表。
+关键字类型可能是您使用的数据库所独有的。
+例如,MySQL 将为与表关联的每个键返回 primary、fulltext、spatial、index 或 unique 中的一个。
 
-**$db->getForeignKeyData()**
+SQLite3 返回一个名为 ``PRIMARY`` 的伪索引。但它是一个特殊的索引,你不能在 SQL 命令中使用它。
 
-返回一个包含外键信息的对象数组。
+.. _metadata-getforeignkeydata:
 
-使用示例::
+$db->getForeignKeyData()
+------------------------
 
-	$keys = $db->getForeignKeyData('table_name');
+返回包含外键信息的对象数组。
 
-	foreach ($keys as $key)
-	{
-		echo $key->constraint_name;
-		echo $key->table_name;
-		echo $key->column_name;
-		echo $key->foreign_table_name;
-		echo $key->foreign_column_name;
-	}
+用法示例:
 
-对象字段根据你用的数据库会有不同，例如 SQLite3 不返回 column_name 字段，但会附加 *sequence* 字段用于解释复合外键。
+.. literalinclude:: metadata/009.php
+
+外键使用命名约定 ``tableprefix_table_column1_column2_foreign``。Oracle 使用稍微不同的后缀 ``_fk``。

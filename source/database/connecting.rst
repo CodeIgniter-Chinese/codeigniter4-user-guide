@@ -1,103 +1,92 @@
 ###########################
-连接你的数据库
+连接数据库
 ###########################
 
-你可以在任意你需要的方法中添加以下代码来连接你的数据库，或在类的构造函数中添加这段代码让其在类里全局可用。
+.. contents::
+    :local:
+    :depth: 2
 
-::
+连接数据库
+========================
 
-	$db = \Config\Database::connect();
+连接默认组
+-------------------------------
 
-如果上面的函数没有指定第一个参数，它将使用数据库配置文件中指定的默认配置组来连接数据库，对于大多数人而言，这是首选的方案。
+你可以通过在任何需要的函数中添加此代码行来连接数据库,或者在类构造函数中添加此行以在该类中全局提供数据库。
 
-有一个简便的、纯粹是封装上一段代码的方法，亦可以让你便捷的连接数据库::
+.. literalinclude:: connecting/001.php
+    :lines: 2-
 
-    $db = db_connect();
+如果上述函数的第一个参数不包含任何信息,则它将连接数据库配置文件中指定的默认组。对于大多数人来说,这是首选的使用方法。
 
-可用的参数
+为方便起见,还提供了一个纯包装器方法,代码如下:
+
+.. literalinclude:: connecting/002.php
+    :lines: 2-
+
+可用参数
 --------------------
 
-#. 数据库组名，一个必须与配置类的属性名匹配的字符串。默认值为 $config->defaultGroup；
-#. TRUE/FALSE (boolean). 是否返回共享连接（参考下文的连接多个数据库）。
+**\\Config\\Database::connect($group = null, bool $getShared = true): BaseConnection**
 
-手动连接数据库
----------------------------------
+#. ``$group``:数据库组名称,必须与配置类属性名称匹配的字符串。默认值为 ``Config\Database::$defaultGroup``。
+#. ``$getShared``: true/false(布尔值)。是否返回共享连接(参见下面的连接多个数据库)。
 
-这个函数的第一个参数是 **可选的** ，用来从你的配置文件中选取某个配置组（建立连接）。例如:
+连接特定组
+----------------------------
 
-从配置文件中选择一个特定的配置组，你可以这样做::
+此函数的第一个参数可以用来指定配置文件中的特定数据库组。示例:
 
-	$db = \Config\Database::connect('group_name');
+要从配置文件中选择一个特定的组,可以这样做:
 
-其中 group_name 是配置文件中配置组的名字。
+.. literalinclude:: connecting/003.php
+    :lines: 2-
 
-用多个链接连同一个数据库
+其中 ``group_name`` 是配置文件中连接组的名称。
+
+连接到同一数据库的多个连接
 -------------------------------------
 
-默认情况下， ``connect()``  方法每次返回数据库连接的同一实例。若你需要一个单独的连接到相同数据库，使用 ``false``  作为第二个参数::
+默认情况下,``connect()`` 方法每次都会返回数据库连接的同一实例。如果你需要与同一数据库建立一个单独的连接,请将 ``false`` 作为第二个参数发送:
 
-	$db = \Config\Database::connect('group_name', false);
-
+.. literalinclude:: connecting/004.php
+    :lines: 2-
 
 连接多个数据库
 ================================
 
-如果你需要同时连接到多个不同的数据库，你可以这样做::
+如果你需要同时连接多个数据库,可以这样做:
 
-	$db1 = \Config\Database::connect('group_one');
-	$db = \Config\Database::connect('group_two');
+.. literalinclude:: connecting/005.php
+    :lines: 2-
 
-注意: 将 "group_one" 和 "group_two" 修改为你想要连接的配置组名称
+注意:请将 “group_one” 和 “group_two” 更改为你正在连接的特定组名称。
 
-.. 注解:: 如果只是在同一连接上使用不同的数据库，你不需要创建单独的数据库配置。当你需要时，可以切换到不同的数据库，例如:
+.. note:: 如果你只需要在同一连接上使用不同的数据库,则不需要创建单独的数据库配置。当需要时,你可以切换到不同的数据库,像这样:
+    ``$db->setDatabase($database2_name);``
 
-	| $db->dbSelect($database2_name);
-
-使用自定义配置连接数据库
+使用自定义设置连接
 ===============================
 
-你可以传入一个数据库配置数组参数替代配置组名称，以此获得一个自定义的数据库连接。数组的格式必须与数据库配置文件的配置组格式相同::
+你可以传递一个数据库设置数组而不是组名称来获取使用自定义设置的连接。传递的数组必须与配置文件中定义组的格式相同:
 
-    $custom = [
-		'DSN'      => '',
-		'hostname' => 'localhost',
-		'username' => '',
-		'password' => '',
-		'database' => '',
-		'DBDriver' => 'MySQLi',
-		'DBPrefix' => '',
-		'pConnect' => false,
-		'DBDebug'  => (ENVIRONMENT !== 'production'),
-		'cacheOn'  => false,
-		'cacheDir' => '',
-		'charset'  => 'utf8',
-		'DBCollat' => 'utf8_general_ci',
-		'swapPre'  => '',
-		'encrypt'  => false,
-		'compress' => false,
-		'strictOn' => false,
-		'failover' => [],
-		'port'     => 3306,
-	];
-    $db = \Config\Database::connect($custom);
+.. literalinclude:: connecting/006.php
+    :lines: 2-
 
-
-重新连接/保持连接有效
+重新连接/保持连接活动
 ===========================================
 
-当你在处理一些重量级的 PHP 操作时（例如处理图像），若超过了数据库的超时值，你应该考虑在执行后续查询前先调用 reconnect() 方法向数据库发送 ping 命令，这样可以优雅的保持连接有效或重新建立连接。
+如果在执行一些繁重的 PHP 操作(处理图像等)时超过数据库服务器的空闲超时,则在发送进一步查询之前,应考虑通过使用 ``reconnect()`` 方法向服务器发出 ping,这可以优雅地保持连接活动或重新建立连接。
 
-.. 重要:: 若你使用 MySQLi 数据库驱动，reconnect() 方法并不能 ping 通服务器但它可以关闭连接然后再次连接。
+.. important:: 如果使用 MySQLi 数据库驱动程序,``reconnect()`` 方法不会向服务器发出 ping,而是关闭连接然后再次连接。
 
-::
-
-	$db->reconnect();
+.. literalinclude:: connecting/007.php
+    :lines: 2-
 
 手动关闭连接
 ===============================
 
-虽然 CodeIgniter 可以智能的管理并自动关闭数据库连接，你仍可以显式关闭连接。
+虽然 CodeIgniter 会智能地关闭数据库连接,但你可以显式关闭连接。
 
-::
-
-	$db->close();
+.. literalinclude:: connecting/008.php
+    :lines: 2-
