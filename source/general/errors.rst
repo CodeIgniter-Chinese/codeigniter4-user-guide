@@ -39,7 +39,7 @@ Exceptions 简单来说就是在抛出异常时发生的事件。这将中止脚
 
 默认情况下,CodeIgniter 将在 ``development`` 和 ``testing`` 环境中显示所有错误,并且在 ``production`` 环境中不显示任何错误。你可以通过在 **.env** 文件中设置 ``CI_ENVIRONMENT`` 变量来更改此设置。
 
-.. importent:: 禁用错误报告并不会停止在错误发生时写入日志。
+.. important:: 禁用错误报告并不会停止在错误发生时写入日志。
 
 记录 Exceptions
 ------------------

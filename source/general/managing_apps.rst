@@ -4,7 +4,7 @@
 
 默认情况下,假设你只打算在 **app** 目录中使用 CodeIgniter 来管理一个应用程序。但是,可以拥有多个共享单个 CodeIgniter 安装的应用程序集,或者重命名或重新定位你的应用程序目录。
 
-.. importent:: 如果你安装了 CodeIgniter v4.1.9 或更早版本,并且在 ``/composer.json`` 的 ``autoload.psr-4`` 中有像下面这样的 ``App\\`` 和 ``Config\\`` 命名空间,你需要删除这些行并运行 ``composer dump-autoload``。
+.. important:: 如果你安装了 CodeIgniter v4.1.9 或更早版本,并且在 ``/composer.json`` 的 ``autoload.psr-4`` 中有像下面这样的 ``App\\`` 和 ``Config\\`` 命名空间,你需要删除这些行并运行 ``composer dump-autoload``。
 
     .. code-block:: text
 

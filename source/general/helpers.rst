@@ -30,7 +30,7 @@ CodeIgniter 默认不加载辅助文件,所以使用辅助函数的第一步是�
 
 其中 ``name`` 是辅助函数的文件名,不含 “**.php**” 文件扩展名或 “**_helper**” 部分。
 
-.. importent:: CodeIgniter 辅助函数文件名全部小写。因此,在区分大小写的文件系统(如 Linux)上,``helper('Name')`` 将无法工作。
+.. important:: CodeIgniter 辅助函数文件名全部小写。因此,在区分大小写的文件系统(如 Linux)上,``helper('Name')`` 将无法工作。
 
 例如,要加载名为 **cookie_helper.php** 的 **Cookie 辅助函数** 文件,你会这样做:
 
@@ -107,7 +107,7 @@ CodeIgniter 默认不加载辅助文件,所以使用辅助函数的第一步是�
 
 .. literalinclude:: helpers/006.php
 
-.. importent:: 不要指定命名空间 ``App\Helpers``。
+.. important:: 不要指定命名空间 ``App\Helpers``。
 
 :php:func:`helper()` 函数将扫描 **app/Config/Autoload.php** 中定义的所有 PSR-4 命名空间,并加载所有匹配的同名辅助函数。这允许加载任何模块的辅助函数,以及你专门为此应用程序创建的任何辅助函数。加载顺序如下:
 
