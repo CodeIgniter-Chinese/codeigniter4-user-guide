@@ -1,404 +1,321 @@
 ###########
-Email Class
+Email 类
 ###########
 
-CodeIgniter's robust Email Class supports the following features:
+CodeIgniter 强大的 Email 类支持以下功能:
 
--  Multiple Protocols: Mail, Sendmail, and SMTP
--  TLS and SSL Encryption for SMTP
--  Multiple recipients
--  CC and BCCs
--  HTML or Plaintext email
--  Attachments
--  Word wrapping
--  Priorities
--  BCC Batch Mode, enabling large email lists to be broken into small
-   BCC batches.
--  Email Debugging tools
+- 多种协议:Mail、Sendmail 和 SMTP
+- SMTP 的 TLS 和 SSL 加密
+- 多个收件人
+- 抄送和密送
+- HTML 或纯文本电子邮件
+- 附件
+- 文字换行
+- 优先级
+- BCC 批量模式,可将大型邮件列表拆分为多个小的 BCC 批次。
+- 电子邮件调试工具
 
 .. contents::
     :local:
-    :depth: 2
-
-.. raw:: html
-
-  <div class="custom-index container"></div>
+    :depth: 3
 
 ***********************
-Using the Email Library
+使用 Email 库
 ***********************
 
-Sending Email
+发送电子邮件
 =============
 
-Sending email is not only simple, but you can configure it on the fly or
-set your preferences in the **app/Config/Email.php** file.
+发送电子邮件不仅很简单,而且你可以即时配置或在 **app/Config/Email.php** 文件中设置首选项。
 
-Here is a basic example demonstrating how you might send email::
+下面是一个基本示例,演示了如何发送电子邮件:
 
-	$email = \Config\Services::email();
+.. literalinclude:: email/001.php
 
-	$email->setFrom('your@example.com', 'Your Name');
-	$email->setTo('someone@example.com');
-	$email->setCC('another@another-example.com');
-	$email->setBCC('them@their-example.com');
+.. _setting-email-preferences:
 
-	$email->setSubject('Email Test');
-	$email->setMessage('Testing the email class.');
-
-	$email->send();
-
-Setting Email Preferences
+设置电子邮件首选项
 =========================
 
-There are 21 different preferences available to tailor how your email
-messages are sent. You can either set them manually as described here,
-or automatically via preferences stored in your config file, described
-below:
+有 21 个不同的首选项可用于定制电子邮件消息的发送方式。你可以像这里描述的那样手动设置它们,也可以通过存储在配置文件中的首选项自动设置,如下所述:
 
-Preferences are set by passing an array of preference values to the
-email initialize method. Here is an example of how you might set some
-preferences::
+通过传递数组设置电子邮件首选项
+---------------------------------------------
 
-	$config['protocol'] = 'sendmail';
-	$config['mailPath'] = '/usr/sbin/sendmail';
-	$config['charset']  = 'iso-8859-1';
-	$config['wordWrap'] = true;
+首选项是通过向电子邮件初始化方法传递首选项值数组来设置的。下面是一个如何设置一些首选项的示例:
 
-	$email->initialize($config);
+.. literalinclude:: email/002.php
 
-.. note:: Most of the preferences have default values that will be used
-	if you do not set them.
+.. note:: 如果你不设置它们,大多数首选项都有默认值。
 
-Setting Email Preferences in a Config File
+在配置文件中设置电子邮件首选项
 ------------------------------------------
 
-If you prefer not to set preferences using the above method, you can
-instead put them into the config file. Simply open the
-**app/Config/Email.php** file, and set your configs in the
-Email properties. Then save the file and it will be used automatically.
-You will NOT need to use the ``$email->initialize()`` method if
-you set your preferences in the config file.
+如果你不喜欢使用上述方法设置首选项,你可以将它们放入配置文件中。只需打开
+**app/Config/Email.php** 文件,并在电子邮件属性中设置你的配置。然后保存文件,它将被自动使用。
+如果你在配置文件中设置了首选项,将**不需要**使用 ``$email->initialize()`` 方法。
 
-Email Preferences
+SMTP 协议的 SSL 与 TLS
+--------------------------------
+
+为了在与 SMTP 服务器通信时保护用户名、密码和电子邮件内容,应该对通道使用加密。已经广泛部署了两种不同的标准,在尝试排除电子邮件发送问题时,了解这些差异很重要。
+
+当提交电子邮件时,大多数 SMTP 服务器允许在端口 465 或 587 上连接。(原始端口 25 很少使用,因为许多 ISP 有屏蔽规则,而且通信完全是明文的)。
+
+关键差异在于端口 465 要求从一开始就使用 TLS 按照 `RFC 8314 <https://tools.ietf.org/html/rfc8314>`_ 来保护通信通道。而端口 587 上的连接允许明文连接,之后会使用 ``STARTTLS`` SMTP 命令升级通道以使用加密。
+
+端口 465 上的连接是否支持升级可能由服务器决定,所以如果服务器不允许,``STARTTLS`` SMTP 命令可能会失败。如果你将端口设置为 465,你应该尝试让 ``SMTPCrypto`` 设置为空,因为通信从一开始就是用 TLS 保护的,不需要 ``STARTTLS``。
+
+如果你的配置要求你连接到端口 587,你最好将 ``SMTPCrypto`` 设置为 ``tls``,因为这将在与 SMTP 服务器通信时实现 ``STARTTLS`` 命令,将明文通道切换为加密通道。初始通信将是明文的,并使用 ``STARTTLS`` 命令将通道升级为 TLS。
+
+检查首选项
+---------------------
+
+成功发送的最后使用的设置可以从实例属性 ``$archive`` 获取。这对于测试和调试很有帮助,以确定在 ``send()`` 调用时的实际值。
+
+电子邮件首选项
 =================
 
-The following is a list of all the preferences that can be set when
-sending email.
+以下是可以在发送电子邮件时设置的所有首选项列表。
 
 =================== ====================== ============================ =======================================================================
-Preference          Default Value          Options                      Description
+首选项             默认值                 选项                        描述
 =================== ====================== ============================ =======================================================================
-**userAgent**       CodeIgniter            None                         The "user agent".
-**protocol**        mail                   mail, sendmail, or smtp      The mail sending protocol.
-**mailpath**        /usr/sbin/sendmail     None                         The server path to Sendmail.
-**SMTPHost**        No Default             None                         SMTP Server Address.
-**SMTPUser**        No Default             None                         SMTP Username.
-**SMTPPass**        No Default             None                         SMTP Password.
-**SMTPPort**        25                     None                         SMTP Port.
-**SMTPTimeout**     5                      None                         SMTP Timeout (in seconds).
-**SMTPKeepAlive**   FALSE                  TRUE or FALSE (boolean)      Enable persistent SMTP connections.
-**SMTPCrypto**      No Default             tls or ssl                   SMTP Encryption
-**wordWrap**        TRUE                   TRUE or FALSE (boolean)      Enable word-wrap.
-**wrapChars**       76                                                  Character count to wrap at.
-**mailType**        text                   text or html                 Type of mail. If you send HTML email you must send it as a complete web
-                                                                        page. Make sure you don't have any relative links or relative image
-                                                                        paths otherwise they will not work.
-**charset**         utf-8                                               Character set (utf-8, iso-8859-1, etc.).
-**validate**        TRUE                   TRUE or FALSE (boolean)      Whether to validate the email address.
-**priority**        3                      1, 2, 3, 4, 5                Email Priority. 1 = highest. 5 = lowest. 3 = normal.
-**CRLF**            \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
-**newline**         \\n                    "\\r\\n" or "\\n" or "\\r"   Newline character. (Use "\\r\\n" to comply with RFC 822).
-**BCCBatchMode**    FALSE                  TRUE or FALSE (boolean)      Enable BCC Batch Mode.
-**BCCBatchSize**    200                    None                         Number of emails in each BCC batch.
-**DSN**             FALSE                  TRUE or FALSE (boolean)      Enable notify message from server
+**userAgent**       CodeIgniter            无                          “用户代理”。
+**protocol**        mail                   mail、sendmail 或 smtp       邮件发送协议。
+**mailPath**        /usr/sbin/sendmail     无                          到 Sendmail 的服务器路径。
+**SMTPHost**        无默认值               无                          SMTP 服务器地址。
+**SMTPUser**        无默认值               无                          SMTP 用户名。
+**SMTPPass**        无默认值               无                          SMTP 密码。
+**SMTPPort**        25                     无                          SMTP 端口。(如果设置为 465,不管 SMTPCrypto 设置如何,都将使用 TLS 建立连接)
+**SMTPTimeout**     5                      无                          SMTP 超时(秒)。
+**SMTPKeepAlive**   false                  true 或 false(布尔值)     启用持久 SMTP 连接。
+**SMTPCrypto**      无默认值               tls 或 ssl                  SMTP 加密。将此设置为“ssl”将使用 SSL 创建到服务器的安全通道,“tls”将向服务器发出 ``STARTTLS`` 命令。连接端口 465 应将此留空。
+**wordWrap**        true                   true 或 false(布尔值)      启用自动换行。
+**wrapChars**       76                                                  换行处的字符数。
+**mailType**        text                   text 或 html                 邮件类型。如果发送 HTML 电子邮件,你必须将其作为完整的网页发送。确保你没有任何相对链接或相对图像路径,否则它们将无法工作。
+**charset**         utf-8                                               字符集(utf-8、iso-8859-1 等)。
+**validate**        true                   true 或 false(布尔值)      是否验证电子邮件地址。
+**priority**        3                      1、2、3、4、5                电子邮件优先级。1 最高。5 最低。3 为正常。
+**CRLF**            \\n                    "\\r\\n" 或 "\\n" 或 "\\r"   换行符。(遵循 RFC 822 使用 "\\r\\n")。
+**newline**         \\n                    "\\r\\n" 或 "\\n" 或 "\\r"   换行符。(遵循 RFC 822 使用 "\\r\\n")。
+**BCCBatchMode**    false                  true 或 false(布尔值)      启用 BCC 批量模式。
+**BCCBatchSize**    200                    无                          每个 BCC 批次中的电子邮件数量。
+**DSN**             false                  true 或 false(布尔值)      启用来自服务器的通知消息
 =================== ====================== ============================ =======================================================================
 
-Overriding Word Wrapping
+覆盖文字换行
 ========================
 
-If you have word wrapping enabled (recommended to comply with RFC 822)
-and you have a very long link in your email it can get wrapped too,
-causing it to become un-clickable by the person receiving it.
-CodeIgniter lets you manually override word wrapping within part of your
-message like this::
+如果你启用了文字换行(遵循 RFC 822 的推荐)并且电子邮件中有一个非常长的链接,该链接也可能被换行,导致收件人无法点击。
+CodeIgniter 允许你在消息的一部分手动覆盖文字换行,如下所示::
 
-	The text of your email that
-	gets wrapped normally.
+    换行显示正常的电子邮件文本。
 
-	{unwrap}http://example.com/a_long_link_that_should_not_be_wrapped.html{/unwrap}
+    {unwrap}http://example.com/a_long_link_that_should_not_be_wrapped.html{/unwrap}
 
-	More text that will be
-	wrapped normally.
+    更多正常显示换行的文本。
 
-
-Place the item you do not want word-wrapped between: {unwrap} {/unwrap}
+将你不想换行的项放在: {unwrap} {/unwrap} 之间。
 
 ***************
-Class Reference
+类参考
 ***************
 
-.. php:class:: CodeIgniter\\Email\\Email
+.. php:namespace:: CodeIgniter\Email
 
-	.. php:method:: setFrom($from[, $name = ''[, $returnPath = null]])
+.. php:class:: Email
 
-		:param	string	$from: "From" e-mail address
-		:param	string	$name: "From" display name
-		:param	string	$returnPath: Optional email address to redirect undelivered e-mail to
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+    .. php:method:: setFrom($from[, $name = ''[, $returnPath = null]])
 
-		Sets the email address and name of the person sending the email::
+        :param    string    $from: “From” 电子邮件地址
+        :param    string    $name: “From” 显示名称
+        :param    string    $returnPath: 可选的电子邮件地址,用于重定向未送达的电子邮件
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-			$email->setFrom('you@example.com', 'Your Name');
+        设置发送电子邮件的电子邮件地址和名称:
 
-		You can also set a Return-Path, to help redirect undelivered mail::
+        .. literalinclude:: email/003.php
 
-			$email->setFrom('you@example.com', 'Your Name', 'returned_emails@example.com');
+        你还可以设置 Return-Path 来帮助重定向未送达的邮件:
 
-		.. note:: Return-Path can't be used if you've configured 'smtp' as
-			your protocol.
+        .. literalinclude:: email/004.php
 
-	.. php:method:: setReplyTo($replyto[, $name = ''])
+        .. note:: 如果你已将协议配置为 'smtp',则无法使用 Return-Path。
 
-		:param	string	$replyto: E-mail address for replies
-		:param	string	$name: Display name for the reply-to e-mail address
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+    .. php:method:: setReplyTo($replyto[, $name = ''])
 
-		Sets the reply-to address. If the information is not provided the
-		information in the `setFrom <#setFrom>`_ method is used. Example::
+        :param    string    $replyto: 回复电子邮件地址
+        :param    string    $name: 回复电子邮件地址的显示名称
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-			$email->setReplyTo('you@example.com', 'Your Name');
+        设置回复地址。如果没有提供信息,将使用 `setFrom <#setFrom>`_ 方法中的信息。例如:
 
-	.. php:method:: setTo($to)
+        .. literalinclude:: email/005.php
 
-		:param	mixed	$to: Comma-delimited string or an array of e-mail addresses
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+    .. php:method:: setTo($to)
 
-		Sets the email address(s) of the recipient(s). Can be a single e-mail,
-		a comma-delimited list or an array::
+        :param    mixed    $to: 逗号分隔的电子邮件地址字符串或电子邮件地址数组
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-			$email->setTo('someone@example.com');
+        设置收件人的电子邮件地址。可以是单个电子邮件,用逗号分隔的列表或数组:
 
-		::
+        .. literalinclude:: email/006.php
 
-			$email->setTo('one@example.com, two@example.com, three@example.com');
+        .. literalinclude:: email/007.php
 
-		::
+        .. literalinclude:: email/008.php
 
-			$email->setTo(['one@example.com', 'two@example.com', 'three@example.com']);
+    .. php:method:: setCC($cc)
 
-	.. php:method:: setCC($cc)
+        :param    mixed    $cc: 逗号分隔的电子邮件地址字符串或电子邮件地址数组
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-		:param	mixed	$cc: Comma-delimited string or an array of e-mail addresses
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+        设置抄送电子邮件地址。就像“to”,可以是单个电子邮件、用逗号分隔的列表或数组。
 
-		Sets the CC email address(s). Just like the "to", can be a single e-mail,
-		a comma-delimited list or an array.
+    .. php:method:: setBCC($bcc[, $limit = ''])
 
-	.. php:method:: setBCC($bcc[, $limit = ''])
+        :param    mixed    $bcc: 逗号分隔的电子邮件地址字符串或电子邮件地址数组
+        :param    int    $limit: 每批发送的最大电子邮件数
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-		:param	mixed	$bcc: Comma-delimited string or an array of e-mail addresses
-		:param	int	$limit: Maximum number of e-mails to send per batch
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+        设置密送电子邮件地址。就像 ``setTo()`` 方法一样,可以是单个电子邮件、用逗号分隔的列表或数组。
 
-		Sets the BCC email address(s). Just like the ``setTo()`` method, can be a single
-		e-mail, a comma-delimited list or an array.
+        如果设置了 ``$limit``,将启用“批量模式”,它将以不超过指定的 ``$limit`` 为一批发送电子邮件。
 
-		If ``$limit`` is set, "batch mode" will be enabled, which will send
-		the emails to batches, with each batch not exceeding the specified
-		``$limit``.
+    .. php:method:: setSubject($subject)
 
-	.. php:method:: setSubject($subject)
+        :param    string    $subject: 电子邮件主题
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-		:param	string	$subject: E-mail subject line
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+        设置电子邮件主题:
 
-		Sets the email subject::
+        .. literalinclude:: email/009.php
 
-			$email->setSubject('This is my subject');
+    .. php:method:: setMessage($body)
 
-	.. php:method:: setMessage($body)
+        :param    string    $body: 电子邮件消息体
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-		:param	string	$body: E-mail message body
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+        设置电子邮件消息体:
 
-		Sets the e-mail message body::
+        .. literalinclude:: email/010.php
 
-			$email->setMessage('This is my message');
+    .. php:method:: setAltMessage($str)
 
-	.. php:method:: setAltMessage($str)
+        :param    string    $str: 备用电子邮件消息体
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-		:param	string	$str: Alternative e-mail message body
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+        设置备用电子邮件消息体:
 
-		Sets the alternative e-mail message body::
+        .. literalinclude:: email/011.php
 
-			$email->setAltMessage('This is the alternative message');
+        如果你发送 HTML 格式的电子邮件,这是一个可选的消息字符串,可以使用它。它允许你指定一个不含 HTML 格式的备用消息,该消息将添加到头字符串中,供不接受 HTML 电子邮件的人使用。如果你没有设置自己的消息,CodeIgniter 将从你的 HTML 电子邮件中提取消息并剥离标签。
 
-		This is an optional message string which can be used if you send
-		HTML formatted email. It lets you specify an alternative message
-		with no HTML formatting which is added to the header string for
-		people who do not accept HTML email. If you do not set your own
-		message CodeIgniter will extract the message from your HTML email
-		and strip the tags.
+    .. php:method:: setHeader($header, $value)
 
-	.. php:method:: setHeader($header, $value)
+        :param    string    $header: 标题名称
+        :param    string    $value: 标题值
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype: CodeIgniter\\Email\\Email
 
-		:param	string	$header: Header name
-		:param	string	$value: Header value
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype: CodeIgniter\\Email\\Email
+        追加其他标题到电子邮件:
 
-		Appends additional headers to the e-mail::
+        .. literalinclude:: email/012.php
 
-			$email->setHeader('Header1', 'Value1');
-			$email->setHeader('Header2', 'Value2');
+    .. php:method:: clear($clearAttachments = false)
 
-	.. php:method:: clear($clearAttachments = false)
+        :param    bool    $clearAttachments: 是否清除附件
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype: CodeIgniter\\Email\\Email
 
-		:param	bool	$clearAttachments: Whether or not to clear attachments
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype: CodeIgniter\\Email\\Email
+        将所有电子邮件变量初始化为空状态。如果你在循环中运行电子邮件发送方法,这种方法很有用,它允许在循环之间重置数据。
 
-		Initializes all the email variables to an empty state. This method
-		is intended for use if you run the email sending method in a loop,
-		permitting the data to be reset between cycles.
+        .. literalinclude:: email/013.php
 
-		::
+        如果你将参数设置为 true,任何附件也将被清除:
 
-			foreach ($list as $name => $address)
-			{
-				$email->clear();
+        .. literalinclude:: email/014.php
 
-				$email->setTo($address);
-				$email->setFrom('your@example.com');
-				$email->setSubject('Here is your info '.$name);
-				$email->setMessage('Hi ' . $name . ' Here is the info you requested.');
-				$email->send();
-			}
+    .. php:method:: send($autoClear = true)
 
-		If you set the parameter to TRUE any attachments will be cleared as
-		well::
+        :param    bool    $autoClear: 是否自动清除消息数据
+        :returns:    成功为 true,失败为 false
+        :rtype:    bool
 
-			$email->clear(true);
+        电子邮件发送方法。根据成功或失败返回布尔值 true 或 false,使其可用于条件语句:
 
-	.. php:method:: send($autoClear = true)
+        .. literalinclude:: email/015.php
 
-		:param	bool	$autoClear: Whether to clear message data automatically
-		:returns:	TRUE on success, FALSE on failure
-		:rtype:	bool
+        如果请求成功,此方法将自动清除所有参数。要停止此行为,请传递 false:
 
-		The e-mail sending method. Returns boolean TRUE or FALSE based on
-		success or failure, enabling it to be used conditionally::
+        .. literalinclude:: email/016.php
 
-			if (! $email->send())
-			{
-				// Generate error
-			}
+        .. note:: 为了使用 ``printDebugger()`` 方法,你需要避免清除电子邮件参数。
 
-		This method will automatically clear all parameters if the request was
-		successful. To stop this behaviour pass FALSE::
+        .. note:: 如果启用了 ``BCCBatchMode``,收件人多于 ``BCCBatchSize``,此方法将始终返回布尔值 ``true``。
 
-			if ($email->send(false))
-			{
-				// Parameters won't be cleared
-			}
+    .. php:method:: attach($filename[, $disposition = ''[, $newname = null[, $mime = '']]])
 
-		.. note:: In order to use the ``printDebugger()`` method, you need
-			to avoid clearing the email parameters.
+        :param    string    $filename: 文件名
+        :param    string    $disposition: 附件的 'disposition'。大多数电子邮件客户端会忽略这里使用的 MIME 规范并自行决定。https://www.iana.org/assignments/cont-disp/cont-disp.xhtml
+        :param    string    $newname: 要在电子邮件中使用的自定义文件名
+        :param    string    $mime: 要使用的 MIME 类型(对缓冲数据有用)
+        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :rtype:    CodeIgniter\\Email\\Email
 
-		.. note:: If ``BCCBatchMode`` is enabled, and there are more than
-			``BCCBatchSize`` recipients, this method will always return
-			boolean ``TRUE``.
+        启用你发送一个附件。在第一个参数中放置文件路径/名称。对于多个附件,多次使用该方法。例如:
 
-	.. php:method:: attach($filename[, $disposition = ''[, $newname = null[, $mime = '']]])
+        .. literalinclude:: email/017.php
 
-		:param	string	$filename: File name
-		:param	string	$disposition: 'disposition' of the attachment. Most
-			email clients make their own decision regardless of the MIME
-			specification used here. https://www.iana.org/assignments/cont-disp/cont-disp.xhtml
-		:param	string	$newname: Custom file name to use in the e-mail
-		:param	string	$mime: MIME type to use (useful for buffered data)
-		:returns:	CodeIgniter\\Email\\Email instance (method chaining)
-		:rtype:	CodeIgniter\\Email\\Email
+        要使用默认 disposition(attachment),请将第二个参数留空,否则使用自定义 disposition:
 
-		Enables you to send an attachment. Put the file path/name in the first
-		parameter. For multiple attachments use the method multiple times.
-		For example::
+        .. literalinclude:: email/018.php
 
-			$email->attach('/path/to/photo1.jpg');
-			$email->attach('/path/to/photo2.jpg');
-			$email->attach('/path/to/photo3.jpg');
+        你也可以使用 URL:
 
-		To use the default disposition (attachment), leave the second parameter blank,
-		otherwise use a custom disposition::
+        .. literalinclude:: email/019.php
 
-			$email->attach('image.jpg', 'inline');
+        如果你想使用自定义文件名,可以使用第三个参数:
 
-		You can also use a URL::
+        .. literalinclude:: email/020.php
 
-			$email->attach('http://example.com/filename.pdf');
+        如果你需要使用缓冲字符串而不是真实的物理文件,可以使用第一个参数作为缓冲区,第三个参数作为文件名,第四个参数为 MIME 类型:
 
-		If you'd like to use a custom file name, you can use the third parameter::
+        .. literalinclude:: email/021.php
 
-			$email->attach('filename.pdf', 'attachment', 'report.pdf');
+    .. php:method:: setAttachmentCID($filename)
 
-		If you need to use a buffer string instead of a real - physical - file you can
-		use the first parameter as buffer, the third parameter as file name and the fourth
-		parameter as mime-type::
+        :param    string    $filename: 已存在的附件文件名
+        :returns:    附件内容 ID,如果未找到则为 false
+        :rtype:    string
 
-			$email->attach($buffer, 'attachment', 'report.pdf', 'application/pdf');
+        设置并返回附件的内容 ID,这使你可以将内嵌(图片)附件嵌入 HTML 中。第一个参数必须已附加的文件名。
 
-	.. php:method:: setAttachmentCID($filename)
+        .. literalinclude:: email/022.php
 
-		:param	string	$filename: Existing attachment filename
-		:returns:	Attachment Content-ID or FALSE if not found
-		:rtype:	string
+        .. note:: 为了使内容 ID 在每封电子邮件中都是唯一的,必须对其进行重新创建。
 
-		Sets and returns an attachment's Content-ID, which enables your to embed an inline
-		(picture) attachment into HTML. First parameter must be the already attached file name.
-		::
+    .. php:method:: printDebugger($include = ['headers', 'subject', 'body'])
 
-			$filename = '/img/photo1.jpg';
-			$email->attach($filename);
-			foreach ($list as $address)
-			{
-				$email->setTo($address);
-				$cid = $email->setAttachmentCID($filename);
-				$email->setMessage('<img src="cid:'. $cid .'" alt="photo1" />');
-				$email->send();
-			}
+        :param    array    $include: 要打印的消息部分
+        :returns:    格式化的调试数据
+        :rtype:    string
 
-		.. note:: Content-ID for each e-mail must be re-created for it to be unique.
+        返回包含任何服务器消息、电子邮件标头和电子邮件消息的字符串。用于调试。
 
-	.. php:method:: printDebugger($include = ['headers', 'subject', 'body'])
+        你可以选择只打印指定的消息部分。有效选项为:**headers**、**subject**、**body**。
 
-		:param	array	$include: Which parts of the message to print out
-		:returns:	Formatted debug data
-		:rtype:	string
+        例如:
 
-		Returns a string containing any server messages, the email headers, and
-		the email message. Useful for debugging.
+        .. literalinclude:: email/023.php
 
-		You can optionally specify which parts of the message should be printed.
-		Valid options are: **headers**, **subject**, **body**.
-
-		Example::
-
-			// You need to pass FALSE while sending in order for the email data
-			// to not be cleared - if that happens, printDebugger() would have
-			// nothing to output.
-			$email->send(false);
-
-			// Will only print the email headers, excluding the message subject and body
-			$email->printDebugger(['headers']);
-
-		.. note:: By default, all of the raw data will be printed.
+        .. note:: 默认情况下,所有原始数据都将被打印。

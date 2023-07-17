@@ -1,534 +1,511 @@
 ###############
-Session 类
+Session 库
 ###############
 
-Session 类允许你维护用户的 “状态” 并跟踪他们在浏览你的网站时的活动。
+Session 类允许你在用户浏览你的站点时维护用户的“状态”并跟踪他们的活动。
 
-CodeIgniter 有一些用于会话（session）储存的驱动程序，你可以在目录的最后部分中看到它们：
+CodeIgniter 带有几个 session 存储驱动器,你可以在目录内容的最后一节中看到:
 
 .. contents::
     :local:
     :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
 使用 Session 类
-*********************************************************************
+***********************
 
-初始化会话
-==================================================================
+初始化 Session
+======================
 
-会话通常会在每次加载页面时在全局范围内运行，因此应该恰当地初始化 Session 类。
+Session 通常会与每个页面加载一起全局运行,所以 Session 类应该自动初始化。
 
-访问并初始化会话： ::
+要访问和初始化 session:
 
-    $session = \Config\Services::session($config);
+.. literalinclude:: sessions/001.php
 
-``$config`` 参数是可选的，它是你的应用程序配置。如果未提供，服务将会使用你的默认配置。
+``$config`` 参数是可选的 - 你的应用配置。如果没有提供,服务注册表将实例化你的默认配置。
 
-初始化成功后，可以用以下方式使用 Session 库对象： ::
+加载后,可以使用 ``$session`` 访问 Session 库对象:
 
-    $session
+.. literalinclude:: sessions/002.php
 
-或者，你可以使用使用默认配置的 helper 方法，这个版本阅读起来会更友好一些，但是不能配置任何配置选项
+另外,你可以使用助手函数,它将使用默认配置选项。这个版本的可读性更好一些,但不接受任何配置选项。
 
-::
+.. literalinclude:: sessions/002.php
 
-    $session = session();
+Session 如何工作?
+=====================
 
-Session 是怎样工作的？
-========================
+当页面加载时,session 类将检查用户的浏览器是否发送了有效的 session cookie。如果 session cookie **不存在**(或与服务器上存储的不匹配或已过期),则将创建一个新 session 并保存。
 
-加载页面后，Session 类将检查用户的浏览器是否发送了有效的会话 cookie。如果会话 Cookie **不存在** （或者如果它不匹配一个存储在服务器上的会话ID或已过期）, 新会话将被创建和保存。
+如果存在有效的 session,则会更新其信息。使用每次更新,如果配置了 session ID 可能会被重新生成。
 
-如果确实存在有效的会话，则其信息将被更新。对于每次更新，如果配置了会话 ID ，则可以对其进行重新生成。
+Initialized 后,Session 类会自动运行这一点非常重要。你不需要做任何事情就可以引起上述行为发生。如下所示,你可以使用 session 数据,但读取、写入和更新 session 的过程是自动的。
 
-对你来说很重要的一点是，一旦初始化，Session 类就会自动运行。你无需执行任何操作即可导致上述现象发生。如下所示，你可以使用会话数据，但是读取，写入和更新会话的过程是自动的。
+.. note:: 在 CLI 下,Session 库将自动停止自己,因为这是一个完全基于 HTTP 协议的概念。
 
-.. note:: 在 CLI 下，Session 库将自动停止运行，因为它只是一个完全基于 HTTP 协议的概念。
-
-关于异步的说明
+关于并发的注意事项
 ------------------------
 
-除非你要开发使用 AJAX 的网站，否则可以跳过本节。但是，如果你遇到了性能问题，那么本说明正是你所需要的。
+除非你正在开发一个使用大量 AJAX 的网站,否则可以跳过这个部分。但是,如果是这样,并且如果遇到性能问题,那么这条注意事项正是你所需要的。
 
-早期版本的 CodeIgniter 中的会话未实现锁定，这意味着使用同一会话的两个 HTTP 请求可以完全同时运行。使用更合适的技术术语就是，请求是非阻塞的。
+CodeIgniter 2.x 中的 session 并没有实现锁定,这意味着可以完全同时运行两个使用相同 session 的 HTTP 请求。使用一个更合适的技术术语来说——请求是非阻塞的。
 
-但是，会话上下文中的非阻塞请求也意味着不安全，因为在一个请求中对会话数据的修改（或会话 ID 再生）可能会干扰第二个并发请求的执行。这个细节是许多问题的根源，也是 CodeIgniter 4 拥有完全重写的 Session 库的主要原因。
+但是,在 session 背景下的非阻塞请求也意味着不安全,因为一个请求中的 session 数据修改(或 session ID 重新生成)可能会干扰第二个并发请求的执行。这一细节是许多问题的根源,也是 CodeIgniter 3 完全重写 Session 库的主要原因。
 
-我们为什么要告诉你这个？因为在尝试找出性能问题的原因之后，你可能会得出结论，锁定是问题所在，因此研究了如何删除锁定……
+为什么要告诉你这些? 因为在试图找到性能问题的原因后,你可能会得出锁定是问题的结论,因此会研究如何删除锁......
 
-不要那样做！删除锁定是 **错误** 的，它将给你带来更多问题！
+不要这样做!删除锁将是**错误**的,并且会给你带来更多问题!
 
-锁定不是问题，而是解决方案。你的问题是，你已经打开了会话，但已经处理了该会话，因此不再需要它。因此，你需要的是在不再需要当前请求后关闭会话。
+锁定不是问题,它是解决方案。你的问题在于,你仍然打开了 session,而你已经处理了它,因此不再需要它。 所以,你需要的是在不再需要它时关闭当前请求的 session。
 
-::
+.. literalinclude:: sessions/003.php
 
-    $session->destroy();
-
-什么是会话数据？
+什么是 Session 数据?
 =====================
 
-会话数据是与特定会话 ID（cookie）关联的数组。
+Session 数据只是一个与特定 Session ID 相关联的数组(Cookie)。
 
-如果你以前在 PHP 中使用过会话，则应该熟悉 PHP 的 `$_SESSION 全局变量 <https://www.php.net/manual/en/reserved.variables.session.php>`_ （如果不熟悉，请阅读该链接上的内容）。
+如果你之前使用过 PHP 的 session,你应该熟悉 PHP 的 `$_SESSION 超全局变量 <https://www.php.net/manual/en/reserved.variables.session.php>`_ (如果不熟悉,请阅读该链接的内容)。
 
-CodeIgniter 使用与 PHP 提供的会话处理程序机制相同的方式来访问其会话数据。使用会话数据就像操作（读取，设置和删除） ``$_SESSION``  数组一样简单。
+CodeIgniter 通过相同的方式提供对其 Session 数据的访问,因为它使用 PHP 提供的 Session 处理程序机制。 使用 Session 数据就像操作(读取、设置和取消设置值) ``$_SESSION`` 数组一样简单。
 
-此外，CodeIgniter 还提供 2 种特殊类型的会话数据，下面将进一步说明：闪存数据（flashdata）和临时数据（tempdata）。
+.. note:: 一般来说,使用全局变量是不好的实践。 所以直接使用超全局 ``$_SESSION`` 不是推荐的做法。
 
-检索会话数据
+此外,CodeIgniter 还提供了 2 种特殊类型的 Session 数据,下面将进一步解释: `Flashdata`_ 和 `Tempdata`_。
+
+.. note:: 出于历史原因,我们将不包括 Flashdata 和 Tempdata 的 Session 数据称为“userdata”。
+
+检索 Session 数据
 =======================
 
-会话数组中的任何信息都可以通过 ``$_SESSION`` 全局变量获得： ::
+可以通过 ``$_SESSION`` 超全局变量访问 Session 数组中的任何信息:
 
-    $_SESSION['item']
+.. literalinclude:: sessions/004.php
 
-或通过常规访问器方法： ::
+或者通过常规的访问器方法:
 
-    $session->get('item');
+.. literalinclude:: sessions/005.php
 
-或通过魔术方法，例如 getter ： ::
+或者通过魔术 getter:
 
-    $session->item
+.. literalinclude:: sessions/006.php
 
-甚至可以通过会话辅助函数： ::
+甚至可以通过 session 助手方法:
 
-    session('item');
+.. literalinclude:: sessions/007.php
 
-``item`` 就是你所要获取的项目所对应的数组的键。例如，要将先前存储的“名称”项分配给 ``$name`` 变量，你可以这样做： ::
+其中 ``item`` 是与你希望获取的项对应的数组键。例如,要将先前存储的 ``name`` 项赋值给 ``$name`` 变量,你将执行:
 
-    $name = $_SESSION['name'];
+.. literalinclude:: sessions/008.php
 
-    // 或者：
-    $name = $session->name
+.. note:: 如果尝试访问的项不存在,``get()`` 方法将返回 null。
 
-    // 或者：
-    $name = $session->get('name');
+如果你想检索所有现有的 session 数据,只需省略项键(魔术 getter 仅适用于单个属性值):
 
-.. note:: 对于 ``get()`` 方法，如果你要访问的项目不存在，返回 NULL。
+.. literalinclude:: sessions/009.php
 
-如果要检索所有现有的用户数据，则可以简单地省略 item 键（获取器仅适用于单个属性值）： ::
+.. important:: ``get()`` 方法在通过键检索单个项时,将返回 flashdata 或 tempdata 项。但是在从 session 中获取所有数据时不会返回 flashdata 或 tempdata。
 
-    $_SESSION
-
-    // 或者：
-    $session->get();
-
-添加会话数据
+添加 Session 数据
 ===================
 
-假设某个特定用户登录到你的网站。身份验证后，你可以将其用户名和电子邮件地址添加到会话中，从而使你可以全局使用该数据，而不必在需要时运行数据库查询。
+假设特定用户登录你的站点。一旦认证,你可以将用户名和电子邮件地址添加到 session 中,这使得当你需要时可以全局访问它们而无需运行数据库查询。
 
-你可以把 ``$_SESSION`` 看作像其他变量一样，将数据简单地分配给数组。或作为 ``$session`` 的属性。
+你可以简单地像对任何其他变量一样将数据分配给 ``$_SESSION`` 数组。或者作为 ``$session`` 的属性。
 
-以前的 userdata 方法已被废弃，但是你可以将包含新会话数据的数组传递给该 ``set()`` 方法： ::
+你可以传递一个包含新 Session 数据的数组到 ``set()`` 方法:
 
-    $session->set($array);
+.. literalinclude:: sessions/010.php
 
-此处 ``$array`` 是一个包含新数据的关联数组，这是一个例子： ::
+其中 ``$array`` 是一个关联数组,包含你的新数据。这里是一个例子:
 
-    $newdata = [
-        'username'  => 'johndoe',
-        'email'     => 'johndoe@some-site.com',
-        'logged_in' => TRUE
-    ];
+.. literalinclude:: sessions/011.php
 
-    $session->set($newdata);
+如果你想一次添加一个 Session 数据,``set()`` 也支持这种语法:
 
-如果要一次为一个会话数据只添加一个值，则 ``set()`` 还支持以下语法： ::
+.. literalinclude:: sessions/012.php
 
-    $session->set('some_name', 'some_value');
+如果你想验证一个 Session 值是否存在,只需使用 ``isset()`` 检查:
 
-如果要验证会话值是否存在，只需使用 ``isset()`` 以下命令进行检查： ::
+.. literalinclude:: sessions/013.php
 
-    // 如果'some_name'项目不存在或为 NULL，则返回 FALSE，反之则返回 TRUE
-    isset($_SESSION['some_name'])
+或者你可以调用 ``has()``:
 
-或者你可以调用 ``has()``： ::
+.. literalinclude:: sessions/014.php
 
-    $session->has('some_name');
-
-向会话数据推送新值
+向 Session 数据中推送新值
 =================================
 
-push 方法用于将新值推送到作为数组的会话值上。例如，如果“兴趣爱好”键包含一个兴趣爱好数组，则可以将新值添加到数组中，如下所示： ::
+``push()`` 方法用于将新值推送到一个是数组的 Session 值上。例如,如果 ``hobbies`` 键包含爱好数组,你可以像这样向数组添加一个新值:
 
-$session->push('hobbies', ['sport'=>'tennis']);
+.. literalinclude:: sessions/015.php
 
-删除会话数据
+删除 Session 数据
 =====================
 
-与其他任何变量一样， ``$_SESSION`` 使用 ``unset()`` 通过以下方式取消设置的值： ::
+与任何其他变量一样,可以通过 ``unset()`` 取消设置 ``$_SESSION`` 中的值:
 
-    unset($_SESSION['some_name']);
+.. literalinclude:: sessions/016.php
 
-    // 或者同时取消设置多个值
+同样,正如 ``set()`` 可用于向 Session 添加信息一样,``remove()`` 可用于通过传递 session 键来删除它。例如,如果你要从 Session 数据数组中删除 ``some_name``:
 
-    unset(
-        $_SESSION['some_name'],
-        $_SESSION['another_name']
-    );
+.. literalinclude:: sessions/017.php
 
-同样，就像 ``set()`` 可以用来向会话添加信息一样， ``remove()`` 也可以通过传递会话数据的键来删除信息。例如，如果要从会话数据数组中删除“some_name”： ::
+该方法还接受要取消设置的项键数组:
 
-    $session->remove('some_name');
+.. literalinclude:: sessions/018.php
 
-此方法还接受要取消设置的项目键数组： ::
+Flashdata
+=========
 
-    $array_items = ['username', 'email'];
-    $session->remove($array_items);
+CodeIgniter 支持 “flashdata”,也就是只在下一次请求中可用,然后自动清除的 session 数据。
 
-闪存数据
-=======================
+这在需要一次性信息、错误或状态消息时非常有用(例如:“记录 2 已删除”)。
 
-CodeIgniter 支持“flashdata”，这是仅对下一个请求可用的会话数据，然后将其自动清除。
+需要注意的是,flashdata 变量是由 CodeIgniter session 处理程序管理的普通 session 变量。
 
-这可能非常有用，特别是对于一次性的信息，错误或状态消息（例如：“记录 2 已删除”）。
+要将现有项标记为 “flashdata”:
 
-应当注意，flashdata 变量是常规会话变量，在 CodeIgniter 会话处理程序内部进行管理。
+.. literalinclude:: sessions/019.php
 
-要将现有条目标记为“flashdata”： ::
+如果要将多个项标记为 flashdata,只需将键作为数组传递即可:
 
-    $session->markAsFlashdata('item');
+.. literalinclude:: sessions/020.php
 
-如果要将多个项目标记为 flashdata，只需将键作为数组传递： ::
+要添加 flashdata:
 
-    $session->markAsFlashdata(['item', 'item2']);
+.. literalinclude:: sessions/021.php
 
-要添加闪存数据： ::
+或者可以使用 ``setFlashdata()`` 方法:
 
-    $_SESSION['item'] = 'value';
-    $session->markAsFlashdata('item');
+.. literalinclude:: sessions/022.php
 
-或者使用以下 ``setFlashdata()`` 方法： ::
+与 ``set()`` 一样,你也可以向 ``setFlashdata()`` 传递数组。
 
-    $session->setFlashdata('item', 'value');
+通过 ``$_SESSION`` 读取 flashdata 变量,就像读取常规 session 数据一样:
 
-你还可以通过与 ``set()`` 相同的方式，将一个数组传递给 ``setFlashdata()`` 。
+.. literalinclude:: sessions/023.php
 
-读取 flashdata 变量与通过 ``$_SESSION`` 以下方式读取常规会话数据相同： ::
+.. important:: ``get()`` 方法在通过键检索单个项时,将返回 flashdata 项。但是在从 session 中获取所有数据时不会返回 flashdata。
 
-    $_SESSION['item']
+但是,如果你想确定正在读取 “flashdata”(而不是任何其他数据),也可以使用 ``getFlashdata()`` 方法:
 
-.. important:: ``get()`` 当通过键检索单个项时，该方法将返回 flashdata 项。但是，从会话中获取所有用户数据时，它不会返回 flashdata。
+.. literalinclude:: sessions/024.php
 
-但是，如果你想确定自己正在读取“flashdata”（而不是其他种类的数据），则也可以使用以下 ``getFlashdata()`` 方法： ::
+.. note:: 如果找不到该项,``getFlashdata()`` 方法将返回 null。
 
-    $session->getFlashdata('item');
+当然,如果你想检索所有现有的 flashdata:
 
-或者，要获取包含所有 flashdata 的数组，只需省略 key 参数： ::
+.. literalinclude:: sessions/025.php
 
-    $session->getFlashdata();
 
-.. note:: getFlashdata() 如果找不到该项目，则该方法返回 NULL。
+如果你发现需要通过其他请求保留 flashdata 变量,可以使用 ``keepFlashdata()`` 方法。你可以保留单个项或 flashdata 项数组。
 
-如果发现需要通过其他请求保留 flashdata 变量，则可以使用 ``keepFlashdata()`` 方法来实现。你可以传递单个项或一组 flashdata 项来保留。
+.. literalinclude:: sessions/026.php
 
-::
-
-    $session->keepFlashdata('item');
-    $session->keepFlashdata(['item1', 'item2', 'item3']);
-
-临时数据
+Tempdata
 ========
 
-CodeIgniter 还支持“tempdata”这种具有特定到期时间的会话数据。该值过期或会话过期或被删除后，该值将自动删除。
+CodeIgniter 还支持 “tempdata”,也就是在特定过期时间后自动删除的 session 数据。在值过期或 session 过期或删除后,该值将自动删除。
 
-与 flashdata 相似，tempdata 变量由 CodeIgniter 会话处理程序在内部进行管理。
+与 flashdata 类似,tempdata 变量由 CodeIgniter session 处理程序内部管理。
 
-要将现有项目标记为“tempdata”，只需将其密钥和有效时间（以秒为单位）传递给该 ``mark_as_temp()`` 方法： ::
+要将现有项标记为 “tempdata”,只需传递其键和过期时间(以秒为单位!)给 ``markAsTempdata()`` 方法:
 
-    // 'item' will be erased after 300 seconds
-    $session->markAsTempdata('item', 300);
+.. literalinclude:: sessions/027.php
 
-你可以通过两种方式将多个项目标记为临时数据，具体取决于你是否希望它们都具有相同的到期时间： ::
+你可以通过两种方式标记多个项为 tempdata,这取决于是否希望它们都具有相同的过期时间:
 
-    // “item”和“item2”都将在 300 秒后过期
-    $session->markAsTempdata(['item', 'item2'], 300);
+.. literalinclude:: sessions/028.php
 
-    // 'item'将在 300 秒后删除，而'item2'将在 240 秒后删除
-    $session->markAsTempdata([
-        'item'  => 300,
-        'item2' => 240
-    ]);
+添加 tempdata:
 
-添加临时数据： ::
+.. literalinclude:: sessions/029.php
 
-    $_SESSION['item'] = 'value';
-    $session->markAsTempdata('item', 300); // Expire in 5 minutes
+或者也可以使用 ``setTempdata()`` 方法:
 
-或者使用以下 ``setTempdata()`` 方法： ::
+.. literalinclude:: sessions/030.php
 
-    $session->setTempdata('item', 'value', 300);
+你也可以向 ``setTempdata()`` 传递数组:
 
-你还可以将数组传递给 ``set_tempdata()`` ： ::
+.. literalinclude:: sessions/031.php
 
-    $tempdata = ['newuser' => TRUE, 'message' => 'Thanks for joining!'];
-    $session->setTempdata($tempdata, NULL, $expire);
+.. note:: 如果省略过期时间或设置为 0,将使用默认的 300 秒(5 分钟)的生存时间。
 
-.. note:: 如果省略了到期时间或将其设置为 0，则将使用默认的生存时间值为 300 秒（或 5 分钟）。
+要读取 tempdata 变量,再次只需通过 ``$_SESSION`` 超全局数组访问它:
 
+.. literalinclude:: sessions/032.php
 
-要读取 tempdata 变量，同样可以通过 ``$_SESSION`` 超全局数组访问它 ： ::
+.. important:: ``get()`` 方法在通过键检索单个项时,将返回 tempdata 项。但是在从 session 中获取所有数据时不会返回 tempdata。
 
-    $_SESSION['item']
+或者如果你想确定正在读取 “tempdata”(而不是任何其他数据),也可以使用 ``getTempdata()`` 方法:
 
-.. important:: ``get()`` 当通过键检索单个项目时，该方法将返回 tempdata 项目。但是，从会话中获取所有用户数据时，它不会返回 tempdata。
+.. literalinclude:: sessions/033.php
 
-或者，如果你想确保自己正在读取“tempdata”（而不是其他种类的数据），则也可以使用以下 ``getTempdata()`` 方法： ::
+.. note:: 如果找不到该项,``getTempdata()`` 方法将返回 null。
 
-    $session->getTempdata('item');
+当然,如果你想检索所有现有的 tempdata:
 
-当然，如果要检索所有现有的临时数据： ::
+.. literalinclude:: sessions/034.php
 
-    $session->getTempdata();
+如果你需要在过期之前删除 tempdata 值,可以直接从 ``$_SESSION`` 数组中取消设置它:
 
-.. note:: ``getTempdata()`` 如果找不到该项目，则该方法返回 NULL。
+.. literalinclude:: sessions/035.php
 
-如果你需要在一个临时数据过期之前删除它，你可以在 ``$_SESSION`` 数组里面做到 ::
+但是,这不会删除使该特定项成为 tempdata 的标记(它将在下一个 HTTP 请求上失效),所以如果你打算在同一请求中重用相同的键,你会想使用 ``removeTempdata()``:
 
-    unset($_SESSION['item']);
+.. literalinclude:: sessions/036.php
 
-但是，这不会删除使该特定项成为 tempdata 的标记（它将在下一个 HTTP 请求中失效），因此，如果你打算在同一请求中重用同一键，则需要使用 ``removeTempdata()``： ::
-
-    $session->removeTempdata('item');
-
-销毁会话
+销毁一个 Session
 ====================
 
-要清除当前会话（例如，在注销过程中），你可以简单地使用 PHP 的 `session_destroy() <https://www.php.net/session_destroy>`_ 函数或库的 ``destroy()`` 方法。两者将以完全相同的方式工作： ::
+.. _session-destroy:
 
-    session_destroy();
+destroy()
+---------
 
-    // 或者
+要清除当前 session(例如在退出登录时),可以使用 PHP 的 `session_destroy() <https://www.php.net/session_destroy>`_ 函数或库的 ``destroy()`` 方法。两者的作用完全相同:
 
-    $session->destroy();
+.. literalinclude:: sessions/037.php
 
-.. note:: 这必须是你在同一请求期间执行的与会话有关的最后一个操作。销毁会话后，所有会话数据（包括 flashdata 和 tempdata）将被永久销毁，并且在同一请求期间功能将无法使用。
+.. note:: 这必须是在同一请求期间执行的最后一个与 session 相关的操作。所有 session 数据(包括 flashdata 和 tempdata)将被永久销毁,并且在销毁 session 后,同一请求中的函数将不可用。
 
+.. _session-stop:
 
-你还可以 ``stop()`` 通过删除旧的 session_id，销毁所有数据并销毁包含会话 ID 的 cookie，使用该方法完全终止会话： ::
+stop()
+------
 
-    $session->stop();
+.. deprecated:: 4.3.5
 
-访问会话元数据
+Session 类还有 ``stop()`` 方法。
+
+.. warning:: 在 v4.3.5 之前,由于一个错误,此方法不会销毁 session。
+
+从 v4.3.5 开始,此方法已被修改为销毁 session。但是,由于它与 ``destroy()`` 方法完全相同,已被弃用。请使用 ``destroy()`` 方法。
+
+访问 Session 元数据
 ==========================
 
-在以前的 CodeIgniter 版本中，默认情况下，会话数据数组包括 4 个项目：“session_id”，“ip_address”，“user_agent”，“last_activity”。
+在 CodeIgniter 2 中,默认情况下 session 数据数组包含 4 个项:
+'session_id'、'ip_address'、'user_agent'、'last_activity'。
 
+这是由于 session 工作方式的特殊性,但现在在我们的新实现中不再是必需的。
+但是,你的应用程序可能依赖于这些值,所以这里提供了访问它们的替代方法:
 
-这是由于会话如何工作的细节所致，但现在在我们的新实现中不再需要。但是，你的应用程序可能会依赖这些值，因此下面是访问它们的替代方法：
-
-  - session_id: ``session_id()``
+  - session_id: ``$session->session_id`` 或 ``session_id()`` (PHP 的内置函数)
   - ip_address: ``$_SERVER['REMOTE_ADDR']``
-  - user_agent: ``$_SERVER['HTTP_USER_AGENT']`` (unused by sessions)
-  - last_activity: Depends on the storage, no straightforward way. Sorry!
+  - user_agent: ``$_SERVER['HTTP_USER_AGENT']`` (session 不使用它)
+  - last_activity: 取决于存储,没有直接的方法。抱歉!
 
-会话首选项
-************************************
+Session 首选项
+*******************
 
-通常，CodeIgniter 可以使所有工作立即可用。但是，会话是任何应用程序中非常敏感的组件，因此必须进行一些仔细的配置。请花点时间考虑所有选项及其效果。
+CodeIgniter 通常会使一切正常工作。但是,Session 是任何应用程序中一个非常敏感的组件,因此必须谨慎配置。请花时间考虑所有选项及其影响。
 
-你将在 **app/Config/App.php** 文件中找到以下与会话相关的首选项：
+.. note:: 自 v4.3.0 起,添加了新的 **app/Config/Session.php** 文件。之前,Session 首选项在你的 **app/Config/App.php** 文件中。
 
-============================= =========================================== =============================================== ==========================================================
-           配置项                                  默认                                         选项                                                 描述
-============================= =========================================== =============================================== ==========================================================
-**sessionDriver**              CodeIgniter\Session\Handlers\FileHandler    CodeIgniter\Session\Handlers\FileHandler         使用的会话驱动程序
-                                                                           CodeIgniter\Session\Handlers\DatabaseHandler
-                                                                           CodeIgniter\Session\Handlers\MemcachedHandler
-                                                                           CodeIgniter\Session\Handlers\RedisHandler
-                                                                           CodeIgniter\Session\Handlers\ArrayHandler
-**sessionCookieName**          ci_session                                  [A-Za-z\_-] characters only                      会话 cookie 的名字
-**sessionExpiration**          7200 (2 hours)                              Time in seconds (integer)                        您希望会话持续的秒数。如果您希望会话不过期（直到浏览器关闭），请将值设置为零：0
-**sessionSavePath**            NULL                                        None                                             指定存储位置，取决于所使用的驱动程序。
-**sessionMatchIP**             FALSE                                       TRUE/FALSE (boolean)                             读取会话 cookie 时是否验证用户的 IP 地址。
-                                                                                                                            请注意，某些 ISP 会动态更改 IP，因此，如果您希望会话不过期，可能会将其设置为 FALSE。
-**sessionTimeToUpdate**        300                                         Time in seconds (integer)                        此选项控制会话类重新生成自身并创建新的频率。会话 ID。将其设置为 0 将禁用会话 ID 再生。
-**sessionRegenerateDestroy**   FALSE                                       TRUE/FALSE (boolean)                             自动重新生成时是否销毁与旧会话 ID 相关联的会话 ID。
-                                                                                                                            设置为 FALSE 时，垃圾收集器稍后将删除数据。
-============================= =========================================== =============================================== ==========================================================
+你会在 **app/Config/Session.php** 文件中找到以下与 Session 相关的首选项:
 
-.. note:: 作为最后的选择，如果未配置上述任何项，则会话库将尝试获取 PHP 的与会话相关的 INI 设置以及旧式 CI 设置，例如“sess_expire_on_close”。但是，你永远不要依赖此行为，因为它可能导致意外的结果或将来被更改。请正确配置所有内容。
+======================= ============================================ ================================================= ============================================================================================
+首选项                  默认值                                      选项                                           描述
+======================= ============================================ ================================================= ============================================================================================
+**driver**              CodeIgniter\\Session\\Handlers\\FileHandler  CodeIgniter\\Session\\Handlers\\FileHandler       要使用的 session 存储驱动程序。
+                                                                     CodeIgniter\\Session\\Handlers\\DatabaseHandler
+                                                                     CodeIgniter\\Session\\Handlers\\MemcachedHandler
+                                                                     CodeIgniter\\Session\\Handlers\\RedisHandler
+                                                                     CodeIgniter\\Session\\Handlers\\ArrayHandler
+**cookieName**          ci_session                                   [A-Za-z\_-] 字符                               用于 session cookie 的名称。
+**expiration**          7200 (2 小时)                               秒数(整数)                                    你希望 session 持续的秒数。
+                                                                                                                       如果你希望一个不过期的 session(直到浏览器关闭),请将值设置为零:0
+**savePath**            null                                         无                                              根据所使用的驱动程序指定存储位置。
+**matchIP**             false                                        true/false(布尔值)                             从 session cookie 读取时是否验证用户的 IP 地址。
+                                                                                                                       请注意,某些 ISP 会动态更改 IP,因此如果你需要一个不过期的 session,你可能会将此设置为 false。
+**timeToUpdate**        300                                          秒数(整数)                                    此选项控制 session 类重新生成自身和创建新的 session ID 的频率。将其设置为 0 将禁用 session ID 重新生成。
+**regenerateDestroy**   false                                        true/false(布尔值)                             是否在自动重新生成 session ID 时销毁与旧 session ID 关联的数据。将其设置为 false 时,稍后数据将由垃圾收集器删除。
+======================= ============================================ ================================================= ============================================================================================
 
-除了上述值之外，cookie 和本机驱动程序还应用了 :doc:`IncomingRequest </incoming/incomingrequest>` 和 :doc:`Security <security>` 类共享的以下配置值：
+.. note:: 作为最后的手段,如果上述任何内容都未配置,Session 库将尝试获取 PHP 的与 session 相关的 INI 设置,以及 CodeIgniter 3 设置,如 'sess_expire_on_close'。
+    但是,你永远不应该依赖这种行为,因为它可能会导致意外结果或在未来更改。请正确配置一切。
 
-================== =============== ===========================================================================
-配置项                  默认                  描述
-================== =============== ===========================================================================
-**cookieDomain**   ''              会话适用的域
-**cookiePath**     /               会话适用的路径
-**cookieSecure**   FALSE           是否仅在加密（HTTPS）连接上创建会话 cookie
-================== =============== ===========================================================================
+.. note:: 如果 ``sessionExpiration`` 设置为 ``0``,则将原封不动地使用 PHP 在会话管理中设置的 ``session.gc_maxlifetime`` 设置(通常默认值为 ``1440``)。
+    根据需要，这需要在 ``php.ini``或通过 ``ini_set()`` 进行更改。
 
-.. note:: “cookieHTTPOnly”设置对会话没有影响。出于安全原因，始终启用 HttpOnly 参数。此外，“cookiePrefix”设置被完全忽略。
+此外,在你的 **app/Config/Cookie.php** 文件中使用了以下配置值用于 Session cookie:
+
+============== =============== ===========================================================================
+Preference           Default         Description
+============== =============== ===========================================================================
+**domain**     ''              Session 适用的域
+**path**       /               Session 适用的路径
+**secure**     false           是否仅在加密连接(HTTPS)上创建 session cookie
+**sameSite**   Lax             Session cookie 的 SameSite 设置
+============== =============== ===========================================================================
+
+.. note:: ``httponly`` 设置不会对 session 产生影响。出于安全原因,HttpOnly 参数始终启用。另外,完全忽略了 ``Config\Cookie::$prefix`` 设置。
 
 Session 驱动程序
-*********************************************************************
+***************
 
-如前所述，Session 库带有 4 个处理程序或存储引擎，你可以使用它们：
+如前所述,Session 库提供了 4 个处理程序或存储引擎可以使用:
 
-  - CodeIgniter\Session\Handlers\FileHandler
-  - CodeIgniter\Session\Handlers\DatabaseHandler
-  - CodeIgniter\Session\Handlers\MemcachedHandler
-  - CodeIgniter\Session\Handlers\RedisHandler
-  - CodeIgniter\Session\Handlers\ArrayHandler
+  - CodeIgniter\\Session\\Handlers\\FileHandler
+  - CodeIgniter\\Session\\Handlers\\DatabaseHandler
+  - CodeIgniter\\Session\\Handlers\\MemcachedHandler
+  - CodeIgniter\\Session\\Handlers\\RedisHandler
+  - CodeIgniter\\Session\\Handlers\\ArrayHandler
 
-默认情况下，在 ``FileHandler`` 初始化会话时将使用驱动程序，因为它是最安全的选择，并且有望在任何地方都可以使用（实际上每个环境都有一个文件系统）。
+初始化 session 时,如果不指定,将使用 ``FileHandler`` 驱动程序,因为这是最安全的选择,并且预期它可以在任何环境中使用(几乎每种环境都有文件系统)。
 
-但是，可以选择通过 **app/Config/App.php** 文件中的 ``public $sessionDriver`` 行选择任何其他驱动程序。请记住，每个驾驶员都有不同的警告，因此在做出选择之前，一定要使自己熟悉（如下）。
+但是,如果选择这样做,可以通过 **app/Config/Session.php** 文件中的 ``public $driver`` 行来选择任何其他驱动程序。但是请记住,每个驱动程序都有不同的使用注意事项,所以在做出选择之前,请确保熟悉它们(如下所述)。
 
-.. note:: 在测试期间使用 ArrayHandler 并将其存储在 PHP 数组中，同时防止数据被持久保存。
+.. note:: ArrayHandler 在测试时使用,并将所有数据存储在 PHP 数组中,同时防止数据持久化。
 
+FileHandler 驱动程序(默认)
+================================
 
-FileHandler 驱动程序（默认）
-==================================================================
+'FileHandler' 驱动程序使用你的文件系统来存储 session 数据。
 
-“FileHandler”驱动程序使用你的文件系统来存储会话数据。
+可以安全地说,它的工作方式与 PHP 自己的默认 session 实现完全相同,但如果这对你很重要,请记住这实际上不是相同的代码,并且它有一些限制(和优点)。
 
-可以肯定地说，它的工作原理与 PHP 自己的默认会话实现完全相同，但是如果这对你来说是一个重要的细节，请记住，它实际上不是相同的代码，并且有一些限制（和优点）。
+更具体地说,它不支持 PHP 的 `session.save_path 中使用的目录级别和模式格式 <https://www.php.net/manual/en/session.configuration.php#ini.session.save-path>`_,大多数选项出于安全考虑都是硬编码的。相反,它只支持绝对路径作为 ``public string $savePath``。
 
+另一件重要的事情是,你应该知道,不要使用公开可读或共享的目录来存储 session 文件。请确保*只有你*可以查看选择的 *savePath* 目录的内容。否则,任何能够执行此操作的人都可以偷取当前的任何 session(也称为“会话固定”攻击)。
 
-更具体地说，它不支持 `directory level and mode
-formats used in session.save_path
-<https://www.php.net/manual/en/session.configuration.php#ini.session.save-path>`_ ，并且为了安全起见，大多数选项都经过硬编码。相反， ``public $sessionSavePath`` 仅支持绝对路径。
+在类 UNIX 操作系统上,这通常通过使用 `chmod` 命令对该目录设置 0700 模式权限来实现,它仅允许目录所有者在其上执行读写操作。但是要小心,因为*运行*脚本的系统用户通常不是你自己,而是类似 'www-data' 的用户,所以只设置这些权限可能会中断你的应用程序。
 
+相反,你应该执行类似以下操作,这取决于你的环境::
 
-你还应该知道的另一件事是，确保不要使用公共可读或共享目录来存储会话文件。确保 *只有你* 有权查看所选 *sessionSavePath* 目录的内容。否则，任何能够做到这一点的人都可以窃取当前的任何会话（也称为“会话固定”攻击）。
+    > mkdir /<path to your application directory>/writable/sessions/
+    > chmod 0700 /<path to your application directory>/writable/sessions/
+    > chown www-data /<path to your application directory>/writable/sessions/
 
+奖励提示
+---------
 
-在类似 UNIX 的操作系统上，这通常是通过使用 *chmod* 命令在该目录上设置 0700 模式权限来实现的，该命令仅允许目录所有者对目录执行读取和写入操作。但是要小心，因为 *运行* 脚本的系统用户通常不是你自己的，而是“www-data”之类的东西，因此仅设置这些权限可能会破坏你的应用程序。
+你们中一些人可能会选择另一个 session 驱动程序,因为文件存储通常较慢。这只有一半是真的。
 
+一个非常基本的测试可能会误导你相信 SQL 数据库更快,但在 99% 的情况下,这仅当你只有少量当前 session 时才是真的。随着 session 计数和服务器负载的增加——这是至关重要的时候——文件系统将始终优于几乎所有关系数据库设置。
 
-Instead, you should do something like this, depending on your environment
-取而代之的是，你应该根据自己的环境执行类似的操作
+另外,如果性能是你唯一的关注点,你可能需要研究使用 `tmpfs <https://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/>`_,(警告:外部资源),它可以使你的 session 飞快。
 
-::
-
-    mkdir /<path to your application directory>/Writable/sessions/
-    chmod 0700 /<path to your application directory>/Writable/sessions/
-    chown www-data /<path to your application directory>/Writable/sessions/
-
-Bonus Tip
---------------------------------------------------------
-
-某些人可能会选择其他会话驱动程序，因为文件存储通常较慢。这只有一半是正确的。
-
-
-一个非常基本的测试可能会让你相信 SQL 数据库更快，但是在 99％的情况下，只有当你只有几个当前会话时，这才是正确的。随着会话数的增加和服务器负载的增加（这很重要），文件系统将始终胜过几乎所有的关系数据库设置。
-
-此外，如果只考虑性能，则可能需要研究使用 `tmpfs <https://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/>`_ ，（警告：外部资源），它可以使会话快速发展。
-
+.. _sessions-databasehandler-driver:
 
 DatabaseHandler 驱动程序
-==================================================================
+======================
 
-“DatabaseHandler”驱动程序使用关系数据库（例如 MySQL 或 PostgreSQL）来存储会话。这是许多用户中的一个流行选择，因为它使开发人员可以轻松访问应用程序中的会话数据 - 它只是数据库中的另一个表。
+.. important:: 由于其他平台缺乏顾问锁定机制,因此仅正式支持 MySQL 和 PostgreSQL 数据库。在其他平台上使用不带锁定的会话可能会导致各种问题,特别是在大量使用 AJAX 的情况下,我们不会支持此类情况。如果遇到性能问题,请在处理完 session 数据后使用 ``session_write_close()``。
 
-但是，必须满足一些条件：
+'DatabaseHandler' 驱动程序使用 MySQL 或 PostgreSQL 等关系数据库来存储会话。这对许多用户来说是一个流行的选择,因为它允许开发人员轻松访问应用程序中的 session 数据——它只是数据库中的另一个表。
+
+但是,必须满足一些条件:
 
   - 你不能使用持久连接。
-  - 你不能在启用 *cacheOn* 设置的情况下使用连接。
 
-为了使用“DatabaseHandler”会话驱动程序，你还必须创建我们已经提到的该表，然后将其设置为你的 ``$sessionSavePath`` 值。例如，如果你想使用“ci_sessions”作为表名，则可以这样做： ::
+配置 DatabaseHandler
+-------------------------
 
-    public $sessionDriver   = 'CodeIgniter\Session\Handlers\DatabaseHandler';
-    public $sessionSavePath = 'ci_sessions';
+为了使用 'DatabaseHandler' session 驱动程序,还必须创建我们已经提到的表,然后将其设置为你的 ``$savePath`` 值。例如,如果你想使用 'ci_sessions' 作为表名,你将执行以下操作:
 
-然后，当然要创建数据库表…
+.. literalinclude:: sessions/039.php
 
-对于 MySQL： ::
+然后当然,创建数据库表......
+
+对于 MySQL::
 
     CREATE TABLE IF NOT EXISTS `ci_sessions` (
-        `id` varchar(128) NOT NULL,
-        `ip_address` varchar(45) NOT NULL,
-        `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
-        `data` blob NOT NULL,
+        `id` varchar(128) NOT null,
+        `ip_address` varchar(45) NOT null,
+        `timestamp` int(10) unsigned DEFAULT 0 NOT null,
+        `data` blob NOT null,
         KEY `ci_sessions_timestamp` (`timestamp`)
     );
 
-对于 PostgreSQL： ::
+对于 PostgreSQL::
 
     CREATE TABLE "ci_sessions" (
         "id" varchar(128) NOT NULL,
-        "ip_address" varchar(45) NOT NULL,
+        "ip_address" inet NOT NULL,
         "timestamp" bigint DEFAULT 0 NOT NULL,
         "data" text DEFAULT '' NOT NULL
     );
 
     CREATE INDEX "ci_sessions_timestamp" ON "ci_sessions" ("timestamp");
 
-你还需要 **根据你的“sessionMatchIP”设置** 添加主键。以下示例在 MySQL 和 PostgreSQL 上均可使用： ::
+.. note:: ``id`` 值包含 session cookie 名称(``Config\Session::$cookieName``)和 session ID 以及一个分隔符。根据需要应增加它,例如在使用长 session ID 时。
 
-    // 当 sessionMatchIP = TRUE 时
+你还需要根据你的 $matchIP 设置添加主键::
+
+    // 当 sessionMatchIP = true 时
     ALTER TABLE ci_sessions ADD PRIMARY KEY (id, ip_address);
 
-    // 当 sessionMatchIP = FALSE 时
+    // 当 sessionMatchIP = false 时
     ALTER TABLE ci_sessions ADD PRIMARY KEY (id);
 
-    // 删除先前创建的主键（在更改设置时使用）
+    // 删除先前创建的主键(更改设置时使用)
     ALTER TABLE ci_sessions DROP PRIMARY KEY;
 
-你可以通过在 **application\Config\App.php** 文件中添加新行并使用要使用的组名来选择要使用的数据库组 ： ::
+你可以通过向 **app/Config/Session.php** 添加带有要使用的组名称的新行来选择要使用的数据库组:
 
-  public $sessionDBGroup = 'groupName';
+.. literalinclude:: sessions/040.php
 
-如果你不想手工完成所有这些操作，则可以使用 **session:migrationcli** 中的命令为你生成一个迁移文件： ::
+当然,如果你不想手动执行所有这些操作,可以使用 cli 中的 ``php spark make:migration --session`` 命令为你生成迁移文件::
 
-  > php spark session:migration
+  > php spark make:migration --session
   > php spark migrate
 
-该命令在生成代码时将考虑 **sessionSavePath** 和 **sessionMatchIP** 设置。
+此命令将考虑 ``$savePath`` 和 ``$matchIP`` 设置并生成代码。
 
-.. important:: 由于缺少其他平台上的建议性锁定机制，因此仅正式支持 MySQL 和 PostgreSQL 数据库。使用不带锁的会话会导致各种问题，尤其是在大量使用 AJAX 的情况下，我们不支持这种情况。 ``session_write_close()`` 如果遇到性能问题，请在处理完会话数据后使用。
-
+.. _sessions-redishandler-driver:
 
 RedisHandler 驱动程序
-==================================================================
+===================
 
-.. note:: 由于 Redis 没有公开锁定机制，因此该驱动程序的锁定由一个单独的值模拟，该值最多可保留 300 秒。
+.. note:: 由于 Redis 没有公开锁定机制,因此通过单独保留 300 秒的额外值来模拟此驱动程序的锁。在 ``v4.3.2`` 或更高版本中,你可以使用 **TLS** 协议连接 ``Redis``。
 
-Redis 是一种存储引擎，由于其高性能而通常用于缓存并广受欢迎，这可能也是你使用'RedisHandler'会话驱动程序的原因。
+Redis 是一个通常用于缓存且以高性能而著称的存储引擎,这也可能是你使用 'RedisHandler' session 驱动程序的原因。
 
-缺点是它不像关系数据库那样普遍存在，并且需要在系统上安装 `phpredis <https://github.com/phpredis/phpredis>`_  PHP 扩展，并且没有与 PHP 捆绑在一起。很有可能，仅当你已经熟悉 Redis 并将其用于其他目的时，才使用 RedisHandler 驱动程序。
+缺点是它不像关系数据库那么无所不在,并且需要系统上安装 `phpredis <https://github.com/phpredis/phpredis>`_ PHP 扩展,而该扩展不与 PHP 一起打包。
+除非你已经熟悉并出于其他目的使用 Redis,否则只会考虑使用 RedisHandler 驱动程序。
 
-与“FileHandler”和“DatabaseHandler”驱动程序一样，你还必须通过该 ``$sessionSavePath`` 设置配置会话的存储位置 。此处的格式有些不同，同时又很复杂。最好用 *phpredis* 扩展的 README 文件来解释，所以我们将简单地链接到它： ::
+配置 RedisHandler
+----------------------
+
+与 'FileHandler' 和 'DatabaseHandler' 驱动程序一样,你还必须通过 ``$savePath`` 设置配置你的 session 的存储位置。
+这里的格式有点不同,同时也比较复杂。最好通过 *phpredis* 扩展的 README 文件进行解释,所以我们简单地链接到它:
 
     https://github.com/phpredis/phpredis
 
-.. warning:: CodeIgniter 的会话库不使用实际的'redis' session.save_handler。 ``仅`` 注意上面链接中的路径格式。
+.. important:: CodeIgniter 的 Session 库不使用实际的 'redis' ``session.save_handler``。在上面的链接中**仅**注意路径格式。
 
-但是，对于最常见的情况，一个简单的 ``host:port`` 配对就足够了： ::
+但是,对于最常见的情况,一个简单的 ``host:port`` 对应关系应该就足够了:
 
-    public $sessionDiver    = 'CodeIgniter\Session\Handlers\RedisHandler';
-    public $sessionSavePath = 'tcp://localhost:6379';
+.. literalinclude:: sessions/041.php
+
+.. _sessions-memcachedhandler-driver:
 
 MemcachedHandler 驱动程序
-==================================================================
+=======================
 
-.. note:: 由于 Memcached 没有公开锁定机制，因此该驱动程序的锁定由一个单独的值模拟，该值最多保留 300 秒。
+.. note:: 由于 Memcached 没有公开锁定机制,因此通过单独保留 300 秒的额外值来模拟此驱动程序的锁。
 
-除了可能的可用性外，“`Memcached
-<https://www.php.net/memcached>`_ ”驱动程序的所有属性都与“RedisHandler”驱动程序非常相似，因为 PHP 的 Memcached 扩展是通过 PECL 分发的，并且某些 Linux 发行版使其可以作为易于安装的软件包使用。
+'MemcachedHandler' 驱动程序几乎与 'RedisHandler' 驱动程序的所有属性相同,可能仅在可用性方面有所不同,因为 PHP 的 `Memcached <https://www.php.net/memcached>`_ 扩展通过 PECL 分发,一些 Linux 发行版将其作为易于安装的包。
 
-除此之外，对于 Redis 并没有任何故意的偏见，关于 Memcached 的说法没有多大不同 - 它也是一种流行的产品，通常用于缓存并以其速度着称。
+除此之外,如果没有任何故意的偏见针对 Redis,关于 Memcached 就没有太多不同的可说的 —— 它也是一个流行的产品,以其速度而闻名。
 
-但是，值得注意的是，Memcached 给出的唯一保证是将值 X 设置为在 Y 秒后过期将导致在 Y 秒过去之后将其删除（但不一定要在该时间之前过期）。这种情况很少发生，但是应该考虑，因为这可能会导致会话丢失。
+但是,值得注意的是,Memcached 所做的唯一保证是,设置值 X 在 Y 秒后过期将导致在 Y 秒过去后删除该值(但不一定保证不会比该时间过期更早)。这种情况非常罕见,但应该考虑到它可能导致 session 丢失。
 
-该 ``$sessionSavePath`` 格式相当这里简单，仅仅是一对 ``host:port`` ： ::
+配置 MemcachedHandler
+--------------------------
 
-    public $sessionDriver   = 'CodeIgniter\Session\Handlers\MemcachedHandler';
-    public $sessionSavePath = 'localhost:11211';
+这里的 ``$savePath`` 格式相当简单,只是一个 ``host:port`` 对:
 
-Bonus Tip
---------------------------------------------------------
+.. literalinclude:: sessions/042.php
 
-还支持使用可选的 *weight* 参数作为第三个冒号 ( ``:weight`` ) 值的多服务器配置，但是我们必须注意，我们尚未测试这是否可靠。
+奖励提示
+---------
 
-如果要尝试使用此功能（后果自负），只需用逗号分隔多个服务器路径： ::
+也支持多服务器配置,以可选的 *weight* 参数作为第三个冒号分隔(``:weight``)值,但我们必须注意,我们还没有测试这一特性的可靠性。
 
-    // 相比于 192.0.2.1 权重为 1，本地主机将获得更高的优先级（5）。
-    public $sessionSavePath = 'localhost:11211:5,192.0.2.1:11211:1';
+如果你想要实验此功能(自负风险),只需用逗号分隔多个服务器路径:
+
+.. literalinclude:: sessions/043.php

@@ -1,44 +1,36 @@
-=====================
-Honeypot Class
-=====================
+##############
+Honeypot 类
+##############
 
-The Honeypot Class makes it possible to determine when a Bot makes a request to a CodeIgniter4 application,
-if it's enabled in ``Application\Config\Filters.php`` file. This is done by attaching form fields to any form,
-and this form field is hidden from a human but accessible to a Bot. When data is entered into the field, it's
-assumed the request is coming from a Bot, and you can throw a ``HoneypotException``.
+如果在 **app\Config\Filters.php** 文件中启用 Honeypot,Honeypot 类可以确定何时机器人向 CodeIgniter4 应用程序发出请求。这是通过将表单字段附加到任何表单上完成的,这个表单字段对人类隐藏但对机器人可访问。当数据输入字段时,假定请求来自机器人,你可以抛出一个 ``HoneypotException``。
 
 .. contents::
     :local:
     :depth: 2
 
-Enabling Honeypot
-=====================
+*****************
+启用蜜罐
+*****************
 
-To enable a Honeypot, changes have to be made to the ``app/Config/Filters.php``. Just uncomment honeypot
-from the ``$globals`` array, like...::
+要启用蜜罐,需要对 **app/Config/Filters.php** 进行更改。只需从 ``$globals`` 数组中取消注释 honeypot,如:
 
-    public $globals = [
-            'before' => [
-                'honeypot'
-                // 'csrf',
-            ],
-            'after'  => [
-                'toolbar',
-                'honeypot'
-            ]
-        ];
+.. literalinclude:: honeypot/001.php
 
-A sample Honeypot filter is bundled, as ``system/Filters/Honeypot.php``.
-If it is not suitable, make your own at ``app/Filters/Honeypot.php``,
-and modify the ``$aliases`` in the configuration appropriately.
+一个样例蜜罐过滤器以 **system/Filters/Honeypot.php** 的形式绑定。
+如果它不合适,请在 **app/Filters/Honeypot.php** 中自建,
+并相应地修改配置中的 ``$aliases``。
 
-Customizing Honeypot
-=====================
+********************
+自定义蜜罐
+********************
 
-Honeypot can be customized. The fields below can be set either in
-``app/Config/Honeypot.php`` or in ``.env``.
+可以自定义蜜罐。以下字段可以在
+**app/Config/Honeypot.php** 或 **.env** 中设置。
 
-* ``hidden`` - true|false to control visibility of the honeypot field; default is ``true``
-* ``label`` - HTML label for the honeypot field, default is 'Fill This Field'
-* ``name`` - name of the HTML form field used for the template; default is 'honeypot'
-* ``template`` - form field template used for the honeypot; default is '<label>{label}</label><input type="text" name="{name}" value=""/>'
+* ``$hidden`` - ``true`` 或 ``false`` 来控制蜜罐字段的可见性; 默认为 ``true``
+* ``$label`` - 蜜罐字段的 HTML 标签,默认为 ``'Fill This Field'``
+* ``$name`` - 用于模板的 HTML 表单字段的名称; 默认为 ``'honeypot'``
+* ``$template`` - 用于蜜罐的表单字段模板; 默认为 ``'<label>{label}</label><input type="text" name="{name}" value="">'``
+* ``$container`` - 模板的容器标签; 默认为 ``'<div style="display:none">{template}</div>'``。
+  如果你启用了 CSP,可以删除 ``style="display:none"``。
+* ``$containerId`` - [v4.3.0 新增] 此设置仅在启用 CSP 时使用。你可以更改容器标签的 id 属性; 默认为 ``'hpc'``

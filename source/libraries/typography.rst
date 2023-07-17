@@ -1,67 +1,62 @@
-##################
-Typography 类
-##################
+##########
+排版
+##########
 
-Typography 库包含一些方法用于帮助您以语义相关的方式设置文本格式。
+排版库包含了一些帮助你以语义化方式格式化文本的方法。
+
+.. contents::
+    :local:
+    :depth: 2
 
 *******************
-加载类库
+加载库
 *******************
 
-与 CodeIgniter 的所有其他服务一样，可以通过 ``Config\Services`` 来加载，通常不需要手动加载::
+和 CodeIgniter 中的其他服务一样,可以通过 ``Config\Services`` 来加载,不过通常你不需要手动加载:
 
-    $typography = \Config\Services::typography();
+.. literalinclude:: typography/001.php
 
 **************************
 可用的静态方法
 **************************
 
-以下的方法是可用的：
+以下方法可用:
 
-**autoTypography()**
+.. php:function:: autoTypography($str[, $reduce_linebreaks = false])
 
-.. php:function:: autoTypography($str[, $reduce_linebreaks = FALSE])
+    :param    string    $str: 输入字符串
+    :param    bool    $reduce_linebreaks: 是否把多个连续的空行减少到两个
+    :returns:    HTML 格式的适合排版的字符串
+    :rtype: string
 
-	:param	string	$str: Input string
-	:param	bool	$reduce_linebreaks: 是否将多个双重换行减少为两个
-	:returns:	HTML 格式化的排版安全的字符串
-	:rtype: string
+    格式化文本,使其在语义和排版上是正确的 HTML。
 
-	格式化文本使其成为语义和排版正确的 HTML 。
+    使用示例:
 
-	使用示例::
+    .. literalinclude:: typography/002.php
 
-		$string = $typography->autoTypography($string);
-
-	.. note:: 格式排版可能会消耗大量处理器资源，特别是在排版大量内容时。 如果你选择使用这个函数的话，
-		你可以考虑 :doc:`缓存 <../general/caching>` 你的页面。
-
-**formatCharacters()**
+    .. note:: 排版格式化可能需要大量处理,特别是你有很多需要格式化的内容。如果你选择使用这个方法,你可能需要考虑 :doc:`caching <../general/caching>` 你的页面。
 
 .. php:function:: formatCharacters($str)
 
-	:param	string	$str: Input string
-	:returns:	带有格式化字符的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    格式化后的字符串
+    :rtype:    string
 
-	将双引号或单引号转成正确的实体，也会转化—破折号，双空格和&符号。
+    这个方法主要将双引号和单引号转换为花括号实体,也会转换破折号、双空格和和号。
 
-	使用示例::
+    使用示例:
 
-		$string = $typography->formatCharacters($string);
-
-**nl2brExceptPre()**
+    .. literalinclude:: typography/003.php
 
 .. php:function:: nl2brExceptPre($str)
 
-	:param	string	$str: Input string
-	:returns:	带有 HTML 格式化换行符的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    包含 HTML 格式换行的字符串
+    :rtype:    string
 
-	将换行转换为 <br /> 标签， 忽略 <pre> 标签中的换行符。
-	这个函数和PHP原生的 ``nl2br()`` 函数是一样的，
-	但忽略 <pre> 标签。
+    在 ``<pre>`` 标签外把换行转换为 ``<br />`` 标签。这个方法和原生 PHP 的 ``nl2br()`` 函数相同,只是忽略了 ``<pre>`` 标签。
 
-	使用示例::
+    使用示例:
 
-		$string = $typography->nl2brExceptPre($string);
+    .. literalinclude:: typography/004.php
