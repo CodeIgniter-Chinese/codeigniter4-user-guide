@@ -1,156 +1,178 @@
-通过Composer安装
-###############################################################################
+Composer 安装
+#####################
 
 .. contents::
     :local:
-    :depth: 1
+    :depth: 2
 
-可以通过多种方式在你的系统中来使用Composer安装CodeIgniter。
+Composer 可以通过几种方式在您的系统上安装 CodeIgniter4。
 
-前两种方法描述了使用CodeIgniter4来创建一个项目的骨架结构，从而让你可以在一个新的webapp中作为基础来使用。
-而第三种技术，如下所述，使得你可以将CodeIgniter4加入进一个现存的webapp中。
+.. important:: CodeIgniter4 需要 Composer 2.0.14 或更高版本。
 
-**注意**: 如果你正使用一个Git仓库来存储代码或与他人写作，那么 ``vendor`` 目录就需要添加到gitignore文件中。在这种情况下，当你克隆仓库到新系统中，就需要执行 ``composer update`` 指令
+.. note:: 如果您不熟悉 Composer,我们建议您先阅读
+    `基本用法 <https://getcomposer.org/doc/01-basic-usage.md>`_。
 
-启动应用
-============================================================
+第一种技术描述了使用 CodeIgniter4 创建骨架项目的方法,然后您可以将其用作新 Web 应用程序的基础。
+下面描述的第二种技术允许您将 CodeIgniter4 添加到现有的 Web 应用程序中。
 
-`CodeIgniter 4 应用启动 <https://github.com/codeigniter4/appstarter>`_
-仓库里通过composer依赖最新版本的框架来维护了一个基础骨架的应用。
+.. note:: 如果您使用 Git 仓库存储代码或与他人协作,那么 **vendor** 文件夹通常会被“git 忽略”。在这种情况下,当您将仓库克隆到新系统时,需要运行 ``composer update``。
 
-以下安装教程适用于每一位希望启动一个新的基于CodeIgniter4的项目的开发者。
+App Starter
+===========
 
-安装和设置
--------------------------------------------------------
+`CodeIgniter 4 app starter <https://github.com/codeigniter4/appstarter>`_
+仓库包含一个骨架应用程序,其中包含对最新版本框架的 Composer 依赖项。
 
-在你的项目根目录执行以下命令::
+此安装技术适用于希望启动基于 CodeIgniter4 的新项目的开发人员。
 
-    composer create-project codeigniter4/appstarter project-root
+安装
+------------
 
-该指令将会创建一个 "project-root" 目录。
+在项目根目录上层文件夹中::
 
-如果你忽略了"project-root"参数，该命令就会创建一个"appstarter"目录，该目录当需要时可以被重命名。
+    > composer create-project codeigniter4/appstarter 项目根目录
 
-如果你不需要或不想安装PHPUnit以及跟它相关的任何Composer依赖，请在该命令的尾部增加"--no-dev"选项。
-这一操作将只会使用Composer安装框架本体以及三个我们打包过的可信赖的外部依赖包。
+上述命令将创建一个**项目根目录**文件夹。
 
-下面是一个这样的安装指令的示例，使用默认的项目根目录"APPstarter"::
+如果省略“项目根目录”参数,该命令将创建一个“appstarter”文件夹,可以根据需要重命名。
 
-    composer create-project codeigniter4/appstarter --no-dev
+.. note:: CodeIgniter 自动加载程序不允许特殊字符,这些字符在某些操作系统中的文件名中是非法的。
+    可以使用的符号是 ``/``, ``_``, ``.``, ``:``, ``\`` 和空格。
+    因此,如果在包含特殊字符的文件夹下安装 CodeIgniter,比如 ``(``, ``)`` 等,CodeIgniter 将无法工作。
 
-安装完成后你应该根据 "升级" 这节里的步骤继续进行。
+.. important:: 当您将应用部署到生产服务器时,不要忘记运行以下命令::
+
+    > composer install --no-dev
+
+    上述命令将只移除开发环境下的 Composer 软件包,这些软件包在生产环境中不需要。这将大大减少 vendor 文件夹的大小。
+
+初始配置
+---------------------
+
+安装后,需要进行一些初始配置。有关详细信息,请参阅 :ref:`initial-configuration`。
+
+.. _app-starter-upgrading:
 
 升级
--------------------------------------------------------
+---------
 
-每当有新的发布时，在你项目的根目录运行以下指令::
+每当有新版本发布时,在项目根目录的命令行中运行::
 
-    composer update
+    > composer update
 
-如果在你创建项目时使用了"--no-dev"选项，那么在这里也一样适合这样做。``composer update --no-dev``
-
-阅读升级指南，并检查指定的 ``app/Config`` 目录是否有内容变更。
+阅读 :doc:`升级说明 <upgrading>`,并查看已破坏的更改和增强功能。
 
 优点
--------------------------------------------------------
+----
 
-便于安装，便于升级。
+安装简单;易于更新。
 
 缺点
--------------------------------------------------------
+----
 
-你仍需要在更新后检查 ``app/Config`` 的变更。
+更新后,您仍然需要检查 **项目空间** 中的文件更改(根目录、app、public、writable),并合并它们。
+
+.. note:: 有一些第三方 CodeIgniter 模块可用于协助合并项目空间的更改:
+    `在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
 结构
--------------------------------------------------------
+---------
 
-设置完成后你的项目中会有以下目录:
+设置后项目中的文件夹:
 
-- app, public, tests, writable
+- app、public、tests、writable
 - vendor/codeigniter4/framework/system
-- vendor/codeigniter4/framework/app & public (compare with yours after updating)
 
-最新的开发版本
--------------------------------------------------------
+最新开发版本
+----------
 
-App Start仓库里有着 ``builds`` 脚本，在框架当前稳定发布版本和最新的开发版本间进行选择。
-对于开发者而言，可以选择使用该脚本来获取最新的变更，不过这些变更可能是不稳定的。
+App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的最新开发分支之间切换 Composer 源。此脚本适用于愿意使用最新的未发布更改(可能不稳定)的开发者。
 
-`开发者用户手册 <https://codeigniter4.github.io/CodeIgniter4/>`_ 可以在线访问。请注意与当前发布版本的用户手册
-有所不同，并独立维护一个开发的分支。
+`开发用户指南 <https://codeigniter4.github.io/CodeIgniter4/>`_ 可以在线访问。
+请注意,这与已发布的用户指南不同,并将明确适用于 develop 分支。
 
-在你的项目根目录执行以下指令::
+在项目根目录中::
 
-    php builds development
+    > php builds development
 
-以上的指令将会更新 **composer.json** 文件并将当前的工作仓库指向 ``develop`` 分支，并在配置和XML文件中更新对应的路径。
-如果要回退以上变更，请执行::
+上述命令将更新 **composer.json** 以指向工作仓库的 ``develop`` 分支,并更新配置和 XML 文件中的相应路径。要还原这些更改,请运行::
 
-    php builds release
+    > php builds release
 
-在使用完 ``builds`` 命令后，请确保运行 ``composer update`` 来将你的vendor目录与最新版本的同步。
+使用 ``builds`` 命令后,请务必运行 ``composer update`` 以使用最新目标构建同步 vendor 文件夹。
 
-将CodeIgniter4添加到现存项目中
-============================================================
+将 CodeIgniter4 添加到现有项目中
+==========================================
 
-在"手动安装"这章中描述过的 `CodeIgniter 4 framework <https://github.com/codeigniter4/framework>`_
-仓库同样也可使用Composer来被添加到现存的项目中。
+“手动安装”中描述的相同 `CodeIgniter 4 框架 <https://github.com/codeigniter4/framework>`_
+仓库也可以使用 Composer 添加到现有项目中。
 
-在 ``app`` 目录下开发你的应用，``public`` 目录作为文档的根目录。
+安装
+------------
 
-在你的项目根目录下::
+在 ``app`` 文件夹中开发您的应用程序,``public`` 文件夹将是您的文档根目录。
 
-    composer require codeigniter4/framework
+在项目根目录中::
 
-与前面两个composer安装方式类似，你也可以在"composer require"命令中使用"--no-dev"参数来忽略安装PHPunit。
+    > composer require codeigniter4/framework
+
+.. important:: 将应用程序部署到生产服务器时,不要忘记运行以下命令::
+
+    > composer install --no-dev
+
+    上述命令将只移除开发环境下的 Composer 软件包,这些软件包在生产环境中不需要。这将大大减少 vendor 文件夹的大小。
 
 设置
--------------------------------------------------------
+----------
 
-从 ``vendor/codeigniter4/framework`` 中复制app, public, tests 和 writable目录到你的项目根目录下。
+    1. 从 **vendor/codeigniter4/framework** 复制 **app**、**public**、**tests** 和 **writable** 文件夹到项目根目录
+    2. 从 **vendor/codeigniter4/framework** 复制 **env**、**phpunit.xml.dist** 和 **spark** 文件到项目根目录
+    3. 您将必须调整 **app/Config/Paths.php** 中的 ``$systemDirectory`` 属性,以引用 vendor 目录,例如 ``__DIR__ . '/../../vendor/codeigniter4/framework/system'``。
 
-从 ``vendor/codeigniter4/framework`` 中复制 ``env``, ``phpunit.xml.dist`` and ``spark`` 文件到你的项目根目录下。
+初始配置
+---------------------
 
-你需要设置指向 ``vendor/codeigniter/framework`` 的目录 —— 通过修改 ``app/Config/Paths.php`` 中的 ``$systemDirectory`` 变量
+需要进行一些初始配置。有关详细信息,请参阅 :ref:`initial-configuration`。
 
+.. _adding-codeigniter4-upgrading:
 
 升级
--------------------------------------------------------
+---------
 
-每当有新的发布时，在你项目的根目录运行以下指令::
+每当有新版本发布时,在项目根目录的命令行中运行::
 
-    composer update
+    > composer update
 
-如果在你创建项目时使用了"--no-dev"选项，那么在这里也一样适合这样做。``composer update --no-dev``
+阅读 :doc:`升级说明 <upgrading>`,并查看已破坏的更改和增强功能。
 
-阅读升级指南，并检查指定的 ``app/Config`` 目录是否有内容变更。
+优点
+----
 
-专业人士
--------------------------------------------------------
+相对简单的安装;易于更新。
 
-相当简单的安装方式；便于升级
+缺点
+----
 
-贡献者
--------------------------------------------------------
+更新后,您仍需检查 **项目空间** 中的文件更改(根目录、app、public、writable)。
 
-你仍需要在更新后检查 ``app/Config`` 的变更。
+.. note:: 有一些第三方 CodeIgniter 模块可用于协助合并项目空间的更改:
+    `在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
 结构
--------------------------------------------------------
+---------
 
-设置完成后你的项目结构如下:
+设置后项目中的文件夹:
 
-- app, public, tests, writable
+- app、public、tests、writable
 - vendor/codeigniter4/framework/system
 
+翻译安装
+=========================
 
-安装翻译
-============================================================
+如果您想利用系统消息翻译,可以以类似的方式将它们添加到项目中。
 
-如果你想充分利用系统信息的翻译，可以类似地把这些翻译加入到项目中。
+在项目根目录的命令行中::
 
-在项目根目录运行以下指令::
+    > composer require codeigniter4/translations
 
-    composer require codeigniter4/translations @rc
-
-当你每次运行 ``composer update`` 时这些翻译文件也同样会被更新。
+每次执行 ``composer update`` 时,这些都会与框架一起更新。

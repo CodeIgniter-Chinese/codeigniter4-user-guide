@@ -1,54 +1,68 @@
 手动安装
-###############################################################################
+###################
 
-`CodeIgniter 4 框架 <https://github.com/codeigniter4/framework>`_ 目录保存了所有已发布的框架版本。
-这是为那些不想用Composer的开发者准备的。
+.. contents::
+    :local:
+    :depth: 2
 
-在 ``app`` 文件夹里开发你的项目，而 ``public`` 文件夹就将成为你的对外根目录。
-与此同时，请勿更改 ``system`` 文件夹下面的任何内容！
+`CodeIgniter 4 框架 <https://github.com/codeigniter4/framework>`_
+仓库包含框架的已发布版本。
+它适用于不希望使用 Composer 的开发人员。
 
-**Note**: 这是和 `CodeIgniter 3 <https://codeigniter.com/user_guide/installation/index.html>`_ 描述的安装方式最相近的。
+在 **app** 文件夹中开发您的应用程序,
+**public** 文件夹将是您面向公众的文档根目录。不要更改 **system** 文件夹中的任何内容!
+
+.. note:: 这是最接近为 `CodeIgniter 3 <https://codeigniter.com/userguide3/installation/index.html>`_
+   描述的安装技术。
 
 安装
-============================================================
+============
 
-下载 `最新版本 <https://github.com/CodeIgniter4/framework/releases/latest>`_, 并将其解压到你的项目根目录。
+下载`最新版本 <https://github.com/CodeIgniter4/framework/releases/latest>`_,
+并将其提取到成为项目根目录。
 
-设置
--------------------------------------------------------
+.. note:: CodeIgniter 自动加载程序不允许特殊字符,这些字符在某些操作系统中的文件名中是非法的。
+    可以使用的符号是 ``/``, ``_``, ``.``, ``:``, ``\`` 和空格。
+    因此,如果在包含特殊字符的文件夹下安装 CodeIgniter,比如 ``(``, ``)`` 等,CodeIgniter 将无法工作。
 
-无
+初始配置
+=====================
+
+安装后,需要进行一些初始配置。
+请参阅 :ref:`initial-configuration` 以获取详细信息。
+
+.. _installing-manual-upgrading:
 
 升级
--------------------------------------------------------
+=========
 
-下载一份最新的框架，并根据发布通知或更新日志里的升级教程来将最新版本的内容合并进你的项目。
+下载框架的新副本,然后替换 **system** 文件夹。
 
-通常来说，替换掉 ``system`` 目录，并且检查 ``app/Config`` 文件夹下受影响的变更内容即可。
+阅读 :doc:`升级说明 <upgrading>`,并查看已破坏的更改和增强功能。
 
 优点
--------------------------------------------------------
+====
 
-下载就可以运行
+下载并运行。
 
 缺点
--------------------------------------------------------
+====
 
-当更新时，你要自己合并冲突
+您需要自行检查 **项目空间** 中的文件更改(根目录、app、public、tests、writable)并合并它们。
 
 结构
--------------------------------------------------------
+=========
 
-在你的项目设置完成后，新建以下文件夹:
-app, public, system, writable
+设置后项目中的文件夹:
 
+- app、public、tests、writable、system
 
-安装翻译
-============================================================
+翻译安装
+=========================
 
-如果你想充分利用系统信息的翻译，可以类似地把这些翻译加入到项目中。
+如果您想利用系统消息翻译,可以以类似的方式将它们添加到项目中。
 
-下载 `最新版本的翻译 <https://github.com/codeigniter4/translations/releases/latest>`_
-解压下载的zip文件并将 ``Language`` 文件夹的内容复制到你的 ``PROJECT_ROOT/app/Languages`` 文件夹下。
+下载`最新版本 <https://github.com/codeigniter4/translations/releases/latest>`_。
+提取下载的 zip 文件,并将其中的 **Language** 文件夹内容复制到您的 **app/Languages** 文件夹中。
 
-在进行任何翻译的升级时都需要重复以上步骤。
+这需要重复执行以合并翻译的任何更新。

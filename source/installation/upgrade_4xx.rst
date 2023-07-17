@@ -1,81 +1,161 @@
-######################################
-从CodeIgniter 3系列版本升级到4系列版本
-######################################
+#########################
+从 3.x 升级到 4.x
+#########################
 
-CodeIgniter 4是对该框架的重写，并且不向前兼容（对以前的版本不兼容）。
-比起升级你的应用，更为合适的是转换和重写它。当你做完了这一步（即已经升级到CodeIgniter4）之后，在CodeIgniter4的不同版本间进行升级就会轻而易举。
+CodeIgniter 4 是框架的重写,并且不向后兼容。将您的应用程序转换更合适,而不是升级它。一旦您完成了转换,从 CodeIgniter 4 的一个版本升级到下一个版本将很简单。
 
-The "lean, mean and simple" philosophy has been retained, but the
-implementation has a lot of differences, compared to CodeIgniter 3.
+“精简、敏捷、简单”的理念仍然保留,但实现与 CodeIgniter 3 有很多不同。
 
-升级过程中并没有12步检查列表之类的东西。取而代之的是，在一个新的项目文件夹里开始CodeIgniter 4的重新部署 :doc:`开始与使用本框架 </installation/index>` ，
-并开始转换和整合你的应用部件。下面我们会试着指出最需要注意的点。
+升级没有 12 步检查表。相反,请在一个新的项目文件夹中使用 CodeIgniter 4 的副本开始,
+选择 :doc:`您希望的安装和使用方式 </installation/index>`, 然后转换和集成您的应用组件。
+我们将尽量指出这里最重要的注意事项。
 
-CI4中我们并没有完全迁移和重写全部的CI3库！参考 `CodeIgniter 4 路线图 <https://forum.codeigniter.com/forum-33.html>`_ 中的最新列表！
+为了升级您的项目,我们总结出两项主要工作。首先,有一些对每个项目都很重要的一般调整,必须处理。其次是 CodeIgniter 构建的库,包含一些最重要的函数。这些库可以互相独立工作,所以您必须一一查看它们。
 
-在项目转换之前 **请务必阅读用户指南** !
+**在启动项目转换之前,请阅读用户指南!**
 
-**下载**
+.. contents::
+    :local:
+    :depth: 2
 
-- CI4同样可以通过解压-运行的zip或tarball压缩文件的格式进行使用，其中包含有用户指南（在 `docs` 子目录中）
-- 它也可以通过Composer进行安装
+一般调整
+*******************
 
-**命名空间**
+下载
+=========
 
-- CI4构建基于PHP7.2+的版本，框架中除了辅助函数的所有部分都进行了命名空间标注。
+- CI4 仍以 :doc:`ready-to-run 压缩包或 tarball <../installation/installing_manual>` 形式提供。
+- 它也可以使用 :doc:`Composer <../installation/installing_composer>` 安装。
 
-**应用结构**
+命名空间
+==========
 
-- ``application`` 目录被重命名为 ``app`` ，而框架中仍旧存在着 ``system`` 文件夹，有着与以往版本一样的功能。
-- 本框架现在提供了一个 ``public`` 目录，希望你可以将其用于项目的根目录
-- There is also a ``writable`` folder, to hold cache data, logs, and session data
-- ``app`` 目录与CI3中的 ``application`` 目录类似，不过有着一些命名的变更，以及将一些子目录移动到 ``writable`` 目录下。
-- 如今已经没有一个嵌套的 ``application/core`` 目录了，由于我们已经提供了一套不同的机制来扩展框架核心（如下所示）。
+- CI4 是为 PHP 7.4+ 构建的,框架中的所有内容都使用了命名空间,除了 helper 和 lang 文件。
 
-**加载类文件**
+应用程序结构
+=====================
 
-- 由于对框架组件的引用如今已作为属性动态注入到你的控制器中，现在已经不存在一个CodeIgniter的"超级对象"了。
-- 类如今已经按需加载了，并且组件也是通过 ``Services`` 进行维护（服务）
-- 类加载器自动处理PSR4风格的类文件定位，对于那些以 ``App``（application目录）和 ``CodeIgniter`` system目录） 为顶级命名空间的类。而通过对composer自动加载的支持与智能假设机制，框架甚至可以定位你的那些并未命名空间声明的模型和库文件。
-- 你可以配置类的自动加载来支持任何你喜欢的应用结构，包括"HMVC"风格的（译者注：按等级划分的MVC模式，简单的解释就是把MVC又细分成了多个子MVC，每个模块就分成一个MVC）
+- **application** 文件夹重命名为 **app**,框架仍然有 **system** 文件夹,与以前的解释相同。
+- 框架现在提供了 **public** 文件夹,旨在作为您的应用程序的文档根目录。
+- ``defined('BASEPATH') OR exit('No direct script access allowed');`` 这一行不是必需的,因为在默认配置下,**public** 文件夹之外的文件不可访问。
+  并且 CI4 不再定义常量 ``BASEPATH``,所以在所有文件中删除该行。
+- 还有一个 **writable** 文件夹,用于保存缓存数据、日志和 session 数据。
+- **app** 文件夹与 CI3 的 **application** 非常相似,只是一些名称更改,一些子文件夹移到了 **writable** 文件夹。
+- 不再有嵌套的 **application/core** 文件夹,因为我们有一个不同的机制来扩展框架组件(见下文)。
 
-**控制器**
+路由
+=======
 
-- 控制器继承了 ``\\CodeIgniter\\Controller`` 类，而非 ``CI_Controller`` 类
-- 控制器不再需要一个构造函数了（用于调用CI魔术方法），除非这是你自己定义的基类控制器的一部分
-- CI 提供了 ``Request`` （请求）and ``Response`` （响应）对象供你使用，比起CI3的风格来说更为强大
-- 如果你需要一个基类控制器（比如CI3中的MY_Controller），那么请在你需要的地方使用就行。比如 ``BaseController extends Controller`` ，并使用你自己的类来继承 ``BaseController``
+- 默认情况下自动路由被禁用。您需要 :ref:`定义所有路由 <defined-route-routing>`。
+- 如果您希望以与 CI3 相同的方式使用自动路由,则需要启用 :ref:`auto-routing-legacy`。
+- CI4 还具有可选的新的更安全的 :ref:`auto-routing-improved`。
 
-**模型**
+模型、视图和控制器
+==========================
 
-- 模型继承了 ``\\CodeIgniter\\Model`` 而非 ``CI_Model``
-- CI4的模型拥有更多的功能，包括动态数据库连接，基础的CRUD（增删改查），模型内验证和自动分页功能。
-- CI4 同样拥有可供你构建的 ``Entity`` （实体）类，用于实现更为丰富的数据表映射功能
-- 取消使用CI3的 ``$this->load->model(x);`` ，而是使用模型的命名空间模式来调用 ``$this->x = new X();``。
+- CodeIgniter 基于 MVC 概念。因此,模型、视图和控制器的更改是您必须处理的最重要的事项之一。
+- 在 CodeIgniter 4 中,模型现在位于 **app/Models** 中,在打开的 php 标记之后,您必须添加 ``namespace App\Models;`` 以及 ``use CodeIgniter\Model;``。最后一步是将 ``extends CI_Model`` 替换为 ``extends Model``。
+- CodeIgniter 4 的视图已移至 **app/Views**。此外,您必须将加载视图的语法从 ``$this->load->view('directory_name/file_name')`` 更改为 ``echo view('directory_name/file_name');``。
+- CodeIgniter 4 的控制器必须移至 **app/Controllers**。之后,在打开的 php 标记后添加 ``namespace App\Controllers;``。最后,将 ``extends CI_Controller`` 替换为 ``extends BaseController``。
+- 有关更多信息,我们推荐您参考以下升级指南,这些指南将为您提供一些分步说明,以在 CodeIgniter4 中转换 MVC 类:
 
-**视图**
+.. toctree::
+    :titlesonly:
 
-- 你的视图看起来与从前类似，但是却是以完全不同的方式调用……取消使用 ``$this->load->view(x);`` ，而是通过 ``echo view(x);``。
-- CI4支持视图单元，以构建分片响应
-- 模板处理器一如过往，但是在功能上有了显著的提升
+    upgrade_models
+    upgrade_views
+    upgrade_controllers
 
-**库**
+类加载
+=============
 
-- 你的应用类仍旧可以深入访问 ``app/Libraries``，但这不是必须的。
-- 取消使用CI3的 ``$this->load->library(x);`` 调用方式，如今你可以使用组件的命名空间模式来调用 ``$this->x = new X();``
+- 不再有 CodeIgniter “超级对象”,其中框架组件引用以属性的形式神奇地注入到您的控制器中。
+- 类根据需要进行实例化,框架组件通过 :doc:`../concepts/services` 进行管理。
+- :doc:`自动加载程序 <../concepts/autoloader>` 自动使用 PSR-4 风格定位类,在 ``App`` (**app** 文件夹)和 ``CodeIgniter`` (即 **system** 文件夹)顶级命名空间内;具有 Composer 自动加载支持。
+- 您可以配置类加载以支持您最习惯的任何应用程序结构,包括“HMVC”风格。
+- CI4 提供可以像 CI3 中的 ``$this->load`` 一样加载类和共享实例的 :doc:`../concepts/factories`。
 
-**辅助函数**
+库
+=========
 
-- 辅助函数与以往大致相似，不过有一部分被简化了
+- 您的应用类仍然可以放在 **app/Libraries** 中,但不必这样做。
+- 不再使用 CI3 的 ``$this->load->library('x');`` ,现在可以使用 ``$this->x = new \App\Libraries\X();``,遵循您组件的命名空间约定。或者,您可以使用 :doc:`../concepts/factories`:``$this->x = \CodeIgniter\Config\Factories::libraries('X');``。
 
-**事件**
+辅助函数
+=======
 
-- Hooks（钩子）如今已经被Events（事件）所取代
-- 取消使用CI3的 ``$hook['post_controller_constructor']`` 调用方式，如今你可以使用命名空间 ``CodeIgniter\Events\Events;`` 下的 ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);`` 。
-- 事件保持启用状态并全局可用。
+- :doc:`辅助函数 <../general/helpers>` 与以前基本相同,尽管有些进行了简化。
+- 从 v4.3.0 开始,您可以通过 **app/Config/Autoload.php** 自动加载辅助函数,就像 CI3 一样。
+- CodeIgniter 3 中的一些辅助函数在版本 4 中不再存在。对于所有这些辅助函数,您必须找到一种新的方法来实现您的函数。这些辅助函数是 `CAPTCHA Helper <https://www.codeigniter.com/userguide3/helpers/captcha_helper.html>`_,
+  `Email Helper <https://www.codeigniter.com/userguide3/helpers/email_helper.html>`_,
+  `Path Helper <https://www.codeigniter.com/userguide3/helpers/path_helper.html>`_ 和
+  `Smiley Helper <https://www.codeigniter.com/userguide3/helpers/smiley_helper.html>`_。
+- CI3 的 `Download Helper <https://www.codeigniter.com/userguide3/helpers/download_helper.html>`_
+  已移除。您需要在使用 ``force_download()`` 的地方使用 Response 对象。
+  请参阅 :ref:`force-file-download`。
+- CI3 的 `Language Helper <https://www.codeigniter.com/userguide3/helpers/language_helper.html>`_
+  已移除。但在 CI4 中 ``lang()`` 始终可用。请参阅 :php:func:`lang()`。
+- CI3 的 `Typography Helper <https://www.codeigniter.com/userguide3/helpers/typography_helper.html>`_
+  在 CI4 中将是 :doc:`排版库 <../libraries/typography>`。
+- CI3 的 `Directory Helper <https://www.codeigniter.com/userguide3/helpers/directory_helper.html>`_
+  和 `File Helper <https://www.codeigniter.com/userguide3/helpers/file_helper.html>`_ 在 CI4 中将是 :doc:`../helpers/filesystem_helper`。
+- CI3 的 `String Helper <https://www.codeigniter.com/userguide3/helpers/string_helper.html>`_ 函数
+  在 CI4 的 :doc:`../helpers/text_helper` 中。
+- 在 CI4 中,``redirect()`` 与 CI3 中的完全不同。
+    - `redirect() 文档 CodeIgniter 3.X <https://codeigniter.com/userguide3/helpers/url_helper.html#redirect>`_
+    - `redirect() 文档 CodeIgniter 4.X <../general/common_functions.html#redirect>`_
+    - 在 CI4 中,``redirect()`` 返回一个 ``RedirectResponse`` 实例,而不是重定向和终止脚本执行。您必须返回它。
+    - 您需要将 CI3 的 ``redirect('login/form')`` 改为 ``return redirect()->to('login/form')``。
 
-**扩展框架**
+钩子
+=====
 
-- 你不需要一个 ``core`` 目录来保存类似 ``MY_...`` 的框架组件扩展或替代品。
-- 在库目录下，你不需要类似 ``MY_x`` 之类的类来继承或取代CI4的框架部分。
-- 你可以在任何地方创建这样的类，并加入适当的自定义组件来代替默认的那些组件。
+- `钩子 <https://www.codeigniter.com/userguide3/general/hooks.html>`_ 已被
+  :doc:`../extending/events` 替换。
+- 不再使用 CI3 的 ``$hook['post_controller_constructor']``,现在使用
+  ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);``,命名空间为 ``CodeIgniter\Events\Events;``。
+- 事件始终启用,并全局可用。
+
+扩展框架
+=======================
+
+- 您不需要 **core** 文件夹来保存 ``MY_...`` 框架组件扩展或替换文件。
+- 您不需要在 libraries 文件夹中使用 ``MY_X`` 类来扩展或替换 CI4 组件。
+- 将这些类放在任何地方,并在 **app/Config/Services.php** 中添加适当的服务方法来加载您的组件,而不是默认组件。
+- 详细信息请参见 :doc:`../extending/core_classes`。
+
+升级库
+*******************
+
+- 您的应用类仍然可以放在 **app/Libraries** 中,但不必这样做。
+- 不再使用 CI3 的 ``$this->load->library('x');``,现在可以使用 ``$this->x = new \App\Libraries\X();``,遵循您组件的命名空间约定。或者,您可以使用 :doc:`../concepts/factories`:``$this->x = \CodeIgniter\Config\Factories::libraries('X');``。
+- CodeIgniter 3 中的一些库在版本 4 中不再存在。对于所有这些库,您必须找到一种新的方法来实现您的函数。这些库是 `日历 <http://codeigniter.com/userguide3/libraries/calendar.html>`_,
+  `FTP <http://codeigniter.com/userguide3/libraries/ftp.html>`_,
+  `Javascript <http://codeigniter.com/userguide3/libraries/javascript.html>`_,
+  `购物车 <http://codeigniter.com/userguide3/libraries/cart.html>`_,
+  `引用通告 <http://codeigniter.com/userguide3/libraries/trackback.html>`_,
+  `XML-RPC /服务器 <http://codeigniter.com/userguide3/libraries/xmlrpc.html>`_ 和
+  `Zip 编码 <http://codeigniter.com/userguide3/libraries/zip.html>`_。
+- CI3 的 `Input <http://codeigniter.com/userguide3/libraries/input.html>`_ 对应于 CI4 的 :doc:`传入请求 </incoming/incomingrequest>`。
+- CI3 的 `Output <http://codeigniter.com/userguide3/libraries/output.html>`_ 对应于 CI4 的 :doc:`响应 </outgoing/response>`。
+- 存在于两个 CodeIgniter 版本中的所有其他库都可以通过一些调整来升级。
+  最重要和使用最广泛的库都有一个升级指南,它将通过简单的步骤和示例帮助您调整代码。
+
+.. toctree::
+    :titlesonly:
+
+    upgrade_configuration
+    upgrade_database
+    upgrade_emails
+    upgrade_encryption
+    upgrade_file_upload
+    upgrade_html_tables
+    upgrade_localization
+    upgrade_migrations
+    upgrade_pagination
+    upgrade_responses
+    upgrade_routing
+    upgrade_security
+    upgrade_sessions
+    upgrade_validations
+    upgrade_view_parser
