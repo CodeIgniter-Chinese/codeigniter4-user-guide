@@ -1,29 +1,21 @@
 #####################
-Working With Entities
+使用实体类
 #####################
 
-CodeIgniter supports Entity classes as a first-class citizen in it's database layer, while keeping
-them completely optional to use. They are commonly used as part of the Repository pattern, but can
-be used directly with the :doc:`Model </models/model>` if that fits your needs better.
+CodeIgniter 在其数据库层全面支持实体类,同时保持它们的完全可选。它们通常用作存储库模式的一部分,但如果更符合你的需求,也可以直接与 :doc:`Model </models/model>` 一起使用。
 
 .. contents::
     :local:
     :depth: 2
 
-Entity Usage
+实体用法
 ============
 
-At its core, an Entity class is simply a class that represents a single database row. It has class properties
-to represent the database columns, and provides any additional methods to implement the business logic for
-that row. The core feature, though, is that it doesn't know anything about how to persist itself. That's the
-responsibility of the model or the repository class. That way, if anything changes on how you need to save the
-object, you don't have to change how that object is used throughout the application. This makes it possible to
-use JSON or XML files to store the objects during a rapid prototyping stage, and then easily switch to a
-database when you've proven the concept works.
+核心上,实体类仅仅是一个代表单个数据库行的类。它具有表示数据库列的类属性,并提供任何其他方法来实现该行的业务逻辑。但是,关键是它不知道如何持久化自己。这是模型或存储库类的责任。这样,如果你需要保存对象的方式发生了任何更改,你不需要更改整个应用程序中该对象的使用方式。这使得在快速原型阶段使用 JSON 或 XML 文件存储对象成为可能,然后在概念证明有效时轻松切换到数据库。
 
-Let's walk through a very simple User Entity and how we'd work with it to help make things clear.
+让我们来看一个非常简单的用户实体示例,并介绍如何使用它以使事情变得清楚。
 
-Assume you have a database table named ``users`` that has the following schema::
+假设你有一个名为 ``users`` 的数据库表,具有以下模式::
 
     id          - integer
     username    - string
@@ -31,349 +23,203 @@ Assume you have a database table named ``users`` that has the following schema::
     password    - string
     created_at  - datetime
 
-Create the Entity Class
+.. important:: ``attributes`` 是一个保留字,供内部使用。如果你将其用作列名,实体将无法正确工作。
+
+创建实体类
 -----------------------
 
-Now create a new Entity class. Since there's no default location to store these classes, and it doesn't fit
-in with the existing directory structure, create a new directory at **app/Entities**. Create the
-Entity itself at **app/Entities/User.php**.
+现在创建一个新的实体类。由于没有默认的位置来存储这些类,也不符合现有的目录结构,所以在 **app/Entities** 中创建一个新目录。在 **app/Entities/User.php** 中创建实体本身。
 
-::
+.. literalinclude:: entities/001.php
 
-    <?php namespace App\Entities;
+就这么简单,尽管我们马上会让它更有用。
 
-    use CodeIgniter\Entity;
-
-    class User extends Entity
-    {
-        //
-    }
-
-At its simplest, this is all you need to do, though we'll make it more useful in a minute.
-
-Create the Model
+创建模型
 ----------------
 
-Create the model first at **app/Models/UserModel.php** so that we can interact with it::
+首先在 **app/Models/UserModel.php** 创建模型,以便我们可以与其交互:
 
-    <?php namespace App\Models;
+.. literalinclude:: entities/002.php
 
-    use CodeIgniter\Model;
+模型在数据库的所有活动中使用 ``users`` 表。我们已经设置了 ``$allowedFields`` 属性,以包含我们希望外部类更改的所有字段。 ``id``、``created_at`` 和 ``updated_at`` 字段由类或数据库自动处理,所以我们不想更改它们。最后,我们将实体类设置为 ``$returnType``。这确保从数据库返回行的所有模型方法都会返回我们的 User 实体类的实例,而不是正常的对象或数组。
 
-    class UserModel extends Model
-    {
-        protected $table         = 'users';
-        protected $allowedFields = [
-            'username', 'email', 'password'
-        ];
-        protected $returnType    = 'App\Entities\User';
-        protected $useTimestamps = true;
-    }
-
-The model uses the ``users`` table in the database for all of its activities. We've set the ``$allowedFields`` property
-to include all of the fields that we want outside classes to change. The ``id``, ``created_at``, and ``updated_at`` fields
-are handled automatically by the class or the database, so we don't want to change those. Finally, we've set our Entity
-class as the ``$returnType``. This ensures that all methods on the model that return rows from the database will return
-instances of our User Entity class instead of an object or array like normal.
-
-Working With the Entity Class
+使用实体类
 -----------------------------
 
-Now that all of the pieces are in place, you would work with the Entity class as you would any other class::
+现在各部分就绪,你将像使用任何其他类一样使用实体类:
 
-    $user = $userModel->find($id);
+.. literalinclude:: entities/003.php
 
-    // Display
-    echo $user->username;
-    echo $user->email;
+你可能已经注意到,``User`` 类还没有为列设置任何属性,但你仍然可以像它们是公共属性一样访问它们。基类 ``CodeIgniter\Entity\Entity`` 会替你处理这些,以及提供使用 ``isset()`` 检查属性,或 ``unset()`` 属性的能力,并跟踪对象创建或从数据库中提取后哪些列发生了更改。
 
-    // Updating
-    unset($user->username);
-    if (! isset($user->username)
-    {
-        $user->username = 'something new';
-    }
-    $userModel->save($user);
+.. note:: 实体类在属性 ``$attributes`` 中存储数据。
 
-    // Create
-    $user = new \App\Entities\User();
-    $user->username = 'foo';
-    $user->email    = 'foo@example.com';
-    $userModel->save($user);
+当 User 传递给模型的 ``save()`` 方法时,它会自动读取属性并保存 ``$allowedFields`` 属性中列出的任何更改。它还知道是创建新行还是更新现有行。
 
-You may have noticed that the User class has not set any properties for the columns, but you can still
-access them as if they were public properties. The base class, **CodeIgniter\Entity**, takes care of this for you, as
-well as providing the ability to check the properties with **isset()**, or **unset()** the property, and keep track
-of what columns have changed since the object was created or pulled from the database.
+.. note:: 当我们调用 ``insert()`` 时,实体的所有值都传递给该方法,但当我们调用 ``update()`` 时,只传递更改的值。
 
-When the User is passed to the model's **save()** method, it automatically takes care of reading the  properties
-and saving any changes to columns listed in the model's **$allowedFields** property. It also knows whether to create
-a new row, or update an existing one.
-
-Filling Properties Quickly
+快速填充属性
 --------------------------
 
-The Entity class also provides a method, ``fill()`` that allows you to shove an array of key/value pairs into the class
-and populate the class properties. Any property in the array will be set on the Entity. However, when saving through
-the model, only the fields in $allowedFields will actually be saved to the database, so you can store additional data
-on your entities without worrying much about stray fields getting saved incorrectly.
+实体类还提供了一个方法 ``fill()``,允许你将键/值对数组推入类中并填充类属性。数组中的任何属性都将在实体上设置。但是,通过模型保存时,实际上只会将 ``$allowedFields`` 中的字段保存到数据库,所以你可以在实体上存储其他数据,而不必担心错误地保存多余的字段。
 
-::
+.. literalinclude:: entities/004.php
 
-    $data = $this->request->getPost();
+你也可以在构造函数中传递数据,数据将在实例化过程中通过 ``fill()`` 方法传递。
 
-    $user = new \App\Entities\User();
-    $user->fill($data);
-    $userModel->save($user);
+.. literalinclude:: entities/005.php
 
-You can also pass the data in the constructor and the data will be passed through the `fill()` method during instantiation.
+批量访问属性
+-------------------------
 
-::
+实体类有两个方法可以将所有可用属性提取到一个数组中:``toArray()`` 和 ``toRawArray()``。使用原始版本将绕过魔术“getter”方法和转换。两个方法都可以接受一个布尔第一个参数,指定返回的值是否应该由更改的那些过滤,以及一个布尔最后一个参数,以使方法递归,以防出现嵌套的实体。
 
-    $data = $this->request->getPost();
-
-    $user = new \App\Entities\User($data);
-    $userModel->save($user);
-
-Handling Business Logic
+处理业务逻辑
 =======================
 
-While the examples above are convenient, they don't help enforce any business logic. The base Entity class implements
-some smart ``__get()`` and ``__set()`` methods that will check for special methods and use those instead of using
-the attributes directly, allowing you to enforce any business logic or data conversion that you need.
+虽然上面的例子很方便,但它们没有帮助执行任何业务逻辑。基本实体类实现了一些智能的 ``__get()`` 和 ``__set()`` 方法,这些方法将检查特殊方法并使用那些方法,而不是直接使用属性,从而允许你执行任何需要的业务逻辑或数据转换。
 
-Here's an updated User entity to provide some examples of how this could be used::
+这是一个更新的用户实体,提供了一些如何使用它的示例:
 
-    <?php namespace App\Entities;
+.. literalinclude:: entities/006.php
 
-    use CodeIgniter\Entity;
-    use CodeIgniter\I18n\Time;
+首先要注意我们添加的方法的名称。对于每一个,类都期望 snake_case 列名转换为 PascalCase,并分别以 ``set`` 或 ``get`` 为前缀。然后,每当你使用直接语法(即 ``$user->email``)设置或检索类属性时,就会自动调用这些方法。除非你希望它们从其他类访问,否则这些方法不需要是公共的。例如,``created_at`` 类属性将通过 ``setCreatedAt()`` 和 ``getCreatedAt()`` 方法访问。
 
-    class User extends Entity
-    {
-        public function setPassword(string $pass)
-        {
-            $this->attributes['password'] = password_hash($pass, PASSWORD_BCRYPT);
+.. note:: 这只适用于试图从类外部访问属性时。类内部的任何方法必须直接调用 ``setX()`` 和 ``getX()`` 方法。
 
-            return $this;
-        }
+在 ``setPassword()`` 方法中,我们确保密码始终被散列。
 
-        public function setCreatedAt(string $dateString)
-        {
-            $this->attributes['created_at'] = new Time($dateString, 'UTC');
+在 ``setCreatedAt()`` 中,我们将从模型接收的字符串转换为 DateTime 对象,确保我们的时区为 UTC,以便轻松转换查看者当前的时区。在 ``getCreatedAt()`` 中,它将时间转换为应用程序当前时区的格式化字符串。
 
-            return $this;
-        }
+虽然相当简单,但这些例子表明,使用实体类可以以非常灵活的方式执行业务逻辑和创建愉快使用的对象。
 
-        public function getCreatedAt(string $format = 'Y-m-d H:i:s')
-        {
-            // Convert to CodeIgniter\I18n\Time object
-            $this->attributes['created_at'] = $this->mutateDate($this->attributes['created_at']);
+.. literalinclude:: entities/007.php
 
-            $timezone = $this->timezone ?? app_timezone();
-
-            $this->attributes['created_at']->setTimezone($timezone);
-
-            return $this->attributes['created_at']->format($format);
-        }
-    }
-
-The first thing to notice is the name of the methods we've added. For each one, the class expects the snake_case
-column name to be converted into PascalCase, and prefixed with either ``set`` or ``get``. These methods will then
-be automatically called whenever you set or retrieve the class property using the direct syntax (i.e. $user->email).
-The methods do not need to be public unless you want them accessed from other classes. For example, the ``created_at``
-class property will be accessed through the ``setCreatedAt()`` and ``getCreatedAt()`` methods.
-
-.. note:: This only works when trying to access the properties from outside of the class. Any methods internal to the
-    class must call the ``setX()`` and ``getX()`` methods directly.
-
-In the ``setPassword()`` method we ensure that the password is always hashed.
-
-In ``setCreatedAt()`` we convert the string we receive from the model into a DateTime object, ensuring that our timezone
-is UTC so we can easily convert the viewer's current timezone. In ``getCreatedAt()``, it converts the time to
-a formatted string in the application's current timezone.
-
-While fairly simple, these examples show that using Entity classes can provide a very flexible way to enforce
-business logic and create objects that are pleasant to use.
-
-::
-
-    // Auto-hash the password - both do the same thing
-    $user->password = 'my great password';
-    $user->setPassword('my great password');
-
-Data Mapping
+数据映射
 ============
 
-At many points in your career, you will run into situations where the use of an application has changed and the
-original column names in the database no longer make sense. Or you find that your coding style prefers camelCase
-class properties, but your database schema required snake_case names. These situations can be easily handled
-with the Entity class' data mapping features.
+在你的职业生涯的多个时间点上,你会遇到应用程序使用的情况发生变化,数据库中的原始列名不再有意义的情况。或者你发现你的编程风格更喜欢驼峰式类属性,但你的数据库模式要求使用蛇形名称。这些情况可以通过实体类的数据映射功能轻松处理。
 
-As an example, imagine you have the simplified User Entity that is used throughout your application::
+举个例子,假设你有在整个应用程序中使用的简化的 User 实体:
 
-    <?php namespace App\Entities;
+.. literalinclude:: entities/008.php
 
-    use CodeIgniter\Entity;
+你的老板过来告诉你现在没有人再使用用户名了,所以你们要切换到只使用电子邮件登录。但他们确实希望对应用程序进行一些个性化,所以他们现在想要你把 ``name`` 字段改为代表用户的全名,而不仅仅是目前的用户名。为了保持数据库的整洁和保证继续有意义,你制作了一个迁移来将 ``name`` 字段重命名为 ``full_name``,以获得清晰度。
 
-    class User extends Entity
-    {
-        protected $attributes = [
-            'id' => null,
-            'name' => null,        // Represents a username
-            'email' => null,
-            'password' => null,
-            'created_at' => null,
-            'updated_at' => null,
-        ];
-    }
+无视这个例子有多牵强,我们现在对 User 类有两个选择。我们可以将类属性从 ``$name`` 修改为 ``$full_name``,但这将需要整个应用程序的更改。或者,我们可以简单地将数据库中的 ``full_name`` 列映射到 ``$name`` 属性,就完成了实体的更改:
 
-Your boss comes to you and says that no one uses usernames anymore, so you're switching to just use emails for login.
-But they do want to personalize the application a bit, so they want you to change the name field to represent a user's
-full name now, not their username like it does currently. To keep things tidy and ensure things continue making sense
-in the database you whip up a migration to rename the `name` field to `full_name` for clarity.
+.. literalinclude:: entities/009.php
 
-Ignoring how contrived this example is, we now have two choices on how to fix the User class. We could modify the class
-property from ``$name`` to ``$full_name``, but that would require changes throughout the application. Instead, we can
-simply map the ``full_name`` column in the database to the ``$name`` property, and be done with the Entity changes::
+通过将新的数据库名称添加到 ``$datamap`` 数组中,我们可以告诉类数据库列应该通过哪个类属性访问。数组的键是要映射到的类属性,数组中的值是数据库中的列名称。
 
-    <?php namespace App\Entities;
+在这个例子中,当模型在 User 类上设置 ``full_name`` 字段时,它实际上会将该值分配给类的 ``$name`` 属性,所以它可以通过 ``$user->name`` 设置和检索。该值仍然可以通过原始的 ``$user->full_name`` 访问,这也是模型将数据取回并保存到数据库所需的。但是,``unset()`` 和 ``isset()`` 只适用于映射的属性 ``$user->name``,而不适用于数据库列名 ``$user->full_name``。
 
-    use CodeIgniter\Entity;
+.. note:: 当你使用数据映射时,你必须为数据库列名定义 ``set*()`` 和 ``get*()`` 方法。在这个例子中,你必须定义 ``setFullName()`` 和 ``getFullName()``。
 
-    class User extends Entity
-    {
-        protected $attributes = [
-            'id' => null,
-            'name' => null,        // Represents a username
-            'email' => null,
-            'password' => null,
-            'created_at' => null,
-            'updated_at' => null,
-        ];
-
-        protected $datamap = [
-            'full_name' => 'name'
-        ],
-    }
-
-By adding our new database name to the ``$datamap`` array, we can tell the class what class property the database column
-should be accessible through. The key of the array is the name of the column in the database, where the value in the array
-is class property to map it to.
-
-In this example, when the model sets the ``full_name`` field on the User class, it actually assigns that value to the
-class' ``$name`` property, so it can be set and retrieved through ``$user->name``. The value will still be accessible
-through the original ``$user->full_name``, also, as this is needed for the model to get the data back out and save it
-to the database. However, ``unset`` and ``isset`` only work on the mapped property, ``$name``, not on the original name,
-``full_name``.
-
-Mutators
+变更器
 ========
 
-Date Mutators
+日期变更器
 -------------
 
-By default, the Entity class will convert fields named `created_at`, `updated_at`, or `deleted_at` into
-:doc:`Time </libraries/time>` instances whenever they are set or retrieved. The Time class provides a large number
-of helpful methods in an immutable, localized way.
+默认情况下,当设置或检索名称为 `created_at`、`updated_at` 或 `deleted_at` 的字段时,实体类会将其转换为 :doc:`时间 </libraries/time>` 实例。Time 类以不可变的本地化方式提供了大量有用的方法。
 
-You can define which properties are automatically converted by adding the name to the **options['dates']** array::
+你可以通过将名称添加到 ``$dates`` 属性来定义哪些属性会自动转换:
 
-    <?php namespace App\Entities;
+.. literalinclude:: entities/010.php
 
-    use CodeIgniter\Entity;
+现在,每当设置这些属性中的任何一个时,它都会使用应用程序的当前时区(在 **app/Config/App.php** 中设置)转换为 Time 实例:
 
-    class User extends Entity
-    {
-        protected $dates = ['created_at', 'updated_at', 'deleted_at'];
-    }
+.. literalinclude:: entities/011.php
 
-Now, when any of those properties are set, they will be converted to a Time instance, using the application's
-current timezone, as set in **app/Config/App.php**::
+.. _entities-property-casting:
 
-    $user = new \App\Entities\User();
-
-    // Converted to Time instance
-    $user->created_at = 'April 15, 2017 10:30:00';
-
-    // Can now use any Time methods:
-    echo $user->created_at->humanize();
-    echo $user->created_at->setTimezone('Europe/London')->toDateString();
-
-Property Casting
+属性转换
 ----------------
 
-You can specify that properties in your Entity should be converted to common data types with the **casts** property.
-This option should be an array where the key is the name of the class property, and the value is the data type it
-should be cast to. Casting only affects when values are read. No conversions happen that affect the permanent value in
-either the entity or the database. Properties can be cast to any of the following data types:
-**integer**, **float**, **double**, **string**, **boolean**, **object**, **array**, **datetime**, and **timestamp**.
-Add a question mark at the beginning of type to mark property as nullable, i.e. **?string**, **?integer**.
+你可以使用 ``$casts`` 属性指定实体中的属性应转换为常用的数据类型。这个选项应该是一个数组,其中键是类属性的名称,值是它应该转换到的数据类型。转换只影响读取值时。不会发生影响实体或数据库中的永久值的转换。属性可以转换为以下任何数据类型:
+**integer**、**float**、**double**、**string**、**boolean**、**object**、**array**、**datetime**、**timestamp**、**uri** 和 **int-bool**。
+在类型前加问号表示属性可为空,即 **?string**、**?integer**。
 
-For example, if you had a User entity with an **is_banned** property, you can cast it as a boolean::
+.. note:: **int-bool** 可以从 v4.3.0 开始使用。
 
-    <?php namespace App\Entities;
+例如,如果你有一个带有 ``is_banned`` 属性的 User 实体,可以将其转换为布尔值:
 
-    use CodeIgniter\Entity;
+.. literalinclude:: entities/012.php
 
-    class User extends Entity
-    {
-        protected $casts = [
-            'is_banned' => 'boolean',
-            'is_banned_nullable' => '?boolean'
-        ],
-    }
-
-Array/Json Casting
+数组/JSON 转换
 ------------------
 
-Array/Json casting is especially useful with fields that store serialized arrays or json in them. When cast as:
+当转换为以下类型时,数组/JSON 转换特别适用于存储序列化数组或 JSON 的字段:
 
-* an **array**, they will automatically be unserialized,
-* a **json**, they will automatically be set as an value of json_decode($value, false),
-* a **json-array**, they will automatically be set as an value of json_decode($value, true),
+* **array** 时,它们将自动反序列化,
+* **json** 时,它们将自动设置为 ``json_decode($value, false)`` 的值,
+* **json-array** 时,它们将自动设置为 ``json_decode($value, true)`` 的值,
 
-when you read the property's value.
-Unlike the rest of the data types that you can cast properties into, the:
+当你设置属性的值时。
+与可以将属性转换成的其他数据类型不同,
 
-* **array** cast type will serialize,
-* **json** and **json-array** cast will use json_encode function on
+* **array** 转换类型在设置属性时将序列化,
+* **json** 和 **json-array** 转换在设置属性时将使用 json_encode 函数
 
-the value whenever the property is set::
+在该值上:
 
-    <?php namespace App\Entities;
+.. literalinclude:: entities/013.php
 
-    use CodeIgniter\Entity;
+.. literalinclude:: entities/014.php
 
-    class User extends Entity
-    {
-        protected $casts => [
-            'options' => 'array',
-		    'options_object' => 'json',
-		    'options_array' => 'json-array'
-        ];
-    }
+CSV 转换
+-----------
 
-    $user    = $userModel->find(15);
-    $options = $user->options;
+如果你知道有一个简单值的平面数组,将它们编码为序列化或 JSON 字符串可能比原始结构更复杂。转换为逗号分隔值(CSV)是一个更简单的替代方法,结果是一个使用的空间更少、更容易被人类读取的字符串:
 
-    $options['foo'] = 'bar';
+.. literalinclude:: entities/015.php
 
-    $user->options = $options;
-    $userModel->save($user);
+在数据库中存储为“red,yellow,green”:
 
-Checking for Changed Attributes
--------------------------------
+.. literalinclude:: entities/016.php
 
-You can check if an Entity attribute has changed since it was created. The only parameter is the name of the
-attribute to check::
+.. note:: CSV 转换使用 PHP 的内部 ``implode`` 和 ``explode`` 方法,并假设所有值都是安全的不包含逗号的字符串。对于更复杂的数据转换,请尝试 ``array`` 或 ``json``。
 
-    $user = new User();
-    $user->hasChanged('name');      // false
+自定义转换
+--------------
 
-    $user->name = 'Fred';
-    $user->hasChanged('name');      // true
+你可以为获取和设置数据定义自己的转换类型。
 
-Or to check the whole entity for changed values omit the parameter::
+首先你需要为你的类型创建一个处理程序类。
+假设这个类将位于 **app/Entities/Cast** 目录中:
 
-    $user->hasChanged();            // true
+.. literalinclude:: entities/017.php
+
+现在你需要注册它:
+
+.. literalinclude:: entities/018.php
+
+如果在获取或设置值时不需要更改值。那么就不要实现相应的方法:
+
+.. literalinclude:: entities/019.php
+
+**参数**
+
+在某些情况下,一种类型是不够的。在这种情况下,你可以使用额外的参数。
+额外的参数用方括号表示,并以逗号分隔列表。
+
+**type[param1,param2]**
+
+.. literalinclude:: entities/020.php
+
+.. literalinclude:: entities/021.php
+
+.. note:: 如果标记为 nullable 的转换类型是 ``?bool``,并且传入的值不是 null,那么参数 ``nullable`` 将传递给转换类型处理程序。
+    如果转换类型具有预定义的参数,则 ``nullable`` 将添加到列表的末尾。
+
+检查更改的属性
+===============================
+
+你可以检查自创建以来实体属性是否发生了更改。唯一的参数是要检查的属性名称:
+
+.. literalinclude:: entities/022.php
+
+或者省略参数检查整个实体的更改值:
+
+.. literalinclude:: entities/023.php
