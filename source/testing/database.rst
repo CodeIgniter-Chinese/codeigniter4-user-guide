@@ -9,20 +9,20 @@
 测试类
 **************
 
-为了利用 CodeIgniter 为测试提供的内置数据库工具，您的测试必须扩展 ``CIUnitTestCase`` 并使用 ``DatabaseTestTrait``:
+为了利用 CodeIgniter 为测试提供的内置数据库工具，你的测试必须扩展 ``CIUnitTestCase`` 并使用 ``DatabaseTestTrait``:
 
 .. literalinclude:: database/001.php
 
-由于在 ``setUp()`` 和 ``tearDown()`` 阶段执行了特殊功能，所以如果您需要使用这些方法，必须确保调用父类的方法，否则您将失去这里描述的大部分功能：
+由于在 ``setUp()`` 和 ``tearDown()`` 阶段执行了特殊功能，所以如果你需要使用这些方法，必须确保调用父类的方法，否则你将失去这里描述的大部分功能：
 
 .. literalinclude:: database/002.php
 
 设置测试数据库
 **************************
 
-运行数据库测试时,您需要提供可在测试期间使用的数据库。框架提供了特定于 CodeIgniter 的工具,而不是使用 PHPUnit 内置的数据库功能。第一步是确保您在 **app/Config/Database.php** 中设置了 ``tests`` 数据库组。这指定了仅在运行测试时使用的数据库连接,以保持其他数据的安全。
+运行数据库测试时,你需要提供可在测试期间使用的数据库。框架提供了特定于 CodeIgniter 的工具,而不是使用 PHPUnit 内置的数据库功能。第一步是确保你在 **app/Config/Database.php** 中设置了 ``tests`` 数据库组。这指定了仅在运行测试时使用的数据库连接,以保持其他数据的安全。
 
-如果团队中有多个开发人员,您可能希望将凭证保存在 **.env** 文件中。要这样做,请编辑文件以确保存在以下行并具有正确的信息::
+如果团队中有多个开发人员,你可能希望将凭证保存在 **.env** 文件中。要这样做,请编辑文件以确保存在以下行并具有正确的信息::
 
     database.tests.hostname = localhost
     database.tests.database = ci4_test
@@ -35,7 +35,7 @@
 迁移和种子
 ====================
 
-运行测试时,您需要确保数据库具有正确的 schema 设置并且对每个测试处于已知状态。您可以使用迁移和种子来设置数据库,方法是在测试中添加一些类属性。
+运行测试时,你需要确保数据库具有正确的 schema 设置并且对每个测试处于已知状态。你可以使用迁移和种子来设置数据库,方法是在测试中添加一些类属性。
 
 .. literalinclude:: database/003.php
 
@@ -60,7 +60,7 @@ $refresh
 $namespace
 ^^^^^^^^^^
 
-默认情况下,CodeIgniter 将在 **tests/_support/Database/Migrations** 中查找在测试期间应运行的迁移。您可以在 ``$namespace`` 属性中指定新命名空间来更改此位置。这不应包括 **Database\\Migrations** 子命名空间,而只是基本命名空间。
+默认情况下,CodeIgniter 将在 **tests/_support/Database/Migrations** 中查找在测试期间应运行的迁移。你可以在 ``$namespace`` 属性中指定新命名空间来更改此位置。这不应包括 **Database\\Migrations** 子命名空间,而只是基本命名空间。
 
 .. important:: 如果将此属性设置为 ``null``,则像 ``php spark migrate --all`` 一样从所有可用的命名空间运行迁移。
 
@@ -80,7 +80,7 @@ $seedOnce
 $basePath
 ^^^^^^^^^
 
-默认情况下,CodeIgniter 将在 **tests/_support/Database/Seeds** 中查找在测试期间应运行的种子。您可以通过指定 ``$basePath`` 属性来更改此目录。这不应包括 **Seeds** 目录,而是保存子目录的单个目录的路径。
+默认情况下,CodeIgniter 将在 **tests/_support/Database/Seeds** 中查找在测试期间应运行的种子。你可以通过指定 ``$basePath`` 属性来更改此目录。这不应包括 **Seeds** 目录,而是保存子目录的单个目录的路径。
 
 帮助方法
 **************
@@ -103,7 +103,7 @@ migrateDatabase()
 seed($name)
 -----------
 
-允许您手动将 Seed 加载到数据库中。唯一的参数是要运行的种子的名称。种子必须存在于 ``$basePath`` 中指定的路径内。
+允许你手动将 Seed 加载到数据库中。唯一的参数是要运行的种子的名称。种子必须存在于 ``$basePath`` 中指定的路径内。
 
 hasInDatabase($table, $data)
 ----------------------------

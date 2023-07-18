@@ -20,7 +20,7 @@ getResult()
 获取 stdClass 的数组
 ----------------------------
 
-通常您会在 foreach 循环中使用它,如下所示:
+通常你会在 foreach 循环中使用它,如下所示:
 
 .. literalinclude:: results/001.php
 
@@ -38,7 +38,7 @@ getResult()
 获取自定义对象的数组
 ---------------------------------
 
-您也可以将表示要为每个结果对象实例化的类的字符串传递给 ``getResult()``
+你也可以将表示要为每个结果对象实例化的类的字符串传递给 ``getResult()``
 
 .. literalinclude:: results/003.php
 
@@ -48,7 +48,7 @@ getResultArray()
 ================
 
 此方法将查询结果作为纯数组返回,如果没有生成结果,则返回空数组。
-通常您会在 foreach 循环中使用它,如下所示:
+通常你会在 foreach 循环中使用它,如下所示:
 
 .. literalinclude:: results/004.php
 
@@ -68,7 +68,7 @@ getRow()
 
 .. literalinclude:: results/006.php
 
-您还可以添加第二个字符串参数,该参数是要使用的类的名称:
+你还可以添加第二个字符串参数,该参数是要使用的类的名称:
 
 .. literalinclude:: results/007.php
 
@@ -84,7 +84,7 @@ getRowArray()
 
 .. literalinclude:: results/009.php
 
-此外,您可以通过这些变体在结果中向前/向后/第一行/最后一行移动:
+此外,你可以通过这些变体在结果中向前/向后/第一行/最后一行移动:
 
     | ``$row = $query->getFirstRow()``
     | ``$row = $query->getLastRow()``
@@ -108,7 +108,7 @@ getUnbufferedRow()
 
 .. literalinclude:: results/010.php
 
-对于使用 MySQLi,您可以将 MySQLi 的结果模式设置为 ``MYSQLI_USE_RESULT``,以节省最大内存。
+对于使用 MySQLi,你可以将 MySQLi 的结果模式设置为 ``MYSQLI_USE_RESULT``,以节省最大内存。
 使用这种方式通常不推荐,但在某些情况下可能是有益的,例如将大型查询写入 csv。
 如果更改结果模式,请注意与之相关的权衡。
 
@@ -118,7 +118,7 @@ getUnbufferedRow()
     对同一连接的后续所有调用都将导致错误。``getNumRows()`` 方法将仅基于数据指针的当前位置返回行数。
     MyISAM 表将保持锁定,直到提取了所有记录或进行了 ``freeResult()`` 调用。
 
-您可以选择传递 'object'(默认)或 'array' 以指定返回值的类型:
+你可以选择传递 'object'(默认)或 'array' 以指定返回值的类型:
 
 .. literalinclude:: results/012.php
 
@@ -126,7 +126,7 @@ getUnbufferedRow()
 自定义结果对象
 *********************
 
-您可以让结果作为 ``stdClass`` 或数组的自定义类的实例返回,正如 ``getResult()`` 和 ``getResultArray()`` 方法允许的那样。
+你可以让结果作为 ``stdClass`` 或数组的自定义类的实例返回,正如 ``getResult()`` 和 ``getResultArray()`` 方法允许的那样。
 如果类还未加载到内存中,则会自动加载。该对象将具有从数据库设置为属性的所有返回值。
 如果这些已声明且非公共,则应提供 ``__set()`` 方法以允许设置它们。
 
@@ -155,7 +155,7 @@ getCustomRowObject()
 
 .. literalinclude:: results/015.php
 
-您也可以以完全相同的方式使用 ``getRow()`` 方法。
+你也可以以完全相同的方式使用 ``getRow()`` 方法。
 
 例子:
 
@@ -194,7 +194,7 @@ freeResult()
 ============
 
 它释放与结果相关的内存并删除结果资源 ID。通常 PHP 会在脚本执行结束时自动释放其内存。
-但是,如果在特定脚本中运行了大量查询,您可能希望在生成每个查询结果后释放结果,以减少内存消耗。
+但是,如果在特定脚本中运行了大量查询,你可能希望在生成每个查询结果后释放结果,以减少内存消耗。
 
 例子:
 
@@ -210,7 +210,7 @@ dataSeek()
 .. literalinclude:: results/021.php
 
 .. note:: 并非所有数据库驱动程序都支持此功能并会返回 false。
-    最明显的是 - 您将无法与 PDO 一起使用它。
+    最明显的是 - 你将无法与 PDO 一起使用它。
 
 ***************
 类参考

@@ -58,26 +58,26 @@ Message 类为 HTTP 消息中请求和响应共有的部分提供了一个接口
 
     .. php:method:: header($name)
 
-        :param  string  $name: 您要检索其值的标头的名称。
+        :param  string  $name: 你要检索其值的标头的名称。
         :returns: 返回单个标头对象。如果存在多个同名标头,则返回标头对象数组。
         :rtype: \CodeIgniter\\HTTP\\Header|array
 
-        允许您检索单个消息标头的当前值。``$name`` 是不区分大小写的标头名称。
-        尽管内部会按上述方式转换标头,但您可以使用任何情况访问标头:
+        允许你检索单个消息标头的当前值。``$name`` 是不区分大小写的标头名称。
+        尽管内部会按上述方式转换标头,但你可以使用任何情况访问标头:
 
         .. literalinclude:: message/002.php
 
-        如果标头有多个值,``getValue()`` 将返回值数组。您可以使用 ``getValueLine()`` 方法将值作为字符串检索:
+        如果标头有多个值,``getValue()`` 将返回值数组。你可以使用 ``getValueLine()`` 方法将值作为字符串检索:
 
         .. literalinclude:: message/003.php
 
-        您可以通过第二个参数传递过滤值来过滤标头:
+        你可以通过第二个参数传递过滤值来过滤标头:
 
         .. literalinclude:: message/004.php
 
     .. php:method:: hasHeader($name)
 
-        :param  string  $name: 您要查看其是否存在的标头的名称。
+        :param  string  $name: 你要查看其是否存在的标头的名称。
         :returns: 如果存在则返回 true,否则返回 false。
         :rtype: bool
 
@@ -87,7 +87,7 @@ Message 类为 HTTP 消息中请求和响应共有的部分提供了一个接口
         :returns: 表示标头值的字符串。
         :rtype: string
 
-        以字符串形式返回标头的值。当标头有多个值时,此方法使您可以轻松获取标头值的字符串表示形式。值被适当连接:
+        以字符串形式返回标头的值。当标头有多个值时,此方法使你可以轻松获取标头值的字符串表示形式。值被适当连接:
 
         .. literalinclude:: message/005.php
 

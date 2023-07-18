@@ -9,8 +9,8 @@
 仓库包含框架的已发布版本。
 它适用于不希望使用 Composer 的开发人员。
 
-在 **app** 文件夹中开发您的应用程序,
-**public** 文件夹将是您面向公众的文档根目录。不要更改 **system** 文件夹中的任何内容!
+在 **app** 文件夹中开发你的应用程序,
+**public** 文件夹将是你面向公众的文档根目录。不要更改 **system** 文件夹中的任何内容!
 
 .. note:: 这是最接近为 `CodeIgniter 3 <https://codeigniter.com/userguide3/installation/index.html>`_
    描述的安装技术。
@@ -48,7 +48,7 @@
 缺点
 ====
 
-您需要自行检查 **项目空间** 中的文件更改(根目录、app、public、tests、writable)并合并它们。
+你需要自行检查 **项目空间** 中的文件更改(根目录、app、public、tests、writable)并合并它们。
 
 结构
 =========
@@ -60,9 +60,9 @@
 翻译安装
 =========================
 
-如果您想利用系统消息翻译,可以以类似的方式将它们添加到项目中。
+如果你想利用系统消息翻译,可以以类似的方式将它们添加到项目中。
 
 下载`最新版本 <https://github.com/codeigniter4/translations/releases/latest>`_。
-提取下载的 zip 文件,并将其中的 **Language** 文件夹内容复制到您的 **app/Languages** 文件夹中。
+提取下载的 zip 文件,并将其中的 **Language** 文件夹内容复制到你的 **app/Languages** 文件夹中。
 
 这需要重复执行以合并翻译的任何更新。

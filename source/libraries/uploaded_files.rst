@@ -46,7 +46,7 @@
     </head>
     <body>
 
-    <h3>您的文件上传成功!</h3>
+    <h3>你的文件上传成功!</h3>
 
     <ul>
         <li>名称:<?= esc($uploaded_fileinfo->getBasename()) ?></li>

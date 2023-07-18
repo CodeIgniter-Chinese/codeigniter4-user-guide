@@ -55,15 +55,15 @@ PHPUnit 配置
 
 为了利用所提供的其他工具,测试必须扩展 ``CIUnitTestCase``。默认情况下,所有测试都预计位于 **tests/app** 目录中。
 
-要测试新的库 **Foo**,您将在 **tests/app/Libraries/FooTest.php** 中创建一个新文件:
+要测试新的库 **Foo**,你将在 **tests/app/Libraries/FooTest.php** 中创建一个新文件:
 
 .. literalinclude:: overview/001.php
 
-要测试模型之一,您最终可能会在 **tests/app/Models/OneOfMyModelsTest.php** 中以类似以下形式结束:
+要测试模型之一,你最终可能会在 **tests/app/Models/OneOfMyModelsTest.php** 中以类似以下形式结束:
 
 .. literalinclude:: overview/002.php
 
-您可以创建任何适合测试风格或需求的目录结构。在给测试类加命名空间时,请记住 **app** 目录是 ``App`` 命名空间的根目录,因此所使用的任何类都必须与 ``App`` 具有正确的相对命名空间。
+你可以创建任何适合测试风格或需求的目录结构。在给测试类加命名空间时,请记住 **app** 目录是 ``App`` 命名空间的根目录,因此所使用的任何类都必须与 ``App`` 具有正确的相对命名空间。
 
 .. note:: 对测试类使用命名空间不是强制的,但它有助于确保类名不冲突。
 
@@ -93,14 +93,14 @@ Traits
 
 通过 traits 统一不同测试用例的环境搭建是一个加强测试的常用方式。``CIUnitTestCase`` 将检测任何类 traits,并查找以 trait 本身命名的环境搭建方法(即 `setUp{TraitName}()` 和 `tearDown{TraitName}()`)。
 
-例如,如果您需要在某些测试用例中添加认证,可以创建一个具有假登录用户设置方法的认证 trait:
+例如,如果你需要在某些测试用例中添加认证,可以创建一个具有假登录用户设置方法的认证 trait:
 
 .. literalinclude:: overview/006.php
 
 其他断言
 ---------------------
 
-``CIUnitTestCase`` 提供了您可能会发现有用的其他单元测试断言。
+``CIUnitTestCase`` 提供了你可能会发现有用的其他单元测试断言。
 
 assertLogged($level, $expectedMessage)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -186,12 +186,12 @@ setPrivateProperty($instance, $property, $value)
 模拟服务
 ================
 
-在测试中,您经常会发现需要模拟 **app/Config/Services.php** 中定义的服务之一,以将测试限制于仅检查相关代码,同时模拟服务的各种响应。这在测试控制器和其他集成测试中尤其如此。**Services** 类提供了以下方法来简化此操作。
+在测试中,你经常会发现需要模拟 **app/Config/Services.php** 中定义的服务之一,以将测试限制于仅检查相关代码,同时模拟服务的各种响应。这在测试控制器和其他集成测试中尤其如此。**Services** 类提供了以下方法来简化此操作。
 
 Services::injectMock()
 ----------------------
 
-此方法允许你定义 Services 类将返回的确切实例。您可以使用它来设置服务的属性,以使其以某种方式运行,或将服务替换为模拟类。
+此方法允许你定义 Services 类将返回的确切实例。你可以使用它来设置服务的属性,以使其以某种方式运行,或将服务替换为模拟类。
 
 .. literalinclude:: overview/016.php
 
@@ -202,7 +202,7 @@ Services::reset()
 
 从 Services 类中删除所有模拟类,将其恢复到原始状态。
 
-您也可以使用 ``CIUnitTestCase`` 提供的 ``$this->resetServices()`` 方法。
+你也可以使用 ``CIUnitTestCase`` 提供的 ``$this->resetServices()`` 方法。
 
 Services::resetSingle(string $name)
 -----------------------------------
@@ -214,7 +214,7 @@ Services::resetSingle(string $name)
 模拟 Factory 实例
 =========================
 
-与 Services 类似,在测试期间您可能需要提供预先配置的类实例用于 ``Factories``。像 **Services** 一样使用相同的 ``Factories::injectMock()`` 和 ``Factories::reset()`` 静态方法,但它们需要在前面附加组件名称作为额外参数:
+与 Services 类似,在测试期间你可能需要提供预先配置的类实例用于 ``Factories``。像 **Services** 一样使用相同的 ``Factories::injectMock()`` 和 ``Factories::reset()`` 静态方法,但它们需要在前面附加组件名称作为额外参数:
 
 .. literalinclude:: overview/017.php
 
@@ -232,7 +232,7 @@ StreamFilterTrait
 
 **StreamFilterTrait** 提供了这些帮助方法的替代方法。
 
-您可能需要测试一些难以测试的内容。有时,捕获流,如 PHP 自己的 STDOUT 或 STDERR,可能会有所帮助。``StreamFilterTrait`` 帮助您从选择的流中捕获输出。
+你可能需要测试一些难以测试的内容。有时,捕获流,如 PHP 自己的 STDOUT 或 STDERR,可能会有所帮助。``StreamFilterTrait`` 帮助你从选择的流中捕获输出。
 
 **方法概览**
 
@@ -276,7 +276,7 @@ PhpStreamWrapper
 
 **PhpStreamWrapper** 提供了测试需要用户输入的方法(如 ``CLI::prompt()``、``CLI::wait()`` 和 ``CLI::input()``)的途径。
 
-.. note:: PhpStreamWrapper 是一个流包装器类。如果您不了解 PHP 的流包装器,请参阅 PHP 手册中的 `The streamWrapper class <https://www.php.net/manual/en/class.streamwrapper.php>`_。
+.. note:: PhpStreamWrapper 是一个流包装器类。如果你不了解 PHP 的流包装器,请参阅 PHP 手册中的 `The streamWrapper class <https://www.php.net/manual/en/class.streamwrapper.php>`_。
 
 **方法概览**
 

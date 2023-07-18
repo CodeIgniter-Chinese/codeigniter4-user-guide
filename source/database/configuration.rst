@@ -120,7 +120,7 @@ DSN
 
                 .. note:: CodeIgniter 不支持数据库、表格和列名称中的点(``.``)。
 **DBDriver**    数据库驱动名称。驱动名称区分大小写。
-                您可以设置完全限定的类名以使用自定义驱动。
+                你可以设置完全限定的类名以使用自定义驱动。
                 支持的驱动:``MySQLi``、``Postgre``、``SQLite3``、``SQLSRV`` 和 ``OCI8``。
 **DBPrefix**    可选的表前缀,在运行时会添加到表名中:doc:`查询构造器 <query_builder>` 查询。这允许多个 CodeIgniter 安装共享一个数据库。
 **pConnect**    true/false (布尔值)- 是否使用持久连接。

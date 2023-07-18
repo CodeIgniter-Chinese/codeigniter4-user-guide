@@ -2,10 +2,10 @@
 测试控制器
 ###################
 
-几个新帮助类和 trait 使得测试控制器变得方便。在测试控制器时,您可以执行控制器中的代码,而无需先运行整个应用程序引导过程。
+几个新帮助类和 trait 使得测试控制器变得方便。在测试控制器时,你可以执行控制器中的代码,而无需先运行整个应用程序引导过程。
 通常,使用 :doc:`功能测试工具 <feature>` 将更简单,但如果需要,此功能仍可提供。
 
-.. note:: 由于整个框架没有启动,所以有时您无法以这种方式测试控制器。
+.. note:: 由于整个框架没有启动,所以有时你无法以这种方式测试控制器。
 
 .. contents::
     :local:
@@ -14,11 +14,11 @@
 帮助 Trait
 ================
 
-要启用控制器测试,您需要在测试中使用 ``ControllerTestTrait`` trait:
+要启用控制器测试,你需要在测试中使用 ``ControllerTestTrait`` trait:
 
 .. literalinclude:: controllers/001.php
 
-一旦包含了trait,您就可以开始设置环境,包括请求和响应类、请求体、URI等。您可以使用 ``controller()`` 方法指定要使用的控制器,传入控制器的完全限定类名。最后,用要运行的方法名作为参数调用 ``execute()`` 方法:
+一旦包含了trait,你就可以开始设置环境,包括请求和响应类、请求体、URI等。你可以使用 ``controller()`` 方法指定要使用的控制器,传入控制器的完全限定类名。最后,用要运行的方法名作为参数调用 ``execute()`` 方法:
 
 .. literalinclude:: controllers/002.php
 
@@ -39,14 +39,14 @@ execute(string $method, ...$params)
 
 .. literalinclude:: controllers/004.php
 
-通过指定第二个和后续参数,您可以将它们传递给控制器方法。
+通过指定第二个和后续参数,你可以将它们传递给控制器方法。
 
 这将返回一个新的帮助类,它提供了许多用于检查响应本身的例程。有关详细信息,请参阅下文。
 
 withConfig($config)
 -------------------
 
-允许您传入修改后的 **app/Config/App.php** 以使用不同设置进行测试:
+允许你传入修改后的 **app/Config/App.php** 以使用不同设置进行测试:
 
 .. literalinclude:: controllers/005.php
 
@@ -55,7 +55,7 @@ withConfig($config)
 withRequest($request)
 ---------------------
 
-允许您提供适合测试需求的 **IncomingRequest** 实例:
+允许你提供适合测试需求的 **IncomingRequest** 实例:
 
 .. literalinclude:: controllers/006.php
 
@@ -64,7 +64,7 @@ withRequest($request)
 withResponse($response)
 -----------------------
 
-允许您提供 **Response** 实例:
+允许你提供 **Response** 实例:
 
 .. literalinclude:: controllers/007.php
 
@@ -73,7 +73,7 @@ withResponse($response)
 withLogger($logger)
 -------------------
 
-允许您提供 **Logger** 实例:
+允许你提供 **Logger** 实例:
 
 .. literalinclude:: controllers/008.php
 
@@ -82,7 +82,7 @@ withLogger($logger)
 withURI(string $uri)
 --------------------
 
-允许您提供新的 URI,模拟客户端访问此控制器时的 URL。如果您需要在控制器中检查 URI 片段,这很有帮助。唯一的参数是一个表示有效 URI 的字符串:
+允许你提供新的 URI,模拟客户端访问此控制器时的 URL。如果你需要在控制器中检查 URI 片段,这很有帮助。唯一的参数是一个表示有效 URI 的字符串:
 
 .. literalinclude:: controllers/009.php
 
@@ -91,7 +91,7 @@ withURI(string $uri)
 withBody($body)
 ---------------
 
-允许您为请求提供自定义主体。当测试 API 控制器并需要将 JSON 值设置为主体时,这很有用。唯一的参数是一个表示请求主体的字符串:
+允许你为请求提供自定义主体。当测试 API 控制器并需要将 JSON 值设置为主体时,这很有用。唯一的参数是一个表示请求主体的字符串:
 
 .. literalinclude:: controllers/010.php
 
@@ -108,7 +108,7 @@ withBody($body)
 Helper Trait
 ----------------
 
-与控制器测试器一样,您需要在测试用例中包含 ``FilterTestTrait`` 来启用这些功能:
+与控制器测试器一样,你需要在测试用例中包含 ``FilterTestTrait`` 来启用这些功能:
 
 .. literalinclude:: controllers/011.php
 

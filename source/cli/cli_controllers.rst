@@ -19,7 +19,7 @@
 创建控制器
 ===================
 
-让我们创建一个简单的控制器,这样您就可以看到它的实际效果。使用文本编辑器,
+让我们创建一个简单的控制器,这样你就可以看到它的实际效果。使用文本编辑器,
 创建一个名为 Tools.php 的文件,并添加以下代码:
 
 .. literalinclude:: cli_controllers/001.php
@@ -33,9 +33,9 @@
 
 如果使用自动路由,请跳过此步骤。
 
-在 **app/Config/Routes.php** 文件中,您可以轻松创建只能通过 CLI 访问的路由,
+在 **app/Config/Routes.php** 文件中,你可以轻松创建只能通过 CLI 访问的路由,
 就像创建任何其他路由一样。与使用 ``get()``、``post()``
-或类似的方法不同,您将使用 ``cli()`` 方法。其他所有内容的工作原理与正常的路由定义完全相同:
+或类似的方法不同,你将使用 ``cli()`` 方法。其他所有内容的工作原理与正常的路由定义完全相同:
 
 .. literalinclude:: cli_controllers/002.php
 
@@ -47,7 +47,7 @@
 通过 CLI 运行
 ===========
 
-通常,您会使用类似于以下内容的 URL 访问站点::
+通常,你会使用类似于以下内容的 URL 访问站点::
 
     example.com/index.php/tools/message/to
 
@@ -59,7 +59,7 @@
     $ cd /path/to/project/public
     $ php index.php tools message
 
-如果您操作正确,应该会看到打印出 “Hello World!”。
+如果你操作正确,应该会看到打印出 “Hello World!”。
 
 .. code-block:: bash
 
@@ -82,4 +82,4 @@
 如果要确保通过 CLI 运行,请检查 :php:func:`is_cli()` 的返回值。
 
 但是,CodeIgniter 提供了其他工具,可以使创建 CLI 可访问的脚本更加愉快,
-包括 CLI 專用路由和一个可以帮助您使用 CLI 專用工具的库。
+包括 CLI 專用路由和一个可以帮助你使用 CLI 專用工具的库。

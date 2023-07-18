@@ -2,7 +2,7 @@
 测试响应
 #################
 
-``TestResponse`` 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常,``TestResponse`` 将作为您的结果提供,:doc:`控制器测试 <controllers>` 或 :doc:`HTTP 功能测试 <feature>`,但您始终可以直接使用任何 ``ResponseInterface`` 创建自己的:
+``TestResponse`` 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常,``TestResponse`` 将作为你的结果提供,:doc:`控制器测试 <controllers>` 或 :doc:`HTTP 功能测试 <feature>`,但你始终可以直接使用任何 ``ResponseInterface`` 创建自己的:
 
 .. literalinclude:: response/001.php
 
@@ -13,7 +13,7 @@
 测试响应
 ********************
 
-无论您是从测试中获得 ``TestResponse`` 还是自己创建,都可以在测试中使用许多新的断言。
+无论你是从测试中获得 ``TestResponse`` 还是自己创建,都可以在测试中使用许多新的断言。
 
 访问请求/响应
 ==========================
@@ -21,14 +21,14 @@
 request()
 ---------
 
-如果在测试期间设置了请求,您可以直接访问请求对象:
+如果在测试期间设置了请求,你可以直接访问请求对象:
 
 .. literalinclude:: response/002.php
 
 response()
 ----------
 
-这允许您直接访问响应对象:
+这允许你直接访问响应对象:
 
 .. literalinclude:: response/003.php
 
@@ -145,7 +145,7 @@ assertCookieExpired(string $key, string $prefix = '')
 DOM 帮助方法
 ===========
 
-您得到的响应包含许多帮助方法来检查响应中的 HTML 输出。这些在测试中的断言中很有用。
+你得到的响应包含许多帮助方法来检查响应中的 HTML 输出。这些在测试中的断言中很有用。
 
 see()
 -----
@@ -168,7 +168,7 @@ seeElement()
 seeLink()
 ---------
 
-您可以使用 ``seeLink()`` 来确保页面上存在具有指定文本的链接:
+你可以使用 ``seeLink()`` 来确保页面上存在具有指定文本的链接:
 
 .. literalinclude:: response/021.php
 
@@ -182,14 +182,14 @@ seeInField()
 seeCheckboxIsChecked()
 ----------------------
 
-最后,您可以使用 ``seeCheckboxIsChecked()`` 方法检查复选框是否存在并已被选中:
+最后,你可以使用 ``seeCheckboxIsChecked()`` 方法检查复选框是否存在并已被选中:
 
 .. literalinclude:: response/023.php
 
 DOM 断言
 ==============
 
-您可以使用以下断言来测试响应正文中是否存在特定元素/文本等。
+你可以使用以下断言来测试响应正文中是否存在特定元素/文本等。
 
 assertSee(string $search = null, string $element = null)
 --------------------------------------------------------
@@ -245,7 +245,7 @@ getJSON()
 
 .. literalinclude:: response/030.php
 
-您可以使用此方法来确定 ``$response`` 是否确实包含 JSON 内容:
+你可以使用此方法来确定 ``$response`` 是否确实包含 JSON 内容:
 
 .. literalinclude:: response/031.php
 

@@ -6,7 +6,7 @@
 
 另请参阅 :doc:`./backward_compatibility_notes`。
 
-.. note:: 如果您不知道正在运行的 CodeIgniter 版本,可以从 :ref:`调试工具栏 <the-debug-toolbar>` 获取,
+.. note:: 如果你不知道正在运行的 CodeIgniter 版本,可以从 :ref:`调试工具栏 <the-debug-toolbar>` 获取,
     或者简单地输出常量 ``\CodeIgniter\CodeIgniter::CI_VERSION``。
 
 .. toctree::

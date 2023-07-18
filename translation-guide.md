@@ -15,14 +15,14 @@
 
 **这是必须的。所有参与翻译者都必须进行这一步的操作。**
 
-设置您的提交信息的用户名和电子邮件地址。如：
+设置你的提交信息的用户名和电子邮件地址。如：
 
 ```
 $ git config --global user.name "John Doe"
 $ git config --global user.email "johndoe@example.com"
 ```
 
-一旦完成，你只需要在您的分支的提交上使用 --signoff。
+一旦完成，你只需要在你的分支的提交上使用 --signoff。
 
 ```
 $ git commit --signoff

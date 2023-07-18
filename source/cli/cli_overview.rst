@@ -3,7 +3,7 @@ CLI 概览
 ############
 
 CodeIgniter 4 提供了内置命令 **spark** 和有用的命令与库。
-您还可以创建 spark 命令,并通过 CLI 运行控制器。
+你还可以创建 spark 命令,并通过 CLI 运行控制器。
 
 .. contents::
     :local:
@@ -31,7 +31,7 @@ Spark 命令
 
 CodeIgniter 提供了官方命令 **spark** 和内置命令。
 
-您可以运行 spark 并查看帮助::
+你可以运行 spark 并查看帮助::
 
     > php spark
 

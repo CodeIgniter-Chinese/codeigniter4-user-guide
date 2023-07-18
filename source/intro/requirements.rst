@@ -20,25 +20,25 @@ PHP 及所需扩展
 可选的 PHP 扩展
 ***********************
 
-您的服务器上应启用以下 PHP 扩展:
+你的服务器上应启用以下 PHP 扩展:
 
-  - `mysqlnd <https://www.php.net/manual/en/mysqlnd.install.php>`_ (如果您使用 MySQL)
-  - `curl <https://www.php.net/manual/en/curl.requirements.php>`_ (如果您使用 :doc:`CURLRequest </libraries/curlrequest>`)
-  - `imagick <https://www.php.net/manual/en/imagick.requirements.php>`_ (如果您使用 :doc:`Image </libraries/images>` 类的 ImageMagickHandler)
-  - `gd <https://www.php.net/manual/en/image.requirements.php>`_ (如果您使用 :doc:`Image </libraries/images>` 类的 GDHandler)
-  - `simplexml <https://www.php.net/manual/en/simplexml.requirements.php>`_ (如果您格式化 XML)
+  - `mysqlnd <https://www.php.net/manual/en/mysqlnd.install.php>`_ (如果你使用 MySQL)
+  - `curl <https://www.php.net/manual/en/curl.requirements.php>`_ (如果你使用 :doc:`CURLRequest </libraries/curlrequest>`)
+  - `imagick <https://www.php.net/manual/en/imagick.requirements.php>`_ (如果你使用 :doc:`Image </libraries/images>` 类的 ImageMagickHandler)
+  - `gd <https://www.php.net/manual/en/image.requirements.php>`_ (如果你使用 :doc:`Image </libraries/images>` 类的 GDHandler)
+  - `simplexml <https://www.php.net/manual/en/simplexml.requirements.php>`_ (如果你格式化 XML)
 
-当您使用缓存服务器时,需要启用以下 PHP 扩展:
+当你使用缓存服务器时,需要启用以下 PHP 扩展:
 
-  - `memcache <https://www.php.net/manual/en/memcache.requirements.php>`_ (如果您使用 Memcache 和 :doc:`Cache </libraries/caching>` 类的 MemcachedHandler)
-  - `memcached <https://www.php.net/manual/en/memcached.requirements.php>`_ (如果您使用 Memcached 和 :doc:`Cache </libraries/caching>` 类的 MemcachedHandler)
-  - `redis <https://github.com/phpredis/phpredis>`_ (如果您使用 :doc:`Cache </libraries/caching>` 类的 RedisHandler)
+  - `memcache <https://www.php.net/manual/en/memcache.requirements.php>`_ (如果你使用 Memcache 和 :doc:`Cache </libraries/caching>` 类的 MemcachedHandler)
+  - `memcached <https://www.php.net/manual/en/memcached.requirements.php>`_ (如果你使用 Memcached 和 :doc:`Cache </libraries/caching>` 类的 MemcachedHandler)
+  - `redis <https://github.com/phpredis/phpredis>`_ (如果你使用 :doc:`Cache </libraries/caching>` 类的 RedisHandler)
 
-当您使用 PHPUnit 时,需要启用以下 PHP 扩展:
+当你使用 PHPUnit 时,需要启用以下 PHP 扩展:
 
-   - `dom <https://www.php.net/manual/en/dom.requirements.php>`_ (如果您使用 :doc:`TestResponse </testing/response>` 类)
-   - `libxml <https://www.php.net/manual/en/libxml.requirements.php>`_ (如果您使用 :doc:`TestResponse </testing/response>` 类)
-   - `xdebug <https://xdebug.org/docs/install>`_ (如果您使用 ``CIUnitTestCase::assertHeaderEmitted()``)
+   - `dom <https://www.php.net/manual/en/dom.requirements.php>`_ (如果你使用 :doc:`TestResponse </testing/response>` 类)
+   - `libxml <https://www.php.net/manual/en/libxml.requirements.php>`_ (如果你使用 :doc:`TestResponse </testing/response>` 类)
+   - `xdebug <https://xdebug.org/docs/install>`_ (如果你使用 ``CIUnitTestCase::assertHeaderEmitted()``)
 
 .. _requirements-supported-databases:
 

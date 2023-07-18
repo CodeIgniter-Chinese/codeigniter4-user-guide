@@ -2,7 +2,7 @@
 CLI 生成器
 ##############
 
-CodeIgniter4 现在配备了生成器,以简化常规控制器、模型、实体等的创建。您还可以使用一个命令搭建一整套完整的文件。
+CodeIgniter4 现在配备了生成器,以简化常规控制器、模型、实体等的创建。你还可以使用一个命令搭建一整套完整的文件。
 
 .. contents::
     :local:
@@ -19,11 +19,11 @@ CodeIgniter4 现在配备了生成器,以简化常规控制器、模型、实体
 
 其中 ``<生成器命令>`` 将替换为要检查的命令。
 
-.. note:: 您需要在子文件夹中生成代码吗?例如,如果您想在主 ``Controllers`` 文件夹的 ``Admin`` 子文件夹中创建一个控制器类,您只需要在类名前加上子文件夹,像这样:``php spark make:controller admin/login``。这个命令将在 ``Controllers/Admin`` 子文件夹中创建 ``Login`` 控制器,命名空间为 ``App\Controllers\Admin``。
+.. note:: 你需要在子文件夹中生成代码吗?例如,如果你想在主 ``Controllers`` 文件夹的 ``Admin`` 子文件夹中创建一个控制器类,你只需要在类名前加上子文件夹,像这样:``php spark make:controller admin/login``。这个命令将在 ``Controllers/Admin`` 子文件夹中创建 ``Login`` 控制器,命名空间为 ``App\Controllers\Admin``。
 
 .. note:: 在模块上工作?代码生成将根命名空间默认设置为 ``APP_NAMESPACE``。如果需要在模块命名空间的其他位置生成代码,请确保在命令中设置 ``--namespace`` 选项,例如 ``php spark make:model blog --namespace Acme\\Blog``。
 
-.. warning:: 设置 ``--namespace`` 选项时,请确保提供的命名空间是在 ``Config\Autoload`` 中的 ``$psr4`` 数组或您的 composer 自动加载文件中定义的有效命名空间。否则,代码生成将中断。
+.. warning:: 设置 ``--namespace`` 选项时,请确保提供的命名空间是在 ``Config\Autoload`` 中的 ``$psr4`` 数组或你的 composer 自动加载文件中定义的有效命名空间。否则,代码生成将中断。
 
 .. important:: 从 v4.0.5 开始,使用 ``migrate:create`` 创建迁移文件已被弃用。它将在未来版本中删除。请使用 ``make:migration`` 作为替代。另外,请使用 ``make:migration --session`` 来代替已弃用的 ``session:migration``。
 
@@ -261,9 +261,9 @@ make:validation
 搭建一整套完整的代码
 ****************************************
 
-在开发阶段,我们有时会分组创建功能,比如创建一个 *Admin* 组。该组将包含自己的控制器、模型、迁移文件,甚至实体。您可能会想一一在终端中输入每个生成器命令,并希望有一个单一的生成器命令可以统治一切。
+在开发阶段,我们有时会分组创建功能,比如创建一个 *Admin* 组。该组将包含自己的控制器、模型、迁移文件,甚至实体。你可能会想一一在终端中输入每个生成器命令,并希望有一个单一的生成器命令可以统治一切。
 
-不要担心!CodeIgniter4 还配备了专用的 ``make:scaffold`` 命令,它基本上是控制器、模型、实体、迁移和种子生成器命令的包装器。您只需要输入用于命名所有生成类的类名。另外,**每个生成器命令支持的单独选项** 也会被脚手架命令识别。
+不要担心!CodeIgniter4 还配备了专用的 ``make:scaffold`` 命令,它基本上是控制器、模型、实体、迁移和种子生成器命令的包装器。你只需要输入用于命名所有生成类的类名。另外,**每个生成器命令支持的单独选项** 也会被脚手架命令识别。
 
 在终端中运行此命令::
 
@@ -290,6 +290,6 @@ GeneratorTrait
 
 生成器模板的默认查找顺序是 (1) **app/Config/Generators.php** 文件中定义的模板,如果未找到,则是 (2) 在 ``CodeIgniter\Commands\Generators\Views`` 命名空间下找到的模板。
 
-要为自定义生成器命令声明模板位置,需要将其添加到 **app/Config/Generators.php** 文件中。例如,如果您有一个命令 ``make:awesome-command``,并且生成器模板位于 *app* 目录 **app/Commands/Generators/Views/awesomecommand.tpl.php** 中,则需要按如下方式更新配置文件:
+要为自定义生成器命令声明模板位置,需要将其添加到 **app/Config/Generators.php** 文件中。例如,如果你有一个命令 ``make:awesome-command``,并且生成器模板位于 *app* 目录 **app/Commands/Generators/Views/awesomecommand.tpl.php** 中,则需要按如下方式更新配置文件:
 
 .. literalinclude:: cli_generators/001.php

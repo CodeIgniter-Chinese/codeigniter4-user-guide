@@ -90,7 +90,7 @@ CodeIgniter 提供了一个全面的数据验证类,可以帮助 minimizing 你�
     </head>
     <body>
 
-        <h3>您的表单已成功提交!</h3>
+        <h3>你的表单已成功提交!</h3>
 
         <p><?= anchor('form', '再试一次!') ?></p>
 

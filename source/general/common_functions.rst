@@ -136,7 +136,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
   .. literalinclude:: common_functions/002.php
 
-.. note:: 如果使用 :doc:`表单辅助程序 </helpers/form_helper>`,则此功能内置。只有在不使用表单辅助程序时,您才需要使用此函数。
+.. note:: 如果使用 :doc:`表单辅助程序 </helpers/form_helper>`,则此功能内置。只有在不使用表单辅助程序时,你才需要使用此函数。
 
 .. php:function:: session([$key])
 
@@ -152,7 +152,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
   :returns: Timer 实例
   :rtype: CodeIgniter\Debug\Timer
 
-  提供快速访问 Timer 类的便捷方法。您可以将基准点的名称作为唯一参数传递。这将从此点开始计时,或者如果具有此名称的计时器已经在运行,则停止计时。
+  提供快速访问 Timer 类的便捷方法。你可以将基准点的名称作为唯一参数传递。这将从此点开始计时,或者如果具有此名称的计时器已经在运行,则停止计时。
 
   例子:
 
@@ -170,7 +170,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
   当前,这些选项可在 ``$options`` 数组中使用:
 
-  - ``saveData`` 指定数据在同一请求内对 ``view()`` 的多次调用之间是否持久化。如果您不希望数据被持久化,请指定 false。
+  - ``saveData`` 指定数据在同一请求内对 ``view()`` 的多次调用之间是否持久化。如果你不希望数据被持久化,请指定 false。
   - ``cache`` 指定缓存视图的秒数。详情请见 :ref:`caching-views`。
   - ``debug`` 可以设置为 false 以禁用为 :ref:`Debug Toolbar <the-debug-toolbar>` 添加调试代码。
 
@@ -269,7 +269,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
   检查页面是否正在通过 HTTPS 访问。如果是,则什么都不会发生。如果不是,则用户会被重定向回当前 URI,但通过 HTTPS。
   将设置 HTTP 严格传输安全性 (HTST) 头,指示现代浏览器自动将任何 HTTP 请求修改为 HTTPS 请求,持续时间为 ``$duration``。
 
-  .. note:: 当您设置 ``Config\App:$forceGlobalSecureRequests`` 为 true 时,也会使用此函数。
+  .. note:: 当你设置 ``Config\App:$forceGlobalSecureRequests`` 为 true 时,也会使用此函数。
 
 .. php:function:: function_usable($function_name)
 
@@ -320,7 +320,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
   :param  string  $route: 要重定向用户的路由名称或 Controller::method
   :rtype: RedirectResponse
 
-  返回一个 RedirectResponse 实例,允许您轻松创建重定向。
+  返回一个 RedirectResponse 实例,允许你轻松创建重定向。
   详情请见 :ref:`response-redirect`。
 
 .. php:function:: remove_invisible_characters($str[, $urlEncoded = true])
@@ -357,26 +357,26 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 .. php:function:: route_to($method[, ...$params])
 
   :param   string       $method: 路由名称或 Controller::method
-  :param   int|string   ...$params: 将传递到路由的一个或多个参数。最后一个参数允许您设置语言环境。
+  :param   int|string   ...$params: 将传递到路由的一个或多个参数。最后一个参数允许你设置语言环境。
   :returns: 路由路径(相对于 baseURL 的 URI 路径)
   :rtype: string
 
   .. note:: 此函数要求在 **app/Config/routes.php** 中为控制器/方法定义路由。
 
   .. important:: ``route_to()`` 返回一个*路由*路径,而不是站点的完整 URI 路径。
-      如果您的 **baseURL** 包含子文件夹,返回值与要链接的 URI 不相同。
+      如果你的 **baseURL** 包含子文件夹,返回值与要链接的 URI 不相同。
       在这种情况下,请改用 :php:func:`url_to()`。
       另请参阅 :ref:`urls-url-structure`。
 
-  根据控制器::方法组合为您生成路由。如果提供了参数,则会将参数考虑在内。
+  根据控制器::方法组合为你生成路由。如果提供了参数,则会将参数考虑在内。
 
   .. literalinclude:: common_functions/009.php
 
-  根据路由名称为您生成路由。
+  根据路由名称为你生成路由。
 
   .. literalinclude:: common_functions/010.php
 
-  从 v4.3.0 开始,当您在路由中使用 ``{locale}`` 时,可以将语言环境值作为最后一个参数可选地指定。
+  从 v4.3.0 开始,当你在路由中使用 ``{locale}`` 时,可以将语言环境值作为最后一个参数可选地指定。
 
   .. literalinclude:: common_functions/011.php
 

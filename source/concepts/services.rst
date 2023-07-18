@@ -36,7 +36,7 @@ CodeIgniter 的所有核心类都以“服务”提供。这仅仅意味着,不�
 如何获取服务
 ********************
 
-由于许多 CodeIgniter 类作为服务提供,您可以像如下获取它们:
+由于许多 CodeIgniter 类作为服务提供,你可以像如下获取它们:
 
 .. literalinclude:: services/013.php
 
@@ -81,7 +81,7 @@ single_service()
 定义服务
 *****************
 
-为了使服务能够良好地工作,您必须能够依赖于每个类具有一个恒定的 API 或 `接口 <https://www.php.net/manual/en/language.oop5.interfaces.php>`_ 来使用它。CodeIgniter 的几乎所有类都提供了它们要遵守的接口。当你想扩展或替换核心类时,你只需要确保满足接口的要求,你就会知道这些类是兼容的。
+为了使服务能够良好地工作,你必须能够依赖于每个类具有一个恒定的 API 或 `接口 <https://www.php.net/manual/en/language.oop5.interfaces.php>`_ 来使用它。CodeIgniter 的几乎所有类都提供了它们要遵守的接口。当你想扩展或替换核心类时,你只需要确保满足接口的要求,你就会知道这些类是兼容的。
 
 例如,``RouteCollection`` 类实现了 ``RouteCollectionInterface``。当你想要创建一个提供不同路由创建方式的替代类时,你只需要创建一个实现 ``RouteCollectionInterface`` 的新类:
 
@@ -114,7 +114,7 @@ single_service()
 服务发现
 *****************
 
-CodeIgniter 可以自动发现您可能在任何定义的命名空间中创建的任何 **Config/Services.php** 文件。这允许简单使用任何模块的 Services 文件。为了发现自定义 Services 文件,它们必须满足以下要求:
+CodeIgniter 可以自动发现你可能在任何定义的命名空间中创建的任何 **Config/Services.php** 文件。这允许简单使用任何模块的 Services 文件。为了发现自定义 Services 文件,它们必须满足以下要求:
 
 - 其命名空间必须在 **app/Config/Autoload.php** 中定义
 - 在命名空间内,该文件必须位于 **Config/Services.php**
@@ -122,11 +122,11 @@ CodeIgniter 可以自动发现您可能在任何定义的命名空间中创建�
 
 一个小例子应该澄清这一点。
 
-假设在项目的根目录中创建了一个新目录 **Blog**。这将保存带有控制器、模型等的 **Blog 模块**,您想将其中一些类作为服务提供。第一步是创建一个新文件:**Blog/Config/Services.php**。该文件框架应该是:
+假设在项目的根目录中创建了一个新目录 **Blog**。这将保存带有控制器、模型等的 **Blog 模块**,你想将其中一些类作为服务提供。第一步是创建一个新文件:**Blog/Config/Services.php**。该文件框架应该是:
 
 .. literalinclude:: services/011.php
 
-现在您可以像上面描述的那样使用此文件。当您想从任何控制器获取文章服务时,只需使用框架的 ``Config\Services`` 类获取您的服务:
+现在你可以像上面描述的那样使用此文件。当你想从任何控制器获取文章服务时,只需使用框架的 ``Config\Services`` 类获取你的服务:
 
 .. literalinclude:: services/012.php
 

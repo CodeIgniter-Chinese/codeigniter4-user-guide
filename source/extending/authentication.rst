@@ -19,4 +19,4 @@ CodeIgniter 为 CodeIgniter 4 提供了一个官方的认证和授权框架
         "codeigniter4/authentication-implementation": "1.0"
     },
 
-您可以在 `Packagist <https://packagist.org/providers/codeigniter4/authentication-implementation>`_ 上查看提供该实现的模块列表。
+你可以在 `Packagist <https://packagist.org/providers/codeigniter4/authentication-implementation>`_ 上查看提供该实现的模块列表。

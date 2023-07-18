@@ -56,14 +56,14 @@ trace()
 
 除 **production** 环境外,调试工具栏在其他所有 :doc:`环境 </general/environments>` 下默认启用。当常量 ``CI_DEBUG`` 定义且值为 true 时就会显示。常量定义在引导文件中(例如 **app/Config/Boot/development.php**),可以在其中修改以确定显示的环境。
 
-.. note:: 当您的 ``baseURL`` 设置(在 **app/Config/App.php** 或 ``app.baseURL`` 在 **.env** 中)与实际 URL 不匹配时,不会显示调试工具栏。
+.. note:: 当你的 ``baseURL`` 设置(在 **app/Config/App.php** 或 ``app.baseURL`` 在 **.env** 中)与实际 URL 不匹配时,不会显示调试工具栏。
 
 工具栏本身作为 :doc:`After 过滤器 </incoming/filters>` 显示。可以通过在 **app/Config/Filters.php** 的 ``$globals`` 属性中删除它来完全禁用。
 
 选择显示内容
 ---------------------
 
-CodeIgniter 默认带有多个 Collector ,它们收集要在工具栏上显示的数据。您可以方便地自定义 Collector 。要确定显示哪些收集器,请查看配置文件 **app/Config/Toolbar.php**:
+CodeIgniter 默认带有多个 Collector ,它们收集要在工具栏上显示的数据。你可以方便地自定义 Collector 。要确定显示哪些收集器,请查看配置文件 **app/Config/Toolbar.php**:
 
 .. literalinclude:: debugging/003.php
 

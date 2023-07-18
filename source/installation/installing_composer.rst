@@ -5,17 +5,17 @@ Composer 安装
     :local:
     :depth: 2
 
-Composer 可以通过几种方式在您的系统上安装 CodeIgniter4。
+Composer 可以通过几种方式在你的系统上安装 CodeIgniter4。
 
 .. important:: CodeIgniter4 需要 Composer 2.0.14 或更高版本。
 
-.. note:: 如果您不熟悉 Composer,我们建议您先阅读
+.. note:: 如果你不熟悉 Composer,我们建议你先阅读
     `基本用法 <https://getcomposer.org/doc/01-basic-usage.md>`_。
 
-第一种技术描述了使用 CodeIgniter4 创建骨架项目的方法,然后您可以将其用作新 Web 应用程序的基础。
-下面描述的第二种技术允许您将 CodeIgniter4 添加到现有的 Web 应用程序中。
+第一种技术描述了使用 CodeIgniter4 创建骨架项目的方法,然后你可以将其用作新 Web 应用程序的基础。
+下面描述的第二种技术允许你将 CodeIgniter4 添加到现有的 Web 应用程序中。
 
-.. note:: 如果您使用 Git 仓库存储代码或与他人协作,那么 **vendor** 文件夹通常会被“git 忽略”。在这种情况下,当您将仓库克隆到新系统时,需要运行 ``composer update``。
+.. note:: 如果你使用 Git 仓库存储代码或与他人协作,那么 **vendor** 文件夹通常会被“git 忽略”。在这种情况下,当你将仓库克隆到新系统时,需要运行 ``composer update``。
 
 App Starter
 ===========
@@ -40,7 +40,7 @@ App Starter
     可以使用的符号是 ``/``, ``_``, ``.``, ``:``, ``\`` 和空格。
     因此,如果在包含特殊字符的文件夹下安装 CodeIgniter,比如 ``(``, ``)`` 等,CodeIgniter 将无法工作。
 
-.. important:: 当您将应用部署到生产服务器时,不要忘记运行以下命令::
+.. important:: 当你将应用部署到生产服务器时,不要忘记运行以下命令::
 
     > composer install --no-dev
 
@@ -70,7 +70,7 @@ App Starter
 缺点
 ----
 
-更新后,您仍然需要检查 **项目空间** 中的文件更改(根目录、app、public、writable),并合并它们。
+更新后,你仍然需要检查 **项目空间** 中的文件更改(根目录、app、public、writable),并合并它们。
 
 .. note:: 有一些第三方 CodeIgniter 模块可用于协助合并项目空间的更改:
     `在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
@@ -110,7 +110,7 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 安装
 ------------
 
-在 ``app`` 文件夹中开发您的应用程序,``public`` 文件夹将是您的文档根目录。
+在 ``app`` 文件夹中开发你的应用程序,``public`` 文件夹将是你的文档根目录。
 
 在项目根目录中::
 
@@ -127,7 +127,7 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 
     1. 从 **vendor/codeigniter4/framework** 复制 **app**、**public**、**tests** 和 **writable** 文件夹到项目根目录
     2. 从 **vendor/codeigniter4/framework** 复制 **env**、**phpunit.xml.dist** 和 **spark** 文件到项目根目录
-    3. 您将必须调整 **app/Config/Paths.php** 中的 ``$systemDirectory`` 属性,以引用 vendor 目录,例如 ``__DIR__ . '/../../vendor/codeigniter4/framework/system'``。
+    3. 你将必须调整 **app/Config/Paths.php** 中的 ``$systemDirectory`` 属性,以引用 vendor 目录,例如 ``__DIR__ . '/../../vendor/codeigniter4/framework/system'``。
 
 初始配置
 ---------------------
@@ -153,7 +153,7 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 缺点
 ----
 
-更新后,您仍需检查 **项目空间** 中的文件更改(根目录、app、public、writable)。
+更新后,你仍需检查 **项目空间** 中的文件更改(根目录、app、public、writable)。
 
 .. note:: 有一些第三方 CodeIgniter 模块可用于协助合并项目空间的更改:
     `在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
@@ -169,7 +169,7 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 翻译安装
 =========================
 
-如果您想利用系统消息翻译,可以以类似的方式将它们添加到项目中。
+如果你想利用系统消息翻译,可以以类似的方式将它们添加到项目中。
 
 在项目根目录的命令行中::
 

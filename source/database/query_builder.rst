@@ -2,10 +2,10 @@
 查询构建器类
 ###################
 
-CodeIgniter 为您提供了查询构建器类的访问。这种模式允许您使用最小的脚本就可以在数据库中检索、插入和更新信息。在某些情况下,只需要一行或两行代码就可以执行数据库操作。
+CodeIgniter 为你提供了查询构建器类的访问。这种模式允许你使用最小的脚本就可以在数据库中检索、插入和更新信息。在某些情况下,只需要一行或两行代码就可以执行数据库操作。
 CodeIgniter 不要求每个数据库表都有自己的类文件。它提供了一个更简化的接口。
 
-除了简单性之外,使用查询构建器功能的一个主要好处是,它允许您创建数据库独立的应用程序,因为查询语法是由每个数据库适配器生成的。它也允许进行更安全的查询,因为系统会自动对值进行转义。
+除了简单性之外,使用查询构建器功能的一个主要好处是,它允许你创建数据库独立的应用程序,因为查询语法是由每个数据库适配器生成的。它也允许进行更安全的查询,因为系统会自动对值进行转义。
 
 .. note:: CodeIgniter 不支持数据库、表名和列名中使用点(``.``)。
 
@@ -17,7 +17,7 @@ CodeIgniter 不要求每个数据库表都有自己的类文件。它提供了�
 SQL 注入保护
 ************************
 
-您可以使用查询构建器相当安全地生成 SQL 语句。但是,它不旨在防止无论您传递什么数据都防止 SQL 注入。
+你可以使用查询构建器相当安全地生成 SQL 语句。但是,它不旨在防止无论你传递什么数据都防止 SQL 注入。
 
 传递给查询构建器的参数可以是:
     1. **标识符**,如字段(或表)名称
@@ -32,14 +32,14 @@ SQL 注入保护
 
 此外,许多方法都有 ``$escape`` 参数,可以设置为禁用转义。
 如果将 ``$escape`` 设置为 false,查询构建器不提供任何保护,
-所以您必须确保在将其传递给查询构建器之前已经适当地对它们进行了转义或保护。
+所以你必须确保在将其传递给查询构建器之前已经适当地对它们进行了转义或保护。
 使用 ``RawSql`` 指定原始 SQL 语句时也是如此。
 
 *************************
 加载查询构建器
 *************************
 
-可以通过数据库连接上的 ``table()`` 方法加载查询构建器。这会为您设置查询的 **FROM** 部分,并返回查询构建器类的新实例:
+可以通过数据库连接上的 ``table()`` 方法加载查询构建器。这会为你设置查询的 **FROM** 部分,并返回查询构建器类的新实例:
 
 .. literalinclude:: query_builder/001.php
 
@@ -49,7 +49,7 @@ SQL 注入保护
 选择数据
 **************
 
-以下方法允许您构建 SQL **SELECT** 语句。
+以下方法允许你构建 SQL **SELECT** 语句。
 
 Get
 ===
@@ -61,11 +61,11 @@ $builder->get()
 
 .. literalinclude:: query_builder/002.php
 
-第一个和第二个参数使您可以设置 limit 和 offset 子句:
+第一个和第二个参数使你可以设置 limit 和 offset 子句:
 
 .. literalinclude:: query_builder/003.php
 
-您会注意到上面的方法被赋值给一个名为 $query 的变量,可用于显示结果:
+你会注意到上面的方法被赋值给一个名为 $query 的变量,可用于显示结果:
 
 .. literalinclude:: query_builder/004.php
 
@@ -80,7 +80,7 @@ $builder->getCompiledSelect()
 
 .. literalinclude:: query_builder/005.php
 
-第一个参数使您可以设置查询构建器查询是否将重置(默认情况下,它将重置,就像使用 ``$builder->get()`` 一样):
+第一个参数使你可以设置查询构建器查询是否将重置(默认情况下,它将重置,就像使用 ``$builder->get()`` 一样):
 
 .. literalinclude:: query_builder/006.php
 
@@ -90,7 +90,7 @@ $builder->getCompiledSelect()
 $builder->getWhere()
 --------------------
 
-与 ``get()`` 方法相同,只是它允许您在第一个参数中添加 “where” 子句,而不是使用 ``$builder->where()`` 方法:
+与 ``get()`` 方法相同,只是它允许你在第一个参数中添加 “where” 子句,而不是使用 ``$builder->where()`` 方法:
 
 .. literalinclude:: query_builder/007.php
 
@@ -104,13 +104,13 @@ Select
 $builder->select()
 ------------------
 
-允许您编写查询的 **SELECT** 部分:
+允许你编写查询的 **SELECT** 部分:
 
 .. literalinclude:: query_builder/008.php
 
-.. note:: 如果从表中选择所有 (``*``),则不需要使用此方法。如果省略,CodeIgniter 会假定您希望选择所有字段并自动添加 ``SELECT *``。
+.. note:: 如果从表中选择所有 (``*``),则不需要使用此方法。如果省略,CodeIgniter 会假定你希望选择所有字段并自动添加 ``SELECT *``。
 
-``$builder->select()`` 接受一个可选的第二个参数。如果将其设置为 ``false``,CodeIgniter 将不会尝试保护您的字段或表名。这在需要复合 select 语句的情况下很有用,其中自动转义字段可能会破坏它们。
+``$builder->select()`` 接受一个可选的第二个参数。如果将其设置为 ``false``,CodeIgniter 将不会尝试保护你的字段或表名。这在需要复合 select 语句的情况下很有用,其中自动转义字段可能会破坏它们。
 
 .. literalinclude:: query_builder/009.php
 
@@ -125,40 +125,40 @@ RawSql
 
 .. literalinclude:: query_builder/099.php
 
-.. warning:: 当您使用 ``RawSql`` 时,必须手动对值和标识符进行转义。否则可能会导致 SQL 注入。
+.. warning:: 当你使用 ``RawSql`` 时,必须手动对值和标识符进行转义。否则可能会导致 SQL 注入。
 
 $builder->selectMax()
 ---------------------
 
-为查询编写一个 **SELECT MAX(field)** 部分。您可以选择包括第二个参数以重命名结果字段。
+为查询编写一个 **SELECT MAX(field)** 部分。你可以选择包括第二个参数以重命名结果字段。
 
 .. literalinclude:: query_builder/010.php
 
 $builder->selectMin()
 ---------------------
 
-为查询编写一个 **SELECT MIN(field)** 部分。与 ``selectMax()`` 一样,您可以选择包括第二个参数以重命名结果字段。
+为查询编写一个 **SELECT MIN(field)** 部分。与 ``selectMax()`` 一样,你可以选择包括第二个参数以重命名结果字段。
 
 .. literalinclude:: query_builder/011.php
 
 $builder->selectAvg()
 ---------------------
 
-为查询编写一个 **SELECT AVG(field)** 部分。与 ``selectMax()`` 一样,您可以选择包括第二个参数以重命名结果字段。
+为查询编写一个 **SELECT AVG(field)** 部分。与 ``selectMax()`` 一样,你可以选择包括第二个参数以重命名结果字段。
 
 .. literalinclude:: query_builder/012.php
 
 $builder->selectSum()
 ---------------------
 
-为查询编写一个 **SELECT SUM(field)** 部分。与 ``selectMax()`` 一样,您可以选择包括第二个参数以重命名结果字段。
+为查询编写一个 **SELECT SUM(field)** 部分。与 ``selectMax()`` 一样,你可以选择包括第二个参数以重命名结果字段。
 
 .. literalinclude:: query_builder/013.php
 
 $builder->selectCount()
 -----------------------
 
-为查询编写一个 **SELECT COUNT(field)** 部分。与 ``selectMax()`` 一样,您可以选择包括第二个参数以重命名结果字段。
+为查询编写一个 **SELECT COUNT(field)** 部分。与 ``selectMax()`` 一样,你可以选择包括第二个参数以重命名结果字段。
 
 .. note:: 此方法与 ``groupBy()`` 一起使用时特别有用。有关计数结果的更多信息,请参阅 ``countAll()`` 或 ``countAllResults()``。
 
@@ -178,7 +178,7 @@ From
 $builder->from()
 ----------------
 
-允许您编写查询的 **FROM** 部分:
+允许你编写查询的 **FROM** 部分:
 
 .. literalinclude:: query_builder/016.php
 
@@ -192,7 +192,7 @@ $builder->from()
 $builder->fromSubquery()
 ------------------------
 
-允许您将 **FROM** 查询的一部分编写为子查询。
+允许你将 **FROM** 查询的一部分编写为子查询。
 
 这是我们将子查询添加到现有表的地方:
 
@@ -208,7 +208,7 @@ Join
 $builder->join()
 ----------------
 
-允许您编写查询的 **JOIN** 部分:
+允许你编写查询的 **JOIN** 部分:
 
 .. literalinclude:: query_builder/019.php
 
@@ -229,7 +229,7 @@ RawSql
 
 .. literalinclude:: query_builder/102.php
 
-.. warning:: 当您使用 ``RawSql`` 时,必须手动对值和标识符进行转义。否则可能会导致 SQL 注入。
+.. warning:: 当你使用 ``RawSql`` 时,必须手动对值和标识符进行转义。否则可能会导致 SQL 注入。
 
 *************************
 查找特定数据
@@ -245,7 +245,7 @@ $builder->where()
 
 .. note:: 除了使用自定义字符串外,传递给此方法的所有值都会自动转义,生成更安全的查询。
 
-.. note:: ``$builder->where()`` 接受一个可选的第三个参数。如果将其设置为 ``false``,CodeIgniter 将不会尝试保护您的字段或表名。
+.. note:: ``$builder->where()`` 接受一个可选的第三个参数。如果将其设置为 ``false``,CodeIgniter 将不会尝试保护你的字段或表名。
 
 1. 简单的键/值方法
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -261,7 +261,7 @@ $builder->where()
 2. 自定义键/值方法
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    您可以在第一个参数中包含一个运算符来控制比较:
+    你可以在第一个参数中包含一个运算符来控制比较:
 
     .. literalinclude:: query_builder/023.php
 
@@ -277,7 +277,7 @@ $builder->where()
 4. 自定义字符串
 ^^^^^^^^^^^^^^^^
 
-    您可以手动编写自己的子句:
+    你可以手动编写自己的子句:
 
     .. literalinclude:: query_builder/026.php
 
@@ -296,7 +296,7 @@ $builder->where()
 
     .. literalinclude:: query_builder/100.php
 
-    .. warning:: 当您使用 ``RawSql`` 时,必须手动对值和标识符进行转义。否则可能会导致 SQL 注入。
+    .. warning:: 当你使用 ``RawSql`` 时,必须手动对值和标识符进行转义。否则可能会导致 SQL 注入。
 
 .. _query-builder-where-subquery:
 
@@ -319,7 +319,7 @@ $builder->whereIn()
 
 .. literalinclude:: query_builder/030.php
 
-您可以使用子查询而不是值数组:
+你可以使用子查询而不是值数组:
 
 .. literalinclude:: query_builder/031.php
 
@@ -330,7 +330,7 @@ $builder->orWhereIn()
 
 .. literalinclude:: query_builder/032.php
 
-您可以使用子查询而不是值数组:
+你可以使用子查询而不是值数组:
 
 .. literalinclude:: query_builder/033.php
 
@@ -341,7 +341,7 @@ $builder->whereNotIn()
 
 .. literalinclude:: query_builder/034.php
 
-您可以使用子查询而不是值数组:
+你可以使用子查询而不是值数组:
 
 .. literalinclude:: query_builder/035.php
 
@@ -352,7 +352,7 @@ $builder->orWhereNotIn()
 
 .. literalinclude:: query_builder/036.php
 
-您可以使用子查询而不是值数组:
+你可以使用子查询而不是值数组:
 
 .. literalinclude:: query_builder/037.php
 
@@ -366,7 +366,7 @@ Like
 $builder->like()
 ----------------
 
-此方法使您可以生成 **LIKE** 子句,用于执行搜索。
+此方法使你可以生成 **LIKE** 子句,用于执行搜索。
 
 .. note:: 传递给此方法的所有值都会自动转义。
 
@@ -381,7 +381,7 @@ $builder->like()
 
     .. literalinclude:: query_builder/039.php
 
-    如果要控制通配符 (**%**) 的放置位置,可以使用可选的第三个参数。您的选项是 ``before``、``after`` 和 ``both`` (默认)。
+    如果要控制通配符 (**%**) 的放置位置,可以使用可选的第三个参数。你的选项是 ``before``、``after`` 和 ``both`` (默认)。
 
     .. literalinclude:: query_builder/040.php
 
@@ -401,7 +401,7 @@ $builder->like()
 
     .. literalinclude:: query_builder/101.php
 
-    .. warning:: 当您使用 ``RawSql`` 时,必须手动对值和标识符进行转义。否则可能会导致 SQL 注入。
+    .. warning:: 当你使用 ``RawSql`` 时,必须手动对值和标识符进行转义。否则可能会导致 SQL 注入。
 
 $builder->orLike()
 ------------------
@@ -427,11 +427,11 @@ $builder->orNotLike()
 $builder->groupBy()
 -------------------
 
-允许您编写查询的 **GROUP BY** 部分:
+允许你编写查询的 **GROUP BY** 部分:
 
 .. literalinclude:: query_builder/045.php
 
-您也可以传递多个值的数组:
+你也可以传递多个值的数组:
 
 .. literalinclude:: query_builder/046.php
 
@@ -445,15 +445,15 @@ $builder->distinct()
 $builder->having()
 ------------------
 
-允许您编写查询的 **HAVING** 部分。有 2 种可能的语法,1 个参数或 2 个:
+允许你编写查询的 **HAVING** 部分。有 2 种可能的语法,1 个参数或 2 个:
 
 .. literalinclude:: query_builder/048.php
 
-您也可以传递多个值的数组:
+你也可以传递多个值的数组:
 
 .. literalinclude:: query_builder/049.php
 
-如果您使用转义值的数据库,可以通过传递可选的第三个参数并将其设置为 ``false`` 来防止转义内容。
+如果你使用转义值的数据库,可以通过传递可选的第三个参数并将其设置为 ``false`` 来防止转义内容。
 
 .. literalinclude:: query_builder/050.php
 
@@ -469,7 +469,7 @@ $builder->havingIn()
 
 .. literalinclude:: query_builder/051.php
 
-您可以使用子查询而不是值数组:
+你可以使用子查询而不是值数组:
 
 .. literalinclude:: query_builder/052.php
 
@@ -480,7 +480,7 @@ $builder->orHavingIn()
 
 .. literalinclude:: query_builder/053.php
 
-您可以使用子查询而不是值数组:
+你可以使用子查询而不是值数组:
 
 .. literalinclude:: query_builder/054.php
 
@@ -491,7 +491,7 @@ $builder->havingNotIn()
 
 .. literalinclude:: query_builder/055.php
 
-您可以使用子查询而不是值数组:
+你可以使用子查询而不是值数组:
 
 .. literalinclude:: query_builder/056.php
 
@@ -502,14 +502,14 @@ $builder->orHavingNotIn()
 
 .. literalinclude:: query_builder/057.php
 
-您可以使用子查询而不是值数组:
+你可以使用子查询而不是值数组:
 
 .. literalinclude:: query_builder/058.php
 
 $builder->havingLike()
 ----------------------
 
-此方法使您可以为 **HAVING** 部分生成 **LIKE** 子句,用于执行搜索。
+此方法使你可以为 **HAVING** 部分生成 **LIKE** 子句,用于执行搜索。
 
 .. warning:: 传递给此方法的所有值都会自动转义。
 
@@ -524,7 +524,7 @@ $builder->havingLike()
 
     .. literalinclude:: query_builder/060.php
 
-    如果要控制通配符 (**%**) 的放置位置,可以使用可选的第三个参数。您的选项是 ``before``、``after`` 和 ``both`` (默认)。
+    如果要控制通配符 (**%**) 的放置位置,可以使用可选的第三个参数。你的选项是 ``before``、``after`` 和 ``both`` (默认)。
 
     .. literalinclude:: query_builder/061.php
 
@@ -564,15 +564,15 @@ OrderBy
 $builder->orderBy()
 -------------------
 
-允许您设置 **ORDER BY** 子句。
+允许你设置 **ORDER BY** 子句。
 
 第一个参数包含要排序的列的名称。
 
-第二个参数让您设置所请求的排序方向 - ASC、DESC 或 random。
+第二个参数让你设置所请求的排序方向 - ASC、DESC 或 random。
 
 .. literalinclude:: query_builder/066.php
 
-您也可以在第一个参数中传递自己的字符串:
+你也可以在第一个参数中传递自己的字符串:
 
 .. literalinclude:: query_builder/067.php
 
@@ -594,33 +594,33 @@ Limit
 $builder->limit()
 -----------------
 
-允许您限制返回的行数:
+允许你限制返回的行数:
 
 .. literalinclude:: query_builder/070.php
 
-第二个参数允许您设置结果偏移量。
+第二个参数允许你设置结果偏移量。
 
 .. literalinclude:: query_builder/071.php
 
 $builder->countAllResults()
 ---------------------------
 
-允许您确定特定 Query Builder 查询中的行数。查询将接受 Query Builder 限制器,如 ``where()``、``orWhere()``、``like()``、``orLike()`` 等。例如:
+允许你确定特定 Query Builder 查询中的行数。查询将接受 Query Builder 限制器,如 ``where()``、``orWhere()``、``like()``、``orLike()`` 等。例如:
 
 .. literalinclude:: query_builder/072.php
 
-但是,此方法也会重置您可能传递给 ``select()`` 的任何字段值。如果需要保留它们,可以将第一个参数设置为 ``false``。
+但是,此方法也会重置你可能传递给 ``select()`` 的任何字段值。如果需要保留它们,可以将第一个参数设置为 ``false``。
 
 .. literalinclude:: query_builder/073.php
 
 $builder->countAll()
 --------------------
 
-允许您确定特定表中的行数。例如:
+允许你确定特定表中的行数。例如:
 
 .. literalinclude:: query_builder/074.php
 
-与 ``countAllResult()`` 方法一样,此方法也会重置您可能传递给 ``select()`` 的任何字段值。如果需要保留它们,可以将第一个参数设置为 ``false``。
+与 ``countAllResult()`` 方法一样,此方法也会重置你可能传递给 ``select()`` 的任何字段值。如果需要保留它们,可以将第一个参数设置为 ``false``。
 
 .. _query-builder-union:
 
@@ -659,7 +659,7 @@ $builder->unionAll()
 Group
 =====
 
-查询分组允许您通过用括号将它们分组来创建复杂的 **WHERE** 子句。这将允许您创建具有复杂 **WHERE** 子句的查询。支持嵌套分组。例如:
+查询分组允许你通过用括号将它们分组来创建复杂的 **WHERE** 子句。这将允许你创建具有复杂 **WHERE** 子句的查询。支持嵌套分组。例如:
 
 .. literalinclude:: query_builder/075.php
 
@@ -725,7 +725,7 @@ Insert
 $builder->insert()
 ------------------
 
-根据您提供的数据生成 insert 字符串并运行查询。您可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
+根据你提供的数据生成 insert 字符串并运行查询。你可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/076.php
 
@@ -739,13 +739,13 @@ $builder->insert()
 
 .. note:: 除 ``RawSql`` 外,所有值都会自动转义,生成更安全的查询。
 
-.. warning:: 当您使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
+.. warning:: 当你使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
 
 $builder->ignore()
 ------------------
 
-根据您提供的数据生成 insert ignore 字符串并运行查询。所以如果具有相同主键的条目已经存在,则不会插入查询。
-您可以选择向方法传递一个**布尔值**。也可用于 **insertBatch**、**update** 和 **delete** (若支持)。
+根据你提供的数据生成 insert ignore 字符串并运行查询。所以如果具有相同主键的条目已经存在,则不会插入查询。
+你可以选择向方法传递一个**布尔值**。也可用于 **insertBatch**、**update** 和 **delete** (若支持)。
 下面是一个使用上述数组的示例:
 
 .. literalinclude:: query_builder/078.php
@@ -759,7 +759,7 @@ $builder->getCompiledInsert()
 
 .. literalinclude:: query_builder/079.php
 
-第一个参数使您可以设置查询构建器查询是否将重置(默认情况下,它将重置,就像 ``$builder->insert()`` 一样):
+第一个参数使你可以设置查询构建器查询是否将重置(默认情况下,它将重置,就像 ``$builder->insert()`` 一样):
 
 .. literalinclude:: query_builder/080.php
 
@@ -775,7 +775,7 @@ insertBatch
 $builder->insertBatch()
 -----------------------
 
-根据您提供的数据生成 insert 字符串,并运行查询。您可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
+根据你提供的数据生成 insert 字符串,并运行查询。你可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/081.php
 
@@ -783,9 +783,9 @@ $builder->insertBatch()
 
 .. note:: 除 ``RawSql`` 外,所有值都会自动转义,生成更安全的查询。
 
-.. warning:: 当您使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
+.. warning:: 当你使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
 
-您也可以从查询中插入:
+你也可以从查询中插入:
 
 .. literalinclude:: query_builder/117.php
 
@@ -807,7 +807,7 @@ $builder->upsert()
 
 .. versionadded:: 4.3.0
 
-根据您提供的数据生成插入更新字符串,并运行查询。您可以将一个**数组**或**对象**传递给该方法。默认情况下,约束将按顺序定义。首先选择主键,然后是唯一键。MySQL 将默认使用任何约束。下面是一个使用数组的示例:
+根据你提供的数据生成插入更新字符串,并运行查询。你可以将一个**数组**或**对象**传递给该方法。默认情况下,约束将按顺序定义。首先选择主键,然后是唯一键。MySQL 将默认使用任何约束。下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/112.php
 
@@ -842,7 +842,7 @@ $builder->upsertBatch()
 
 .. versionadded:: 4.3.0
 
-根据您提供的数据生成插入更新字符串,并运行查询。您可以将一个**数组**或**对象**传递给该方法。默认情况下,约束将按顺序定义。首先选择主键,然后是唯一键。MySQL 将默认使用任何约束。下面是一个使用数组的示例:
+根据你提供的数据生成插入更新字符串,并运行查询。你可以将一个**数组**或**对象**传递给该方法。默认情况下,约束将按顺序定义。首先选择主键,然后是唯一键。MySQL 将默认使用任何约束。下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/108.php
 
@@ -850,7 +850,7 @@ $builder->upsertBatch()
 
 .. note:: 所有值都会自动转义,生成更安全的查询。
 
-您也可以从查询中插入更新:
+你也可以从查询中插入更新:
 
 .. literalinclude:: query_builder/115.php
 
@@ -878,7 +878,7 @@ $builder->updateFields()
 
 .. literalinclude:: query_builder/110.php
 
-此方法接受字符串、列数组或 RawSql。您还可以指定要更新的额外列,该列不包括在数据集中。这可以通过将第二个参数设置为 ``true`` 来完成。
+此方法接受字符串、列数组或 RawSql。你还可以指定要更新的额外列,该列不包括在数据集中。这可以通过将第二个参数设置为 ``true`` 来完成。
 
 .. literalinclude:: query_builder/111.php
 
@@ -895,7 +895,7 @@ $builder->replace()
 -------------------
 
 这将执行一个 **REPLACE** 语句,基本上是可选的 **DELETE** + **INSERT** 的 SQL标准,使用 *PRIMARY* 和 *UNIQUE* 键作为确定因素。
-在我们的例子中,它将省去您需要实现 select()、update()、delete() 和 insert() 调用的不同组合的复杂逻辑的需要。
+在我们的例子中,它将省去你需要实现 select()、update()、delete() 和 insert() 调用的不同组合的复杂逻辑的需要。
 
 例如:
 
@@ -908,13 +908,13 @@ $builder->replace()
 $builder->set()
 ---------------
 
-此方法使您可以为以后通过 ``insert()`` 或 ``update()`` 方法传入的插入或更新设置值。
+此方法使你可以为以后通过 ``insert()`` 或 ``update()`` 方法传入的插入或更新设置值。
 
 **它可以代替直接将数据数组传递给 insert() 或 update() 方法:**
 
 .. literalinclude:: query_builder/083.php
 
-如果使用多个方法调用,它们将根据您执行插入还是更新来正确组装:
+如果使用多个方法调用,它们将根据你执行插入还是更新来正确组装:
 
 .. literalinclude:: query_builder/084.php
 
@@ -922,7 +922,7 @@ $builder->set()
 
 .. literalinclude:: query_builder/085.php
 
-您也可以向此方法传递关联数组:
+你也可以向此方法传递关联数组:
 
 .. literalinclude:: query_builder/086.php
 
@@ -933,20 +933,20 @@ $builder->set()
 $builder->update()
 ------------------
 
-根据您提供的数据生成 update 字符串并运行查询。您可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
+根据你提供的数据生成 update 字符串并运行查询。你可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/088.php
 
-或者您可以提供一个对象:
+或者你可以提供一个对象:
 
 .. literalinclude:: query_builder/089.php
 
 .. note:: 除 ``RawSql`` 外,所有值都会自动转义,生成更安全的查询。
 
-.. warning:: 当您使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
+.. warning:: 当你使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
 
-您会注意到使用了 ``$builder->where()`` 方法,使您可以设置 **WHERE** 子句。
-您可以选择直接将此信息作为字符串传递给 ``update()`` 方法:
+你会注意到使用了 ``$builder->where()`` 方法,使你可以设置 **WHERE** 子句。
+你可以选择直接将此信息作为字符串传递给 ``update()`` 方法:
 
 .. literalinclude:: query_builder/090.php
 
@@ -954,7 +954,7 @@ $builder->update()
 
 .. literalinclude:: query_builder/091.php
 
-您也可以在执行更新时使用上面描述的 ``$builder->set()`` 方法。
+你也可以在执行更新时使用上面描述的 ``$builder->set()`` 方法。
 
 .. _update-batch:
 
@@ -966,7 +966,7 @@ $builder->updateBatch()
 
 .. note:: 从 v4.3.0 开始,``updateBatch()`` 的第二个参数 ``$index`` 改为 ``$constraints``。它现在接受数组、字符串或 ``RawSql`` 类型。
 
-根据您提供的数据生成 update 字符串,并运行查询。您可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
+根据你提供的数据生成 update 字符串,并运行查询。你可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/092.php
 
@@ -974,18 +974,18 @@ $builder->updateBatch()
 
 第一个参数是一个关联数组,第二个参数是 where 键。
 
-从 v4.3.0 开始,您也可以使用 ``setQueryAsData()``、``onConstraint()`` 和 ``updateFields()`` 方法:
+从 v4.3.0 开始,你也可以使用 ``setQueryAsData()``、``onConstraint()`` 和 ``updateFields()`` 方法:
 
 .. literalinclude:: query_builder/120.php
 
 .. note:: 除 ``RawSql`` 外,所有值都会自动转义,生成更安全的查询。
 
-.. warning:: 当您使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
+.. warning:: 当你使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
 
 .. note:: 由于这项工作的性质,此方法无法为 ``affectedRows()`` 提供适当的结果。
     相反,``updateBatch()`` 返回受影响的行数。
 
-您也可以从查询中更新:
+你也可以从查询中更新:
 
 .. literalinclude:: query_builder/116.php
 
@@ -1017,7 +1017,7 @@ $builder->delete()
 .. literalinclude:: query_builder/093.php
 
 第一个参数是 where 子句。
-您也可以使用 ``where()`` 或 ``orWhere()`` 方法,而不是将数据传递给方法的第一个参数:
+你也可以使用 ``where()`` 或 ``orWhere()`` 方法,而不是将数据传递给方法的第一个参数:
 
 .. literalinclude:: query_builder/094.php
 
@@ -1038,7 +1038,7 @@ $builder->deleteBatch()
 
 .. note:: SQLite 不支持使用 ``where()``。
 
-您也可以从查询中删除:
+你也可以从查询中删除:
 
 .. literalinclude:: query_builder/119.php
 
@@ -1083,13 +1083,13 @@ $builder->when()
 
 这允许基于条件修改查询,而不会打破查询构建器链。第一个参数是条件,它应该评估为布尔值。第二个参数是可调用的,它将在条件为 true 时运行。
 
-例如,您可能只想应用给定的 WHERE 语句基于 HTTP 请求中发送的值:
+例如,你可能只想应用给定的 WHERE 语句基于 HTTP 请求中发送的值:
 
 .. literalinclude:: query_builder/105.php
 
 由于条件评估为 ``true``,所以可调用的将被调用。条件中设置的值将作为第二个参数传递给可调用的,以便可以在查询中使用它。
 
-有时您可能希望在条件评估为 false 时应用不同的语句。这可以通过提供第二个闭包来实现:
+有时你可能希望在条件评估为 false 时应用不同的语句。这可以通过提供第二个闭包来实现:
 
 .. literalinclude:: query_builder/106.php
 
@@ -1109,7 +1109,7 @@ $builder->whenNot()
 方法链
 ***************
 
-方法链允许您通过连接多个方法来简化语法。考虑这个例子:
+方法链允许你通过连接多个方法来简化语法。考虑这个例子:
 
 .. literalinclude:: query_builder/097.php
 
@@ -1125,9 +1125,9 @@ ResetQuery
 $builder->resetQuery()
 ----------------------
 
-重置查询构建器允许您在不先使用 ``$builder->get()`` 或 ``$builder->insert()`` 等方法执行查询的情况下重新开始查询。
+重置查询构建器允许你在不先使用 ``$builder->get()`` 或 ``$builder->insert()`` 等方法执行查询的情况下重新开始查询。
 
-当您使用查询构建器生成 SQL(例如 ``$builder->getCompiledSelect()``),然后选择运行查询时,这很有用:
+当你使用查询构建器生成 SQL(例如 ``$builder->getCompiledSelect()``),然后选择运行查询时,这很有用:
 
 .. literalinclude:: query_builder/098.php
 
@@ -1151,7 +1151,7 @@ $builder->resetQuery()
         :returns:   ``BaseBuilder`` 实例(方法链)
         :rtype:     ``BaseBuilder``
 
-        重置当前的查询构建器状态。当您想要构建可在某些条件下取消的查询时很有用。
+        重置当前的查询构建器状态。当你想要构建可在某些条件下取消的查询时很有用。
 
     .. php:method:: countAllResults([$reset = true])
 

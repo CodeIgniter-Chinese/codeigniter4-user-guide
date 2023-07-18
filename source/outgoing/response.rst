@@ -11,27 +11,27 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 使用响应
 =========================
 
-一个 Response 类实例会为您实例化并传入控制器中。它可以通过 ``$this->response`` 访问。许多时候您不需要直接接触该类,因为 CodeIgniter 会为您发送 header 和 body。如果页面成功地创建了它被要求的内容,情况就是这样。当事情出错时,或者您需要发送非常具体的状态码回应,或者利用 HTTP 缓存的强大功能,它就为您提供了这些。
+一个 Response 类实例会为你实例化并传入控制器中。它可以通过 ``$this->response`` 访问。许多时候你不需要直接接触该类,因为 CodeIgniter 会为你发送 header 和 body。如果页面成功地创建了它被要求的内容,情况就是这样。当事情出错时,或者你需要发送非常具体的状态码回应,或者利用 HTTP 缓存的强大功能,它就为你提供了这些。
 
 设置输出
 ------------------
 
-当您需要直接设置脚本的输出,而不依赖于 CodeIgniter 自动获取时,您可以用 ``setBody`` 方法手动设置。这通常与设置响应的状态码一起使用:
+当你需要直接设置脚本的输出,而不依赖于 CodeIgniter 自动获取时,你可以用 ``setBody`` 方法手动设置。这通常与设置响应的状态码一起使用:
 
 .. literalinclude:: response/001.php
 
-原因短语(“OK”、“Created”、“Moved Permanently”)将被自动添加,但您可以在 ``setStatusCode()`` 方法的第二个参数中添加自定义原因:
+原因短语(“OK”、“Created”、“Moved Permanently”)将被自动添加,但你可以在 ``setStatusCode()`` 方法的第二个参数中添加自定义原因:
 
 .. literalinclude:: response/002.php
 
-您可以将一个数组格式化为 JSON 或 XML,并通过 ``setJSON`` 和 ``setXML`` 方法将 content type header 设置为适当的 MIME 类型。通常,您会传递一个数据数组进行转换:
+你可以将一个数组格式化为 JSON 或 XML,并通过 ``setJSON`` 和 ``setXML`` 方法将 content type header 设置为适当的 MIME 类型。通常,你会传递一个数据数组进行转换:
 
 .. literalinclude:: response/003.php
 
 设置标题
 ---------------
 
-您经常需要为响应设置标题。Response 类使得这非常简单,通过 ``setHeader()`` 方法。第一个参数是标题的名称。第二个参数是值,可以是字符串或在发送到客户端时将正确组合的字符串数组。与使用原生 PHP 函数相比,使用这些函数可以确保标题不会过早发送,从而造成错误,并使测试成为可能。
+你经常需要为响应设置标题。Response 类使得这非常简单,通过 ``setHeader()`` 方法。第一个参数是标题的名称。第二个参数是值,可以是字符串或在发送到客户端时将正确组合的字符串数组。与使用原生 PHP 函数相比,使用这些函数可以确保标题不会过早发送,从而造成错误,并使测试成为可能。
 
 .. literalinclude:: response/004.php
 
@@ -48,29 +48,29 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 重定向
 ========
 
-如果您想要创建一个重定向,请使用 :php:func:`redirect()` 函数。
+如果你想要创建一个重定向,请使用 :php:func:`redirect()` 函数。
 它将返回一个 ``RedirectResponse`` 实例。
 
-.. important:: 如果您想要重定向,必须在 :doc:`Controller <../incoming/controllers>`
+.. important:: 如果你想要重定向,必须在 :doc:`Controller <../incoming/controllers>`
     或 :doc:`Controller Filter <../incoming/filters>` 的方法中返回 ``RedirectResponse`` 实例。
     请注意,``__construct()`` 或 ``initController()`` 方法不能返回任何值。
-    如果您忘记返回 ``RedirectResponse``,将不会发生重定向。
+    如果你忘记返回 ``RedirectResponse``,将不会发生重定向。
 
 重定向到一个 URI 路径
 ----------------------
 
-当您想传递一个 URI 路径(相对于 baseURL)时,使用 ``redirect()->to()``:
+当你想传递一个 URI 路径(相对于 baseURL)时,使用 ``redirect()->to()``:
 
 .. literalinclude:: ./response/028.php
     :lines: 2-
 
-.. note:: 如果您的 URL 中有一个您想要删除的片段,您可以在该方法中使用 refresh 参数。
+.. note:: 如果你的 URL 中有一个你想要删除的片段,你可以在该方法中使用 refresh 参数。
     就像 ``return redirect()->to('admin/home', null, 'refresh');`` 一样。
 
 重定向到定义的路由
 ---------------------------
 
-当您想传递一个 :ref:`路由名称 <using-named-routes>` 或 Controller::method
+当你想传递一个 :ref:`路由名称 <using-named-routes>` 或 Controller::method
 进行 :ref:`反向路由 <reverse-routing>` 时,使用 ``redirect()->route()``:
 
 .. literalinclude:: ./response/029.php
@@ -85,7 +85,7 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 重定向回上一页面
 -------------
 
-当您想要重定向回上一页面时,使用 ``redirect()->back()``:
+当你想要重定向回上一页面时,使用 ``redirect()->back()``:
 
 .. literalinclude:: ./response/031.php
     :lines: 2-
@@ -102,7 +102,7 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 GET 请求的默认 HTTP 状态码是 302。但是,当使用 HTTP/1.1
 或更高版本时,对于 POST/PUT/DELETE 请求使用 303,对于所有其他请求使用 307。
 
-您可以指定状态码:
+你可以指定状态码:
 
 .. literalinclude:: ./response/032.php
     :lines: 2-
@@ -111,7 +111,7 @@ GET 请求的默认 HTTP 状态码是 302。但是,当使用 HTTP/1.1
     实际重定向响应的状态码也可能被改变。
     请参阅 :ref:`ChangeLog v4.3.4 <v434-redirect-status-code>`。
 
-如果您不知道重定向的 HTTP 状态码,建议阅读
+如果你不知道重定向的 HTTP 状态码,建议阅读
 `Redirections in HTTP <https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections>`_。
 
 .. _force-file-download:
@@ -133,7 +133,7 @@ Response 类提供了一种简单的方法来将文件发送给客户端,提示�
 
 .. literalinclude:: response/007.php
 
-如果您想从服务器下载现有文件,您需要为第二个参数显式传递 ``null`` :
+如果你想从服务器下载现有文件,你需要为第二个参数显式传递 ``null`` :
 
 .. literalinclude:: response/008.php
 
@@ -146,26 +146,26 @@ Response 类提供了一种简单的方法来将文件发送给客户端,提示�
 HTTP 缓存
 ============
 
-内置于 HTTP 规范的是帮助客户端(通常是网页浏览器)缓存结果的工具。如果使用正确,这可以为您的应用程序带来巨大的性能提升,因为它会告诉客户端他们不需要联系服务器,因为没有变化。您再也找不到更快的了。
+内置于 HTTP 规范的是帮助客户端(通常是网页浏览器)缓存结果的工具。如果使用正确,这可以为你的应用程序带来巨大的性能提升,因为它会告诉客户端他们不需要联系服务器,因为没有变化。你再也找不到更快的了。
 
-这是通过 ``Cache-Control`` 和 ``ETag`` 头处理的。本指南不是适合对所有缓存头功能进行透彻的介绍,但是您可以在 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_ 上很好地理解它。
+这是通过 ``Cache-Control`` 和 ``ETag`` 头处理的。本指南不是适合对所有缓存头功能进行透彻的介绍,但是你可以在 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_ 上很好地理解它。
 
-默认情况下,通过 CodeIgniter 发送的所有响应对象都关闭了 HTTP 缓存。由于我们无法创建一个好的默认值,除了关闭它之外的选项太多了。根据您的需要设置缓存值非常简单,可以通过 ``setCache()`` 方法完成:
+默认情况下,通过 CodeIgniter 发送的所有响应对象都关闭了 HTTP 缓存。由于我们无法创建一个好的默认值,除了关闭它之外的选项太多了。根据你的需要设置缓存值非常简单,可以通过 ``setCache()`` 方法完成:
 
 .. literalinclude:: response/010.php
 
-``$options`` 数组简单地以 key/value 对的形式获取通常分配给 ``Cache-Control`` 头的数组。您可以自由地根据具体情况完全设置所需的所有选项。虽然大多数选项应用于 ``Cache-Control`` 头,但它也智能地处理 ``etag`` 和 ``last-modified`` 选项到适当的头。
+``$options`` 数组简单地以 key/value 对的形式获取通常分配给 ``Cache-Control`` 头的数组。你可以自由地根据具体情况完全设置所需的所有选项。虽然大多数选项应用于 ``Cache-Control`` 头,但它也智能地处理 ``etag`` 和 ``last-modified`` 选项到适当的头。
 
 .. _content-security-policy:
 
 内容安全策略
 =======================
 
-防止站点遭受 XSS 攻击的最佳保护之一是在站点上实现内容安全策略。这会强制您列出站点 HTML 中拉入的每一个内容源,包括图像、样式表、javascript 文件等。浏览器将拒绝不符合白名单的内容源。这个白名单在响应的 ``Content-Security-Policy`` 头中创建,可以用多种不同的方式进行配置。
+防止站点遭受 XSS 攻击的最佳保护之一是在站点上实现内容安全策略。这会强制你列出站点 HTML 中拉入的每一个内容源,包括图像、样式表、javascript 文件等。浏览器将拒绝不符合白名单的内容源。这个白名单在响应的 ``Content-Security-Policy`` 头中创建,可以用多种不同的方式进行配置。
 
 这听起来很复杂,在一些网站上,确实可能具有挑战性。但是,对于许多简单的网站来说,其中所有内容都由同一域服务(http://example.com), integrating 它非常简单。
 
-由于这是一个复杂的主题,本用户指南不会详细介绍所有细节。欲了解更多信息,您应访问以下网站:
+由于这是一个复杂的主题,本用户指南不会详细介绍所有细节。欲了解更多信息,你应访问以下网站:
 
 * `Content Security Policy 主站点 <https://content-security-policy.com/>`_
 * `W3C 规范 <https://www.w3.org/TR/CSP>`_
@@ -177,17 +177,17 @@ HTTP 缓存
 
 .. important:: :ref:`Debug 工具栏 <the-debug-toolbar>` 可能使用 Kint,它
     输出内联脚本。因此,打开 CSP 时,Debug 工具栏的 CSP nonce 将自动输出。
-    但是,如果您不使用 CSP nonce,这将改变 CSP 头以实现您不打算的方式,
-    它的行为与生产环境不同;如果您想验证 CSP 的行为,请关闭 Debug 工具栏。
+    但是,如果你不使用 CSP nonce,这将改变 CSP 头以实现你不打算的方式,
+    它的行为与生产环境不同;如果你想验证 CSP 的行为,请关闭 Debug 工具栏。
 
 默认情况下,不支持此功能。要在应用程序中启用支持,请编辑 **app/Config/App.php** 中的 ``CSPEnabled`` 值:
 
 .. literalinclude:: response/011.php
 
 启用后,响应对象将包含 ``CodeIgniter\HTTP\ContentSecurityPolicy`` 的一个实例。
-**app/Config/ContentSecurityPolicy.php** 中设置的值将应用于该实例,如果运行时不需要更改,那么格式正确的头将被发送,您就完成了。
+**app/Config/ContentSecurityPolicy.php** 中设置的值将应用于该实例,如果运行时不需要更改,那么格式正确的头将被发送,你就完成了。
 
-启用 CSP 后,会向 HTTP 响应添加两行头:一个是 **Content-Security-Policy** 头,其中包含策略以标识在不同上下文中明确允许的内容类型或来源;另一个是 **Content-Security-Policy-Report-Only** 头,它标识将被允许但也将报告给您选择的目标的内容类型或来源。
+启用 CSP 后,会向 HTTP 响应添加两行头:一个是 **Content-Security-Policy** 头,其中包含策略以标识在不同上下文中明确允许的内容类型或来源;另一个是 **Content-Security-Policy-Report-Only** 头,它标识将被允许但也将报告给你选择的目标的内容类型或来源。
 
 我们的实现提供了对默认处理的支持,可以通过 ``reportOnly()`` 方法更改。
 当向 CSP 指令添加额外条目时,如下所示,它将添加到适当的用于阻止或防止的 CSP 头中。这可以在每次调用的基础上通过提供可选的第二个参数来覆盖。
@@ -195,21 +195,21 @@ HTTP 缓存
 运行时配置
 ---------------------
 
-如果您的应用程序需要在运行时进行更改,您可以在控制器中通过 ``$this->response->getCSP()`` 访问实例。
+如果你的应用程序需要在运行时进行更改,你可以在控制器中通过 ``$this->response->getCSP()`` 访问实例。
 该类包含许多与适当的头值映射非常清楚的方法。示例如下,使用不同的组合参数,尽管所有这些“添加”方法都接受指令名称或指令名称数组:
 
 .. literalinclude:: response/012.php
 
 每个“添加”方法的第一个参数是一个适当的字符串值或值数组。
 
-``reportOnly()`` 方法允许您为后续源指定默认报告处理,除非被覆盖。例如,您可以指定 youtube.com 被允许,然后提供几个允许但报告的源:
+``reportOnly()`` 方法允许你为后续源指定默认报告处理,除非被覆盖。例如,你可以指定 youtube.com 被允许,然后提供几个允许但报告的源:
 
 .. literalinclude:: response/013.php
 
 内联内容
 --------------
 
-可以将网站设置为不保护自己页面上的内联脚本和样式,因为这可能是用户生成内容的结果。为了防止这种情况,CSP 允许您在 ``<style>`` 和 ``<script>`` 标签中指定一个 nonce,并将这些值添加到响应的头中。这在实际生活中是一个痛点,但是在代码中生成效果最好。为了简化这一过程,您可以在标签中包含一个 ``{csp-style-nonce}`` 或 ``{csp-script-nonce}`` 占位符,它将自动为您处理::
+可以将网站设置为不保护自己页面上的内联脚本和样式,因为这可能是用户生成内容的结果。为了防止这种情况,CSP 允许你在 ``<style>`` 和 ``<script>`` 标签中指定一个 nonce,并将这些值添加到响应的头中。这在实际生活中是一个痛点,但是在代码中生成效果最好。为了简化这一过程,你可以在标签中包含一个 ``{csp-style-nonce}`` 或 ``{csp-script-nonce}`` 占位符,它将自动为你处理::
 
     // 原始的
     <script {csp-script-nonce}>
@@ -226,11 +226,11 @@ HTTP 缓存
         . . .
     </style>
 
-.. warning:: 如果攻击者注入类似 ``<script {csp-script-nonce}>`` 的字符串,它可能会成为带有这个功能的真正 nonce 属性。您可以在 **app/Config/ContentSecurityPolicy.php** 中使用 ``$scriptNonceTag`` 和 ``$styleNonceTag`` 属性自定义占位符字符串。
+.. warning:: 如果攻击者注入类似 ``<script {csp-script-nonce}>`` 的字符串,它可能会成为带有这个功能的真正 nonce 属性。你可以在 **app/Config/ContentSecurityPolicy.php** 中使用 ``$scriptNonceTag`` 和 ``$styleNonceTag`` 属性自定义占位符字符串。
 
-如果您不喜欢这种自动替换功能,可以在 **app/Config/ContentSecurityPolicy.php** 中设置 ``$autoNonce = false`` 来关闭它。
+如果你不喜欢这种自动替换功能,可以在 **app/Config/ContentSecurityPolicy.php** 中设置 ``$autoNonce = false`` 来关闭它。
 
-在这种情况下,您可以使用函数 :php:func:`csp_script_nonce()` 和 :php:func:`csp_style_nonce()` ::
+在这种情况下,你可以使用函数 :php:func:`csp_script_nonce()` 和 :php:func:`csp_style_nonce()` ::
 
 	// 原始的
 	<script <?= csp_script_nonce() ?>>
@@ -295,7 +295,7 @@ HTTP 缓存
 
         .. literalinclude:: response/015.php
 
-        原因短语将根据官方列表自动生成。如果您需要为自定义状态码设置自己的原因短语,可以将原因短语作为第二个参数传递:
+        原因短语将根据官方列表自动生成。如果你需要为自定义状态码设置自己的原因短语,可以将原因短语作为第二个参数传递:
 
         .. literalinclude:: response/016.php
 
@@ -375,7 +375,7 @@ HTTP 缓存
         :returns: 当前响应实例
         :rtype: ``CodeIgniter\HTTP\Response``
 
-        告诉响应将所有内容发送回客户端。这将首先发送 header,然后是响应 body。对于主应用程序响应,您不需要调用它,因为 CodeIgniter 会自动处理。
+        告诉响应将所有内容发送回客户端。这将首先发送 header,然后是响应 body。对于主应用程序响应,你不需要调用它,因为 CodeIgniter 会自动处理。
 
     .. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httponly = false[, $samesite = null]]]]]]]])
 
@@ -393,7 +393,7 @@ HTTP 缓存
         .. note:: 在 v4.2.7 之前版本,由于一个错误,``$secure`` 和 ``$httponly`` 的默认值为 ``false``,
             从未使用来自 **app/Config/Cookie.php** 的这些值。
 
-        使用您指定的值设置 cookie。有两种传递信息的方式以便可以设置 cookie:数组方法和离散参数:
+        使用你指定的值设置 cookie。有两种传递信息的方式以便可以设置 cookie:数组方法和离散参数:
 
         **数组方法**
 
@@ -422,7 +422,7 @@ HTTP 缓存
 
         **离散参数**
 
-        如果您愿意,可以通过传递使用各个参数的数据来设置 cookie:
+        如果你愿意,可以通过传递使用各个参数的数据来设置 cookie:
 
         .. literalinclude:: response/024.php
 
@@ -488,4 +488,4 @@ HTTP 缓存
         :rtype: ``Cookie[]``
 
         返回当前在 Response 实例中设置的所有 cookie。
-        这些是您在当前请求期间明确指定要设置的任何 cookie。
+        这些是你在当前请求期间明确指定要设置的任何 cookie。

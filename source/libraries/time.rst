@@ -4,9 +4,9 @@
 
 CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类,该类基于 PHP 的 DateTimeImmutable 对象构建,但使用 Intl 扩展的功能在时区之间转换时间并针对不同的语言环境正确显示输出。这个类是 ``Time`` 类,位于 ``CodeIgniter\I18n`` 命名空间中。
 
-.. note:: 由于 Time 类扩展了 ``DateTimeImmutable``,如果这个类没有提供您需要的功能,您很可能可以在 `DateTimeImmutable <https://www.php.net/manual/en/class.datetimeimmutable.php>`_ 类本身中找到它们。
+.. note:: 由于 Time 类扩展了 ``DateTimeImmutable``,如果这个类没有提供你需要的功能,你很可能可以在 `DateTimeImmutable <https://www.php.net/manual/en/class.datetimeimmutable.php>`_ 类本身中找到它们。
 
-.. note:: 在 v4.3.0 之前,Time 类扩展了 ``DateTime``,并且一些继承的方法改变了当前对象状态。这个 bug 在 v4.3.0 中修复了。如果您需要旧的 Time 类用于向后兼容,您可以暂时使用已弃用的 ``TimeLegacy`` 类。
+.. note:: 在 v4.3.0 之前,Time 类扩展了 ``DateTime``,并且一些继承的方法改变了当前对象状态。这个 bug 在 v4.3.0 中修复了。如果你需要旧的 Time 类用于向后兼容,你可以暂时使用已弃用的 ``TimeLegacy`` 类。
 
 .. contents::
     :local:
@@ -16,18 +16,18 @@ CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类,该
 实例化
 *************
 
-有几种方法可以创建新的 Time 实例。第一种就是像任何其他类一样简单地创建一个新实例。当您以这种方式执行时,您可以传递一个表示所需时间的字符串。这可以是 PHP 的 strtotime 函数可以解析的任何字符串:
+有几种方法可以创建新的 Time 实例。第一种就是像任何其他类一样简单地创建一个新实例。当你以这种方式执行时,你可以传递一个表示所需时间的字符串。这可以是 PHP 的 strtotime 函数可以解析的任何字符串:
 
 .. literalinclude:: time/001.php
 
-您可以在第二个和第三个参数中分别传递表示时区和语言环境的字符串。时区可以是 PHP 的 `DateTimeZone <https://www.php.net/manual/en/timezones.php>`__ 类支持的任何时区。语言环境可以是 PHP 的 `Locale <https://www.php.net/manual/en/class.locale.php>`__ 类支持的任何语言环境。如果没有提供语言环境或时区,将使用应用程序默认值。
+你可以在第二个和第三个参数中分别传递表示时区和语言环境的字符串。时区可以是 PHP 的 `DateTimeZone <https://www.php.net/manual/en/timezones.php>`__ 类支持的任何时区。语言环境可以是 PHP 的 `Locale <https://www.php.net/manual/en/class.locale.php>`__ 类支持的任何语言环境。如果没有提供语言环境或时区,将使用应用程序默认值。
 
 .. literalinclude:: time/002.php
 
 now()
 =====
 
-Time 类有几个帮助方法来实例化该类。第一个是 ``now()`` 方法,它返回一个设置为当前时间的新实例。您可以在第二个和第三个参数中分别传递表示时区和语言环境的字符串。如果没有提供语言环境或时区,将使用应用程序默认值。
+Time 类有几个帮助方法来实例化该类。第一个是 ``now()`` 方法,它返回一个设置为当前时间的新实例。你可以在第二个和第三个参数中分别传递表示时区和语言环境的字符串。如果没有提供语言环境或时区,将使用应用程序默认值。
 
 .. literalinclude:: time/003.php
 
@@ -97,14 +97,14 @@ createFromTimestamp()
 createFromInstance()
 ====================
 
-当使用提供 DateTime 实例的其他库时,您可以使用此方法将其转换为 Time 实例,可选设置语言环境。时区将自动从传入的 DateTime 实例中确定:
+当使用提供 DateTime 实例的其他库时,你可以使用此方法将其转换为 Time 实例,可选设置语言环境。时区将自动从传入的 DateTime 实例中确定:
 
 .. literalinclude:: time/013.php
 
 toDateTime()
 ============
 
-虽然不是一个实例化方法,但此方法与 **instance** 方法相反,允许您将 Time 实例转换为 DateTime 实例。这会保留时区设置,但会丢失语言环境,因为 DateTime 不知道语言环境:
+虽然不是一个实例化方法,但此方法与 **instance** 方法相反,允许你将 Time 实例转换为 DateTime 实例。这会保留时区设置,但会丢失语言环境,因为 DateTime 不知道语言环境:
 
 .. literalinclude:: time/014.php
 
@@ -113,13 +113,13 @@ toDateTime()
 显示值
 ********************
 
-由于 Time 类扩展了 DateTimeImmutable,因此您可以获得它提供的所有输出方法,包括 ``format()`` 方法。
+由于 Time 类扩展了 DateTimeImmutable,因此你可以获得它提供的所有输出方法,包括 ``format()`` 方法。
 然而,DateTimeImmutable 方法不提供本地化的结果。然而,Time 类确实提供了一些帮助方法来显示值的本地化版本。
 
 toLocalizedString()
 ===================
 
-这是 DateTimeImmutable 的 ``format()`` 方法的本地化版本。但是,与您可能熟悉的值不同,您必须使用 `IntlDateFormatter <https://www.php.net/manual/en/class.intldateformatter.php>`__ 类可以接受的值。
+这是 DateTimeImmutable 的 ``format()`` 方法的本地化版本。但是,与你可能熟悉的值不同,你必须使用 `IntlDateFormatter <https://www.php.net/manual/en/class.intldateformatter.php>`__ 类可以接受的值。
 可以在 `这里 <https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details>`__ 找到值的完整列表。
 
 .. literalinclude:: time/015.php
@@ -261,14 +261,14 @@ setTimestamp()
 修改值
 ===================
 
-以下方法允许您通过添加或减去当前 Time 的值来修改日期。这不会修改现有的 Time 实例,而是返回一个新的实例。
+以下方法允许你通过添加或减去当前 Time 的值来修改日期。这不会修改现有的 Time 实例,而是返回一个新的实例。
 
 .. literalinclude:: time/031.php
 
 比较两个时间
 ===================
 
-以下方法允许您将一个 Time 实例与另一个进行比较。在比较之前,所有比较都会先转换为 UTC,以确保不同时区的响应正确。
+以下方法允许你将一个 Time 实例与另一个进行比较。在比较之前,所有比较都会先转换为 UTC,以确保不同时区的响应正确。
 
 equals()
 --------
@@ -309,15 +309,15 @@ isAfter()
 查看差异
 ===================
 
-要直接比较两个 Time,您需要使用 ``difference()`` 方法,它返回一个 ``CodeIgniter\I18n\TimeDifference`` 实例。第一个参数是一个 Time 实例、一个 DateTime 实例或一个包含日期/时间的字符串。 如果在第一个参数中传递了一个字符串,第二个参数可以是一个时区字符串:
+要直接比较两个 Time,你需要使用 ``difference()`` 方法,它返回一个 ``CodeIgniter\I18n\TimeDifference`` 实例。第一个参数是一个 Time 实例、一个 DateTime 实例或一个包含日期/时间的字符串。 如果在第一个参数中传递了一个字符串,第二个参数可以是一个时区字符串:
 
 .. literalinclude:: time/038.php
 
-一旦您有了 TimeDifference 实例,您就有几种方法可以用来查找两个时间之间的差异信息。如果它在原始时间之前,返回的值将为负数,如果在未来,则返回正数:
+一旦你有了 TimeDifference 实例,你就有几种方法可以用来查找两个时间之间的差异信息。如果它在原始时间之前,返回的值将为负数,如果在未来,则返回正数:
 
 .. literalinclude:: time/039.php
 
-您可以使用 ``getX()`` 方法,也可以像访问属性一样访问计算的值:
+你可以使用 ``getX()`` 方法,也可以像访问属性一样访问计算的值:
 
 .. literalinclude:: time/040.php
 

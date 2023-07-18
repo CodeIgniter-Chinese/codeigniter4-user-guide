@@ -211,13 +211,13 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
     .. code-block:: html
 
         <video src="test.mp4" controls>
-          您的浏览器不支持视频标签。
+          你的浏览器不支持视频标签。
         </video>
 
         <video src="http://www.codeigniter.com/test.mp4" controls>
           <track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian No" />
           <track src="subtitles_yes.vtt" kind="subtitles" srclang="yes" label="Norwegian Yes" />
-          您的浏览器不支持视频标签。
+          你的浏览器不支持视频标签。
         </video>
 
         <video class="test" controls>
@@ -227,7 +227,7 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
           <source src="movie.ogv" type="video/ogv; codecs=dirac, speex" />
           <track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian No" />
           <track src="subtitles_yes.vtt" kind="subtitles" srclang="yes" label="Norwegian Yes" />
-          您的浏览器不支持视频标签。
+          你的浏览器不支持视频标签。
         </video>
 
 .. php:function:: audio($src[, $unsupportedMessage = ''[, $attributes = ''[, $tracks = [][, $indexPage = false]]]])

@@ -7,11 +7,11 @@ IncomingRequest 类为来自客户端(如浏览器)的 HTTP 请求提供了面�
 访问请求
 *********************
 
-如果当前类是 ``CodeIgniter\Controller`` 的后代,则已经为您填充了请求类的一个实例,可以将其作为类属性访问:
+如果当前类是 ``CodeIgniter\Controller`` 的后代,则已经为你填充了请求类的一个实例,可以将其作为类属性访问:
 
 .. literalinclude:: incomingrequest/001.php
 
-如果您不在控制器中,但仍然需要访问应用程序的 Request 对象,您可以通过 :doc:`Services 类 </concepts/services>` 获取它的一个副本:
+如果你不在控制器中,但仍然需要访问应用程序的 Request 对象,你可以通过 :doc:`Services 类 </concepts/services>` 获取它的一个副本:
 
 .. literalinclude:: incomingrequest/002.php
 
@@ -37,14 +37,14 @@ is()
 
 .. versionadded:: 4.3.0
 
-自 v4.3.0 起,您可以使用 ``is()`` 方法。它返回布尔值。
+自 v4.3.0 起,你可以使用 ``is()`` 方法。它返回布尔值。
 
 .. literalinclude:: incomingrequest/040.php
 
 getMethod()
 ===========
 
-您可以使用 ``getMethod()`` 方法检查此请求所代表的 HTTP 方法:
+你可以使用 ``getMethod()`` 方法检查此请求所代表的 HTTP 方法:
 
 .. literalinclude:: incomingrequest/005.php
 
@@ -52,28 +52,28 @@ getMethod()
 
 .. important:: 将返回值转换为小写的功能已被弃用。它将在未来版本中删除,此方法将等效于 PSR-7。
 
-您可以通过将调用包装在 ``strtoupper()`` 中获取大写版本::
+你可以通过将调用包装在 ``strtoupper()`` 中获取大写版本::
 
     // 返回 'GET'
     $method = strtoupper($request->getMethod());
 
-您还可以使用 ``isSecure()`` 方法检查请求是否通过 HTTPS 连接发出:
+你还可以使用 ``isSecure()`` 方法检查请求是否通过 HTTPS 连接发出:
 
 .. literalinclude:: incomingrequest/006.php
 
 检索输入
 ******************
 
-您可以通过 Request 对象检索来自 ``$_SERVER``、``$_GET``、``$_POST`` 和 ``$_ENV`` 的输入。
+你可以通过 Request 对象检索来自 ``$_SERVER``、``$_GET``、``$_POST`` 和 ``$_ENV`` 的输入。
 数据不会自动过滤,并以请求中传递的原始输入数据形式返回。
 
 .. note:: 使用全局变量是不好的做法。基本上,应该避免使用它,建议使用 Request 对象的方法。
 
-与直接访问它们(``$_POST['something']``)的主要优点是,如果项不存在,这些方法将返回 null,并且您可以对数据进行过滤。这使您可以方便地使用数据,而无需先测试一个项是否存在。换句话说,通常您可能会做这样的事情:
+与直接访问它们(``$_POST['something']``)的主要优点是,如果项不存在,这些方法将返回 null,并且你可以对数据进行过滤。这使你可以方便地使用数据,而无需先测试一个项是否存在。换句话说,通常你可能会做这样的事情:
 
 .. literalinclude:: incomingrequest/007.php
 
-使用 CodeIgniter 内置的方法,您可以简单地这样做:
+使用 CodeIgniter 内置的方法,你可以简单地这样做:
 
 .. literalinclude:: incomingrequest/008.php
 
@@ -87,7 +87,7 @@ getMethod()
 .. note:: 如果传入请求的 ``Content-Type`` 标头设置为 ``application/json``,
     ``getVar()`` 方法会返回 JSON 数据,而不是 ``$_REQUEST`` 数据。
 
-虽然这很方便,但您通常需要使用更具体的方法,如:
+虽然这很方便,但你通常需要使用更具体的方法,如:
 
 * ``$request->getGet()``
 * ``$request->getPost()``
@@ -105,26 +105,26 @@ getMethod()
 获取 JSON 数据
 =================
 
-您可以使用 ``getJSON()`` 将 ``php://input`` 的内容作为 JSON 流获取。
+你可以使用 ``getJSON()`` 将 ``php://input`` 的内容作为 JSON 流获取。
 
-.. note::  这无法检查传入的数据是否为有效的 JSON。您只应在知道正在期望 JSON 时使用此方法。
+.. note::  这无法检查传入的数据是否为有效的 JSON。你只应在知道正在期望 JSON 时使用此方法。
 
 .. literalinclude:: incomingrequest/009.php
 
-默认情况下,这将返回 JSON 数据中的任何对象作为对象。如果您想要将其转换为关联数组,请在第一个参数中传递 ``true``。
+默认情况下,这将返回 JSON 数据中的任何对象作为对象。如果你想要将其转换为关联数组,请在第一个参数中传递 ``true``。
 
 第二和第三个参数与 `json_decode <https://www.php.net/manual/en/function.json-decode.php>`_ PHP 函数的 ``depth`` 和 ``options`` 参数对应。
 
-如果传入请求的 ``Content-Type`` 标头设置为 ``application/json``,您也可以使用 ``getVar()`` 来获取 JSON 流。以这种方式使用 ``getVar()`` 将始终返回一个对象。
+如果传入请求的 ``Content-Type`` 标头设置为 ``application/json``,你也可以使用 ``getVar()`` 来获取 JSON 流。以这种方式使用 ``getVar()`` 将始终返回一个对象。
 
 从 JSON 获取特定数据
 ===============================
 
-您可以通过向 ``getVar()`` 传入变量名来从 JSON 流中获取特定的数据片段,用于获取所需的数据,或者可以使用“点”表示法深入到 JSON 中,以获取不在根级别的数据。
+你可以通过向 ``getVar()`` 传入变量名来从 JSON 流中获取特定的数据片段,用于获取所需的数据,或者可以使用“点”表示法深入到 JSON 中,以获取不在根级别的数据。
 
 .. literalinclude:: incomingrequest/010.php
 
-如果要结果是一个关联数组而不是对象,可以使用 ``getJsonVar()`` ,并在第二个参数中传递 true。如果您无法保证传入请求具有正确的 ``Content-Type`` 标头,也可以使用此函数。
+如果要结果是一个关联数组而不是对象,可以使用 ``getJsonVar()`` ,并在第二个参数中传递 true。如果你无法保证传入请求具有正确的 ``Content-Type`` 标头,也可以使用此函数。
 
 .. literalinclude:: incomingrequest/011.php
 
@@ -135,7 +135,7 @@ getMethod()
 检索原始数据(PUT、PATCH、DELETE)
 ========================================
 
-最后,您可以使用 ``getRawInput()`` 将 ``php://input`` 的内容作为原始流获取:
+最后,你可以使用 ``getRawInput()`` 将 ``php://input`` 的内容作为原始流获取:
 
 .. literalinclude:: incomingrequest/012.php
 
@@ -143,14 +143,14 @@ getMethod()
 
 .. literalinclude:: incomingrequest/013.php
 
-您还可以使用 ``getRawInputVar()``,从原始流中获取指定的变量并对其进行过滤。
+你还可以使用 ``getRawInputVar()``,从原始流中获取指定的变量并对其进行过滤。
 
 .. literalinclude:: incomingrequest/039.php
 
 过滤输入数据
 ====================
 
-为了保持应用程序的安全,您会想要过滤所有输入。您可以将要使用的过滤器类型作为这些方法的第二个参数传递。使用内置的 ``filter_var()`` 函数进行过滤。前往 PHP 手册获取 `有效过滤器类型列表 <https://www.php.net/manual/en/filter.filters.php>`_。
+为了保持应用程序的安全,你会想要过滤所有输入。你可以将要使用的过滤器类型作为这些方法的第二个参数传递。使用内置的 ``filter_var()`` 函数进行过滤。前往 PHP 手册获取 `有效过滤器类型列表 <https://www.php.net/manual/en/filter.filters.php>`_。
 
 过滤 POST 变量的代码如下:
 
@@ -161,38 +161,38 @@ getMethod()
 检索标头
 ******************
 
-您可以通过 ``headers()`` 方法访问与请求一起发送的任何标头,它返回一个数组,其中键是标头的名称,值是 ``CodeIgniter\HTTP\Header`` 的一个实例:
+你可以通过 ``headers()`` 方法访问与请求一起发送的任何标头,它返回一个数组,其中键是标头的名称,值是 ``CodeIgniter\HTTP\Header`` 的一个实例:
 
 .. literalinclude:: incomingrequest/015.php
 
-如果您只需要单个标头,可以将名称传递给 ``header()`` 方法。这将以不区分大小写的方式获取指定的标头对象(如果存在)。如果不存在,则返回 ``null``::
+如果你只需要单个标头,可以将名称传递给 ``header()`` 方法。这将以不区分大小写的方式获取指定的标头对象(如果存在)。如果不存在,则返回 ``null``::
 
 .. literalinclude:: incomingrequest/016.php
 
-您可以始终使用 ``hasHeader()`` 来查看该请求中是否存在标头:
+你可以始终使用 ``hasHeader()`` 来查看该请求中是否存在标头:
 
 .. literalinclude:: incomingrequest/017.php
 
-如果您需要将标头的值作为单行字符串,其中所有值在一行中,可以使用 ``getHeaderLine()`` 方法:
+如果你需要将标头的值作为单行字符串,其中所有值在一行中,可以使用 ``getHeaderLine()`` 方法:
 
 .. literalinclude:: incomingrequest/018.php
 
-如果您需要将标头及其名称和值合并为单个字符串,只需将标头转换为字符串:
+如果你需要将标头及其名称和值合并为单个字符串,只需将标头转换为字符串:
 
 .. literalinclude:: incomingrequest/019.php
 
 请求 URL
 ***************
 
-您可以通过 ``$request->getUri()`` 方法检索表示当前 URI 的 :doc:`URI </libraries/uri>` 对象。您可以将此对象转换为字符串以获取当前请求的完整 URL:
+你可以通过 ``$request->getUri()`` 方法检索表示当前 URI 的 :doc:`URI </libraries/uri>` 对象。你可以将此对象转换为字符串以获取当前请求的完整 URL:
 
 .. literalinclude:: incomingrequest/020.php
 
-该对象使您能够自行获取请求的任何部分:
+该对象使你能够自行获取请求的任何部分:
 
 .. literalinclude:: incomingrequest/021.php
 
-您可以使用 ``getPath()`` 和 ``setPath()`` 方法使用当前请求的 URI 字符串(相对于 baseURL 的路径)。
+你可以使用 ``getPath()`` 和 ``setPath()`` 方法使用当前请求的 URI 字符串(相对于 baseURL 的路径)。
 请注意,共享的 ``IncomingRequest`` 实例上的此相对路径是 :doc:`URL 助手 </helpers/url_helper>`
 函数使用的内容,因此这是一种有用的方法来“伪造”传入请求以进行测试:
 
@@ -207,20 +207,20 @@ getMethod()
 
 参见 :ref:`使用上传的文件 <uploaded-files-accessing-files>` 以获取详细信息。
 
-您可以根据 HTML 文件输入中给出的文件名检索单独上传的文件:
+你可以根据 HTML 文件输入中给出的文件名检索单独上传的文件:
 
 .. literalinclude:: incomingrequest/024.php
 
-您可以检索作为多文件上传一部分上传的同名文件数组,基于 HTML 文件输入中给出的文件名:
+你可以检索作为多文件上传一部分上传的同名文件数组,基于 HTML 文件输入中给出的文件名:
 
 .. literalinclude:: incomingrequest/025.php
 
-.. note:: 这里的文件对应于 ``$_FILES``。即使用户仅点击表单的提交按钮而不上传任何文件,文件也会存在。您可以通过 UploadedFile 中的 ``isValid()`` 方法检查文件是否实际被上传。有关详细信息,请参阅 :ref:`verify-a-file`。
+.. note:: 这里的文件对应于 ``$_FILES``。即使用户仅点击表单的提交按钮而不上传任何文件,文件也会存在。你可以通过 UploadedFile 中的 ``isValid()`` 方法检查文件是否实际被上传。有关详细信息,请参阅 :ref:`verify-a-file`。
 
 内容协商
 *******************
 
-您可以通过 ``negotiate()`` 方法轻松地与请求协商内容类型:
+你可以通过 ``negotiate()`` 方法轻松地与请求协商内容类型:
 
 .. literalinclude:: incomingrequest/026.php
 
@@ -291,7 +291,7 @@ getMethod()
 
         如果尝试检索的项目不存在,该方法将返回 null。
 
-        第二个可选参数允许您通过 PHP 的过滤器运行数据。将所需的过滤器类型作为第二个参数传递:
+        第二个可选参数允许你通过 PHP 的过滤器运行数据。将所需的过滤器类型作为第二个参数传递:
 
         .. literalinclude:: incomingrequest/028.php
 
@@ -434,4 +434,4 @@ getMethod()
         :returns:        这个 IncomingRequest
         :rtype:    IncomingRequest
 
-        主要用于测试目的,这允许您设置当前请求的相对路径值,而不是依赖于 URI 检测。这也会用新的路径更新底层的 ``URI`` 实例。
+        主要用于测试目的,这允许你设置当前请求的相对路径值,而不是依赖于 URI 检测。这也会用新的路径更新底层的 ``URI`` 实例。

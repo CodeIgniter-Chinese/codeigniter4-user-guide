@@ -14,10 +14,10 @@ CodeIgniter 支持两种安装方法:手动下载和使用 `Composer <https://ge
 `codeigniter4/userguide <https://github.com/codeigniter4/userguide/releases>`_
 存储库下载。
 
-.. note:: 在使用 CodeIgniter 4 之前,请确保您的服务器满足
+.. note:: 在使用 CodeIgniter 4 之前,请确保你的服务器满足
     :doc:`要求 </intro/requirements>` ,特别是 PHP
     版本和所需的 PHP 扩展。
-    例如,您可能需要取消注释 ``php.ini`` 文件的“extension”
+    例如,你可能需要取消注释 ``php.ini`` 文件的“extension”
     行以启用“curl”和“intl”。
 
 .. toctree::

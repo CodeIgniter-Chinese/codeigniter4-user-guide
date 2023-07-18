@@ -48,11 +48,11 @@ $db->getFieldNames()
 
 返回包含字段名称的数组。可以通过两种方式调用此查询:
 
-1. 您可以提供表格名称并从 ``$db->object`` 调用它:
+1. 你可以提供表格名称并从 ``$db->object`` 调用它:
 
    .. literalinclude:: metadata/003.php
 
-2. 您可以通过从查询结果对象调用函数来收集与任何查询关联的字段名称:
+2. 你可以通过从查询结果对象调用函数来收集与任何查询关联的字段名称:
 
 .. literalinclude:: metadata/004.php
 
@@ -111,7 +111,7 @@ $db->getIndexData()
 
 .. literalinclude:: metadata/008.php
 
-关键字类型可能是您使用的数据库所独有的。
+关键字类型可能是你使用的数据库所独有的。
 例如,MySQL 将为与表关联的每个键返回 primary、fulltext、spatial、index 或 unique 中的一个。
 
 SQLite3 返回一个名为 ``PRIMARY`` 的伪索引。但它是一个特殊的索引,你不能在 SQL 命令中使用它。

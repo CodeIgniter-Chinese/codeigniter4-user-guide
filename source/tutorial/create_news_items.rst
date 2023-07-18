@@ -5,7 +5,7 @@
     :local:
     :depth: 2
 
-您现在已经知道如何使用 CodeIgniter 从数据库中读取数据,但是您还没有将任何信息写入数据库。在本节中,您将扩展之前创建的新闻控制器和模型,以包括此功能。
+你现在已经知道如何使用 CodeIgniter 从数据库中读取数据,但是你还没有将任何信息写入数据库。在本节中,你将扩展之前创建的新闻控制器和模型,以包括此功能。
 
 启用 CSRF 过滤器
 ******************
@@ -17,11 +17,11 @@
 .. literalinclude:: create_news_items/001.php
 
 它将配置 CSRF 过滤器以对所有 **POST** 请求启用。
-您可以在 :doc:`Security <../libraries/security>` 库中阅读更多关于 CSRF 保护的信息。
+你可以在 :doc:`Security <../libraries/security>` 库中阅读更多关于 CSRF 保护的信息。
 
-.. warning:: 一般来说,如果您使用 ``$methods`` 过滤器,您应该 :ref:`禁用自动路由(传统) <use-defined-routes-only>`,
+.. warning:: 一般来说,如果你使用 ``$methods`` 过滤器,你应该 :ref:`禁用自动路由(传统) <use-defined-routes-only>`,
     因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。
-    使用您不期望的方法访问控制器可能会绕过过滤器。
+    使用你不期望的方法访问控制器可能会绕过过滤器。
 
 创建表单
 *************
@@ -29,7 +29,7 @@
 视图
 ====
 
-为了将数据输入数据库,您需要创建一个表单,在表单中您可以输入要存储的信息。这意味着您需要一个带有两个字段的表单,一个用于标题,一个用于文本。我们会在模型中从标题中派生 slug。在 **app/Views/news/create.php** 中创建一个新的视图::
+为了将数据输入数据库,你需要创建一个表单,在表单中你可以输入要存储的信息。这意味着你需要一个带有两个字段的表单,一个用于标题,一个用于文本。我们会在模型中从标题中派生 slug。在 **app/Views/news/create.php** 中创建一个新的视图::
 
     <h2><?= esc($title) ?></h2>
 
@@ -64,8 +64,8 @@
 控制器
 ==========
 
-返回您的 **News** 控制器。您将在此做两件事,检查表单是否已提交以及提交的数据是否通过了验证规则。
-您将使用 :ref:`Controller 中的 validation 方法 <controller-validatedata>`来完成此操作。
+返回你的 **News** 控制器。你将在此做两件事,检查表单是否已提交以及提交的数据是否通过了验证规则。
+你将使用 :ref:`Controller 中的 validation 方法 <controller-validatedata>`来完成此操作。
 
 .. literalinclude:: create_news_items/002.php
 
@@ -85,7 +85,7 @@
 
 之后,使用 Controller 提供的辅助函数 :ref:`validateData() <controller-validatedata>` 来验证 ``$post`` 数据。
 在这种情况下,标题和正文字段是必需的且长度在特定范围内。
-CodeIgniter 拥有强大的验证库,如上所示。您可以阅读更多关于 :doc:`验证库 <../libraries/validation>` 的信息。
+CodeIgniter 拥有强大的验证库,如上所示。你可以阅读更多关于 :doc:`验证库 <../libraries/validation>` 的信息。
 
 如果验证失败,表单将被加载并返回以显示。
 
@@ -104,7 +104,7 @@ CodeIgniter 拥有强大的验证库,如上所示。您可以阅读更多关于 
 更新模型
 **************
 
-唯一剩下的就是确保您的模型设置为允许数据被正确保存。
+唯一剩下的就是确保你的模型设置为允许数据被正确保存。
 在使用的 ``save()`` 方法将确定信息应插入还是如果行已经存在则应更新,这取决于主键的存在。
 在这种情况下,没有传递 ``id`` 字段给它,所以它会在它的表格 **news** 中插入新行。
 
@@ -113,18 +113,18 @@ CodeIgniter 拥有强大的验证库,如上所示。您可以阅读更多关于 
 
 .. literalinclude:: create_news_items/003.php
 
-这个新属性现在包含我们允许保存到数据库的字段。请注意,我们排除了 ``id`` 字段?这是因为您几乎永远不需要这样做,因为它是一个数据库中的自动递增字段。
-这有助于防止批量分配漏洞。如果您的模型处理了时间戳,您也会排除它们。
+这个新属性现在包含我们允许保存到数据库的字段。请注意,我们排除了 ``id`` 字段?这是因为你几乎永远不需要这样做,因为它是一个数据库中的自动递增字段。
+这有助于防止批量分配漏洞。如果你的模型处理了时间戳,你也会排除它们。
 
 路由
 *******
 
-在您可以开始将新闻添加到 CodeIgniter 应用程序之前,您必须在 **app/Config/Routes.php** 文件中添加一个额外的规则。确保您的文件包含以下内容。这可以确保 CodeIgniter 将 ``create()`` 视为一个方法,而不是新闻项的 slug。您可以在 :doc:`../incoming/routing` 中阅读有关不同路由类型的更多信息。
+在你可以开始将新闻添加到 CodeIgniter 应用程序之前,你必须在 **app/Config/Routes.php** 文件中添加一个额外的规则。确保你的文件包含以下内容。这可以确保 CodeIgniter 将 ``create()`` 视为一个方法,而不是新闻项的 slug。你可以在 :doc:`../incoming/routing` 中阅读有关不同路由类型的更多信息。
 
 .. literalinclude:: create_news_items/004.php
 
-现在指向您安装了 CodeIgniter 的本地开发环境的浏览器,并在 URL 中添加 ``/news/create``。
-添加一些新闻并查看您创建的不同页面。
+现在指向你安装了 CodeIgniter 的本地开发环境的浏览器,并在 URL 中添加 ``/news/create``。
+添加一些新闻并查看你创建的不同页面。
 
 .. image:: ../images/tutorial3.png
     :align: center
@@ -139,10 +139,10 @@ CodeIgniter 拥有强大的验证库,如上所示。您可以阅读更多关于 
 恭喜
 ***************
 
-您刚刚完成了您的第一个 CodeIgniter4 应用程序!
+你刚刚完成了你的第一个 CodeIgniter4 应用程序!
 
-下面的图像显示了您的项目的 **app** 文件夹,
-您创建的所有文件显示为红色。
+下面的图像显示了你的项目的 **app** 文件夹,
+你创建的所有文件显示为红色。
 两个已修改的配置文件(**Config/Routes.php** & **Config/Filters.php**)未显示。
 
 .. image:: ../images/tutorial9.png

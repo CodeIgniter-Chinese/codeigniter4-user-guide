@@ -28,7 +28,7 @@ Fetch API
 jQuery
 ======
 
-对于像 jQuery 这样的库,不必明确发送此头,因为根据官方文档,所有 $.ajax() 请求都是标准头。但如果您仍要强制发送以防万一,只需如下所示:
+对于像 jQuery 这样的库,不必明确发送此头,因为根据官方文档,所有 $.ajax() 请求都是标准头。但如果你仍要强制发送以防万一,只需如下所示:
 
 .. code-block:: javascript
 
@@ -40,7 +40,7 @@ jQuery
 VueJS
 =====
 
-在 VueJS 中,只要您使用 Axios 进行这种请求,就需要将以下代码添加到 created 函数中。
+在 VueJS 中,只要你使用 Axios 进行这种请求,就需要将以下代码添加到 created 函数中。
 
 .. code-block:: javascript
 
@@ -56,7 +56,7 @@ React
 htmx
 ====
 
-您可以使用 ajax-header 扩展。
+你可以使用 ajax-header 扩展。
 
 .. code-block:: html
 
