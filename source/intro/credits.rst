@@ -9,4 +9,4 @@ CodeIgniter 最初是由 `EllisLab <https://ellislab.com/>`_ 开发。
 
 2014 年,CodeIgniter 被 `英属哥伦比亚理工学院 <https://www.bcit.ca/>`_ 收购,之后正式宣布成为一个社区维护的项目。
 
-2019 年,CodeIgniter 基金会成立,以提供一个永久的管理团体,独立于任何其他实体,以以确保框架的未来发展。
+2019 年,CodeIgniter 基金会成立,以提供一个永久的管理团体,独立于任何其他实体,以确保框架的未来发展。
