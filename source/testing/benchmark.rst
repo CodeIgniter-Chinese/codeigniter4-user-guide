@@ -1,106 +1,105 @@
 ############
-基准测试类
+基准测试
 ############
 
-CodeIgniter 提供了两个独立的工具来帮助你对代码进行基准测试，并测试不同的选项：Timer 和 Iterator。Timer 允许你轻松计算脚本执行中两点之间的时间。迭代器允许你设置多个变量并运行这些测试，记录性能和内存统计信息，以帮助你确定哪个版本是最佳的。
+CodeIgniter 提供了两种独立的工具来帮助您基准测试代码和测试不同选项:
+**Timer** 和 **Iterator**。Timer 允许您轻松计算脚本执行过程中的两点之间的时间。Iterator 允许您设置几种变体并运行这些测试,记录性能和内存统计数据以帮助您决定哪种版本最佳。
 
-Timer类始终处于活动状态，从框架被调用的那一刻开始，直到发送输出到用户之前，才能使整个系统执行的时间非常准确。
+Timer 类始终处于活动状态,从框架被调用的那一刻开始,直到向用户发送输出之前的最后一刻,使整个系统执行时间非常准确。
 
 .. contents::
     :local:
     :depth: 2
 
+***************
+使用 Timer
+***************
+
+通过 Timer,您可以测量应用程序执行过程中的两个时刻之间的时间。这使得测量应用程序不同方面的性能变得很简单。所有测量都使用 ``start()`` 和 ``stop()`` 方法完成。
+
+Timer::start()
+==============
+
+``start()`` 方法接受一个参数:计时器的名称。您可以使用任意字符串作为计时器的名称。它仅用于以后参考以知道哪个测量是哪个:
+
+.. literalinclude:: benchmark/001.php
+
+Timer::stop()
+=============
+
+``stop()`` 方法将要停止的计时器的名称作为唯一参数:
+
+.. literalinclude:: benchmark/002.php
+
+名称不区分大小写,但否则必须与启动计时器时给定的名称匹配。
+
+timer()
+=======
+
+或者,您可以使用 :doc:`全局函数 </general/common_functions>` ``timer()`` 来启动和停止计时器:
+
+.. literalinclude:: benchmark/003.php
+
+.. _benchmark-timer-record:
+
+Timer::record()
 ===============
-使用定时器
-===============
 
-使用Timer，你可以测量执行应用程序的两个时刻之间的时间。这样可以轻松测量应用程序的不同方面的性能。所有测量都是使用 ``start()`` 和 ``stop()`` 方法完成的。
+.. versionadded:: 4.3.0
 
-该 ``start()`` 方法采用单个参数：此定时器的名称。你可以使用任何字符串作为计时器的名称。它仅用于你以后参考以了解哪个测量是::
+从 v4.3.0 开始,如果您使用非常小的代码块进行基准测试,也可以使用 ``record()`` 方法。它接受一个无参数的可调用对象并测量其执行时间。``start()`` 和 ``stop()`` 方法将在函数调用周围自动调用。
 
-	$benchmark = \Config\Services::timer();
-	$benchmark->start('render view');
+.. literalinclude:: benchmark/010.php
 
-该 ``stop()`` 方法将要停止的计时器的名称作为唯一的参数，也是::
-	$benchmark->stop('render view');
+您也可以返回可调用对象的返回值以供进一步处理。
 
-该名称不区分大小写，但除此之外必须与你在启动计时器时给出的名称相匹配。
+.. literalinclude:: benchmark/011.php
 
-或者，你可以使用 :doc:`全局函数 </general/common_functions>` ``timer()`` 来启动和停止定时器::
+将可调用对象作为第二个参数传递给 ``timer()`` 时,也可使用相同的功能。
 
-	// Start the timer
-	timer('render view');
-	// Stop a running timer,
-	// if one of this name has been started
-	timer('render view');
+.. literalinclude:: benchmark/012.php
 
-查看你的基准点
+查看基准点
 =============================
 
-当你的应用程序运行时，你设置的所有定时器都将由Timer类收集。它不会自动显示它们。你可以通过调用 ``getTimers()`` 方法检索所有的计时器。该方法返回一组基准信息，包括开始，结束和持续时间::
+当应用程序运行时,Timer 类会收集您设置的所有计时器。但它不会自动显示它们。您可以通过调用 ``getTimers()`` 方法检索所有计时器。它返回一个基准信息数组,包括开始时间、结束时间和持续时间:
 
-	$timers = $benchmark->getTimers();
+.. literalinclude:: benchmark/004.php
 
-	// Timers =
-	array(
-		'render view' => array(
-			'start' => 1234567890,
-			'end' => 1345678920,
-			'duration' => 15.4315      // number of seconds
-		)
-	)
+您可以通过作为唯一参数传递要显示的小数位数来更改计算出的持续时间的精度。默认值是小数点后 4 位数:
 
-你可以通过传递要显示的小数位数作为唯一参数来更改计算持续时间的精度。默认值为小数点后面的 4 个数字::
+.. literalinclude:: benchmark/005.php
 
-	$timers = $benchmark->getTimers(6);
-
-计时器会自动显示在 :doc:`Debub 工具栏中</general/debugging>`。
+计时器会自动显示在 :doc:`Debug 工具栏 </testing/debugging>` 中。
 
 显示执行时间
 =========================
 
-该 ``getTimers()`` 方法将为你的项目中的所有计时器提供原始数据，你可以使用 `getElapsedTime()` 方法检索单个计时器的持续时间（以秒为单位）。第一个参数是要显示的定时器的名称。第二个是要显示的小数位数。默认为4::
+虽然 ``getTimers()`` 方法将为项目中的所有计时器提供原始数据,但您可以使用 ``getElapsedTime()`` 方法以秒为单位检索单个计时器的持续时间。第一个参数是要显示的计时器的名称。第二个是要显示的小数位数。默认为 4:
 
-	echo timer()->getElapsedTime('render view');
-	// Displays: 0.0234
+.. literalinclude:: benchmark/006.php
 
-==================
-使用迭代器
-==================
+******************
+使用 Iterator
+******************
 
-Iterator是一个简单的工具，旨在让你尝试解决方案中的多个变体，以查看速度差异和不同内存使用模式。你可以添加任何数量的 “任务”，以便运行，该类将运行任务数百或数千次以获得更清晰的性能。然后，你的脚本可以检索和使用结果，或显示为HTML表格。
+Iterator 是一个简单的工具,旨在允许您尝试对一个解决方案的多个变体以查看速度差异和不同的内存使用模式。您可以添加任意数量的“任务”供它运行,该类将在运行数百次或数千次任务后获得性能的更清晰图片。然后可以检索结果并由脚本使用,或者以 HTML 表格显示。
 
-创建任务运行
+创建要运行的任务
 =====================
 
-任务在 Closures 内定义。任务创建的任何输出将被自动丢弃。它们通过 `add()` 方法添加到 Iterator 类中。第一个参数是您想要引用这个测试的名称;第二个参数是 Closure，它自己本身::
+任务在 Closure 中定义。任务创建的任何输出都将自动丢弃。它们通过 ``add()`` 方法添加到 Iterator 类中。第一个参数是您要引用此测试的名称。第二个参数是 Closure 本身:
 
-	$iterator = new \CodeIgniter\Benchmark\Iterator();
-
-	// Add a new task
-	$iterator->add('single_concat', function()
-		{
-			$str = 'Some basic'.'little'.'string concatenation test.';
-		}
-	);
-
-	// Add another task
-	$iterator->add('double', function($a='little')
-		{
-			$str = "Some basic {$little} string test.";
-		}
-	);
-
+.. literalinclude:: benchmark/007.php
 
 运行任务
 =================
 
-你一旦添加了要运行的任务，你可以使用 ``run()`` 方法多次循环任务。默认情况下，它将循环运行 1000 次。这对大多数简单的测试来说可能就足够了，如果你需要运行测试多次，你可以将你希望运行数字作为第一个参数传递值::
+添加任务后,可以使用 ``run()`` 方法循环任务多次。默认情况下,它将每个任务运行 1000 次。对于大多数简单测试来说,这可能就足够了。如果需要运行测试更多次,可以将次数作为第一个参数传递:
 
-	// Run the tests 3000 times.
-	$iterator->run(3000);
+.. literalinclude:: benchmark/008.php
 
-一旦运行，它将返回带有测试结果的 HTML 表格。如果你不希望显示结果，可以通过传递第二个参数为 false::
+运行后,它将返回一个包含测试结果的 HTML 表格。
+如果不想要结果,可以将 ``false`` 作为第二个参数传递:
 
-	// Don't display the results.
-	$iterator->run(1000, false);
+.. literalinclude:: benchmark/009.php
