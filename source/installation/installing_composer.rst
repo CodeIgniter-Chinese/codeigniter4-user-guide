@@ -32,7 +32,7 @@ App Starter
 
     > composer create-project codeigniter4/appstarter 项目根目录
 
-上述命令将创建一个**项目根目录**文件夹。
+上述命令将创建一个 **项目根目录** 文件夹。
 
 如果省略“项目根目录”参数,该命令将创建一个“appstarter”文件夹,可以根据需要重命名。
 
