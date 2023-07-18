@@ -12,6 +12,7 @@
     view_renderer
     view_layouts
     view_parser
+    view_decorators
     table
     response
     api_responses

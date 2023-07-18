@@ -1,328 +1,172 @@
 ################
-HTML Table Class
+HTML 表格类
 ################
 
-The Table Class provides methods that enable you to auto-generate HTML
-tables from arrays or database result sets.
+Table 类提供了使您能够从数组或数据库结果集自动生成 HTML 表格的方法。
 
 .. contents::
-  :local:
-
-.. raw:: html
-
-  <div class="custom-index container"></div>
+    :local:
+    :depth: 2
 
 *********************
-Using the Table Class
+使用 Table 类
 *********************
 
-Initializing the Class
+初始化类
 ======================
 
-The Table class is not provided as a service, and should be instantiated
-"normally", for instance::
+Table 类没有作为服务提供,应该进行“正常”实例化,例如:
 
-	$table = new \CodeIgniter\View\Table();
+.. literalinclude:: table/001.php
 
-Examples
+例子
 ========
 
-Here is an example showing how you can create a table from a
-multi-dimensional array. Note that the first array index will become the
-table heading (or you can set your own headings using the ``setHeading()``
-method described in the function reference below).
+下面是一个示例,展示了如何从多维数组创建表格。请注意,第一个数组索引将成为表格标题(或者您可以使用下面函数参考中描述的 ``setHeading()`` 方法设置自己的标题)。
 
-::
+.. literalinclude:: table/002.php
 
-	$table = new \CodeIgniter\View\Table();
+下面是从数据库查询结果创建的表格示例。表类将自动基于表名生成标题(或者您可以使用下面类参考中描述的 ``setHeading()`` 方法设置自己的标题)。
 
-	$data = [
-		['Name', 'Color', 'Size'],
-		['Fred', 'Blue',  'Small'],
-		['Mary', 'Red',   'Large'],
-		['John', 'Green', 'Medium'],
-	];
+.. literalinclude:: table/003.php
 
-	echo $table->generate($data);
+下面是一个使用离散参数创建表格的示例:
 
-Here is an example of a table created from a database query result. The
-table class will automatically generate the headings based on the table
-names (or you can set your own headings using the ``setHeading()``
-method described in the class reference below).
+.. literalinclude:: table/004.php
 
-::
+下面是相同的示例,只是使用数组代替各个参数:
 
-	$table = new \CodeIgniter\View\Table();
+.. literalinclude:: table/005.php
 
-	$query = $db->query('SELECT * FROM my_table');
-
-	echo $table->generate($query);
-
-Here is an example showing how you might create a table using discrete
-parameters::
-
-	$table = new \CodeIgniter\View\Table();
-
-	$table->setHeading('Name', 'Color', 'Size');
-
-	$table->addRow('Fred', 'Blue', 'Small');
-	$table->addRow('Mary', 'Red', 'Large');
-	$table->addRow('John', 'Green', 'Medium');
-
-	echo $table->generate();
-
-Here is the same example, except instead of individual parameters,
-arrays are used::
-
-	$table = new \CodeIgniter\View\Table();
-
-	$table->setHeading(array('Name', 'Color', 'Size'));
-
-	$table->addRow(['Fred', 'Blue', 'Small']);
-	$table->addRow(['Mary', 'Red', 'Large']);
-	$table->addRow(['John', 'Green', 'Medium']);
-
-	echo $table->generate();
-
-Changing the Look of Your Table
+更改表格外观
 ===============================
 
-The Table Class permits you to set a table template with which you can
-specify the design of your layout. Here is the template prototype::
+Table 类允许您设置一个表格模板来指定布局设计。下面是模板原型:
 
-	$template = [
-		'table_open'         => '<table border="0" cellpadding="4" cellspacing="0">',
+.. literalinclude:: table/006.php
 
-		'thead_open'         => '<thead>',
-		'thead_close'        => '</thead>',
+.. note:: 您会注意到模板中有两组 "row" 块。这允许您创建交替的行颜色或与每次迭代行数据交替的设计元素。
 
-		'heading_row_start'  => '<tr>',
-		'heading_row_end'    => '</tr>',
-		'heading_cell_start' => '<th>',
-		'heading_cell_end'   => '</th>',
+您不需要提交完整的模板。如果您只需要更改布局的一部分,只需提交这些元素即可。在此示例中,仅更改表格打开标签:
 
-		'tfoot_open'         => '<tfoot>',
-		'tfoot_close'        => '</tfoot>',
+.. literalinclude:: table/007.php
 
-		'footing_row_start'  => '<tr>',
-		'footing_row_end'    => '</tr>',
-		'footing_cell_start' => '<td>',
-		'footing_cell_end'   => '</td>',
+您还可以通过向 Table 构造函数传递模板设置数组来为这些设置默认值:
 
-		'tbody_open'         => '<tbody>',
-		'tbody_close'        => '</tbody>',
-
-		'row_start'          => '<tr>',
-		'row_end'            => '</tr>',
-		'cell_start'         => '<td>',
-		'cell_end'           => '</td>',
-
-		'row_alt_start'      => '<tr>',
-		'row_alt_end'        => '</tr>',
-		'cell_alt_start'     => '<td>',
-		'cell_alt_end'       => '</td>',
-
-		'table_close'        => '</table>'
-	];
-
-	$table->setTemplate($template);
-
-.. note:: You'll notice there are two sets of "row" blocks in the
-	template. These permit you to create alternating row colors or design
-	elements that alternate with each iteration of the row data.
-
-You are NOT required to submit a complete template. If you only need to
-change parts of the layout you can simply submit those elements. In this
-example, only the table opening tag is being changed::
-
-	$template = [
-		'table_open' => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">'
-	];
-
-	$table->setTemplate($template);
-	
-You can also set defaults for these by passing an array of template settings
-to the Table constructor.::
-
-	$customSettings = [
-		'table_open' => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">'
-	];
-
-	$table = new \CodeIgniter\View\Table($customSettings);
-
+.. literalinclude:: table/008.php
 
 ***************
-Class Reference
+类参考
 ***************
+
+.. php:namespace:: CodeIgniter\View
 
 .. php:class:: Table
 
-	.. attribute:: $function = NULL
+    .. attribute:: $function = null
 
-		Allows you to specify a native PHP function or a valid function array object to be applied to all cell data.
-		::
+        允许您指定 native PHP 函数或一个有效的函数数组对象应用于所有单元格数据。
 
-			$table = new \CodeIgniter\View\Table();
+        .. literalinclude:: table/009.php
 
-			$table->setHeading('Name', 'Color', 'Size');
-			$table->addRow('Fred', '<strong>Blue</strong>', 'Small');
+        在上面的例子中,所有单元格数据都将通过 PHP 的 :php:func:`htmlspecialchars()` 函数运行,结果是::
 
-			$table->function = 'htmlspecialchars';
-			echo $table->generate();
+            <td>Fred</td><td>&lt;strong&gt;Blue&lt;/strong&gt;</td><td>Small</td>
 
-		In the above example, all cell data would be run through PHP's :php:func:`htmlspecialchars()` function, resulting in::
+    .. php:method:: generate([$tableData = null])
 
-			<td>Fred</td><td>&lt;strong&gt;Blue&lt;/strong&gt;</td><td>Small</td>
+        :param    mixed    $tableData: 用来填充表格行的数据
+        :returns:    HTML表格
+        :rtype:    string
 
-	.. php:method:: generate([$tableData = NULL])
+        返回包含生成表格的字符串。接受一个可选参数,可以是数组或数据库结果对象。
 
-		:param	mixed	$tableData: Data to populate the table rows with
-		:returns:	HTML table
-		:rtype:	string
+    .. php:method:: setCaption($caption)
 
-		Returns a string containing the generated table. Accepts an optional parameter which can be an array or a database result object.
+        :param    string    $caption: 表格标题
+        :returns:    Table 实例(方法链)
+        :rtype:    Table
 
-	.. php:method:: setCaption($caption)
+        允许您为表格添加标题。
 
-		:param	string	$caption: Table caption
-		:returns:	Table instance (method chaining)
-		:rtype:	Table
+        .. literalinclude:: table/010.php
 
-		Permits you to add a caption to the table.
-		::
+    .. php:method:: setHeading([$args = [] [, ...]])
 
-			$table->setCaption('Colors');
+        :param    mixed    $args: 包含表格列标题的数组或多个字符串
+        :returns:    Table 实例(方法链)
+        :rtype:    Table
 
-	.. php:method:: setHeading([$args = [] [, ...]])
+        允许您设置表格标题。您可以提交数组或离散参数:
 
-		:param	mixed	$args: An array or multiple strings containing the table column titles
-		:returns:	Table instance (method chaining)
-		:rtype:	Table
+        .. literalinclude:: table/011.php
 
-		Permits you to set the table heading. You can submit an array or discrete params::
+    .. php:method:: setFooting([$args = [] [, ...]])
 
-			$table->setHeading('Name', 'Color', 'Size'); // or
+        :param    mixed    $args: 包含表格页脚值的数组或多个字符串
+        :returns:    Table 实例(方法链)
+        :rtype:    Table
 
-			$table->setHeading(['Name', 'Color', 'Size']);
+        允许您设置表格页脚。您可以提交数组或离散参数:
 
-	.. php:method:: setFooting([$args = [] [, ...]])
+        .. literalinclude:: table/012.php
 
-		:param	mixed	$args: An array or multiple strings containing the table footing values
-		:returns:	Table instance (method chaining)
-		:rtype:	Table
+    .. php:method:: addRow([$args = [] [, ...]])
 
-		Permits you to set the table footing. You can submit an array or discrete params::
+        :param    mixed    $args: 包含行值的数组或多个字符串
+        :returns:    Table 实例(方法链)
+        :rtype:    Table
 
-			$table->setFooting('Subtotal', $subtotal, $notes); // or
+        允许您向表格添加行。您可以提交数组或离散参数:
 
-			$table->setFooting(['Subtotal', $subtotal, $notes]);
+        .. literalinclude:: table/013.php
 
-	.. php:method:: addRow([$args = array()[, ...]])
+        如果您想为单个单元格的标签属性设置值,可以为该单元格使用关联数组。
+        关联键 **data** 定义单元格的数据。任何其他的 key => val 对会作为 key='val' 属性添加到标签中:
 
-		:param	mixed	$args: An array or multiple strings containing the row values
-		:returns:	Table instance (method chaining)
-		:rtype:	Table
+        .. literalinclude:: table/014.php
 
-		Permits you to add a row to your table. You can submit an array or discrete params::
+    .. php:method:: makeColumns([$array = [] [, $columnLimit = 0]])
 
-			$table->addRow('Blue', 'Red', 'Green'); // or
+        :param    array    $array: 包含多个行数据的数组
+        :param    int    $columnLimit: 表格中的列数
+        :returns:    HTML表格列的多维数组
+        :rtype:    array
 
-			$table->addRow(['Blue', 'Red', 'Green']);
+        此方法接受一维数组作为输入,并创建深度等于所需列数的多维数组。
+        这允许具有大量元素的单个数组以固定列数显示在表格中。考虑这个例子:
 
-		If you would like to set an individual cell's tag attributes, you can use an associative array for that cell.
-		The associative key **data** defines the cell's data. Any other key => val pairs are added as key='val' attributes to the tag::
+        .. literalinclude:: table/015.php
 
-			$cell = ['data' => 'Blue', 'class' => 'highlight', 'colspan' => 2];
-			$table->addRow($cell, 'Red', 'Green');
+    .. php:method:: setTemplate($template)
 
-			// generates
-			// <td class='highlight' colspan='2'>Blue</td><td>Red</td><td>Green</td>
+        :param    array    $template: 包含模板值的关联数组
+        :returns:    成功为 true,失败为 false
+        :rtype:    bool
 
-	.. php:method:: makeColumns([$array = [] [, $columnLimit = 0]])
+        允许您设置模板。您可以提交完整或部分模板。
 
-		:param	array	$array: An array containing multiple rows' data
-		:param	int	$columnLimit: Count of columns in the table
-		:returns:	An array of HTML table columns
-		:rtype:	array
+        .. literalinclude:: table/016.php
 
-		This method takes a one-dimensional array as input and creates a multi-dimensional array with a depth equal to the number of columns desired.
-		This allows a single array with many elements to be displayed in a table that has a fixed column count. Consider this example::
+    .. php:method:: setEmpty($value)
 
-			$list = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+        :param    mixed    $value: 放入空单元格中的值
+        :returns:    Table 实例(方法链)
+        :rtype:    Table
 
-			$newList = $table->makeColumns($list, 3);
+        允许您为使用在任何空表格单元格中的默认值设置值。
+        例如,您可以设置一个不间断的空格:
 
-			$table->generate($newList);
+        .. literalinclude:: table/017.php
 
-			// Generates a table with this prototype
+    .. php:method:: clear()
 
-			<table border="0" cellpadding="4" cellspacing="0">
-			<tr>
-			<td>one</td><td>two</td><td>three</td>
-			</tr><tr>
-			<td>four</td><td>five</td><td>six</td>
-			</tr><tr>
-			<td>seven</td><td>eight</td><td>nine</td>
-			</tr><tr>
-			<td>ten</td><td>eleven</td><td>twelve</td></tr>
-			</table>
+        :returns:    Table 实例(方法链)
+        :rtype:    Table
 
+        允许您清除表格标题、行数据和标题。
+        如果您需要显示具有不同数据的多个表格,应在每个表格生成后调用此方法以清除先前的表格信息。
 
-	.. php:method:: setTemplate($template)
+        例子
 
-		:param	array	$template: An associative array containing template values
-		:returns:	TRUE on success, FALSE on failure
-		:rtype:	bool
-
-		Permits you to set your template. You can submit a full or partial template.
-		::
-
-			$template = [
-				'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">'
-			];
-		
-			$table->setTemplate($template);
-
-	.. php:method:: setEmpty($value)
-
-		:param	mixed	$value: Value to put in empty cells
-		:returns:	Table instance (method chaining)
-		:rtype:	Table
-
-		Lets you set a default value for use in any table cells that are empty.
-		You might, for example, set a non-breaking space::
-
-			$table->setEmpty("&nbsp;");
-
-	.. php:method:: clear()
-
-		:returns:	Table instance (method chaining)
-		:rtype:	Table
-
-		Lets you clear the table heading, row data and caption. If
-		you need to show multiple tables with different data you
-		should to call this method after each table has been
-		generated to clear the previous table information.
-
-		Example ::
-
-			$table = new \CodeIgniter\View\Table();
-
-
-			$table->setCaption('Preferences')
-                            ->setHeading('Name', 'Color', 'Size')
-                            ->addRow('Fred', 'Blue', 'Small')
-                            ->addRow('Mary', 'Red', 'Large')
-                            ->addRow('John', 'Green', 'Medium');
-
-			echo $table->generate();
-
-			$table->clear();
-
-			$table->setCaption('Shipping')
-                            ->setHeading('Name', 'Day', 'Delivery')
-                            ->addRow('Fred', 'Wednesday', 'Express')
-                            ->addRow('Mary', 'Monday', 'Air')
-                            ->addRow('John', 'Saturday', 'Overnight');
-
-			echo $table->generate();
+        .. literalinclude:: table/018.php

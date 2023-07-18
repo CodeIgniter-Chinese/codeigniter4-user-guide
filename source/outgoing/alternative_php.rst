@@ -1,50 +1,33 @@
 ###################################
-在视图文件中使用PHP替代语法
+在视图文件中使用 PHP 替代语法
 ###################################
 
-如果你不使用模板引擎来简化输出，那么意味着你将在视图文件中使用纯 PHP 语法。为了精简视图文件中的 PHP 代码同时增强代码的可读性，建议你在写控制结构和 echo 语句时使用 PHP 的替代语法。如果你对这个语法还不熟悉，下面将介绍如何通过这个语法来消除你代码中的大括号和 echo 语句。
+如果你不使用模板引擎来简化输出,
+你将在视图文件中使用纯 PHP 。为了最大限度地减少这些文件中的 PHP 代码,并更易于识别代码块,建议使用 PHP 的替代语法来控制结构和短标签 echo 语句。
+如果你不熟悉这种语法,它可以消除代码中的大括号,并消除 “echo” 语句。
 
-Echo 的替代语法
+替代 Echo
 =================
-通常来说，你在输出或打印一个变量的时候会这样做::
 
-	<?php echo $variable; ?>
+通常要输出或打印一个变量,你会这样做::
 
-而使用替代语法，你可以写成这样::
+    <?php echo $variable; ?>
 
-	<?= $variable?>
+使用替代语法,你可以这样做::
 
+    <?= $variable ?>
 
-控制结构的替代语法
+替代控制结构
 ==============================
-像 if、for、foreach、while 这样的控制结构也可以写成简化格式。下面以 ``foreach`` 举例::
 
-	<ul>
+控制结构,像 if、for、foreach 和 while 也可以使用简化格式。这里有一个 ``foreach`` 的例子:
 
-	<?php foreach ($todo as $item) : ?>
+.. literalinclude:: alternative_php/001.php
 
-		<li><?= $item ?></li>
+注意这里没有大括号。相反,结束的大括号被 ``endforeach`` 替换。上面列出的每个控制结构都有类似的结束语法: ``endif``、 ``endfor``、 ``endforeach`` 和 ``endwhile``
 
-	<?php endforeach ?>
+同样要注意的是,除了最后一个结构外,每个结构后面都使用冒号,而不是分号。这很重要!
 
-	</ul>
+这里是一个使用 ``if``/``elseif``/``else`` 的例子。注意冒号:
 
-注意这里没有任何括号，结束括号被 ``endforeach`` 取而代之。上面列举出的那些控制结构都有相似的结束标志: ``endif``, ``endfor``, ``endforeach`` 和 ``endwhile``。
-
-同时要注意的是，每个结构分支后面都要跟一个冒号(除了最后一个)，而不是分号,这很重要!
-
-这是另外一个样例，使用了 ``if``/``elseif``/``else``，注意看分支语句后的冒号::
-
-	<?php if ($username === 'sally') : ?>
-
-		<h3>Hi Sally</h3>
-
-	<?php elseif ($username === 'joe') : ?>
-
-		<h3>Hi Joe</h3>
-
-	<?php else : ?>
-
-		<h3>Hi unknown user</h3>
-
-	<?php endif ?>
+.. literalinclude:: alternative_php/002.php

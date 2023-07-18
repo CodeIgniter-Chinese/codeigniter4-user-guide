@@ -1,775 +1,578 @@
 ###########
-View Parser
+视图解析器
 ###########
 
 .. contents::
     :local:
     :depth: 2
 
-The View Parser can perform simple text substitution for
-pseudo-variables contained within your view files.
-It can parse simple variables or variable tag pairs.
+视图解析器可以对视图文件中的伪变量进行简单的文本替换。
+它可以解析简单变量或变量标签对。
 
-Pseudo-variable names or control constructs are enclosed in braces, like this::
+伪变量名称或控制结构用大括号括起来,像这样::
 
-	<html>
-	<head>
-		<title>{blog_title}</title>
-	</head>
-	<body>
-		<h3>{blog_heading}</h3>
+    <html>
+    <head>
+        <title>{blog_title}</title>
+    </head>
+    <body>
+        <h3>{blog_heading}</h3>
 
-		{blog_entries}
-			<h5>{title}</h5>
-			<p>{body}</p>
-		{/blog_entries}
+        {blog_entries}
+            <h5>{title}</h5>
+            <p>{body}</p>
+        {/blog_entries}
 
-	</body>
-	</html>
+    </body>
+    </html>
 
-These variables are not actual PHP variables, but rather plain text
-representations that allow you to eliminate PHP from your templates
-(view files).
+这些变量不是实际的 PHP 变量,而是普通文本表示,允许你从模板(视图文件)中消除 PHP。
 
-.. note:: CodeIgniter does **not** require you to use this class since
-	using pure PHP in your view pages (for instance using the
-	:doc:`View renderer </outgoing/view_renderer>` )
-	lets them run a little faster.
-	However, some developers prefer to use some form of template engine if
-	they work with designers who they feel would find some
-	confusion working with PHP.
+.. note:: 由于在视图页面中使用纯 PHP(例如使用 :doc:`视图渲染器 </outgoing/view_renderer>`)
+    可以让它们运行得稍快一点,CodeIgniter **不要求** 您使用这个类。
+    然而,一些开发人员更喜欢在与设计师合作时使用某种模板引擎,
+    因为他们觉得设计师在使用 PHP 时会感到困惑。
 
 ***************************
-Using the View Parser Class
+使用视图解析器类
 ***************************
 
-The simplest method to load the parser class is through its service::
+通过其服务加载解析器类的最简单方法是:
 
-	$parser = \Config\Services::parser();
+.. literalinclude:: view_parser/001.php
 
-Alternately, if you are not using the ``Parser`` class as your default renderer, you
-can instantiate it directly::
+另外,如果你没有使用 ``Parser`` 类作为默认渲染器,
+你可以直接实例化它:
 
-	$parser = new \CodeIgniter\View\Parser();
+.. literalinclude:: view_parser/002.php
 
-Then you can use any of the three standard rendering methods that it provides:
-**render(viewpath, options, save)**, **setVar(name, value, context)** and
-**setData(data, context)**. You will also be able to specify delimiters directly,
-through the **setDelimiters(left,right)** method.
+然后你可以使用它提供的三种标准渲染方法中的任何一种:``render()``、``setVar()`` 和
+``setData()``。您还可以通过 ``setDelimiters()`` 方法直接指定分隔符。
 
-Using the ``Parser``, your view templates are processed only by the Parser
-itself, and not like a conventional view PHP script. PHP code in such a script
-is ignored by the parser, and only substitutions are performed.
+.. important:: 使用 ``Parser``,你的视图模板只由 Parser 本身处理,而不是作为常规视图 PHP 脚本。
+    这样的脚本中的 PHP 代码会被解析器忽略,只执行替换。
 
-This is purposeful: view files with no PHP.
+    这是有意为之的:不包含 PHP 的视图文件。
 
-What It Does
+它的工作原理
 ============
 
-The ``Parser`` class processes "PHP/HTML scripts" stored in the application's view path.
-These scripts can not contain any PHP.
+``Parser`` 类处理存储在应用程序的视图路径中的“PHP/HTML 脚本”。
+这些脚本不能包含任何 PHP。
 
-Each view parameter (which we refer to as a pseudo-variable) triggers a substitution,
-based on the type of value you provided for it. Pseudo-variables are not
-extracted into PHP variables; instead their value is accessed through the pseudo-variable
-syntax, where its name is referenced inside braces.
+每个视图参数(我们称之为伪变量)都会触发一次替换,基于你为它提供的值的类型。
+伪变量不会提取到 PHP 变量中;相反,它们的值是通过伪变量语法访问的,其名称引用在大括号内。
 
-The Parser class uses an associative array internally, to accumulate pseudo-variable
-settings until you call its ``render()``. This means that your pseudo-variable names
-need to be unique, or a later parameter setting will over-ride an earlier one.
+Parser 类在内部使用关联数组来累积伪变量设置,直到你调用 ``render()``。
+这意味着你的伪变量名称需要是唯一的,否则后面的参数设置将覆盖较早的设置。
 
-This also impacts escaping parameter values for different contexts inside your
-script. You will have to give each escaped value a unique parameter name.
+这也会影响根据脚本中的不同上下文对参数值进行转义。
+你将必须为每个转义值提供一个唯一的参数名称。
 
-Parser templates
+解析器模板
 ================
 
-You can use the ``render()`` method to parse (or render) simple templates,
-like this::
+你可以使用 ``render()`` 方法来解析(或渲染)简单模板,像这样:
 
-	$data = [
-		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading'
-	];
+.. literalinclude:: view_parser/003.php
 
-	echo $parser->setData($data)
-	             ->render('blog_template');
+视图参数作为要在模板中替换的数据的关联数组传递给 ``setData()``。在上面的例子中,
+模板将包含两个变量:``{blog_title}`` 和 ``{blog_heading}``
+``render()`` 的第一个参数包含 :doc:`视图文件 </outgoing/views>` 的名称,其中 *blog_template* 是视图文件的名称。
 
-View parameters are passed to ``setData()`` as an associative
-array of data to be replaced in the template. In the above example, the
-template would contain two variables: {blog_title} and {blog_heading}
-The first parameter to ``render()`` contains the name of the :doc:`view
-file </outgoing/views>`, Where *blog_template* is the name of your view file.
+.. important:: 如果省略了文件扩展名,则视图预计以 .php 扩展名结束。
 
-.. important:: If the file extension is omitted, then the views are expected to end with the .php extension.
-
-Parser Configuration Options
+解析器配置选项
 ============================
 
-Several options can be passed to the ``render()`` or ``renderString()`` methods.
+可以将几个选项传递给 ``render()`` 或 ``renderString()`` 方法。
 
--   ``cache`` - the time in seconds, to save a view's results; ignored for renderString()
--   ``cache_name`` - the ID used to save/retrieve a cached view result; defaults to the viewpath;
-		ignored for renderString()
--   ``saveData`` - true if the view data parameters should be retained for subsequent calls;
-		default is **false**
--	``cascadeData`` - true if pseudo-variable settings should be passed on to nested
-		substitutions; default is **true**
+- ``cache`` - 以秒为单位,保存视图结果的时间;对 renderString() 忽略
+- ``cache_name`` - 用于保存/检索缓存视图结果的 ID;默认为视图路径;对 renderString() 忽略
+- ``saveData`` - 如果为 true,视图数据参数应保留以供随后的调用;默认为 **true**
+- ``cascadeData`` - 如果嵌套或循环替换发生时,数据对是否应该传播给内部替换;默认为 **true**
 
-::
-
-	echo $parser->render('blog_template', [
-		'cache'      => HOUR,
-		'cache_name' => 'something_unique',
-	]);
+.. literalinclude:: view_parser/004.php
 
 ***********************
-Substitution Variations
+替换变体
 ***********************
 
-There are three types of substitution supported: simple, looping, and nested.
-Substitutions are performed in the same sequence that pseudo-variables were added.
+支持三种替换类型:简单、循环和嵌套。
+替换的执行顺序与添加伪变量的顺序相同。
 
-The **simple substitution** performed by the parser is a one-to-one
-replacement of pseudo-variables where the corresponding data parameter
-has either a scalar or string value, as in this example::
+解析器执行的**简单替换**是一对一地替换伪变量,其中相应的数据参数具有标量或字符串值,如本例所示:
 
-	$template = '<head><title>{blog_title}</title></head>';
-	$data     = ['blog_title' => 'My ramblings'];
+.. literalinclude:: view_parser/005.php
 
-	echo $parser->setData($data)->renderString($template);
+解析器通过“变量对”大大扩展了替换,用于嵌套替换或循环,以及一些用于条件替换的高级结构。
 
-	// Result: <head><title>My ramblings</title></head>
+当解析器执行时,它通常会
 
-The ``Parser`` takes substitution a lot further with "variable pairs",
-used for nested substitutions or looping, and with some advanced
-constructs for conditional substitution.
+- 处理任何条件替换
+- 处理任何嵌套/循环替换
+- 处理其余的单个替换
 
-When the parser executes, it will generally
-
--	handle any conditional substitutions
--	handle any nested/looping substitutions
--	handle the remaining single substitutions
-
-Loop Substitutions
+循环替换
 ==================
 
-A loop substitution happens when the value for a pseudo-variable is
-a sequential array of arrays, like an array of row settings.
+当伪变量的值是数组的序列化数组时,就会发生循环替换,例如数据库记录的数组。
 
-The above example code allows simple variables to be replaced. What if
-you would like an entire block of variables to be repeated, with each
-iteration containing new values? Consider the template example we showed
-at the top of the page::
+上面的示例代码允许简单变量被替换。如果你想让整个变量块重复,每个迭代都包含新值呢?
+考虑我们在页面顶部显示的模板示例::
 
-	<html>
-	<head>
-		<title>{blog_title}</title>
-	</head>
-	<body>
-		<h3>{blog_heading}</h3>
+    <html>
+    <head>
+        <title>{blog_title}</title>
+    </head>
+    <body>
+        <h3>{blog_heading}</h3>
 
-		{blog_entries}
-			<h5>{title}</h5>
-			<p>{body}</p>
-		{/blog_entries}
+        {blog_entries}
+            <h5>{title}</h5>
+            <p>{body}</p>
+        {/blog_entries}
 
-	</body>
-	</html>
+    </body>
+    </html>
 
-In the above code you'll notice a pair of variables: {blog_entries}
-data... {/blog_entries}. In a case like this, the entire chunk of data
-between these pairs would be repeated multiple times, corresponding to
-the number of rows in the "blog_entries" element of the parameters array.
+在上面的代码中,你会注意到一对变量:``{blog_entries}`` 数据... ``{/blog_entries}``。在这种情况下,这对变量之间的数据的整个块将重复多次,对应于参数数组中的“blog_entries”元素的行数。
 
-Parsing variable pairs is done using the identical code shown above to
-parse single variables, except, you will add a multi-dimensional array
-corresponding to your variable pair data. Consider this example::
+解析变量对使用与解析单个变量完全相同的代码,不同之处在于,你需要添加一个与变量对数据对应的多维数组。考虑这个例子:
 
-	$data = [
-		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading',
-		'blog_entries' => [
-			['title' => 'Title 1', 'body' => 'Body 1'],
-			['title' => 'Title 2', 'body' => 'Body 2'],
-			['title' => 'Title 3', 'body' => 'Body 3'],
-			['title' => 'Title 4', 'body' => 'Body 4'],
-			['title' => 'Title 5', 'body' => 'Body 5']
-		]
-	];
+.. literalinclude:: view_parser/006.php
 
-	echo $parser->setData($data)
-	             ->render('blog_template');
+伪变量 ``blog_entries`` 的值是一个关联数组的顺序数组。外部级别与嵌套的“行”没有关联的键。
 
-The value for the pseudo-variable ``blog_entries`` is a sequential
-array of associative arrays. The outer level does not have keys associated
-with each of the nested "rows".
+如果你的“pair”数据来自数据库结果,它已经是一个多维数组,你可以简单地使用数据库的 ``getResultArray()`` 方法:
 
-If your "pair" data is coming from a database result, which is already a
-multi-dimensional array, you can simply use the database ``getResultArray()``
-method::
+.. literalinclude:: view_parser/007.php
 
-	$query = $db->query("SELECT * FROM blog");
+如果要循环的数组包含对象而不是数组,解析器将首先在对象上查找 ``asArray()`` 方法。如果存在,则调用该方法并像上面描述的那样循环结果数组。如果没有 ``asArray()`` 方法,对象将转换为数组,它的公共属性将可用于解析器。
 
-	$data = [
-		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading',
-		'blog_entries' => $query->getResultArray()
-	];
+当与实体类一起使用时,这尤其有用,因为它有一个 ``asArray()`` 方法,该方法返回所有公共和受保护的属性(减去 _options 属性),并使它们可用于解析器。
 
-	echo $parser->setData($data)
-	             ->render('blog_template');
-
-If the array you are trying to loop over contains objects instead of arrays,
-the parser will first look for an ``asArray`` method on the object. If it exists,
-that method will be called and the resulting array is then looped over just as
-described above. If no ``asArray`` method exists, the object will be cast as
-an array and its public properties will be made available to the Parser.
-
-This is especially useful with the Entity classes, which has an asArray method
-that returns all public and protected properties (minus the _options property) and
-makes them available to the Parser.
-
-Nested Substitutions
+嵌套替换
 ====================
 
-A nested substitution happens when the value for a pseudo-variable is
-an associative array of values, like a record from a database::
+当伪变量的值是关联数组时,就会发生嵌套替换,例如来自数据库的记录:
 
-	$data = [
-		'blog_title'   => 'My Blog Title',
-		'blog_heading' => 'My Blog Heading',
-		'blog_entry'   => [
-			'title' => 'Title 1', 'body' => 'Body 1'
-		]
-	];
+.. literalinclude:: view_parser/008.php
 
-	echo $parser->setData($data)
-	             ->render('blog_template');
+伪变量 ``blog_entries`` 的值是一个关联数组。在它内部定义的键/值对将在该变量对循环内为该变量公开。
 
-The value for the pseudo-variable ``blog_entry`` is an associative
-array. The key/value pairs defined inside it will be exposed inside
-the variable pair loop for that variable.
+可能适用于上述内容的 **blog_template.php** ::
 
-A ``blog_template`` that might work for the above::
+    <h1>{blog_title} - {blog_heading}</h1>
+    {blog_entries}
+        <div>
+            <h2>{title}</h2>
+            <p>{body}</p>
+        </div>
+    {/blog_entries}
 
-	<h1>{blog_title} - {blog_heading}</h1>
-	{blog_entry}
-		<div>
-			<h2>{title}</h2>
-			<p>{body}</p>
-		</div>
-	{/blog_entry}
+如果希望 ``blog_entries`` 作用域内的其他伪变量可用,请确保 ``cascadeData`` 选项设置为 true。
 
-If you would like the other pseudo-variables accessible inside the "blog_entry"
-scope, then make sure that the "cascadeData" option is set to true.
-
-Comments
+注释
 ========
 
-You can place comments in your templates that will be ignored and removed during parsing by wrapping the
-comments in a ``{#  #}`` symbols.
+你可以在模板中用 ``{# #}`` 符号将注释括起来,它们在解析期间将被忽略并删除。
 
 ::
 
-	{# This comment is removed during parsing. #}
-	{blog_entry}
-		<div>
-			<h2>{title}</h2>
-			<p>{body}</p>
-		</div>
-	{/blog_entry}
+    {# 这个注释在解析过程中会被删除。#}
+    {blog_entry}
+        <div>
+            <h2>{title}</h2>
+            <p>{body}</p>
+        </div>
+    {/blog_entry}
 
-Cascading Data
+数据级联
 ==============
 
-With both a nested and a loop substitution, you have the option of cascading
-data pairs into the inner substitution.
+对于嵌套替换和循环替换,你可以选择将数据对级联到内部替换。
 
-The following example is not impacted by cascading::
+以下示例不受级联的影响:
 
-	$template = '{name} lives in {location}{city} on {planet}{/location}.';
+.. literalinclude:: view_parser/009.php
 
-	$data = [
-		'name'     => 'George',
-		'location' => [ 'city' => 'Red City', 'planet' => 'Mars' ]
-	];
+这个例子的结果与级联的不同:
 
-	echo $parser->setData($data)->renderString($template);
-	// Result: George lives in Red City on Mars.
+.. literalinclude:: view_parser/010.php
 
-This example gives different results, depending on cascading::
-
-	$template = '{location}{name} lives in {city} on {planet}{/location}.';
-
-	$data = [
-		'name'     => 'George',
-		'location' => [ 'city' => 'Red City', 'planet' => 'Mars' ]
-	];
-
-	echo $parser->setData($data)->renderString($template, ['cascadeData'=>false]);
-	// Result: {name} lives in Red City on Mars.
-
-	echo $parser->setData($data)->renderString($template, ['cascadeData'=>true]);
-	// Result: George lives in Red City on Mars.
-
-Preventing Parsing
+阻止解析
 ==================
 
-You can specify portions of the page to not be parsed with the ``{noparse}{/noparse}`` tag pair. Anything in this
-section will stay exactly as it is, with no variable substitution, looping, etc, happening to the markup between the brackets.
+你可以使用 ``{noparse}`` ``{/noparse}`` 标签对指定不要解析的页面部分。这对括号之间的任何内容都将完全保持原样,不会发生变量替换、循环等。
 
 ::
 
-	{noparse}
-		<h1>Untouched Code</h1>
-	{/noparse}
+    {noparse}
+        <h1>Untouched Code</h1>
+    {/noparse}
 
-Conditional Logic
+条件逻辑
 =================
 
-The Parser class supports some basic conditionals to handle ``if``, ``else``, and ``elseif`` syntax. All ``if``
-blocks must be closed with an ``endif`` tag::
+解析器类支持一些基本条件来处理 ``if``、``else`` 和 ``elseif`` 语法。所有 ``if`` 块必须用 ``endif`` 标签关闭::
 
-	{if $role=='admin'}
-		<h1>Welcome, Admin!</h1>
-	{endif}
+    {if $role=='admin'}
+        <h1>Welcome, Admin!</h1>
+    {endif}
 
-This simple block is converted to the following during parsing::
+这简单的块在解析期间转换为以下内容:
 
-	<?php if ($role=='admin'): ?>
-		<h1>Welcome, Admin!</h1>
-	<?php endif ?>
+.. literalinclude:: view_parser/011.php
 
-All variables used within if statements must have been previously set with the same name. Other than that, it is
-treated exactly like a standard PHP conditional, and all standard PHP rules would apply here. You can use any
-of the comparison operators you would normally, like ``==``, ``===``, ``!==``, ``<``, ``>``, etc.
+if 语句中使用的所有变量必须先以相同的名称设置过。除此之外,它的处理方式与标准 PHP 条件完全相同,这里也将应用所有标准 PHP 规则。你可以使用通常会用到的任何比较运算符,如 ``==``、``===``、``!==``、``<``、``>`` 等。
 
 ::
 
-	{if $role=='admin'}
-		<h1>Welcome, Admin</h1>
-	{elseif $role=='moderator'}
-		<h1>Welcome, Moderator</h1>
-	{else}
-		<h1>Welcome, User</h1>
-	{endif}
+    {if $role=='admin'}
+        <h1>Welcome, Admin</h1>
+    {elseif $role=='moderator'}
+        <h1>Welcome, Moderator</h1>
+    {else}
+        <h1>Welcome, User</h1>
+    {endif}
 
-.. note:: In the background, conditionals are parsed using an **eval()**, so you must ensure that you take
-	care with the user data that is used within conditionals, or you could open your application up to security risks.
+.. warning:: 在后台,条件语句使用 ``eval()`` 进行解析,所以你必须确保在条件语句中使用的数据来自可信来源,否则可能会面临安全风险。
 
-Escaping Data
+更改条件分隔符
+-----------------------------------
+
+如果你的模板中有像下面的 JavaScript 代码,解析器会抛出语法错误,因为存在可以解释为条件的字符串::
+
+    <script type="text/javascript">
+        var f = function() {
+            if (hasAlert) {
+                alert('{message}');
+            }
+        }
+    </script>
+
+在这种情况下,你可以使用 ``setConditionalDelimiters()`` 方法更改条件分隔符,以避免误解:
+
+.. literalinclude:: view_parser/027.php
+
+在这种情况下,你可以在模板中编写代码::
+
+    {% if $role=='admin' %}
+        <h1>Welcome, Admin</h1>
+    {% else %}
+        <h1>Welcome, User</h1>
+    {% endif %}
+
+转义数据
 =============
 
-By default, all variable substitution is escaped to help prevent XSS attacks on your pages. CodeIgniter's ``esc`` method
-supports several different contexts, like general **html**, when it's in an HTML **attr*, in **css**, etc. If nothing
-else is specified, the data will be assumed to be in an HTML context. You can specify the context used by using the **esc**
-filter::
+默认情况下,所有变量替换都被转义,以帮助防止页面上的 XSS 攻击。CodeIgniter 的 ``esc()`` 方法支持几种不同的上下文,如常规的 ``html``、HTML ``attr`` 中的、``css`` 中的、``js`` 中的等。如果没有指定其他内容,数据将假定在 HTML 上下文中。你可以使用 ``esc()`` 过滤器指定所使用的上下文::
 
-	{ user_styles | esc(css) }
-	<a href="{ user_link | esc(attr) }">{ title }</a>
+    { user_styles | esc(css) }
+    <a href="{ user_link | esc(attr) }">{ title }</a>
 
-There will be times when you absolutely need something to used and NOT escaped. You can do this by adding exclamation
-marks to the opening and closing braces::
+有时你绝对需要使用而不转义的数据。你可以在打开和关闭括号中添加感叹号来实现这一点::
 
-	{! unescaped_var !}
+    {! unescaped_var !}
 
-Filters
+过滤器
 =======
 
-Any single variable substitution can have one or more filters applied to it to modify the way it is presented. These
-are not intended to drastically change the output, but provide ways to reuse the same variable data but with different
-presentations. The **esc** filter discussed above is one example. Dates are another common use case, where you might
-need to format the same data differently in several sections on the same page.
+可以对单个变量替换应用一个或多个过滤器以修改其呈现方式。这些旨在修改输出,而不是大幅改变它。上面讨论的 ``esc`` 过滤器就是一个例子。日期是另一个常见的用例,其中你可能需要以页面上的几个部分不同的方式格式化同一数据。
 
-Filters are commands that come after the pseudo-variable name, and are separated by the pipe symbol, ``|``::
+过滤器是在伪变量名称之后、用竖线符号 ``|`` 分隔的命令::
 
-	// -55 is displayed as 55
-	{ value|abs  }
+    // 显示 -55 为 55
+    { value|abs }
 
-If the parameter takes any arguments, they must be separated by commas and enclosed in parentheses::
+如果参数需要任何参数,必须用逗号分隔并用括号括起来::
 
-	{ created_at|date(Y-m-d) }
+    { created_at|date(Y-m-d) }
 
-Multiple filters can be applied to the value by piping multiple ones together. They are processed in order, from
-left to right::
+可以通过管道连接多个过滤器来应用值。它们从左到右处理::
 
-	{ created_at|date_modify(+5 days)|date(Y-m-d) }
+    { created_at|date_modify(+5 days)|date(Y-m-d) }
 
-Provided Filters
+提供的过滤器
 ----------------
 
-The following filters are available when using the parser:
+使用解析器时,可用以下过滤器:
 
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ **Filter**    + **Arguments**       + **Description**                                              + **Example**                         +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ abs           +                     + Displays the absolute value of a number.                     + { v|abs }                           +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ capitalize    +                     + Displays the string in sentence case: all lowercase          + { v|capitalize}                     +
-+               +                     + with firstletter capitalized.                                +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ date          + format (Y-m-d)      + A PHP **date**-compatible formatting string.                 + { v|date(Y-m-d) }                   +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ date_modify   + value to add        + A **strtotime** compatible string to modify the date,        + { v|date_modify(+1 day) }           +
-+               + / subtract          + like ``+5 day`` or ``-1 week``.                              +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ default       + default value       + Displays the default value if the variable is empty or       + { v|default(just in case) }         +
-+               +                     + undefined.                                                   +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ esc           + html, attr, css, js + Specifies the context to escape the data.                    + { v|esc(attr) }                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ excerpt       + phrase, radius      + Returns the text within a radius of words from a given       + { v|excerpt(green giant, 20) }      +
-+               +                     + phrase. Same as **excerpt** helper function.                 +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ highlight     + phrase              + Highlights a given phrase within the text using              + { v|highlight(view parser) }        +
-+               +                     + '<mark></mark>' tags.                                        +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ highlight_code+                     + Highlights code samples with HTML/CSS.                       + { v|highlight_code }                +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ limit_chars   + limit               + Limits the number of characters to $limit.                   + { v|limit_chars(100) }              +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ limit_words   + limit               + Limits the number of words to $limit.                        + { v|limit_words(20) }               +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ local_currency+ currency, locale    + Displays a localized version of a currency. "currency"       + { v|local_currency(EUR,en_US) }     +
-+               +                     + valueis any 3-letter ISO 4217 currency code.                 +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ local_number  + type, precision,    + Displays a localized version of a number. "type" can be      + { v|local_number(decimal,2,en_US) } +
-+               + locale              + one of: decimal, currency, percent, scientific, spellout,    +                                     +
-+               +                     + ordinal, duration.                                           +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ lower         +                     + Converts a string to lowercase.                              + { v|lower }                         +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ nl2br         +                     + Replaces all newline characters (\n) to an HTML <br/> tag.   + { v|nl2br }                         +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ number_format + places              + Wraps PHP **number_format** function for use within the      + { v|number_format(3) }              +
-+               +                     + parser.                                                      +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ prose         +                     + Takes a body of text and uses the **auto_typography()**      + { v|prose }                         +
-+               +                     + method to turn it into prettier, easier-to-read, prose.      +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ round         + places, type        + Rounds a number to the specified places. Types of **ceil**   + { v|round(3) } { v|round(ceil) }    +
-+               +                     + and **floor** can be passed to use those functions instead.  +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ strip_tags    + allowed chars       + Wraps PHP **strip_tags**. Can accept a string of allowed     + { v|strip_tags(<br>) }              +
-+               +                     + tags.                                                        +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ title         +                     + Displays a "title case" version of the string, with all      + { v|title }                         +
-+               +                     + lowercase, and each word capitalized.                        +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+ upper         +                     + Displays the string in all uppercase.                        + { v|upper }                         +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
-+               +                     +                                                              +                                     +
-+---------------+---------------------+--------------------------------------------------------------+-------------------------------------+
+================ ================= =========================================================== ======================================
+过滤器           参数               描述                                                           示例
+================ ================= =========================================================== ======================================
+abs                                显示数字的绝对值。                                           { v|abs }
 
-See `PHP's NumberFormatter <https://www.php.net/manual/en/numberformatter.create.php>`_ for details relevant to the
-"local_number" filter.
+capitalize                         以句子大小写显示字符串:全部小写,第一个字母大写。           { v|capitalize}
 
-Custom Filters
+date              格式(Y-m-d)        与 PHP **date** 兼容的格式化字符串。                       { v|date(Y-m-d) }
+
+date_modify       要添加/减去的值     与 **strtotime** 兼容的字符串,用于修改日期,             { v|date_modify(+1 day) }
+                  如 ``+5 day`` 或 ``-1 week``。
+
+default           默认值             如果变量为空或未定义,显示默认值。                         { v|default(just in case) }
+
+esc               html、attr、       指定转义数据的上下文。                                    { v|esc(attr) }
+                  css、js
+
+excerpt           短语、半径词数     返回给定短语半径词数内的文本。与 **excerpt** 助手函数相同。 { v|excerpt(green giant, 20) }
+
+highlight         短语               使用 '<mark></mark>' 标记在文本中突出显示给定短语。       { v|highlight(view parser) }
+
+highlight_code                     使用 HTML/CSS 突出显示代码示例。                           { v|highlight_code }
+
+limit_chars       限制个数           将字符数限制为 $limit。                                   { v|limit_chars(100) }
+
+limit_words       限制个数           将词数限制为 $limit。                                    { v|limit_words(20) }
+
+local_currency    货币、区域设置、   显示货币的本地化版本。“货币”值是任何 3 字节 ISO 4217   { v|local_currency(EUR,en_US) }
+                  小数位数          货币代码。
+
+local_number      类型、精度、       显示数字的本地化版本。“类型”可以是:decimal、currency、 { v|local_number(decimal,2,en_US) }
+                  区域设置           percent、scientific、spellout、ordinal、duration之一。
+
+lower                              转换字符串为小写。                                      { v|lower }
+
+nl2br                              用 HTML <br/> 标签替换所有换行符(\n)。                  { v|nl2br }
+
+number_format     小数位数           封装 PHP **number_format** 函数以在解析器中使用。       { v|number_format(3) }
+
+prose                              获取一段文本,使用 **auto_typography()** 方法将它转换为 { v|prose }
+                                   更美观、更易读的散文。
+
+round             小数位数、类型     按指定位数四舍五入数字。可传递 **ceil** 和 **floor** 类型 { v|round(3) } { v|round(ceil) }
+                                   以使用这些函数。
+
+strip_tags        允许的标签         封装 PHP **strip_tags**。可以接受允许的标签字符串。      { v|strip_tags(<br>) }
+
+title                              以“标题大小写”显示字符串,所有小写,每个单词首字母大写。 { v|title }
+
+upper                              将字符串显示为全部大写。                               { v|upper }
+================ ================= =========================================================== ======================================
+
+有关与“local_number”过滤器相关的详细信息，请参阅 `PHP 的 NumberFormatter <https://www.php.net/manual/en/numberformatter.create.php>`_。
+
+自定义过滤器
 --------------
 
-You can easily create your own filters by editing **app/Config/View.php** and adding new entries to the
-``$filters`` array. Each key is the name of the filter is called by in the view, and its value is any valid PHP
-callable::
+您可以通过编辑 **app/Config/View.php** 并向 ``$filters`` 数组添加新条目来轻松创建自己的过滤器。每个键是在视图中调用过滤器的名称，其值是任何有效的 PHP 可调用函数：
 
-	public $filters = [
-		'abs'        => '\CodeIgniter\View\Filters::abs',
-		'capitalize' => '\CodeIgniter\View\Filters::capitalize',
-	];
+.. literalinclude:: view_parser/012.php
 
-PHP Native functions as Filters
+将 PHP 原生函数用作过滤器
 -------------------------------
 
-You can use native php function as filters by editing **app/Config/View.php** and adding new entries to the
-``$filters`` array.Each key is the name of the native PHP function is called by in the view, and its value is any valid native PHP
-function prefixed with::
+您可以通过编辑 **app/Config/View.php** 并向 ``$filters`` 数组添加新条目，将原生的 PHP 函数用作过滤器。每个键是在视图中调用的原生 PHP 函数的名称，其值是任何有效的原生 PHP 函数，前缀为：
 
-	public $filters = [
-		'str_repeat' => '\str_repeat',
-	];
+.. literalinclude:: view_parser/013.php
 
-Parser Plugins
+插件
 ==============
 
-Plugins allow you to extend the parser, adding custom features for each project. They can be any PHP callable, making
-them very simple to implement. Within templates, plugins are specified by ``{+ +}`` tags::
+插件允许你扩展解析器,为每个项目添加自定义功能。它们可以是任何 PHP 可调用的,因此实现起来非常简单。在模板中,插件由 ``{+ +}`` 标记指定::
 
-	{+ foo +} inner content {+ /foo +}
+    {+ foo +} inner content {+ /foo +}
 
-This example shows a plugin named **foo**. It can manipulate any of the content between its opening and closing tags.
-In this example, it could work with the text " inner content ". Plugins are processed before any pseudo-variable
-replacements happen.
+这个示例显示了一个名为 **foo** 的插件。它可以操作在其打开和关闭标记之间的任何内容。在这个例子中,它可以使用文本 “inner content”。插件在任何伪变量替换发生之前进行处理。
 
-While plugins will often consist of tag pairs, like shown above, they can also be a single tag, with no closing tag::
+虽然插件通常由标签对组成,如上所示,但它们也可以是一个单标签,没有闭合标签::
 
-	{+ foo +}
+    {+ foo +}
 
-Opening tags can also contain parameters that can customize how the plugin works. The parameters are represented as
-key/value pairs::
+打开标签也可以包含可自定义插件工作方式的参数。参数表示为键/值对::
 
-	{+ foo bar=2 baz="x y" }
+    {+ foo bar=2 baz="x y" +}
 
-Parameters can also be single values::
+参数也可以是单个值::
 
-	{+ include somefile.php +}
+    {+ include somefile.php +}
 
-Provided Plugins
+提供的插件
 ----------------
 
-The following plugins are available when using the parser:
+使用解析器时,可用以下插件:
 
-==================== ========================== ================================================================================== ================================================================
-Plugin               Arguments                  Description                                                           			   Example
-==================== ========================== ================================================================================== ================================================================
-current_url                                     Alias for the current_url helper function.                                         {+ current_url +}
-previous_url                                    Alias for the previous_url helper function.                           		       {+ previous_url +}
-siteURL                                         Alias for the site_url helper function.                                            {+ siteURL "login" +}
-mailto               email, title, attributes   Alias for the mailto helper function.                                 		       {+ mailto email=foo@example.com title="Stranger Things" +}
-safe_mailto          email, title, attributes   Alias for the safe_mailto helper function.                            		       {+ safe_mailto email=foo@example.com title="Stranger Things" +}
-lang                 language string            Alias for the lang helper function.                                    		       {+ lang number.terabyteAbbr +}
-validation_errors    fieldname(optional)        Returns either error string for the field (if specified) or all validation errors. {+ validation_errors +} , {+ validation_errors field="email" +}
-route                route name                 Alias for the route_to helper function.                                            {+ route "login" +}
-==================== ========================== ================================================================================== ================================================================
+================== ========================= ============================================ ================================================================
+插件               参数                       描述                                            示例
+================== ========================= ============================================ ================================================================
+current_url                                  current_url 助手函数的别名。                {+ current_url +}
+previous_url                                 previous_url 助手函数的别名。               {+ previous_url +}
+siteURL            “login”                   site_url 助手函数的别名。                   {+ siteURL "login" +}
+mailto             email、标题、属性         mailto 助手函数的别名。                     {+ mailto email=foo@example.com title="Stranger Things" +}
+safe_mailto        email、标题、属性         safe_mailto 助手函数的别名。                {+ safe_mailto email=foo@example.com title="Stranger Things" +}
+lang               语言字符串                lang 助手函数的别名。                       {+ lang number.terabyteAbbr +}
+validation_errors  字段名(可选)              返回字段的错误字符串(如果指定),          {+ validation_errors +} , {+ validation_errors field="email" +}
+route              route 名称                route_to 助手函数的别名。                   {+ route "login" +}
+csp_script_nonce                              csp_script_nonce 助手函数的别名。         {+ csp_script_nonce +}
+csp_style_nonce                               csp_style_nonce 助手函数的别名。          {+ csp_style_nonce +}
+================== ========================= ============================================ ================================================================
 
-Registering a Plugin
+注册插件
 --------------------
 
-At its simplest, all you need to do to register a new plugin and make it ready for use is to add it to the
-**app/Config/View.php**, under the **$plugins** array. The key is the name of the plugin that is
-used within the template file. The value is any valid PHP callable, including static class methods, and closures::
+最简单的方法是将新插件添加到 **app/Config/View.php** 中的 ``$plugins`` 数组,即可注册并准备使用新插件。键是模板文件中使用的插件名称。值是任何有效的 PHP 可调用项,包括静态类方法:
 
-	public $plugins = [
-		'foo'	=> '\Some\Class::methodName',
-		'bar'	=> function($str, array $params=[]) {
-			return $str;
-		},
-	];
+.. literalinclude:: view_parser/014.php
 
-Any closures that are being used must be defined in the config file's constructor::
+你也可以使用闭包,但只能在配置文件的构造函数中定义它们:
 
-    class View extends \CodeIgniter\Config\View
-    {
-        public $plugins = [];
+.. literalinclude:: view_parser/015.php
 
-        public function __construct()
-        {
-            $this->plugins['bar'] = function(array $params=[]) {
-                return $params[0] ?? '';
-            };
+如果可调用的独立存在,则将其视为单标签,而不是打开/关闭标签。它将被插件的返回值替换:
 
-            parent::__construct();
-        }
-    }
+.. literalinclude:: view_parser/016.php
 
-If the callable is on its own, it is treated as a single tag, not a open/close one. It will be replaced by
-the return value from the plugin::
+如果可调用项包含在数组中,则将其视为打开/关闭标签对,可以操作其标记之间的任何内容:
 
-	public $plugins = [
-		'foo'	=> '\Some\Class::methodName'
-	];
-
-	// Tag is replaced by the return value of Some\Class::methodName static function.
-	{+ foo +}
-
-If the callable is wrapped in an array, it is treated as an open/close tag pair that can operate on any of
-the content between its tags::
-
-	public $plugins = [
-		'foo' => ['\Some\Class::methodName']
-	];
-
-	{+ foo +} inner content {+ /foo +}
+.. literalinclude:: view_parser/017.php
 
 ***********
-Usage Notes
+使用说明
 ***********
 
-If you include substitution parameters that are not referenced in your
-template, they are ignored::
+如果包含了模板中未引用的替换参数,会被忽略:
 
-	$template = 'Hello, {firstname} {lastname}';
-	$data = [
-		'title' => 'Mr',
-		'firstname' => 'John',
-		'lastname' => 'Doe'
-	];
-	echo $parser->setData($data)
-	             ->renderString($template);
+.. literalinclude:: view_parser/018.php
 
-	// Result: Hello, John Doe
+如果不包含模板中引用的替换参数,将显示原始伪变量:
 
-If you do not include a substitution parameter that is referenced in your
-template, the original pseudo-variable is shown in the result::
+.. literalinclude:: view_parser/019.php
 
-	$template = 'Hello, {firstname} {initials} {lastname}';
-	$data = [
-		'title'     => 'Mr',
-		'firstname' => 'John',
-		'lastname'  => 'Doe'
-	];
-	echo $parser->setData($data)
-	             ->renderString($template);
+如果为应该是数组的变量对提供字符串替换参数,
+即用于变量对,则仅为开始变量对标记执行替换,
+但不正确渲染结束变量对标记:
 
-	// Result: Hello, John {initials} Doe
+.. literalinclude:: view_parser/020.php
 
-If you provide a string substitution parameter when an array is expected,
-i.e. for a variable pair, the substitution is done for the opening variable
-pair tag, but the closing variable pair tag is not rendered properly::
-
-	$template = 'Hello, {firstname} {lastname} ({degrees}{degree} {/degrees})';
-	$data = [
-		'degrees'   => 'Mr',
-		'firstname' => 'John',
-		'lastname'  => 'Doe',
-		'titles'    => [
-			['degree' => 'BSc'],
-			['degree' => 'PhD']
-		]
-	];
-	echo $parser->setData($data)
-	             ->renderString($template);
-
-	// Result: Hello, John Doe (Mr{degree} {/degrees})
-
-View Fragments
+视图片段
 ==============
 
-You do not have to use variable pairs to get the effect of iteration in
-your views. It is possible to use a view fragment for what would be inside
-a variable pair, and to control the iteration in your controller instead
-of in the view.
+您不必使用变量对在视图中实现迭代。可以使用视图片段代替变量对内部的内容,并在控制器中控制迭代。
 
-An example with the iteration controlled in the view::
+在视图中控制迭代的示例::
 
-	$template = '<ul>{menuitems}
-		<li><a href="{link}">{title}</a></li>
-	{/menuitems}</ul>';
+    $template = '<ul>{menuitems}
+        <li><a href="{link}">{title}</a></li>
+    {/menuitems}</ul>';
 
-	$data = [
-		'menuitems' => [
-			['title' => 'First Link', 'link' => '/first'],
-			['title' => 'Second Link', 'link' => '/second'],
-		]
-	];
-	echo $parser->setData($data)
-	             ->renderString($template);
+    $data = [
+        'menuitems' => [
+            ['title' => 'First Link', 'link' => '/first'],
+            ['title' => 'Second Link', 'link' => '/second'],
+        ]
+    ];
 
-Result::
+    return $parser->setData($data)->renderString($template);
 
-	<ul>
-		<li><a href="/first">First Link</a></li>
-		<li><a href="/second">Second Link</a></li>
-	</ul>
+结果::
 
-An example with the iteration controlled in the controller,
-using a view fragment::
+    <ul>
+        <li><a href="/first">First Link</a></li>
+        <li><a href="/second">Second Link</a></li>
+    </ul>
 
-	$temp = '';
-	$template1 = '<li><a href="{link}">{title}</a></li>';
-	$data1 = [
-		['title' => 'First Link', 'link' => '/first'],
-		['title' => 'Second Link', 'link' => '/second'],
-	];
+在控制器中控制迭代、使用视图片段的示例:
 
-	foreach ($data1 as $menuItem)
-	{
-		$temp .= $parser->setData($menuItem)->renderString($template1);
-	}
+.. literalinclude:: view_parser/021.php
 
-	$template2 = '<ul>{menuitems}</ul>';
-	$data = [
-		'menuitems' => $temp
-	];
-	echo $parser->setData($data)
-	             ->renderString($template2);
+结果::
 
-Result::
-
-	<ul>
-		<li><a href="/first">First Link</a></li>
-		<li><a href="/second">Second Link</a></li>
-	</ul>
+    <ul>
+        <li><a href="/first">First Link</a></li>
+        <li><a href="/second">Second Link</a></li>
+    </ul>
 
 ***************
-Class Reference
+类参考
 ***************
 
-.. php:class:: CodeIgniter\\View\\Parser
+.. php:namespace:: CodeIgniter\View
 
-	.. php:method:: render($view[, $options[, $saveData=false]]])
+.. php:class:: Parser
 
-		:param  string  $view: File name of the view source
-		:param  array   $options: Array of options, as key/value pairs
-		:param  boolean $saveData: If true, will save data for use with any other calls, if false, will clean the data after rendering the view.
-		:returns: The rendered text for the chosen view
-		:rtype: string
+    .. php:method:: render($view[, $options[, $saveData]])
 
-    		Builds the output based upon a file name and any data that has already been set::
+        :param  string  $view: 视图源文件的名称
+        :param  array   $options: 选项的键/值对数组
+        :param  boolean $saveData: 如果为 true,将保存数据供随后调用,如果为 false,在渲染视图后清除数据
+        :returns: 所选视图的渲染文本
+        :rtype: string
 
-			echo $parser->render('myview');
+        根据文件名和已设置的任何数据构建输出:
 
-        Options supported:
+        .. literalinclude:: view_parser/022.php
 
-	        -   ``cache`` - the time in seconds, to save a view's results
-	        -   ``cache_name`` - the ID used to save/retrieve a cached view result; defaults to the viewpath
-	        -   ``cascadeData`` - true if the data pairs in effect when a nested or loop substitution occurs should be propagated
-	        -   ``saveData`` - true if the view data parameter should be retained for subsequent calls
-	        -   ``leftDelimiter`` - the left delimiter to use in pseudo-variable syntax
-	        -   ``rightDelimiter`` - the right delimiter to use in pseudo-variable syntax
+        支持的选项:
 
-		Any conditional substitutions are performed first, then remaining
-		substitutions are performed for each data pair.
+            - ``cache`` - 以秒为单位,保存视图结果的时间
+            - ``cache_name`` - 用于保存/检索缓存视图结果的 ID;默认为视图路径
+            - ``cascadeData`` - 嵌套或循环替换发生时,当前生效的数据对是否应传播
+            - ``saveData`` - 视图数据参数是否应保留以供后续调用
 
-	.. php:method:: renderString($template[, $options[, $saveData=false]]])
+        首先执行任何条件替换,然后对每个数据对执行其余替换。
 
-		:param  string  $template: View source provided as a string
-    		:param  array   $options: Array of options, as key/value pairs
-    		:param  boolean $saveData: If true, will save data for use with any other calls, if false, will clean the data after rendering the view.
-    		:returns: The rendered text for the chosen view
-    		:rtype: string
+    .. php:method:: renderString($template[, $options[, $saveData]])
 
-    		Builds the output based upon a provided template source and any data that has already been set::
+        :param  string  $template: 作为字符串提供的视图源
+        :param  array   $options: 选项的键/值对数组
+        :param  boolean $saveData: 如果为 true,将保存数据供随后调用,如果为 false,在渲染视图后清除数据
+        :returns: 所选视图的渲染文本
+        :rtype: string
 
-			echo $parser->render('myview');
+        根据提供的模板源和已设置的任何数据构建输出:
 
-        Options supported, and behavior, as above.
+        .. literalinclude:: view_parser/023.php
 
-	.. php:method:: setData([$data[, $context=null]])
+        支持的选项和行为与上述相同。
 
-		:param  array   $data: Array of view data strings, as key/value pairs
-    		:param  string  $context: The context to use for data escaping.
-    		:returns: The Renderer, for method chaining
-    		:rtype: CodeIgniter\\View\\RendererInterface.
+    .. php:method:: setData([$data[, $context = null]])
 
-    		Sets several pieces of view data at once::
+        :param  array   $data: 视图数据字符串的关联数组,作为键/值对
+        :param  string  $context: 用于数据转义的上下文
+        :returns: 渲染器,用于方法链
+        :rtype: CodeIgniter\\View\\RendererInterface
 
-			$renderer->setData(['name'=>'George', 'position'=>'Boss']);
+        一次设置多个视图数据:
 
-        Supported escape contexts: html, css, js, url, or attr or raw.
-		If 'raw', no escaping will happen.
+        .. literalinclude:: view_parser/024.php
 
-	.. php:method:: setVar($name[, $value=null[, $context=null]])
+        支持的转义上下文:html、css、js、url 或 attr 或 raw。
+        如果是 'raw',将不进行转义。
 
-		:param  string  $name: Name of the view data variable
-    		:param  mixed   $value: The value of this view data
-    		:param  string  $context: The context to use for data escaping.
-    		:returns: The Renderer, for method chaining
-    		:rtype: CodeIgniter\\View\\RendererInterface.
+    .. php:method:: setVar($name[, $value = null[, $context = null]])
 
-    		Sets a single piece of view data::
+        :param  string  $name: 视图数据变量的名称
+        :param  mixed   $value: 此视图数据的值
+        :param  string  $context: 用于数据转义的上下文
+        :returns: 渲染器,用于方法链
+        :rtype: CodeIgniter\\View\\RendererInterface
 
-			$renderer->setVar('name','Joe','html');
+        设置单个视图数据:
 
-        Supported escape contexts: html, css, js, url, attr or raw.
-		If 'raw', no escaping will happen.
+        .. literalinclude:: view_parser/025.php
 
-	.. php:method:: setDelimiters($leftDelimiter = '{', $rightDelimiter = '}')
+        支持的转义上下文:html、css、js、url、attr 或 raw。
+        如果是 'raw',将不进行转义。
 
-		:param  string  $leftDelimiter: Left delimiter for substitution fields
-    		:param  string  $rightDelimiter: right delimiter for substitution fields
-    		:returns: The Renderer, for method chaining
-    		:rtype: CodeIgniter\\View\\RendererInterface.
+    .. php:method:: setDelimiters($leftDelimiter = '{', $rightDelimiter = '}')
 
-    		Over-ride the substitution field delimiters::
+        :param  string  $leftDelimiter: 替换字段的左分隔符
+        :param  string  $rightDelimiter: 替换字段的右分隔符
+        :returns: 渲染器,用于方法链
+        :rtype: CodeIgniter\\View\\RendererInterface
 
-			$renderer->setDelimiters('[',']');
+        覆盖替换字段分隔符:
+
+        .. literalinclude:: view_parser/026.php
+
+    .. php:method:: setConditionalDelimiters($leftDelimiter = '{', $rightDelimiter = '}')
+
+        :param  string  $leftDelimiter: 条件的左分隔符
+        :param  string  $rightDelimiter: 条件的右分隔符
+        :returns: 渲染器,用于方法链
+        :rtype: CodeIgniter\\View\\RendererInterface
+
+        覆盖条件分隔符:
+
+        .. literalinclude:: view_parser/027.php
