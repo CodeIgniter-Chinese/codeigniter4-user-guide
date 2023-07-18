@@ -1,13 +1,13 @@
 ###########
-Change Logs
+变更记录
 ###########
 
-Version |version|
+版本 |version|
 =================
 
-**List of all CodeIgniter4 releases**
+**CodeIgniter4 所有版本的列表**
 
-See all the changes.
+查看所有更改。
 
 .. toctree::
     :titlesonly:
