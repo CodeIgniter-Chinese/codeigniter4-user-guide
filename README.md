@@ -10,8 +10,6 @@
 [中文文案排版指北](http://mazhuang.org/wiki/chinese-copywriting-guidelines/)
 和 [文档翻译指南](translation-guide.md)
 
-[文档翻译进度](TODO.md)
-
 [预览最新文档](https://codeigniter-chinese.github.io/codeigniter4-user-guide/)
 
 ## 安装步骤
