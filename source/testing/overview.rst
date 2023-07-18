@@ -70,7 +70,7 @@ PHPUnit 配置
 在测试数据库结果时,必须在类中使用 :doc:`DatabaseTestTrait <database>`。
 
 搭建环境
--------
+-----------
 
 大多数测试都需要一些准备才能正确运行。PHPUnit 的 ``TestCase`` 提供了四个方法来帮助搭建环境和清理::
 

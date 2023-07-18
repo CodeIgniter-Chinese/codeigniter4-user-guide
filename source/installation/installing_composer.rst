@@ -84,7 +84,7 @@ App Starter
 - vendor/codeigniter4/framework/system
 
 最新开发版本
-----------
+--------------
 
 App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的最新开发分支之间切换 Composer 源。此脚本适用于愿意使用最新的未发布更改(可能不稳定)的开发者。
 

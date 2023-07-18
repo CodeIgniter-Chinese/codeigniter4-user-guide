@@ -14,11 +14,11 @@ PSR 兼容性
 
 **PSR-3: 日志接口规范**
 
-CodeIgniter 的 :doc:`日志 <general/logging>` 实现了此 PSR 定义的所有接口。
+CodeIgniter 的 :doc:`日志 </general/logging>` 实现了此 PSR 定义的所有接口。
 
 **PSR-4: 自动加载规范**
 
-此 PSR 提供了一种组织文件和命名空间的方法,以允许标准化的自动加载类的方式。我们的 :doc:`自动加载 <concepts/autoloader>` 符合 PSR-4 建议。
+此 PSR 提供了一种组织文件和命名空间的方法,以允许标准化的自动加载类的方式。我们的 :doc:`自动加载 </concepts/autoloader>` 符合 PSR-4 建议。
 
 **PSR-6:缓存接口**
 **PSR-16: 简单缓存接口**

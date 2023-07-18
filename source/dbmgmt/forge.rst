@@ -212,7 +212,7 @@ $forge->addUniqueKey()
 $forge->addColumn()
 -------------------
 
-``addColumn()`` 方法用于修改现有表。它接受与 :ref:`创建表 <添加字段>` 相同的字段数组,可用于添加其他字段。
+``addColumn()`` 方法用于修改现有表。它接受与 :ref:`创建表 <adding-fields>` 相同的字段数组,可用于添加其他字段。
 
 .. note:: 与创建表不同,如果未指定 ``null``,列将为 ``NULL``,而不是 ``NOT NULL``。
 

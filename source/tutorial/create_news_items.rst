@@ -65,7 +65,7 @@
 ==========
 
 返回你的 **News** 控制器。你将在此做两件事,检查表单是否已提交以及提交的数据是否通过了验证规则。
-你将使用 :ref:`Controller 中的 validation 方法 <controller-validatedata>`来完成此操作。
+你将使用 :ref:`Controller 中的 validation 方法 <controller-validatedata>` 来完成此操作。
 
 .. literalinclude:: create_news_items/002.php
 

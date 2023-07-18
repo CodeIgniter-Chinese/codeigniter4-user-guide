@@ -258,7 +258,8 @@
 
         Here is a <span style="color:#990000;">nice text</span> string about nothing in particular.
 
-    .. note:: 此函数过去默认使用 ``<strong>`` 标签。旧版浏览器可能不支持新的 HTML5 mark 标签,因此如果你需要支持这样的浏览器,建议你将以下 CSS 代码插入样式表中::
+    .. note:: 此函数过去默认使用 ``<strong>`` 标签。旧版浏览器可能不支持新的 HTML5 mark 标签,因此如果你需要支持这样的浏览器,
+        建议你将以下 CSS 代码插入样式表中::
 
             mark {
                 background: #ff0;

@@ -143,7 +143,7 @@ assertCookieExpired(string $key, string $prefix = '')
 .. literalinclude:: response/017.php
 
 DOM 帮助方法
-===========
+===============
 
 你得到的响应包含许多帮助方法来检查响应中的 HTML 输出。这些在测试中的断言中很有用。
 

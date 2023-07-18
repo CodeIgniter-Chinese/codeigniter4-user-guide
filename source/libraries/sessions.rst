@@ -35,7 +35,7 @@ Session 通常会与每个页面加载一起全局运行,所以 Session 类应�
 Session 如何工作?
 =====================
 
-当页面加载时,session 类将检查用户的浏览器是否发送了有效的 session cookie。如果 session cookie **不存在**(或与服务器上存储的不匹配或已过期),则将创建一个新 session 并保存。
+当页面加载时,session 类将检查用户的浏览器是否发送了有效的 session cookie。如果 session cookie **不存在** (或与服务器上存储的不匹配或已过期),则将创建一个新 session 并保存。
 
 如果存在有效的 session,则会更新其信息。使用每次更新,如果配置了 session ID 可能会被重新生成。
 
@@ -344,7 +344,7 @@ Preference           Default         Description
 .. note:: ``httponly`` 设置不会对 session 产生影响。出于安全原因,HttpOnly 参数始终启用。另外,完全忽略了 ``Config\Cookie::$prefix`` 设置。
 
 Session 驱动程序
-***************
+*******************
 
 如前所述,Session 库提供了 4 个处理程序或存储引擎可以使用:
 
@@ -391,7 +391,7 @@ FileHandler 驱动程序(默认)
 .. _sessions-databasehandler-driver:
 
 DatabaseHandler 驱动程序
-======================
+==========================
 
 .. important:: 由于其他平台缺乏顾问锁定机制,因此仅正式支持 MySQL 和 PostgreSQL 数据库。在其他平台上使用不带锁定的会话可能会导致各种问题,特别是在大量使用 AJAX 的情况下,我们不会支持此类情况。如果遇到性能问题,请在处理完 session 数据后使用 ``session_write_close()``。
 
@@ -458,7 +458,7 @@ DatabaseHandler 驱动程序
 .. _sessions-redishandler-driver:
 
 RedisHandler 驱动程序
-===================
+=======================
 
 .. note:: 由于 Redis 没有公开锁定机制,因此通过单独保留 300 秒的额外值来模拟此驱动程序的锁。在 ``v4.3.2`` 或更高版本中,你可以使用 **TLS** 协议连接 ``Redis``。
 
@@ -484,7 +484,7 @@ Redis 是一个通常用于缓存且以高性能而著称的存储引擎,这也�
 .. _sessions-memcachedhandler-driver:
 
 MemcachedHandler 驱动程序
-=======================
+===========================
 
 .. note:: 由于 Memcached 没有公开锁定机制,因此通过单独保留 300 秒的额外值来模拟此驱动程序的锁。
 

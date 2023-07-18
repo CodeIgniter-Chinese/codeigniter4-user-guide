@@ -82,7 +82,7 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
 - 不再使用 CI3 的 ``$this->load->library('x');`` ,现在可以使用 ``$this->x = new \App\Libraries\X();``,遵循你组件的命名空间约定。或者,你可以使用 :doc:`../concepts/factories`:``$this->x = \CodeIgniter\Config\Factories::libraries('X');``。
 
 辅助函数
-=======
+===========
 
 - :doc:`辅助函数 <../general/helpers>` 与以前基本相同,尽管有些进行了简化。
 - 从 v4.3.0 开始,你可以通过 **app/Config/Autoload.php** 自动加载辅助函数,就像 CI3 一样。
