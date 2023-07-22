@@ -1,233 +1,299 @@
 ##############
-缓存驱动器
+缓存驱动
 ##############
 
-CodeIgniter 提供了几种最常用的快速缓存的封装，除了基于文件的缓存， 其他的缓存都需要对服务器进行特殊的配置，如果配置不正确，将会抛出 一个致命错误异常（Fatal Exception）。
+CodeIgniter 提供了一些最常用的快速动态缓存的封装。除基于文件的缓存外,所有缓存都需要特定的服务器要求,如果服务器要求不符,会抛出一个致命异常。
 
 .. contents::
     :local:
     :depth: 2
 
 *************
-示例代码
+使用示例
 *************
 
-以下示例代码展示控制器中的常见使用模式。
+下面的示例展示了在控制器中的一种常见用法:
 
-::
+.. literalinclude:: caching/001.php
 
-	if ( ! $foo = cache('foo'))
-	{
-		echo 'Saving to the cache!<br />';
-		$foo = 'foobarbaz!';
+你可以通过 Services 类直接获取缓存引擎的一个实例:
 
-		// Save into the cache for 5 minutes
-		cache()->save('foo', $foo, 300);
-	}
+.. literalinclude:: caching/002.php
 
-	echo $foo;
-
-你可以通过 Services 类直接获取缓存引擎的实例::
-
-    $cache = \Config\Services::cache();
-
-    $foo = $cache->get('foo');
-
-=====================
+*********************
 配置缓存
-=====================
+*********************
 
-缓存引擎的所有配置都在 **application/Config/Cache.php** 文件中。在该文件中，以下项目可用。
+缓存引擎的所有配置都在 **app/Config/Cache.php** 中。该文件中可用的选项如下:
 
-**$handler**
+$handler
+========
 
-$handler 处理器是启动引擎时应用作主处理程序。可用的名称有： dummy, file, memcached, redis, wincache。
+这是启动缓存引擎时使用的主处理程序的名称。可用名称有:dummy、file、memcached、redis、predis、wincache。
 
-**$backupHandler**
+$backupHandler
+==============
 
-在第一选择 $hanlder 不可用的情况下，这是要加载的下一个缓存处理程序。这通常是 **文件** 处理程序，因为文件系统始终可用，但可能不适合更复杂的多服务器设置。
+如果首选的 ``$handler`` 不可用,则此处是要加载的下一个缓存处理程序。由于文件系统总是可用的,因此这通常是 ``File`` 处理程序,但可能不适合更复杂的多服务器设置。
 
-**$prefix**
+$prefix
+=======
 
-如果您有多个应用程序使用相同的缓存存储，则可以在此处添加一个前缀到所有键名称的自定义前缀。
+如果你有多个应用程序使用相同的缓存存储,你可以在这里添加一个自定义的前缀字符串,该字符串会添加到所有键名的前面。
 
-**$path**
+$ttl
+====
 
- ``file`` 处理程序使用它来显示应该将缓存文件保存到哪里。
+没有指定时保存项目的默认秒数。
 
-**$memcached**
+.. warning:: 这在框架处理程序中没有使用,因为有 60 秒的硬编码值,但对项目和模块可能有用。这会在未来的版本中替换硬编码值。
 
-这是使用 ``Memcache(d)`` 处理程序时将使用的一系列服务器。
+$file
+=====
 
-**$redis**
+这是一组针对 ``File`` 处理程序的设置数组,用来确定其应如何保存缓存文件。
 
-使用 ``Redis`` 处理程序时要使用的Redis服务器的设置。
+$memcached
+==========
 
-===============
+这是在使用 ``Memcache(d)`` 处理程序时要使用的一组服务器数组。
+
+$redis
+======
+
+使用 ``Redis`` 和 ``Predis`` 处理程序时,希望使用的 Redis 服务器的设置。
+
+******************
+命令行工具
+******************
+
+CodeIgniter 提供了几个可以从命令行使用的 :doc:`commands </cli/spark_commands>`,以帮助你使用缓存。
+这些工具不是使用缓存驱动所必需的,但可能对你有帮助。
+
+cache:clear
+===========
+
+清除当前系统缓存::
+
+    > php spark cache:clear
+
+cache:info
+==========
+
+显示当前系统中的文件缓存信息::
+
+    > php spark cache:info
+
+.. note:: 这个命令只支持 File 缓存处理程序。
+
+***************
 类参考
-===============
+***************
 
-.. php:method:: isSupported()
+.. php:namespace:: CodeIgniter\Cache
 
-	:returns:	如果支持，则为TRUE，否则为FALSE
-	:rtype:	布尔值
+.. php:class:: CacheInterface
 
-.. php:method:: get($key)
+    .. php:method:: isSupported()
 
-	:param	string	$key: Cache 缓存项名称
-	:returns:	项目值或FALSE如果没有找到
-	:rtype:	mixed
+        :returns: 如果支持则为 ``true``,不支持则为 ``false``
+        :rtype: bool
 
-	此方法将尝试从缓存存储中获取项目。如果该项目不存在，该方法将返回FALSE。
+    .. php:method:: get($key): mixed
 
-	Example::
+        :param string $key: 缓存项名称
+        :returns: 项的值,如果没找到则为 ``null``
+        :rtype: mixed
 
-		$foo = $cache->get('my_cached_item');
+        这个方法将尝试从缓存中获取一个项。如果该项不存在,该方法将返回 null。
 
-.. php:method:: save($key, $data[, $ttl = 60[, $raw = FALSE]])
+        例如:
 
-	:param	string	$key: Cache item name
-	:param	mixed	$data: the data to save
-	:param	int	$ttl: Time To Live, in seconds (default 60)
-	:param	bool	$raw: Whether to store the raw value
-	:returns:	TRUE on success, FALSE on failure
-	:rtype:	string
+        .. literalinclude:: caching/003.php
 
-	此方法将会将项目保存到缓存存储。如果保存失败，该方法将返回FALSE。
+    .. php:method:: remember(string $key, int $ttl, Closure $callback)
 
-	Example::
+        :param string $key: 缓存项名称
+        :param int $ttl: 生存时间,以秒为单位
+        :param Closure $callback: 当缓存项返回 null 时要调用的回调
+        :returns: 缓存项的值
+        :rtype: mixed
 
-		$cache->save('cache_item_id', 'data_to_cache');
+        从缓存中获取一个项。如果返回 ``null``,则调用回调并保存结果。无论哪种方式,都会返回该值。
 
-.. note:: 该 ``$raw`` 参数仅由 Memcache 使用，以便允许使用 ``increment()`` 和 ``decrement()``。
+    .. php:method:: save(string $key, $data[, int $ttl = 60[, $raw = false]])
 
-.. php:method:: delete($key)
+        :param string $key: 缓存项名称
+        :param mixed $data: 要保存的数据
+        :param int $ttl: 生存时间,以秒为单位,默认 60
+        :param bool $raw: 是否保存原始值
+        :returns: 保存成功则为 ``true``,失败则为 ``false``
+        :rtype: bool
 
-	:param	string	$key: name of cached item
-	:returns:	TRUE on success, FALSE on failure
-	:rtype:	bool
+        这个方法将一个项保存到缓存存储中。如果保存失败,该方法将返回 ``false``。
 
-	此方法将从缓存存储中删除特定项目。如果项目删除失败，该方法将返回FALSE。
+        例如:
 
-	Example::
+        .. literalinclude:: caching/004.php
 
-		$cache->delete('cache_item_id');
+        .. note:: ``$raw`` 参数仅由 Memcache 使用,以允许使用 ``increment()`` 和 ``decrement()``。
 
-.. php:method:: increment($key[, $offset = 1])
+    .. php:method:: delete($key): bool
 
-	:param	string	$key: Cache ID
-	:param	int	$offset: Step/value to add
-	:returns:	New value on success, FALSE on failure
-   	:rtype:	mixed
+        :param string $key: 缓存项名称
+        :returns: 删除成功则为 ``true``,失败则为 ``false``
+        :rtype: bool
 
-	Performs atomic incrementation of a raw stored value.
-	执行原始存储值的原子增量
+        这个方法将从缓存中删除一个特定的项。如果删除失败,该方法将返回 false。
 
-	Example::
+        例如:
 
-		// 'iterator' has a value of 2
+        .. literalinclude:: caching/005.php
 
-		$cache->increment('iterator'); // 'iterator' is now 3
+    .. php:method:: deleteMatching($pattern): integer
 
-		$cache->increment('iterator', 3); // 'iterator' is now 6
+        :param string $pattern: 要匹配缓存项键的 glob 样式模式
+        :returns: 已删除项的数量
+        :rtype: integer
 
-.. php:method:: decrement($key[, $offset = 1])
+        这个方法将一次性从缓存中删除多个项,方法是通过 glob 样式模式匹配它们的键。它将返回已删除项的总数。
 
-	:param	string	$key: Cache ID
-	:param	int	$offset: Step/value to reduce by
-	:returns:	New value on success, FALSE on failure
-	:rtype:	mixed
+        .. important:: 这个方法只在 File、Redis 和 Predis 处理程序中实现。由于局限,在 Memcached 和 Wincache 处理程序中无法实现。
 
-	执行原始存储值的原子递减。
+        例如:
 
-	Example::
+        .. literalinclude:: caching/006.php
 
-		// 'iterator' has a value of 6
+        关于 glob 样式语法的更多信息,请查看
+        `Glob (programming) <https://en.wikipedia.org/wiki/Glob_(programming)#Syntax>`_。
 
-		$cache->decrement('iterator'); // 'iterator' is now 5
+    .. php:method:: increment($key[, $offset = 1]): mixed
 
-		$cache->decrement('iterator', 2); // 'iterator' is now 3
+        :param string $key: 缓存 ID
+        :param int $offset: 要添加的步长/值
+        :returns: 成功则返回新值,失败则返回 ``false``
+        :rtype: mixed
 
-.. php:method:: clean()
+        对一个原始存储的值执行原子增量操作。
 
-	:returns:	TRUE on success, FALSE on failure
-	:rtype:	bool
+        例如:
 
-	此方法将 'clean' 整个缓存。如果缓存文件的删除失败，该方法将返回FALSE。
-	Example::
+        .. literalinclude:: caching/007.php
 
-			$cache->clean();
+    .. php:method:: decrement($key[, $offset = 1]): mixed
 
-.. php:method:: cache_info()
+        :param string $key: 缓存 ID
+        :param int $offset: 要减少的步长/值
+        :returns: 成功则返回新值,失败则返回 ``false``
+        :rtype: mixed
 
-	:returns:	Information on the entire cache database
-	:rtype:	mixed
+        对一个原始存储的值执行原子减量操作。
 
-	此方法将返回整个缓存中的信息。
+        例如:
 
-	Example::
+        .. literalinclude:: caching/008.php
 
-		var_dump($cache->cache_info());
+    .. php:method:: clean()
 
-.. note:: 返回的信息和数据的结构取决于正在使用的适配器。
+        :returns: 清除成功则为 ``true``,失败则为 ``false``
+        :rtype: bool
 
-.. php:method:: getMetadata($key)
+        这个方法将‘清空’整个缓存。如果缓存文件的删除失败,该方法将返回 false。
 
-	:param	string	$key: Cache item name
-	:returns:	Metadata for the cached item
-	:rtype:	mixed
+        例如:
 
-	此方法将返回缓存中特定项目的详细信息。
+        .. literalinclude:: caching/009.php
 
-	Example::
+    .. php:method:: getCacheInfo()
 
-		var_dump($cache->getMetadata('my_cached_item'));
+        :returns: 整个缓存数据库的信息
+        :rtype: mixed
 
-.. note:: 返回的信息和数据的结构取决于正在使用的适配器。
+        这个方法将返回整个缓存的信息。
 
-*******
-驱动器
-*******
+        例如:
 
-==================
+        .. literalinclude:: caching/010.php
+
+        .. note:: 返回的信息及数据结构取决于所使用的适配器。
+
+    .. php:method:: getMetadata(string $key)
+
+        :param string $key: 缓存项名称
+        :returns: 缓存项的元数据。缺少项时为 ``null``,如果绝对到期时间是永不过期,则至少应包含 "expire" 键的数组。
+        :rtype: array|null
+
+        这个方法将返回缓存中特定项的详细信息。
+
+        例如:
+
+        .. literalinclude:: caching/011.php
+
+        .. note:: 返回的信息和数据结构取决于所使用的适配器。一些适配器(File、Memcached、Wincache)对缺失的项仍然返回 ``false``。
+
+    .. php:staticmethod:: validateKey(string $key, string $prefix)
+
+        :param string $key: 潜在的缓存键
+        :param string $prefix: 可选的前缀
+        :returns: 验证和加前缀后的键。如果键超过了驱动的最大键长度,它将被哈希。
+        :rtype: string
+
+        这个方法由处理程序方法用来检查键是否有效。它会对非字符串、无效字符和空长度抛出 ``InvalidArgumentException``。
+
+        例如:
+
+        .. literalinclude:: caching/012.php
+
+********
+驱动程序
+********
+
 基于文件的缓存
 ==================
 
-和输出类的缓存不同的是，基于文件的缓存支持只缓存视图的某一部分。使用这个缓存时要注意， 确保对你的应用程序进行基准测试，因为当磁盘 I/O 频繁时可能对缓存有负面影响。
+与来自 Output 类的缓存不同,基于文件的驱动缓存允许缓存视图文件的一部分。谨慎使用此功能,并确保对应用进行基准测试,因为在某个点上,磁盘 I/O 将抵消缓存的积极效果。这需要一个真正可写的缓存目录。
 
-=================
 Memcached 缓存
 =================
 
-可以在缓存配置文件中指定多个 Memcached 服务器。
+可以在缓存配置文件中指定 Memcached 服务器。可用选项如下:
 
-关于 Memcached 的更多信息，请参阅 `http://php.net/memcached <http://php.net/memcached>`_。
+.. literalinclude:: caching/013.php
 
-================
+有关 Memcached 的更多信息,请查看
+`https://www.php.net/memcached <https://www.php.net/memcached>`_。
+
 WinCache 缓存
 ================
 
-在 Windows 下，你还可以使用 WinCache 缓存。
+在 Windows 下,你也可以使用 WinCache 驱动程序。
 
-关于 WinCache 的更多信息，请参阅 `http://php.net/wincache <http://php.net/wincache>`_。
+有关 WinCache 的更多信息,请查看
+`https://www.php.net/wincache <https://www.php.net/wincache>`_。
 
-=============
 Redis 缓存
 =============
 
-Redis 是一个在内存中以键值形式存储数据的缓存，使用 LRU（最近最少使用算法）缓存模式， 要使用它，你需要先安装  `Redis 服务器和 phpredis 扩展 <https://github.com/phpredis/phpredis>`_。
+Redis 是一个内存中的键值存储,可以以 LRU 缓存模式运行。要使用它,你需要 `Redis server 和 phpredis PHP 扩展 <https://github.com/phpredis/phpredis>`_。
 
-连接 Redis 服务器的配置信息必须保存到 application/config/redis.php 文件中，可用参数有::
+连接到 redis 服务器的配置选项存储在缓存配置文件中。可用选项如下:
 
-	$config['host'] = '127.0.0.1';
-	$config['password'] = NULL;
-	$config['port'] = 6379;
-	$config['timeout'] = 0;
+.. literalinclude:: caching/014.php
 
-有关Redis的更多信息，请参阅 `http://redis.io <http://redis.io>`_。
+有关 Redis 的更多信息,请查看
+`https://redis.io <https://redis.io>`_。
 
-=========================
-虚拟缓存（Dummy Cache）
-=========================
+Predis 缓存
+==============
 
-这是一个永远不会命中的缓存，它不存储数据，但是它允许你在当使用的缓存在你的环境下不被支持时， 仍然保留使用缓存的代码。
+Predis 是一个用于 Redis 键值存储的灵活且功能完善的 PHP 客户端库。要使用它,从项目根目录的命令行中运行::
+
+    > composer require predis/predis
+
+有关 Redis 的更多信息,请查看
+`https://github.com/nrk/predis <https://github.com/nrk/predis>`_。
+
+Dummy 缓存
+===========
+
+这是一个缓存后端,将始终“未命中”。它不存储任何数据,但允许你在不支持你选择的缓存的环境中保持缓存代码。

@@ -7,8 +7,8 @@
 .. toctree::
     :titlesonly:
 
-    controllers
     routing
+    controllers
     filters
     message
     request

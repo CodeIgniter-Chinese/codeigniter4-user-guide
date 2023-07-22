@@ -1,119 +1,146 @@
+静态页面
 ############
-加载静态页
-############
 
-**Note:** 本教程假设你已经下载好 CodeIgniter，并将其 :doc:`安装 <../installation/index>` 到你的开发环境。
+.. contents::
+    :local:
+    :depth: 2
 
-首先你需要新建一个 **控制器** 来处理静态页。控制器就是用来帮助你完成工作的一个简单的类，它是你整个 Web 应用程序的"粘合剂"。
+.. note:: 本教程假设你已经下载了 CodeIgniter 并在开发环境中 :doc:`安装了框架 <../installation/index>`。
 
-例如，当访问下面这个 URL 时:
-	
-	http://example.com/news/latest/10
+你要做的第一件事是设置一个**控制器**来处理静态页面。控制器只是一个帮助委派工作的类。它是你的 Web 应用程序的粘合剂。
 
-根据此 URL 我们可以推测出有一个名称为 "news" 的控制器，被调用的方法为 "latest"，"latest" 方法的作用应该是查询10条新闻条目并展示在页面上。
-在MVC模式里，你会经常看到下面格式的 URL:
+让我们制作第一个控制器
+*******************************
 
-	http://example.com/[controller-class]/[controller-method]/[arguments]
+在 **app/Controllers/Pages.php** 中创建一个带以下代码的文件。
 
-在正式环境下 URL 的格式可能会更复杂，但现在，我们只需要知道这些就够了。
+.. important:: 你应该始终注意文件名的大小写。许多开发人员在 Windows 或 macOS 上的大小写不敏感的文件系统上开发。
+    然而,大多数服务器环境使用大小写敏感的文件系统。如果文件名大小写不正确,本地工作的代码将无法在服务器上工作。
 
-新建一个文件 *application/Controllers/Pages.php*，然后添加如下代码：
+.. literalinclude:: static_pages/001.php
 
-::
+你创建了一个名为 ``Pages`` 的类,它有一个名为 ``view()`` 的方法,该方法接受一个名为 ``$page`` 的参数。它还有一个 ``index()`` 方法,与 **app/Controllers/Home.php** 中的默认控制器相同;该方法显示 CodeIgniter 欢迎页面。
 
-	<?php
-	class Pages extends CodeIgniter\Controller {
+.. note:: 本教程中提到了两个 ``view()`` 函数。
+    一个是使用 ``public function view($page = 'home')`` 和 ``return view('welcome_message')`` 显示视图而创建的类方法。
+    从技术上讲,两者都是一个函数。但是当你在一个类中创建一个函数时,它被称为方法。
 
-		public function view($page = 'home')
-		{
-	    }
-	}
+``Pages`` 类正在扩展 ``BaseController`` 类,后者扩展了 ``CodeIgniter\Controller`` 类。这意味着新的 Pages 类可以访问在 ``CodeIgniter\Controller`` 类中定义的方法和属性(**system/Controller.php**)。
 
-你刚创建了一个 ``Pages`` 类，有一个方法 view 并可接受一个 $page 的参数。``Pages`` 类继承自 ``CodeIgniter\Controller`` 类，这意味着它可以访问 ``CodeIgniter\Controller`` 类 (*system/Controller.php*) 中定义的方法和变量。
+**控制器将成为你的 Web 应用程序的每个请求的中心**。与任何 PHP 类一样,你可以在控制器中通过 ``$this`` 来引用它。
 
-控制器将是你 Web 应用程序中处理请求的核心。和其他的 PHP 类一样，可以在你的控制器中使用 ``$this`` 来访问它。
+既然你已经创建了第一个方法,是时候制作一些基本的页面模板了。我们将创建两个“视图”(页面模板)作为我们的页面页脚和页眉。
 
-现在，你已经创建了你的第一个方法，是时候创建一些基本的页面模板了。我们将新建两个 "views" (页面模板) 分别作为我们的页头和页脚。
+在 **app/Views/templates/header.php** 中创建页眉,并添加以下代码::
 
-新建页头文件 *application/Views/Templates/Header.php* 并添加以下代码：
+    <!doctype html>
+    <html>
+    <head>
+        <title>CodeIgniter 教程</title>
+    </head>
+    <body>
 
-::
+        <h1><?= esc($title) ?></h1>
 
-	<!doctype html>
-	<html>
-	<head>
-		<title>CodeIgniter Tutorial</title>
-	</head>
-	<body>
+页眉包含在加载主视图之前要显示的基本 HTML 代码,以及一个标题。它还将输出 ``$title`` 变量,我们将在控制器中定义它。
+现在,在 **app/Views/templates/footer.php** 中创建一个页脚,其中包含以下代码::
 
-		<h1><?= $title; ?></h1>
+        <em>&copy; 2022</em>
+    </body>
+    </html>
 
-页头包含了一些基本的 HTML 代码，用于展示页面主视图之前的内容。同时，它还打印出了 ``$title`` 变量，这个我们之后讲控制器的时候再细说。
-现在，再新建个页脚文件 *application/Views/Templates/Footer.php*，然后添加以下代码：
+.. note:: 如果仔细查看 **header.php** 模板,我们正在使用 :php:func:`esc()` 函数。这是 CodeIgniter 提供的全局函数,可帮助防止 XSS 攻击。你可以在 :doc:`../general/common_functions` 中了解更多信息。
 
-::
+向控制器添加逻辑
+******************************
 
-			<em>&copy; 2016</em>
-		</body>
-	</html>
+早些时候,你设置了一个带有 ``view()`` 方法的控制器。该方法接受一个参数,即要加载的页面的名称。静态页面正文将位于 **app/Views/pages/** 目录中。
 
-在控制器中添加逻辑
-------------------------------
+在该目录中,创建两个名为 **home.php** 和 **about.php** 的文件。在这些文件中输入一些文本(任何你想要的),然后保存它们。如果你想特别原创,可以试试“Hello World!”。
 
-你刚新建的控制器中有一个 ``view()`` 方法，这个方法可接受一个用于指定要加载页面的参数。静态页面的模板目录为：*application/Views/Pages/*。
+为了加载这些页面,你将不得不检查请求的页面是否确实存在。这将是在上面创建的 ``Pages`` 控制器中的 ``view()`` 方法的主体:
 
-在该目录中，新建 *Home.php* 和 *About.php* 模板文件。在每个文件中任意输入一些文本然后保存它们。如果你不知道写什么，那就写 "Hello World!" 吧。
+.. literalinclude:: static_pages/002.php
 
-为了加载这些界面，你需要检查下请求的页面是否存在：
+并在 ``namespace`` 行后添加 ``use CodeIgniter\Exceptions\PageNotFoundException;`` 来导入 ``PageNotFoundException`` 类。
 
-::
+现在,当请求的页面确实存在时,它将被加载,包括页眉和页脚,并返回给用户。如果控制器返回一个字符串,它将显示给用户。
 
-	public function view($page = 'home')
-	{
-	    if ( ! file_exists(APPPATH.'/Views/Pages/'.$page.'.php'))
-		{
-			// Whoops, we don't have a page for that!
-			throw new \CodeIgniter\PageNotFoundException($page);
-		}
+.. note:: 控制器必须返回一个字符串或 :doc:`Response <../outgoing/response>` 对象。
 
-		$data['title'] = ucfirst($page); // Capitalize the first letter
+如果请求的页面不存在,将显示“404 页面未找到”错误。
 
-		echo view('Templates/Header', $data);
-		echo view('Pages/'.$page, $data);
-		echo view('Templates/Footer', $data);
-	}
+此方法中的第一行检查页面是否确实存在。使用 PHP 原生的 ``is_file()`` 函数来检查文件是否在预期的位置。``PageNotFoundException`` 是一个 CodeIgniter 异常,会导致显示默认错误页面。
 
-当请求的页面存在时，将给用户加载并展示出一个包含页头页脚的页面。如果不存在，会显示 "404 Page not found" 的错误页面。
+在页眉模板中,使用 ``$title`` 变量来自定义页面标题。此方法中定义了 title 的值,但不是将值赋给变量,而是将其赋给 ``$data`` 数组中的 title 元素。
 
-此事例方法中，第一行用以检查界面是否存在，``file_exists()`` 是原生的 PHP 函数，用于检查某个文件是否存在。``PageNotFoundException`` 是 CodeIgniter 的内置函数，用来展示默认的错误页面。
+最后要做的就是以它们应显示的顺序加载视图。将使用 CodeIgniter 中内置的 :php:func:`view()` 函数来完成此操作。``view()`` 函数中的第二个参数用于向视图传递值。``$data`` 数组中的每个值都分配给一个其键的名称的变量。所以控制器中的 ``$data['title']`` 的值在视图中等效于 ``$title``。
 
-在页头模板文件中，``$title`` 变量代表页面的自定义标题，它是在方法中被赋值的，但并不是直接赋值给 title 变量，而是赋值给 ``$data`` 数组中的 title 元素。
-
-最后要做的就是按顺序加载所需的视图，``view()`` 方法中的参数代表要展示的视图文件名称。``$data`` 数组中的每一个元素将被赋值给一个变量，这个变量的名字就是数组的键值。所以控制器中 ``$data['title']`` 的值，就等于视图中 ``$title`` 的值。
+.. note:: 传递给 :php:func:`view()` 函数的任何文件和目录名称必须匹配实际目录和文件本身的情况,否则系统将在区分大小写的平台上抛出错误。你可以在 :doc:`../outgoing/views` 中了解更多信息。
 
 路由
--------
+*******
 
-控制器已经开始工作了！在你的浏览器中输入 ``[your-site-url]index.php/pages/view`` 来查看你的页面。当你访问 ``index.php/pages/view/about`` 时你将看到包含页头和页脚的 about 页面。
+我们已经制作了控制器。下一件事是设置路由规则。路由将 URI 与控制器的方法相关联。
 
-使用自定义的路由规则，你可以将任意的 URL 映射到任意的控制器和方法上，从而打破默认的规则：
-``http://example.com/[controller-class]/[controller-method]/[arguments]``
+让我们这样做。打开位于 **app/Config/Routes.php** 的路由文件,并查看配置文件中的“路由定义”部分。
 
-让我们来试试。打开路由文件 *application/Config/Routes.php* 然后添加如下两行代码，并删除掉其它对 ``$route`` 数组赋值的代码。
+唯一的未注释的行应该是:
 
-::
+.. literalinclude:: static_pages/003.php
 
-	$routes->setDefaultController('Pages/view');
-	$routes->add('(:any)', 'Pages::view/$1');
+此指令表示,任何不包含任何内容的传入请求都应由 ``Home`` 控制器中的 ``index()`` 方法处理。
 
-CodeIgniter 读取路由的规则为从上到下，并将请求映射到第一个匹配的规则。每个规则都是一个正则表达式（左侧）映射到一个控制器和方法（右侧）。当获取到请求时，CodeIgniter 首先查找能匹配到的第一条规则，然后调用相应的可能存在参数的控制器和方法。
+在 '/' 的路由指令**之后**添加以下行。
 
-你可以在关于 :doc:`URL路由的文档 <../general/routing>` 中找到更多信息。
+.. literalinclude:: static_pages/004.php
+   :lines: 2-
 
-路由事例的第二条规则 ``$routes`` 数组中使用了通配符 ``(:any)`` 来匹配所有的请求，然后将参数传递给 ``Pages`` 类的 ``view()`` 方法。
+CodeIgniter 从上到下读取其路由规则,并将请求路由到第一个匹配的规则。每个规则都是正则表达式(左侧)映射到控制器和方法名(右侧)。当请求进来时,CodeIgniter 查找第一个匹配项,并调用适当的控制器和方法,可能带有参数。
 
-为请求默认的控制器，你必须确定当前路由未被定义或重新编写过。默认的路由文件 **does** 下存在一个处理网站根目录的路由 (/) 规则.删除以下的路由来确保 Pages 控制器可以访问到我们的 home 页面：
+有关路由的更多信息,请参阅 :doc:`../incoming/routing`。
 
-	$routes->add('/', 'Home::index');
+这里,``$routes`` 对象中的第二条规则匹配到 ``/pages`` URI 路径的 GET 请求,并将其映射到 ``Pages`` 类的 ``index()`` 方法。
 
-现在访问 ``index.php/about``。路由规则是不是正确的将你带到了控制器中的 ``view()`` 方法？太酷了！
+``$routes`` 对象中的第三条规则匹配使用占位符 ``(:segment)`` 的 URI 段的 GET 请求,并将参数传递给 ``Pages`` 类的 ``view()`` 方法。
+
+运行应用程序
+***************
+
+准备测试了吗?你不能使用 PHP 的内置服务器运行应用程序,因为它不会正确处理 ``public`` 中提供的 ``.htaccess`` 规则,这些规则消除了在 URL 中指定 "**index.php/**" 的需要。不过 CodeIgniter 有自己的命令可以使用。
+
+在项目的根目录下,在命令行中::
+
+    > php spark serve
+
+将启动一个网页服务器,可以在 8080 端口上访问。如果你将浏览器的 location 字段设置为 ``localhost:8080``,则应该会看到 CodeIgniter 欢迎页面。
+
+现在访问 ``localhost:8080/home``。是否正确路由到 ``Pages`` 控制器中的 ``view()`` 方法?太棒了!
+
+你应该看到类似以下内容:
+
+.. image:: ../images/tutorial1.png
+    :align: center
+
+你现在可以在浏览器的地址栏中尝试多个 URL,以查看上面制作的 ``Pages`` 控制器生成的内容...
+
+.. table::
+    :widths: 20 80
+
+    +---------------------------------+-----------------------------------------------------------------+
+    | URL                             | 将显示                                                          |
+    +=================================+=================================================================+
+    | localhost:8080/                 | CodeIgniter “欢迎”页面。来自 ``Home`` 控制器中的 ``index()``    |
+    |                                 | 方法的结果。                                                    |
+    +---------------------------------+-----------------------------------------------------------------+
+    | localhost:8080/pages            | 来自我们的 ``Pages`` 控制器中的 ``index()`` 方法的结果,         |
+    |                                 | 它显示 CodeIgniter “欢迎”页面。                                 |
+    +---------------------------------+-----------------------------------------------------------------+
+    | localhost:8080/home             | 显示上面制作的“主页”,因为我们明确要求它。来自我们的             |
+    |                                 | ``Pages`` 控制器中的 ``view()`` 方法的结果。                    |
+    +---------------------------------+-----------------------------------------------------------------+
+    | localhost:8080/about            | 显示上面制作的“关于”页面,因为我们明确要求它。                   |
+    +---------------------------------+-----------------------------------------------------------------+
+    | localhost:8080/shop             | 一个“404 - 文件未找到”错误页面,因为没有                         |
+    |                                 | **app/Views/pages/shop.php**。                                  |
+    +---------------------------------+-----------------------------------------------------------------+

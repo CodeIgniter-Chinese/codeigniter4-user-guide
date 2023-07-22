@@ -1,66 +1,71 @@
 ################
-数据填充
+数据库填充
 ################
 
-数据填充是一种简单的将数据添加到数据库的方式。这在开发的过程中特别有用，你只需要准备开发中所需要的示例数据填充到数据库中，而且不仅如此，这些数据可以包括你不想要包括的迁移的静态数据，例如国家/地区，地理编码表，事件或设置信息等等。
+数据库填充是向数据库中添加数据的一个简单方法。它在开发过程中特别有用,你需要用一些样本数据来填充数据库以进行开发,但它的用途不仅限于此。
+填充器可以包含一些不想放入迁移文件的静态数据,像国家信息、地理编码表、事件或设置信息等等。
 
-数据填充是必须有 **run()** 方法的简单类，并继承于 **CodeIgniter\Database\Seeder** 。在 **run()** 中，该类可以创建你所需要的任何类型的数据。该类可以创建需要的任何形式的数据。它可以分别通过建立  ``$this->db`` 和 ``$this->forge`` 访问数据库连接。填充文件必须存储在 **application/Database/Seeds** 目录中。文件名和类名必须保持一致。
+.. contents::
+    :local:
+    :depth: 2
+
+****************
+数据库填充器
+****************
+
+数据库填充器是简单的类,必须有一个 ``run()`` 方法,并扩展 ``CodeIgniter\Database\Seeder``。
+在 ``run()`` 内,该类可以创建任何它需要的形式的数据。它可以通过 ``$this->db`` 和 ``$this->forge`` 访问数据库连接和伪造器。
+填充文件必须存储在 **app/Database/Seeds** 目录中。文件名必须与类名匹配。
+
+.. literalinclude:: seeds/001.php
+
+***************
+嵌套填充器
+***************
+
+填充器可以通过 ``call()`` 方法调用其他填充器。这使你可以轻松组织一个中心填充器,但将任务组织到单独的填充器文件中:
+
+.. literalinclude:: seeds/002.php
+
+在 ``call()`` 方法中,你也可以使用完全限定的类名,这使你可以将填充器保存在自动加载程序可以找到的任何地方。
+这对于更模块化的代码库很有帮助:
+
+.. literalinclude:: seeds/003.php
+
+*************
+使用填充器
+*************
+
+你可以通过数据库配置类获取主填充器的副本:
+
+.. literalinclude:: seeds/004.php
+
+命令行填充
+====================
+
+你也可以通过命令行作为迁移CLI工具的一部分从命令行填充数据,如果你不想创建一个专用的控制器::
+
+    > php spark db:seed TestSeeder
+
+*********************
+创建填充器文件
+*********************
+
+使用命令行,你可以轻松生成填充器文件。
+
 ::
 
-	// application/Database/Seeds/SimpleSeeder.php
-	class SimpleSeeder extends \CodeIgniter\Database\Seeder
-	{
-		public function run()
-		{
-			$data = [
-				'username' => 'darth',
-				'email' => 'darth@theempire.com'
-			];
+    > php spark make:seeder user --suffix
+    // 输出: UserSeeder.php 文件位于 app/Database/Seeds 目录中。
 
-			// Simple Queries
-			$this->db->query("INSERT INTO users (username, email) VALUES(:username, :email)",
-				$data
-			);
+你可以通过提供 ``--namespace`` 选项来指定填充器文件要存储的 ``root`` 命名空间::
 
-			// Using Query Builder
-			$this->db->table('users')->insert($data);
-		}
-	}
+    For Unix:
+    > php spark make:seeder MySeeder --namespace Acme\\Blog
 
-嵌套数据填充
-===============
+    For Windows:
+    > php spark make:seeder MySeeder --namespace Acme\Blog
 
-你可以使用 **call()** 方法来运行其他的 seed 类。这允许你更容易使用 seeder，而且同时也将任务分发到各个 seeder 文件当中::
+如果 ``Acme\Blog`` 映射到 **app/Blog** 目录,那么此命令将在 **app/Blog/Database/Seeds** 目录中生成 **MySeeder.php**。
 
-	class TestSeeder extends \CodeIgniter\Database\Seeder
-	{
-		public function run()
-		{
-			$this->call('UserSeeder');
-			$this->call('CountrySeeder');
-			$this->call('JobSeeder');
-		}
-	}
-
-你也可以在 **call()** 方法中使用完全合格的类名，使你的 seeder 在任何地方都可以更好的加载。这对于更多模块化代码库来说非常方便::
-
-	public function run()
-	{
-		$this->call('UserSeeder');
-		$this->call('My\Database\Seeds\CountrySeeder');
-	}
-
-使用 Seeders
-=============
-
-你可以通过数据库配置类获取主 seeder::
-
-	$seeder = \Config\Database::seeder();
-	$seeder->call('TestSeeder');
-
-命令行填充数
---------------------
-
-如果不想创建专用控制器，也可以从命令行填充数据，作为 Migrations CLI 工具的一部分::
-
-	> php index.php migrations seed TestSeeder
+提供 ``--force`` 选项将覆盖目标位置中的现有文件。

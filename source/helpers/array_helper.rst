@@ -1,58 +1,95 @@
-############
-Array Helper
-############
+##############
+Array 辅助函数
+##############
 
-The array helper provides several functions to simplify more complex usages of arrays. It is not intended to duplicate
-any of the existing functionality that PHP provides - unless it is to vastly simplify their usage.
+Array 辅助函数提供了几个函数来简化数组的更复杂用法。它不打算重复 PHP 提供的任何现有功能 - 除非是为了极大地简化它们的用法。
 
 .. contents::
     :local:
+    :depth: 2
 
-Loading this Helper
+加载此辅助函数
 ===================
 
-This helper is loaded using the following code::
+使用以下代码加载此辅助函数:
 
-	helper('array');
+.. literalinclude:: array_helper/001.php
 
-Available Functions
+可用函数
 ===================
 
-The following functions are available:
+以下函数可用:
 
-..  php:function:: dot_array_search(string $search, array $values)
+.. php:function:: dot_array_search(string $search, array $values)
 
-    :param  string  $search: The dot-notation string describing how to search the array
-    :param  array   $values: The array to search
-    :returns: The value found within the array, or null
+    :param string $search: 用点表示法描述如何在数组中搜索的字符串
+    :param array $values: 要搜索的数组
+    :returns: 在数组中找到的值,如果没有找到则为 null
     :rtype: mixed
 
-    This method allows you to use dot-notation to search through an array for a specific-key,
-    and allows the use of a the '*' wildcard. Given the following array::
+    该方法允许你使用点表示法在数组中搜索特定键,并允许使用通配符 '*'。给定以下数组:
 
-        $data = [
-            'foo' => [
-                'buzz' => [
-                    'fizz' => 11
-                ],
-                'bar' => [
-                    'baz' => 23
-                ]
-            ]
-        ]
+    .. literalinclude:: array_helper/002.php
 
-    We can locate the value of 'fizz' by using the search string "foo.buzz.fizz". Likewise, the value
-    of baz can be found with "foo.bar.baz"::
+    我们可以使用搜索字符串“foo.buzz.fizz”定位'fizz'的值。类似地,可以使用“foo.bar.baz”找到 baz 的值:
 
-        // Returns: 11
-        $fizz = dot_array_search('foo.buzz.fizz', $data);
+    .. literalinclude:: array_helper/003.php
 
-        // Returns: 23
-        $baz = dot_array_search('foo.bar.baz', $data);
+    你可以使用星号作为通配符来替换任何段。找到时,它将搜索所有子节点直到找到它。如果你不知道值,或如果你的值具有数值索引,这很方便:
 
-    You can use the asterisk as a wildcard to replace any of the segments. When found, it will search through all
-    of the child nodes until it finds it. This is handy if you don't know the values, or if your values
-    have a numeric index::
+    .. literalinclude:: array_helper/004.php
 
-        // Returns: 23
-        $baz = dot_array_search('foo.*.baz', $data);
+    如果数组键包含点,则可以用反斜杠转义键:
+
+    .. literalinclude:: array_helper/005.php
+
+.. note:: 在 v4.2.0 之前,由于一个 bug,``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])`` 返回的是 ``23``。v4.2.0 及更高版本返回 ``null``。
+
+.. php:function:: array_deep_search($key, array $array)
+
+    :param mixed $key: 目标键
+    :param array $array: 要搜索的数组
+    :returns: 在数组中找到的值,如果没有找到则为 null
+    :rtype: mixed
+
+    从一个深度不确定的数组返回具有键值的元素的值
+
+.. php:function:: array_sort_by_multiple_keys(array &$array, array $sortColumns)
+
+    :param array $array: 要排序的数组(通过引用传递)。
+    :param array $sortColumns: 要排序的数组键及各自的 PHP 排序标志的关联数组
+    :returns: 排序是否成功
+    :rtype: bool
+
+    此方法以分层方式根据一个或多个键的值对多维数组的元素进行排序。例如,从某个模型的 ``find()`` 函数返回以下数组:
+
+    .. literalinclude:: array_helper/006.php
+
+    现在按两个键对该数组进行排序。请注意,该方法支持使用点表示法访问更深层数组级别中的值,但不支持通配符:
+
+    .. literalinclude:: array_helper/007.php
+
+    现在 ``$players`` 数组已根据每个球员 'team' 子数组中的 'order' 值排序。如果对几个球员此值相等,则这些球员将根据其 'position' 进行排序。结果数组为:
+
+    .. literalinclude:: array_helper/008.php
+
+    同样,该方法也可以处理对象数组。在上面的示例中,每个 'player' 都可能由一个数组表示,而 'teams' 是对象。该方法将检测每个嵌套级别中的元素类型并相应处理。
+
+.. php:function:: array_flatten_with_dots(iterable $array[, string $id = '']): array
+
+    :param iterable $array: 要打平的多维数组
+    :param string $id: 可选的 ID 以添加到外部键前面。内部使用以展平键。
+    :rtype: array
+    :returns: 打平的数组
+
+    此函数使用点作为键的分隔符,将多维数组展平为单个键值对数组。
+
+    .. literalinclude:: array_helper/009.php
+
+    检查后,``$flattened`` 等于:
+
+    .. literalinclude:: array_helper/010.php
+
+    用户可以自己使用 ``$id`` 参数,但不需要这样做。该函数在内部使用此参数来跟踪展平后的键。如果用户将提供初始 ``$id``,它将添加到所有键前面。
+
+    .. literalinclude:: array_helper/011.php

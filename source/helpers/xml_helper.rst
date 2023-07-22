@@ -1,52 +1,45 @@
-############
-XML辅助函数
-############
+#############
+XML 辅助函数
+#############
 
-XML辅助函数文件包含一些用于处理XML数据的函数。
+XML 辅助函数文件包含帮助处理 XML 数据的函数。
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
-加载辅助函数
+加载此辅助函数
 ===================
 
-辅助函数是通过以下代码加载的
+使用以下代码加载此辅助函数:
 
-::
+.. literalinclude:: xml_helper/001.php
 
-	helper('xml');
-
-可用的函数
+可用函数
 ===================
 
-可使用以下函数:
+以下函数可用:
 
-.. php:function:: xml_convert($str[, $protect_all = FALSE])
+.. php:function:: xml_convert($str[, $protect_all = false])
 
-	:param string $str:  所需要转换的文本字符串
-	:param bool $protect_all:  是否保持那些看起来是一个潜在实体的结构而非将其转化为数字标识的实体，例如$foo。
-	:returns:  转化成XML结构的字符串
-	:rtype:	string
+    :param string $str: 要转换的文本字符串
+    :param bool $protect_all: 是否保护看起来像潜在实体的所有内容,而不仅仅是编号的实体,例如 &foo;
+    :returns: XML 转换后的字符串
+    :rtype:    string
 
-	将一个字符串作为输入并将以下的保留 XML 字符转化为实体:
+    接受一个字符串作为输入,并将以下保留的 XML 字符转换为实体:
 
-	  - 与操作符: &
-	  - 大于小于号: < >
-	  - 单双引号: ' "
-	  - 横杠: -
+      - 和号: &
+      - 小于号和大于号: < >
+      - 单引号和双引号: ' "
+      - 破折号: -
 
-    该函数将忽略作为数字字符实体的一部分而存在的&符号，例如 ``&#123;`` 。如下所示::
+    如果它们是现有编号字符实体的一部分,此函数会忽略和号,例如 &#123;。示例:
 
-		$string = '<p>Here is a paragraph & an entity (&#123;).</p>';
-		$string = xml_convert($string);
-		echo $string;
+    .. literalinclude:: xml_helper/002.php
 
-	输出:
+    输出:
 
-	.. code-block:: html
+    .. code-block:: html
 
-		&lt;p&gt;Here is a paragraph &amp; an entity (&#123;).&lt;/p&gt;
+        &lt;p&gt;Here is a paragraph &amp; an entity (&#123;).&lt;/p&gt;

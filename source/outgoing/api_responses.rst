@@ -2,253 +2,223 @@
 API 响应特性
 ##################
 
-现代化的 PHP开发都需要构建 API ，不管它只是为了给 javascript 单页应用提供数据还是作为独立的产品。CodeIgniter 提供了一个API响应特性，可用于任何控制器，使公共响应类型简单，无需记住它的 HTTP 状态代码应返回的响应类型。
+大多数现代 PHP 开发需要构建 API,无论是简单地为 javascript 密集的
+单页应用提供数据,还是作为独立产品。CodeIgniter 提供了一个 API 响应特性,可以
+与任何控制器一起使用,使常见的响应类型简单化,而无需记住哪个 HTTP 状态码
+应该用于哪种响应类型。
 
 .. contents::
     :local:
     :depth: 2
 
 *************
-使用示例
+示例用法
 *************
 
 下面的示例显示了控制器中常见的使用模式。
 
-::
+.. literalinclude:: api_responses/001.php
 
-    <?php namespace App\Controllers;
+在此示例中,返回 HTTP 状态码 201,以及通用的状态消息“Created”。方法
+存在最常见的用例:
 
-    class Users extends \CodeIgniter\Controller
-    {
-        use CodeIgniter\API\ResponseTrait;
-
-        public function createUser()
-        {
-            $model = new UserModel();
-            $user = $model->save($this->request->getPost());
-
-            // 响应 201 状态码
-            return $this->respondCreated();
-        }
-    }
-
-在这个例子中，响应了 201 的HTTP状态码，并使用“创建”的通用状态消息返回。方法存在于最常见的用例中 ::
-
-    // 通用响应方式
-    respond($data, 200);
-    // 通用错误响应
-    fail($errors, 400);
-    // 项目创建响应
-    respondCreated($data);
-    // 项目成功删除
-    respondDeleted($data);
-    // 客户端未授权
-    failUnauthorized($description);
-    // 禁止动作
-    failForbidden($description);
-    // 找不到资源
-    failNotFound($description);
-    // Data 数据没有验证
-    failValidationError($description);
-    // 资源已存在
-    failResourceExists($description);
-    // 资源早已被删除
-    failResourceGone($description);
-    // 客户端请求数过多
-    failTooManyRequests($description);
+.. literalinclude:: api_responses/002.php
 
 ***********************
 处理响应类型
 ***********************
 
-当您通过以下任何一种方法传递数据时，它们将决定基于数据类型来格式化结果:
+当你在任何这些方法中传递数据时,它们将根据以下标准确定数据类型以格式化结果:
 
-* 如果 $data 是一个字符串，它将被当作 HTML 发送回客户端。
-* 如果 $data 是一个数组，它将尝试请求内容类型与客户端进行协商，默认为 JSON。如果没有在 Config\API.php 中配置内容。默认使用 ``$supportedResponseFormats`` 属性。
+* 如果数据是字符串,它将被视为要返回给客户端的 HTML。
+* 如果数据是数组,它将根据控制器的``$this->format``值进行格式化。如果为空,
+  它将尝试用客户端请求的内容类型协商内容类型,默认为 JSON
+  如果在 **Config/Format.php** 中的``$supportedResponseFormats``属性未指定其他格式。
 
-需要使用格式化，请修改 **Config/Format.php** 文件配置。``$supportedResponseFormats`` 包含了一个格式化响应类型列表。默认情况下，系统将会自动判断并响应 XML 和 JSON 格式::
+要定义用于格式化的格式器,请编辑 **Config/Format.php**。 ``$supportedResponseFormats`` 包含应用程序可以
+自动格式化响应的 mime 类型列表。默认情况下,系统知道如何格式化 XML 和 JSON 响应:
 
-        public $supportedResponseFormats = [
-            'application/json',
-            'application/xml'
-        ];
+.. literalinclude:: api_responses/003.php
 
-这是在 :doc:`Content Negotiation </libraries/content_negotiation>` 中使用的数组，以确定返回的响应类型。如果在客户端请求的内容和您支持的内容之间没有匹配，则返回第一个该数组中的格式。
+这是在 :doc:`内容协商 </incoming/content_negotiation>` 期间确定要返回哪种类型响应时使用的数组。
+如果客户端请求和你支持的之间没有匹配,则返回此数组中的第一种格式。
 
-接下来，需要定义用于格式化数据数组的类。这必须是一个完全合格的类名，类名必须实现 **CodeIgniter\API\FormatterInterface**。格式化支持 JSON 和 XML ::
+接下来,你需要定义用于格式化数据数组的类。这必须是一个完全限定的类名,并且该类必须实现
+``CodeIgniter\Format\FormatterInterface``。开箱即用地支持 JSON 和 XML 的格式化程序:
 
-    public $formatters = [
-        'application/json' => \CodeIgniter\API\JSONFormatter::class,
-        'application/xml'  => \CodeIgniter\API\XMLFormatter::class
-    ];
+.. literalinclude:: api_responses/004.php
 
-因此，如果您的请求在 **Accept** 头中请求 JSON 格式的数据，那么您传递的数据数组就可以通过其中任何一个 ``respond*`` 或 ``fail*`` 方法将由 **CodeIgniter\API\JSONFormatter** 格式化。由此产生的 JSON 数据将被发送回客户端。
+因此,如果请求在 **Accept** 头中请求 JSON 格式的数据,传递给任何 ``respond*`` 或 ``fail*``
+方法的数据数组将由 ``CodeIgniter\Format\JSONFormatter`` 类格式化。生成的 JSON 数据将发送回客户端。
 
-===============
-引用类
-===============
-.. php:method:: respond($data[, $statusCode=200[, $message='']])
+***************
+类参考
+***************
 
-    :param mixed  $data:  返回客户端的数据。字符串或数组。
-    :param int    $statusCode: 返回的HTTP状态码。默认为 200。
-    :param string $message: 返回的自定义 "reason" 消息。
+.. php:method:: setResponseFormat($format)
 
-    这是该特征中所有其他方法用于将响应返回给客户端的方法。
+    :param string $format: 要返回的响应类型,``json`` 或 ``xml``
 
-     ``$data`` 元素可以是字符串或数组。 默认情况下，一个字符串将作为 HTML 返回，而数组将通过 json_encode 运行并返回为 JSON，除非 :doc:`Content Negotiation </libraries/content_negotiation>` 确定它应该以不同的格式返回。
+    这定义了在响应中格式化数组时使用的格式。如果为 ``$format`` 提供 null 值,它将通过内容协商自动确定。
 
-    如果一个 ``$message`` 字符串被传递，它将被用来替代标准的 IANA 标准码回应状态。但不是每个客户端都会遵守自定义代码，并将使用 IANA 标准匹配状态码。
+.. literalinclude:: api_responses/005.php
 
-    .. note:: 由于它在活动的响应实例上设置状态码和正文，所以应该一直作为脚本执行中的最终方法。
+.. php:method:: respond($data[, $statusCode = 200[, $message = '']])
 
-.. php:method:: fail($messages[, int $status=400[, string $code=null[, string $message='']]])
+    :param mixed  $data: 要返回给客户端的数据。字符串或数组。
+    :param int    $statusCode: 要返回的 HTTP 状态码。默认为 200
+    :param string $message: 要返回的自定义“原因”消息。
 
-    :param mixed $messages: 包含遇到错误消息的字符串或字符串数组。
-    :param int   $status: 返回的HTTP状态码。 默认为400。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: 以客户端的首选格式进行多部分响应。
+    这是特性中所有其他方法用于向客户端返回响应的方法。
 
-    这是用于表示失败的响应的通用方法，并被所有其他“fail”方法使用。
+    ``$data`` 元素可以是字符串或数组。默认情况下,字符串将作为 HTML 返回,
+    而数组将通过 json_encode 运行并返回为 JSON,除非 :doc:`内容协商 </incoming/content_negotiation>`
+    确定应以不同格式返回。
 
-    该 ``$messages`` 元素可以是字符串或字符串数​​组。
-    该 ``$status`` 参数是应返回的HTTP状态码。
+    如果传递了 ``$message`` 字符串,它将替代标准 IANA 原因代码用于
+    响应状态。但是,并非每个客户端都会遵守自定义代码,它们会使用与状态码匹配的 IANA 标准。
 
-    由于使用自定义错误代码更好地提供了许多 API，因此可以在第三个参数中传递自定义错误代码。如果没有值，它将是一样的 ``$status`` 【状态码】。
+    .. 注意:: 由于它在活动的 Response 实例上设置状态码和主体,所以这应该始终
+        是脚本执行中的最后一个方法。
 
-    如果一个 ``$message`` 字符串被传递，它将被用于代替响应状态的标准 IANA 码。不是每个客户端都会遵守自定义代码，并且将使用与状态代码相匹配的 IANA 标准。
+.. php:method:: fail($messages[, int $status = 400[, string $code = null[, string $message = '']]])
 
-    这个响应是一个包含两个元素的数组： ``error`` 和 ``messages`` 。 ``error`` 元素包含错误的状态代码。``messages`` 元素包含一组错误消息。它看起来像::
+    :param mixed $messages: 遇到的错误消息的字符串或字符串数组。
+    :param int   $status: 要返回的 HTTP 状态码。默认为 400。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: 客户端首选格式的多部分响应。
 
-        $response = [
-            'status' => 400,
-            'code' => '321a',
-            'messages' => [
-                'Error message 1',
-                'Error message 2'
-            ]
-        ];
+    这是表示失败响应的通用方法,所有其他“fail”方法都使用它。
 
-.. php:method:: respondCreated($data[, string $message = ''])
+    ``$messages`` 元素可以是字符串或字符串数组。
 
-    :param mixed  $data: 返回给客户端的数据。字符串或数组。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    ``$status`` 参数是应返回的 HTTP 状态码。
 
-    设置创建新资源时使用的相应状态代码，通常为201::
+    由于许多 API 更适合使用自定义错误码,所以第三个参数可以传入自定义错误码。如果没有值,它将与 ``$status`` 相同。
 
-        $user = $userModel->insert($data);
-        return $this->respondCreated($user);
+    如果传递了 ``$message`` 字符串,它将替代标准 IANA 原因代码用于
+    响应状态。但是,并非每个客户端都会遵守自定义代码,它们会使用与状态码匹配的 IANA 标准。
 
-.. php:method:: respondDeleted($data[, string $message = ''])
+    响应是一个包含两个元素的数组:“error”和“messages”。“error”元素包含错误的状态码。
+    “messages”元素包含错误消息数组。它看起来像:
 
-    :param mixed  $data: 返回给客户端的数据。字符串或数组
-    :param string $message: 自定义的“原因”消息返回。
-    :returns: Response 对象的 send()方法的值。
+    .. literalinclude:: api_responses/006.php
 
-    设置当通过此API调用的结果删除新资源时使用的相应状态代码（通常为200）。
-    ::
+.. php:method:: respondCreated($data = null[, string $message = ''])
 
-        $user = $userModel->delete($id);
-        return $this->respondDeleted(['id' => $id]);
+    :param mixed  $data: 要返回给客户端的数据。字符串或数组。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-.. php:method:: failUnauthorized(string $description[, string $code=null[, string $message = '']])
+    设置在创建新资源时通常使用的适当状态码,通常为 201:
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns:  Response 对象的 send()方法的值。
+    .. literalinclude:: api_responses/007.php
 
-    设置当用户未被授权或授权不正确时使用的相应状态代码。状态码为401。
-    ::
+.. php:method:: respondDeleted($data = null[, string $message = ''])
 
-        return $this->failUnauthorized('Invalid Auth token');
+    :param mixed  $data: 要返回给客户端的数据。字符串或数组。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-.. php:method:: failForbidden(string $description[, string $code=null[, string $message = '']])
+    设置由于此 API 调用删除新资源而通常使用的适当状态码,通常为 200。
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    .. literalinclude:: api_responses/008.php
 
-    不像 ``failUnauthorized``，当请求 API 路径决不允许采用这种方法。未经授权意味着客户端被鼓励再次尝试使用不同的凭据。禁止意味着客户端不应该再次尝试，因为它不会有帮助。状态码为403。
+.. php:method:: respondNoContent(string $message = 'No Content')
 
-    ::
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-        return $this->failForbidden('Invalid API endpoint.');
+    设置在服务器成功执行命令但没有可发送回客户端的有意义响应时通常使用的适当状态码,通常为 204。
 
-.. php:method:: failNotFound(string $description[, string $code=null[, string $message = '']])
+    .. literalinclude:: api_responses/009.php
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+.. php:method:: failUnauthorized(string $description = 'Unauthorized'[, string $code = null[, string $message = '']])
 
-    设置于在找不到请求的资源时使用的状态码。状态码为404。
-    ::
+    :param string  $description: 要显示给用户的错误消息。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-        return $this->failNotFound('User 13 cannot be found.');
+    设置用户未经授权或授权不正确时使用的适当状态码。状态码为 401。
 
-.. php:method:: failValidationError(string $description[, string $code=null[, string $message = '']])
+    .. literalinclude:: api_responses/010.php
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+.. php:method:: failForbidden(string $description = 'Forbidden'[, string $code=null[, string $message = '']])
 
-    设置于客户端发送的数据未通过验证规则时使用的状态码。状态码通常为400。
+    :param string  $description: 要显示给用户的错误消息。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-    ::
+    与 ``failUnauthorized()`` 不同,当请求的 API 端点从不允许时,应使用此方法。
+    未授权意味着鼓励客户端使用不同的凭据重试。禁止意味着客户端不应重试,因为它不会有帮助。状态码通常为 403。
 
-        return $this->failValidationError($validation->getErrors());
+    .. literalinclude:: api_responses/011.php
 
-.. php:method:: failResourceExists(string $description[, string $code=null[, string $message = '']])
+.. php:method:: failNotFound(string $description = 'Not Found'[, string $code=null[, string $message = '']])
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    :param string  $description: 要显示给用户的错误消息。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-    设置于当客户端尝试创建的资源已经存在时使用的状态码。状态码通常为409。
+    设置在找不到请求的资源时使用的适当状态码。状态码通常为 404。
 
-    ::
+    .. literalinclude:: api_responses/012.php
 
-        return $this->failResourceExists('A user already exists with that email.');
+.. php:method:: failValidationErrors($errors[, string $code=null[, string $message = '']])
 
-.. php:method:: failResourceGone(string $description[, string $code=null[, string $message = '']])
+    :param mixed  $errors: 要显示给用户的错误消息或消息数组。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    设置在客户端发送的数据未通过验证规则时使用的适当状态码。状态码通常为 400。
 
-    设置于当请求的资源先前被删除并且不再使用时使用的状态码。状态码通常为410。
+    .. literalinclude:: api_responses/013.php
 
-    ::
+.. php:method:: failResourceExists(string $description = 'Conflict'[, string $code=null[, string $message = '']])
 
-        return $this->failResourceGone('That user has been previously deleted.');
+    :param string  $description: 要显示给用户的错误消息。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-.. php:method:: failTooManyRequests(string $description[, string $code=null[, string $message = '']])
+    设置在客户端试图创建的资源已经存在时使用的适当状态码。状态码通常为 409。
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    .. literalinclude:: api_responses/014.php
 
-    设置于当客户端调用 API路径次数过多时使用的状态码。这可能是由于某种形式的节流或速率限制。状态码通常为400。
-    ::
+.. php:method:: failResourceGone(string $description = 'Gone'[, string $code=null[, string $message = '']])
 
-        return $this->failTooManyRequests('You must wait 15 seconds before making another request.');
+    :param string  $description: 要显示给用户的错误消息。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-.. php:method:: failServerError(string $description[, string $code = null[, string $message = '']])
+    设置在先前删除的请求资源不再可用时使用的适当状态码。状态码通常为 410。
 
-    :param mixed  $description: 显示用户的错误信息。
-    :param string $code: 一个自定义的API特定的错误代码。
-    :param string $message: 返回的自定义“reason”消息。
-    :returns: Response 对象的 send()方法的值。
+    .. literalinclude:: api_responses/015.php
 
-    设置于当存在服务器错误时使用的状态码。
+.. php:method:: failTooManyRequests(string $description = 'Too Many Requests'[, string $code=null[, string $message = '']])
 
-    ::
+    :param string  $description: 要显示给用户的错误消息。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
 
-        return $this->failServerError('Server error.');
+    设置当客户端调用 API 端点次数过多时使用的适当状态码。这可能是由于某种形式的限流或速率限制。状态码通常为 400。
+
+    .. literalinclude:: api_responses/016.php
+
+.. php:method:: failServerError(string $description = 'Internal Server Error'[, string $code = null[, string $message = '']])
+
+    :param string $description: 要显示给用户的错误消息。
+    :param string $code: 自定义的 API 特定错误码。
+    :param string $message: 要返回的自定义“原因”消息。
+    :returns: Response 对象的 send() 方法的值。
+
+    设置服务器错误时使用的适当状态码。
+
+    .. literalinclude:: api_responses/017.php

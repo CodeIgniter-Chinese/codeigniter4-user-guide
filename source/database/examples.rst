@@ -1,111 +1,71 @@
 ##################################
-数据库快速入门: 示例代码
+数据库快速入门:示例代码
 ##################################
 
-这个页面包含的示例代码将简单介绍如何使用数据库类。更完整的信息请参考每个函数/类单独的介绍页面。
+以下页面包含显示数据库类用法的示例代码。有关完整详细信息,请阅读描述每个函数的单独页面。
+
+.. note:: CodeIgniter 不支持数据库、表格和列名称中的点(``.``)。
+
+.. contents::
+    :local:
+    :depth: 2
 
 初始化数据库类
 ===============================
 
-下面的代码将根据你的 :doc:`数据库配置 <configuration>` 加载并初始化数据库类::
+以下代码基于你的 :doc:`配置 <configuration>` 设置加载并初始化数据库类:
 
-	$db = \Config\Database::connect();
+.. literalinclude:: examples/001.php
 
-数据库类一旦载入，你就可以像下面介绍的那样使用它。
+一旦加载,该类即可按照下述方式使用。
 
-注意：如果你所有的页面都需要连接数据库，你可以让其自动加载。参见 :doc:`数据库连接 <connecting>`。
+.. note:: 如果所有页面都需要数据库访问,则可以自动连接。有关详细信息,请参阅 :doc:`连接 <connecting>` 页面。
 
-多结果标准查询（对象形式）
+具有多个结果的标准查询(对象版本)
 =====================================================
 
-::
+.. literalinclude:: examples/002.php
 
-	$query = $db->query('SELECT name, title, email FROM my_table');
-	$results = $query->getResult();
+| 上述 ``getResult()`` 函数返回 **对象** 数组。
+| 示例:``$row->title``
 
-	foreach ($results as $row)
-	{
-		echo $row->title;
-		echo $row->name;
-		echo $row->email;
-	}
-	
-	echo 'Total Results: ' . count($results);
-
-上面的 getResult() 函数返回一个 **对象数组** 。例如：$row->title
-
-多结果标准查询（数组形式）
+具有多个结果的标准查询(数组版本)
 ====================================================
 
-::
+.. literalinclude:: examples/003.php
 
-	$query = $db->query('SELECT name, title, email FROM my_table');
-	$results = $query->getResultArray();
+| 上述 ``getResultArray()`` 函数返回标准数组索引的数组。
+| 示例:``$row['title']``
 
-	foreach ($results as $row)
-	{
-		echo $row['title'];
-		echo $row['name'];
-		echo $row['email'];
-	}
-
-上面的 getResultArray() 函数返回一个 **二维数组** 。例如：$row['title']
-
-单结果标准查询（对象形式）
+具有单个结果的标准查询
 =================================
 
-::
+.. literalinclude:: examples/004.php
 
-	$query = $db->query('SELECT name FROM my_table LIMIT 1');
-	$row = $query->getRow();
-	echo $row->name;
+上述 ``getRow()`` 函数返回一个**对象**。示例:``$row->name``
 
-上面的 getRow() 函数返回一个 **对象** 。例如：$row->name
-
-单结果标准查询（数组形式）
+具有单个结果的标准查询(数组版本)
 =================================================
 
-::
+.. literalinclude:: examples/005.php
 
-	$query = $db->query('SELECT name FROM my_table LIMIT 1');
-	$row = $query->getRowArray();
-	echo $row['name'];
-
-上面的 getRowArray() 函数返回一个 **一维数组** 。例如：$row['name']
+上述 ``getRowArray()`` 函数返回一个**数组**。示例: ``$row['name']``。
 
 标准插入
 ===============
 
-::
+.. literalinclude:: examples/006.php
 
-	$sql = "INSERT INTO mytable (title, name) VALUES (".$db->escape($title).", ".$db->escape($name).")";
-	$db->query($sql);
-	echo $db->getAffectedRows();
+查询构建器查询
+===================
 
-使用查询构造器查询数据
-===========================
+:doc:`查询构建器模式 <query_builder>` 为你提供了一种简化的检索数据方式:
 
- :doc:`查询构造器模式 <query_builder>` 提供给我们一种简单的查询数据的途径::
+.. literalinclude:: examples/007.php
 
-	$query = $db->table('table_name')->get();
-	
-	foreach ($query->getResult() as $row)
-	{
-		echo $row->title;
-	}
+上述 ``get()`` 函数检索从提供的表中获取的所有结果。:doc:`查询构建器 <query_builder>` 类包含用于处理数据的完整功能。
 
-上面的 get() 函数从给定的表中查询出所有结果。 :doc:`查询构造器 <query_builder>`  提供了所有数据库操作的快捷函数。
+查询构建器插入
+====================
 
-使用查询构造器插入数据
-============================
-
-::
-
-	$data = array(
-		'title' => $title,
-		'name' => $name,
-		'date' => $date
-	);
-	
-	$db->table('mytable')->insert($data);  // 生成: INSERT INTO mytable (title, name, date) VALUES ('{$title}', '{$name}', '{$date}')
-
+.. literalinclude:: examples/008.php

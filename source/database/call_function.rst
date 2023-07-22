@@ -2,29 +2,28 @@
 自定义函数调用
 #####################
 
-$db->callFunction();
-============================
+.. contents::
+    :local:
+    :depth: 2
 
-该函数可以用平台无关的形式来调用CodeIgniter中没有原生包含的PHP数据库方法。
-举例来说，假如你想调用 ``mysql_get_client_info``  函数，但是这一方法CodeIgniter **并没有** 原生支持。你可以这样做::
+$db->callFunction()
+===================
 
+此函数使你可以以与平台无关的方式调用 PHP 数据库函数,这些函数不是 CodeIgniter 原生支持的。
+例如,假设你想调用 ``mysql_get_client_info()`` 函数,CodeIgniter 原生不支持此函数。你可以这样做:
 
-	$db->callFunction('get_client_info');
+.. literalinclude:: call_function/001.php
 
-第一个参数是函数名（必填），且 **不应该** 带有 ``mysql\_`` 的前缀。
-该函数会根据当前数据库自动附加前缀。这个机制可确保在不同数据库平台运行相同的函数。
-当然，各数据库的函数调用并不完全一致，因此，就可移植性而言，此函数的实用性有限。
+你必须在第一个参数中提供函数名称,不带 ``mysql_`` 前缀。前缀会根据当前使用的数据库驱动自动添加。这允许你在不同的数据库平台上运行相同的函数。显然,并非所有函数调用在所有平台上都是相同的,所以就可移植性而言,此函数的用途有限。
 
-调用这个函数所需的任何参数可添加到第二、第三个参数，以此类推::
+被调用函数需要的任何参数都将添加到第二个参数中。
 
-	$db->callFunction('some_function', $param1, $param2, etc..);
+.. literalinclude:: call_function/002.php
 
-这里，你经常要提供数据库连接ID或是查询结果ID作为参数，当前DB连接ID可以用该方法获得::
+你通常需要提供数据库连接 ID 或数据库结果 ID。可以使用以下方式访问连接 ID:
 
-	$db->connID;
+.. literalinclude:: call_function/003.php
 
-查询结果ID可以用QUERY结果对象来获得，例如::
+可以从结果对象内部访问结果 ID,如下所示:
 
-	$query = $db->query("SOME QUERY");
-
-	$query->resultID;
+.. literalinclude:: call_function/004.php

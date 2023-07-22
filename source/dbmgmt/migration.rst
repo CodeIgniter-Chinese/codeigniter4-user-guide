@@ -1,309 +1,247 @@
-#################
+##########
 数据库迁移
-#################
-迁移是一种有条理、有组织的方式更改数据库的便捷方式。你可以手动编辑SQL的片段，然后你要负责告诉其他开发人员他们也需要去运行这段SQL。你还必须跟踪下次部署时需要对生产机器运行哪些更改。
+##########
 
-数据库表**迁移**会跟踪已经运行的迁移，因此您只需更新应用程序文件并调用$migration->current()以确定应运行哪些迁移。当前版本位于**application/Config/Migrations.php**中。
+迁移是一种以结构化和有序的方式修改数据库的便捷方法。你可以手工编辑 SQL 片段,但这样你就需要告知其他开发者他们需要运行这些片段。你也需要在下次部署到生产环境时跟踪哪些更改需要运行。
 
-- 迁移文件名
-- 创建迁移
-- 使用$currentVersion
-    - 数据库组
-    - 命名空间
-    - 用法示例
-- 命令行工具
-- 迁移参数
-- 类参考
+数据库表 **migrations** 记录了哪些迁移已经运行,所以你只需要确保你的迁移就位,然后调用 ``$migration->latest()`` 就可以将数据库状态更新到最新。你也可以使用 ``$migration->setNamespace(null)->latest()`` 来包含所有命名空间的迁移。
 
-**************
-迁移文件名
-**************
-每个迁移都按数字顺序向前或向后运行，具体取决于所采用的方法。有两种编号样式可供选择：
+.. contents::
+   :local:
+   :depth: 2
 
-- **顺序**：每个迁移按顺序编号，从001开始。每个数字必须是三位数，并且序列中不得有任何间隙。（这是CodeIgniter 3.0之前的编号方案。）
-- **时间戳**：使用创建迁移时的时间戳对每个迁移进行编号，格式为**YYYYMMDDHHIES**格式（例如**20121031100537**）。这有助于防止在团队环境中工作时出现编号冲突，并且是CodeIgniter 3.0及更高版本中的首选方案。
+********************
+迁移文件命名
+********************
 
-可以使用*application/Config/Migrations.php*文件中的$type设置选择所需的样式。默认设置为时间戳。
+每个迁移会按照创建时的数字顺序正向或反向运行,具体取决于采取的方法。每个迁移使用创建时的时间戳命名,格式为 **YYYY-MM-DD-HHIISS**(例如 **2012-10-31-100537**)。这有助于在团队环境下避免编号冲突。
 
-无论您选择使用哪种编号样式，请在迁移文件前加上迁移编号，后跟下划线和迁移的描述性名称。例如：
+为你的迁移文件添加迁移编号前缀,后跟下划线和对迁移的描述性名称。年、月、日可以用破折号、下划线或不加分隔符的方式分割。例如:
 
-- 001_add_blog.php（顺序编号）
-- 20121031100537_add_blog.php（时间戳编号）
+* 2012-10-31-100538_AlterBlogTrackViews.php
+* 2012_10_31_100539_AlterBlogAddTranslations.php
+* 20121031100537_AddBlog.php
 
-**************
+******************
 创建迁移
-**************
+******************
 
-这将是新博客站点的首次迁移。所有迁移都在 **application/Database/Migrations/** 目录中，并命名，如 *20121031100537_Add_blog.php*。
-::
+这将是为一个带博客的新网站创建的第一个迁移。所有迁移都在 **app/Database/Migrations/** 目录下,文件名类似 **2022-01-31-013057_AddBlog.php**。
 
-	<?php namespace App\Database\Migrations;
+.. literalinclude:: migration/001.php
 
-	use CodeIgniter\Database\Migration;
+数据库连接和数据库 Forge 类都可以通过 ``$this->db`` 和 ``$this->forge`` 获取。
 
-	class AddBlog extends Migration
-	{
+或者,你可以使用命令行调用来生成骨架迁移文件。更多细节请参阅 :ref:`command-line-tools` 中的 **make:migration**。
 
-		public function up()
-		{
-			$this->forge->addField([
-				'blog_id'          => [
-					'type'           => 'INT',
-					'constraint'     => 5,
-					'unsigned'       => true,
-					'auto_increment' => true,
-				],
-				'blog_title'       => [
-					'type'           => 'VARCHAR',
-					'constraint'     => '100',
-				],
-				'blog_description' => [
-					'type'           => 'TEXT',
-					'null'           => true,
-				],
-			]);
-			$this->forge->addKey('blog_id', true);
-			$this->forge->createTable('blog');
-		}
+.. note:: 由于迁移类是一个 PHP 类,每个迁移文件中的类名必须是唯一的。
 
-		public function down()
-		{
-			$this->forge->dropTable('blog');
-		}
-	}
+外键
+============
 
-然后在 **application/Config/Migrations.php** 中设置 $currentVersion = 20121031100537;。
+当你的表包含外键时,迁移经常在尝试删除表和列时会遇到问题。要在运行迁移时暂时绕过外键检查,可以在数据库连接上使用 ``disableForeignKeyChecks()`` 和 ``enableForeignKeyChecks()`` 方法。
 
-数据库连接和数据库Forge类都可以通过 $this->db和$this->forge分别使用。
+.. literalinclude:: migration/002.php
 
-或者，你可以使用命令行调用来生成框架迁移文件。请参阅下面的更多细节。
-
-**********************
-使用$currentVersion
-**********************
-
-$currentVersion设置允许你标记应用程序命名空间应设置的位置。这对于在生产环境中使用尤其有用。在你的应用程序中，你始终可以将迁移更新到当前版本，而不是最新版本，以确保生产和登台服务器正在运行正确的架构。在开发服务器上，你可以为尚未准备好生产的代码添加其他迁移。通过使用该latest()方法，你可以确保你的开发机器始终运行前沿架构。
-
-**************
 数据库组
-**************
+===============
 
-只能针对单个数据库组运行迁移。如果 **在application/Config/Database.php** 中定义了多个组 ，则它将针对该$defaultGroup同一配置文件中指定的组运行。有时你可能需要为不同的数据库组使用不同的模式。也许你有一个用于所有常规站点信息的数据库，而另一个数据库用于关键任务数据。通过$DBGroup在迁移上设置属性，可以确保仅针对正确的组运行迁移。此名称必须与数据库组的名称完全匹配::
+迁移只会针对单个数据库组运行。如果你在 **app/Config/Database.php** 中定义了多个组,那么它将针对那里指定的 ``$defaultGroup`` 运行。有时你可能需要为不同的数据库组使用不同的模式。也许你有一个数据库用于所有常规站点信息,而另一个数据库用于业务关键的数据。你可以通过在迁移上设置 ``$DBGroup`` 属性来确保迁移只针对适当的组运行。此名称必须与数据库组的名称完全匹配:
 
-    class Migration_Add_blog extends \CodeIgniter\Database\Migration
-    {
-      protected $DBGroup = 'alternate_db_group';
+.. literalinclude:: migration/003.php
 
-      public function up() { . . . }
-
-      public function down() { . . . }
-    }
-
-**************
 命名空间
-**************
+==========
 
-迁移库可以自动扫描你在 **application/Config/Autoload.php** 中定义的所有名称空间 及其$psr4属性以匹配目录名称。它将包括它在Database/Migrations中找到的所有迁移。
+迁移库可以自动扫描你在 **app/Config/Autoload.php** 中定义的所有命名空间,或者从 Composer 等外部源加载的命名空间,使用 ``$psr4`` 属性匹配目录名称。它将包含在 **Database/Migrations** 中找到的所有迁移。
 
-每个命名空间都有自己的版本序列，这将帮助您升级和降级每个模块（命名空间），而不会影响其他命名空间。
+每个命名空间都有自己的版本序列,这将帮助你升级和降级每个模块(命名空间)而不影响其他命名空间。
 
-例如，假设我们在Autoload配置文件中定义了以下命名空间::
+例如,假设我们在 Autoload 配置文件中定义了以下命名空间:
 
-    $psr4 = [
-            'App'       => APPPATH,
-            'MyCompany' => ROOTPATH.'MyCompany'
-    ];
+.. literalinclude:: migration/004.php
 
-这将查找位于**APPPATH/Database/Migrations**和**ROOTPATH/Database/Migrations**的任何迁移。这使得在可重用的模块化代码套件中包含迁移变得简单。
+这将查找 **APPPATH/Database/Migrations** 和 **ROOTPATH/MyCompany/Database/Migrations** 中的任何迁移。这使得在你的可重用、模块化代码套件中包含迁移变得很简单。
 
-**************
-用法示例
-**************
+*************
+使用示例
+*************
 
-在此示例中，一些简单的代码放在 **application/Controllers/Migrate.php** 中以更新架构::
+在这个示例中,一些简单的代码被放置在 **app/Controllers/Migrate.php** 中以更新 schema:
 
-    <?php
+.. literalinclude:: migration/005.php
 
-    class Migrate extends \CodeIgniter\Controller
-    {
+.. _command-line-tools:
 
-            public function index()
-            {
-                    $migrate = \Config\Services::migrations();
-
-                    try
-                    {
-                    $migrate->current();
-                    }
-                    catch (\Exception $e)
-                    {
-                      // Do something with the error here...
-                    }
-            }
-
-    }
-
-**************
+*******************
 命令行工具
-**************
+*******************
 
-CodeIgniter附带了几个:doc:`commands </cli/cli_commands>`，它们可以从命令行获得，以帮助你处理迁移。这些工具不需要使用迁移，但可能会使那些希望使用它们的人更容易。这些工具主要提供对MigrationRunner类中可用的相同方法的访问。
+CodeIgniter 自带了几个 :doc:`commands </cli/spark_commands>`,可通过命令行访问,以帮助你使用迁移。这些工具不是使用迁移的必需品,但对于那些希望使用它们的人来说可能会更方便。这些工具主要提供了 MigrationRunner 类中可用的相同方法的访问。
 
-**migrate**
+migrate
+=======
 
-Migrates a database group with all available migrations::
+使用所有可用的迁移迁移一个数据库组::
 
     > php spark migrate
 
-You can use (migrate) with the following options:
+你可以对 (migrate) 使用以下选项:
 
-- ``-g`` - to chose database group, otherwise default database group will be used.
-- ``-n`` - to choose namespace, otherwise (App) namespace will be used.
-- ``-all`` - to migrate all namespaces to the latest migration
+- ``-g`` - 选择数据库组,否则将使用默认数据库组。
+- ``-n`` - 选择命名空间,否则将使用 (App) 命名空间。
+- ``--all`` - 迁移所有命名空间到最新的迁移。
 
-This example will migrate Blog namespace with any new migrations on the test database group::
+这个例子将在 test 数据库组上使用任何新的迁移迁移 ``Acme\Blog`` 命名空间::
 
-    > php spark migrate -g test -n Blog
+    For Unix:
+    > php spark migrate -g test -n Acme\\Blog
 
-When using the ``-all`` option, it will scan through all namespaces attempting to find any migrations that have
-not been run. These will all be collected and then sorted as a group by date created. This should help
-to minimize any potential conflicts between the main application and any modules.
+    For Windows:
+    > php spark migrate -g test -n Acme\Blog
 
-**rollback**
+当使用 ``--all`` 选项时,它将扫描所有命名空间,尝试找到任何未运行的迁移。这些迁移将一起收集,然后按创建日期排序为一组。这应该有助于最大限度地减少主应用程序和任何模块之间的潜在冲突。
 
-回滚所有迁移，将所有数据库组转为空白平板，有效迁移0::
+rollback
+========
 
-    > php spark migrate:rollback
+回滚所有迁移,将数据库组还原到空白状态,有效迁移到 0::
 
-你可以使用（rollback）以下选项：
+  > php spark migrate:rollback
 
-- （-g）选择数据库组，否则将使用默认数据库组。
-- （-n）选择名称空间，否则将使用（App）名称空间。
-- （all）将所有名称空间迁移到最新的迁移
+你可以对 (rollback) 使用以下选项:
 
-**refresh**
+- ``-g`` - 选择数据库组,否则将使用默认数据库组。
+- ``-b`` - 选择批次:自然数指定批次。
+- ``-f`` - 强制绕过确认问题,它仅在生产环境中询问。
 
-首先回滚所有迁移，然后迁移到最新版本，刷新数据库状态::
+refresh
+=======
 
-    > php spark migrate:refresh
+首先回滚所有迁移,然后迁移所有来刷新数据库状态::
 
-你可以使用（refresh）以下选项：
+  > php spark migrate:refresh
 
-- （-g）选择数据库组，否则将使用默认数据库组。
-- （-n）选择名称空间，否则将使用（App）名称空间。
-- （all）将所有名称空间迁移到最新的迁移
+你可以对 (refresh) 使用以下选项:
 
-**status**
+- ``-g`` - 选择数据库组,否则将使用默认数据库组。
+- ``-n`` - 选择命名空间,否则将使用 (App) 命名空间。
+- ``--all`` - 刷新所有命名空间。
+- ``-f`` - 强制绕过确认问题,它仅在生产环境中询问。
 
-显示所有迁移的列表及其运行的日期和时间，如果尚未运行，则显示'--'::
+status
+======
 
-    > php spark migrate:status
-    Filename               Migrated On
-    First_migration.php    2016-04-25 04:44:22
+显示所有迁移的列表以及它们运行的日期和时间,如果未运行则显示 '--'::
 
-你可以使用（status）以下选项：
+  > php spark migrate:status
+  +----------------------+-------------------+-----------------------+---------+---------------------+-------+
+  | Namespace            | Version           | Filename              | Group   | Migrated On         | Batch |
+  +----------------------+-------------------+-----------------------+---------+---------------------+-------+
+  | App                  | 2022-04-06-234508 | CreateCiSessionsTable | default | 2022-04-06 18:45:14 | 2     |
+  | CodeIgniter\Settings | 2021-07-04-041948 | CreateSettingsTable   | default | 2022-04-06 01:23:08 | 1     |
+  | CodeIgniter\Settings | 2021-11-14-143905 | AddContextColumn      | default | 2022-04-06 01:23:08 | 1     |
+  +----------------------+-------------------+-----------------------+---------+---------------------+-------+
 
-- （-g）选择数据库组，否则将使用默认数据库组。
+你可以对 (status) 使用以下选项:
 
-**make:migration**
+- ``-g`` - 选择数据库组,否则将使用默认数据库组。
 
-Creates a skeleton migration file in **app/Database/Migrations**.
-It automatically prepends the current timestamp. The class name it
-creates is the Pascal case version of the filename.
+make:migration
+==============
+
+在 **app/Database/Migrations** 中创建一个骨架迁移文件。它会自动在文件名前加上当前时间戳。它创建的类名是文件名的帕斯卡大小写版本。
 
 ::
 
   > php spark make:migration <class> [options]
 
-You can use (make:migration) with the following options:
+你可以对 (make:migration) 使用以下选项:
 
-- ``-n`` - to choose namespace, otherwise the value of ``APP_NAMESPACE`` will be used.
-- ``-force`` - If a similarly named migration file is present in destination, this will be overwritten.
+- ``--session``   - 为数据库 sessions 生成迁移文件。
+- ``--table``     - 数据库 sessions 使用的表名。默认:``ci_sessions``。
+- ``--dbgroup``   - 数据库 sessions 使用的数据库组。默认:``default``。
+- ``--namespace`` - 设置根命名空间。默认:``APP_NAMESPACE``。
+- ``--suffix``    - 在类名后追加组件标题。
 
-**************
-迁移参数
-**************
-以下是 **app/Config/Migrations.php** 中提供的所有迁移配置选项的表。
+*********************
+迁移配置
+*********************
+
+下表列出了所有迁移的配置选项,在 **app/Config/Migrations.php** 中可用。
 
 ========================== ====================== ========================== =============================================================
-参数                        默认值                  可选项                      描述
+首选项                     默认值                  可选值                     描述
 ========================== ====================== ========================== =============================================================
-**enabled**                true                   true / false               启用或者禁用迁移
-**table**                  migrations             None                       用于存储当前版本的数据库表名
-**timestampFormat**        Y-m-d-His\_                                       The format to use for timestamps when creating a migration.
+**enabled**                true                   true / false               启用或禁用迁移。
+**table**                  migrations             None                       用于存储 schema 版本号的表名。
+**timestampFormat**        Y-m-d-His\_                                       创建迁移时使用的时间戳格式。
 ========================== ====================== ========================== =============================================================
 
-**************
+***************
 类参考
-**************
-    .. php:class:: CodeIgniter\Database\MigrationRunner
+***************
 
-            .. php:method:: current($group)
+.. php:namespace:: CodeIgniter\Database
 
-                    :param  mixed   $group: database group name, if null (App) namespace will be used.
-                    :returns:       TRUE if no migrations are found, current version string on success, FALSE on failure
-                    :rtype: mixed
+.. php:class:: MigrationRunner
 
-                    Migrates up to the current version (whatever is set for
-                    ``$currentVersion`` in *application/Config/Migrations.php*).
+    .. php:method:: findMigrations()
 
-            .. php:method:: findMigrations()
+        :returns:    迁移文件数组
+        :rtype:    array
 
-                    :returns:       An array of migration files
-                    :rtype: array
+        返回在 **path** 属性中找到的迁移文件名数组。
 
-                    An array of migration filenames are returned that are found in the **path** property.
+    .. php:method:: latest($group)
 
-            .. php:method:: latest($namespace, $group)
+        :param    mixed    $group: 数据库组名称,如果为 null 则使用默认数据库组。
+        :returns:    成功则为 ``true``,失败则为 ``false``
+        :rtype:    bool
 
-                    :param  mixed   $namespace: application namespace, if null (App) namespace will be used.
-                    :param  mixed   $group: database group name, if null default database group will be used.
-                    :returns:       Current version string on success, FALSE on failure
-                    :rtype: mixed
+        该方法定位命名空间(或所有命名空间)的迁移,确定哪些迁移尚未运行,并按版本顺序运行它们(命名空间交错)。
 
-                    This works much the same way as ``current()`` but instead of looking for
-                    the ``$currentVersion`` the Migration class will use the very
-                    newest migration found in the filesystem.
-            .. php:method:: latestAll($group)
+    .. php:method:: regress($targetBatch, $group)
 
-                    :param  mixed   $group: database group name, if null default database group will be used.
-                    :returns:       TRUE on success, FALSE on failure
-                    :rtype: mixed
+        :param    int    $targetBatch: 要迁移到的前一批次; 1+ 指定批次,0 还原全部,负数指相对批次(例如 -3 表示“往前三批”)
+        :param    ?string    $group: 数据库组名称,如果为 null 则使用默认数据库组。
+        :returns:    成功则为 ``true``,失败或找不到迁移则为 ``false``
+        :rtype:    bool
 
-                    This works much the same way as ``latest()`` but instead of looking for
-                    one namespace, the Migration class will use the very
-                    newest migration found for all namespaces.
-            .. php:method:: version($target_version, $namespace, $group)
+        回滚可用于将更改回滚到以前的状态,逐批进行。
 
-                    :param  mixed   $namespace: application namespace, if null (App) namespace will be used.
-                    :param  mixed   $group: database group name, if null default database group will be used.
-                    :param  mixed   $target_version: Migration version to process
-                    :returns:       TRUE if no migrations are found, current version string on success, FALSE on failure
-                    :rtype: mixed
+        .. literalinclude:: migration/006.php
 
-                    Version can be used to roll back changes or step forwards programmatically to
-                    specific versions. It works just like ``current()`` but ignores ``$currentVersion``.
-                    ::
+    .. php:method:: force($path, $namespace, $group)
 
-                            $migration->version(5);
+        :param    mixed    $path:  有效迁移文件的路径。
+        :param    mixed    $namespace: 所提供迁移的命名空间。
+        :param    mixed    $group: 数据库组名称,如果为 null 则使用默认数据库组。
+        :returns:    成功则为 ``true``,失败则为 ``false``
+        :rtype:    bool
 
-            .. php:method:: setNamespace($namespace)
+        该方法强制单文件迁移,不考虑顺序或批次。基于它是否已经迁移来检测“up”或“down”方法。
 
-              :param  string  $namespace: application namespace.
-              :returns:   The current MigrationRunner instance
-              :rtype:     CodeIgniter\Database\MigrationRunner
+        .. note:: 该方法仅建议用于测试,可能会导致数据一致性问题。
 
-              Sets the path the library should look for migration files::
+    .. php:method:: setNamespace($namespace)
 
-                $migration->setNamespace($path)
-                          ->latest();
-            .. php:method:: setGroup($group)
+        :param  string|null  $namespace: 应用程序命名空间。``null`` 为所有命名空间。
+        :returns:   当前的 MigrationRunner 实例
+        :rtype:     CodeIgniter\\Database\\MigrationRunner
 
-              :param  string  $group: database group name.
-              :returns:   The current MigrationRunner instance
-              :rtype:     CodeIgniter\Database\MigrationRunner
+        设置库应查找迁移文件的命名空间:
 
-              Sets the path the library should look for migration files::
+        .. literalinclude:: migration/007.php
 
-                $migration->setNamespace($path)
-                          ->latest();
+        .. note:: 如果设置为 ``null``,则它将查找所有命名空间中的迁移文件。
+
+    .. php:method:: setGroup($group)
+
+        :param  string  $group: 数据库组名称。
+        :returns:   当前的 MigrationRunner 实例
+        :rtype:     CodeIgniter\\Database\\MigrationRunner
+
+        设置库应查找迁移文件的组:
+
+        .. literalinclude:: migration/008.php

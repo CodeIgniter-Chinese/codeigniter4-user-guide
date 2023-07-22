@@ -1,194 +1,145 @@
 ################
-User Agent Class
+用户代理类
 ################
 
-The User Agent Class provides functions that help identify information
-about the browser, mobile device, or robot visiting your site.
+用户代理类提供了一些有助于识别访问你网站的浏览器、移动设备或机器人的信息的函数。
 
 .. contents::
     :local:
     :depth: 2
 
 **************************
-Using the User Agent Class
+使用用户代理类
 **************************
 
-Initializing the Class
+初始化类
 ======================
 
-The User Agent class is always available directly from the current :doc:`IncomingRequest </incoming/incomingrequest>` instance.
-By default, you will have a request instance in your controller that you can retrieve the
-User Agent class from::
+用户代理类总是可以直接从当前的 :doc:`IncomingRequest </incoming/incomingrequest>` 实例获取。
+默认情况下,在你的控制器中会有一个请求实例,你可以从中获取用户代理类:
 
-	$agent = $this->request->getUserAgent();
+.. literalinclude:: user_agent/001.php
 
-User Agent Definitions
+用户代理定义
 ======================
 
-The user agent name definitions are located in a config file located at:
-**app/Config/UserAgents.php**. You may add items to the various
-user agent arrays if needed.
+用户代理名称定义位于以下配置文件中:**app/Config/UserAgents.php**。
+如果需要的话你可以在各种用户代理数组中添加项。
 
-Example
+示例
 =======
 
-When the User Agent class is initialized it will attempt to determine
-whether the user agent browsing your site is a web browser, a mobile
-device, or a robot. It will also gather the platform information if it
-is available::
+当用户代理类被初始化时,它会试图确定是否正在浏览你的网站的用户代理是网页浏览器、移动设备还是机器人。
+如果可用的话,它也会收集平台信息:
 
-	$agent = $this->request->getUserAgent();
-
-	if ($agent->isBrowser())
-	{
-		$currentAgent = $agent->getBrowser().' '.$agent->getVersion();
-	}
-	elseif ($agent->isRobot())
-	{
-		$currentAgent = $this->agent->robot();
-	}
-	elseif ($agent->isMobile())
-	{
-		$currentAgent = $agent->getMobile();
-	}
-	else
-	{
-		$currentAgent = 'Unidentified User Agent';
-	}
-
-	echo $currentAgent;
-
-	echo $agent->getPlatform(); // Platform info (Windows, Linux, Mac, etc.)
+.. literalinclude:: user_agent/002.php
 
 ***************
-Class Reference
+类参考
 ***************
 
-.. php:class:: CodeIgniter\\HTTP\\UserAgent
+.. php:namespace:: CodeIgniter\HTTP
 
-	.. php:method:: isBrowser([$key = NULL])
+.. php:class:: UserAgent
 
-		:param	string	$key: Optional browser name
-    		:returns:	TRUE if the user agent is a (specified) browser, FALSE if not
-    		:rtype:	bool
+    .. php:method:: isBrowser([$key = null])
 
-    		Returns TRUE/FALSE (boolean) if the user agent is a known web browser.
-    		::
+        :param    string    $key: 可选的浏览器名称
+        :returns:    如果用户代理是(指定的)浏览器则为 true,否则为 false
+        :rtype:    bool
 
-			if ($agent->isBrowser('Safari'))
-			{
-				echo 'You are using Safari.';
-			}
-			elseif ($agent->isBrowser())
-			{
-				echo 'You are using a browser.';
-			}
+        如果用户代理是已知的网页浏览器,则返回 true/false(布尔值)。
 
-		.. note:: The string "Safari" in this example is an array key in the list of browser definitions.
-				  You can find this list in **app/Config/UserAgents.php** if you want to add new
-				  browsers or change the strings.
+        .. literalinclude:: user_agent/003.php
 
-	.. php:method:: isMobile([$key = NULL])
+        .. note:: 这个示例中的“Safari”字符串是浏览器定义列表中的一个数组键。
+            如果你想添加新浏览器或更改字符串,可以在 **app/Config/UserAgents.php** 文件中找到这个列表。
 
-		:param	string	$key: Optional mobile device name
-    		:returns:	TRUE if the user agent is a (specified) mobile device, FALSE if not
-    		:rtype:	bool
+    .. php:method:: isMobile([$key = null])
 
-    		Returns TRUE/FALSE (boolean) if the user agent is a known mobile device.
-    		::
+        :param    string    $key: 可选的移动设备名称
+        :returns:    如果用户代理是(指定的)移动设备则为 true,否则为 false
+        :rtype:    bool
 
-			if ($agent->isMobile('iphone'))
-			{
-				echo view('iphone/home');
-			}
-			elseif ($agent->isMobile())
-			{
-				echo view('mobile/home');
-			}
-			else
-			{
-				echo view('web/home');
-			}
+        如果用户代理是已知的移动设备,则返回 true/false(布尔值)。
 
-	.. php:method:: isRobot([$key = NULL])
+        .. literalinclude:: user_agent/004.php
 
-		:param	string	$key: Optional robot name
-    		:returns:	TRUE if the user agent is a (specified) robot, FALSE if not
-    		:rtype:	bool
+    .. php:method:: isRobot([$key = null])
 
-    		Returns TRUE/FALSE (boolean) if the user agent is a known robot.
+        :param    string    $key: 可选的机器人名称
+        :returns:    如果用户代理是(指定的)机器人则为 true,否则为 false
+        :rtype:    bool
 
-    		.. note:: The user agent library only contains the most common robot definitions. It is not a complete list of bots.
-    				  There are hundreds of them so searching for each one would not be very efficient. If you find that some bots
-    				  that commonly visit your site are missing from the list you can add them to your
-    				  **app/Config/UserAgents.php** file.
+        如果用户代理是已知的机器人,则返回 true/false(布尔值)。
 
-	.. php:method:: isReferral()
+        .. note:: 用户代理库只包含最常见的机器人定义。这不是一个完整的机器人列表。
+            有成百上千个,逐个搜索每一个效率不高。如果你发现一些常访问你网站但列表中缺失的机器人,
+            可以添加到你的 **app/Config/UserAgents.php** 文件中。
 
-		:returns:	TRUE if the user agent is a referral, FALSE if not
-		:rtype:	bool
+    .. php:method:: isReferral()
 
-		Returns TRUE/FALSE (boolean) if the user agent was referred from another site.
+        :returns:    如果用户代理来自其他网站的推荐则为 true,否则为 false
+        :rtype:    bool
 
-	.. php:method:: getBrowser()
+        如果用户代理来自其他网站的推荐,则返回 true/false(布尔值)。
 
-		:returns:	Detected browser or an empty string
-		:rtype:	string
+    .. php:method:: getBrowser()
 
-		Returns a string containing the name of the web browser viewing your site.
+        :returns:    检测到的浏览器或空字符串
+        :rtype:    string
 
-	.. php:method:: getVersion()
+        返回查看你网站的网页浏览器的名称字符串。
 
-		:returns:	Detected browser version or an empty string
-		:rtype:	string
+    .. php:method:: getVersion()
 
-		Returns a string containing the version number of the web browser viewing your site.
+        :returns:    检测到的浏览器版本或空字符串
+        :rtype:    string
 
-	.. php:method:: getMobile()
+        返回查看你网站的网页浏览器的版本号字符串。
 
-		:returns:	Detected mobile device brand or an empty string
-		:rtype:	string
+    .. php:method:: getMobile()
 
-		Returns a string containing the name of the mobile device viewing your site.
+        :returns:    检测到的移动设备品牌或空字符串
+        :rtype:    string
 
-	.. php:method:: getRobot()
+        返回查看你网站的移动设备的名称字符串。
 
-		:returns:	Detected robot name or an empty string
-		:rtype:	string
+    .. php:method:: getRobot()
 
-		Returns a string containing the name of the robot viewing your site.
+        :returns:    检测到的机器人名称或空字符串
+        :rtype:    string
 
-	.. php:method:: getPlatform()
+        返回查看你网站的机器人的名称字符串。
 
-		:returns:	Detected operating system or an empty string
-		:rtype:	string
+    .. php:method:: getPlatform()
 
-		Returns a string containing the platform viewing your site (Linux, Windows, OS X, etc.).
+        :returns:    检测到的操作系统或空字符串
+        :rtype:    string
 
-	.. php:method:: getReferrer()
+        返回查看你网站的平台(Linux、Windows、OS X等)的字符串。
 
-		:returns:	Detected referrer or an empty string
-		:rtype:	string
+    .. php:method:: getReferrer()
 
-		The referrer, if the user agent was referred from another site. Typically you'll test for this as follows::
+        :returns:    检测到的引用网站或空字符串
+        :rtype:    string
 
-			if ($agent->isReferral())
-			{
-				echo $agent->referrer();
-			}
+        如果用户代理来自其他网站的推荐,返回推荐网站。通常会像这样测试:
 
-	.. php:method:: getAgentString()
+        .. literalinclude:: user_agent/005.php
 
-		:returns:	Full user agent string or an empty string
-		:rtype:	string
+    .. php:method:: getAgentString()
 
-		Returns a string containing the full user agent string. Typically it will be something like this::
+        :returns:    完整的用户代理字符串或空字符串
+        :rtype:    string
 
-			Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US; rv:1.8.0.4) Gecko/20060613 Camino/1.0.2
+        返回包含完整用户代理字符串的字符串。通常看起来像这样::
 
-	.. php:method:: parse($string)
+            Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US; rv:1.8.0.4) Gecko/20060613 Camino/1.0.2
 
-		:param	string	$string: A custom user-agent string
-    		:rtype:	void
+    .. php:method:: parse($string)
 
-    		Parses a custom user-agent string, different from the one reported by the current visitor.
+        :param    string    $string: 自定义用户代理字符串
+        :rtype:    void
+
+        解析自定义用户代理字符串,不同于当前访问者报告的字符串。

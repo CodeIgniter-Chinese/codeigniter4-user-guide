@@ -1,167 +1,146 @@
 ##########
-分页类
+分页
 ##########
 
-CodeIgniter 提供了一个非常简单但灵活的分页库，该库主题简单，可以在 Model 中使用，并能够在单个页面上支持多个分页器。
+CodeIgniter 提供了一个非常简单但灵活的分页库,它易于主题化,可与模型一起使用,并且能够在单个页面上支持多个分页器。
+
+.. contents::
+    :local:
+    :depth: 2
 
 *******************
 加载库
 *******************
 
-与 CodeIgniter 中的所有服务一样，它可以通过 ``Config\Services`` 进行加载，尽管通常它并不需要手动加载： ::
+与 CodeIgniter 中的所有服务一样,它可以通过 ``Config\Services`` 加载,尽管你通常不需要手动加载它:
 
-    $pager = \Config\Services::pager();
+.. literalinclude:: pagination/001.php
 
-***************************
-分页数据库结果
-***************************
+.. _paginating-with-models:
 
-通常，可以使用分页器库对从数据库中检索到的结果进行分页。使用 :doc:`Model </models/model>` 类时，可以使用其内置的 ``paginate()``
-方法来自动检索当前批次的结果，并设置 Pager 库，以便可以在控制器中使用它。它甚至可以通过 ``page=X`` 变量从当前 URL 读取当前应显示的页面。
+**********************
+对模型进行分页
+**********************
 
-在你的应用程序中提供用户的分页列表时，控制器的方法应类似于： ::
+在大多数情况下,你将使用 Pager 库对从数据库检索的结果进行分页。当使用 :doc:`Model </models/model>` 类时,你可以使用其内置的 ``paginate()`` 方法自动检索当前批次的结果,以及设置 Pager 库使其准备在控制器中使用。它甚至会通过当前 URL 中的 ``page=X`` 查询变量读取它应该显示的当前页面。
 
-    <?php namespace App\Controllers;
+要在应用程序中提供用户的分页列表,你的控制器方法类似于:
 
-    use CodeIgniter\Controller;
+.. literalinclude:: pagination/002.php
 
-    class UserController extends Controller
-    {
-        public function index()
-        {
-            $model = new \App\Models\UserModel();
+在这个示例中,我们首先创建 ``UserModel`` 的新实例。然后我们填充要发送到视图的数据。第一个元素是来自数据库的结果,**users**,它为正确的页面检索出 10 个用户每页。必须发送到视图的第二个项目是 Pager 实例本身。为方便起见,Model 将保存它使用的实例,并将其存储在公共属性 ``$pager`` 中。所以,我们获取它并将其赋值给视图中的 ``$pager`` 变量。
 
-            $data = [
-                'users' => $model->paginate(10),
-                'pager' => $model->pager
-            ];
+.. important:: 重要的是要理解 ``Model::paginate()`` 方法使用 **Model** 和 **QueryBuilder** 方法。因此,试图使用 ``$db->query()`` 和 ``Model::paginate()`` 将**不起作用**,因为 ``$db->query()`` 会立即执行查询,并且与 QueryBuilder 不关联。
 
-            echo view('users/index', $data);
-        }
-    }
+要在模型中定义分页条件,你可以:
 
-在上面的示例中，我们首先创建了 UserModel 的实例。然后，我们对它填充数据来发送到视图。第一个元素是来自数据库 **users** 的结果，
-这将针对正确的页面进行检索，每页会返回 10 个用户。发送到视图的第二个必须的项是 Pager 实例本身。为了方便起见，Model 将会保留所使用的实例，
-并将其存储在 public 类变量 **$pager** 中。因此，我们将其获取并将其分配给视图中的 $pager 变量。
+.. literalinclude:: pagination/003.php
 
-然后，在视图内，我们需要告诉它应该在哪里显示结果的链接： ::
+在视图内,我们然后需要告诉它在何处显示生成的链接::
 
-   <?= $pager->links() ?>
+    <?= $pager->links() ?>
 
-就是这样。Pager 类将为当前页面两侧超过两个页面的任何页面呈现“首页”和“末页”的链接，以及“下一页”和“上一页”的链接。
+就这么简单。Pager 类将渲染第一页和最后一页链接,以及当前页面两侧超过两个页面的下一页和上一页链接。
 
-如果你更喜欢简单的输出，则可以使用 ``simpleLinks()`` 方法，它会输出“较旧”和“较新”链接而不是有着详细信息的分页链接： ::
+重要的是要意识到下一页和上一页的库模式与用于传统分页结果的模式不同。
+
+这里的下一页和上一页链接到要在分页结构中显示的链接组,而不是记录的下一页或上一页。
+
+如果你更喜欢更简单的输出,可以使用 ``simpleLinks()`` 方法,它只使用“较旧”和“较新”链接,而不是详细的分页链接::
 
     <?= $pager->simpleLinks() ?>
 
-在后台中，库加载了一个视图文件，文件确定链接的格式，从而可以轻松地根据需要进行修改。有关如何完全自定义输出的详细信息，请参见下文。
+在幕后,库加载一个视图文件来确定如何格式化链接,使其可以简单修改以满足需求。有关如何完全自定义输出的详细信息,请参阅下面。
 
 分页多个结果
 ===========================
 
-如果需要提供来自两个不同的结果集的链接，则可以将组名传递给大多数分页方法，以使数据分开： ::
+如果你需要从两个不同的结果集提供链接,你可以将组名称传递给大多数分页方法以保持数据分开:
 
-    // 在控制器文件中：
-    public function index()
-    {
-        $userModel = new \App\Models\UserModel();
-        $pageModel = new \App\Models\PageModel();
+.. literalinclude:: pagination/004.php
 
-        $data = [
-            'users' => $userModel->paginate(10, 'group1'),
-            'pages' => $pageModel->paginate(15, 'group2'),
-            'pager' => $userModel->pager
-        ];
+手动设置页面
+=====================
 
-        echo view('users/index', $data);
-    }
+如果需要指定要返回哪个页面的结果,可以将页面指定为第 3 个参数。当你有一种不同于默认 ``$_GET`` 变量控制要显示哪个页面的方式时,这很方便。
 
-    // 在视图文件中：
-    <?= $pager->links('group1') ?>
-    <?= $pager->simpleLinks('group2') ?>
+.. literalinclude:: pagination/005.php
 
+指定页面的 URI 段
+===================================
+
+也可以使用 URI 段作为页面编号,而不是页面查询参数。简单地将要使用的段编号指定为第四个参数。然后 Pager 生成的 URI 看起来像是 **https://domain.tld/foo/bar/[pageNumber]** 而不是 **https://domain.tld/foo/bar?page=[pageNumber]**。
+
+.. literalinclude:: pagination/006.php
+
+请注意: ``$segment`` 值不能大于 URI 段数加 1。
+
+*****************
 手动分页
-=================
+*****************
 
-你可能会发现有时候只需要根据已知数据来创建分页。这时你可以使用 ``makeLinks()`` 方法来手动创建链接，这个方法分别将当前页面，
-每页的结果数和项目总数作为第一个，第二个和第三个参数： ::
+你可能会发现有时你只需要根据已知数据创建分页。你可以使用 ``makeLinks()`` 方法手动创建链接,该方法的参数分别是当前页面、每页结果数和总项数:
 
-    <?= $pager->makeLinks($page, $perPage, $total) ?>
+.. literalinclude:: pagination/015.php
 
-默认情况下，这将以正常方式将链接显示为一组链接，你还可以通过将模板名称作为第四个参数传入来更改使用的显示模板。在以下各节中可以找到更多详细信息。
+默认情况下,这将以一系列链接的正常方式显示链接,但你可以通过作为第四个参数传递模板的名称来更改使用的显示模板。更多细节可以在以下部分中找到::
 
-::
+    $pager->makeLinks($page, $perPage, $total, 'template_name');
 
-    <?= $pager->makeLinks($page, $perPage, $total, 'template_name') ?>
+如前一节所述,也可以使用 URI 段作为页面编号,而不是页面查询参数。将要使用的段编号指定为 ``makeLinks()`` 的第五个参数::
 
-也可以使用 URI 字段（segment）而不是用查询参数来表示页码，只需指定字段号即可用作的第五个参数 ``makeLinks()`` 。然后，由分页器生成的 URI 看起来会像
-*https://domain.tld/model/『页码』* 而不是 *https://domain.tld/model?page=『页码』* 。
-::
+    $pager->makeLinks($page, $perPage, $total, 'template_name', $segment);
 
-<?= $pager->makeLinks($page, $perPage, $total, 'template_name', $segment) ?>
+请注意: ``$segment`` 值不能大于 URI 段数加 1。
 
-请注意： ``$segment`` 的值不能大于 URI 字段的数量加 1。
+如果你需要在一页上显示多个分页器,那么定义组的额外参数可能会有所帮助:
 
-如果你需要在一页上显示很多分页器，那么定义组的其他参数可能会有所帮助： ::
+.. literalinclude:: pagination/007.php
 
-	$pager = service('pager');
-	$pager->setPath('path/for/my-group', 'my-group'); // 另外，你可以为每个组定义路径
-	$pager->makeLinks($page, $perPage, $total, 'template_name', $segment, 'my-group');
+分页库默认使用 **page** 查询参数进行 HTTP 查询(如果未给出组或 ``default`` 组名称)或自定义组名称的 ``page_[groupName]``。
 
-仅使用预期查询进行分页
-=====================================
+*************************************
+仅分页预期查询
+*************************************
 
-默认情况下，所有 GET 查询都显示在分页链接中。
+默认情况下,所有 GET 查询都显示在分页链接中。
 
-例如，当访问 URL *http://domain.tld?search=foo&order=asc&hello=i+am+here&page=2* 时，可以生成 页面 3 链接以及其他链接，如下所示： ::
+例如,在访问 URL **https://domain.tld?search=foo&order=asc&hello=i+am+here&page=2** 时,可以生成页面 3 的链接以及其他链接,如下所示:
 
-    echo $pager->links();
-    // 页面 3 链接： http://domain.tld?search=foo&order=asc&hello=i+am+here&page=3
+.. literalinclude:: pagination/008.php
 
-``only()`` 方法还允许你将其限制为仅已预期的查询： ::
+``only()`` 方法允许你将其限制为仅预期的查询:
 
-    echo $pager->only(['search', 'order'])->links();
-    // 页面 3 链接： http://domain.tld?search=foo&order=asc&page=3
+.. literalinclude:: pagination/009.php
 
-*page* 查询默认情况下启用。并 ``only()`` 在所有分页链接中起作用。
+*page* 查询默认启用。``only()`` 在所有分页链接中都起作用。
 
 *********************
 自定义链接
 *********************
 
-查看配置
+视图配置
 ==================
 
-当链接呈现到页面时，它们使用视图文件来渲染 HTML。你可以通过编辑 **app/Config/Pager.php** 来轻松地更改使用的视图： ::
+将链接渲染到页面时,它们使用视图文件来描述 HTML。你可以通过编辑 **app/Config/Pager.php** 轻松更改使用的视图:
 
-    public $templates = [
-        'default_full'   => 'CodeIgniter\Pager\Views\default_full',
-        'default_simple' => 'CodeIgniter\Pager\Views\default_simple'
-    ];
+.. literalinclude:: pagination/010.php
 
-设置存储应使用的视图的别名和 :doc:`命名空间的视图路径 </outgoing/views>` 。 *default_full* 和 *default_simple*
-视图会分别被用于 ``links()`` 和 ``simpleLinks()`` 方法。要更改在整个应用程序范围内显示的方式，你可以在处分配一个新视图。
+此设置存储要使用的视图的别名和 :doc:`命名空间视图路径 </outgoing/views>`。``default_full`` 和 ``default_simple`` 视图分别用于 ``links()`` 和 ``simpleLinks()`` 方法。要应用程序范围内更改显示方式,可以在此处分配一个新视图。
 
-例如，假设你创建一个与 Foundation CSS 框架一起使用的新视图文件，然后将文件放在 **app/Views/Pagers/foundation_full.php** 中。
-由于 **application** 目录的命名空间为 ``App`` ，并且其下的所有目录都直接映射到命名空间的各个部分，因此你可以通过其命名空间找到视图文件： ::
+例如,假设你创建了一个与 Foundation CSS 框架一起使用的新视图文件,并将该文件放在 **app/Views/Pagers/foundation_full.php** 中。由于 **application** 目录用作 ``App`` 命名空间,其下的所有目录直接映射到命名空间的段,因此你可以通过它的命名空间定位视图文件::
 
-    'default_full'   => 'App\Views\Pagers\foundation_full',
+    'default_full' => 'App\Views\Pagers\foundation_full'
 
-但是，由于它位于标准的 **app/Views** 目录下，因此不需要命名空间，因为``view()`` 方法可以按文件名定位它。在这种情况下，你只需提供子目录和文件名： ::
+但是,由于它在标准的 **app/Views** 目录下,你不需要命名空间,因为 ``view()`` 方法可以通过文件名定位它。在这种情况下,你可以简单地提供子目录和文件名::
 
-    'default_full'   => 'Pagers/foundation_full',
+    'default_full' => 'Pagers/foundation_full'
 
-创建视图并将其配置好后，将会自动使用它。你不必替换现有模板。你也可以在配置文件中根据需要创建的任意数量的其他模板。常见的情况是你的应用程序的前端和后端需要不同的样式。
+一旦你创建了视图并在配置中设置了它,它将自动使用。你不需要替换现有模板。你可以在配置文件中创建尽可能多的附加模板。一个常见的情况是前端和后端需要不同的样式。
 
-::
+.. literalinclude:: pagination/011.php
 
-    public $templates = [
-        'default_full'   => 'CodeIgniter\Pager\Views\default_full',
-        'default_simple' => 'CodeIgniter\Pager\Views\default_simple',
-        'front_full'     => 'App\Views\Pagers\foundation_full',
-    ];
-
-配置完成后，你可以指定它作为 ``links()`` 、 ``simpleLinks()`` 以及 ``makeLinks()`` 方法的最后的一个参数： ::
+一旦配置完成,你可以将其指定为 ``links()``、``simpleLinks()`` 和 ``makeLinks()`` 方法中的最后一个参数::
 
     <?= $pager->links('group1', 'front_full') ?>
     <?= $pager->simpleLinks('group2', 'front_full') ?>
@@ -170,70 +149,89 @@ CodeIgniter 提供了一个非常简单但灵活的分页库，该库主题简�
 创建视图
 =================
 
-创建新视图时，只需要创建生成分页链接本身所需的代码。你不应该创建不必要的包装 div，因为它可能会在多个地方使用，并且这会限制它们的用途。这里通过向你展示现有的 default_full 模板，来演示创建新视图： ::
+创建新视图时,你只需要创建生成分页链接本身所需的代码。你不应该创建不必要的包装 div,因为它可能在多个地方使用,你只会限制它们的有用性。通过展示你如何使用现有的 ``default_full`` 模板来创建一个新视图,可以很容易地演示如何创建新视图:
 
-    <?php $pager->setSurroundCount(2) ?>
+.. literalinclude:: pagination/012.php
 
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-        <?php if ($pager->hasPrevious()) : ?>
-            <li>
-                <a href="<?= $pager->getFirst() ?>" aria-label="First">
-                    <span aria-hidden="true">First</span>
-                </a>
-            </li>
-            <li>
-                <a href="<?= $pager->getPrevious() ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-        <?php endif ?>
+setSurroundCount()
+------------------
 
-        <?php foreach ($pager->links() as $link) : ?>
-            <li <?= $link['active'] ? 'class="active"' : '' ?>>
-                <a href="<?= $link['uri'] ?>">
-                    <?= $link['title'] ?>
-                </a>
-            </li>
-        <?php endforeach ?>
+在第一行中,``setSurroundCount()`` 方法指定我们希望在当前页面链接的两侧显示两个链接。它只接受显示链接数的参数。
 
-        <?php if ($pager->hasNext()) : ?>
-            <li>
-                <a href="<?= $pager->getNext() ?>" aria-label="Previous">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            <li>
-                <a href="<?= $pager->getLast() ?>" aria-label="Last">
-                    <span aria-hidden="true">Last</span>
-                </a>
-            </li>
-        <?php endif ?>
-        </ul>
-    </nav>
+hasPrevious() & hasNext()
+-------------------------
 
-**setSurroundCount()**
+这些方法返回一个布尔值,如果根据传给 ``setSurroundCount()`` 的值,在当前页面的任一侧有更多可以显示的链接,则返回 true。例如,假设我们有 20 页数据。当前页面是第 3 页。如果周围计数为 2,那么将在列表中显示以下链接:1、2、3、4 和 5。由于显示的第一个链接是第 1 页,所以 ``hasPrevious()`` 将返回 **false**,因为没有 0 页。但是,``hasNext()`` 将返回 **true**,因为在第 5 页之后还有 15 页结果。
 
-在第一行中，``setSurroundCount()`` 方法指定了我们要显示到当前页面链接两侧的两个链接。它接受的唯一参数是要显示的链接数。
+getPrevious() & getNext()
+-------------------------
 
-**hasPrevious()** & **hasNext()**
+这些方法返回在编号链接任一侧当前页面之前和之后的结果页面的 URL。
 
-如果根据传递给 ``setSurroundCount`` 的值，如果当前页面的任何一侧上可以显示更多链接，则这些方法将返回布尔值 true。例如，假设我们有 20 页数据，当前页面是第 3 页，如果周围的计数是 2，则以下链接将显示在列表中：1、2、3、4 和 5。由于要显示的第一个链接是第 1 页，但是页面 0 并不存在，因此 ``hasPrevious()`` 会返回 **false** 。但是， ``hasNext()`` 将返回 **true** ，因为在第 5 页之后还有 15 个额外的结果页。
+例如,你将当前页面设置为 5,并希望它前后(surroundCount)的链接分别为 2 个,这将给你这样的结果::
 
-**getPrevious()** & **getNext()**
+    3  |  4  |  5  |  6  |  7
 
-这两个方法返回编号链接两侧上一页或下一页结果的 URL。有关完整说明，请参见上一段。
+``getPrevious()`` 返回第 2 页的 URL。``getNext()`` 返回第 8 页的 URL。
 
-**getFirst()** & **getLast()**
+如果你想要第 4 页和第 6 页,请改用 ``getPreviousPage()`` 和 ``getNextPage()``。
 
-与 ``getPrevious()`` 和 ``getNext()`` 类似，这两个方法返回指向结果集中第一页和最后一页的链接。
+getFirst() & getLast()
+----------------------
 
-**links()**
+与 ``getPrevious()`` 和 ``getNext()`` 类似,这些方法返回结果集中的第一页和最后一页的链接。
 
-返回所有有关编号链接的数据数组。每个链接的数组都包含链接的 uri，标题（只是数字）和一个布尔值，布尔值表示链接为当前链接还是活动链接： ::
+links()
+-------
 
-	$link = [
-		'active' => false,
-		'uri'    => 'http://example.com/foo?page=2',
-		'title'  => 1
-	];
+返回有关所有编号链接的数据数组。每个链接的数组都包含链接的 uri、标题(只是数字)以及一个布尔值,告知链接是否是当前/活动链接:
+
+.. literalinclude:: pagination/013.php
+
+在为标准分页结构提供的代码中,使用 ``getPrevious()`` 和 ``getNext()`` 方法分别获取前一个和下一个分页组的链接。
+
+如果你要使用上一页和下一页将链接到当前页面基于当前页面的上一页和下一页的分页结构,只需分别用 ``getPreviousPage()`` 和 ``getNextPage()`` 替换 ``getPrevious()`` 和 ``getNext()``,以及分别用 ``hasPreviousPage()`` 和 ``hasNextPage()`` 替换 ``hasPrevious()`` 和 ``hasNext()``。
+
+请参阅以下示例及其更改:
+
+.. literalinclude:: pagination/014.php
+
+hasPreviousPage() & hasNextPage()
+---------------------------------
+
+该方法分别返回一个布尔值,指示当前显示页面之前和之后是否存在链接。
+
+它们与 ``hasPrevious()`` 和 ``hasNext()`` 的区别在于,它们基于当前显示的页面,而 ``hasPrevious()`` 和 ``hasNext()`` 基于传入 ``setSurroundCount()`` 的值设置在当前页面之前和之后的链接集。
+
+getPreviousPage() & getNextPage()
+---------------------------------
+
+这些方法返回当前显示页面之前和之后的页面的 URL,与 ``getPrevious()`` 和 ``getNext()`` 不同,后两者返回编号链接任一侧之前和之后的结果页面的 URL。请参阅前一段落的完整说明。
+
+例如,你将当前页面设置为 5,并希望它前后(surroundCount)的链接分别为 2 个,这将给你这样的结果::
+
+    3  |  4  |  5  |  6  |  7
+
+``getPreviousPage()`` 返回第 4 页的 URL。``getNextPage()`` 返回第 6 页的 URL。
+
+如果你想要页面数而不是 URL,可以使用以下方法:
+
+getPreviousPageNumber() & getNextPageNumber()
+---------------------------------------------
+
+这些方法返回当前显示页面之前和之后的页面号。
+
+getFirstPageNumber() & getLastPageNumber()
+------------------------------------------
+
+这些方法分别返回结果集中的第一页和最后一页的页码。
+
+getCurrentPageNumber()
+----------------------
+
+该方法返回当前页面的页码。
+
+getPageCount()
+--------------
+
+该方法返回总页数。

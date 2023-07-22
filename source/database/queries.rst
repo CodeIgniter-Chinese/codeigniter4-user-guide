@@ -1,341 +1,290 @@
-#########
-执行查询
-#########
+#######
+查询
+#######
 
 .. contents::
     :local:
     :depth: 2
 
 ************
-基础查询
+查询基础知识
 ************
 
-执行常规查询
+.. note:: CodeIgniter 不支持数据库、表格和列名称中的点(``.``)。
+
+常规查询
 ===============
 
-使用 **query** 方法提交一个查询::
+要提交查询,请使用 **query** 函数:
 
-	$db->query('YOUR QUERY HERE');
+.. literalinclude:: queries/001.php
 
-执行 "读取" 类型查询时，query() 方法返回一个数据库查询结果 **对象** ，
-如何使用参考 :doc:`显示查询结果 <results>` ；执行 "写入" 类查询时，
-只返回 TRUE 或 FALSE ，表示执行成功或失败。检索数据时，你通常需要自行
-编写查询语句，例如::
+当运行“读取”类型查询时,``query()`` 函数会返回一个可以用来 :doc:`显示结果 <results>` 的数据库结果**对象**。当运行“写入”类型查询时,它根据成功或失败简单地返回 true 或 false。检索数据时,你通常会将查询分配给自己的变量,如下所示:
 
-	$query = $db->query('YOUR QUERY HERE');
+.. literalinclude:: queries/002.php
 
-执行简单查询
+.. note:: 如果使用 OCI8 驱动程序,SQL 语句不应以分号 (``;``) 结尾。PL/SQL 语句应以分号 (``;``) 结尾。
+
+简化的查询
 ==================
 
-**simpleQuery** 方法是 $db->query() 的简化版本。它不会返回查询结果，
-不记录查询耗时，不会绑定变量，也不保存查询语句（用于调试）。它只是简单的
-让你执行一个查询语句，可能大多数用户鲜有使用。
+``simpleQuery()`` 方法是 ``$db->query()`` 方法的简化版本。
+它不会返回数据库结果集,也不会设置查询计时器或编译绑定数据或存储调试查询。它只是让你提交一个查询。大多数用户很少使用此功能。
 
-它只返回 "execute" 方法执行的返回值，无关数据库类型。
-典型的返回值是 TRUE/FALSE ，当执行类型是写入型时，它表示写操作的成功或失败（
-插入、删除或修改，实际就如此使用）；执行读取类型时，表示能否成功获取查询结果资源/对象。
+它返回数据库驱动程序的 “execute” 函数返回的任何内容。对于写入类型的查询(如 INSERT、DELETE 或 UPDATE 语句),这通常在成功或失败时返回 true/false(这确实是应该使用它的地方),并在具有可获取结果的查询成功时返回资源/对象。
 
-::
+.. literalinclude:: queries/003.php
 
-	if ($db->simpleQuery('YOUR QUERY'))
-	{
-		echo "Success!";
-	}
-	else
-	{
-		echo "Query failed!";
-	}
-
-.. note:: PostgreSQL的 ``pg_exec()`` 方法 (举例) 执行成功时
-	总是返回一个资源值，即使执行写入型查询也是如此。
-	所以当你判断布尔值时要切记此点。
+.. note:: 例如,PostgreSQL 的 ``pg_exec()`` 函数总是在成功时返回资源,即使对于写入类型的查询也是如此。所以如果你正在查找布尔值,请记住这一点。
 
 ***************************************
-手动指定数据表前缀
+手动使用数据库前缀
 ***************************************
 
-当你配置了数据库的表前缀，执行原生SQL查询等类似操作，应当给数据表增加前缀，
-你可以使用如下操作::
+$db->prefixTable()
+==================
 
-	$db->prefixTable('tablename'); // 输出 prefix_tablename
+如果你已经配置了数据库前缀,并希望在本机 SQL 查询(例如)中将其添加到表名前,那么可以使用以下代码:
 
-出于某些原因，你想以编程的方式修改表前缀，且不想创建新数据库连接时，可以这样做::
+.. literalinclude:: queries/004.php
 
-	$db->setPrefix('newprefix');
-	$db->prefixTable('tablename'); // 输出 newprefix_tablename
+$db->setPrefix()
+================
 
-你可以用此方法随时随地获取当前的表前缀::
-	
-	$DBPrefix = $db->getPrefix();
+如果由于任何原因你想以编程方式更改前缀,而不需要创建新的连接,则可以使用此方法:
+
+.. literalinclude:: queries/005.php
+
+$db->getPrefix()
+================
+
+你可以使用此方法随时获取当前前缀:
+
+.. literalinclude:: queries/006.php
+
 
 **********************
 保护标识符
 **********************
 
-许多数据库建议保护表名和字段名 - 比如 MySQL 使用反引号。
-**查询构造器会自动保护它们**, 但如果你需要手动保护标识符时，可以这么做::
+$db->protectIdentifiers()
+=========================
 
-	$db->protectIdentifiers('table_name');
+在许多数据库中,保护表格和字段名称(例如在 MySQL 中使用反引号)是可取的。**查询构建器查询会自动受保护**,但是如果你需要手动保护一个标识符,可以使用:
 
-.. important:: 尽管查询构造器会尽可能且适当的引用你所需的字段名和表名，
-	但请注意它不适用于恶意用户输入，勿将其用于未处理的用户数据。
+.. literalinclude:: queries/007.php
 
-当你在数据库配置文件里配有表前缀，这个方法还能给表加上前缀，
-开启这个功能请在第二个参数填写 TRUE（布尔值）::
+.. important:: 尽管查询构建器会尽最大努力适当引用你提供给它的任何字段和表格名称。请注意,它并不是设计用于任意用户输入。不要向它输入未经 sanitize 的用户数据。
 
-	$db->protectIdentifiers('table_name', TRUE);
+如果在数据库配置文件中指定了前缀,此函数也会将**表前缀**添加到表格名,以启用前缀,请通过第二个参数设置 ``true`` (布尔值):
 
-****************
-查询转义
-****************
+.. literalinclude:: queries/008.php
 
-执行数据库查询前做数据转义是又好又安全的实践，CodeIgniter 有三种方法帮到你:
 
-#. **$db->escape()** 这个方法会判断数据类型，对字符串数据做转义，
-   它也会自动给数据加单引号，你无需额外处理:
-   ::
+***************
+转义值
+***************
 
-	$sql = "INSERT INTO table (title) VALUES(".$db->escape($title).")";
+在将数据提交到数据库之前对其进行转义是非常好的安全实践。CodeIgniter 提供了三种帮助你实现这一点的方法:
 
-#. **$db->escapeString()** 这个方法对传入数据做强制转义，且无关类型，
-   多数时候你会用上面的方法而非这个。此方法使用举例:
-   ::
+.. _database-queries-db_escape:
 
-	$sql = "INSERT INTO table (title) VALUES('".$db->escapeString($title)."')";
+1. $db->escape()
+================
 
-#. **$db->escapeLikeString()** 这个方法用于 LIKE 条件字符串转义，
-    以确保 LIKE 的通配符 ('%', '\_') 也能正确的转义。
+此函数确定数据类型,以便它只能转义字符串数据。它还会自动在数据周围添加单引号,所以你不必这样做:
 
-::
+.. literalinclude:: queries/009.php
 
-        $search = '20% raise';
-        $sql = "SELECT id FROM table WHERE column LIKE '%" .
-        $db->escapeLikeString($search)."%' ESCAPE '!'";
+2. $db->escapeString()
+======================
 
-.. important::  ``escapeLikeString()`` 方法使用 '!' (感叹号)
-	转义 *LIKE* 条件中的特殊字符，因为这个方法只转义引号里的字符串，
-	它不能自动添加 ``ESCAPE '!'`` 条件，因此你必须手动添加。
+此函数转义传入的数据,而不考虑类型。大多数时间你会使用上面的函数而不是这个。像这样使用该函数:
+
+.. literalinclude:: queries/010.php
+
+3. $db->escapeLikeString()
+==========================
+
+当字符串将在 LIKE 条件中使用时,应使用此方法,
+以便字符串中的 LIKE 通配符 (``%``、``_``) 也适当转义。
+
+.. literalinclude:: queries/011.php
+
+.. important:: ``escapeLikeString()`` 方法使用 ``'!'`` (感叹号)来转义 ``LIKE`` 条件的特殊字符。因为此方法转义了你自己要用引号括起来的部分字符串,所以它无法自动为你添加 ``ESCAPE '!'`` 条件,因此你必须手动完成这一操作。
 
 **************
 查询绑定
 **************
 
-绑定可以让你用简单的查询语法，让系统将查询语句合在一起，考虑下这个例子::
+绑定使你可以通过让系统为你组装查询来简化查询语法。考虑以下示例:
 
-	$sql = "SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?";
-	$db->query($sql, [3, 'live', 'Rick']);
+.. literalinclude:: queries/012.php
 
-查询语句的问号会被方法第二个参数的数组顺次替换。
+查询中的问号自动替换为查询函数第二个参数数组中的值。
 
-使用IN条件时，绑定用多维数组搞定集合::
+绑定也适用于数组,它将转换为 IN 集:
 
-	$sql = "SELECT * FROM some_table WHERE id IN ? AND status = ? AND author = ?";
-	$db->query($sql, [[3, 6], 'live', 'Rick']);
+.. literalinclude:: queries/013.php
 
-转化后的语句是::
+生成的查询将是::
 
-	SELECT * FROM some_table WHERE id IN (3,6) AND status = 'live' AND author = 'Rick'
+    SELECT * FROM some_table WHERE id IN (3,6) AND status = 'live' AND author = 'Rick'
 
-使用绑定的第二个好处是，它会自动转义输入值，生成安全的查询语句。
-你无需记住要手动转义数据这件事 - 引擎会自动帮你完成。
+使用绑定的次要好处是值会自动转义,从而产生更安全的查询。
+你不必记住手动转义数据 - 引擎会自动为你完成这一操作。
 
 命名绑定
 ==============
 
-你可以用命名绑定，而不用问号标记绑定值的位置，从而允许在查询中使用键名匹配占位符::
+除了使用问号标记绑定值的位置外,你还可以命名绑定,允许传入值的键与查询中的占位符匹配:
 
-        $sql = "SELECT * FROM some_table WHERE id = :id: AND status = :status: AND author = :name:";
-        $db->query($sql, [
-                'id'     => 3,
-                'status' => 'live',
-                'name'   => 'Rick'
-        ]);
+.. literalinclude:: queries/014.php
 
-.. note:: 查询语句中的每个键名前后【必须】加英文冒号。
+.. note:: 查询中的每个名称必须用冒号括起来。
 
 ***************
-错误处理
+处理错误
 ***************
 
-**$db->error();**
+$db->error()
+============
 
-如果你需要获取最近一次发生的数据库报错，error() 方法会返回一个数组，
-包含错误号和错误信息，来看下用例::
+如果你需要获取最后发生的错误,``error()`` 方法将返回包含代码和消息的数组。这是一个快速示例:
 
-	if ( ! $db->simpleQuery('SELECT `example_field` FROM `example_table`'))
-	{
-		$error = $db->error(); // Has keys 'code' and 'message'
-	}
+.. literalinclude:: queries/015.php
+
 
 ****************
-预编译查询
+预处理查询
 ****************
 
-大部分数据库引擎支持某种形式的预编译语句，使你仅做一次预编译，然后在新数据集上多次查询。它消除了 SQL 注入的可能性，因为数据是以另一种形式传给数据库而非查询语句。
-当你需要多次执行相同查询时，它也相当快速。然而，若你想应用于所有查询，这会极大影响性能，因为它通常要访问数据库两次。
-由于查询构造器和数据库连接已经处理了转义数据，所以，安全方面已经为你解决了，但有时候，你也需要通过预编译语句或预编译查询来优化查询。
+大多数数据库引擎都支持某种形式的预编译语句,允许你预先准备一次查询,然后使用新的数据集多次运行该查询。这消除了 SQL 注入的可能性,因为数据采用不同于查询本身的格式传递给数据库。当需要多次运行相同的查询时,它也可以快得多。但是,对每个查询都这样做可能会大大降低性能,因为调用数据库的频率加倍。由于查询生成器和数据库连接已经为你处理了数据的转义,所以安全方面已经为你照顾好了。但是,有时候你需要通过运行预编译语句或预处理查询来优化查询。
 
-编译查询语句
+准备查询
 ===================
 
-使用 ``prepare()`` 方法可轻松完成编译，它有一个参数，是函数闭包，返回一个查询对象。
-查询对象由任一 "最终" 类型的查询自动生成，包括 **insert** , **update** , **delete** ,  **replace** 和 **get** 。使用查询构造器执行查询可以最轻松地处理此问题。
-查询实际没有执行，传入的值不重要也不会被处理，仅做占位使用。
-这样会返回一个预编译查询对象::
+这可以通过 ``prepare()`` 方法轻松完成。它接受一个参数,该参数是一个返回查询对象的闭包。查询对象由任何“final”类型的查询自动生成,包括 **insert**、**update**、**delete**、**replace** 和 **get**。通过使用查询构建器运行查询来实现这一点最简单。查询实际上不会运行,值也不重要,因为它们从未应用,而是充当占位符。这将返回一个 PreparedQuery 对象:
 
-    $pQuery = $db->prepare(function($db)
-    {
-        return $db->table('user')
-                   ->insert([
-                        'name'    => 'x',
-                        'email'   => 'y',
-                        'country' => 'US'
-                   ]);
-    });
+.. literalinclude:: queries/016.php
 
-如果你不想使用查询构造器，你可以手动创建查询对象，用问号做占位符::
+如果不想使用查询构建器,可以使用问号作为值占位符手动创建查询对象:
 
-    use CodeIgniter\Database\Query;
+.. literalinclude:: queries/017.php
 
-    $pQuery = $db->prepare(function($db)
-    {
-        $sql = "INSERT INTO user (name, email, country) VALUES (?, ?, ?)";
+如果数据库在预编译语句阶段需要一个选项数组传递给它,则可以在第二个参数中传递该数组:
 
-        return (new Query($db))->setQuery($sql);
-    });
+.. literalinclude:: queries/018.php
 
-如果数据库要求在预编译阶段提供选项数组，可以将数组放到第二个参数::
-
-    use CodeIgniter\Database\Query;
-
-    $pQuery = $db->prepare(function($db)
-    {
-        $sql = "INSERT INTO user (name, email, country) VALUES (?, ?, ?)";
-
-        return (new Query($db))->setQuery($sql);
-    }, $options);
-
-执行预编译查询
+执行查询
 ===================
 
-一旦你有了一个预编译查询，你可以使用 ``execute()`` 方法真正的执行查询。
-你可以传递多个你需要的查询参数，参数的个数必须与占位符个数相同，参数的顺序也要与原始占位符保持一致::
+一旦你有了预处理的查询,就可以使用 ``execute()`` 方法实际运行查询。你可以根据查询中的占位符数量传递任意多个变量。必须传入的参数数目必须与查询中的占位符数目匹配。它们还必须以在原始查询中出现的占位符的顺序传递:
 
-    // 编译查询语句
-    $pQuery = $db->prepare(function($db)
-    {
-        return $db->table('user')
-                   ->insert([
-                        'name'    => 'x',
-                        'email'   => 'y',
-                        'country' => 'US'
-                   ]);
-    });
+.. literalinclude:: queries/019.php
 
-    // 准备数据
-    $name    = 'John Doe';
-    $email   = 'j.doe@example.com';
-    $country = 'US';
-
-    // 执行查询
-    $results = $pQuery->execute($name, $email, $country);
-
-这会返回标准的 :doc:`结果集 </database/results>`.
+对于“写入”类型的查询,它返回 true 或 false,指示查询的成功或失败。对于“读取”类型的查询,它返回一个标准的 :doc:`结果集 </database/results>`。
 
 其他方法
 =============
 
-除了上述两个主要方法，预编译查询还有以下方法可用:
+除了这两个主要方法之外,预处理查询对象还有以下方法:
 
-**close()**
+.. _database-queries-stmt-close:
 
-虽然 PHP 在（自动）关闭所有打开的查询资源时做的非常好，但手动关闭执行完的预编译查询同样也是好的主意::
+close()
+-------
 
-    $pQuery->close();
+虽然 PHP 在数据库关闭所有打开的语句方面做得很好,但是当不需要预处理语句时关闭它总是一个好主意:
 
-**getQueryString()**
+.. literalinclude:: queries/020.php
 
-返回预编译查询的字符串。
+.. note:: 从 v4.3.0 开始,``close()`` 方法在所有 DBMS 中释放预编译语句。以前,它们在 Postgre、SQLSRV 和 OCI8 中没有被释放。
 
-**hasError()**
+getQueryString()
+----------------
 
-返回布尔值 true/false ，表示调用最近一次是否有执行错误。
+这将返回预处理查询的字符串。
 
-**getErrorCode()**
-**getErrorMessage()**
+hasError()
+----------
 
-如果有报错，可以用这两个方法获取错误号和错误信息。
+如果最后一个 ``execute()`` 调用产生任何错误,则返回布尔值 true/false。
+
+getErrorCode()
+--------------
+getErrorMessage()
+-----------------
+
+如果遇到任何错误,可以使用这些方法检索错误代码和字符串。
 
 **************************
 使用查询对象
 **************************
 
-在内部，所有查询的处理和存储都在 \CodeIgniter\Database\Query 的实例中进行。
-这个类负责绑定参数、也做预编译查询、还能保存查询时的性能数据。
+在内部,所有查询都作为 ``CodeIgniter\Database\Query`` 的实例进行处理和存储。此类负责绑定参数,否则准备查询,并存储有关其查询的性能数据。
 
-**getLastQuery()**
+$db->getLastQuery()
+===================
 
-当你需要获取最近一次的查询对象，请使用 getLastQuery() 方法::
+当你只需要检索最后一个查询对象时,使用 ``getLastQuery()`` 方法:
 
-	$query = $db->getLastQuery();
-	echo (string)$query;
+.. literalinclude:: queries/021.php
 
 查询类
 ===============
 
-每个查询对象都保存了此次查询的一些信息，它有部分被时间线功能使用，
-但你也可以使用（译者注：此处时间线指数据库执行SQL过程，记录它们方便调试和优化性能）。
+每个查询对象都存储与查询本身相关的几个信息片段。这在一定程度上由时间线功能使用,但也可供你使用。
 
-**getQuery()**
+getQuery()
+----------
 
-返回各种编译构造之后的最终查询语句，也就是发送到数据库执行的语句::
+在所有处理完成后返回最终查询。这是发送到数据库的确切查询:
 
-	$sql = $query->getQuery();
+.. literalinclude:: queries/022.php
 
-将查询对象做字符串转换也能获得相同的值::
+通过将查询对象转换为字符串,也可以检索相同的值:
 
-	$sql = (string)$query;
+.. literalinclude:: queries/023.php
 
-**getOriginalQuery()**
+getOriginalQuery()
+------------------
 
-返回初始传入对象里的 SQL 语句，没有任何绑定或前缀修饰等等::
+返回传入对象的原始 SQL。其中不会有任何绑定,也不会替换前缀等:
 
-	$sql = $query->getOriginalQuery();
+.. literalinclude:: queries/024.php
 
-**hasError()**
+hasError()
+----------
 
-如果执行时有任何错误，这个方法将返回 true::
+如果在执行此查询期间遇到错误,则此方法将返回 true:
 
-	if ($query->hasError())
-	{
-		echo 'Code: '. $query->getErrorCode();
-		echo 'Error: '. $query->getErrorMessage();
-	}
+.. literalinclude:: queries/025.php
 
-**isWriteType()**
+isWriteType()
+-------------
 
-如果当前查询是写入型 (例如 INSERT, UPDATE, DELETE, 等)，此方法返回 true::
+如果查询被确定为写入类型查询(即 INSERT、UPDATE、DELETE 等),则返回 true:
 
-	if ($query->isWriteType())
-	{
-		... do something
-	}
+.. literalinclude:: queries/026.php
 
-**swapPrefix()**
+swapPrefix()
+------------
 
-替换最终执行的 SQL 里的表前缀，第一个参数是原始你想替换的前缀，
-第二个参数是替换之后你想要的前缀::
+用另一个值替换 SQL 中的一个表前缀。第一个参数是要替换的原始前缀,第二个参数是要替换的值:
 
-	$sql = $query->swapPrefix('ci3_', 'ci4_');
+.. literalinclude:: queries/027.php
 
-**getStartTime()**
+getStartTime()
+--------------
 
-获取查询执行时间，以秒为单位，精确到毫秒级::
+以秒(含微秒)为单位获取查询执行的时间:
 
-	$microtime = $query->getStartTime();
+.. literalinclude:: queries/028.php
 
-**getDuration()**
+getDuration()
+-------------
 
-返回执行查询的时长（秒），浮点数，精确到毫秒::
+以秒(含微秒)为单位返回查询持续时间的浮点数:
 
-	$microtime = $query->getDuration();
+.. literalinclude:: queries/029.php

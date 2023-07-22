@@ -1,168 +1,147 @@
-=====================
-Testing Your Database
-=====================
+#####################
+测试数据库
+#####################
 
 .. contents::
     :local:
     :depth: 2
 
-The Test Class
-==============
+测试类
+**************
 
-In order to take advantage of the built-in database tools that CodeIgniter provides for testing, your
-tests must extend ``CIDatabaseTestCase``::
+为了利用 CodeIgniter 为测试提供的内置数据库工具，你的测试必须扩展 ``CIUnitTestCase`` 并使用 ``DatabaseTestTrait``:
 
-    <?php namespace App\Database;
+.. literalinclude:: database/001.php
 
-    use CodeIgniter\Test\CIDatabaseTestCase;
+由于在 ``setUp()`` 和 ``tearDown()`` 阶段执行了特殊功能，所以如果你需要使用这些方法，必须确保调用父类的方法，否则你将失去这里描述的大部分功能：
 
-    class MyTests extends CIDatabaseTestCase
-    {
-        . . .
-    }
+.. literalinclude:: database/002.php
 
-Because special functionality executed during the ``setUp()`` and ``tearDown()`` phases, you must ensure
-that you call the parent's methods if you need to use those methods, otherwise you will lose much
-of the functionality described here::
+设置测试数据库
+**************************
 
-    <?php namespace App\Database;
+运行数据库测试时,你需要提供可在测试期间使用的数据库。框架提供了特定于 CodeIgniter 的工具,而不是使用 PHPUnit 内置的数据库功能。第一步是确保你在 **app/Config/Database.php** 中设置了 ``tests`` 数据库组。这指定了仅在运行测试时使用的数据库连接,以保持其他数据的安全。
 
-    use CodeIgniter\Test\CIDatabaseTestCase;
+如果团队中有多个开发人员,你可能希望将凭证保存在 **.env** 文件中。要这样做,请编辑文件以确保存在以下行并具有正确的信息::
 
-    class MyTests extends CIDatabaseTestCase
-    {
-        public function setUp()
-        {
-            parent::setUp();
+    database.tests.hostname = localhost
+    database.tests.database = ci4_test
+    database.tests.username = root
+    database.tests.password = root
+    database.tests.DBDriver = MySQLi
+    database.tests.DBPrefix =
+    database.tests.port = 3306
 
-            // Do something here....
-        }
+迁移和种子
+====================
 
-        public function tearDown()
-        {
-            parent::tearDown();
+运行测试时,你需要确保数据库具有正确的 schema 设置并且对每个测试处于已知状态。你可以使用迁移和种子来设置数据库,方法是在测试中添加一些类属性。
 
-            // Do something here....
-        }
-    }
+.. literalinclude:: database/003.php
 
-Setting Up a Test Database
+迁移
+----------
+
+$migrate
+^^^^^^^^
+
+此布尔值确定是否在测试之前运行数据库迁移。默认情况下,始终将数据库迁移到 ``$namespace`` 定义的最新可用状态。如果为 ``false``,则不运行迁移。如果要禁用迁移,请设置为 ``false``。
+
+$migrateOnce
+^^^^^^^^^^^^
+
+此布尔值确定是否只运行一次数据库迁移。如果要在首次测试之前运行一次迁移,请设置为 ``true``。如果不存在或为 ``false``,则在每次测试之前运行迁移。
+
+$refresh
+^^^^^^^^
+
+此布尔值确定是否在测试之前完全刷新数据库。如果为 ``true``,则所有迁移都会回滚到版本 0。
+
+$namespace
+^^^^^^^^^^
+
+默认情况下,CodeIgniter 将在 **tests/_support/Database/Migrations** 中查找在测试期间应运行的迁移。你可以在 ``$namespace`` 属性中指定新命名空间来更改此位置。这不应包括 **Database\\Migrations** 子命名空间,而只是基本命名空间。
+
+.. important:: 如果将此属性设置为 ``null``,则像 ``php spark migrate --all`` 一样从所有可用的命名空间运行迁移。
+
+种子
+-----
+
+$seed
+^^^^^
+
+如果存在且非空,则指定在测试运行之前用来向数据库填充测试数据的种子文件的名称。
+
+$seedOnce
+^^^^^^^^^
+
+此布尔值确定是否只运行一次数据库种子。如果要在首次测试之前运行一次数据库种子,请设置为 ``true``。如果不存在或为 ``false``,则在每次测试之前运行数据库种子。
+
+$basePath
+^^^^^^^^^
+
+默认情况下,CodeIgniter 将在 **tests/_support/Database/Seeds** 中查找在测试期间应运行的种子。你可以通过指定 ``$basePath`` 属性来更改此目录。这不应包括 **Seeds** 目录,而是保存子目录的单个目录的路径。
+
+帮助方法
+**************
+
+**DatabaseTestTrait** 类提供了几个帮助方法来帮助测试数据库。
+
+更改数据库状态
+=======================
+
+regressDatabase()
+-----------------
+
+在上述 ``$refresh`` 期间调用,如果需要手动重置数据库,此方法可用。
+
+migrateDatabase()
+-----------------
+
+在 ``setUp()`` 期间调用,如果需要手动运行迁移,此方法可用。
+
+seed($name)
+-----------
+
+允许你手动将 Seed 加载到数据库中。唯一的参数是要运行的种子的名称。种子必须存在于 ``$basePath`` 中指定的路径内。
+
+hasInDatabase($table, $data)
+----------------------------
+
+将新行插入数据库中。此行在当前测试运行后被删除。``$data`` 是一个包含要插入表中的数据的关联数组。
+
+.. literalinclude:: database/007.php
+
+从数据库获取数据
 ==========================
 
-When running database tests, you need to provide a database that can be used during testing. Instead of
-using the PHPUnit built-in database features, the framework provides tools specific to CodeIgniter. The first
-step is to ensure that you have set up a ``tests`` database group in **app/Config/Database.php**.
-This specifies a database connection that is only used while running tests, to keep your other data safe.
+grabFromDatabase($table, $column, $criteria)
+--------------------------------------------
 
-If you have multiple developers on your team, you will likely want to keep your credentials stored in
-the **.env** file. To do so, edit the file to ensure the following lines are present and have the
-correct information::
+返回在行与 ``$criteria`` 匹配的指定表中的 ``$column`` 的值。如果找到多行,它只会返回第一行。
 
-    database.tests.dbdriver = 'MySQLi';
-    database.tests.username = 'root';
-    database.tests.password = '';
-    database.tests.database = '';
+.. literalinclude:: database/006.php
 
-Migrations and Seeds
---------------------
+断言
+==========
 
-When running tests, you need to ensure that your database has the correct schema set up and that
-it is in a known state for every test. You can use migrations and seeds to set up your database,
-by adding a couple of class properties to your test.
-::
+dontSeeInDatabase($table, $criteria)
+------------------------------------
 
-    <?php namespace App\Database;
+断言与 ``$criteria`` 中的键/值对匹配的行在数据库中不存在。
 
-    use CodeIgniter\Test\CIDatabaseTestCase;
+.. literalinclude:: database/004.php
 
-    class MyTests extends\CIDatabaseTestCase
-    {
-        protected $refresh  = true;
-        protected $seed     = 'TestSeeder';
-        protected $basePath = 'path/to/database/files';
-    }
+seeInDatabase($table, $criteria)
+--------------------------------
 
-**$refresh**
+断言与 ``$criteria`` 中的键/值对匹配的行在数据库中存在。
 
-This boolean value determines whether the database is completely refreshed before every test. If true,
-all migrations are rolled back to version 0, then the database is migrated to the latest available migration.
+.. literalinclude:: database/005.php
 
-**$seed**
+seeNumRecords($expected, $table, $criteria)
+-------------------------------------------
 
-If present and not empty, this specifies the name of a Seed file that is used to populate the database with
-test data prior to every test running.
+断言在数据库中找到的与 ``$criteria`` 匹配的行数。
 
-**$basePath**
-
-By default, CodeIgniter will look in **tests/_support/Database/Seeds** to locate the seeds that it should run during testing.
-You can change this directores by specifying the ``$basePath`` property. This should not include the **seeds** directory,
-but the path to the single directory that holds the sub-directory.
-
-**$namespace**
-
-By default, CodeIgniter will look in **tests/_support/DatabaseTestMigrations/Database/Migrations** to locate the migrations
-that it should run during testing. You can change this location by specifying a new namespace in the ``$namespace`` properties.
-This should not include the **Database/Migrations** path, just the base namespace.
-
-Helper Methods
-==============
-
-The **CIDatabaseTestCase** class provides several helper methods to aid in testing your database.
-
-**seed($name)**
-
-Allows you to manually load a Seed into the database. The only parameter is the name of the seed to run. The seed
-must be present within the path specified in ``$basePath``.
-
-**dontSeeInDatabase($table, $criteria)**
-
-Asserts that a row with criteria matching the key/value pairs in ``$criteria`` DOES NOT exist in the database.
-::
-
-    $criteria = [
-        'email'  => 'joe@example.com',
-        'active' => 1
-    ];
-    $this->dontSeeInDatabase('users', $criteria);
-
-**seeInDatabase($table, $criteria)**
-
-Asserts that a row with criteria matching the key/value pairs in ``$criteria`` DOES exist in the database.
-::
-
-    $criteria = [
-        'email'  => 'joe@example.com',
-        'active' => 1
-    ];
-    $this->seeInDatabase('users', $criteria);
-
-**grabFromDatabase($table, $column, $criteria)**
-
-Returns the value of ``$column`` from the specified table where the row matches ``$criteria``. If more than one
-row is found, it will only test against the first one.
-::
-
-    $username = $this->grabFromDatabase('users', 'username', ['email' => 'joe@example.com']);
-
-**hasInDatabase($table, $data)**
-
-Inserts a new row into the database. This row is removed after the current test runs. ``$data`` is an associative
-array with the data to insert into the table.
-::
-
-    $data = [
-        'email' => 'joe@example.com',
-        'name'  => 'Joe Cool'
-    ];
-    $this->hasInDatabase('users', $data);
-
-**seeNumRecords($expected, $table, $criteria)**
-
-Asserts that a number of matching rows are found in the database that match ``$criteria``.
-::
-
-    $criteria = [
-        'active' => 1
-    ];
-    $this->seeNumRecords(2, 'users', $criteria);
-
+.. literalinclude:: database/008.php

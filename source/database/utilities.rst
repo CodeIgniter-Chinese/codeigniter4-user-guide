@@ -1,33 +1,25 @@
-########################
+#########
 实用工具
-########################
+#########
 
-数据库实用工具类包含一系列可以帮助你管理数据库的方法。
+数据库实用工具类包含帮助你管理数据库的方法。
 
-.. 目录::
+.. contents::
     :local:
     :depth: 2
 
 *******************
-从结果中获取XML
+从结果中获取 XML
 *******************
 
-**getXMLFromResult()**
+getXMLFromResult()
+==================
 
-该方法从数据库查询结果中返回xml结果，可以如下进行::
+此方法从数据库结果返回 xml 结果。你可以这样做:
 
-    $model = new class extends \CodeIgniter\Model {
-        protected $table      = 'foo';
-        protected $primaryKey = 'id';
-    };
-    $db = \Closure::bind(function ($model) {
-        return $model->db;
-    }, null, $model)($model);
+.. literalinclude:: utilities/001.php
 
-    $util = (new \CodeIgniter\Database\Database())->loadUtils($db);
-    echo $util->getXMLFromResult($model->get());
-
-将会返回如下的XML结果::
+它将获取以下 xml 结果::
 
     <root>
         <element>

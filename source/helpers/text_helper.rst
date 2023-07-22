@@ -1,381 +1,326 @@
-##############
+############
 文本辅助函数
-##############
+############
 
-文本辅助函数文件包括了一系列有助于处理文本的函数
+文本辅助函数文件包含帮助处理文本的函数。
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
-加载辅助函数
+加载此辅助函数
 ===================
 
-该系列函数通过以下方式加载::
+使用以下代码加载此辅助函数:
 
-	helper('text');
+.. literalinclude:: text_helper/001.php
 
-可用函数列表
+可用函数
 ===================
 
 以下函数可用:
 
 .. php:function:: random_string([$type = 'alnum'[, $len = 8]])
 
-	:param	string	$type: 需要随机输出的类型
-	:param	int	$len: 输出的字符串长度
-	:returns:	一个随机字符串
-	:rtype:	string
+    :param    string    $type: 随机化类型
+    :param    int    $len: 输出字符串长度
+    :returns:    随机字符串
+    :rtype:    string
 
-	基于类型和长度生成一个随机字符串。
-	对于创建密码或随机哈希等非常有用。
+    根据你指定的类型和长度生成随机字符串。用于创建密码或生成随机哈希值非常有用。
 
-	第一个参数给定字符串类型，第二个参数给定字符串长度，可使用以下类型:
+    .. warning:: 对于类型:**basic**、**md5** 和 **sha1**,生成的字符串在加密上不是安全的。因此,这些类型不能用于加密目的或需要不可猜测返回值的目的。从 v4.3.3 开始,这些类型已弃用。
 
-	-  **alpha**: 仅有大小写字母构成的字符串
-	-  **alnum**: 含有大小写字母和数字的字符串
-	-  **basic**: 基于 ``mt_rand()`` 方法组成的随机数（忽略长度）
-	-  **numeric**: 数字类型的字符串
-	-  **nozero**: 数字类型字符串，其中不含有零
-	-  **md5**: 基于 ``md5()`` 的加密随机数（固定长度32位）
-	-  **sha1**: 基于 ``sha1()`` 的加密随机数（固定长度40位）
-	-  **crypto**: 基于 ``random_bytes()`` 的随机字符串
+    第一个参数指定字符串的类型,第二个参数指定长度。可用的选择有:
 
-	用例如下::
+    - **alpha**:仅包含小写和大写字母的字符串。
+    - **alnum**:包含小写和大写字符的字母数字字符串。
+    - **basic**:[已弃用]基于 ``mt_rand()`` 的随机数(忽略长度)。
+    - **numeric**:数字字符串。
+    - **nozero**:不包含零的数字字符串。
+    - **md5**:[已弃用]基于 ``md5()`` 的加密随机数(固定长度 32)。
+    - **sha1**:[已弃用]基于 ``sha1()`` 的加密随机数(固定长度 40)。
+    - **crypto**:基于 ``random_bytes()`` 的随机字符串。
 
-		echo random_string('alnum', 16);
+    .. note:: 当你使用 **crypto** 时,必须为第二个参数设置为偶数。从 v4.2.2 开始,如果你设置为奇数,将抛出 ``InvalidArgumentException``。
+
+    .. note:: 从 v4.3.3 开始,**alpha**、**alnum** 和 **nozero** 使用 ``random_byte()``,**numeric** 使用 ``random_int()``。在以前的版本中,它使用在加密上不安全的 ``str_shuffle()``。
+
+    使用示例:
+
+    .. literalinclude:: text_helper/002.php
 
 .. php:function:: increment_string($str[, $separator = '_'[, $first = 1]])
 
-	:param	string	$str: 输入的字符串
-	:param	string	$separator: 用于增加一个数字的分隔符
-	:param	int	$first: 起始数字
-	:returns:	递增字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :param    string    $separator: 要与重复数字一起追加的分隔符
+    :param    int    $first: 起始数字
+    :returns:    增量字符串
+    :rtype:    string
 
-	通过将一个每次在尾部递增数字的方式，递增一个字符串。用于创建"拷贝"或者用于拥有唯一标题或简介的文件或数据库内容。
+    通过追加一个数字或增加数字来增加字符串。用于创建文件或数据库内容的“副本”非常有用,这些内容具有唯一的标题或 slug。
 
-	用例如下::
+    使用示例:
 
-		echo increment_string('file', '_'); // "file_1"
-		echo increment_string('file', '-', 2); // "file-2"
-		echo increment_string('file_4'); // "file_5"
+    .. literalinclude:: text_helper/003.php
 
 .. php:function:: alternator($args)
 
-	:param	mixed	$args: 参数的一个变量数字
-	:returns:	变化后的字符串
-	:rtype:	mixed
+    :param    mixed    $args: 可变数量的参数
+    :returns:    交替的字符串
+    :rtype:    mixed
 
-	允许在进行循环时，两个或多个项目之间交换变化，例如::
+    在循环中允许在两个或多个项目之间交替。示例:
 
-		for ($i = 0; $i < 10; $i++)
-		{     
-			echo alternator('string one', 'string two');
-		}
+    .. literalinclude:: text_helper/004.php
 
-	如果你需要的话也可以增加尽可能多的参数，在下一次迭代时，下一个项目将会被返回。
-	
-	::
-	
-		for ($i = 0; $i < 10; $i++)
-		{     
-			echo alternator('one', 'two', 'three', 'four', 'five');
-		}
+    你可以添加尽可能多的参数,并且在每个循环迭代中将返回下一个项目。
 
-	.. note:: 多个独立函数调用时，只需要不传参，不用重新初始化直接调用即可。
+    .. literalinclude:: text_helper/005.php
+
+    .. note:: 要使用对此函数的多个单独调用,只需不带参数调用该函数即可重新初始化。
 
 .. php:function:: reduce_double_slashes($str)
 
-	:param	string	$str: 输入字符串
-	:returns:	格式化斜线后的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    正规化斜杠的字符串
+    :rtype:    string
 
-	将一个字符串中的双斜线转变为单斜线，除了在 URL 协议前缀中的，比如 http&#58;//
+    将字符串中紧邻出现的多个斜杠转换为单个斜杠,但不包括那些在 URL 协议前缀中找到的斜杠(例如 http&#58;//)。
 
-	例如::
+    示例:
 
-		$string = "http://example.com//index.php";
-		echo reduce_double_slashes($string); // 返回 "http://example.com/index.php"
+    .. literalinclude:: text_helper/006.php
 
 .. php:function:: strip_slashes($data)
 
-	:param	mixed	$data: 输入的字符串或者字符串数组
-	:returns:	去除斜杠后的字符串（数组）
-	:rtype:	mixed
+    :param    mixed    $data: 输入字符串或字符串数组
+    :returns:    斜杠被剥离的字符串
+    :rtype:    mixed
 
-	从一组字符串中去除所有斜杠
+    从字符串数组中删除任何斜杠。
 
-	例如::
+    示例:
 
-		$str = [
-			'question' => 'Is your name O\'reilly?',
-			'answer'   => 'No, my name is O\'connor.'
-		];
+    .. literalinclude:: text_helper/007.php
 
-		$str = strip_slashes($str);
+    以上将返回以下数组:
 
-	以上会返回数组::
+    .. literalinclude:: text_helper/008.php
 
-		[
-			'question' => "Is your name O'reilly?",
-			'answer'   => "No, my name is O'connor."
-		];
+    .. note:: 出于历史原因,此函数也接受并处理字符串输入。但是,这使它只是一个 ``stripslashes()`` 的别名。
 
-	.. note:: 基于历史原因，该函数也接受字符串类型的输入。这样看起来就跟 ``stripslashes()`` 函数的别名一样
-		alias for ``stripslashes()``.
+.. php:function:: reduce_multiples($str[, $character = ''[, $trim = false]])
 
-.. php:function:: reduce_multiples($str[, $character = ''[, $trim = FALSE]])
+    :param    string    $str: 要搜索的文本
+    :param    string    $character: 要缩减的字符
+    :param    bool    $trim: 是否也去除指定的字符
+    :returns:    缩减后的字符串
+    :rtype:    string
 
-	:param	string	$str: 需要搜索的文本
-	:param	string	$character: 需要简化的字符
-	:param	bool	$trim: 是否在字符串首位同时去除指定的字符
-	:returns:	简化后的字符串
-	:rtype:	string
+    直接相继出现多个特定字符时,减少其出现次数。示例:
 
-	将多个连续出现的相同字符简化为一个，例如::
+    .. literalinclude:: text_helper/009.php
 
-		$string = "Fred, Bill,, Joe, Jimmy";
-		$string = reduce_multiples($string,","); //结果 "Fred, Bill, Joe, Jimmy"
+    如果第三个参数设置为 true,则会移除字符串开头和结尾处的字符出现。示例:
 
-	如果第三个参数被设为 TRUE 的话，该函数就会将首部和尾部出现的该字符串同时去除，例如::
-
-		$string = ",Fred, Bill,, Joe, Jimmy,";
-		$string = reduce_multiples($string, ", ", TRUE); //结果是 "Fred, Bill, Joe, Jimmy"
+    .. literalinclude:: text_helper/010.php
 
 .. php:function:: quotes_to_entities($str)
 
-	:param	string	$str: 输入的字符串
-	:returns:	拥有转义符号的字符串转换后的 HTML 实体
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    引号转换为 HTML 实体的字符串
+    :rtype:    string
 
-	将一个单引号或双引号转换为对应的 HTML 实体，例如::
+    将字符串中的单引号和双引号转换为相应的 HTML 实体。示例:
 
-		$string = "Joe's \"dinner\"";
-		$string = quotes_to_entities($string); //结果是 "Joe&#39;s &quot;dinner&quot;"
+    .. literalinclude:: text_helper/011.php
 
 .. php:function:: strip_quotes($str)
 
-	:param	string	$str: 输入字符串
-	:returns:	去除了引号的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    不带引号的字符串
+    :rtype:    string
 
-	从字符串中去除单双引号，例如::
+    从字符串中删除单引号和双引号。示例:
 
-		$string = "Joe's \"dinner\"";
-		$string = strip_quotes($string); //结果是 "Joes dinner"
+    .. literalinclude:: text_helper/012.php
 
 .. php:function:: word_limiter($str[, $limit = 100[, $end_char = '&#8230;']])
 
-	:param	string	$str: 输入字符串
-	:param	int	$limit: 限制
-	:param	string	$end_char: 结尾字符（通常是省略号）
-	:returns:	限制了单词的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :param    int    $limit: 限制
+    :param    string    $end_char: 结束字符(通常是省略号)
+    :returns:    限制字数的字符串
+    :rtype:    string
 
-	根据 *单词* 的长度截断字符串，例如::
+    将字符串截断为指定的*词数*。示例:
 
-		$string = "Here is a nice text string consisting of eleven words.";
-		$string = word_limiter($string, 4);
-		// Returns:  Here is a nice
+    .. literalinclude:: text_helper/013.php
 
-	第三个参数是一个可选的字符串后缀。默认是一个省略号。
+    第三个参数是一个可选的后缀,添加到字符串末尾。默认它添加一个省略号。
 
 .. php:function:: character_limiter($str[, $n = 500[, $end_char = '&#8230;']])
 
-	:param	string	$str: 输入字符串
-	:param	int	$n: 字符数量
-	:param	string	$end_char: 结尾字符
-	:returns:	限定了字符的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :param    int    $n: 字符数
+    :param    string    $end_char: 结束字符(通常是省略号)
+    :returns:    限制字符数的字符串
+    :rtype:    string
 
-	根据给定的 *字符* 的数量截断字符串。该方法将会保持单词的完整性，因此字符串长度可能会比你给定的略多或略少
+    将字符串截断为指定的*字符数*。它保持词的完整性,所以字符数量可能略多于或略少于你指定的数量。
 
-	例如::
+    示例:
 
-		$string = "Here is a nice text string consisting of eleven words.";
-		$string = character_limiter($string, 20);
-		// 返回:  Here is a nice text string
+    .. literalinclude:: text_helper/014.php
 
-	第三个参数是一个可选的字符串后缀，未定义则默认使用省略号
+    第三个参数是一个可选的后缀,如果未声明则此辅助函数使用省略号。
 
-	.. note:: 如果你想截断完全一致长度的字符串，参照下方的
-		函数 :php:func:`ellipsize()`
+    .. note:: 如果你需要截断为确切的字符数,请参见下面的 :php:func:`ellipsize()` 函数。
 
 .. php:function:: ascii_to_entities($str)
 
-	:param	string	$str: 输入字符串
-	:returns:	一个将 ASCII 值转化为实体的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    ASCII 值转换为实体的字符串
+    :rtype:    string
 
-	将 ASCII 码转化为字符实体，包括可能导致 web 页面中出现问题的高位 ASCII 码以及一些 Word 字符串。
-	通过这一方法可以使得这些字符无论是浏览器设置或是存储于数据库中都可以正确地显示。
-	不过该方法依赖于你浏览器所支持的字符集，因此不一定100%可靠。
-	不过在大多数情况下，该方法可以正确识别非正常类型的字符（例如方言字符等）
+    将 ASCII 值转换为字符实体,包括可能在网页中造成问题的高 ASCII 和 MS Word 字符,以便它们可以与浏览器设置无关地一致显示,或者可靠地存储在数据库中。这在一定程度上取决于服务器支持的字符集,所以在所有情况下都可能不完全可靠,但在大多数情况下,它应该正确识别正常范围之外的字符(如带重音的字符)。
 
-	例如::
+    示例:
 
-		$string = ascii_to_entities($string);
+    .. literalinclude:: text_helper/015.php
 
-.. php:function:: entities_to_ascii($str[, $all = TRUE])
+.. php:function:: entities_to_ascii($str[, $all = true])
 
-	:param	string	$str: 输入字符串
-	:param	bool	$all: 是否同样转换非安全的实体
-	:returns:	将 HTML 实体转化为 ASCII 码的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :param    bool    $all: 是否也转换不安全的实体
+    :returns:    HTML 实体转换为 ASCII 字符的字符串
+    :rtype:    string
 
-	该函数与 :php:func:`ascii_to_entities()` 相反，将字符实体转换为 ASCII 码
+    此函数与 :php:func:`ascii_to_entities()` 相反。它将字符实体转换回 ASCII。
 
 .. php:function:: convert_accented_characters($str)
 
-	:param	string	$str: 输入字符串
-	:returns:	一个字符串，其中方言字符已进行过转换
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    重音字符转换后的字符串
+    :rtype:    string
 
-	将高位 ASCII 码转化为等同功能的低位 ASCII 码。当面对只有标准 ASCII 码可以安全使用的情况，将非英语的字符进行转换，比如在 URL 中
+    将高位 ASCII 字符转换为低位 ASCII 等效字符。在只能安全使用标准 ASCII 字符的地方需要非英语字符时很有用,例如 URL 中。
 
-	例如::
+    示例:
 
-		$string = convert_accented_characters($string);
+    .. literalinclude:: text_helper/016.php
 
-	.. note:: 该函数利用配置文件 `app/Config/ForeignCharacters.php` 来定义并进行数组翻译。
+    .. note:: 此函数使用配套的配置文件 **app/Config/ForeignCharacters.php** 来定义音译的 to 和 from 数组。
 
 .. php:function:: word_censor($str, $censored[, $replacement = ''])
 
-	:param	string	$str: 输入字符串
-	:param	array	$censored: 一系列需要被探测的有问题的单词
-	:param	string	$replacement: 用于替换问题单词的字符串
-	:returns:	探测后的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :param    array    $censored: 要审查的标记词列表
+    :param    string    $replacement: 用什么替换标记词
+    :returns:    审查后的字符串
+    :rtype:    string
 
-	用于检测文本字符串中的敏感词。第一个参数为原有的字符串，第二个是一个含有你需要拦截的敏感词的数组。第三个参数（可选）为需要用于替换的单词。
-	如果不声明的话就会用井号替换: ###
+    使你能够审查文本字符串中的词。第一个参数将包含原始字符串。第二个将包含你不允许的词数组。第三个(可选)参数可以包含标记词的替换值。如果未指定,它们将被 #### 替换。
 
-	例如::
+    示例:
 
-		$disallowed = ['darn', 'shucks', 'golly', 'phooey'];
-		$string     = word_censor($string, $disallowed, 'Beep!');
+    .. literalinclude:: text_helper/017.php
 
 .. php:function:: highlight_code($str)
 
-	:param	string	$str: 输入字符串
-	:returns:	HTML 格式代码高亮的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :returns:    通过 HTML 着色的字符串
+    :rtype:    string
 
-	将一个代码字符串 （PHP, HTML, 等）加上颜色。例如::
+    使用 HTML 对代码字符串(PHP、HTML等)上色。示例:
 
-		$string = highlight_code($string);
+    .. literalinclude:: text_helper/018.php
 
-	该函数使用了 PHP 的 ``highlight_string()`` 方法，因此使用的颜色是在你的 php.ini 文件中定义的。
+    此函数使用 PHP 的 ``highlight_string()`` 函数,因此使用的颜色是在 php.ini 文件中指定的颜色。
 
 .. php:function:: highlight_phrase($str, $phrase[, $tag_open = '<mark>'[, $tag_close = '</mark>']])
 
-	:param	string	$str: 输入字符串
-	:param	string	$phrase: 高亮的片段
-	:param	string	$tag_open: 用于高亮的开括号
-	:param	string	$tag_close: 用于高亮的闭括号
-	:returns:	通过 HTML 进行片段高亮后的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :param    string    $phrase: 要突出显示的短语
+    :param    string    $tag_open: 用于突出显示的开标签
+    :param    string    $tag_close: 突出显示的闭标签
+    :returns:    通过 HTML 突出显示短语的字符串
+    :rtype:    string
 
-	在一个文本字符串中高亮一个片段。第一个参数是原本的字符串，第二个参数是你需要高亮的片段。
-	第三个第四个参数包含你需要用于包裹高亮片段的 HTML 标签。
+    将文本字符串中的短语突出显示。第一个参数将包含原始字符串,第二个将包含你希望突出显示的短语。第三和第四个参数将包含你希望短语包裹在里面的开启/关闭 HTML 标记。
 
-	例如::
+    示例:
 
-		$string = "Here is a nice text string about nothing in particular.";
-		echo highlight_phrase($string, "nice text", '<span style="color:#990000;">', '</span>');
+    .. literalinclude:: text_helper/019.php
 
-	以上将会输出::
+    以上代码打印::
 
-		Here is a <span style="color:#990000;">nice text</span> string about nothing in particular.
+        Here is a <span style="color:#990000;">nice text</span> string about nothing in particular.
 
-	.. note:: 该函数默认使用 ``<strong>`` 标签。
-	    旧版本的浏览器可能不支持新型 HTML5 的格式标签，因此我们推荐你将下述 CSS 加入到你的样式表中，如果你需要支持这类浏览器的话::
+    .. note:: 此函数过去默认使用 ``<strong>`` 标签。旧版浏览器可能不支持新的 HTML5 mark 标签,因此如果你需要支持这样的浏览器,
+        建议你将以下 CSS 代码插入样式表中::
 
-			mark {
-				background: #ff0;
-				color: #000;
-			};
+            mark {
+                background: #ff0;
+                color: #000;
+            };
 
 .. php:function:: word_wrap($str[, $charlim = 76])
 
-	:param	string	$str: 输入字符串
-	:param	int	$charlim: 字符限制
-	:returns:	单词换行过的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :param    int    $charlim: 字符限制
+    :returns:    自动换行的字符串
+    :rtype:    string
 
-	将一个文本以指定的字符长度进行换行，并保持单词完整性
+    在保持完整单词的同时,在指定的*字符数*处换行文本。
 
-	例如::
+    示例:
 
-		$string = "Here is a simple string of text that will help us demonstrate this function.";
-		echo word_wrap($string, 25);
-
-		// 输出如下:
-		// Here is a simple string
-		// of text that will help us
-		// demonstrate this
-		// function.
-
-        过长的单词会被截断，不过 URL 不会
+    .. literalinclude:: text_helper/020.php
 
 .. php:function:: ellipsize($str, $max_length[, $position = 1[, $ellipsis = '&hellip;']])
 
-	:param	string	$str: 输入字符串
-	:param	int	$max_length: 字符串长度限制
-	:param	mixed	$position: 需要截断的位置（整数或浮点数）
-	:param	string	$ellipsis: 作为省略的标记符
-	:returns:	省略后的字符串
-	:rtype:	string
+    :param    string    $str: 输入字符串
+    :param    int    $max_length: 字符串长度限制
+    :param    mixed    $position: 拆分位置(整数或浮点数)
+    :param    string    $ellipsis: 要用作省略号的字符
+    :returns:    省略的字符串
+    :rtype:    string
 
-	该函数将去除字符串中的标记并将其截断为指定长度，同时加上一个省略标记符
+    此函数将从字符串中剥离标签,在定义的最大长度处对其进行拆分,并在前后插入省略号。
 
-	第一个参数是需要省略的字符串，第二个是在输出的字符串中的字符长度。第三个参数是在省略后的字符串中，省略标记符号是否需要从0-1，从左到右的方式出现。
-	例如，值为 1 时，就会在右边，0.5 就是中间，0 就是在左边。
+    第一个参数是要提取摘录的字符串,第二个是最终字符串中的字符数。第三个参数是省略号应出现的字符串中的位置,从 0 到 1,从左到右。例如。值为 1 将省略号放在字符串的右边,.5 在中间,0 在左边。
 
-	第四个可选的参数是省略符号类型，默认情况下会插入一个 &hellip;
+    可选的第四个参数是省略号的类型。默认情况下,将插入 &hellip;。
 
-	例如::
+    示例:
 
-		$str = 'this_string_is_entirely_too_long_and_might_break_my_design.jpg';
-		echo ellipsize($str, 32, .5);
+    .. literalinclude:: text_helper/021.php
 
-	结果::
+    产生::
 
-		this_string_is_e&hellip;ak_my_design.jpg
+        this_string_is_e&hellip;ak_my_design.jpg
 
 .. php:function:: excerpt($text, $phrase = false, $radius = 100, $ellipsis = '...')
 
-	:param	string	$text: 需要截取摘要的文本
-	:param	string	$phrase: 需要截取的文本附近的片段或单词
-	:param	int		$radius: 在片段前后截取的字符数量
-	:param	string	$ellipsis: 省略标记符
-	:returns:	摘要.
-	:rtype:		string
+    :param    string    $text: 要提取摘录的文本
+    :param    string    $phrase: 要围绕其提取文本的短语或单词
+    :param    int        $radius: $phrase 前后的字符数
+    :param    string    $ellipsis: 要用作省略号的字符
+    :returns:    摘录。
+    :rtype:        string
 
-	该函数会取出指定 ``$phrase`` 前后各 ``$radius`` 个数量的字符。
+    此函数将在中心短语 $phrase 前后提取 $radius 个字符,在前后都有省略号。
 
-	第一个参数是需要截取摘要的文本，第二个是需要截取的中心单词或片段。
-	第三个参数是需要截取的数量。如果不传 ``$phrase`` 参数的话就会从头开始获取 ``$radius`` 个字符并加上省略标记符
+    第一个参数是要提取摘录的文本,第二个是计数前后中间的单词或短语。第三个参数是中央短语前后要计数的字符数。如果没有传递短语,摘录将包括第一个 $radius 个字符,以及末尾的省略号。
 
-	例如::
+    示例:
 
-		$text = 'Ut vel faucibus odio. Quisque quis congue libero. Etiam gravida
-		eros lorem, eget porttitor augue dignissim tincidunt. In eget risus eget
-		mauris faucibus molestie vitae ultricies odio. Vestibulum id ultricies diam.
-		Curabitur non mauris lectus. Phasellus eu sodales sem. Integer dictum purus
-		ac enim hendrerit gravida. Donec ac magna vel nunc tincidunt molestie sed
-		vitae nisl. Cras sed auctor mauris, non dictum tortor. Nulla vel scelerisque
-		arcu. Cras ac ipsum sit amet augue laoreet laoreet. Aenean a risus lacus.
-		Sed ut tortor diam.';
+    .. literalinclude:: text_helper/022.php
 
-		echo excerpt($str, 'Donec');
+    产生::
 
-	输出::
-
-		... non mauris lectus. Phasellus eu sodales sem. Integer dictum purus ac
-		enim hendrerit gravida. Donec ac magna vel nunc tincidunt molestie sed
-		vitae nisl. Cras sed auctor mauris, non dictum ...
+        ... non mauris lectus. Phasellus eu sodales sem. Integer dictum purus ac
+        enim hendrerit gravida. Donec ac magna vel nunc tincidunt molestie sed
+        vitae nisl. Cras sed auctor mauris, non dictum tortor. ...

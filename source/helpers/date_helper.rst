@@ -1,63 +1,53 @@
-###########
-Date Helper
-###########
+##############
+Date 辅助函数
+##############
 
-The Date Helper file contains functions that assist in working with
-dates.
+Date 辅助函数文件包含了帮助处理日期的函数。
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
-.. raw:: html
+.. note:: 许多之前在 CodeIgniter 3 ``date_helper`` 中找到的函数已移到 CodeIgniter 4 的 :doc:`Time <../libraries/time>` 类中。
 
-  <div class="custom-index container"></div>
-
-Loading this Helper
+加载此辅助函数
 ===================
 
-This helper is loaded using the following code::
+使用以下代码加载此辅助函数:
 
-	helper('date');
+.. literalinclude:: date_helper/001.php
 
-Available Functions
+可用函数
 ===================
 
-The following functions are available:
+以下函数可用:
 
-.. php:function:: now([$timezone = NULL])
+.. php:function:: now([$timezone = null])
 
-	:param	string	$timezone: Timezone
-	:returns:	UNIX timestamp
-	:rtype:	int
+    :param    string    $timezone: 时区
+    :returns:    UNIX 时间戳
+    :rtype:    int
 
-	Returns the current time as a UNIX timestamp, referenced either to your server's
-	local time or any PHP supported timezone, based on the "time reference" setting
-	in your config file. If you do not intend to set your master time reference to
-	any other PHP supported timezone (which you'll typically do if you run a site
-	that lets each user set their own timezone settings) there is no benefit to using
-	this function over PHP's ``time()`` function.
-	::
+    .. note:: 建议使用 :doc:`Time <../libraries/time>` 类。使用 ``Time::now()->getTimestamp()`` 来获取当前的 UNIX 时间戳。
 
-		echo now('Australia/Victoria');
+    如果未提供时区,它将通过 ``time()`` 返回当前的 UNIX 时间戳。
 
-	If a timezone is not provided, it will return ``time()`` based on the
-	**time_reference** setting.
+    .. literalinclude:: date_helper/002.php
+
+    如果提供任何 PHP 支持的时区,它将返回一个由时差偏移的时间戳。它与当前的 UNIX 时间戳不同。
+
+    如果你不打算将主时间参考设置为任何其他 PHP 支持的时区(如果你运行一个允许每个用户设置自己的时区设置的站点,通常会这样做),那么使用这个函数不会比 PHP 的 ``time()`` 函数有更多的好处。
 
 .. php:function:: timezone_select([$class = '', $default = '', $what = \DateTimeZone::ALL, $country = null])
 
-	:param	string	$class: Optional class to apply to the select field
-	:param	string	$default: Default value for initial selection
-	:param	int	$what: DateTimeZone class constants (see `listIdentifiers <https://www.php.net/manual/en/datetimezone.listidentifiers.php>`_)
-	:param	string	$country: A two-letter ISO 3166-1 compatible country code (see `listIdentifiers <https://www.php.net/manual/en/datetimezone.listidentifiers.php>`_)
-	:returns:	Preformatted HTML select field
-	:rtype:	string
+    :param    string    $class: 可选的要应用于选择字段的类
+    :param    string    $default: 初始选择的默认值
+    :param    int    $what: DateTimeZone 类常量(参见 `listIdentifiers <https://www.php.net/manual/en/datetimezone.listidentifiers.php>`_)
+    :param    string    $country: 一个与 ISO 3166-1 兼容的两字母国家代码(参见 `listIdentifiers <https://www.php.net/manual/en/datetimezone.listidentifiers.php>`_)
+    :returns:    预格式化的 HTML 选择字段
+    :rtype:    string
 
-	Generates a `select` form field of available timezones (optionally filtered by `$what` and `$country`).
-	You can supply an option class to apply to the field to make formatting easier, as well as a default
-	selected value.
-	::
+    生成可用时区的 `select` 表单字段(可选择通过 ``$what`` 和 ``$country`` 过滤)。
+    你可以提供一个选项 class 以方便格式化应用于字段,以及一个默认选择值。
 
-		echo timezone_select('custom-select', 'America/New_York');
-
-Many functions previously found in the CodeIgniter 3 ``date_helper`` have been moved to the ``I18n``
-module in CodeIgniter 4.
+    .. literalinclude:: date_helper/003.php

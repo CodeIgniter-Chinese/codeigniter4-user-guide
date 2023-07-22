@@ -2,8 +2,7 @@
 代码模块
 ############
 
-CodeIgniter 支持代码模块化组合，以便于你构建可重用的代码。模块通常来说是以一个特定主题为中心而构建的，并可被认为是在大型的程序中的一系列微型程序。
-我们支持框架中所有标准的文件类型，例如控制器，模型，视图，配置文件，辅助函数，语言文件等。模块可能包含着或多或少的你所需要的以上这些类型中。
+CodeIgniter 支持一种代码模块化形式,以帮助你创建可重用的代码。模块通常围绕特定主题展开,可以认为是你更大的应用程序中的微型应用程序。框架支持的任何标准文件类型都受支持,如控制器、模型、视图、配置文件、辅助函数、语言文件等。模块可以包含尽可能少或多的这些文件。
 
 .. contents::
     :local:
@@ -13,165 +12,209 @@ CodeIgniter 支持代码模块化组合，以便于你构建可重用的代码�
 命名空间
 ==========
 
-CodeIgniter所使用的模块功能的核心组件来自于 :doc:`与PSR4相适应的自动加载 </concepts/autoloader>` 。
-虽然所有的代码都可以使用PSR4的自动加载和命名空间，最主要的充分使用模块优势的方式还是为你的代码加上命名空间，并将其添加到 **app/Config/Autoload.php** 中，在 ``psr4`` 这节中。
+模块功能的核心元素来自 CodeIgniter 使用的 :doc:`兼容 PSR-4 的自动加载 <../concepts/autoloader>`。虽然任何代码都可以使用 PSR-4 自动加载器和命名空间,但充分利用模块的主要方法是为你的代码添加命名空间并将其添加到 **app/Config/Autoload.php** 中的 ``$psr4`` 属性。
 
-举例而言，比如我们需要维护一个在应用间复用的简单的博客模块。我们可能会创建一个带有公司名（比如acme）的文件夹来保存所有的模块。
-我们可能会将其置于我们的 **application** 目录旁边，在主项目目录下::
+例如,假设我们想保留一个简单的博客模块,以便在应用程序之间重用。我们可以创建一个文件夹,名为 Acme,来存储所有的模块。我们将它放在主项目根目录中的 **app** 目录旁边::
 
-    /acme        // 新的模块目录
-    /application
-    /public
-    /system
-    /tests
-    /writable
+    acme/        // 新模块目录
+    app/
+    public/
+    system/
+    tests/
+    writable/
 
-打开 **app/Config/Autoload.php** 并将 **Acme** 命名空间加入到 ``psr4`` 数组成员中::
+打开 **app/Config/Autoload.php** 并将 ``Acme\Blog`` 命名空间添加到 ``$psr4`` 数组属性:
 
-    $psr4 = [
-        'Config'        => APPPATH . 'Config',
-        APP_NAMESPACE   => APPPATH,                // 自定义命名空间
-        'App'           => APPPATH,                // 确保筛选器等组件可找到,
-        'Acme'          => ROOTPATH.'acme'
-    ];
+.. literalinclude:: modules/001.php
 
-当我们设置完以上流程后，就可以通过 ``Acme`` 命名空间来访问 **acme** 目录下的文件夹内容。这已经完成了80%的模块工作所需要的内容，
-所以你可以通过熟悉命名空间来适应这种使用方式。这样多种文件类型将会被自动扫描并在整个定义的命名空间中使用——这也是使用模块的关键。
+现在设置好后,我们可以通过 ``Acme\Blog`` 命名空间访问 **acme/Blog** 文件夹中的任何文件。仅此一点就解决了模块工作所需的 80%,所以你应该确保熟悉命名空间并熟练使用它们。通过所有定义的命名空间会自动扫描几种文件类型 - 使用模块的关键组成部分。
 
-在模块中的常见目录结构和主程序目录类似::
+模块中的常见目录结构将模拟主应用程序文件夹::
 
-    /acme
-        /Blog
-            /Config
-            /Controllers
-            /Database
-                /Migrations
-                /Seeds
-            /Helpers
-            /Language
-                /en
-            /Libraries
-            /Models
-            /Views
+    acme/
+        Blog/
+            Config/
+            Controllers/
+            Database/
+                Migrations/
+                Seeds/
+            Helpers/
+            Language/
+                en/
+            Libraries/
+            Models/
+            Views/
 
-当然了，不强制使用这样的目录结构，你也可以自定义目录结构来更好地符合你的模块要求，去掉那些你不需要的目录并增加一些新的目录，例如实体（Entites），接口（Interfaces），仓库（Repository）等。
+当然,没有什么能强制你使用这个确切的结构,你应该以最适合模块的方式组织它,省略不需要的目录,为实体、接口或存储库等创建新目录。
+
+===========================
+自动加载非类文件
+===========================
+
+通常,你的模块不仅包含 PHP 类,还包含像程序函数、引导文件、模块常量文件等通常不会像加载类那样加载的文件。一种方法是在使用文件位置的开头 ``require`` 这些文件。
+
+CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这些*非类*文件。我们需要做的就是提供这些文件路径的列表,并将它们包含在 **app/Config/Autoload.php** 文件的 ``$files`` 属性中。
+
+.. literalinclude:: modules/002.php
 
 ==============
 自动发现
 ==============
 
-很多情况下，你需要指名你所需要包含进来的文件的命名空间全称，但是CodeIgniter可以通过配置自动发现的文件类型，来将模块更方便地整合进你的项目中:
+通常,你需要指定要包含的文件的完全命名空间,但是可以通过自动发现许多不同类型的文件来配置 CodeIgniter,从而使将模块集成到应用程序中更简单,包括:
 
-- :doc:`Events </extending/events>`
-- :doc:`Registrars </general/configuration>`
-- :doc:`Route files </incoming/routing>`
-- :doc:`Services </concepts/services>`
+- :doc:`Events <../extending/events>`
+- :doc:`Filters <../incoming/filters>`
+- :doc:`Registrars <./configuration>`
+- :doc:`Route files <../incoming/routing>`
+- :doc:`Services <../concepts/services>`
 
-这些是在 **app/Config/Modules.php** 文件中配置的。
+这在文件 **app/Config/Modules.php** 中配置。
 
-自动发现系统通过扫描所有在 **Config/Autoload.php** 中定义的PSR4类型的命名空间来实现对于目录/文件的识别。
+自动发现系统通过扫描在 **Config/Autoload.php** 中定义的 psr4 命名空间下的特定目录和文件来工作。
 
-To make auto-discovery work for our **Blog** namespace, we need to make one small adjustment.
-**Acme** needs to be changed to **Acme\\Blog** because each "module" within the namespace needs to be fully defined. Once your module folder path is defined, the discovery process would look for discoverable items on that path and should, for example, find the routes file at **/acme/Blog/Config/Routes.php**.
+例如,发现过程将在路径中查找可以发现的项,并应该找到 **/acme/Blog/Config/Routes.php** 中的 routes 文件。
 
-开启/关闭自动发现
+启用/禁用发现
 =======================
 
-你可以开启或关闭所有的系统中的自动发现，通过 **$enabled** 类变量。False的话就会关闭所有的自动发现，优化性能，但却会让你的模块可用性相对下降。
+你可以通过系统中的 ``$enabled`` 类变量打开或关闭所有自动发现。False 将禁用所有发现,优化性能,但会消除模块的特殊功能。
 
-明确目录项目
+指定要发现的项
 =======================
 
-通过 **$activeExplorers** 选项，你可以明确哪些项目是自动发现的。如果这个项目不存在，就不会对它进行自动发现流程，而数组中的其他成员仍旧会被自动发现。
+使用 ``$aliases`` 选项,你可以指定要自动发现的项。如果不存在该项,则不会为该项执行自动发现,但数组中的其他项仍将被发现。
 
-自动发现与Composer
+发现和 Composer
 ======================
 
-通过Composer安装的包将会默认被自动发现。这只需要Composer识别所需要加载的命名空间是符合PSR4规范的命名空间，PSR0类型的命名空间将不会被发现。
+使用 PSR-4 命名空间通过 Composer 安装的包也将默认被发现。使用 PSR-0 命名空间的包将不会被检测到。
 
-如果在定位文件时，你不想扫描所有Composer已识别的的目录，可以通过编辑 ``Config\Modules.php`` 中的 ``$discoverInComposer`` 变量来关闭这一功能::
+.. _modules-specify-composer-packages:
 
-    public $discoverInComposer = false;
+指定 Composer 包
+-------------------------
+
+.. versionadded:: 4.3.0
+
+为避免花时间扫描不相关的 Composer 包,你可以通过编辑 **app/Config/Modules.php** 中的 ``$composerPackages`` 变量手动指定要发现的包:
+
+.. literalinclude:: modules/013.php
+
+或者,你可以指定要从发现中排除的包。
+
+.. literalinclude:: modules/014.php
+
+禁用 Composer 包发现
+----------------------------------
+
+如果你不希望在查找文件时扫描 Composer 的所有已知目录,可以通过编辑 **app/Config/Modules.php** 中的 ``$discoverInComposer`` 变量将其关闭:
+
+.. literalinclude:: modules/004.php
 
 ==================
-处理文件
+使用文件
 ==================
 
-这节将会详细介绍每种文件类型（控制器，视图，语言文件等）以及在模块中如果使用它们。其中的某些信息在用户手册中将会更为详细地描述，不过在这里重新介绍一下以便了解全局的情况。
+本节将查看每种文件类型(控制器、视图、语言文件等)以及如何在模块中使用它们。用户指南的相关位置已对其中一些信息进行了更详细的描述,但在此重复以更容易掌握所有部分的关系。
 
 路由
 ======
 
-默认情况下， :doc:`路由 </incoming/routing>` 将会在模块内部自动扫描，而这一特性可在 **Modules** 配置文件中被关闭，如上所述。
+默认情况下,模块内会自动扫描 :doc:`路由 <../incoming/routing>`。可以在上面描述的 **Modules** 配置文件中将其关闭。
 
-.. note:: 由于在当前域内包含了路由文件， ``$routes`` 实例已经被定义了，所以当你尝试重新定义类的时候可能会引起错误。
+.. note:: 由于文件被包含到当前作用域中,因此 ``$routes`` 实例已为你定义。如果尝试重新定义该类,则会导致错误。
+
+使用模块时,如果应用程序中的路由包含通配符,这可能是一个问题。在这种情况下,请参阅 :ref:`routing-priority`。
+
+过滤器
+=======
+
+默认情况下,模块内会自动扫描 :doc:`过滤器 <../incoming/filters>`。可以在上面描述的 **Modules** 配置文件中将其关闭。
+
+.. note:: 由于文件被包含到当前作用域中,因此 ``$filters`` 实例已为你定义。如果尝试重新定义该类,则会导致错误。
+
+在模块的 **Config/Filters.php** 文件中,你需要定义使用的过滤器的别名:
+
+.. literalinclude:: modules/005.php
 
 控制器
 ===========
 
-在主 **app/Controller** 目录下定义的控制器不会自动被URI路由自动调用，所以需要在路由文件内部手动声明::
+**app/Controllers** 目录之外的控制器无法通过 URI 检测自动路由,而必须在 Routes 文件本身中指定:
 
-    // Routes.php
-    $routes->get('blog', 'Acme\Blog\Controllers\Blog::index');
+.. literalinclude:: modules/006.php
 
-为了减少不必要的输入， **group** 路由特性（译者注： `分组路由 </incoming/routing#分组路由>` ）是一个不错的选择::
+为了减少这里所需的输入量,**group** 路由功能很有用:
 
-    $routes->group('blog', ['namespace' => 'Acme\Blog\Controllers'], function($routes)
-    {
-        $routes->get('/', 'Blog::index');
-    });
+.. literalinclude:: modules/007.php
 
 配置文件
 ============
 
-No special change is needed when working with configuration files. These are still namespaced classes and loaded
-with the ``new`` command::
+使用配置文件时不需要特殊更改。这些仍然是命名空间类,并使用 ``new`` 命令加载:
 
-    $config = new \Acme\Blog\Config\Blog();
+.. literalinclude:: modules/008.php
 
-Config files are automatically discovered whenever using the **config()** function that is always available.
+每次使用始终可用的 ``config()`` 函数时,都会自动发现配置文件。
+
+.. note:: 我们不建议在模块中使用相同的短类名。需要覆盖或添加 **app/Config/** 中已知配置的模块应使用 :ref:`registrars`。
+
+.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``config(\Acme\Blog\Config\Blog::class)``),``config()`` 也会在 **app/Config/** 中找到该文件。这是因为 ``config()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`Factories 示例 <factories-example>`。
 
 迁移
 ==========
 
-迁移文件将通过定义的命名空间自动发现。所有命名空间里找到的迁移每次都会被自动运行。
+定义命名空间中的迁移文件将被自动发现。跨所有命名空间找到的所有迁移将在每次运行时都执行。
 
 种子
 =====
 
-种子文件可在CLI或其他种子文件里使用，只要提供了完整的命名空间名。如果通过CLI调用，就需要提供双反斜杠定义的类名格式(\\)::
+只要提供完全限定的命名空间,就可以从 CLI 和其他种子文件中调用种子文件。如果在 CLI 上调用,则需要提供双反斜杠::
 
-    > php public/index.php migrations seed Acme\\Blog\\Database\\Seeds\\TestPostSeeder
+    For Unix:
+    > php spark db:seed Acme\\Blog\\Database\\Seeds\\TestPostSeeder
+
+    For Windows:
+    > php spark db:seed Acme\Blog\Database\Seeds\TestPostSeeder
 
 辅助函数
-==========
+========
 
-当使用 ``helper()`` 方法时，辅助函数将会通过定义的命名空间自动定位。只要它存在于 **Helpers** 命名空间目录下::
+在使用 ``helper()`` 函数时,定义的命名空间内的辅助函数将被自动发现,只要它们在 **Helpers** 目录内:
 
-    helper('blog');
+.. literalinclude:: modules/009.php
+
+你可以指定命名空间。详情请参阅 :ref:`helpers-loading-from-non-standard-locations`。
 
 语言文件
 ==============
 
-当使用 ``lang()`` 方法时，语言文件是通过定义的命名空间来自动定位的。只要这个文件是遵循主程序目录一样的目录结构来放置的。
+只要文件遵循与主应用程序目录相同的目录结构,在使用 ``lang()`` 方法时就会从定义的命名空间自动定位语言文件。
 
 库
 =========
 
-库总是通过完全命名空间化的类名进行实例化，所以不需要额外的操作::
+库总是通过它们的完全限定类名实例化的,所以不提供特殊访问:
 
-    $lib = new \Acme\Blog\Libraries\BlogLib();
+.. literalinclude:: modules/010.php
 
 模型
 ======
 
-模型总是通过完全命名空间化的类名进行实例化，所以不需要额外的操作::
+如果你通过完全限定的类名用 ``new`` 关键字实例化模型,则不提供特殊访问:
 
-    $model = new \Acme\Blog\Models\PostModel();
+.. literalinclude:: modules/011.php
+
+每当使用始终可用的 :php:func:`model()` 函数时,都会自动发现模型文件。
+
+.. note:: 我们不建议在模块中使用相同的短类名。
+
+.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``model(\Acme\Blog\Model\PostModel::class)``),``model()`` 也会在 **app/Models/** 中找到该文件。这是因为 ``model()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`Factories 示例 <factories-example>`。
 
 视图
 =====
 
-视图文件可通过 :doc:`视图 </outgoing/views>` 文档中所述的类命名空间进行加载::
+如 :doc:`视图 </outgoing/views>` 文档中所述,可以使用类命名空间加载视图:
 
-    echo view('Acme\Blog\Views\index');
+.. literalinclude:: modules/012.php

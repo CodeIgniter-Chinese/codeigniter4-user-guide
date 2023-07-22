@@ -3,114 +3,122 @@ CodeIgniter4 用户指南
 #######################
 
 .. toctree::
-	:includehidden:
-        :titlesonly:
+    :includehidden:
+    :titlesonly:
 
-        intro/index
+    intro/index
 
 ***************
-开始
+开始使用
 ***************
 
 .. toctree::
-	:maxdepth: 2
-	:titlesonly:
+    :maxdepth: 2
+    :titlesonly:
 
-	installation/index
+    installation/index
 
 ****************************
-构建你的第一个应用
+构建第一个应用
 ****************************
 
 .. toctree::
-	:includehidden:
-	:titlesonly:
+    :includehidden:
+    :titlesonly:
 
-    	tutorial/index
+    tutorial/index
 
 *************************
 概览和常规主题
 *************************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	concepts/index
+    concepts/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	general/index
+    general/index
 
 ****************
 请求处理
 ****************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	incoming/index
+    incoming/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	outgoing/index
+    outgoing/index
 
 ******************
 数据库
 ******************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	database/index
-
-.. toctree::
-	:titlesonly:
-
-	models/index
+    database/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	dbmgmt/index
+    models/index
 
+.. toctree::
+    :titlesonly:
+
+    dbmgmt/index
 
 *******************
 类库和辅助函数
 *******************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	libraries/index
+    libraries/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	helpers/index
+    helpers/index
 
 ***************
 高级主题
 ***************
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	testing/index
-
-.. toctree::
-	:titlesonly:
-
-	cli/index
+    testing/index
 
 .. toctree::
-	:titlesonly:
+    :titlesonly:
 
-	extending/index
+    cli/index
 
 .. toctree::
-        :hidden:
+    :titlesonly:
 
-        license
-        changelogs/index
+    extending/index
+
+.. toctree::
+    :hidden:
+
+    license
+    changelogs/index
+
+*****************
+官方扩展包
+*****************
+
+.. toctree::
+    :titlesonly:
+
+    libraries/official_packages

@@ -7,10 +7,10 @@ CodeIgniter 是一套给 PHP 网站开发者使用的应用程序开发框架和
 CodeIgniter 将尽可能的保持其灵活性，以允许你以喜欢的方式工作，而不是被迫以其它方式工作。框架可以轻松扩展或替换核心部件，使系统按你期望的方式工作。简而言之，CodeIgniter 是一个可扩展的框架，它试图提供你所需的工具，同时让你避免踩坑。
 
 **************************
-CodeIgniter 是为谁准备的？
+CodeIgniter 适合你吗?
 **************************
 
-CodeIgniter 就是你所需要的，如果...
+如果你：
 
 -  你想要一个小巧的框架；
 -  你需要出色的性能；
@@ -20,14 +20,16 @@ CodeIgniter 就是你所需要的，如果...
 -  你对 PEAR 这种庞然大物不感兴趣；
 -  你不想被迫学习一种新的模板语言（当然如果你喜欢，你可以选择一个模板解析器）；
 -  你不喜欢复杂，追求简单；
--  你需要清晰、完整的文档。
+-  你需要清晰、全面的文档。
+
+那么 CodeIgniter 就适合你。
 
 .. toctree::
-	:hidden:
-	:titlesonly:
+    :hidden:
+    :titlesonly:
 
-	self
-	requirements
-	credits
-	psr
-
+    self
+    requirements
+    credits
+    psr
+    许可协议 <../license>

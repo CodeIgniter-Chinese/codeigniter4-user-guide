@@ -6,135 +6,128 @@
     :local:
     :depth: 2
 
-引言
-============
+简介
+************
 
-在CodeIgniter内部的所有类实际上都是以"服务"的形式呈现的。这意味着，所有的类都是以定义在一个简单的配置文件里，而非硬编码所需要加载的类名，来进行加载的。
-该配置文件实际上扮演了一种为所需类创建新的实例的工厂的角色。
+什么是服务?
+==================
 
-一个简单的例子可能会讲得更清楚，比如请设想你需要获得一个 Timer （计时器）类的实例，最简单的方法就是为该类创建一个新的实例::
+CodeIgniter 4 中的**服务**提供了创建和共享新类实例的功能。它由 ``Config\Services`` 类实现。
 
-	$timer = new \CodeIgniter\Debug\Timer();
+CodeIgniter 的所有核心类都以“服务”提供。这仅仅意味着,不是硬编码一个类名进行加载,而是在一个非常简单的配置文件中定义要调用的类。这个文件充当工厂的角色,用来创建所需类的新实例。
 
-这种方式运行得相当不错，直到你决定需要在该位置上使用另一个计时器类时。可能这个类比起默认的计时器类提供了更高级的报告方法。
-为了实现这一目标，你可能会查找应用中的所有位置来定位哪些地方使用了定时器类。由于你可能在很多地方都设置了该类的实例，以获取应用日常运行的性能日志，
-这种查找-替换的工作可能会变得相当的耗时并且错误频发。这就是服务的用武之地。
-
-取代了手动创建实例的操作，我们保留了一个中央控制类来为我们新建实例。该类的结构相当简单，仅仅包含了一个方法用于调度我们需要用作服务的每个类。
-该方法只是返回了指定类的一个共享实例，用于所有依赖该类的地方以服务的形式来调用。从而我们可以用以下代码来取代每次都新建一个实例的方式::
-
-	$timer = \Config\Services::timer();
-
-当你想要更改这一实现时，只需要更改服务的配置文件，从而在应用中就可以自动地进行变更替换，不需要任何其他操作。
-现在你所需要的只是使用新的替换上来的类的特性，非常地简单且不易出错。
-
-.. note:: 我们推荐只在控制器里创建服务。在其他文件例如模型和库，应当依赖于构造函数或者 setter 方法的传参来实例化。
-
-
-便利的方法
----------------------
-
-有两个方法被用于获取一个服务，这些方法都非常的方便。
-
-第一个就是 ``service()`` 方法，该方法返回了指定服务的新的实例。唯一需要的参数就是服务名。
-该方法与服务文件内部返回共享实例的方式是一样的，因此对该方法的多次调用总是会返回一个相同的实例::
-
-	$logger = service('logger');
-
-如果创建的方法需要额外的参数，那么这些参数就应该在服务名后传递::
-
-	$renderer = service('renderer', APPPATH.'views/');
-
-第二个方法 ``single_service()`` ，和 ``service()`` 一样调用，不过每次都会返回一个指定类的新的实例::
-
-	$logger = single_service('logger');
-
-定义服务
+为什么使用服务?
 =================
 
-为了保证服务的正常运行，你需要能够对每个拥有常量API，或者实现了 `接口 <https://www.php.net/manual/en/language.oop5.interfaces.php>`_ 的类建立依赖。
-CodeIgniter 的大部分类都提供了一个它们所应当提供的接口。当你需要扩展或者替代核心类时，你只需要确保自己符合这些接口的要求并且确定这些类的功能是完善的。
+一个快速的示例可能会使事情更清楚,所以想象一下,你需要获取 Timer 类的一个实例。最简单的方法就是简单地创建该类的一个新实例:
 
-举例来说， ``RouterCollection`` 类实现了 ``RouterCollectionInterface`` 接口。当你想要替代该类，并实现不同的路由管理方法时，只需要创建一个实现了 ``RouterCollectionInterface`` 接口的类即可::
+.. literalinclude:: services/001.php
 
-	class MyRouter implements \CodeIgniter\Router\RouteCollectionInterface
-	{
-		// Implement required methods here.
-	}
+这工作得很好。直到你决定要使用另一个定时器类来替换它。也许这个定时器类具有默认定时器不提供的一些高级报告功能。为了做到这一点,你现在需要找到应用程序中使用了定时器类的所有位置。由于你可能已经将它们保留在那里以便持续运行性能日志,所以这可能是一个非常耗时且容易出错的处理方法。这就是服务派上用场的地方。
 
-最后，修改 **/app/Config/Services.php** 以创建 ``MyRouter`` 类的实例，来替代 ``CodeIgniter\Router\RouterCollection`` ::
+与其自己创建实例,不如让一个中心类为我们创建类的实例。这个类非常简单。它只包含每个我们希望用作服务的类的方法。该方法通常返回该类的一个共享实例,并将它可能具有的任何依赖项传递给它。然后,我们将用调用此新类的代码替换定时器创建代码:
 
-	public static function routes()
-	{
-		return new \App\Router\MyRouter();
-	}
+.. literalinclude:: services/002.php
 
-允许使用参数
--------------------
+当你需要更改使用的实现时,可以修改服务配置文件,更改会自动传播到整个应用程序,而你不需要做任何事情。现在你只需要利用任何新的功能,就大功告成了。非常简单且不易出错。
 
-在某些情况下，你可能想要使用某个选项来为一个类在实例化的时候传递配置信息。
-由于服务文件只是简单的类文件，如上操作非常方便。
+.. note:: 建议只在控制器中创建服务。其他文件,如模型和库应该通过构造函数或设置器方法传入依赖项。
 
-``renderer`` 服务就是一个不错的例子。默认情况下，我们需要该类能够找到 ``APPPATH.views/`` 目录下的视图文件。我们同时也想为开发者提供改变路径的选项（如果他们需要的话）。
-因此该类接受 ``$viewPath`` 变量作为构造函数的参数。该服务的调用方法可能如下所示::
+如何获取服务
+********************
 
-	public static function renderer($viewPath=APPPATH.'views/')
-	{
-		return new \CodeIgniter\View\View($viewPath);
-	}
+由于许多 CodeIgniter 类作为服务提供,你可以像如下获取它们:
 
-这一过程在构造函数方法里设置了默认路径，同时也可以轻松地改变其所使用的路径::
+.. literalinclude:: services/013.php
 
-	$renderer = \Config\Services::renderer('/shared/views');
+``$typography`` 是一个 Typography 类的实例,如果你再次调用 ``\Config\Services::typography()``,你将会得到完全相同的实例。
+
+服务通常返回类的共享实例。下面的代码在首次调用时创建一个 ``CURLRequest`` 实例。第二次调用返回完全相同的实例。
+
+.. literalinclude:: services/015.php
+
+因此,``$client2`` 的参数 ``$options2`` 不起作用。它被忽略了。
+
+获取新实例
+======================
+
+如果你想获取 Typography 类的新实例,需要向参数 ``$getShared`` 传递 ``false``:
+
+.. literalinclude:: services/014.php
+
+便利函数
+=====================
+
+提供了两个获取服务的函数。这些函数始终可用。
+
+service()
+---------
+
+第一个是 ``service()``,它返回所请求服务的新实例。唯一必需的参数是服务名称。这与 Services 文件中的方法名称相同,总是返回类的 SHARED 实例,所以多次调用函数应该始终返回相同的实例:
+
+.. literalinclude:: services/003.php
+
+如果创建方法需要其他参数,可以在服务名称后传入:
+
+.. literalinclude:: services/004.php
+
+single_service()
+----------------
+
+第二个函数 ``single_service()`` 的工作方式与 ``service()`` 相同,但返回类的新实例:
+
+.. literalinclude:: services/005.php
+
+定义服务
+*****************
+
+为了使服务能够良好地工作,你必须能够依赖于每个类具有一个恒定的 API 或 `接口 <https://www.php.net/manual/en/language.oop5.interfaces.php>`_ 来使用它。CodeIgniter 的几乎所有类都提供了它们要遵守的接口。当你想扩展或替换核心类时,你只需要确保满足接口的要求,你就会知道这些类是兼容的。
+
+例如,``RouteCollection`` 类实现了 ``RouteCollectionInterface``。当你想要创建一个提供不同路由创建方式的替代类时,你只需要创建一个实现 ``RouteCollectionInterface`` 的新类:
+
+.. literalinclude:: services/006.php
+
+最后,在 **app/Config/Services.php** 中添加 ``routes()`` 方法,以创建 ``MyRouteCollection`` 的新实例,而不是 ``CodeIgniter\Router\RouteCollection``:
+
+.. literalinclude:: services/007.php
+
+允许参数
+===================
+
+在某些情况下,你会希望在实例化时有选择地向类传递设置。由于 services 文件是一个非常简单的类,因此很容易实现这一点。
+
+一个很好的例子是 ``renderer`` 服务。默认情况下,我们希望这个类能够在 ``APPPATH . 'views/'`` 中找到视图。我们希望开发人员有可能更改该路径,但如果他们的需求需要的话。所以该类接受 ``$viewPath`` 作为构造函数参数。服务方法如下所示:
+
+.. literalinclude:: services/008.php
+
+这会在构造函数中设置默认路径,但允许轻松更改它使用的路径:
+
+.. literalinclude:: services/009.php
 
 共享类
------------------
+==============
 
-某些情况下你可能只需要创建一个类的单实例。该操作可以通过工厂方法内部调用的 ``getSharedInstance()`` 方法来轻松地处理。
-该方法检查了该类是否已创建了存储于内部的单个实例，如果没有的话，就会创建一个新的。所有的工厂方法都会提供一个 ``$getShared = true`` 的值作为最后的参数。你可以像这样操作该方法::
+有时候你需要要求只创建服务的单个实例。这可以通过在工厂方法中调用的 ``getSharedInstance()`` 方法轻松处理。这会处理检查实例是否已在类中创建和保存,如果没有,则创建一个新实例。所有工厂方法都提供 ``$getShared = true`` 作为最后一个参数。你也应该坚持使用该方法:
 
-    class Services
-    {
-        public static function routes($getShared = false)
-        {
-            if (! $getShared)
-            {
-                return new \CodeIgniter\Router\RouteCollection();
-            }
-
-            return static::getSharedInstance('routes');
-        }
-    }
+.. literalinclude:: services/010.php
 
 服务发现
------------------
+*****************
 
-CodeIgniter可以自动发现所有你在其他命名空间里可能定义的 ``Config\Services.php`` 文件。这一功能允许了任何模块服务化文件的简单使用。
-为了这些定制化的服务文件可以被自动发现，他们需要满足这些要求
+CodeIgniter 可以自动发现你可能在任何定义的命名空间中创建的任何 **Config/Services.php** 文件。这允许简单使用任何模块的 Services 文件。为了发现自定义 Services 文件,它们必须满足以下要求:
 
-- 它们的命名空间必须在 ``Config\Autoload.php`` 中已定义
-- 在命名空间内部，该文件必须可以在 ``Config\Services.php`` 里被找到
-- 它们必须继承 ``CodeIgniter\Config\BaseService`` 类
+- 其命名空间必须在 **app/Config/Autoload.php** 中定义
+- 在命名空间内,该文件必须位于 **Config/Services.php**
+- 它必须扩展 ``CodeIgniter\Config\BaseService``
 
-一个小例子可以帮助我们更好地理解。
+一个小例子应该澄清这一点。
 
-假设你创建了一个新的目录，比如在根目录下的一个叫做 ``Blog`` 的目录。该目录中里有一个 **博客模块** ，并含有控制器，模型等文件。
-如果你愿意的话也可以将某些类作为服务而使用。第一步就是创建一个新的文件: ``Blog\Config\Services.php`` ，该文件结构应当如下所示::
+假设在项目的根目录中创建了一个新目录 **Blog**。这将保存带有控制器、模型等的 **Blog 模块**,你想将其中一些类作为服务提供。第一步是创建一个新文件:**Blog/Config/Services.php**。该文件框架应该是:
 
-    <?php namespace Blog\Config;
+.. literalinclude:: services/011.php
 
-    use CodeIgniter\Config\BaseService;
+现在你可以像上面描述的那样使用此文件。当你想从任何控制器获取文章服务时,只需使用框架的 ``Config\Services`` 类获取你的服务:
 
-    class Services extends BaseService
-    {
-        public static function postManager()
-        {
-            ...
-        }
-    }
+.. literalinclude:: services/012.php
 
-现在你可以使用如上描述的文件。每当你想要调用其他控制器的 posts 服务时，就可以简单地使用该框架的 ``Config\Services`` 类来获取你所需要的服务::
-
-    $postManager = Config\Services::postManager();
-
-.. note:: 如果多个服务文件拥有相同的方法名，那么第一个被发现的服务实例就会作为返回值。
+.. note:: 如果多个 Services 文件具有相同的方法名,则返回找到的第一个实例。

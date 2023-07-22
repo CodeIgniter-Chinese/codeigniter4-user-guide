@@ -1,64 +1,96 @@
 ##########################
-管理多个应用
+管理应用程序
 ##########################
 
-默认情况下，我们假设你只是用CodeIgniter来管理一个应用，并将该应用在 **application** 目录下进行构建。
-然而也存在这样的可能性：多个应用共享一个CodeIgniter的安装目录，甚至开发者会将 application目录进行重命名或移动位置。
+默认情况下,假设你只打算在 **app** 目录中使用 CodeIgniter 来管理一个应用程序。但是,可以拥有多个共享单个 CodeIgniter 安装的应用程序集,或者重命名或重新定位你的应用程序目录。
 
-重命名或迁移应用程序目录
-==================================
+.. important:: 如果你安装了 CodeIgniter v4.1.9 或更早版本,并且在 ``/composer.json`` 的 ``autoload.psr-4`` 中有像下面这样的 ``App\\`` 和 ``Config\\`` 命名空间,你需要删除这些行并运行 ``composer dump-autoload``。
 
-如果你想重命名你的应用文件夹或者移动
-it to a different location on your server, other than your project root, open
-your main **app/Config/Paths.php** and set a *full server path* in the
-``$appDirectory`` variable (at about line 38)::
+    .. code-block:: text
 
-	public $appDirectory = '/path/to/your/application';
-	
-You will need to modify two additional files in your project root, so that
-they can find the ``Paths`` configuration file:
+        {
+            ...
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app",             <-- 移除这行
+                    "Config\\": "app/Config"    <-- 移除这行
+                }
+            },
+            ...
+        }
 
-- ``/spark`` runs command line apps; the path is specified on or about line 36::
+.. contents::
+    :local:
+    :depth: 2
 
-    require 'app/Config/Paths.php';
-    // ^^^ Change this if you move your application folder
+.. _renaming-app-directory:
 
+重命名或重新定位应用程序目录
+================================================
 
-- ``/public/index.php`` is the front controller for your webapp; the config
-  path is specified on or about line 16::
+如果你想要重命名应用程序目录或者甚至将其移动到服务器上的项目根目录之外的其他位置,请打开主 **app/Config/Paths.php** 文件,并在 ``$appDirectory`` 变量中设置一个*完整的服务器路径*(约第44行):
 
-    $pathsPath = FCPATH . '../app/Config/Paths.php';
-    // ^^^ Change this if you move your application folder
+.. literalinclude:: managing_apps/001.php
 
-单个CodeIgniter对应运行多个应用
+你需要修改项目根目录中的另外两个文件,以便它们可以找到 **Paths** 配置文件:
+
+- **/spark** 运行命令行应用程序。
+
+  .. literalinclude:: managing_apps/002.php
+
+- **/public/index.php** 是你的 Web 应用程序的前端控制器。
+
+  .. literalinclude:: managing_apps/003.php
+
+使用一个 CodeIgniter 安装运行多个应用程序
 ===============================================================
 
-如果你想要让多个不同的应用来共享一次CodeIgniter的安装文件，只需要将你的应用目录下的所有目录都移动到他们对应的子目录中即可。
+如果你想共享一个公共的 CodeIgniter 框架安装来管理几个不同的应用程序,只需将位于应用程序目录内的所有目录都放入自己的(子)目录即可。
 
-举例而言，加入你想要创建两个应用程序，命名为"foo"和"bar"，你可以将你的应用目录排列如下:
+例如,假设你要创建两个名为 **foo** 和 **bar** 的应用程序。你可以像这样组织应用程序项目目录:
 
 .. code-block:: text
 
-    /foo
-        /app
-        /public
-        /tests
-        /writable
-    /bar
-        /app
-        /public
-        /tests
-        /writable
-    /codeigniter
-        /system
-        /docs
+    foo/
+        app/
+        public/
+        tests/
+        writable/
+        env
+        phpunit.xml.dist
+        spark
+    bar/
+        app/
+        public/
+        tests/
+        writable/
+        env
+        phpunit.xml.dist
+        spark
+    vendor/
+        autoload.php
+        codeigniter4/framework/
+    composer.json
+    composer.lock
 
-This would have two apps, "foo" and "bar", both having standard application directories
-and a ``public`` folder, and sharing a common codeigniter framework.
+.. note:: 如果你从 Zip 文件安装 CodeIgniter,目录结构将是:
 
-The ``index.php`` inside each application would refer to its own configuration,
-``../app/Config/Paths.php``, and the ``$systemDirectory`` variable inside each
-of those would be set to refer to the shared common "system" folder.
+    .. code-block:: text
 
-If either of the applications had a command-line component, then you would also
-modify ``spark`` inside each application's project folder, as directed above.
+        foo/
+        bar/
+        codeigniter4/system/
+
+这将有两个应用程序 **foo** 和 **bar**,都有标准的应用程序目录和 **public** 文件夹,并共享一个公共的 **codeigniter4/framework**。
+
+每个应用程序内部的 **app/Config/Paths.php** 中的 ``$systemDirectory`` 变量将被设置为指向共享的公共 **codeigniter4/framework** 文件夹:
+
+.. literalinclude:: managing_apps/005.php
+
+.. note:: 如果你从 Zip 文件安装 CodeIgniter,``$systemDirectory`` 将是 ``__DIR__ . '/../../../codeigniter4/system'``。
+
+并修改每个应用程序内部的 **app/Config/Constants.php** 中的 ``COMPOSER_PATH`` 常量:
+
+.. literalinclude:: managing_apps/004.php
+
+只有在你更改应用程序目录时,请参阅 :ref:`renaming-app-directory` 并修改 **index.php** 和 **spark** 中的路径。

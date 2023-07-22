@@ -1,102 +1,77 @@
 事件
 #####################################
 
-CodeIgniter 事件特性提供了一种方法来修改框架的内部运作流程或功能，而无需修改核心文件的能力。CodeIgniter 遵循着一个特定的流程来
-运行。但是，在某些情况下，你可能想在执行特定流程时执行某些特定的操作。例如在加载控制器之前或之后立即运行一个特定的脚本。或者在其他的
-某些位置触发你的脚本。
+CodeIgniter 的 Events 功能提供了一种利用内部机制而不修改核心文件的方式。CodeIgniter 运行时遵循特定的执行流程,但有时你可能希望在执行流程的特定阶段引发某些操作。例如,你可能希望在控制器加载之前或之后运行一个脚本,或者你可能希望在其他位置触发自己的脚本。
 
-事件已发布/订阅模式工作，可以在脚本执行过程中的某个时刻触发事件。其他脚本可以通过向 Events 类来注册订阅事件，使它知道在脚本触发事件
-时该执行什么操作。
+事件遵循 *发布/订阅* 模式,即在脚本执行的某个时刻触发一个事件。其他脚本可以通过在 Events 类中注册来“订阅”该事件,以表明它们希望在触发该事件时执行操作。
+
+.. contents::
+    :local:
+    :depth: 2
 
 启用事件
 ===============
 
-事件始终处于启用状态，并且全局可用。
+事件总是启用的,并全局可用。
 
 定义事件
 =================
 
-大多数的事件都定义在 **app/Config/Events.php** 文件中。不过你也可以通过 Events 类的 ``on()`` 方法定义事件。第一个参数是事件
-名称，第二个参数是当触发该事件时执行的操作::
+大多数事件在 **app/Config/Events.php** 文件中定义。你可以使用 ``Events`` 类的 ``on()`` 方法为一个事件订阅一个操作。第一个参数是要订阅的事件名称。第二个参数是一个回调,在触发该事件时会运行它:
 
-	use CodeIgniter\Events\Events;
+.. literalinclude:: events/001.php
 
-	Events::on('pre_system', ['MyClass', 'MyFunction']);
+在这个例子中,每当执行 ``pre_system`` 事件时,会创建 ``MyClass`` 的一个实例并运行 ``myFunction()`` 方法。注意,第二个参数可以是 PHP 支持的任何形式的 `可调用项 <https://www.php.net/manual/en/function.is-callable.php>`_:
 
-在这个例子中，任何时候触发 **pre_controller** 事件，都会创建 ``MyClass`` 实例并运行 ``MyFunction`` 方法。
+.. literalinclude:: events/002.php
 
-第二个参数可以是 PHP 能识别的任何 `可调用结构 <https://www.php.net/manual/en/function.is-callable.php>`_::
-
-	// 调用 some_function 方法
-	Events::on('pre_system', 'some_function');
-
-	// 调用实例方法
-	$user = new User();
-	Events::on('pre_system', [$user, 'some_method']);
-
-	// 调用静态方法
-	Events::on('pre_system', 'SomeClass::someMethod');
-
-	// 使用闭包形式
-	Events::on('pre_system', function(...$params)
-	{
-		. . .
-	});
-
-
-
-设置执行优先顺序
+设置优先级
 ------------------
 
-由于可以将多个方法订阅到一个事件中，因此需要一种方式来定义这些方法的调用顺序。你可以通过传递优先级作为 ``on()`` 方法的第三个参数来实现。
-事件系统将优先执行优先级较低的值，优先级最高的值为 1::
+由于可以为单个事件订阅多个方法,因此你需要一种定义这些方法调用顺序的方式。你可以通过在 ``on()`` 方法的第三个参数传递一个优先级值来实现这一点。较低的值会先执行,值 1 具有最高优先级,对较低值没有限制:
 
-    Events::on('post_controller_constructor', 'some_function', 25);
+.. literalinclude:: events/003.php
 
-如果出现相同优先级的情况，那么事件系统将按定义的顺序执行。
+具有相同优先级的任何订阅者都会按定义的顺序执行。
 
-.. note:: 可以理解为事件系统会根据事件名称分组排序，按第三个参数升序排列，然后依次执行。
+从 v4.2.0 开始,定义了三个类常量供你使用,它们为值设置了一些有用的范围。你不需要使用它们,但你可能会发现它们有助于提高可读性:
 
-Codeigniter 内置了三个常量供您使用，仅供参考。你也可以不使用它，但你会发现他们有助于提高可读性::
+.. literalinclude:: events/004.php
 
-	define('EVENT_PRIORITY_LOW', 200);
-	define('EVENT_PRIORITY_NORMAL', 100);
-	define('EVENT_PRIORITY_HIGH', 10);
+.. important:: 常量 ``EVENT_PRIORITY_LOW``、``EVENT_PRIORITY_NORMAL`` 和 ``EVENT_PRIORITY_HIGH`` 已弃用,定义移至 ``app/Config/Constants.php``。这些将在未来版本中删除。
 
-排序后，将按顺序执行所有订阅者。如果任意订阅者返回了布尔类型 ``false``，订阅者将停止执行。
+对订阅者排序后,会按顺序执行所有订阅者。如果任何订阅者返回布尔假值,则将停止执行订阅者。
 
-发布自定义的事件
+发布你自己的事件
 ==========================
 
-使用事件系统，你可以轻松创建自己的事件。要使用此功能，只需要调用 **Events** 类的 ``trigger()`` 方法即可::
+Events 库也使你可以在自己的代码中简单地创建事件。要使用此功能,你只需要用事件名称调用 **Events** 类的 ``trigger()`` 方法:
 
-	\CodeIgniter\Events\Events::trigger('some_event');
+.. literalinclude:: events/005.php
 
-当然，你也可以为订阅者传递任意数量的参数，订阅者将会按相同的顺序接收参数::
+通过添加更多参数,你可以向订阅者传递任意数量的参数。订阅者将以定义的相同顺序获取参数:
 
-	\CodeIgniter\Events\Events::trigger('some_events', $foo, $bar, $baz);
-
-	Events::on('some_event', function($foo, $bar, $baz) {
-		...
-	});
+.. literalinclude:: events/006.php
 
 模拟事件
 =================
 
-在测试期间，你可能不希望事件被真正的触发，因为每天发送数百封电子邮件记缓慢又适得其反。你可以告诉 Events 类使用 ``simulate()`` 方法
-模拟运行事件。如果为 **true**，那么将跳过所有事件，不过其他的内容都会正常运行::
+在测试期间,你可能不希望事件实际触发,因为每天发送数百封电子邮件既缓慢又适得其反。你可以使用 ``simulate()`` 方法告诉 Events 类仅模拟运行事件。当值为 **true** 时,在 trigger 方法期间将跳过所有事件。但是其他一切都将正常工作。
 
-    Events::simulate(true);
+.. literalinclude:: events/007.php
 
-你也可以传递 **false** 停止模拟::
+你可以通过传递 false 来停止模拟:
 
-    Events::simulate(false);
+.. literalinclude:: events/008.php
 
-事件触发点
+事件点
 ============
 
-以下是 Codeigniter 核心代码中可用的事件触发点列表:
+以下是 CodeIgniter 核心代码中可用的事件点列表:
 
-* **pre_system** 系统执行过程中最早被调用。此时，只有 基准测试类 和 钩子类 被加载了， 还没有执行到路由或其他的流程。
-* **post_controller_constructor** 在你的控制器实例化之后立即执行，控制器的任何方法都还未调用。
-* **post_system** 最终数据发送到浏览器之后，系统执行结束时调用。
+* **pre_system** 在系统执行非常早期时调用。此时仅加载了 benchmark 和 events 类。没有进行路由或其他处理。
+* **post_controller_constructor** 在控制器实例化后但在任何方法调用发生前立即调用。
+* **post_system** 在向浏览器发送最终渲染页面后调用,在向浏览器发送最终数据后系统执行结束时调用。
+* **email** 从 ``CodeIgniter\Email\Email`` 成功发送邮件后调用。接收 ``Email`` 类属性数组作为参数。
+* **DBQuery** 在数据库查询成功或失败后调用。接收 ``Query`` 对象。
+* **migrate** 在对 ``latest()`` 或 ``regress()`` 的成功迁移调用后调用。接收 ``MigrationRunner`` 的当前属性以及方法名称。

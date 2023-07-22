@@ -1,324 +1,358 @@
-#############
+##############
 URL 辅助函数
-#############
+##############
 
-URL 辅助函数文件包含的函数辅助 URLs 运行。
+URL 辅助函数文件包含帮助使用 URL 的函数。
 
 .. contents::
-  :local:
+    :local:
+    :depth: 2
 
-.. raw:: html
-
-  <div class="custom-index container"></div>
-
-加载 URL 辅助函数
+加载此辅助函数
 ===================
 
-在每个请求中 URL 辅助函数由框架自动地加载。
+此辅助函数由框架在每个请求上自动加载。
 
-通用函数
+可用函数
 ===================
 
-下文函数是通用的:
+以下函数可用:
 
-.. php:function:: site_url([$uri = ''[, $protocol = NULL[, $altConfig = NULL]]])
+.. php:function:: site_url([$uri = ''[, $protocol = null[, $altConfig = null]]])
 
-	:param	string	$uri: URI string
-	:param	string	$protocol: 协议，处理资料传送的标准，例如 'http' 或者 'https'
-	:param	\\Config\\App	$altConfig: 使用更替配置
-	:returns:	Site URL
-	:rtype:	string
+    :param  array|string         $uri: URI字符串或URI段数组
+    :param  string        $protocol: 协议,例如'http'或'https'
+    :param  \\Config\\App $altConfig: 要使用的备用配置
+    :returns: 站点URL
+    :rtype:    string
 
-        返回你的 site URL，就像在你的配置文件里说明的。
-	index.php 文件（或者在你的配置文件里任何你已经设置在你网站的 **index_page**）
-	将会添加到 URL，如同你通过函数程序段的一些 URL，外加在你的配置文件中已经设置的 **url_suffix**.
-	
-	在你的 URL 改变的事件中，你被鼓励在任何时间使用函数生成本地 URL 以便你的页面将变得更加便携。
-	
-	程序段能随意地像 string 或者 array 通过函数。下文是 string 事例::
+    .. note:: 从 v4.3.0 开始,如果你设置了 ``Config\App::$allowedHostnames``,
+        并且当前 URL 匹配,则会返回主机名设置了的 URL。
 
-		echo site_url('news/local/123');
+    返回配置文件中指定的你的站点 URL。**index.php** 文件(或你在配置文件中设置为站点 ``Config\App::$indexPage`` 的任何内容)都将添加到 URL 中,就像你传递给函数的任何 URI 段一样。
 
-	上文的事例返回的地址如下:
-	*http://example.com/index.php/news/local/123*
+    每当你需要生成本地 URL 时,都建议使用此函数,以便在 URL 改变的情况下使页面更便携。
 
-	这里是一个通过数组程序段的事例::
+    段可以可选地作为字符串或数组传递给函数。这是字符串示例:
 
-		$segments = ['news', 'local', '123'];
-		echo site_url($segments);
+    .. literalinclude:: url_helper/001.php
 
-        对不同的网站如果生成 URLs 你或许会找到比你的配置更有用的更替配置，该函数包含不同配置优先权。
-	我们为单元测试框架本身使用这个函数。
-	
+    上面的示例将返回类似内容:
+    **http://example.com/index.php/news/local/123**
 
-.. php:function:: base_url([$uri = ''[, $protocol = NULL]])
+    以下是作为数组传递段的示例:
 
-	:param	string	$uri: URI string
-	:param	string	$protocol: 协议，处理资料传送的标准，例如 'http' 或者 'https'
-	:returns:	基地址 URL
-	:rtype:	string
+    .. literalinclude:: url_helper/002.php
 
-	返回你网站的基地址 URL, 如同在你配置文件里具体说明的。事例::
+    如果为不同于你自己的站点生成 URL,其中包含不同的配置首选项,则备用配置可能很有用。我们对框架本身使用它进行单元测试。
 
-		echo base_url();
+.. php:function:: base_url([$uri = ''[, $protocol = null]])
 
-	如同 :php:func:`site_url()` 该函数返回相同的事件,  
-	排除 *index_page* 或者 *url_suffix* 被附加的情况。
+    :param  array|string   $uri: URI字符串或URI段数组
+    :param  string  $protocol: 协议,例如'http'或'https'
+    :returns: 基础URL
+    :rtype: string
 
-	也如函数 :php:func:`site_url()`, 你能提供程序段如 string 或者 array. 
-	这里是 string 事例::
+    .. note:: 从 v4.3.0 开始,如果你设置了 ``Config\App::$allowedHostnames``,
+        并且当前 URL 匹配,则会返回主机名设置了的 URL。
 
-		echo base_url("blog/post/123");
+    .. note:: 在以前的版本中,如果不带参数调用,此函数返回没有尾随斜杠 (``/``) 的基本 URL。该错误已修复,
+        从 v4.3.2 开始,它返回带有尾随斜杠的基本 URL。
 
-	上文事例返回的地址如下:
-	*http://example.com/blog/post/123*
+    返回配置文件中指定的你的站点基础 URL。示例:
 
-	因为不同的 :php:func:`site_url()` 函数是有用的, 你能提供 string 值到文件里，譬如图片或者层叠式样式表。
-	例如::
+    .. literalinclude:: url_helper/003.php
 
-		echo base_url("images/icons/edit.png");
+    此函数返回与不附加 ``Config\App::$indexPage`` 的 :php:func:`site_url()` 相同的内容。
 
-	上文的输出函数将给你如下面的链接:
-	*http://example.com/images/icons/edit.png*
+    与 :php:func:`site_url()` 类似,你可以将段作为字符串或数组提供。这是一个字符串示例:
 
-.. php:function:: current_url([$returnObject = false])
+    .. literalinclude:: url_helper/004.php
 
-	:param	boolean	$returnObject: True 如果你想要 URI 事例返回，代替 string。
-	:returns:	最近的 URL
-	:rtype:	string|URI
+    上面的示例将返回类似内容:
+    **http://example.com/blog/post/123**
 
-	返回最近被浏览过的页面的正确的 URL (包括程序段)。
+    这很有用,因为与 :php:func:`site_url()` 不同,你可以为文件(如图像或样式表)提供字符串。例如:
 
-	.. note:: 引用下面的函数是同样的:
+    .. literalinclude:: url_helper/005.php
 
-	::
+    这将给你类似的内容:
+    **http://example.com/images/icons/edit.png**
 
-		base_url(uri_string());
+.. php:function:: current_url([$returnObject = false[, $request = null]])
+
+    :param    boolean    $returnObject: 如果希望返回 URI 实例而不是字符串,则为 True。
+    :param    IncomingRequest|null    $request: 用于路径检测的替代请求;用于测试。
+    :returns: 当前URL
+    :rtype:    string|\\CodeIgniter\\HTTP\\URI
+
+    返回当前正在查看的页面的完整 URL。
+    返回字符串时,会删除 URL 的查询和片段部分。
+    返回 URI 时,会保留查询和片段部分。
+
+    但是,出于安全原因,它基于 ``Config\App`` 设置创建,而不是旨在匹配浏览器 URL。
+
+    从 v4.3.0 开始,如果你设置了 ``Config\App::$allowedHostnames``,并且当前 URL 匹配,则会返回主机名设置了的 URL。
+
+    .. note:: 调用 ``current_url()`` 与这样做相同:
+
+        .. literalinclude:: url_helper/006.php
+           :lines: 2-
+
+    .. important:: 在 v4.1.2 之前,此函数有一个错误,导致它忽略对 ``Config\App::$indexPage`` 的配置。
 
 .. php:function:: previous_url([$returnObject = false])
 
-	:param boolean $returnObject: True 如果你想要 URI 事例返回，代替 string.
-	:returns:  URL 用户以前通过的
-	:rtype: string|URI
+    :param boolean $returnObject: 如果希望返回 URI 实例而不是字符串,则为 True。
+    :returns: 用户之前所在的 URL
+    :rtype: string|mixed|\\CodeIgniter\\HTTP\\URI
 
-	返回完整页面的 URL （包含程序段）是用户以前通过的。
+    返回用户之前完整的 URL(包括段)。
 
-        由于安全问题造成盲目的信任 HTTP_REFERER 系统变量，在对话里如果它是有用的 CodeIgniter 将储存以前浏览的页面。
-	这保证我们将常常使用已知且可信的源，如果对话已经被加载了，或者是别的方式不能得到的，那么 HTTP_REFERER 的净化版本将会被应用。
-	
+    .. note:: 由于盲目信任 ``HTTP_REFERER`` 系统变量存在安全问题,如果可用,CodeIgniter 会将以前访问的页面存储在会话中。这确保我们始终使用已知和可信的来源。如果尚未加载会话或否则不可用,则将使用经过清理的 ``HTTP_REFERER`` 版本。
 
 .. php:function:: uri_string()
 
-	:returns:	An URI string
-	:rtype:	string
+    :returns: URI 字符串
+    :rtype:   string
 
-	返回你的最近 URL 的路径部分。例如，如果你的 URL 是这样的::
+    返回相对于 baseURL 的当前 URL 的路径部分。
 
-		http://some-site.com/blog/comments/123
+    例如,当你的 baseURL 为 **http://some-site.com/** ,当前 URL 为::
 
-	函数将返回::
+        http://some-site.com/blog/comments/123
 
-		blog/comments/123
+    函数将返回::
 
-.. php:function:: index_page([$altConfig = NULL])
+        blog/comments/123
 
-	:param	\\Config\\App $altConfig: 使用更替配置
-	:returns:	'index_page' 值
-	:rtype:	mixed
+    当你的 baseURL 为 **http://some-site.com/subfolder/** ,当前 URL 为::
 
-	返回你网站的 **index_page**, 如同在你的配置文件里明确说明的。
-	事例::
+        http://some-site.com/subfolder/blog/comments/123
 
-		echo index_page();
+    函数将返回::
 
-        如同用 :php:func:`site_url()`,你也许要具体制定一个更替配置。
-	对不同的网站如果生成 URLs 你或许会找到比你现有的更有用的更替配置，函数包含不同配置优先权。
-	我们为单元测试框架本身使用这个函数。
+        blog/comments/123
 
-.. php:function:: anchor([$uri = ''[, $title = ''[, $attributes = ''[, $altConfig = NULL]]]])
+    .. note:: 以前的版本中定义了参数 ``$relative = false``。
+        然而,由于一个错误,此函数总是返回相对于 baseURL 的路径。
+        从 v4.3.2 开始,该参数已被删除。
 
-	:param	mixed	$uri: URI 程序段的 URI string 或者 array 
-	:param	string	$title: 锚定 title
-	:param	mixed	$attributes: HTML 属性
-	:param	\Config\App	$altConfig: 使用更替配置
-	:returns:	HTML 超连结 (锚定 tag)
-	:rtype:	string
+    .. note:: 在以前的版本中,当你导航到 baseURL 时,此函数返回 ``/``。
+        从 v4.3.2 开始,错误已修复,它返回一个空字符串(``''``)。
 
-	基于你本地网站 URL 创建标准 HTML 锚定链接。
+.. php:function:: index_page([$altConfig = null])
 
-	第一个参数能包含任意你希望应用到 URL 的程序段。
-	如同上文用 :php:func:`site_url()` 函数，程序段可以是 string 或者 array.
-	
-	.. note:: 如果你正在构造的链接对于你的应用是内部的则不包含基地址 URL (http://...).在你的配置文件里函数将会明确说明的从信息里被自动添加。你希望附加到的 URL 仅仅包含 URI 的程序段。
+    :param \\Config\\App $altConfig: 要使用的备用配置
+    :returns:  ``indexPage`` 值
+    :rtype:    string
 
-	第二参数是你想要链接表达的正文。如果你留下第二个程序为空，URL 将会被应用。
+    返回配置文件中指定的你的站点 **indexPage**。例如:
 
-	第三个参数包含你想要添加到链接里的的属性列表。属性可以是简单的 string 或者组合数组。 
+    .. literalinclude:: url_helper/007.php
 
-	这里是一些示例 ::
+    与 :php:func:`site_url()` 一样,你可以指定备用配置。如果为不同于你自己的站点生成 URL,其中包含不同的配置首选项,则备用配置可能很有用。我们对框架本身使用它进行单元测试。
 
-		echo anchor('news/local/123', 'My News', 'title="News title"');
-		// Prints: <a href="http://example.com/index.php/news/local/123" title="News title">My News</a>
+.. php:function:: anchor([$uri = ''[, $title = ''[, $attributes = ''[, $altConfig = null]]]])
 
-		echo anchor('news/local/123', 'My News', array('title' => 'The best news!'));
-		// Prints: <a href="http://example.com/index.php/news/local/123" title="The best news!">My News</a>
+    :param  mixed         $uri: URI字符串或URI段数组
+    :param  string        $title: 锚点标题
+    :param  mixed         $attributes: HTML属性
+    :param  \\Config\\App $altConfig: 要使用的备用配置
+    :returns: HTML链接(锚点标签)
+    :rtype:    string
 
-		echo anchor('', 'Click here');
-		// Prints: <a href="http://example.com/index.php">Click here</a>
+    基于你的本地站点 URL 创建标准的 HTML 锚点链接。
 
-	如同上文阐述的，你也许可以明确说明更替配置。
-	如果对不同网站生成链接你也许会发现更替配置比你的配置是更有用的，它包含不同的配置优先权。
-	我们为单元测试框架自身使用这个函数。
-	
-	.. note:: 属性载入锚定函数是自动地退出对 XSS 攻击不利的保护。
+    第一个参数可以包含你希望附加到 URL 的任何段。与上面的 :php:func:`site_url()` 函数一样,段可以是字符串或数组。
 
-.. php:function:: anchor_popup([$uri = ''[, $title = ''[, $attributes = FALSE[, $altConfig = NULL]]]])
+    .. note:: 如果你正在构建应用程序内部的链接,请不要包含基本 URL (``http://...``)。这将从配置文件中指定的信息自动添加。只包含你希望附加到 URL 的 URI 段。
 
-	:param	string	$uri: URI string
-	:param	string	$title: 锚定 title
-	:param	mixed	$attributes: HTML 属性
-	:param	\Config\App	$altConfig: 使用更替配置
-	:returns:	自动跳起的 hyperlink
-	:rtype:	string
+    第二段是你希望链接说的文本。如果留空,将使用 URL。
 
-	几乎同源于  :php:func:`anchor()` 函数，除了在新窗口里它是开放的 URL。
-	在第三个参数中你能明确说明 JavaScript 窗口属性去控制窗口如何被打开。
-	如果第三个参数没有设定，它将会带着你自身的浏览器设定去简单地打开一个新窗口。 
+    第三个参数可以包含你希望添加到链接的属性列表。属性可以是简单的字符串或关联数组。
 
-	这里是带着属性的事例::
+    这里有一些示例:
 
-		$atts = [
-		    'width'       => 800,
-		    'height'      => 600,
-		    'scrollbars'  => 'yes',
-		    'status'      => 'yes',
-		    'resizable'   => 'yes',
-		    'screenx'     => 0,
-		    'screeny'     => 0,
-		    'window_name' => '_blank'
-		];
+    .. literalinclude:: url_helper/008.php
 
-	echo anchor_popup('news/local/123', 'Click Me!', $atts);
+    如上所述,你可以指定备用配置。如果为不同于你自己的站点生成链接,其中包含不同的配置首选项,则备用配置可能很有用。我们对框架本身使用它进行单元测试。
 
-	As above, you may specify an alternate configuration.
-	You may find the alternate configuration useful if generating links for a
-	different site than yours, which contains different configuration preferences.
-	We use this for unit testing the framework itself.
-    
-	.. note:: 上文属性是默认函数因此你仅仅需要去设置哪些个不同于你需要的属性。在第三个参数里如果你想要函数去简单地通过空数组使用所有它的默认值:
+    .. note:: 传递给 anchor 函数的属性会自动转义,以防止 XSS 攻击。
 
-	::
-		echo anchor_popup('news/local/123', 'Click Me!', []);
+.. php:function:: anchor_popup([$uri = ''[, $title = ''[, $attributes = false[, $altConfig = null]]]])
 
-	.. note::  **window_name** 不是真实的属性，但是对于 JavaScript 争论 `window.open()  <http://www.w3schools.com/jsref/met_win_open.asp>`_ 方法，它接受任何一方的窗口名或者窗口目标。
+    :param  string          $uri: URI字符串
+    :param  string          $title: 锚点标题
+    :param  mixed           $attributes: HTML属性
+    :param  \\Config\\App   $altConfig: 要使用的备用配置
+    :returns: 弹出式超链接
+    :rtype: string
 
-	.. note:: 任何超过上文列表的其他属性将会被分列就像 HTML 属性对于锚定 tag.
-	       如同上文描述的，你也许可以明确说明更替配置。
-	       你也许会发现如果正生成的链接对不同的网站更替配置比你的配置更有用，他包含不同的配置优先权。
-	       我们为单元测试框架自身使用这个函数。
+    几乎与 :php:func:`anchor()` 函数完全相同,除了它在新窗口中打开 URL。你可以在第三个参数中指定 JavaScript 窗口属性以控制窗口的打开方式。如果未设置第三个参数,它将简单地用你自己的浏览器设置打开新窗口。
 
-	.. note:: 属性载入锚定自动跳起函数是自动地退出对 XSS 攻击不利的保护。
-	
+    这里是一个带有属性的示例:
+
+    .. literalinclude:: url_helper/009.php
+
+    如上所述,你可以指定备用配置。如果为不同于你自己的站点生成链接,其中包含不同的配置首选项,则备用配置可能很有用。我们对框架本身使用它进行单元测试。
+
+    .. note:: 上述属性是函数默认值,所以你只需要设置与你需要的不同的那些。如果你希望函数使用所有默认值,只需在第三个参数中传递一个空数组:
+
+        .. literalinclude:: url_helper/010.php
+
+    .. note:: **window_name** 实际上不是一个属性,而是 `window.open() <https://www.w3schools.com/jsref/met_win_open.asp>`_ 方法接受的一个参数,它接受窗口名称或窗口目标。
+
+    .. note:: 除上述之外的任何其他属性都将作为 HTML 锚点标记的属性进行解析。
+
+    .. note:: 传递给 anchor_popup 函数的属性会自动转义,以防止 XSS 攻击。
+
 .. php:function:: mailto($email[, $title = ''[, $attributes = '']])
 
-	:param	string	$email: E-mail 地址
-	:param	string	$title: 锚定 title
-	:param	mixed	$attributes: HTML 属性
-	:returns:	"mail to" 超连结
-	:rtype:	string
+    :param  string  $email: 电子邮件地址
+    :param  string  $title: 锚点标题
+    :param  mixed   $attributes: HTML属性
+    :returns: “发送邮件到”超链接
+    :rtype: string
 
-	创建标准的 HTML 邮件链接。用法事例::
+    创建标准的 HTML 电子邮件链接。使用示例:
 
-		echo mailto('me@my-site.com', 'Click Here to Contact Me');
+    .. literalinclude:: url_helper/011.php
 
-	 如同用上文 :php:func:`anchor()` tab 函数, 
-	 你可以使用第三个参数设定属性::
+    如上面的 :php:func:`anchor()` 选项卡一样,你可以使用第三个参数设置属性:
 
-		$attributes = array('title' => 'Mail me');
-		echo mailto('me@my-site.com', 'Contact Me', $attributes);
+    .. literalinclude:: url_helper/012.php
 
-	.. note::  属性载入锚定 mailto 函数是自动地退出对 XSS 攻击不利的保护。
+    .. note:: 传递给 mailto 函数的属性会自动转义,以防止 XSS 攻击。
 
 .. php:function:: safe_mailto($email[, $title = ''[, $attributes = '']])
 
-	:param	string	$email: E-mail 地址
-	:param	string	$title: 锚定 title
-	:param	mixed	$attributes: HTML 属性
-	:returns:	安全垃圾邮件 "mail to" 超连结
-	:rtype:	string
+    :param  string  $email: 电子邮件地址
+    :param  string  $title: 锚点标题
+    :param  mixed   $attributes: HTML属性
+    :returns: 防垃圾邮件的“发送邮件到”超链接
+    :rtype: string
 
-	完全相似于 :php:func:`mailto()`  函数除了 *mailto* tag 的模糊版本，
-	由于垃圾邮件群聊程序用 JavaScript 写了该函数正使用序数数字用以从保护已经收获的 e-mail 地址。
-	
+    与 :php:func:`mailto()` 函数完全相同,除了它使用序数数字与 JavaScript 编写的隐写版本来帮助防止垃圾邮件机器人收集电子邮件地址。
 
-.. php:function:: auto_link($str[, $type = 'both'[, $popup = FALSE]])
+.. php:function:: auto_link($str[, $type = 'both'[, $popup = false]])
 
-	:param	string	$str: 输入 string
-	:param	string	$type: 链接类型 ('email', 'url' 或者 'both')
-	:param	bool	$popup: 是否创建自动跳起链接
-	:returns:	链接化的 string
-	:rtype:	string
+    :param  string  $str: 输入字符串
+    :param  string  $type: 链接类型('email'、'url' 或 'both')
+    :param  bool    $popup: 是否创建弹出链接
+    :returns: 链接化的字符串
+    :rtype: string
 
-	在字符到链接里自动地转换包含 URLs 和 e-mail 地址。事例::
+    自动将字符串中包含的 URL 和电子邮件地址转换为链接。示例:
 
-		$string = auto_link($string);
+    .. literalinclude:: url_helper/013.php
 
-	第二参数决定是否 URLs 和 e-mail 是转换了仅仅一个或者其他什么的。如果参数不是明确的说明默认行为是兼有的。
-	E-mail 链接编码如同上文显示的 :php:func:`safe_mailto()` 一样。 
+    第二个参数确定是转换 URL 和电子邮件还是仅转换其中一个。如果未指定参数,默认行为是两者都转换。电子邮件链接编码为上面显示的 :php:func:`safe_mailto()`。
 
-	仅转换 URLs::
+    仅转换 URL:
 
-		$string = auto_link($string, 'url');
+    .. literalinclude:: url_helper/014.php
 
-	仅转换 e-mail 地址::
+    仅转换电子邮件地址:
 
-		$string = auto_link($string, 'email');
+    .. literalinclude:: url_helper/015.php
 
-	第三个参数决定是否链接在新窗口被显示。
-	值是 TRUE 或者 FALSE （boolean）::
+    第三个参数确定是否在新窗口中显示链接。值可以为 true 或 false(布尔值):
 
-		$string = auto_link($string, 'both', TRUE);
+    .. literalinclude:: url_helper/016.php
 
-	.. note:: 仅有的被普遍承认的 URLs 这些链接用 "www." 或者用 "://" 开始。
+    .. note:: 仅识别以 ``www.`` 或 ``://`` 开头的 URL。
 
-.. php:function:: url_title($str[, $separator = '-'[, $lowercase = FALSE]])
+.. php:function:: url_title($str[, $separator = '-'[, $lowercase = false]])
 
-	:param	string	$str: 输入 string
-	:param	string	$separator: 字符分隔符
-	:param	bool	$lowercase: 是否转换输出 string 为小写字型
-	:returns:	已经格式化的 string
-	:rtype:	string
+    :param  string  $str: 输入字符串
+    :param  string  $separator: 单词分隔符(通常为 ``'-'`` 或 ``'_'``)
+    :param  bool    $lowercase: 是否将输出字符串转换为小写
+    :returns: URL 格式化的字符串
+    :rtype: string
 
-	取 string 作为输入值并创建友好人性化的 URL string. 
-	这是有用的，例如，在 URL 里你有个blog ，在 blog 里你想要使用你的整个主题。事例::
+    获取一个字符串作为输入,并创建一个人性化的 URL 字符串。例如,如果你有一个博客,希望在 URL 中使用条目的标题。示例:
 
-		$title     = "What's wrong with CSS?";
-		$url_title = url_title($title);
-		// Produces: Whats-wrong-with-CSS
+    .. literalinclude:: url_helper/017.php
 
-	第二个参数决定词汇的定义符号。默认的破折号被使用。更好的选项是: **-** (破折号) 或者 **_** (下划线)。
+    第二个参数确定单词分隔符。默认使用破折号。首选选项是: ``-`` (破折号)或 ``_`` (下划线)。
 
-	例如::
+    示例:
 
-		$title     = "What's wrong with CSS?";
-		$url_title = url_title($title, 'underscore');
-		// Produces: Whats_wrong_with_CSS
+    .. literalinclude:: url_helper/018.php
 
-	第三个参数决定是或者不是小写字符是被强迫的。默认他们不是。选项是 boolean TRUE/FALSE.
+    第三个参数确定是否强制使用小写字符。默认不强制。选项是布尔值 true/false。
 
-	例如::
+    示例:
 
-		$title     = "What's wrong with CSS?";
-		$url_title = url_title($title, 'underscore', TRUE);
-		// Produces: whats_wrong_with_css
+    .. literalinclude:: url_helper/019.php
 
-.. php:function:: prep_url($str = '')
+.. php:function:: mb_url_title($str[, $separator = '-'[, $lowercase = false]])
 
-	:param	string	$str: URL string
-	:returns:	协议前缀 URL string
-	:rtype:	string
+    :param  string  $str: 输入字符串
+    :param  string  $separator: 单词分隔符(通常为 ``'-'`` 或 ``'_'``)
+    :param  bool    $lowercase: 是否将输出字符串转换为小写
+    :returns: URL 格式化的字符串
+    :rtype: string
 
-	在事件里这个函数正从一个 URL 错过，它将添加 *http://*  协议前缀。
-	通过 URL string 的函数像下文这样::
+    此函数的工作方式与 :php:func:`url_title()` 相同,但它会自动转换所有重音字符。
 
-		$url = prep_url('example.com');
+.. php:function:: prep_url([$str = ''[, $secure = false]])
+
+    :param  string   $str: URL字符串
+    :param  boolean  $secure: true 为 ``https://``
+    :returns: 带协议前缀的 URL 字符串
+    :rtype: string
+
+    如果 URL 中缺少协议前缀,此函数将添加 ``http://`` 或 ``https://``。
+
+    如下传入 URL 字符串给函数:
+
+    .. literalinclude:: url_helper/020.php
+
+.. php:function:: url_to($controller[, ...$args])
+
+    :param  string  $controller: 路由名称或 Controller::method
+    :param  mixed   ...$args:    要传递给路由的一个或多个参数。最后一个参数允许你设置区域设置。
+    :returns: 绝对 URL
+    :rtype: string
+
+    .. note:: 此函数要求在 **app/Config/routes.php** 中为控制器/方法定义路由。
+
+    在你的应用程序中构建指向控制器方法的绝对 URL。示例:
+
+    .. literalinclude:: url_helper/021.php
+
+    你还可以向路由添加参数。这是一个示例:
+
+    .. literalinclude:: url_helper/022.php
+
+    这很有用,因为即使在将链接放入视图后,你仍然可以更改路由。
+
+    从 v4.3.0 开始,当你在路由中使用 ``{locale}`` 时,你可以可选地将区域设置值指定为最后一个参数。
+
+    .. literalinclude:: url_helper/025.php
+
+    有关完整详细信息,请参阅 :ref:`反向路由 <reverse-routing>` 和 :ref:`使用命名路由 <using-named-routes>`。
+
+.. php:function:: url_is($path)
+
+    :param string $path: 要比较当前 URI 路径的相对于 baseURL 的 URL 路径。
+    :rtype: boolean
+
+    将当前 URL 的路径与给定路径进行比较,以查看它们是否匹配。示例:
+
+    .. literalinclude:: url_helper/023.php
+
+    这将匹配 **http://example.com/admin**。如果你的 baseURL是 ``http://example.com/subdir/``,它将匹配 **http://example.com/subdir/admin**。
+
+    你可以使用 ``*`` 通配符来匹配 URL 中的任何其他可应用字符:
+
+    .. literalinclude:: url_helper/024.php
+
+    这将匹配以下任何一个:
+
+    - /admin
+    - /admin/
+    - /admin/users
+    - /admin/users/schools/classmates/...
