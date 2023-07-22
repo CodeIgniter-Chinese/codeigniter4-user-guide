@@ -14,30 +14,74 @@
 
 ## 安装步骤
 
-CodeIgniter 的用户指南使用 Sphinx 软件进行管理，并可以生成各种不同的格式。所有页面都采用 [ReStructured
-Text](https://en.wikipedia.org/wiki/ReStructuredText) 格式书写，这种格式非常方便人们阅读。
+CodeIgniter 的用户指南使用 Sphinx 软件进行管理，并可以生成各种不同的格式。所有页面都采用 [ReStructured Text](https://en.wikipedia.org/wiki/ReStructuredText) 格式书写，这种格式非常方便人们阅读。
 
 ### 安装条件
 
-Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已经自带 Python 了。 你可以在终端中执行不带参数的
-`python` 命令，以确认你的系统是否已安装 Python 。 如果你已安装，会显示出你当前所使用的版本。 如果显示的不是 3.7
-以上版本，你可以去这里下载并安装 3.7.6
-<https://www.python.org/downloads/release/python-376/>
+#### Python
+
+Sphinx 需要 Python 3.5+ 版本，如果你正在运行 macOS 或 Linux，则可能已经安装了它。
+你可以在终端窗口中执行 `python` 或 `python3` 来确认。
+
+```bash
+    python --version
+    Python 2.7.17
+
+    python3 --version
+    Python 3.6.9
+
+    # 对于使用 Python 启动器的 Windows
+    py -3 --version
+    Python 3.8.1
+```
+
+如果你的版本低于 3.5+，请从 [Python.org](https://www.python.org/downloads/) 安装最新的 3.x 版本。Linux 用户应该使用操作系统自带的包管理器来更新。
+
+#### pip
+
+现在你已经安装并运行了 Python 3.x，我们将安装 [pip](https://pip.pypa.io/en/stable/) (Python 包安装程序)。
+
+你可以使用 `pip` 或 `pip3` 检查是否已安装 pip。如你所见，pip 遵循与 Python 相同的命名约定。请注意，输出的末尾应该显示 `python 3.x`。
+
+```bash
+    pip --version
+    pip 9.0.1 from /usr/lib/python2.7/dist-packages (python 2.7)
+
+    pip3 --version
+    pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.6)
+
+    # 对于使用 Python 启动器的 Windows
+    py -3 -m pip --version
+    pip 20.0.2 from C:\Users\<username>\AppData\Local\Programs\Python\Python38\lib\site-packages\pip (python 3.8)
+```
+
+##### Linux
+
+[使用 Linux 包管理器安装 pip/setuptools/wheel](https://packaging.python.org/guides/installing-using-linux-tools/)
+
+##### 其他
+
+如果你使用从 [Python.org](https://www.python.org/downloads/) 下载的 Python 3.5+，则 pip 已经安装好了。
 
 ### 安装
 
-1. 安装 [easy\_install](http://peak.telecommunity.com/DevCenter/EasyInstall#installing-easy-install)
-2. `easy_install "sphinx==1.8.5"`
-3. `easy_install "sphinxcontrib-phpdomain==0.7.0"`
-4. `easy_install "docutils==0.16"`
-5. `easy_install "sphinx-rtd-theme>=0.4.3"`
-6. `easy_install "jieba==0.42.1"`
-7. `make html`
+现在我们需要安装 Sphinx 和它的依赖项。根据操作系统选择 `pip` 或 `pip3`。
+此步骤之后，你需要重启终端窗口，否则 Python 将找不到我们刚刚安装的所有应用程序。
 
-译注：
+```bash
+    pip install -r requirements.txt
 
-1. Ubuntu 系统上安装 easy\_install 可以直接：`sudo apt-get install python-setuptools`
-2. easy\_install 需要 root 权限，前面加上 sudo
+    pip3 install -r requirements.txt
+
+    # 对于使用 Python 启动器的 Windows
+    py -3 -m pip install -r requirements.txt
+```
+
+是时候总结一下并生成文档了。
+
+```bash
+    make html
+```
 
 ### 使用 Docker
 
@@ -53,7 +97,7 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
 
 所有的源文件都在 *source/* 目录下，在这里你可以添加新的文档或修改已有的文档。
 
-### 那么，HTML 文档在哪里
+### 那么，HTML 文档在哪里？
 
 很显然，HTML 文档才是我们最关心的，因为这毕竟才是用户最终看到的。 由于对自动生成的文件进行版本控制没有意义，所以它们并不在版本控制之下。
 你如果想要预览 HTML 文档，你可以重新生成它们。生成 HTML 文档非常简单，
@@ -61,7 +105,7 @@ Sphinx 软件依赖于 Python，如果你使用的是 OS X 系统，则系统已
 
     make html
 
-你将会看到正在编译中的信息，编译成功后，生成的用户指南和图片都位于 *build/html/* 目录下。 在 HTML
+你将会看到正在编译中的信息，编译成功后，生成的用户指南和图片都位于 *build/html/* 目录下。在 HTML
 第一次编译之后，后面将只会针对修改的文件进行重编译，这将大大的节约我们的时间。
 如果你想再重新全部编译一次，只需删除 *build* 目录然后编译即可。
 
