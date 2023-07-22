@@ -1,127 +1,90 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>自定义 CLI 命令 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>创建 Spark 命令 &mdash; CodeIgniter 4.3.6 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
-  
-  
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/js/citheme.js"></script>
-        <script type="text/javascript" src="../_static/js/carbon.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script src="../_static/js/citheme.js"></script>
+        <script src="../_static/js/carbon.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="CLI Library" href="cli_library.html" />
-    <link rel="prev" title="通过CLI方式运行" href="cli.html" /> 
+    <link rel="next" title="CLI 生成器" href="cli_generators.html" />
+    <link rel="prev" title="Spark 命令" href="spark_commands.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #DD4814" >
-          
+        <div class="wy-side-nav-search" >
 
           
-            <a href="../index.html">
           
-
-          
+          <a href="../index.html">
             
-            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
-          
+              <img src="../_static/ci-logo-text.svg" class="logo" alt="Logo"/>
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器安装要求</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">发展历程与贡献者</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">Composer 安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从老版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">加载静态页</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻展示功能</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用程序</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">静态页面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">结束语</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 概览</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用结构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型，视图和控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用程序结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型、视图和控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">自动加载文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
 </ul>
@@ -129,137 +92,149 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">公共函数和全局常量</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录日志信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">全局函数和常量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录信息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/errors.html">错误处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/caching.html">网页缓存</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/modules.html">代码模块</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理多个应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多个环境</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../incoming/index.html">控制器和路由</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">Request 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/content_negotiation.html">内容协商</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP类型伪装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/restful.html">处理RESTful请求资源</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP 方法欺骗</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/restful.html">RESTful 资源处理</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">子视图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">View Parser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML Table Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用PHP替代语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库参考</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">数据库快速入门：示例代码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">使用数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">快速入门:使用示例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">数据库配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">连接数据库</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">执行查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">运行查询</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/results.html">生成查询结果</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构造器类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构建器类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">事务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">获取元数据</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">自定义函数调用</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/events.html">数据库事件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库实用工具</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../models/index.html">数据建模</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的 Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../models/entities.html">使用实体类</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用 Database Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">使用文件类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">Honeypot Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption 服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">Honeypot 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限流类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">日期与时间类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">使用文件上传类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">User Agent Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/publisher.html">Publisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">用户代理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">表单辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">偏转辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">数字辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">安全辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/test_helper.html">测试辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">文本辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML 辅助函数</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../testing/index.html">测试</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">Getting Started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">Controller Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试你的应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">入门指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/fabricator.html">生成数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">命令行用法</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="cli.html">通过CLI方式运行</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">自定义 CLI 命令</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_library.html">CLI Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli_request.html">CLIRequest Class</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">命令行使用</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli_overview.html">CLI 概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_controllers.html">通过 CLI 运行控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spark_commands.html">Spark 命令</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">创建 Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_generators.html">CLI 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_library.html">CLI 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_request.html">CLIRequest 类</a></li>
 </ul>
 </li>
 </ul>
@@ -268,354 +243,290 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/core_classes.html">创建核心系统类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/common.html">替换通用函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展 Controller</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">鉴权</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">贡献给 CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/official_packages.html">官方包</a></li>
+</ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">CodeIgniter</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="index.html">命令行用法</a> &raquo;</li>
-        
-      <li>自定义 CLI 命令</li>
-    
-    
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">命令行使用</a></li>
+      <li class="breadcrumb-item active">创建 Spark 命令</li>
       <li class="wy-breadcrumbs-aside">
-        
-            
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="cli">
-<h1>自定义 CLI 命令<a class="headerlink" href="#cli" title="永久链接至标题">¶</a></h1>
-<p>使用 CLI 命令和使用路由等其他模块一样的轻松愉快，也有一些不同的地方，这就是 CLI 命令的由来。CLI 命令是不需要为其定义路由的简单类，可以让开发人员更简单的创建一些工具。例如，数据库迁移、数据库填充、检查计划任务（cronjob）状态，甚至为公司做一个自定义代码生成器。</p>
+             
+  <section id="spark">
+<h1>创建 Spark 命令<a class="headerlink" href="#spark" title="永久链接至标题"></a></h1>
+<p>虽然能够像其它路由一样通过 CLI 使用控制器很方便,但你可能会发现有时需要一些不同的东西。这就是 Spark 命令的用武之地。它们是简单的类,不需要为它们定义路由,使其成为构建可以帮助开发人员简化工作的工具的完美选择,无论是通过处理迁移或数据库填充,检查任务状态,甚至为你的公司构建定制代码生成器。</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><a class="reference internal" href="#id2" id="id7">运行命令</a></li>
-<li><a class="reference internal" href="#id3" id="id8">使用帮助命令</a></li>
-<li><a class="reference internal" href="#id4" id="id9">创建新的命令</a><ul>
-<li><a class="reference internal" href="#id5" id="id10">文件位置</a></li>
-<li><a class="reference internal" href="#id6" id="id11">命令示例</a></li>
+<li><p><a class="reference internal" href="#id2" id="id6">创建新命令</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id7">文件位置</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id8">一个示例命令</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#basecommand" id="id12">BaseCommand</a></li>
+<li><p><a class="reference internal" href="#basecommand" id="id9">BaseCommand</a></p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id7">运行命令</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>命令是在项目根目录中通过命令行来执行的。在 <strong>/app</strong> 和 <strong>/system</strong> 同级目录中，提供了一个自定义脚本 <strong>spark</strong> 用于运行任何 CLI 命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span>
-</pre></div>
-</div>
-<p>在不指定命令名称的情况下调用命令，会显示帮助页面并展示出所有可用的命令。你应该将命令名称作为运行该命令的第一个参数传递:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span>
-</pre></div>
-</div>
-<p>一些命令需要使用到更多的参数，你需要直接写在后面并以空格分隔开:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">seed</span> <span class="nx">DevUserSeeder</span>
-</pre></div>
-</div>
-<p>对于 CodeIgniter 提供的命令，如果不提供必需的参数，则将提示你输入正确运行所需的参数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">migrate</span><span class="o">:</span><span class="nx">version</span>
-<span class="o">&gt;</span> <span class="nx">Version</span><span class="o">?</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id8">使用帮助命令</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>你可以使用 help 命令来获得 CLI 帮助:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">help</span> <span class="nx">db</span><span class="o">:</span><span class="nx">seed</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id9">创建新的命令</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<p>你可以非常容易的创建新的命令，并在开发中使用。每个类都必须独立成一个文件，且必须继承自 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\CLI\BaseCommand</span></code>，同时需要实现 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法。</p>
-<p>为了在 CLI 命令中列出你的命令并添加相应帮助功能，需要使用到以下属性：</p>
+<section id="id2">
+<h2><a class="toc-backref" href="#id6">创建新命令</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>你可以非常轻松地创建新的命令供自己开发使用。每个类必须在其自己的文件中,并且必须扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\CLI\BaseCommand</span></code>,并实现 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法。</p>
+<p>应使用以下属性将命令列入 CLI 命令并添加帮助功能:</p>
 <ul class="simple">
-<li>($group): 一个字符串，用于描述列出命令时命令所属的组。例如（数据库）</li>
-<li>($name): 表示命令名称的字符串。例如（migrate:create）</li>
-<li>($description): 描述命令的字符串。例如（创建一个新的迁移文件）</li>
-<li>($usage): 描述命令用法的字符串。例如（migrate:create [migration_name] [选项]）</li>
-<li>($arguments): 描述每个命令参数的字符串数组。例如（’migration_name’ =&gt; ‘迁移文件名’）</li>
-<li>($options): 描述每个命令选项的字符串数组。例如（’-n’ =&gt; ‘设置迁移命名空间’）</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$group</span></code>:描述命令分组的字符串。例如:<code class="docutils literal notranslate"><span class="pre">数据库</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$name</span></code>:描述命令名称的字符串。例如:<code class="docutils literal notranslate"><span class="pre">make:controller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$description</span></code>:描述命令的字符串。例如:<code class="docutils literal notranslate"><span class="pre">生成一个新的控制器文件。</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$usage</span></code>:描述命令用法的字符串。例如:<code class="docutils literal notranslate"><span class="pre">make:controller</span> <span class="pre">&lt;name&gt;</span> <span class="pre">[options]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$arguments</span></code>:描述每个命令参数的字符串数组。例如:<code class="docutils literal notranslate"><span class="pre">'name'</span> <span class="pre">=&gt;</span> <span class="pre">'控制器类名。'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$options</span></code>:描述每个命令选项的字符串数组。例如:<code class="docutils literal notranslate"><span class="pre">'--force'</span> <span class="pre">=&gt;</span> <span class="pre">'强制覆盖现有文件。'</span></code></p></li>
 </ul>
-<p><strong>帮助描述将根据以上参数自动生成。</strong></p>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id10">文件位置</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-<p>命令必须放在名为 <strong>Commands</strong> 的目录中。但是，该目录可以位于 <a class="reference internal" href="../concepts/autoloader.html"><span class="doc">自动加载器</span></a> 可以找到的任何位置。该目录可以在 <strong>/app/Commands</strong> 中，或者一个你用来放置所有命令的目录，例如 <strong>Acme/Commands</strong> 。</p>
+<p><strong>帮助描述将根据上述参数自动生成。</strong></p>
+<section id="id3">
+<h3><a class="toc-backref" href="#id7">文件位置</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p>命令必须存储在名为 <strong>Commands</strong> 的目录中。但是,该目录必须位于 PSR-4 命名空间中,以便 <a class="reference internal" href="../concepts/autoloader.html"><span class="doc">自动加载程序</span></a> 可以定位它。这可能在 <strong>app/Commands</strong> 中,或者是一个用于所有项目开发的命令目录,像 <strong>Acme/Commands</strong>。</p>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">执行命令时，将加载完整的 CodeIgniter CLI 环境，从而可以获取环境信息，路径信息以及编写控制器时所用到的任何工具。</p>
+<p class="admonition-title">备注</p>
+<p>当执行命令时,会加载完整的 CodeIgniter CLI 环境,使你可以获取环境信息、路径信息,并使用控制器中会使用的任何工具。</p>
 </div>
-</div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id11">命令示例</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
-<p>让我们逐步通过一个示例命令来演示，这个命令的功能是报告关于应用程序自身的一些基本信息。首先创建一个 <strong>/app/Commands/AppInfo.php</strong> 文件，代码如下:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">App\Commands</span><span class="p">;</span>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id8">一个示例命令</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>让我们逐步创建一个示例命令,其唯一的功能是报告有关应用程序本身的一些基本信息,以演示用途。首先在 <strong>app/Commands/AppInfo.php</strong> 中创建一个新文件。它
+应该包含以下代码:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Commands</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\CLI\BaseCommand</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">AppInfo</span> <span class="k">extends</span> <span class="nx">BaseCommand</span>
 <span class="p">{</span>
-    <span class="k">protected</span> <span class="nv">$group</span>       <span class="o">=</span> <span class="s1">&#39;demo&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$group</span>       <span class="o">=</span> <span class="s1">&#39;Demo&#39;</span><span class="p">;</span>
     <span class="k">protected</span> <span class="nv">$name</span>        <span class="o">=</span> <span class="s1">&#39;app:info&#39;</span><span class="p">;</span>
-    <span class="k">protected</span> <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;显示基本应用信息&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;Displays basic application information.&#39;</span><span class="p">;</span>
 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
     <span class="p">{</span>
-
+        <span class="c1">// ...</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>如果运行 <strong>list</strong> 命令，你将在其自己的 <code class="docutils literal notranslate"><span class="pre">demo</span></code> 组下看到新命令。如果你仔细观察，就会很容易的发现它们是如何工作的。<code class="docutils literal notranslate"><span class="pre">$group</span></code> 属性说明他所在的组，及存在的所有命令，并会指出他在哪个列表之下。</p>
-<p><code class="docutils literal notranslate"><span class="pre">$name</span></code> 属性是命令用来被调用的名字，仅有的要求是不能包含空格，并且所有字符必须是命令行有效字符。按照惯例命令行都是小写，通过使用命名空间的冒号，可以规避掉重名的风险。</p>
-<p>最后一个属性 <code class="docutils literal notranslate"><span class="pre">$description</span></code> 是在 <strong>list</strong> 命令中显示的一条描述信息，用来描述命令的用途。</p>
-<div class="section" id="run">
-<h4>run()<a class="headerlink" href="#run" title="永久链接至标题">¶</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法在命令运行时会被调用，<code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组是紧跟在命令名之后的 CLI 参数列表，例如下面的 CLI 内容:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">foo</span> <span class="nx">bar</span> <span class="nx">baz</span>
+<p>如果运行 <strong>list</strong> 命令,你将在自己的 <code class="docutils literal notranslate"><span class="pre">Demo</span></code> 组下看到新命令被列出。如果仔细看,应该可以相当容易地理解它的工作方式。<code class="docutils literal notranslate"><span class="pre">$group</span></code> 属性简单地告诉它如何组织此命令与所有其他存在的命令,告诉它在哪个标题下列出它。</p>
+<p><code class="docutils literal notranslate"><span class="pre">$name</span></code> 属性是可以调用此命令的名称。唯一的要求是它不得包含空格,并且所有字符在命令行本身必须有效。不过,按照惯例,命令应该是小写的,并且通过在命令名称本身使用冒号进一步对命令进行分组,以帮助防止多个命令发生命名冲突。</p>
+<p>最后一个属性 <code class="docutils literal notranslate"><span class="pre">$description</span></code> 是一个简短的字符串,在 <strong>list</strong> 命令中显示,并应描述命令的作用。</p>
+<section id="run">
+<h4>run()<a class="headerlink" href="#run" title="永久链接至标题"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法是在运行命令时调用的方法。<code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组是命令名称后面的任何 CLI 参数列表,供你使用。如果 CLI 字符串是:</p>
+<blockquote>
+<div><p>&gt; php spark foo bar baz</p>
+</div></blockquote>
+<p>那么 <strong>foo</strong> 是命令名称,``$params`` 数组将是:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">];</span>
 </pre></div>
 </div>
-<p><strong>foo</strong> 是命令名称，<code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组将是:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">];</span>
-</pre></div>
-</div>
-<p>This can also be accessed through the <a class="reference internal" href="cli_library.html"><span class="doc">CLI</span></a> library, but this already has your command removed
-from the string. These parameters can be used to customize how your scripts behave.</p>
-<p>在我们的 demo 命令中，<code class="docutils literal notranslate"><span class="pre">run</span></code> 方法类似如下写法:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+<p>这也可以通过 <a class="reference internal" href="cli_library.html"><span class="doc">CLI</span></a> 库访问,但这里已经从字符串中删除了你的命令。这些参数可以用于自定义脚本的行为方式。</p>
+<p>我们的演示命令可能有一个 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法,如下所示:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Commands</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\BaseCommand</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">AppInfo</span> <span class="k">extends</span> <span class="nx">BaseCommand</span>
 <span class="p">{</span>
-    <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;PHP Version: &#39;</span><span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nb">phpversion</span><span class="p">(),</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
-    <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;CI Version: &#39;</span><span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nx">CodeIgniter</span><span class="o">::</span><span class="na">CI_VERSION</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
-    <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;APPPATH: &#39;</span><span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nx">APPPATH</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
-    <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;SYSTEMPATH: &#39;</span><span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nx">SYSTEMPATH</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
-    <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;ROOTPATH: &#39;</span><span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nx">ROOTPATH</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
-    <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;Included files: &#39;</span><span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nb">get_included_files</span><span class="p">()),</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;PHP Version: &#39;</span> <span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="k">PHP_VERSION</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
+        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;CI Version: &#39;</span> <span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nx">\CodeIgniter\CodeIgniter</span><span class="o">::</span><span class="na">CI_VERSION</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
+        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;APPPATH: &#39;</span> <span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nx">APPPATH</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
+        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;SYSTEMPATH: &#39;</span> <span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nx">SYSTEMPATH</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
+        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;ROOTPATH: &#39;</span> <span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nx">ROOTPATH</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
+        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;Included files: &#39;</span> <span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nb">get_included_files</span><span class="p">()),</span> <span class="s1">&#39;yellow&#39;</span><span class="p">));</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="basecommand">
-<h2><a class="toc-backref" href="#id12">BaseCommand</a><a class="headerlink" href="#basecommand" title="永久链接至标题">¶</a></h2>
-<p>所有命令必须继承自 <code class="docutils literal notranslate"><span class="pre">BaseCommand</span></code> 类，它拥有一些很有用的方法，在创建自己的命令时应熟悉这些方法。在 <strong>$this-&gt;logger</strong> 上也有一个 <a class="reference internal" href="../general/logging.html"><span class="doc">Logger</span></a> 。</p>
-<dl class="class">
-<dt>
-<code class="descname">CodeIgniter\CLI\BaseCommand</code></dt>
-<dd><dl class="method">
-<dt id="call">
-<code class="descname">call</code><span class="sig-paren">(</span><em>string $command</em><span class="optional">[</span>, <em>array $params=[]</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#call" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$command</strong> (<em>string</em>) – 要调用的另一个命令的名称。</li>
-<li><strong>$params</strong> (<em>array</em>) – 使该命令可用的附加 CLI 参数。</li>
+<p>请参阅 <a class="reference internal" href="cli_library.html"><span class="doc">CLI 库</span></a> 页面了解详细信息。</p>
+</section>
+<section id="id5">
+<h4>命令终止<a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
+<p>默认情况下,命令以成功代码 <code class="docutils literal notranslate"><span class="pre">0</span></code> 退出。如果在执行命令时遇到错误,你可以通过在 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法中使用 <code class="docutils literal notranslate"><span class="pre">return</span></code> 语句和退出代码来终止命令。</p>
+<p>例如,``return EXIT_ERROR;``</p>
+<p>这种方法可以帮助系统级调试,如果命令例如通过 crontab 运行。</p>
+<p>你可以使用 <strong>app/Config/Constants.php</strong> 文件中定义的 <code class="docutils literal notranslate"><span class="pre">EXIT_*</span></code> 退出代码常量。</p>
+</section>
+</section>
+</section>
+<section id="basecommand">
+<h2><a class="toc-backref" href="#id9">BaseCommand</a><a class="headerlink" href="#basecommand" title="永久链接至标题"></a></h2>
+<p>所有命令必须扩展的 <code class="docutils literal notranslate"><span class="pre">BaseCommand</span></code> 类有一些你应该熟悉的有用实用方法,当创建自己的命令时。它还具有可以通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;logger</span></code> 访问的 <a class="reference internal" href="../general/logging.html"><span class="doc">日志</span></a>。</p>
+<span class="target" id="namespace-CodeIgniter\CLI"></span><dl class="php class">
+<dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\CLI\</span></span><span class="sig-name descname"><span class="pre">BaseCommand</span></span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand" title="永久链接至目标"></a></dt>
+<dd><blockquote>
+<div><dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$command</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">array</span> <span class="pre">$params</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::call" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$command</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要调用的另一个命令的名称。</p></li>
+<li><p><strong>$params</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 要传递给该命令的其他 CLI 参数。</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>此方法使你可以在当前命令执行期间运行其他命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">call</span><span class="p">(</span><span class="s1">&#39;command_one&#39;</span><span class="p">);</span>
+</dd>
+</dl>
+<p>此方法允许你在当前命令执行期间运行其他命令:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">call</span><span class="p">(</span><span class="s1">&#39;command_one&#39;</span><span class="p">);</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">call</span><span class="p">(</span><span class="s1">&#39;command_two&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
 </pre></div>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="showError">
-<code class="descname">showError</code><span class="sig-paren">(</span><em>Exception $e</em><span class="sig-paren">)</span><a class="headerlink" href="#showError" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$e</strong> (<em>Exception</em>) – 用于错误报告的 Exception。</li>
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::showError">
+<span class="sig-name descname"><span class="pre">showError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Throwable</span> <span class="pre">$e</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::showError" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$e</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">Throwable</span></code></span>) – 用于报告错误的异常。</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>一种方便的方法，用于向 CLI 保持一致且清晰的错误输出:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">try</span>
-<span class="p">{</span>
-    <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
-<span class="p">}</span>
-<span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span>
-<span class="p">{</span>
+</dd>
+</dl>
+<p>一种保持 CLI 错误输出一致且清晰的便捷方法:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">showError</span><span class="p">(</span><span class="nv">$e</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="showHelp">
-<code class="descname">showHelp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#showHelp" title="永久链接至目标">¶</a></dt>
-<dd><p>显示命令帮助的方法：（用法，参数，描述，选项）</p>
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::showHelp">
+<span class="sig-name descname"><span class="pre">showHelp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::showHelp" title="永久链接至目标"></a></dt>
+<dd><p>显示命令帮助的方法:(用法、参数、描述、选项)</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="getPad">
-<code class="descname">getPad</code><span class="sig-paren">(</span><em>$array</em>, <em>$pad</em><span class="sig-paren">)</span><a class="headerlink" href="#getPad" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first last simple">
-<li><strong>$array</strong> (<em>array</em>) – $key =&gt; $value 数组</li>
-<li><strong>$pad</strong> (<em>integer</em>) – 填充空格数</li>
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::setPad">
+<span class="sig-name descname"><span class="pre">setPad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$item</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$max</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">2</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$indent</span> <span class="pre">=</span> <span class="pre">0</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::setPad" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$item</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字符串项目。</p></li>
+<li><p><strong>$max</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – 最大长度。</p></li>
+<li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – 在末尾添加的额外空格数。</p></li>
+<li><p><strong>$indent</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – 缩进空格数。</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>一个为 $key =&gt; $value 数组输出计算填充的方法。填充可用于在 CLI 中输出格式化的表格:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$pad</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getPad</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span> <span class="k">as</span> <span class="nv">$option</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="nv">$tab</span> <span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nb">str_pad</span><span class="p">(</span><span class="nv">$option</span><span class="p">,</span> <span class="nv">$pad</span><span class="p">),</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="nv">$description</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">);</span>
-<span class="p">}</span>
+</dd>
+</dl>
+<p>填充我们的字符串,以便所有标题的长度相同,以美观地排列描述:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
-<span class="c1">// 输出应该会像这样</span>
-<span class="o">-</span><span class="nx">n</span>                  <span class="nx">设置迁移命名空间</span>
-<span class="o">-</span><span class="nx">r</span>                  <span class="nx">覆盖文件</span>
+<span class="nv">$length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">array_map</span><span class="p">(</span><span class="s1">&#39;strlen&#39;</span><span class="p">,</span> <span class="nb">array_keys</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">)));</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span> <span class="k">as</span> <span class="nv">$option</span> <span class="o">=&gt;</span> <span class="nv">$description</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setPad</span><span class="p">(</span><span class="nv">$option</span><span class="p">,</span> <span class="nv">$length</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;green&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="nv">$description</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cm">/*</span>
+<span class="cm"> * Output will be:</span>
+<span class="cm"> *  -n     Set migration namespace</span>
+<span class="cm"> *  -g     Set database group</span>
+<span class="cm"> *  --all  Set for all namespaces, will ignore (-n) option</span>
+<span class="cm"> */</span>
 </pre></div>
 </div>
 </dd></dl>
 
+</div></blockquote>
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::getPad">
+<span class="sig-name descname"><span class="pre">getPad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$array</span></em>, <em class="sig-param"><span class="pre">$pad</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::getPad" title="永久链接至目标"></a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">4.0.5 版后已移除: </span>请使用 <a class="reference internal" href="#CodeIgniter\CLI\BaseCommand::setPad" title="CodeIgniter\CLI\BaseCommand::setPad"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\CLI\BaseCommand::setPad()</span></code></a>。</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$array</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – <code class="docutils literal notranslate"><span class="pre">$key</span> <span class="pre">=&gt;</span> <span class="pre">$value</span></code> 数组。</p></li>
+<li><p><strong>$pad</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – 填充的空格数。</p></li>
+</ul>
+</dd>
+</dl>
+<p>计算用于 <code class="docutils literal notranslate"><span class="pre">$key</span> <span class="pre">=&gt;</span> <span class="pre">$value</span></code> 数组输出的填充的方法。该填充可用于在 CLI 中输出格式良好的表格。</p>
 </dd></dl>
 
-</div>
-</div>
+</dd></dl>
+
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="cli_library.html" class="btn btn-neutral float-right" title="CLI Library" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="cli.html" class="btn btn-neutral float-left" title="通过CLI方式运行" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="spark_commands.html" class="btn btn-neutral float-left" title="Spark 命令" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="cli_generators.html" class="btn btn-neutral float-right" title="CLI 生成器" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; 版权所有 2019-2020 CodeIgniter 基金会
-      <span class="lastupdated">
-        最后更新于 2020-11-21.
-      </span>
-
-    </p>
+    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2023-07-22.
+      </span></p>
   </div>
-    
-    
-    
-    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
-    
-    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
-  <p></p>
-  <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
-  <p>
-    <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    <!--·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
-  </p>
 
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie &mdash; CodeIgniter 4.3.6 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script src="../_static/js/citheme.js"></script>
+        <script src="../_static/js/carbon.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="CURLRequest 类" href="curlrequest.html" />
+    <link rel="prev" title="缓存驱动" href="caching.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/ci-logo-text.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">Composer 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用程序</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">静态页面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">结束语</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用程序结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型、视图和控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">自动加载文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">全局函数和常量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/errors.html">错误处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/caching.html">网页缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/modules.html">代码模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多个环境</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../incoming/index.html">控制器和路由</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/content_negotiation.html">内容协商</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP 方法欺骗</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/restful.html">RESTful 资源处理</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">使用数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">快速入门:使用示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">数据库配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">连接数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">运行查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">生成查询结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构建器类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">事务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">获取元数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">自定义函数调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/events.html">数据库事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库实用工具</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../models/index.html">数据建模</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的 Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/entities.html">使用实体类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">类库参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="caching.html">缓存驱动</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="email.html">Email 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encryption.html">Encryption 服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_collections.html">文件集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="honeypot.html">Honeypot 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="images.html">图像处理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pagination.html">分页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publisher.html">Publisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">安全性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sessions.html">Session 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="throttler.html">限速器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typography.html">排版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploaded_files.html">处理上传的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uri.html">使用 URI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_agent.html">用户代理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="validation.html">验证</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">表单辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">数字辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">安全辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/test_helper.html">测试辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">文本辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML 辅助函数</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">测试</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">入门指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/fabricator.html">生成数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">命令行使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_overview.html">CLI 概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_controllers.html">通过 CLI 运行控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/spark_commands.html">Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_commands.html">创建 Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_generators.html">CLI 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_library.html">CLI 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_request.html">CLIRequest 类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">扩展 CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../extending/core_classes.html">创建核心系统类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/common.html">替换通用函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="official_packages.html">官方包</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">类库参考</a></li>
+      <li class="breadcrumb-item active">Cookie</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cookie">
+<h1>Cookie<a class="headerlink" href="#cookie" title="永久链接至标题"></a></h1>
+<p>一个**HTTP cookie**(网站 cookie、浏览器 cookie)是一个服务器发送到用户浏览器的一小段数据。浏览器可以存储它,并在以后向同一服务器的请求中发送它。通常,它用于判断两个请求是否来自同一个浏览器 - 例如,用于保持用户登录状态。它为无状态的 HTTP 协议保存状态信息。</p>
+<p>Cookie 主要用于三个目的:</p>
+<ul class="simple">
+<li><p><strong>会话管理</strong>:登录、购物车、游戏分数或服务器需要记住的任何其他内容</p></li>
+<li><p><strong>个性化</strong>:用户首选项、主题和其他设置</p></li>
+<li><p><strong>跟踪</strong>:记录和分析用户行为</p></li>
+</ul>
+<p>为了帮助你在请求和响应中跨浏览器高效使用 cookie,CodeIgniter 提供了 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Cookie\Cookie</span></code> 类来抽象 cookie 的交互。</p>
+<div class="contents local topic" id="id1">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id15">创建 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id16">访问 Cookie 的属性</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id17">不可变 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id18">验证 Cookie 的属性</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id6" id="id19">验证名称属性</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id20">验证前缀属性</a></p></li>
+<li><p><a class="reference internal" href="#samesite" id="id21">验证 SameSite 属性</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id22">使用 Cookie 存储</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id9" id="id23">检查存储中的 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id24">获取存储中的 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id25">在存储中添加/删除 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id26">分派存储中的 Cookie</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id13" id="id27">Cookie 个性化</a></p></li>
+<li><p><a class="reference internal" href="#namespace-CodeIgniter\Cookie" id="id28">类参考</a></p></li>
+</ul>
+</div>
+<section id="id2">
+<h2><a class="toc-backref" href="#id15">创建 Cookie</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>目前有四种方式可以创建一个新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 值对象。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">DateTime</span><span class="p">;</span>
+
+<span class="c1">// Using the constructor</span>
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span>
+    <span class="s1">&#39;remember_token&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6&#39;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;expires&#39;</span>  <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">DateTime</span><span class="p">(</span><span class="s1">&#39;+2 hours&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;prefix&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;__Secure-&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;path&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;domain&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;secure&#39;</span>   <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="s1">&#39;httponly&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="s1">&#39;raw&#39;</span>      <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+        <span class="s1">&#39;samesite&#39;</span> <span class="o">=&gt;</span> <span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_LAX</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="c1">// Supplying a Set-Cookie header string</span>
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="nx">Cookie</span><span class="o">::</span><span class="na">fromHeaderString</span><span class="p">(</span>
+    <span class="s1">&#39;remember_token=f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6; Path=/; Secure; HttpOnly; SameSite=Lax&#39;</span><span class="p">,</span>
+    <span class="k">false</span><span class="p">,</span> <span class="c1">// raw</span>
+<span class="p">);</span>
+
+<span class="c1">// Using the fluent builder interface</span>
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">))</span>
+    <span class="o">-&gt;</span><span class="na">withValue</span><span class="p">(</span><span class="s1">&#39;f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withPrefix</span><span class="p">(</span><span class="s1">&#39;__Secure-&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withExpires</span><span class="p">(</span><span class="k">new</span> <span class="nx">DateTime</span><span class="p">(</span><span class="s1">&#39;+2 hours&#39;</span><span class="p">))</span>
+    <span class="o">-&gt;</span><span class="na">withPath</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withDomain</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withSecure</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withHTTPOnly</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">withSameSite</span><span class="p">(</span><span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_LAX</span><span class="p">);</span>
+
+<span class="c1">// Using the global function `cookie` which implicitly calls `new Cookie()`</span>
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">,</span> <span class="s1">&#39;f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>在构造 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象时,只需要 <code class="docutils literal notranslate"><span class="pre">name</span></code> 属性是必需的。其余的都是可选的。如果没有修改可选属性,它们的值将由 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 类中保存的默认值填充。要覆盖类中当前存储的默认值,你可以传递一个 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 实例或默认值数组给静态 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 方法。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Config\Cookie</span> <span class="k">as</span> <span class="nx">CookieConfig</span><span class="p">;</span>
+
+<span class="c1">// pass in a Config\Cookie instance before constructing a Cookie class</span>
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">setDefaults</span><span class="p">(</span><span class="k">new</span> <span class="nx">CookieConfig</span><span class="p">());</span>
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+
+<span class="c1">// pass in an array of defaults</span>
+<span class="nv">$myDefaults</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;expires&#39;</span>  <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;samesite&#39;</span> <span class="o">=&gt;</span> <span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_STRICT</span><span class="p">,</span>
+<span class="p">];</span>
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">setDefaults</span><span class="p">(</span><span class="nv">$myDefaults</span><span class="p">);</span>
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>将 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 实例或数组传递给 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 将有效地覆盖你的默认值,并且持续到新的默认值被传递。如果你不想要这种行为,而只是想在有限的时间内更改默认值,你可以利用 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 的返回值,它返回旧的默认值数组。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Config\Cookie</span> <span class="k">as</span> <span class="nx">CookieConfig</span><span class="p">;</span>
+
+<span class="nv">$oldDefaults</span> <span class="o">=</span> <span class="nx">Cookie</span><span class="o">::</span><span class="na">setDefaults</span><span class="p">(</span><span class="k">new</span> <span class="nx">CookieConfig</span><span class="p">());</span>
+<span class="nv">$cookie</span>      <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;my_token&#39;</span><span class="p">,</span> <span class="s1">&#39;muffins&#39;</span><span class="p">);</span>
+
+<span class="c1">// return the old defaults</span>
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">setDefaults</span><span class="p">(</span><span class="nv">$oldDefaults</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id16">访问 Cookie 的属性</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>一旦实例化,你就可以通过使用其 getter 方法之一轻松访问 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 的属性。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">DateTime</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">DateTimeZone</span><span class="p">;</span>
+
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span>
+    <span class="s1">&#39;remember_token&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6&#39;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;expires&#39;</span>  <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">DateTime</span><span class="p">(</span><span class="s1">&#39;2025-02-14 00:00:00&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">DateTimeZone</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)),</span>
+        <span class="s1">&#39;prefix&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;__Secure-&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;path&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;domain&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;secure&#39;</span>   <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="s1">&#39;httponly&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="s1">&#39;raw&#39;</span>      <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+        <span class="s1">&#39;samesite&#39;</span> <span class="o">=&gt;</span> <span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_LAX</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span> <span class="c1">// &#39;remember_token&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPrefix</span><span class="p">();</span> <span class="c1">// &#39;__Secure-&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPrefixedName</span><span class="p">();</span> <span class="c1">// &#39;__Secure-remember_token&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getExpiresTimestamp</span><span class="p">();</span> <span class="c1">// Unix timestamp</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getExpiresString</span><span class="p">();</span> <span class="c1">// &#39;Fri, 14-Feb-2025 00:00:00 GMT&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isExpired</span><span class="p">();</span> <span class="c1">// false</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getMaxAge</span><span class="p">();</span> <span class="c1">// the difference from time() to expires</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isRaw</span><span class="p">();</span> <span class="c1">// false</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">();</span> <span class="c1">// true</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPath</span><span class="p">();</span> <span class="c1">// &#39;/&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getDomain</span><span class="p">();</span> <span class="c1">// &#39;&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isHTTPOnly</span><span class="p">();</span> <span class="c1">// true</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getSameSite</span><span class="p">();</span> <span class="c1">// &#39;Lax&#39;</span>
+
+<span class="c1">// additional getter</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">();</span> <span class="c1">// &#39;__Secure-remember_token;;/&#39;</span>
+
+<span class="c1">// when using `setcookie()`&#39;s alternative signature on PHP 7.3+</span>
+<span class="c1">// you can easily use the `getOptions()` method to supply the</span>
+<span class="c1">// $options parameter</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getOptions</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id17">不可变 Cookie</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例是一个 HTTP cookie 的不可变值对象表示。由于是不可变的,修改实例的任何属性都不会影响原始实例。修改**总是**返回一个新实例。你需要保留这个新实例才能使用它。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">,</span> <span class="s1">&#39;admin&#39;</span><span class="p">);</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span> <span class="c1">// &#39;login_token&#39;</span>
+
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">withName</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">);</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span> <span class="c1">// &#39;login_token&#39;</span>
+
+<span class="nv">$new</span> <span class="o">=</span> <span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">withName</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">);</span>
+<span class="nv">$new</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span> <span class="c1">// &#39;remember_token&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id18">验证 Cookie 的属性</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>一个 HTTP cookie 受到几个规范的约束,这些规范需要遵循才能被浏览器接受。因此,在创建或修改 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 的某些属性时,会对其进行验证,以检查它们是否遵循规范。</p>
+<p>如果报告了违规,则会抛出 <code class="docutils literal notranslate"><span class="pre">CookieException</span></code>。</p>
+<section id="id6">
+<h3><a class="toc-backref" href="#id19">验证名称属性</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<p>cookie 名称可以是任何 US-ASCII 字符,以下字符除外:</p>
+<ul class="simple">
+<li><p>控制字符;</p></li>
+<li><p>空格或制表符;</p></li>
+<li><p>分隔符,例如 <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">)</span> <span class="pre">&lt;</span> <span class="pre">&gt;</span> <span class="pre">&#64;</span> <span class="pre">,</span> <span class="pre">;</span> <span class="pre">:</span> <span class="pre">\</span> <span class="pre">&quot;</span> <span class="pre">/</span> <span class="pre">[</span> <span class="pre">]</span> <span class="pre">?</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">}</span></code></p></li>
+</ul>
+<p>如果将 <code class="docutils literal notranslate"><span class="pre">$raw</span></code> 参数设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,则会严格进行此验证。这是因为 PHP 的 <code class="docutils literal notranslate"><span class="pre">setcookie</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setrawcookie</span></code> 会拒绝具有无效名称的 cookie。另外,cookie 名称不能为空字符串。</p>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id20">验证前缀属性</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<p>在使用 <code class="docutils literal notranslate"><span class="pre">__Secure-</span></code> 前缀时,必须将 cookie 的 <code class="docutils literal notranslate"><span class="pre">$secure</span></code> 标志设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。如果使用 <code class="docutils literal notranslate"><span class="pre">__Host-</span></code> 前缀,cookie 必须展示以下特征:</p>
+<ul class="simple">
+<li><p>将 <code class="docutils literal notranslate"><span class="pre">$secure</span></code> 标志设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$domain</span></code> 为空</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$path</span></code> 必须为 <code class="docutils literal notranslate"><span class="pre">/</span></code></p></li>
+</ul>
+</section>
+<section id="samesite">
+<h3><a class="toc-backref" href="#id21">验证 SameSite 属性</a><a class="headerlink" href="#samesite" title="永久链接至标题"></a></h3>
+<p>SameSite 属性只接受三个值:</p>
+<ul class="simple">
+<li><p><strong>Lax</strong>: 在第三方站点加载图像或框架等正常跨站子请求时不会发送 Cookie,但是在用户导航到源站点时会发送(即点击链接时)。</p></li>
+<li><p><strong>Strict</strong>: Cookie 只会在第一方环境下发送,不会随第三方网站发起的请求一起发送。</p></li>
+<li><p><strong>None</strong>: 在所有环境下发送 Cookie,即对第一方和跨域请求的响应中都会发送。</p></li>
+</ul>
+<p>但是,CodeIgniter 允许你将 SameSite 属性设置为空字符串。提供空字符串时,将使用 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 类中保存的默认 SameSite 设置。如上所述,你可以使用 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 更改默认 SameSite。</p>
+<p>最近的 cookie 规范做了更改,要求现代浏览器在未提供时给一个默认的 SameSite。这个默认的是 <code class="docutils literal notranslate"><span class="pre">Lax</span></code>。如果你已将 SameSite 设置为空字符串,而默认的 SameSite 也为空字符串,你的 cookie 将被赋予 <code class="docutils literal notranslate"><span class="pre">Lax</span></code> 值。</p>
+<p>如果将 SameSite 设置为 <code class="docutils literal notranslate"><span class="pre">None</span></code>,你需要确保 <code class="docutils literal notranslate"><span class="pre">Secure</span></code> 也设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。</p>
+<p>在编写 SameSite 属性时,``Cookie`` 类以不区分大小写的方式接受任何这些值。你也可以利用类的常量来避免麻烦。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_LAX</span><span class="p">;</span> <span class="c1">// &#39;lax&#39;</span>
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_STRICT</span><span class="p">;</span> <span class="c1">// &#39;strict&#39;</span>
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_NONE</span><span class="p">;</span> <span class="c1">// &#39;none&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id22">使用 Cookie 存储</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 类表示 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象的一个不可变集合。可以从当前的 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 对象访问 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
+
+<span class="nv">$cookieStore</span> <span class="o">=</span> <span class="nx">Services</span><span class="o">::</span><span class="na">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCookieStore</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>CodeIgniter 提供了另外三种创建 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 新实例的方法。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\CookieStore</span><span class="p">;</span>
+
+<span class="c1">// Passing an array of `Cookie` objects in the constructor</span>
+<span class="nv">$store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CookieStore</span><span class="p">([</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">),</span>
+<span class="p">]);</span>
+
+<span class="c1">// Passing an array of `Set-Cookie` header strings</span>
+<span class="nv">$store</span> <span class="o">=</span> <span class="nx">CookieStore</span><span class="o">::</span><span class="na">fromCookieHeaders</span><span class="p">([</span>
+    <span class="s1">&#39;remember_token=me; Path=/; SameSite=Lax&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;login_token=admin; Path=/; SameSite=Lax&#39;</span><span class="p">,</span>
+<span class="p">]);</span>
+
+<span class="c1">// using the global `cookies` function</span>
+<span class="nv">$store</span> <span class="o">=</span> <span class="nx">cookies</span><span class="p">([</span><span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">)],</span> <span class="k">false</span><span class="p">);</span>
+
+<span class="c1">// retrieving the `CookieStore` instance saved in our current `Response` object</span>
+<span class="nv">$store</span> <span class="o">=</span> <span class="nx">cookies</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在使用全局 <code class="docutils literal notranslate"><span class="pre">cookies()</span></code> 函数时,只有在第二个参数 <code class="docutils literal notranslate"><span class="pre">$getGlobal</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code> 时,才会考虑传递的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 数组。</p>
+</div>
+<section id="id9">
+<h3><a class="toc-backref" href="#id23">检查存储中的 Cookie</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<p>要检查 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例中是否存在一个 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象,你可以用几种方法:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\CookieStore</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
+
+<span class="c1">// check if cookie is in the current cookie collection</span>
+<span class="nv">$store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CookieStore</span><span class="p">([</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">),</span>
+<span class="p">]);</span>
+<span class="nv">$store</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+
+<span class="c1">// check if cookie is in the current Response&#39;s cookie collection</span>
+<span class="nx">cookies</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+<span class="nx">Services</span><span class="o">::</span><span class="na">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">hasCookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">);</span>
+
+<span class="c1">// using the cookie helper to check the current Response</span>
+<span class="c1">// not available to v4.1.1 and lower</span>
+<span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">);</span>
+<span class="nx">has_cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id24">获取存储中的 Cookie</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<p>在 cookie 集合中检索一个 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例非常简单:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\CookieStore</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
+
+<span class="c1">// getting cookie in the current cookie collection</span>
+<span class="nv">$store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CookieStore</span><span class="p">([</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">),</span>
+<span class="p">]);</span>
+<span class="nv">$store</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+
+<span class="c1">// getting cookie in the current Response&#39;s cookie collection</span>
+<span class="nx">cookies</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+<span class="nx">Services</span><span class="o">::</span><span class="na">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">);</span>
+
+<span class="c1">// using the cookie helper to get cookie from the Response&#39;s cookie collection</span>
+<span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">);</span>
+<span class="nx">get_cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>从 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 直接获取 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例时,无效名称会抛出 <code class="docutils literal notranslate"><span class="pre">CookieException</span></code>。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// throws CookieException</span>
+<span class="nv">$store</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;unknown_cookie&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>从当前 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 的 cookie 集合获取 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例时,无效名称只会返回 <code class="docutils literal notranslate"><span class="pre">null</span></code>。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nx">cookies</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;unknown_cookie&#39;</span><span class="p">);</span> <span class="c1">// null</span>
+</pre></div>
+</div>
+<p>如果在从 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 获取 cookie 时没有提供参数,则会显示存储中的所有 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nx">cookies</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span> <span class="c1">// array of Cookie objects</span>
+
+<span class="c1">// alternatively, you can use the display method</span>
+<span class="nx">cookies</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">();</span>
+
+<span class="c1">// or even from the Response</span>
+<span class="nx">Services</span><span class="o">::</span><span class="na">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCookies</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>帮助函数 <code class="docutils literal notranslate"><span class="pre">get_cookie()</span></code> 从当前的 <code class="docutils literal notranslate"><span class="pre">Request</span></code> 对象获取 cookie,而不是从 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 获取。如果该 cookie 已设置,此函数会检查 <code class="docutils literal notranslate"><span class="pre">$_COOKIE</span></code> 数组并立即获取它。</p>
+</div>
+</section>
+<section id="id11">
+<h3><a class="toc-backref" href="#id25">在存储中添加/删除 Cookie</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<p>如前所述,``CookieStore`` 对象是不可变的。你需要保存修改后的实例才能对其进行操作。原始实例保持不变。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\CookieStore</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
+
+<span class="nv">$store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CookieStore</span><span class="p">([</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">),</span>
+<span class="p">]);</span>
+
+<span class="c1">// adding a new Cookie instance</span>
+<span class="nv">$new</span> <span class="o">=</span> <span class="nv">$store</span><span class="o">-&gt;</span><span class="na">put</span><span class="p">(</span><span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;admin_token&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">));</span>
+
+<span class="c1">// removing a Cookie instance</span>
+<span class="nv">$new</span> <span class="o">=</span> <span class="nv">$store</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从存储中删除 cookie <strong>不会</strong> 从浏览器中删除它。
+如果你打算从浏览器中删除 cookie,你必须向存储放入一个具有相同名称的空值 cookie。</p>
+</div>
+<p>当与当前 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 对象中的 cookie 存储进行交互时,你可以安全地添加或删除 cookie,而不用担心 cookie 集合的不可变性质。 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 对象将用修改后的实例替换该实例。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
+
+<span class="nx">Services</span><span class="o">::</span><span class="na">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">setCookie</span><span class="p">(</span><span class="s1">&#39;admin_token&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">);</span>
+<span class="nx">Services</span><span class="o">::</span><span class="na">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">deleteCookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+
+<span class="c1">// using the cookie helper</span>
+<span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">);</span>
+<span class="nx">set_cookie</span><span class="p">(</span><span class="s1">&#39;admin_token&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">);</span>
+<span class="nx">delete_cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3><a class="toc-backref" href="#id26">分派存储中的 Cookie</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<p>更多时候,你不需要自己手动发送 cookie。CodeIgniter 会为你做这件事。但是,如果你真的需要手动发送 cookie,你可以使用 <code class="docutils literal notranslate"><span class="pre">dispatch</span></code> 方法。就像发送其他标头一样,你需要确保标头还未发送,方法是检查 <code class="docutils literal notranslate"><span class="pre">headers_sent()</span></code> 的值。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\CookieStore</span><span class="p">;</span>
+
+<span class="nv">$store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CookieStore</span><span class="p">([</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">),</span>
+    <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">),</span>
+<span class="p">]);</span>
+
+<span class="nv">$store</span><span class="o">-&gt;</span><span class="na">dispatch</span><span class="p">();</span> <span class="c1">// After dispatch, the collection is now empty.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id13">
+<h2><a class="toc-backref" href="#id27">Cookie 个性化</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 类中已经有了一些默认设置,以确保平滑地创建 cookie 对象。但是,你可能希望通过更改 <strong>app/Config/Cookie.php</strong> 文件中的以下 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 类来定义自己的设置。</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 31%" />
+<col style="width: 8%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>设置</p></th>
+<th class="head"><p>选项/类型</p></th>
+<th class="head"><p>默认值</p></th>
+<th class="head"><p>描述</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>$prefix</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">''</span></code></p></td>
+<td><p>要添加到 cookie 名称前面的前缀。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>$expires</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DateTimeInterface|string|int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>过期时间戳。</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>$path</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<td><p>cookie 的 path 属性。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>$domain</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">''</span></code></p></td>
+<td><p>cookie 的 domain 属性,带尾部斜杠。</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>$secure</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true/false</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>是否通过安全的 HTTPS 发送。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>$httponly</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true/false</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p>是否不可通过 JavaScript 访问。</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>$samesite</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Lax|None|Strict|lax|none|strict''</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Lax</span></code></p></td>
+<td><p>SameSite 属性。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>$raw</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true/false</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>是否使用 <code class="docutils literal notranslate"><span class="pre">setrawcookie()</span></code> 进行分派。</p></td>
+</tr>
+</tbody>
+</table>
+<p>在运行时,你可以使用 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 方法手动提供新的默认值。</p>
+</section>
+<section id="namespace-CodeIgniter\Cookie">
+<span id="id14"></span><h2><a class="toc-backref" href="#id28">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\Cookie" title="永久链接至标题"></a></h2>
+<dl class="php class">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\Cookie\</span></span><span class="sig-name descname"><span class="pre">Cookie</span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie" title="永久链接至目标"></a></dt>
+<dd><dl class="php staticmethod">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::setDefaults">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">setDefaults</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$config</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::setDefaults" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$config</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">ConfigCookie|array</span></code></span>) – 配置数组或实例</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>旧的默认值</p>
+</dd>
+</dl>
+<p>通过从 <code class="docutils literal notranslate"><span class="pre">\Config\Cookie</span></code> 配置或数组中注入值来设置 Cookie 实例的默认属性。</p>
+</dd></dl>
+
+<dl class="php staticmethod">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::fromHeaderString">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">fromHeaderString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$header</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">bool</span> <span class="pre">$raw</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::fromHeaderString" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$header</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> 头字符串</p></li>
+<li><p><strong>$raw</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否不进行 URL 编码并通过 <code class="docutils literal notranslate"><span class="pre">setrawcookie()</span></code> 发送</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+<dt class="field-even">Throws</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieException</span></code></p>
+</dd>
+</dl>
+<p>从 <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> 头创建一个新的 Cookie 实例。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::__construct">
+<span class="sig-name descname"><span class="pre">__construct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$name</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">string</span> <span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">array</span> <span class="pre">$options</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::__construct" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – cookie 名称</p></li>
+<li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – cookie 值</p></li>
+<li><p><strong>$options</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – cookie 选项</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+<dt class="field-even">Throws</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieException</span></code></p>
+</dd>
+</dl>
+<p>构造一个新的 Cookie 实例。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getId">
+<span class="sig-name descname"><span class="pre">getId</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getId" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>在 cookie 集合中的索引 ID。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getPrefix">
+<span class="sig-name descname"><span class="pre">getPrefix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getPrefix" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getName">
+<span class="sig-name descname"><span class="pre">getName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getName" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getPrefixedName">
+<span class="sig-name descname"><span class="pre">getPrefixedName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getPrefixedName" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getValue">
+<span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getValue" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getExpiresTimestamp">
+<span class="sig-name descname"><span class="pre">getExpiresTimestamp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getExpiresTimestamp" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getExpiresString">
+<span class="sig-name descname"><span class="pre">getExpiresString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getExpiresString" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::isExpired">
+<span class="sig-name descname"><span class="pre">isExpired</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::isExpired" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getMaxAge">
+<span class="sig-name descname"><span class="pre">getMaxAge</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getMaxAge" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getDomain">
+<span class="sig-name descname"><span class="pre">getDomain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getDomain" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getPath">
+<span class="sig-name descname"><span class="pre">getPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getPath" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::isSecure">
+<span class="sig-name descname"><span class="pre">isSecure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::isSecure" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::isHTTPOnly">
+<span class="sig-name descname"><span class="pre">isHTTPOnly</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::isHTTPOnly" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getSameSite">
+<span class="sig-name descname"><span class="pre">getSameSite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getSameSite" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::isRaw">
+<span class="sig-name descname"><span class="pre">isRaw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::isRaw" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::getOptions">
+<span class="sig-name descname"><span class="pre">getOptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::getOptions" title="永久链接至目标"></a></dt>
+<dd></dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withRaw">
+<span class="sig-name descname"><span class="pre">withRaw</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">bool</span> <span class="pre">$raw</span> <span class="pre">=</span> <span class="pre">true</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withRaw" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$raw</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个更新了 URL 编码选项的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withPrefix">
+<span class="sig-name descname"><span class="pre">withPrefix</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$prefix</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withPrefix" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$prefix</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新前缀的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withName">
+<span class="sig-name descname"><span class="pre">withName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withName" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新名称的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withValue">
+<span class="sig-name descname"><span class="pre">withValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withValue" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新值的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withExpires">
+<span class="sig-name descname"><span class="pre">withExpires</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$expires</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withExpires" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$expires</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">DateTimeInterface|string|int</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新的 cookie 过期时间的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withExpired">
+<span class="sig-name descname"><span class="pre">withExpired</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withExpired" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个从浏览器过期的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withNeverExpiring">
+<span class="sig-name descname"><span class="pre">withNeverExpiring</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withNeverExpiring" title="永久链接至目标"></a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">4.2.6 版后已移除.</span></p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>这个方法已弃用。它将在未来的版本中删除。</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个几乎永不过期的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withDomain">
+<span class="sig-name descname"><span class="pre">withDomain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">?string</span> <span class="pre">$domain</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withDomain" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$domain</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string|null</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新域的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withPath">
+<span class="sig-name descname"><span class="pre">withPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">?string</span> <span class="pre">$path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withPath" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$path</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string|null</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新路径的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withSecure">
+<span class="sig-name descname"><span class="pre">withSecure</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">bool</span> <span class="pre">$secure</span> <span class="pre">=</span> <span class="pre">true</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withSecure" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$secure</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新的“Secure”属性的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withHTTPOnly">
+<span class="sig-name descname"><span class="pre">withHTTPOnly</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">bool</span> <span class="pre">$httponly</span> <span class="pre">=</span> <span class="pre">true</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withHTTPOnly" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$httponly</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新的“HttpOnly”属性的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::withSameSite">
+<span class="sig-name descname"><span class="pre">withSameSite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$samesite</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::withSameSite" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$samesite</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例</p>
+</dd>
+</dl>
+<p>创建一个带有新的“SameSite”属性的新的 Cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::toHeaderString">
+<span class="sig-name descname"><span class="pre">toHeaderString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::toHeaderString" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>可以作为头字符串传递的字符串表示。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie::toArray">
+<span class="sig-name descname"><span class="pre">toArray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie::toArray" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>返回 Cookie 实例的数组表示形式。</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="php class">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\Cookie\</span></span><span class="sig-name descname"><span class="pre">CookieStore</span></span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore" title="永久链接至目标"></a></dt>
+<dd><dl class="php staticmethod">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::fromCookieHeaders">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">fromCookieHeaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">array</span> <span class="pre">$headers</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">bool</span> <span class="pre">$raw</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::fromCookieHeaders" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$header</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> 头数组</p></li>
+<li><p><strong>$raw</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否不使用 URL 编码</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例</p>
+</dd>
+<dt class="field-even">Throws</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieException</span></code></p>
+</dd>
+</dl>
+<p>从 <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code> 头数组创建一个 CookieStore。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::__construct">
+<span class="sig-name descname"><span class="pre">__construct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">array</span> <span class="pre">$cookies</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::__construct" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$cookies</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象数组</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例</p>
+</dd>
+<dt class="field-even">Throws</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieException</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::has">
+<span class="sig-name descname"><span class="pre">has</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$name</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">string</span> <span class="pre">$prefix</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">?string</span> <span class="pre">$value</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::has" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 名称</p></li>
+<li><p><strong>$prefix</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 前缀</p></li>
+<li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string|null</span></code></span>) – Cookie 值</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>检查由名称和前缀标识的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象是否存在于集合中。</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$name</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">string</span> <span class="pre">$prefix</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Cookie</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::get" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 名称</p></li>
+<li><p><strong>$prefix</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 前缀</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>检索由名称和前缀标识的 Cookie 实例。</p>
+</dd>
+<dt class="field-even">Throws</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieException</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Cookie</span> <span class="pre">$cookie</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CookieStore</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::put" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$cookie</strong> (<span><a class="reference internal" href="#CodeIgniter\Cookie\Cookie" title="CodeIgniter\Cookie\Cookie"><code class="xref php php-obj docutils literal notranslate"><span class="pre">Cookie</span></code></a></span>) – 一个 Cookie 对象</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例</p>
+</dd>
+</dl>
+<p>存储一个新 cookie 并返回一个新集合。原始集合保持不变。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$name</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">string</span> <span class="pre">$prefix</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CookieStore</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::remove" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 名称</p></li>
+<li><p><strong>$prefix</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 前缀</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>新的 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例</p>
+</dd>
+</dl>
+<p>从集合中删除一个 cookie 并返回更新后的集合。原始集合保持不变。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">void</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::dispatch" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">void</span></code></span></p>
+</dd>
+</dl>
+<p>分派存储中的所有 cookie。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::display">
+<span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::display" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>返回存储中的所有 cookie</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Cookie\CookieStore::clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">void</span></span></span><a class="headerlink" href="#CodeIgniter\Cookie\CookieStore::clear" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">void</span></code></span></p>
+</dd>
+</dl>
+<p>清除 cookie 集合。</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="caching.html" class="btn btn-neutral float-left" title="缓存驱动" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="curlrequest.html" class="btn btn-neutral float-right" title="CURLRequest 类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2023-07-22.
+      </span></p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

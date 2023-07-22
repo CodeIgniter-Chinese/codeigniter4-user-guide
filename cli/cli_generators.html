@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLI 生成器 &mdash; CodeIgniter 4.3.6 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script src="../_static/js/citheme.js"></script>
+        <script src="../_static/js/carbon.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="CLI 库" href="cli_library.html" />
+    <link rel="prev" title="创建 Spark 命令" href="cli_commands.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/ci-logo-text.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">Composer 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用程序</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">静态页面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">结束语</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用程序结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型、视图和控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">自动加载文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">全局函数和常量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/errors.html">错误处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/caching.html">网页缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/modules.html">代码模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多个环境</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../incoming/index.html">控制器和路由</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/content_negotiation.html">内容协商</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP 方法欺骗</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/restful.html">RESTful 资源处理</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">使用数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">快速入门:使用示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">数据库配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">连接数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">运行查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">生成查询结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构建器类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">事务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">获取元数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">自定义函数调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/events.html">数据库事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库实用工具</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../models/index.html">数据建模</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的 Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/entities.html">使用实体类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption 服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">Honeypot 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/publisher.html">Publisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">用户代理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">表单辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">数字辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">安全辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/test_helper.html">测试辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">文本辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML 辅助函数</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">测试</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">入门指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/fabricator.html">生成数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">命令行使用</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli_overview.html">CLI 概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_controllers.html">通过 CLI 运行控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spark_commands.html">Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_commands.html">创建 Spark 命令</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CLI 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_library.html">CLI 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_request.html">CLIRequest 类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">扩展 CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../extending/core_classes.html">创建核心系统类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/common.html">替换通用函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/official_packages.html">官方包</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">命令行使用</a></li>
+      <li class="breadcrumb-item active">CLI 生成器</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cli">
+<h1>CLI 生成器<a class="headerlink" href="#cli" title="永久链接至标题"></a></h1>
+<p>CodeIgniter4 现在配备了生成器,以简化常规控制器、模型、实体等的创建。你还可以使用一个命令搭建一整套完整的文件。</p>
+<div class="contents local topic" id="id1">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id36">简介</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id37">内置生成器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#make-cell" id="id38">make:cell</a></p></li>
+<li><p><a class="reference internal" href="#make-command" id="id39">make:command</a></p></li>
+<li><p><a class="reference internal" href="#make-config" id="id40">make:config</a></p></li>
+<li><p><a class="reference internal" href="#make-controller" id="id41">make:controller</a></p></li>
+<li><p><a class="reference internal" href="#make-entity" id="id42">make:entity</a></p></li>
+<li><p><a class="reference internal" href="#make-filter" id="id43">make:filter</a></p></li>
+<li><p><a class="reference internal" href="#make-model" id="id44">make:model</a></p></li>
+<li><p><a class="reference internal" href="#make-seeder" id="id45">make:seeder</a></p></li>
+<li><p><a class="reference internal" href="#make-migration" id="id46">make:migration</a></p></li>
+<li><p><a class="reference internal" href="#make-validation" id="id47">make:validation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id34" id="id48">搭建一整套完整的代码</a></p></li>
+<li><p><a class="reference internal" href="#generatortrait" id="id49">GeneratorTrait</a></p></li>
+<li><p><a class="reference internal" href="#id35" id="id50">声明自定义生成器命令模板的位置</a></p></li>
+</ul>
+</div>
+<section id="id2">
+<h2><a class="toc-backref" href="#id36">简介</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>所有内置生成器在使用 <code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">spark</span> <span class="pre">list</span></code> 列出时都位于 <code class="docutils literal notranslate"><span class="pre">Generators</span></code> 组下。
+要查看特定生成器的完整描述和使用信息,请使用命令:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">help</span> <span class="o">&lt;</span><span class="nx">生成器命令</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>其中 <code class="docutils literal notranslate"><span class="pre">&lt;生成器命令&gt;</span></code> 将替换为要检查的命令。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>你需要在子文件夹中生成代码吗?例如,如果你想在主 <code class="docutils literal notranslate"><span class="pre">Controllers</span></code> 文件夹的 <code class="docutils literal notranslate"><span class="pre">Admin</span></code> 子文件夹中创建一个控制器类,你只需要在类名前加上子文件夹,像这样:<code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">spark</span> <span class="pre">make:controller</span> <span class="pre">admin/login</span></code>。这个命令将在 <code class="docutils literal notranslate"><span class="pre">Controllers/Admin</span></code> 子文件夹中创建 <code class="docutils literal notranslate"><span class="pre">Login</span></code> 控制器,命名空间为 <code class="docutils literal notranslate"><span class="pre">App\Controllers\Admin</span></code>。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在模块上工作?代码生成将根命名空间默认设置为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code>。如果需要在模块命名空间的其他位置生成代码,请确保在命令中设置 <code class="docutils literal notranslate"><span class="pre">--namespace</span></code> 选项,例如 <code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">spark</span> <span class="pre">make:model</span> <span class="pre">blog</span> <span class="pre">--namespace</span> <span class="pre">Acme\\Blog</span></code>。</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>设置 <code class="docutils literal notranslate"><span class="pre">--namespace</span></code> 选项时,请确保提供的命名空间是在 <code class="docutils literal notranslate"><span class="pre">Config\Autoload</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">$psr4</span></code> 数组或你的 composer 自动加载文件中定义的有效命名空间。否则,代码生成将中断。</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>从 v4.0.5 开始,使用 <code class="docutils literal notranslate"><span class="pre">migrate:create</span></code> 创建迁移文件已被弃用。它将在未来版本中删除。请使用 <code class="docutils literal notranslate"><span class="pre">make:migration</span></code> 作为替代。另外,请使用 <code class="docutils literal notranslate"><span class="pre">make:migration</span> <span class="pre">--session</span></code> 来代替已弃用的 <code class="docutils literal notranslate"><span class="pre">session:migration</span></code>。</p>
+</div>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id37">内置生成器</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>CodeIgniter4 默认附带以下生成器。</p>
+<section id="make-cell">
+<h3><a class="toc-backref" href="#id38">make:cell</a><a class="headerlink" href="#make-cell" title="永久链接至标题"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
+</div>
+<p>创建一个新的 Cell 文件及其视图。</p>
+<section id="id4">
+<h4>用法:<a class="headerlink" href="#id4" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">cell</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h4>参数:<a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:单元类的名称。应为 PascalCase。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id6">
+<h4>选项:<a class="headerlink" href="#id6" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+<section id="make-command">
+<h3><a class="toc-backref" href="#id39">make:command</a><a class="headerlink" href="#make-command" title="永久链接至标题"></a></h3>
+<p>创建一个新的 spark 命令。</p>
+<section id="id7">
+<h4>用法:<a class="headerlink" href="#id7" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">command</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h4>参数:<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:命令类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id9">
+<h4>选项:<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--command</span></code>:在 spark 中运行的命令名称。默认为 <code class="docutils literal notranslate"><span class="pre">command:name</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--group</span></code>:命令的组/命名空间。对于基本命令默认为 <code class="docutils literal notranslate"><span class="pre">CodeIgniter</span></code>,对于生成器命令默认为 <code class="docutils literal notranslate"><span class="pre">Generators</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--type</span></code>:命令类型,可以是 <code class="docutils literal notranslate"><span class="pre">basic</span></code> 基本命令或 <code class="docutils literal notranslate"><span class="pre">generator</span></code> 生成器命令。默认为 <code class="docutils literal notranslate"><span class="pre">basic</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+<section id="make-config">
+<h3><a class="toc-backref" href="#id40">make:config</a><a class="headerlink" href="#make-config" title="永久链接至标题"></a></h3>
+<p>创建一个新的配置文件。</p>
+<section id="id10">
+<h4>用法:<a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">config</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h4>参数:<a class="headerlink" href="#id11" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:配置类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id12">
+<h4>选项:<a class="headerlink" href="#id12" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+<section id="make-controller">
+<h3><a class="toc-backref" href="#id41">make:controller</a><a class="headerlink" href="#make-controller" title="永久链接至标题"></a></h3>
+<p>创建一个新的控制器文件。</p>
+<section id="id13">
+<h4>用法:<a class="headerlink" href="#id13" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">controller</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h4>参数:<a class="headerlink" href="#id14" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:控制器类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id15">
+<h4>选项:<a class="headerlink" href="#id15" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--bare</span></code>:扩展自 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Controller</span></code> 而不是 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--restful</span></code>:扩展自一个 RESTful 资源。可选 <code class="docutils literal notranslate"><span class="pre">controller</span></code> 和 <code class="docutils literal notranslate"><span class="pre">presenter</span></code>。默认为 <code class="docutils literal notranslate"><span class="pre">controller</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>如果使用 <code class="docutils literal notranslate"><span class="pre">--suffix</span></code>,生成的控制器名称将类似于 <code class="docutils literal notranslate"><span class="pre">ProductController</span></code>。这与使用 <a class="reference internal" href="../incoming/controllers.html#controller-auto-routing-improved"><span class="std std-ref">自动路由</span></a> 的控制器命名约定相违背(控制器类名必须以大写字母开头,且只能大写第一个字符)。所以 <code class="docutils literal notranslate"><span class="pre">--suffix</span></code> 可与 <a class="reference internal" href="../incoming/routing.html#defined-route-routing"><span class="std std-ref">定义路由</span></a> 一起使用。</p>
+</div>
+</section>
+</section>
+<section id="make-entity">
+<h3><a class="toc-backref" href="#id42">make:entity</a><a class="headerlink" href="#make-entity" title="永久链接至标题"></a></h3>
+<p>创建一个新的实体文件。</p>
+<section id="id16">
+<h4>用法:<a class="headerlink" href="#id16" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">entity</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h4>参数:<a class="headerlink" href="#id17" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:实体类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id18">
+<h4>选项:<a class="headerlink" href="#id18" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+<section id="make-filter">
+<h3><a class="toc-backref" href="#id43">make:filter</a><a class="headerlink" href="#make-filter" title="永久链接至标题"></a></h3>
+<p>创建一个新的过滤器文件。</p>
+<section id="id19">
+<h4>用法:<a class="headerlink" href="#id19" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">filter</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id20">
+<h4>参数:<a class="headerlink" href="#id20" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:过滤器类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id21">
+<h4>选项:<a class="headerlink" href="#id21" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+<section id="make-model">
+<h3><a class="toc-backref" href="#id44">make:model</a><a class="headerlink" href="#make-model" title="永久链接至标题"></a></h3>
+<p>创建一个新的模型文件。</p>
+<section id="id22">
+<h4>用法:<a class="headerlink" href="#id22" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">model</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id23">
+<h4>参数:<a class="headerlink" href="#id23" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:模型类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id24">
+<h4>选项:<a class="headerlink" href="#id24" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--dbgroup</span></code>:要使用的数据库组。默认为 <code class="docutils literal notranslate"><span class="pre">default</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--return</span></code>:设置返回类型,可以是 <code class="docutils literal notranslate"><span class="pre">array</span></code>、<code class="docutils literal notranslate"><span class="pre">object</span></code> 或 <code class="docutils literal notranslate"><span class="pre">entity</span></code>。默认为 <code class="docutils literal notranslate"><span class="pre">array</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--table</span></code>:提供不同的表名。默认为将类名复数化。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+<section id="make-seeder">
+<h3><a class="toc-backref" href="#id45">make:seeder</a><a class="headerlink" href="#make-seeder" title="永久链接至标题"></a></h3>
+<p>创建一个新的种子文件。</p>
+<section id="id25">
+<h4>用法:<a class="headerlink" href="#id25" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">seeder</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id26">
+<h4>参数:<a class="headerlink" href="#id26" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:种子类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id27">
+<h4>选项:<a class="headerlink" href="#id27" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+<section id="make-migration">
+<h3><a class="toc-backref" href="#id46">make:migration</a><a class="headerlink" href="#make-migration" title="永久链接至标题"></a></h3>
+<p>创建一个新的迁移文件。</p>
+<section id="id28">
+<h4>用法:<a class="headerlink" href="#id28" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">migration</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id29">
+<h4>参数:<a class="headerlink" href="#id29" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:迁移类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id30">
+<h4>选项:<a class="headerlink" href="#id30" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--session</span></code>:为数据库会话生成迁移文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--table</span></code>:设置数据库会话的表名。默认为 <code class="docutils literal notranslate"><span class="pre">ci_sessions</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dbgroup</span></code>:设置数据库会话的数据库组。默认为 <code class="docutils literal notranslate"><span class="pre">default</span></code> 组。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+<section id="make-validation">
+<h3><a class="toc-backref" href="#id47">make:validation</a><a class="headerlink" href="#make-validation" title="永久链接至标题"></a></h3>
+<p>创建一个新的验证文件。</p>
+<section id="id31">
+<h4>用法:<a class="headerlink" href="#id31" title="永久链接至标题"></a></h4>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">make</span><span class="o">:</span><span class="nx">validation</span> <span class="o">&lt;</span><span class="nx">名称</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">选项</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id32">
+<h4>参数:<a class="headerlink" href="#id32" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">名称</span></code>:验证类的名称。<strong>[必需]</strong></p></li>
+</ul>
+</section>
+<section id="id33">
+<h4>选项:<a class="headerlink" href="#id33" title="永久链接至标题"></a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--namespace</span></code>:设置根命名空间。默认为 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--suffix</span></code>:在生成的类名后附加组件后缀。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--force</span></code>:设置此标志以覆盖目标上的现有文件。</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="id34">
+<h2><a class="toc-backref" href="#id48">搭建一整套完整的代码</a><a class="headerlink" href="#id34" title="永久链接至标题"></a></h2>
+<p>在开发阶段,我们有时会分组创建功能,比如创建一个 <em>Admin</em> 组。该组将包含自己的控制器、模型、迁移文件,甚至实体。你可能会想一一在终端中输入每个生成器命令,并希望有一个单一的生成器命令可以统治一切。</p>
+<p>不要担心!CodeIgniter4 还配备了专用的 <code class="docutils literal notranslate"><span class="pre">make:scaffold</span></code> 命令,它基本上是控制器、模型、实体、迁移和种子生成器命令的包装器。你只需要输入用于命名所有生成类的类名。另外,**每个生成器命令支持的单独选项** 也会被脚手架命令识别。</p>
+<p>在终端中运行此命令:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">make</span><span class="o">:</span><span class="nx">scaffold</span> <span class="nx">user</span>
+</pre></div>
+</div>
+<p>将创建以下文件:</p>
+<ol class="arabic simple">
+<li><p><strong>app/Controllers/User.php</strong></p></li>
+<li><p><strong>app/Models/User.php</strong></p></li>
+<li><p><strong>app/Database/Migrations/&lt;某日期&gt;_User.php</strong> 和</p></li>
+<li><p><strong>app/Database/Seeds/User.php</strong></p></li>
+</ol>
+<p>要在生成的文件中包含 <code class="docutils literal notranslate"><span class="pre">Entity</span></code> 类,只需在命令中包含 <code class="docutils literal notranslate"><span class="pre">--return</span> <span class="pre">entity</span></code> 选项即可将其传递给模型生成器。</p>
+</section>
+<section id="generatortrait">
+<h2><a class="toc-backref" href="#id49">GeneratorTrait</a><a class="headerlink" href="#generatortrait" title="永久链接至标题"></a></h2>
+<p>所有生成器命令必须使用 <code class="docutils literal notranslate"><span class="pre">GeneratorTrait</span></code> 以充分利用其在代码生成中使用的方法。</p>
+</section>
+<section id="id35">
+<h2><a class="toc-backref" href="#id50">声明自定义生成器命令模板的位置</a><a class="headerlink" href="#id35" title="永久链接至标题"></a></h2>
+<p>生成器模板的默认查找顺序是 (1) <strong>app/Config/Generators.php</strong> 文件中定义的模板,如果未找到,则是 (2) 在 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Commands\Generators\Views</span></code> 命名空间下找到的模板。</p>
+<p>要为自定义生成器命令声明模板位置,需要将其添加到 <strong>app/Config/Generators.php</strong> 文件中。例如,如果你有一个命令 <code class="docutils literal notranslate"><span class="pre">make:awesome-command</span></code>,并且生成器模板位于 <em>app</em> 目录 <strong>app/Commands/Generators/Views/awesomecommand.tpl.php</strong> 中,则需要按如下方式更新配置文件:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Config\BaseConfig</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Generators</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">array</span> <span class="nv">$views</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="c1">// ..</span>
+        <span class="s1">&#39;make:awesome-command&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;App\Commands\Generators\Views\awesomecommand.tpl.php&#39;</span><span class="p">,</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="cli_commands.html" class="btn btn-neutral float-left" title="创建 Spark 命令" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="cli_library.html" class="btn btn-neutral float-right" title="CLI 库" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2023-07-22.
+      </span></p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

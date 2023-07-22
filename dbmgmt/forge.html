@@ -1,127 +1,90 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>数据库工厂类 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据库 Forge 类 &mdash; CodeIgniter 4.3.6 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
-  
-  
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/js/citheme.js"></script>
-        <script type="text/javascript" src="../_static/js/carbon.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script src="../_static/js/citheme.js"></script>
+        <script src="../_static/js/carbon.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="数据库迁移" href="migration.html" />
     <link rel="prev" title="管理数据库" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #DD4814" >
-          
+        <div class="wy-side-nav-search" >
 
           
-            <a href="../index.html">
           
-
-          
+          <a href="../index.html">
             
-            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
-          
+              <img src="../_static/ci-logo-text.svg" class="logo" alt="Logo"/>
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器安装要求</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">发展历程与贡献者</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">Composer 安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从老版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">加载静态页</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻展示功能</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用程序</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">静态页面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">结束语</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 概览</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用结构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型，视图和控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用程序结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型、视图和控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">自动加载文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
 </ul>
@@ -129,137 +92,149 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">公共函数和全局常量</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录日志信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">全局函数和常量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录信息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/errors.html">错误处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/caching.html">网页缓存</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/modules.html">代码模块</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理多个应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多个环境</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../incoming/index.html">控制器和路由</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">Request 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/content_negotiation.html">内容协商</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP类型伪装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../incoming/restful.html">处理RESTful请求资源</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP 方法欺骗</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/restful.html">RESTful 资源处理</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">子视图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">View Parser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML Table Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用PHP替代语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库参考</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">数据库快速入门：示例代码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">使用数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">快速入门:使用示例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">数据库配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">连接数据库</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">执行查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">运行查询</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/results.html">生成查询结果</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构造器类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构建器类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">事务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">获取元数据</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">自定义函数调用</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/events.html">数据库事件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库实用工具</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../models/index.html">数据建模</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的 Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../models/entities.html">使用实体类</a></li>
 </ul>
 </li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">管理数据库</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">使用 Database Forge 维护数据库</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">使用数据库 Forge 维护数据库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="migration.html">数据库迁移</a></li>
 <li class="toctree-l2"><a class="reference internal" href="seeds.html">数据库填充</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db_commands.html">数据库命令</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">使用文件类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">Honeypot Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption 服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">Honeypot 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限流类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">日期与时间类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">使用文件上传类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">User Agent Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/publisher.html">Publisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">用户代理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">表单辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">偏转辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">数字辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">安全辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/test_helper.html">测试辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">文本辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML 辅助函数</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../testing/index.html">测试</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">Getting Started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">Controller Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试你的应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">入门指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/fabricator.html">生成数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">命令行用法</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cli/cli.html">通过CLI方式运行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli/cli_commands.html">自定义 CLI 命令</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli/cli_library.html">CLI Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli/cli_request.html">CLIRequest Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">命令行使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_overview.html">CLI 概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_controllers.html">通过 CLI 运行控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/spark_commands.html">Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_commands.html">创建 Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_generators.html">CLI 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_library.html">CLI 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_request.html">CLIRequest 类</a></li>
 </ul>
 </li>
 </ul>
@@ -268,728 +243,957 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/core_classes.html">创建核心系统类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/common.html">替换通用函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展 Controller</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">鉴权</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">贡献给 CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/official_packages.html">官方包</a></li>
+</ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">CodeIgniter</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="index.html">管理数据库</a> &raquo;</li>
-        
-      <li>数据库工厂类</li>
-    
-    
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">管理数据库</a></li>
+      <li class="breadcrumb-item active">数据库 Forge 类</li>
       <li class="wy-breadcrumbs-aside">
-        
-            
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1>数据库工厂类<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>数据库工厂类（Database Forge）包含了帮助你管理你的数据库的一些相关方法。</p>
-<div class="contents local topic" id="id2">
+             
+  <section id="forge">
+<h1>数据库 Forge 类<a class="headerlink" href="#forge" title="永久链接至标题"></a></h1>
+<p>数据库 Forge 类包含帮助你管理数据库的方法。</p>
+<div class="contents local topic" id="id1">
 <ul class="simple">
-<li><a class="reference internal" href="#forge" id="id18">初始化 Forge 类</a></li>
-<li><a class="reference internal" href="#id3" id="id19">创建和删除数据库</a></li>
-<li><a class="reference internal" href="#id4" id="id20">创建和删除数据表</a><ul>
-<li><a class="reference internal" href="#id5" id="id21">添加字段</a></li>
-<li><a class="reference internal" href="#id7" id="id22">添加键</a></li>
-<li><a class="reference internal" href="#id8" id="id23">添加外键</a></li>
-<li><a class="reference internal" href="#id9" id="id24">创建表格</a></li>
-<li><a class="reference internal" href="#id10" id="id25">删除表</a></li>
-<li><a class="reference internal" href="#id11" id="id26">删除外键</a></li>
-<li><a class="reference internal" href="#id12" id="id27">重命名表</a></li>
+<li><p><a class="reference internal" href="#id2" id="id23">初始化 Forge 类</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id24">创建和删除数据库</a></p>
+<ul>
+<li><p><a class="reference internal" href="#forge-createdatabase-db-name" id="id25">$forge-&gt;createDatabase(‘db_name’)</a></p></li>
+<li><p><a class="reference internal" href="#forge-dropdatabase-db-name" id="id26">$forge-&gt;dropDatabase(‘db_name’)</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id27">在命令行中创建数据库</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id13" id="id28">修改表</a><ul>
-<li><a class="reference internal" href="#id14" id="id29">向表中添加列</a></li>
-<li><a class="reference internal" href="#id15" id="id30">从表中删除列</a></li>
-<li><a class="reference internal" href="#id16" id="id31">从表中的修改列</a></li>
+<li><p><a class="reference internal" href="#id5" id="id28">创建表</a></p>
+<ul>
+<li><p><a class="reference internal" href="#adding-fields" id="id29">添加字段</a></p></li>
+<li><p><a class="reference internal" href="#adding-keys" id="id30">添加键</a></p></li>
+<li><p><a class="reference internal" href="#adding-foreign-keys" id="id31">添加外键</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id32">创建表格</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id17" id="id32">类引用</a></li>
+<li><p><a class="reference internal" href="#id11" id="id33">删除表</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id12" id="id34">删除一张表</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id13" id="id35">修改表</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id14" id="id36">向表中添加字段</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id37">从表中删除字段</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id38">修改表中的字段</a></p></li>
+<li><p><a class="reference internal" href="#db-forge-adding-keys-to-a-table" id="id39">向表添加键</a></p></li>
+<li><p><a class="reference internal" href="#dropping-a-primary-key" id="id40">删除主键</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id41">删除键</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id42">删除外键</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id43">重命名表</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#namespace-CodeIgniter\Database" id="id44">类参考</a></p></li>
 </ul>
 </div>
-<div class="section" id="forge">
-<h2><a class="toc-backref" href="#id18">初始化 Forge 类</a><a class="headerlink" href="#forge" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><a class="toc-backref" href="#id23">初始化 Forge 类</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <div class="admonition important">
-<p class="first admonition-title">重要</p>
-<p class="last">为了初始化forge类，你的数据库驱动程序必须已经在运行，因为forge类是依赖它运行的。</p>
+<p class="admonition-title">重要</p>
+<p>为了初始化 Forge 类,你的数据库驱动程序必须已经运行,因为 Forge 类依赖于它。</p>
 </div>
-<p>加载 Forge 类的代码如下:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">forge</span><span class="p">();</span>
+<p>如下加载 Forge 类:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">forge</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>你可以将另外一个数据可组名传递给 DB Forge加载程序，以防要管理的数据库不是默认数据库:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">myforge</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">dbforge</span><span class="p">(</span><span class="s1">&#39;other_db&#39;</span><span class="p">);</span>
+<p>你也可以向 DB Forge 加载器传递另一个数据库组名称,以防要管理的数据库不是默认数据库:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">myforge</span> <span class="o">=</span> <span class="nx">\Config\Database</span><span class="o">::</span><span class="na">forge</span><span class="p">(</span><span class="s1">&#39;other_db&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>在上面的示例中，我们传递的是另一个数据库的名称作为第一个参数来连接。</p>
-</div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id19">创建和删除数据库</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p><strong>$forge-&gt;createDatabase(‘db_name’)</strong></p>
-<p>用于创建指定数据库，根据成败返回 TRUE 或 FALSE:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">))</span>
-<span class="p">{</span>
-        <span class="k">echo</span> <span class="s1">&#39;Database created!&#39;</span><span class="p">;</span>
+<p>在上面的示例中,我们正在作为第一个参数传递一个不同的数据库组名称进行连接。</p>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id24">创建和删除数据库</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="forge-createdatabase-db-name">
+<h3><a class="toc-backref" href="#id25">$forge-&gt;createDatabase(‘db_name’)</a><a class="headerlink" href="#forge-createdatabase-db-name" title="永久链接至标题"></a></h3>
+<p>允许你创建第一个参数中指定的数据库。基于成功或失败返回 true/false:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Database created!&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><strong>$forge-&gt;dropDatabase(‘db_name’)</strong></p>
-<p>用于删除指定数据库，根据成败返回 TRUE 或 FALSE:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">))</span>
-<span class="p">{</span>
-        <span class="k">echo</span> <span class="s1">&#39;Database deleted!&#39;</span><span class="p">;</span>
+<p>可选的第二个参数设置为 true 将添加 <code class="docutils literal notranslate"><span class="pre">IF</span> <span class="pre">EXISTS</span></code> 语句或检查数据库是否存在,然后再创建它(取决于 DBMS)。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<span class="cm">/*</span>
+<span class="cm"> * gives CREATE DATABASE IF NOT EXISTS `my_db`</span>
+<span class="cm"> * or will check if a database exists</span>
+<span class="cm"> */</span>
+</pre></div>
+</div>
+</section>
+<section id="forge-dropdatabase-db-name">
+<h3><a class="toc-backref" href="#id26">$forge-&gt;dropDatabase(‘db_name’)</a><a class="headerlink" href="#forge-dropdatabase-db-name" title="永久链接至标题"></a></h3>
+<p>允许你删除第一个参数中指定的数据库。基于成功或失败返回 true/false:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropDatabase</span><span class="p">(</span><span class="s1">&#39;my_db&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Database deleted!&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id20">创建和删除数据表</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<p>在创建表时，你可能希望做一些事情。如添加字段，向表中添加键，更改列。CodeIgniter 为此提供了一种机制。</p>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id21">添加字段</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-<p>字段是通过关联数组创建的。在数组中，必须包括与字段的数据类型相关的’type’键。例如，int、varchar、text等。许多数据类型（例如varchar）还需要“约束”键。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;users&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;type&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;constraint&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
-        <span class="p">),</span>
-<span class="p">);</span>
-<span class="c1">// 添加字段时将转换为&quot;users VARCHAR(100)&quot;。</span>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id27">在命令行中创建数据库</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>CodeIgniter 支持直接从喜欢的终端使用专用的 <code class="docutils literal notranslate"><span class="pre">db:create</span></code> 命令创建数据库。通过使用此命令,假定数据库还不存在。否则,CodeIgniter 将抱怨数据库创建失败。</p>
+<p>首先,只需键入命令和数据库名称(例如 <code class="docutils literal notranslate"><span class="pre">foo</span></code>):</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">create</span> <span class="nx">foo</span>
 </pre></div>
 </div>
-<p>此外，可以使用以下键/值:</p>
+<p>如果一切顺利,你应该会看到显示的 <code class="docutils literal notranslate"><span class="pre">Database</span> <span class="pre">&quot;foo&quot;</span> <span class="pre">successfully</span> <span class="pre">created.</span></code> 消息。</p>
+<p>如果你在测试环境中或正在使用 SQLite3 驱动程序,可以使用 <code class="docutils literal notranslate"><span class="pre">--ext</span></code> 选项
+为将创建数据库的文件传递文件扩展名。有效值为 <code class="docutils literal notranslate"><span class="pre">db</span></code> 和 <code class="docutils literal notranslate"><span class="pre">sqlite</span></code>,默认为 <code class="docutils literal notranslate"><span class="pre">db</span></code>。请记住,这些前面不应有句点。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">create</span> <span class="nx">foo</span> <span class="o">--</span><span class="nx">ext</span> <span class="nx">sqlite</span>
+<span class="c1">// 将在 WRITEPATH/foo.sqlite 中创建 db 文件</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>当使用特殊的 SQLite3 数据库名称 <code class="docutils literal notranslate"><span class="pre">:memory:</span></code> 时,请注意命令仍会生成成功消息,但不会创建数据库文件。这是因为 SQLite3 将只使用内存中的数据库。</p>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id28">创建表</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>在创建表时,你可能希望执行几件事。添加字段、向表添加键、更改列。CodeIgniter 为此提供了一种机制。</p>
+<section id="adding-fields">
+<span id="id6"></span><h3><a class="toc-backref" href="#id29">添加字段</a><a class="headerlink" href="#adding-fields" title="永久链接至标题"></a></h3>
+<p>字段通常通过关联数组创建。在数组中,你必须包含与字段的数据类型相关的 <code class="docutils literal notranslate"><span class="pre">type</span></code> 键。 例如,INT、VARCHAR、TEXT 等。许多数据类型(例如 VARCHAR)还需要一个 <code class="docutils literal notranslate"><span class="pre">constraint</span></code> 键。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;users&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;type&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;constraint&#39;</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+<span class="c1">// will translate to &quot;users VARCHAR(100)&quot; when the field is added.</span>
+</pre></div>
+</div>
+<p>另外,可以使用以下键/值:</p>
 <ul class="simple">
-<li>unsigned/true : 在字段定义中生成 “UNSIGNED” 。</li>
-<li>default/value : 在字段定义中生成默认值。</li>
-<li>null/true : 在字段定义中生成”NULL”。如果没有这个，该字段将默认为”NOT NULL”。</li>
-<li>auto_increment/true : 在字段上生成auto_increment标志。请注意，字段类型必须是支持此类型的类型，例如整数。</li>
-<li>unique/true : 为字段定义生成唯一键。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unsigned</span></code>/true : 在字段定义中生成“UNSIGNED”。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default</span></code>/value : 在字段定义中生成默认值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">null</span></code>/true : 在字段定义中生成“null”。如果不指定,字段将默认为“NOT null”。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto_increment</span></code>/true : 在字段上生成 auto_increment 标志。请注意,字段类型必须是支持这一点的类型,如整数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unique</span></code>/true : 为字段定义生成唯一键。</p></li>
 </ul>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;blog_id&#39;</span>          <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;INT&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;constraint&#39;</span>     <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
-                <span class="s1">&#39;unsigned&#39;</span>       <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">,</span>
-                <span class="s1">&#39;auto_increment&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span>
-        <span class="p">),</span>
-        <span class="s1">&#39;blog_title&#39;</span>       <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;constraint&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;unique&#39;</span>         <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="s1">&#39;blog_author&#39;</span>      <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span><span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;constraint&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;default&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;King of Town&#39;</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="s1">&#39;blog_description&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;null&#39;</span>           <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">,</span>
-        <span class="p">),</span>
-<span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;INT&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;constraint&#39;</span>     <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s1">&#39;unsigned&#39;</span>       <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="s1">&#39;auto_increment&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;type&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;constraint&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;100&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;unique&#39;</span>     <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;author&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;type&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;VARCHAR&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;constraint&#39;</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s1">&#39;default&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;King of Town&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;null&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;type&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;ENUM&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;constraint&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;publish&#39;</span><span class="p">,</span> <span class="s1">&#39;pending&#39;</span><span class="p">,</span> <span class="s1">&#39;draft&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;default&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;pending&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">];</span>
 </pre></div>
 </div>
-<p>定义字段后，可以使用 <code class="docutils literal notranslate"><span class="pre">$forge-&gt;addField($fields);</span></code> 然后调用 <code class="docutils literal notranslate"><span class="pre">createTable()</span></code> 方法。</p>
-<p><strong>$forge-&gt;addField()</strong></p>
-<p>add fields方法将接受上述数组。</p>
-<div class="section" id="id6">
-<h4>将字符串作为字段传递<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
-<p>如果你确切知道要如何创建字段，可以使用addField()方法将字符串传递给字段定义</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="s2">&quot;label varchar(100) NOT NULL DEFAULT &#39;default label&#39;&quot;</span><span class="p">);</span>
+<p>在定义了字段后,可以使用 <code class="docutils literal notranslate"><span class="pre">$forge-&gt;addField($fields)</span></code> 后跟对 <code class="docutils literal notranslate"><span class="pre">createTable()</span></code> 方法的调用来添加它们。</p>
+<section id="forge-addfield">
+<h4>$forge-&gt;addField()<a class="headerlink" href="#forge-addfield" title="永久链接至标题"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">addField()</span></code> 方法将接受上述数组。</p>
+</section>
+<section id="sql">
+<span id="forge-addfield-default-value-rawsql"></span><h4>作为默认值的原始 SQL 字符串<a class="headerlink" href="#sql" title="永久链接至标题"></a></h4>
+<div class="versionadded">
+<p><span class="versionmodified added">4.2.0 新版功能.</span></p>
+</div>
+<p>从 v4.2.0 开始,``$forge-&gt;addField()`` 接受一个 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Database\RawSql</span></code> 实例,它表示原始 SQL 字符串。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Database\RawSql</span><span class="p">;</span>
+
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;type&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;INT&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;constraint&#39;</span>     <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s1">&#39;unsigned&#39;</span>       <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="s1">&#39;auto_increment&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;created_at&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;type&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;TIMESTAMP&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">RawSql</span><span class="p">(</span><span class="s1">&#39;CURRENT_TIMESTAMP&#39;</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="nv">$fields</span><span class="p">);</span>
+<span class="cm">/*</span>
+<span class="cm">gives:</span>
+<span class="cm">    &quot;id&quot; INT(5) UNSIGNED NOT NULL AUTO_INCREMENT,</span>
+<span class="cm">    &quot;created_at&quot; TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL</span>
+<span class="cm">*/</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>当你使用 <code class="docutils literal notranslate"><span class="pre">RawSql</span></code> 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。</p>
+</div>
+</section>
+<section id="id7">
+<h4>作为字段传递字符串<a class="headerlink" href="#id7" title="永久链接至标题"></a></h4>
+<p>如果确切知道如何创建字段,可以将字符串传递到 <code class="docutils literal notranslate"><span class="pre">addField()</span></code> 中的字段定义中:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="s2">&quot;label varchar(100) NOT NULL DEFAULT &#39;default label&#39;&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">将原始字符串作为字段传递后，不能用 <code class="docutils literal notranslate"><span class="pre">add_key()</span></code> 对这些字段进行调用。</p>
+<p class="admonition-title">备注</p>
+<p>不能在传递原始字符串作为字段后对这些字段调用 <code class="docutils literal notranslate"><span class="pre">addKey()</span></code>。</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">对 add_field() 的多次调用是累积的。</p>
+<p class="admonition-title">备注</p>
+<p>对 <code class="docutils literal notranslate"><span class="pre">addField()</span></code> 的多次调用是累积的。</p>
 </div>
-</div>
-<div class="section" id="id">
-<h4>创建一个id字段<a class="headerlink" href="#id" title="永久链接至标题">¶</a></h4>
-<p>创建id字段有一个特殊例外。具有类型id的字段将自动分配为 INT(9) auto_incrementing 主键。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-<span class="c1">// 提出 id INT(9) NOT NULL AUTO_INCREMENT</span>
+</section>
+<section id="id">
+<h4>创建 id 字段<a class="headerlink" href="#id" title="永久链接至标题"></a></h4>
+<p>创建 id 字段有一个特殊的例外。类型为 id 的字段将自动被赋值为 INT(9) 自增主键。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addField</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+<span class="c1">// gives `id` INT(9) NOT NULL AUTO_INCREMENT</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id22">添加键</a><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
-<p>通常来说，表都会有键。这可以使用 $forge-&gt;addKey(‘field’)方法来实现。第二个参数设置是可选的，设置为 TRUE 将使其成为主键，
-第三个参数设置为 TRUE 将使其成为唯一键。注意 addKey()方法必须紧跟在createTable()方法后面。</p>
-<p>包含多列的非主键必须使用数组来添加，下面是 MySQL 的例子。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
+</section>
+</section>
+<section id="adding-keys">
+<span id="id8"></span><h3><a class="toc-backref" href="#id30">添加键</a><a class="headerlink" href="#adding-keys" title="永久链接至标题"></a></h3>
+<section id="forge-addkey">
+<h4>$forge-&gt;addKey()<a class="headerlink" href="#forge-addkey" title="永久链接至标题"></a></h4>
+<p>通常,你会希望表具有键。这是通过 <code class="docutils literal notranslate"><span class="pre">$forge-&gt;addKey('field')</span></code> 完成的。可选的第二个参数设置为 true 将使其成为主键,第三个参数设置为 true 将使其成为唯一键。你可以使用第四个参数指定名称。请注意,``addKey()`` 必须在表已存在的情况下后跟对 <code class="docutils literal notranslate"><span class="pre">createTable()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">processIndexes()</span></code> 的调用。</p>
+<p>多个非主键列必须作为数组发送。以下为 MySQL 的示例输出。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 <span class="c1">// gives PRIMARY KEY `blog_id` (`blog_id`)</span>
 
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;site_id&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;site_id&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 <span class="c1">// gives PRIMARY KEY `blog_id_site_id` (`blog_id`, `site_id`)</span>
 
 <span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="s1">&#39;blog_name&#39;</span><span class="p">);</span>
 <span class="c1">// gives KEY `blog_name` (`blog_name`)</span>
 
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;blog_name&#39;</span><span class="p">,</span> <span class="s1">&#39;blog_label&#39;</span><span class="p">));</span>
-<span class="c1">// gives KEY `blog_name_blog_label` (`blog_name`, `blog_label`)</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">([</span><span class="s1">&#39;blog_name&#39;</span><span class="p">,</span> <span class="s1">&#39;blog_label&#39;</span><span class="p">],</span> <span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="s1">&#39;my_key_name&#39;</span><span class="p">);</span>
+<span class="c1">// gives KEY `my_key_name` (`blog_name`, `blog_label`)</span>
 
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">),</span> <span class="k">FALSE</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
-<span class="c1">// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">([</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">],</span> <span class="k">false</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;my_key_name&#39;</span><span class="p">);</span>
+<span class="c1">// gives UNIQUE KEY `my_key_name` (`blog_id`, `uri`)</span>
 </pre></div>
 </div>
-<p>为了使代码读取更加客观，还可以使用特定的方法添加主键和唯一键。:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addPrimaryKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">);</span>
-<span class="c1">// gives PRIMARY KEY `blog_id` (`blog_id`)</span>
+</section>
+<section id="forge-addprimarykey">
+<h4>$forge-&gt;addPrimaryKey()<a class="headerlink" href="#forge-addprimarykey" title="永久链接至标题"></a></h4>
+</section>
+<section id="forge-adduniquekey">
+<h4>$forge-&gt;addUniqueKey()<a class="headerlink" href="#forge-adduniquekey" title="永久链接至标题"></a></h4>
+<p>为了使代码更易读,也可以使用特定方法添加主键和唯一键:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addPrimaryKey</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="s1">&#39;pd_name&#39;</span><span class="p">);</span>
+<span class="c1">// gives PRIMARY KEY `pd_name` (`blog_id`)</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addUniqueKey</span><span class="p">([</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">],</span> <span class="s1">&#39;key_name&#39;</span><span class="p">);</span>
+<span class="c1">// gives UNIQUE KEY `key_name` (`blog_id`, `uri`)</span>
 </pre></div>
 </div>
-<p>外键有助于跨表强制执行关系和操作。对于支持外键的表，可以直接在forge中添加它们。:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addUniqueKey</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;blog_id&#39;</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">));</span>
-<span class="c1">// gives UNIQUE KEY `blog_id_uri` (`blog_id`, `uri`)</span>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>当你添加主键时,即使提供了名称,MySQL 和 SQLite 也会假定名称为 <code class="docutils literal notranslate"><span class="pre">PRIMARY</span></code>。</p>
+</div>
+</section>
+</section>
+<section id="adding-foreign-keys">
+<span id="id9"></span><h3><a class="toc-backref" href="#id31">添加外键</a><a class="headerlink" href="#adding-foreign-keys" title="永久链接至标题"></a></h3>
+<p>外键有助于在表之间强制关系和操作。对于支持外键的表,可以直接在 forge 中添加它们:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">);</span>
+<span class="c1">// gives CONSTRAINT `TABLENAME_users_id_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">([</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span> <span class="s1">&#39;users_name&#39;</span><span class="p">],</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">]);</span>
+<span class="c1">// gives CONSTRAINT `TABLENAME_users_id_foreign` FOREIGN KEY(`users_id`, `users_name`) REFERENCES `users`(`id`, `name`)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id8">
-<h3><a class="toc-backref" href="#id23">添加外键</a><a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span><span class="s1">&#39;users&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-<span class="c1">// gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`)</span>
+<p>你还可以指定约束的“更新时”和“删除时”属性的所需操作以及名称:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;CASCADE&#39;</span><span class="p">,</span> <span class="s1">&#39;CASCADE&#39;</span><span class="p">,</span> <span class="s1">&#39;my_fk_name&#39;</span><span class="p">);</span>
+<span class="c1">// gives CONSTRAINT `my_fk_name` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;CASCADE&#39;</span><span class="p">);</span>
+<span class="c1">// gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">([</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span> <span class="s1">&#39;users_name&#39;</span><span class="p">],</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;CASCADE&#39;</span><span class="p">,</span> <span class="s1">&#39;CASCADE&#39;</span><span class="p">,</span> <span class="s1">&#39;my_fk_name&#39;</span><span class="p">);</span>
+<span class="c1">// gives CONSTRAINT `my_fk_name` FOREIGN KEY(`users_id`, `users_name`) REFERENCES `users`(`id`, `name`) ON DELETE CASCADE ON UPDATE CASCADE</span>
 </pre></div>
 </div>
-<p>你可以为约束的 “on delete” 和 “on update” 属性指定所需的操作:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;users_id&#39;</span><span class="p">,</span><span class="s1">&#39;users&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">,</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">);</span>
-<span class="c1">// gives CONSTRAINT `TABLENAME_users_foreign` FOREIGN KEY(`users_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>SQLite3 不支持命名外键。CodeIgniter 将引用它们的 <code class="docutils literal notranslate"><span class="pre">prefix_table_column_foreign</span></code>。</p>
 </div>
-</div>
-<div class="section" id="id9">
-<h3><a class="toc-backref" href="#id24">创建表格</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
-<p>声明字段和键后，你可以根据如下代码创建一张新表</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">);</span>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id32">创建表格</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<p>在声明字段和键之后,可以使用以下方法创建新表格</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">);</span>
 <span class="c1">// gives CREATE TABLE table_name</span>
 </pre></div>
 </div>
-<p>可选的第二个参数设置为TRUE时会在定义中添加”IF NOT EXISTS”子句</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
-<span class="c1">// gives CREATE TABLE IF NOT EXISTS table_name</span>
+<p>可选的第二个参数设置为 true 将只在表不存在时创建该表。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<span class="c1">// creates table only if table does not exist</span>
 </pre></div>
 </div>
-<p>你还可以传递可选的表属性，例如MySQL的 <code class="docutils literal notranslate"><span class="pre">ENGINE</span></code>:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$attributes</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ENGINE&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;InnoDB&#39;</span><span class="p">);</span>
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">FALSE</span><span class="p">,</span> <span class="nv">$attributes</span><span class="p">);</span>
+<p>你也可以传递可选的表属性,例如 MySQL 的 <code class="docutils literal notranslate"><span class="pre">ENGINE</span></code>:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ENGINE&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;InnoDB&#39;</span><span class="p">];</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="nv">$attributes</span><span class="p">);</span>
 <span class="c1">// produces: CREATE TABLE `table_name` (...) ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">除非你指定 <code class="docutils literal notranslate"><span class="pre">CHARACTER</span> <span class="pre">SET</span></code> 和/或 <code class="docutils literal notranslate"><span class="pre">COLLATE</span></code> 属性,
-<code class="docutils literal notranslate"><span class="pre">createTable()</span></code> 否则将始终使用你配置的 <em>charset</em>
-和 <em>DBCollat</em> 值, 只要它们不为空 (仅限MySQL).</p>
+<p class="admonition-title">备注</p>
+<p>除非指定了 <code class="docutils literal notranslate"><span class="pre">CHARACTER</span> <span class="pre">SET</span></code> 和/或 <code class="docutils literal notranslate"><span class="pre">COLLATE</span></code> 属性,否则 <code class="docutils literal notranslate"><span class="pre">createTable()</span></code> 将始终使用配置的 <em>charset</em> 和 <em>DBCollat</em> 值添加它们,只要它们不为空(仅限 MySQL)。</p>
 </div>
-</div>
-<div class="section" id="id10">
-<h3><a class="toc-backref" href="#id25">删除表</a><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
-<p>执行DROP TABLE语句时，可以选择添加一个IF EXISTS子句。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Produces: DROP TABLE table_name</span>
+</section>
+</section>
+<section id="id11">
+<h2><a class="toc-backref" href="#id33">删除表</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<section id="id12">
+<h3><a class="toc-backref" href="#id34">删除一张表</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<p>执行 <code class="docutils literal notranslate"><span class="pre">DROP</span> <span class="pre">TABLE</span></code> 语句,并可选地添加 <code class="docutils literal notranslate"><span class="pre">IF</span> <span class="pre">EXISTS</span></code> 子句。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// Produces: DROP TABLE `table_name`</span>
 <span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">);</span>
 
-<span class="c1">// Produces: DROP TABLE IF EXISTS table_name</span>
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span><span class="k">TRUE</span><span class="p">);</span>
+<span class="c1">// Produces: DROP TABLE IF EXISTS `table_name`</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 </pre></div>
 </div>
+<p>可以传递第三个参数以添加 <code class="docutils literal notranslate"><span class="pre">CASCADE</span></code> 选项,某些驱动程序可能需要它来处理具有外键的表的删除。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// Produces: DROP TABLE `table_name` CASCADE</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropTable</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+</pre></div>
 </div>
-<div class="section" id="id11">
-<h3><a class="toc-backref" href="#id26">删除外键</a><a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
-<p>执行一个删除外键语句。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Produces: ALTER TABLE &#39;tablename&#39; DROP FOREIGN KEY &#39;users_foreign&#39;</span>
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropForeignKey</span><span class="p">(</span><span class="s1">&#39;tablename&#39;</span><span class="p">,</span><span class="s1">&#39;users_foreign&#39;</span><span class="p">);</span>
+</section>
+</section>
+<section id="id13">
+<h2><a class="toc-backref" href="#id35">修改表</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
+<section id="id14">
+<h3><a class="toc-backref" href="#id36">向表中添加字段</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<section id="forge-addcolumn">
+<h4>$forge-&gt;addColumn()<a class="headerlink" href="#forge-addcolumn" title="永久链接至标题"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">addColumn()</span></code> 方法用于修改现有表。它接受与 <a class="reference internal" href="#adding-fields"><span class="std std-ref">创建表</span></a> 相同的字段数组,可用于添加其他字段。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>与创建表不同,如果未指定 <code class="docutils literal notranslate"><span class="pre">null</span></code>,列将为 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>,而不是 <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code>。</p>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;preferences&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">],</span>
+<span class="p">];</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">);</span>
+<span class="c1">// Executes: ALTER TABLE `table_name` ADD `preferences` TEXT</span>
+</pre></div>
+</div>
+<p>如果使用 MySQL 或 CUBIRD,则可以利用它们的 <code class="docutils literal notranslate"><span class="pre">AFTER</span></code> 和 <code class="docutils literal notranslate"><span class="pre">FIRST</span></code> 子句来定位新列。</p>
+<p>例子:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// Will place the new column after the `another_field` column:</span>
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;preferences&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span> <span class="s1">&#39;after&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;another_field&#39;</span><span class="p">],</span>
+<span class="p">];</span>
+
+<span class="c1">// Will place the new column at the start of the table definition:</span>
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;preferences&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">],</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id15">
+<h3><a class="toc-backref" href="#id37">从表中删除字段</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
+<section id="forge-dropcolumn">
+<span id="db-forge-dropcolumn"></span><h4>$forge-&gt;dropColumn()<a class="headerlink" href="#forge-dropcolumn" title="永久链接至标题"></a></h4>
+<p>用于从表中删除列。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;column_to_drop&#39;</span><span class="p">);</span> <span class="c1">// to drop one single column</span>
+</pre></div>
+</div>
+<p>用于从表中删除多个列。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;column_1,column_2&#39;</span><span class="p">);</span> <span class="c1">// by proving comma separated column names</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;column_1&#39;</span><span class="p">,</span> <span class="s1">&#39;column_2&#39;</span><span class="p">]);</span> <span class="c1">// by proving array of column names</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id16">
+<h3><a class="toc-backref" href="#id38">修改表中的字段</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
+<section id="forge-modifycolumn">
+<span id="db-forge-modifycolumn"></span><h4>$forge-&gt;modifyColumn()<a class="headerlink" href="#forge-modifycolumn" title="永久链接至标题"></a></h4>
+<p>此方法的使用与 <code class="docutils literal notranslate"><span class="pre">addColumn()</span></code> 相同,只是它更改现有列而不是添加新列。为了更改名称,可以将“name”键添加到定义字段的数组中。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;old_name&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new_name&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;null&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">modifyColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">);</span>
+<span class="c1">// gives ALTER TABLE `table_name` CHANGE `old_name` `new_name` TEXT NOT NULL</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">SQLite数据库驱动程序不支持删除外键。</p>
+<p class="admonition-title">备注</p>
+<p><code class="docutils literal notranslate"><span class="pre">modifyColumn()</span></code> 可能会意外地更改 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>/<code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code>。因此,建议始终为 <code class="docutils literal notranslate"><span class="pre">null</span></code> 键指定值。与创建表不同,如果未指定 <code class="docutils literal notranslate"><span class="pre">null</span></code>,列将为 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>,而不是 <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code>。</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>由于一个错误,在 v4.3.3 之前,即使指定 <code class="docutils literal notranslate"><span class="pre">'null'</span> <span class="pre">=&gt;</span> <span class="pre">false</span></code>,SQLite3 也可能不设置 <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code>。</p>
 </div>
-<div class="section" id="id12">
-<h3><a class="toc-backref" href="#id27">重命名表</a><a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
-<p>执行表重命名</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">renameTable</span><span class="p">(</span><span class="s1">&#39;old_table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;new_table_name&#39;</span><span class="p">);</span>
-<span class="c1">// gives ALTER TABLE old_table_name RENAME TO new_table_name</span>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>由于一个错误,在 v4.3.3 之前,Postgres 和 SQLSRV 即使指定 <code class="docutils literal notranslate"><span class="pre">'null'</span> <span class="pre">=&gt;</span> <span class="pre">false</span></code> 也会设置 <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code>。</p>
+</div>
+</section>
+</section>
+<section id="db-forge-adding-keys-to-a-table">
+<span id="id17"></span><h3><a class="toc-backref" href="#id39">向表添加键</a><a class="headerlink" href="#db-forge-adding-keys-to-a-table" title="永久链接至标题"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
+</div>
+<p>你可以通过使用 <code class="docutils literal notranslate"><span class="pre">addKey()</span></code>、<code class="docutils literal notranslate"><span class="pre">addPrimaryKey()</span></code>、<code class="docutils literal notranslate"><span class="pre">addUniqueKey()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">addForeignKey()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">processIndexes()</span></code> 向现有表添加键:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">addKey</span><span class="p">([</span><span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="s1">&#39;category_name&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">addPrimaryKey</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;pk_actions&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">addForeignKey</span><span class="p">(</span><span class="s1">&#39;userid&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;userid_fk&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forge</span><span class="o">-&gt;</span><span class="na">processIndexes</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">);</span>
+<span class="cm">/* gives:</span>
+<span class="cm">ALTER TABLE `actions` ADD KEY `category_name` (`category`, `name`);</span>
+<span class="cm">ALTER TABLE `actions` ADD CONSTRAINT `pk_actions` PRIMARY KEY(`id`);</span>
+<span class="cm">ALTER TABLE `actions` ADD CONSTRAINT `userid_fk` FOREIGN KEY (`userid`) REFERENCES `user`(`id`);</span>
+<span class="cm">*/</span>
 </pre></div>
 </div>
+</section>
+<section id="dropping-a-primary-key">
+<span id="id18"></span><h3><a class="toc-backref" href="#id40">删除主键</a><a class="headerlink" href="#dropping-a-primary-key" title="永久链接至标题"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
 </div>
-</div>
-<div class="section" id="id13">
-<h2><a class="toc-backref" href="#id28">修改表</a><a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id14">
-<h3><a class="toc-backref" href="#id29">向表中添加列</a><a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
-<p><strong>$forge-&gt;addColumn()</strong></p>
-<p>使用 <code class="docutils literal notranslate"><span class="pre">addColumn()</span></code> 方法用于对现有数据表进行修改，它的参数和上面介绍的字段数组一样，并且可以用于无限数量的附加字段。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;preferences&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">)</span>
-<span class="p">);</span>
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">addColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">);</span>
-<span class="c1">// Executes: ALTER TABLE table_name ADD preferences TEXT</span>
+<p>执行 DROP PRIMARY KEY。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// MySqli Produces: ALTER TABLE `tablename` DROP PRIMARY KEY</span>
+<span class="c1">// Others Produces: ALTER TABLE `tablename` DROP CONSTRAINT `pk_tablename`</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropPrimaryKey</span><span class="p">(</span><span class="s1">&#39;tablename&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>如果你使用 MySQL 或 CUBIRD ，你可以使用 AFTER 和 FIRST 语句来为新添加的列指定位置。</p>
-<p>例如:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Will place the new column after the `another_field` column:</span>
-<span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;preferences&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span> <span class="s1">&#39;after&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;another_field&#39;</span><span class="p">)</span>
-<span class="p">);</span>
+</section>
+<section id="id19">
+<h3><a class="toc-backref" href="#id41">删除键</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<p>执行 DROP KEY。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="c1">// Will place the new column at the start of the table definition:</span>
-<span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;preferences&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">)</span>
-<span class="p">);</span>
+<span class="c1">// For Indexes Produces:        DROP INDEX `users_index` ON `tablename`</span>
+<span class="c1">// For Unique Indexes Produces: ALTER TABLE `tablename` DROP CONSTRAINT `users_index`</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropKey</span><span class="p">(</span><span class="s1">&#39;tablename&#39;</span><span class="p">,</span> <span class="s1">&#39;users_index&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id15">
-<h3><a class="toc-backref" href="#id30">从表中删除列</a><a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
-<p><strong>$forge-&gt;dropColumn()</strong></p>
-<p>该语句用于从表中删除列。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;column_to_drop&#39;</span><span class="p">);</span>
+</section>
+<section id="id20">
+<h3><a class="toc-backref" href="#id42">删除外键</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
+<p>执行 DROP FOREIGN KEY。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// Produces: ALTER TABLE `tablename` DROP FOREIGN KEY `users_foreign`</span>
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">dropForeignKey</span><span class="p">(</span><span class="s1">&#39;tablename&#39;</span><span class="p">,</span> <span class="s1">&#39;users_foreign&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id16">
-<h3><a class="toc-backref" href="#id31">从表中的修改列</a><a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
-<p><strong>$forge-&gt;modifyColumn()</strong></p>
-<p>此方法的用法与 <code class="docutils literal notranslate"><span class="pre">add_column()</span></code> 相同，只是它是更改现有列，而不是添加新列。为了更改名称，可以将“名称”键添加到字段定义数组中。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$fields</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;old_name&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new_name&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;TEXT&#39;</span><span class="p">,</span>
-        <span class="p">),</span>
-<span class="p">);</span>
-<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">modifyColumn</span><span class="p">(</span><span class="s1">&#39;table_name&#39;</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">);</span>
-<span class="c1">// gives ALTER TABLE table_name CHANGE old_name new_name TEXT</span>
+</section>
+<section id="id21">
+<h3><a class="toc-backref" href="#id43">重命名表</a><a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
+<p>执行 TABLE 重命名</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$forge</span><span class="o">-&gt;</span><span class="na">renameTable</span><span class="p">(</span><span class="s1">&#39;old_table_name&#39;</span><span class="p">,</span> <span class="s1">&#39;new_table_name&#39;</span><span class="p">);</span>
+<span class="c1">// gives ALTER TABLE `old_table_name` RENAME TO `new_table_name`</span>
 </pre></div>
 </div>
+</section>
+</section>
+<section id="namespace-CodeIgniter\Database">
+<span id="id22"></span><h2><a class="toc-backref" href="#id44">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\Database" title="永久链接至标题"></a></h2>
+<dl class="php class">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\Database\</span></span><span class="sig-name descname"><span class="pre">Forge</span></span><a class="headerlink" href="#CodeIgniter\Database\Forge" title="永久链接至目标"></a></dt>
+<dd><dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::addColumn">
+<span class="sig-name descname"><span class="pre">addColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$field</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::addColumn" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要向其中添加列的表名</p></li>
+<li><p><strong>$field</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 列定义</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>向现有表添加列。用法:参见 <a class="reference internal" href="#id14">向表中添加字段</a>.</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::addField">
+<span class="sig-name descname"><span class="pre">addField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$field</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::addField" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$field</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 要添加的字段定义</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code> 实例(方法链)</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code></p>
+</dd>
+</dl>
+<p>将用于创建表的字段添加到集合中。用法:参见 <a class="reference internal" href="#id6">添加字段</a>。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::addForeignKey">
+<span class="sig-name descname"><span class="pre">addForeignKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$fieldName</span></em>, <em class="sig-param"><span class="pre">$tableName</span></em>, <em class="sig-param"><span class="pre">$tableField</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$onUpdate</span> <span class="pre">=</span> <span class="pre">''</span></em>, <em class="sig-param"><span class="pre">$onDelete</span> <span class="pre">=</span> <span class="pre">''</span></em>, <em class="sig-param"><span class="pre">$fkName</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::addForeignKey" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$fieldName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string|string[]</span></code></span>) – 键字段的名称或字段数组</p></li>
+<li><p><strong>$tableName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 父表的名称</p></li>
+<li><p><strong>$tableField</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string|string[]</span></code></span>) – 父表字段的名称或字段数组</p></li>
+<li><p><strong>$onUpdate</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – “更新时”的所需操作</p></li>
+<li><p><strong>$onDelete</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – “删除时”的所需操作</p></li>
+<li><p><strong>$fkName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 外键的名称。这与 SQLite3 不兼容</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code> 实例(方法链)</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code></p>
+</dd>
+</dl>
+<p>将用于创建表的外键添加到集合中。用法:参见 <a class="reference internal" href="#id9">添加外键</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从 v4.3.0 开始可以使用 <code class="docutils literal notranslate"><span class="pre">$fkName</span></code>。</p>
 </div>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::addKey">
+<span class="sig-name descname"><span class="pre">addKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$key</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$primary</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$unique</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$keyName</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::addKey" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 键字段的名称或字段数组</p></li>
+<li><p><strong>$primary</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 设置为 true 将其设置为主键,否则设置为常规键</p></li>
+<li><p><strong>$unique</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 设置为 true 将其设置为唯一键,否则设置为常规键</p></li>
+<li><p><strong>$keyName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要添加的键的名称</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code> 实例(方法链)</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code></p>
+</dd>
+</dl>
+<p>将用于创建表的键添加到集合中。用法:参见 <a class="reference internal" href="#id8">添加键</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从 v4.3.0 开始可以使用 <code class="docutils literal notranslate"><span class="pre">$keyName</span></code>。</p>
 </div>
-<div class="section" id="id17">
-<h2><a class="toc-backref" href="#id32">类引用</a><a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h2>
-<dl class="class">
-<dt id="CodeIgniterDatabaseForge">
-<em class="property">class </em><code class="descname">CodeIgniterDatabaseForge</code><a class="headerlink" href="#CodeIgniterDatabaseForge" title="永久链接至目标">¶</a></dt>
-<dd><dl class="method">
-<dt id="CodeIgniterDatabaseForge::addColumn">
-<code class="descname">addColumn</code><span class="sig-paren">(</span><em>$table</em><span class="optional">[</span>, <em>$field = array()</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addColumn" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$table</strong> (<em>string</em>) – Table name to add the column to</li>
-<li><strong>$field</strong> (<em>array</em>) – Column definition(s)</li>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::addPrimaryKey">
+<span class="sig-name descname"><span class="pre">addPrimaryKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$key</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$keyName</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::addPrimaryKey" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 键字段的名称或字段数组</p></li>
+<li><p><strong>$keyName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要添加的键的名称</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Adds a column to a table. Usage:  See <a href="#id33"><span class="problematic" id="id34">`Adding a Column to a Table`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::addField">
-<code class="descname">addField</code><span class="sig-paren">(</span><em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addField" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$field</strong> (<em>array</em>) – Field definition to add</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniterDatabaseForge instance (method chaining)</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Adds a field to the set that will be used to create a table. Usage:  See <a href="#id35"><span class="problematic" id="id36">`Adding fields`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::addKey">
-<code class="descname">addKey</code><span class="sig-paren">(</span><em>$key</em><span class="optional">[</span>, <em>$primary = FALSE</em><span class="optional">[</span>, <em>$unique = FALSE</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addKey" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</li>
-<li><strong>$primary</strong> (<em>bool</em>) – Set to TRUE if it should be a primary key or a regular one</li>
-<li><strong>$unique</strong> (<em>bool</em>) – Set to TRUE if it should be a unique key or a regular one</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniterDatabaseForge instance (method chaining)</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Adds a key to the set that will be used to create a table. Usage:  See <a href="#id37"><span class="problematic" id="id38">`Adding Keys`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::addPrimaryKey">
-<code class="descname">addPrimaryKey</code><span class="sig-paren">(</span><em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addPrimaryKey" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniterDatabaseForge instance (method chaining)</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Adds a primary key to the set that will be used to create a table. Usage:  See <a href="#id39"><span class="problematic" id="id40">`Adding Keys`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::addUniqueKey">
-<code class="descname">addUniqueKey</code><span class="sig-paren">(</span><em>$key</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::addUniqueKey" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$key</strong> (<em>mixed</em>) – Name of a key field or an array of fields</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">CodeIgniterDatabaseForge instance (method chaining)</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#CodeIgniterDatabaseForge" title="CodeIgniterDatabaseForge">CodeIgniterDatabaseForge</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Adds an unique key to the set that will be used to create a table. Usage:  See <a href="#id41"><span class="problematic" id="id42">`Adding Keys`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::createDatabase">
-<code class="descname">createDatabase</code><span class="sig-paren">(</span><em>$db_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::createDatabase" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$db_name</strong> (<em>string</em>) – Name of the database to create</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Creates a new database. Usage:  See <a href="#id43"><span class="problematic" id="id44">`Creating and Dropping Databases`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::createTable">
-<code class="descname">createTable</code><span class="sig-paren">(</span><em>$table</em><span class="optional">[</span>, <em>$if_not_exists = FALSE</em><span class="optional">[</span>, <em>array $attributes = array()</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::createTable" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$table</strong> (<em>string</em>) – Name of the table to create</li>
-<li><strong>$if_not_exists</strong> (<em>string</em>) – Set to TRUE to add an ‘IF NOT EXISTS’ clause</li>
-<li><strong>$attributes</strong> (<em>string</em>) – An associative array of table attributes</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Creates a new table. Usage:  See <a href="#id45"><span class="problematic" id="id46">`Creating a table`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::dropColumn">
-<code class="descname">dropColumn</code><span class="sig-paren">(</span><em>$table</em>, <em>$column_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropColumn" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$table</strong> (<em>string</em>) – Table name</li>
-<li><strong>$column_name</strong> (<em>array</em>) – The column name to drop</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Drops a column from a table. Usage:  See <a href="#id47"><span class="problematic" id="id48">`Dropping a Column From a Table`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::dropDatabase">
-<code class="descname">dropDatabase</code><span class="sig-paren">(</span><em>$db_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropDatabase" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$db_name</strong> (<em>string</em>) – Name of the database to drop</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Drops a database. Usage:  See <a href="#id49"><span class="problematic" id="id50">`Creating and Dropping Databases`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::dropTable">
-<code class="descname">dropTable</code><span class="sig-paren">(</span><em>$table_name</em><span class="optional">[</span>, <em>$if_exists = FALSE</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::dropTable" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$table</strong> (<em>string</em>) – Name of the table to drop</li>
-<li><strong>$if_exists</strong> (<em>string</em>) – Set to TRUE to add an ‘IF EXISTS’ clause</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Drops a table. Usage:  See <a href="#id51"><span class="problematic" id="id52">`Dropping a table`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::modifyColumn">
-<code class="descname">modifyColumn</code><span class="sig-paren">(</span><em>$table</em>, <em>$field</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::modifyColumn" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$table</strong> (<em>string</em>) – Table name</li>
-<li><strong>$field</strong> (<em>array</em>) – Column definition(s)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Modifies a table column. Usage:  See <a href="#id53"><span class="problematic" id="id54">`Modifying a Column in a Table`_</span></a>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="CodeIgniterDatabaseForge::renameTable">
-<code class="descname">renameTable</code><span class="sig-paren">(</span><em>$table_name</em>, <em>$new_table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniterDatabaseForge::renameTable" title="永久链接至目标">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">参数:</th><td class="field-body"><ul class="first simple">
-<li><strong>$table</strong> (<em>string</em>) – Current of the table</li>
-<li><strong>$new_table_name</strong> (<em>string</em>) – New name of the table</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">返回:</th><td class="field-body"><p class="first">TRUE on success, FALSE on failure</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">返回类型:</th><td class="field-body"><p class="first last">bool</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Renames a table. Usage:  See <a href="#id55"><span class="problematic" id="id56">`Renaming a table`_</span></a>.</p>
-</dd></dl>
-
-</dd></dl>
-
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code> 实例(方法链)</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code></p>
+</dd>
+</dl>
+<p>将用于创建表的主键添加到集合中。用法:参见 <a class="reference internal" href="#id8">添加键</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从 v4.3.0 开始可以使用 <code class="docutils literal notranslate"><span class="pre">$keyName</span></code>。</p>
 </div>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::addUniqueKey">
+<span class="sig-name descname"><span class="pre">addUniqueKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$key</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$keyName</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::addUniqueKey" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 键字段的名称或字段数组</p></li>
+<li><p><strong>$keyName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要添加的键的名称</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code> 实例(方法链)</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">\CodeIgniter\Database\Forge</span></code></p>
+</dd>
+</dl>
+<p>将用于创建表的唯一键添加到集合中。用法:参见 <a class="reference internal" href="#id8">添加键</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从 v4.3.0 开始可以使用 <code class="docutils literal notranslate"><span class="pre">$keyName</span></code>。</p>
 </div>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::createDatabase">
+<span class="sig-name descname"><span class="pre">createDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$dbName</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$ifNotExists</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::createDatabase" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$db_name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要创建的数据库名称</p></li>
+<li><p><strong>$ifNotExists</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 设置为 true 将添加 <code class="docutils literal notranslate"><span class="pre">IF</span> <span class="pre">NOT</span> <span class="pre">EXISTS</span></code> 子句或检查数据库是否存在</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>创建新数据库。用法:参见 <a class="reference internal" href="#id3">创建和删除数据库</a>。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::createTable">
+<span class="sig-name descname"><span class="pre">createTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$if_not_exists</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">array</span> <span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::createTable" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要创建的表的名称</p></li>
+<li><p><strong>$if_not_exists</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 设置为 true 将添加 <code class="docutils literal notranslate"><span class="pre">IF</span> <span class="pre">NOT</span> <span class="pre">EXISTS</span></code> 子句</p></li>
+<li><p><strong>$attributes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 表属性的关联数组</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为查询对象,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
+</dd>
+</dl>
+<p>创建新表。用法:参见 <a class="reference internal" href="#id10">创建表格</a>。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::dropColumn">
+<span class="sig-name descname"><span class="pre">dropColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table</span></em>, <em class="sig-param"><span class="pre">$column_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::dropColumn" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 表名</p></li>
+<li><p><strong>$column_names</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 逗号分隔的字符串或列名称数组</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>从表中删除单个或多个列。用法:参见 <a class="reference internal" href="#id15">从表中删除字段</a>。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::dropDatabase">
+<span class="sig-name descname"><span class="pre">dropDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$dbName</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::dropDatabase" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$dbName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要删除的数据库名称</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>删除数据库。用法:参见 <a class="reference internal" href="#id3">创建和删除数据库</a>。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::dropKey">
+<span class="sig-name descname"><span class="pre">dropKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table</span></em>, <em class="sig-param"><span class="pre">$keyName</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$prefixKeyName</span> <span class="pre">=</span> <span class="pre">true</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::dropKey" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 具有键的表的名称</p></li>
+<li><p><strong>$keyName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要删除的键的名称</p></li>
+<li><p><strong>$prefixKeyName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 是否要添加数据库前缀到 <code class="docutils literal notranslate"><span class="pre">$keyName</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>删除索引或唯一索引。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从 v4.3.0 开始可以使用 <code class="docutils literal notranslate"><span class="pre">$keyName</span></code> 和 <code class="docutils literal notranslate"><span class="pre">$prefixKeyName</span></code>。</p>
+</div>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::dropPrimaryKey">
+<span class="sig-name descname"><span class="pre">dropPrimaryKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$keyName</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::dropPrimaryKey" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要删除主键的表的名称</p></li>
+<li><p><strong>$keyName</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要删除的主键的名称</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>从表中删除主键。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从 v4.3.0 开始可以使用 <code class="docutils literal notranslate"><span class="pre">$keyName</span></code>。</p>
+</div>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::dropTable">
+<span class="sig-name descname"><span class="pre">dropTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table_name</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$if_exists</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::dropTable" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要删除的表的名称</p></li>
+<li><p><strong>$if_exists</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 设置为 true 将添加 <code class="docutils literal notranslate"><span class="pre">IF</span> <span class="pre">EXISTS</span></code> 子句</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>删除表。用法:参见 <a class="reference internal" href="#id12">删除一张表</a>。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::processIndexes">
+<span class="sig-name descname"><span class="pre">processIndexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::processIndexes" title="永久链接至目标"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要向其中添加索引的表的名称</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>跟在 <code class="docutils literal notranslate"><span class="pre">addKey()</span></code>、<code class="docutils literal notranslate"><span class="pre">addPrimaryKey()</span></code>、<code class="docutils literal notranslate"><span class="pre">addUniqueKey()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">addForeignKey()</span></code> 之后,
+向已有表添加索引。参见 <a class="reference internal" href="#id17">向表添加键</a>。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::modifyColumn">
+<span class="sig-name descname"><span class="pre">modifyColumn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table</span></em>, <em class="sig-param"><span class="pre">$field</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::modifyColumn" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 表名</p></li>
+<li><p><strong>$field</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 列定义</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为 true,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+<p>修改表列。用法:参见 <a class="reference internal" href="#id16">修改表中的字段</a>。</p>
+</dd></dl>
+
+<dl class="php method">
+<dt class="sig sig-object php" id="CodeIgniter\Database\Forge::renameTable">
+<span class="sig-name descname"><span class="pre">renameTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$table_name</span></em>, <em class="sig-param"><span class="pre">$new_table_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Database\Forge::renameTable" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$table</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 表的当前名称</p></li>
+<li><p><strong>$new_table_name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 表的新名称</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>成功则为查询对象,失败则为 false</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
+</dd>
+</dl>
+<p>重命名表。用法:参见 <a class="reference internal" href="#id21">重命名表</a>。</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="migration.html" class="btn btn-neutral float-right" title="数据库迁移" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral float-left" title="管理数据库" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="管理数据库" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="migration.html" class="btn btn-neutral float-right" title="数据库迁移" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; 版权所有 2019-2020 CodeIgniter 基金会
-      <span class="lastupdated">
-        最后更新于 2020-11-21.
-      </span>
-
-    </p>
+    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2023-07-22.
+      </span></p>
   </div>
-    
-    
-    
-    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
-    
-    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
-  <p></p>
-  <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
-  <p>
-    <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    <!--·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
-  </p>
 
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

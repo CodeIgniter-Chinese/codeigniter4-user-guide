@@ -1,127 +1,90 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>HTTP类型伪装 &mdash; CodeIgniter 4.0.0 中文手册|用户手册|用户指南|中文文档</title>
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  
-  <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTTP 方法欺骗 &mdash; CodeIgniter 4.3.6 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
-  
-  
-  
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/js/citheme.js"></script>
-        <script type="text/javascript" src="../_static/js/carbon.js"></script>
-        <script type="text/javascript" src="../_static/translations.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script src="../_static/js/citheme.js"></script>
+        <script src="../_static/js/carbon.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="处理RESTful请求资源" href="restful.html" />
+    <link rel="next" title="RESTful 资源处理" href="restful.html" />
     <link rel="prev" title="内容协商" href="content_negotiation.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #DD4814" >
-          
+        <div class="wy-side-nav-search" >
 
           
-            <a href="../index.html">
           
-
-          
+          <a href="../index.html">
             
-            <img src="../_static/ci-logo-text.png" class="logo" alt="Logo"/>
-          
+              <img src="../_static/ci-logo-text.svg" class="logo" alt="Logo"/>
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器安装要求</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">发展历程与贡献者</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">Composer 安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">通过Composer安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从老版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">加载静态页</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻展示功能</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用程序</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">静态页面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">结束语</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 概览</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用结构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型，视图和控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用程序结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型、视图和控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">自动加载文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
 </ul>
@@ -129,137 +92,149 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">公共函数和全局常量</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录日志信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">全局函数和常量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录信息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/errors.html">错误处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/caching.html">网页缓存</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../general/modules.html">代码模块</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理多个应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多个环境</a></li>
 </ul>
 </li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">控制器和路由</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filters.html">控制器过滤器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="message.html">HTTP 消息</a></li>
-<li class="toctree-l2"><a class="reference internal" href="request.html">Request 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="incomingrequest.html">IncomingRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="content_negotiation.html">内容协商</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">HTTP类型伪装</a></li>
-<li class="toctree-l2"><a class="reference internal" href="restful.html">处理RESTful请求资源</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HTTP 方法欺骗</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restful.html">RESTful 资源处理</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">子视图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">View Parser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML Table Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用PHP替代语法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库参考</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">数据库快速入门：示例代码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">使用数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">快速入门:使用示例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">数据库配置</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">连接数据库</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">执行查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">运行查询</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/results.html">生成查询结果</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构造器类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构建器类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">事务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">获取元数据</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">自定义函数调用</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/events.html">数据库事件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库实用工具</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../models/index.html">数据建模</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的 Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../models/entities.html">使用实体类</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用 Database Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">使用文件类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">Honeypot Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption 服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">Honeypot 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限流类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">日期与时间类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">Typography 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">使用文件上传类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">User Agent Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/publisher.html">Publisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">用户代理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date Helper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">表单辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">偏转辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector 辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">数字辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">安全辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/test_helper.html">测试辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">文本辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML 辅助函数</a></li>
 </ul>
 </li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../testing/index.html">测试</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">Getting Started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">Controller Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试你的应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">入门指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/fabricator.html">生成数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">命令行用法</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cli/cli.html">通过CLI方式运行</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli/cli_commands.html">自定义 CLI 命令</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli/cli_library.html">CLI Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli/cli_request.html">CLIRequest Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">命令行使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_overview.html">CLI 概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_controllers.html">通过 CLI 运行控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/spark_commands.html">Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_commands.html">创建 Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_generators.html">CLI 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_library.html">CLI 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_request.html">CLIRequest 类</a></li>
 </ul>
 </li>
 </ul>
@@ -268,165 +243,94 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/core_classes.html">创建核心系统类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/common.html">替换通用函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展 Controller</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">鉴权</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">贡献给 CodeIgniter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/official_packages.html">官方包</a></li>
+</ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">CodeIgniter</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="index.html">控制器和路由</a> &raquo;</li>
-        
-      <li>HTTP类型伪装</li>
-    
-    
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">控制器和路由</a></li>
+      <li class="breadcrumb-item active">HTTP 方法欺骗</li>
       <li class="wy-breadcrumbs-aside">
-        
-            
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="http">
-<h1>HTTP类型伪装<a class="headerlink" href="#http" title="永久链接至标题">¶</a></h1>
-<p>当处理HTML表单时，你只可以使用GET或POST这两个HTTP动词。在大多数情况下，这种情况是没有问题的。然而为了支持REST-ful格式的路由，
-你需要支持其他更为正确的路由动词。例如DELETE或PUT。由于浏览器不支持这种方式，CodeIgniter提供了一种正在使用的伪装请求类型的方法。
-这种方法允许你发起一个POST请求，但是告诉程序这个请求应该被作为另一个请求类型而处理。</p>
-<p>为了伪装请求类型，一个名为 <code class="docutils literal notranslate"><span class="pre">_method</span></code> 的隐藏输入字段需要被添加到表单中。这个字段的值应当是你希望发送的请求类型:</p>
+             
+  <section id="http">
+<h1>HTTP 方法欺骗<a class="headerlink" href="#http" title="永久链接至标题"></a></h1>
+<p>当使用 HTML 表单时,你只能使用 GET 或 POST HTTP 动词。在大多数情况下,这已经足够了。然而,为了
+支持 RESTful 路由,你需要支持其他更正确的动词,比如 DELETE 或 PUT。由于浏览器
+不支持这些,CodeIgniter 为你提供了一种办法来欺骗所使用的方法。这使得你可以
+发出一个 POST 请求,但是告诉应用程序它应该被视为不同的请求类型。</p>
+<p>要欺骗方法,需要在表单中添加一个隐藏的输入,名称为 <code class="docutils literal notranslate"><span class="pre">_method</span></code>。它的值是你希望
+请求采用的 HTTP 动词:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">form</span> <span class="nx">action</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nx">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;_method&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;PUT&quot;</span> <span class="o">/&gt;</span>
-
+    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;_method&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;PUT&quot;</span><span class="o">&gt;</span>
 <span class="o">&lt;/</span><span class="nx">form</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>这个表单就会被转化成一个PUT请求，并且只要路由和IncomingRequest类能识别的话，这就是一个真正的PUT请求。</p>
-<p>你所使用的表单必须得是一个POST请求，GET请求无法被伪装。</p>
+<p>这个表单会被转换成一个 PUT 请求,对于路由和 IncomingRequest
+类来说,它是一个真正的 PUT 请求。</p>
+<p>你使用的表单必须是一个 POST 请求。GET 请求无法被欺骗。</p>
 <div class="admonition note">
-<p class="first admonition-title">注解</p>
-<p class="last">请确认你的Web服务器的配置，因为有些服务器默认没有支持所有的HTTP动词，所以必须添加一些额外的包文件来开启这项功能。</p>
+<p class="admonition-title">备注</p>
+<p>请确保检查你的 Web 服务器配置,因为一些服务器默认配置不支持所有 HTTP 动词,
+必须启用其他软件包才能正常工作。</p>
 </div>
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="restful.html" class="btn btn-neutral float-right" title="处理RESTful请求资源" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="content_negotiation.html" class="btn btn-neutral float-left" title="内容协商" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="content_negotiation.html" class="btn btn-neutral float-left" title="内容协商" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="restful.html" class="btn btn-neutral float-right" title="RESTful 资源处理" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; 版权所有 2019-2020 CodeIgniter 基金会
-      <span class="lastupdated">
-        最后更新于 2020-11-21.
-      </span>
-
-    </p>
+    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2023-07-22.
+      </span></p>
   </div>
-    
-    
-    
-    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
-    
-    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
-  <p></p>
-  <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
-  <p>
-    <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
-    ·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
-    <!--·
-    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter4.epub">EPUB 版下载</a>-->
-  </p>
 
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(false);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
