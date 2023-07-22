@@ -1,0 +1,61 @@
+name: CI 
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:  
+        submodules: recursive
+        fetch-depth: 10
+
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: Install LaTeX 
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-xetex texlive-lang-chinese texlive-fonts-recommended texlive-fonts-extra fonts-freefont-otf latexmk xindy
+
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Build docs
+      env:
+        GH_REF: ${{ github.repository }}  
+      run: |
+        make html
+        make latexpdf
+
+    - name: Upload artifacts  
+      uses: actions/upload-artifact@v2
+      with:
+        name: docs
+        path: |
+          _build/latex/*.pdf
+          _build/html/
+
+    - name: Deploy docs
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: |
+        bash ./deploy-gh-pages.sh
+      env:  
+        GH_REF: ${{ github.repository }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
