@@ -1,4 +1,4 @@
-name: CI
+name: Build Docs
 
 on:
   push:
@@ -7,17 +7,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         submodules: recursive
         fetch-depth: 10
 
     - name: Install Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: 3.7
+        python-version: '3.7'
 
     - name: Install LaTeX
       run: |
@@ -30,7 +31,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Cache dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
@@ -45,10 +46,11 @@ jobs:
         make latexpdf
 
     - name: Clone gh-pages
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: ${{ github.repository }}
         ref: gh-pages
+        clean: false
 
     - name: Update gh-pages
       run: |
