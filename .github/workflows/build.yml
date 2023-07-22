@@ -10,15 +10,22 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Install OS dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y texlive-xetex texlive-lang-chinese texlive-fonts-recommended texlive-fonts-extra fonts-freefont-otf latexmk xindy
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 10
 
     - name: Install Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.7'
+
+    - name: Install OS dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y texlive-xetex texlive-lang-chinese texlive-fonts-recommended texlive-fonts-extra fonts-freefont-otf latexmk xindy
+        pip install --upgrade pip
 
     - name: Get pip cache dir
       id: pip-cache
@@ -35,20 +42,14 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        pip install --upgrade pip
         pip install -r requirements.txt
-
-    - uses: actions/checkout@v3
-      with:
-        submodules: recursive
-        fetch-depth: 10
 
     - name: Build docs
       run: |
         make html
         make latexpdf
 
-    - name: Clone gh-pages
+    - name: Checkout gh-pages
       uses: actions/checkout@v3
       with:
         repository: ${{ github.repository }}
