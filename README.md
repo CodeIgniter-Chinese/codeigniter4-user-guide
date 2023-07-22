@@ -24,15 +24,15 @@ Sphinx 需要 Python 3.5+ 版本，如果你正在运行 macOS 或 Linux，则�
 你可以在终端窗口中执行 `python` 或 `python3` 来确认。
 
 ```bash
-    python --version
-    Python 2.7.17
+python --version
+Python 2.7.17
 
-    python3 --version
-    Python 3.6.9
+python3 --version
+Python 3.6.9
 
-    # 对于使用 Python 启动器的 Windows
-    py -3 --version
-    Python 3.8.1
+# 对于使用 Python 启动器的 Windows
+py -3 --version
+Python 3.8.1
 ```
 
 如果你的版本低于 3.5+，请从 [Python.org](https://www.python.org/downloads/) 安装最新的 3.x 版本。Linux 用户应该使用操作系统自带的包管理器来更新。
@@ -44,15 +44,15 @@ Sphinx 需要 Python 3.5+ 版本，如果你正在运行 macOS 或 Linux，则�
 你可以使用 `pip` 或 `pip3` 检查是否已安装 pip。如你所见，pip 遵循与 Python 相同的命名约定。请注意，输出的末尾应该显示 `python 3.x`。
 
 ```bash
-    pip --version
-    pip 9.0.1 from /usr/lib/python2.7/dist-packages (python 2.7)
+pip --version
+pip 9.0.1 from /usr/lib/python2.7/dist-packages (python 2.7)
 
-    pip3 --version
-    pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.6)
+pip3 --version
+pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.6)
 
-    # 对于使用 Python 启动器的 Windows
-    py -3 -m pip --version
-    pip 20.0.2 from C:\Users\<username>\AppData\Local\Programs\Python\Python38\lib\site-packages\pip (python 3.8)
+# 对于使用 Python 启动器的 Windows
+py -3 -m pip --version
+pip 20.0.2 from C:\Users\<username>\AppData\Local\Programs\Python\Python38\lib\site-packages\pip (python 3.8)
 ```
 
 ##### Linux
@@ -69,18 +69,18 @@ Sphinx 需要 Python 3.5+ 版本，如果你正在运行 macOS 或 Linux，则�
 此步骤之后，你需要重启终端窗口，否则 Python 将找不到我们刚刚安装的所有应用程序。
 
 ```bash
-    pip install -r requirements.txt
+pip install -r requirements.txt
 
-    pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 
-    # 对于使用 Python 启动器的 Windows
-    py -3 -m pip install -r requirements.txt
+# 对于使用 Python 启动器的 Windows
+py -3 -m pip install -r requirements.txt
 ```
 
 是时候总结一下并生成文档了。
 
 ```bash
-    make html
+make html
 ```
 
 ### 使用 Docker
