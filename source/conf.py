@@ -119,7 +119,7 @@ html_js_files = [
 	'js/carbon.js'
 ]
 
-#html_title = u'CodeIgniter ' + release + u' 中文手册|用户手册|用户指南|中文文档'
+html_title = u'CodeIgniter ' + release + u' 中文手册|用户手册|用户指南|中文文档'
 
 # -- Options for LaTeX output --------------------------------------------------
 
