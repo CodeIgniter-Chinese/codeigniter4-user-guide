@@ -139,7 +139,7 @@ Presenter/Controller 对比
 此表比较了 `resource()` 和 `presenter()` 创建的默认路由及其相应的 Controller 函数。
 
 ================ ========= ====================== ======================== ====================== ======================
-操作              方法      控制器路由             表示器路由              控制器函数             表示器函数
+操作             方法      控制器路由             表示器路由               控制器函数             表示器函数
 ================ ========= ====================== ======================== ====================== ======================
 **New**          GET       photos/new             photos/new               ``new()``              ``new()``
 **Create**       POST      photos                 photos                   ``create()``           ``create()``
@@ -149,8 +149,8 @@ Presenter/Controller 对比
 显示(别名)       GET                              photos/show/(:segment)                          ``show($id = null)``
 **Edit**         GET       photos/(:segment)/edit photos/edit/(:segment)   ``edit($id = null)``   ``edit($id = null)``
 **Update**       PUT/PATCH photos/(:segment)                               ``update($id = null)``
-更新(网页安全)    POST      photos/(:segment)      photos/update/(:segment) ``update($id = null)`` ``update($id = null)``
+更新(网页安全)   POST      photos/(:segment)      photos/update/(:segment) ``update($id = null)`` ``update($id = null)``
 **Remove**       GET                              photos/remove/(:segment)                        ``remove($id = null)``
 **Delete**       DELETE    photos/(:segment)                               ``delete($id = null)``
-删除(网页安全)    POST                             photos/delete/(:segment) ``delete($id = null)`` ``delete($id = null)``
+删除(网页安全)   POST                             photos/delete/(:segment) ``delete($id = null)`` ``delete($id = null)``
 ================ ========= ====================== ======================== ====================== ======================

@@ -300,55 +300,55 @@ if 语句中使用的所有变量必须先以相同的名称设置过。除此�
 使用解析器时,可用以下过滤器:
 
 ================ ================= =========================================================== ======================================
-过滤器           参数               描述                                                           示例
+过滤器           参数               描述                                                       示例
 ================ ================= =========================================================== ======================================
-abs                                显示数字的绝对值。                                           { v|abs }
+abs                                显示数字的绝对值。                                          { v|abs }
 
-capitalize                         以句子大小写显示字符串:全部小写,第一个字母大写。           { v|capitalize}
+capitalize                         以句子大小写显示字符串:全部小写,第一个字母大写。            { v|capitalize}
 
-date              格式(Y-m-d)        与 PHP **date** 兼容的格式化字符串。                       { v|date(Y-m-d) }
+date              格式(Y-m-d)      与 PHP **date** 兼容的格式化字符串。                        { v|date(Y-m-d) }
 
-date_modify       要添加/减去的值     与 **strtotime** 兼容的字符串,用于修改日期,             { v|date_modify(+1 day) }
-                  如 ``+5 day`` 或 ``-1 week``。
+date_modify       要添加/减去的值  与 **strtotime** 兼容的字符串,用于修改日期,                 { v|date_modify(+1 day) }
+                                   如 ``+5 day`` 或 ``-1 week``。
 
-default           默认值             如果变量为空或未定义,显示默认值。                         { v|default(just in case) }
+default           默认值           如果变量为空或未定义,显示默认值。                           { v|default(just in case) }
 
-esc               html、attr、       指定转义数据的上下文。                                    { v|esc(attr) }
+esc               html、attr、     指定转义数据的上下文。                                      { v|esc(attr) }
                   css、js
 
-excerpt           短语、半径词数     返回给定短语半径词数内的文本。与 **excerpt** 助手函数相同。 { v|excerpt(green giant, 20) }
+excerpt           短语、半径词数   返回给定短语半径词数内的文本。与 **excerpt** 助手函数相同。 { v|excerpt(green giant, 20) }
 
-highlight         短语               使用 '<mark></mark>' 标记在文本中突出显示给定短语。       { v|highlight(view parser) }
+highlight         短语             使用 '<mark></mark>' 标记在文本中突出显示给定短语。         { v|highlight(view parser) }
 
-highlight_code                     使用 HTML/CSS 突出显示代码示例。                           { v|highlight_code }
+highlight_code                     使用 HTML/CSS 突出显示代码示例。                            { v|highlight_code }
 
-limit_chars       限制个数           将字符数限制为 $limit。                                   { v|limit_chars(100) }
+limit_chars       限制个数         将字符数限制为 $limit。                                     { v|limit_chars(100) }
 
-limit_words       限制个数           将词数限制为 $limit。                                    { v|limit_words(20) }
+limit_words       限制个数         将词数限制为 $limit。                                       { v|limit_words(20) }
 
-local_currency    货币、区域设置、   显示货币的本地化版本。“货币”值是任何 3 字节 ISO 4217   { v|local_currency(EUR,en_US) }
-                  小数位数          货币代码。
+local_currency    货币、区域设置、 显示货币的本地化版本。“货币”值是任何 3 字节 ISO 4217        { v|local_currency(EUR,en_US) }
+                  小数位数         货币代码。
 
-local_number      类型、精度、       显示数字的本地化版本。“类型”可以是:decimal、currency、 { v|local_number(decimal,2,en_US) }
-                  区域设置           percent、scientific、spellout、ordinal、duration之一。
+local_number      类型、精度、     显示数字的本地化版本。“类型”可以是:decimal、currency、      { v|local_number(decimal,2,en_US) }
+                  区域设置         percent、scientific、spellout、ordinal、duration之一。
 
-lower                              转换字符串为小写。                                      { v|lower }
+lower                              转换字符串为小写。                                          { v|lower }
 
-nl2br                              用 HTML <br/> 标签替换所有换行符(\n)。                  { v|nl2br }
+nl2br                              用 HTML <br/> 标签替换所有换行符(\n)。                      { v|nl2br }
 
-number_format     小数位数           封装 PHP **number_format** 函数以在解析器中使用。       { v|number_format(3) }
+number_format     小数位数         封装 PHP **number_format** 函数以在解析器中使用。           { v|number_format(3) }
 
-prose                              获取一段文本,使用 **auto_typography()** 方法将它转换为 { v|prose }
+prose                              获取一段文本,使用 **auto_typography()** 方法将它转换为      { v|prose }
                                    更美观、更易读的散文。
 
-round             小数位数、类型     按指定位数四舍五入数字。可传递 **ceil** 和 **floor** 类型 { v|round(3) } { v|round(ceil) }
+round             小数位数、类型   按指定位数四舍五入数字。可传递 **ceil** 和 **floor** 类型   { v|round(3) } { v|round(ceil) }
                                    以使用这些函数。
 
-strip_tags        允许的标签         封装 PHP **strip_tags**。可以接受允许的标签字符串。      { v|strip_tags(<br>) }
+strip_tags        允许的标签       封装 PHP **strip_tags**。可以接受允许的标签字符串。         { v|strip_tags(<br>) }
 
-title                              以“标题大小写”显示字符串,所有小写,每个单词首字母大写。 { v|title }
+title                              以“标题大小写”显示字符串,所有小写,每个单词首字母大写。      { v|title }
 
-upper                              将字符串显示为全部大写。                               { v|upper }
+upper                              将字符串显示为全部大写。                                    { v|upper }
 ================ ================= =========================================================== ======================================
 
 有关与“local_number”过滤器相关的详细信息，请参阅 `PHP 的 NumberFormatter <https://www.php.net/manual/en/numberformatter.create.php>`_。
@@ -394,18 +394,18 @@ upper                              将字符串显示为全部大写。         
 使用解析器时,可用以下插件:
 
 ================== ========================= ============================================ ================================================================
-插件               参数                       描述                                            示例
+插件               参数                      描述                                         示例
 ================== ========================= ============================================ ================================================================
-current_url                                  current_url 助手函数的别名。                {+ current_url +}
-previous_url                                 previous_url 助手函数的别名。               {+ previous_url +}
-siteURL            “login”                   site_url 助手函数的别名。                   {+ siteURL "login" +}
-mailto             email、标题、属性         mailto 助手函数的别名。                     {+ mailto email=foo@example.com title="Stranger Things" +}
-safe_mailto        email、标题、属性         safe_mailto 助手函数的别名。                {+ safe_mailto email=foo@example.com title="Stranger Things" +}
-lang               语言字符串                lang 助手函数的别名。                       {+ lang number.terabyteAbbr +}
-validation_errors  字段名(可选)              返回字段的错误字符串(如果指定),          {+ validation_errors +} , {+ validation_errors field="email" +}
-route              route 名称                route_to 助手函数的别名。                   {+ route "login" +}
-csp_script_nonce                              csp_script_nonce 助手函数的别名。         {+ csp_script_nonce +}
-csp_style_nonce                               csp_style_nonce 助手函数的别名。          {+ csp_style_nonce +}
+current_url                                  current_url 助手函数的别名。                 {+ current_url +}
+previous_url                                 previous_url 助手函数的别名。                {+ previous_url +}
+siteURL            “login”                   site_url 助手函数的别名。                    {+ siteURL "login" +}
+mailto             email、标题、属性         mailto 助手函数的别名。                      {+ mailto email=foo@example.com title="Stranger Things" +}
+safe_mailto        email、标题、属性         safe_mailto 助手函数的别名。                 {+ safe_mailto email=foo@example.com title="Stranger Things" +}
+lang               语言字符串                lang 助手函数的别名。                        {+ lang number.terabyteAbbr +}
+validation_errors  字段名(可选)              返回字段的错误字符串(如果指定),              {+ validation_errors +} , {+ validation_errors field="email" +}
+route              route 名称                route_to 助手函数的别名。                    {+ route "login" +}
+csp_script_nonce                             csp_script_nonce 助手函数的别名。            {+ csp_script_nonce +}
+csp_style_nonce                              csp_style_nonce 助手函数的别名。             {+ csp_style_nonce +}
 ================== ========================= ============================================ ================================================================
 
 注册插件

@@ -18,7 +18,7 @@
 安装
 ============
 
-下载`最新版本 <https://github.com/CodeIgniter4/framework/releases/latest>`_,
+下载 `最新版本 <https://github.com/CodeIgniter4/framework/releases/latest>`__,
 并将其提取到成为项目根目录。
 
 .. note:: CodeIgniter 自动加载程序不允许特殊字符,这些字符在某些操作系统中的文件名中是非法的。
@@ -62,7 +62,7 @@
 
 如果你想利用系统消息翻译,可以以类似的方式将它们添加到项目中。
 
-下载`最新版本 <https://github.com/codeigniter4/translations/releases/latest>`_。
+下载 `最新版本 <https://github.com/codeigniter4/translations/releases/latest>`__。
 提取下载的 zip 文件,并将其中的 **Language** 文件夹内容复制到你的 **app/Languages** 文件夹中。
 
 这需要重复执行以合并翻译的任何更新。

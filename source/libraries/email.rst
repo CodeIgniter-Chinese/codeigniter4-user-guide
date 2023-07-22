@@ -79,29 +79,29 @@ SMTP 协议的 SSL 与 TLS
 以下是可以在发送电子邮件时设置的所有首选项列表。
 
 =================== ====================== ============================ =======================================================================
-首选项               默认值                  选项                          描述
+首选项              默认值                 选项                         描述
 =================== ====================== ============================ =======================================================================
-**userAgent**       CodeIgniter            无                          “用户代理”。
+**userAgent**       CodeIgniter            无                           “用户代理”。
 **protocol**        mail                   mail、sendmail 或 smtp       邮件发送协议。
-**mailPath**        /usr/sbin/sendmail     无                          到 Sendmail 的服务器路径。
-**SMTPHost**        无默认值               无                          SMTP 服务器地址。
-**SMTPUser**        无默认值               无                          SMTP 用户名。
-**SMTPPass**        无默认值               无                          SMTP 密码。
-**SMTPPort**        25                     无                          SMTP 端口。(如果设置为 465,不管 SMTPCrypto 设置如何,都将使用 TLS 建立连接)
-**SMTPTimeout**     5                      无                          SMTP 超时(秒)。
-**SMTPKeepAlive**   false                  true 或 false(布尔值)     启用持久 SMTP 连接。
-**SMTPCrypto**      无默认值               tls 或 ssl                  SMTP 加密。将此设置为“ssl”将使用 SSL 创建到服务器的安全通道,“tls”将向服务器发出 ``STARTTLS`` 命令。连接端口 465 应将此留空。
-**wordWrap**        true                   true 或 false(布尔值)      启用自动换行。
+**mailPath**        /usr/sbin/sendmail     无                           到 Sendmail 的服务器路径。
+**SMTPHost**        无默认值               无                           SMTP 服务器地址。
+**SMTPUser**        无默认值               无                           SMTP 用户名。
+**SMTPPass**        无默认值               无                           SMTP 密码。
+**SMTPPort**        25                     无                           SMTP 端口。(如果设置为 465,不管 SMTPCrypto 设置如何,都将使用 TLS 建立连接)
+**SMTPTimeout**     5                      无                           SMTP 超时(秒)。
+**SMTPKeepAlive**   false                  true 或 false(布尔值)        启用持久 SMTP 连接。
+**SMTPCrypto**      无默认值               tls 或 ssl                   SMTP 加密。将此设置为“ssl”将使用 SSL 创建到服务器的安全通道,“tls”将向服务器发出 ``STARTTLS`` 命令。连接端口 465 应将此留空。
+**wordWrap**        true                   true 或 false(布尔值)        启用自动换行。
 **wrapChars**       76                                                  换行处的字符数。
 **mailType**        text                   text 或 html                 邮件类型。如果发送 HTML 电子邮件,你必须将其作为完整的网页发送。确保你没有任何相对链接或相对图像路径,否则它们将无法工作。
 **charset**         utf-8                                               字符集(utf-8、iso-8859-1 等)。
-**validate**        true                   true 或 false(布尔值)      是否验证电子邮件地址。
+**validate**        true                   true 或 false(布尔值)        是否验证电子邮件地址。
 **priority**        3                      1、2、3、4、5                电子邮件优先级。1 最高。5 最低。3 为正常。
 **CRLF**            \\n                    "\\r\\n" 或 "\\n" 或 "\\r"   换行符。(遵循 RFC 822 使用 "\\r\\n")。
 **newline**         \\n                    "\\r\\n" 或 "\\n" 或 "\\r"   换行符。(遵循 RFC 822 使用 "\\r\\n")。
-**BCCBatchMode**    false                  true 或 false(布尔值)      启用 BCC 批量模式。
-**BCCBatchSize**    200                    无                          每个 BCC 批次中的电子邮件数量。
-**DSN**             false                  true 或 false(布尔值)      启用来自服务器的通知消息
+**BCCBatchMode**    false                  true 或 false(布尔值)        启用 BCC 批量模式。
+**BCCBatchSize**    200                    无                           每个 BCC 批次中的电子邮件数量。
+**DSN**             false                  true 或 false(布尔值)        启用来自服务器的通知消息
 =================== ====================== ============================ =======================================================================
 
 覆盖文字换行
