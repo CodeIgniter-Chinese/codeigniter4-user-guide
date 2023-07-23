@@ -1,52 +1,48 @@
-Upgrade Configuration
+升级配置
 #####################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Config Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/config.html>`_
-- :doc:`Configuration Documentation CodeIgniter 4.X </general/configuration>`
+- `CodeIgniter 3.X 配置文档 <http://codeigniter.com/userguide3/libraries/config.html>`_
+- :doc:`CodeIgniter 4.X 配置文档 </general/configuration>`
 
-What has been changed
+变更点
 =====================
 
-- In CI4, the configurations are now stored in classes which extend ``CodeIgniter\Config\BaseConfig``.
-- The **application/config/config.php** in CI3 will be **app/Config/App.php**
-  and some other files like **app/Config/Security.php** for the specific classes.
-- Within the configuration class, the config values are stored in public class properties.
-- The method to fetch config values has been changed.
+- 在 CI4 中,配置现在存储在扩展 ``CodeIgniter\Config\BaseConfig`` 的类中。
+- CI3 中的 **application/config/config.php** 将变为 **app/Config/App.php**
+  以及一些像 **app/Config/Security.php** 这样的特定类文件。
+- 在配置类中,配置值存储为公共类属性。
+- 获取配置值的方法也进行了更改。
 
-Upgrade Guide
+升级指南
 =============
 
-1. You have to change the values in the default CI4 config files according to the
-   changes in the CI3 files. The config names are pretty much the same as in CI3.
-2. If you are using custom config files in your CI3 project you have to create those
-   files as new PHP classes in your CI4 project in **app/Config**. These classes
-   should be in the ``Config`` namespace and should extend ``CodeIgniter\Config\BaseConfig``.
-3. Once you have created all custom config classes, you have to copy the variables
-   from the CI3 config into the new CI4 config class as public class properties.
-4. Now, you have to change the config fetching syntax everywhere you fetch config
-   values. The CI3 syntax is something like ``$this->config->item('item_name');``.
-   You have to change this into ``config('MyConfig')->item_name;``.
+1. 你需要根据 CI3 文件中的更改来更改 CI4 默认配置文件的值。配置名称与 CI3 中的名称大体相同。
+2. 如果你在 CI3 项目中使用自定义配置文件,则需要在 CI4 项目中的 **app/Config** 内将这些文件创建为新的 PHP 类。
+   这些类应该在 ``Config`` 命名空间内,并继承 ``CodeIgniter\Config\BaseConfig``。
+3. 创建所有自定义配置类后,你需要将 CI3 配置中的变量复制为新的 CI4 配置类中的公共类属性。
+4. 现在,你需要在所有获取配置值的地方更改配置获取语法。CI3 语法类似于 ``$this->config->item('item_name');``。
+   你需要将其更改为 ``config('MyConfig')->item_name;``。
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
-------------------------
+CodeIgniter 3.x 版本
+-----------------------
 
-Path: **application/config/site.php**:
+路径:**application/config/site.php**:
 
 .. literalinclude:: upgrade_configuration/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
-Path: **app/Config/Site.php**:
+路径:**app/Config/Site.php**:
 
 .. literalinclude:: upgrade_configuration/001.php

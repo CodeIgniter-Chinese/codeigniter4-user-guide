@@ -1,58 +1,56 @@
 #############################
-Upgrading from 4.0.4 to 4.0.5
+从 4.0.4 升级到 4.0.5
 #############################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与你的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
+- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Breaking Enhancements
+重大增强
 *********************
 
-Cookie SameSite Support
+Cookie SameSite 支持
 =======================
 
-CodeIgniter 4.0.5 introduces a setting for the cookie SameSite attribute. Prior versions did not set this
-attribute at all. The default setting for cookies is now `Lax`. This will affect how cookies are handled in
-cross-domain contexts and you may need to adjust this setting in your projects. Separate settings in **app/Config/App.php**
-exists for Response cookies and for CSRF cookies.
+CodeIgniter 4.0.5 引入了 cookie 的 SameSite 属性设置。先前版本没有设置此属性。
+cookie的默认设置现在是`Lax`。这将影响 cookie 在跨域环境中的处理,你可能需要在项目中调整此设置。
+在 **app/Config/App.php** 中为响应 cookie 和 CSRF cookie 分别存在独立设置。
 
-For additional information, see `MDN Web Docs <https://developer.mozilla.org/pl/docs/Web/HTTP/Headers/Set-Cookie/SameSite>`_.
-The SameSite specifications are described in `RFC 6265 <https://tools.ietf.org/html/rfc6265>`_
-and the `RFC 6265bis revision <https://datatracker.ietf.org/doc/draft-ietf-httpbis-rfc6265bis/?include_text=1>`_.
+有关详细信息,请参阅 `MDN Web 文档 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie/SameSite>`_。
+SameSite 规范描述在 `RFC 6265 <https://tools.ietf.org/html/rfc6265>`_ 和
+`RFC 6265bis 修订版 <https://datatracker.ietf.org/doc/draft-ietf-httpbis-rfc6265bis/?include_text=1>`_ 中。
 
 Message::getHeader(s)
 =====================
 
-The HTTP layer is moving towards `PSR-7 compliance <https://www.php-fig.org/psr/psr-7/>`_. Towards this end
-``Message::getHeader()`` and ``Message::getHeaders()`` are deprecated and should be replaced
-with ``Message::header()`` and ``Message::headers()`` respectively. Note that this pertains
-to all classes that extend ``Message`` as well: ``Request``, ``Response`` and their subclasses.
+HTTP 层正在向 `PSR-7 兼容 <https://www.php-fig.org/psr/psr-7/>`_ 迈进。
+为此,``Message::getHeader()`` 和 ``Message::getHeaders()`` 已被废弃,
+应分别替换为 ``Message::header()`` 和 ``Message::headers()``。
+请注意,这也涉及到所有扩展 ``Message`` 的类:``Request``、``Response`` 及其子类。
 
-Additional related deprecations from the HTTP layer:
+来自 HTTP 层的其他相关废弃:
 
-* ``Message::isJSON()``: Check the "Content-Type" header directly
-* ``Request[Interface]::isValidIP()``: Use the Validation class with ``valid_ip``
-* ``Request[Interface]::getMethod()``: The ``$upper`` parameter will be removed, use strtoupper()
-* ``Request[Trait]::$ipAddress``: This property will become private
-* ``Request::$proxyIPs``: This property will be removed; access ``config('App')->proxyIPs`` directly
-* ``Request::__construct()``: The constructor will no longer take ``Config\App`` and has been made nullable to aid transition
-* ``Response[Interface]::getReason()``: Use ``getReasonPhrase()`` instead
-* ``Response[Interface]::getStatusCode()``: The explicit ``int`` return type will be removed (no action required)
+* ``Message::isJSON()``:直接检查 "Content-Type" 头
+* ``Request[Interface]::isValidIP()``:使用 Validation 类及 ``valid_ip``
+* ``Request[Interface]::getMethod()``:将删除 ``$upper`` 参数,使用 strtoupper()
+* ``Request[Trait]::$ipAddress``:该属性将变为私有
+* ``Request::$proxyIPs``:该属性将被删除;直接访问 ``config('App')->proxyIPs``
+* ``Request::__construct()``:构造函数不再接收 ``Config\App`` ,已变为可空以方便过渡
+* ``Response[Interface]::getReason()``:请使用 ``getReasonPhrase()``
+* ``Response[Interface]::getStatusCode()``:将删除显式的 ``int`` 返回类型(无需操作)
 
 ResponseInterface
 =================
 
-This interface intends to include the necessary methods for any framework-compatible response class.
-A number of methods expected by the framework were missing and have now been added. If you use any
-classes the implement ``ResponseInterface`` directly they will need to be compatible with the
-updated requirements. These methods are as follows:
+该接口旨在包括任何框架兼容的响应类所需的方法。缺少许多框架所需的方法,现已添加。
+如果你使用任何直接实现 ``ResponseInterface`` 的类,它们需要与更新后的要求兼容。
+这些方法如下:
 
 * ``setLastModified($date)``
 * ``setLink(PagerInterface $pager)``
@@ -71,32 +69,31 @@ updated requirements. These methods are as follows:
 * ``redirect(string $uri, string $method = 'auto', int $code = null)``
 * ``download(string $filename = '', $data = '', bool $setMime = false)``
 
-To facilitate use of this interface these methods have been moved from the framework's ``Response`` into a ``ResponseTrait``
-which you may use, and ``DownloadResponse`` now extends ``Response`` directly to ensure maximum compatibility.
+为方便使用此接口,这些方法已从框架的 ``Response`` 移至 ``ResponseTrait``中,你可以使用它,
+``DownloadResponse`` 现在直接扩展 ``Response`` 以确保最大兼容性。
 
 Config\\Services
 ================
 
-Service discovery has been updated to allow third-party services (when enabled via Modules) to take precedence over core services. Update
-**app/Config/Services.php** so the class extends ``CodeIgniter\Config\BaseService`` to allow proper discovery of third-party services.
+服务发现已更新,允许第三方服务(在通过 Modules 启用时)优先于核心服务。
+请更新 **app/Config/Services.php**,使类扩展 ``CodeIgniter\Config\BaseService``
+以允许正确发现第三方服务。
 
-Project Files
+项目文件
 *************
 
-Numerous files in the project space (root, app, public, writable) received updates. Due to
-these files being outside of the system scope they will not be changed without your intervention.
-There are some third-party CodeIgniter modules available to assist with merging changes to
-the project space: `Explore on Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_.
+项目空间(根目录、app、public、writable)中的许多文件都已更新。
+由于这些文件超出系统范围,如果不进行干预,它们将不会更改。
+有一些第三方 CodeIgniter 模块可用于帮助合并项目空间中的更改:
+`在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
-.. note:: Except in very rare cases for bug fixes, no changes made to files for the project space
-    will break your application. All changes noted here are optional until the next major version,
-    and any mandatory changes will be covered in the sections above.
+.. note:: 除了极少数的错误修复情况外,对项目空间文件的任何更改都不会破坏你的应用程序。
+    直到下一个主版本之前,这里注明的所有更改都是可选的,任何强制性更改都将在上面的部分中介绍。
 
-Content Changes
+内容更改
 ===============
 
-The following files received significant changes (including deprecations or visual adjustments)
-and it is recommended that you merge the updated versions with your application:
+建议你将更新版本与应用程序合并,因为以下文件收到显着更改(包括不推荐使用或视觉调整):
 
 * ``app/Views/*``
 * ``public/index.php``
@@ -105,11 +102,10 @@ and it is recommended that you merge the updated versions with your application:
 * ``phpunit.xml.dist``
 * ``composer.json``
 
-All Changes
+所有更改
 ===========
 
-This is a list of all files in the project space that received changes;
-many will be simple comments or formatting that have no effect on the runtime:
+这是项目空间中已更改的所有文件的列表;其中许多只是注释或格式更改,不会对运行时产生影响:
 
 * ``LICENSE``
 * ``README.md``

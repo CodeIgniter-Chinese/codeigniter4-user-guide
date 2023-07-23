@@ -1,58 +1,57 @@
-Upgrade Database
+升级数据库
 ################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Database Reference Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/database/index.html>`_
-- :doc:`Working with Databases Documentation CodeIgniter 4.X </database/index>`
+- `CodeIgniter 3.X 数据库参考文档 <http://codeigniter.com/userguide3/database/index.html>`_
+- :doc:`CodeIgniter 4.X 使用数据库文档 </database/index>`
 
-What has been changed
+变更点
 =====================
-- The functionality in CI3 is basically the same as in CI4.
-- `Database Caching <https://www.codeigniter.com/userguide3/database/caching.html>`_ functionality known from CI3 was removed.
-- The method names have changed to camelCase and the :doc:`Query Builder <../database/query_builder>`
-  now needs to be initialized before you can run queries on it.
+- CI4 的功能基本与 CI3 相同。
+- CI3 中已知的`数据库缓存 <https://www.codeigniter.com/userguide3/database/caching.html>`_ 功能已被删除。
+- 方法名已更改为 camelCase 样式,并且在运行查询之前,现在需要初始化 :doc:`查询构建器 <../database/query_builder>`。
 
-Upgrade Guide
+升级指南
 =============
-1. Add your database credentials to **app/Config/Database.php**. The options are pretty much the same as in CI3 only some names have changed slightly.
-2. Everywhere you have used the database you have to replace ``$this->load->database();`` with ``$db = db_connect();``.
-3. If you use multiple databases use the following code to load additional databases ``$db = db_connect('group_name');``.
-4. Now you have to change all database queries. The most important change here is to replace ``$this->db`` with just ``$db`` and adjust the method name and ``$db``. Here are some examples:
+1. 将数据库凭据添加到 **app/Config/Database.php**。选项与 CI3 基本相同,只是一些名称略有变化。
+2. 在使用数据库的任何地方,都必须用 ``$db = db_connect();`` 替换 ``$this->load->database();``。
+3. 如果使用多个数据库,请使用以下代码加载其他数据库 ``$db = db_connect('group_name');``。
+4. 现在必须更改所有数据库查询。这里最重要的变化是用 ``$db`` 替换 ``$this->db``,并调整方法名和 ``$db``。这里有一些例子:
 
-    - ``$this->db->query('YOUR QUERY HERE');`` to ``$db->query('YOUR QUERY HERE');``
-    - ``$this->db->simple_query('YOUR QUERY')`` to ``$db->simpleQuery('YOUR QUERY')``
-    - ``$this->db->escape("something")`` to ``$db->escape("something");``
-    - ``$this->db->affected_rows();`` to ``$db->affectedRows();``
-    - ``$query->result();`` to ``$query->getResult();``
-    - ``$query->result_array();`` to ``$query->getResultArray();``
-    - ``echo $this->db->count_all('my_table');`` to ``echo $db->table('my_table')->countAll();``
+    - ``$this->db->query('YOUR QUERY HERE');`` 改为 ``$db->query('YOUR QUERY HERE');``
+    - ``$this->db->simple_query('YOUR QUERY')`` 改为 ``$db->simpleQuery('YOUR QUERY')``
+    - ``$this->db->escape("something")`` 改为 ``$db->escape("something");``
+    - ``$this->db->affected_rows();`` 改为 ``$db->affectedRows();``
+    - ``$query->result();`` 改为 ``$query->getResult();``
+    - ``$query->result_array();`` 改为 ``$query->getResultArray();``
+    - ``echo $this->db->count_all('my_table');`` 改为 ``echo $db->table('my_table')->countAll();``
 
-5. To use the new Query Builder Class you have to initialize the builder ``$builder = $db->table('mytable');`` after that you can run the queries on the ``$builder``. Here are some examples:
+5. 要使用新的查询构建器类,必须在 ``$builder = $db->table('mytable');`` 之后初始化构建器,之后可以在 ``$builder`` 上运行查询。这里有一些例子:
 
-    - ``$this->db->get()`` to ``$builder->get();``
-    - ``$this->db->get_where('mytable', array('id' => $id), $limit, $offset);`` to ``$builder->getWhere(['id' => $id], $limit, $offset);``
-    - ``$this->db->select('title, content, date');`` to ``$builder->select('title, content, date');``
-    - ``$this->db->select_max('age');`` to ``$builder->selectMax('age');``
-    - ``$this->db->join('comments', 'comments.id = blogs.id');`` to ``$builder->join('comments', 'comments.id = blogs.id');``
-    - ``$this->db->having('user_id',  45);`` to ``$builder->having('user_id',  45);``
-6. CI4 does not provide `Database Caching <https://www.codeigniter.com/userguide3/database/caching.html>`_
-   layer known from CI3, so if you need to cache the result, use :doc:`../libraries/caching` instead.
+    - ``$this->db->get()`` 改为 ``$builder->get();``
+    - ``$this->db->get_where('mytable', array('id' => $id), $limit, $offset);`` 改为 ``$builder->getWhere(['id' => $id], $limit, $offset);``
+    - ``$this->db->select('title, content, date');`` 改为 ``$builder->select('title, content, date');``
+    - ``$this->db->select_max('age');`` 改为 ``$builder->selectMax('age');``
+    - ``$this->db->join('comments', 'comments.id = blogs.id');`` 改为 ``$builder->join('comments', 'comments.id = blogs.id');``
+    - ``$this->db->having('user_id',  45);`` 改为 ``$builder->having('user_id',  45);``
+6. CI4 不提供 CI3 中已知的`数据库缓存 <https://www.codeigniter.com/userguide3/database/caching.html>`_
+   层,所以如果需要缓存结果,请改用 :doc:`../libraries/caching`。
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
 .. literalinclude:: upgrade_database/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
 .. literalinclude:: upgrade_database/001.php

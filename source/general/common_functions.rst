@@ -135,7 +135,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
     :returns: Timer 实例
     :rtype: CodeIgniter\Debug\Timer
 
-    方便地快速访问 Timer 类的方法。您可以将基准点的名称作为唯一参数传递。这将从此点开始计时,或如果已运行具有此名称的计时器,则停止计时。
+    方便地快速访问 Timer 类的方法。你可以将基准点的名称作为唯一参数传递。这将从此点开始计时,或如果已运行具有此名称的计时器,则停止计时。
 
     例子:
 
@@ -330,23 +330,23 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 .. php:function:: route_to($method[, ...$params])
 
     :param   string       $method: 路由名称或 Controller::method
-    :param   int|string   ...$params: 要传递给路由的一个或多个参数。最后一个参数允许您设置区域设置。
+    :param   int|string   ...$params: 要传递给路由的一个或多个参数。最后一个参数允许你设置区域设置。
     :returns: 路由路径(基于 baseURL 的 URI 相对路径)
     :rtype: string
 
     .. note:: 此函数要求控制器/方法必须在 **app/Config/routes.php** 中定义路由。
 
-    .. important:: ``route_to()`` 返回一个*路由*路径,而不是站点的完整 URI 路径。如果您的 **baseURL** 包含子文件夹,返回值与链接的 URI 并不相同。在这种情况下,请改用 :php:func:`url_to()`。另请参阅 :ref:`urls-url-structure`。
+    .. important:: ``route_to()`` 返回一个*路由*路径,而不是站点的完整 URI 路径。如果你的 **baseURL** 包含子文件夹,返回值与链接的 URI 并不相同。在这种情况下,请改用 :php:func:`url_to()`。另请参阅 :ref:`urls-url-structure`。
 
-    根据 controller::method 组合为您生成路由。将根据提供的参数生成路由。
+    根据 controller::method 组合为你生成路由。将根据提供的参数生成路由。
 
     .. literalinclude:: common_functions/009.php
 
-    根据路由名称为您生成路由。
+    根据路由名称为你生成路由。
 
     .. literalinclude:: common_functions/010.php
 
-    从 v4.3.0 开始,当您在路由中使用 ``{locale}`` 时,可以可选地将区域设置值作为最后一个参数指定。
+    从 v4.3.0 开始,当你在路由中使用 ``{locale}`` 时,可以可选地将区域设置值作为最后一个参数指定。
 
     .. literalinclude:: common_functions/011.php
 

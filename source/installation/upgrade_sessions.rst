@@ -1,39 +1,39 @@
-Upgrade Sessions
+升级 Session
 ################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Session Library Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/sessions.html>`_
-- :doc:`Session Library Documentation CodeIgniter 4.X </libraries/sessions>`
+- `CodeIgniter 3.X Session 库文档 <http://codeigniter.com/userguide3/libraries/sessions.html>`_
+- :doc:`CodeIgniter 4.X Session 库文档 </libraries/sessions>`
 
-What has been changed
+变更点
 =====================
-- Only small things like the method names and the loading of the library have changed.
+- 只是一些小变化,如方法名称和库的加载。
 
-Upgrade Guide
+升级指南
 =============
-1. Wherever you use the Session Library replace ``$this->load->library('session');`` with ``$session = session();``.
-2. From that on you have to replace every line starting with ``$this->session`` with ``$session`` followed by the new method name.
+1. 在使用 Session 库的任何地方,用 ``$session = session();`` 替换 ``$this->load->library('session');``。
+2. 从那时起,必须用 ``$session`` 后跟新方法名替换以 ``$this->session`` 开头的每一行。
 
-    - To access session data use the syntax ``$session->item`` or ``$session->get('item')`` instead of the CI3 syntax ``$this->session->name``.
-    - To set data use ``$session->set($array);`` instead of ``$this->session->set_userdata($array);``.
-    - To remove data use ``unset($_SESSION['some_name']);`` or ``$session->remove('some_name');`` instead of ``$this->session->unset_userdata('some_name');``.
-    - To mark session data as flashdata, which will only be available for the next request, use ``$session->markAsFlashdata('item');`` instead of ``$this->session->mark_as_flash('item');```
+    - 要访问 Session 数据,请使用 ``$session->item`` 或 ``$session->get('item')`` 语法,而不是 CI3 语法 ``$this->session->name``。
+    - 要设置数据,请使用 ``$session->set($array);`` 代替 ``$this->session->set_userdata($array);``。
+    - 要删除数据,请使用 ``unset($_SESSION['some_name']);`` 或 ``$session->remove('some_name');`` 代替 ``$this->session->unset_userdata('some_name');``。
+    - 要将 Session 数据标记为只在下一个请求中可用的闪存数据,请使用 ``$session->markAsFlashdata('item');`` 代替 ``$this->session->mark_as_flash('item');```
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
 .. literalinclude:: upgrade_sessions/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
 .. literalinclude:: upgrade_sessions/001.php

@@ -1,35 +1,35 @@
-Upgrade View Parser
+升级视图解析器
 ###################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Template Parser Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/parser.html>`_
-- :doc:`View Parser Documentation CodeIgniter 4.X </outgoing/view_parser>`
+- `CodeIgniter 3.X 模板解析器文档 <http://codeigniter.com/userguide3/libraries/parser.html>`_
+- :doc:`CodeIgniter 4.X 视图解析器文档 </outgoing/view_parser>`
 
-What has been changed
+变更点
 =====================
-- You have to change the implementation and loading of the Parser Library.
-- The Views can copied from CI3. Usually no changes there are required.
+- 你必须更改解析器库的实现和加载方式。
+- 视图可以从 CI3 复制。通常不需要对其进行任何更改。
 
-Upgrade Guide
+升级指南
 =============
-1. Wherever you use the View Parser Library replace ``$this->load->library('parser');`` with ``$parser = service('parser');``.
-2. You have to change the render part in your controller from ``$this->parser->parse('blog_template', $data);`` to ``return $parser->setData($data)->render('blog_template');``.
+1. 在使用视图解析器库的任何地方,用 ``$parser = service('parser');`` 替换 ``$this->load->library('parser');``。
+2. 你必须将控制器中的渲染部分从 ``$this->parser->parse('blog_template', $data);`` 改为 ``return $parser->setData($data)->render('blog_template');``。
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
 .. literalinclude:: upgrade_view_parser/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
 .. literalinclude:: upgrade_view_parser/001.php

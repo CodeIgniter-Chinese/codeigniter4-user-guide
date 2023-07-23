@@ -1,29 +1,28 @@
 #############################
-Upgrading from 4.2.7 to 4.2.8
+从 4.2.7 升级到 4.2.8
 #############################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与你的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
+- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Project Files
+项目文件
 *************
 
-The following files had changes to code or behavior that merit updating in your projects:
+以下文件对代码或行为进行了改变,建议在项目中更新:
 
 * app/Views/errors/html/error_exception.php
 
-All Changes
+所有更改
 ===========
 
-This is a list of all files in the **project space** that received changes;
-many will be simple comments or formatting that have no effect on the runtime:
+这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
 
 * app/Config/Logger.php
 * app/Views/errors/html/error_exception.php

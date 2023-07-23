@@ -1,55 +1,55 @@
-Upgrade Controllers
+升级控制器
 ###################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Controller Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/general/controllers.html>`_
-- :doc:`Controller Documentation CodeIgniter 4.X </incoming/controllers>`
+- `CodeIgniter 3.X 控制器文档 <http://codeigniter.com/userguide3/general/controllers.html>`_
+- :doc:`CodeIgniter 4.X 控制器文档 </incoming/controllers>`
 
-What has been changed
+变更点
 =====================
 
-- Since namespaces have been added to CodeIgniter 4, the controllers must be changed to support namespaces.
-- The constructor of CI4 Controller does not automatically load core classes into the properties.
-- CI4's Controller has a special constructor :ref:`initController() <controller-constructor>`.
-- CI4 provides :doc:`Request </incoming/incomingrequest>` and :doc:`Responses </outgoing/response>`
-  objects for you to work with - more powerful than the CI3-way.
-- If you want a base controller (``MY_Controller`` in CI3), use **app/Controllers/BaseController.php**.
+- 由于 CodeIgniter 4 添加了命名空间,必须对控制器进行更改以支持命名空间。
+- CI4 控制器的构造函数不会自动将核心类加载到属性中。
+- CI4 的控制器有一个特殊的构造函数 :ref:`initController() <controller-constructor>`。
+- CI4 为你提供了 :doc:`Request </incoming/incomingrequest>` 和 :doc:`Responses </outgoing/response>`
+  对象来使用 - 比 CI3 的方式更强大。
+- 如果你需要一个基类控制器(CI3 中的 ``MY_Controller``),请使用 **app/Controllers/BaseController.php**。
 
-Upgrade Guide
+升级指南
 =============
 
-1. First, move all controller files to the folder **app/Controllers**.
-2. Add this line just after the opening php tag: ``namespace App\Controllers;``
-3. Replace ``extends CI_Controller`` with ``extends BaseController``.
-4. Remove the line ``defined('BASEPATH') OR exit('No direct script access allowed');`` if it exists.
+1. 首先,将所有控制器文件移动到 **app/Controllers** 文件夹中。
+2. 在打开的 php 标签之后添加此行:``namespace App\Controllers;``
+3. 将 ``extends CI_Controller`` 替换为 ``extends BaseController``。
+4. 如果存在,请删除 ``defined('BASEPATH') OR exit('No direct script access allowed');`` 这一行。
 
-| If you use sub-directories in your controller structure, you have to change the namespace according to that.
-| For example, you have a version 3 controller located in **application/controllers/users/auth/Register.php**,
-    the namespace has to be ``namespace App\Controllers\Users\Auth;`` and the controller path in the version 4
-    should look like this: **app/Controllers/Users/Auth/Register.php**. Make sure to have the first letters of
-    the sub-directories as capitalized.
-| After that you have to insert a ``use`` statement below the namespace definition in order to extend the ``BaseController``:
+| 如果你在控制器结构中使用子目录,则必须根据情况更改命名空间。
+  例如,你有一个版本 3 控制器位于 **application/controllers/users/auth/Register.php**,
+  则命名空间必须是 ``namespace App\Controllers\Users\Auth;``,
+  版本 4 中的控制器路径应如下所示:**app/Controllers/Users/Auth/Register.php**。
+  请确保子目录的首字母大写。
+| 之后,你必须在命名空间定义下面插入一个 ``use`` 语句,以扩展 ``BaseController``::
     ``use App\Controllers\BaseController;``
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
-Path: **application/controllers**:
+路径:**application/controllers**:
 
 .. literalinclude:: upgrade_controllers/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
-Path: **app/Controllers**:
+路径:**app/Controllers**:
 
 .. literalinclude:: upgrade_controllers/001.php

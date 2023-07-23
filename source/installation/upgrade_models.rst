@@ -1,54 +1,54 @@
-Upgrade Models
+升级模型
 ##############
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Model Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/general/models.html>`_
-- :doc:`Model Documentation CodeIgniter 4.X </models/model>`
+- `CodeIgniter 3.X 模型文档 <http://codeigniter.com/userguide3/general/models.html>`_
+- :doc:`CodeIgniter 4.X 模型文档 </models/model>`
 
-What has been changed
+变更点
 =====================
 
-- The CI4 model has much more functionality, including automatic database connection, basic CRUD, in-model validation, and automatic pagination.
-- Since namespaces has been added to CodeIgniter 4, the models must be changed to support namespaces.
+- CI4 模型具有更多功能,包括自动数据库连接、基本 CRUD、模型内验证和自动分页。
+- 由于 CodeIgniter 4 添加了命名空间,模型必须进行更改以支持命名空间。
 
-Upgrade Guide
+升级指南
 =============
 
-1. First, move all model files to the folder **app/Models**.
-2. Add this line just after the opening php tag: ``namespace App\Models;``.
-3. Below the ``namespace App\Models;`` line add this line: ``use CodeIgniter\Model;``.
-4. Replace ``extends CI_Model`` with ``extends Model``.
-5. Instead of CI3's ``$this->load->model('x');``, you would now use ``$this->x = new X();``, following namespaced conventions for your component. Alternatively, you can use the :php:func:`model()` function: ``$this->x = model('X');``.
+1. 首先,将所有模型文件移到 **app/Models** 文件夹中。
+2. 在打开的 php 标记之后添加此行:``namespace App\Models;``。
+3. 在 ``namespace App\Models;`` 行的下面添加此行:``use CodeIgniter\Model;``。
+4. 将 ``extends CI_Model`` 替换为 ``extends Model``。
+5. 与 CI3 的 ``$this->load->model('x');`` 不同,你现在会使用 ``$this->x = new X();``,遵循组件的命名空间约定。或者,你可以使用 :php:func:`model()` 函数:``$this->x = model('X');``。
 
-If you use sub-directories in your model structure you have to change the namespace according to that.
-Example: You have a version 3 model located in **application/models/users/user_contact.php** the namespace has to be ``namespace App\Models\Users;`` and the model path in the version 4 should look like this: **app/Models/Users/UserContact.php**
+如果在模型结构中使用子目录,则必须根据情况更改命名空间。
+例如:你有一个版本 3 模型位于 **application/models/users/user_contact.php**,命名空间必须是 ``namespace App\Models\Users;``,版本 4 中的模型路径应如下所示:**app/Models/Users/UserContact.php**
 
-The new Model in CI4 has a lot of built-in methods. For example, the ``find($id)`` method. With this you can find data where the primary key is equal to ``$id``.
-Inserting data is also easier than before. In CI4 there is an ``insert($data)`` method. You can optionally make use of all those built-in methods and migrate your code to the new methods.
+CI4 中的新 Model 有很多内置方法。例如 ``find($id)`` 方法。使用它可以找到主键等于 ``$id`` 的数据。
+插入数据现在也比以前更简单。在 CI4 中有一个 ``insert($data)`` 方法。你可以选择使用所有这些内置方法,并将代码迁移到新方法。
 
-You can find more information to those methods in :doc:`../models/model`.
+可以在 :doc:`../models/model` 中找到有关这些方法的更多信息。
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
-Path: **application/models**:
+路径:**application/models**:
 
 .. literalinclude:: upgrade_models/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
-Path: **app/Models**:
+路径:**app/Models**:
 
 .. literalinclude:: upgrade_models/001.php
 
-To insert data you can just directly call the ``$model->insert()`` method because this method is built-in since CI4.
+要插入数据,可以直接调用 ``$model->insert()``,因为这个方法在 CI4 中是内置的。

@@ -1,36 +1,36 @@
-Upgrade Emails
+升级邮件
 ##############
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Email Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/email.html>`_
-- :doc:`Email Documentation CodeIgniter 4.X </libraries/email>`
+- `CodeIgniter 3.X 邮件文档 <http://codeigniter.com/userguide3/libraries/email.html>`_
+- :doc:`CodeIgniter 4.X 邮件文档 </libraries/email>`
 
-What has been changed
+变更点
 =====================
-- Only small things like the method names and the loading of the library have changed.
+- 只是一些小变化,如方法名称和库的加载。
 
-Upgrade Guide
+升级指南
 =============
-1. Within your class change the ``$this->load->library('email');`` to ``$email = service('email');``.
-2. From that on you have to replace every line starting with ``$this->email`` to ``$email``.
-3. The methods in the Email class are named slightly different. All methods, except for ``send()``, ``attach()``, ``printDebugger()`` and ``clear()`` have a ``set`` as prefix followed by the previous method name. ``bcc()`` is now ``setBcc()`` and so on.
-4. The config attributes in **app/Config/Email.php** have changed. You should have a look at the :ref:`setting-email-preferences` to have a list of the new attributes.
+1. 在类中,将 ``$this->load->library('email');`` 改为 ``$email = service('email');``。
+2. 从那时起,需要将以 ``$this->email`` 开头的每一行改为 ``$email``。
+3. Email 类中的方法命名略有不同。除 ``send()``、``attach()``、``printDebugger()`` 和 ``clear()`` 之外的所有方法都有一个 ``set`` 前缀,后跟之前的方法名。``bcc()`` 现在变为 ``setBcc()``,等等。
+4. **app/Config/Email.php** 中的配置属性已更改。你应该查看 :ref:`setting-email-preferences` 以获取新的属性列表。
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
 .. literalinclude:: upgrade_emails/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
 .. literalinclude:: upgrade_emails/001.php

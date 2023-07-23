@@ -1,166 +1,165 @@
-Version 4.2.0
+版本 4.2.0
 #############
 
-Release Date: June 3, 2022
+发布日期:2022 年 6 月 3 日
 
-**4.2.0 release of CodeIgniter4**
+**CodeIgniter 4.2.0 版发布**
 
 .. contents::
     :local:
     :depth: 2
 
-Highlights
+亮点
 **********
 
-- Update minimal PHP requirement to 7.4.
-- To make the default configuration more secure, auto-routing has been changed to disabled by default.
-- **OCI8 Driver for Oracle Database** (*contributed by* `ytetsuro <https://github.com/ytetsuro>`_). See `Database`_.
-- **Improved Auto Routing** (opt-in) (*contributed by* `kenjis <https://github.com/kenjis>`_). See `New Improved Auto Routing`_.
-- Query Builder **Subqueries** and **UNION** support (*contributed by* `Andrey Pyzhikov <https://github.com/iRedds>`_). See `Database`_.
+- 将最低 PHP 要求更新为 7.4。
+- 为了使默认配置更安全,默认情况下关闭了自动路由。
+- **OCI8 驱动程序用于 Oracle 数据库** (*由* `ytetsuro <https://github.com/ytetsuro>`_ *贡献*)。参见 `数据库`_。
+- **改进的自动路由** (可选)(*由* `kenjis <https://github.com/kenjis>`_ *贡献*)。参见 `新的改进的自动路由`_。
+- 查询构建器对 **子查询** 和 **UNION** 的支持(*由* `Andrey Pyzhikov <https://github.com/iRedds>`_ *贡献*)。参见 `数据库`_。
 
-New Contributors
+新贡献者
 ================
 
-* `@fdomgjoni99 <https://github.com/fdomgjoni99>`_ made their first contribution in `#5608 <https://github.com/codeigniter4/CodeIgniter4/pull/5608>`_
-* `@Nudasoft <https://github.com/Nudasoft>`_ made their first contribution in `#5715 <https://github.com/codeigniter4/CodeIgniter4/pull/5715>`_
-* `@beganovich <https://github.com/beganovich>`_ made their first contribution in `#5823 <https://github.com/codeigniter4/CodeIgniter4/pull/5823>`_
-* `@tcgumus <https://github.com/tcgumus>`_ made their first contribution in `#5851 <https://github.com/codeigniter4/CodeIgniter4/pull/5851>`_
-* `@michaelrk02 <https://github.com/michaelrk02>`_ made their first contribution in `#5878 <https://github.com/codeigniter4/CodeIgniter4/pull/5878>`_
-* `@datamweb <https://github.com/datamweb>`_ made their first contribution in `#5894 <https://github.com/codeigniter4/CodeIgniter4/pull/5894>`_
-* `@xlii-chl <https://github.com/xlii-chl>`_ made their first contribution in `#5884 <https://github.com/codeigniter4/CodeIgniter4/pull/5884>`_
-* `@valmorflores <https://github.com/valmorflores>`_ made their first contribution in `#6051 <https://github.com/codeigniter4/CodeIgniter4/pull/6051>`_
-* `@tearoom6 <https://github.com/tearoom6>`_ made their first contribution in `#6012 <https://github.com/codeigniter4/CodeIgniter4/pull/6012>`_
-* `@lonnie-vault <https://github.com/lonnie-vault>`_ made their first contribution in `#6060 <https://github.com/codeigniter4/CodeIgniter4/pull/6060>`_
+* `@fdomgjoni99 <https://github.com/fdomgjoni99>`_ 在 `#5608 <https://github.com/codeigniter4/CodeIgniter4/pull/5608>`_ 中做出了他们的首次贡献
+* `@Nudasoft <https://github.com/Nudasoft>`_ 在 `#5715 <https://github.com/codeigniter4/CodeIgniter4/pull/5715>`_ 中做出了他们的首次贡献
+* `@beganovich <https://github.com/beganovich>`_ 在 `#5823 <https://github.com/codeigniter4/CodeIgniter4/pull/5823>`_ 中做出了他们的首次贡献
+* `@tcgumus <https://github.com/tcgumus>`_ 在 `#5851 <https://github.com/codeigniter4/CodeIgniter4/pull/5851>`_ 中做出了他们的首次贡献
+* `@michaelrk02 <https://github.com/michaelrk02>`_ 在 `#5878 <https://github.com/codeigniter4/CodeIgniter4/pull/5878>`_ 中做出了他们的首次贡献
+* `@datamweb <https://github.com/datamweb>`_ 在 `#5894 <https://github.com/codeigniter4/CodeIgniter4/pull/5894>`_ 中做出了他们的首次贡献
+* `@xlii-chl <https://github.com/xlii-chl>`_ 在 `#5884 <https://github.com/codeigniter4/CodeIgniter4/pull/5884>`_ 中做出了他们的首次贡献
+* `@valmorflores <https://github.com/valmorflores>`_ 在 `#6051 <https://github.com/codeigniter4/CodeIgniter4/pull/6051>`_ 中做出了他们的首次贡献
+* `@tearoom6 <https://github.com/tearoom6>`_ 在 `#6012 <https://github.com/codeigniter4/CodeIgniter4/pull/6012>`_ 中做出了他们的首次贡献
+* `@lonnie-vault <https://github.com/lonnie-vault>`_ 在 `#6060 <https://github.com/codeigniter4/CodeIgniter4/pull/6060>`_ 中做出了他们的首次贡献
 
-BREAKING
-********
+不兼容变更
+**********
 
-Method Signature Changes
+方法签名更改
 ========================
 
-- The method signature of ``CodeIgniter\Database\BaseBuilder::join()`` and ``CodeIgniter\Database\*\Builder::join()`` have been changed.
-- The method signature of ``Validation::setRule()`` has been changed. The ``string`` typehint on the ``$rules`` parameter was removed. Extending classes should likewise remove the parameter so as not to break LSP.
-- The method signature of ``CodeIgniter\CLI\CommandRunner::_remap()`` has been changed to fix a bug.
-- The default parameter values for ``Service::reset()`` and ``CIUnitTestCase::resetServices()`` have been changed from ``false`` to ``true``. This is to eliminate unexpected problems during testing, such as ``lang()`` not getting translated messages.
+- ``CodeIgniter\Database\BaseBuilder::join()`` 和 ``CodeIgniter\Database\*\Builder::join()`` 的方法签名已更改。
+- ``Validation::setRule()`` 的方法签名已更改。删除了 ``$rules`` 参数上的 ``string`` 类型提示。扩展类应相应地删除参数,以免破坏LSP。
+- ``CodeIgniter\CLI\CommandRunner::_remap()`` 的方法签名已更改以修复一个错误。
+- ``Service::reset()`` 和 ``CIUnitTestCase::resetServices()`` 的默认参数值已从 ``false`` 更改为 ``true``。这是为了在测试期间消除意外问题,例如 ``lang()`` 获取不到翻译消息。
 
-Behavior Changes
+行为变化
 ================
 
-- The ``CodeIgniter\CodeIgniter`` class has a new property ``$context`` and it must have the correct context at runtime. So the following files have been changed:
+- ``CodeIgniter\CodeIgniter`` 类有了一个新属性 ``$context``,它在运行时必须有正确的上下文。因此,以下文件已更改:
     - ``public/index.php``
     - ``spark``
-- The ``system/bootstrap.php`` file has been modified to easily implement `Preloading <https://www.php.net/manual/en/opcache.preloading.php>`_. Returning a ``CodeIgniter`` instance and loading ``.env`` file have been moved to ``index.php`` and ``spark``.
-- The ``CodeIgniter\Autoloader\Autoloader::initialize()`` has changed the behavior to fix a bug. It used to use Composer classmap only when ``$modules->discoverInComposer`` is true. Now it always uses the Composer classmap if Composer is available.
-- The color code output by :ref:`CLI::color() <cli-library-color>` has been changed to fix a bug.
-- To prevent unexpected access from the web browser, if a controller is added to a cli route (``$routes->cli()``), all methods of that controller are no longer accessible via auto-routing.
-- There is a possible backward compatibility break for those users extending the History Collector and they should probably update ``History::setFiles()`` method.
-- The :php:func:`dot_array_search()`'s unexpected behavior has been fixed. Now ``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])`` returns ``null``. The previous versions returned ``23``.
-- The ``CodeIgniter::storePreviousURL()`` has been changed to store only the URLs whose Content-Type was ``text/html``. It also affects the behavior of :php:func:`previous_url()` and :php:func:`redirect()->back() <redirect>`.
+- ``system/bootstrap.php`` 文件已修改,可以轻松实现 `预加载 <https://www.php.net/manual/en/opcache.preloading.php>`_。返回 ``CodeIgniter`` 实例和加载 ``.env`` 文件已移动到 ``index.php`` 和 ``spark`` 中。
+- ``CodeIgniter\Autoloader\Autoloader::initialize()`` 已更改行为以修复一个错误。以前,当 ``$modules->discoverInComposer`` 为 true 时,它只使用 Composer 的类映射。现在,如果可用,它总是使用 Composer 的类映射。
+- 修复了一个错误,更改了通过 :ref:`CLI::color() <cli-library-color>` 输出的颜色代码。
+- 为防止来自网页浏览器的意外访问,如果控制器添加到 cli 路由中(``$routes->cli()``),则该控制器的所有方法都不再通过自动路由访问。
+- 对于那些扩展历史记录收集器的用户,他们可能需要更新 ``History::setFiles()`` 方法,这可能会破坏向后兼容性。
+- 修复了 :php:func:`dot_array_search()` 的意外行为。现在 ``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])`` 返回 ``null``。以前的版本返回 ``23``。
+- ``CodeIgniter::storePreviousURL()`` 已更改为仅存储 Content-Type 为 ``text/html`` 的 URL。它还会影响 :php:func:`previous_url()` 和 :php:func:`redirect()->back() <redirect>` 的行为。
 
-Enhancements
+增强功能
 ************
 
 .. _v420-new-improved-auto-routing:
 
-New Improved Auto Routing
+新的改进的自动路由
 =========================
 
-Added an optional new more secure auto router. These are the changes from the legacy auto-routing:
+添加了一个可选的新的更安全的自动路由器。这些是与传统自动路由的更改:
 
-- A controller method needs HTTP verb prefix like ``getIndex()``, ``postCreate()``.
-    - Developers always know the HTTP method, so requests by an unexpected HTTP method does not pass.
-- The Default Controller (``Home`` by default) and the Default Method (``index`` by default) must be omitted in the URI.
-    - It restricts one-to-one correspondence between controller methods and URIs.
-    - E.g. by default, you can access ``/``, but ``/home`` and ``/home/index`` will be 404.
-- It checks method parameter count.
-    - If there are more parameters in the URI than the method parameters, it results in 404.
-- It does not support ``_remap()`` method.
-    - It restricts one-to-one correspondence between controller methods and URIs.
-- Can't access controllers in Defined Routes.
-    - It completely separates controllers accessible via **Auto Routes** from those accessible via **Defined Routes**.
+- 控制器方法需要 HTTP 动词前缀,如 ``getIndex()``、``postCreate()``。
+    - 开发人员总是知道 HTTP 方法,因此不期望的 HTTP 方法的请求不会通过。
+- 默认控制器(默认为 ``Home``)和默认方法(默认为 ``index``)必须在 URI 中省略。
+    - 它限制控制器方法和 URI 之间的一对一对应关系。
+    - 例如,默认情况下,你可以访问 ``/``,但 ``/home`` 和 ``/home/index`` 会返回 404。
+- 它检查方法的参数数。
+    - 如果 URI 中的参数多于方法的参数,则结果为 404。
+- 它不支持 ``_remap()`` 方法。
+    - 它限制控制器方法和 URI 之间的一对一对应关系。
+- 无法访问定义路由中的控制器。
+    - 它完全区分通过 **自动路由** 可访问的控制器和通过 **定义路由** 可访问的控制器。
 
-See :ref:`auto-routing-improved` for the details.
+详情请参阅 :ref:`auto-routing-improved`。
 
-Database
+数据库
 ========
 
-- Added new OCI8 driver for database.
-    - It can access Oracle Database and supports SQL and PL/SQL statements.
-- QueryBuilder
-    - Added Subqueries in the FROM section. See :ref:`query-builder-from-subquery`.
-    - Added Subqueries in the SELECT section. See :ref:`query-builder-select`.
-    - The ``BaseBuilder::buildSubquery()`` method can take an optional third argument ``string $alias``.
-    - Union queries. See :ref:`query-builder-union`.
-- Raw SQL string support
-    - Added the class ``CodeIgniter\Database\RawSql`` which expresses raw SQL strings.
-    - :ref:`select() <query-builder-select-rawsql>`, :ref:`where() <query-builder-where-rawsql>`, :ref:`like() <query-builder-like-rawsql>`, :ref:`join() <query-builder-join-rawsql>` accept the ``CodeIgniter\Database\RawSql`` instance.
-    - ``DBForge::addField()`` default value raw SQL string support. See :ref:`forge-addfield-default-value-rawsql`.
-- SQLite3 has a new Config item ``foreignKeys`` that enables foreign key constraints.
+- 添加了新的 OCI8 数据库驱动。
+    - 它可以访问 Oracle 数据库并支持 SQL 和 PL/SQL 语句。
+- 查询构建器
+    - 在 FROM 部分添加了子查询。请参阅 :ref:`query-builder-from-subquery`。
+    - 在 SELECT 部分添加了子查询。请参阅 :ref:`query-builder-select`。
+    - ``BaseBuilder::buildSubquery()`` 方法现在可以接受可选的第三个参数 ``string $alias``。
+    - 并集查询。请参阅 :ref:`query-builder-union`。
+- 原生 SQL 字符串支持
+    - 添加了表示原生 SQL 字符串的类 ``CodeIgniter\Database\RawSql``。
+    - :ref:`select() <query-builder-select-rawsql>`、:ref:`where() <query-builder-where-rawsql>`、:ref:`like() <query-builder-like-rawsql>`、:ref:`join() <query-builder-join-rawsql>` 接受 ``CodeIgniter\Database\RawSql`` 实例。
+    - ``DBForge::addField()`` 支持原生 SQL 字符串作为默认值。请参阅 :ref:`forge-addfield-default-value-rawsql`。
+- SQLite3 有一个新的配置项 ``foreignKeys``,用于启用外键约束。
 
-Helpers and Functions
+帮助器和函数
 =====================
 
-- HTML helper ``script_tag()`` now uses ``null`` values to write boolean attributes in minimized form: ``<script src="..." defer />``. See the sample code for :php:func:`script_tag()`.
-- Added 4th parameter ``$includeDir`` to ``get_filenames()``. See :php:func:`get_filenames()`.
-- Exception information logged through ``log_message()`` has now improved. It now includes the file and line where the exception originated. It also does not truncate the message anymore.
-    - The log format has also changed. If users are depending on the log format in their apps, the new log format is "<1-based count> <cleaned filepath>(<line>): <class><function><args>"
+- HTML 辅助函数 ``script_tag()`` 现在使用 ``null`` 值以最小化形式编写布尔属性:``<script src="..." defer />``。请参阅 :php:func:`script_tag()` 的示例代码。
+- 在 ``get_filenames()`` 中添加第 4 个参数 ``$includeDir``。请参阅 :php:func:`get_filenames()`。
+- 通过 ``log_message()`` 记录的异常信息现在得到了改进。它现在包括异常发生的文件和行号。它也不再截断消息。
+    - 日志格式也已更改。如果用户依赖应用中的日志格式,新的日志格式为“<1-based count> <cleaned filepath>(<line>): <class><function><args>”
 
-Commands
+命令
 ========
 
-- Added ``spark db:table`` command. See :doc:`../dbmgmt/db_commands` for the details.
-    - You can now see the names of all the tables in the database you are currently connected in the terminal.
+- 添加了 ``spark db:table`` 命令。详情请参见 :doc:`../dbmgmt/db_commands`。
+    - 你现在可以在终端中查看当前连接数据库中的所有表名。
         - ``spark db:table --show``
-    - Or you can see the field names and the records of a table.
+    - 或者你可以查看一个表的字段名和记录。
         - ``spark db:table my_table``
         - ``spark db:table my_table --limit-rows 50 --limit-field-value 20 --desc``
-    - Or you can see metadata like the column type, max length of a table.
+    - 或者你可以查看元数据,如列类型、表的最大长度。
         - ``spark db:table my_table --metadata``
-- The ``spark routes`` command now shows closure routes, auto routes, and filters. See :ref:`URI Routing <routing-spark-routes>`.
+- ``spark routes`` 命令现在显示闭包路由、自动路由和过滤器。请参阅 :ref:`URI 路由 <routing-spark-routes>`。
 
-Others
+其它
 ======
 
-- Added ``$this->validateData()`` in Controller. See :ref:`controller-validatedata`.
-- Content Security Policy (CSP) enhancements
-    - Added the configs ``$scriptNonceTag`` and ``$styleNonceTag`` in  ``Config\ContentSecurityPolicy`` to customize the CSP placeholders (``{csp-script-nonce}`` and ``{csp-style-nonce}``)
-    - Added the config ``$autoNonce`` in ``Config\ContentSecurityPolicy`` to disable the CSP placeholder replacement
-    - Added the functions ``csp_script_nonce()`` and ``csp_style_nonce()`` to get nonce attributes
-    - See :ref:`content-security-policy` for details.
-- New :doc:`../outgoing/view_decorators` allow modifying the generated HTML prior to caching.
-- Added Validation Strict Rules. See :ref:`validation-traditional-and-strict-rules`.
-- Added support for webp files to **app/Config/Mimes.php**.
-- ``RouteCollection::addRedirect()`` can now use placeholders. See :ref:`redirecting-routes` for details.
-- Debugbar enhancements
-    - Debug toolbar is now using ``microtime()`` instead of ``time()``.
-- Added a sample file for `Preloading <https://www.php.net/manual/en/opcache.preloading.php>`_. See **preload.php**.
+- 在控制器中添加了 ``$this->validateData()``。请参阅 :ref:`controller-validatedata`。
+- 内容安全策略 (CSP) 增强
+    - 在 ``Config\ContentSecurityPolicy`` 中添加了配置 ``$scriptNonceTag`` 和 ``$styleNonceTag`` 以自定义 CSP 占位符 (``{csp-script-nonce}`` 和 ``{csp-style-nonce}``)
+    - 在 ``Config\ContentSecurityPolicy`` 中添加了配置 ``$autoNonce`` 以禁用 CSP 占位符替换
+    - 添加了函数 ``csp_script_nonce()`` 和 ``csp_style_nonce()`` 来获取 nonce 属性
+    - 详情请参阅 :ref:`content-security-policy`。
+- 新的 :doc:`../outgoing/view_decorators` 允许在缓存之前修改生成的 HTML。
+- 添加了验证严格规则。请参阅 :ref:`validation-traditional-and-strict-rules`。
+- 在 **app/Config/Mimes.php** 中添加了对 webp 文件的支持。
+- ``RouteCollection::addRedirect()`` 现在可以使用占位符。详细信息请参阅 :ref:`重定向路由 <redirecting-routes>`。
+- 调试栏增强
+    - 调试工具栏现在使用 ``microtime()`` 而不是 ``time()``。
+- 添加了 `预加载 <https://www.php.net/manual/en/opcache.preloading.php>`_ 的示例文件。请参阅 **preload.php**。
 
-Changes
+变更
 *******
 
-- Update minimal PHP requirement to 7.4.
-- To make the default configuration more secure, auto-routing has been changed to disabled by default.
-- Validation. Changed generation of errors when using fields with a wildcard (*). Now the error key contains the full path. See :ref:`validation-getting-all-errors`.
-- ``Validation::getError()`` when using a wildcard will return all found errors matching the mask as a string.
-- The current version of Content Security Policy (CSP) outputs one nonce for script and one for style tags. The previous version outputted one nonce for each tag.
-- The process of sending cookies has been moved to the ``Response`` class. Now the ``Session`` class doesn't send cookies, set them to the Response.
+- 将最低 PHP 要求更新为 7.4。
+- 为了使默认配置更安全,默认情况下关闭了自动路由。
+- 验证。当使用带通配符 (*) 的字段时,更改了错误生成方式。现在错误键包含完整路径。请参阅 :ref:`validation-getting-all-errors`。
+- 当使用通配符时,``Validation::getError()`` 将返回匹配掩码的所有找到的错误字符串。
+- 当前版本的内容安全策略(CSP)为脚本和样式标签输出一个 nonce。以前的版本为每个标签输出一个 nonce。
+- 发送 cookie 的过程已移动到 ``Response`` 类中。现在 ``Session`` 类不再发送 cookie,而是将它们设置到 Response 中。
 
-Deprecations
+弃用功能
 ************
 
-- ``CodeIgniter\Database\SQLSRV\Connection::getError()`` is deprecated. Use ``CodeIgniter\Database\SQLSRV\Connection::error()`` instead.
-- ``CodeIgniter\Debug\Exceptions::cleanPath()`` and ``CodeIgniter\Debug\Toolbar\Collectors\BaseCollector::cleanPath()`` are deprecated. Use the ``clean_path()`` function instead.
-- ``CodeIgniter\Log\Logger::cleanFilenames()`` and ``CodeIgniter\Test\TestLogger::cleanup()`` are both deprecated. Use the ``clean_path()`` function instead.
-- ``CodeIgniter\Router\Router::setDefaultController()`` is deprecated.
-- The constant ``SPARKED`` in **spark** is deprecated. Use the ``$context`` property in ``CodeIgniter\CodeIgniter`` instead.
-- ``CodeIgniter\Autoloader\Autoloader::discoverComposerNamespaces()`` is deprecated, and no longer used.
-- The constants ``EVENT_PRIORITY_LOW``, ``EVENT_PRIORITY_NORMAL`` and ``EVENT_PRIORITY_HIGH`` are deprecated. Use the class constants ``CodeIgniter\Events\Events::PRIORITY_LOW``, ``CodeIgniter\Events\Events::PRIORITY_NORMAL`` and ``CodeIgniter\Events\Events::PRIORITY_HIGH`` instead.
+- 弃用 ``CodeIgniter\Database\SQLSRV\Connection::getError()``。请使用 ``CodeIgniter\Database\SQLSRV\Connection::error()``。
+- 弃用 ``CodeIgniter\Debug\Exceptions::cleanPath()`` 和 ``CodeIgniter\Debug\Toolbar\Collectors\BaseCollector::cleanPath()``。请使用 ``clean_path()`` 函数。
+- 弃用 ``CodeIgniter\Log\Logger::cleanFilenames()`` 和 ``CodeIgniter\Test\TestLogger::cleanup()``。请使用 ``clean_path()`` 函数。
+- 弃用 ``CodeIgniter\Router\Router::setDefaultController()``。
+- 在 **spark** 中弃用常量 ``SPARKED``。请使用 ``CodeIgniter\CodeIgniter`` 中的 ``$context`` 属性。
+- 弃用 ``CodeIgniter\Autoloader\Autoloader::discoverComposerNamespaces()``,不再使用。
+- 弃用常量 ``EVENT_PRIORITY_LOW``、``EVENT_PRIORITY_NORMAL`` 和 ``EVENT_PRIORITY_HIGH``。请使用类常量 ``CodeIgniter\Events\Events::PRIORITY_LOW``、``CodeIgniter\Events\Events::PRIORITY_NORMAL`` 和 ``CodeIgniter\Events\Events::PRIORITY_HIGH``。
 
-Bugs Fixed
+错误修复
 **********
 
-- The SQLSRV driver ignores the port value from the config.
+- SQLSRV 驱动程序忽略配置中的端口值。
 
-See the repo's
-`CHANGELOG_4.2.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.2.md>`_
-for a complete list of bugs fixed.
+有关完整的错误修复列表,请参阅仓库的
+`CHANGELOG_4.2.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.2.md>`_。

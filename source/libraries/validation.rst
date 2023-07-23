@@ -138,8 +138,8 @@ signup.php
 
 表单(**signup.php**)是一个标准的网页表单,有一些例外:
 
-#. 它使用 :doc:`表单助手 </helpers/form_helper>` 来创建表单的开标签和闭标签。从技术上讲,这不是必需的。你可以使用标准 HTML 来创建表单。
-   但是,使用助手的好处是它会根据你的配置文件中的 URL 为你生成 action URL。这使得在 URL 变更的情况下你的应用更具可移植性。
+#. 它使用 :doc:`表单辅助函数 </helpers/form_helper>` 来创建表单的开标签和闭标签。从技术上讲,这不是必需的。你可以使用标准 HTML 来创建表单。
+   但是,使用辅助函数的好处是它会根据你的配置文件中的 URL 为你生成 action URL。这使得在 URL 变更的情况下你的应用更具可移植性。
 #. 在表单顶部,你会注意到以下函数调用:
    ::
 
@@ -151,7 +151,7 @@ Form.php
 --------
 
 控制器(**Form.php**)有一个属性:``$helpers``。
-它加载了视图文件使用的表单助手。
+它加载了视图文件使用的表单辅助函数。
 
 控制器有一个方法:``index()``。这个方法在收到非 POST 请求时返回 **signup** 视图以显示表单。否则,它使用控制器提供的 ``validate()`` 方法。它还运行验证例程。
 根据验证是否成功,它要么显示表单,要么显示成功页面。
@@ -506,7 +506,7 @@ withRequest()
 
 PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定向的请求中将没有验证错误,因为验证是在前一个请求中运行的。
 
-在这种情况下,你需要使用表单助手函数 :php:func:`validation_errors()`、:php:func:`validation_list_errors()` 和 :php:func:`validation_show_error()`。
+在这种情况下,你需要使用表单辅助函数 :php:func:`validation_errors()`、:php:func:`validation_list_errors()` 和 :php:func:`validation_show_error()`。
 这些函数检查存储在会话中的验证错误。
 
 要在会话中存储验证错误,你需要在 :php:func:`redirect()` 中使用 ``withInput()``:

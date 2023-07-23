@@ -20,7 +20,7 @@ CodeIgniter 的 Model 提供了方便的特性和额外的功能,可以使处理
 
 模型通常存储在 **app/Models** 目录中。它们应该具有与目录位置匹配的命名空间,如 ``namespace App\Models``。
 
-你可以通过创建新实例或使用 :php:func:`model()` 助手函数在类中访问模型。
+你可以通过创建新实例或使用 :php:func:`model()` 辅助函数在类中访问模型。
 
 .. literalinclude:: model/001.php
 

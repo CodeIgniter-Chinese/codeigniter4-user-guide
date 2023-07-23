@@ -1,34 +1,29 @@
 #############################
-Upgrading from 4.1.2 to 4.1.3
+从 4.1.2 升级到 4.1.3
 #############################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与你的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
+- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Breaking Enhancements
+重大增强
 *********************
 
-Cache TTL
+缓存 TTL
 =========
 
-There is a new value in **app/Config/Cache.php**: ``$ttl``. This is not used by framework
-handlers where 60 seconds is hard-coded, but may be useful to projects and modules.
-In a future release this value will replace the hard-coded version, so either leave this as
-``60`` or stop relying on the hard-coded version.
+在 **app/Config/Cache.php** 中有一个新的值:``$ttl``。这不会被框架中的处理程序使用,其中硬编码为60秒,但对项目和模块可能很有用。在未来的版本中,此值将替换硬编码的版本,因此请将其保留为``60``,或者停止依赖硬编码的版本。
 
-Project Files
+项目文件
 *************
 
-Only a few files in the project space (root, app, public, writable) received updates. Due to
-these files being outside of the system scope they will not be changed without your intervention.
-The following files received changes and it is recommended that you merge the updated versions with your application:
+项目空间(root、app、public、writable)中的只有少数文件收到了更新。由于这些文件超出系统范围,如果不进行干预,它们将不会更改。以下文件已被更改,建议你将更新后的版本与应用程序合并:
 
 * ``app/Config/Cache.php``
 * ``spark``

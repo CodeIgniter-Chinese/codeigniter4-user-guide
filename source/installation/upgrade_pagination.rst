@@ -1,42 +1,42 @@
-Upgrade Pagination
+升级分页
 ##################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Pagination Class Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/pagination.html>`_
-- :doc:`Pagination Documentation CodeIgniter 4.X </libraries/pagination>`
+- `CodeIgniter 3.X 分页类文档 <http://codeigniter.com/userguide3/libraries/pagination.html>`_
+- :doc:`CodeIgniter 4.X 分页文档 </libraries/pagination>`
 
-What has been changed
+变更点
 =====================
-- You have to change the views and also the controller in order to use the new pagination library.
-- If you want to customize the pagination links, you need to create View Templates.
-- In CI4 the pagination uses the actual page number only. You can't use the starting index (offset) for the items which is the default in CI3.
-- If you use :doc:`CodeIgnite\\Model </models/model>`, you can use the built-in method in the Model class.
+- 你需要更改视图和控制器以使用新的分页库。
+- 如果要自定义分页链接,需要创建视图模板。
+- 在 CI4 中,分页只使用实际的页码。你无法使用 CI3 默认的项目起始索引(偏移量)。
+- 如果使用 :doc:`CodeIgnite\\Model </models/model>`,可以使用 Model 类中的内置方法。
 
-Upgrade Guide
+升级指南
 =============
-1. Within the views change to following:
+1. 在视图中进行以下更改:
 
-    - ``<?php echo $this->pagination->create_links(); ?>`` to ``<?= $pager->links() ?>``
+    - ``<?php echo $this->pagination->create_links(); ?>`` 改为 ``<?= $pager->links() ?>``
 
-2. Within the controller you have to make the following changes:
+2. 在控制器中需要做以下更改:
 
-    - You can use the built-in ``paginate()`` method on every Model. Have a look at the code example below to see how you setup the pagination on a specific model.
+    - 你可以在每个 Model 上使用内置的 ``paginate()`` 方法。请参阅下面的代码示例,看看如何在特定模型上设置分页。
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
 .. literalinclude:: upgrade_pagination/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
 .. literalinclude:: upgrade_pagination/001.php

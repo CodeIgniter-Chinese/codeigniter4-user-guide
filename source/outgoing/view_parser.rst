@@ -316,7 +316,7 @@ default           默认值           如果变量为空或未定义,显示默�
 esc               html、attr、     指定转义数据的上下文。                                      { v|esc(attr) }
                   css、js
 
-excerpt           短语、半径词数   返回给定短语半径词数内的文本。与 **excerpt** 助手函数相同。 { v|excerpt(green giant, 20) }
+excerpt           短语、半径词数   返回给定短语半径词数内的文本。与 **excerpt** 辅助函数相同。 { v|excerpt(green giant, 20) }
 
 highlight         短语             使用 '<mark></mark>' 标记在文本中突出显示给定短语。         { v|highlight(view parser) }
 
@@ -396,16 +396,16 @@ upper                              将字符串显示为全部大写。         
 ================== ========================= ============================================ ================================================================
 插件               参数                      描述                                         示例
 ================== ========================= ============================================ ================================================================
-current_url                                  current_url 助手函数的别名。                 {+ current_url +}
-previous_url                                 previous_url 助手函数的别名。                {+ previous_url +}
-siteURL            “login”                   site_url 助手函数的别名。                    {+ siteURL "login" +}
-mailto             email、标题、属性         mailto 助手函数的别名。                      {+ mailto email=foo@example.com title="Stranger Things" +}
-safe_mailto        email、标题、属性         safe_mailto 助手函数的别名。                 {+ safe_mailto email=foo@example.com title="Stranger Things" +}
-lang               语言字符串                lang 助手函数的别名。                        {+ lang number.terabyteAbbr +}
+current_url                                  current_url 辅助函数的别名。                 {+ current_url +}
+previous_url                                 previous_url 辅助函数的别名。                {+ previous_url +}
+siteURL            “login”                   site_url 辅助函数的别名。                    {+ siteURL "login" +}
+mailto             email、标题、属性         mailto 辅助函数的别名。                      {+ mailto email=foo@example.com title="Stranger Things" +}
+safe_mailto        email、标题、属性         safe_mailto 辅助函数的别名。                 {+ safe_mailto email=foo@example.com title="Stranger Things" +}
+lang               语言字符串                lang 辅助函数的别名。                        {+ lang number.terabyteAbbr +}
 validation_errors  字段名(可选)              返回字段的错误字符串(如果指定),              {+ validation_errors +} , {+ validation_errors field="email" +}
-route              route 名称                route_to 助手函数的别名。                    {+ route "login" +}
-csp_script_nonce                             csp_script_nonce 助手函数的别名。            {+ csp_script_nonce +}
-csp_style_nonce                              csp_style_nonce 助手函数的别名。             {+ csp_style_nonce +}
+route              route 名称                route_to 辅助函数的别名。                    {+ route "login" +}
+csp_script_nonce                             csp_script_nonce 辅助函数的别名。            {+ csp_script_nonce +}
+csp_style_nonce                              csp_style_nonce 辅助函数的别名。             {+ csp_style_nonce +}
 ================== ========================= ============================================ ================================================================
 
 注册插件

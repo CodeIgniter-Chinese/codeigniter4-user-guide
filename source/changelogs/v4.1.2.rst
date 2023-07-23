@@ -1,71 +1,67 @@
-Version 4.1.2
+版本 4.1.2
 =============
 
-Release Date: May 16, 2021
+发布日期:2021 年 5 月 16 日
 
-**4.1.2 release of CodeIgniter4**
+**CodeIgniter 4.1.2 版发布**
 
 .. contents::
     :local:
     :depth: 2
 
-BREAKING
---------
-
-Fixed `a bug <https://github.com/codeigniter4/CodeIgniter4/issues/4116>`_ in ``current_url()`` that prevented
-configurations with an ``indexPage`` from including that value in the return value. Any installations
-using ``App::$indexPage`` should expect altered values from ``current_url()`` and all its dependencies
-(including Response Testing, Pager, Form Helper, Pager, and View Parser).
-
-Enhancements
-------------
-
-- New HTTP classes, ``Cookie`` and ``CookieStore``, for abstracting web cookies.
-- New ``assertRedirectTo()`` assertion available for HTTP tests.
-- New logger handler, ``ErrorlogHandler``, that writes to ``error_log()``.
-- Entity. Added custom type casting functionality.
-- New option in routing. The ``priority`` option lower the priority of specific route processing.
-- The ``Autoloader`` class can now load files which do not contain PHP classes. The list of `non-class` files will be listed in the ``$files`` property of ``Config\Autoload`` class.
-
-Changes
--------
-
-- Layouts in views now support nested sections.
-- ``Response::getCookie`` now returns a ``Cookie`` instance instead of an array of cookie attributes.
-- ``Response::getCookies`` now returns an array of ``Cookie`` instances instead of array of array of attributes.
-- To eliminate warnings from modern browsers' consoles, empty samesite values will be defaulted to ``Lax`` on cookie dispatch.
-- `Model::errors()` and `BaseModel::errors()` now always returns `array`; there was no definition change but the docblock has been updated.
-- ``Entity::castAs`` has changed behavior. Added new parameter ``$method``. Type casting has been moved to separate handlers.
-- Entity. Timestamp casting now throws an exception when an invalid value is passed
-- ``Entity::castAsJson`` uses external cast handler ``JsonCast::get``.
-- ``Entity::mutateDate`` uses external cast handler ``DatetimeCast::get``.
-- In order for ``Config\**`` classes to get their respective properties' values from the ``.env``, it is now necessary to namespace the property with the name of the class. Previously, the property names are enough but now disallowed because it can get system environment variables, like ``PATH``.
-- The array helper ``_array_search_dot`` is now marked for ``@internal`` use. As this is used by ``dot_array_search``, users should not use ``_array_search_dot`` directly in their code.
-- ``CacheInterface::getMetaData()`` returns ``null`` for misses, or an array with at least the "expires" key set to the absolute epoch expiration, or ``null`` for "never expires". The File, Memcached, and Wincache Handlers still return ``false`` which will become ``null`` in a future release.
-
-Deprecations
-------------
-
-- Deprecated ``CodeIgniter\View\View::$currentSection`` property.
-- Language strings and exceptions on invalid cookie samesite are deprecated for the ``CookieException``'s own exception message.
-- Deprecated `CodeIgniter\Entity` in favor of `CodeIgniter\Entity\Entity`
-- Deprecated cookie-related properties of ``Response`` in order to use the ``Cookie`` class.
-- Deprecated cookie-related properties of ``Security`` in order to use the ``Cookie`` class.
-- Deprecated cookie-related properties of ``Session`` in order to use the ``Cookie`` class.
-- Deprecated ``Security::isExpired()`` to use the ``Cookie``'s internal expires status.
-- Deprecated ``CIDatabaseTestCase`` to use the ``DatabaseTestTrait`` instead.
-- Deprecated ``FeatureTestCase`` to use the ``FeatureTestTrait`` instead.
-- Deprecated ``ControllerTester`` to use the ``ControllerTestTrait`` instead.
-- Consolidated and deprecated ``ControllerResponse`` and ``FeatureResponse`` in favor of ``TestResponse``.
-- Deprecated ``Time::instance()``, use ``Time::createFromInstance()`` instead (now accepts ``DateTimeInterface``).
-- Deprecated ``IncomingRequest::removeRelativeDirectory()``, use ``URI::removeDotSegments()`` instead
-- Deprecated ``\API\ResponseTrait::failValidationError`` to use ``\API\ResponseTrait::failValidationErrors`` instead
-
-Bugs Fixed
+不兼容变更
 ----------
 
-- ``BaseConnection::query()`` now returns ``false`` for failed queries (unless ``DBDebug==true``, in which case an exception will be thrown) and returns boolean values for write-type queries as specified in the docs.
+修复了 ``current_url()`` 中的一个错误,该错误阻止了配置 ``indexPage`` 的返回值中包含该值。使用 ``App::$indexPage`` 的任何安装都应该期望 ``current_url()`` 及其所有依赖项(包括响应测试、分页器、表单辅助函数、分页器和视图解析器)返回的值发生变化。
 
-See the repo's
-`CHANGELOG_4.1.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.1.md>`_
-for a complete list of bugs fixed.
+增强功能
+------------
+
+- 新增 HTTP 类 ``Cookie`` 和 ``CookieStore``,用于抽象化 Web cookie。
+- 新增 HTTP 测试的 ``assertRedirectTo()`` 断言。
+- 新增日志处理程序 ``ErrorlogHandler``,可写入 ``error_log()``。
+- 实体类。新增自定义类型转换功能。
+- 路由中新增选项。``priority`` 选项可降低特定路由处理的优先级。
+- ``Autoloader`` 类现在可以加载不包含 PHP 类的文件。``Config\Autoload`` 类的 ``$files`` 属性中将列出 ``非类`` 文件。
+
+变更
+-------
+
+- 视图中的布局现在支持嵌套区段。
+- ``Response::getCookie`` 现在返回 ``Cookie`` 实例,而不是 cookie 属性数组。
+- ``Response::getCookies`` 现在返回 ``Cookie`` 实例数组,而不是属性数组的数组。
+- 为了消除现代浏览器控制台的警告,空 samesite 值在派发 cookie 时将默认为 ``Lax``。
+- `Model::errors()` 和 `BaseModel::errors()` 现在总是返回 `array`;没有定义变化,但 docblock 已更新。
+- ``Entity::castAs`` 的行为发生了变化。新增参数 ``$method``。类型转换已移动到单独的处理程序中。
+- 实体类。将无效值传递给时间戳转换现在会引发异常。
+- ``Entity::castAsJson`` 使用外部转换处理程序 ``JsonCast::get``。
+- ``Entity::mutateDate`` 使用外部转换处理程序 ``DatetimeCast::get``。
+- 为了使 ``Config\**`` 类能够从 ``.env`` 获取各自的属性值,现在有必要用类的名称为属性命名空间。以前,属性名称就足够了,但现在不允许,因为它可以获取系统环境变量,如 ``PATH``。
+- 数组辅助函数 ``_array_search_dot`` 现在标记为仅 ``@internal`` 使用。由于 ``dot_array_search`` 使用了 ``_array_search_dot``,所以用户不应在代码中直接使用 ``_array_search_dot``。
+- ``CacheInterface::getMetaData()`` 对未命中返回 ``null``,对命中返回包含至少 ``expires`` 键的数组(设置为绝对时期过期时间)或 ``null``(表示“永不过期”)。File、Memcached 和 Wincache 处理程序仍返回 ``false``,这在未来的版本中将变为 ``null``。
+
+弃用功能
+------------
+
+- 弃用 ``CodeIgniter\View\View::$currentSection`` 属性。
+- 弃用用于 ``CookieException`` 自身异常消息的无效 cookie samesite 的语言字符串和异常。
+- 弃用 `CodeIgniter\Entity`,改用 `CodeIgniter\Entity\Entity`。
+- 弃用 ``Response`` 的与 cookie 相关的属性,改为使用 ``Cookie`` 类。
+- 弃用 ``Security`` 的与 cookie 相关的属性,改为使用 ``Cookie`` 类。
+- 弃用 ``Session`` 的与 cookie 相关的属性,改为使用 ``Cookie`` 类。
+- 弃用 ``Security::isExpired()``,改为使用 ``Cookie`` 内部的过期状态。
+- 弃用 ``CIDatabaseTestCase``,改为使用 ``DatabaseTestTrait``。
+- 弃用 ``FeatureTestCase``,改为使用 ``FeatureTestTrait``。
+- 弃用 ``ControllerTester``,改为使用 ``ControllerTestTrait``。
+- 统一并弃用 ``ControllerResponse`` 和 ``FeatureResponse``,改用 ``TestResponse``。
+- 弃用 ``Time::instance()``,改用 ``Time::createFromInstance()``(现在接受 ``DateTimeInterface``)。
+- 弃用 ``IncomingRequest::removeRelativeDirectory()``,改用 ``URI::removeDotSegments()``。
+- 弃用 ``\API\ResponseTrait::failValidationError``,改用 ``\API\ResponseTrait::failValidationErrors``。
+
+错误修复
+----------
+
+- ``BaseConnection::query()`` 现在对失败的查询返回 ``false``(除非 ``DBDebug==true``,在这种情况下会抛出异常),并根据文档为写入类型的查询返回布尔值。
+
+有关已修复的错误列表,请参见仓库的
+`CHANGELOG_4.1.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.1.md>`_。

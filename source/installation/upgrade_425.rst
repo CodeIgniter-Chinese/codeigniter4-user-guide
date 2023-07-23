@@ -1,18 +1,18 @@
 #############################
-Upgrading from 4.2.3 to 4.2.5
+从 4.2.3 升级到 4.2.5
 #############################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与你的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
+- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Project Files
+项目文件
 *************
 
-Version ``4.2.5`` did not alter any project files.
+``4.2.5`` 版本没有更改任何项目文件。

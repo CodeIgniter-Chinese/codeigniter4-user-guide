@@ -1,40 +1,40 @@
-Upgrade Localization
+升级本地化
 ####################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `Language Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/language.html>`_
-- :doc:`Localization Documentation CodeIgniter 4.X </outgoing/localization>`
+- `CodeIgniter 3.X 语言文档 <http://codeigniter.com/userguide3/libraries/language.html>`_
+- :doc:`CodeIgniter 4.X 本地化文档 </outgoing/localization>`
 
-What has been changed
+变更点
 =====================
-- In CI4 the language files return the language lines as array.
+- 在 CI4 中,语言文件以数组形式返回语言线。
 
-Upgrade Guide
+升级指南
 =============
-1. Specify the default language in **Config/App.php**:
+1. 在 **Config/App.php** 中指定默认语言:
 
    .. literalinclude:: upgrade_localization/001.php
 
-2. Now move your language files to **app/Language/<locale>**.
-3. After that you have to change the syntax within the language files. Below in the Code Example you will see how the language array within the file should look like.
-4. Remove from every file the language loader ``$this->lang->load($file, $lang);``.
-5. Replace the method to load the language line ``$this->lang->line('error_email_missing')`` with ``echo lang('Errors.errorEmailMissing');``.
+2. 现在将语言文件移到 **app/Language/<locale>**。
+3. 之后需要更改语言文件中的语法。下面的代码示例中可以看到文件中的语言数组应该如何表示。
+4. 从每个文件中删除语言加载器 ``$this->lang->load($file, $lang);``。
+5. 用 ``echo lang('Errors.errorEmailMissing');`` 替换加载语言行的方法 ``$this->lang->line('error_email_missing')``。
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
 .. literalinclude:: upgrade_localization/ci3sample/002.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
 .. literalinclude:: upgrade_localization/002.php

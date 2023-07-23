@@ -1,47 +1,46 @@
-Version 4.2.2
+版本 4.2.2
 #############
 
-Release Date: August 6, 2022
+发布日期:2022 年 8 月 6 日
 
-**4.2.2 release of CodeIgniter4**
+**CodeIgniter 4.2.2 版发布**
 
 .. contents::
     :local:
     :depth: 2
 
-BREAKING
-********
-
-- Now ``Services::request()`` returns ``IncomingRequest`` or ``CLIRequest``.
-- The method signature of ``CodeIgniter\Debug\Exceptions::__construct()`` has been changed. The ``IncomingRequest`` typehint on the ``$request`` parameter was removed. Extending classes should likewise remove the parameter so as not to break LSP.
-- The method signature of ``BaseBuilder.php::insert()`` and ``BaseBuilder.php::update()`` have been changed. The ``?array`` typehint on the ``$set`` parameter was removed.
-- A bug that caused pages to be cached before after filters were executed when using page caching has been fixed. Adding response headers or changing the response body in after filters now caches them correctly.
-- Due to a bug fix, now :php:func:`random_string()` with the first parameter ``'crypto'`` throws ``InvalidArgumentException`` if the second parameter ``$len`` is an odd number.
-
-Message Changes
-***************
-
-- Fixed ``invalidRoute`` message in ``Language/en/HTTP.php``.
-
-Changes
-*******
-
-- Fixed: ``BaseBuilder::increment()`` and ``BaseBuilder::decrement()`` do not reset the ``BaseBuilder`` state after a query.
-- Fixed: Validation of fields with a leading asterisk (wildcard).
-- Now ``CLIRequest::isCLI()`` always returns true.
-- Now ``IncommingRequest::isCLI()`` always returns false.
-- **Vagrantfile.dist** has been moved to `CodeIgniter DevKit <https://github.com/codeigniter4/devkit>`_.
-
-Deprecations
-************
-
-- The parameters of ``Services::request()`` are deprecated.
-- The first parameter ``$cacheConfig`` of ``CodeIgniter::gatherOutput()`` is deprecated.
-- The second parameter ``$ifNotExists`` of ``Forge::_createTable()`` is deprecated.
-
-Bugs Fixed
+不兼容变更
 **********
 
-See the repo's
-`CHANGELOG_4.2.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.2.md>`_
-for a complete list of bugs fixed.
+- 现在 ``Services::request()`` 返回 ``IncomingRequest`` 或 ``CLIRequest``。
+- ``CodeIgniter\Debug\Exceptions::__construct()`` 的方法签名已更改。删除了 ``$request`` 参数上的 ``IncomingRequest`` 类型提示。扩展类也应该删除该参数,以免破坏 LSP。
+- ``BaseBuilder.php::insert()`` 和 ``BaseBuilder.php::update()`` 的方法签名已更改。删除了 ``$set`` 参数上的 ``?array`` 类型提示。
+- 修复了一个错误,该错误会在使用页面缓存时,在 after 过滤器执行之前缓存页面。现在在 after 过滤器中添加 response headers 或更改 response body 会正确地缓存它们。
+- 由于一个错误修复,现在如果第二个参数 ``$len`` 是奇数,带有第一个参数 ``'crypto'`` 的 :php:func:`random_string()` 会抛出 ``InvalidArgumentException``。
+
+消息变更
+***************
+
+- 修复了 ``Language/en/HTTP.php`` 中的 ``invalidRoute`` 消息。
+
+变更
+*******
+
+- 修复:``BaseBuilder::increment()`` 和 ``BaseBuilder::decrement()`` 在查询后不重置 ``BaseBuilder`` 状态。
+- 修复:带有前导星号(通配符)的字段的验证。
+- 现在 ``CLIRequest::isCLI()`` 总是返回 true。
+- 现在 ``IncommingRequest::isCLI()`` 总是返回 false。
+- **Vagrantfile.dist** 已移动到 `CodeIgniter DevKit <https://github.com/codeigniter4/devkit>`_。
+
+弃用功能
+************
+
+- 弃用 ``Services::request()`` 的参数。
+- 弃用 ``CodeIgniter::gatherOutput()`` 的第一个参数 ``$cacheConfig``。
+- 弃用 ``Forge::_createTable()`` 的第二个参数 ``$ifNotExists``。
+
+错误修复
+**********
+
+有关完整的错误修复列表,请参阅仓库的
+`CHANGELOG_4.2.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.2.md>`_。

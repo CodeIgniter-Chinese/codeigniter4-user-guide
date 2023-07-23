@@ -1,49 +1,48 @@
-Version 4.3.2
+版本 4.3.2
 #############
 
-Release Date: February 18, 2023
+发布日期:2023 年 2 月 18 日
 
-**4.3.2 release of CodeIgniter4**
+**CodeIgniter 4.3.2 版发布**
 
 .. contents::
     :local:
     :depth: 3
 
-BREAKING
-********
+不兼容变更
+**********
 
-Behavior Changes
+行为变化
 ================
 
 base_url()
 ----------
 
-- Due to a bug, in previous versions :php:func:`base_url()` without argument
-  returned baseURL without a trailing slash (``/``) like ``http://localhost:8080``.
-- Now it returns baseURL with a trailing slash. This is the same behavior as
-  ``base_url()`` in CodeIgniter 3.
+- 由于一个错误,在以前的版本中,不带参数的 :php:func:`base_url()`
+  返回没有尾随斜杠 (``/``) 的 baseURL,如 ``http://localhost:8080``。
+- 现在它返回带有尾随斜杠的 baseURL。这与
+  CodeIgniter 3 中的 ``base_url()`` 的行为相同。
 
 .. _v432-uri-string:
 
 uri_string()
 ------------
 
-- The parameter ``$relative`` in :php:func:`uri_string()` was removed. Due to a bug,
-  the function always returned a path relative to baseURL.
-- When baseURL is accessed, it will now return an empty string (``''``). This is
-  the same behavior as ``uri_string()`` in CodeIgniter 3. In previous versions
-  it returned ``/``.
+- 从 :php:func:`uri_string()` 中删除了参数 ``$relative``。由于一个错误,
+  此函数总是返回相对于 baseURL 的路径。
+- 当访问 baseURL 时,它现在将返回一个空字符串 (``''``)。这与
+  CodeIgniter 3 中的 ``uri_string()`` 的行为相同。在以前的版本中
+  它返回 ``/``。
 
-Bugs Fixed
+错误修复
 **********
 
-- **QueryBuilder:** ``where()`` generates incorrect SQL when using ``RawSql``
-- **QueryBuilder:** ``RawSql`` passed to ``set()`` disappears without error
-- **Session:** Can't connect to Redis with ``RedisHandler`` over TLS
-- **Autoloader:** May not add Composer package's namespaces
-- **Parser:** ``!`` does not work if delimiters are changed
-- **UserGuide:** Added missing items in ChangeLog and Upgrading Guide v4.3.0
+- **查询构建器:** 使用 ``RawSql`` 时 ``where()`` 生成错误的 SQL
+- **查询构建器:** 传递给 ``set()`` 的 ``RawSql`` 会无错误地消失
+- **Session:** 无法通过 ``RedisHandler`` 使用 TLS 连接 Redis
+- **自动加载:** 可能不会添加 Composer 包的命名空间
+- **解析器:** 如果分隔符更改,``!`` 不起作用
+- **用户指南:** 在 ChangeLog 和 Upgrading Guide v4.3.0 中添加了缺失的项目
 
-See the repo's
-`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
-for a complete list of bugs fixed.
+有关完整的错误修复列表,请参阅仓库的
+`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_。

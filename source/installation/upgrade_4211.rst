@@ -1,18 +1,18 @@
 ###############################
-Upgrading from 4.2.10 to 4.2.11
+从 4.2.10 升级到 4.2.11
 ###############################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与你的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
+- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Breaking Changes
+重大变更
 ****************
 
 .. _upgrade-4211-proxyips:
@@ -20,48 +20,39 @@ Breaking Changes
 Config\\App::$proxyIPs
 ======================
 
-The config value format has been changed. Now you must set your proxy IP address and the HTTP header name for the client IP address pair as an array::
+配置值格式已更改。现在你必须将代理 IP 地址和客户端 IP 地址的 HTTP 头名称设置为数组::
 
     public $proxyIPs = [
             '10.0.1.200'     => 'X-Forwarded-For',
             '192.168.5.0/24' => 'X-Forwarded-For',
     ];
 
-``ConfigException`` will be thrown for old format config value.
+旧格式的配置值会抛出 ``ConfigException``。
 
 .. _upgrade-4211-session-key:
 
-Session Handler Key Changes
+Session 处理程序密钥更改
 ===========================
 
-The key of the session data record for :ref:`sessions-databasehandler-driver`,
-:ref:`sessions-memcachedhandler-driver` and :ref:`sessions-redishandler-driver`
-has changed. Therefore, any existing session data will be invalidated after
-the upgrade if you are using these session handlers.
+:ref:`sessions-databasehandler-driver`、:ref:`sessions-memcachedhandler-driver` 和 :ref:`sessions-redishandler-driver` 的 session 数据记录的密钥已更改。因此,如果使用这些 session 处理程序,在升级后现有的 session 数据将失效。
 
-- When using ``DatabaseHandler``, the ``id`` column value in the session table
-  now contains the session cookie name (``Config\App::$sessionCookieName``).
-- When using ``MemcachedHandler`` or ``RedisHandler``, the key value contains
-  the session cookie name (``Config\App::$sessionCookieName``).
+- 使用 ``DatabaseHandler`` 时,session 表中的 ``id`` 列值现在包含 session cookie 名称 (``Config\App::$sessionCookieName``)。
+- 使用 ``MemcachedHandler`` 或 ``RedisHandler`` 时,密钥值包含 session cookie 名称 (``Config\App::$sessionCookieName``)。
 
-There is maximum length for the ``id`` column and Memcached key (250 bytes).
-If the following values exceed those maximum length, the session will not work properly.
+``id`` 列和 Memcached 密钥都有最大长度(250字节)。如果以下值超过那些最大长度,session 将无法正常工作。
 
-- the session cookie name, delimiter, and session id (32 characters by default)
-  when using ``DatabaseHandler``
-- the prefix (``ci_session``), session cookie name, delimiters, and session id
-  when using  ``MemcachedHandler``
+- 使用 ``DatabaseHandler`` 时,session cookie 名称、分隔符和 session id(默认为32个字符)的组合
+- 使用 ``MemcachedHandler`` 时,前缀 (``ci_session``)、session cookie 名称、分隔符和 session id 的组合
 
-Project Files
+项目文件
 *************
 
-Version ``4.2.11`` did not alter any executable code in project files.
+``4.2.11`` 版本没有更改项目文件中的任何可执行代码。
 
-All Changes
+所有更改
 ===========
 
-This is a list of all files in the **project space** that received changes;
-many will be simple comments or formatting that have no effect on the runtime:
+这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
 
 * app/Config/App.php
 * app/Config/Autoload.php

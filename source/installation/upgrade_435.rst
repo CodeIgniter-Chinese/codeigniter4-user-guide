@@ -1,62 +1,55 @@
 ##############################
-Upgrading from 4.3.4 to 4.3.5
+从 4.3.4 升级到 4.3.5
 ##############################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与你的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
+- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Breaking Changes
+重大变更
 ****************
 
-Validation Placeholders
+验证占位符
 =======================
 
-- To use :ref:`validation-placeholders` securely, please remember to create a validation rule for the field you will use as a placeholder.
+- 为了安全地使用 :ref:`validation-placeholders`,请记得为你将用作占位符的字段创建一个验证规则。
 
 Session::stop()
 ===============
 
-Prior to v4.3.5, the ``Session::stop()`` method did not destroy the session due
-to a bug. This method has been modified to destroy the session, and now deprecated
-because it is exactly the same as the ``Session::destroy()`` method. So use the
-:ref:`Session::destroy <session-destroy>` method instead.
+在 v4.3.5 之前,由于一个错误,``Session::stop()`` 方法并没有销毁 session。这个方法已被修改为销毁 session,并已不建议使用,因为它与 ``Session::destroy()`` 方法完全相同。所以请使用 :ref:`Session::destroy() <session-destroy>` 方法替代。
 
-If you have code to depend on the bug, replace it with ``session_regenerate_id(true)``.
+如果你的代码依赖这个错误,请用 ``session_regenerate_id(true)`` 替换它。
 
-See also :ref:`Session Library <session-stop>`.
+参见 :ref:`Session 库 <session-stop>`。
 
-Project Files
+项目文件
 *************
 
-Some files in the **project space** (root, app, public, writable) received updates. Due to
-these files being outside of the **system** scope they will not be changed without your intervention.
+**项目空间** 中的一些文件(根目录、app、public、writable)已更新。由于这些文件超出 **系统** 范围,如果不进行干预,它们将不会更改。
 
-There are some third-party CodeIgniter modules available to assist with merging changes to
-the project space: `Explore on Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_.
+有一些第三方 CodeIgniter 模块可以协助合并项目空间的更改:`在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
-Content Changes
+内容更改
 ===============
 
-The following files received significant changes (including deprecations or visual adjustments)
-and it is recommended that you merge the updated versions with your application:
+以下文件已作出重大更改(包括弃用或视觉调整),建议你将更新版本与应用程序合并:
 
-Config
+配置
 ------
 
 - app/Config/Generators.php
 
-All Changes
+所有更改
 ===========
 
-This is a list of all files in the **project space** that received changes;
-many will be simple comments or formatting that have no effect on the runtime:
+这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
 
 - app/Config/App.php
 - app/Config/Generators.php

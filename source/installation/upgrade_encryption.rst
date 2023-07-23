@@ -1,37 +1,37 @@
-Upgrade Encryption
+升级加密
 ##################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 **************
 
-- `Encryption Library Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/encryption.html>`_
-- :doc:`Encryption Service Documentation CodeIgniter 4.X </libraries/encryption>`
+- `CodeIgniter 3.X 加密库文档 <http://codeigniter.com/userguide3/libraries/encryption.html>`_
+- :doc:`CodeIgniter 4.X 加密服务文档 </libraries/encryption>`
 
-What has been changed
+变更点
 *********************
 
-- The support for ``MCrypt`` has been dropped, as that has been deprecated as of PHP 7.2.
+- 不再支持 ``MCrypt``,它在 PHP 7.2 中已被弃用。
 
-Upgrade Guide
+升级指南
 *************
 
-1. Within your configs the ``$config['encryption_key'] = 'abc123';`` moved from **application/config/config.php** to ``public $key = 'abc123';`` in **app/Config/Encryption.php**.
-2. If you need to decrypt data encrypted with CI3's Encryption, configure settings to maintain compatibility. See :ref:`encryption-compatible-with-ci3`.
-3. Wherever you have used the encryption library you have to replace ``$this->load->library('encryption');`` with ``$encrypter = service('encrypter');`` and change the methods for encryption and decrypting like in the following code example.
+1. 在配置中,``$config['encryption_key'] = 'abc123';`` 从 **application/config/config.php** 移到了 **app/Config/Encryption.php** 中的 ``public $key = 'abc123';``。
+2. 如果需要解密用 CI3 加密的数据,请配置设置以保持兼容性。参见 :ref:`encryption-compatible-with-ci3`。
+3. 在使用加密库的任何地方,都必须将 ``$this->load->library('encryption');`` 替换为 ``$encrypter = service('encrypter');``,并如下例代码中更改加密和解密的方法。
 
-Code Example
+代码示例
 ************
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 =======================
 
 .. literalinclude:: upgrade_encryption/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 =======================
 
 .. literalinclude:: upgrade_encryption/001.php

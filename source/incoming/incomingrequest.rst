@@ -128,7 +128,7 @@ getMethod()
 
 .. literalinclude:: incomingrequest/011.php
 
-.. note:: 有关“点”表示法的更多信息,请参阅 ``Array`` 助手中的 :php:func:`dot_array_search()` 文档。
+.. note:: 有关“点”表示法的更多信息,请参阅 ``Array`` 辅助函数中的 :php:func:`dot_array_search()` 文档。
 
 .. _incomingrequest-retrieving-raw-data:
 
@@ -193,7 +193,7 @@ getMethod()
 .. literalinclude:: incomingrequest/021.php
 
 你可以使用 ``getPath()`` 和 ``setPath()`` 方法使用当前请求的 URI 字符串(相对于 baseURL 的路径)。
-请注意,共享的 ``IncomingRequest`` 实例上的此相对路径是 :doc:`URL 助手 </helpers/url_helper>`
+请注意,共享的 ``IncomingRequest`` 实例上的此相对路径是 :doc:`URL 辅助函数 </helpers/url_helper>`
 函数使用的内容,因此这是一种有用的方法来“伪造”传入请求以进行测试:
 
 .. literalinclude:: incomingrequest/022.php
@@ -389,7 +389,7 @@ getMethod()
 
         .. literalinclude:: incomingrequest/035.php
 
-        .. note:: 与 :doc:`Cookie 助手 <../helpers/cookie_helper>` 函数 :php:func:`get_cookie()` 不同,此方法不会在配置的 ``Config\Cookie::$prefix`` 值前加上前缀。
+        .. note:: 与 :doc:`Cookie 辅助函数 <../helpers/cookie_helper>` 函数 :php:func:`get_cookie()` 不同,此方法不会在配置的 ``Config\Cookie::$prefix`` 值前加上前缀。
 
     .. php:method:: getServer([$index = null[, $filter = null[, $flags = null]]])
 

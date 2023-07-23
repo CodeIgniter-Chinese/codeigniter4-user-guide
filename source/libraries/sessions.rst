@@ -28,7 +28,7 @@ Session 通常会与每个页面加载一起全局运行,所以 Session 类应�
 
 .. literalinclude:: sessions/002.php
 
-另外,你可以使用助手函数,它将使用默认配置选项。这个版本的可读性更好一些,但不接受任何配置选项。
+另外,你可以使用辅助函数,它将使用默认配置选项。这个版本的可读性更好一些,但不接受任何配置选项。
 
 .. literalinclude:: sessions/002.php
 
@@ -90,7 +90,7 @@ CodeIgniter 通过相同的方式提供对其 Session 数据的访问,因为它�
 
 .. literalinclude:: sessions/006.php
 
-甚至可以通过 session 助手方法:
+甚至可以通过 session 辅助函数方法:
 
 .. literalinclude:: sessions/007.php
 

@@ -26,7 +26,7 @@ app
         Controllers/    控制器确定程序流程
         Database/       存储数据库迁移和种子文件
         Filters/        存储可以在控制器之前和之后运行的过滤器类
-        Helpers/        助手存储独立函数的集合
+        Helpers/        辅助函数存储独立函数的集合
         Language/       支持多语言会从这里读取语言字符串
         Libraries/      不适合其他类别的有用类
         Models/         模型与数据库一起工作来表示业务实体

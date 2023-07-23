@@ -1,50 +1,50 @@
-Upgrade Validations
+升级验证
 ###################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations of Library
+库文档
 =========================
 
-- `Form Validation Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/form_validation.html>`_
-- :doc:`Validation Documentation CodeIgniter 4.X </libraries/validation>`
+- `CodeIgniter 3.X 表单验证文档 <http://codeigniter.com/userguide3/libraries/form_validation.html>`_
+- :doc:`CodeIgniter 4.X 验证文档 </libraries/validation>`
 
-What has been changed
+变更点
 =====================
-- If you want to change validation error display, you have to set CI4 :ref:`validation View templates <validation-customizing-error-display>`.
-- CI4 validation has no Callbacks nor Callable in CI3.
-  Use :ref:`Rule Classes <validation-using-rule-classes>` or
-  :ref:`Closure Rule <validation-using-closure-rule>`
-  instead.
-- CI4 validation format rules do not permit empty string.
-- CI4 validation never changes your data.
-- Since v4.3.0, :php:func:`validation_errors()` has been introduced, but the API is different from CI3's.
+- 如果要更改验证错误显示,必须设置 CI4 :ref:`验证视图模板 <validation-customizing-error-display>`。
+- CI4 验证没有 CI3 的回调和可调用函数。
+  请使用 :ref:`规则类 <validation-using-rule-classes>` 或
+  :ref:`闭包规则 <validation-using-closure-rule>`
+  代替。
+- CI4 验证格式规则不允许为空字符串。
+- CI4 验证永远不会改变你的数据。
+- 从 v4.3.0 开始,引入了 :php:func:`validation_errors()`,但 API 与 CI3 的不同。
 
-Upgrade Guide
+升级指南
 =============
-1. Within the view which contains the form you have to change:
+1. 在包含表单的视图中进行更改:
 
-    - ``<?php echo validation_errors(); ?>`` to ``<?= validation_list_errors() ?>``
+    - ``<?php echo validation_errors(); ?>`` 改为 ``<?= validation_list_errors() ?>``
 
-2. Within the controller you have to change the following:
+2. 在控制器中进行更改:
 
-    - ``$this->load->helper(array('form', 'url'));`` to ``helper(['form', 'url']);``
-    - remove the line ``$this->load->library('form_validation');``
-    - ``if ($this->form_validation->run() == FALSE)`` to ``if (! $this->validate([]))``
-    - ``$this->load->view('myform');`` to ``return view('myform', ['validation' => $this->validator,]);``
+    - ``$this->load->helper(array('form', 'url'));`` 改为 ``helper(['form', 'url']);``
+    - 移除 ``$this->load->library('form_validation');``
+    - ``if ($this->form_validation->run() == FALSE)`` 改为 ``if (! $this->validate([]))``
+    - ``$this->load->view('myform');`` 改为 ``return view('myform', ['validation' => $this->validator,]);``
 
-3. You have to change the validation rules. The new syntax is to set the rules as array in the controller:
+3. 必须更改验证规则。新语法是在控制器中将规则设置为数组:
 
    .. literalinclude:: upgrade_validations/001.php
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
-Path: **application/views**::
+路径:**application/views**::
 
     <html>
     <head>
@@ -75,13 +75,13 @@ Path: **application/views**::
     </body>
     </html>
 
-Path: **application/controllers**:
+路径:**application/controllers**:
 
 .. literalinclude:: upgrade_validations/ci3sample/002.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
-Path: **app/Views**::
+路径:**app/Views**::
 
     <html>
     <head>
@@ -112,6 +112,6 @@ Path: **app/Views**::
     </body>
     </html>
 
-Path: **app/Controllers**:
+路径:**app/Controllers**:
 
 .. literalinclude:: upgrade_validations/002.php

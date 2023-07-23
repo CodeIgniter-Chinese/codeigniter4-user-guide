@@ -1,38 +1,37 @@
 #############################
-Upgrading from 4.3.5 to 4.3.6
+从 4.3.5 升级到 4.3.6
 #############################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与你的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
+- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Breaking Changes
+重大变更
 ****************
 
-- ``AutoRouterInterface::getRoute()`` has the new second parameter ``string $httpVerb``.
-  If you implement it, add the parameter.
+- ``AutoRouterInterface::getRoute()`` 新增了第二个参数 ``string $httpVerb``。
+  如果你实现了它,请添加该参数。
 
-Breaking Enhancements
+重大增强
 *********************
 
-- The method signatures of ``ValidationInterface::check()`` and ``Validation::check()``
-  have been changed. If you implement or extend them, update the signatures.
+- ``ValidationInterface::check()`` 和 ``Validation::check()`` 的方法签名已更改。
+  如果你扩展或实现了它们,请更新签名。
 
-Project Files
+项目文件
 *************
 
-Version 4.3.6 did not alter any executable code in project files.
+4.3.6 版本没有更改项目文件中的任何可执行代码。
 
-All Changes
+所有更改
 ===========
 
-This is a list of all files in the **project space** that received changes;
-many will be simple comments or formatting that have no effect on the runtime:
+这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
 
 - composer.json

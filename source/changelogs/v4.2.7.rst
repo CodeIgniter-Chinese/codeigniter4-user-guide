@@ -1,36 +1,36 @@
-Version 4.2.7
-#############
+版本 4.2.7
+##########
 
-Release Date: October 6, 2022
+发布日期:2022 年 10 月 6 日
 
-**4.2.7 release of CodeIgniter4**
+**CodeIgniter4 4.2.7 版发布**
 
 .. contents::
     :local:
     :depth: 2
 
-SECURITY
-********
+安全
+****
 
-- *Secure or HttpOnly flag set in Config\Cookie is not reflected in Cookies issued* was fixed. See the `Security advisory GHSA-745p-r637-7vvp <https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-745p-r637-7vvp>`_ for more information.
-- Fixed a bug that prevents CSP headers from being sent when ``Config\ContentSecurityPolicy::$autoNonce`` is false.
+- *固定在 Config\Cookie 中设置的 Secure 或 HttpOnly 标志无法反映在发出的 Cookies 中* 的问题。详见 `安全公告 GHSA-745p-r637-7vvp <https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-745p-r637-7vvp>`_。
+- 修复了一个错误,该错误会在 ``Config\ContentSecurityPolicy::$autoNonce`` 为 false 时导致 CSP 头无法发送。
 
-BREAKING
-********
-
-- The default values of the parameters in :php:func:`set_cookie()` and :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` has been fixed. Now the default values of ``$secure`` and ``$httponly`` are ``null``, and these values will be replaced with the ``Config\Cookie`` values.
--  ``Time::__toString()`` is now locale-independent. It returns database-compatible strings like '2022-09-07 12:00:00' in any locale.
-- The Validation rule ``Validation\Rule::required_without()`` and ``Validation\StrictRules\Rule::required_without()`` parameters have been changed and the logic of these rule has also been fixed.
-
-Message Changes
-***************
-
-- Fixed typos in some items in ``Language/en/Email.php``.
-- Added missing item ``valid_json`` in ``Language/en/Validation.php``.
-
-Bugs Fixed
+破坏性变更
 **********
 
-See the repo's
+- :php:func:`set_cookie()` 和 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 中参数的默认值已修正。现在 ``$secure`` 和 ``$httponly`` 的默认值为 ``null``,这些值将被 ``Config\Cookie`` 中的值替换。
+- ``Time::__toString()`` 现在与区域设置无关。它会以数据库兼容的格式返回字符串,如 '2022-09-07 12:00:00',不受区域设置影响。
+- Validation 规则 ``Validation\Rule::required_without()`` 和 ``Validation\StrictRules\Rule::required_without()`` 的参数已更改,这些规则的逻辑也已修正。
+
+消息更改
+********
+
+- 修正了 ``Language/en/Email.php`` 中一些项的拼写错误。
+- 在 ``Language/en/Validation.php`` 中补充了缺失的 ``valid_json`` 项。
+
+错误修复
+********
+
+详见仓库的
 `CHANGELOG_4.2.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.2.md>`_
-for a complete list of bugs fixed.
+了解已修复错误的完整列表。

@@ -1,22 +1,22 @@
 ######################################
-Upgrading from 4.0.5 to 4.1.0 or 4.1.1
+从 4.0.5 升级到 4.1.0 或 4.1.1
 ######################################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与你的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
+- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Breaking Changes
+重大变更
 ****************
 
-Legacy Autoloading
+传统自动加载
 ==================
 
-``Autoloader::loadLegacy()`` method was originally for transition to CodeIgniter v4. Since v4.1.0,
-this support was removed. All classes must be namespaced.
+``Autoloader::loadLegacy()`` 方法原本是为过渡到 CodeIgniter v4 而设计的。自 v4.1.0 开始,
+此支持已被移除。所有类必须采用命名空间。

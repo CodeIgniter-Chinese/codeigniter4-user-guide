@@ -1,71 +1,70 @@
-Version 4.0.4
+版本 4.0.4
 =============
 
-Release Date: July 15, 2020
+发布日期:2020 年 7 月 15 日
 
-**4.0.4 release of CodeIgniter4**
+**CodeIgniter4 4.0.4 版发布**
 
 .. contents::
     :local:
     :depth: 2
 
-BREAKING
---------
-
-- Added ``$arguments`` parameter to ``after()`` and ``before()`` in ``FilterInterface``. This is a breaking change, so all code implementing the ``FilterInterface`` must be updated.
-
-Enhancements
-------------
-
-- The location for the SQLite3 database has changed and by default will be now located in a ``writable`` folder instead of the ``public`` folder.
-- New CLI command: ``cache:clear`` that will destroy all data within the current cache engine.
-- Thanks to samsonasik, we have several libraries brought up to 100% test coverage.
-- A few small performance increases. Every ounce matters!
-- ``getFieldData()`` in the database results class now returns column type and length.
-- Default .htaccess file updated to work better with extended characters.
-- New Testing Feature: :doc:`Fabricator </testing/fabricator>` makes creating mock classes simple and repeatable in your tests.
-- Model class can now have the callbacks overridden at runtime. Useful for testing.
-- A number of improvements to :doc:`Feature Tests </testing/feature>` in general.
-- New :doc:`command() helper function </cli/spark_commands>` to programatically run your CLI commands. Useful for testing and cron jobs.
-- New command, ``make:seeder`` to generate a :doc:`Database Seed class </dbmgmt/seeds>` skeleton file.
-- Colors now available on the CLI within Windows, as well as other Windows-related CLI improvements.
-- New helper :doc:`mb_url_title() </helpers/url_helper>` that functions like ``url_title()`` but automatically escapes and extended URL characters.
-- :doc:`Image library </libraries/images>` now supports ``webp`` images.
-- Added Unicode support for regular expressions in the Router.
-- Added support for removing hidden folders in the :doc:`delete_files() </helpers/filesystem_helper>` helper.
-- ``fetchGlobal()`` in the Request class now supports applying filters to arrays of data, not just the first item.
-- ``file`` validation now works with arrays of files.
-- URI class now supports a ``setSilent()`` method that will disable the throwing of Exceptions.
-- New argument to ``URI::getSegment()`` that allows us to change the default value returned if nothing exists.
-- Implemented a ``withResource()`` in Image so that you can use method chaining instead of using the provided getResource() (used in tests). To just compress your image.
-- Cookies and headers can be copied from the global Response object when doing a redirect using the new ``withCookies()`` and ``withHeaders()`` methods.
-- Support for special prefix "hex2bin:" which can be used with ``$key`` parameter in :doc:`Encryption class</libraries/encryption>` or in .env file.
-
-Bugs Fixed
+不兼容变更
 ----------
 
-- Fixed location for the SQLite3 database which by default will be now located in a ``writable`` folder instead of the ``public`` folder.
-- Fixed bug where ``force_https()`` could add ``https://`` a second time.
-- Fixed a bug with CurlRequest that could result in incorrect "100 Continue" headers.
-- Image::save() bug fixed when ``$target`` parameter was ``null``.
-- fixes for ``set_checkbox()`` and ``set_radio()`` when the $default parameter is set to ``true``.
-- fix for result object handling in Model class.
-- fixed escape character SQLite database.
-- fix for inserts on Postgres and Entities when the primary key was null.
-- CLI scripts can now correctly recognize dashes within arguments.
-- CURLRequest now properly sets content length with multipart data.
-- Misc. stability improvements for the ImageMagick handler.
-- setting validation errors within a config file should now work.
-- Unicode characters are not escaped when saving JSON from Entities.
-- redirecting with a custom HTTP code should work correctly now.
-- ``Time::setTimezone()`` now working correctly.
-- added full outer join support for Postgres.
-- some cast items in the Entity (like array, json) were not being set correctly during a ``fill()`` process.
-- Fixed bug in Image GD handler that would try to compress images twice in certain cases.
-- Ensure get translation output logic work on selected locale, dashed locale, and fallback "en".
-- Fix ``is_unique``/``is_not_unique`` validation called on POST/PUT via API in PostgreSQL.
-- Fixed a bug where filter arguments were not passed to ``after()``.
+- 在 ``FilterInterface`` 中为 ``after()`` 和 ``before()`` 添加了 ``$arguments`` 参数。这是一个不兼容的变更,所以所有实现 ``FilterInterface`` 的代码都必须更新。
 
-See the repo's
-`CHANGELOG_4.0.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.0.md>`_
-for a complete list of bugs fixed.
+增强功能
+------------
+
+- SQLite3 数据库的位置已更改,默认现在将位于 ``writable`` 文件夹中,而不是 ``public`` 文件夹中。
+- 新增 CLI 命令:``cache:clear`` 将销毁当前缓存引擎中的所有数据。
+- 感谢 samsonasik,我们有几个库被提升到了 100% 的测试覆盖率。
+- 一些小的性能提升。每一点提升都很重要!
+- ``getFieldData()`` 在数据库结果类中现在会返回列类型和长度。
+- 默认 .htaccess 文件已更新,可对扩展字符工作得更好。
+- 新增测试功能::doc:`Fabricator </testing/fabricator>` 可以简化在测试中创建模拟类的过程。
+- Model 类现在可以在运行时覆盖回调函数。对测试很有用。
+- :doc:`功能测试 </testing/feature>` 在整体上有许多改进。
+- 新增 :doc:`command() 辅助函数 </cli/spark_commands>` 以通过编程方式运行 CLI 命令。对测试和计划任务很有用。
+- 新增命令 ``make:seeder`` 以生成 :doc:`数据库 Seed 类 </dbmgmt/seeds>` 骨架文件。
+- Windows 中现在可以在 CLI 使用颜色,以及其他与 Windows 相关的 CLI 改进。
+- 新增辅助函数 :doc:`mb_url_title() </helpers/url_helper>`,功能与 ``url_title()`` 相同,但会自动转义扩展的 URL 字符。
+- :doc:`图像类库 </libraries/images>` 现在支持 ``webp`` 图像。
+- 在路由器中为正则表达式添加了 Unicode 支持。
+- 为 :doc:`delete_files() </helpers/filesystem_helper>` 辅助函数添加了删除隐藏文件夹的支持。
+- ``fetchGlobal()`` 在请求类中现在支持对数组数据应用过滤器,而不仅仅是第一个项目。
+- ``file`` 验证现在支持文件数组。
+- URI 类现在支持 ``setSilent()`` 方法,可禁用抛出异常。
+- 新增参数到 ``URI::getSegment()``,允许我们改变如果什么都不存在时的默认返回值。
+- 在图像中实现 ``withResource()``,以便可以使用方法链调用代替提供的 getResource()(在测试中使用)。只需压缩图像。
+- 重定向时,现在可以从全局响应对象复制 Cookie 和 header,使用新的 ``withCookies()`` 和 ``withHeaders()`` 方法。
+- 支持在 :doc:`加密类</libraries/encryption>` 中使用 ``$key`` 参数或 .env 文件中使用特殊前缀 “hex2bin:”。
+
+修复的 Bug
+----------
+
+- 修复了 SQLite3 数据库的位置,默认现在将位于 ``writable`` 文件夹中,而不是 ``public`` 文件夹中。
+- 修复了 ``force_https()`` 可能会添加第二次 ``https://`` 的bug。
+- 修复了 CurlRequest 中可能导致不正确的 “100 Continue” 头的bug。
+- 修复了当 ``$target`` 参数为 ``null`` 时 Image::save() 的bug。
+- 修复了当 ``$default`` 参数设置为 ``true`` 时 ``set_checkbox()`` 和 ``set_radio()`` 的问题。
+- 修复了 Model 类中结果对象处理的问题。
+- 修复了 SQLite 数据库中的转义字符。
+- 修复了在主键为 null 时在 Postgres 和实体上的插入问题。
+- CLI 脚本现在可以正确识别参数中的破折号。
+- CURLRequest 现在使用多部分数据正确设置内容长度。
+- ImageMagick 处理程序的稳定性各种改进。
+- 在配置文件中设置验证错误现在应该可以工作。
+- 从实体保存 JSON 时不再转义 Unicode 字符。
+- 重定向现在应该可以使用自定义 HTTP 代码正常工作。
+- ``Time::setTimezone()`` 现在可以正确工作。
+- 为 Postgres 添加了完全外连接支持。
+- 填充过程中,实体中的一些转换项(如数组、json)没有被正确设置。
+- 修复了在某些情况下,GD 处理程序会尝试两次压缩图像的 bug。
+- 确保翻译输出逻辑可用于所选语言环境、破折号语言环境和回退的 “en”。
+- 修复通过 API 在 PostgreSQL 上通过 POST/PUT 调用的 ``is_unique``/``is_not_unique`` 验证。
+- 修复了 ``after()`` 中没有传递过滤器参数的bug。
+
+有关完整的已修复 bug 列表,请参阅代码库的
+`CHANGELOG_4.0.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.0.md>`_。

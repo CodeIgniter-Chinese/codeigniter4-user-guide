@@ -144,7 +144,7 @@ CSRF 保护方法
 HTML 表单
 ==========
 
-如果使用 :doc:`表单助手 <../helpers/form_helper>`,那么 :func:`form_open()` 将自动在你的表单中插入一个隐藏的 csrf 字段。
+如果使用 :doc:`表单辅助函数 <../helpers/form_helper>`,那么 :func:`form_open()` 将自动在你的表单中插入一个隐藏的 csrf 字段。
 
 .. note:: 要使用 CSRF 字段的自动生成,你需要对表单页面打开 CSRF 过滤器。在大多数情况下,它使用 ``GET`` 方法请求。
 

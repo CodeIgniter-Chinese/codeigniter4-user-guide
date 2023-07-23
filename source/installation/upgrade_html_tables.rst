@@ -1,35 +1,35 @@
-Upgrade HTML Tables
+升级 HTML 表格
 ###################
 
 .. contents::
     :local:
     :depth: 2
 
-Documentations
+文档
 ==============
 
-- `HTML Table Documentation CodeIgniter 3.X <http://codeigniter.com/userguide3/libraries/table.html>`_
-- :doc:`HTML Table Documentation CodeIgniter 4.X </outgoing/table>`
+- `CodeIgniter 3.X HTML表格文档 <http://codeigniter.com/userguide3/libraries/table.html>`_
+- :doc:`CodeIgniter 4.X HTML表格文档 </outgoing/table>`
 
-What has been changed
+变更点
 =====================
-- Only small things like the method names and the loading of the library have changed.
+- 只是一些小变化,如方法名称和库的加载。
 
-Upgrade Guide
+升级指南
 =============
-1. Within your class change the ``$this->load->library('table');`` to ``$table = new \CodeIgniter\View\Table();``.
-2. From that on you have to replace every line starting with ``$this->table`` to ``$table``. For example: ``echo $this->table->generate($query);`` will become ``echo $table->generate($query);``
-3. The methods in the HTML Table class could be named slightly different. The most important change in the naming is the switch from underscored method names to camelCase. The method ``set_heading()`` from version 3 is now named ``setHeading()`` and so on.
+1. 在类中,将 ``$this->load->library('table');`` 改为 ``$table = new \CodeIgniter\View\Table();``。
+2. 从那时起,需要将以 ``$this->table`` 开头的每一行改为 ``$table``。例如:``echo $this->table->generate($query);`` 会变成 ``echo $table->generate($query);``
+3. HTML 表格类中的方法可能命名稍有不同。最重要的命名变化是从下划线方法名切换到 camelCase。版本 3 中的方法 ``set_heading()`` 现在命名为 ``setHeading()``,等等。
 
-Code Example
+代码示例
 ============
 
-CodeIgniter Version 3.x
+CodeIgniter 3.x 版本
 ------------------------
 
 .. literalinclude:: upgrade_html_tables/ci3sample/001.php
 
-CodeIgniter Version 4.x
+CodeIgniter 4.x 版本
 -----------------------
 
 .. literalinclude:: upgrade_html_tables/001.php
