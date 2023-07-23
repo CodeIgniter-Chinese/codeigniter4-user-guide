@@ -42,7 +42,7 @@ app
 system
 ======
 
-.. note:: 如果使用 Composer 安装 CodeIgniter,``system`` 位于 ``vendor/codeigniter4/framework/system``。
+.. note:: 如果使用 Composer 安装 CodeIgniter, ``system`` 位于 ``vendor/codeigniter4/framework/system``。
 
 此目录存储构成框架本身的文件。虽然你在如何使用应用程序目录方面有很大的灵活性,但是不应修改 system 目录中的文件。相反,你应该扩展类或创建新类以提供所需的功能。
 

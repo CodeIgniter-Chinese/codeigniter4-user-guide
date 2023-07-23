@@ -23,7 +23,7 @@
 Session::stop()
 ===============
 
-在 v4.3.5 之前,由于一个错误,``Session::stop()`` 方法并没有销毁 session。这个方法已被修改为销毁 session,并已不建议使用,因为它与 ``Session::destroy()`` 方法完全相同。所以请使用 :ref:`Session::destroy() <session-destroy>` 方法替代。
+在 v4.3.5 之前,由于一个错误, ``Session::stop()`` 方法并没有销毁 session。这个方法已被修改为销毁 session,并已不建议使用,因为它与 ``Session::destroy()`` 方法完全相同。所以请使用 :ref:`Session::destroy() <session-destroy>` 方法替代。
 
 如果你的代码依赖这个错误,请用 ``session_regenerate_id(true)`` 替换它。
 

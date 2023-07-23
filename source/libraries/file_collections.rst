@@ -12,7 +12,7 @@
 基本用法
 ***********
 
-在最基本的级别上,``FileCollection`` 是一个你设置或构建的文件索引:
+在最基本的级别上, ``FileCollection`` 是一个你设置或构建的文件索引:
 
 .. literalinclude:: files/011.php
 

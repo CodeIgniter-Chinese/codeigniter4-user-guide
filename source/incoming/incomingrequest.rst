@@ -156,7 +156,7 @@ getMethod()
 
 .. literalinclude:: incomingrequest/014.php
 
-上面提到的所有方法都支持作为第二个参数传递过滤器类型,``getJSON()`` 和 ``getRawInput()`` 除外。
+上面提到的所有方法都支持作为第二个参数传递过滤器类型, ``getJSON()`` 和 ``getRawInput()`` 除外。
 
 检索标头
 ******************

@@ -164,7 +164,7 @@ filter:check
 
 CodeIgniter4 提供的过滤器有: :doc:`Honeypot <../libraries/honeypot>`、:ref:`CSRF <cross-site-request-forgery>`、``InvalidChars``、``SecureHeaders`` 和 :ref:`DebugToolbar <the-debug-toolbar>`。
 
-.. note:: 过滤器按配置文件中定义的顺序执行。但是,如果启用,``DebugToolbar`` 总是最后执行,因为它应该能够捕获其他过滤器中发生的所有事情。
+.. note:: 过滤器按配置文件中定义的顺序执行。但是,如果启用, ``DebugToolbar`` 总是最后执行,因为它应该能够捕获其他过滤器中发生的所有事情。
 
 InvalidChars
 =============

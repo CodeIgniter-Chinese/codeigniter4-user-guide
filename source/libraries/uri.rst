@@ -169,7 +169,7 @@ Query(查询)
 
 .. literalinclude:: uri/021.php
 
-.. note:: 默认情况下,``setQuery()`` 和 ``setQueryArray()`` 方法使用原生的 ``parse_str()`` 函数来准备数据。
+.. note:: 默认情况下, ``setQuery()`` 和 ``setQueryArray()`` 方法使用原生的 ``parse_str()`` 函数来准备数据。
     如果你想使用更宽松的规则(允许键名包含点),你可以先使用特殊的 ``useRawQueryString()`` 方法。
 
 Fragment(片段)

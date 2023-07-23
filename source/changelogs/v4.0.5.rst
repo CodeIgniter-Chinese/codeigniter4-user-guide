@@ -18,7 +18,7 @@
 - 服务类的参数类型现在进行了严格定义。这将确保不会传入其他配置实例。如果需要传递带有额外属性的新配置,则需要扩展特定的配置类。
 - 支持为 Session 和 CSRF cookie 设置 SameSite 属性。出于安全和与最新浏览器版本的兼容性考虑,默认设置为 ``Lax``。
 - 在 ``Config\Mimes::guessExtensionFromType()`` 中,现在只有在没有提议扩展名时(即通常不用于上传的文件),才会反向搜索 ``$mimes`` 数组。
-- 上传文件的文件扩展名的 getter 函数现在具有不同的回退值(``UploadedFile::getClientExtension()`` 用于 ``UploadedFile::getExtension()``,``''`` 用于 ``UploadedFile::guessExtension()``)。这是一个安全修复,使该过程不太依赖客户端。
+- 上传文件的文件扩展名的 getter 函数现在具有不同的回退值(``UploadedFile::getClientExtension()`` 用于 ``UploadedFile::getExtension()``, ``''`` 用于 ``UploadedFile::guessExtension()``)。这是一个安全修复,使该过程不太依赖客户端。
 - Cache ``FileHandler`` 现在允许通过 ``Config\Cache`` 设置文件权限模式。
 
 变更
@@ -54,7 +54,7 @@
 
 - 修复了 ``Entity`` 类中的一个错误,声明类参数阻止了数据传播到 ``attributes`` 数组。
 - 对环境变量 ``encryption.key`` 的处理发生了变化。以前,显式函数调用,如 ``getenv('encryption.key')`` 或 ``env('encryption.key')``,其中值具有特殊前缀 ``hex2bin:``,会自动转换为二进制字符串并返回。这现在已更改为只返回具有前缀的字符字符串。此更改是由于在 Windows 平台上处理环境变量中的二进制字符串不兼容导致的。但是,通过 ``Encryption`` 类配置访问 ``$key`` 保持不变,仍然返回二进制字符串。
-- ``Config\Services``(在 **app/Config/Services.php** 中)现在扩展 ``CodeIgniter\Config\BaseService``,以允许正确发现第三方服务。
+- ``Config\Services`` (在 **app/Config/Services.php** 中)现在扩展 ``CodeIgniter\Config\BaseService``,以允许正确发现第三方服务。
 
 有关已修复的错误列表,请参见仓库的
 `CHANGELOG_4.0.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.0.md>`_。

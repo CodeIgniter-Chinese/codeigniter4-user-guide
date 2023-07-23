@@ -31,7 +31,7 @@
 定义 Formatters
 ===================
 
-Faker 通过从 formatter 请求数据来生成数据。如果没有定义 formatters,``Fabricator`` 将尝试根据字段名称和它所表示的模型的属性来猜测最合适的匹配,如果找不到则回退到 ``$fabricator->defaultFormatter``。如果字段名称与常用 formatter 对应,或者你不太关心字段的内容,这可能就可以了,但大多数情况下你会想指定要使用的 formatter,可以将它们作为构造函数的第二个参数:
+Faker 通过从 formatter 请求数据来生成数据。如果没有定义 formatters, ``Fabricator`` 将尝试根据字段名称和它所表示的模型的属性来猜测最合适的匹配,如果找不到则回退到 ``$fabricator->defaultFormatter``。如果字段名称与常用 formatter 对应,或者你不太关心字段的内容,这可能就可以了,但大多数情况下你会想指定要使用的 formatter,可以将它们作为构造函数的第二个参数:
 
 .. literalinclude:: fabricator/004.php
 
@@ -44,7 +44,7 @@ Faker 通过从 formatter 请求数据来生成数据。如果没有定义 forma
 
 .. literalinclude:: fabricator/005.php
 
-请注意,在这个例子中,前三个值等效于之前的 formatters。但是对于 ``avatar`` 我们请求了与默认不同的图像大小,``login`` 使用基于应用配置的条件,这两者在使用 ``$formatters`` 参数时都是不可能的。
+请注意,在这个例子中,前三个值等效于之前的 formatters。但是对于 ``avatar`` 我们请求了与默认不同的图像大小, ``login`` 使用基于应用配置的条件,这两者在使用 ``$formatters`` 参数时都是不可能的。
 你可能希望将测试数据与生产模型分开,所以最好是在测试支持文件夹中定义一个子类:
 
 .. literalinclude:: fabricator/006.php
@@ -78,7 +78,7 @@ Faker 支持许多不同的语言环境。请查看其文档以确定哪些提�
 
 .. literalinclude:: fabricator/011.php
 
-``make()`` 的返回可在测试中使用或插入到数据库中。另一方面,``Fabricator`` 包含 ``create()`` 命令可以帮你插入,并返回结果。由于模型回调、数据库格式化和特殊键(如主键和时间戳),``create()`` 的返回可能与 ``make()`` 不同。你可能会得到这样的返回:
+``make()`` 的返回可在测试中使用或插入到数据库中。另一方面, ``Fabricator`` 包含 ``create()`` 命令可以帮你插入,并返回结果。由于模型回调、数据库格式化和特殊键(如主键和时间戳), ``create()`` 的返回可能与 ``make()`` 不同。你可能会得到这样的返回:
 
 .. literalinclude:: fabricator/012.php
 

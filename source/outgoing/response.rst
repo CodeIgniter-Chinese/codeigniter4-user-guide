@@ -53,7 +53,7 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 
 .. important:: 如果你想要重定向,必须在 :doc:`Controller <../incoming/controllers>`
     或 :doc:`Controller Filter <../incoming/filters>` 的方法中返回 ``RedirectResponse`` 实例。
-    请注意,``__construct()`` 或 ``initController()`` 方法不能返回任何值。
+    请注意, ``__construct()`` 或 ``initController()`` 方法不能返回任何值。
     如果你忘记返回 ``RedirectResponse``,将不会发生重定向。
 
 重定向到一个 URI 路径
@@ -390,7 +390,7 @@ HTTP 缓存
         :param string $samesite: SameSite cookie 参数的值。如果设置为 ``''``,cookie 将不设置 SameSite 属性。如果设置为 ``null``,将使用 **app/Config/Cookie.php** 中的默认值
         :rtype: void
 
-        .. note:: 在 v4.2.7 之前版本,由于一个错误,``$secure`` 和 ``$httponly`` 的默认值为 ``false``,
+        .. note:: 在 v4.2.7 之前版本,由于一个错误, ``$secure`` 和 ``$httponly`` 的默认值为 ``false``,
             从未使用来自 **app/Config/Cookie.php** 的这些值。
 
         使用你指定的值设置 cookie。有两种传递信息的方式以便可以设置 cookie:数组方法和离散参数:

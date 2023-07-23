@@ -11,7 +11,7 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
 配置
 =============
 
-从 ``v4.3.0`` 开始,``html_helper`` 函数中的空 HTML 元素(如 ``<img>``)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 **app/Config/DocTypes.php** 中将 ``$html5`` 属性设置为 ``false``。
+从 ``v4.3.0`` 开始, ``html_helper`` 函数中的空 HTML 元素(如 ``<img>``)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 **app/Config/DocTypes.php** 中将 ``$html5`` 属性设置为 ``false``。
 
 加载此辅助函数
 ===================

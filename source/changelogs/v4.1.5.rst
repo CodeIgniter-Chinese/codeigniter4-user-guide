@@ -13,9 +13,9 @@
 ==========
 
 - 修复了 CSRF 保护上的一个错误。现在,当应用 CSRF 过滤器时,CSRF 保护也适用于 PUT/PATCH/DELETE 请求。如果使用这些请求,则需要发送 CSRF token。
-- 在以前的版本中,如果你没有提供自己的 headers,``CURLRequest`` 会由于一个错误而发送来自浏览器的请求头。从本版本开始,它不再发送它们。
+- 在以前的版本中,如果你没有提供自己的 headers, ``CURLRequest`` 会由于一个错误而发送来自浏览器的请求头。从本版本开始,它不再发送它们。
 - 修复了 ``BaseBuilder::insertBatch()`` 在 ``testMode`` 下的返回值。现在它返回 SQL 字符串数组而不是受影响的行数。此更改是为了与批处理方法的返回类型保持兼容。现在 ``BaseBuilder::insertBatch()`` 的返回数据类型与 `updateBatch()` 方法相同。
-- 对 ``BaseBuilder::insertBatch()`` 和 ``BaseBuilder::updateBatch()`` 方法中数据处理方式进行了重大优化。这减少了内存使用量和更快的查询处理速度。作为权衡,``$query->getOriginalQuery()`` 方法生成的结果发生了变化。它不再返回带有绑定参数的查询,而是实际运行的查询。
+- 对 ``BaseBuilder::insertBatch()`` 和 ``BaseBuilder::updateBatch()`` 方法中数据处理方式进行了重大优化。这减少了内存使用量和更快的查询处理速度。作为权衡, ``$query->getOriginalQuery()`` 方法生成的结果发生了变化。它不再返回带有绑定参数的查询,而是实际运行的查询。
 
 增强功能
 ============

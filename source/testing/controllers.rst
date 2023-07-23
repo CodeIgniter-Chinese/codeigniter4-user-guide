@@ -115,8 +115,8 @@ Helper Trait
 配置
 -------------
 
-由于与控制器测试的逻辑重叠,``FilterTestTrait`` 旨在与 ``ControllerTestTrait`` 一起使用,如果同一个类需要两者。
-一旦包含了 trait,``CIUnitTestCase`` 将检测其 ``setUp`` 方法并准备测试所需的所有组件。如果需要特殊配置,可以在调用支持方法之前更改任何属性:
+由于与控制器测试的逻辑重叠, ``FilterTestTrait`` 旨在与 ``ControllerTestTrait`` 一起使用,如果同一个类需要两者。
+一旦包含了 trait, ``CIUnitTestCase`` 将检测其 ``setUp`` 方法并准备测试所需的所有组件。如果需要特殊配置,可以在调用支持方法之前更改任何属性:
 
 * ``$request`` 准备好的默认 ``IncomingRequest`` 服务的版本
 * ``$response`` 准备好的默认 ``ResponseInterface`` 服务的版本
@@ -160,12 +160,12 @@ Helper Trait
 
     .. literalinclude:: controllers/014.php
 
-    请注意,``Closure`` 可以接受输入参数,这些参数会传入过滤器方法。
+    请注意, ``Closure`` 可以接受输入参数,这些参数会传入过滤器方法。
 
 断言
 ----------
 
-除了上面的帮助方法之外,``FilterTestTrait`` 还带有一些断言来简化测试方法。
+除了上面的帮助方法之外, ``FilterTestTrait`` 还带有一些断言来简化测试方法。
 
 assertFilter()
 ^^^^^^^^^^^^^^

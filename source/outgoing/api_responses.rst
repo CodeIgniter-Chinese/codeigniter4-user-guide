@@ -31,9 +31,9 @@ API 响应特性
 当你在任何这些方法中传递数据时,它们将根据以下标准确定数据类型以格式化结果:
 
 * 如果数据是字符串,它将被视为要返回给客户端的 HTML。
-* 如果数据是数组,它将根据控制器的``$this->format``值进行格式化。如果为空,
+* 如果数据是数组,它将根据控制器的 ``$this->format`` 值进行格式化。如果为空,
   它将尝试用客户端请求的内容类型协商内容类型,默认为 JSON
-  如果在 **Config/Format.php** 中的``$supportedResponseFormats``属性未指定其他格式。
+  如果在 **Config/Format.php** 中的 ``$supportedResponseFormats`` 属性未指定其他格式。
 
 要定义用于格式化的格式器,请编辑 **Config/Format.php**。 ``$supportedResponseFormats`` 包含应用程序可以
 自动格式化响应的 mime 类型列表。默认情况下,系统知道如何格式化 XML 和 JSON 响应:
@@ -57,7 +57,7 @@ API 响应特性
 
 .. php:method:: setResponseFormat($format)
 
-    :param string $format: 要返回的响应类型,``json`` 或 ``xml``
+    :param string $format: 要返回的响应类型, ``json`` 或 ``xml``
 
     这定义了在响应中格式化数组时使用的格式。如果为 ``$format`` 提供 null 值,它将通过内容协商自动确定。
 
@@ -78,7 +78,7 @@ API 响应特性
     如果传递了 ``$message`` 字符串,它将替代标准 IANA 原因代码用于
     响应状态。但是,并非每个客户端都会遵守自定义代码,它们会使用与状态码匹配的 IANA 标准。
 
-    .. 注意:: 由于它在活动的 Response 实例上设置状态码和主体,所以这应该始终
+    .. note:: 由于它在活动的 Response 实例上设置状态码和主体,所以这应该始终
         是脚本执行中的最后一个方法。
 
 .. php:method:: fail($messages[, int $status = 400[, string $code = null[, string $message = '']]])

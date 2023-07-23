@@ -54,7 +54,7 @@ CodeIgniter 提供了几个工具来帮助你为不同的语言本地化应用�
 
 .. literalinclude:: localization/002.php
 
-一旦启用,系统将自动根据你定义的区域设置列表 ``$supportLocales`` 协商出正确的语言。如果在你支持的语言和请求的语言之间找不到匹配,``$supportedLocales`` 中的第一项将被使用。在下面的例子中,如果找不到匹配,将使用 ``en`` 区域设置:
+一旦启用,系统将自动根据你定义的区域设置列表 ``$supportLocales`` 协商出正确的语言。如果在你支持的语言和请求的语言之间找不到匹配, ``$supportedLocales`` 中的第一项将被使用。在下面的例子中,如果找不到匹配,将使用 ``en`` 区域设置:
 
 .. literalinclude:: localization/003.php
 

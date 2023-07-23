@@ -145,7 +145,7 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 .. literalinclude:: modules/006.php
 
-为了减少这里所需的输入量,**group** 路由功能很有用:
+为了减少这里所需的输入量, **group** 路由功能很有用:
 
 .. literalinclude:: modules/007.php
 
@@ -160,7 +160,7 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 .. note:: 我们不建议在模块中使用相同的短类名。需要覆盖或添加 **app/Config/** 中已知配置的模块应使用 :ref:`registrars`。
 
-.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``config(\Acme\Blog\Config\Blog::class)``),``config()`` 也会在 **app/Config/** 中找到该文件。这是因为 ``config()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`Factories 示例 <factories-example>`。
+.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``config(\Acme\Blog\Config\Blog::class)``), ``config()`` 也会在 **app/Config/** 中找到该文件。这是因为 ``config()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`Factories 示例 <factories-example>`。
 
 迁移
 ==========
@@ -210,7 +210,7 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 .. note:: 我们不建议在模块中使用相同的短类名。
 
-.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``model(\Acme\Blog\Model\PostModel::class)``),``model()`` 也会在 **app/Models/** 中找到该文件。这是因为 ``model()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`Factories 示例 <factories-example>`。
+.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``model(\Acme\Blog\Model\PostModel::class)``), ``model()`` 也会在 **app/Models/** 中找到该文件。这是因为 ``model()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`Factories 示例 <factories-example>`。
 
 视图
 =====

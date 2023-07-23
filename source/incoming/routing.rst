@@ -31,7 +31,7 @@ RouteCollection 类 (``$routes``),允许你指定自己的路由标准。
 
 .. literalinclude:: routing/001.php
 
-一个路由将**路由路径**(相对于 BaseURL 的 URI 路径,``/``)放在左边,
+一个路由将**路由路径**(相对于 BaseURL 的 URI 路径, ``/``)放在左边,
 并将其映射到右边的**路由处理程序**(控制器和方法 ``Home::index``),
 以及应该传递给控制器的任何参数。
 
@@ -61,7 +61,7 @@ ID 将被设置为 ``34``:
 
 .. literalinclude:: routing/008.php
 
-以 **product** 作为第一个段,数字作为第二段的 URL,将被映射到 ``\App\Controllers\Catalog``类
+以 **product** 作为第一个段,数字作为第二段的 URL,将被映射到 ``\App\Controllers\Catalog`` 类
 和 ``productLookupByID()`` 方法,并将匹配项作为变量传递给该方法:
 
 .. literalinclude:: routing/009.php
@@ -253,7 +253,7 @@ HTTP 动词路由
 
 .. literalinclude:: routing/022.php
 
-.. note:: 自 v4.2.0 起,``addRedirect()`` 可以使用占位符。
+.. note:: 自 v4.2.0 起, ``addRedirect()`` 可以使用占位符。
 
 如果在页面加载期间匹配到重定向路由,用户将在控制器加载之前立即重定向到新页面。
 
@@ -392,7 +392,7 @@ HTTP 动词路由
 
 .. literalinclude:: routing/040.php
 
-你可以通过将值设置为星号 ``(``*``)`` 来限制到任何子域。如果你从一个没有任何子域存在的 URL 查看,这将不会匹配:
+你可以通过将值设置为星号 (``*``) 来限制到任何子域。如果你从一个没有任何子域存在的 URL 查看,这将不会匹配:
 
 .. literalinclude:: routing/041.php
 

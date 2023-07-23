@@ -105,7 +105,7 @@ $forge->addField()
 
 .. versionadded:: 4.2.0
 
-从 v4.2.0 开始,``$forge->addField()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
+从 v4.2.0 开始, ``$forge->addField()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
 
 .. literalinclude:: forge/027.php
 
@@ -137,7 +137,7 @@ $forge->addField()
 $forge->addKey()
 ----------------
 
-通常,你会希望表具有键。这是通过 ``$forge->addKey('field')`` 完成的。可选的第二个参数设置为 true 将使其成为主键,第三个参数设置为 true 将使其成为唯一键。你可以使用第四个参数指定名称。请注意,``addKey()`` 必须在表已存在的情况下后跟对 ``createTable()`` 或 ``processIndexes()`` 的调用。
+通常,你会希望表具有键。这是通过 ``$forge->addKey('field')`` 完成的。可选的第二个参数设置为 true 将使其成为主键,第三个参数设置为 true 将使其成为唯一键。你可以使用第四个参数指定名称。请注意, ``addKey()`` 必须在表已存在的情况下后跟对 ``createTable()`` 或 ``processIndexes()`` 的调用。
 
 多个非主键列必须作为数组发送。以下为 MySQL 的示例输出。
 

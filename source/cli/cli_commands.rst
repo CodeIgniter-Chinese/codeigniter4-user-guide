@@ -53,7 +53,7 @@ run()
 
     > php spark foo bar baz
 
-那么 **foo** 是命令名称,``$params`` 数组将是:
+那么 **foo** 是命令名称, ``$params`` 数组将是:
 
 .. literalinclude:: cli_commands/003.php
 
@@ -70,7 +70,7 @@ run()
 
 默认情况下,命令以成功代码 ``0`` 退出。如果在执行命令时遇到错误,你可以通过在 ``run()`` 方法中使用 ``return`` 语句和退出代码来终止命令。
 
-例如,``return EXIT_ERROR;``
+例如, ``return EXIT_ERROR;``
 
 这种方法可以帮助系统级调试,如果命令例如通过 crontab 运行。
 

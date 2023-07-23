@@ -43,7 +43,7 @@ Array 辅助函数提供了几个函数来简化数组的更复杂用法。它�
 
     .. literalinclude:: array_helper/005.php
 
-.. note:: 在 v4.2.0 之前,由于一个 bug,``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])`` 返回的是 ``23``。v4.2.0 及更高版本返回 ``null``。
+.. note:: 在 v4.2.0 之前,由于一个 bug, ``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])`` 返回的是 ``23``。v4.2.0 及更高版本返回 ``null``。
 
 .. php:function:: array_deep_search($key, array $array)
 
@@ -86,7 +86,7 @@ Array 辅助函数提供了几个函数来简化数组的更复杂用法。它�
 
     .. literalinclude:: array_helper/009.php
 
-    检查后,``$flattened`` 等于:
+    检查后, ``$flattened`` 等于:
 
     .. literalinclude:: array_helper/010.php
 

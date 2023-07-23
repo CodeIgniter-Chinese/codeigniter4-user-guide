@@ -19,7 +19,7 @@
 升级指南
 *************
 
-1. 在配置中,``$config['encryption_key'] = 'abc123';`` 从 **application/config/config.php** 移到了 **app/Config/Encryption.php** 中的 ``public $key = 'abc123';``。
+1. 在配置中, ``$config['encryption_key'] = 'abc123';`` 从 **application/config/config.php** 移到了 **app/Config/Encryption.php** 中的 ``public $key = 'abc123';``。
 2. 如果需要解密用 CI3 加密的数据,请配置设置以保持兼容性。参见 :ref:`encryption-compatible-with-ci3`。
 3. 在使用加密库的任何地方,都必须将 ``$this->load->library('encryption');`` 替换为 ``$encrypter = service('encrypter');``,并如下例代码中更改加密和解密的方法。
 

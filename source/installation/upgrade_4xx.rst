@@ -37,7 +37,7 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
 
 - **application** 文件夹重命名为 **app**,框架仍然有 **system** 文件夹,与以前的解释相同。
 - 框架现在提供了 **public** 文件夹,旨在作为你的应用程序的文档根目录。
-- ``defined('BASEPATH') OR exit('No direct script access allowed');`` 这一行不是必需的,因为在默认配置下,**public** 文件夹之外的文件不可访问。
+- ``defined('BASEPATH') OR exit('No direct script access allowed');`` 这一行不是必需的,因为在默认配置下, **public** 文件夹之外的文件不可访问。
   并且 CI4 不再定义常量 ``BASEPATH``,所以在所有文件中删除该行。
 - 还有一个 **writable** 文件夹,用于保存缓存数据、日志和 session 数据。
 - **app** 文件夹与 CI3 的 **application** 非常相似,只是一些名称更改,一些子文件夹移到了 **writable** 文件夹。
@@ -101,10 +101,10 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
   和 `File Helper <https://www.codeigniter.com/userguide3/helpers/file_helper.html>`_ 在 CI4 中将是 :doc:`../helpers/filesystem_helper`。
 - CI3 的 `String Helper <https://www.codeigniter.com/userguide3/helpers/string_helper.html>`_ 函数
   在 CI4 的 :doc:`../helpers/text_helper` 中。
-- 在 CI4 中,``redirect()`` 与 CI3 中的完全不同。
+- 在 CI4 中, ``redirect()`` 与 CI3 中的完全不同。
     - `redirect() 文档 CodeIgniter 3.X <https://codeigniter.com/userguide3/helpers/url_helper.html#redirect>`_
     - `redirect() 文档 CodeIgniter 4.X <../general/common_functions.html#redirect>`_
-    - 在 CI4 中,``redirect()`` 返回一个 ``RedirectResponse`` 实例,而不是重定向和终止脚本执行。你必须返回它。
+    - 在 CI4 中, ``redirect()`` 返回一个 ``RedirectResponse`` 实例,而不是重定向和终止脚本执行。你必须返回它。
     - 你需要将 CI3 的 ``redirect('login/form')`` 改为 ``return redirect()->to('login/form')``。
 
 钩子

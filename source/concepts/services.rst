@@ -12,7 +12,7 @@
 什么是服务?
 ==================
 
-CodeIgniter 4 中的**服务**提供了创建和共享新类实例的功能。它由 ``Config\Services`` 类实现。
+CodeIgniter 4 中的 **服务** 提供了创建和共享新类实例的功能。它由 ``Config\Services`` 类实现。
 
 CodeIgniter 的所有核心类都以“服务”提供。这仅仅意味着,不是硬编码一个类名进行加载,而是在一个非常简单的配置文件中定义要调用的类。这个文件充当工厂的角色,用来创建所需类的新实例。
 
@@ -46,7 +46,7 @@ CodeIgniter 的所有核心类都以“服务”提供。这仅仅意味着,不�
 
 .. literalinclude:: services/015.php
 
-因此,``$client2`` 的参数 ``$options2`` 不起作用。它被忽略了。
+因此, ``$client2`` 的参数 ``$options2`` 不起作用。它被忽略了。
 
 获取新实例
 ======================
@@ -63,7 +63,7 @@ CodeIgniter 的所有核心类都以“服务”提供。这仅仅意味着,不�
 service()
 ---------
 
-第一个是 ``service()``,它返回所请求服务的新实例。唯一必需的参数是服务名称。这与 Services 文件中的方法名称相同,总是返回类的 SHARED 实例,所以多次调用函数应该始终返回相同的实例:
+第一个是 ``service()``,它返回所请求服务的新实例。唯一必需的参数是服务名称。这与 Services 文件中的方法名称相同,总是返回类的一个共享实例,所以多次调用函数应该始终返回相同的实例:
 
 .. literalinclude:: services/003.php
 
@@ -83,7 +83,7 @@ single_service()
 
 为了使服务能够良好地工作,你必须能够依赖于每个类具有一个恒定的 API 或 `接口 <https://www.php.net/manual/en/language.oop5.interfaces.php>`_ 来使用它。CodeIgniter 的几乎所有类都提供了它们要遵守的接口。当你想扩展或替换核心类时,你只需要确保满足接口的要求,你就会知道这些类是兼容的。
 
-例如,``RouteCollection`` 类实现了 ``RouteCollectionInterface``。当你想要创建一个提供不同路由创建方式的替代类时,你只需要创建一个实现 ``RouteCollectionInterface`` 的新类:
+例如, ``RouteCollection`` 类实现了 ``RouteCollectionInterface``。当你想要创建一个提供不同路由创建方式的替代类时,你只需要创建一个实现 ``RouteCollectionInterface`` 的新类:
 
 .. literalinclude:: services/006.php
 

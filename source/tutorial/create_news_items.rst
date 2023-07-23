@@ -52,7 +52,7 @@
 
 这里可能只有四件事看起来不太熟悉。
 
-:php:func:`session()` 函数用于获取 Session 对象,``session()->getFlashdata('error')`` 用于向用户显示与 CSRF 保护相关的错误。
+:php:func:`session()` 函数用于获取 Session 对象, ``session()->getFlashdata('error')`` 用于向用户显示与 CSRF 保护相关的错误。
 但是,默认情况下,如果 CSRF 验证检查失败,将抛出异常,所以它现在还不起作用。有关更多信息,请参阅 :ref:`csrf-redirection-on-failure`。
 
 :php:func:`validation_list_errors()` 函数由 :doc:`../helpers/form_helper` 提供,用于报告与表单验证相关的错误。
@@ -89,7 +89,7 @@ CodeIgniter 拥有强大的验证库,如上所示。你可以阅读更多关于 
 
 如果验证失败,表单将被加载并返回以显示。
 
-如果验证通过了所有规则,**NewsModel** 将被加载并调用。这负责将新闻项传递到模型中。:ref:`model-save` 方法会自动插入或更新记录,这取决于它是否找到与主键匹配的数组键。
+如果验证通过了所有规则, **NewsModel** 将被加载并调用。这负责将新闻项传递到模型中。:ref:`model-save` 方法会自动插入或更新记录,这取决于它是否找到与主键匹配的数组键。
 
 这包含一个新函数 :php:func:`url_title()`。这个函数由 :doc:`URL 辅助函数 <../helpers/url_helper>` 提供 -
 它会剥离你传递给它的字符串,用破折号 (``-``) 替换所有空格,并确保所有内容都是小写。

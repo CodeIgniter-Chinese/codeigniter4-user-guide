@@ -91,7 +91,7 @@ SameSite 属性只接受三个值:
 
 如果将 SameSite 设置为 ``None``,你需要确保 ``Secure`` 也设置为 ``true``。
 
-在编写 SameSite 属性时,``Cookie`` 类以不区分大小写的方式接受任何这些值。你也可以利用类的常量来避免麻烦。
+在编写 SameSite 属性时, ``Cookie`` 类以不区分大小写的方式接受任何这些值。你也可以利用类的常量来避免麻烦。
 
 .. literalinclude:: cookies/006.php
 
@@ -140,7 +140,7 @@ CodeIgniter 提供了另外三种创建 ``CookieStore`` 新实例的方法。
 在存储中添加/删除 Cookie
 ================================
 
-如前所述,``CookieStore`` 对象是不可变的。你需要保存修改后的实例才能对其进行操作。原始实例保持不变。
+如前所述, ``CookieStore`` 对象是不可变的。你需要保存修改后的实例才能对其进行操作。原始实例保持不变。
 
 .. literalinclude:: cookies/014.php
 

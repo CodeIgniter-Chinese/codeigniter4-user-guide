@@ -148,7 +148,7 @@ redirect()->withInput() 和验证错误
 Time 修复
 ==========
 
-- 由于错误修复,:doc:`Time <../libraries/time>` 中的一些方法已从可变行为更改为不可变;``Time`` 现在扩展 ``DateTimeImmutable``。详细信息请参阅 :ref:`ChangeLog <v430-time-fix>`。
+- 由于错误修复,:doc:`Time <../libraries/time>` 中的一些方法已从可变行为更改为不可变; ``Time`` 现在扩展 ``DateTimeImmutable``。详细信息请参阅 :ref:`ChangeLog <v430-time-fix>`。
 - 如果需要修改前 ``Time`` 的行为,已添加了一个兼容的 ``TimeLegacy`` 类。请在应用程序代码中全部替换 ``Time`` 为 ``TimeLegacy``。
 - 但是 ``TimeLegacy`` 已被废弃。因此我们建议你更新代码。
 

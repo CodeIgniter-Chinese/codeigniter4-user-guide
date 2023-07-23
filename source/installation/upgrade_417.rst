@@ -15,4 +15,4 @@
 重大变更
 ****************
 
-- 当 ``$xssClean`` 为 true 时,``get_cookie()`` 改变了输出。现在使用 ``FILTER_SANITIZE_FULL_SPECIAL_CHARS``,而不是 ``FILTER_SANITIZE_STRING``。确保更改可以接受。请注意,使用 XSS 过滤是一种不好的做法。它不能完美地防止 XSS 攻击。建议在视图中使用正确的 ``$context`` 来 ``esc()``。
+- 当 ``$xssClean`` 为 true 时, ``get_cookie()`` 改变了输出。现在使用 ``FILTER_SANITIZE_FULL_SPECIAL_CHARS``,而不是 ``FILTER_SANITIZE_STRING``。确保更改可以接受。请注意,使用 XSS 过滤是一种不好的做法。它不能完美地防止 XSS 攻击。建议在视图中使用正确的 ``$context`` 来 ``esc()``。

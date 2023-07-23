@@ -59,7 +59,7 @@ CSRF 保护
 CURLRequest 头更改
 -------------------------
 
-在以前的版本中,如果你没有提供自己的 header,``CURLRequest`` 会发送来自浏览器的请求 header。
+在以前的版本中,如果你没有提供自己的 header, ``CURLRequest`` 会发送来自浏览器的请求 header。
 这个错误已被修复。如果你的请求依赖 header,升级后你的请求可能会失败。
 在这种情况下,需要手动添加必要的 header。
 参见 :ref:`CURLRequest 类 <curlrequest-request-options-headers>` 了解如何添加。
@@ -69,8 +69,8 @@ Query Builder 更改
 
 为了优化和修复一个错误,主要用于测试的以下行为已经改变。
 
-- 当你使用 ``insertBatch()`` 和 ``updateBatch()`` 时,``$query->getOriginalQuery()`` 的返回值已改变。它不再返回带有绑定参数的查询,而是返回实际运行的查询。
-- 如果 ``testMode`` 为 ``true``,``insertBatch()`` 将返回 SQL 字符串数组,而不是受影响的行数。此更改是为了使返回的数据类型与 ``updateBatch()`` 方法相同。
+- 当你使用 ``insertBatch()`` 和 ``updateBatch()`` 时, ``$query->getOriginalQuery()`` 的返回值已改变。它不再返回带有绑定参数的查询,而是返回实际运行的查询。
+- 如果 ``testMode`` 为 ``true``, ``insertBatch()`` 将返回 SQL 字符串数组,而不是受影响的行数。此更改是为了使返回的数据类型与 ``updateBatch()`` 方法相同。
 
 重大增强
 =====================

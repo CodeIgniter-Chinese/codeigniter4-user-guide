@@ -38,7 +38,7 @@
 - ``Entity::mutateDate`` 使用外部转换处理程序 ``DatetimeCast::get``。
 - 为了使 ``Config\**`` 类能够从 ``.env`` 获取各自的属性值,现在有必要用类的名称为属性命名空间。以前,属性名称就足够了,但现在不允许,因为它可以获取系统环境变量,如 ``PATH``。
 - 数组辅助函数 ``_array_search_dot`` 现在标记为仅 ``@internal`` 使用。由于 ``dot_array_search`` 使用了 ``_array_search_dot``,所以用户不应在代码中直接使用 ``_array_search_dot``。
-- ``CacheInterface::getMetaData()`` 对未命中返回 ``null``,对命中返回包含至少 ``expires`` 键的数组(设置为绝对时期过期时间)或 ``null``(表示“永不过期”)。File、Memcached 和 Wincache 处理程序仍返回 ``false``,这在未来的版本中将变为 ``null``。
+- ``CacheInterface::getMetaData()`` 对未命中返回 ``null``,对命中返回包含至少 ``expires`` 键的数组(设置为绝对时期过期时间)或 ``null`` (表示“永不过期”)。File、Memcached 和 Wincache 处理程序仍返回 ``false``,这在未来的版本中将变为 ``null``。
 
 弃用功能
 ------------
@@ -54,14 +54,14 @@
 - 弃用 ``FeatureTestCase``,改为使用 ``FeatureTestTrait``。
 - 弃用 ``ControllerTester``,改为使用 ``ControllerTestTrait``。
 - 统一并弃用 ``ControllerResponse`` 和 ``FeatureResponse``,改用 ``TestResponse``。
-- 弃用 ``Time::instance()``,改用 ``Time::createFromInstance()``(现在接受 ``DateTimeInterface``)。
+- 弃用 ``Time::instance()``,改用 ``Time::createFromInstance()`` (现在接受 ``DateTimeInterface``)。
 - 弃用 ``IncomingRequest::removeRelativeDirectory()``,改用 ``URI::removeDotSegments()``。
 - 弃用 ``\API\ResponseTrait::failValidationError``,改用 ``\API\ResponseTrait::failValidationErrors``。
 
 错误修复
 ----------
 
-- ``BaseConnection::query()`` 现在对失败的查询返回 ``false``(除非 ``DBDebug==true``,在这种情况下会抛出异常),并根据文档为写入类型的查询返回布尔值。
+- ``BaseConnection::query()`` 现在对失败的查询返回 ``false`` (除非 ``DBDebug==true``,在这种情况下会抛出异常),并根据文档为写入类型的查询返回布尔值。
 
 有关已修复的错误列表,请参见仓库的
 `CHANGELOG_4.1.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.1.md>`_。

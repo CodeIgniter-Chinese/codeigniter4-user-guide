@@ -18,7 +18,7 @@
 app/Config/Mimes.php
 ====================
 
-- **app/Config/Mimes.php** 中文件扩展名与 MIME 类型的映射已更新以修复一个错误。同时,``Mimes::getExtensionFromType()`` 的逻辑也已改变。
+- **app/Config/Mimes.php** 中文件扩展名与 MIME 类型的映射已更新以修复一个错误。同时, ``Mimes::getExtensionFromType()`` 的逻辑也已改变。
 
 重大变更
 ****************
@@ -39,7 +39,7 @@ get_cookie()
         'prefix_test' => 'CI Cookie',
     ];
 
-以前,``get_cookie()`` 返回如下:
+以前, ``get_cookie()`` 返回如下:
 
 .. code-block:: php
 

@@ -60,7 +60,7 @@ URI 路径   /ci-blog/blog/news/2022/10
 删除 index.php 文件
 ===========================
 
-默认情况下,**index.php** 文件将包含在你的 URL 中::
+默认情况下, **index.php** 文件将包含在你的 URL 中::
 
     example.com/index.php/news/article/my_article
 

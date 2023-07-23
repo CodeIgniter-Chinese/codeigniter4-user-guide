@@ -119,7 +119,7 @@ RedirectException
 从 v4.3.0 开始,你可以为异常类指定退出代码来实现
 ``HasExitCodeInterface``。
 
-当 CodeIgniter 的异常处理程序捕获实现了 ``HasExitCodeInterface`` 的异常时,``getExitCode()`` 方法返回的代码将成为退出代码。
+当 CodeIgniter 的异常处理程序捕获实现了 ``HasExitCodeInterface`` 的异常时, ``getExitCode()`` 方法返回的代码将成为退出代码。
 
 .. _logging_deprecation_warnings:
 
@@ -128,7 +128,7 @@ RedirectException
 
 .. versionadded:: 4.3.0
 
-默认情况下,``error_reporting()`` 报告的所有错误都会作为 ``ErrorException`` 对象抛出。这些错误包括 ``E_DEPRECATED`` 和 ``E_USER_DEPRECATED`` 错误。随着 PHP 8.1+ 的大规模使用,许多用户可能会看到由于 `向内部函数的非空参数传递 null <https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg>`_ 抛出的异常。为了方便迁移到 PHP 8.1,你可以指示 CodeIgniter 记录弃用而不是抛出它们。
+默认情况下, ``error_reporting()`` 报告的所有错误都会作为 ``ErrorException`` 对象抛出。这些错误包括 ``E_DEPRECATED`` 和 ``E_USER_DEPRECATED`` 错误。随着 PHP 8.1+ 的大规模使用,许多用户可能会看到由于 `向内部函数的非空参数传递 null <https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg>`_ 抛出的异常。为了方便迁移到 PHP 8.1,你可以指示 CodeIgniter 记录弃用而不是抛出它们。
 
 首先,确保你的 ``Config\Exceptions`` 副本已更新,并设置如下:
 

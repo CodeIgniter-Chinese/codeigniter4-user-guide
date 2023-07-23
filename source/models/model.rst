@@ -93,7 +93,7 @@ $useAutoIncrement
 $returnType
 -----------
 
-模型的 CRUD 方法将一个步骤的工作从你这里带走,自动返回结果数据,而不是结果对象。此设置允许你定义返回的数据类型。有效值为 ``'**array**'``(默认)、 ``'**object**'`` 或可以与结果对象的 ``getCustomResultObject()`` 方法一起使用的**完全限定的类名称**。使用类的特殊常量 ``::class`` 可以让大多数 IDE 自动完成名称并允许诸如重构之类的功能更好地理解你的代码。
+模型的 CRUD 方法将一个步骤的工作从你这里带走,自动返回结果数据,而不是结果对象。此设置允许你定义返回的数据类型。有效值为 '**array**' (默认)、 '**object**' 或可以与结果对象的 ``getCustomResultObject()`` 方法一起使用的 **完全限定的类名称**。使用类的特殊常量 ``::class`` 可以让大多数 IDE 自动完成名称并允许诸如重构之类的功能更好地理解你的代码。
 
 .. _model-use-soft-deletes:
 
@@ -170,7 +170,7 @@ $cleanValidationRules
 
 你也可以通过 ``cleanRules()`` 方法更改此值。
 
-.. note:: 在 v4.2.7 之前,由于一个 bug,``$cleanValidationRules`` 不起作用。
+.. note:: 在 v4.2.7 之前,由于一个 bug, ``$cleanValidationRules`` 不起作用。
 
 回调
 ---------
@@ -228,7 +228,7 @@ find()
 
 .. literalinclude:: model/007.php
 
-.. note:: 如果没有传递参数,``find()`` 将返回该模型的表中的所有行,
+.. note:: 如果没有传递参数, ``find()`` 将返回该模型的表中的所有行,
     效果与 ``findAll()`` 相同,尽管不太明确。
 
 findColumn()

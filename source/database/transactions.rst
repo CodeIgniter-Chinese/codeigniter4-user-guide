@@ -91,7 +91,7 @@ CodeIgniter 使用一种非常类似于流行数据库类 ADODB 的方法来处�
 
 .. literalinclude:: transactions/006.php
 
-.. note:: 运行手动事务时,请使用 ``$this->db->transBegin()``,**而不是** ``$this->db->transStart()``。
+.. note:: 运行手动事务时,请使用 ``$this->db->transBegin()``, **而不是** ``$this->db->transStart()``。
 
 嵌套事务
 ===================

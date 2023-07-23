@@ -78,7 +78,7 @@ promptByMultipleKeys()
 
 .. literalinclude:: cli_library/023.php
 
-.. important:: 与 ``promptByKey()`` 不同,``promptByMultipleKeys()`` 方法不支持命名键或验证。
+.. important:: 与 ``promptByKey()`` 不同, ``promptByMultipleKeys()`` 方法不支持命名键或验证。
 
 提供反馈
 ******************
@@ -145,7 +145,7 @@ color()
 
 .. literalinclude:: cli_library/013.php
 
-这个示例将在窗口中写入一行,``fileA`` 为黄色,后跟一个制表符,然后是白色的 ``/path/to/file``。
+这个示例将在窗口中写入一行, ``fileA`` 为黄色,后跟一个制表符,然后是白色的 ``/path/to/file``。
 
 error()
 =======

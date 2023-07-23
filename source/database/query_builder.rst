@@ -121,7 +121,7 @@ RawSql
 
 .. versionadded:: 4.2.0
 
-从 v4.2.0 开始,``$builder->select()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
+从 v4.2.0 开始, ``$builder->select()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
 
 .. literalinclude:: query_builder/099.php
 
@@ -225,7 +225,7 @@ RawSql
 
 .. versionadded:: 4.2.0
 
-从 v4.2.0 开始,``$builder->join()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
+从 v4.2.0 开始, ``$builder->join()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
 
 .. literalinclude:: query_builder/102.php
 
@@ -292,7 +292,7 @@ $builder->where()
 
     .. versionadded:: 4.2.0
 
-    从 v4.2.0 开始,``$builder->where()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
+    从 v4.2.0 开始, ``$builder->where()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
 
     .. literalinclude:: query_builder/100.php
 
@@ -397,7 +397,7 @@ $builder->like()
 
     .. versionadded:: 4.2.0
 
-    从 v4.2.0 开始,``$builder->like()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
+    从 v4.2.0 开始, ``$builder->like()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
 
     .. literalinclude:: query_builder/101.php
 
@@ -641,7 +641,7 @@ $builder->union()
 .. warning:: 对于正确使用某些 DBMS(如 MSSQL 和 Oracle),查询将被包装在 ``SELECT * FROM ( ... ) alias`` 中。
     主查询总是具有 ``uwrp0`` 的别名。每个后续通过 ``union()`` 添加的查询都具有 ``uwrpN+1`` 的别名。
 
-所有联合查询都将在主查询之后添加,而不考虑调用 ``union()`` 方法的顺序。也就是说,``limit()`` 或 ``orderBy()`` 方法将针对主查询,即使在 ``union()`` 之后调用。
+所有联合查询都将在主查询之后添加,而不考虑调用 ``union()`` 方法的顺序。也就是说, ``limit()`` 或 ``orderBy()`` 方法将针对主查询,即使在 ``union()`` 之后调用。
 
 在某些情况下,可能需要对查询结果进行排序或限制记录数。解决方案是使用通过 ``$db->newQuery()`` 创建的 wrapper。在下面的示例中,我们获取前 5 个用户 + 最后 5 个用户并按 id 排序:
 
@@ -882,7 +882,7 @@ $builder->updateFields()
 
 .. literalinclude:: query_builder/111.php
 
-请注意,``updated_at`` 字段未插入但用于更新。
+请注意, ``updated_at`` 字段未插入但用于更新。
 
 *************
 更新数据
@@ -964,7 +964,7 @@ UpdateBatch
 $builder->updateBatch()
 -----------------------
 
-.. note:: 从 v4.3.0 开始,``updateBatch()`` 的第二个参数 ``$index`` 改为 ``$constraints``。它现在接受数组、字符串或 ``RawSql`` 类型。
+.. note:: 从 v4.3.0 开始, ``updateBatch()`` 的第二个参数 ``$index`` 改为 ``$constraints``。它现在接受数组、字符串或 ``RawSql`` 类型。
 
 根据你提供的数据生成 update 字符串,并运行查询。你可以将一个**数组**或**对象**传递给该方法。下面是一个使用数组的示例:
 
@@ -983,7 +983,7 @@ $builder->updateBatch()
 .. warning:: 当你使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
 
 .. note:: 由于这项工作的性质,此方法无法为 ``affectedRows()`` 提供适当的结果。
-    相反,``updateBatch()`` 返回受影响的行数。
+    相反, ``updateBatch()`` 返回受影响的行数。
 
 你也可以从查询中更新:
 
@@ -1058,7 +1058,7 @@ $builder->truncate()
 
 .. literalinclude:: query_builder/096.php
 
-.. note:: 如果不可用 TRUNCATE 命令,``truncate()`` 将使用 ``DELETE FROM table``。
+.. note:: 如果不可用 TRUNCATE 命令, ``truncate()`` 将使用 ``DELETE FROM table``。
 
 $builder->getCompiledDelete()
 -----------------------------

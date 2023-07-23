@@ -33,7 +33,7 @@ current_url() 和 indexPage
 BaseConnection::query() 的返回值
 =====================================
 
-之前版本中的 ``BaseConnection::query()`` 方法错误地总是返回 BaseResult 对象,即使查询失败。该方法现在对失败的查询会返回 ``false``(如果 ``DBDebug`` 为 ``true`` 则会抛出异常),对写类型的查询会返回布尔值。请检查 ``query()`` 方法的任何使用,评估返回值是否可能是布尔类型而不是 Result 对象。要更好地了解什么查询是写类型的查询,请查看 ``BaseConnection::isWriteType()`` 和相关 Connection 类中任何特定于 DBMS 的 ``isWriteType()`` 覆盖。
+之前版本中的 ``BaseConnection::query()`` 方法错误地总是返回 BaseResult 对象,即使查询失败。该方法现在对失败的查询会返回 ``false`` (如果 ``DBDebug`` 为 ``true`` 则会抛出异常),对写类型的查询会返回布尔值。请检查 ``query()`` 方法的任何使用,评估返回值是否可能是布尔类型而不是 Result 对象。要更好地了解什么查询是写类型的查询,请查看 ``BaseConnection::isWriteType()`` 和相关 Connection 类中任何特定于 DBMS 的 ``isWriteType()`` 覆盖。
 
 重大增强
 *********************
@@ -54,7 +54,7 @@ BaseConnection::query() 的返回值
 
 .. literalinclude:: upgrade_412/002.php
 
-最后,``ControllerTester`` 已被 ``ControllerTestTrait`` 取代,以统一方法并利用更新的响应测试(见下文)。
+最后, ``ControllerTester`` 已被 ``ControllerTestTrait`` 取代,以统一方法并利用更新的响应测试(见下文)。
 
 测试响应
 ==============

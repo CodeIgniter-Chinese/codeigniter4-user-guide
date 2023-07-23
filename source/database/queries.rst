@@ -19,7 +19,7 @@
 
 .. literalinclude:: queries/001.php
 
-当运行“读取”类型查询时,``query()`` 函数会返回一个可以用来 :doc:`显示结果 <results>` 的数据库结果**对象**。当运行“写入”类型查询时,它根据成功或失败简单地返回 true 或 false。检索数据时,你通常会将查询分配给自己的变量,如下所示:
+当运行“读取”类型查询时, ``query()`` 函数会返回一个可以用来 :doc:`显示结果 <results>` 的数据库结果**对象**。当运行“写入”类型查询时,它根据成功或失败简单地返回 true 或 false。检索数据时,你通常会将查询分配给自己的变量,如下所示:
 
 .. literalinclude:: queries/002.php
 
@@ -150,7 +150,7 @@ $db->protectIdentifiers()
 $db->error()
 ============
 
-如果你需要获取最后发生的错误,``error()`` 方法将返回包含代码和消息的数组。这是一个快速示例:
+如果你需要获取最后发生的错误, ``error()`` 方法将返回包含代码和消息的数组。这是一个快速示例:
 
 .. literalinclude:: queries/015.php
 
@@ -199,7 +199,7 @@ close()
 
 .. literalinclude:: queries/020.php
 
-.. note:: 从 v4.3.0 开始,``close()`` 方法在所有 DBMS 中释放预编译语句。以前,它们在 Postgre、SQLSRV 和 OCI8 中没有被释放。
+.. note:: 从 v4.3.0 开始, ``close()`` 方法在所有 DBMS 中释放预编译语句。以前,它们在 Postgre、SQLSRV 和 OCI8 中没有被释放。
 
 getQueryString()
 ----------------

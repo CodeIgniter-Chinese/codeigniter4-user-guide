@@ -12,7 +12,7 @@
 配置
 *************
 
-从 v4.3.0 开始,``form_helper`` 函数中的空 HTML 元素(如 ``<input>``)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 **app/Config/DocTypes.php** 中将 ``$html5`` 属性设置为 ``false``。
+从 v4.3.0 开始, ``form_helper`` 函数中的空 HTML 元素(如 ``<input>``)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 **app/Config/DocTypes.php** 中将 ``$html5`` 属性设置为 ``false``。
 
 *******************
 加载此辅助函数
@@ -88,7 +88,7 @@
 
             <form action="http://example.com/index.php/email/send" class="email" id="myform" method="post" accept-charset="utf-8">
 
-        如果 :ref:`CSRF <cross-site-request-forgery>` 过滤器已打开,``form_open()`` 将在表单开头生成 CSRF 字段。你可以通过传递 csrf_id 作为 ``$attribute`` 数组的一部分来指定此字段的 ID:
+        如果 :ref:`CSRF <cross-site-request-forgery>` 过滤器已打开, ``form_open()`` 将在表单开头生成 CSRF 字段。你可以通过传递 csrf_id 作为 ``$attribute`` 数组的一部分来指定此字段的 ID:
 
         .. literalinclude:: form_helper/007.php
 

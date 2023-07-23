@@ -100,7 +100,7 @@ CodeIgniter 从上到下读取其路由规则,并将请求路由到第一个匹�
 
 有关路由的更多信息,请参阅 :doc:`../incoming/routing`。
 
-这里,``$routes`` 对象中的第二条规则匹配到 ``/pages`` URI 路径的 GET 请求,并将其映射到 ``Pages`` 类的 ``index()`` 方法。
+这里, ``$routes`` 对象中的第二条规则匹配到 ``/pages`` URI 路径的 GET 请求,并将其映射到 ``Pages`` 类的 ``index()`` 方法。
 
 ``$routes`` 对象中的第三条规则匹配使用占位符 ``(:segment)`` 的 URI 段的 GET 请求,并将参数传递给 ``Pages`` 类的 ``view()`` 方法。
 

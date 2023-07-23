@@ -87,7 +87,7 @@
 
 .. literalinclude:: managing_apps/005.php
 
-.. note:: 如果你从 Zip 文件安装 CodeIgniter,``$systemDirectory`` 将是 ``__DIR__ . '/../../../codeigniter4/system'``。
+.. note:: 如果你从 Zip 文件安装 CodeIgniter, ``$systemDirectory`` 将是 ``__DIR__ . '/../../../codeigniter4/system'``。
 
 并修改每个应用程序内部的 **app/Config/Constants.php** 中的 ``COMPOSER_PATH`` 常量:
 

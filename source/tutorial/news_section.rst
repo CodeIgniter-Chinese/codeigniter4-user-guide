@@ -66,7 +66,7 @@ CodeIgniter 安装假定你已经按 :ref:`要求 <requirements-supported-databa
 
 使用此代码,你可以执行两种不同的查询。你可以获取所有新闻记录,也可以通过其 slug 获取新闻项。你可能已经注意到,在运行查询之前没有转义 ``$slug`` 变量; :doc:`查询构建器 <../database/query_builder>` 会为你完成这一步。
 
-这里使用的两个方法 ``findAll()`` 和 ``first()`` 由 ``CodeIgniter\Model`` 类提供。它们已经知道基于我们早先在 **NewsModel** 类中设置的 ``$table`` 属性要使用的表。它们是使用 Query Builder 在当前表上运行命令的辅助方法,并以你选择的格式返回结果数组。在本示例中,``findAll()`` 返回数组的数组。
+这里使用的两个方法 ``findAll()`` 和 ``first()`` 由 ``CodeIgniter\Model`` 类提供。它们已经知道基于我们早先在 **NewsModel** 类中设置的 ``$table`` 属性要使用的表。它们是使用 Query Builder 在当前表上运行命令的辅助方法,并以你选择的格式返回结果数组。在本示例中, ``findAll()`` 返回数组的数组。
 
 显示新闻
 ****************

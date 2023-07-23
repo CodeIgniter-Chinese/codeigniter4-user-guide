@@ -98,7 +98,7 @@ CodeIgniter 通过相同的方式提供对其 Session 数据的访问,因为它�
 
 .. literalinclude:: sessions/008.php
 
-.. note:: 如果尝试访问的项不存在,``get()`` 方法将返回 null。
+.. note:: 如果尝试访问的项不存在, ``get()`` 方法将返回 null。
 
 如果你想检索所有现有的 session 数据,只需省略项键(魔术 getter 仅适用于单个属性值):
 
@@ -121,7 +121,7 @@ CodeIgniter 通过相同的方式提供对其 Session 数据的访问,因为它�
 
 .. literalinclude:: sessions/011.php
 
-如果你想一次添加一个 Session 数据,``set()`` 也支持这种语法:
+如果你想一次添加一个 Session 数据, ``set()`` 也支持这种语法:
 
 .. literalinclude:: sessions/012.php
 
@@ -147,7 +147,7 @@ CodeIgniter 通过相同的方式提供对其 Session 数据的访问,因为它�
 
 .. literalinclude:: sessions/016.php
 
-同样,正如 ``set()`` 可用于向 Session 添加信息一样,``remove()`` 可用于通过传递 session 键来删除它。例如,如果你要从 Session 数据数组中删除 ``some_name``:
+同样,正如 ``set()`` 可用于向 Session 添加信息一样, ``remove()`` 可用于通过传递 session 键来删除它。例如,如果你要从 Session 数据数组中删除 ``some_name``:
 
 .. literalinclude:: sessions/017.php
 
@@ -192,7 +192,7 @@ CodeIgniter 支持 “flashdata”,也就是只在下一次请求中可用,然�
 
 .. literalinclude:: sessions/024.php
 
-.. note:: 如果找不到该项,``getFlashdata()`` 方法将返回 null。
+.. note:: 如果找不到该项, ``getFlashdata()`` 方法将返回 null。
 
 当然,如果你想检索所有现有的 flashdata:
 
@@ -242,7 +242,7 @@ CodeIgniter 还支持 “tempdata”,也就是在特定过期时间后自动删�
 
 .. literalinclude:: sessions/033.php
 
-.. note:: 如果找不到该项,``getTempdata()`` 方法将返回 null。
+.. note:: 如果找不到该项, ``getTempdata()`` 方法将返回 null。
 
 当然,如果你想检索所有现有的 tempdata:
 
@@ -328,7 +328,7 @@ CodeIgniter 通常会使一切正常工作。但是,Session 是任何应用程�
     但是,你永远不应该依赖这种行为,因为它可能会导致意外结果或在未来更改。请正确配置一切。
 
 .. note:: 如果 ``sessionExpiration`` 设置为 ``0``,则将原封不动地使用 PHP 在会话管理中设置的 ``session.gc_maxlifetime`` 设置(通常默认值为 ``1440``)。
-    根据需要，这需要在 ``php.ini``或通过 ``ini_set()`` 进行更改。
+    根据需要，这需要在 ``php.ini`` 或通过 ``ini_set()`` 进行更改。
 
 此外,在你的 **app/Config/Cookie.php** 文件中使用了以下配置值用于 Session cookie:
 

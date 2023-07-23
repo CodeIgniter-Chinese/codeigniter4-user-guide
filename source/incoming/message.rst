@@ -67,7 +67,7 @@ Message 类为 HTTP 消息中请求和响应共有的部分提供了一个接口
 
         .. literalinclude:: message/002.php
 
-        如果标头有多个值,``getValue()`` 将返回值数组。你可以使用 ``getValueLine()`` 方法将值作为字符串检索:
+        如果标头有多个值, ``getValue()`` 将返回值数组。你可以使用 ``getValueLine()`` 方法将值作为字符串检索:
 
         .. literalinclude:: message/003.php
 

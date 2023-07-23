@@ -33,7 +33,7 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
     :param    string    $sameSite: SameSite cookie 参数的值。如果为 ``null``,则使用 **app/Config/Cookie.php** 中的默认值
     :rtype:    void
 
-    .. note:: 在 v4.2.7 之前,由于一个 bug,``$secure`` 和 ``$httpOnly`` 的默认值是 ``false``,
+    .. note:: 在 v4.2.7 之前,由于一个 bug, ``$secure`` 和 ``$httpOnly`` 的默认值是 ``false``,
         从不使用 **app/Config/Cookie.php** 中的值。
 
     该辅助函数为设置浏览器 cookie 提供了更友好的语法。有关其用法的描述,请参阅

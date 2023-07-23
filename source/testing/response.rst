@@ -2,7 +2,7 @@
 测试响应
 #################
 
-``TestResponse`` 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常,``TestResponse`` 将作为你的结果提供,:doc:`控制器测试 <controllers>` 或 :doc:`HTTP 功能测试 <feature>`,但你始终可以直接使用任何 ``ResponseInterface`` 创建自己的:
+``TestResponse`` 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常, ``TestResponse`` 将作为你的结果提供,:doc:`控制器测试 <controllers>` 或 :doc:`HTTP 功能测试 <feature>`,但你始终可以直接使用任何 ``ResponseInterface`` 创建自己的:
 
 .. literalinclude:: response/001.php
 

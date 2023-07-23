@@ -31,7 +31,7 @@ HTTP 是用于描述该交换约定的术语。它代表超文本传输协议(Hy
 
 此消息显示了客户端请求所需的所有信息。它告诉请求的方法(GET、POST、DELETE 等)和它支持的 HTTP 版本。
 
-请求还包括可以包含广泛信息的可选请求头,例如客户端希望以什么语言显示内容,客户端接受的格式类型等等。如果你想查看一下,Wikipedia 有一篇文章列出了`所有标题字段 <https://en.wikipedia.org/wiki/List_of_HTTP_header_fields>`_。
+请求还包括可以包含广泛信息的可选请求头,例如客户端希望以什么语言显示内容,客户端接受的格式类型等等。如果你想查看一下,Wikipedia 有一篇文章列出了 `所有标题字段 <https://en.wikipedia.org/wiki/List_of_HTTP_header_fields>`_。
 
 响应
 ============

@@ -30,7 +30,7 @@ Message::getHeader(s)
 =====================
 
 HTTP 层正在向 `PSR-7 兼容 <https://www.php-fig.org/psr/psr-7/>`_ 迈进。
-为此,``Message::getHeader()`` 和 ``Message::getHeaders()`` 已被废弃,
+为此, ``Message::getHeader()`` 和 ``Message::getHeaders()`` 已被废弃,
 应分别替换为 ``Message::header()`` 和 ``Message::headers()``。
 请注意,这也涉及到所有扩展 ``Message`` 的类:``Request``、``Response`` 及其子类。
 
@@ -69,7 +69,7 @@ ResponseInterface
 * ``redirect(string $uri, string $method = 'auto', int $code = null)``
 * ``download(string $filename = '', $data = '', bool $setMime = false)``
 
-为方便使用此接口,这些方法已从框架的 ``Response`` 移至 ``ResponseTrait``中,你可以使用它,
+为方便使用此接口,这些方法已从框架的 ``Response`` 移至 ``ResponseTrait`` 中,你可以使用它,
 ``DownloadResponse`` 现在直接扩展 ``Response`` 以确保最大兼容性。
 
 Config\\Services

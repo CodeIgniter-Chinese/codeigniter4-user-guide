@@ -44,7 +44,7 @@
 
     .. note:: 当你使用 **crypto** 时,必须为第二个参数设置为偶数。从 v4.2.2 开始,如果你设置为奇数,将抛出 ``InvalidArgumentException``。
 
-    .. note:: 从 v4.3.3 开始,**alpha**、**alnum** 和 **nozero** 使用 ``random_byte()``,**numeric** 使用 ``random_int()``。在以前的版本中,它使用在加密上不安全的 ``str_shuffle()``。
+    .. note:: 从 v4.3.3 开始, **alpha**、**alnum** 和 **nozero** 使用 ``random_byte()``, **numeric** 使用 ``random_int()``。在以前的版本中,它使用在加密上不安全的 ``str_shuffle()``。
 
     使用示例:
 
