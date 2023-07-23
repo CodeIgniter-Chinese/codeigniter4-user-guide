@@ -367,13 +367,13 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">DBDebug</span></code> 和 <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> 变化</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>为了在不同环境下保持一致的行为,``ConfigDatabase::$default[‘DBDebug’]``
+<li><p>为了在不同环境下保持一致的行为, <code class="docutils literal notranslate"><span class="pre">Config\Database::$default['DBDebug']</span></code>
 和 <code class="docutils literal notranslate"><span class="pre">Config\Database::$tests['DBDebug']</span></code> 默认更改为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。通过这些
 设置,当数据库错误发生时,总是会抛出异常。以前,在生产环境中默认为 <code class="docutils literal notranslate"><span class="pre">false</span></code>。</p></li>
 <li><p>现在,如果 <code class="docutils literal notranslate"><span class="pre">$DBDebug</span></code> 为 true,则在 <code class="docutils literal notranslate"><span class="pre">BaseBuilder</span></code> 中抛出的 <code class="docutils literal notranslate"><span class="pre">DatabaseException</span></code> 会被抛出。
 以前,如果 <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> 为 true 则会抛出。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">BaseConnection::$DBDebug</span></code> 的默认值已更改为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。</p></li>
-<li><p>通过这些更改,``DBDebug`` <strong>现在表示数据库错误发生时是否抛出异常</strong>。
+<li><p>通过这些更改, <code class="docutils literal notranslate"><span class="pre">DBDebug</span></code> <strong>现在表示数据库错误发生时是否抛出异常</strong>。
 虽然与调试无关,但名称未更改。</p></li>
 <li><p>当 <code class="docutils literal notranslate"><span class="pre">DBDebug</span></code> 为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 运行事务时,即使查询错误也不会抛出异常。以前,如果发生查询错误,
 所有查询都会回滚,并抛出异常,因此 <a class="reference internal" href="../database/transactions.html#transactions-managing-errors"><span class="std std-ref">管理错误</span></a> 或
@@ -421,7 +421,7 @@
 <h4><a class="toc-backref" href="#id39">其他</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
 <ul class="simple">
 <li><p><strong>辅助函数:</strong> <a class="reference internal" href="../helpers/html_helper.html#script_tag" title="script_tag"><code class="xref php php-func docutils literal notranslate"><span class="pre">script_tag()</span></code></a> 和 <a class="reference internal" href="../helpers/url_helper.html#safe_mailto" title="safe_mailto"><code class="xref php php-func docutils literal notranslate"><span class="pre">safe_mailto()</span></code></a> 不再在 <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> 标签中输出 <code class="docutils literal notranslate"><span class="pre">type=&quot;text/javascript&quot;</span></code>。</p></li>
-<li><p><strong>CLI:</strong> 由于 Spark 命令处理的更改,``spark`` 文件已更改。</p></li>
+<li><p><strong>CLI:</strong> 由于 Spark 命令处理的更改, <code class="docutils literal notranslate"><span class="pre">spark</span></code> 文件已更改。</p></li>
 <li><p><strong>CLI:</strong> <code class="docutils literal notranslate"><span class="pre">CITestStreamFilter::$buffer</span> <span class="pre">=</span> <span class="pre">''</span></code> 不再导致过滤器注册为侦听流。现在有一个 <code class="docutils literal notranslate"><span class="pre">CITestStreamFilter::registration()</span></code> 方法用于此目的。详情请参阅 <a class="reference internal" href="../installation/upgrade_430.html#upgrade-430-stream-filter"><span class="std std-ref">在测试中捕获 STDERR 和 STDOUT 流</span></a>。</p></li>
 <li><p><strong>数据库:</strong> <code class="docutils literal notranslate"><span class="pre">BaseBuilder::_whereIn()</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">InvalidArgumentException</span></code> 是 <code class="docutils literal notranslate"><span class="pre">LogicException</span></code> 的一种,不会被配置禁止。以前如果 <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> 为 false,异常会被禁止。</p></li>
 <li><p><strong>数据库:</strong> <a class="reference internal" href="../database/metadata.html#metadata-getforeignkeydata"><span class="std std-ref">BaseConnection::getForeignKeyData()</span></a> 返回的数据结构已更改。</p></li>
@@ -454,7 +454,7 @@
 <ul class="simple">
 <li><p><strong>HTTP:</strong> 在 <code class="docutils literal notranslate"><span class="pre">MessageInterface</span></code> 中添加了缺失的 <code class="docutils literal notranslate"><span class="pre">getProtocolVersion()</span></code>、<code class="docutils literal notranslate"><span class="pre">getBody()</span></code>、<code class="docutils literal notranslate"><span class="pre">hasHeader()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">getHeaderLine()</span></code> 方法。</p></li>
 <li><p><strong>HTTP:</strong> 现在 <code class="docutils literal notranslate"><span class="pre">ResponseInterface</span></code> 扩展 <code class="docutils literal notranslate"><span class="pre">MessageInterface</span></code>。</p></li>
-<li><p><strong>HTTP:</strong> 添加了缺失的 <code class="docutils literal notranslate"><span class="pre">ResponseInterface::getCSP()``(和</span> <span class="pre">``Response::getCSP()</span></code>),``ResponseInterface::getReasonPhrase()`` 和 <code class="docutils literal notranslate"><span class="pre">ResponseInterface::getCookieStore()</span></code> 方法。</p></li>
+<li><p><strong>HTTP:</strong> 添加了缺失的 <code class="docutils literal notranslate"><span class="pre">ResponseInterface::getCSP()</span></code> (和 <code class="docutils literal notranslate"><span class="pre">Response::getCSP()</span></code> ), <code class="docutils literal notranslate"><span class="pre">ResponseInterface::getReasonPhrase()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">ResponseInterface::getCookieStore()</span></code> 方法。</p></li>
 <li><p><strong>数据库:</strong> 添加了缺失的 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Database\ResultInterface::getNumRows()</span></code> 方法。</p></li>
 <li><p>参阅 <a class="reference internal" href="#id13">验证变更</a>。</p></li>
 </ul>
@@ -487,7 +487,7 @@
 </section>
 <section id="validation">
 <h5>Validation<a class="headerlink" href="#validation" title="永久链接至标题"></a></h5>
-<p>当 <code class="docutils literal notranslate"><span class="pre">$group</span></code> 为空时,``Validation::loadRuleGroup()`` 的返回值已从 <code class="docutils literal notranslate"><span class="pre">null</span></code> 更改为 <code class="docutils literal notranslate"><span class="pre">[]</span></code>。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">$group</span></code> 为空时, <code class="docutils literal notranslate"><span class="pre">Validation::loadRuleGroup()</span></code> 的返回值已从 <code class="docutils literal notranslate"><span class="pre">null</span></code> 更改为 <code class="docutils literal notranslate"><span class="pre">[]</span></code>。</p>
 </section>
 </section>
 <section id="id14">
@@ -764,7 +764,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fdf6d590310>
+<jinja2.runtime.BlockReference object at 0x7f3d9e3f5d10>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

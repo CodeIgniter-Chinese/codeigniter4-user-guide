@@ -299,7 +299,7 @@
 <li><p>服务类的参数类型现在进行了严格定义。这将确保不会传入其他配置实例。如果需要传递带有额外属性的新配置,则需要扩展特定的配置类。</p></li>
 <li><p>支持为 Session 和 CSRF cookie 设置 SameSite 属性。出于安全和与最新浏览器版本的兼容性考虑,默认设置为 <code class="docutils literal notranslate"><span class="pre">Lax</span></code>。</p></li>
 <li><p>在 <code class="docutils literal notranslate"><span class="pre">Config\Mimes::guessExtensionFromType()</span></code> 中,现在只有在没有提议扩展名时(即通常不用于上传的文件),才会反向搜索 <code class="docutils literal notranslate"><span class="pre">$mimes</span></code> 数组。</p></li>
-<li><p>上传文件的文件扩展名的 getter 函数现在具有不同的回退值(<code class="docutils literal notranslate"><span class="pre">UploadedFile::getClientExtension()</span></code> 用于 <code class="docutils literal notranslate"><span class="pre">UploadedFile::getExtension()</span></code>,``’’`` 用于 <code class="docutils literal notranslate"><span class="pre">UploadedFile::guessExtension()</span></code>)。这是一个安全修复,使该过程不太依赖客户端。</p></li>
+<li><p>上传文件的文件扩展名的 getter 函数现在具有不同的回退值(<code class="docutils literal notranslate"><span class="pre">UploadedFile::getClientExtension()</span></code> 用于 <code class="docutils literal notranslate"><span class="pre">UploadedFile::getExtension()</span></code>, <code class="docutils literal notranslate"><span class="pre">''</span></code> 用于 <code class="docutils literal notranslate"><span class="pre">UploadedFile::guessExtension()</span></code>)。这是一个安全修复,使该过程不太依赖客户端。</p></li>
 <li><p>Cache <code class="docutils literal notranslate"><span class="pre">FileHandler</span></code> 现在允许通过 <code class="docutils literal notranslate"><span class="pre">Config\Cache</span></code> 设置文件权限模式。</p></li>
 </ul>
 </section>
@@ -338,7 +338,7 @@
 <ul class="simple">
 <li><p>修复了 <code class="docutils literal notranslate"><span class="pre">Entity</span></code> 类中的一个错误,声明类参数阻止了数据传播到 <code class="docutils literal notranslate"><span class="pre">attributes</span></code> 数组。</p></li>
 <li><p>对环境变量 <code class="docutils literal notranslate"><span class="pre">encryption.key</span></code> 的处理发生了变化。以前,显式函数调用,如 <code class="docutils literal notranslate"><span class="pre">getenv('encryption.key')</span></code> 或 <code class="docutils literal notranslate"><span class="pre">env('encryption.key')</span></code>,其中值具有特殊前缀 <code class="docutils literal notranslate"><span class="pre">hex2bin:</span></code>,会自动转换为二进制字符串并返回。这现在已更改为只返回具有前缀的字符字符串。此更改是由于在 Windows 平台上处理环境变量中的二进制字符串不兼容导致的。但是,通过 <code class="docutils literal notranslate"><span class="pre">Encryption</span></code> 类配置访问 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 保持不变,仍然返回二进制字符串。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Config\Services``(在</span> <span class="pre">**app/Config/Services.php**</span> <span class="pre">中)现在扩展</span> <span class="pre">``CodeIgniter\Config\BaseService</span></code>,以允许正确发现第三方服务。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Config\Services</span></code> (在 <strong>app/Config/Services.php</strong> 中)现在扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseService</span></code>,以允许正确发现第三方服务。</p></li>
 </ul>
 <p>有关已修复的错误列表,请参见仓库的
 <a class="reference external" href="https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.0.md">CHANGELOG_4.0.md</a>。</p>
@@ -365,7 +365,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fdf6d868490>
+<jinja2.runtime.BlockReference object at 0x7f3d9eacd050>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

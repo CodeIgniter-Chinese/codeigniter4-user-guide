@@ -366,7 +366,7 @@
 <p>为了在与 SMTP 服务器通信时保护用户名、密码和电子邮件内容,应该对通道使用加密。已经广泛部署了两种不同的标准,在尝试排除电子邮件发送问题时,了解这些差异很重要。</p>
 <p>当提交电子邮件时,大多数 SMTP 服务器允许在端口 465 或 587 上连接。(原始端口 25 很少使用,因为许多 ISP 有屏蔽规则,而且通信完全是明文的)。</p>
 <p>关键差异在于端口 465 要求从一开始就使用 TLS 按照 <a class="reference external" href="https://tools.ietf.org/html/rfc8314">RFC 8314</a> 来保护通信通道。而端口 587 上的连接允许明文连接,之后会使用 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> SMTP 命令升级通道以使用加密。</p>
-<p>端口 465 上的连接是否支持升级可能由服务器决定,所以如果服务器不允许,``STARTTLS`` SMTP 命令可能会失败。如果你将端口设置为 465,你应该尝试让 <code class="docutils literal notranslate"><span class="pre">SMTPCrypto</span></code> 设置为空,因为通信从一开始就是用 TLS 保护的,不需要 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code>。</p>
+<p>端口 465 上的连接是否支持升级可能由服务器决定,所以如果服务器不允许, <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> SMTP 命令可能会失败。如果你将端口设置为 465,你应该尝试让 <code class="docutils literal notranslate"><span class="pre">SMTPCrypto</span></code> 设置为空,因为通信从一开始就是用 TLS 保护的,不需要 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code>。</p>
 <p>如果你的配置要求你连接到端口 587,你最好将 <code class="docutils literal notranslate"><span class="pre">SMTPCrypto</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">tls</span></code>,因为这将在与 SMTP 服务器通信时实现 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> 命令,将明文通道切换为加密通道。初始通信将是明文的,并使用 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> 命令将通道升级为 TLS。</p>
 </section>
 <section id="id7">
@@ -983,7 +983,7 @@ CodeIgniter 允许你在消息的一部分手动覆盖文字换行,如下所示:
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fdf6c9b3450>
+<jinja2.runtime.BlockReference object at 0x7f3d9dd9fd90>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

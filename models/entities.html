@@ -387,7 +387,7 @@
 <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$user</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>你可能已经注意到,``User`` 类还没有为列设置任何属性,但你仍然可以像它们是公共属性一样访问它们。基类 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Entity\Entity</span></code> 会替你处理这些,以及提供使用 <code class="docutils literal notranslate"><span class="pre">isset()</span></code> 检查属性,或 <code class="docutils literal notranslate"><span class="pre">unset()</span></code> 属性的能力,并跟踪对象创建或从数据库中提取后哪些列发生了更改。</p>
+<p>你可能已经注意到, <code class="docutils literal notranslate"><span class="pre">User</span></code> 类还没有为列设置任何属性,但你仍然可以像它们是公共属性一样访问它们。基类 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Entity\Entity</span></code> 会替你处理这些,以及提供使用 <code class="docutils literal notranslate"><span class="pre">isset()</span></code> 检查属性,或 <code class="docutils literal notranslate"><span class="pre">unset()</span></code> 属性的能力,并跟踪对象创建或从数据库中提取后哪些列发生了更改。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>实体类在属性 <code class="docutils literal notranslate"><span class="pre">$attributes</span></code> 中存储数据。</p>
@@ -466,7 +466,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>首先要注意我们添加的方法的名称。对于每一个,类都期望 snake_case 列名转换为 PascalCase,并分别以 <code class="docutils literal notranslate"><span class="pre">set</span></code> 或 <code class="docutils literal notranslate"><span class="pre">get</span></code> 为前缀。然后,每当你使用直接语法(即 <code class="docutils literal notranslate"><span class="pre">$user-&gt;email</span></code>)设置或检索类属性时,就会自动调用这些方法。除非你希望它们从其他类访问,否则这些方法不需要是公共的。例如,``created_at`` 类属性将通过 <code class="docutils literal notranslate"><span class="pre">setCreatedAt()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">getCreatedAt()</span></code> 方法访问。</p>
+<p>首先要注意我们添加的方法的名称。对于每一个,类都期望 snake_case 列名转换为 PascalCase,并分别以 <code class="docutils literal notranslate"><span class="pre">set</span></code> 或 <code class="docutils literal notranslate"><span class="pre">get</span></code> 为前缀。然后,每当你使用直接语法(即 <code class="docutils literal notranslate"><span class="pre">$user-&gt;email</span></code>)设置或检索类属性时,就会自动调用这些方法。除非你希望它们从其他类访问,否则这些方法不需要是公共的。例如, <code class="docutils literal notranslate"><span class="pre">created_at</span></code> 类属性将通过 <code class="docutils literal notranslate"><span class="pre">setCreatedAt()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">getCreatedAt()</span></code> 方法访问。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>这只适用于试图从类外部访问属性时。类内部的任何方法必须直接调用 <code class="docutils literal notranslate"><span class="pre">setX()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">getX()</span></code> 方法。</p>
@@ -532,7 +532,7 @@
 </pre></div>
 </div>
 <p>通过将新的数据库名称添加到 <code class="docutils literal notranslate"><span class="pre">$datamap</span></code> 数组中,我们可以告诉类数据库列应该通过哪个类属性访问。数组的键是要映射到的类属性,数组中的值是数据库中的列名称。</p>
-<p>在这个例子中,当模型在 User 类上设置 <code class="docutils literal notranslate"><span class="pre">full_name</span></code> 字段时,它实际上会将该值分配给类的 <code class="docutils literal notranslate"><span class="pre">$name</span></code> 属性,所以它可以通过 <code class="docutils literal notranslate"><span class="pre">$user-&gt;name</span></code> 设置和检索。该值仍然可以通过原始的 <code class="docutils literal notranslate"><span class="pre">$user-&gt;full_name</span></code> 访问,这也是模型将数据取回并保存到数据库所需的。但是,``unset()`` 和 <code class="docutils literal notranslate"><span class="pre">isset()</span></code> 只适用于映射的属性 <code class="docutils literal notranslate"><span class="pre">$user-&gt;name</span></code>,而不适用于数据库列名 <code class="docutils literal notranslate"><span class="pre">$user-&gt;full_name</span></code>。</p>
+<p>在这个例子中,当模型在 User 类上设置 <code class="docutils literal notranslate"><span class="pre">full_name</span></code> 字段时,它实际上会将该值分配给类的 <code class="docutils literal notranslate"><span class="pre">$name</span></code> 属性,所以它可以通过 <code class="docutils literal notranslate"><span class="pre">$user-&gt;name</span></code> 设置和检索。该值仍然可以通过原始的 <code class="docutils literal notranslate"><span class="pre">$user-&gt;full_name</span></code> 访问,这也是模型将数据取回并保存到数据库所需的。但是, <code class="docutils literal notranslate"><span class="pre">unset()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">isset()</span></code> 只适用于映射的属性 <code class="docutils literal notranslate"><span class="pre">$user-&gt;name</span></code>,而不适用于数据库列名 <code class="docutils literal notranslate"><span class="pre">$user-&gt;full_name</span></code>。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>当你使用数据映射时,你必须为数据库列名定义 <code class="docutils literal notranslate"><span class="pre">set*()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">get*()</span></code> 方法。在这个例子中,你必须定义 <code class="docutils literal notranslate"><span class="pre">setFullName()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">getFullName()</span></code>。</p>
@@ -833,7 +833,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fdf6c6a0410>
+<jinja2.runtime.BlockReference object at 0x7f3d9d96aed0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

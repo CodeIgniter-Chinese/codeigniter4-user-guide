@@ -487,7 +487,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">validate()</span></code> 方法是控制器中的一个方法。它使用内部的 <strong>验证类</strong>。参见 <a class="reference internal" href="../incoming/controllers.html#controllers-validating-data"><span class="std std-ref">验证数据</span></a>。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>由于你还没有告诉 <code class="docutils literal notranslate"><span class="pre">validate()</span></code> 方法要验证任何内容,它**默认返回 false**(布尔值 false)。只有在成功应用你的规则且没有失败时,``validate()`` 方法才会返回 true。</p>
+<p>由于你还没有告诉 <code class="docutils literal notranslate"><span class="pre">validate()</span></code> 方法要验证任何内容,它**默认返回 false**(布尔值 false)。只有在成功应用你的规则且没有失败时, <code class="docutils literal notranslate"><span class="pre">validate()</span></code> 方法才会返回 true。</p>
 </div>
 </section>
 <section id="id10">
@@ -554,7 +554,7 @@
 它适用于大多数基本情况,如验证 POST 数据。</p>
 <p>但是,例如,如果你使用 JSON 输入数据,它可能是 bool/null/array 类型。
 当你使用传统规则类验证布尔值 <code class="docutils literal notranslate"><span class="pre">true</span></code> 时,它会被转换为字符串 <code class="docutils literal notranslate"><span class="pre">'1'</span></code>。
-如果使用 <code class="docutils literal notranslate"><span class="pre">integer</span></code> 规则对其进行验证,``’1’`` 可以通过验证。</p>
+如果使用 <code class="docutils literal notranslate"><span class="pre">integer</span></code> 规则对其进行验证, <code class="docutils literal notranslate"><span class="pre">'1'</span></code> 可以通过验证。</p>
 </section>
 <section id="id15">
 <h4>严格规则<a class="headerlink" href="#id15" title="永久链接至标题"></a></h4>
@@ -775,7 +775,7 @@
 <h3><a class="toc-backref" href="#id72">运行多个验证</a><a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法不会重置错误状态。如果前一次运行失败,``run()`` 将总是返回 false,``getErrors()`` 将返回所有先前的错误,直到明确重置。</p>
+<p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法不会重置错误状态。如果前一次运行失败, <code class="docutils literal notranslate"><span class="pre">run()</span></code> 将总是返回 false, <code class="docutils literal notranslate"><span class="pre">getErrors()</span></code> 将返回所有先前的错误,直到明确重置。</p>
 </div>
 <p>如果你打算运行多个验证,例如对不同的数据集或之后的规则,你可能需要在每次运行之前调用 <code class="docutils literal notranslate"><span class="pre">$validation-&gt;reset()</span></code> 来清除之前运行的错误。要注意 <code class="docutils literal notranslate"><span class="pre">reset()</span></code> 会使任何数据、规则或自定义错误无效,所以 <code class="docutils literal notranslate"><span class="pre">setRules()</span></code>、<code class="docutils literal notranslate"><span class="pre">setRuleGroup()</span></code> 等需要重复:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1354,7 +1354,7 @@
 </div>
 <p>你必须为闭包规则设置错误消息。
 设置错误消息时,请为闭包规则设置数组键。
-在上面的代码中,``required`` 规则的键为 <code class="docutils literal notranslate"><span class="pre">0</span></code>,闭包的键为 <code class="docutils literal notranslate"><span class="pre">1</span></code>。</p>
+在上面的代码中, <code class="docutils literal notranslate"><span class="pre">required</span></code> 规则的键为 <code class="docutils literal notranslate"><span class="pre">0</span></code>,闭包的键为 <code class="docutils literal notranslate"><span class="pre">1</span></code>。</p>
 <p>或者可以使用以下参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1445,8 +1445,8 @@
 <td><p>如果字段包含除字母数字、空格和这组有限标点之外的任何内容,
 则失败:<code class="docutils literal notranslate"><span class="pre">~</span></code> (波浪号)、
 <code class="docutils literal notranslate"><span class="pre">!</span></code> (感叹号)、<code class="docutils literal notranslate"><span class="pre">#</span></code> (数字)、
-<code class="docutils literal notranslate"><span class="pre">$</span></code> (美元符号), <code class="docutils literal notranslate"><span class="pre">%</span> <span class="pre">(百分号),</span> <span class="pre">&amp;</span> <span class="pre">(和号),</span>
-<span class="pre">``*</span></code> (星号), <code class="docutils literal notranslate"><span class="pre">-</span></code> (破折号),
+<code class="docutils literal notranslate"><span class="pre">$</span></code> (美元符号), <code class="docutils literal notranslate"><span class="pre">%</span></code> (百分号), <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (和号),
+<code class="docutils literal notranslate"><span class="pre">*</span></code> (星号), <code class="docutils literal notranslate"><span class="pre">-</span></code> (破折号),
 <code class="docutils literal notranslate"><span class="pre">_</span></code> (下划线), <code class="docutils literal notranslate"><span class="pre">+</span></code> (加号),
 <code class="docutils literal notranslate"><span class="pre">=</span></code> (等号), <code class="docutils literal notranslate"><span class="pre">|</span></code> (竖线),
 <code class="docutils literal notranslate"><span class="pre">:</span></code> (冒号), <code class="docutils literal notranslate"><span class="pre">.</span></code> (句点)。</p></td>
@@ -1621,13 +1621,13 @@
 <td><p>无</p></td>
 <td><p>如果字段不包含(宽松的)URL,则失败。
 包括可能是主机名的简单字符串,
-如“codeigniter”。<strong>通常,应使用 ``valid_url_strict``。</strong></p></td>
+如“codeigniter”。<strong>通常,应使用</strong> <code class="docutils literal notranslate"><span class="pre">valid_url_strict</span></code>。</p></td>
 <td></td>
 </tr>
 <tr class="row-odd"><td><p>valid_url_strict</p></td>
 <td><p>是</p></td>
 <td><p>如果字段不包含有效的 URL,则失败。你可以可选地指定
-有效 schema 的列表。如果未指定,``http,https``
+有效 schema 的列表。如果未指定, <code class="docutils literal notranslate"><span class="pre">http,https</span></code>
 有效。此规则使用 PHP 的 <code class="docutils literal notranslate"><span class="pre">FILTER_VALIDATE_URL</span></code>。</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">valid_url_strict[https]</span></code></p></td>
 </tr>
@@ -1758,7 +1758,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fdf6cb2c6d0>
+<jinja2.runtime.BlockReference object at 0x7f3d9d793650>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

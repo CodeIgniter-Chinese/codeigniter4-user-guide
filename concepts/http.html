@@ -283,21 +283,21 @@
 <p>本章的第一部分概述了概念。在概念说明清楚之后,我们将讨论在 CodeIgniter 中如何处理请求和响应。</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id7">什么是 HTTP?</a></p>
+<li><p><a class="reference internal" href="#id2" id="id8">什么是 HTTP?</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id8">请求</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id9">响应</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id9">请求</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id10">响应</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id6" id="id10">使用请求和响应</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id11">使用请求和响应</a></p></li>
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id7">什么是 HTTP?</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id8">什么是 HTTP?</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>HTTP 简单来说就是一种基于文本的约定,允许两台机器互相通信。当浏览器请求一个页面时,它会问服务器是否可以获取该页面。然后服务器准备好页面,并向请求它的浏览器发送响应。基本上就这么简单。显然,你可以使用一些复杂的功能,但基础真的非常简单。</p>
 <p>HTTP 是用于描述该交换约定的术语。它代表超文本传输协议(HyperText Transfer Protocol)。你开发 Web 应用程序的目标是始终了解浏览器正在请求什么,并能够做出适当的响应。</p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id8">请求</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id9">请求</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>每当客户端(Web 浏览器、智能手机应用等)发出请求时,它都会向服务器发送一小段文本消息并等待响应。</p>
 <p>请求看起来类似这样:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
@@ -307,10 +307,10 @@
 </pre></div>
 </div>
 <p>此消息显示了客户端请求所需的所有信息。它告诉请求的方法(GET、POST、DELETE 等)和它支持的 HTTP 版本。</p>
-<p>请求还包括可以包含广泛信息的可选请求头,例如客户端希望以什么语言显示内容,客户端接受的格式类型等等。如果你想查看一下,Wikipedia 有一篇文章列出了`所有标题字段 &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">https://en.wikipedia.org/wiki/List_of_HTTP_header_fields</a>&gt;`_。</p>
+<p>请求还包括可以包含广泛信息的可选请求头,例如客户端希望以什么语言显示内容,客户端接受的格式类型等等。如果你想查看一下,Wikipedia 有一篇文章列出了 <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">所有标题字段</a>。</p>
 </section>
-<section id="id4">
-<h3><a class="toc-backref" href="#id9">响应</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<section id="id5">
+<h3><a class="toc-backref" href="#id10">响应</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>一旦服务器接收到请求,你的应用程序将获取该信息并生成一些输出。服务器将你的输出作为其对客户端的响应的一部分进行打包。这也表示为类似这样的简单文本消息:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="nx">OK</span>
 <span class="nx">Server</span><span class="o">:</span> <span class="nx">nginx</span><span class="o">/</span><span class="mf">1.8</span><span class="o">.</span><span class="mi">0</span>
@@ -325,8 +325,8 @@
 <p>响应告诉客户端它使用的 HTTP 规范版本,可能最重要的是状态码(200)。状态码是对客户端具有非常特定含义的标准化代码之一。这可以告诉它请求成功(200),或者页面未找到(404)。如果你想查看完整的 HTTP 状态码列表,请访问 IANA 的 <a class="reference external" href="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">完整 HTTP 状态码列表</a>。</p>
 </section>
 </section>
-<section id="id6">
-<h2><a class="toc-backref" href="#id10">使用请求和响应</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<section id="id7">
+<h2><a class="toc-backref" href="#id11">使用请求和响应</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
 <p>虽然 PHP 提供了与请求和响应标头交互的方式,但 CodeIgniter 和大多数框架一样,将它们抽象化,以便为它们提供一致、简单的接口。<a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">IncomingRequest 类</span></a> 是 HTTP 请求的面向对象表示。它提供了你需要的一切:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -406,7 +406,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fdf6d5f5550>
+<jinja2.runtime.BlockReference object at 0x7f3d9e024390>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
