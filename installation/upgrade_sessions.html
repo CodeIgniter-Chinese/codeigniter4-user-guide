@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upgrade Sessions &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>升级 Session &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="Upgrade Validations" href="upgrade_validations.html" />
-    <link rel="prev" title="Upgrade Security" href="upgrade_security.html" /> 
+    <link rel="next" title="升级验证" href="upgrade_validations.html" />
+    <link rel="prev" title="升级安全性" href="upgrade_security.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -270,7 +270,7 @@
           <li class="breadcrumb-item"><a href="index.html">安装</a></li>
           <li class="breadcrumb-item"><a href="upgrading.html">从前一版本升级</a></li>
           <li class="breadcrumb-item"><a href="upgrade_4xx.html">从 3.x 升级到 4.x</a></li>
-      <li class="breadcrumb-item active">Upgrade Sessions</li>
+      <li class="breadcrumb-item active">升级 Session</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -279,54 +279,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="upgrade-sessions">
-<h1>Upgrade Sessions<a class="headerlink" href="#upgrade-sessions" title="永久链接至标题"></a></h1>
+  <section id="session">
+<h1>升级 Session<a class="headerlink" href="#session" title="永久链接至标题"></a></h1>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#documentations" id="id2">Documentations</a></p></li>
-<li><p><a class="reference internal" href="#what-has-been-changed" id="id3">What has been changed</a></p></li>
-<li><p><a class="reference internal" href="#upgrade-guide" id="id4">Upgrade Guide</a></p></li>
-<li><p><a class="reference internal" href="#code-example" id="id5">Code Example</a></p>
+<li><p><a class="reference internal" href="#id2" id="id6">文档</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id7">变更点</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id8">升级指南</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id9">代码示例</a></p>
 <ul>
-<li><p><a class="reference internal" href="#codeigniter-version-3-x" id="id6">CodeIgniter Version 3.x</a></p></li>
-<li><p><a class="reference internal" href="#codeigniter-version-4-x" id="id7">CodeIgniter Version 4.x</a></p></li>
+<li><p><a class="reference internal" href="#codeigniter-3-x" id="id10">CodeIgniter 3.x 版本</a></p></li>
+<li><p><a class="reference internal" href="#codeigniter-4-x" id="id11">CodeIgniter 4.x 版本</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
-<section id="documentations">
-<h2><a class="toc-backref" href="#id2">Documentations</a><a class="headerlink" href="#documentations" title="永久链接至标题"></a></h2>
+<section id="id2">
+<h2><a class="toc-backref" href="#id6">文档</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="http://codeigniter.com/userguide3/libraries/sessions.html">Session Library Documentation CodeIgniter 3.X</a></p></li>
-<li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">Session Library Documentation CodeIgniter 4.X</span></a></p></li>
+<li><p><a class="reference external" href="http://codeigniter.com/userguide3/libraries/sessions.html">CodeIgniter 3.X Session 库文档</a></p></li>
+<li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">CodeIgniter 4.X Session 库文档</span></a></p></li>
 </ul>
 </section>
-<section id="what-has-been-changed">
-<h2><a class="toc-backref" href="#id3">What has been changed</a><a class="headerlink" href="#what-has-been-changed" title="永久链接至标题"></a></h2>
+<section id="id3">
+<h2><a class="toc-backref" href="#id7">变更点</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <ul class="simple">
-<li><p>Only small things like the method names and the loading of the library have changed.</p></li>
+<li><p>只是一些小变化,如方法名称和库的加载。</p></li>
 </ul>
 </section>
-<section id="upgrade-guide">
-<h2><a class="toc-backref" href="#id4">Upgrade Guide</a><a class="headerlink" href="#upgrade-guide" title="永久链接至标题"></a></h2>
+<section id="id4">
+<h2><a class="toc-backref" href="#id8">升级指南</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <ol class="arabic">
-<li><p>Wherever you use the Session Library replace <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;library('session');</span></code> with <code class="docutils literal notranslate"><span class="pre">$session</span> <span class="pre">=</span> <span class="pre">session();</span></code>.</p></li>
-<li><p>From that on you have to replace every line starting with <code class="docutils literal notranslate"><span class="pre">$this-&gt;session</span></code> with <code class="docutils literal notranslate"><span class="pre">$session</span></code> followed by the new method name.</p>
+<li><p>在使用 Session 库的任何地方,用 <code class="docutils literal notranslate"><span class="pre">$session</span> <span class="pre">=</span> <span class="pre">session();</span></code> 替换 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;library('session');</span></code>。</p></li>
+<li><p>从那时起,必须用 <code class="docutils literal notranslate"><span class="pre">$session</span></code> 后跟新方法名替换以 <code class="docutils literal notranslate"><span class="pre">$this-&gt;session</span></code> 开头的每一行。</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>To access session data use the syntax <code class="docutils literal notranslate"><span class="pre">$session-&gt;item</span></code> or <code class="docutils literal notranslate"><span class="pre">$session-&gt;get('item')</span></code> instead of the CI3 syntax <code class="docutils literal notranslate"><span class="pre">$this-&gt;session-&gt;name</span></code>.</p></li>
-<li><p>To set data use <code class="docutils literal notranslate"><span class="pre">$session-&gt;set($array);</span></code> instead of <code class="docutils literal notranslate"><span class="pre">$this-&gt;session-&gt;set_userdata($array);</span></code>.</p></li>
-<li><p>To remove data use <code class="docutils literal notranslate"><span class="pre">unset($_SESSION['some_name']);</span></code> or <code class="docutils literal notranslate"><span class="pre">$session-&gt;remove('some_name');</span></code> instead of <code class="docutils literal notranslate"><span class="pre">$this-&gt;session-&gt;unset_userdata('some_name');</span></code>.</p></li>
-<li><p>To mark session data as flashdata, which will only be available for the next request, use <code class="docutils literal notranslate"><span class="pre">$session-&gt;markAsFlashdata('item');</span></code> instead of <code class="docutils literal notranslate"><span class="pre">$this-&gt;session-&gt;mark_as_flash('item');`</span></code></p></li>
+<li><p>要访问 Session 数据,请使用 <code class="docutils literal notranslate"><span class="pre">$session-&gt;item</span></code> 或 <code class="docutils literal notranslate"><span class="pre">$session-&gt;get('item')</span></code> 语法,而不是 CI3 语法 <code class="docutils literal notranslate"><span class="pre">$this-&gt;session-&gt;name</span></code>。</p></li>
+<li><p>要设置数据,请使用 <code class="docutils literal notranslate"><span class="pre">$session-&gt;set($array);</span></code> 代替 <code class="docutils literal notranslate"><span class="pre">$this-&gt;session-&gt;set_userdata($array);</span></code>。</p></li>
+<li><p>要删除数据,请使用 <code class="docutils literal notranslate"><span class="pre">unset($_SESSION['some_name']);</span></code> 或 <code class="docutils literal notranslate"><span class="pre">$session-&gt;remove('some_name');</span></code> 代替 <code class="docutils literal notranslate"><span class="pre">$this-&gt;session-&gt;unset_userdata('some_name');</span></code>。</p></li>
+<li><p>要将 Session 数据标记为只在下一个请求中可用的闪存数据,请使用 <code class="docutils literal notranslate"><span class="pre">$session-&gt;markAsFlashdata('item');</span></code> 代替 <code class="docutils literal notranslate"><span class="pre">$this-&gt;session-&gt;mark_as_flash('item');`</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
 </ol>
 </section>
-<section id="code-example">
-<h2><a class="toc-backref" href="#id5">Code Example</a><a class="headerlink" href="#code-example" title="永久链接至标题"></a></h2>
-<section id="codeigniter-version-3-x">
-<h3><a class="toc-backref" href="#id6">CodeIgniter Version 3.x</a><a class="headerlink" href="#codeigniter-version-3-x" title="永久链接至标题"></a></h3>
+<section id="id5">
+<h2><a class="toc-backref" href="#id9">代码示例</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<section id="codeigniter-3-x">
+<h3><a class="toc-backref" href="#id10">CodeIgniter 3.x 版本</a><a class="headerlink" href="#codeigniter-3-x" title="永久链接至标题"></a></h3>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;session&#39;</span><span class="p">);</span>
@@ -337,8 +337,8 @@
 </pre></div>
 </div>
 </section>
-<section id="codeigniter-version-4-x">
-<h3><a class="toc-backref" href="#id7">CodeIgniter Version 4.x</a><a class="headerlink" href="#codeigniter-version-4-x" title="永久链接至标题"></a></h3>
+<section id="codeigniter-4-x">
+<h3><a class="toc-backref" href="#id11">CodeIgniter 4.x 版本</a><a class="headerlink" href="#codeigniter-4-x" title="永久链接至标题"></a></h3>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$session</span> <span class="o">=</span> <span class="nx">session</span><span class="p">();</span>
@@ -357,15 +357,15 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="upgrade_security.html" class="btn btn-neutral float-left" title="Upgrade Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="upgrade_validations.html" class="btn btn-neutral float-right" title="Upgrade Validations" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="upgrade_security.html" class="btn btn-neutral float-left" title="升级安全性" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="upgrade_validations.html" class="btn btn-neutral float-right" title="升级验证" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-22.
+      <span class="lastupdated">最后更新于 2023-07-23.
       </span></p>
   </div>
 
@@ -373,7 +373,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f9ca5476c90>
+<jinja2.runtime.BlockReference object at 0x7fdf6ce1a290>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

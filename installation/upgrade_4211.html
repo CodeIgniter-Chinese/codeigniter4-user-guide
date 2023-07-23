@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upgrading from 4.2.10 to 4.2.11 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>从 4.2.10 升级到 4.2.11 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="Upgrading from 4.2.9 to 4.2.10" href="upgrade_4210.html" />
-    <link rel="prev" title="Upgrading from 4.2.11 to 4.2.12" href="upgrade_4212.html" /> 
+    <link rel="next" title="从 4.2.9 升级到 4.2.10" href="upgrade_4210.html" />
+    <link rel="prev" title="从 4.2.11 升级到 4.2.12" href="upgrade_4212.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -269,7 +269,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">安装</a></li>
           <li class="breadcrumb-item"><a href="upgrading.html">从前一版本升级</a></li>
-      <li class="breadcrumb-item active">Upgrading from 4.2.10 to 4.2.11</li>
+      <li class="breadcrumb-item active">从 4.2.10 升级到 4.2.11</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -278,71 +278,62 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="upgrading-from-4-2-10-to-4-2-11">
-<h1>Upgrading from 4.2.10 to 4.2.11<a class="headerlink" href="#upgrading-from-4-2-10-to-4-2-11" title="永久链接至标题"></a></h1>
-<p>Please refer to the upgrade instructions corresponding to your installation method.</p>
+  <section id="id1">
+<h1>从 4.2.10 升级到 4.2.11<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>请参考与你的安装方法相对应的升级说明。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="installing_composer.html#app-starter-upgrading"><span class="std std-ref">Composer Installation App Starter Upgrading</span></a></p></li>
-<li><p><a class="reference internal" href="installing_composer.html#adding-codeigniter4-upgrading"><span class="std std-ref">Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading</span></a></p></li>
-<li><p><a class="reference internal" href="installing_manual.html#installing-manual-upgrading"><span class="std std-ref">Manual Installation Upgrading</span></a></p></li>
+<li><p><a class="reference internal" href="installing_composer.html#app-starter-upgrading"><span class="std std-ref">通过 Composer 安装应用启动器升级</span></a></p></li>
+<li><p><a class="reference internal" href="installing_composer.html#adding-codeigniter4-upgrading"><span class="std std-ref">通过 Composer 安装到现有项目升级</span></a></p></li>
+<li><p><a class="reference internal" href="installing_manual.html#installing-manual-upgrading"><span class="std std-ref">手动安装升级</span></a></p></li>
 </ul>
-<div class="contents local topic" id="id1">
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#breaking-changes" id="id2">Breaking Changes</a></p>
+<li><p><a class="reference internal" href="#id3" id="id6">重大变更</a></p>
 <ul>
-<li><p><a class="reference internal" href="#config-app-proxyips" id="id3">Config\App::$proxyIPs</a></p></li>
-<li><p><a class="reference internal" href="#session-handler-key-changes" id="id4">Session Handler Key Changes</a></p></li>
+<li><p><a class="reference internal" href="#config-app-proxyips" id="id7">Config\App::$proxyIPs</a></p></li>
+<li><p><a class="reference internal" href="#session" id="id8">Session 处理程序密钥更改</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#project-files" id="id5">Project Files</a></p>
+<li><p><a class="reference internal" href="#id4" id="id9">项目文件</a></p>
 <ul>
-<li><p><a class="reference internal" href="#all-changes" id="id6">All Changes</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id10">所有更改</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
-<section id="breaking-changes">
-<h2><a class="toc-backref" href="#id2">Breaking Changes</a><a class="headerlink" href="#breaking-changes" title="永久链接至标题"></a></h2>
+<section id="id3">
+<h2><a class="toc-backref" href="#id6">重大变更</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <section id="config-app-proxyips">
-<span id="upgrade-4211-proxyips"></span><h3><a class="toc-backref" href="#id3">Config\App::$proxyIPs</a><a class="headerlink" href="#config-app-proxyips" title="永久链接至标题"></a></h3>
-<p>The config value format has been changed. Now you must set your proxy IP address and the HTTP header name for the client IP address pair as an array:</p>
+<span id="upgrade-4211-proxyips"></span><h3><a class="toc-backref" href="#id7">Config\App::$proxyIPs</a><a class="headerlink" href="#config-app-proxyips" title="永久链接至标题"></a></h3>
+<p>配置值格式已更改。现在你必须将代理 IP 地址和客户端 IP 地址的 HTTP 头名称设置为数组:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nv">$proxyIPs</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;10.0.1.200&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;X-Forwarded-For&#39;</span><span class="p">,</span>
         <span class="s1">&#39;192.168.5.0/24&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;X-Forwarded-For&#39;</span><span class="p">,</span>
 <span class="p">];</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">ConfigException</span></code> will be thrown for old format config value.</p>
+<p>旧格式的配置值会抛出 <code class="docutils literal notranslate"><span class="pre">ConfigException</span></code>。</p>
 </section>
-<section id="session-handler-key-changes">
-<span id="upgrade-4211-session-key"></span><h3><a class="toc-backref" href="#id4">Session Handler Key Changes</a><a class="headerlink" href="#session-handler-key-changes" title="永久链接至标题"></a></h3>
-<p>The key of the session data record for <a class="reference internal" href="../libraries/sessions.html#sessions-databasehandler-driver"><span class="std std-ref">DatabaseHandler 驱动程序</span></a>,
-<a class="reference internal" href="../libraries/sessions.html#sessions-memcachedhandler-driver"><span class="std std-ref">MemcachedHandler 驱动程序</span></a> and <a class="reference internal" href="../libraries/sessions.html#sessions-redishandler-driver"><span class="std std-ref">RedisHandler 驱动程序</span></a>
-has changed. Therefore, any existing session data will be invalidated after
-the upgrade if you are using these session handlers.</p>
+<section id="session">
+<span id="upgrade-4211-session-key"></span><h3><a class="toc-backref" href="#id8">Session 处理程序密钥更改</a><a class="headerlink" href="#session" title="永久链接至标题"></a></h3>
+<p><a class="reference internal" href="../libraries/sessions.html#sessions-databasehandler-driver"><span class="std std-ref">DatabaseHandler 驱动程序</span></a>、<a class="reference internal" href="../libraries/sessions.html#sessions-memcachedhandler-driver"><span class="std std-ref">MemcachedHandler 驱动程序</span></a> 和 <a class="reference internal" href="../libraries/sessions.html#sessions-redishandler-driver"><span class="std std-ref">RedisHandler 驱动程序</span></a> 的 session 数据记录的密钥已更改。因此,如果使用这些 session 处理程序,在升级后现有的 session 数据将失效。</p>
 <ul class="simple">
-<li><p>When using <code class="docutils literal notranslate"><span class="pre">DatabaseHandler</span></code>, the <code class="docutils literal notranslate"><span class="pre">id</span></code> column value in the session table
-now contains the session cookie name (<code class="docutils literal notranslate"><span class="pre">Config\App::$sessionCookieName</span></code>).</p></li>
-<li><p>When using <code class="docutils literal notranslate"><span class="pre">MemcachedHandler</span></code> or <code class="docutils literal notranslate"><span class="pre">RedisHandler</span></code>, the key value contains
-the session cookie name (<code class="docutils literal notranslate"><span class="pre">Config\App::$sessionCookieName</span></code>).</p></li>
+<li><p>使用 <code class="docutils literal notranslate"><span class="pre">DatabaseHandler</span></code> 时,session 表中的 <code class="docutils literal notranslate"><span class="pre">id</span></code> 列值现在包含 session cookie 名称 (<code class="docutils literal notranslate"><span class="pre">Config\App::$sessionCookieName</span></code>)。</p></li>
+<li><p>使用 <code class="docutils literal notranslate"><span class="pre">MemcachedHandler</span></code> 或 <code class="docutils literal notranslate"><span class="pre">RedisHandler</span></code> 时,密钥值包含 session cookie 名称 (<code class="docutils literal notranslate"><span class="pre">Config\App::$sessionCookieName</span></code>)。</p></li>
 </ul>
-<p>There is maximum length for the <code class="docutils literal notranslate"><span class="pre">id</span></code> column and Memcached key (250 bytes).
-If the following values exceed those maximum length, the session will not work properly.</p>
+<p><code class="docutils literal notranslate"><span class="pre">id</span></code> 列和 Memcached 密钥都有最大长度(250字节)。如果以下值超过那些最大长度,session 将无法正常工作。</p>
 <ul class="simple">
-<li><p>the session cookie name, delimiter, and session id (32 characters by default)
-when using <code class="docutils literal notranslate"><span class="pre">DatabaseHandler</span></code></p></li>
-<li><p>the prefix (<code class="docutils literal notranslate"><span class="pre">ci_session</span></code>), session cookie name, delimiters, and session id
-when using  <code class="docutils literal notranslate"><span class="pre">MemcachedHandler</span></code></p></li>
+<li><p>使用 <code class="docutils literal notranslate"><span class="pre">DatabaseHandler</span></code> 时,session cookie 名称、分隔符和 session id(默认为32个字符)的组合</p></li>
+<li><p>使用 <code class="docutils literal notranslate"><span class="pre">MemcachedHandler</span></code> 时,前缀 (<code class="docutils literal notranslate"><span class="pre">ci_session</span></code>)、session cookie 名称、分隔符和 session id 的组合</p></li>
 </ul>
 </section>
 </section>
-<section id="project-files">
-<h2><a class="toc-backref" href="#id5">Project Files</a><a class="headerlink" href="#project-files" title="永久链接至标题"></a></h2>
-<p>Version <code class="docutils literal notranslate"><span class="pre">4.2.11</span></code> did not alter any executable code in project files.</p>
-<section id="all-changes">
-<h3><a class="toc-backref" href="#id6">All Changes</a><a class="headerlink" href="#all-changes" title="永久链接至标题"></a></h3>
-<p>This is a list of all files in the <strong>project space</strong> that received changes;
-many will be simple comments or formatting that have no effect on the runtime:</p>
+<section id="id4">
+<h2><a class="toc-backref" href="#id9">项目文件</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">4.2.11</span></code> 版本没有更改项目文件中的任何可执行代码。</p>
+<section id="id5">
+<h3><a class="toc-backref" href="#id10">所有更改</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>这是 <strong>项目空间</strong> 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:</p>
 <ul class="simple">
 <li><p>app/Config/App.php</p></li>
 <li><p>app/Config/Autoload.php</p></li>
@@ -360,15 +351,15 @@ many will be simple comments or formatting that have no effect on the runtime:</
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="upgrade_4212.html" class="btn btn-neutral float-left" title="Upgrading from 4.2.11 to 4.2.12" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="upgrade_4210.html" class="btn btn-neutral float-right" title="Upgrading from 4.2.9 to 4.2.10" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="upgrade_4212.html" class="btn btn-neutral float-left" title="从 4.2.11 升级到 4.2.12" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="upgrade_4210.html" class="btn btn-neutral float-right" title="从 4.2.9 升级到 4.2.10" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-22.
+      <span class="lastupdated">最后更新于 2023-07-23.
       </span></p>
   </div>
 
@@ -376,7 +367,7 @@ many will be simple comments or formatting that have no effect on the runtime:</
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f9ca572e5d0>
+<jinja2.runtime.BlockReference object at 0x7fdf6cb39ad0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

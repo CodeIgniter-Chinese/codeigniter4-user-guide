@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upgrade Configuration &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>升级配置 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="Upgrade Database" href="upgrade_database.html" />
-    <link rel="prev" title="Upgrade Controllers" href="upgrade_controllers.html" /> 
+    <link rel="next" title="升级数据库" href="upgrade_database.html" />
+    <link rel="prev" title="升级控制器" href="upgrade_controllers.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -270,7 +270,7 @@
           <li class="breadcrumb-item"><a href="index.html">安装</a></li>
           <li class="breadcrumb-item"><a href="upgrading.html">从前一版本升级</a></li>
           <li class="breadcrumb-item"><a href="upgrade_4xx.html">从 3.x 升级到 4.x</a></li>
-      <li class="breadcrumb-item active">Upgrade Configuration</li>
+      <li class="breadcrumb-item active">升级配置</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -279,58 +279,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="upgrade-configuration">
-<h1>Upgrade Configuration<a class="headerlink" href="#upgrade-configuration" title="永久链接至标题"></a></h1>
-<div class="contents local topic" id="id1">
+  <section id="id1">
+<h1>升级配置<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#documentations" id="id2">Documentations</a></p></li>
-<li><p><a class="reference internal" href="#what-has-been-changed" id="id3">What has been changed</a></p></li>
-<li><p><a class="reference internal" href="#upgrade-guide" id="id4">Upgrade Guide</a></p></li>
-<li><p><a class="reference internal" href="#code-example" id="id5">Code Example</a></p>
+<li><p><a class="reference internal" href="#id3" id="id8">文档</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id9">变更点</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id10">升级指南</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id11">代码示例</a></p>
 <ul>
-<li><p><a class="reference internal" href="#codeigniter-version-3-x" id="id6">CodeIgniter Version 3.x</a></p></li>
-<li><p><a class="reference internal" href="#codeigniter-version-4-x" id="id7">CodeIgniter Version 4.x</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id12">CodeIgniter 3.x 版本</a></p></li>
+<li><p><a class="reference internal" href="#codeigniter-4-x" id="id13">CodeIgniter 4.x 版本</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
-<section id="documentations">
-<h2><a class="toc-backref" href="#id2">Documentations</a><a class="headerlink" href="#documentations" title="永久链接至标题"></a></h2>
+<section id="id3">
+<h2><a class="toc-backref" href="#id8">文档</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="http://codeigniter.com/userguide3/libraries/config.html">Config Documentation CodeIgniter 3.X</a></p></li>
-<li><p><a class="reference internal" href="../general/configuration.html"><span class="doc">Configuration Documentation CodeIgniter 4.X</span></a></p></li>
+<li><p><a class="reference external" href="http://codeigniter.com/userguide3/libraries/config.html">CodeIgniter 3.X 配置文档</a></p></li>
+<li><p><a class="reference internal" href="../general/configuration.html"><span class="doc">CodeIgniter 4.X 配置文档</span></a></p></li>
 </ul>
 </section>
-<section id="what-has-been-changed">
-<h2><a class="toc-backref" href="#id3">What has been changed</a><a class="headerlink" href="#what-has-been-changed" title="永久链接至标题"></a></h2>
+<section id="id4">
+<h2><a class="toc-backref" href="#id9">变更点</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <ul class="simple">
-<li><p>In CI4, the configurations are now stored in classes which extend <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseConfig</span></code>.</p></li>
-<li><p>The <strong>application/config/config.php</strong> in CI3 will be <strong>app/Config/App.php</strong>
-and some other files like <strong>app/Config/Security.php</strong> for the specific classes.</p></li>
-<li><p>Within the configuration class, the config values are stored in public class properties.</p></li>
-<li><p>The method to fetch config values has been changed.</p></li>
+<li><p>在 CI4 中,配置现在存储在扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseConfig</span></code> 的类中。</p></li>
+<li><p>CI3 中的 <strong>application/config/config.php</strong> 将变为 <strong>app/Config/App.php</strong>
+以及一些像 <strong>app/Config/Security.php</strong> 这样的特定类文件。</p></li>
+<li><p>在配置类中,配置值存储为公共类属性。</p></li>
+<li><p>获取配置值的方法也进行了更改。</p></li>
 </ul>
 </section>
-<section id="upgrade-guide">
-<h2><a class="toc-backref" href="#id4">Upgrade Guide</a><a class="headerlink" href="#upgrade-guide" title="永久链接至标题"></a></h2>
+<section id="id5">
+<h2><a class="toc-backref" href="#id10">升级指南</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <ol class="arabic simple">
-<li><p>You have to change the values in the default CI4 config files according to the
-changes in the CI3 files. The config names are pretty much the same as in CI3.</p></li>
-<li><p>If you are using custom config files in your CI3 project you have to create those
-files as new PHP classes in your CI4 project in <strong>app/Config</strong>. These classes
-should be in the <code class="docutils literal notranslate"><span class="pre">Config</span></code> namespace and should extend <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseConfig</span></code>.</p></li>
-<li><p>Once you have created all custom config classes, you have to copy the variables
-from the CI3 config into the new CI4 config class as public class properties.</p></li>
-<li><p>Now, you have to change the config fetching syntax everywhere you fetch config
-values. The CI3 syntax is something like <code class="docutils literal notranslate"><span class="pre">$this-&gt;config-&gt;item('item_name');</span></code>.
-You have to change this into <code class="docutils literal notranslate"><span class="pre">config('MyConfig')-&gt;item_name;</span></code>.</p></li>
+<li><p>你需要根据 CI3 文件中的更改来更改 CI4 默认配置文件的值。配置名称与 CI3 中的名称大体相同。</p></li>
+<li><p>如果你在 CI3 项目中使用自定义配置文件,则需要在 CI4 项目中的 <strong>app/Config</strong> 内将这些文件创建为新的 PHP 类。
+这些类应该在 <code class="docutils literal notranslate"><span class="pre">Config</span></code> 命名空间内,并继承 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseConfig</span></code>。</p></li>
+<li><p>创建所有自定义配置类后,你需要将 CI3 配置中的变量复制为新的 CI4 配置类中的公共类属性。</p></li>
+<li><p>现在,你需要在所有获取配置值的地方更改配置获取语法。CI3 语法类似于 <code class="docutils literal notranslate"><span class="pre">$this-&gt;config-&gt;item('item_name');</span></code>。
+你需要将其更改为 <code class="docutils literal notranslate"><span class="pre">config('MyConfig')-&gt;item_name;</span></code>。</p></li>
 </ol>
 </section>
-<section id="code-example">
-<h2><a class="toc-backref" href="#id5">Code Example</a><a class="headerlink" href="#code-example" title="永久链接至标题"></a></h2>
-<section id="codeigniter-version-3-x">
-<h3><a class="toc-backref" href="#id6">CodeIgniter Version 3.x</a><a class="headerlink" href="#codeigniter-version-3-x" title="永久链接至标题"></a></h3>
-<p>Path: <strong>application/config/site.php</strong>:</p>
+<section id="id6">
+<h2><a class="toc-backref" href="#id11">代码示例</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<section id="id7">
+<h3><a class="toc-backref" href="#id12">CodeIgniter 3.x 版本</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<p>路径:<strong>application/config/site.php</strong>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nb">defined</span><span class="p">(</span><span class="s1">&#39;BASEPATH&#39;</span><span class="p">)</span> <span class="k">OR</span> <span class="k">exit</span><span class="p">(</span><span class="s1">&#39;No direct script access allowed&#39;</span><span class="p">);</span>
@@ -340,9 +336,9 @@ You have to change this into <code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 </section>
-<section id="codeigniter-version-4-x">
-<h3><a class="toc-backref" href="#id7">CodeIgniter Version 4.x</a><a class="headerlink" href="#codeigniter-version-4-x" title="永久链接至标题"></a></h3>
-<p>Path: <strong>app/Config/Site.php</strong>:</p>
+<section id="codeigniter-4-x">
+<h3><a class="toc-backref" href="#id13">CodeIgniter 4.x 版本</a><a class="headerlink" href="#codeigniter-4-x" title="永久链接至标题"></a></h3>
+<p>路径:<strong>app/Config/Site.php</strong>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
@@ -364,15 +360,15 @@ You have to change this into <code class="docutils literal notranslate"><span cl
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="upgrade_controllers.html" class="btn btn-neutral float-left" title="Upgrade Controllers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="upgrade_database.html" class="btn btn-neutral float-right" title="Upgrade Database" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="upgrade_controllers.html" class="btn btn-neutral float-left" title="升级控制器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="upgrade_database.html" class="btn btn-neutral float-right" title="升级数据库" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-22.
+      <span class="lastupdated">最后更新于 2023-07-23.
       </span></p>
   </div>
 
@@ -380,7 +376,7 @@ You have to change this into <code class="docutils literal notranslate"><span cl
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f9ca5ea1510>
+<jinja2.runtime.BlockReference object at 0x7fdf6d7d8ed0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

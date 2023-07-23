@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upgrading from 4.2.12 to 4.3.0 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>从 4.2.12 升级到 4.3.0 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="Upgrading from 4.2.11 to 4.2.12" href="upgrade_4212.html" />
-    <link rel="prev" title="Upgrading from 4.3.0 to 4.3.1" href="upgrade_431.html" /> 
+    <link rel="next" title="从 4.2.11 升级到 4.2.12" href="upgrade_4212.html" />
+    <link rel="prev" title="从 4.3.0 升级到 4.3.1" href="upgrade_431.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -269,7 +269,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">安装</a></li>
           <li class="breadcrumb-item"><a href="upgrading.html">从前一版本升级</a></li>
-      <li class="breadcrumb-item active">Upgrading from 4.2.12 to 4.3.0</li>
+      <li class="breadcrumb-item active">从 4.2.12 升级到 4.3.0</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -278,98 +278,98 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="upgrading-from-4-2-12-to-4-3-0">
-<h1>Upgrading from 4.2.12 to 4.3.0<a class="headerlink" href="#upgrading-from-4-2-12-to-4-3-0" title="永久链接至标题"></a></h1>
-<p>Please refer to the upgrade instructions corresponding to your installation method.</p>
+  <section id="id1">
+<h1>从 4.2.12 升级到 4.3.0<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>请参考与你的安装方法相对应的升级说明。</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="installing_composer.html#app-starter-upgrading"><span class="std std-ref">Composer Installation App Starter Upgrading</span></a></p></li>
-<li><p><a class="reference internal" href="installing_composer.html#adding-codeigniter4-upgrading"><span class="std std-ref">Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading</span></a></p></li>
-<li><p><a class="reference internal" href="installing_manual.html#installing-manual-upgrading"><span class="std std-ref">Manual Installation Upgrading</span></a></p></li>
+<li><p><a class="reference internal" href="installing_composer.html#app-starter-upgrading"><span class="std std-ref">通过 Composer 安装应用启动器升级</span></a></p></li>
+<li><p><a class="reference internal" href="installing_composer.html#adding-codeigniter4-upgrading"><span class="std std-ref">通过 Composer 安装到现有项目升级</span></a></p></li>
+<li><p><a class="reference internal" href="installing_manual.html#installing-manual-upgrading"><span class="std std-ref">手动安装升级</span></a></p></li>
 </ul>
-<div class="contents local topic" id="id1">
+<div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#composer-version" id="id2">Composer Version</a></p></li>
-<li><p><a class="reference internal" href="#mandatory-file-changes" id="id3">Mandatory File Changes</a></p>
+<li><p><a class="reference internal" href="#composer" id="id20">Composer 版本</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id21">必备文件变更</a></p>
 <ul>
-<li><p><a class="reference internal" href="#spark" id="id4">spark</a></p></li>
-<li><p><a class="reference internal" href="#config-files" id="id5">Config Files</a></p></li>
-<li><p><a class="reference internal" href="#composer-json" id="id6">composer.json</a></p></li>
+<li><p><a class="reference internal" href="#spark" id="id22">spark</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id23">配置文件</a></p></li>
+<li><p><a class="reference internal" href="#composer-json" id="id24">composer.json</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#breaking-changes" id="id7">Breaking Changes</a></p>
+<li><p><a class="reference internal" href="#id6" id="id25">重大变更</a></p>
 <ul>
-<li><p><a class="reference internal" href="#database-exception-changes" id="id8">Database Exception Changes</a></p></li>
-<li><p><a class="reference internal" href="#http-status-code-and-exit-code-of-uncaught-exceptions" id="id9">HTTP Status Code and Exit Code of Uncaught Exceptions</a></p></li>
-<li><p><a class="reference internal" href="#redirect-withinput-and-validation-errors" id="id10">redirect()-&gt;withInput() and Validation Errors</a></p></li>
-<li><p><a class="reference internal" href="#validation-changes" id="id11">Validation Changes</a></p></li>
-<li><p><a class="reference internal" href="#time-fixes" id="id12">Time Fixes</a></p></li>
-<li><p><a class="reference internal" href="#capturing-stderr-and-stdout-streams-in-tests" id="id13">Capturing STDERR and STDOUT streams in Tests</a></p></li>
-<li><p><a class="reference internal" href="#interface-changes" id="id14">Interface Changes</a></p></li>
-<li><p><a class="reference internal" href="#foreign-key-data" id="id15">Foreign Key Data</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id26">数据库异常变化</a></p></li>
+<li><p><a class="reference internal" href="#http" id="id27">未捕获异常的 HTTP 状态码和退出码</a></p></li>
+<li><p><a class="reference internal" href="#redirect-withinput" id="id28">redirect()-&gt;withInput() 和验证错误</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id29">验证更改</a></p></li>
+<li><p><a class="reference internal" href="#time" id="id30">Time 修复</a></p></li>
+<li><p><a class="reference internal" href="#stderr-stdout" id="id31">在测试中捕获 STDERR 和 STDOUT 流</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id32">接口变化</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id33">外键数据</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#breaking-enhancements" id="id16">Breaking Enhancements</a></p>
+<li><p><a class="reference internal" href="#id11" id="id34">重大增强</a></p>
 <ul>
-<li><p><a class="reference internal" href="#multiple-domain-support" id="id17">Multiple Domain Support</a></p></li>
-<li><p><a class="reference internal" href="#database" id="id18">Database</a></p></li>
-<li><p><a class="reference internal" href="#honeypot-and-csp" id="id19">Honeypot and CSP</a></p></li>
-<li><p><a class="reference internal" href="#others" id="id20">Others</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id35">支持多个域名</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id36">数据库</a></p></li>
+<li><p><a class="reference internal" href="#honeypot-csp" id="id37">Honeypot 和 CSP</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id38">其它</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#project-files" id="id21">Project Files</a></p>
+<li><p><a class="reference internal" href="#id15" id="id39">项目文件</a></p>
 <ul>
-<li><p><a class="reference internal" href="#content-changes" id="id22">Content Changes</a></p></li>
-<li><p><a class="reference internal" href="#all-changes" id="id23">All Changes</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id40">内容更改</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id41">所有更改</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
-<section id="composer-version">
-<h2><a class="toc-backref" href="#id2">Composer Version</a><a class="headerlink" href="#composer-version" title="永久链接至标题"></a></h2>
+<section id="composer">
+<h2><a class="toc-backref" href="#id20">Composer 版本</a><a class="headerlink" href="#composer" title="永久链接至标题"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>If you use Composer, CodeIgniter v4.3.0 requires
-Composer 2.0.14 or later.</p>
+<p>如果你使用 Composer,CodeIgniter v4.3.0 需要
+Composer 2.0.14 或更高版本。</p>
 </div>
-<p>If you are using older version of Composer, upgrade your <code class="docutils literal notranslate"><span class="pre">composer</span></code> tool,
-and delete the <strong>vendor/</strong> directory, and run <code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">update</span></code> again.</p>
-<p>The procedure, for example, is as follows:</p>
+<p>如果你使用的是更早版本的 Composer,请升级你的 <code class="docutils literal notranslate"><span class="pre">composer</span></code> 工具,
+删除 <strong>vendor/</strong> 目录,并再次运行 <code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">update</span></code>。</p>
+<p>例如,过程如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">composer</span> <span class="nx">self</span><span class="o">-</span><span class="nx">update</span>
 <span class="o">&gt;</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="nx">vendor</span><span class="o">/</span>
 <span class="o">&gt;</span> <span class="nx">composer</span> <span class="nx">update</span>
 </pre></div>
 </div>
 </section>
-<section id="mandatory-file-changes">
-<h2><a class="toc-backref" href="#id3">Mandatory File Changes</a><a class="headerlink" href="#mandatory-file-changes" title="永久链接至标题"></a></h2>
+<section id="id3">
+<h2><a class="toc-backref" href="#id21">必备文件变更</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <section id="spark">
-<h3><a class="toc-backref" href="#id4">spark</a><a class="headerlink" href="#spark" title="永久链接至标题"></a></h3>
-<p>The following files received significant changes and
-<strong>you must merge the updated versions</strong> with your application:</p>
+<h3><a class="toc-backref" href="#id22">spark</a><a class="headerlink" href="#spark" title="永久链接至标题"></a></h3>
+<p>以下文件进行了重大更改,
+<strong>你必须将更新后的版本</strong> 与应用程序合并:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">spark</span></code></p></li>
 </ul>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>If you do not update this file, Spark commands will not work at all after running <code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">update</span></code>.</p>
-<p>The upgrade procedure, for example, is as follows:</p>
+<p>如果不更新此文件,在运行 <code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">update</span></code> 后 Spark 命令将完全无法工作。</p>
+<p>升级过程例如如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">composer</span> <span class="nx">update</span>
 <span class="o">&gt;</span> <span class="nx">cp</span> <span class="nx">vendor</span><span class="o">/</span><span class="nx">codeigniter4</span><span class="o">/</span><span class="nx">framework</span><span class="o">/</span><span class="nx">spark</span> <span class="o">.</span>
 </pre></div>
 </div>
 </div>
 </section>
-<section id="config-files">
-<h3><a class="toc-backref" href="#id5">Config Files</a><a class="headerlink" href="#config-files" title="永久链接至标题"></a></h3>
+<section id="id4">
+<h3><a class="toc-backref" href="#id23">配置文件</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <section id="app-config-kint-php">
 <h4>app/Config/Kint.php<a class="headerlink" href="#app-config-kint-php" title="永久链接至标题"></a></h4>
 <ul>
-<li><p><strong>app/Config/Kint.php</strong> has been updated for Kint 5.0.</p></li>
-<li><p>You need to replace:</p>
+<li><p><strong>app/Config/Kint.php</strong> 已更新为兼容 Kint 5.0。</p></li>
+<li><p>你需要替换:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Kint\Renderer\Renderer</span></code> with <code class="docutils literal notranslate"><span class="pre">Kint\Renderer\AbstractRenderer</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Renderer::SORT_FULL</span></code> with <code class="docutils literal notranslate"><span class="pre">AbstractRenderer::SORT_FULL</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Kint\Renderer\Renderer</span></code> 为 <code class="docutils literal notranslate"><span class="pre">Kint\Renderer\AbstractRenderer</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Renderer::SORT_FULL</span></code> 为 <code class="docutils literal notranslate"><span class="pre">AbstractRenderer::SORT_FULL</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -378,13 +378,13 @@ and delete the <strong>vendor/</strong> directory, and run <code class="docutils
 <section id="app-config-exceptions-php">
 <h4>app/Config/Exceptions.php<a class="headerlink" href="#app-config-exceptions-php" title="永久链接至标题"></a></h4>
 <ul class="simple">
-<li><p>If you are using PHP 8.2, you need to add new properties <code class="docutils literal notranslate"><span class="pre">$logDeprecations</span></code> and <code class="docutils literal notranslate"><span class="pre">$deprecationLogLevel</span></code>.</p></li>
+<li><p>如果你使用 PHP 8.2,需要添加新的属性 <code class="docutils literal notranslate"><span class="pre">$logDeprecations</span></code> 和 <code class="docutils literal notranslate"><span class="pre">$deprecationLogLevel</span></code>。</p></li>
 </ul>
 </section>
-<section id="mock-config-classes">
-<h4>Mock Config Classes<a class="headerlink" href="#mock-config-classes" title="永久链接至标题"></a></h4>
+<section id="id5">
+<h4>模拟配置类<a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
 <ul>
-<li><p>If you are using the following Mock Config classes in testing, you need to update the corresponding Config files in <strong>app/Config</strong>:</p>
+<li><p>如果你在测试中使用以下模拟配置类,需要更新 <strong>app/Config</strong> 中对应的配置文件:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">MockAppConfig</span></code> (<code class="docutils literal notranslate"><span class="pre">Config\App</span></code>)</p></li>
@@ -393,25 +393,25 @@ and delete the <strong>vendor/</strong> directory, and run <code class="docutils
 </ul>
 </div></blockquote>
 </li>
-<li><p>Add <strong>types</strong> to the properties in these Config classes. You may need to fix the property values to match the property types.</p></li>
+<li><p>在这些配置类中为属性添加**类型**。你可能需要调整属性值以匹配属性类型。</p></li>
 </ul>
 </section>
 </section>
 <section id="composer-json">
-<h3><a class="toc-backref" href="#id6">composer.json</a><a class="headerlink" href="#composer-json" title="永久链接至标题"></a></h3>
-<p>If you installed CodeIgnter manually, and are using Composer,
-you need to remove the following lines, and run <code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">update</span></code>.</p>
+<h3><a class="toc-backref" href="#id24">composer.json</a><a class="headerlink" href="#composer-json" title="永久链接至标题"></a></h3>
+<p>如果你手动安装了 CodeIgnter,并使用 Composer,
+你需要删除以下行,并运行 <code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">update</span></code>。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
     ...
     &quot;require&quot;: {
         ...
-        &quot;kint-php/kint&quot;: &quot;^4.2&quot;,  &lt;-- Remove this line
+        &quot;kint-php/kint&quot;: &quot;^4.2&quot;,  &lt;-- 移除此行
         ...
     },
     ...
     &quot;scripts&quot;: {
         &quot;post-update-cmd&quot;: [
-            &quot;CodeIgniter\\ComposerScripts::postUpdate&quot;  &lt;-- Remove this line
+            &quot;CodeIgniter\\ComposerScripts::postUpdate&quot;  &lt;-- 移除此行
         ],
         &quot;test&quot;: &quot;phpunit&quot;
     },
@@ -421,72 +421,69 @@ you need to remove the following lines, and run <code class="docutils literal no
 </div>
 </section>
 </section>
-<section id="breaking-changes">
-<h2><a class="toc-backref" href="#id7">Breaking Changes</a><a class="headerlink" href="#breaking-changes" title="永久链接至标题"></a></h2>
-<section id="database-exception-changes">
-<h3><a class="toc-backref" href="#id8">Database Exception Changes</a><a class="headerlink" href="#database-exception-changes" title="永久链接至标题"></a></h3>
+<section id="id6">
+<h2><a class="toc-backref" href="#id25">重大变更</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<section id="id7">
+<h3><a class="toc-backref" href="#id26">数据库异常变化</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>The exception classes may be changed when database errors occur. If you catch the exceptions,
-you must confirm that your code can catch the exceptions.</p></li>
-<li><p>Now a few exceptions will be thrown even if <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> is false.</p></li>
-<li><p>During transactions, exceptions are not thrown by default even if <code class="docutils literal notranslate"><span class="pre">DBDebug</span></code> is true. If you want
-exceptions to be thrown, you need to call <code class="docutils literal notranslate"><span class="pre">transException(true)</span></code>.
-See <a class="reference internal" href="../database/transactions.html#transactions-throwing-exceptions"><span class="std std-ref">抛出异常</span></a>.</p></li>
-<li><p>See <a class="reference internal" href="../changelogs/v4.3.0.html#exceptions-when-database-errors-occur"><span class="std std-ref">Exceptions when Database Errors Occur</span></a> for details.</p></li>
+<li><p>当发生数据库错误时,可能会改变异常类。如果你捕获了异常,必须确认你的代码可以捕获这些异常。</p></li>
+<li><p>现在即使 <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> 为 false,也会抛出一些异常。</p></li>
+<li><p>在事务期间,即使 <code class="docutils literal notranslate"><span class="pre">DBDebug</span></code> 为 true,默认情况下也不会抛出异常。如果要抛出异常,需要调用 <code class="docutils literal notranslate"><span class="pre">transException(true)</span></code>。
+参见 <a class="reference internal" href="../database/transactions.html#transactions-throwing-exceptions"><span class="std std-ref">抛出异常</span></a>。</p></li>
+<li><p>有关详细信息,请参阅 <a class="reference internal" href="../changelogs/v4.3.0.html#exceptions-when-database-errors-occur"><span class="std std-ref">数据库错误时抛出的异常</span></a>。</p></li>
 </ul>
 </section>
-<section id="http-status-code-and-exit-code-of-uncaught-exceptions">
-<h3><a class="toc-backref" href="#id9">HTTP Status Code and Exit Code of Uncaught Exceptions</a><a class="headerlink" href="#http-status-code-and-exit-code-of-uncaught-exceptions" title="永久链接至标题"></a></h3>
+<section id="http">
+<h3><a class="toc-backref" href="#id27">未捕获异常的 HTTP 状态码和退出码</a><a class="headerlink" href="#http" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>If you expect <em>Exception code</em> as <em>HTTP status code</em>, the HTTP status code will be changed.
-In that case, you need to implement <code class="docutils literal notranslate"><span class="pre">HTTPExceptionInterface</span></code> in the Exception. See <a class="reference internal" href="../general/errors.html#error-specify-http-status-code"><span class="std std-ref">在异常中指定 HTTP 状态码</span></a>.</p></li>
-<li><p>If you expect <em>Exit code</em> based on <em>Exception code</em>, the Exit code will be changed.
-In that case, you need to implement <code class="docutils literal notranslate"><span class="pre">HasExitCodeInterface</span></code> in the Exception. See <a class="reference internal" href="../general/errors.html#error-specify-exit-code"><span class="std std-ref">在异常中指定退出代码</span></a>.</p></li>
+<li><p>如果你希望**异常代码**作为**HTTP状态码**,则 HTTP 状态码将会改变。
+在这种情况下,需要在异常中实现 <code class="docutils literal notranslate"><span class="pre">HTTPExceptionInterface</span></code>。参见 <a class="reference internal" href="../general/errors.html#error-specify-http-status-code"><span class="std std-ref">在异常中指定 HTTP 状态码</span></a>。</p></li>
+<li><p>如果你根据**异常代码**期望**退出码**,则退出码将会改变。
+在这种情况下,需要在异常中实现 <code class="docutils literal notranslate"><span class="pre">HasExitCodeInterface</span></code>。参见 <a class="reference internal" href="../general/errors.html#error-specify-exit-code"><span class="std std-ref">在异常中指定退出代码</span></a>。</p></li>
 </ul>
 </section>
-<section id="redirect-withinput-and-validation-errors">
-<h3><a class="toc-backref" href="#id10">redirect()-&gt;withInput() and Validation Errors</a><a class="headerlink" href="#redirect-withinput-and-validation-errors" title="永久链接至标题"></a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">redirect()-&gt;withInput()</span></code> and Validation errors had an undocumented behavior.
-If you redirect with <code class="docutils literal notranslate"><span class="pre">withInput()</span></code>, CodeIgniter stores the validation errors
-in the session, and you can get the errors in the redirected page from
-a validation object <em>before a new validation is run</em>:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In the controller</span>
+<section id="redirect-withinput">
+<h3><a class="toc-backref" href="#id28">redirect()-&gt;withInput() 和验证错误</a><a class="headerlink" href="#redirect-withinput" title="永久链接至标题"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">redirect()-&gt;withInput()</span></code> 和验证错误之前有一个未记录的行为。
+如果你使用 <code class="docutils literal notranslate"><span class="pre">withInput()</span></code> 重定向,CodeIgniter 会将验证错误存储在会话中,
+并且你可以在重定向页面的验证对象中获取错误,在执行新的验证之前:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在控制器中</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">(</span><span class="nv">$rules</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">withInput</span><span class="p">();</span>
 <span class="p">}</span>
 
-<span class="c1">// In the view of the redirected page</span>
+<span class="c1">// 在重定向页面的视图中</span>
 <span class="o">&lt;?=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;Validation&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>This behavior was a bug and fixed in v4.3.0.</p>
-<p>If you have code that depends on the bug, you need to change the code.
-Use new Form helpers, <a class="reference internal" href="../helpers/form_helper.html#validation_errors" title="validation_errors"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_errors()</span></code></a>, <a class="reference internal" href="../helpers/form_helper.html#validation_list_errors" title="validation_list_errors"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_list_errors()</span></code></a> and <a class="reference internal" href="../helpers/form_helper.html#validation_show_error" title="validation_show_error"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_show_error()</span></code></a> to display Validation Errors,
-instead of the Validation object.</p>
+<p>这种行为是一个错误,在 v4.3.0 中已修复。</p>
+<p>如果你的代码依赖于此错误,则需要更改代码。
+使用新的 Form 辅助函数,:php:func:<cite>validation_errors()</cite>、<a class="reference internal" href="../helpers/form_helper.html#validation_list_errors" title="validation_list_errors"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_list_errors()</span></code></a> 和 <a class="reference internal" href="../helpers/form_helper.html#validation_show_error" title="validation_show_error"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_show_error()</span></code></a>
+来显示验证错误,而不是 Validation 对象。</p>
 </section>
-<section id="validation-changes">
-<h3><a class="toc-backref" href="#id11">Validation Changes</a><a class="headerlink" href="#validation-changes" title="永久链接至标题"></a></h3>
+<section id="id8">
+<h3><a class="toc-backref" href="#id29">验证更改</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ValidationInterface</span></code> has been changed. Implemented classes should likewise add the methods and the parameters so as not to break LSP. See <a class="reference internal" href="../changelogs/v4.3.0.html#v430-validation-changes"><span class="std std-ref">Validation Changes</span></a> for details.</p></li>
-<li><p>The return value of  <code class="docutils literal notranslate"><span class="pre">Validation::loadRuleGroup()</span></code> has been changed <code class="docutils literal notranslate"><span class="pre">null</span></code> to <code class="docutils literal notranslate"><span class="pre">[]</span></code> when the <code class="docutils literal notranslate"><span class="pre">$group</span></code> is empty. Update the code if you depend on the behavior.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ValidationInterface</span></code> 已更改。实现的类也应该添加方法和参数,以免违反LSP。有关详细信息,请参阅 <a class="reference internal" href="../changelogs/v4.3.0.html#v430-validation-changes"><span class="std std-ref">验证变更</span></a>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Validation::loadRuleGroup()</span></code> 的返回值在 <code class="docutils literal notranslate"><span class="pre">$group</span></code> 为空时已从 <code class="docutils literal notranslate"><span class="pre">null</span></code> 改为 <code class="docutils literal notranslate"><span class="pre">[]</span></code>。如果依赖于该行为,请更新代码。</p></li>
 </ul>
 </section>
-<section id="time-fixes">
-<h3><a class="toc-backref" href="#id12">Time Fixes</a><a class="headerlink" href="#time-fixes" title="永久链接至标题"></a></h3>
+<section id="time">
+<h3><a class="toc-backref" href="#id30">Time 修复</a><a class="headerlink" href="#time" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>Due to bug fixes, some methods in <a class="reference internal" href="../libraries/time.html"><span class="doc">Time</span></a> have changed from mutable behavior to immutable; <code class="docutils literal notranslate"><span class="pre">Time</span></code> now extends <code class="docutils literal notranslate"><span class="pre">DateTimeImmutable</span></code>. See <a class="reference internal" href="../changelogs/v4.3.0.html#v430-time-fix"><span class="std std-ref">ChangeLog</span></a> for details.</p></li>
-<li><p>If you need the behavior of <code class="docutils literal notranslate"><span class="pre">Time</span></code> before the modification, a compatible <code class="docutils literal notranslate"><span class="pre">TimeLegacy</span></code> class has been added. Please replace all <code class="docutils literal notranslate"><span class="pre">Time</span></code> with <code class="docutils literal notranslate"><span class="pre">TimeLegacy</span></code> in your application code.</p></li>
-<li><p>But <code class="docutils literal notranslate"><span class="pre">TimeLegacy</span></code> is deprecated. So we recommend you update your code.</p></li>
+<li><p>由于错误修复,:doc:<cite>Time &lt;../libraries/time&gt;</cite> 中的一些方法已从可变行为更改为不可变;``Time`` 现在扩展 <code class="docutils literal notranslate"><span class="pre">DateTimeImmutable</span></code>。详细信息请参阅 <a class="reference internal" href="../changelogs/v4.3.0.html#v430-time-fix"><span class="std std-ref">ChangeLog</span></a>。</p></li>
+<li><p>如果需要修改前 <code class="docutils literal notranslate"><span class="pre">Time</span></code> 的行为,已添加了一个兼容的 <code class="docutils literal notranslate"><span class="pre">TimeLegacy</span></code> 类。请在应用程序代码中全部替换 <code class="docutils literal notranslate"><span class="pre">Time</span></code> 为 <code class="docutils literal notranslate"><span class="pre">TimeLegacy</span></code>。</p></li>
+<li><p>但是 <code class="docutils literal notranslate"><span class="pre">TimeLegacy</span></code> 已被废弃。因此我们建议你更新代码。</p></li>
 </ul>
-<p>E.g.:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<p>例如:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 之前</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">();</span>
 <span class="c1">// ...</span>
 <span class="k">if</span> <span class="p">(</span><span class="nv">$time</span> <span class="nx">instanceof</span> <span class="nx">DateTime</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// ...</span>
 <span class="p">}</span>
 
-<span class="c1">// After</span>
+<span class="c1">// 之后</span>
 <span class="nv">$time</span> <span class="o">=</span> <span class="nx">Time</span><span class="o">::</span><span class="na">now</span><span class="p">();</span>
 <span class="c1">// ...</span>
 <span class="k">if</span> <span class="p">(</span><span class="nv">$time</span> <span class="nx">instanceof</span> <span class="nx">DateTimeInterface</span><span class="p">)</span> <span class="p">{</span>
@@ -494,13 +491,13 @@ instead of the Validation object.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 之前</span>
 <span class="nv">$time1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Time</span><span class="p">(</span><span class="s1">&#39;2022-10-31 12:00&#39;</span><span class="p">);</span>
 <span class="nv">$time2</span> <span class="o">=</span> <span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">modify</span><span class="p">(</span><span class="s1">&#39;+1 day&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$time1</span><span class="p">;</span> <span class="c1">// 2022-11-01 12:00:00</span>
 <span class="k">echo</span> <span class="nv">$time2</span><span class="p">;</span> <span class="c1">// 2022-11-01 12:00:00</span>
 
-<span class="c1">// After</span>
+<span class="c1">// 之后</span>
 <span class="nv">$time1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Time</span><span class="p">(</span><span class="s1">&#39;2022-10-31 12:00&#39;</span><span class="p">);</span>
 <span class="nv">$time2</span> <span class="o">=</span> <span class="nv">$time1</span><span class="o">-&gt;</span><span class="na">modify</span><span class="p">(</span><span class="s1">&#39;+1 day&#39;</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$time1</span><span class="p">;</span> <span class="c1">// 2022-10-31 12:00:00</span>
@@ -508,25 +505,9 @@ instead of the Validation object.</p>
 </pre></div>
 </div>
 </section>
-<section id="capturing-stderr-and-stdout-streams-in-tests">
-<span id="upgrade-430-stream-filter"></span><h3><a class="toc-backref" href="#id13">Capturing STDERR and STDOUT streams in Tests</a><a class="headerlink" href="#capturing-stderr-and-stdout-streams-in-tests" title="永久链接至标题"></a></h3>
-<p>The way error and output streams are captured has changed. Now instead of:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\Test\Filters\CITestStreamFilter</span><span class="p">;</span>
-
-<span class="k">protected</span> <span class="k">function</span> <span class="nf">setUp</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-<span class="p">{</span>
-    <span class="nx">CITestStreamFilter</span><span class="o">::</span><span class="nv">$buffer</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">streamFilter</span>         <span class="o">=</span> <span class="nb">stream_filter_append</span><span class="p">(</span><span class="nx">STDOUT</span><span class="p">,</span> <span class="s1">&#39;CITestStreamFilter&#39;</span><span class="p">);</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">streamFilter</span>         <span class="o">=</span> <span class="nb">stream_filter_append</span><span class="p">(</span><span class="nx">STDERR</span><span class="p">,</span> <span class="s1">&#39;CITestStreamFilter&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">protected</span> <span class="k">function</span> <span class="nf">tearDown</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-<span class="p">{</span>
-    <span class="nb">stream_filter_remove</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">streamFilter</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>need to use:</p>
+<section id="stderr-stdout">
+<span id="upgrade-430-stream-filter"></span><h3><a class="toc-backref" href="#id31">在测试中捕获 STDERR 和 STDOUT 流</a><a class="headerlink" href="#stderr-stdout" title="永久链接至标题"></a></h3>
+<p>捕获错误和输出流的方式已更改。现在需要这样使用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\Test\Filters\CITestStreamFilter</span><span class="p">;</span>
 
 <span class="k">protected</span> <span class="k">function</span> <span class="nf">setUp</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
@@ -543,20 +524,36 @@ instead of the Validation object.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Or use the trait <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Test\StreamFilterTrait</span></code>. See <a class="reference internal" href="../testing/overview.html#testing-cli-output"><span class="std std-ref">测试 CLI 输出</span></a>.</p>
+<p>而不是:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">CodeIgniter\Test\Filters\CITestStreamFilter</span><span class="p">;</span>
+
+<span class="k">protected</span> <span class="k">function</span> <span class="nf">setUp</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+<span class="p">{</span>
+    <span class="nx">CITestStreamFilter</span><span class="o">::</span><span class="nv">$buffer</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">streamFilter</span>         <span class="o">=</span> <span class="nb">stream_filter_append</span><span class="p">(</span><span class="nx">STDOUT</span><span class="p">,</span> <span class="s1">&#39;CITestStreamFilter&#39;</span><span class="p">);</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">streamFilter</span>         <span class="o">=</span> <span class="nb">stream_filter_append</span><span class="p">(</span><span class="nx">STDERR</span><span class="p">,</span> <span class="s1">&#39;CITestStreamFilter&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">protected</span> <span class="k">function</span> <span class="nf">tearDown</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+<span class="p">{</span>
+    <span class="nb">stream_filter_remove</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">streamFilter</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>或者使用 trait <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Test\StreamFilterTrait</span></code>。参见 <a class="reference internal" href="../testing/overview.html#testing-cli-output"><span class="std std-ref">测试 CLI 输出</span></a>。</p>
 </section>
-<section id="interface-changes">
-<h3><a class="toc-backref" href="#id14">Interface Changes</a><a class="headerlink" href="#interface-changes" title="永久链接至标题"></a></h3>
-<p>Some interfaces has been fixed. See <a class="reference internal" href="../changelogs/v4.3.0.html#v430-interface-changes"><span class="std std-ref">Interface Changes</span></a> for details.</p>
+<section id="id9">
+<h3><a class="toc-backref" href="#id32">接口变化</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<p>一些接口已修复。详细信息请参阅 <a class="reference internal" href="../changelogs/v4.3.0.html#v430-interface-changes"><span class="std std-ref">接口变更</span></a>。</p>
 </section>
-<section id="foreign-key-data">
-<h3><a class="toc-backref" href="#id15">Foreign Key Data</a><a class="headerlink" href="#foreign-key-data" title="永久链接至标题"></a></h3>
+<section id="id10">
+<h3><a class="toc-backref" href="#id33">外键数据</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>The data structure returned by <code class="docutils literal notranslate"><span class="pre">BaseConnection::getForeignKeyData()</span></code> has been changed.
-You will need to adjust any code depending on this method to use the new structure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BaseConnection::getForeignKeyData()</span></code> 返回的数据结构已更改。
+你需要相应调整依赖此方法的任何代码,以使用新的结构。</p></li>
 </ul>
-<p>Example: <code class="docutils literal notranslate"><span class="pre">tableprefix_table_column1_column2_foreign</span></code></p>
-<p>The data returned has the following structure:</p>
+<p>示例:<code class="docutils literal notranslate"><span class="pre">tableprefix_table_column1_column2_foreign</span></code></p>
+<p>返回的数据具有以下结构:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="sd">/**</span>
 <span class="sd"> * @return array[</span>
 <span class="sd"> *    {constraint_name} =&gt;</span>
@@ -576,164 +573,150 @@ You will need to adjust any code depending on this method to use the new structu
 </div>
 </section>
 </section>
-<section id="breaking-enhancements">
-<h2><a class="toc-backref" href="#id16">Breaking Enhancements</a><a class="headerlink" href="#breaking-enhancements" title="永久链接至标题"></a></h2>
-<section id="multiple-domain-support">
-<h3><a class="toc-backref" href="#id17">Multiple Domain Support</a><a class="headerlink" href="#multiple-domain-support" title="永久链接至标题"></a></h3>
+<section id="id11">
+<h2><a class="toc-backref" href="#id34">重大增强</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<section id="id12">
+<h3><a class="toc-backref" href="#id35">支持多个域名</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>If you set <code class="docutils literal notranslate"><span class="pre">Config\App::$allowedHostnames</span></code>, URL-related functions such as <a class="reference internal" href="../helpers/url_helper.html#base_url" title="base_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">base_url()</span></code></a>, <a class="reference internal" href="../helpers/url_helper.html#current_url" title="current_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">current_url()</span></code></a>, <a class="reference internal" href="../helpers/url_helper.html#site_url" title="site_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">site_url()</span></code></a> will return the URL with the hostname set in <code class="docutils literal notranslate"><span class="pre">Config\App::$allowedHostnames</span></code> if the current URL matches.</p></li>
+<li><p>如果设置了 <code class="docutils literal notranslate"><span class="pre">Config\App::$allowedHostnames</span></code>,则当当前 URL 与其中一个匹配时,像 <a class="reference internal" href="../helpers/url_helper.html#base_url" title="base_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">base_url()</span></code></a>、<a class="reference internal" href="../helpers/url_helper.html#current_url" title="current_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">current_url()</span></code></a>、<a class="reference internal" href="../helpers/url_helper.html#site_url" title="site_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">site_url()</span></code></a> 这样的与 URL 相关的函数会返回带有 <code class="docutils literal notranslate"><span class="pre">Config\App::$allowedHostnames</span></code> 中设置的主机名的 URL。</p></li>
 </ul>
 </section>
-<section id="database">
-<h3><a class="toc-backref" href="#id18">Database</a><a class="headerlink" href="#database" title="永久链接至标题"></a></h3>
+<section id="id13">
+<h3><a class="toc-backref" href="#id36">数据库</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>The return type of <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Database\Database::loadForge()</span></code> has been changed to <code class="docutils literal notranslate"><span class="pre">Forge</span></code>. Extending classes should likewise change the type.</p></li>
-<li><p>The return type of <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Database\Database::loadUtils()</span></code> has been changed to <code class="docutils literal notranslate"><span class="pre">BaseUtils</span></code>. Extending classes should likewise change the type.</p></li>
-<li><p>The second parameter <code class="docutils literal notranslate"><span class="pre">$index</span></code> of <code class="docutils literal notranslate"><span class="pre">BaseBuilder::updateBatch()</span></code> has changed to <code class="docutils literal notranslate"><span class="pre">$constraints</span></code>. It now accepts types array, string, or <code class="docutils literal notranslate"><span class="pre">RawSql</span></code>. Extending classes should likewise change types.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">$set</span></code> parameter of <code class="docutils literal notranslate"><span class="pre">BaseBuilder::insertBatch()</span></code> and <code class="docutils literal notranslate"><span class="pre">BaseBuilder::updateBatch()</span></code> now accepts an object of a single row of data. Extending classes should likewise change the type.</p></li>
-<li><p>The third parameter <code class="docutils literal notranslate"><span class="pre">$index</span></code> of <code class="docutils literal notranslate"><span class="pre">BaseBuilder::_updateBatch()</span></code> has changed to <code class="docutils literal notranslate"><span class="pre">$values</span></code>, and the parameter type has changed to <code class="docutils literal notranslate"><span class="pre">array</span></code>. Extending classes should likewise change the type.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">Model::update()</span></code> method now raises a <code class="docutils literal notranslate"><span class="pre">DatabaseException</span></code> if it generates an SQL
-statement without a WHERE clause. If you need to update all records in a table, use Query Builder instead. E.g., <code class="docutils literal notranslate"><span class="pre">$model-&gt;builder()-&gt;update($data)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\Database\Database::loadForge()</span></code> 的返回类型已更改为 <code class="docutils literal notranslate"><span class="pre">Forge</span></code>。扩展类也应相应更改类型。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\Database\Database::loadUtils()</span></code> 的返回类型已更改为 <code class="docutils literal notranslate"><span class="pre">BaseUtils</span></code>。扩展类也应相应更改类型。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BaseBuilder::updateBatch()</span></code> 的第二个参数 <code class="docutils literal notranslate"><span class="pre">$index</span></code> 已更改为 <code class="docutils literal notranslate"><span class="pre">$constraints</span></code>。它现在接受 array、string 或 <code class="docutils literal notranslate"><span class="pre">RawSql</span></code> 类型。扩展类也应相应更改类型。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BaseBuilder::insertBatch()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">BaseBuilder::updateBatch()</span></code> 的 <code class="docutils literal notranslate"><span class="pre">$set</span></code> 参数现在接受单行数据的对象。扩展类也应相应更改类型。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BaseBuilder::_updateBatch()</span></code> 的第三个参数 <code class="docutils literal notranslate"><span class="pre">$index</span></code> 已更改为 <code class="docutils literal notranslate"><span class="pre">$values</span></code>,参数类型已更改为 <code class="docutils literal notranslate"><span class="pre">array</span></code>。扩展类也应相应更改类型。</p></li>
+<li><p>如果 <code class="docutils literal notranslate"><span class="pre">Model::update()</span></code> 方法生成不带 WHERE 子句的 SQL 语句,现在会引发 <code class="docutils literal notranslate"><span class="pre">DatabaseException</span></code>。如果需要更新表中的所有记录,请使用 Query Builder,例如 <code class="docutils literal notranslate"><span class="pre">$model-&gt;builder()-&gt;update($data)</span></code>。</p></li>
 </ul>
 </section>
-<section id="honeypot-and-csp">
-<span id="upgrade-430-honeypot-and-csp"></span><h3><a class="toc-backref" href="#id19">Honeypot and CSP</a><a class="headerlink" href="#honeypot-and-csp" title="永久链接至标题"></a></h3>
-<p>When CSP is enabled, id attribute <code class="docutils literal notranslate"><span class="pre">id=&quot;hpc&quot;</span></code> will be injected into the container tag
-for the Honeypot field to hide the field. If the id is already used in your views, you need to change it
-with <code class="docutils literal notranslate"><span class="pre">Config\Honeypot::$containerId</span></code>.
-And you can remove <code class="docutils literal notranslate"><span class="pre">style=&quot;display:none&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">Config\Honeypot::$container</span></code>.</p>
+<section id="honeypot-csp">
+<span id="upgrade-430-honeypot-and-csp"></span><h3><a class="toc-backref" href="#id37">Honeypot 和 CSP</a><a class="headerlink" href="#honeypot-csp" title="永久链接至标题"></a></h3>
+<p>当启用 CSP 时,会向 Honeypot 字段的容器标签中注入 id 属性 <code class="docutils literal notranslate"><span class="pre">id=&quot;hpc&quot;</span></code>,以隐藏该字段。如果视图中已经使用了该 id,则需要用 <code class="docutils literal notranslate"><span class="pre">Config\Honeypot::$containerId</span></code> 更改它。
+并且可以在 <code class="docutils literal notranslate"><span class="pre">Config\Honeypot::$container</span></code> 中删除 <code class="docutils literal notranslate"><span class="pre">style=&quot;display:none&quot;</span></code>。</p>
 </section>
-<section id="others">
-<h3><a class="toc-backref" href="#id20">Others</a><a class="headerlink" href="#others" title="永久链接至标题"></a></h3>
+<section id="id14">
+<h3><a class="toc-backref" href="#id38">其它</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p><strong>Helper:</strong> Since void HTML elements (e.g. <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code>) in <code class="docutils literal notranslate"><span class="pre">html_helper</span></code>, <code class="docutils literal notranslate"><span class="pre">form_helper</span></code> or common functions have been changed to be HTML5-compatible by default and you need to be compatible with XHTML, you must set the <code class="docutils literal notranslate"><span class="pre">$html5</span></code> property in <strong>app/Config/DocTypes.php</strong> to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
-<li><p><strong>CLI:</strong> Since the launch of Spark Commands was extracted from <code class="docutils literal notranslate"><span class="pre">CodeIgniter\CodeIgniter</span></code>, there may be problems running these commands if the <code class="docutils literal notranslate"><span class="pre">Services::codeigniter()</span></code> service has been overridden.</p></li>
+<li><p><strong>辅助函数:</strong> 由于 <code class="docutils literal notranslate"><span class="pre">html_helper</span></code>、<code class="docutils literal notranslate"><span class="pre">form_helper</span></code> 或常用函数中的空 HTML 元素(例如 <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code>)已默认更改为 HTML5 兼容,如果你需要与 XHTML 兼容,必须在 <strong>app/Config/DocTypes.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$html5</span></code> 属性设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code>。</p></li>
+<li><p><strong>CLI:</strong> 由于从 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\CodeIgniter</span></code> 中提取了 Spark 命令的启动,如果 <code class="docutils literal notranslate"><span class="pre">Services::codeigniter()</span></code> 服务被覆盖,运行这些命令时可能会出现问题。</p></li>
 </ul>
 </section>
 </section>
-<section id="project-files">
-<h2><a class="toc-backref" href="#id21">Project Files</a><a class="headerlink" href="#project-files" title="永久链接至标题"></a></h2>
-<p>Numerous files in the <strong>project space</strong> (root, app, public, writable) received updates. Due to
-these files being outside of the <strong>system</strong> scope they will not be changed without your intervention.
-There are some third-party CodeIgniter modules available to assist with merging changes to
-the project space: <a class="reference external" href="https://packagist.org/explore/?query=codeigniter4%20updates">Explore on Packagist</a>.</p>
-<section id="content-changes">
-<h3><a class="toc-backref" href="#id22">Content Changes</a><a class="headerlink" href="#content-changes" title="永久链接至标题"></a></h3>
-<p>The following files received significant changes (including deprecations or visual adjustments)
-and it is recommended that you merge the updated versions with your application:</p>
-<section id="config">
-<span id="upgrade-430-config"></span><h4>Config<a class="headerlink" href="#config" title="永久链接至标题"></a></h4>
+<section id="id15">
+<h2><a class="toc-backref" href="#id39">项目文件</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
+<p><strong>项目空间</strong> 中的许多文件(根目录、app、public、writable)都已更新。由于这些文件超出 <strong>系统</strong> 范围,如果不进行干预,它们将不会更改。有一些第三方 CodeIgniter 模块可以协助合并项目空间的更改:<a class="reference external" href="https://packagist.org/explore/?query=codeigniter4%20updates">在 Packagist 上探索</a>。</p>
+<section id="id16">
+<h3><a class="toc-backref" href="#id40">内容更改</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
+<p>以下文件已作出重大更改(包括弃用或视觉调整),建议你将更新版本与应用程序合并:</p>
+<section id="upgrade-430-config">
+<span id="id17"></span><h4>配置<a class="headerlink" href="#upgrade-430-config" title="永久链接至标题"></a></h4>
 <ul class="simple">
 <li><dl class="simple">
 <dt>app/Config/App.php</dt><dd><ul>
-<li><p>The new property <code class="docutils literal notranslate"><span class="pre">$allowedHostnames</span></code> is added to set allowed hostnames in the site URL
-other than the hostname in the <code class="docutils literal notranslate"><span class="pre">$baseURL</span></code>. See <a class="reference internal" href="../changelogs/v4.3.0.html#v430-multiple-domain-support"><span class="std std-ref">Multiple Domain Support</span></a>.</p></li>
-<li><p>The property <code class="docutils literal notranslate"><span class="pre">$appTimezone</span></code> has been changed to <code class="docutils literal notranslate"><span class="pre">UTC</span></code> to avoid being affected
-by daylight saving time.</p></li>
+<li><p>添加了新属性 <code class="docutils literal notranslate"><span class="pre">$allowedHostnames</span></code>,用于在站点 URL 中设置主机名,
+除了 <code class="docutils literal notranslate"><span class="pre">$baseURL</span></code> 中的主机名之外。参见 <a class="reference internal" href="../changelogs/v4.3.0.html#v430-multiple-domain-support"><span class="std std-ref">多域名支持</span></a>。</p></li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">$appTimezone</span></code> 已更改为 <code class="docutils literal notranslate"><span class="pre">UTC</span></code>,以避免受夏令时的影响。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Autoload.php</dt><dd><ul>
-<li><p>The new property <code class="docutils literal notranslate"><span class="pre">$helpers</span></code> is added to autoload helpers.</p></li>
+<li><p>添加了新属性 <code class="docutils literal notranslate"><span class="pre">$helpers</span></code> 以自动加载辅助函数。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Database.php</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">$default['DBDebug']</span></code> and <code class="docutils literal notranslate"><span class="pre">$test['DBDebug']</span></code> are changed to <code class="docutils literal notranslate"><span class="pre">true</span></code> by default.
-See <a class="reference internal" href="../changelogs/v4.3.0.html#exceptions-when-database-errors-occur"><span class="std std-ref">Exceptions when Database Errors Occur</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$default['DBDebug']</span></code> 和 <code class="docutils literal notranslate"><span class="pre">$test['DBDebug']</span></code> 默认更改为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。
+参见 <a class="reference internal" href="../changelogs/v4.3.0.html#exceptions-when-database-errors-occur"><span class="std std-ref">数据库错误时抛出的异常</span></a>。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/DocTypes.php</dt><dd><ul>
-<li><p>The property <code class="docutils literal notranslate"><span class="pre">$html5</span></code> to determine whether to remove the solidus (<code class="docutils literal notranslate"><span class="pre">/</span></code>) character for void HTML
-elements (e.g. <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code>) is added, and set to <code class="docutils literal notranslate"><span class="pre">true</span></code> by default for HTML5 compatibility.</p></li>
+<li><p>添加了属性 <code class="docutils literal notranslate"><span class="pre">$html5</span></code> 以确定是否移除空 HTML 元素(如 <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code>)中的 solidus (<code class="docutils literal notranslate"><span class="pre">/</span></code>)字符,默认为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 以实现 HTML5 兼容性。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Encryption.php</dt><dd><ul>
-<li><p>The new property <code class="docutils literal notranslate"><span class="pre">$rawData</span></code>,  <code class="docutils literal notranslate"><span class="pre">$encryptKeyInfo</span></code>, and <code class="docutils literal notranslate"><span class="pre">$authKeyInfo</span></code> are added for CI3
-Encryption compatibility. See <a class="reference internal" href="../libraries/encryption.html#encryption-compatible-with-ci3"><span class="std std-ref">用于与 CI3 保持兼容性的配置</span></a>.</p></li>
+<li><p>添加了新属性 <code class="docutils literal notranslate"><span class="pre">$rawData</span></code>、<code class="docutils literal notranslate"><span class="pre">$encryptKeyInfo</span></code> 和 <code class="docutils literal notranslate"><span class="pre">$authKeyInfo</span></code> 以实现 CI3
+加密兼容性。参见 <a class="reference internal" href="../libraries/encryption.html#encryption-compatible-with-ci3"><span class="std std-ref">用于与 CI3 保持兼容性的配置</span></a>。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Exceptions.php</dt><dd><ul>
-<li><p>Two additional public properties were added: <code class="docutils literal notranslate"><span class="pre">$logDeprecations</span></code> and <code class="docutils literal notranslate"><span class="pre">$deprecationLogLevel</span></code>.
-See See <a class="reference internal" href="../general/errors.html#logging-deprecation-warnings"><span class="std std-ref">记录弃用警告</span></a> for details.</p></li>
+<li><p>添加了两个新的公共属性:<code class="docutils literal notranslate"><span class="pre">$logDeprecations</span></code> 和 <code class="docutils literal notranslate"><span class="pre">$deprecationLogLevel</span></code>。
+详细信息请参阅 <a class="reference internal" href="../general/errors.html#logging-deprecation-warnings"><span class="std std-ref">记录弃用警告</span></a>。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Honeypot.php</dt><dd><ul>
-<li><p>The new property <code class="docutils literal notranslate"><span class="pre">$containerId</span></code> is added to set id attribute value for the container tag
-when CSP is enabled.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> tag in the property <code class="docutils literal notranslate"><span class="pre">$template</span></code> value has been changed to HTML5 compatible.</p></li>
+<li><p>添加了新属性 <code class="docutils literal notranslate"><span class="pre">$containerId</span></code> 以在启用 CSP 时设置容器标签的 id 属性值。</p></li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">$template</span></code> 中的值的 <code class="docutils literal notranslate"><span class="pre">input</span></code> 标签已更改为 HTML5 兼容。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Logger.php</dt><dd><ul>
-<li><p>The property <code class="docutils literal notranslate"><span class="pre">$threshold</span></code> has been changed to <code class="docutils literal notranslate"><span class="pre">9</span></code> in other than <code class="docutils literal notranslate"><span class="pre">production</span></code>
-environment.</p></li>
+<li><p>属性 <code class="docutils literal notranslate"><span class="pre">$threshold</span></code> 在非 <code class="docutils literal notranslate"><span class="pre">production</span></code> 环境中默认更改为 <code class="docutils literal notranslate"><span class="pre">9</span></code>。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Modules.php</dt><dd><ul>
-<li><p>The new property <code class="docutils literal notranslate"><span class="pre">$composerPackages</span></code> is added to limit Composer package Auto-Discovery for better
-performance.</p></li>
+<li><p>添加了新属性 <code class="docutils literal notranslate"><span class="pre">$composerPackages</span></code> 以限制 Composer 包自动发现,提高性能。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Routes.php</dt><dd><ul>
-<li><p>Due to the fact that the approach to running Spark Commands has changed, there is no longer a need
-to load the internal routes of the framework (<code class="docutils literal notranslate"><span class="pre">SYSTEMPATH</span> <span class="pre">.</span> <span class="pre">'Config/Routes.php'</span></code>).</p></li>
+<li><p>由于启动 Spark 命令的方式已更改,不再需要加载框架的内部路由 (<code class="docutils literal notranslate"><span class="pre">SYSTEMPATH</span> <span class="pre">.</span> <span class="pre">'Config/Routes.php'</span></code>)。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Security.php</dt><dd><ul>
-<li><p>Changed the value of the property <code class="docutils literal notranslate"><span class="pre">$redirect</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code> to prevent redirection when a CSRF
-check fails. This is to make it easier to recognize that it is a CSRF error.</p></li>
+<li><p>将属性 <code class="docutils literal notranslate"><span class="pre">$redirect</span></code> 的值更改为 <code class="docutils literal notranslate"><span class="pre">false</span></code>,以防止 CSRF 检查失败时发生重定向。这可以更轻松地识别它是 CSRF 错误。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Session.php</dt><dd><ul>
-<li><p>Added to handle session configuration.</p></li>
+<li><p>添加以处理 session 配置。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>app/Config/Validation.php</dt><dd><ul>
-<li><p>The default Validation Rules have been changed to Strict Rules for better security. See <a class="reference internal" href="../libraries/validation.html#validation-traditional-and-strict-rules"><span class="std std-ref">传统规则和严格规则</span></a>.</p></li>
+<li><p>默认验证规则已更改为严格规则,以提高安全性。请参阅 <a class="reference internal" href="../libraries/validation.html#validation-traditional-and-strict-rules"><span class="std std-ref">传统规则和严格规则</span></a>。</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
 </section>
-<section id="view-files">
-<h4>View Files<a class="headerlink" href="#view-files" title="永久链接至标题"></a></h4>
-<p>The following view files have been changed to HTML5 compatible tags.
-Also, error messages are now defined in the <strong>Errors</strong> language file.</p>
+<section id="id18">
+<h4>视图文件<a class="headerlink" href="#id18" title="永久链接至标题"></a></h4>
+<p>以下视图文件已更改为 HTML5 兼容标签。
+此外,错误消息现在在 <strong>Errors</strong> 语言文件中定义。</p>
 <ul class="simple">
 <li><p>app/Views/errors/html/error_404.php</p></li>
 <li><p>app/Views/errors/html/error_exception.php</p></li>
@@ -742,11 +725,10 @@ Also, error messages are now defined in the <strong>Errors</strong> language fil
 </ul>
 </section>
 </section>
-<section id="all-changes">
-<h3><a class="toc-backref" href="#id23">All Changes</a><a class="headerlink" href="#all-changes" title="永久链接至标题"></a></h3>
-<p>This is a list of all files in the <strong>project space</strong> that received changes;
-many will be simple comments or formatting that have no effect on the runtime.
-All atomic type properties in <code class="docutils literal notranslate"><span class="pre">Config</span></code> classes have been typed:</p>
+<section id="id19">
+<h3><a class="toc-backref" href="#id41">所有更改</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<p>这是 <strong>项目空间</strong> 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时。
+<code class="docutils literal notranslate"><span class="pre">Config</span></code> 类中的所有原子类型属性已加上类型:</p>
 <ul class="simple">
 <li><p>app/Config/App.php</p></li>
 <li><p>app/Config/Autoload.php</p></li>
@@ -795,15 +777,15 @@ All atomic type properties in <code class="docutils literal notranslate"><span c
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="upgrade_431.html" class="btn btn-neutral float-left" title="Upgrading from 4.3.0 to 4.3.1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="upgrade_4212.html" class="btn btn-neutral float-right" title="Upgrading from 4.2.11 to 4.2.12" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="upgrade_431.html" class="btn btn-neutral float-left" title="从 4.3.0 升级到 4.3.1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="upgrade_4212.html" class="btn btn-neutral float-right" title="从 4.2.11 升级到 4.2.12" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-22.
+      <span class="lastupdated">最后更新于 2023-07-23.
       </span></p>
   </div>
 
@@ -811,7 +793,7 @@ All atomic type properties in <code class="docutils literal notranslate"><span c
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f9ca5680d90>
+<jinja2.runtime.BlockReference object at 0x7fdf6cc7ee10>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
