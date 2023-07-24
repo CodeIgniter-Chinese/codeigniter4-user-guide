@@ -52,7 +52,7 @@ Exceptions 简单来说就是在抛出异常时发生的事件。这将中止脚
 
 .. literalinclude:: errors/006.php
 
-.. note:: 如果你当前的日志设置没有配置记录**关键**错误,则仍可能不会为exceptions记录日志,因为所有exceptions都记录为关键错误。
+.. note:: 如果你当前的日志设置没有配置记录 **关键** 错误,则仍可能不会为exceptions记录日志,因为所有exceptions都记录为关键错误。
 
 框架 Exceptions
 ====================

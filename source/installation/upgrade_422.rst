@@ -21,7 +21,7 @@
 - :doc:`../general/caching` 现在会在 :ref:`after-filters` 执行后缓存 Response 数据。
 - 例如,如果你启用 :ref:`secureheaders`,那么从缓存中获取页面时现在也会发送 Response 头。
 
-.. important:: 如果你编写了**基于此错误的代码**,假定“after”过滤器中的 Response 更改不会被缓存,那么**敏感信息可能会被缓存并泄露**。如果是这种情况,请更改代码以禁用对页面的缓存。
+.. important:: 如果你编写了 **基于此错误的代码**,假定“after”过滤器中的 Response 更改不会被缓存,那么 **敏感信息可能会被缓存并泄露**。如果是这种情况,请更改代码以禁用对页面的缓存。
 
 其它
 ======

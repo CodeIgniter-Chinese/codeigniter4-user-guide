@@ -104,7 +104,7 @@ $methods
 
 .. warning:: 如果使用 ``$methods`` 过滤器,你应该 :ref:`禁用自动路由(传统) <use-defined-routes-only>`,因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。以你不期望的方法访问控制器可能会绕过过滤器。
 
-你可以将过滤器应用于所有某种 HTTP 方法的请求,如 POST、GET、PUT 等。在此数组中,你需要以**全小写**指定方法名称。它的值将是要运行的过滤器数组:
+你可以将过滤器应用于所有某种 HTTP 方法的请求,如 POST、GET、PUT 等。在此数组中,你需要以 **全小写** 指定方法名称。它的值将是要运行的过滤器数组:
 
 .. literalinclude:: filters/008.php
 

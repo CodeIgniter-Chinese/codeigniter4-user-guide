@@ -71,7 +71,7 @@ app/Config/Exceptions.php
     - ``MockCLIConfig`` (``Config\App``)
     - ``MockSecurityConfig`` (``Config\Security``)
 
-- 在这些配置类中为属性添加**类型**。你可能需要调整属性值以匹配属性类型。
+- 在这些配置类中为属性添加 **类型**。你可能需要调整属性值以匹配属性类型。
 
 composer.json
 =============
@@ -113,9 +113,9 @@ composer.json
 未捕获异常的 HTTP 状态码和退出码
 =====================================================
 
-- 如果你希望**异常代码**作为**HTTP状态码**,则 HTTP 状态码将会改变。
+- 如果你希望 **异常代码** 作为 **HTTP状态码**,则 HTTP 状态码将会改变。
   在这种情况下,需要在异常中实现 ``HTTPExceptionInterface``。参见 :ref:`error-specify-http-status-code`。
-- 如果你根据**异常代码**期望**退出码**,则退出码将会改变。
+- 如果你根据 **异常代码** 期望 **退出码**,则退出码将会改变。
   在这种情况下,需要在异常中实现 ``HasExitCodeInterface``。参见 :ref:`error-specify-exit-code`。
 
 redirect()->withInput() 和验证错误

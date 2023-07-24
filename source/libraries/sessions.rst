@@ -54,7 +54,7 @@ CodeIgniter 2.x 中的 session 并没有实现锁定,这意味着可以完全同
 
 为什么要告诉你这些? 因为在试图找到性能问题的原因后,你可能会得出锁定是问题的结论,因此会研究如何删除锁......
 
-不要这样做!删除锁将是**错误**的,并且会给你带来更多问题!
+不要这样做!删除锁将是 **错误** 的,并且会给你带来更多问题!
 
 锁定不是问题,它是解决方案。你的问题在于,你仍然打开了 session,而你已经处理了它,因此不再需要它。 所以,你需要的是在不再需要它时关闭当前请求的 session。
 
@@ -475,7 +475,7 @@ Redis 是一个通常用于缓存且以高性能而著称的存储引擎,这也�
 
     https://github.com/phpredis/phpredis
 
-.. important:: CodeIgniter 的 Session 库不使用实际的 'redis' ``session.save_handler``。在上面的链接中**仅**注意路径格式。
+.. important:: CodeIgniter 的 Session 库不使用实际的 'redis' ``session.save_handler``。在上面的链接中 **仅** 注意路径格式。
 
 但是,对于最常见的情况,一个简单的 ``host:port`` 对应关系应该就足够了:
 

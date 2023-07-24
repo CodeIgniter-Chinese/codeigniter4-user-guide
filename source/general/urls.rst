@@ -6,7 +6,7 @@ CodeIgniter URL
     :local:
     :depth: 2
 
-默认情况下,CodeIgniter 的 URL 旨在对搜索引擎和人类友好。它使用基于**段**的方法,而不是与动态系统同义的标准“查询字符串”方法::
+默认情况下,CodeIgniter 的 URL 旨在对搜索引擎和人类友好。它使用基于 **段** 的方法,而不是与动态系统同义的标准“查询字符串”方法::
 
     https://example.com/news/article/my_article
 

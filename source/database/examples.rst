@@ -42,14 +42,14 @@
 
 .. literalinclude:: examples/004.php
 
-上述 ``getRow()`` 函数返回一个**对象**。示例:``$row->name``
+上述 ``getRow()`` 函数返回一个 **对象**。示例:``$row->name``
 
 具有单个结果的标准查询(数组版本)
 =================================================
 
 .. literalinclude:: examples/005.php
 
-上述 ``getRowArray()`` 函数返回一个**数组**。示例: ``$row['name']``。
+上述 ``getRowArray()`` 函数返回一个 **数组**。示例: ``$row['name']``。
 
 标准插入
 ===============

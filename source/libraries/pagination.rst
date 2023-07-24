@@ -30,7 +30,7 @@ CodeIgniter 提供了一个非常简单但灵活的分页库,它易于主题化,
 
 在这个示例中,我们首先创建 ``UserModel`` 的新实例。然后我们填充要发送到视图的数据。第一个元素是来自数据库的结果, **users**,它为正确的页面检索出 10 个用户每页。必须发送到视图的第二个项目是 Pager 实例本身。为方便起见,Model 将保存它使用的实例,并将其存储在公共属性 ``$pager`` 中。所以,我们获取它并将其赋值给视图中的 ``$pager`` 变量。
 
-.. important:: 重要的是要理解 ``Model::paginate()`` 方法使用 **Model** 和 **QueryBuilder** 方法。因此,试图使用 ``$db->query()`` 和 ``Model::paginate()`` 将**不起作用**,因为 ``$db->query()`` 会立即执行查询,并且与 QueryBuilder 不关联。
+.. important:: 重要的是要理解 ``Model::paginate()`` 方法使用 **Model** 和 **QueryBuilder** 方法。因此,试图使用 ``$db->query()`` 和 ``Model::paginate()`` 将 **不起作用**,因为 ``$db->query()`` 会立即执行查询,并且与 QueryBuilder 不关联。
 
 要在模型中定义分页条件,你可以:
 
