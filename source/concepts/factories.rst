@@ -44,6 +44,8 @@
 
 静态方法名称称为 *component*。
 
+.. _factories-passing-classname-without-namespace:
+
 不带命名空间的类名
 -----------------------------------
 

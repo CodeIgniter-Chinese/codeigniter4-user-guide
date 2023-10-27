@@ -139,7 +139,7 @@ CodeIgniter 对应措施
 - 全局安全访问的配置（``Config\App::$forceGlobalSecureRequests``）
 - :php:func:`force_https()` 函数
 - :doc:`../libraries/encryption`
-- :ref:`数据库配置 <database-config-explanation-of-values>`（``encrypt``）
+- :ref:`数据库配置 <database-config-explanation-of-values>` (``encrypt``)
 
 ****************************************
 A7 缺少功能级访问控制
