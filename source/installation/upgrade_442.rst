@@ -15,7 +15,7 @@
 项目文件
 *************
 
-**项目空间**（根目录、app、public、writable）中的一些文件已经更新。由于这些文件位于 **system** 范围之外，如果没有你的干预，它们将不会更改。
+**项目空间** (根目录、app、public、writable) 中的一些文件已经更新。由于这些文件位于 **system** 范围之外，如果没有你的干预，它们将不会更改。
 
 有一些第三方的 CodeIgniter 模块可用于帮助合并项目空间的更改：`在 Packagist 上查看 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 

@@ -48,7 +48,7 @@ Validation::loadRuleGroup() 的返回值
 项目文件
 *************
 
-**项目空间**（根目录、app、public、writable）中的一些文件已经更新。由于这些文件位于 **系统** 范围之外，因此不会在没有你干预的情况下进行更改。
+**项目空间** (根目录、app、public、writable) 中的一些文件已经更新。由于这些文件位于 **system** 范围之外，因此不会在没有你干预的情况下进行更改。
 
 有一些第三方 CodeIgniter 模块可用于帮助合并对项目空间的更改：`在 Packagist 上查看 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 

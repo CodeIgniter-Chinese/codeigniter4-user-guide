@@ -247,7 +247,7 @@ app/Config/Session.php
 项目文件
 *************
 
-**项目空间** 中的一些文件（根目录、app、public、writable）已接收到更新。由于这些文件位于 **系统** 范围之外，它们将不会在没有你干预的情况下更改。
+**项目空间** 中的一些文件（根目录、app、public、writable）已接收到更新。由于这些文件位于 **system** 范围之外，它们将不会在没有你干预的情况下更改。
 
 有一些第三方 CodeIgniter 模块可帮助你合并对项目空间的更改：[Packagist 上探索](https://packagist.org/explore/?query=codeigniter4%20updates)。
 

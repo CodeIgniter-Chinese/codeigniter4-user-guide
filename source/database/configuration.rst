@@ -144,7 +144,7 @@ DSN
                  * ``ssl_verify`` - true/false; 是否验证服务器证书 (``MySQLi`` 仅)
 **compress**     是否使用客户端压缩(``MySQLi`` 仅)。
 **strictOn**     true/false (布尔值)- 是否强制“严格模式”连接,有助于开发应用程序时确保严格的 SQL (``MySQLi`` 仅)。
-**port**         数据库端口号 - 默认端口为空字符串 ``''``（或使用 ``SQLSRV`` 动态端口）。
+**port**         数据库端口号 - 默认端口为空字符串 ``''`` (或使用 ``SQLSRV`` 动态端口)。
 **foreignKeys**  true/false (布尔值)- 是否启用外键约束(``SQLite3`` 仅)。
 
                  .. important:: SQLite3 外键约束默认关闭。
