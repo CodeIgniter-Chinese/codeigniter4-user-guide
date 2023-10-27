@@ -465,7 +465,7 @@
 
     返回的数组与 ``Validation::getErrors()`` 相同。详见 :ref:`验证 <validation-redirect-and-validation-errors>`。
 
-    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果您想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
+    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果你想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
 
     示例::
 
@@ -485,7 +485,7 @@
 
     此函数在内部使用 :php:func:`validation_errors()`。
 
-    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果您想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
+    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果你想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
 
     示例::
 
@@ -506,7 +506,7 @@
 
     此函数在内部使用 :php:func:`validation_errors()`。
 
-    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果您想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
+    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果你想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
 
     示例::
 

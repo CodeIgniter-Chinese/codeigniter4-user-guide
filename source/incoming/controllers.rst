@@ -92,7 +92,7 @@ $this->validate()
 
 .. literalinclude:: controllers/004.php
 
-.. warning:: 当您使用 ``validate()`` 方法时，应该使用 :ref:`getValidated() <validation-getting-validated-data>` 方法来获取经过验证的数据。因为 ``validate()`` 方法在内部使用了 :ref:`Validation::withRequest() <validation-withrequest>` 方法，并且它会验证来自 :ref:`$request->getJSON() <incomingrequest-getting-json-data>`、:ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>` 或 :ref:`$request->getVar() <incomingrequest-getting-data>` 的数据，而攻击者可能会更改要验证的数据。
+.. warning:: 当你使用 ``validate()`` 方法时，应该使用 :ref:`getValidated() <validation-getting-validated-data>` 方法来获取经过验证的数据。因为 ``validate()`` 方法在内部使用了 :ref:`Validation::withRequest() <validation-withrequest>` 方法，并且它会验证来自 :ref:`$request->getJSON() <incomingrequest-getting-json-data>`、:ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>` 或 :ref:`$request->getVar() <incomingrequest-getting-data>` 的数据，而攻击者可能会更改要验证的数据。
 
 .. note:: 自 v4.4.0 版本开始，可以使用 :ref:`$this->validator->getValidated() <validation-getting-validated-data>` 方法。
 
@@ -299,7 +299,7 @@ URI 的第二段通常确定控制器中的哪个方法被调用。
 
 如果与控制器名的 URI 段对应的控制器不存在，并且如果默认控制器（默认为 ``Home``）存在于目录中，则剩余的 URI 段将传递给默认控制器的默认方法。
 
-例如，当您在 **app/Controllers/News** 目录中有以下默认控制器 ``Home`` 时：
+例如，当你在 **app/Controllers/News** 目录中有以下默认控制器 ``Home`` 时：
 
 .. literalinclude:: controllers/025.php
 

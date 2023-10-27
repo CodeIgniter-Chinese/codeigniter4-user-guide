@@ -20,13 +20,13 @@
 
 为了安全地使用 :ref:`validation-placeholders`,请记得为你将用作占位符的字段创建一个验证规则。
 
-例如，如果您有以下代码::
+例如，如果你有以下代码::
 
     $validation->setRules([
         'email' => 'required|max_length[254]|valid_email|is_unique[users.email,id,{id}]',
     ]);
 
-您需要为 ``{id}`` 添加规则::
+你需要为 ``{id}`` 添加规则::
 
     $validation->setRules([
         'id'    => 'max_length[19]|is_natural_no_zero', // Add this

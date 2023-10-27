@@ -50,7 +50,7 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
 
     .. note:: 从 v4.2.1 开始,引入了第三个参数 ``$prefix``,并且由于一个错误修复,行为发生了一些变化。详见 :ref:`升级 <upgrade-421-get_cookie>`。
 
-    这个辅助函数为您提供了更友好的语法来获取浏览器的 Cookie。有关其使用的详细描述，请参考 :doc:`IncomingRequest 库 </incoming/incomingrequest>`，因为这个函数的行为与 :php:meth:`CodeIgniter\\HTTP\\IncomingRequest::getCookie()` 非常相似，只是它还会在前面添加您在 **app/Config/Cookie.php** 文件中设置的 ``Config\Cookie::$prefix``。
+    这个辅助函数为你提供了更友好的语法来获取浏览器的 Cookie。有关其使用的详细描述，请参考 :doc:`IncomingRequest 库 </incoming/incomingrequest>`，因为这个函数的行为与 :php:meth:`CodeIgniter\\HTTP\\IncomingRequest::getCookie()` 非常相似，只是它还会在前面添加你在 **app/Config/Cookie.php** 文件中设置的 ``Config\Cookie::$prefix``。
 
     .. warning:: 使用 XSS 过滤是一个不好的做法。它不能完美地防止 XSS 攻击。在视图中建议使用正确 ``$context`` 的 :php:func:`esc()`。
 

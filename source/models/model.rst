@@ -400,7 +400,7 @@ purgeDeleted()
 
 .. literalinclude:: model/027.php
 
-如果您更喜欢在验证配置文件中组织您的规则和错误消息，您可以这样做，并将 ``$validationRules`` 设置为您创建的验证规则组的名称：
+如果你更喜欢在验证配置文件中组织你的规则和错误消息，你可以这样做，并将 ``$validationRules`` 设置为你创建的验证规则组的名称：
 
 .. literalinclude:: model/034.php
 
@@ -457,14 +457,14 @@ purgeDeleted()
 获取验证结果
 -------------------------
 
-现在，每当您调用 ``insert()``、``update()`` 或 ``save()`` 方法时，数据将被验证。如果验证失败，模型将返回布尔值 **false**。
+现在，每当你调用 ``insert()``、``update()`` 或 ``save()`` 方法时，数据将被验证。如果验证失败，模型将返回布尔值 **false**。
 
 .. _model-getting-validation-errors:
 
 获取验证错误
 -------------------------
 
-您可以使用 ``errors()`` 方法来检索验证错误：
+你可以使用 ``errors()`` 方法来检索验证错误：
 
 .. literalinclude:: model/032.php
 
@@ -494,7 +494,7 @@ purgeDeleted()
 
 .. literalinclude:: model/038.php
 
-.. note:: 自 v4.3.5 起，您必须为占位符字段（``id``）设置验证规则。
+.. note:: 自 v4.3.5 起，你必须为占位符字段（``id``）设置验证规则。
 
 在这组规则中,它说明电子邮件地址在数据库中应该是唯一的,除了具有与占位符的值匹配的 id 的行。假设表单 POST 数据如下:
 

@@ -36,7 +36,7 @@ spark list
 
     php spark list
 
-您还可以使用 ``--simple`` 选项获取按字母顺序排序的所有可用命令的原始列表：
+你还可以使用 ``--simple`` 选项获取按字母顺序排序的所有可用命令的原始列表：
 
 .. code-block:: console
 
@@ -45,13 +45,13 @@ spark list
 显示帮助
 ------------
 
-您可以使用 ``help`` 命令获取有关任何 CLI 命令的帮助，如下所示：
+你可以使用 ``help`` 命令获取有关任何 CLI 命令的帮助，如下所示：
 
 .. code-block:: console
 
     php spark help db:seed
 
-自 v4.3.0 起，您还可以使用 ``--help`` 选项代替 ``help`` 命令：
+自 v4.3.0 起，你还可以使用 ``--help`` 选项代替 ``help`` 命令：
 
 .. code-block:: console
 
@@ -60,7 +60,7 @@ spark list
 运行命令
 -----------------
 
-您应该将命令的名称作为第一个参数传递以运行该命令：
+你应该将命令的名称作为第一个参数传递以运行该命令：
 
 .. code-block:: console
 
@@ -72,7 +72,7 @@ spark list
 
     php spark db:seed DevUserSeeder
 
-对于 CodeIgniter 提供的所有命令，如果您没有提供所需的参数，系统将提示您提供运行所需的信息：
+对于 CodeIgniter 提供的所有命令，如果你没有提供所需的参数，系统将提示你提供运行所需的信息：
 
 .. code-block:: console
 
@@ -93,7 +93,7 @@ spark list
 
     Your environment is currently set as development.
 
-您可以始终传递 ``--no-header`` 以抑制头部输出，这对于解析结果很有帮助：
+你可以始终传递 ``--no-header`` 以抑制头部输出，这对于解析结果很有帮助：
 
 .. code-block:: console
 
@@ -104,10 +104,10 @@ spark list
 调用命令
 ================
 
-命令也可以从您自己的代码中运行。这通常在控制器中用于 cron 任务，但可以随时使用。您可以使用 ``command()`` 函数来实现。该函数始终可用。
+命令也可以从你自己的代码中运行。这通常在控制器中用于 cron 任务，但可以随时使用。你可以使用 ``command()`` 函数来实现。该函数始终可用。
 
 .. literalinclude:: cli_commands/001.php
 
 唯一的参数是字符串，即所调用的命令和任何参数。它的使用方式与从命令行调用完全相同。
 
-当不从命令行运行时，所有运行的命令的输出都会被捕获。它会从命令中返回，以便您可以选择是否显示它。
+当不从命令行运行时，所有运行的命令的输出都会被捕获。它会从命令中返回，以便你可以选择是否显示它。

@@ -210,7 +210,7 @@ Services::reset()
 
 你也可以使用 ``CIUnitTestCase`` 提供的 ``$this->resetServices()`` 方法。
 
-.. note:: 此方法会重置所有服务的状态，并且 ``RouteCollection`` 将不包含任何路由。如果您想要使用加载的路由，您需要调用 ``loadRoutes()`` 方法，例如 ``Services::routes()->loadRoutes()``。
+.. note:: 此方法会重置所有服务的状态，并且 ``RouteCollection`` 将不包含任何路由。如果你想要使用加载的路由，你需要调用 ``loadRoutes()`` 方法，例如 ``Services::routes()->loadRoutes()``。
 
 Services::resetSingle(string $name)
 -----------------------------------

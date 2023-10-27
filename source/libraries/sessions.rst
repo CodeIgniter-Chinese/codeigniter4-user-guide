@@ -272,7 +272,7 @@ close()
 
 .. literalinclude:: sessions/044.php
 
-您不必手动关闭 Session，PHP 会在脚本终止后自动关闭它。但是，由于 Session 数据被锁定以防止并发写入，因此一次只能有一个请求操作 Session。通过在所有对 Session 数据的更改完成后立即关闭 Session，可以提高网站性能。
+你不必手动关闭 Session，PHP 会在脚本终止后自动关闭它。但是，由于 Session 数据被锁定以防止并发写入，因此一次只能有一个请求操作 Session。通过在所有对 Session 数据的更改完成后立即关闭 Session，可以提高网站性能。
 
 此方法的工作方式与 PHP 的 `session_write_close() <https://www.php.net/session_write_close>`_ 函数完全相同。
 
@@ -293,7 +293,7 @@ destroy()
 这必须是在同一请求中进行的最后一个与 Session 相关的操作。
 所有 Session 数据（包括 flashdata 和 tempdata）将被永久销毁。
 
-.. note:: 您不必在常规代码中调用此方法。清理 Session 数据而不是销毁会话。
+.. note:: 你不必在常规代码中调用此方法。清理 Session 数据而不是销毁会话。
 
 .. _session-stop:
 
@@ -471,7 +471,7 @@ DatabaseHandler 驱动程序
 添加主键
 ^^^^^^^^^^^^^^^^^^
 
-**根据您的 $matchIP 设置**，您还需要添加一个主键。以下示例适用于 MySQL 和 PostgreSQL::
+**根据你的 $matchIP 设置**，你还需要添加一个主键。以下示例适用于 MySQL 和 PostgreSQL::
 
     // 当 $matchIP = true 时
     ALTER TABLE ci_sessions ADD PRIMARY KEY (id, ip_address);
@@ -482,7 +482,7 @@ DatabaseHandler 驱动程序
     // 删除先前创建的主键(更改设置时使用)
     ALTER TABLE ci_sessions DROP PRIMARY KEY;
 
-.. important:: 如果您没有添加正确的主键，
+.. important:: 如果你没有添加正确的主键，
     可能会出现以下错误::
 
         Uncaught mysqli_sql_exception: Duplicate entry 'ci_session:***' for key 'ci_sessions.PRIMARY'
@@ -491,7 +491,7 @@ DatabaseHandler 驱动程序
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 默认情况下使用默认数据库组。
-您可以通过更改 **app/Config/Session.php** 文件中的 ``$DBGroup`` 属性为要使用的组的名称来更改数据库组：
+你可以通过更改 **app/Config/Session.php** 文件中的 ``$DBGroup`` 属性为要使用的组的名称来更改数据库组：
 
 .. literalinclude:: sessions/040.php
 

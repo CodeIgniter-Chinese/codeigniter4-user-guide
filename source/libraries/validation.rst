@@ -296,7 +296,7 @@ withRequest()
 .. literalinclude:: validation/008.php
    :lines: 2-
 
-.. warning:: 当您使用此方法时，应使用 :ref:`getValidated() <validation-getting-validated-data>` 方法获取经过验证的数据。因为该方法从 :ref:`$request->getJSON() <incomingrequest-getting-json-data>` 获取 JSON 数据（当请求是 JSON 请求时，``Content-Type: application/json``），或者从 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>` 获取原始数据（当请求是 PUT、PATCH、DELETE 请求且不是 HTML 表单提交时，``Content-Type: multipart/form-data``），或者从 :ref:`$request->getVar() <incomingrequest-getting-data>` 获取数据，并且攻击者可以更改要验证的数据。
+.. warning:: 当你使用此方法时，应使用 :ref:`getValidated() <validation-getting-validated-data>` 方法获取经过验证的数据。因为该方法从 :ref:`$request->getJSON() <incomingrequest-getting-json-data>` 获取 JSON 数据（当请求是 JSON 请求时，``Content-Type: application/json``），或者从 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>` 获取原始数据（当请求是 PUT、PATCH、DELETE 请求且不是 HTML 表单提交时，``Content-Type: multipart/form-data``），或者从 :ref:`$request->getVar() <incomingrequest-getting-data>` 获取数据，并且攻击者可以更改要验证的数据。
 
 .. note:: 自 v4.4.0 起，可以使用 :ref:`getValidated() <validation-getting-validated-data>` 方法。
 

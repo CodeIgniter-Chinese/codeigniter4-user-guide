@@ -62,13 +62,13 @@ Table 类允许你设置一个表格模板来指定布局设计。下面是模�
 
 .. versionadded:: 4.4.0
 
-``setSyncRowsWithHeading(true)`` 方法使得每个数据值都放置在与 ``setHeading()`` 中定义的相同列中，如果参数使用了关联数组。这在处理通过 REST API 加载的数据时特别有用，因为其顺序可能不符合您的要求，或者如果 API 返回了过多的数据。
+``setSyncRowsWithHeading(true)`` 方法使得每个数据值都放置在与 ``setHeading()`` 中定义的相同列中，如果参数使用了关联数组。这在处理通过 REST API 加载的数据时特别有用，因为其顺序可能不符合你的要求，或者如果 API 返回了过多的数据。
 
 如果数据行包含一个在标题中不存在的键，则其值将被过滤。相反，如果数据行中没有列在标题中列出的键，则会在其位置放置一个空单元格。
 
 .. literalinclude:: table/019.php
 
-.. important:: 您必须在通过 ``addRow([...])`` 添加任何行之前调用 ``setSyncRowsWithHeading(true)`` 和 ``setHeading([...])``，以进行列的重新排列。
+.. important:: 你必须在通过 ``addRow([...])`` 添加任何行之前调用 ``setSyncRowsWithHeading(true)`` 和 ``setHeading([...])``，以进行列的重新排列。
 
 使用数组作为 ``generate()`` 的输入会产生相同的结果：
 

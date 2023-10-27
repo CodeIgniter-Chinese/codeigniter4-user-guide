@@ -82,7 +82,7 @@ CodeIgniter 安装假定你已经按 :ref:`要求 <requirements-supported-databa
 添加路由规则
 ====================
 
-修改您的 **app/Config/Routes.php** 文件，使其如下所示：
+修改你的 **app/Config/Routes.php** 文件，使其如下所示：
 
 .. literalinclude:: news_section/008.php
 
@@ -142,7 +142,7 @@ CodeIgniter 安装假定你已经按 :ref:`要求 <requirements-supported-databa
 
 .. literalinclude:: news_section/007.php
 
-将浏览器指向您的 "news" 页面，即 **localhost:8080/news**，您应该会看到新闻项目的列表，每个项目都有一个链接，可以显示单独的文章。
+将浏览器指向你的 "news" 页面，即 **localhost:8080/news**，你应该会看到新闻项目的列表，每个项目都有一个链接，可以显示单独的文章。
 
 .. image:: ../images/tutorial2.png
     :align: center

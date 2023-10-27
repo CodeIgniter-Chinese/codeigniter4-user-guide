@@ -25,7 +25,7 @@ CodeIgniter4 的 4.4.0 版本发布
 URI::setSegment() 和不存在的段
 ------------------------------------------
 
-当您设置最后一个 ``+2`` 段时，现在会抛出异常。
+当你设置最后一个 ``+2`` 段时，现在会抛出异常。
 在之前的版本中，只有当指定了最后一个段的 ``+3`` 或更多时才会抛出异常。请参阅 :ref:`upgrade-440-uri-setsegment`。
 
 当前最后一个段的下一个段（``+1``）可以像以前一样设置。
@@ -40,7 +40,7 @@ URI::setSegment() 和不存在的段
 
 现在，只有在请求 :ref:`不带命名空间的类名 <factories-passing-classname-without-namespace>` 时，``preferApp`` 才起作用。
 
-例如，当您调用 ``model(\Myth\Auth\Models\UserModel::class)`` 或
+例如，当你调用 ``model(\Myth\Auth\Models\UserModel::class)`` 或
 ``model('Myth\Auth\Models\UserModel')`` 时：
 
    - 之前：
@@ -53,9 +53,9 @@ URI::setSegment() 和不存在的段
       - 无论 ``preferApp`` 是否为 true（默认值），都返回 ``Myth\Auth\Models\UserModel``
       - 如果在调用 ``model()`` 之前定义了 ``Factories::define('models', 'Myth\Auth\Models\UserModel', 'App\Models\UserModel')``，则返回 ``App\Models\UserModel``
 
-如果您错误地传递了一个不存在的类名，之前的版本会返回 ``App`` 或 ``Config`` 命名空间中的类实例，因为存在 ``preferApp`` 功能。
+如果你错误地传递了一个不存在的类名，之前的版本会返回 ``App`` 或 ``Config`` 命名空间中的类实例，因为存在 ``preferApp`` 功能。
 
-例如，在控制器（``namespace App\Controllers``）中，如果您错误地调用了 ``config(Config\App::class)``（注意类名缺少前导的 ``\``），实际上传递的是 ``App\Controllers\Config\App``。
+例如，在控制器（``namespace App\Controllers``）中，如果你错误地调用了 ``config(Config\App::class)``（注意类名缺少前导的 ``\``），实际上传递的是 ``App\Controllers\Config\App``。
 但是该类不存在，因此 Factories 现在将返回 ``null``。
 
 属性名称
@@ -90,7 +90,7 @@ getPath()
 ^^^^^^^^^
 
 ``getPath()`` 方法现在始终返回带有前导 ``/`` 的完整 URI 路径。
-因此，当您的 baseURL 具有子目录并且您想获取相对于 baseURL 的路径时，必须使用新的 ``getRoutePath()`` 方法。
+因此，当你的 baseURL 具有子目录并且你想获取相对于 baseURL 的路径时，必须使用新的 ``getRoutePath()`` 方法。
 
 例如::
 
@@ -116,7 +116,7 @@ SiteURI 类现在比以前更严格地规范化站点 URI，并修复了一些�
 接口更改
 =================
 
-.. note:: 只要您没有扩展相关的 CodeIgniter 核心类或实现这些接口，所有这些更改都是向后兼容的，无需干预。
+.. note:: 只要你没有扩展相关的 CodeIgniter 核心类或实现这些接口，所有这些更改都是向后兼容的，无需干预。
 
 - **Validation:** 在 ``ValidationInterface`` 中添加了 ``getValidated()`` 方法。
 
@@ -166,7 +166,7 @@ SiteURI 类现在比以前更严格地规范化站点 URI，并修复了一些�
 ========
 
 - **spark routes:**
-    - 现在您可以在请求 URL 中指定主机。
+    - 现在你可以在请求 URL 中指定主机。
       请参阅 :ref:`routing-spark-routes-specify-host`。
     - 它在 *Handler* 中显示 :ref:`view-routes` 的视图文件，如下所示：
 
@@ -220,7 +220,7 @@ SiteURI 类现在比以前更严格地规范化站点 URI，并修复了一些�
   请参阅 :ref:`open-file-in-browser` 了解详细信息。
 - **View:** 在 ``renderSection()`` 上添加了可选的第二个参数 ``$saveData``，以防止在显示后自动清除数据。请参阅 :ref:`View Layouts <creating-a-layout>` 了解详细信息。
 - **自动路由（改进）：**
-    - 现在您可以路由到模块。请参阅 :ref:`auto-routing-improved-module-routing` 了解详细信息。
+    - 现在你可以路由到模块。请参阅 :ref:`auto-routing-improved-module-routing` 了解详细信息。
     - 如果找到与 URI 段对应的控制器，并且该控制器没有为该 URI 段定义的方法，则将执行默认方法。这样可以更灵活地处理自动路由中的 URI。请参阅 :ref:`controller-default-method-fallback` 了解详细信息。
 - **过滤器：** 现在可以在 :ref:`$filters 属性 <filters-filters-filter-arguments>` 中使用过滤器参数。
 - **请求：** 添加了 ``IncomingRequest::setValidLocales()`` 方法，用于设置有效的区域设置。
@@ -253,7 +253,7 @@ SiteURI 类现在比以前更严格地规范化站点 URI，并修复了一些�
 - **自动加载器：**
     - 在 v4.4.0 之前，CodeIgniter 的自动加载器不允许在某些操作系统上的文件名中使用特殊字符。
       可以使用的符号是 ``/``、``_``、``.``、``:``、``\`` 和空格。
-      因此，如果您将 CodeIgniter 安装在包含特殊字符（如 ``(``、``)`` 等）的文件夹中，CodeIgniter 将无法工作。
+      因此，如果你将 CodeIgniter 安装在包含特殊字符（如 ``(``、``)`` 等）的文件夹中，CodeIgniter 将无法工作。
       从 v4.4.0 开始，此限制已被移除。
     - ``Autoloader::loadClass()`` 和 ``Autoloader::loadClassmap()`` 方法现在都标记为 ``@internal``。
 - **RouteCollection:** 受保护属性 ``$routes`` 的数组结构已进行了修改以提高性能。

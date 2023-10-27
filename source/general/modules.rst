@@ -6,7 +6,7 @@ CodeIgniter 支持一种代码模块化形式,以帮助你创建可重用的代�
 
 框架支持的任何标准文件类型都受支持,如控制器、模型、视图、配置文件、辅助函数、语言文件等。模块可以包含尽可能少或多的这些文件。
 
-如果您想将一个模块创建为 Composer 包，请参阅 :doc:`../extending/composer_packages`。
+如果你想将一个模块创建为 Composer 包，请参阅 :doc:`../extending/composer_packages`。
 
 .. contents::
     :local:
@@ -174,7 +174,7 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 .. note:: 我们不建议在模块中使用相同的短类名。需要覆盖或添加 **app/Config/** 中已知配置的模块应使用 :ref:`Implicit Registrars <registrars>`。
 
-.. note:: 在 v4.4.0 之前，即使您指定了一个完全限定的类名，如 ``config(\Acme\Blog\Config\Blog::class)``，``config()`` 仍会在 **app/Config/** 中查找文件，只要存在与短类名相同的类。在 v4.4.0 中修复了这个行为，并返回指定的实例。
+.. note:: 在 v4.4.0 之前，即使你指定了一个完全限定的类名，如 ``config(\Acme\Blog\Config\Blog::class)``，``config()`` 仍会在 **app/Config/** 中查找文件，只要存在与短类名相同的类。在 v4.4.0 中修复了这个行为，并返回指定的实例。
 
 迁移
 ==========

@@ -23,11 +23,11 @@ CURLRequest 配置
 
 .. note:: 自 v4.4.0 起，默认值已更改为 ``false``。此设置仅用于向后兼容。新用户无需更改此设置。
 
-如果您想在多个请求之间共享所有选项，请在 **app/Config/CURLRequest.php** 中将 ``$shareOptions`` 设置为 ``true``：
+如果你想在多个请求之间共享所有选项，请在 **app/Config/CURLRequest.php** 中将 ``$shareOptions`` 设置为 ``true``：
 
 .. literalinclude:: curlrequest/001.php
 
-如果您使用该类的实例发送多个请求，此行为可能会导致发送不必要的头部和正文的错误请求。
+如果你使用该类的实例发送多个请求，此行为可能会导致发送不必要的头部和正文的错误请求。
 
 .. note:: 在 v4.2.0 之前,即使 ``$shareOptions`` 为 false,由于一个 bug,请求消息体也不会被重置。
 
@@ -225,7 +225,7 @@ http_errors
 
 默认情况下，如果返回的 HTTP 状态码大于等于 400，CURLRequest 将抛出 ``HTTPException`` 异常。
 
-如果您想查看响应正文，可以将 ``http_errors`` 设置为 ``false``，以返回内容而不是抛出异常：
+如果你想查看响应正文，可以将 ``http_errors`` 设置为 ``false``，以返回内容而不是抛出异常：
 
 .. literalinclude:: curlrequest/026.php
 
@@ -255,7 +255,7 @@ proxy
 
 .. versionadded:: 4.4.0
 
-您可以通过将关联数组作为 ``proxy`` 选项来设置代理：
+你可以通过将关联数组作为 ``proxy`` 选项来设置代理：
 
 .. literalinclude:: curlrequest/035.php
 

@@ -14,7 +14,7 @@ CodeIgniter 提供了面向对象的方式来在你的应用中使用 URI。这�
 
 创建一个 URI 实例就像创建一个新的类实例一样简单。
 
-当您创建新实例时，可以在构造函数中传递完整或部分 URL，并将其解析为相应的部分：
+当你创建新实例时，可以在构造函数中传递完整或部分 URL，并将其解析为相应的部分：
 
 .. literalinclude:: uri/001.php
     :lines: 2-
@@ -24,17 +24,17 @@ CodeIgniter 提供了面向对象的方式来在你的应用中使用 URI。这�
 .. literalinclude:: uri/003.php
     :lines: 2-
 
-自 v4.4.0 起，如果您没有传递 URL，则返回当前的 URI：
+自 v4.4.0 起，如果你没有传递 URL，则返回当前的 URI：
 
 .. literalinclude:: uri/002.php
     :lines: 2-
 
-.. note:: 上述代码返回 ``SiteURI`` 实例，它扩展了 ``URI`` 类。``URI`` 类用于一般的 URI，而 ``SiteURI`` 类用于您的站点 URI。
+.. note:: 上述代码返回 ``SiteURI`` 实例，它扩展了 ``URI`` 类。``URI`` 类用于一般的 URI，而 ``SiteURI`` 类用于你的站点 URI。
 
 当前 URI
 ---------------
 
-很多时候，您只需要一个表示当前请求的 URL 的对象。您可以使用 :doc:`../helpers/url_helper` 中提供的 :php:func:`current_url()` 函数：
+很多时候，你只需要一个表示当前请求的 URL 的对象。你可以使用 :doc:`../helpers/url_helper` 中提供的 :php:func:`current_url()` 函数：
 
 .. literalinclude:: uri/004.php
     :lines: 2-
@@ -43,7 +43,7 @@ CodeIgniter 提供了面向对象的方式来在你的应用中使用 URI。这�
 
 这个 URI 基于当前请求对象和你在 ``Config\App`` 中的设置(``baseURL``、``indexPage`` 和 ``forceGlobalSecureRequests``)确定的相对路径。
 
-假设您在一个扩展了 ``CodeIgniter\Controller`` 的控制器中，您还可以获取当前的 SiteURI 实例：
+假设你在一个扩展了 ``CodeIgniter\Controller`` 的控制器中，你还可以获取当前的 SiteURI 实例：
 
 .. literalinclude:: uri/005.php
     :lines: 2-

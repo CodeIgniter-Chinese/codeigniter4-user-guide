@@ -23,12 +23,12 @@ CodeIgniter 允许你缓存网页以达到最大性能。
 设置缓存引擎
 --------------------
 
-在使用网页缓存之前，您必须通过编辑 **app/Config/Cache.php** 来设置缓存引擎。有关详细信息，请参阅 :ref:`libraries-caching-configuring-the-cache`。
+在使用网页缓存之前，你必须通过编辑 **app/Config/Cache.php** 来设置缓存引擎。有关详细信息，请参阅 :ref:`libraries-caching-configuring-the-cache`。
 
 设置 $cacheQueryString
 -------------------------
 
-您可以使用 ``Config\Cache::$cacheQueryString`` 设置是否在生成缓存时包含查询字符串。
+你可以使用 ``Config\Cache::$cacheQueryString`` 设置是否在生成缓存时包含查询字符串。
 
 有效选项为：
 

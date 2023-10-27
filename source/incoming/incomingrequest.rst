@@ -194,9 +194,9 @@ getMethod()
 
 .. literalinclude:: incomingrequest/021.php
 
-您可以使用 ``getRoutePath()`` 方法来处理当前 URI 字符串（相对于您的 baseURL 的路径）。
+你可以使用 ``getRoutePath()`` 方法来处理当前 URI 字符串（相对于你的 baseURL 的路径）。
 
-.. note:: 自 v4.4.0 版本开始，可以使用 ``getRoutePath()`` 方法。在 v4.4.0 之前，``getPath()`` 方法返回相对于您的 baseURL 的路径。
+.. note:: 自 v4.4.0 版本开始，可以使用 ``getRoutePath()`` 方法。在 v4.4.0 之前，``getPath()`` 方法返回相对于你的 baseURL 的路径。
 
 上传的文件
 **************
@@ -437,4 +437,4 @@ getMethod()
         :returns:        此传入请求
         :rtype:    IncomingRequest
 
-        .. note:: 在 v4.4.0 之前，主要用于测试目的，这允许您设置当前请求的相对路径值，而不是依赖于 URI 检测。这也会更新底层的 ``URI`` 实例的新路径。
+        .. note:: 在 v4.4.0 之前，主要用于测试目的，这允许你设置当前请求的相对路径值，而不是依赖于 URI 检测。这也会更新底层的 ``URI`` 实例的新路径。

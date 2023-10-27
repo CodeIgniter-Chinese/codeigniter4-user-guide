@@ -134,7 +134,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     .. literalinclude:: common_functions/002.php
 
-.. note:: 如果您在 :doc:`表单辅助函数 </helpers/form_helper>` 中使用了 :php:func:`set_value()`、:php:func:`set_select()`、:php:func:`set_checkbox()` 和 :php:func:`set_radio()` 函数，这个功能已经内置了。只有在不使用表单辅助函数时才需要使用此函数。
+.. note:: 如果你在 :doc:`表单辅助函数 </helpers/form_helper>` 中使用了 :php:func:`set_value()`、:php:func:`set_select()`、:php:func:`set_checkbox()` 和 :php:func:`set_radio()` 函数，这个功能已经内置了。只有在不使用表单辅助函数时才需要使用此函数。
 
 .. php:function:: session([$key])
 
@@ -262,7 +262,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     检查当前页面是否通过 HTTPS 访问。如果是，则不执行任何操作。如果不是，则将用户重定向回当前 URI，但通过 HTTPS 进行访问。将设置 HTTP 严格传输安全（HTST）头，指示现代浏览器将任何 HTTP 请求自动修改为 HTTPS 请求，持续时间为 ``$duration``。
 
-    .. note:: 当您将 ``Config\App:$forceGlobalSecureRequests`` 设置为 true 时，也会使用此函数。
+    .. note:: 当你将 ``Config\App:$forceGlobalSecureRequests`` 设置为 true 时，也会使用此函数。
 
 .. php:function:: function_usable($function_name)
 

@@ -6,7 +6,7 @@
     :local:
     :depth: 2
 
-控制器过滤器允许您在控制器执行之前或之后执行操作。与 :doc:`事件 <../extending/events>` 不同，您可以选择将过滤器应用于特定的 URI 或路由。前置过滤器可以修改请求，而后置过滤器可以对响应进行操作甚至修改，从而提供了很大的灵活性和功能。
+控制器过滤器允许你在控制器执行之前或之后执行操作。与 :doc:`事件 <../extending/events>` 不同，你可以选择将过滤器应用于特定的 URI 或路由。前置过滤器可以修改请求，而后置过滤器可以对响应进行操作甚至修改，从而提供了很大的灵活性和功能。
 
 使用过滤器可以执行的一些常见任务示例:
 
@@ -64,13 +64,13 @@ After 过滤器与 Before 过滤器几乎完全相同,只是你只能返回 ``$r
 
 配置过滤器运行时有两种方法。一种是在 **app/Config/Filters.php** 中进行配置，另一种是在 **app/Config/Routes.php** 中进行配置。
 
-如果您想为特定的路由指定过滤器，请使用 **app/Config/Routes.php** 并参考 :ref:`URI Routing <applying-filters>`。
+如果你想为特定的路由指定过滤器，请使用 **app/Config/Routes.php** 并参考 :ref:`URI Routing <applying-filters>`。
 
 在路由中指定的过滤器（在 **app/Config/Routes.php** 中）会在 **app/Config/Filters.php** 中指定的过滤器之前执行。
 
 .. note:: 最安全的应用过滤器方法是 :ref:`禁用自动路由 <use-defined-routes-only>`,并 :ref:`设置过滤器到路由 <applying-filters>`。
 
-**app/Config/Filters.php** 文件包含四个属性，允许您精确配置过滤器的运行时机。
+**app/Config/Filters.php** 文件包含四个属性，允许你精确配置过滤器的运行时机。
 
 .. warning:: 建议你在过滤器设置中的 URI 末尾始终添加 ``*``。因为控制器方法可能比你想象的通过不同的 URL 访问。例如,当启用 :ref:`auto-routing-legacy` 时,如果你有 ``Blog::index``,它可以通过 ``blog``、``blog/index`` 和 ``blog/index/1`` 等方式访问。
 

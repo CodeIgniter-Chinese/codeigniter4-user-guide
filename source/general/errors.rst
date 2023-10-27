@@ -45,7 +45,7 @@ Exceptions 简单来说就是在抛出异常时发生的事件。这将中止脚
 
 .. important:: 禁用错误报告并不会停止在错误发生时写入日志。
 
-.. warning:: 请注意，**.env** 文件中的设置会添加到 ``$_SERVER`` 和 ``$_ENV`` 中。作为副作用，这意味着如果显示详细的错误报告，**您的安全凭据将被公开**。
+.. warning:: 请注意，**.env** 文件中的设置会添加到 ``$_SERVER`` 和 ``$_ENV`` 中。作为副作用，这意味着如果显示详细的错误报告，**你的安全凭据将被公开**。
 
 记录 Exceptions
 ------------------
@@ -101,7 +101,7 @@ RedirectException
 
 .. literalinclude:: errors/010.php
 
-``$uri`` 是相对于 baseURL 的 URI 路径。您还可以提供一个重定向代码，以替代默认值 (``302``, "temporary redirect"):
+``$uri`` 是相对于 baseURL 的 URI 路径。你还可以提供一个重定向代码，以替代默认值 (``302``, "temporary redirect"):
 
 .. literalinclude:: errors/011.php
 
@@ -165,12 +165,12 @@ RedirectException
 
 .. versionadded:: 4.4.0
 
-如果您需要更多地控制异常的显示方式，现在可以定义自己的处理程序并指定它们适用的情况。
+如果你需要更多地控制异常的显示方式，现在可以定义自己的处理程序并指定它们适用的情况。
 
 定义新的处理程序
 ------------------------
 
-第一步是创建一个新的类，该类实现了 ``CodeIgniter\Debug\ExceptionHandlerInterface`` 接口。您还可以扩展 ``CodeIgniter\Debug\BaseExceptionHandler`` 类。该类包含了许多在默认异常处理程序中使用的实用方法。新的处理程序必须实现一个方法：``handle()``：
+第一步是创建一个新的类，该类实现了 ``CodeIgniter\Debug\ExceptionHandlerInterface`` 接口。你还可以扩展 ``CodeIgniter\Debug\BaseExceptionHandler`` 类。该类包含了许多在默认异常处理程序中使用的实用方法。新的处理程序必须实现一个方法：``handle()``：
 
 .. literalinclude:: errors/015.php
 
@@ -179,10 +179,10 @@ RedirectException
 配置新的处理程序
 ---------------------------
 
-告诉 CodeIgniter 使用您的新异常处理程序类是在 **app/Config/Exceptions.php** 配置文件的 ``handler()`` 方法中完成的：
+告诉 CodeIgniter 使用你的新异常处理程序类是在 **app/Config/Exceptions.php** 配置文件的 ``handler()`` 方法中完成的：
 
 .. literalinclude:: errors/016.php
 
-您可以使用任何逻辑来确定应用程序是否应该处理异常，但最常见的两种情况是检查 HTTP 状态码或异常的类型。如果您的类应该处理它，则返回一个新的实例：
+你可以使用任何逻辑来确定应用程序是否应该处理异常，但最常见的两种情况是检查 HTTP 状态码或异常的类型。如果你的类应该处理它，则返回一个新的实例：
 
 .. literalinclude:: errors/017.php

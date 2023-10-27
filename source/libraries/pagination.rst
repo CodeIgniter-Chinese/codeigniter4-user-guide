@@ -33,17 +33,17 @@ CodeIgniter 提供了一个非常简单但灵活的分页库,它易于主题化,
 自定义分页查询
 ================
 
-要在模型中自定义分页查询，您可以在 ``paginate()`` 方法之前添加 :doc:`查询构建器 <../database/query_builder>` 方法。
+要在模型中自定义分页查询，你可以在 ``paginate()`` 方法之前添加 :doc:`查询构建器 <../database/query_builder>` 方法。
 
 添加 WHERE
 ------------
 
-如果您想添加 WHERE 条件，可以直接指定条件：
+如果你想添加 WHERE 条件，可以直接指定条件：
 
 .. literalinclude:: pagination/003.php
     :lines: 2-
 
-您还可以将条件移动到单独的方法中：
+你还可以将条件移动到单独的方法中：
 
 .. literalinclude:: pagination/017.php
 
@@ -53,13 +53,13 @@ CodeIgniter 提供了一个非常简单但灵活的分页库,它易于主题化,
 添加 JOIN
 ---------
 
-您可以连接另一个表：
+你可以连接另一个表：
 
 .. literalinclude:: pagination/016.php
 
 .. important:: 需要理解的重要一点是，``Model::paginate()`` 方法使用了 **模型** 和模型中的 **查询构建器** 实例。因此，尝试使用 ``Model::paginate()`` 与 :ref:`db-query` **不起作用**，因为 ``$db->query()`` 会立即执行查询，并且与查询构建器没有关联。
 
-如果您需要一个无法使用查询构建器编写的复杂 SQL 查询，请尝试使用 :ref:`db-query` 和 `手动分页`_。
+如果你需要一个无法使用查询构建器编写的复杂 SQL 查询，请尝试使用 :ref:`db-query` 和 `手动分页`_。
 
 显示分页链接
 ======================

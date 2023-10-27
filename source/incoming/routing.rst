@@ -523,7 +523,7 @@ HTTP 动词路由
 路由配置选项
 ****************************
 
-RoutesCollection 类提供了几个选项，可以影响所有路由，并且可以根据您的应用程序需求进行修改。这些选项可以在 **app/Config/Routing.php** 文件中找到。
+RoutesCollection 类提供了几个选项，可以影响所有路由，并且可以根据你的应用程序需求进行修改。这些选项可以在 **app/Config/Routing.php** 文件中找到。
 
 .. note:: 配置文件 **app/Config/Routing.php** 自 v4.4.0 版本开始添加。
     在之前的版本中，使用 **app/Config/Routes.php** 中的 setter 方法来更改设置。
@@ -547,7 +547,7 @@ RoutesCollection 类提供了几个选项，可以影响所有路由，并且可
 转换 URI 中的破折号
 ====================
 
-该选项允许您在使用自动路由时，自动将控制器和方法的 URI 段中的破折号（``-``）替换为下划线，从而节省了额外的路由条目。这是必需的，因为破折号不是有效的类或方法名称字符，如果您尝试使用它，将会导致致命错误：
+该选项允许你在使用自动路由时，自动将控制器和方法的 URI 段中的破折号（``-``）替换为下划线，从而节省了额外的路由条目。这是必需的，因为破折号不是有效的类或方法名称字符，如果你尝试使用它，将会导致致命错误：
 
 .. literalinclude:: routing/049.php
 
@@ -579,7 +579,7 @@ RoutesCollection 类提供了几个选项，可以影响所有路由，并且可
 
 .. literalinclude:: routing/051.php
 
-在路由配置文件中使用 ``$override404`` 属性，您可以使用闭包函数。在路由文件中定义覆盖是限制在类或方法对上的。
+在路由配置文件中使用 ``$override404`` 属性，你可以使用闭包函数。在路由文件中定义覆盖是限制在类或方法对上的。
 
 .. note:: ``set404Override()`` 方法不会将响应状态码更改为 ``404``。如果你不在设置的控制器中设置状态码,
     将返回默认状态码 ``200``。有关如何设置状态码的信息,请参阅
@@ -692,7 +692,7 @@ URI 段
 
 .. versionadded:: 4.4.0
 
-即使您使用 :doc:`../general/modules` 并将控制器放置在不同的命名空间中，您仍可以使用自动路由。
+即使你使用 :doc:`../general/modules` 并将控制器放置在不同的命名空间中，你仍可以使用自动路由。
 
 要路由到一个模块，必须在 **app/Config/Routing.php** 中设置 ``$moduleRoutes`` 属性::
 
@@ -702,7 +702,7 @@ URI 段
 
 键是模块的第一个 URI 段，值是控制器的命名空间。在上述配置中，**http://localhost:8080/blog/foo/bar** 将被路由到 ``Acme\Blog\Controllers\Foo::getBar()``。
 
-.. note:: 如果您定义了 ``$moduleRoutes``，模块的路由将优先生效。在上面的示例中，即使您有 ``App\Controllers\Blog`` 控制器，**http://localhost:8080/blog** 也将被路由到默认控制器 ``Acme\Blog\Controllers\Home``。
+.. note:: 如果你定义了 ``$moduleRoutes``，模块的路由将优先生效。在上面的示例中，即使你有 ``App\Controllers\Blog`` 控制器，**http://localhost:8080/blog** 也将被路由到默认控制器 ``Acme\Blog\Controllers\Home``。
 
 .. _auto-routing-legacy:
 
@@ -873,7 +873,7 @@ spark 路由
 
 .. versionadded:: 4.4.0
 
-您可以使用 ``--host`` 选项在请求 URL 中指定主机：
+你可以使用 ``--host`` 选项在请求 URL 中指定主机：
 
 .. code-block:: console
 

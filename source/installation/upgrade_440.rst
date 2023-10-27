@@ -2,7 +2,7 @@
 从 4.3.8 升级到 4.4.0
 ##############################
 
-请参考与您的安装方法对应的升级说明。
+请参考与你的安装方法对应的升级说明。
 
 - :ref:`使用 Composer 安装 App Starter 升级 <app-starter-upgrading>`
 - :ref:`使用 Composer 安装将 CodeIgniter4 添加到现有项目并进行升级 <adding-codeigniter4-upgrading>`
@@ -23,7 +23,7 @@
 
 已添加 :ref:`Validation::getValidated() <validation-getting-validated-data>` 方法，以确保获取已验证数据。
 
-因此，在您的 Controllers 中使用 ``$this->validate()`` 时，应使用新的 ``Validation::getValidated()`` 方法获取已验证的数据。
+因此，在你的 Controllers 中使用 ``$this->validate()`` 时，应使用新的 ``Validation::getValidated()`` 方法获取已验证的数据。
 
 .. literalinclude:: ../libraries/validation/045.php
    :lines: 2-
@@ -38,7 +38,7 @@ URI::setSegment() 更改
 
 由于以前版本中没有抛出异常，如果指定了最后一个段 ``+2``，此错误已经修复。
 
-如果您的代码依赖于此错误，请修复段编号。
+如果你的代码依赖于此错误，请修复段编号。
 
 .. literalinclude:: upgrade_440/002.php
    :lines: 2-
@@ -46,17 +46,17 @@ URI::setSegment() 更改
 站点 URI 更改
 ================
 
-- 由于对当前 URI 确定进行了重新制定，框架可能以与以前版本不同的方式返回站点 URI 或 URI 路径。这可能会破坏您的测试代码。如果现有测试失败，请更新断言。
-- 如果您的 baseURL 具有子目录，并且通过 ``URI::getPath()`` 方法获取当前 URI 的相对路径到 baseURL，您必须改用新的 ``SiteURI::getRoutePath()`` 方法。
+- 由于对当前 URI 确定进行了重新制定，框架可能以与以前版本不同的方式返回站点 URI 或 URI 路径。这可能会破坏你的测试代码。如果现有测试失败，请更新断言。
+- 如果你的 baseURL 具有子目录，并且通过 ``URI::getPath()`` 方法获取当前 URI 的相对路径到 baseURL，你必须改用新的 ``SiteURI::getRoutePath()`` 方法。
 
 有关详细信息，请参见 :ref:`v440-site-uri-changes`。
 
-当您扩展异常时
+当你扩展异常时
 ==========================
 
-如果您扩展了 ``CodeIgniter\Debug\Exceptions`` 并且未覆盖 ``exceptionHandler()`` 方法，那么在 **app/Config/Exceptions.php** 中定义新的 ``Config\Exceptions::handler()`` 方法将导致执行指定的异常处理程序。
+如果你扩展了 ``CodeIgniter\Debug\Exceptions`` 并且未覆盖 ``exceptionHandler()`` 方法，那么在 **app/Config/Exceptions.php** 中定义新的 ``Config\Exceptions::handler()`` 方法将导致执行指定的异常处理程序。
 
-您的覆盖代码将不再执行，因此请通过定义自己的异常处理程序进行必要的更改。
+你的覆盖代码将不再执行，因此请通过定义自己的异常处理程序进行必要的更改。
 
 请参阅 :ref:`custom-exception-handlers` 了解详细信息。
 
@@ -67,15 +67,15 @@ URI::setSegment() 更改
 
 此错误已经修复，现在不再支持下划线 URI（**foo_bar**）。
 
-如果您有指向下划线 URI（**foo_bar**）的链接，请将其更新为破折号 URI（**foo-bar**）。
+如果你有指向下划线 URI（**foo_bar**）的链接，请将其更新为破折号 URI（**foo-bar**）。
 
 传递带有命名空间的类名到工厂时
 ==================================================
 
 传递带有命名空间的类名到工厂的行为已更改。有关详细信息，请参见 :ref:`ChangeLog <v440-factories>`。
 
-如果您有类似于 ``model(\Myth\Auth\Models\UserModel::class)`` 或
-``model('Myth\Auth\Models\UserModel')`` 的代码（代码可能在第三方包中），并且希望加载您的 ``App\Models\UserModel``，您需要在加载该类之前定义要加载的类名::
+如果你有类似于 ``model(\Myth\Auth\Models\UserModel::class)`` 或
+``model('Myth\Auth\Models\UserModel')`` 的代码（代码可能在第三方包中），并且希望加载你的 ``App\Models\UserModel``，你需要在加载该类之前定义要加载的类名::
 
     Factories::define('models', 'Myth\Auth\Models\UserModel', 'App\Models\UserModel');
 
@@ -91,14 +91,14 @@ URI::setSegment() 更改
 
 已进行了一些方法签名更改。扩展它们的类应该更新其 API 以反映更改。有关详细信息，请参见 :ref:`v440-method-signature-changes`。
 
-此外，某些构造函数和 ``Services::security()`` 的参数类型已更改。如果您使用这些参数调用它们，请更改参数值。有关详细信息，请参见 :ref:`v440-parameter-type-changes`。
+此外，某些构造函数和 ``Services::security()`` 的参数类型已更改。如果你使用这些参数调用它们，请更改参数值。有关详细信息，请参见 :ref:`v440-parameter-type-changes`。
 
 RouteCollection::$routes
 ========================
 
 受保护属性 ``$routes`` 的数组结构已进行了修改以提高性能。
 
-如果您扩展了 ``RouteCollection`` 并使用了 ``$routes``，请更新您的代码以匹配新的数组结构。
+如果你扩展了 ``RouteCollection`` 并使用了 ``$routes``，请更新你的代码以匹配新的数组结构。
 
 必要的文件更改
 **********************
@@ -106,12 +106,12 @@ RouteCollection::$routes
 index.php 和 spark
 ===================
 
-以下文件已经接收到重大更改，**您必须将更新后的版本与您的应用程序合并**：
+以下文件已经接收到重大更改，**你必须将更新后的版本与你的应用程序合并**：
 
 - ``public/index.php`` (还请参阅 :ref:`v440-codeigniter-and-exit` )
 - ``spark``
 
-.. important:: 如果您不更新上述文件，运行 ``composer update`` 后 CodeIgniter 将无法正常工作。
+.. important:: 如果你不更新上述文件，运行 ``composer update`` 后 CodeIgniter 将无法正常工作。
 
     升级过程，例如如下：
 
@@ -127,7 +127,7 @@ index.php 和 spark
 app/Config/App.php
 ------------------
 
-属性 ``$proxyIPs`` 必须是数组。如果您不使用代理服务器，则它必须为 ``public array $proxyIPs = [];``。
+属性 ``$proxyIPs`` 必须是数组。如果你不使用代理服务器，则它必须为 ``public array $proxyIPs = [];``。
 
 .. _upgrade-440-config-routing:
 
@@ -140,16 +140,16 @@ app/Config/Routing.php
 - **app/Config/Routes.php** 文件经过简化，仅包含路由，没有设置和冗余的内容。
 - 不再自动加载特定于环境的路由文件。
 
-因此，您需要执行以下操作：
+因此，你需要执行以下操作：
 
-1. 从新框架中复制 **app/Config/Routing.php** 到您的 **app/Config** 目录，并进行配置。
+1. 从新框架中复制 **app/Config/Routing.php** 到你的 **app/Config** 目录，并进行配置。
 2. 删除不再需要的 **app/Config/Routes.php** 中的所有设置。
 3. 如果使用特定于环境的路由文件，请将它们添加到 **app/Config/Routing.php** 中的 ``$routeFiles`` 属性中。
 
 app/Config/Toolbar.php
 ----------------------
 
-您需要添加新属性 ``$watchedDirectories`` 和 ``$watchedExtensions`` 以进行 :ref:`debug-toolbar-hot-reload`::
+你需要添加新属性 ``$watchedDirectories`` 和 ``$watchedExtensions`` 以进行 :ref:`debug-toolbar-hot-reload`::
 
     --- a/app/Config/Toolbar.php
     +++ b/app/Config/Toolbar.php
@@ -189,7 +189,7 @@ app/Config/Toolbar.php
 app/Config/Events.php
 ---------------------
 
-您需要添加代码以为 :ref:`debug-toolbar-hot-reload` 添加一个路由::
+你需要添加代码以为 :ref:`debug-toolbar-hot-reload` 添加一个路由::
 
     --- a/app/Config/Events.php
     +++ b/app/Config/Events.php
@@ -219,7 +219,7 @@ app/Config/Cookie.php
 
 **app/Config/App.php** 中的 Cookie 配置项不再使用。
 
-1. 从新框架中复制 **app/Config/Cookie.php** 到您的 **app/Config** 目录，并进行配置。
+1. 从新框架中复制 **app/Config/Cookie.php** 到你的 **app/Config** 目录，并进行配置。
 2. 删除 **app/Config/App.php** 中的属性（从 ``$cookiePrefix`` 到 ``$cookieSameSite``）。
 
 app/Config/Security.php
@@ -227,7 +227,7 @@ app/Config/Security.php
 
 **app/Config/App.php** 中的 CSRF 配置项不再使用。
 
-1. 从新框架中复制 **app/Config/Security.php** 到您的 **app/Config** 目录，并进行配置。
+1. 从新框架中复制 **app/Config/Security.php** 到你的 **app/Config** 目录，并进行配置。
 2. 删除 **app/Config/App.php** 中的属性（从 ``$CSRFTokenName`` 到 ``$CSRFSameSite``）。
 
 app/Config/Session.php
@@ -235,7 +235,7 @@ app/Config/Session.php
 
 **app/Config/App.php** 中的 Session 配置项不再使用。
 
-1. 从新框架中复制 **app/Config/Session.php** 到您的 **app/Config** 目录，并进行配置。
+1. 从新框架中复制 **app/Config/Session.php** 到你的 **app/Config** 目录，并进行配置。
 2. 删除 **app/Config/App.php** 中的属性（从 ``$sessionDriver`` 到 ``$sessionDBGroup``）。
 
 重大改进
@@ -247,14 +247,14 @@ app/Config/Session.php
 项目文件
 *************
 
-**项目空间** 中的一些文件（根目录、app、public、writable）已接收到更新。由于这些文件位于 **系统** 范围之外，它们将不会在没有您干预的情况下更改。
+**项目空间** 中的一些文件（根目录、app、public、writable）已接收到更新。由于这些文件位于 **系统** 范围之外，它们将不会在没有你干预的情况下更改。
 
-有一些第三方 CodeIgniter 模块可帮助您合并对项目空间的更改：[Packagist 上探索](https://packagist.org/explore/?query=codeigniter4%20updates)。
+有一些第三方 CodeIgniter 模块可帮助你合并对项目空间的更改：[Packagist 上探索](https://packagist.org/explore/?query=codeigniter4%20updates)。
 
 内容更改
 ===============
 
-以下文件已接收到重大更改（包括弃用或视觉调整），建议您将更新后的版本与您的应用程序合并：
+以下文件已接收到重大更改（包括弃用或视觉调整），建议你将更新后的版本与你的应用程序合并：
 
 配置
 ------

@@ -38,7 +38,7 @@ App Starter
 
 如果省略“项目根目录”参数,该命令将创建一个“appstarter”文件夹,可以根据需要重命名。
 
-.. note:: 在 v4.4.0 之前，CodeIgniter 的自动加载器不允许在某些操作系统上的文件名中使用非法的特殊字符。可以使用的符号包括 ``/``、``_``、``.``、``:``、``\`` 和空格。因此，如果您将 CodeIgniter 安装在包含特殊字符（如 ``(``、``)`` 等）的文件夹中，CodeIgniter 将无法正常工作。从 v4.4.0 开始，这个限制已经被移除。
+.. note:: 在 v4.4.0 之前，CodeIgniter 的自动加载器不允许在某些操作系统上的文件名中使用非法的特殊字符。可以使用的符号包括 ``/``、``_``、``.``、``:``、``\`` 和空格。因此，如果你将 CodeIgniter 安装在包含特殊字符（如 ``(``、``)`` 等）的文件夹中，CodeIgniter 将无法正常工作。从 v4.4.0 开始，这个限制已经被移除。
 
 .. important:: 当你将应用部署到生产服务器时,不要忘记运行以下命令:
 
@@ -98,7 +98,7 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 最新开发版更新
 ^^^^^^^^^^^^^^^^^^^^^
 
-在您的项目根目录中执行以下命令：
+在你的项目根目录中执行以下命令：
 
 .. code-block:: console
 
@@ -106,21 +106,21 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 
 上述命令将更新 **composer.json**，将其指向工作仓库的 ``develop`` 分支，并更新配置文件和 XML 文件中的相应路径。
 
-使用 ``builds`` 命令后，请确保运行 ``composer update``，以使您的 vendor 文件夹与最新的目标构建同步。然后，根据需要检查 :doc:`upgrading` 并更新项目文件。
+使用 ``builds`` 命令后，请确保运行 ``composer update``，以使你的 vendor 文件夹与最新的目标构建同步。然后，根据需要检查 :doc:`upgrading` 并更新项目文件。
 
 下一个次要版本
 ^^^^^^^^^^^^^^^^^^
 
-如果您想使用下一个次要版本的分支，在使用 ``builds`` 命令后手动编辑 **composer.json**。
+如果你想使用下一个次要版本的分支，在使用 ``builds`` 命令后手动编辑 **composer.json**。
 
-如果您尝试使用 ``4.4`` 分支，请将版本更改为 ``4.4.x-dev``::
+如果你尝试使用 ``4.4`` 分支，请将版本更改为 ``4.4.x-dev``::
 
     "require": {
         "php": "^7.4 || ^8.0",
         "codeigniter4/codeigniter4": "4.4.x-dev"
     },
 
-然后运行 ``composer update``，以使您的 vendor 文件夹与最新的目标构建同步。然后，根据需要检查升级指南（**user_guide_src/source/installation/upgrade_{version}.rst**）并更新项目文件。
+然后运行 ``composer update``，以使你的 vendor 文件夹与最新的目标构建同步。然后，根据需要检查升级指南（**user_guide_src/source/installation/upgrade_{version}.rst**）并更新项目文件。
 
 恢复到稳定版本
 ^^^^^^^^^^^^^^^^^^^^^^^^

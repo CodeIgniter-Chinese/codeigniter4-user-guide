@@ -40,7 +40,7 @@ CodeIgniter 提供的所有配置文件都使用 ``Config`` 命名空间。在�
 
 你可以通过使用不同的命名空间将配置文件放在任何你想要的文件夹中。这允许你在生产服务器上将配置文件放在一个不可公开访问的文件夹中,同时在开发期间保持其位于 **/app** 下方便访问。
 
-.. note:: 在 v4.4.0 之前，``config()`` 会在有与 shortname 相同的类时，在 **app/Config/** 中查找文件，即使您指定了完全限定的类名，如 ``config(\Acme\Blog\Config\Blog::class)``。在 v4.4.0 中修复了此行为，并返回指定的实例。
+.. note:: 在 v4.4.0 之前，``config()`` 会在有与 shortname 相同的类时，在 **app/Config/** 中查找文件，即使你指定了完全限定的类名，如 ``config(\Acme\Blog\Config\Blog::class)``。在 v4.4.0 中修复了此行为，并返回指定的实例。
 
 获取配置属性
 =========================
@@ -54,7 +54,7 @@ CodeIgniter 提供的所有配置文件都使用 ``Config`` 命名空间。在�
 
 当你需要一个新的配置时,首先在所需位置创建一个新文件。默认文件位置(大多数情况下推荐)是 **app/Config**。该类应使用适当的命名空间,并且它应扩展 ``CodeIgniter\Config\BaseConfig`` 以确保它可以接收特定环境的设置。
 
-您可以通过使用不同的命名空间将配置文件放置在任何 **Config** 文件夹中。
+你可以通过使用不同的命名空间将配置文件放置在任何 **Config** 文件夹中。
 
 该类应使用适当的命名空间，并应扩展 ``CodeIgniter\Config\BaseConfig`` 以确保它可以接收特定于环境的设置。
 
@@ -196,7 +196,7 @@ CodeIgniter 期望 **.env** 文件与 **app** 目录一起位于项目的根目�
 
 例如,你不能只是在 **.env** 中放置 ``app.myNewConfig = foo`` 并期望你的 ``Config\App`` 在运行时神奇地拥有该属性和值。
 
-当你在 ``Config\Database`` 中有属性 ``$default = ['encrypt' => false]`` 时,即使你在 **.env** 中放置 ``database.default.encrypt.ssl_verify = true``,也不能将 ``encrypt`` 值更改为数组。如果您想这样做，请参阅 :ref:`Database Configuration <database-config-with-env-file>`。
+当你在 ``Config\Database`` 中有属性 ``$default = ['encrypt' => false]`` 时,即使你在 **.env** 中放置 ``database.default.encrypt.ssl_verify = true``,也不能将 ``encrypt`` 值更改为数组。如果你想这样做，请参阅 :ref:`Database Configuration <database-config-with-env-file>`。
 
 将环境变量视为数组
 ========================================
@@ -257,7 +257,7 @@ CodeIgniter 期望 **.env** 文件与 **app** 目录一起位于项目的根目�
 
 隐式注册器可以更改任何配置类的属性。
 
-任何命名空间都可以通过使用 **Config/Registrar.php** 文件定义隐式注册器。这些文件是类，其方法的名称与您希望扩展的每个配置类的名称相同。
+任何命名空间都可以通过使用 **Config/Registrar.php** 文件定义隐式注册器。这些文件是类，其方法的名称与你希望扩展的每个配置类的名称相同。
 
 例如，第三方模块或 Composer 包可能希望为 ``Config\Pager`` 提供额外的模板，而不会覆盖开发人员已经配置的内容。在 **src/Config/Registrar.php** 中，将有一个名为 ``Registrar`` 的类，其中只有一个 ``Pager()`` 方法（注意大小写敏感）：
 

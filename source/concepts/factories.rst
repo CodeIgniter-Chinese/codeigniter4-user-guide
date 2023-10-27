@@ -49,18 +49,18 @@
 不带命名空间的类名
 -----------------------------------
 
-如果您传递一个不带命名空间的类名，Factories 首先会在 ``App`` 命名空间中搜索与魔术静态方法名对应的路径。``Factories::models()`` 会搜索 **app/Models** 目录。
+如果你传递一个不带命名空间的类名，Factories 首先会在 ``App`` 命名空间中搜索与魔术静态方法名对应的路径。``Factories::models()`` 会搜索 **app/Models** 目录。
 
 传递短类名
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-在下面的代码中，如果您有 ``App\Models\UserModel``，将返回该实例：
+在下面的代码中，如果你有 ``App\Models\UserModel``，将返回该实例：
 
 .. literalinclude:: factories/001.php
 
 如果没有 ``App\Models\UserModel``，它会在所有命名空间中搜索 ``Models\UserModel``。
 
-下次您在代码中的任何地方请求相同的类时，Factories 将确保您获得之前的实例：
+下次你在代码中的任何地方请求相同的类时，Factories 将确保你获得之前的实例：
 
 .. literalinclude:: factories/003.php
 
@@ -75,16 +75,16 @@
 传递完全限定类名
 --------------------------------
 
-您还可以请求一个完全限定的类名：
+你还可以请求一个完全限定的类名：
 
 .. literalinclude:: factories/002.php
    :lines: 2-
 
 如果存在，它将返回 ``Blog\Models\UserModel`` 的实例。
 
-.. note:: 在 v4.4.0 之前，当您请求一个完全限定的类名时，如果只有 ``Blog\Models\UserModel``，将返回该实例。但是，如果同时存在 ``App\Models\UserModel`` 和 ``Blog\Models\UserModel``，将返回 ``App\Models\UserModel`` 的实例。
+.. note:: 在 v4.4.0 之前，当你请求一个完全限定的类名时，如果只有 ``Blog\Models\UserModel``，将返回该实例。但是，如果同时存在 ``App\Models\UserModel`` 和 ``Blog\Models\UserModel``，将返回 ``App\Models\UserModel`` 的实例。
 
-    如果您想获取 ``Blog\Models\UserModel``，您需要禁用选项 ``preferApp``：
+    如果你想获取 ``Blog\Models\UserModel``，你需要禁用选项 ``preferApp``：
 
     .. literalinclude:: factories/010.php
        :lines: 2-
@@ -117,7 +117,7 @@ model()
 
 .. versionadded:: 4.4.0
 
-您可以使用 ``Factories::define()`` 方法定义在加载类之前要加载的类名：
+你可以使用 ``Factories::define()`` 方法定义在加载类之前要加载的类名：
 
 .. literalinclude:: factories/014.php
    :lines: 2-
@@ -159,7 +159,7 @@ getShared  boolean        是否返回类的共享实例或者加载一个新实
 preferApp  boolean        是否优先使用 App 命名空间中具有相同基本名称的类而不是其他明确的类请求。 ``true``
 ========== ============== ======================================================================= ===================================================
 
-.. note:: 自 v4.4.0 起，``preferApp`` 仅在您请求 :ref:`不带命名空间的类名 <factories-passing-classname-without-namespace>` 时起作用。
+.. note:: 自 v4.4.0 起，``preferApp`` 仅在你请求 :ref:`不带命名空间的类名 <factories-passing-classname-without-namespace>` 时起作用。
 
 工厂行为
 ******************
@@ -254,7 +254,7 @@ setOptions 方法
 
 因此，如果要更新 Config 值，请更新 Config 文件或其环境变量，并且必须手动删除缓存文件。
 
-您可以使用 ``spark cache:clear`` 命令：
+你可以使用 ``spark cache:clear`` 命令：
 
 .. code-block:: console
 
