@@ -83,7 +83,7 @@
 
 .. php:function:: number_to_roman($num)
 
-    :param string $num: 要转换的数字
+    :param int|string $num: 要转换的数字
     :returns: 从给定参数转换后的罗马数字
     :rtype: string|null
 
@@ -91,4 +91,4 @@
 
     .. literalinclude:: number_helper/009.php
 
-    此函数仅处理 1 到 3999 范围内的数字。对于该范围之外的任何值,它都将返回 null。
+    此函数仅处理 1 到 3999 范围内的数字。对于该范围之外的任何值,它都将返回 ``null``。

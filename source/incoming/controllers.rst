@@ -88,16 +88,13 @@ $this->validate()
 为了简化数据检查,控制器还提供了方便的 ``validate()`` 方法。
 该方法在第一个参数中接受规则数组,在可选的第二个参数中,接受自定义错误消息的数组,以在项目无效时显示。在内部,这使用控制器的 ``$this->request`` 实例来获取要验证的数据。
 
-.. warning::
-    ``validate()`` 方法使用 :ref:`Validation::withRequest() <validation-withrequest>` 方法。
-    它会验证来自 :ref:`$request->getJSON() <incomingrequest-getting-json-data>`
-    或 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>`
-    或 :ref:`$request->getVar() <incomingrequest-getting-data>` 的数据。
-    使用哪些数据取决于请求。请记住,攻击者可以自由地向服务器发送任何请求。
-
 :doc:`验证库文档 </libraries/validation>` 有关于规则和消息数组格式以及可用规则的详细信息:
 
 .. literalinclude:: controllers/004.php
+
+.. warning:: 当您使用 ``validate()`` 方法时，应该使用 :ref:`getValidated() <validation-getting-validated-data>` 方法来获取经过验证的数据。因为 ``validate()`` 方法在内部使用了 :ref:`Validation::withRequest() <validation-withrequest>` 方法，并且它会验证来自 :ref:`$request->getJSON() <incomingrequest-getting-json-data>`、:ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>` 或 :ref:`$request->getVar() <incomingrequest-getting-data>` 的数据，而攻击者可能会更改要验证的数据。
+
+.. note:: 自 v4.4.0 版本开始，可以使用 :ref:`$this->validator->getValidated() <validation-getting-validated-data>` 方法。
 
 如果你发现在配置文件中保持规则更简单,你可以用 **app/Config/Validation.php** 中定义的组名替换 ``$rules`` 数组:
 
@@ -251,10 +248,6 @@ URI 的第二段通常确定控制器中的哪个方法被调用。
 
 .. literalinclude:: controllers/022.php
 
-.. important:: 如果 URI 中的参数比方法的参数更多,
-    自动路由(改进版)不会执行该方法,并导致 404
-    未找到。
-
 默认控制器
 ==================
 
@@ -281,6 +274,44 @@ URI 的第二段通常确定控制器中的哪个方法被调用。
 
 有关更多信息,请参阅 :ref:`routes-configuration-options` 部分
 :ref:`URI 路由 <routing-auto-routing-improved-configuration-options>` 文档。
+
+.. _controller-default-method-fallback:
+
+默认方法回退
+=======================
+
+.. versionadded:: 4.4.0
+
+如果与方法名的 URI 段对应的控制器方法不存在，并且如果定义了默认方法，则剩余的 URI 段将传递给默认方法进行执行。
+
+.. literalinclude:: controllers/024.php
+
+加载以下 URL::
+
+    example.com/index.php/product/15/edit
+
+该方法将传递 URI 段 2 和 3（``'15'`` 和 ``'edit'``）：
+
+.. important:: 如果 URI 中的参数多于方法参数，自动路由（改进版）不会执行该方法，并返回 404 Not Found。
+
+回退到默认控制器
+------------------------------
+
+如果与控制器名的 URI 段对应的控制器不存在，并且如果默认控制器（默认为 ``Home``）存在于目录中，则剩余的 URI 段将传递给默认控制器的默认方法。
+
+例如，当您在 **app/Controllers/News** 目录中有以下默认控制器 ``Home`` 时：
+
+.. literalinclude:: controllers/025.php
+
+加载以下 URL::
+
+    example.com/index.php/news/101
+
+将找到 ``News\Home`` 控制器和默认的 ``getIndex()`` 方法。因此，默认方法将传递 URI 段 2（``'101'``）：
+
+.. note:: 如果存在 ``App\Controllers\News`` 控制器，则它具有优先权。URI 段按顺序搜索，找到的第一个控制器将被使用。
+
+.. note:: 如果 URI 中的参数多于方法参数，自动路由（改进版）不会执行该方法，并返回 404 Not Found。
 
 将控制器组织到子目录中
 ================================================

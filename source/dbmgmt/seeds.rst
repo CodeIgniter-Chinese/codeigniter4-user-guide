@@ -43,9 +43,11 @@
 命令行填充
 ====================
 
-你也可以通过命令行作为迁移CLI工具的一部分从命令行填充数据,如果你不想创建一个专用的控制器::
+你也可以通过命令行作为迁移CLI工具的一部分从命令行填充数据,如果你不想创建一个专用的控制器:
 
-    > php spark db:seed TestSeeder
+.. code-block:: console
+
+    php spark db:seed TestSeeder
 
 *********************
 创建填充器文件
@@ -53,18 +55,25 @@
 
 使用命令行,你可以轻松生成填充器文件。
 
-::
+.. code-block:: console
 
-    > php spark make:seeder user --suffix
-    // 输出: UserSeeder.php 文件位于 app/Database/Seeds 目录中。
+    php spark make:seeder user --suffix
 
-你可以通过提供 ``--namespace`` 选项来指定填充器文件要存储的 ``root`` 命名空间::
+上述命令将输出位于 **app/Database/Seeds** 目录下的 **UserSeeder.php** 文件。
 
-    For Unix:
-    > php spark make:seeder MySeeder --namespace Acme\\Blog
+你可以通过提供 ``--namespace`` 选项来指定填充器文件要存储的 ``root`` 命名空间:
 
-    For Windows:
-    > php spark make:seeder MySeeder --namespace Acme\Blog
+For Unix:
+
+.. code-block:: console
+
+    php spark make:seeder MySeeder --namespace Acme\\Blog
+
+For Windows:
+
+.. code-block:: console
+
+    php spark make:seeder MySeeder --namespace Acme\Blog
 
 如果 ``Acme\Blog`` 映射到 **app/Blog** 目录,那么此命令将在 **app/Blog/Database/Seeds** 目录中生成 **MySeeder.php**。
 

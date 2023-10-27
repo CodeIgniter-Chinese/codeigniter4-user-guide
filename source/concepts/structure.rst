@@ -48,6 +48,8 @@ system
 
 此目录下的所有文件位于 ``CodeIgniter`` 命名空间下。
 
+.. _application-structure-public:
+
 public
 ======
 

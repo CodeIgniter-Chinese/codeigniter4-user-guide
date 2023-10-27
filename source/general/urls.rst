@@ -60,7 +60,7 @@ URI 路径   /ci-blog/blog/news/2022/10
 删除 index.php 文件
 ===========================
 
-默认情况下, **index.php** 文件将包含在你的 URL 中::
+当你使用 Apache Web 服务器时，默认情况下，在你的 URL 中需要 **index.php** 文件::
 
     example.com/index.php/news/article/my_article
 
@@ -88,10 +88,10 @@ Apache 必须启用 *mod_rewrite* 扩展。如果是,你可以使用一些简单
 
 .. _urls-remove-index-php-nginx:
 
-NGINX
+Nginx
 -----
 
-在 NGINX 中,你可以定义一个位置块并使用 ``try_files`` 指令来获取与我们在上面的 Apache 配置中相同的效果:
+在 Nginx 中,你可以定义一个位置块并使用 ``try_files`` 指令来获取与我们在上面的 Apache 配置中相同的效果:
 
 .. code-block:: nginx
 

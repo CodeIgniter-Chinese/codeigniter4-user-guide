@@ -3,9 +3,10 @@
 ##############
 
 CodeIgniter 通过 Exceptions 在你的系统中内置了错误报告,包括
-`SPL 集合 <https://www.php.net/manual/en/spl.exceptions.php>`_,以及框架提供的一些自定义 exceptions。
+`SPL 集合 <https://www.php.net/manual/en/spl.exceptions.php>`_,以及框架提供的一些 exceptions。
+
 取决于你的环境设置,当抛出错误或异常时的默认操作是显示详细的错误报告,除非应用程序在 ``production`` 环境下运行。
-在这种情况下,会显示更通用的消息以对用户保持最佳体验。
+在 ``production`` 环境中,会显示更通用的消息以对用户保持最佳体验。
 
 .. contents::
     :local:
@@ -37,9 +38,14 @@ Exceptions 简单来说就是在抛出异常时发生的事件。这将中止脚
 配置
 =============
 
-默认情况下,CodeIgniter 将在 ``development`` 和 ``testing`` 环境中显示所有错误,并且在 ``production`` 环境中不显示任何错误。你可以通过在 **.env** 文件中设置 ``CI_ENVIRONMENT`` 变量来更改此设置。
+错误报告
+---------------
+
+默认情况下,CodeIgniter 将在 ``development`` 和 ``testing`` 环境中显示包含所有错误的详细错误报告,并且在 ``production`` 环境中不显示任何错误。你可以通过在 :ref:`.env <dotenv-file>` 文件中设置 ``CI_ENVIRONMENT`` 变量来更改此设置。
 
 .. important:: 禁用错误报告并不会停止在错误发生时写入日志。
+
+.. warning:: 请注意，**.env** 文件中的设置会添加到 ``$_SERVER`` 和 ``$_ENV`` 中。作为副作用，这意味着如果显示详细的错误报告，**您的安全凭据将被公开**。
 
 记录 Exceptions
 ------------------
@@ -89,13 +95,19 @@ DatabaseException
 RedirectException
 -----------------
 
-此异常是一个特殊情况,允许覆盖所有其他响应路由并强制重定向到特定路由或 URL:
+.. note:: 自 v4.4.0 起，``RedirectException`` 的命名空间已更改。之前是 ``CodeIgniter\Router\Exceptions\RedirectException``。之前的类已被弃用。
+
+此异常是一个特殊情况,允许覆盖所有其他响应路由并强制重定向到特定的 URI:
 
 .. literalinclude:: errors/010.php
 
-``$route`` 可以是命名路由、相对 URI 或完整 URL。你还可以提供要使用的重定向代码,而不是默认值(``302``、“临时重定向”):
+``$uri`` 是相对于 baseURL 的 URI 路径。您还可以提供一个重定向代码，以替代默认值 (``302``, "temporary redirect"):
 
 .. literalinclude:: errors/011.php
+
+另外，自 v4.4.0 版本开始，可以将实现了 ResponseInterface 接口的类的对象用作第一个参数。这种解决方案适用于需要在响应中添加额外的头部或 Cookie 的情况。
+
+.. literalinclude:: errors/018.php
 
 .. _error-specify-http-status-code:
 
@@ -145,3 +157,32 @@ RedirectException
 .. literalinclude:: errors/014.php
 
 为了测试你的应用程序,你可能希望始终在弃用时抛出。你可以通过将环境变量 ``CODEIGNITER_SCREAM_DEPRECATIONS`` 设置为真值来配置此行为。
+
+.. _custom-exception-handlers:
+
+自定义异常处理程序
+=========================
+
+.. versionadded:: 4.4.0
+
+如果您需要更多地控制异常的显示方式，现在可以定义自己的处理程序并指定它们适用的情况。
+
+定义新的处理程序
+------------------------
+
+第一步是创建一个新的类，该类实现了 ``CodeIgniter\Debug\ExceptionHandlerInterface`` 接口。您还可以扩展 ``CodeIgniter\Debug\BaseExceptionHandler`` 类。该类包含了许多在默认异常处理程序中使用的实用方法。新的处理程序必须实现一个方法：``handle()``：
+
+.. literalinclude:: errors/015.php
+
+这个示例定义了通常需要的最少代码 - 显示一个视图并使用适当的退出代码退出。然而，``BaseExceptionHandler`` 提供了许多其他的辅助函数和对象。
+
+配置新的处理程序
+---------------------------
+
+告诉 CodeIgniter 使用您的新异常处理程序类是在 **app/Config/Exceptions.php** 配置文件的 ``handler()`` 方法中完成的：
+
+.. literalinclude:: errors/016.php
+
+您可以使用任何逻辑来确定应用程序是否应该处理异常，但最常见的两种情况是检查 HTTP 状态码或异常的类型。如果您的类应该处理它，则返回一个新的实例：
+
+.. literalinclude:: errors/017.php

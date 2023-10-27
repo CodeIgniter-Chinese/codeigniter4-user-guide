@@ -18,6 +18,7 @@
   请使用 :ref:`规则类 <validation-using-rule-classes>` 或
   :ref:`闭包规则 <validation-using-closure-rule>`
   代替。
+- 在 CI3 中，回调/可调用规则具有优先级，但在 CI4 中，闭包规则没有优先级，并且按照它们在列表中的顺序进行检查。
 - CI4 验证格式规则不允许为空字符串。
 - CI4 验证永远不会改变你的数据。
 - 从 v4.3.0 开始,引入了 :php:func:`validation_errors()`,但 API 与 CI3 的不同。

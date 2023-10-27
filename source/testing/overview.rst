@@ -22,17 +22,23 @@ Composer
 
 推荐的方法是使用 `Composer <https://getcomposer.org/>`__ 在项目中安装它。尽管可以全局安装,但我们不建议这样做,因为随着时间的推移,它可能与系统上的其他项目造成兼容性问题。
 
-确保系统中安装了 Composer。从项目根目录(包含应用程序和系统目录的目录)命令行输入以下命令::
+确保系统中安装了 Composer。从项目根目录(包含应用程序和系统目录的目录)命令行输入以下命令:
 
-    > composer require --dev phpunit/phpunit
+.. code-block:: console
 
-这将为当前 PHP 版本安装正确的版本。完成后,可以通过输入以下命令来运行此项目的所有测试::
+    composer require --dev phpunit/phpunit
 
-    > vendor/bin/phpunit
+这将为当前 PHP 版本安装正确的版本。完成后,可以通过输入以下命令来运行此项目的所有测试:
 
-如果使用 Windows,请使用以下命令::
+.. code-block:: console
 
-    > vendor\bin\phpunit
+    vendor/bin/phpunit
+
+如果使用 Windows,请使用以下命令:
+
+.. code-block:: console
+
+    vendor\bin\phpunit
 
 Phar
 ----
@@ -128,7 +134,7 @@ assertHeaderEmitted($header, $ignoreCase = false)
 
 .. literalinclude:: overview/009.php
 
-.. note:: 带有此内容的测试用例应 `在 PHPunit 中作为单独进程运行 <https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess>`_。
+.. note:: 带有此内容的测试用例应 `在 PHPunit 中作为单独进程运行 <https://docs.phpunit.de/en/9.6/annotations.html#runinseparateprocess>`_。
 
 assertHeaderNotEmitted($header, $ignoreCase = false)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -137,7 +143,7 @@ assertHeaderNotEmitted($header, $ignoreCase = false)
 
 .. literalinclude:: overview/010.php
 
-.. note:: 带有此内容的测试用例应 `在 PHPunit 中作为单独进程运行 <https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess>`_。
+.. note:: 带有此内容的测试用例应 `在 PHPunit 中作为单独进程运行 <https://docs.phpunit.de/en/9.6/annotations.html#runinseparateprocess>`_。
 
 assertCloseEnough($expected, $actual, $message = '', $tolerance = 1)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -203,6 +209,8 @@ Services::reset()
 从 Services 类中删除所有模拟类,将其恢复到原始状态。
 
 你也可以使用 ``CIUnitTestCase`` 提供的 ``$this->resetServices()`` 方法。
+
+.. note:: 此方法会重置所有服务的状态，并且 ``RouteCollection`` 将不包含任何路由。如果您想要使用加载的路由，您需要调用 ``loadRoutes()`` 方法，例如 ``Services::routes()->loadRoutes()``。
 
 Services::resetSingle(string $name)
 -----------------------------------

@@ -1,10 +1,10 @@
 ##########
-视图单元格
+视图单元
 ##########
 
-许多应用程序都有可以在页面之间重复使用的小视图片段,或者在页面的不同位置重复使用。这些通常是帮助框、导航控件、广告、登录表单等。CodeIgniter 允许你将这些表示块的逻辑封装在视图单元格中。它们基本上是可以在其他视图中包含的迷你视图。它们可以内置逻辑来处理任何单元格特定的显示逻辑。它们可以用于通过将每个单元格的逻辑分隔到自己的类中来使视图更可读和可维护。
+许多应用程序都有一些小的视图片段，可以在页面之间重复使用，或者在页面的不同位置使用。这些通常是帮助框、导航控件、广告、登录表单等。CodeIgniter 允许您将这些呈现块的逻辑封装在视图单元中。它们基本上是可以包含在其他视图中的小视图。它们可以内置逻辑来处理任何特定于单元的显示逻辑。它们可以通过将每个单元的逻辑分离到自己的类中，使您的视图更易读和可维护。
 
-CodeIgniter 支持两种类型的视图单元格:简单和受控。简单视图单元格可以从你选择的任何类和方法生成,并不必遵循任何规则,只要它返回一个字符串即可。受控视图单元格必须从扩展 ``Codeigniter\View\Cells\Cell`` 类的类生成,该类提供了额外的功能,使你的视图单元格更灵活、更快速地使用。
+CodeIgniter 支持两种类型的视图单元：简单单元和受控单元。简单单元可以从您选择的任何类和方法生成，并且不必遵循任何规则，只需返回一个字符串即可。受控单元必须从扩展 ``Codeigniter\View\Cells\Cell`` 类的类生成，该类提供了额外的功能，使您的视图单元更加灵活和快速。
 
 .. contents::
     :local:
@@ -13,288 +13,143 @@ CodeIgniter 支持两种类型的视图单元格:简单和受控。简单视图�
 .. _app-cells:
 
 *******************
-调用视图单元格
+调用视图单元
 *******************
 
-无论你使用哪种类型的视图单元格,都可以通过在任何视图中使用 ``view_cell()`` 辅助方法来调用它。第一个参数是要调用的类和方法的名称,第二个参数是要传递给该方法的参数数组。该方法必须返回一个字符串,该字符串将插入到调用 ``view_cell()`` 方法的视图中。
-::
+无论您使用哪种类型的视图单元，都可以使用 ``view_cell()`` 辅助函数从任何视图中调用它。
 
-    <?= view_cell('App\Cells\MyClass::myMethod', ['param1' => 'value1', 'param2' => 'value2']) ?>
+第一个参数是要调用的类和方法的名称，第二个参数是要传递给方法的参数数组：
 
-如果你没有包含类的完整命名空间,它将假定可以在 ``App\Cells`` 命名空间中找到它。所以,以下示例将尝试在 ``app/Cells/MyClass.php`` 中找到 ``MyClass`` 类。如果没有找到,将扫描所有命名空间,直到找到它,在每个命名空间的 ``Cells`` 子目录中搜索。
-::
+.. literalinclude:: view_cells/001.php
 
-    <?= view_cell('MyClass::myMethod', ['param1' => 'value1', 'param2' => 'value2']) ?>
+单元方法必须返回一个字符串，该字符串将插入到调用 ``view_cell()`` 函数的视图中。
 
-.. note:: 从 v4.3.0 和更高版本开始支持省略命名空间。
+省略命名空间
+==================
 
-你也可以以键/值字符串的方式传递参数:
-::
+.. versionadded:: 4.3.0
 
-    <?= view_cell('MyClass::myMethod', 'param1=value1, param2=value2') ?>
+如果您没有包含类的完整命名空间，它将假定可以在 ``App\Cells`` 命名空间中找到。因此，以下示例将尝试在 **app/Cells/MyClass.php** 中查找 ``MyClass`` 类。如果在那里找不到，将扫描所有命名空间，直到找到为止，在每个命名空间的 **Cells** 子目录中搜索：
+
+.. literalinclude:: view_cells/002.php
+
+将参数作为键/值字符串传递
+======================================
+
+您还可以将参数作为键/值字符串传递：
+
+.. literalinclude:: view_cells/003.php
 
 ************
-简单单元格
+简单单元
 ************
 
-简单单元格是从选择的方法返回字符串的类。警报消息单元格的一个简单示例如下:
-::
+简单单元是从所选方法返回字符串的类。一个简单的警告消息单元的示例可能如下所示：
 
-    namespace App\Cells;
+.. literalinclude:: view_cells/004.php
 
-    class AlertMessage
-    {
-        public function show(array $params): string
-        {
-            return "<div class="alert alert-{$params['type']}">{$params['message']}</div>";
-        }
-    }
+您可以在视图中这样调用它：
 
-你可以在视图内这样调用它:
-::
+.. literalinclude:: view_cells/005.php
 
-    <?= view_cell('AlertMessage::show', ['type' => 'success', 'message' => 'The user has been updated.']) ?>
+此外，您可以使用与方法中的参数变量匹配的参数名称以提高可读性。
+当您以这种方式使用时，视图单元调用中必须始终指定所有参数：
 
-另外,你可以使用与方法中的参数变量匹配的参数名称以提高可读性。
-以这种方式使用时,在视图单元格调用中必须始终指定所有参数::
+.. literalinclude:: view_cells/006.php
 
-    // 在视图中
-    <?= view_cell('Blog::recentPosts', 'category=codeigniter, limit=5') ?>
-
-    // 在单元格中
-    public function recentPosts(string $category, int $limit)
-    {
-        $posts = $this->blogModel->where('category', $category)
-                                 ->orderBy('published_on', 'desc')
-                                 ->limit($limit)
-                                 ->get();
-
-        return view('recentPosts', ['posts' => $posts]);
-    }
+.. literalinclude:: view_cells/007.php
 
 .. _controlled-cells:
 
 ****************
-受控单元格
+受控单元
 ****************
 
 .. versionadded:: 4.3.0
 
-受控单元格主要有两个目标:尽可能快速地构建单元格,并在视图需要时为视图提供额外的逻辑和灵活性。该类必须扩展 ``CodeIgniter\View\Cells\Cell``。它们应该在同一文件夹中有一个视图文件。按照惯例,类名应采用 PascalCase 后缀为 ``Cell``,视图应该是类名的 snake_case 版本,没有后缀。例如,如果有一个 ``MyCell`` 类,视图文件应该是 ``my.php``。
+受控单元有两个主要目标：尽可能快地构建单元，并为视图提供额外的逻辑和灵活性（如果需要）。该类必须扩展 ``CodeIgniter\View\Cells\Cell``。它们应该在同一文件夹中有一个视图文件。按照惯例，类名应为 PascalCase，后缀为 ``Cell``，视图应为类名的 snake_case 版本，不包括后缀。例如，如果您有一个 ``MyCell`` 类，视图文件应为 ``my.php``。
 
-.. note:: 在 v4.3.5 之前的版本中,生成的视图文件以 ``_cell.php`` 结尾。尽管 v4.3.5 和更高版本将生成不带 ``_cell`` 后缀的视图文件,但现有的视图文件仍然会被定位和加载。
+.. note:: 在 v4.3.5 之前，生成的视图文件以 ``_cell.php`` 结尾。尽管 v4.3.5 及更高版本将生成不带 ``_cell`` 后缀的视图文件，但现有的视图文件仍将被定位和加载。
 
-创建受控单元格
+创建受控单元
 ==========================
 
-在最基本的级别上,你需要在类中实现的是公共属性。这些属性将自动供视图文件使用。将上面的 AlertMessage 作为受控单元格实现如下:
-::
+在类中实现的最基本的级别上，您只需要实现公共属性。这些属性将自动提供给视图文件。将上面的 AlertMessage 实现为受控单元将如下所示：
 
-    // app/Cells/AlertMessageCell.php
-    namespace App\Cells;
+.. literalinclude:: view_cells/008.php
 
-    use CodeIgniter\View\Cells\Cell;
+.. literalinclude:: view_cells/009.php
 
-    class AlertMessageCell extends Cell
-    {
-        public $type;
-        public $message;
-    }
-
-    // app/Cells/alert_message.php
-    <div class="alert alert-<?= esc($type, 'attr') ?>">
-        <?= esc($message) ?>
-    </div>
-
-    // 在主视图中调用:
-    <?= view_cell('AlertMessageCell', 'type=warning, message=Failed.') ?>
+.. literalinclude:: view_cells/010.php
 
 .. _generating-cell-via-command:
 
-通过命令生成单元格
+通过命令生成单元
 ===========================
 
-你还可以通过内置命令从 CLI 生成受控单元格。该命令是 ``php spark make:cell``。它接受一个参数,要创建的单元格的名称。名称应采用 PascalCase,类将在 ``app/Cells`` 目录中创建。视图文件也将在 ``app/Cells`` 目录中创建。
+您还可以通过 CLI 中的内置命令创建受控单元。该命令是 ``php spark make:cell``。它接受一个参数，要创建的单元的名称。名称应为 PascalCase，类将在 **app/Cells** 目录中创建。视图文件也将在 **app/Cells** 目录中创建。
 
-::
+.. code-block:: console
 
-    > php spark make:cell AlertMessageCell
+    php spark make:cell AlertMessageCell
 
 使用不同的视图
 ======================
 
-你可以通过在类中设置 ``view`` 属性来指定自定义视图名称。视图的定位与正常视图相同。
+您可以通过在类中设置 ``view`` 属性来指定自定义视图名称。视图将像正常情况下一样被定位：
 
-::
-
-    namespace App\Cells;
-
-    use CodeIgniter\View\Cells\Cell;
-
-    class AlertMessageCell extends Cell
-    {
-        public $type;
-        public $message;
-
-        protected $view = 'my/custom/view';
-    }
+.. literalinclude:: view_cells/011.php
 
 自定义渲染
 =======================
 
-如果你需要更多地控制 HTML 的渲染,可以实现一个 ``render()`` 方法。此方法允许你执行其他逻辑并在需要时向视图传递额外的数据。 ``render()`` 方法必须返回一个字符串。要利用受控单元格的全部功能,你应该使用 ``$this->view()`` 代替正常的 ``view()`` 辅助函数。
-::
+如果您需要更多控制HTML的渲染过程，可以实现一个 ``render()`` 方法。该方法允许您执行其他逻辑并向视图传递额外的数据（如果需要）。``render()`` 方法必须返回一个字符串。为了充分利用受控单元的全部功能，您应该使用 ``$this->view()`` 而不是普通的 ``view()`` 辅助函数：
 
-    namespace App\Cells;
-
-    use CodeIgniter\View\Cells\Cell;
-
-    class AlertMessageCell extends Cell
-    {
-        public $type;
-        public $message;
-
-        public function render(): string
-        {
-            return $this->view('my/custom/view', ['extra' => 'data']);
-        }
-    }
+.. literalinclude:: view_cells/012.php
 
 计算属性
 ===================
 
-如果你需要为一个或多个属性执行其他逻辑,可以使用计算属性。这需要将属性设置为 ``protected`` 或 ``private``,并实现一个由属性名称包围在 ``get`` 和 ``Property`` 之间的公共方法。
-::
+如果您需要为一个或多个属性执行其他逻辑，可以使用计算属性。这需要将属性设置为 ``protected`` 或 ``private``，并实现一个公共方法，该方法的名称由属性名称包围 ``get`` 和 ``Property`` 组成：
 
-    // 在视图中初始化受保护的属性
-    view_cell('AlertMessageCell', ['type' => 'note', 'message' => 'test']);
+.. literalinclude:: view_cells/013.php
 
-    // app/Cells/AlertMessageCell.php
-    namespace App\Cells;
+.. literalinclude:: view_cells/014.php
 
-    use CodeIgniter\View\Cells\Cell;
+.. literalinclude:: view_cells/015.php
 
-    class AlertMessageCell extends Cell
-    {
-        protected $type;
-        protected $message;
-        private $computed;
+.. important:: 无法设置在单元初始化期间声明为私有的属性。
 
-        public function mount()
-        {
-            $this->computed = sprintf('%s - %s', $this->type, $this->message);
-        }
-
-        public function getComputedProperty(): string
-        {
-            return $this->computed;
-        }
-
-        public function getTypeProperty(): string
-        {
-            return $this->type;
-        }
-
-        public function getMessageProperty(): string
-        {
-            return $this->message;
-        }
-    }
-
-    // app/Cells/alert_message.php
-    <div>
-        <p>type - <?= esc($type) ?></p>
-        <p>message - <?= esc($message) ?></p>
-        <p>computed: <?= esc($computed) ?></p>
-    </div>
-
-.. important:: 在单元格初始化期间,你不能设置声明为私有的属性。
-
-呈现方法
+演示方法
 ====================
 
-有时你需要对视图执行其他逻辑,但你不想将其作为参数传递。你可以实现一个将从单元格的视图本身调用的方法。这可以帮助提高视图的可读性。
-::
+有时您需要为视图执行其他逻辑，但不想将其作为参数传递。您可以实现一个在单元的视图内部调用的方法。这可以提高视图的可读性：
 
-    // app/Cells/RecentPostsCell.php
-    namespace App\Cells;
+.. literalinclude:: view_cells/016.php
 
-    use CodeIgniter\View\Cells\Cell;
-
-    class RecentPostsCell extends Cell
-    {
-        protected $posts;
-
-        public function linkPost($post)
-        {
-            return anchor('posts/' . $post->id, $post->title);
-        }
-    }
-
-    // app/Cells/recent_posts.php
-    <ul>
-        <?php foreach ($posts as $post): ?>
-            <li><?= $this->linkPost($post) ?></li>
-        <?php endforeach ?>
-    </ul>
+.. literalinclude:: view_cells/017.php
 
 执行设置逻辑
 ======================
 
-如果你需要在渲染视图之前执行其他逻辑,可以实现一个 ``mount()`` 方法。在类实例化后立即调用此方法,可用于设置其他属性或执行其他逻辑。
+如果您需要在渲染视图之前执行其他逻辑，可以实现一个 ``mount()`` 方法。该方法将在类实例化后立即调用，并可用于设置其他属性或执行其他逻辑：
 
-::
+.. literalinclude:: view_cells/018.php
 
-    namespace App\Cells;
+您可以通过将它们作为数组传递给 ``view_cell()`` 辅助函数来将其他参数传递给 ``mount()`` 方法。任何与 ``mount()`` 方法的参数名称匹配的参数将被传递进去：
 
-    use CodeIgniter\View\Cells\Cell;
+.. literalinclude:: view_cells/019.php
 
-    class RecentPostsCell extends Cell
-    {
-        protected $posts;
-
-        public function mount()
-        {
-            $this->posts = model('PostModel')->getRecent();
-        }
-    }
-
-你可以通过将它们作为数组传递给 ``view_cell()`` 辅助函数来向 ``mount()`` 方法传递其他参数。传递的与 ``mount`` 方法参数名称匹配的任何参数都将被传递进去。
-::
-
-    // app/Cells/RecentPostsCell.php
-    namespace App\Cells;
-
-    use CodeIgniter\View\Cells\Cell;
-
-    class RecentPostsCell extends Cell
-    {
-        protected $posts;
-
-        public function mount(?int $categoryId)
-        {
-            $this->posts = model('PostModel')
-                ->when($categoryId, function ($query, $category) {
-                    return $query->where('category_id', $categoryId);
-                })
-                ->getRecent();
-        }
-    }
-
-    // 在主视图中调用:
-    <?= view_cell('RecentPostsCell', ['categoryId' => 5]) ?>
+.. literalinclude:: view_cells/020.php
 
 ************
-单元格缓存
+单元缓存
 ************
 
-你可以通过将要缓存数据的秒数作为第三个参数传入来缓存视图单元格调用的结果。这将使用当前配置的缓存引擎。
-::
+您可以通过将要缓存数据的秒数作为第三个参数传递来缓存视图单元调用的结果。这将使用当前配置的缓存引擎：
 
-    // 缓存视图 5 分钟
-    <?= view_cell('App\Cells\Blog::recentPosts', 'limit=5', 300) ?>
+.. literalinclude:: view_cells/021.php
 
-如果喜欢,你可以提供一个自定义名称代替自动生成的名称,方法是将新名称作为第四个参数传递::
+如果需要，您可以提供一个自定义名称，而不是自动生成的名称，通过将新名称作为第四个参数传递：
 
-    // 缓存视图 5 分钟
-    <?= view_cell('App\Cells\Blog::recentPosts', 'limit=5', 300, 'newcacheid') ?>
+.. literalinclude:: view_cells/022.php

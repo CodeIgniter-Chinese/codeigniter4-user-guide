@@ -57,9 +57,11 @@ Publisher 库提供了使用强大的检测和错误检查在项目内复制文�
 
 .. literalinclude:: publisher/006.php
 
-大多数时候你不需要自己处理发现,只需使用提供的“publish”命令::
+大多数时候你不需要自己处理发现,只需使用提供的“publish”命令:
 
-    > php spark publish
+.. code-block:: console
+
+    php spark publish
 
 默认情况下,在你的类扩展上 ``publish()`` 将从你的 ``$source`` 添加所有文件并合并到你的目标位置,在冲突时覆盖。
 
@@ -99,10 +101,14 @@ Publisher 库提供了使用强大的检测和错误检查在项目内复制文�
 
 .. literalinclude:: publisher/009.php
 
-现在通过 Composer 添加依赖项并调用 ``spark publish`` 来运行发布::
+.. note:: 在执行命令之前，必须先创建目录 ``$destination``。
 
-    > composer require twbs/bootstrap
-    > php spark publish
+现在通过 Composer 添加依赖项并调用 ``spark publish`` 来运行发布:
+
+.. code-block:: console
+
+    composer require twbs/bootstrap
+    php spark publish
 
 ... 然后你会在项目中得到类似下面的结果::
 

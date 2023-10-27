@@ -46,9 +46,11 @@ ENVIRONMENT 常量
 
     CI_ENVIRONMENT = development
 
-.. note:: 你可以通过 ``spark env`` 命令更改 **.env** 文件中的 ``CI_ENVIRONMENT`` 值::
+.. note:: 你可以通过 ``spark env`` 命令更改 **.env** 文件中的 ``CI_ENVIRONMENT`` 值:
 
-    > php spark env production
+    .. code-block:: console
+
+        php spark env production
 
 .. _environment-apache:
 
@@ -112,9 +114,11 @@ CodeIgniter 要求与环境名称匹配的 PHP 脚本位于 **APPPATH/Config/Boo
 
 要确认当前环境,只需打印常量 ``ENVIRONMENT``。
 
-你也可以通过 ``spark env`` 命令检查当前环境::
+你也可以通过 ``spark env`` 命令检查当前环境:
 
-    > php spark env
+.. code-block:: console
+
+    php spark env
 
 *************************************
 对默认框架行为的影响

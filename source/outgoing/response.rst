@@ -24,7 +24,7 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 
 .. literalinclude:: response/002.php
 
-你可以将一个数组格式化为 JSON 或 XML,并通过 ``setJSON`` 和 ``setXML`` 方法将 content type header 设置为适当的 MIME 类型。通常,你会传递一个数据数组进行转换:
+你可以将一个数组格式化为 JSON 或 XML,并通过 ``setJSON()`` 和 ``setXML()`` 方法将 content type header 设置为适当的 MIME 类型。通常,你会传递一个数据数组进行转换:
 
 .. literalinclude:: response/003.php
 
@@ -142,6 +142,15 @@ Response 类提供了一种简单的方法来将文件发送给客户端,提示�
 .. literalinclude:: response/009.php
 
 .. note:: 必须返回响应对象以便下载被发送到客户端。这允许在被发送到客户端之前通过所有的 **after** 过滤器来传递响应。
+
+.. _open-file-in-browser:
+
+在浏览器中打开文件
+--------------------
+
+一些浏览器可以显示诸如 PDF 等文件。为了告诉浏览器显示文件而不是保存它，调用 ``DownloadResponse::inline()`` 方法。
+
+.. literalinclude:: response/033.php
 
 HTTP 缓存
 ============
@@ -379,7 +388,7 @@ HTTP 缓存
 
     .. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httponly = false[, $samesite = null]]]]]]]])
 
-        :param array|Cookie|string $name: Cookie 名称或参数数组或 ``CodeIgniter\Cookie\Cookie`` 实例
+        :param array|Cookie|string $name: Cookie 名称 *或* 包含此方法可用的所有参数的关联数组 *或* ``CodeIgniter\Cookie\Cookie`` 的实例。
         :param string $value: Cookie 值
         :param int $expire: Cookie 到期时间,以秒为单位。如果设置为 ``0`` cookie 将只保持浏览器打开时有效
         :param string $domain: Cookie 域名

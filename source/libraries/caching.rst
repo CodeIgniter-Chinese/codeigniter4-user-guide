@@ -20,6 +20,8 @@ CodeIgniter 提供了一些最常用的快速动态缓存的封装。除基于�
 
 .. literalinclude:: caching/002.php
 
+.. _libraries-caching-configuring-the-cache:
+
 *********************
 配置缓存
 *********************
@@ -73,16 +75,20 @@ CodeIgniter 提供了几个可以从命令行使用的 :doc:`commands </cli/spar
 cache:clear
 ===========
 
-清除当前系统缓存::
+清除当前系统缓存:
 
-    > php spark cache:clear
+.. code-block:: console
+
+    php spark cache:clear
 
 cache:info
 ==========
 
-显示当前系统中的文件缓存信息::
+显示当前系统中的文件缓存信息:
 
-    > php spark cache:info
+.. code-block:: console
+
+    php spark cache:info
 
 .. note:: 这个命令只支持 File 缓存处理程序。
 
@@ -286,9 +292,11 @@ Redis 是一个内存中的键值存储,可以以 LRU 缓存模式运行。要�
 Predis 缓存
 ==============
 
-Predis 是一个用于 Redis 键值存储的灵活且功能完善的 PHP 客户端库。要使用它,从项目根目录的命令行中运行::
+Predis 是一个用于 Redis 键值存储的灵活且功能完善的 PHP 客户端库。要使用它,从项目根目录的命令行中运行:
 
-    > composer require predis/predis
+.. code-block:: console
+
+    composer require predis/predis
 
 有关 Redis 的更多信息,请查看
 `https://github.com/nrk/predis <https://github.com/nrk/predis>`_。

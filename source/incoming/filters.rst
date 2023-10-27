@@ -6,7 +6,9 @@
     :local:
     :depth: 2
 
-控制器过滤器允许你在控制器执行之前或之后执行操作。与 :doc:`事件 <../extending/events>` 不同,你可以选择应用过滤器的特定 URI。传入过滤器可以修改请求,而后置过滤器可以操作甚至修改响应,提供了很大的灵活性和能力。使用过滤器可以执行的一些常见任务示例:
+控制器过滤器允许您在控制器执行之前或之后执行操作。与 :doc:`事件 <../extending/events>` 不同，您可以选择将过滤器应用于特定的 URI 或路由。前置过滤器可以修改请求，而后置过滤器可以对响应进行操作甚至修改，从而提供了很大的灵活性和功能。
+
+使用过滤器可以执行的一些常见任务示例:
 
 * 对传入请求执行 CSRF 保护
 * 根据角色限制站点的区域访问
@@ -23,7 +25,7 @@
 
 .. literalinclude:: filters/001.php
 
-Before 过滤器
+前置过滤器
 ==============
 
 替换请求
@@ -51,7 +53,7 @@ Before 过滤器
 
 .. _after-filters:
 
-After 过滤器
+后置过滤器
 =============
 
 After 过滤器与 Before 过滤器几乎完全相同,只是你只能返回 ``$response`` 对象,并且无法停止脚本执行。这确实允许你修改最终输出,或者只是做一些最终输出的事情。这可以用于确保某些安全头正确设置,缓存最终输出,或者使用禁用词过滤器过滤最终输出。
@@ -60,9 +62,15 @@ After 过滤器与 Before 过滤器几乎完全相同,只是你只能返回 ``$r
 配置过滤器
 *******************
 
-创建过滤器后,你需要配置它们的运行时机。这是在 **app/Config/Filters.php** 中完成的。该文件包含四个属性,允许你配置过滤器的确切运行时机。
+配置过滤器运行时有两种方法。一种是在 **app/Config/Filters.php** 中进行配置，另一种是在 **app/Config/Routes.php** 中进行配置。
+
+如果您想为特定的路由指定过滤器，请使用 **app/Config/Routes.php** 并参考 :ref:`URI Routing <applying-filters>`。
+
+在路由中指定的过滤器（在 **app/Config/Routes.php** 中）会在 **app/Config/Filters.php** 中指定的过滤器之前执行。
 
 .. note:: 最安全的应用过滤器方法是 :ref:`禁用自动路由 <use-defined-routes-only>`,并 :ref:`设置过滤器到路由 <applying-filters>`。
+
+**app/Config/Filters.php** 文件包含四个属性，允许您精确配置过滤器的运行时机。
 
 .. warning:: 建议你在过滤器设置中的 URI 末尾始终添加 ``*``。因为控制器方法可能比你想象的通过不同的 URL 访问。例如,当启用 :ref:`auto-routing-legacy` 时,如果你有 ``Blog::index``,它可以通过 ``blog``、``blog/index`` 和 ``blog/index/1`` 等方式访问。
 
@@ -91,11 +99,11 @@ $globals
 除了少数 URI
 ---------------------
 
-有时你希望将过滤器应用于几乎所有请求,但有一些应该不受影响。一个常见的示例是,如果你需要从 CSRF 保护过滤器中排除几个 URI,以允许第三方网站的请求访问一个或两个特定的 URI,同时保持其余 URI 受保护。要做到这一点,请在别名旁边添加一个包含 ``except`` 键和要匹配的 URI 值的数组:
+有时你希望将过滤器应用于几乎所有请求,但有一些应该不受影响。一个常见的示例是,如果你需要从 CSRF 保护过滤器中排除几个 URI,以允许第三方网站的请求访问一个或两个特定的 URI,同时保持其余 URI 受保护。要做到这一点,请在别名旁边添加一个包含 ``except`` 键和要匹配的 URI 路径（相对于 BaseURL）值的数组:
 
 .. literalinclude:: filters/006.php
 
-在过滤器设置中可以使用 URI 的任何位置,你都可以使用正则表达式,或者像在这个例子中使用星号 (``*``) 作为通配符,匹配之后的所有字符。在这个例子中,任何以 ``api/`` 开头的 URL 都将被免于 CSRF 保护,但网站的表单将全部受保护。如果你需要指定多个 URI,可以使用 URI 模式数组:
+在过滤器设置中可以使用 URI 路径（相对于 BaseURL）的任何位置,你都可以使用正则表达式,或者像在这个例子中使用星号 (``*``) 作为通配符,匹配之后的所有字符。在这个例子中,任何以 ``api/`` 开头的 URI 路径都将被免于 CSRF 保护,但网站的表单将全部受保护。如果你需要指定多个 URI,可以使用 URI 路径模式数组:
 
 .. literalinclude:: filters/007.php
 
@@ -115,18 +123,22 @@ $methods
 $filters
 ========
 
-该属性是一个过滤器别名数组。对于每个别名,你可以为 ``before`` 和 ``after`` 数组指定过滤器应该应用到的一系列 URI 模式:
+该属性是一个过滤器别名数组。对于每个别名,你可以为 ``before`` 和 ``after`` 数组指定过滤器应该应用到的一系列 URI 路径（相对于 BaseURL）模式:
 
 .. literalinclude:: filters/009.php
 
+.. _filters-filters-filter-arguments:
+
 过滤器参数
-================
+----------------
 
-在配置过滤器时,可以在设置路由时向过滤器传递其他参数:
+.. versionadded:: 4.4.0
 
-.. literalinclude:: filters/010.php
+在配置 ``$filters`` 时，可以传递额外的参数给过滤器：
 
-在这个例子中,数组 ``['dual', 'noreturn']`` 将在过滤器的 ``before()`` 和 ``after()`` 实现方法的 ``$arguments`` 中传递。
+.. literalinclude:: filters/012.php
+
+在这个例子中，当 URI 匹配 ``admin/*'`` 时，数组 ``['admin', 'superadmin']`` 将作为 ``$arguments`` 传递给 ``group`` 过滤器的 ``before()`` 方法。当 URI 匹配 ``admin/users/*'`` 时，数组 ``['users.manage']`` 将作为 ``$arguments`` 传递给 ``permission`` 过滤器的 ``before()`` 方法。
 
 ******************
 确认过滤器
@@ -141,9 +153,11 @@ filter:check
 
 .. versionadded:: 4.3.0
 
-使用 **GET** 方法检查路由 ``/`` 的过滤器::
+使用 **GET** 方法检查路由 ``/`` 的过滤器:
 
-    > php spark filter:check get /
+.. code-block:: console
+
+    php spark filter:check get /
 
 输出如下所示:
 
@@ -165,6 +179,8 @@ filter:check
 CodeIgniter4 提供的过滤器有: :doc:`Honeypot <../libraries/honeypot>`、:ref:`CSRF <cross-site-request-forgery>`、``InvalidChars``、``SecureHeaders`` 和 :ref:`DebugToolbar <the-debug-toolbar>`。
 
 .. note:: 过滤器按配置文件中定义的顺序执行。但是,如果启用, ``DebugToolbar`` 总是最后执行,因为它应该能够捕获其他过滤器中发生的所有事情。
+
+.. _invalidchars:
 
 InvalidChars
 =============

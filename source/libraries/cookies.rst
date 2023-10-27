@@ -10,7 +10,7 @@ Cookie 主要用于三个目的:
 - **个性化**:用户首选项、主题和其他设置
 - **跟踪**:记录和分析用户行为
 
-为了帮助你在请求和响应中跨浏览器高效使用 cookie,CodeIgniter 提供了 ``CodeIgniter\Cookie\Cookie`` 类来抽象 cookie 的交互。
+为了帮助你有效地向浏览器发送 Cookie，CodeIgniter 提供了 ``CodeIgniter\Cookie\Cookie`` 类来抽象化 Cookie 的交互。
 
 .. contents::
     :local:
@@ -24,11 +24,21 @@ Cookie 主要用于三个目的:
 
 .. literalinclude:: cookies/001.php
 
-在构造 ``Cookie`` 对象时,只需要 ``name`` 属性是必需的。其余的都是可选的。如果没有修改可选属性,它们的值将由 ``Cookie`` 类中保存的默认值填充。要覆盖类中当前存储的默认值,你可以传递一个 ``Config\Cookie`` 实例或默认值数组给静态 ``Cookie::setDefaults()`` 方法。
+在构造 ``Cookie`` 对象时,只需要 ``name`` 属性是必需的。其余的都是可选的。如果没有修改可选属性,它们的值将由 ``Cookie`` 类中保存的默认值填充。
+
+覆盖默认值
+===================
+
+要覆盖类中当前存储的默认值,你可以传递一个 ``Config\Cookie`` 实例或默认值数组给静态 ``Cookie::setDefaults()`` 方法。
 
 .. literalinclude:: cookies/002.php
 
-将 ``Config\Cookie`` 实例或数组传递给 ``Cookie::setDefaults()`` 将有效地覆盖你的默认值,并且持续到新的默认值被传递。如果你不想要这种行为,而只是想在有限的时间内更改默认值,你可以利用 ``Cookie::setDefaults()`` 的返回值,它返回旧的默认值数组。
+将 ``Config\Cookie`` 实例或数组传递给 ``Cookie::setDefaults()`` 将有效地覆盖你的默认值,并且持续到新的默认值被传递。
+
+有限的时间内更改默认值
+------------------------------------
+
+如果你不想要这种行为,而只是想在有限的时间内更改默认值,你可以利用 ``Cookie::setDefaults()`` 的返回值,它返回旧的默认值数组。
 
 .. literalinclude:: cookies/003.php
 
@@ -65,7 +75,7 @@ cookie 名称可以是任何 US-ASCII 字符,以下字符除外:
 - 空格或制表符;
 - 分隔符,例如 ``( ) < > @ , ; : \ " / [ ] ? = { }``
 
-如果将 ``$raw`` 参数设置为 ``true``,则会严格进行此验证。这是因为 PHP 的 ``setcookie`` 和 ``setrawcookie`` 会拒绝具有无效名称的 cookie。另外,cookie 名称不能为空字符串。
+如果将 ``$raw`` 参数设置为 ``true``,则会严格进行此验证。这是因为 PHP 的 `setcookie() <https://www.php.net/manual/en/function.setcookie.php>`_ 和 `setrawcookie() <https://www.php.net/manual/en/function.setrawcookie.php>`_ 会拒绝具有无效名称的 cookie。另外,cookie 名称不能为空字符串。
 
 验证前缀属性
 ===============================
@@ -95,19 +105,43 @@ SameSite 属性只接受三个值:
 
 .. literalinclude:: cookies/006.php
 
+***************
+发送 Cookies
+***************
+
+将 ``Cookie`` 对象设置在 Response 对象的 ``CookieStore`` 中，框架会自动发送 Cookies。
+
+使用 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 来设置：
+
+.. literalinclude:: cookies/017.php
+
+你也可以使用 :php:func:`set_cookie()` 辅助函数：
+
+.. literalinclude:: cookies/018.php
+
 **********************
 使用 Cookie 存储
 **********************
 
-``CookieStore`` 类表示 ``Cookie`` 对象的一个不可变集合。可以从当前的 ``Response`` 对象访问 ``CookieStore`` 实例。
+.. note:: 通常情况下，不需要直接使用 CookieStore。
+
+``CookieStore`` 类表示 ``Cookie`` 对象的一个不可变集合。
+
+从 Response 获取存储
+===============================
+
+可以从当前的 ``Response`` 对象访问 ``CookieStore`` 实例。
 
 .. literalinclude:: cookies/007.php
+
+创建 CookieStore
+====================
 
 CodeIgniter 提供了另外三种创建 ``CookieStore`` 新实例的方法。
 
 .. literalinclude:: cookies/008.php
 
-.. note:: 在使用全局 ``cookies()`` 函数时,只有在第二个参数 ``$getGlobal`` 设置为 ``false`` 时,才会考虑传递的 ``Cookie`` 数组。
+.. note:: 在使用全局 :php:func:`cookies()` 函数时,只有在第二个参数 ``$getGlobal`` 设置为 ``false`` 时,才会考虑传递的 ``Cookie`` 数组。
 
 检查存储中的 Cookie
 =========================
@@ -135,7 +169,7 @@ CodeIgniter 提供了另外三种创建 ``CookieStore`` 新实例的方法。
 
 .. literalinclude:: cookies/013.php
 
-.. note:: 帮助函数 ``get_cookie()`` 从当前的 ``Request`` 对象获取 cookie,而不是从 ``Response`` 获取。如果该 cookie 已设置,此函数会检查 ``$_COOKIE`` 数组并立即获取它。
+.. note:: 辅助函数 :php:func:`get_cookie()` 从当前的 ``Request`` 对象获取 cookie,而不是从 ``Response`` 获取。如果该 cookie 已设置,此函数会检查 ``$_COOKIE`` 数组并立即获取它。
 
 在存储中添加/删除 Cookie
 ================================
@@ -153,6 +187,10 @@ CodeIgniter 提供了另外三种创建 ``CookieStore`` 新实例的方法。
 
 分派存储中的 Cookie
 =============================
+
+.. deprecated:: 4.1.6
+
+.. important:: 该方法已被弃用。将在未来的版本中移除。
 
 更多时候,你不需要自己手动发送 cookie。CodeIgniter 会为你做这件事。但是,如果你真的需要手动发送 cookie,你可以使用 ``dispatch`` 方法。就像发送其他标头一样,你需要确保标头还未发送,方法是检查 ``headers_sent()`` 的值。
 
@@ -189,11 +227,11 @@ Cookie 个性化
 
     .. php:staticmethod:: setDefaults([$config = []])
 
-        :param \Config\Cookie|array $config: 配置数组或实例
+        :param \\Config\\Cookie|array $config: 配置数组或实例
         :rtype: array<string, mixed>
         :returns: 旧的默认值
 
-        通过从 ``\Config\Cookie`` 配置或数组中注入值来设置 Cookie 实例的默认属性。
+        通过从 ``Config\Cookie`` 配置或数组中注入值来设置 Cookie 实例的默认属性。
 
     .. php:staticmethod:: fromHeaderString(string $header[, bool $raw = false])
 

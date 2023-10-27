@@ -1,50 +1,40 @@
-Version 4.4.2
+版本 4.4.2
 #############
 
-Release Date: October 19, 2023
+发布日期：2023年10月19日
 
-**4.4.2 release of CodeIgniter4**
+**CodeIgniter4 的 4.4.2 版本**
 
 .. contents::
     :local:
     :depth: 3
 
-Message Changes
+消息变更
 ***************
 
-- Added ``Language.invalidMessageFormat`` error message.
+- 添加了 ``Language.invalidMessageFormat`` 错误消息。
 
-Changes
+变更
 *******
 
-- **Database Migrations:** The ``-g`` option for the ``spark migrate:rollback``
-  command was removed. It did not work from the beginning. Also, the rollback
-  command returns the database(s) state to a specified batch number and cannot
-  specify only a specific database group.
-- **Security:** The presence of the CSRF token is now also checked in the raw body (not JSON format) for PUT, PATCH, and DELETE type of requests.
+- **数据库迁移：** 移除了 ``spark migrate:rollback`` 命令的 ``-g`` 选项。该选项从一开始就无效。此外，回滚命令将数据库状态恢复到指定的批次号，并且无法仅指定特定的数据库组。
+- **安全性：** 现在还会检查原始请求体（非 JSON 格式）中的 CSRF 令牌，用于 PUT、PATCH 和 DELETE 类型的请求。
 
-Deprecations
+弃用
 ************
 
-- **Filters:** The Auto-Discovery for Filters and ``Filters::discoverFilters()``
-  is deprecated. Use :ref:`registrars` instead. See :ref:`modules-filters` for
-  details.
-- **CLI:** The public property ``CLI::$readline_support`` and ``CLI::$wait_msg``
-  are deprecated. These methods will be protected.
-- **CodeIgniter:** The parameter ``$config`` for the ``displayCache()`` method is
-  deprecated. It was not used.
+- **过滤器：** 过滤器的自动发现和 ``Filters::discoverFilters()`` 方法已弃用。请改用 :ref:`registrars`。有关详细信息，请参阅 :ref:`modules-filters`。
+- **CLI：** 弃用了公共属性 ``CLI::$readline_support`` 和 ``CLI::$wait_msg``。这些方法将被保护。
+- **CodeIgniter：** ``displayCache()`` 方法的 ``$config`` 参数已弃用。未使用该参数。
 
-Bugs Fixed
+修复的问题
 **********
 
-- **CodeIgniter:** Fixed a bug that returned "200 OK" response status code when
-  Page Not Found.
-- **Spark:** Fixed a bug that caused spark to not display exceptions in the
-  production mode or to display backtrace in json when an exception occurred.
-- **Forge:** Fixed a bug where adding a Primary Key to an existing table was
-  ignored if there were no other Keys added too.
-- **Routing:** Fixed a bug that ``spark routes`` may show incorrect route names.
+- **CodeIgniter：** 修复了在页面未找到时返回 "200 OK" 响应状态码的 bug。
+- **Spark：** 修复了在生产模式下 spark 无法显示异常或在发生异常时以 JSON 格式显示回溯的 bug。
+- **Forge：** 修复了在给现有表添加主键时，如果没有添加其他键，则会被忽略的 bug。
+- **路由：** 修复了 ``spark routes`` 可能显示不正确的路由名称的 bug。
 
-See the repo's
+请参阅仓库的
 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
-for a complete list of bugs fixed.
+获取完整的修复 bug 列表。

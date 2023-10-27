@@ -8,6 +8,8 @@
 
 CodeIgniter 支持一个简单且非常灵活的布局系统,可以轻松地在整个应用程序中使用一个或多个基本页面布局。布局支持可以从任何被渲染的视图中插入的内容部分。你可以创建不同的布局以支持单列、双列、博客存档页面等。布局从不直接渲染。相反,你渲染一个视图,它指定了它想要扩展的布局。
 
+.. _creating-a-layout:
+
 *****************
 创建布局
 *****************
@@ -26,7 +28,22 @@ CodeIgniter 支持一个简单且非常灵活的布局系统,可以轻松地在�
     </body>
     </html>
 
-``renderSection()`` 方法只有一个参数 - 部分的名称。这样任何子视图都知道要命名内容部分的名称。
+``renderSection()`` 方法有两个参数：``$sectionName`` 和 ``$saveData``。``$sectionName`` 是任何子视图用来命名内容部分的部分名称。如果布尔参数 ``$saveData`` 设置为 true，该方法会保存数据以供后续调用使用。否则，该方法在显示内容后会清除数据。
+
+例如 **app/Views/welcome_message.php**::
+
+    <!doctype html>
+    <html>
+    <head>
+        <title><?= $this->renderSection('page_title', true) ?></title>
+    </head>
+    <body>
+        <h1><?= $this->renderSection('page_title') ?><h1>
+        <p><?= $this->renderSection('content') ?></p>
+    </body>
+    </html>
+
+.. note:: ``$saveData`` 可以在 v4.4.0 版本之后使用。
 
 **********************
 在视图中使用布局

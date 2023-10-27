@@ -39,9 +39,11 @@ CodeIgniter 提供了一个非常灵活的自动加载器,可以通过非常少�
 每行的键是命名空间本身。这个不需要尾部反斜杠。
 值是可以找到类的目录位置。
 
-.. note:: 你可以使用 ``spark namespaces`` 命令检查命名空间配置::
+.. note:: 你可以使用 ``spark namespaces`` 命令检查命名空间配置:
 
-    > php spark namespaces
+    .. code-block:: console
+
+        php spark namespaces
 
 默认情况下,应用程序目录被映射到 ``App`` 命名空间。你必须为应用程序目录中的控制器、库或模型添加命名空间,它们将在 ``App`` 命名空间下被找到。
 

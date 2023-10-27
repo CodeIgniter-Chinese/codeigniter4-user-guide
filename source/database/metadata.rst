@@ -71,6 +71,8 @@ $db->fieldExists()
 检索字段元数据
 =======================
 
+.. _db-metadata-getfielddata:
+
 $db->getFieldData()
 -------------------
 
@@ -94,7 +96,7 @@ $db->getFieldData()
 - type - 列的类型
 - max_length - 列的最大长度
 - primary_key - 如果列是主键,则为整数 ``1`` (即使有多个主键,也全部为整数 ``1``),否则为整数 ``0`` (此字段当前仅适用于 MySQL 和 SQLite3)
-- nullable - 如果列可为空,则为布尔值 ``true``,否则为布尔值 ``false`` (此字段当前在 SQL Server 中不可用)
+- nullable - 如果列可为空,则为布尔值 ``true``,否则为布尔值 ``false``
 - default - 默认值
 
 列出表中的索引

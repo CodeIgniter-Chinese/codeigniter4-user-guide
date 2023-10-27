@@ -31,9 +31,11 @@ Spark 命令
 
 CodeIgniter 提供了官方命令 **spark** 和内置命令。
 
-你可以运行 spark 并查看帮助::
+你可以运行 spark 并查看帮助:
 
-    > php spark
+.. code-block:: console
+
+    php spark
 
 有关详细信息,请参阅 :doc:`spark_commands` 页面。
 

@@ -22,7 +22,7 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
 
 .. php:function:: set_cookie($name[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httpOnly = false[, $sameSite = '']]]]]]]])
 
-    :param    mixed    $name: Cookie 名称 *或* 此函数可用的所有参数的关联数组
+    :param    array|Cookie|string    $name: Cookie 名称 *或* 此函数可用的所有参数的关联数组 *或* ``CodeIgniter\Cookie\Cookie`` 的实例
     :param    string    $value: Cookie 值
     :param    int    $expire: 到期秒数。如果设置为 ``0`` 则 cookie 仅在浏览器打开时有效
     :param    string    $domain: Cookie 域名(通常:.yourdomain.com)
@@ -50,11 +50,9 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
 
     .. note:: 从 v4.2.1 开始,引入了第三个参数 ``$prefix``,并且由于一个错误修复,行为发生了一些变化。详见 :ref:`升级 <upgrade-421-get_cookie>`。
 
-    该辅助函数为获取浏览器 cookie 提供了更友好的语法。有关其使用的详细描述,请参阅
-    :doc:`IncomingRequest 库 </incoming/incomingrequest>`,因为此函数的作用与 ``IncomingRequest::getCookie()``
-    非常相似,只是它还会在你可能在 **app/Config/Cookie.php** 文件中设置的 ``Config\Cookie::$prefix`` 前加上前缀。
+    这个辅助函数为您提供了更友好的语法来获取浏览器的 Cookie。有关其使用的详细描述，请参考 :doc:`IncomingRequest 库 </incoming/incomingrequest>`，因为这个函数的行为与 :php:meth:`CodeIgniter\\HTTP\\IncomingRequest::getCookie()` 非常相似，只是它还会在前面添加您在 **app/Config/Cookie.php** 文件中设置的 ``Config\Cookie::$prefix``。
 
-    .. warning:: 使用 XSS 过滤是一个不好的做法。它不能完美地防止 XSS 攻击。在视图中建议使用正确 ``$context`` 的 ``esc()``。
+    .. warning:: 使用 XSS 过滤是一个不好的做法。它不能完美地防止 XSS 攻击。在视图中建议使用正确 ``$context`` 的 :php:func:`esc()`。
 
 .. php:function:: delete_cookie($name[, $domain = ''[, $path = '/'[, $prefix = '']]])
 
@@ -68,9 +66,9 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
 
     .. literalinclude:: cookie_helper/002.php
 
-    此函数与 ``set_cookie()`` 其他方面相同,只是它没有 ``value`` 和 ``expire`` 参数。
+    此函数与 :php:func:`set_cookie()` 其他方面相同,只是它没有 ``value`` 和 ``expire`` 参数。
 
-    .. note:: 当你使用 ``set_cookie()`` 时,如果 ``value`` 设置为空字符串且 ``expire`` 设置为 ``0``,则 cookie 将被删除。
+    .. note:: 当你使用 :php:func:`set_cookie()` 时,如果 ``value`` 设置为空字符串且 ``expire`` 设置为 ``0``,则 cookie 将被删除。
         如果 ``value`` 设置为非空字符串且 ``expire`` 设置为 ``0``,则 cookie 仅在浏览器打开时有效。
 
     你可以在第一个参数中提交值数组,也可以设置离散参数。

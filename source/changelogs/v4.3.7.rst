@@ -1,42 +1,30 @@
-Version 4.3.7
+版本 4.3.7
 #############
 
-Release Date: July 30, 2023
+发布日期：2023年7月30日
 
-**4.3.7 release of CodeIgniter4**
+**CodeIgniter4 4.3.7 版本发布**
 
 .. contents::
     :local:
     :depth: 3
 
-BREAKING
+重大变更
 ********
 
-- **RouteCollection:** The second parameter ``bool $includeWildcard = true`` has
-  been added to the ``RouteCollection::getRoutes()`` method.
-- **AutoRouting Legacy:** The first parameter of the ``AutoRouter::__construct()``
-  has been changed from ``$protectedControllers`` to ``$cliRoutes``.
-- **FeatureTestTrait:** When using :ref:`withBodyFormat() <feature-formatting-the-request>`,
-  the priority of the request body has been changed.
-  See :ref:`Upgrading Guide <upgrade-437-feature-testing>` for details.
-- **Validation:** The return value of ``Validation::loadRuleGroup()`` has been
-  changed from "**rules array**" to "**array** of **rules array** and **customErrors array**"
-  (``[rules, customErrors]``).
+- **路由集合 (RouteCollection):** 在 ``RouteCollection::getRoutes()`` 方法中添加了第二个参数 ``bool $includeWildcard = true``。
+- **AutoRouting Legacy:** ``AutoRouter::__construct()`` 的第一个参数从 ``$protectedControllers`` 更改为 ``$cliRoutes``。
+- **FeatureTestTrait:** 当使用 :ref:`withBodyFormat() <feature-formatting-the-request>` 时，请求正文的优先级已更改。详情请参考 :ref:`升级指南 <upgrade-437-feature-testing>`。
+- **验证 (Validation):** ``Validation::loadRuleGroup()`` 的返回值从“**规则数组**” 更改为“**规则数组**和**自定义错误数组**的**数组**” (``[rules, customErrors]``)。
 
-Changes
+变更
 *******
 
-- The number helper function :php:func:`number_to_amount()`, which previously
-  returned "1000", has been corrected to return "1 thousand" when the number
-  is exactly 1000, for example.
+- 数字辅助函数 :php:func:`number_to_amount()`，以前返回“1000”，现在在数字恰好为1000时已更正为返回“1千”。
 
-Bugs Fixed
-**********
+已修复的错误
+************
 
-- **AutoRouting Legacy:** Fixed a bug that when you added a route with
-  ``$routes->add()``, the controller's other methods were inaccessible from the
-  web browser.
+- **自动路由遗留功能:** 修复了一个问题，当您使用``$routes->add()``添加路由时，控制器的其他方法在Web浏览器中无法访问。
 
-See the repo's
-`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
-for a complete list of bugs fixed.
+请查看仓库的 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_ 以获取已修复错误的完整列表。

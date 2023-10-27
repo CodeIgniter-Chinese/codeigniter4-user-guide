@@ -30,11 +30,39 @@ CodeIgniter 提供了一个非常简单但灵活的分页库,它易于主题化,
 
 在这个示例中,我们首先创建 ``UserModel`` 的新实例。然后我们填充要发送到视图的数据。第一个元素是来自数据库的结果, **users**,它为正确的页面检索出 10 个用户每页。必须发送到视图的第二个项目是 Pager 实例本身。为方便起见,Model 将保存它使用的实例,并将其存储在公共属性 ``$pager`` 中。所以,我们获取它并将其赋值给视图中的 ``$pager`` 变量。
 
-.. important:: 重要的是要理解 ``Model::paginate()`` 方法使用 **Model** 和 **QueryBuilder** 方法。因此,试图使用 ``$db->query()`` 和 ``Model::paginate()`` 将 **不起作用**,因为 ``$db->query()`` 会立即执行查询,并且与 QueryBuilder 不关联。
+自定义分页查询
+================
 
-要在模型中定义分页条件,你可以:
+要在模型中自定义分页查询，您可以在 ``paginate()`` 方法之前添加 :doc:`查询构建器 <../database/query_builder>` 方法。
+
+添加 WHERE
+------------
+
+如果您想添加 WHERE 条件，可以直接指定条件：
 
 .. literalinclude:: pagination/003.php
+    :lines: 2-
+
+您还可以将条件移动到单独的方法中：
+
+.. literalinclude:: pagination/017.php
+
+.. literalinclude:: pagination/018.php
+    :lines: 2-
+
+添加 JOIN
+---------
+
+您可以连接另一个表：
+
+.. literalinclude:: pagination/016.php
+
+.. important:: 需要理解的重要一点是，``Model::paginate()`` 方法使用了 **模型** 和模型中的 **查询构建器** 实例。因此，尝试使用 ``Model::paginate()`` 与 :ref:`db-query` **不起作用**，因为 ``$db->query()`` 会立即执行查询，并且与查询构建器没有关联。
+
+如果您需要一个无法使用查询构建器编写的复杂 SQL 查询，请尝试使用 :ref:`db-query` 和 `手动分页`_。
+
+显示分页链接
+======================
 
 在视图内,我们然后需要告诉它在何处显示生成的链接::
 

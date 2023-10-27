@@ -50,9 +50,11 @@
 ======================
 
 你可以从网站手动下载版本,但是对于本教程,我们将使用推荐的方法,通过 Composer 安装 AppStarter 包。
-在命令行输入以下命令::
+在命令行输入以下命令:
 
-    > composer create-project codeigniter4/appstarter ci-news
+.. code-block:: console
+
+    composer create-project codeigniter4/appstarter ci-news
 
 这将创建一个新文件夹 **ci-news**,其中包含你的应用程序代码,CodeIgniter 安装在 vendor 文件夹中。
 
@@ -62,7 +64,7 @@
 ========================
 
 默认情况下,CodeIgniter 以生产模式启动。这是一个安全特性,以防止在站点上线后设置被搞乱。
-所以首先让我们解决这个问题。复制或重命名 ``env`` 文件为 ``.env``。打开它。
+所以首先让我们解决这个问题。复制或重命名 **env** 文件为 **.env**。打开它。
 
 此文件包含服务器特定的设置。这意味着你永远不需要将任何敏感信息提交到版本控制系统。
 它已经包含一些你想要输入的常见设置,不过都是注释掉的。因此,取消注释带有 ``CI_ENVIRONMENT`` 的那行,并将 ``production`` 更改为 ``development``::
@@ -72,9 +74,11 @@
 运行开发服务器
 ==========================
 
-搞定这些后,是时候在浏览器中查看你的应用程序了。你可以通过任何你选择的服务器提供服务,比如 Apache、Nginx 等,但是 CodeIgniter 提供了一个简单的命令,利用 PHP 的内置服务器快速在你的开发机器上启动并运行。在项目的根目录下在命令行输入以下命令::
+搞定这些后,是时候在浏览器中查看你的应用程序了。你可以通过任何你选择的服务器提供服务,比如 Apache、Nginx 等,但是 CodeIgniter 提供了一个简单的命令,利用 PHP 的内置服务器快速在你的开发机器上启动并运行。在项目的根目录下在命令行输入以下命令:
 
-    > php spark serve
+.. code-block:: console
+
+    php spark serve
 
 欢迎页面
 ******************

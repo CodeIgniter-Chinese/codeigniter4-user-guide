@@ -1,19 +1,18 @@
 ##########################
-Creating Composer Packages
+创建 Composer 包
 ##########################
 
-You can make the :doc:`../general/modules` you create into Composer packages,
-or can create a Composer package for CodeIgniter 4.
+您可以将您创建的 :doc:`../general/modules` 转换为 Composer 包，或者为 CodeIgniter 4 创建一个 Composer 包。
 
 .. contents::
     :local:
     :depth: 2
 
 ****************
-Folder Structure
+文件夹结构
 ****************
 
-Here's a typical directory structure for a Composer package::
+下面是一个典型的 Composer 包的目录结构示例::
 
     your-package-name/
     ├── .gitattributes
@@ -22,20 +21,19 @@ Here's a typical directory structure for a Composer package::
     ├── README.md
     ├── composer.json
     ├── src/
-    │   └── YourClass.php
+    │   └── YourClass.php
     └── tests/
         └── YourClassTest.php
 
 **********************
-Creating composer.json
+创建 composer.json
 **********************
 
-In the root of your package directory, create a **composer.json** file. This file
-defines metadata about your package and its dependencies.
+在您的包目录的根目录中，创建一个 **composer.json** 文件。该文件定义了关于您的包及其依赖项的元数据。
 
-The ``composer init`` command helps you create it.
+使用 ``composer init`` 命令可以帮助您创建它。
 
-For example, **composer.json** might look like this::
+例如，**composer.json** 可能如下所示::
 
     {
         "name": "your-vendor/your-package",
@@ -54,60 +52,53 @@ For example, **composer.json** might look like this::
             }
         ],
         "require": {
-            // Any dependencies required by your package go here
+            // 在此处添加您的包所需的任何依赖项
         },
         "require-dev": {
-            // Any development dependencies (e.g., PHPUnit) go here
+            // 在此处添加开发所需的任何依赖项（例如 PHPUnit）
         }
     }
 
-Package Name
+包名称
 ============
 
-The ``name`` field is important here. Package names are generally written in the
-format "vendor-name/package-name" with all lowercase. Here is a common example:
+``name`` 字段在这里非常重要。包名称通常以 "vendor-name/package-name" 的格式书写，全部小写。以下是一个常见的示例：
 
-- ``your-vendor-name``: The name that identifies the vendor (creator of the package),
-  such as your name or your organization.
-- ``your-package-name``: The name of the package you are creating.
+- ``your-vendor-name``：标识供应商（包的创建者）的名称，例如您的姓名或组织名称。
+- ``your-package-name``：您正在创建的包的名称。
 
-Thus, it is important to make the name unique to distinguish it from other packages.
-Uniqueness is especially important when publishing.
+因此，为了使名称唯一以区分其它包，使其与其他包区分开是非常重要的，尤其是在发布时。
 
-Namespace
+命名空间
 =========
 
-The package name then determines the vendor namespace in ``autoload.psr4``.
+包名称决定了 ``autoload.psr4`` 中的供应商命名空间。
 
-If your package name is ``your-vendor/your-package``, the vendor namespace must
-be ``YourVendor``. So you would write like the following::
+如果您的包名称是 ``your-vendor/your-package``，那么供应商命名空间必须是 ``YourVendor``。因此，您需要像下面这样编写::
 
     "autoload": {
         "psr-4": {
             "YourVendor\\YourPackage\\": "src/"
         }
-    },
+    }
 
-This setting instructs Composer to autoload the source code for your package.
+这个设置指示 Composer 自动加载您的包的源代码。
 
-Choosing License
+选择许可证
 ================
 
-If you are not familiar with open source licenses, see https://choosealicense.com/.
-Many PHP packages, including CodeIgniter, use the MIT license.
+如果您对开源许可证不熟悉，请参考 https://choosealicense.com/。许多 PHP 包，包括 CodeIgniter，使用 MIT 许可证。
 
 ***************************
-Preparing Development Tools
+准备开发工具
 ***************************
 
-There are many tools that help ensure quality code. So you should use them.
-You can easily install and configure such tools with
-`CodeIgniter DevKit <https://github.com/codeigniter4/devkit>`_.
+有许多工具可以帮助确保代码质量。因此，您应该使用它们。您可以使用 `CodeIgniter DevKit <https://github.com/codeigniter4/devkit>`_ 轻松安装和配置此类工具。
 
-Installing DevKit
+安装 DevKit
 =================
 
-In the root of your package directory, run the following commands:
+在您的包目录的根目录中，运行以下命令：
 
 .. code-block:: console
 
@@ -115,27 +106,22 @@ In the root of your package directory, run the following commands:
     composer config prefer-stable true
     composer require --dev codeigniter4/devkit
 
-The DevKit installs various Composer packages that helps your development, and
-installs templates for them in **vendor/codeigniter4/devkit/src/Template**.
-Copy the files in it to your project root folder, and edit them for your needs.
+DevKit 安装了各种 Composer 包，帮助您进行开发，并在 **vendor/codeigniter4/devkit/src/Template** 中为它们安装了模板。将其中的文件复制到您的项目根目录，并根据您的需求进行编辑。
 
-Configuring Coding Standards Fixer
+配置 Coding Standards Fixer
 ==================================
 
-DevKit provides Coding Standards Fixer with
-`CodeIgniter Coding Standard <https://github.com/CodeIgniter/coding-standard>`_
-based on `PHP-CS-Fixer <https://github.com/PHP-CS-Fixer/PHP-CS-Fixer>`_.
+DevKit 提供了基于 `PHP-CS-Fixer <https://github.com/PHP-CS-Fixer/PHP-CS-Fixer>`_ 的 `CodeIgniter Coding Standard <https://github.com/CodeIgniter/coding-standard>`_ 的 Coding Standards Fixer。
 
-Copy **vendor/codeigniter4/devkit/src/Template/.php-cs-fixer.dist.php** to your
-project root folder.
+将 **vendor/codeigniter4/devkit/src/Template/.php-cs-fixer.dist.php** 复制到您的项目根目录。
 
-Create the **build** folder for the cache file::
+为缓存文件创建 **build** 文件夹::
 
     your-package-name/
     ├── .php-cs-fixer.dist.php
     ├── build/
 
-Open **.php-cs-fixer.dist.php** in your editor, and fix the folder path::
+打开您的编辑器中的 **.php-cs-fixer.dist.php** 文件，并修复文件夹路径::
 
     --- a/.php-cs-fixer.dist.php
     +++ b/.php-cs-fixer.dist.php
@@ -149,14 +135,13 @@ Open **.php-cs-fixer.dist.php** in your editor, and fix the folder path::
          ])
          ->exclude([
 
-That't it. Now you can run Coding Standards Fixer:
+完成后，您可以运行 Coding Standards Fixer：
 
 .. code-block:: console
 
     vendor/bin/php-cs-fixer fix --ansi --verbose --diff
 
-If you add ``scripts.cs-fix`` in your **composer.json**, you can run it with
-``composer cs-fix`` command::
+如果您在 **composer.json** 中添加了 ``scripts.cs-fix``，则可以使用 ``composer cs-fix`` 命令运行它::
 
     {
         // ...
@@ -167,35 +152,28 @@ If you add ``scripts.cs-fix`` in your **composer.json**, you can run it with
     }
 
 ************
-Config Files
+配置文件
 ************
 
-Allowing Users to Override Settings
+允许用户覆盖设置
 ===================================
 
-If your package has a configuration file and you want users to be able to override
-the settings, use :php:func:`config()` with the short classname like ``config('YourConfig')``
-to call the configuration file.
+如果您的包有一个配置文件，并且您希望用户能够覆盖设置，可以使用 :php:func:`config()` 函数与短类名（例如 ``config('YourConfig')``）来调用配置文件。
 
-Users can then override the package configuration by placing a configuration class
-with the same short classname in **app/Config** that extends the package Config
-class like ``YourVendor\YourPackage\Config\YourConfig``.
+然后，用户可以通过在 **app/Config** 中放置一个与短类名相同且扩展了包配置类的配置类（例如 ``YourVendor\YourPackage\Config\YourConfig``）来覆盖包配置。
 
-Overriding Settings in app/Config
+在 app/Config 中覆盖设置
 =================================
 
-If you need to override or add to known configurations in the **app/Config** folder,
-you can use :ref:`Implicit Registrars <registrars>`.
+如果您需要在 **app/Config** 文件夹中覆盖或添加已知配置，可以使用 :ref:`Implicit Registrars <registrars>`。
 
 **********
-References
+参考资料
 **********
 
-We have published some official packages. You can use these packages as references
-when creating your own packages:
+我们已经发布了一些官方包。您可以在创建自己的包时使用这些包作为参考：
 
 - https://github.com/codeigniter4/shield
 - https://github.com/codeigniter4/settings
 - https://github.com/codeigniter4/tasks
 - https://github.com/codeigniter4/cache
-

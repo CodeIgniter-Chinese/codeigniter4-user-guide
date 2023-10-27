@@ -12,4 +12,5 @@
     events
     basecontroller
     authentication
+    composer_packages
     contributing

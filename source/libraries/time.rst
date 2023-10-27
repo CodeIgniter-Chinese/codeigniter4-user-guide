@@ -16,7 +16,11 @@ CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类,该
 实例化
 *************
 
-有几种方法可以创建新的 Time 实例。第一种就是像任何其他类一样简单地创建一个新实例。当你以这种方式执行时,你可以传递一个表示所需时间的字符串。这可以是 PHP 的 strtotime 函数可以解析的任何字符串:
+有几种方法可以创建新的 Time 实例。第一种就是像任何其他类一样简单地创建一个新实例。
+
+当你以这种方式执行时,你可以传递一个表示所需时间的字符串。这可以是 PHP 的 `strtotime()`_ 函数可以解析的任何字符串:
+
+.. _strtotime(): https://www.php.net/manual/en/function.strtotime.php
 
 .. literalinclude:: time/001.php
 
@@ -130,7 +134,7 @@ toDateTimeString()
 ==================
 
 这是三个帮助方法中的第一个,用于处理 `IntlDateFormatter <https://www.php.net/manual/en/class.intldateformatter.php>`_ 而不必记住它们的值。
-这将返回以 (Y-m-d H:i:s) 格式化的本地化字符串版本:
+这将返回以 (``Y-m-d H:i:s``) 格式化的本地化字符串版本:
 
 .. literalinclude:: time/016.php
 

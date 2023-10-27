@@ -139,7 +139,7 @@ Message 类为 HTTP 消息中请求和响应共有的部分提供了一个接口
         :returns: 当前的 HTTP 协议版本
         :rtype: string
 
-        返回消息的当前 HTTP 协议。如果未设置,将返回 ``null``。可接受的值为 “1.0”、“1.1” 和 “2.0”。
+        返回消息的当前 HTTP 协议。如果未设置,将返回 ``1.1``。
 
     .. php:method:: setProtocolVersion($version)
 
@@ -147,6 +147,6 @@ Message 类为 HTTP 消息中请求和响应共有的部分提供了一个接口
         :returns: 当前消息实例
         :rtype: CodeIgniter\\HTTP\\Message
 
-        设置此消息使用的 HTTP 协议版本。有效值为 “1.0”、“1.1” 和 “2.0”:
+        设置此消息使用的 HTTP 协议版本。有效值为 ``1.0``, ``1.1``, ``2.0`` 和 ``3.0``:
 
         .. literalinclude:: message/010.php

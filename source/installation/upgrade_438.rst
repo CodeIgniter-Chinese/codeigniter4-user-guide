@@ -1,41 +1,37 @@
 #############################
-Upgrading from 4.3.7 to 4.3.8
+从 4.3.7 升级到 4.3.8
 #############################
 
-Please refer to the upgrade instructions corresponding to your installation method.
+请参考与您的安装方法相对应的升级说明。
 
-- :ref:`Composer Installation App Starter Upgrading <app-starter-upgrading>`
-- :ref:`Composer Installation Adding CodeIgniter4 to an Existing Project Upgrading <adding-codeigniter4-upgrading>`
-- :ref:`Manual Installation Upgrading <installing-manual-upgrading>`
+- :ref:`使用 Composer 安装的应用程序启动器升级 <app-starter-upgrading>`
+- :ref:`使用 Composer 安装的将 CodeIgniter4 添加到现有项目中升级 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装升级 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-Project Files
+项目文件
 *************
 
-Some files in the **project space** (root, app, public, writable) received updates. Due to
-these files being outside of the **system** scope they will not be changed without your intervention.
+**项目空间**（根目录、app、public、writable）中的一些文件已经更新。由于这些文件位于 **system** 范围之外，因此不会在没有您干预的情况下进行更改。
 
-There are some third-party CodeIgniter modules available to assist with merging changes to
-the project space: `Explore on Packagist <https://packagist.org/explore/?query=codeigniter4%20updates>`_.
+有一些第三方 CodeIgniter 模块可用于帮助合并对项目空间的更改：`在 Packagist 上查看 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
-Content Changes
+内容更改
 ===============
 
-The following files received significant changes (including deprecations or visual adjustments)
-and it is recommended that you merge the updated versions with your application:
+以下文件已经进行了重大更改（包括弃用或视觉调整），建议您将更新后的版本与您的应用程序合并：
 
-Config
+配置
 ------
 
 - composer.json
 
-All Changes
+所有更改
 ===========
 
-This is a list of all files in the **project space** that received changes;
-many will be simple comments or formatting that have no effect on the runtime:
+这是 **项目空间** 中所有已更改的文件的列表；其中许多只是注释或格式变化，对运行时没有影响：
 
 - composer.json

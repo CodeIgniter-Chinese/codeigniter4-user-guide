@@ -147,6 +147,8 @@ getMethod()
 
 .. literalinclude:: incomingrequest/039.php
 
+.. _incomingrequest-filtering-input-data:
+
 过滤输入数据
 ====================
 
@@ -192,11 +194,9 @@ getMethod()
 
 .. literalinclude:: incomingrequest/021.php
 
-你可以使用 ``getPath()`` 和 ``setPath()`` 方法使用当前请求的 URI 字符串(相对于 baseURL 的路径)。
-请注意,共享的 ``IncomingRequest`` 实例上的此相对路径是 :doc:`URL 辅助函数 </helpers/url_helper>`
-函数使用的内容,因此这是一种有用的方法来“伪造”传入请求以进行测试:
+您可以使用 ``getRoutePath()`` 方法来处理当前 URI 字符串（相对于您的 baseURL 的路径）。
 
-.. literalinclude:: incomingrequest/022.php
+.. note:: 自 v4.4.0 版本开始，可以使用 ``getRoutePath()`` 方法。在 v4.4.0 之前，``getPath()`` 方法返回相对于您的 baseURL 的路径。
 
 上传的文件
 **************
@@ -425,13 +425,16 @@ getMethod()
         :returns:        相对于 baseURL 的当前 URI 路径
         :rtype:    string
 
-        这是确定“当前 URI”最安全的方法,因为 ``IncomingRequest::$uri``
-        可能不了解完整的 App 配置的 base URL。
+        该方法返回相对于 baseURL 的当前 URI 路径。
+
+        .. note:: 在 v4.4.0 之前，这是确定“当前 URI”的最安全的方法，因为 ``IncomingRequest::$uri`` 可能不知道完整的 App 配置的 base URL。
 
     .. php:method:: setPath($path)
 
-        :param    string    $path: 要用作当前 URI 的相对路径
-        :returns:        这个 IncomingRequest
+        .. deprecated:: 4.4.0
+
+        :param    string    $path: 用作当前 URI 的相对路径
+        :returns:        此传入请求
         :rtype:    IncomingRequest
 
-        主要用于测试目的,这允许你设置当前请求的相对路径值,而不是依赖于 URI 检测。这也会用新的路径更新底层的 ``URI`` 实例。
+        .. note:: 在 v4.4.0 之前，主要用于测试目的，这允许您设置当前请求的相对路径值，而不是依赖于 URI 检测。这也会更新底层的 ``URI`` 实例的新路径。

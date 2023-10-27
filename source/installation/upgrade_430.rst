@@ -21,11 +21,13 @@ Composer 版本
 如果你使用的是更早版本的 Composer,请升级你的 ``composer`` 工具,
 删除 **vendor/** 目录,并再次运行 ``composer update``。
 
-例如,过程如下::
+例如,过程如下:
 
-    > composer self-update
-    > rm -rf vendor/
-    > composer update
+.. code-block:: console
+
+    composer self-update
+    rm -rf vendor/
+    composer update
 
 必备文件变更
 **********************
@@ -40,10 +42,12 @@ spark
 
 .. important:: 如果不更新此文件,在运行 ``composer update`` 后 Spark 命令将完全无法工作。
 
-    升级过程例如如下::
+    升级过程例如如下:
 
-        > composer update
-        > cp vendor/codeigniter4/framework/spark .
+    .. code-block:: console
+
+        composer update
+        cp vendor/codeigniter4/framework/spark .
 
 配置文件
 ============

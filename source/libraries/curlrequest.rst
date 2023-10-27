@@ -16,14 +16,18 @@ CURLRequest 类
 CURLRequest 配置
 **********************
 
+.. _curlrequest-sharing-options:
+
 共享选项
 ===============
 
-由于历史原因,默认情况下,CURLRequest 在请求之间共享所有选项。如果你使用该类的一个实例发送多个请求,这种行为可能会导致错误请求出现不必要的头和消息体。
+.. note:: 自 v4.4.0 起，默认值已更改为 ``false``。此设置仅用于向后兼容。新用户无需更改此设置。
 
-你可以通过在 **app/Config/CURLRequest.php** 中将以下配置参数值编辑为 ``false`` 来更改此行为:
+如果您想在多个请求之间共享所有选项，请在 **app/Config/CURLRequest.php** 中将 ``$shareOptions`` 设置为 ``true``：
 
 .. literalinclude:: curlrequest/001.php
+
+如果您使用该类的实例发送多个请求，此行为可能会导致发送不必要的头部和正文的错误请求。
 
 .. note:: 在 v4.2.0 之前,即使 ``$shareOptions`` 为 false,由于一个 bug,请求消息体也不会被重置。
 
@@ -172,14 +176,16 @@ connect_timeout
 cookie
 ======
 
-这指定了 CURL 应该使用的文件名,用于读取和保存 cookie 值。这是通过 CURL_COOKIEJAR 和 CURL_COOKIEFILE 选项完成的。例如:
+这指定了 CURL 应该使用的文件名,用于读取和保存 cookie 值。这是通过 ``CURL_COOKIEJAR`` 和 ``CURL_COOKIEFILE`` 选项完成的。例如:
 
 .. literalinclude:: curlrequest/021.php
 
 debug
 =====
 
-当 ``debug`` 被传递并设置为 ``true`` 时,这将在脚本执行期间启用写入 STDERR 的其他调试信息。这是通过传递 CURLOPT_VERBOSE 并回显输出来完成的。因此,当你通过 ``spark serve`` 运行内置服务器时,你会在控制台中看到输出。否则,输出将被写入服务器的错误日志中。
+当 ``debug`` 被传递并设置为 ``true`` 时,这将在脚本执行期间启用写入 STDERR 的其他调试信息。
+
+这是通过传递 ``CURLOPT_VERBOSE`` 并回显输出来完成的。因此,当你通过 ``spark serve`` 运行内置服务器时,你会在控制台中看到输出。否则,输出将被写入服务器的错误日志中。
 
 .. literalinclude:: curlrequest/034.php
 
@@ -217,7 +223,9 @@ headers
 http_errors
 ===========
 
-默认情况下,如果返回的 HTTP 代码大于或等于 400,CURLRequest 将失败。你可以将 ``http_errors`` 设置为 ``false`` 来改为返回内容:
+默认情况下，如果返回的 HTTP 状态码大于等于 400，CURLRequest 将抛出 ``HTTPException`` 异常。
+
+如果您想查看响应正文，可以将 ``http_errors`` 设置为 ``false``，以返回内容而不是抛出异常：
 
 .. literalinclude:: curlrequest/026.php
 
@@ -239,6 +247,17 @@ multipart
 
 .. note:: ``multipart`` 不能与 ``form_params`` 选项一起使用。你只能使用其中一个。对 ``application/x-www-form-urlencoded`` 请求使用
         ``form_params``,对 ``multipart/form-data`` 请求使用 ``multipart``。
+
+.. _curlrequest-request-options-proxy:
+
+proxy
+=====
+
+.. versionadded:: 4.4.0
+
+您可以通过将关联数组作为 ``proxy`` 选项来设置代理：
+
+.. literalinclude:: curlrequest/035.php
 
 query
 =====
