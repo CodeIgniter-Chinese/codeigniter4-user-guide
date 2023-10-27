@@ -319,7 +319,7 @@
 <li><p><a class="reference internal" href="#id18" id="id42">设置环境</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#nginx" id="id43">使用 nginx 托管</a></p>
+<li><p><a class="reference internal" href="#nginx" id="id43">使用 Nginx 托管</a></p>
 <ul>
 <li><p><a class="reference internal" href="#default-conf" id="id44">default.conf</a></p></li>
 <li><p><a class="reference internal" href="#id19" id="id45">设置环境</a></p></li>
@@ -353,7 +353,7 @@
 <dt>$indexPage</dt><dd><p>如果你不想在站点 URI 中包含 <strong>index.php</strong>，请将 <code class="docutils literal notranslate"><span class="pre">$indexPage</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">''</span></code>。当框架生成你的站点 URI 时，将使用此设置。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>你可能需要配置你的 Web 服务器以访问不包含 <strong>index.php</strong> 的 URL。请参阅 <a class="reference internal" href="../general/urls.html#urls-remove-index-php"><span class="std std-ref">CodeIgniter URLs</span></a>。</p>
+<p>你可能需要配置你的 Web 服务器以访问不包含 <strong>index.php</strong> 的 URL。请参阅 <a class="reference internal" href="../general/urls.html#urls-remove-index-php"><span class="std std-ref">CodeIgniter URL</span></a>。</p>
 </div>
 </dd>
 </dl>
@@ -508,12 +508,12 @@
 </section>
 <section id="id16">
 <h4><a class="toc-backref" href="#id38">使用别名</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h4>
-<p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录：</p>
-<blockquote>
-<div><p>├── myproject/ (项目文件夹)
-│      └── public/
-└── htdocs/</p>
-</div></blockquote>
+<p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">├──</span> <span class="nx">myproject</span><span class="o">/</span> <span class="p">(</span><span class="nx">项目文件夹</span><span class="p">)</span>
+<span class="nx">│</span>      <span class="nx">└──</span> <span class="k">public</span><span class="o">/</span>
+<span class="nx">└──</span> <span class="nx">htdocs</span><span class="o">/</span>
+</pre></div>
+</div>
 <p>在主配置文件中添加以下内容，例如 <strong>apache2/conf/httpd.conf</strong>：</p>
 <div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">Alias</span><span class="w"> </span><span class="sx">/myproject</span><span class="w"> </span><span class="sx">/opt/lamp/apache2/myproject/public</span>
 <span class="nt">&lt;Directory</span><span class="w"> </span><span class="s">&quot;/opt/lamp/apache2/myproject/public&quot;</span><span class="nt">&gt;</span>
@@ -528,17 +528,13 @@
 <h4><a class="toc-backref" href="#id39">添加 .htaccess</a><a class="headerlink" href="#htaccess" title="永久链接至标题"></a></h4>
 <p>最后的选择是在项目根目录中添加 <strong>.htaccess</strong> 文件。</p>
 <p>不建议将项目文件夹放置在文档根目录中。但是，如果你没有其他选择，例如在共享服务器上，你可以使用此方法。</p>
-<p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录，并创建 <strong>.htaccess</strong> 文件：</p>
-<blockquote>
-<div><dl class="simple">
-<dt>└── htdocs/</dt><dd><dl class="simple">
-<dt>└── myproject/ (项目文件夹)</dt><dd><p>├── .htaccess
-└── public/</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</div></blockquote>
+<p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录，并创建 <strong>.htaccess</strong> 文件:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">└──</span> <span class="nx">htdocs</span><span class="o">/</span>
+    <span class="nx">└──</span> <span class="nx">myproject</span><span class="o">/</span> <span class="p">(</span><span class="nx">项目文件夹</span><span class="p">)</span>
+        <span class="nx">├──</span> <span class="o">.</span><span class="nx">htaccess</span>
+        <span class="nx">└──</span> <span class="k">public</span><span class="o">/</span>
+</pre></div>
+</div>
 <p>并将 <strong>.htaccess</strong> 编辑如下：</p>
 <div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;IfModule</span><span class="w"> </span><span class="s">mod_rewrite.c</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nb">RewriteEngine</span><span class="w"> </span><span class="k">On</span>
@@ -618,7 +614,7 @@
 </section>
 <section id="index-php">
 <h3><a class="toc-backref" href="#id41">删除 index.php</a><a class="headerlink" href="#index-php" title="永久链接至标题"></a></h3>
-<p>请参阅 <a class="reference internal" href="../general/urls.html#urls-remove-index-php-apache"><span class="std std-ref">CodeIgniter URLs</span></a>。</p>
+<p>请参阅 <a class="reference internal" href="../general/urls.html#urls-remove-index-php-apache"><span class="std std-ref">CodeIgniter URL</span></a>。</p>
 </section>
 <section id="id18">
 <h3><a class="toc-backref" href="#id42">设置环境</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
@@ -626,11 +622,11 @@
 </section>
 </section>
 <section id="nginx">
-<h2><a class="toc-backref" href="#id43">使用 nginx 托管</a><a class="headerlink" href="#nginx" title="永久链接至标题"></a></h2>
-<p>nginx 是第二常用的用于 Web 托管的 HTTP 服务器。以下是一个在 Ubuntu Server 上使用 PHP 8.1 FPM（Unix 套接字）的示例配置。</p>
+<h2><a class="toc-backref" href="#id43">使用 Nginx 托管</a><a class="headerlink" href="#nginx" title="永久链接至标题"></a></h2>
+<p>Nginx 是第二常用的用于 Web 托管的 HTTP 服务器。以下是一个在 Ubuntu Server 上使用 PHP 8.1 FPM（Unix 套接字）的示例配置。</p>
 <section id="default-conf">
 <h3><a class="toc-backref" href="#id44">default.conf</a><a class="headerlink" href="#default-conf" title="永久链接至标题"></a></h3>
-<p>此配置使 URL 中不包含 “index.php”，并对以 “.php” 结尾的 URL 使用 CodeIgniter 的 “404 - 文件未找到”。</p>
+<p>此配置使 URL 中不包含 “index.php”，并对以 “.php” 结尾的 URL 使用 CodeIgniter 的 “404 - File Not Found”。</p>
 <div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="s">[::]:80</span><span class="p">;</span>
@@ -695,7 +691,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f8b2998a210>
+<jinja2.runtime.BlockReference object at 0x7f1092f1ffd0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
