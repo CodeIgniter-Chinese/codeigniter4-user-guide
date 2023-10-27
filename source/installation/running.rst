@@ -31,7 +31,7 @@ CodeIgniter 4 应用程序可以以多种不同的方式运行：托管在 Web �
 #. $indexPage
     如果你不想在站点 URI 中包含 **index.php**，请将 ``$indexPage`` 设置为 ``''``。当框架生成你的站点 URI 时，将使用此设置。
 
-    .. note:: 你可能需要配置你的 Web 服务器以访问不包含 **index.php** 的 URL。请参阅 :ref:`CodeIgniter URLs <urls-remove-index-php>`。
+    .. note:: 你可能需要配置你的 Web 服务器以访问不包含 **index.php** 的 URL。请参阅 :ref:`CodeIgniter URL <urls-remove-index-php>`。
 
 配置数据库连接设置
 ======================================
@@ -205,7 +205,7 @@ Apache 与许多平台捆绑在一起，但也可以从 `Bitnami <https://bitnam
 使用别名
 -----------
 
-将你的项目文件夹放置在以下位置，其中 **htdocs** 是 Apache 的文档根目录：
+将你的项目文件夹放置在以下位置，其中 **htdocs** 是 Apache 的文档根目录::
 
     ├── myproject/ (项目文件夹)
     │      └── public/
@@ -230,7 +230,7 @@ Apache 与许多平台捆绑在一起，但也可以从 `Bitnami <https://bitnam
 
 不建议将项目文件夹放置在文档根目录中。但是，如果你没有其他选择，例如在共享服务器上，你可以使用此方法。
 
-将你的项目文件夹放置在以下位置，其中 **htdocs** 是 Apache 的文档根目录，并创建 **.htaccess** 文件：
+将你的项目文件夹放置在以下位置，其中 **htdocs** 是 Apache 的文档根目录，并创建 **.htaccess** 文件::
 
     └── htdocs/
         └── myproject/ (项目文件夹)
@@ -326,7 +326,7 @@ Apache 与许多平台捆绑在一起，但也可以从 `Bitnami <https://bitnam
 删除 index.php
 ======================
 
-请参阅 :ref:`CodeIgniter URLs <urls-remove-index-php-apache>`。
+请参阅 :ref:`CodeIgniter URL <urls-remove-index-php-apache>`。
 
 设置环境
 ===================
@@ -334,15 +334,15 @@ Apache 与许多平台捆绑在一起，但也可以从 `Bitnami <https://bitnam
 请参阅 :ref:`处理多个环境 <environment-apache>`。
 
 ******************
-使用 nginx 托管
+使用 Nginx 托管
 ******************
 
-nginx 是第二常用的用于 Web 托管的 HTTP 服务器。以下是一个在 Ubuntu Server 上使用 PHP 8.1 FPM（Unix 套接字）的示例配置。
+Nginx 是第二常用的用于 Web 托管的 HTTP 服务器。以下是一个在 Ubuntu Server 上使用 PHP 8.1 FPM（Unix 套接字）的示例配置。
 
 default.conf
 ============
 
-此配置使 URL 中不包含 "index.php"，并对以 ".php" 结尾的 URL 使用 CodeIgniter 的 "404 - 文件未找到"。
+此配置使 URL 中不包含 "index.php"，并对以 ".php" 结尾的 URL 使用 CodeIgniter 的 "404 - File Not Found"。
 
 .. code-block:: nginx
 

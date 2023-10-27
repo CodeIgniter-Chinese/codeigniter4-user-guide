@@ -41,7 +41,7 @@
 未指定输入文件
 -----------------------
 
-如果看到“未指定输入文件”,请尝试如下更改重写规则(在 ``index.php`` 后添加 ``?``):
+如果看到“No input file specified”,请尝试如下更改重写规则(在 ``index.php`` 后添加 ``?``):
 
 .. code-block:: apache
 
@@ -63,11 +63,10 @@
 教程中的所有页面都显示 404 错误 :(
 -------------------------------------------
 
-你不能使用 PHP 的内置 Web 服务器 following 这个教程。
-它不会处理路由请求所需的 **.htaccess** 文件。
+你不能使用 PHP 内置的 Web 服务器来按照教程进行操作。
+它无法处理所需的 **.htaccess** 文件以正确路由请求。
 
-解决方案:使用 Apache  serve 你的网站,或者从项目根目录使用内置的
-CodeIgniter 等价命令 ``php spark serve``。
+解决方案：使用 Apache 来提供你的网站，或者使用内置的 CodeIgniter 等效命令 ``php spark serve`` 从你的项目根目录运行。
 
 .. |CodeIgniter4 欢迎页面| image:: ../images/welcome.png
 

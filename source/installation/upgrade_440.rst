@@ -18,12 +18,12 @@
 使用 $this->validate() 时
 ============================
 
-在 Controller 的 :ref:`$this->validate() <controller-validate>` 中存在已知的潜在漏洞，可绕过验证。
+在控制器的 :ref:`$this->validate() <controller-validate>` 中存在已知的潜在漏洞，可绕过验证。
 攻击可以使开发人员误解未经验证的空数据为已验证数据并继续处理。
 
 已添加 :ref:`Validation::getValidated() <validation-getting-validated-data>` 方法，以确保获取已验证数据。
 
-因此，在你的 Controllers 中使用 ``$this->validate()`` 时，应使用新的 ``Validation::getValidated()`` 方法获取已验证的数据。
+因此，在你的控制器中使用 ``$this->validate()`` 时，应使用新的 ``Validation::getValidated()`` 方法获取已验证的数据。
 
 .. literalinclude:: ../libraries/validation/045.php
    :lines: 2-
@@ -36,9 +36,9 @@
 URI::setSegment() 更改
 ========================
 
-由于以前版本中没有抛出异常，如果指定了最后一个段 ``+2``，此错误已经修复。
+由于一个错误，在之前的版本中，如果指定了最后一个段 ``+2``，将不会抛出异常。这个错误已经修复。
 
-如果你的代码依赖于此错误，请修复段编号。
+如果你的代码依赖于这个错误，请修复段编号。
 
 .. literalinclude:: upgrade_440/002.php
    :lines: 2-
@@ -249,7 +249,7 @@ app/Config/Session.php
 
 **项目空间** 中的一些文件（根目录、app、public、writable）已接收到更新。由于这些文件位于 **system** 范围之外，它们将不会在没有你干预的情况下更改。
 
-有一些第三方 CodeIgniter 模块可帮助你合并对项目空间的更改：[Packagist 上探索](https://packagist.org/explore/?query=codeigniter4%20updates)。
+有一些第三方 CodeIgniter 模块可帮助你合并对项目空间的更改：`在 Packagist 上查看 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
 内容更改
 ===============

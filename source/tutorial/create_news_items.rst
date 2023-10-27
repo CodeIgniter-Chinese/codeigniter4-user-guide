@@ -161,8 +161,8 @@ CodeIgniter 提供了一个强大的验证库，如上所示。你可以阅读�
 
     app/
     ├── Config
-    │   ├── Filters.php (Modified)
-    │   └── Routes.php  (Modified)
+    │   ├── Filters.php (已修改)
+    │   └── Routes.php  (已修改)
     ├── Controllers
     │   ├── News.php
     │   └── Pages.php
