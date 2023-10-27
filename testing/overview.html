@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>测试 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>测试 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -335,15 +336,15 @@
 <h4><a class="toc-backref" href="#id15">Composer</a><a class="headerlink" href="#composer" title="永久链接至标题"></a></h4>
 <p>推荐的方法是使用 <a class="reference external" href="https://getcomposer.org/">Composer</a> 在项目中安装它。尽管可以全局安装,但我们不建议这样做,因为随着时间的推移,它可能与系统上的其他项目造成兼容性问题。</p>
 <p>确保系统中安装了 Composer。从项目根目录(包含应用程序和系统目录的目录)命令行输入以下命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">composer</span> <span class="k">require</span> <span class="o">--</span><span class="nx">dev</span> <span class="nx">phpunit</span><span class="o">/</span><span class="nx">phpunit</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">composer require --dev phpunit/phpunit</span>
 </pre></div>
 </div>
 <p>这将为当前 PHP 版本安装正确的版本。完成后,可以通过输入以下命令来运行此项目的所有测试:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">vendor</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">phpunit</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">vendor/bin/phpunit</span>
 </pre></div>
 </div>
 <p>如果使用 Windows,请使用以下命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">vendor\bin\phpunit</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">vendor\bin\phpunit</span>
 </pre></div>
 </div>
 </section>
@@ -518,7 +519,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>带有此内容的测试用例应 <a class="reference external" href="https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess">在 PHPunit 中作为单独进程运行</a>。</p>
+<p>带有此内容的测试用例应 <a class="reference external" href="https://docs.phpunit.de/en/9.6/annotations.html#runinseparateprocess">在 PHPunit 中作为单独进程运行</a>。</p>
 </div>
 </section>
 <section id="assertheadernotemitted-header-ignorecase-false">
@@ -537,7 +538,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>带有此内容的测试用例应 <a class="reference external" href="https://phpunit.readthedocs.io/en/9.5/annotations.html#runinseparateprocess">在 PHPunit 中作为单独进程运行</a>。</p>
+<p>带有此内容的测试用例应 <a class="reference external" href="https://docs.phpunit.de/en/9.6/annotations.html#runinseparateprocess">在 PHPunit 中作为单独进程运行</a>。</p>
 </div>
 </section>
 <section id="assertcloseenough-expected-actual-message-tolerance-1">
@@ -645,6 +646,10 @@
 <h4><a class="toc-backref" href="#id26">Services::reset()</a><a class="headerlink" href="#services-reset" title="永久链接至标题"></a></h4>
 <p>从 Services 类中删除所有模拟类,将其恢复到原始状态。</p>
 <p>你也可以使用 <code class="docutils literal notranslate"><span class="pre">CIUnitTestCase</span></code> 提供的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;resetServices()</span></code> 方法。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>此方法会重置所有服务的状态，并且 <code class="docutils literal notranslate"><span class="pre">RouteCollection</span></code> 将不包含任何路由。如果你想要使用加载的路由，你需要调用 <code class="docutils literal notranslate"><span class="pre">loadRoutes()</span></code> 方法，例如 <code class="docutils literal notranslate"><span class="pre">Services::routes()-&gt;loadRoutes()</span></code>。</p>
+</div>
 </section>
 <section id="services-resetsingle-string-name">
 <h4><a class="toc-backref" href="#id27">Services::resetSingle(string $name)</a><a class="headerlink" href="#services-resetsingle-string-name" title="永久链接至标题"></a></h4>
@@ -824,7 +829,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -832,7 +837,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068daf9910>
+<jinja2.runtime.BlockReference object at 0x7f8b2966c510>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Array 辅助函数 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Array 辅助函数 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -552,6 +553,325 @@
 </div>
 </dd></dl>
 
+<dl class="php function">
+<dt class="sig sig-object php" id="array_group_by">
+<span class="sig-name descname"><span class="pre">array_group_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">array</span> <span class="pre">$array</span></em>, <em class="sig-param"><span class="pre">array</span> <span class="pre">$indexes</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">bool</span> <span class="pre">$includeEmpty</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">array</span></span></span><a class="headerlink" href="#array_group_by" title="永久链接至目标"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>$array</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 数据行（很可能来自查询结果）</p></li>
+<li><p><strong>$indexes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 要按索引值分组的索引。遵循点语法</p></li>
+<li><p><strong>$includeEmpty</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 如果为 true，则不过滤掉 <code class="docutils literal notranslate"><span class="pre">null</span></code> 和 <code class="docutils literal notranslate"><span class="pre">''</span></code> 值</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>按索引值分组的数组</p>
+</dd>
+</dl>
+<p>该函数允许你按索引值将数据行分组在一起。返回的数组的深度等于作为参数传递的索引数。</p>
+<p>以下示例显示了一些数据（例如从 API 加载的数据）和嵌套数组。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$employees</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Urbano&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Canada&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Case&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Emera&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Richy&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Mandy&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Risa&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Alfred&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Tabby&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Ario&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Somerset&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>我们首先想要按 “gender” 分组，然后按 “hr.department” 分组（最大深度为 2）。首先排除空值的结果如下：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nx">array_group_by</span><span class="p">(</span><span class="nv">$employees</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;hr.department&#39;</span><span class="p">]);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Male&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;Marketing&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Case&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">8</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Tabby&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Somerset&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;Engineering&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">7</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Alfred&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;Sales&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">9</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Ario&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Female&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;Engineering&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Emera&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Risa&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>这里是相同的代码，但这次我们想要包括空值：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nx">array_group_by</span><span class="p">(</span><span class="nv">$employees</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;hr.department&#39;</span><span class="p">]);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;Engineering&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Urbano&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Canada&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;Sales&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Richy&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Mandy&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Male&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;Marketing&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Case&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">8</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Tabby&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Somerset&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Marketing&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;Engineering&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">7</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Alfred&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;Sales&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">9</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Ario&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Female&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;Engineering&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Emera&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">,</span>
+                <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Risa&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gender&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hr&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+                    <span class="s1">&#39;country&#39;</span>    <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="s1">&#39;department&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Engineering&#39;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 </section>
 
@@ -567,7 +887,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -575,7 +895,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068dce57d0>
+<jinja2.runtime.BlockReference object at 0x7f8b29cffb90>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

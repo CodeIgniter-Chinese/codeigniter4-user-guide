@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Email 类 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Email 类 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -362,11 +363,11 @@
 如果你在配置文件中设置了首选项,将 <strong>不需要</strong> 使用 <code class="docutils literal notranslate"><span class="pre">$email-&gt;initialize()</span></code> 方法。</p>
 </section>
 <section id="smtp-ssl-tls">
-<h4><a class="toc-backref" href="#id16">SMTP 协议的 SSL 与 TLS</a><a class="headerlink" href="#smtp-ssl-tls" title="永久链接至标题"></a></h4>
+<span id="email-ssl-tls-for-smtp"></span><h4><a class="toc-backref" href="#id16">SMTP 协议的 SSL 与 TLS</a><a class="headerlink" href="#smtp-ssl-tls" title="永久链接至标题"></a></h4>
 <p>为了在与 SMTP 服务器通信时保护用户名、密码和电子邮件内容,应该对通道使用加密。已经广泛部署了两种不同的标准,在尝试排除电子邮件发送问题时,了解这些差异很重要。</p>
 <p>当提交电子邮件时,大多数 SMTP 服务器允许在端口 465 或 587 上连接。(原始端口 25 很少使用,因为许多 ISP 有屏蔽规则,而且通信完全是明文的)。</p>
 <p>关键差异在于端口 465 要求从一开始就使用 TLS 按照 <a class="reference external" href="https://tools.ietf.org/html/rfc8314">RFC 8314</a> 来保护通信通道。而端口 587 上的连接允许明文连接,之后会使用 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> SMTP 命令升级通道以使用加密。</p>
-<p>端口 465 上的连接是否支持升级可能由服务器决定,所以如果服务器不允许, <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> SMTP 命令可能会失败。如果你将端口设置为 465,你应该尝试让 <code class="docutils literal notranslate"><span class="pre">SMTPCrypto</span></code> 设置为空,因为通信从一开始就是用 TLS 保护的,不需要 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code>。</p>
+<p>端口 465 上的连接是否支持升级可能由服务器决定,所以如果服务器不允许, <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> SMTP 命令可能会失败。如果你将端口设置为 465,你应该尝试设置 <code class="docutils literal notranslate"><span class="pre">SMTPCrypto</span></code> 为空字符串（<code class="docutils literal notranslate"><span class="pre">''</span></code>）,因为通信从一开始就是用 TLS 保护的,不需要 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code>。</p>
 <p>如果你的配置要求你连接到端口 587,你最好将 <code class="docutils literal notranslate"><span class="pre">SMTPCrypto</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">tls</span></code>,因为这将在与 SMTP 服务器通信时实现 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> 命令,将明文通道切换为加密通道。初始通信将是明文的,并使用 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> 命令将通道升级为 TLS。</p>
 </section>
 <section id="id7">
@@ -379,10 +380,10 @@
 <p>以下是可以在发送电子邮件时设置的所有首选项列表。</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 11%" />
-<col style="width: 15%" />
-<col style="width: 64%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 51%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>首选项</p></th>
@@ -425,7 +426,8 @@
 <tr class="row-even"><td><p><strong>SMTPPort</strong></p></td>
 <td><p>25</p></td>
 <td><p>无</p></td>
-<td><p>SMTP 端口。(如果设置为 465,不管 SMTPCrypto 设置如何,都将使用 TLS 建立连接)</p></td>
+<td><p>SMTP 端口。(如果设置为 <code class="docutils literal notranslate"><span class="pre">465</span></code>,不管 <code class="docutils literal notranslate"><span class="pre">SMTPCrypto</span></code> 设置如何,
+都将使用 TLS 建立连接)</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>SMTPTimeout</strong></p></td>
 <td><p>5</p></td>
@@ -438,9 +440,12 @@
 <td><p>启用持久 SMTP 连接。</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>SMTPCrypto</strong></p></td>
-<td><p>无默认值</p></td>
-<td><p>tls 或 ssl</p></td>
-<td><p>SMTP 加密。将此设置为“ssl”将使用 SSL 创建到服务器的安全通道,“tls”将向服务器发出 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> 命令。连接端口 465 应将此留空。</p></td>
+<td><p>tls</p></td>
+<td><p>tls, ssl 或空字符串</p></td>
+<td><p>SMTP 加密。将其设置为 <code class="docutils literal notranslate"><span class="pre">ssl</span></code> 将使用 SSL 创建与服务器的安全通道，
+而 <code class="docutils literal notranslate"><span class="pre">tls</span></code> 将向服务器发出 <code class="docutils literal notranslate"><span class="pre">STARTTLS</span></code> 命令。
+在端口 465 上的连接应将其设置为空字符串（<code class="docutils literal notranslate"><span class="pre">''</span></code>）。
+另请参阅 <a class="reference internal" href="#email-ssl-tls-for-smtp"><span class="std std-ref">SMTP 协议的 SSL 与 TLS</span></a>。</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>wordWrap</strong></p></td>
 <td><p>true</p></td>
@@ -455,7 +460,8 @@
 <tr class="row-even"><td><p><strong>mailType</strong></p></td>
 <td><p>text</p></td>
 <td><p>text 或 html</p></td>
-<td><p>邮件类型。如果发送 HTML 电子邮件,你必须将其作为完整的网页发送。确保你没有任何相对链接或相对图像路径,否则它们将无法工作。</p></td>
+<td><p>邮件类型。如果发送 HTML 电子邮件,你必须将其作为完整的网页发送。
+确保你没有任何相对链接或相对图像路径,否则它们将无法工作。</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>charset</strong></p></td>
 <td><p>utf-8</p></td>
@@ -975,7 +981,7 @@ CodeIgniter 允许你在消息的一部分手动覆盖文字换行,如下所示:
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -983,7 +989,7 @@ CodeIgniter 允许你在消息的一部分手动覆盖文字换行,如下所示:
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068d9c9a90>
+<jinja2.runtime.BlockReference object at 0x7f8b29ceb7d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

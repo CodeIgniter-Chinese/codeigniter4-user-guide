@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HTTP 响应 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>HTTP 响应 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">构建响应</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -282,37 +283,41 @@
 <p>Response 类通过只适合服务器对调用它的客户端做出响应的方法来扩展 <a class="reference internal" href="../incoming/message.html"><span class="doc">HTTP 消息类</span></a> 。</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id16">使用响应</a></p>
+<li><p><a class="reference internal" href="#id2" id="id17">使用响应</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id17">设置输出</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id18">设置标题</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id18">设置输出</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id19">设置标题</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#response-redirect" id="id19">重定向</a></p>
+<li><p><a class="reference internal" href="#response-redirect" id="id20">重定向</a></p>
 <ul>
-<li><p><a class="reference internal" href="#uri" id="id20">重定向到一个 URI 路径</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id21">重定向到定义的路由</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id22">重定向回上一页面</a></p></li>
-<li><p><a class="reference internal" href="#response-redirect-status-code" id="id23">重定向状态码</a></p></li>
+<li><p><a class="reference internal" href="#uri" id="id21">重定向到一个 URI 路径</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id22">重定向到定义的路由</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id23">重定向回上一页面</a></p></li>
+<li><p><a class="reference internal" href="#response-redirect-status-code" id="id24">重定向状态码</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#force-file-download" id="id24">强制文件下载</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id25">HTTP 缓存</a></p></li>
-<li><p><a class="reference internal" href="#content-security-policy" id="id26">内容安全策略</a></p>
+<li><p><a class="reference internal" href="#force-file-download" id="id25">强制文件下载</a></p>
 <ul>
-<li><p><a class="reference internal" href="#csp" id="id27">打开 CSP</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id28">运行时配置</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id29">内联内容</a></p></li>
+<li><p><a class="reference internal" href="#open-file-in-browser" id="id26">在浏览器中打开文件</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id15" id="id30">类参考</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id27">HTTP 缓存</a></p></li>
+<li><p><a class="reference internal" href="#content-security-policy" id="id28">内容安全策略</a></p>
+<ul>
+<li><p><a class="reference internal" href="#csp" id="id29">打开 CSP</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id30">运行时配置</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id31">内联内容</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id16" id="id32">类参考</a></p></li>
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id16">使用响应</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id17">使用响应</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>一个 Response 类实例会为你实例化并传入控制器中。它可以通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;response</span></code> 访问。许多时候你不需要直接接触该类,因为 CodeIgniter 会为你发送 header 和 body。如果页面成功地创建了它被要求的内容,情况就是这样。当事情出错时,或者你需要发送非常具体的状态码回应,或者利用 HTTP 缓存的强大功能,它就为你提供了这些。</p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id17">设置输出</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id18">设置输出</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>当你需要直接设置脚本的输出,而不依赖于 CodeIgniter 自动获取时,你可以用 <code class="docutils literal notranslate"><span class="pre">setBody</span></code> 方法手动设置。这通常与设置响应的状态码一起使用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -325,7 +330,7 @@
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setStatusCode</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="s1">&#39;Nope. Not here.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>你可以将一个数组格式化为 JSON 或 XML,并通过 <code class="docutils literal notranslate"><span class="pre">setJSON</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setXML</span></code> 方法将 content type header 设置为适当的 MIME 类型。通常,你会传递一个数据数组进行转换:</p>
+<p>你可以将一个数组格式化为 JSON 或 XML,并通过 <code class="docutils literal notranslate"><span class="pre">setJSON()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setXML()</span></code> 方法将 content type header 设置为适当的 MIME 类型。通常,你会传递一个数据数组进行转换:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
@@ -334,13 +339,14 @@
 <span class="p">];</span>
 
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setJSON</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+
 <span class="c1">// or</span>
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setXML</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id18">设置标题</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id19">设置标题</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>你经常需要为响应设置标题。Response 类使得这非常简单,通过 <code class="docutils literal notranslate"><span class="pre">setHeader()</span></code> 方法。第一个参数是标题的名称。第二个参数是值,可以是字符串或在发送到客户端时将正确组合的字符串数组。与使用原生 PHP 函数相比,使用这些函数可以确保标题不会过早发送,从而造成错误,并使测试成为可能。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -364,7 +370,7 @@
 </section>
 </section>
 <section id="response-redirect">
-<span id="id5"></span><h2><a class="toc-backref" href="#id19">重定向</a><a class="headerlink" href="#response-redirect" title="永久链接至标题"></a></h2>
+<span id="id5"></span><h2><a class="toc-backref" href="#id20">重定向</a><a class="headerlink" href="#response-redirect" title="永久链接至标题"></a></h2>
 <p>如果你想要创建一个重定向,请使用 <a class="reference internal" href="../general/common_functions.html#redirect" title="redirect"><code class="xref php php-func docutils literal notranslate"><span class="pre">redirect()</span></code></a> 函数。
 它将返回一个 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。</p>
 <div class="admonition important">
@@ -375,7 +381,7 @@
 如果你忘记返回 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code>,将不会发生重定向。</p>
 </div>
 <section id="uri">
-<h3><a class="toc-backref" href="#id20">重定向到一个 URI 路径</a><a class="headerlink" href="#uri" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id21">重定向到一个 URI 路径</a><a class="headerlink" href="#uri" title="永久链接至标题"></a></h3>
 <p>当你想传递一个 URI 路径(相对于 baseURL)时,使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;to()</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Go to specific URI path. &quot;admin/home&quot; is the URI path relative to baseURL.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="s1">&#39;admin/home&#39;</span><span class="p">);</span>
@@ -388,7 +394,7 @@
 </div>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id21">重定向到定义的路由</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id22">重定向到定义的路由</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>当你想传递一个 <a class="reference internal" href="../incoming/routing.html#using-named-routes"><span class="std std-ref">路由名称</span></a> 或 Controller::method
 进行 <a class="reference internal" href="../incoming/routing.html#reverse-routing"><span class="std std-ref">反向路由</span></a> 时,使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;route()</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Go to a named route. &quot;user_gallery&quot; is the route name, not a URI path.</span>
@@ -403,7 +409,7 @@
 </div>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id22">重定向回上一页面</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id23">重定向回上一页面</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>当你想要重定向回上一页面时,使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;back()</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Go back to the previous page.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">();</span>
@@ -429,7 +435,7 @@
 </div>
 </section>
 <section id="response-redirect-status-code">
-<span id="id8"></span><h3><a class="toc-backref" href="#id23">重定向状态码</a><a class="headerlink" href="#response-redirect-status-code" title="永久链接至标题"></a></h3>
+<span id="id8"></span><h3><a class="toc-backref" href="#id24">重定向状态码</a><a class="headerlink" href="#response-redirect-status-code" title="永久链接至标题"></a></h3>
 <p>GET 请求的默认 HTTP 状态码是 302。但是,当使用 HTTP/1.1
 或更高版本时,对于 POST/PUT/DELETE 请求使用 303,对于所有其他请求使用 307。</p>
 <p>你可以指定状态码:</p>
@@ -454,7 +460,7 @@
 </section>
 </section>
 <section id="force-file-download">
-<span id="id9"></span><h2><a class="toc-backref" href="#id24">强制文件下载</a><a class="headerlink" href="#force-file-download" title="永久链接至标题"></a></h2>
+<span id="id9"></span><h2><a class="toc-backref" href="#id25">强制文件下载</a><a class="headerlink" href="#force-file-download" title="永久链接至标题"></a></h2>
 <p>Response 类提供了一种简单的方法来将文件发送给客户端,提示浏览器下载数据到计算机。这会设置适当的头使其发生。</p>
 <p>第一个参数是 <strong>希望下载的文件的名称</strong>,第二个参数是文件数据。</p>
 <p>如果将第二个参数设置为 null,且 <code class="docutils literal notranslate"><span class="pre">$filename</span></code> 是一个存在的可读文件路径,
@@ -487,9 +493,21 @@
 <p class="admonition-title">备注</p>
 <p>必须返回响应对象以便下载被发送到客户端。这允许在被发送到客户端之前通过所有的 <strong>after</strong> 过滤器来传递响应。</p>
 </div>
+<section id="open-file-in-browser">
+<span id="id10"></span><h3><a class="toc-backref" href="#id26">在浏览器中打开文件</a><a class="headerlink" href="#open-file-in-browser" title="永久链接至标题"></a></h3>
+<p>一些浏览器可以显示诸如 PDF 等文件。为了告诉浏览器显示文件而不是保存它，调用 <code class="docutils literal notranslate"><span class="pre">DownloadResponse::inline()</span></code> 方法。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$data</span> <span class="o">=</span> <span class="s1">&#39;Here is some text!&#39;</span><span class="p">;</span>
+<span class="nv">$name</span> <span class="o">=</span> <span class="s1">&#39;mytext.txt&#39;</span><span class="p">;</span>
+
+<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">download</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">inline</span><span class="p">();</span>
+</pre></div>
+</div>
 </section>
-<section id="id10">
-<h2><a class="toc-backref" href="#id25">HTTP 缓存</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+</section>
+<section id="id11">
+<h2><a class="toc-backref" href="#id27">HTTP 缓存</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
 <p>内置于 HTTP 规范的是帮助客户端(通常是网页浏览器)缓存结果的工具。如果使用正确,这可以为你的应用程序带来巨大的性能提升,因为它会告诉客户端他们不需要联系服务器,因为没有变化。你再也找不到更快的了。</p>
 <p>这是通过 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 和 <code class="docutils literal notranslate"><span class="pre">ETag</span></code> 头处理的。本指南不是适合对所有缓存头功能进行透彻的介绍,但是你可以在 <a class="reference external" href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching">Google Developers</a> 上很好地理解它。</p>
 <p>默认情况下,通过 CodeIgniter 发送的所有响应对象都关闭了 HTTP 缓存。由于我们无法创建一个好的默认值,除了关闭它之外的选项太多了。根据你的需要设置缓存值非常简单,可以通过 <code class="docutils literal notranslate"><span class="pre">setCache()</span></code> 方法完成:</p>
@@ -506,7 +524,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">$options</span></code> 数组简单地以 key/value 对的形式获取通常分配给 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头的数组。你可以自由地根据具体情况完全设置所需的所有选项。虽然大多数选项应用于 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头,但它也智能地处理 <code class="docutils literal notranslate"><span class="pre">etag</span></code> 和 <code class="docutils literal notranslate"><span class="pre">last-modified</span></code> 选项到适当的头。</p>
 </section>
 <section id="content-security-policy">
-<span id="id11"></span><h2><a class="toc-backref" href="#id26">内容安全策略</a><a class="headerlink" href="#content-security-policy" title="永久链接至标题"></a></h2>
+<span id="id12"></span><h2><a class="toc-backref" href="#id28">内容安全策略</a><a class="headerlink" href="#content-security-policy" title="永久链接至标题"></a></h2>
 <p>防止站点遭受 XSS 攻击的最佳保护之一是在站点上实现内容安全策略。这会强制你列出站点 HTML 中拉入的每一个内容源,包括图像、样式表、javascript 文件等。浏览器将拒绝不符合白名单的内容源。这个白名单在响应的 <code class="docutils literal notranslate"><span class="pre">Content-Security-Policy</span></code> 头中创建,可以用多种不同的方式进行配置。</p>
 <p>这听起来很复杂,在一些网站上,确实可能具有挑战性。但是,对于许多简单的网站来说,其中所有内容都由同一域服务(<a class="reference external" href="http://example.com">http://example.com</a>), integrating 它非常简单。</p>
 <p>由于这是一个复杂的主题,本用户指南不会详细介绍所有细节。欲了解更多信息,你应访问以下网站:</p>
@@ -517,7 +535,7 @@
 <li><p><a class="reference external" href="https://www.sitepoint.com/improving-web-security-with-the-content-security-policy/">SitePoint 的文章</a></p></li>
 </ul>
 <section id="csp">
-<h3><a class="toc-backref" href="#id27">打开 CSP</a><a class="headerlink" href="#csp" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id29">打开 CSP</a><a class="headerlink" href="#csp" title="永久链接至标题"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p><a class="reference internal" href="../testing/debugging.html#the-debug-toolbar"><span class="std std-ref">Debug 工具栏</span></a> 可能使用 Kint,它
@@ -546,8 +564,8 @@
 <p>我们的实现提供了对默认处理的支持,可以通过 <code class="docutils literal notranslate"><span class="pre">reportOnly()</span></code> 方法更改。
 当向 CSP 指令添加额外条目时,如下所示,它将添加到适当的用于阻止或防止的 CSP 头中。这可以在每次调用的基础上通过提供可选的第二个参数来覆盖。</p>
 </section>
-<section id="id13">
-<h3><a class="toc-backref" href="#id28">运行时配置</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<section id="id14">
+<h3><a class="toc-backref" href="#id30">运行时配置</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
 <p>如果你的应用程序需要在运行时进行更改,你可以在控制器中通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;response-&gt;getCSP()</span></code> 访问实例。
 该类包含许多与适当的头值映射非常清楚的方法。示例如下,使用不同的组合参数,尽管所有这些“添加”方法都接受指令名称或指令名称数组:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -599,8 +617,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id14">
-<h3><a class="toc-backref" href="#id29">内联内容</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<section id="id15">
+<h3><a class="toc-backref" href="#id31">内联内容</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
 <p>可以将网站设置为不保护自己页面上的内联脚本和样式,因为这可能是用户生成内容的结果。为了防止这种情况,CSP 允许你在 <code class="docutils literal notranslate"><span class="pre">&lt;style&gt;</span></code> 和 <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> 标签中指定一个 nonce,并将这些值添加到响应的头中。这在实际生活中是一个痛点,但是在代码中生成效果最好。为了简化这一过程,你可以在标签中包含一个 <code class="docutils literal notranslate"><span class="pre">{csp-style-nonce}</span></code> 或 <code class="docutils literal notranslate"><span class="pre">{csp-script-nonce}</span></code> 占位符,它将自动为你处理:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 原始的</span>
 <span class="o">&lt;</span><span class="nx">script</span> <span class="p">{</span><span class="nx">csp</span><span class="o">-</span><span class="nx">script</span><span class="o">-</span><span class="nx">nonce</span><span class="p">}</span><span class="o">&gt;</span>
@@ -642,8 +660,8 @@
 </div>
 </section>
 </section>
-<section id="id15">
-<h2><a class="toc-backref" href="#id30">类参考</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
+<section id="id16">
+<h2><a class="toc-backref" href="#id32">类参考</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>除了这里列出的方法之外,该类还继承了 <a class="reference internal" href="../incoming/message.html"><span class="doc">消息类</span></a> 的方法。</p>
@@ -890,7 +908,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array|Cookie|string</span></code></span>) – Cookie 名称或参数数组或 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Cookie\Cookie</span></code> 实例</p></li>
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array|Cookie|string</span></code></span>) – Cookie 名称 <em>或</em> 包含此方法可用的所有参数的关联数组 <em>或</em> <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Cookie\Cookie</span></code> 的实例。</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 值</p></li>
 <li><p><strong>$expire</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – Cookie 到期时间,以秒为单位。如果设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code> cookie 将只保持浏览器打开时有效</p></li>
 <li><p><strong>$domain</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 域名</p></li>
@@ -1067,7 +1085,7 @@ cookie 将被删除。</p>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -1075,7 +1093,7 @@ cookie 将被删除。</p>
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068de584d0>
+<jinja2.runtime.BlockReference object at 0x7f8b2970bf10>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

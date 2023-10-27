@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>构建你的第一个应用程序 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>构建你的第一个应用程序 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -329,7 +330,7 @@
 <h3><a class="toc-backref" href="#id13">安装 CodeIgniter</a><a class="headerlink" href="#codeigniter" title="永久链接至标题"></a></h3>
 <p>你可以从网站手动下载版本,但是对于本教程,我们将使用推荐的方法,通过 Composer 安装 AppStarter 包。
 在命令行输入以下命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">composer</span> <span class="nx">create</span><span class="o">-</span><span class="nx">project</span> <span class="nx">codeigniter4</span><span class="o">/</span><span class="nx">appstarter</span> <span class="nx">ci</span><span class="o">-</span><span class="nx">news</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">composer create-project codeigniter4/appstarter ci-news</span>
 </pre></div>
 </div>
 <p>这将创建一个新文件夹 <strong>ci-news</strong>,其中包含你的应用程序代码,CodeIgniter 安装在 vendor 文件夹中。</p>
@@ -337,7 +338,7 @@
 <section id="setting-development-mode">
 <span id="id5"></span><h3><a class="toc-backref" href="#id14">设置开发模式</a><a class="headerlink" href="#setting-development-mode" title="永久链接至标题"></a></h3>
 <p>默认情况下,CodeIgniter 以生产模式启动。这是一个安全特性,以防止在站点上线后设置被搞乱。
-所以首先让我们解决这个问题。复制或重命名 <code class="docutils literal notranslate"><span class="pre">env</span></code> 文件为 <code class="docutils literal notranslate"><span class="pre">.env</span></code>。打开它。</p>
+所以首先让我们解决这个问题。复制或重命名 <strong>env</strong> 文件为 <strong>.env</strong>。打开它。</p>
 <p>此文件包含服务器特定的设置。这意味着你永远不需要将任何敏感信息提交到版本控制系统。
 它已经包含一些你想要输入的常见设置,不过都是注释掉的。因此,取消注释带有 <code class="docutils literal notranslate"><span class="pre">CI_ENVIRONMENT</span></code> 的那行,并将 <code class="docutils literal notranslate"><span class="pre">production</span></code> 更改为 <code class="docutils literal notranslate"><span class="pre">development</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CI_ENVIRONMENT</span> <span class="o">=</span> <span class="nx">development</span>
@@ -347,7 +348,7 @@
 <section id="id6">
 <h3><a class="toc-backref" href="#id15">运行开发服务器</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>搞定这些后,是时候在浏览器中查看你的应用程序了。你可以通过任何你选择的服务器提供服务,比如 Apache、Nginx 等,但是 CodeIgniter 提供了一个简单的命令,利用 PHP 的内置服务器快速在你的开发机器上启动并运行。在项目的根目录下在命令行输入以下命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">serve</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark serve</span>
 </pre></div>
 </div>
 </section>
@@ -399,7 +400,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -407,7 +408,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068d6dd990>
+<jinja2.runtime.BlockReference object at 0x7f8b29669710>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

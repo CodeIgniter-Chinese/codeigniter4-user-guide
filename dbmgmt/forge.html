@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>数据库 Forge 类 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据库 Forge 类 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -376,16 +377,17 @@
 <h3><a class="toc-backref" href="#id27">在命令行中创建数据库</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>CodeIgniter 支持直接从喜欢的终端使用专用的 <code class="docutils literal notranslate"><span class="pre">db:create</span></code> 命令创建数据库。通过使用此命令,假定数据库还不存在。否则,CodeIgniter 将抱怨数据库创建失败。</p>
 <p>首先,只需键入命令和数据库名称(例如 <code class="docutils literal notranslate"><span class="pre">foo</span></code>):</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">create</span> <span class="nx">foo</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:create foo</span>
 </pre></div>
 </div>
 <p>如果一切顺利,你应该会看到显示的 <code class="docutils literal notranslate"><span class="pre">Database</span> <span class="pre">&quot;foo&quot;</span> <span class="pre">successfully</span> <span class="pre">created.</span></code> 消息。</p>
 <p>如果你在测试环境中或正在使用 SQLite3 驱动程序,可以使用 <code class="docutils literal notranslate"><span class="pre">--ext</span></code> 选项
-为将创建数据库的文件传递文件扩展名。有效值为 <code class="docutils literal notranslate"><span class="pre">db</span></code> 和 <code class="docutils literal notranslate"><span class="pre">sqlite</span></code>,默认为 <code class="docutils literal notranslate"><span class="pre">db</span></code>。请记住,这些前面不应有句点。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">create</span> <span class="nx">foo</span> <span class="o">--</span><span class="nx">ext</span> <span class="nx">sqlite</span>
-<span class="c1">// 将在 WRITEPATH/foo.sqlite 中创建 db 文件</span>
+为将创建数据库的文件传递文件扩展名。有效值为 <code class="docutils literal notranslate"><span class="pre">db</span></code> 和 <code class="docutils literal notranslate"><span class="pre">sqlite</span></code>,默认为 <code class="docutils literal notranslate"><span class="pre">db</span></code>。请记住,这些前面不应有句点。
+:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:create foo --ext sqlite</span>
 </pre></div>
 </div>
+<p>上述命令将创建名为 <strong>WRITEPATH/foo.sqlite</strong> 的数据库文件。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>当使用特殊的 SQLite3 数据库名称 <code class="docutils literal notranslate"><span class="pre">:memory:</span></code> 时,请注意命令仍会生成成功消息,但不会创建数据库文件。这是因为 SQLite3 将只使用内存中的数据库。</p>
@@ -1175,7 +1177,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -1183,7 +1185,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068e67d050>
+<jinja2.runtime.BlockReference object at 0x7f8b29bae190>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

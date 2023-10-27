@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>测试响应 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>测试响应 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -280,9 +281,7 @@
   <section id="id1">
 <h1>测试响应<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">TestResponse</span></code> 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常, <code class="docutils literal notranslate"><span class="pre">TestResponse</span></code> 将作为你的结果提供,:doc:<cite>控制器测试 &lt;controllers&gt;</cite> 或 <a class="reference internal" href="feature.html"><span class="doc">HTTP 功能测试</span></a>,但你始终可以直接使用任何 <code class="docutils literal notranslate"><span class="pre">ResponseInterface</span></code> 创建自己的:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Test\TestResponse</span><span class="p">(</span><span class="nv">$response</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Test\TestResponse</span><span class="p">(</span><span class="nv">$response</span><span class="p">);</span>
 <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertOK</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -295,7 +294,7 @@
 <li><p><a class="reference internal" href="#id6" id="id12">会话断言</a></p></li>
 <li><p><a class="reference internal" href="#id7" id="id13">标头断言</a></p></li>
 <li><p><a class="reference internal" href="#cookie" id="id14">Cookie 断言</a></p></li>
-<li><p><a class="reference internal" href="#dom" id="id15">DOM 帮助方法</a></p></li>
+<li><p><a class="reference internal" href="#dom" id="id15">DOM 辅助函数</a></p></li>
 <li><p><a class="reference internal" href="#id8" id="id16">DOM 断言</a></p></li>
 <li><p><a class="reference internal" href="#json" id="id17">使用 JSON</a></p></li>
 <li><p><a class="reference internal" href="#xml" id="id18">使用 XML</a></p></li>
@@ -311,18 +310,14 @@
 <section id="request">
 <h4>request()<a class="headerlink" href="#request" title="永久链接至标题"></a></h4>
 <p>如果在测试期间设置了请求,你可以直接访问请求对象:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$request</span> <span class="o">=</span> <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 <section id="response">
 <h4>response()<a class="headerlink" href="#response" title="永久链接至标题"></a></h4>
 <p>这允许你直接访问响应对象:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$response</span> <span class="o">=</span> <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
@@ -332,9 +327,7 @@
 <section id="isok">
 <h4>isOK()<a class="headerlink" href="#isok" title="永久链接至标题"></a></h4>
 <p>根据响应是否被视为“正常”返回布尔值 true/false。这主要由 200 或 300 范围内的响应状态代码确定。如果重定向,空响应正文不被视为有效。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isOK</span><span class="p">())</span> <span class="p">{</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isOK</span><span class="p">())</span> <span class="p">{</span>
     <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
@@ -343,18 +336,14 @@
 <section id="assertok">
 <h4>assertOK()<a class="headerlink" href="#assertok" title="永久链接至标题"></a></h4>
 <p>此断言简单地使用 <code class="docutils literal notranslate"><span class="pre">isOK()</span></code> 方法来测试响应。<code class="docutils literal notranslate"><span class="pre">assertNotOK()</span></code> 是此断言的逆。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertOK</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertOK</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 <section id="isredirect">
 <h4>isRedirect()<a class="headerlink" href="#isredirect" title="永久链接至标题"></a></h4>
 <p>根据响应是否重定向返回布尔值 true/false。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isRedirect</span><span class="p">())</span> <span class="p">{</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isRedirect</span><span class="p">())</span> <span class="p">{</span>
     <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
@@ -363,27 +352,21 @@
 <section id="assertredirect">
 <h4>assertRedirect()<a class="headerlink" href="#assertredirect" title="永久链接至标题"></a></h4>
 <p>断言响应是 RedirectResponse 的一个实例。<code class="docutils literal notranslate"><span class="pre">assertNotRedirect()</span></code> 是此断言的逆。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertRedirect</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertRedirect</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 <section id="assertredirectto">
 <h4>assertRedirectTo()<a class="headerlink" href="#assertredirectto" title="永久链接至标题"></a></h4>
 <p>断言响应是一个 RedirectResponse 实例,且目标与给定的 uri 匹配。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertRedirectTo</span><span class="p">(</span><span class="s1">&#39;foo/bar&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertRedirectTo</span><span class="p">(</span><span class="s1">&#39;foo/bar&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="getredirecturl">
 <h4>getRedirectUrl()<a class="headerlink" href="#getredirecturl" title="永久链接至标题"></a></h4>
 <p>返回设置为 RedirectResponse 的 URL,如果失败则为 null。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$url</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">getRedirectUrl</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$url</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">getRedirectUrl</span><span class="p">();</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertEquals</span><span class="p">(</span><span class="nx">site_url</span><span class="p">(</span><span class="s1">&#39;foo/bar&#39;</span><span class="p">),</span> <span class="nv">$url</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -391,9 +374,7 @@
 <section id="assertstatus-int-code">
 <h4>assertStatus(int $code)<a class="headerlink" href="#assertstatus-int-code" title="永久链接至标题"></a></h4>
 <p>断言返回的 HTTP 状态码匹配 $code。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertStatus</span><span class="p">(</span><span class="mi">403</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertStatus</span><span class="p">(</span><span class="mi">403</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -403,18 +384,14 @@
 <section id="assertsessionhas-string-key-value-null">
 <h4>assertSessionHas(string $key, $value = null)<a class="headerlink" href="#assertsessionhas-string-key-value-null" title="永久链接至标题"></a></h4>
 <p>断言结果会话中存在一个值。如果传递了 $value,还将断言变量的值与指定的相匹配。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSessionHas</span><span class="p">(</span><span class="s1">&#39;logged_in&#39;</span><span class="p">,</span> <span class="mi">123</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSessionHas</span><span class="p">(</span><span class="s1">&#39;logged_in&#39;</span><span class="p">,</span> <span class="mi">123</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertsessionmissing-string-key">
 <h4>assertSessionMissing(string $key)<a class="headerlink" href="#assertsessionmissing-string-key" title="永久链接至标题"></a></h4>
 <p>断言结果会话不包括指定的 $key。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSessionMissing</span><span class="p">(</span><span class="s1">&#39;logged_in&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSessionMissing</span><span class="p">(</span><span class="s1">&#39;logged_in&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -424,18 +401,14 @@
 <section id="assertheader-string-key-value-null">
 <h4>assertHeader(string $key, $value = null)<a class="headerlink" href="#assertheader-string-key-value-null" title="永久链接至标题"></a></h4>
 <p>断言响应中存在一个名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的标头。如果 <code class="docutils literal notranslate"><span class="pre">$value</span></code> 非空,还将断言值匹配。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertHeader</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertHeader</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertheadermissing-string-key">
 <h4>assertHeaderMissing(string $key)<a class="headerlink" href="#assertheadermissing-string-key" title="永久链接至标题"></a></h4>
 <p>断言响应中不存在名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的标头。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertHeader</span><span class="p">(</span><span class="s1">&#39;Accepts&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertHeader</span><span class="p">(</span><span class="s1">&#39;Accepts&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -445,106 +418,127 @@
 <section id="assertcookie-string-key-value-null-string-prefix">
 <h4>assertCookie(string $key, $value = null, string $prefix = ‘’)<a class="headerlink" href="#assertcookie-string-key-value-null-string-prefix" title="永久链接至标题"></a></h4>
 <p>断言响应中存在一个名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的 Cookie。如果 <code class="docutils literal notranslate"><span class="pre">$value</span></code> 非空,还将断言值匹配。如有必要,可以通过第三个参数传入前缀来设置 Cookie 前缀。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertCookie</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertCookie</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertcookiemissing-string-key">
 <h4>assertCookieMissing(string $key)<a class="headerlink" href="#assertcookiemissing-string-key" title="永久链接至标题"></a></h4>
 <p>断言响应中不存在名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的 Cookie。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertCookieMissing</span><span class="p">(</span><span class="s1">&#39;ci_session&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertCookieMissing</span><span class="p">(</span><span class="s1">&#39;ci_session&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertcookieexpired-string-key-string-prefix">
 <h4>assertCookieExpired(string $key, string $prefix = ‘’)<a class="headerlink" href="#assertcookieexpired-string-key-string-prefix" title="永久链接至标题"></a></h4>
 <p>断言一个名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的 Cookie 存在,但已过期。如有必要,可以通过第二个参数传入前缀来设置 Cookie 前缀。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertCookieExpired</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertCookieExpired</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="dom">
-<h3><a class="toc-backref" href="#id15">DOM 帮助方法</a><a class="headerlink" href="#dom" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id15">DOM 辅助函数</a><a class="headerlink" href="#dom" title="永久链接至标题"></a></h3>
 <p>你得到的响应包含许多帮助方法来检查响应中的 HTML 输出。这些在测试中的断言中很有用。</p>
 <section id="see">
 <h4>see()<a class="headerlink" href="#see" title="永久链接至标题"></a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">see()</span></code> 方法检查页面上的文本,看它是否自身存在,或者更具体地说是在由类型、类或 id 指定的标记内存在:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<p>根据页面上的文本是否存在，返回一个布尔值 true/false。可以通过 type、class 或 id 来指定文本所在的标签。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check that &quot;Hello World&quot; is on the page</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">see</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 
-<span class="c1">// Check that &quot;Hello World&quot; is on the page</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">see</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
 <span class="c1">// Check that &quot;Hello World&quot; is within an h1 tag</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">see</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;h1&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">see</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;h1&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
 <span class="c1">// Check that &quot;Hello World&quot; is within an element with the &quot;notice&quot; class</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">see</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;.notice&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">see</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;.notice&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
 <span class="c1">// Check that &quot;Hello World&quot; is within an element with id of &quot;title&quot;</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">see</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;#title&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">see</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;#title&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">dontSee()</span></code> 方法正好相反:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Checks that &quot;Hello World&quot; does NOT exist on the page</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 
-<span class="c1">// Checks that &quot;Hello World&quot; does NOT exist on the page</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
 <span class="c1">// Checks that &quot;Hellow World&quot; does NOT exist within any h1 tag</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;h1&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;h1&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="seeelement">
 <h4>seeElement()<a class="headerlink" href="#seeelement" title="永久链接至标题"></a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">seeElement()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">dontSeeElement()</span></code> 与前面的方法非常相似,但不检查元素的值。相反,它们仅检查元素是否存在于页面上:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check that an element with class &#39;notice&#39; exists</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeElement</span><span class="p">(</span><span class="s1">&#39;.notice&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 
-<span class="c1">// Check that an element with class &#39;notice&#39; exists</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeElement</span><span class="p">(</span><span class="s1">&#39;.notice&#39;</span><span class="p">);</span>
 <span class="c1">// Check that an element with id &#39;title&#39; exists</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeElement</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeElement</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
 <span class="c1">// Verify that an element with id &#39;title&#39; does NOT exist</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSeeElement</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSeeElement</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="seelink">
 <h4>seeLink()<a class="headerlink" href="#seelink" title="永久链接至标题"></a></h4>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">seeLink()</span></code> 来确保页面上存在具有指定文本的链接:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check that a link exists with &#39;Upgrade Account&#39; as the text::</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeLink</span><span class="p">(</span><span class="s1">&#39;Upgrade Account&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 
-<span class="c1">// Check that a link exists with &#39;Upgrade Account&#39; as the text::</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeLink</span><span class="p">(</span><span class="s1">&#39;Upgrade Account&#39;</span><span class="p">);</span>
 <span class="c1">// Check that a link exists with &#39;Upgrade Account&#39; as the text, AND a class of &#39;upsell&#39;</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeLink</span><span class="p">(</span><span class="s1">&#39;Upgrade Account&#39;</span><span class="p">,</span> <span class="s1">&#39;.upsell&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeLink</span><span class="p">(</span><span class="s1">&#39;Upgrade Account&#39;</span><span class="p">,</span> <span class="s1">&#39;.upsell&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="seeinfield">
 <h4>seeInField()<a class="headerlink" href="#seeinfield" title="永久链接至标题"></a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">seeInField()</span></code> 方法检查是否存在具有给定名称和值的输入标签:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check that an input exists named &#39;user&#39; with the value &#39;John Snow&#39;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeInField</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;John Snow&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 
-<span class="c1">// Check that an input exists named &#39;user&#39; with the value &#39;John Snow&#39;</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeInField</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;John Snow&#39;</span><span class="p">);</span>
 <span class="c1">// Check a multi-dimensional input</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeInField</span><span class="p">(</span><span class="s1">&#39;user[name]&#39;</span><span class="p">,</span> <span class="s1">&#39;John Snow&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeInField</span><span class="p">(</span><span class="s1">&#39;user[name]&#39;</span><span class="p">,</span> <span class="s1">&#39;John Snow&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="seecheckboxischecked">
 <h4>seeCheckboxIsChecked()<a class="headerlink" href="#seecheckboxischecked" title="永久链接至标题"></a></h4>
 <p>最后,你可以使用 <code class="docutils literal notranslate"><span class="pre">seeCheckboxIsChecked()</span></code> 方法检查复选框是否存在并已被选中:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Check if checkbox is checked with class of &#39;foo&#39;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeCheckboxIsChecked</span><span class="p">(</span><span class="s1">&#39;.foo&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 
-<span class="c1">// Check if checkbox is checked with class of &#39;foo&#39;</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeCheckboxIsChecked</span><span class="p">(</span><span class="s1">&#39;.foo&#39;</span><span class="p">);</span>
 <span class="c1">// Check if checkbox with id of &#39;bar&#39; is checked</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeCheckboxIsChecked</span><span class="p">(</span><span class="s1">&#39;#bar&#39;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeCheckboxIsChecked</span><span class="p">(</span><span class="s1">&#39;#bar&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -555,15 +549,16 @@
 <section id="assertsee-string-search-null-string-element-null">
 <h4>assertSee(string $search = null, string $element = null)<a class="headerlink" href="#assertsee-string-search-null-string-element-null" title="永久链接至标题"></a></h4>
 <p>断言文本/HTML 存在于页面上,无论是自身存在还是更具体地说是存在于由类型、类或 id 指定的标记内:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Check that &quot;Hello World&quot; is on the page</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Verify that &quot;Hello World&quot; is on the page</span>
 <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
-<span class="c1">// Check that &quot;Hello World&quot; is within an h1 tag</span>
+
+<span class="c1">// Verify that &quot;Hello World&quot; is within an h1 tag</span>
 <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;h1&#39;</span><span class="p">);</span>
-<span class="c1">// Check that &quot;Hello World&quot; is within an element with the &quot;notice&quot; class</span>
+
+<span class="c1">// Verify that &quot;Hello World&quot; is within an element with the &quot;notice&quot; class</span>
 <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;.notice&#39;</span><span class="p">);</span>
-<span class="c1">// Check that &quot;Hello World&quot; is within an element with id of &quot;title&quot;</span>
+
+<span class="c1">// Verify that &quot;Hello World&quot; is within an element with id of &quot;title&quot;</span>
 <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;#title&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -571,57 +566,51 @@
 <section id="assertdontsee-string-search-null-string-element-null">
 <h4>assertDontSee(string $search = null, string $element = null)<a class="headerlink" href="#assertdontsee-string-search-null-string-element-null" title="永久链接至标题"></a></h4>
 <p>与 <code class="docutils literal notranslate"><span class="pre">assertSee()</span></code> 方法完全相反:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Verify that &quot;Hello World&quot; does NOT exist on the page</span>
+<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertDontSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
 
-<span class="c1">// Checks that &quot;Hello World&quot; does NOT exist on the page</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
-<span class="c1">// Checks that &quot;Hello World&quot; does NOT exist within any h1 tag</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;h1&#39;</span><span class="p">);</span>
+<span class="c1">// Verify that &quot;Hello World&quot; does NOT exist within any h1 tag</span>
+<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertDontSee</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">,</span> <span class="s1">&#39;h1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertseeelement-string-search">
 <h4>assertSeeElement(string $search)<a class="headerlink" href="#assertseeelement-string-search" title="永久链接至标题"></a></h4>
 <p>类似于 <code class="docutils literal notranslate"><span class="pre">assertSee()</span></code>,但是这只检查存在的元素。它不检查特定文本:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Verify that an element with class &#39;notice&#39; exists</span>
+<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertSeeElement</span><span class="p">(</span><span class="s1">&#39;.notice&#39;</span><span class="p">);</span>
 
-<span class="c1">// Check that an element with class &#39;notice&#39; exists</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeElement</span><span class="p">(</span><span class="s1">&#39;.notice&#39;</span><span class="p">);</span>
-<span class="c1">// Check that an element with id &#39;title&#39; exists</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeElement</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">);</span>
+<span class="c1">// Verify that an element with id &#39;title&#39; exists</span>
+<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertSeeElement</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertdontseeelement-string-search">
 <h4>assertDontSeeElement(string $search)<a class="headerlink" href="#assertdontseeelement-string-search" title="永久链接至标题"></a></h4>
 <p>类似于 <code class="docutils literal notranslate"><span class="pre">assertSee()</span></code>,但是这只检查缺失的现有元素。它不检查特定文本:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Verify that an element with id &#39;title&#39; does NOT exist</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">dontSeeElement</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Verify that an element with id &#39;title&#39; does NOT exist</span>
+<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertDontSeeElement</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertseelink-string-text-string-details-null">
 <h4>assertSeeLink(string $text, string $details = null)<a class="headerlink" href="#assertseelink-string-text-string-details-null" title="永久链接至标题"></a></h4>
 <p>断言找到一个锚定标签,其标签体匹配 <code class="docutils literal notranslate"><span class="pre">$text</span></code>:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Verify that a link exists with &#39;Upgrade Account&#39; as the text::</span>
+<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertSeeLink</span><span class="p">(</span><span class="s1">&#39;Upgrade Account&#39;</span><span class="p">);</span>
 
-<span class="c1">// Check that a link exists with &#39;Upgrade Account&#39; as the text::</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeLink</span><span class="p">(</span><span class="s1">&#39;Upgrade Account&#39;</span><span class="p">);</span>
-<span class="c1">// Check that a link exists with &#39;Upgrade Account&#39; as the text, AND a class of &#39;upsell&#39;</span>
-<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">seeLink</span><span class="p">(</span><span class="s1">&#39;Upgrade Account&#39;</span><span class="p">,</span> <span class="s1">&#39;.upsell&#39;</span><span class="p">);</span>
+<span class="c1">// Verify that a link exists with &#39;Upgrade Account&#39; as the text, AND a class of &#39;upsell&#39;</span>
+<span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertSeeLink</span><span class="p">(</span><span class="s1">&#39;Upgrade Account&#39;</span><span class="p">,</span> <span class="s1">&#39;.upsell&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertseeinfield-string-field-string-value-null">
 <h4>assertSeeInField(string $field, string $value = null)<a class="headerlink" href="#assertseeinfield-string-field-string-value-null" title="永久链接至标题"></a></h4>
 <p>断言存在具有给定名称和值的输入标签:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Check that an input exists named &#39;user&#39; with the value &#39;John Snow&#39;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Verify that an input exists named &#39;user&#39; with the value &#39;John Snow&#39;</span>
 <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertSeeInField</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;John Snow&#39;</span><span class="p">);</span>
-<span class="c1">// Check a multi-dimensional input</span>
+
+<span class="c1">// Verify a multi-dimensional input</span>
 <span class="nv">$results</span><span class="o">-&gt;</span><span class="na">assertSeeInField</span><span class="p">(</span><span class="s1">&#39;user[name]&#39;</span><span class="p">,</span> <span class="s1">&#39;John Snow&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -633,9 +622,7 @@
 <section id="getjson">
 <h4>getJSON()<a class="headerlink" href="#getjson" title="永久链接至标题"></a></h4>
 <p>此方法将以 JSON 字符串的形式返回响应正文:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="cm">/*</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> * Response body is this:</span>
 <span class="cm"> * [&#39;foo&#39; =&gt; &#39;bar&#39;]</span>
 <span class="cm"> */</span>
@@ -650,9 +637,7 @@
 </pre></div>
 </div>
 <p>你可以使用此方法来确定 <code class="docutils literal notranslate"><span class="pre">$response</span></code> 是否确实包含 JSON 内容:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Verify the response is JSON</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Verify the response is JSON</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">getJSON</span><span class="p">()</span> <span class="o">!==</span> <span class="k">false</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -663,10 +648,8 @@
 </section>
 <section id="assertjsonfragment-array-fragment">
 <h4>assertJSONFragment(array $fragment)<a class="headerlink" href="#assertjsonfragment-array-fragment" title="永久链接至标题"></a></h4>
-<p>断言 $fragment 在 JSON 响应中找到。它不需要匹配整个 JSON 值。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="cm">/*</span>
+<p>断言 <code class="docutils literal notranslate"><span class="pre">$fragment</span></code> 在 JSON 响应中找到。它不需要匹配整个 JSON 值。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> * Response body is this:</span>
 <span class="cm"> * [</span>
 <span class="cm"> *     &#39;config&#39; =&gt; [&#39;key-a&#39;, &#39;key-b&#39;],</span>
@@ -705,7 +688,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -713,7 +696,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068dabe1d0>
+<jinja2.runtime.BlockReference object at 0x7f8b2916f4d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

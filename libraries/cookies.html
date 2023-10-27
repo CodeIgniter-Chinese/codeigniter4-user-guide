@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cookie &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Cookie &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -286,33 +287,40 @@
 <li><p><strong>个性化</strong>:用户首选项、主题和其他设置</p></li>
 <li><p><strong>跟踪</strong>:记录和分析用户行为</p></li>
 </ul>
-<p>为了帮助你在请求和响应中跨浏览器高效使用 cookie,CodeIgniter 提供了 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Cookie\Cookie</span></code> 类来抽象 cookie 的交互。</p>
+<p>为了帮助你有效地向浏览器发送 Cookie，CodeIgniter 提供了 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Cookie\Cookie</span></code> 类来抽象化 Cookie 的交互。</p>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id15">创建 Cookie</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id16">访问 Cookie 的属性</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id17">不可变 Cookie</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id18">验证 Cookie 的属性</a></p>
+<li><p><a class="reference internal" href="#id2" id="id17">创建 Cookie</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id6" id="id19">验证名称属性</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id20">验证前缀属性</a></p></li>
-<li><p><a class="reference internal" href="#samesite" id="id21">验证 SameSite 属性</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id18">覆盖默认值</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id8" id="id22">使用 Cookie 存储</a></p>
+<li><p><a class="reference internal" href="#id5" id="id19">访问 Cookie 的属性</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id20">不可变 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id21">验证 Cookie 的属性</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id9" id="id23">检查存储中的 Cookie</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id24">获取存储中的 Cookie</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id25">在存储中添加/删除 Cookie</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id26">分派存储中的 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id22">验证名称属性</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id23">验证前缀属性</a></p></li>
+<li><p><a class="reference internal" href="#samesite" id="id24">验证 SameSite 属性</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id13" id="id27">Cookie 个性化</a></p></li>
-<li><p><a class="reference internal" href="#namespace-CodeIgniter\Cookie" id="id28">类参考</a></p></li>
+<li><p><a class="reference internal" href="#cookies" id="id25">发送 Cookies</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id26">使用 Cookie 存储</a></p>
+<ul>
+<li><p><a class="reference internal" href="#response" id="id27">从 Response 获取存储</a></p></li>
+<li><p><a class="reference internal" href="#cookiestore" id="id28">创建 CookieStore</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id29">检查存储中的 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id30">获取存储中的 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id31">在存储中添加/删除 Cookie</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id32">分派存储中的 Cookie</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id15" id="id33">Cookie 个性化</a></p></li>
+<li><p><a class="reference internal" href="#namespace-CodeIgniter\Cookie" id="id34">类参考</a></p></li>
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id15">创建 Cookie</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id17">创建 Cookie</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>目前有四种方式可以创建一个新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 值对象。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -356,7 +364,10 @@
 <span class="nv">$cookie</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">(</span><span class="s1">&#39;remember_token&#39;</span><span class="p">,</span> <span class="s1">&#39;f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>在构造 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象时,只需要 <code class="docutils literal notranslate"><span class="pre">name</span></code> 属性是必需的。其余的都是可选的。如果没有修改可选属性,它们的值将由 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 类中保存的默认值填充。要覆盖类中当前存储的默认值,你可以传递一个 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 实例或默认值数组给静态 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 方法。</p>
+<p>在构造 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象时,只需要 <code class="docutils literal notranslate"><span class="pre">name</span></code> 属性是必需的。其余的都是可选的。如果没有修改可选属性,它们的值将由 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 类中保存的默认值填充。</p>
+<section id="id3">
+<h3><a class="toc-backref" href="#id18">覆盖默认值</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p>要覆盖类中当前存储的默认值,你可以传递一个 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 实例或默认值数组给静态 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 方法。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
@@ -375,7 +386,10 @@
 <span class="nv">$cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span><span class="s1">&#39;login_token&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>将 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 实例或数组传递给 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 将有效地覆盖你的默认值,并且持续到新的默认值被传递。如果你不想要这种行为,而只是想在有限的时间内更改默认值,你可以利用 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 的返回值,它返回旧的默认值数组。</p>
+<p>将 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 实例或数组传递给 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 将有效地覆盖你的默认值,并且持续到新的默认值被传递。</p>
+<section id="id4">
+<h4>有限的时间内更改默认值<a class="headerlink" href="#id4" title="永久链接至标题"></a></h4>
+<p>如果你不想要这种行为,而只是想在有限的时间内更改默认值,你可以利用 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 的返回值,它返回旧的默认值数组。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
@@ -389,8 +403,10 @@
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<h2><a class="toc-backref" href="#id16">访问 Cookie 的属性</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+</section>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id19">访问 Cookie 的属性</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>一旦实例化,你就可以通过使用其 getter 方法之一轻松访问 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 的属性。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -413,19 +429,19 @@
     <span class="p">]</span>
 <span class="p">);</span>
 
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span> <span class="c1">// &#39;remember_token&#39;</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPrefix</span><span class="p">();</span> <span class="c1">// &#39;__Secure-&#39;</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPrefixedName</span><span class="p">();</span> <span class="c1">// &#39;__Secure-remember_token&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>             <span class="c1">// &#39;remember_token&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPrefix</span><span class="p">();</span>           <span class="c1">// &#39;__Secure-&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPrefixedName</span><span class="p">();</span>     <span class="c1">// &#39;__Secure-remember_token&#39;</span>
 <span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getExpiresTimestamp</span><span class="p">();</span> <span class="c1">// Unix timestamp</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getExpiresString</span><span class="p">();</span> <span class="c1">// &#39;Fri, 14-Feb-2025 00:00:00 GMT&#39;</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isExpired</span><span class="p">();</span> <span class="c1">// false</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getMaxAge</span><span class="p">();</span> <span class="c1">// the difference from time() to expires</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isRaw</span><span class="p">();</span> <span class="c1">// false</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">();</span> <span class="c1">// true</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPath</span><span class="p">();</span> <span class="c1">// &#39;/&#39;</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getDomain</span><span class="p">();</span> <span class="c1">// &#39;&#39;</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isHTTPOnly</span><span class="p">();</span> <span class="c1">// true</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getSameSite</span><span class="p">();</span> <span class="c1">// &#39;Lax&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getExpiresString</span><span class="p">();</span>    <span class="c1">// &#39;Fri, 14-Feb-2025 00:00:00 GMT&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isExpired</span><span class="p">();</span>           <span class="c1">// false</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getMaxAge</span><span class="p">();</span>           <span class="c1">// the difference from time() to expires</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isRaw</span><span class="p">();</span>               <span class="c1">// false</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isSecure</span><span class="p">();</span>            <span class="c1">// true</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getPath</span><span class="p">();</span>             <span class="c1">// &#39;/&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getDomain</span><span class="p">();</span>           <span class="c1">// &#39;&#39;</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">isHTTPOnly</span><span class="p">();</span>          <span class="c1">// true</span>
+<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getSameSite</span><span class="p">();</span>         <span class="c1">// &#39;Lax&#39;</span>
 
 <span class="c1">// additional getter</span>
 <span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">();</span> <span class="c1">// &#39;__Secure-remember_token;;/&#39;</span>
@@ -437,8 +453,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id4">
-<h2><a class="toc-backref" href="#id17">不可变 Cookie</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<section id="id6">
+<h2><a class="toc-backref" href="#id20">不可变 Cookie</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p>新的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例是一个 HTTP cookie 的不可变值对象表示。由于是不可变的,修改实例的任何属性都不会影响原始实例。修改 <strong>总是</strong> 返回一个新实例。你需要保留这个新实例才能使用它。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -455,22 +471,22 @@
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h2><a class="toc-backref" href="#id18">验证 Cookie 的属性</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<section id="id7">
+<h2><a class="toc-backref" href="#id21">验证 Cookie 的属性</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
 <p>一个 HTTP cookie 受到几个规范的约束,这些规范需要遵循才能被浏览器接受。因此,在创建或修改 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 的某些属性时,会对其进行验证,以检查它们是否遵循规范。</p>
 <p>如果报告了违规,则会抛出 <code class="docutils literal notranslate"><span class="pre">CookieException</span></code>。</p>
-<section id="id6">
-<h3><a class="toc-backref" href="#id19">验证名称属性</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<section id="id8">
+<h3><a class="toc-backref" href="#id22">验证名称属性</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>cookie 名称可以是任何 US-ASCII 字符,以下字符除外:</p>
 <ul class="simple">
 <li><p>控制字符;</p></li>
 <li><p>空格或制表符;</p></li>
 <li><p>分隔符,例如 <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">)</span> <span class="pre">&lt;</span> <span class="pre">&gt;</span> <span class="pre">&#64;</span> <span class="pre">,</span> <span class="pre">;</span> <span class="pre">:</span> <span class="pre">\</span> <span class="pre">&quot;</span> <span class="pre">/</span> <span class="pre">[</span> <span class="pre">]</span> <span class="pre">?</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">}</span></code></p></li>
 </ul>
-<p>如果将 <code class="docutils literal notranslate"><span class="pre">$raw</span></code> 参数设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,则会严格进行此验证。这是因为 PHP 的 <code class="docutils literal notranslate"><span class="pre">setcookie</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setrawcookie</span></code> 会拒绝具有无效名称的 cookie。另外,cookie 名称不能为空字符串。</p>
+<p>如果将 <code class="docutils literal notranslate"><span class="pre">$raw</span></code> 参数设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,则会严格进行此验证。这是因为 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/function.setcookie.php">setcookie()</a> 和 <a class="reference external" href="https://www.php.net/manual/en/function.setrawcookie.php">setrawcookie()</a> 会拒绝具有无效名称的 cookie。另外,cookie 名称不能为空字符串。</p>
 </section>
-<section id="id7">
-<h3><a class="toc-backref" href="#id20">验证前缀属性</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<section id="id9">
+<h3><a class="toc-backref" href="#id23">验证前缀属性</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p>在使用 <code class="docutils literal notranslate"><span class="pre">__Secure-</span></code> 前缀时,必须将 cookie 的 <code class="docutils literal notranslate"><span class="pre">$secure</span></code> 标志设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。如果使用 <code class="docutils literal notranslate"><span class="pre">__Host-</span></code> 前缀,cookie 必须展示以下特征:</p>
 <ul class="simple">
 <li><p>将 <code class="docutils literal notranslate"><span class="pre">$secure</span></code> 标志设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
@@ -479,7 +495,7 @@
 </ul>
 </section>
 <section id="samesite">
-<h3><a class="toc-backref" href="#id21">验证 SameSite 属性</a><a class="headerlink" href="#samesite" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id24">验证 SameSite 属性</a><a class="headerlink" href="#samesite" title="永久链接至标题"></a></h3>
 <p>SameSite 属性只接受三个值:</p>
 <ul class="simple">
 <li><p><strong>Lax</strong>: 在第三方站点加载图像或框架等正常跨站子请求时不会发送 Cookie,但是在用户导航到源站点时会发送(即点击链接时)。</p></li>
@@ -494,16 +510,64 @@
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
 
-<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_LAX</span><span class="p">;</span> <span class="c1">// &#39;lax&#39;</span>
-<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_STRICT</span><span class="p">;</span> <span class="c1">// &#39;strict&#39;</span>
-<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_NONE</span><span class="p">;</span> <span class="c1">// &#39;none&#39;</span>
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_LAX</span><span class="p">;</span>       <span class="c1">// &#39;lax&#39;</span>
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_STRICT</span><span class="p">;</span>    <span class="c1">// &#39;strict&#39;</span>
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">SAMESITE_NONE</span><span class="p">;</span>      <span class="c1">// &#39;none&#39;</span>
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id8">
-<h2><a class="toc-backref" href="#id22">使用 Cookie 存储</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 类表示 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象的一个不可变集合。可以从当前的 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 对象访问 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例。</p>
+<section id="cookies">
+<h2><a class="toc-backref" href="#id25">发送 Cookies</a><a class="headerlink" href="#cookies" title="永久链接至标题"></a></h2>
+<p>将 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象设置在 Response 对象的 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 中，框架会自动发送 Cookies。</p>
+<p>使用 <a class="reference internal" href="../outgoing/response.html#CodeIgniter\HTTP\Response::setCookie" title="CodeIgniter\HTTP\Response::setCookie"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response::setCookie()</span></code></a> 来设置：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nx">Services</span><span class="o">::</span><span class="na">response</span><span class="p">();</span>
+
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span>
+    <span class="s1">&#39;remember_token&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6&#39;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;max-age&#39;</span> <span class="o">=&gt;</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="c1">// Expires in 2 hours</span>
+    <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setCookie</span><span class="p">(</span><span class="nv">$cookie</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>你也可以使用 <a class="reference internal" href="../helpers/cookie_helper.html#set_cookie" title="set_cookie"><code class="xref php php-func docutils literal notranslate"><span class="pre">set_cookie()</span></code></a> 辅助函数：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cookie\Cookie</span><span class="p">;</span>
+
+<span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">);</span>
+
+<span class="nv">$cookie</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cookie</span><span class="p">(</span>
+    <span class="s1">&#39;remember_token&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;f699c7fd18a8e082d0228932f3acd40e1ef5ef92efcedda32842a211d62f0aa6&#39;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;max-age&#39;</span> <span class="o">=&gt;</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="c1">// Expires in 2 hours</span>
+    <span class="p">]</span>
+<span class="p">);</span>
+
+<span class="nx">set_cookie</span><span class="p">(</span><span class="nv">$cookie</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h2><a class="toc-backref" href="#id26">使用 Cookie 存储</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>通常情况下，不需要直接使用 CookieStore。</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 类表示 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象的一个不可变集合。</p>
+<section id="response">
+<h3><a class="toc-backref" href="#id27">从 Response 获取存储</a><a class="headerlink" href="#response" title="永久链接至标题"></a></h3>
+<p>可以从当前的 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 对象访问 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
@@ -511,6 +575,9 @@
 <span class="nv">$cookieStore</span> <span class="o">=</span> <span class="nx">Services</span><span class="o">::</span><span class="na">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCookieStore</span><span class="p">();</span>
 </pre></div>
 </div>
+</section>
+<section id="cookiestore">
+<h3><a class="toc-backref" href="#id28">创建 CookieStore</a><a class="headerlink" href="#cookiestore" title="永久链接至标题"></a></h3>
 <p>CodeIgniter 提供了另外三种创建 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 新实例的方法。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -538,10 +605,11 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>在使用全局 <code class="docutils literal notranslate"><span class="pre">cookies()</span></code> 函数时,只有在第二个参数 <code class="docutils literal notranslate"><span class="pre">$getGlobal</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code> 时,才会考虑传递的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 数组。</p>
+<p>在使用全局 <a class="reference internal" href="../general/common_functions.html#cookies" title="cookies"><code class="xref php php-func docutils literal notranslate"><span class="pre">cookies()</span></code></a> 函数时,只有在第二个参数 <code class="docutils literal notranslate"><span class="pre">$getGlobal</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code> 时,才会考虑传递的 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 数组。</p>
 </div>
-<section id="id9">
-<h3><a class="toc-backref" href="#id23">检查存储中的 Cookie</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+</section>
+<section id="id11">
+<h3><a class="toc-backref" href="#id29">检查存储中的 Cookie</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
 <p>要检查 <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 实例中是否存在一个 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象,你可以用几种方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -567,8 +635,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id10">
-<h3><a class="toc-backref" href="#id24">获取存储中的 Cookie</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<section id="id12">
+<h3><a class="toc-backref" href="#id30">获取存储中的 Cookie</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
 <p>在 cookie 集合中检索一个 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 实例非常简单:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -619,11 +687,11 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>帮助函数 <code class="docutils literal notranslate"><span class="pre">get_cookie()</span></code> 从当前的 <code class="docutils literal notranslate"><span class="pre">Request</span></code> 对象获取 cookie,而不是从 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 获取。如果该 cookie 已设置,此函数会检查 <code class="docutils literal notranslate"><span class="pre">$_COOKIE</span></code> 数组并立即获取它。</p>
+<p>辅助函数 <a class="reference internal" href="../helpers/cookie_helper.html#get_cookie" title="get_cookie"><code class="xref php php-func docutils literal notranslate"><span class="pre">get_cookie()</span></code></a> 从当前的 <code class="docutils literal notranslate"><span class="pre">Request</span></code> 对象获取 cookie,而不是从 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 获取。如果该 cookie 已设置,此函数会检查 <code class="docutils literal notranslate"><span class="pre">$_COOKIE</span></code> 数组并立即获取它。</p>
 </div>
 </section>
-<section id="id11">
-<h3><a class="toc-backref" href="#id25">在存储中添加/删除 Cookie</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<section id="id13">
+<h3><a class="toc-backref" href="#id31">在存储中添加/删除 Cookie</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
 <p>如前所述, <code class="docutils literal notranslate"><span class="pre">CookieStore</span></code> 对象是不可变的。你需要保存修改后的实例才能对其进行操作。原始实例保持不变。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -663,8 +731,15 @@
 </pre></div>
 </div>
 </section>
-<section id="id12">
-<h3><a class="toc-backref" href="#id26">分派存储中的 Cookie</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<section id="id14">
+<h3><a class="toc-backref" href="#id32">分派存储中的 Cookie</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">4.1.6 版后已移除.</span></p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>该方法已被弃用。将在未来的版本中移除。</p>
+</div>
 <p>更多时候,你不需要自己手动发送 cookie。CodeIgniter 会为你做这件事。但是,如果你真的需要手动发送 cookie,你可以使用 <code class="docutils literal notranslate"><span class="pre">dispatch</span></code> 方法。就像发送其他标头一样,你需要确保标头还未发送,方法是检查 <code class="docutils literal notranslate"><span class="pre">headers_sent()</span></code> 的值。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -681,8 +756,8 @@
 </div>
 </section>
 </section>
-<section id="id13">
-<h2><a class="toc-backref" href="#id27">Cookie 个性化</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
+<section id="id15">
+<h2><a class="toc-backref" href="#id33">Cookie 个性化</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 类中已经有了一些默认设置,以确保平滑地创建 cookie 对象。但是,你可能希望通过更改 <strong>app/Config/Cookie.php</strong> 文件中的以下 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 类来定义自己的设置。</p>
 <table class="docutils align-default">
 <colgroup>
@@ -744,7 +819,7 @@
 <p>在运行时,你可以使用 <code class="docutils literal notranslate"><span class="pre">Cookie::setDefaults()</span></code> 方法手动提供新的默认值。</p>
 </section>
 <section id="namespace-CodeIgniter\Cookie">
-<span id="id14"></span><h2><a class="toc-backref" href="#id28">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\Cookie" title="永久链接至标题"></a></h2>
+<span id="id16"></span><h2><a class="toc-backref" href="#id34">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\Cookie" title="永久链接至标题"></a></h2>
 <dl class="php class">
 <dt class="sig sig-object php" id="CodeIgniter\Cookie\Cookie">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\Cookie\</span></span><span class="sig-name descname"><span class="pre">Cookie</span></span><a class="headerlink" href="#CodeIgniter\Cookie\Cookie" title="永久链接至目标"></a></dt>
@@ -754,7 +829,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$config</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">ConfigCookie|array</span></code></span>) – 配置数组或实例</p></li>
+<li><p><strong>$config</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">\Config\Cookie|array</span></code></span>) – 配置数组或实例</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回类型</dt>
@@ -764,7 +839,7 @@
 <dd class="field-odd"><p>旧的默认值</p>
 </dd>
 </dl>
-<p>通过从 <code class="docutils literal notranslate"><span class="pre">\Config\Cookie</span></code> 配置或数组中注入值来设置 Cookie 实例的默认属性。</p>
+<p>通过从 <code class="docutils literal notranslate"><span class="pre">Config\Cookie</span></code> 配置或数组中注入值来设置 Cookie 实例的默认属性。</p>
 </dd></dl>
 
 <dl class="php staticmethod">
@@ -1340,7 +1415,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -1348,7 +1423,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068d910710>
+<jinja2.runtime.BlockReference object at 0x7f8b29b1ac90>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>代码模块 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>代码模块 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -279,12 +280,14 @@
              
   <section id="id1">
 <h1>代码模块<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<p>CodeIgniter 支持一种代码模块化形式,以帮助你创建可重用的代码。模块通常围绕特定主题展开,可以认为是你更大的应用程序中的微型应用程序。框架支持的任何标准文件类型都受支持,如控制器、模型、视图、配置文件、辅助函数、语言文件等。模块可以包含尽可能少或多的这些文件。</p>
+<p>CodeIgniter 支持一种代码模块化形式,以帮助你创建可重用的代码。模块通常围绕特定主题展开,可以认为是你更大的应用程序中的微型应用程序。</p>
+<p>框架支持的任何标准文件类型都受支持,如控制器、模型、视图、配置文件、辅助函数、语言文件等。模块可以包含尽可能少或多的这些文件。</p>
+<p>如果你想将一个模块创建为 Composer 包，请参阅 <a class="reference internal" href="../extending/composer_packages.html"><span class="doc">创建 Composer 包</span></a>。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id22">命名空间</a></p></li>
 <li><p><a class="reference internal" href="#id4" id="id23">自动加载非类文件</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id24">自动发现</a></p>
+<li><p><a class="reference internal" href="#auto-discovery" id="id24">自动发现</a></p>
 <ul>
 <li><p><a class="reference internal" href="#id6" id="id25">启用/禁用发现</a></p></li>
 <li><p><a class="reference internal" href="#id7" id="id26">指定要发现的项</a></p></li>
@@ -294,7 +297,7 @@
 <li><p><a class="reference internal" href="#id10" id="id28">使用文件</a></p>
 <ul>
 <li><p><a class="reference internal" href="#id11" id="id29">路由</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id30">过滤器</a></p></li>
+<li><p><a class="reference internal" href="#modules-filters" id="id30">过滤器</a></p></li>
 <li><p><a class="reference internal" href="#id13" id="id31">控制器</a></p></li>
 <li><p><a class="reference internal" href="#id14" id="id32">配置文件</a></p></li>
 <li><p><a class="reference internal" href="#id15" id="id33">迁移</a></p></li>
@@ -383,22 +386,22 @@
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h2><a class="toc-backref" href="#id24">自动发现</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<section id="auto-discovery">
+<span id="id5"></span><h2><a class="toc-backref" href="#id24">自动发现</a><a class="headerlink" href="#auto-discovery" title="永久链接至标题"></a></h2>
 <p>通常,你需要指定要包含的文件的完全命名空间,但是可以通过自动发现许多不同类型的文件来配置 CodeIgniter,从而使将模块集成到应用程序中更简单,包括:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../extending/events.html"><span class="doc">Events</span></a></p></li>
 <li><p><a class="reference internal" href="../incoming/filters.html"><span class="doc">Filters</span></a></p></li>
-<li><p><a class="reference internal" href="configuration.html"><span class="doc">Registrars</span></a></p></li>
+<li><p><a class="reference internal" href="configuration.html#registrars"><span class="std std-ref">注册器</span></a></p></li>
 <li><p><a class="reference internal" href="../incoming/routing.html"><span class="doc">Route files</span></a></p></li>
 <li><p><a class="reference internal" href="../concepts/services.html"><span class="doc">Services</span></a></p></li>
 </ul>
 <p>这在文件 <strong>app/Config/Modules.php</strong> 中配置。</p>
-<p>自动发现系统通过扫描在 <strong>Config/Autoload.php</strong> 中定义的 psr4 命名空间下的特定目录和文件来工作。</p>
-<p>例如,发现过程将在路径中查找可以发现的项,并应该找到 <strong>/acme/Blog/Config/Routes.php</strong> 中的 routes 文件。</p>
+<p>自动发现系统通过扫描在 <strong>Config/Autoload.php</strong> 和 Composer 包中定义的 psr4 命名空间下的特定目录和文件来工作。</p>
+<p>例如,发现过程将在路径中查找可以发现的项,并应该找到 <strong>acme/Blog/Config/Routes.php</strong> 中的 routes 文件。</p>
 <section id="id6">
 <h3><a class="toc-backref" href="#id25">启用/禁用发现</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
-<p>你可以通过系统中的 <code class="docutils literal notranslate"><span class="pre">$enabled</span></code> 类变量打开或关闭所有自动发现。False 将禁用所有发现,优化性能,但会消除模块的特殊功能。</p>
+<p>你可以通过系统中的 <code class="docutils literal notranslate"><span class="pre">$enabled</span></code> 类变量打开或关闭所有自动发现。False 将禁用所有发现,优化性能,但会消除模块和 Composer 包的特殊功能。</p>
 </section>
 <section id="id7">
 <h3><a class="toc-backref" href="#id26">指定要发现的项</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
@@ -489,8 +492,39 @@
 </div>
 <p>使用模块时,如果应用程序中的路由包含通配符,这可能是一个问题。在这种情况下,请参阅 <a class="reference internal" href="../incoming/routing.html#routing-priority"><span class="std std-ref">路由优先级</span></a>。</p>
 </section>
-<section id="id12">
-<h3><a class="toc-backref" href="#id30">过滤器</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<section id="modules-filters">
+<span id="id12"></span><h3><a class="toc-backref" href="#id30">过滤器</a><a class="headerlink" href="#modules-filters" title="永久链接至标题"></a></h3>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">4.4.2 版后已移除.</span></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>此功能已被弃用。请改用 <a class="reference internal" href="configuration.html#registrars"><span class="std std-ref">注册器</span></a>，如下所示：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">CodeIgniter\Shield\Config</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Shield\Filters\SessionAuth</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Shield\Filters\TokenAuth</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Registrar</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * Registers the Shield filters.</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">Filters</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">&#39;aliases&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;session&#39;</span> <span class="o">=&gt;</span> <span class="nx">SessionAuth</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+                <span class="s1">&#39;tokens&#39;</span>  <span class="o">=&gt;</span> <span class="nx">TokenAuth</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <p>默认情况下,模块内会自动扫描 <a class="reference internal" href="../incoming/filters.html"><span class="doc">过滤器</span></a>。可以在上面描述的 <strong>Modules</strong> 配置文件中将其关闭。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -529,14 +563,14 @@
 <span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Acme\Blog\Config\Blog</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>每次使用始终可用的 <code class="docutils literal notranslate"><span class="pre">config()</span></code> 函数时,都会自动发现配置文件。</p>
+<p>无论何时使用始终可用的 <a class="reference internal" href="common_functions.html#config" title="config"><code class="xref php php-func docutils literal notranslate"><span class="pre">config()</span></code></a> 函数，并将一个短类名传递给它，配置文件都会被自动发现。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>我们不建议在模块中使用相同的短类名。需要覆盖或添加 <strong>app/Config/</strong> 中已知配置的模块应使用 <a class="reference internal" href="configuration.html#registrars"><span class="std std-ref">注册表</span></a>。</p>
+<p>我们不建议在模块中使用相同的短类名。需要覆盖或添加 <strong>app/Config/</strong> 中已知配置的模块应使用 <a class="reference internal" href="configuration.html#registrars"><span class="std std-ref">Implicit Registrars</span></a>。</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>当有一个相同短名称的类时,即使你指定了完全限定的类名(如 <code class="docutils literal notranslate"><span class="pre">config(\Acme\Blog\Config\Blog::class)</span></code>), <code class="docutils literal notranslate"><span class="pre">config()</span></code> 也会在 <strong>app/Config/</strong> 中找到该文件。这是因为 <code class="docutils literal notranslate"><span class="pre">config()</span></code> 是 <code class="docutils literal notranslate"><span class="pre">Factories</span></code> 类的包装器,默认使用 <code class="docutils literal notranslate"><span class="pre">preferApp</span></code>。有关更多信息,请参阅 <a class="reference internal" href="../concepts/factories.html#factories-example"><span class="std std-ref">Factories 示例</span></a>。</p>
+<p>在 v4.4.0 之前，即使你指定了一个完全限定的类名，如 <code class="docutils literal notranslate"><span class="pre">config(\Acme\Blog\Config\Blog::class)</span></code>，<code class="docutils literal notranslate"><span class="pre">config()</span></code> 仍会在 <strong>app/Config/</strong> 中查找文件，只要存在与短类名相同的类。在 v4.4.0 中修复了这个行为，并返回指定的实例。</p>
 </div>
 </section>
 <section id="id15">
@@ -546,11 +580,12 @@
 <section id="id16">
 <h3><a class="toc-backref" href="#id34">种子</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
 <p>只要提供完全限定的命名空间,就可以从 CLI 和其他种子文件中调用种子文件。如果在 CLI 上调用,则需要提供双反斜杠:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">For</span> <span class="nx">Unix</span><span class="o">:</span>
-<span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">seed</span> <span class="nx">Acme\\Blog\\Database\\Seeds\\TestPostSeeder</span>
-
-<span class="k">For</span> <span class="nx">Windows</span><span class="o">:</span>
-<span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">seed</span> <span class="nx">Acme\Blog\Database\Seeds\TestPostSeeder</span>
+<p>For Unix:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:seed Acme\\Blog\\Database\\Seeds\\TestPostSeeder</span>
+</pre></div>
+</div>
+<p>For Windows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:seed Acme\Blog\Database\Seeds\TestPostSeeder</span>
 </pre></div>
 </div>
 </section>
@@ -592,7 +627,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>当有一个相同短名称的类时,即使你指定了完全限定的类名(如 <code class="docutils literal notranslate"><span class="pre">model(\Acme\Blog\Model\PostModel::class)</span></code>), <code class="docutils literal notranslate"><span class="pre">model()</span></code> 也会在 <strong>app/Models/</strong> 中找到该文件。这是因为 <code class="docutils literal notranslate"><span class="pre">model()</span></code> 是 <code class="docutils literal notranslate"><span class="pre">Factories</span></code> 类的包装器,默认使用 <code class="docutils literal notranslate"><span class="pre">preferApp</span></code>。有关更多信息,请参阅 <a class="reference internal" href="../concepts/factories.html#factories-example"><span class="std std-ref">Factories 示例</span></a>。</p>
+<p>当有一个相同短名称的类时,即使你指定了完全限定的类名(如 <code class="docutils literal notranslate"><span class="pre">model(\Acme\Blog\Model\PostModel::class)</span></code>), <code class="docutils literal notranslate"><span class="pre">model()</span></code> 也会在 <strong>app/Models/</strong> 中找到该文件。这是因为 <code class="docutils literal notranslate"><span class="pre">model()</span></code> 是 <code class="docutils literal notranslate"><span class="pre">Factories</span></code> 类的包装器,默认使用 <code class="docutils literal notranslate"><span class="pre">preferApp</span></code>。有关更多信息,请参阅 <a class="reference internal" href="../concepts/factories.html#factories-loading-class"><span class="std std-ref">加载类</span></a>。</p>
 </div>
 </section>
 <section id="id21">
@@ -619,7 +654,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -627,7 +662,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068e035710>
+<jinja2.runtime.BlockReference object at 0x7f8b297f9fd0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

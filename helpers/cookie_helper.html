@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cookie 辅助函数 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Cookie 辅助函数 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -304,7 +305,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – Cookie 名称 <em>或</em> 此函数可用的所有参数的关联数组</p></li>
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array|Cookie|string</span></code></span>) – Cookie 名称 <em>或</em> 此函数可用的所有参数的关联数组 <em>或</em> <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Cookie\Cookie</span></code> 的实例</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 值</p></li>
 <li><p><strong>$expire</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – 到期秒数。如果设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 则 cookie 仅在浏览器打开时有效</p></li>
 <li><p><strong>$domain</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 域名(通常:.yourdomain.com)</p></li>
@@ -351,12 +352,10 @@
 <p class="admonition-title">备注</p>
 <p>从 v4.2.1 开始,引入了第三个参数 <code class="docutils literal notranslate"><span class="pre">$prefix</span></code>,并且由于一个错误修复,行为发生了一些变化。详见 <a class="reference internal" href="../installation/upgrade_421.html#upgrade-421-get-cookie"><span class="std std-ref">升级</span></a>。</p>
 </div>
-<p>该辅助函数为获取浏览器 cookie 提供了更友好的语法。有关其使用的详细描述,请参阅
-<a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">IncomingRequest 库</span></a>,因为此函数的作用与 <code class="docutils literal notranslate"><span class="pre">IncomingRequest::getCookie()</span></code>
-非常相似,只是它还会在你可能在 <strong>app/Config/Cookie.php</strong> 文件中设置的 <code class="docutils literal notranslate"><span class="pre">Config\Cookie::$prefix</span></code> 前加上前缀。</p>
+<p>这个辅助函数为你提供了更友好的语法来获取浏览器的 Cookie。有关其使用的详细描述，请参考 <a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">IncomingRequest 库</span></a>，因为这个函数的行为与 <a class="reference internal" href="../incoming/incomingrequest.html#CodeIgniter\HTTP\IncomingRequest::getCookie" title="CodeIgniter\HTTP\IncomingRequest::getCookie"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\IncomingRequest::getCookie()</span></code></a> 非常相似，只是它还会在前面添加你在 <strong>app/Config/Cookie.php</strong> 文件中设置的 <code class="docutils literal notranslate"><span class="pre">Config\Cookie::$prefix</span></code>。</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
-<p>使用 XSS 过滤是一个不好的做法。它不能完美地防止 XSS 攻击。在视图中建议使用正确 <code class="docutils literal notranslate"><span class="pre">$context</span></code> 的 <code class="docutils literal notranslate"><span class="pre">esc()</span></code>。</p>
+<p>使用 XSS 过滤是一个不好的做法。它不能完美地防止 XSS 攻击。在视图中建议使用正确 <code class="docutils literal notranslate"><span class="pre">$context</span></code> 的 <a class="reference internal" href="../general/common_functions.html#esc" title="esc"><code class="xref php php-func docutils literal notranslate"><span class="pre">esc()</span></code></a>。</p>
 </div>
 </dd></dl>
 
@@ -382,10 +381,10 @@
 <span class="nx">delete_cookie</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>此函数与 <code class="docutils literal notranslate"><span class="pre">set_cookie()</span></code> 其他方面相同,只是它没有 <code class="docutils literal notranslate"><span class="pre">value</span></code> 和 <code class="docutils literal notranslate"><span class="pre">expire</span></code> 参数。</p>
+<p>此函数与 <a class="reference internal" href="#set_cookie" title="set_cookie"><code class="xref php php-func docutils literal notranslate"><span class="pre">set_cookie()</span></code></a> 其他方面相同,只是它没有 <code class="docutils literal notranslate"><span class="pre">value</span></code> 和 <code class="docutils literal notranslate"><span class="pre">expire</span></code> 参数。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>当你使用 <code class="docutils literal notranslate"><span class="pre">set_cookie()</span></code> 时,如果 <code class="docutils literal notranslate"><span class="pre">value</span></code> 设置为空字符串且 <code class="docutils literal notranslate"><span class="pre">expire</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code>,则 cookie 将被删除。
+<p>当你使用 <a class="reference internal" href="#set_cookie" title="set_cookie"><code class="xref php php-func docutils literal notranslate"><span class="pre">set_cookie()</span></code></a> 时,如果 <code class="docutils literal notranslate"><span class="pre">value</span></code> 设置为空字符串且 <code class="docutils literal notranslate"><span class="pre">expire</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code>,则 cookie 将被删除。
 如果 <code class="docutils literal notranslate"><span class="pre">value</span></code> 设置为非空字符串且 <code class="docutils literal notranslate"><span class="pre">expire</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code>,则 cookie 仅在浏览器打开时有效。</p>
 </div>
 <p>你可以在第一个参数中提交值数组,也可以设置离散参数。</p>
@@ -429,7 +428,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -437,7 +436,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068dbe4e50>
+<jinja2.runtime.BlockReference object at 0x7f8b29855310>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

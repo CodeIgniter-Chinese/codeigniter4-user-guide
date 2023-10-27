@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>验证 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>验证 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -282,74 +283,75 @@
 <p>CodeIgniter 提供了一个全面的数据验证类,可以帮助 minimizing 你编写的代码量。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id53">概览</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id54">表单验证教程</a></p>
+<li><p><a class="reference internal" href="#id3" id="id56">概览</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id57">表单验证教程</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id5" id="id55">表单</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id56">成功页面</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id57">控制器</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id58">路由</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id59">试一试!</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id60">解释</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id61">添加验证规则</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id58">表单</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id59">成功页面</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id60">控制器</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id61">路由</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id62">试一试!</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id63">解释</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id64">添加验证规则</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id12" id="id62">验证配置</a></p>
+<li><p><a class="reference internal" href="#id12" id="id65">验证配置</a></p>
 <ul>
-<li><p><a class="reference internal" href="#validation-traditional-and-strict-rules" id="id63">传统规则和严格规则</a></p></li>
+<li><p><a class="reference internal" href="#validation-traditional-and-strict-rules" id="id66">传统规则和严格规则</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id17" id="id64">加载库</a></p></li>
-<li><p><a class="reference internal" href="#id18" id="id65">设置验证规则</a></p>
+<li><p><a class="reference internal" href="#id17" id="id67">加载库</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id68">设置验证规则</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id19" id="id66">设置单个规则</a></p></li>
-<li><p><a class="reference internal" href="#id20" id="id67">设置多个规则</a></p></li>
-<li><p><a class="reference internal" href="#validation-withrequest" id="id68">为数组数据设置规则</a></p></li>
-<li><p><a class="reference internal" href="#withrequest" id="id69">withRequest()</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id69">设置单个规则</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id70">设置多个规则</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id71">为数组数据设置规则</a></p></li>
+<li><p><a class="reference internal" href="#withrequest" id="id72">withRequest()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id22" id="id70">使用验证</a></p>
+<li><p><a class="reference internal" href="#id22" id="id73">使用验证</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id23" id="id71">运行验证</a></p></li>
-<li><p><a class="reference internal" href="#id24" id="id72">运行多个验证</a></p></li>
-<li><p><a class="reference internal" href="#id25" id="id73">验证单个值</a></p></li>
-<li><p><a class="reference internal" href="#id26" id="id74">将一组验证规则保存到配置文件</a></p></li>
-<li><p><a class="reference internal" href="#validation-placeholders" id="id75">验证占位符</a></p></li>
+<li><p><a class="reference internal" href="#id23" id="id74">运行验证</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id75">运行多个验证</a></p></li>
+<li><p><a class="reference internal" href="#id25" id="id76">验证单个值</a></p></li>
+<li><p><a class="reference internal" href="#validation-getting-validated-data" id="id77">获取经过验证的数据</a></p></li>
+<li><p><a class="reference internal" href="#id27" id="id78">将一组验证规则保存到配置文件</a></p></li>
+<li><p><a class="reference internal" href="#validation-placeholders" id="id79">验证占位符</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id32" id="id76">处理错误</a></p>
+<li><p><a class="reference internal" href="#id35" id="id80">处理错误</a></p>
 <ul>
-<li><p><a class="reference internal" href="#validation-custom-errors" id="id77">设置自定义错误消息</a></p></li>
-<li><p><a class="reference internal" href="#id34" id="id78">翻译消息和验证标签</a></p></li>
-<li><p><a class="reference internal" href="#validation-getting-all-errors" id="id79">获取所有错误</a></p></li>
-<li><p><a class="reference internal" href="#id36" id="id80">获取单个错误</a></p></li>
-<li><p><a class="reference internal" href="#id37" id="id81">检查错误是否存在</a></p></li>
-<li><p><a class="reference internal" href="#validation-redirect-and-validation-errors" id="id82">重定向和验证错误</a></p></li>
+<li><p><a class="reference internal" href="#validation-custom-errors" id="id81">设置自定义错误消息</a></p></li>
+<li><p><a class="reference internal" href="#id37" id="id82">翻译消息和验证标签</a></p></li>
+<li><p><a class="reference internal" href="#validation-getting-all-errors" id="id83">获取所有错误</a></p></li>
+<li><p><a class="reference internal" href="#id39" id="id84">获取单个错误</a></p></li>
+<li><p><a class="reference internal" href="#id40" id="id85">检查错误是否存在</a></p></li>
+<li><p><a class="reference internal" href="#validation-redirect-and-validation-errors" id="id86">重定向和验证错误</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#validation-customizing-error-display" id="id83">自定义错误显示</a></p>
+<li><p><a class="reference internal" href="#validation-customizing-error-display" id="id87">自定义错误显示</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id40" id="id84">创建视图</a></p></li>
-<li><p><a class="reference internal" href="#id41" id="id85">配置</a></p></li>
-<li><p><a class="reference internal" href="#id42" id="id86">指定模板</a></p></li>
+<li><p><a class="reference internal" href="#id43" id="id88">创建视图</a></p></li>
+<li><p><a class="reference internal" href="#id44" id="id89">配置</a></p></li>
+<li><p><a class="reference internal" href="#id45" id="id90">指定模板</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id43" id="id87">创建自定义规则</a></p>
+<li><p><a class="reference internal" href="#id46" id="id91">创建自定义规则</a></p>
 <ul>
-<li><p><a class="reference internal" href="#validation-using-rule-classes" id="id88">使用规则类</a></p></li>
-<li><p><a class="reference internal" href="#validation-using-closure-rule" id="id89">使用闭包规则</a></p></li>
+<li><p><a class="reference internal" href="#validation-using-rule-classes" id="id92">使用规则类</a></p></li>
+<li><p><a class="reference internal" href="#validation-using-closure-rule" id="id93">使用闭包规则</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id50" id="id90">可用规则</a></p>
+<li><p><a class="reference internal" href="#id53" id="id94">可用规则</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id51" id="id91">常规规则</a></p></li>
-<li><p><a class="reference internal" href="#rules-for-file-uploads" id="id92">文件上传规则</a></p></li>
+<li><p><a class="reference internal" href="#id54" id="id95">常规规则</a></p></li>
+<li><p><a class="reference internal" href="#rules-for-file-uploads" id="id96">文件上传规则</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id53">概览</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id56">概览</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>在解释 CodeIgniter 的数据验证方法之前,让我们描述一下理想的场景:</p>
 <ol class="arabic simple">
 <li><p>显示一个表单。</p></li>
@@ -368,7 +370,7 @@
 <p>尽管上述过程没有非常复杂的地方,但通常需要大量的代码,为了显示错误信息,各种控制结构通常放在表单 HTML 中。表单验证虽简单但一般实现起来既混乱又乏味。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id54">表单验证教程</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id57">表单验证教程</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>以下是实现 CodeIgniter 表单验证的“动手”教程。</p>
 <p>为了实现表单验证,你需要三件事:</p>
 <ol class="arabic simple">
@@ -378,7 +380,7 @@
 </ol>
 <p>让我们创建这三件事,以会员注册表单为例。</p>
 <section id="id5">
-<h3><a class="toc-backref" href="#id55">表单</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id58">表单</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>使用文本编辑器,创建一个名为 <strong>signup.php</strong> 的表单。在其中放入以下代码并保存到你的 <strong>app/Views/</strong> 文件夹:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
@@ -412,7 +414,7 @@
 </div>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id56">成功页面</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id59">成功页面</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>使用文本编辑器,创建一个名为 <strong>success.php</strong> 的页面。在其中放入以下代码,并保存到你的 <strong>app/Views/</strong> 文件夹:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
@@ -430,13 +432,11 @@
 </div>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id57">控制器</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id60">控制器</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>使用文本编辑器,创建一个名为 <strong>Form.php</strong> 的控制器。在其中放入以下代码,并保存到你的 <strong>app/Controllers/</strong> 文件夹:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">Form</span> <span class="k">extends</span> <span class="nx">BaseController</span>
 <span class="p">{</span>
@@ -454,6 +454,9 @@
             <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;signup&#39;</span><span class="p">);</span>
         <span class="p">}</span>
 
+        <span class="c1">// If you want to get the validated data.</span>
+        <span class="nv">$validData</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="o">-&gt;</span><span class="na">getValidated</span><span class="p">();</span>
+
         <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -464,9 +467,13 @@
 <p>从 v4.3.0 开始,可以使用 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-is"><span class="std std-ref">$this-&gt;request-&gt;is()</span></a> 方法。
 在早期版本中,需要使用 <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(strtolower($this-&gt;request-&gt;getMethod())</span> <span class="pre">!==</span> <span class="pre">'post')</span></code>。</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自 v4.4.0 起，可以使用 <a class="reference internal" href="#validation-getting-validated-data"><span class="std std-ref">$this-&gt;validator-&gt;getValidated()</span></a> 方法。</p>
+</div>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id58">路由</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id61">路由</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>然后在 <strong>app/Config/Routes.php</strong> 中为控制器添加路由:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
 
@@ -478,7 +485,7 @@
 </div>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id59">试一试!</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id62">试一试!</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p>要测试你的表单,使用类似这样的 URL 访问你的网站:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">form</span><span class="o">/</span>
 </pre></div>
@@ -491,7 +498,7 @@
 </div>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id60">解释</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id63">解释</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
 <p>你会注意到上面的页面有几件事。</p>
 <section id="signup-php">
 <h4>signup.php<a class="headerlink" href="#signup-php" title="永久链接至标题"></a></h4>
@@ -516,15 +523,15 @@
 </section>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id61">添加验证规则</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id64">添加验证规则</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
 <p>然后在控制器中添加验证规则(<strong>Form.php</strong>):</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
 
 <span class="nv">$rules</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;passconf&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|matches[password]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|min_length[10]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;passconf&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|matches[password]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email&#39;</span><span class="p">,</span>
 <span class="p">];</span>
 
 <span class="c1">// ...</span>
@@ -534,9 +541,9 @@
 </section>
 </section>
 <section id="id12">
-<h2><a class="toc-backref" href="#id62">验证配置</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id65">验证配置</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
 <section id="validation-traditional-and-strict-rules">
-<span id="id13"></span><h3><a class="toc-backref" href="#id63">传统规则和严格规则</a><a class="headerlink" href="#validation-traditional-and-strict-rules" title="永久链接至标题"></a></h3>
+<span id="id13"></span><h3><a class="toc-backref" href="#id66">传统规则和严格规则</a><a class="headerlink" href="#validation-traditional-and-strict-rules" title="永久链接至标题"></a></h3>
 <p>CodeIgniter 4 有两种验证规则类。
 传统规则类(<strong>传统规则</strong>)命名空间为 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Validation</span></code>,
 新的类(<strong>严格规则</strong>)命名空间为 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Validation\StrictRules</span></code>,提供严格验证。</p>
@@ -570,7 +577,9 @@
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">Validation</span>
+<span class="c1">// ...</span>
+
+<span class="k">class</span> <span class="nc">Validation</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
     <span class="c1">// ...</span>
 
@@ -589,11 +598,9 @@
 </section>
 </section>
 <section id="id17">
-<h2><a class="toc-backref" href="#id64">加载库</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id67">加载库</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
 <p>该库以名为 <strong>validation</strong> 的服务加载:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>这会自动加载 <code class="docutils literal notranslate"><span class="pre">Config\Validation</span></code> 文件,其中包含用于包含多个 Rulesets 的设置,以及可以轻松重用的规则集合。</p>
@@ -604,11 +611,11 @@
 </div>
 </section>
 <section id="id18">
-<h2><a class="toc-backref" href="#id65">设置验证规则</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id68">设置验证规则</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h2>
 <p>CodeIgniter 允许你根据需要为一个字段设置尽可能多的验证规则,级联地指定它们。要设置验证规则,
 你将使用 <code class="docutils literal notranslate"><span class="pre">setRule()</span></code>、<code class="docutils literal notranslate"><span class="pre">setRules()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">withRequest()</span></code> 方法。</p>
 <section id="id19">
-<h3><a class="toc-backref" href="#id66">设置单个规则</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id69">设置单个规则</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
 <section id="setrule">
 <h4>setRule()<a class="headerlink" href="#setrule" title="永久链接至标题"></a></h4>
 <p>这个方法设置一个规则。它具有如下方法签名:</p>
@@ -616,10 +623,8 @@
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">$rules</span></code> 可以接收管道分隔的规则列表,或者规则数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRule</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="s1">&#39;required|min_length[3]&#39;</span><span class="p">);</span>
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRule</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;min_length[8]&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha_numeric_punct&#39;</span><span class="p">]);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRule</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="s1">&#39;required|max_length[30]|min_length[3]&#39;</span><span class="p">);</span>
+<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRule</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;max_length[255]&#39;</span><span class="p">,</span> <span class="s1">&#39;min_length[8]&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha_numeric_punct&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p>你传递给 <code class="docutils literal notranslate"><span class="pre">$field</span></code> 的值必须匹配传入数据数组的键。如果数据直接来自 <code class="docutils literal notranslate"><span class="pre">$_POST</span></code>,那么它必须与表单输入名称完全匹配。</p>
@@ -630,45 +635,43 @@
 </section>
 </section>
 <section id="id20">
-<h3><a class="toc-backref" href="#id67">设置多个规则</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id70">设置多个规则</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
 <section id="setrules">
 <h4>setRules()<a class="headerlink" href="#setrules" title="永久链接至标题"></a></h4>
 <p>像 <code class="docutils literal notranslate"><span class="pre">setRule()</span></code> 一样,但接受字段名称及其规则的数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|min_length[10]&#39;</span><span class="p">,</span>
 <span class="p">]);</span>
 <span class="c1">// or</span>
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;min_length[10]&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;max_length[30]&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;max_length[255]&#39;</span><span class="p">,</span> <span class="s1">&#39;min_length[10]&#39;</span><span class="p">],</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
 <p>要给出带标签的错误消息,可以设置如下:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">],</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|min_length[10]&#39;</span><span class="p">],</span>
 <span class="p">]);</span>
 <span class="c1">// or</span>
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;min_length[10]&#39;</span><span class="p">]],</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="s1">&#39;rules&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;max_length[255]&#39;</span><span class="p">,</span> <span class="s1">&#39;min_length[10]&#39;</span><span class="p">]],</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
+<div class="admonition note" id="validation-withrequest">
+<p class="admonition-title">备注</p>
+<p><code class="docutils literal notranslate"><span class="pre">setRules()</span></code> 会覆盖先前设置的任何规则。要向现有规则集添加多个规则，请多次使用 <code class="docutils literal notranslate"><span class="pre">setRule()</span></code>。</p>
+</div>
 </section>
 </section>
-<section id="validation-withrequest">
-<span id="id21"></span><h3><a class="toc-backref" href="#id68">为数组数据设置规则</a><a class="headerlink" href="#validation-withrequest" title="永久链接至标题"></a></h3>
+<section id="id21">
+<h3><a class="toc-backref" href="#id71">为数组数据设置规则</a><a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
 <p>如果你的数据在嵌套的关联数组中,你可以使用“点数组语法”来轻松验证数据:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="cm">/*</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> * The data to test:</span>
 <span class="cm"> * [</span>
 <span class="cm"> *     &#39;contacts&#39; =&gt; [</span>
@@ -687,29 +690,25 @@
 
 <span class="c1">// Joe Smith</span>
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;contacts.name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;contacts.name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[60]&#39;</span><span class="p">,</span>
 <span class="p">]);</span>
 
 <span class="c1">// Fred Flintsone &amp; Wilma</span>
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;contacts.friends.name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;contacts.friends.name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[60]&#39;</span><span class="p">,</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
 <p>你可以使用通配符 <code class="docutils literal notranslate"><span class="pre">*</span></code> 符号匹配任意一层数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Fred Flintsone &amp; Wilma</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Fred Flintsone &amp; Wilma</span>
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;contacts.*.name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;contacts.*.name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[60]&#39;</span><span class="p">,</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
 <p>当你有单维数组数据时,”点数组语法”也很有用。
 例如,下拉多选返回的数据:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="cm">/*</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> * The data to test:</span>
 <span class="cm"> * [</span>
 <span class="cm"> *     &#39;user_ids&#39; =&gt; [</span>
@@ -722,35 +721,39 @@
 
 <span class="c1">// Rule</span>
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;user_ids.*&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;user_ids.*&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[19]&#39;</span><span class="p">,</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
 </section>
 <section id="withrequest">
-<h3><a class="toc-backref" href="#id69">withRequest()</a><a class="headerlink" href="#withrequest" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id72">withRequest()</a><a class="headerlink" href="#withrequest" title="永久链接至标题"></a></h3>
 <p>当验证从 HTTP 请求输入的数据时,你会最常使用验证库。如果需要的话,你可以传入当前请求对象的实例,它会获取所有输入数据并将其设置为要验证的数据:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
+<span class="nv">$request</span>    <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">request</span><span class="p">();</span>
 
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">withRequest</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">withRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">())</span> <span class="p">{</span>
+    <span class="c1">// If you want to get the validated data.</span>
+    <span class="nv">$validData</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getValidated</span><span class="p">();</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>当你使用此方法时，应使用 <a class="reference internal" href="#validation-getting-validated-data"><span class="std std-ref">getValidated()</span></a> 方法获取经过验证的数据。因为该方法从 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-getting-json-data"><span class="std std-ref">$request-&gt;getJSON()</span></a> 获取 JSON 数据（当请求是 JSON 请求时，<code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">application/json</span></code>），或者从 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-retrieving-raw-data"><span class="std std-ref">$request-&gt;getRawInput()</span></a> 获取原始数据（当请求是 PUT、PATCH、DELETE 请求且不是 HTML 表单提交时，<code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code>），或者从 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-getting-data"><span class="std std-ref">$request-&gt;getVar()</span></a> 获取数据，并且攻击者可以更改要验证的数据。</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>这个方法会从
-<a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-getting-json-data"><span class="std std-ref">$request-&gt;getJSON()</span></a>
-获取 JSON 数据,当请求是 JSON 请求时(<code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">application/json</span></code>),
-或者从
-<a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-retrieving-raw-data"><span class="std std-ref">$request-&gt;getRawInput()</span></a>
-获取原始数据,当请求是 PUT、PATCH、DELETE 请求且不是 HTML 表单 POST 时(<code class="docutils literal notranslate"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data</span></code>),
-或者从 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-getting-data"><span class="std std-ref">$request-&gt;getVar()</span></a> 获取数据。</p>
+<p>自 v4.4.0 起，可以使用 <a class="reference internal" href="#validation-getting-validated-data"><span class="std std-ref">getValidated()</span></a> 方法。</p>
 </div>
 </section>
 </section>
 <section id="id22">
-<h2><a class="toc-backref" href="#id70">使用验证</a><a class="headerlink" href="#id22" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id73">使用验证</a><a class="headerlink" href="#id22" title="永久链接至标题"></a></h2>
 <section id="id23">
-<h3><a class="toc-backref" href="#id71">运行验证</a><a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id74">运行验证</a><a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法运行验证。它有如下方法签名:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">run</span><span class="p">(</span><span class="o">?</span><span class="k">array</span> <span class="nv">$data</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="o">?</span><span class="nx">string</span> <span class="nv">$group</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="o">?</span><span class="nx">string</span> <span class="nv">$dbGroup</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 </pre></div>
@@ -759,9 +762,7 @@
 <code class="docutils literal notranslate"><span class="pre">$group</span></code> 是要应用的 <a class="reference internal" href="#validation-array"><span class="std std-ref">预定义规则组</span></a>。
 可选的第三个参数 <code class="docutils literal notranslate"><span class="pre">$dbGroup</span></code> 是要使用的数据库组。</p>
 <p>如果验证成功,该方法返回 true。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="nv">$data</span><span class="p">))</span> <span class="p">{</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="nv">$data</span><span class="p">))</span> <span class="p">{</span>
     <span class="c1">// handle validation errors</span>
 <span class="p">}</span>
 <span class="c1">// or</span>
@@ -772,15 +773,13 @@
 </div>
 </section>
 <section id="id24">
-<h3><a class="toc-backref" href="#id72">运行多个验证</a><a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id75">运行多个验证</a><a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法不会重置错误状态。如果前一次运行失败, <code class="docutils literal notranslate"><span class="pre">run()</span></code> 将总是返回 false, <code class="docutils literal notranslate"><span class="pre">getErrors()</span></code> 将返回所有先前的错误,直到明确重置。</p>
 </div>
 <p>如果你打算运行多个验证,例如对不同的数据集或之后的规则,你可能需要在每次运行之前调用 <code class="docutils literal notranslate"><span class="pre">$validation-&gt;reset()</span></code> 来清除之前运行的错误。要注意 <code class="docutils literal notranslate"><span class="pre">reset()</span></code> 会使任何数据、规则或自定义错误无效,所以 <code class="docutils literal notranslate"><span class="pre">setRules()</span></code>、<code class="docutils literal notranslate"><span class="pre">setRuleGroup()</span></code> 等需要重复:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$userAccounts</span> <span class="k">as</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$userAccounts</span> <span class="k">as</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
     <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">reset</span><span class="p">();</span>
     <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">(</span><span class="nv">$userAccountRules</span><span class="p">);</span>
 
@@ -792,31 +791,92 @@
 </div>
 </section>
 <section id="id25">
-<h3><a class="toc-backref" href="#id73">验证单个值</a><a class="headerlink" href="#id25" title="永久链接至标题"></a></h3>
-<p>对一个值针对一个规则进行验证:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<h3><a class="toc-backref" href="#id76">验证单个值</a><a class="headerlink" href="#id25" title="永久链接至标题"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">check()</span></code> 方法根据规则验证一个值。
+第一个参数 <code class="docutils literal notranslate"><span class="pre">$value</span></code> 是要验证的值。第二个参数 <code class="docutils literal notranslate"><span class="pre">$rule</span></code> 是验证规则。
+可选的第三个参数 <code class="docutils literal notranslate"><span class="pre">$errors</span></code> 是自定义错误消息。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">check</span><span class="p">(</span><span class="nv">$value</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// $value is valid.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在 v4.4.0 之前，此方法的第二个参数 <code class="docutils literal notranslate"><span class="pre">$rule</span></code> 的类型提示为 <code class="docutils literal notranslate"><span class="pre">string</span></code>。在 v4.4.0 及之后的版本中，类型提示被移除，允许接受数组。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>此方法调用 <code class="docutils literal notranslate"><span class="pre">setRule()</span></code> 方法在内部设置规则。</p>
+</div>
+</section>
+<section id="validation-getting-validated-data">
+<span id="id26"></span><h3><a class="toc-backref" href="#id77">获取经过验证的数据</a><a class="headerlink" href="#validation-getting-validated-data" title="永久链接至标题"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">4.4.0 新版功能.</span></p>
+</div>
+<p>可以使用 <code class="docutils literal notranslate"><span class="pre">getValidated()</span></code> 方法获取实际经过验证的数据。
+该方法返回一个仅包含已通过验证规则的元素的数组。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
+<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
+<span class="p">]);</span>
 
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">check</span><span class="p">(</span><span class="nv">$value</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span><span class="p">);</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;username&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;john&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;password&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;BPi-$Swu7U5lm$dX&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;csrf_token&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;8b9218a55906f9dcc1dc263dce7f005a&#39;</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="nv">$data</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$validatedData</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getValidated</span><span class="p">();</span>
+    <span class="c1">// $validatedData = [</span>
+    <span class="c1">//     &#39;username&#39; =&gt; &#39;john&#39;,</span>
+    <span class="c1">//     &#39;password&#39; =&gt; &#39;BPi-$Swu7U5lm$dX&#39;,</span>
+    <span class="c1">// ];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In Controller.</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
+<span class="p">]))</span> <span class="p">{</span>
+    <span class="c1">// The validation failed.</span>
+    <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">(),</span>
+    <span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="c1">// The validation was successful.</span>
+
+<span class="c1">// Get the validated data.</span>
+<span class="nv">$validData</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="o">-&gt;</span><span class="na">getValidated</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
-<section id="id26">
-<h3><a class="toc-backref" href="#id74">将一组验证规则保存到配置文件</a><a class="headerlink" href="#id26" title="永久链接至标题"></a></h3>
+<section id="id27">
+<h3><a class="toc-backref" href="#id78">将一组验证规则保存到配置文件</a><a class="headerlink" href="#id27" title="永久链接至标题"></a></h3>
 <p>验证类的一个很好的特性是它允许你将所有验证规则存储在配置文件中。你可以按“组”组织规则。每次运行验证时,你都可以指定不同的组。</p>
 <section id="validation-array">
-<span id="id27"></span><h4>如何保存规则<a class="headerlink" href="#validation-array" title="永久链接至标题"></a></h4>
+<span id="id28"></span><h4>如何保存规则<a class="headerlink" href="#validation-array" title="永久链接至标题"></a></h4>
 <p>要存储验证规则,只需在 <code class="docutils literal notranslate"><span class="pre">Config\Validation</span></code> 类中创建一个新的公共属性,名称为你的组名。这个元素将持有一个包含你的验证规则的数组。如前所示,验证数组的原型如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">Validation</span>
+<span class="c1">// ...</span>
+
+<span class="k">class</span> <span class="nc">Validation</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;username&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;password&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;pass_confirm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|matches[password]&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email&#39;</span><span class="p">,</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">array</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;username&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;pass_confirm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|matches[password]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email&#39;</span><span class="p">,</span>
     <span class="p">];</span>
 
     <span class="c1">// ...</span>
@@ -824,32 +884,34 @@
 </pre></div>
 </div>
 </section>
-<section id="id28">
-<h4>如何指定规则组<a class="headerlink" href="#id28" title="永久链接至标题"></a></h4>
+<section id="id29">
+<h4>如何指定规则组<a class="headerlink" href="#id29" title="永久链接至标题"></a></h4>
 <p>当调用 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法时,你可以在第一个参数中指定要使用的组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="s1">&#39;signup&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="s1">&#39;signup&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
-<section id="id29">
-<h4>如何保存错误消息<a class="headerlink" href="#id29" title="永久链接至标题"></a></h4>
+<section id="id30">
+<h4>如何保存错误消息<a class="headerlink" href="#id30" title="永久链接至标题"></a></h4>
 <p>你也可以在此配置文件中存储自定义错误消息,方法是命名与组相同的属性,并追加 <code class="docutils literal notranslate"><span class="pre">_errors</span></code>。这些将在使用该组时自动用于任何错误:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">Validation</span>
+<span class="c1">// ...</span>
+
+<span class="k">class</span> <span class="nc">Validation</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;username&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;password&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;pass_confirm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|matches[password]&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email&#39;</span><span class="p">,</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">array</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;username&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;pass_confirm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|matches[password]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email&#39;</span><span class="p">,</span>
     <span class="p">];</span>
 
-    <span class="k">public</span> <span class="nv">$signup_errors</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="k">public</span> <span class="k">array</span> <span class="nv">$signup_errors</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;You must choose a username.&#39;</span><span class="p">,</span>
         <span class="p">],</span>
@@ -867,54 +929,57 @@
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">Validation</span>
+<span class="c1">// ...</span>
+
+<span class="k">class</span> <span class="nc">Validation</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">array</span> <span class="nv">$signup</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]&#39;</span><span class="p">,</span>
             <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                 <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;You must choose a Username.&#39;</span><span class="p">,</span>
             <span class="p">],</span>
         <span class="p">],</span>
         <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email&#39;</span><span class="p">,</span>
             <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                 <span class="s1">&#39;valid_email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Please check the Email field. It does not appear to be valid.&#39;</span><span class="p">,</span>
             <span class="p">],</span>
         <span class="p">],</span>
     <span class="p">];</span>
+
     <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>参见 <a class="reference internal" href="#validation-custom-errors"><span class="std std-ref">设置自定义错误消息</span></a> 了解数组格式的细节。</p>
 </section>
-<section id="id30">
-<h4>获取和设置规则组<a class="headerlink" href="#id30" title="永久链接至标题"></a></h4>
-<p><strong>获取规则组</strong></p>
+<section id="id31">
+<h4>获取和设置规则组<a class="headerlink" href="#id31" title="永久链接至标题"></a></h4>
+<section id="id32">
+<h5>获取规则组<a class="headerlink" href="#id32" title="永久链接至标题"></a></h5>
 <p>此方法从验证配置中获取规则组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getRuleGroup</span><span class="p">(</span><span class="s1">&#39;signup&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getRuleGroup</span><span class="p">(</span><span class="s1">&#39;signup&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><strong>设置规则组</strong></p>
+</section>
+<section id="id33">
+<h5>设置规则组<a class="headerlink" href="#id33" title="永久链接至标题"></a></h5>
 <p>此方法将验证配置中的规则组设置到验证服务中:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRuleGroup</span><span class="p">(</span><span class="s1">&#39;signup&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRuleGroup</span><span class="p">(</span><span class="s1">&#39;signup&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 <section id="validation-placeholders">
-<span id="id31"></span><h3><a class="toc-backref" href="#id75">验证占位符</a><a class="headerlink" href="#validation-placeholders" title="永久链接至标题"></a></h3>
+<span id="id34"></span><h3><a class="toc-backref" href="#id79">验证占位符</a><a class="headerlink" href="#validation-placeholders" title="永久链接至标题"></a></h3>
 <p>验证类提供了一种简单的方法,基于传入的数据替换规则的一部分。这听起来比较模糊,但在使用 <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> 验证规则时特别有用。占位符简单地是以花括号括起来的字段名(或数组键),该字段名作为 <code class="docutils literal notranslate"><span class="pre">$data</span></code> 传入。它将被传入字段的 <strong>值</strong> 所替换。以下示例将阐明这一点:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;is_natural_no_zero&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email,id,{id}]&#39;</span><span class="p">,</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;max_length[19]|is_natural_no_zero&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email|is_unique[users.email,id,{id}]&#39;</span><span class="p">,</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
@@ -923,20 +988,16 @@
 <p>从 v4.3.5 开始,你必须为占位符字段(<code class="docutils literal notranslate"><span class="pre">id</span></code>)设置验证规则。</p>
 </div>
 <p>在这组规则中,它说明电子邮件地址在数据库中应该是唯一的,除了具有与占位符的值匹配的 id 的行。假设表单 POST 数据如下:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$_POST</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$_POST</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
     <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo@example.com&#39;</span><span class="p">,</span>
 <span class="p">];</span>
 </pre></div>
 </div>
 <p>然后 <code class="docutils literal notranslate"><span class="pre">{id}</span></code> 占位符会被替换为数字 <strong>4</strong>,得到这条修改后的规则:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;is_natural_no_zero&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email,id,4]&#39;</span><span class="p">,</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;max_length[19]|is_natural_no_zero&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email|is_unique[users.email,id,4]&#39;</span><span class="p">,</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
@@ -948,21 +1009,19 @@
 <p>只要传入的动态键不与表单数据冲突,这也可以在运行时用于创建更动态的规则。</p>
 </section>
 </section>
-<section id="id32">
-<h2><a class="toc-backref" href="#id76">处理错误</a><a class="headerlink" href="#id32" title="永久链接至标题"></a></h2>
+<section id="id35">
+<h2><a class="toc-backref" href="#id80">处理错误</a><a class="headerlink" href="#id35" title="永久链接至标题"></a></h2>
 <p>验证库提供了几种方法来帮助你设置错误消息、提供自定义错误消息以及检索一个或多个错误以显示。</p>
 <p>默认情况下,错误消息来自 <strong>system/Language/en/Validation.php</strong> 中的语言字符串,其中每个规则都有一个条目。</p>
 <section id="validation-custom-errors">
-<span id="id33"></span><h3><a class="toc-backref" href="#id77">设置自定义错误消息</a><a class="headerlink" href="#validation-custom-errors" title="永久链接至标题"></a></h3>
+<span id="id36"></span><h3><a class="toc-backref" href="#id81">设置自定义错误消息</a><a class="headerlink" href="#validation-custom-errors" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">setRule()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setRules()</span></code> 方法的最后一个参数都可以接受自定义消息数组,它将用于每个字段的特定错误。这允许对用户来说是非常愉快的体验,因为错误是针对每个实例定制的。如果没有提供自定义错误消息,将使用默认值。</p>
 <p>有两种方式可以提供自定义错误消息。</p>
 <p>作为最后一个参数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">(</span>
     <span class="p">[</span>
-        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|is_unique[users.username]&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]|is_unique[users.username]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|min_length[10]&#39;</span><span class="p">,</span>
     <span class="p">],</span>
     <span class="p">[</span>   <span class="c1">// Errors</span>
         <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -976,19 +1035,17 @@
 </pre></div>
 </div>
 <p>或者以标签样式:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Username&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|is_unique[users.username]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]|is_unique[users.username]&#39;</span><span class="p">,</span>
         <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;All accounts must have {field} provided&#39;</span><span class="p">,</span>
         <span class="p">],</span>
     <span class="p">],</span>
     <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Password&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|min_length[10]&#39;</span><span class="p">,</span>
         <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;min_length&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Your {field} is too short. You want to get hacked?&#39;</span><span class="p">,</span>
         <span class="p">],</span>
@@ -1010,24 +1067,22 @@
 <p>当使用标签样式的错误消息时,如果你向 <code class="docutils literal notranslate"><span class="pre">setRules()</span></code> 传递第二个参数,它将被第一个参数的值覆盖。</p>
 </div>
 </section>
-<section id="id34">
-<h3><a class="toc-backref" href="#id78">翻译消息和验证标签</a><a class="headerlink" href="#id34" title="永久链接至标题"></a></h3>
+<section id="id37">
+<h3><a class="toc-backref" href="#id82">翻译消息和验证标签</a><a class="headerlink" href="#id37" title="永久链接至标题"></a></h3>
 <p>要使用语言文件中的翻译字符串,我们可以简单地使用点语法。
 假设我们有一个位于这里的翻译文件:<strong>app/Languages/en/Rules.php</strong>。
 我们可以简单地使用这个文件中定义的语言行,像这样:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Rules.username&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|is_unique[users.username]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]|is_unique[users.username]&#39;</span><span class="p">,</span>
         <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Rules.username.required&#39;</span><span class="p">,</span>
         <span class="p">],</span>
     <span class="p">],</span>
     <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;label&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Rules.password&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|min_length[10]&#39;</span><span class="p">,</span>
         <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;min_length&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Rules.password.min_length&#39;</span><span class="p">,</span>
         <span class="p">],</span>
@@ -1037,11 +1092,9 @@
 </div>
 </section>
 <section id="validation-getting-all-errors">
-<span id="id35"></span><h3><a class="toc-backref" href="#id79">获取所有错误</a><a class="headerlink" href="#validation-getting-all-errors" title="永久链接至标题"></a></h3>
+<span id="id38"></span><h3><a class="toc-backref" href="#id83">获取所有错误</a><a class="headerlink" href="#validation-getting-all-errors" title="永久链接至标题"></a></h3>
 <p>如果你需要检索所有失败字段的错误消息,可以使用 <code class="docutils literal notranslate"><span class="pre">getErrors()</span></code> 方法:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$errors</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$errors</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">();</span>
 <span class="cm">/*</span>
 <span class="cm"> * Produces:</span>
 <span class="cm"> * [</span>
@@ -1073,12 +1126,10 @@
 </pre></div>
 </div>
 </section>
-<section id="id36">
-<h3><a class="toc-backref" href="#id80">获取单个错误</a><a class="headerlink" href="#id36" title="永久链接至标题"></a></h3>
+<section id="id39">
+<h3><a class="toc-backref" href="#id84">获取单个错误</a><a class="headerlink" href="#id39" title="永久链接至标题"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">getError()</span></code> 方法检索单个字段的错误。唯一的参数是字段名称:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$error</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$error</span> <span class="o">=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>如果没有错误,将返回一个空字符串。</p>
@@ -1087,20 +1138,16 @@
 <p>当使用通配符时,所有匹配通配符的找到的错误将组合成一行,以 EOL 字符分隔。</p>
 </div>
 </section>
-<section id="id37">
-<h3><a class="toc-backref" href="#id81">检查错误是否存在</a><a class="headerlink" href="#id37" title="永久链接至标题"></a></h3>
+<section id="id40">
+<h3><a class="toc-backref" href="#id85">检查错误是否存在</a><a class="headerlink" href="#id40" title="永久链接至标题"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">hasError()</span></code> 方法检查是否存在错误。唯一的参数是字段名称:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">hasError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">))</span> <span class="p">{</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">hasError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">getError</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>当指定使用通配符的字段时,将检查匹配通配符的所有错误:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="cm">/*</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> * For errors:</span>
 <span class="cm"> * [</span>
 <span class="cm"> *     &#39;foo.0.bar&#39;   =&gt; &#39;Error&#39;,</span>
@@ -1114,7 +1161,7 @@
 </div>
 </section>
 <section id="validation-redirect-and-validation-errors">
-<span id="id38"></span><h3><a class="toc-backref" href="#id82">重定向和验证错误</a><a class="headerlink" href="#validation-redirect-and-validation-errors" title="永久链接至标题"></a></h3>
+<span id="id41"></span><h3><a class="toc-backref" href="#id86">重定向和验证错误</a><a class="headerlink" href="#validation-redirect-and-validation-errors" title="永久链接至标题"></a></h3>
 <p>PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定向的请求中将没有验证错误,因为验证是在前一个请求中运行的。</p>
 <p>在这种情况下,你需要使用表单辅助函数 <a class="reference internal" href="../helpers/form_helper.html#validation_errors" title="validation_errors"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_errors()</span></code></a>、<a class="reference internal" href="../helpers/form_helper.html#validation_list_errors" title="validation_list_errors"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_list_errors()</span></code></a> 和 <a class="reference internal" href="../helpers/form_helper.html#validation_show_error" title="validation_show_error"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_show_error()</span></code></a>。
 这些函数检查存储在会话中的验证错误。</p>
@@ -1128,10 +1175,10 @@
 </section>
 </section>
 <section id="validation-customizing-error-display">
-<span id="id39"></span><h2><a class="toc-backref" href="#id83">自定义错误显示</a><a class="headerlink" href="#validation-customizing-error-display" title="永久链接至标题"></a></h2>
+<span id="id42"></span><h2><a class="toc-backref" href="#id87">自定义错误显示</a><a class="headerlink" href="#validation-customizing-error-display" title="永久链接至标题"></a></h2>
 <p>当你调用 <code class="docutils literal notranslate"><span class="pre">$validation-&gt;listErrors()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">$validation-&gt;showError()</span></code> 时,它会在后台加载一个视图文件,该文件确定如何显示错误。默认情况下,它们显示在一个 class 为 <code class="docutils literal notranslate"><span class="pre">errors</span></code> 的 div 中。你可以轻松地创建新视图并在整个应用中使用它们。</p>
-<section id="id40">
-<h3><a class="toc-backref" href="#id84">创建视图</a><a class="headerlink" href="#id40" title="永久链接至标题"></a></h3>
+<section id="id43">
+<h3><a class="toc-backref" href="#id88">创建视图</a><a class="headerlink" href="#id43" title="永久链接至标题"></a></h3>
 <p>第一步是创建自定义视图。可以将这些视图放在 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 方法可以找到的任何位置,这意味着标准的视图目录或任何命名空间视图文件夹都可以工作。例如,你可以在 <strong>app/Views/_errors_list.php</strong> 创建一个新视图:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$errors</span><span class="p">))</span><span class="o">:</span> <span class="cp">?&gt;</span>
     <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-danger&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;alert&quot;</span><span class="p">&gt;</span>
@@ -1145,9 +1192,7 @@
 </pre></div>
 </div>
 <p>在视图内可以使用名为 <code class="docutils literal notranslate"><span class="pre">$errors</span></code> 的数组,它包含错误列表,其中键是有错误的字段名称,值是错误消息,像这样:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$errors</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$errors</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The username field must be unique.&#39;</span><span class="p">,</span>
     <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;You must provide a valid email address.&#39;</span><span class="p">,</span>
 <span class="p">];</span>
@@ -1158,17 +1203,21 @@
 </pre></div>
 </div>
 </section>
-<section id="id41">
-<h3><a class="toc-backref" href="#id85">配置</a><a class="headerlink" href="#id41" title="永久链接至标题"></a></h3>
+<section id="id44">
+<h3><a class="toc-backref" href="#id89">配置</a><a class="headerlink" href="#id44" title="永久链接至标题"></a></h3>
 <p>一旦你创建了视图,就需要让 Validation 库知道它们。打开 <strong>app/Config/Validation.php</strong>。
 在里面,你会找到 <code class="docutils literal notranslate"><span class="pre">$templates</span></code> 属性,你可以在其中列出尽可能多的自定义视图,并提供一个它们可以通过的简短别名。如果我们要添加上面例子中的文件,它会是这样:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">Validation</span>
+<span class="c1">// ...</span>
+
+<span class="k">class</span> <span class="nc">Validation</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$templates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">array</span> <span class="nv">$templates</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;list&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;CodeIgniter\Validation\Views\list&#39;</span><span class="p">,</span>
         <span class="s1">&#39;single&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;CodeIgniter\Validation\Views\single&#39;</span><span class="p">,</span>
         <span class="s1">&#39;my_list&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;_errors_list&#39;</span><span class="p">,</span>
@@ -1179,8 +1228,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id42">
-<h3><a class="toc-backref" href="#id86">指定模板</a><a class="headerlink" href="#id42" title="永久链接至标题"></a></h3>
+<section id="id45">
+<h3><a class="toc-backref" href="#id90">指定模板</a><a class="headerlink" href="#id45" title="永久链接至标题"></a></h3>
 <p>你可以通过在 <code class="docutils literal notranslate"><span class="pre">listErrors()</span></code> 中作为第一个参数传递其别名来指定要使用的模板:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">listErrors</span><span class="p">(</span><span class="s1">&#39;my_list&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
@@ -1191,24 +1240,25 @@
 </div>
 </section>
 </section>
-<section id="id43">
-<h2><a class="toc-backref" href="#id87">创建自定义规则</a><a class="headerlink" href="#id43" title="永久链接至标题"></a></h2>
+<section id="id46">
+<h2><a class="toc-backref" href="#id91">创建自定义规则</a><a class="headerlink" href="#id46" title="永久链接至标题"></a></h2>
 <section id="validation-using-rule-classes">
-<span id="id44"></span><h3><a class="toc-backref" href="#id88">使用规则类</a><a class="headerlink" href="#validation-using-rule-classes" title="永久链接至标题"></a></h3>
+<span id="id47"></span><h3><a class="toc-backref" href="#id92">使用规则类</a><a class="headerlink" href="#validation-using-rule-classes" title="永久链接至标题"></a></h3>
 <p>规则存储在简单的命名空间类中。可以将它们存储在自动加载程序可以找到的任何位置。这些文件称为规则集。</p>
-<section id="id45">
-<h4>添加规则集<a class="headerlink" href="#id45" title="永久链接至标题"></a></h4>
+<section id="id48">
+<h4>添加规则集<a class="headerlink" href="#id48" title="永久链接至标题"></a></h4>
 <p>要添加新的规则集,请编辑 <strong>app/Config/Validation.php</strong> 并将新文件添加到 <code class="docutils literal notranslate"><span class="pre">$ruleSets</span></code> 数组中:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\Config\BaseConfig</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Validation\CreditCardRules</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Validation\FileRules</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Validation\FormatRules</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Validation\Rules</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">Validation</span>
+<span class="k">class</span> <span class="nc">Validation</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
     <span class="c1">// ...</span>
 
@@ -1225,8 +1275,8 @@
 </div>
 <p>你可以像上面显示的那样添加完整限定的类名的简单字符串,或使用 <code class="docutils literal notranslate"><span class="pre">::class</span></code> 后缀。这里的主要好处是在更高级的 IDE 中提供了一些额外的导航功能。</p>
 </section>
-<section id="id46">
-<h4>创建规则类<a class="headerlink" href="#id46" title="永久链接至标题"></a></h4>
+<section id="id49">
+<h4>创建规则类<a class="headerlink" href="#id49" title="永久链接至标题"></a></h4>
 <p>在文件本身中,每个方法都是一条规则,必须接受要验证的值作为第一个参数,并返回一个布尔真或假值,表示如果通过测试则为真,否则为假:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1258,19 +1308,17 @@
 </pre></div>
 </div>
 </section>
-<section id="id47">
-<h4>使用自定义规则<a class="headerlink" href="#id47" title="永久链接至标题"></a></h4>
+<section id="id50">
+<h4>使用自定义规则<a class="headerlink" href="#id50" title="永久链接至标题"></a></h4>
 <p>你的新自定义规则现在可以像任何其他规则一样使用了:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|even&#39;</span><span class="p">,</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+    <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[19]|even&#39;</span><span class="p">,</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
 </section>
-<section id="id48">
-<h4>允许参数<a class="headerlink" href="#id48" title="永久链接至标题"></a></h4>
+<section id="id51">
+<h4>允许参数<a class="headerlink" href="#id51" title="永久链接至标题"></a></h4>
 <p>如果你的方法需要使用参数,函数需要至少三个参数:</p>
 <ol class="arabic simple">
 <li><p>要验证的值(<code class="docutils literal notranslate"><span class="pre">$value</span></code>)</p></li>
@@ -1323,15 +1371,13 @@
 </section>
 </section>
 <section id="validation-using-closure-rule">
-<span id="id49"></span><h3><a class="toc-backref" href="#id89">使用闭包规则</a><a class="headerlink" href="#validation-using-closure-rule" title="永久链接至标题"></a></h3>
+<span id="id52"></span><h3><a class="toc-backref" href="#id93">使用闭包规则</a><a class="headerlink" href="#validation-using-closure-rule" title="永久链接至标题"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">4.3.0 新版功能.</span></p>
 </div>
 <p>如果你的应用中只需要自定义规则的功能一次,你可以使用闭包 instead of 规则类。</p>
 <p>你需要为验证规则使用数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">(</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;required&#39;</span><span class="p">,</span>
@@ -1356,9 +1402,7 @@
 设置错误消息时,请为闭包规则设置数组键。
 在上面的代码中, <code class="docutils literal notranslate"><span class="pre">required</span></code> 规则的键为 <code class="docutils literal notranslate"><span class="pre">0</span></code>,闭包的键为 <code class="docutils literal notranslate"><span class="pre">1</span></code>。</p>
 <p>或者可以使用以下参数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;required&#39;</span><span class="p">,</span>
         <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$value</span><span class="p">,</span> <span class="nv">$data</span><span class="p">,</span> <span class="o">&amp;</span><span class="nv">$error</span><span class="p">,</span> <span class="nv">$field</span><span class="p">)</span> <span class="p">{</span>
@@ -1376,29 +1420,27 @@
 </div>
 </section>
 </section>
-<section id="id50">
-<h2><a class="toc-backref" href="#id90">可用规则</a><a class="headerlink" href="#id50" title="永久链接至标题"></a></h2>
+<section id="id53">
+<h2><a class="toc-backref" href="#id94">可用规则</a><a class="headerlink" href="#id53" title="永久链接至标题"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>规则是一个字符串;参数之间绝不能有 <strong>空格</strong>,特别是 <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> 规则。
 <code class="docutils literal notranslate"><span class="pre">ignore_value</span></code> 前后不能有空格。</p>
 </div>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// is_unique[table.field,ignore_field,ignore_value]</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// is_unique[table.field,ignore_field,ignore_value]</span>
 
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
-    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;is_unique[supplier.name,uuid, </span><span class="si">{</span><span class="nv">$uuid</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>  <span class="c1">// is not ok</span>
-    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;is_unique[supplier.name,uuid,</span><span class="si">{</span><span class="nv">$uuid</span><span class="si">}</span><span class="s2"> ]&quot;</span><span class="p">,</span>  <span class="c1">// is not ok</span>
-    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;is_unique[supplier.name,uuid,</span><span class="si">{</span><span class="nv">$uuid</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>   <span class="c1">// is ok</span>
-    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;is_unique[supplier.name,uuid,{uuid}]&#39;</span><span class="p">,</span>    <span class="c1">// is ok - see &quot;Validation Placeholders&quot;</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;max_length[36]|is_unique[supplier.name,uuid, </span><span class="si">{</span><span class="nv">$uuid</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="c1">// is not ok</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;max_length[36]|is_unique[supplier.name,uuid,</span><span class="si">{</span><span class="nv">$uuid</span><span class="si">}</span><span class="s2"> ]&quot;</span><span class="p">,</span> <span class="c1">// is not ok</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;max_length[36]|is_unique[supplier.name,uuid,</span><span class="si">{</span><span class="nv">$uuid</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>  <span class="c1">// is ok</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;max_length[36]|is_unique[supplier.name,uuid,{uuid}]&#39;</span><span class="p">,</span>   <span class="c1">// is ok - see &quot;Validation Placeholders&quot;</span>
 <span class="p">]);</span>
 <span class="c1">// Warning: If `$uuid` is a user input, be sure to validate the format of the value before using it.</span>
 <span class="c1">// Otherwise, it is vulnerable.</span>
 </pre></div>
 </div>
-<section id="id51">
-<h3><a class="toc-backref" href="#id91">常规规则</a><a class="headerlink" href="#id51" title="永久链接至标题"></a></h3>
+<section id="id54">
+<h3><a class="toc-backref" href="#id95">常规规则</a><a class="headerlink" href="#id54" title="永久链接至标题"></a></h3>
 <p>以下是可用的所有原生规则列表:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1670,7 +1712,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="rules-for-file-uploads">
-<span id="id52"></span><h3><a class="toc-backref" href="#id92">文件上传规则</a><a class="headerlink" href="#rules-for-file-uploads" title="永久链接至标题"></a></h3>
+<span id="id55"></span><h3><a class="toc-backref" href="#id96">文件上传规则</a><a class="headerlink" href="#rules-for-file-uploads" title="永久链接至标题"></a></h3>
 <p>这些验证规则使你可以执行验证上传的文件以满足业务需求的基本检查。
 由于文件上传 HTML 字段的值不存在,而是存储在 <code class="docutils literal notranslate"><span class="pre">$_FILES</span></code> 全局变量中,所以需要两次使用输入字段的名称。一次是像其他规则一样指定字段名称,另一次是作为所有与文件上传相关规则的第一个参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在 HTML 中</span>
@@ -1750,7 +1792,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -1758,7 +1800,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068d696b90>
+<jinja2.runtime.BlockReference object at 0x7f8b293b4f10>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Publisher &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Publisher &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -392,7 +393,7 @@
 </pre></div>
 </div>
 <p>大多数时候你不需要自己处理发现,只需使用提供的“publish”命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">publish</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark publish</span>
 </pre></div>
 </div>
 <p>默认情况下,在你的类扩展上 <code class="docutils literal notranslate"><span class="pre">publish()</span></code> 将从你的 <code class="docutils literal notranslate"><span class="pre">$source</span></code> 添加所有文件并合并到你的目标位置,在冲突时覆盖。</p>
@@ -467,7 +468,7 @@
 <span class="sd">     *</span>
 <span class="sd">     * @var string</span>
 <span class="sd">     */</span>
-    <span class="k">protected</span> <span class="nv">$source</span> <span class="o">=</span> <span class="s1">&#39;vendor/twbs/bootstrap/&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$source</span> <span class="o">=</span> <span class="nx">VENDORPATH</span> <span class="o">.</span> <span class="s1">&#39;twbs/bootstrap/&#39;</span><span class="p">;</span>
 
     <span class="sd">/**</span>
 <span class="sd">     * FCPATH is always the default destination,</span>
@@ -497,9 +498,13 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在执行命令之前，必须先创建目录 <code class="docutils literal notranslate"><span class="pre">$destination</span></code>。</p>
+</div>
 <p>现在通过 Composer 添加依赖项并调用 <code class="docutils literal notranslate"><span class="pre">spark</span> <span class="pre">publish</span></code> 来运行发布:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">composer</span> <span class="k">require</span> <span class="nx">twbs</span><span class="o">/</span><span class="nx">bootstrap</span>
-<span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">publish</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">composer require twbs/bootstrap</span>
+<span class="go">php spark publish</span>
 </pre></div>
 </div>
 <p>… 然后你会在项目中得到类似下面的结果:</p>
@@ -764,7 +769,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -772,7 +777,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068dadd150>
+<jinja2.runtime.BlockReference object at 0x7f8b29d94390>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

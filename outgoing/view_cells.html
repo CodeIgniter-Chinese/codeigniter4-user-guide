@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>视图单元格 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>视图单元 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">构建响应</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="views.html">视图</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">视图单元格</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -268,7 +269,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">构建响应</a></li>
-      <li class="breadcrumb-item active">视图单元格</li>
+      <li class="breadcrumb-item active">视图单元</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -278,96 +279,128 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>视图单元格<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<p>许多应用程序都有可以在页面之间重复使用的小视图片段,或者在页面的不同位置重复使用。这些通常是帮助框、导航控件、广告、登录表单等。CodeIgniter 允许你将这些表示块的逻辑封装在视图单元格中。它们基本上是可以在其他视图中包含的迷你视图。它们可以内置逻辑来处理任何单元格特定的显示逻辑。它们可以用于通过将每个单元格的逻辑分隔到自己的类中来使视图更可读和可维护。</p>
-<p>CodeIgniter 支持两种类型的视图单元格:简单和受控。简单视图单元格可以从你选择的任何类和方法生成,并不必遵循任何规则,只要它返回一个字符串即可。受控视图单元格必须从扩展 <code class="docutils literal notranslate"><span class="pre">Codeigniter\View\Cells\Cell</span></code> 类的类生成,该类提供了额外的功能,使你的视图单元格更灵活、更快速地使用。</p>
+<h1>视图单元<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>许多应用程序都有一些小的视图片段，可以在页面之间重复使用，或者在页面的不同位置使用。这些通常是帮助框、导航控件、广告、登录表单等。CodeIgniter 允许你将这些呈现块的逻辑封装在视图单元中。它们基本上是可以包含在其他视图中的小视图。它们可以内置逻辑来处理任何特定于单元的显示逻辑。它们可以通过将每个单元的逻辑分离到自己的类中，使你的视图更易读和可维护。</p>
+<p>CodeIgniter 支持两种类型的视图单元：简单单元和受控单元。简单单元可以从你选择的任何类和方法生成，并且不必遵循任何规则，只需返回一个字符串即可。受控单元必须从扩展 <code class="docutils literal notranslate"><span class="pre">Codeigniter\View\Cells\Cell</span></code> 类的类生成，该类提供了额外的功能，使你的视图单元更加灵活和快速。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#app-cells" id="id14">调用视图单元格</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id15">简单单元格</a></p></li>
-<li><p><a class="reference internal" href="#controlled-cells" id="id16">受控单元格</a></p>
+<li><p><a class="reference internal" href="#app-cells" id="id16">调用视图单元</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id6" id="id17">创建受控单元格</a></p></li>
-<li><p><a class="reference internal" href="#generating-cell-via-command" id="id18">通过命令生成单元格</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id19">使用不同的视图</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id20">自定义渲染</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id21">计算属性</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id22">呈现方法</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id23">执行设置逻辑</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id17">省略命名空间</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id18">将参数作为键/值字符串传递</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id13" id="id24">单元格缓存</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id19">简单单元</a></p></li>
+<li><p><a class="reference internal" href="#controlled-cells" id="id20">受控单元</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id8" id="id21">创建受控单元</a></p></li>
+<li><p><a class="reference internal" href="#generating-cell-via-command" id="id22">通过命令生成单元</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id23">使用不同的视图</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id24">自定义渲染</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id25">计算属性</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id26">演示方法</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id27">执行设置逻辑</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id15" id="id28">单元缓存</a></p></li>
 </ul>
 </div>
 <section id="app-cells">
-<span id="id3"></span><h2><a class="toc-backref" href="#id14">调用视图单元格</a><a class="headerlink" href="#app-cells" title="永久链接至标题"></a></h2>
-<p>无论你使用哪种类型的视图单元格,都可以通过在任何视图中使用 <code class="docutils literal notranslate"><span class="pre">view_cell()</span></code> 辅助方法来调用它。第一个参数是要调用的类和方法的名称,第二个参数是要传递给该方法的参数数组。该方法必须返回一个字符串,该字符串将插入到调用 <code class="docutils literal notranslate"><span class="pre">view_cell()</span></code> 方法的视图中。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;App\Cells\MyClass::myMethod&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;param1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value1&#39;</span><span class="p">,</span> <span class="s1">&#39;param2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
+<span id="id3"></span><h2><a class="toc-backref" href="#id16">调用视图单元</a><a class="headerlink" href="#app-cells" title="永久链接至标题"></a></h2>
+<p>无论你使用哪种类型的视图单元，都可以使用 <code class="docutils literal notranslate"><span class="pre">view_cell()</span></code> 辅助函数从任何视图中调用它。</p>
+<p>第一个参数是要调用的类和方法的名称，第二个参数是要传递给方法的参数数组：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In a View.</span>
+<span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;App\Cells\MyClass::myMethod&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;param1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value1&#39;</span><span class="p">,</span> <span class="s1">&#39;param2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>如果你没有包含类的完整命名空间,它将假定可以在 <code class="docutils literal notranslate"><span class="pre">App\Cells</span></code> 命名空间中找到它。所以,以下示例将尝试在 <code class="docutils literal notranslate"><span class="pre">app/Cells/MyClass.php</span></code> 中找到 <code class="docutils literal notranslate"><span class="pre">MyClass</span></code> 类。如果没有找到,将扫描所有命名空间,直到找到它,在每个命名空间的 <code class="docutils literal notranslate"><span class="pre">Cells</span></code> 子目录中搜索。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;MyClass::myMethod&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;param1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value1&#39;</span><span class="p">,</span> <span class="s1">&#39;param2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
-</pre></div>
+<p>单元方法必须返回一个字符串，该字符串将插入到调用 <code class="docutils literal notranslate"><span class="pre">view_cell()</span></code> 函数的视图中。</p>
+<section id="id4">
+<h3><a class="toc-backref" href="#id17">省略命名空间</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">备注</p>
-<p>从 v4.3.0 和更高版本开始支持省略命名空间。</p>
-</div>
-<p>你也可以以键/值字符串的方式传递参数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;MyClass::myMethod&#39;</span><span class="p">,</span> <span class="s1">&#39;param1=value1, param2=value2&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<p>如果你没有包含类的完整命名空间，它将假定可以在 <code class="docutils literal notranslate"><span class="pre">App\Cells</span></code> 命名空间中找到。因此，以下示例将尝试在 <strong>app/Cells/MyClass.php</strong> 中查找 <code class="docutils literal notranslate"><span class="pre">MyClass</span></code> 类。如果在那里找不到，将扫描所有命名空间，直到找到为止，在每个命名空间的 <strong>Cells</strong> 子目录中搜索：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In a View.</span>
+<span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;MyClass::myMethod&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;param1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value1&#39;</span><span class="p">,</span> <span class="s1">&#39;param2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
-<section id="id4">
-<h2><a class="toc-backref" href="#id15">简单单元格</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
-<p>简单单元格是从选择的方法返回字符串的类。警报消息单元格的一个简单示例如下:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
+<section id="id5">
+<h3><a class="toc-backref" href="#id18">将参数作为键/值字符串传递</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>你还可以将参数作为键/值字符串传递：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In a View.</span>
+<span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;MyClass::myMethod&#39;</span><span class="p">,</span> <span class="s1">&#39;param1=value1, param2=value2&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id19">简单单元</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<p>简单单元是从所选方法返回字符串的类。一个简单的警告消息单元的示例可能如下所示：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">AlertMessage</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">show</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
     <span class="p">{</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;div class=&quot;</span><span class="nx">alert</span> <span class="nx">alert</span><span class="o">-</span><span class="p">{</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]}</span><span class="s2">&quot;&gt;</span><span class="si">{</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/div&gt;&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;div class=</span><span class="se">\&quot;</span><span class="s2">alert alert-</span><span class="si">{</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">&gt;</span><span class="si">{</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/div&gt;&quot;</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>你可以在视图内这样调用它:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;AlertMessage::show&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The user has been updated.&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
+<p>你可以在视图中这样调用它：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In a View.</span>
+<span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;AlertMessage::show&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The user has been updated.&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>另外,你可以使用与方法中的参数变量匹配的参数名称以提高可读性。
-以这种方式使用时,在视图单元格调用中必须始终指定所有参数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在视图中</span>
+<p>此外，你可以使用与方法中的参数变量匹配的参数名称以提高可读性。
+当你以这种方式使用时，视图单元调用中必须始终指定所有参数：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In a View.</span>
 <span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;Blog::recentPosts&#39;</span><span class="p">,</span> <span class="s1">&#39;category=codeigniter, limit=5&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-// 在单元格中
-public function recentPosts(string $category, int $limit)
-{
-    $posts = $this-&gt;blogModel-&gt;where(&#39;category&#39;, $category)
-                             -&gt;orderBy(&#39;published_on&#39;, &#39;desc&#39;)
-                             -&gt;limit($limit)
-                             -&gt;get();
+<span class="c1">// In a Cell.</span>
 
-    return view(&#39;recentPosts&#39;, [&#39;posts&#39; =&gt; $posts]);
-}
+<span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Blog</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">recentPosts</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$category</span><span class="p">,</span> <span class="nx">int</span> <span class="nv">$limit</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
+    <span class="p">{</span>
+        <span class="nv">$posts</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blogModel</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="nv">$category</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;published_on&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="nv">$limit</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+
+        <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;recentPosts&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;posts&#39;</span> <span class="o">=&gt;</span> <span class="nv">$posts</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="controlled-cells">
-<span id="id5"></span><h2><a class="toc-backref" href="#id16">受控单元格</a><a class="headerlink" href="#controlled-cells" title="永久链接至标题"></a></h2>
+<span id="id7"></span><h2><a class="toc-backref" href="#id20">受控单元</a><a class="headerlink" href="#controlled-cells" title="永久链接至标题"></a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">4.3.0 新版功能.</span></p>
 </div>
-<p>受控单元格主要有两个目标:尽可能快速地构建单元格,并在视图需要时为视图提供额外的逻辑和灵活性。该类必须扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\View\Cells\Cell</span></code>。它们应该在同一文件夹中有一个视图文件。按照惯例,类名应采用 PascalCase 后缀为 <code class="docutils literal notranslate"><span class="pre">Cell</span></code>,视图应该是类名的 snake_case 版本,没有后缀。例如,如果有一个 <code class="docutils literal notranslate"><span class="pre">MyCell</span></code> 类,视图文件应该是 <code class="docutils literal notranslate"><span class="pre">my.php</span></code>。</p>
+<p>受控单元有两个主要目标：尽可能快地构建单元，并为视图提供额外的逻辑和灵活性（如果需要）。该类必须扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\View\Cells\Cell</span></code>。它们应该在同一文件夹中有一个视图文件。按照惯例，类名应为 PascalCase，后缀为 <code class="docutils literal notranslate"><span class="pre">Cell</span></code>，视图应为类名的 snake_case 版本，不包括后缀。例如，如果你有一个 <code class="docutils literal notranslate"><span class="pre">MyCell</span></code> 类，视图文件应为 <code class="docutils literal notranslate"><span class="pre">my.php</span></code>。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>在 v4.3.5 之前的版本中,生成的视图文件以 <code class="docutils literal notranslate"><span class="pre">_cell.php</span></code> 结尾。尽管 v4.3.5 和更高版本将生成不带 <code class="docutils literal notranslate"><span class="pre">_cell</span></code> 后缀的视图文件,但现有的视图文件仍然会被定位和加载。</p>
+<p>在 v4.3.5 之前，生成的视图文件以 <code class="docutils literal notranslate"><span class="pre">_cell.php</span></code> 结尾。尽管 v4.3.5 及更高版本将生成不带 <code class="docutils literal notranslate"><span class="pre">_cell</span></code> 后缀的视图文件，但现有的视图文件仍将被定位和加载。</p>
 </div>
-<section id="id6">
-<h3><a class="toc-backref" href="#id17">创建受控单元格</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
-<p>在最基本的级别上,你需要在类中实现的是公共属性。这些属性将自动供视图文件使用。将上面的 AlertMessage 作为受控单元格实现如下:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/Cells/AlertMessageCell.php</span>
+<section id="id8">
+<h3><a class="toc-backref" href="#id21">创建受控单元</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<p>在类中实现的最基本的级别上，你只需要实现公共属性。这些属性将自动提供给视图文件。将上面的 AlertMessage 实现为受控单元将如下所示：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// app/Cells/AlertMessageCell.php</span>
+
 <span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\View\Cells\Cell</span><span class="p">;</span>
@@ -377,28 +410,32 @@ public function recentPosts(string $category, int $limit)
     <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
     <span class="k">public</span> <span class="nv">$message</span><span class="p">;</span>
 <span class="p">}</span>
-
-<span class="c1">// app/Cells/alert_message.php</span>
+</pre></div>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/Cells/alert_message.php</span>
 <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;alert alert-&lt;?= esc(</span><span class="si">$type</span><span class="s2">, &#39;attr&#39;) ?&gt;&quot;</span><span class="o">&gt;</span>
     <span class="o">&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$message</span><span class="p">)</span> <span class="cp">?&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-// 在主视图中调用:
-<span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;AlertMessageCell&#39;</span><span class="p">,</span> <span class="s1">&#39;type=warning, message=Failed.&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Called in main View:</span>
+<span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;AlertMessageCell&#39;</span><span class="p">,</span> <span class="s1">&#39;type=warning, message=Failed.&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="generating-cell-via-command">
-<span id="id7"></span><h3><a class="toc-backref" href="#id18">通过命令生成单元格</a><a class="headerlink" href="#generating-cell-via-command" title="永久链接至标题"></a></h3>
-<p>你还可以通过内置命令从 CLI 生成受控单元格。该命令是 <code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">spark</span> <span class="pre">make:cell</span></code>。它接受一个参数,要创建的单元格的名称。名称应采用 PascalCase,类将在 <code class="docutils literal notranslate"><span class="pre">app/Cells</span></code> 目录中创建。视图文件也将在 <code class="docutils literal notranslate"><span class="pre">app/Cells</span></code> 目录中创建。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">make</span><span class="o">:</span><span class="nx">cell</span> <span class="nx">AlertMessageCell</span>
+<span id="id9"></span><h3><a class="toc-backref" href="#id22">通过命令生成单元</a><a class="headerlink" href="#generating-cell-via-command" title="永久链接至标题"></a></h3>
+<p>你还可以通过 CLI 中的内置命令创建受控单元。该命令是 <code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">spark</span> <span class="pre">make:cell</span></code>。它接受一个参数，要创建的单元的名称。名称应为 PascalCase，类将在 <strong>app/Cells</strong> 目录中创建。视图文件也将在 <strong>app/Cells</strong> 目录中创建。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark make:cell AlertMessageCell</span>
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h3><a class="toc-backref" href="#id19">使用不同的视图</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
-<p>你可以通过在类中设置 <code class="docutils literal notranslate"><span class="pre">view</span></code> 属性来指定自定义视图名称。视图的定位与正常视图相同。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
+<section id="id10">
+<h3><a class="toc-backref" href="#id23">使用不同的视图</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<p>你可以通过在类中设置 <code class="docutils literal notranslate"><span class="pre">view</span></code> 属性来指定自定义视图名称。视图将像正常情况下一样被定位：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\View\Cells\Cell</span><span class="p">;</span>
 
@@ -407,15 +444,17 @@ public function recentPosts(string $category, int $limit)
     <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
     <span class="k">public</span> <span class="nv">$message</span><span class="p">;</span>
 
-    <span class="k">protected</span> <span class="nv">$view</span> <span class="o">=</span> <span class="s1">&#39;my/custom/view&#39;</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$view</span> <span class="o">=</span> <span class="s1">&#39;my/custom/view&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h3><a class="toc-backref" href="#id20">自定义渲染</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
-<p>如果你需要更多地控制 HTML 的渲染,可以实现一个 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 方法。此方法允许你执行其他逻辑并在需要时向视图传递额外的数据。 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 方法必须返回一个字符串。要利用受控单元格的全部功能,你应该使用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;view()</span></code> 代替正常的 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 辅助函数。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
+<section id="id11">
+<h3><a class="toc-backref" href="#id24">自定义渲染</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<p>如果你需要更多控制HTML的渲染过程，可以实现一个 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 方法。该方法允许你执行其他逻辑并向视图传递额外的数据（如果需要）。<code class="docutils literal notranslate"><span class="pre">render()</span></code> 方法必须返回一个字符串。为了充分利用受控单元的全部功能，你应该使用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;view()</span></code> 而不是普通的 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 辅助函数：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\View\Cells\Cell</span><span class="p">;</span>
 
@@ -432,13 +471,17 @@ public function recentPosts(string $category, int $limit)
 </pre></div>
 </div>
 </section>
-<section id="id10">
-<h3><a class="toc-backref" href="#id21">计算属性</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
-<p>如果你需要为一个或多个属性执行其他逻辑,可以使用计算属性。这需要将属性设置为 <code class="docutils literal notranslate"><span class="pre">protected</span></code> 或 <code class="docutils literal notranslate"><span class="pre">private</span></code>,并实现一个由属性名称包围在 <code class="docutils literal notranslate"><span class="pre">get</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Property</span></code> 之间的公共方法。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在视图中初始化受保护的属性</span>
-<span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;AlertMessageCell&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;note&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;test&#39;</span><span class="p">]);</span>
+<section id="id12">
+<h3><a class="toc-backref" href="#id25">计算属性</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<p>如果你需要为一个或多个属性执行其他逻辑，可以使用计算属性。这需要将属性设置为 <code class="docutils literal notranslate"><span class="pre">protected</span></code> 或 <code class="docutils literal notranslate"><span class="pre">private</span></code>，并实现一个公共方法，该方法的名称由属性名称包围 <code class="docutils literal notranslate"><span class="pre">get</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Property</span></code> 组成：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// In a View. Initialize the protected properties.</span>
+<span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;AlertMessageCell&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;note&#39;</span><span class="p">,</span> <span class="s1">&#39;message&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;test&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// app/Cells/AlertMessageCell.php</span>
+
 <span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\View\Cells\Cell</span><span class="p">;</span>
@@ -469,8 +512,9 @@ public function recentPosts(string $category, int $limit)
         <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-
-<span class="c1">// app/Cells/alert_message.php</span>
+</pre></div>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/Cells/alert_message.php</span>
 <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">type</span> <span class="o">-</span> <span class="o">&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$type</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>message - <span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$message</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -480,13 +524,16 @@ public function recentPosts(string $category, int $limit)
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>在单元格初始化期间,你不能设置声明为私有的属性。</p>
+<p>无法设置在单元初始化期间声明为私有的属性。</p>
 </div>
 </section>
-<section id="id11">
-<h3><a class="toc-backref" href="#id22">呈现方法</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
-<p>有时你需要对视图执行其他逻辑,但你不想将其作为参数传递。你可以实现一个将从单元格的视图本身调用的方法。这可以帮助提高视图的可读性。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/Cells/RecentPostsCell.php</span>
+<section id="id13">
+<h3><a class="toc-backref" href="#id26">演示方法</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<p>有时你需要为视图执行其他逻辑，但不想将其作为参数传递。你可以实现一个在单元的视图内部调用的方法。这可以提高视图的可读性：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// app/Cells/RecentPostsCell.php</span>
+
 <span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\View\Cells\Cell</span><span class="p">;</span>
@@ -500,8 +547,9 @@ public function recentPosts(string $category, int $limit)
         <span class="k">return</span> <span class="nx">anchor</span><span class="p">(</span><span class="s1">&#39;posts/&#39;</span> <span class="o">.</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-
-<span class="c1">// app/Cells/recent_posts.php</span>
+</pre></div>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/Cells/recent_posts.php</span>
 <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
     <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$posts</span> <span class="k">as</span> <span class="nv">$post</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
         <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">linkPost</span><span class="p">(</span><span class="nv">$post</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
@@ -510,10 +558,12 @@ public function recentPosts(string $category, int $limit)
 </pre></div>
 </div>
 </section>
-<section id="id12">
-<h3><a class="toc-backref" href="#id23">执行设置逻辑</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
-<p>如果你需要在渲染视图之前执行其他逻辑,可以实现一个 <code class="docutils literal notranslate"><span class="pre">mount()</span></code> 方法。在类实例化后立即调用此方法,可用于设置其他属性或执行其他逻辑。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
+<section id="id14">
+<h3><a class="toc-backref" href="#id27">执行设置逻辑</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<p>如果你需要在渲染视图之前执行其他逻辑，可以实现一个 <code class="docutils literal notranslate"><span class="pre">mount()</span></code> 方法。该方法将在类实例化后立即调用，并可用于设置其他属性或执行其他逻辑：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\View\Cells\Cell</span><span class="p">;</span>
 
@@ -523,13 +573,16 @@ public function recentPosts(string $category, int $limit)
 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">mount</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">posts</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="s1">&#39;PostModel&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getRecent</span><span class="p">();</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">posts</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="s1">&#39;PostModel&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;created_at&#39;</span><span class="p">,</span> <span class="s1">&#39;DESC&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">findAll</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>你可以通过将它们作为数组传递给 <code class="docutils literal notranslate"><span class="pre">view_cell()</span></code> 辅助函数来向 <code class="docutils literal notranslate"><span class="pre">mount()</span></code> 方法传递其他参数。传递的与 <code class="docutils literal notranslate"><span class="pre">mount</span></code> 方法参数名称匹配的任何参数都将被传递进去。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// app/Cells/RecentPostsCell.php</span>
+<p>你可以通过将它们作为数组传递给 <code class="docutils literal notranslate"><span class="pre">view_cell()</span></code> 辅助函数来将其他参数传递给 <code class="docutils literal notranslate"><span class="pre">mount()</span></code> 方法。任何与 <code class="docutils literal notranslate"><span class="pre">mount()</span></code> 方法的参数名称匹配的参数将被传递进去：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// app/Cells/RecentPostsCell.php</span>
+
 <span class="k">namespace</span> <span class="nx">App\Cells</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\View\Cells\Cell</span><span class="p">;</span>
@@ -541,28 +594,31 @@ public function recentPosts(string $category, int $limit)
     <span class="k">public</span> <span class="k">function</span> <span class="nf">mount</span><span class="p">(</span><span class="o">?</span><span class="nx">int</span> <span class="nv">$categoryId</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">posts</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="s1">&#39;PostModel&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span><span class="nv">$categoryId</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$query</span><span class="p">,</span> <span class="nv">$category</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;category_id&#39;</span><span class="p">,</span> <span class="nv">$categoryId</span><span class="p">);</span>
-            <span class="p">})</span>
-            <span class="o">-&gt;</span><span class="na">getRecent</span><span class="p">();</span>
+            <span class="o">-&gt;</span><span class="na">when</span><span class="p">(</span>
+                <span class="nv">$categoryId</span><span class="p">,</span>
+                <span class="k">static</span> <span class="nx">fn</span> <span class="p">(</span><span class="nv">$query</span><span class="p">,</span> <span class="nv">$categoryId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;category_id&#39;</span><span class="p">,</span> <span class="nv">$categoryId</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;created_at&#39;</span><span class="p">,</span> <span class="s1">&#39;DESC&#39;</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">findAll</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-
-<span class="c1">// 在主视图中调用:</span>
+</pre></div>
+</div>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Called in main View:</span>
 <span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;RecentPostsCell&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;categoryId&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">])</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id13">
-<h2><a class="toc-backref" href="#id24">单元格缓存</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
-<p>你可以通过将要缓存数据的秒数作为第三个参数传入来缓存视图单元格调用的结果。这将使用当前配置的缓存引擎。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 缓存视图 5 分钟</span>
+<section id="id15">
+<h2><a class="toc-backref" href="#id28">单元缓存</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
+<p>你可以通过将要缓存数据的秒数作为第三个参数传递来缓存视图单元调用的结果。这将使用当前配置的缓存引擎：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Cache the view for 5 minutes</span>
 <span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;App\Cells\Blog::recentPosts&#39;</span><span class="p">,</span> <span class="s1">&#39;limit=5&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>如果喜欢,你可以提供一个自定义名称代替自动生成的名称,方法是将新名称作为第四个参数传递:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 缓存视图 5 分钟</span>
+<p>如果需要，你可以提供一个自定义名称，而不是自动生成的名称，通过将新名称作为第四个参数传递：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Cache the view for 5 minutes</span>
 <span class="o">&lt;?=</span> <span class="nx">view_cell</span><span class="p">(</span><span class="s1">&#39;App\Cells\Blog::recentPosts&#39;</span><span class="p">,</span> <span class="s1">&#39;limit=5&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="s1">&#39;newcacheid&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
@@ -581,7 +637,7 @@ public function recentPosts(string $category, int $limit)
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -589,7 +645,7 @@ public function recentPosts(string $category, int $limit)
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068de61490>
+<jinja2.runtime.BlockReference object at 0x7f8b29687350>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

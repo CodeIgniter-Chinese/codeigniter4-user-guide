@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HTTP 功能测试 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>HTTP 功能测试 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -283,17 +284,18 @@
 <div class="contents local topic" id="id1">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id2" id="id11">测试类</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id12">请求页面</a></p>
+<li><p><a class="reference internal" href="#feature-requesting-a-page" id="id12">请求页面</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id13">设置不同的路由</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id14">设置会话值</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id15">设置标头</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id16">绕过事件</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id17">格式化请求</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id18">设置正文</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id13">缩写方法</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id14">设置不同的路由</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id15">设置会话值</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id16">设置标头</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id17">绕过事件</a></p></li>
+<li><p><a class="reference internal" href="#feature-formatting-the-request" id="id18">格式化请求</a></p></li>
+<li><p><a class="reference internal" href="#body" id="id19">设置 Body</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id10" id="id19">检查响应</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id20">检查响应</a></p></li>
 </ul>
 </div>
 <section id="id2">
@@ -328,9 +330,20 @@
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<h2><a class="toc-backref" href="#id12">请求页面</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
-<p>从本质上讲,功能测试只是允许你在应用程序上调用一个端点并获取结果。要做到这一点,请使用 <code class="docutils literal notranslate"><span class="pre">call()</span></code> 方法。第一个参数是要使用的 HTTP 方法(最常见的是 GET 或 POST)。第二个参数是要测试的站点上的路径。第三个参数接受一个数组,用于填充与你使用的 HTTP 动词对应的全局变量。因此, <strong>GET</strong> 方法会填充 <strong>$_GET</strong> 变量, <strong>post</strong> 请求会填充 <strong>$_POST</strong> 数组。</p>
+<section id="feature-requesting-a-page">
+<span id="id3"></span><h2><a class="toc-backref" href="#id12">请求页面</a><a class="headerlink" href="#feature-requesting-a-page" title="永久链接至标题"></a></h2>
+<p>基本上，功能测试允许你调用应用程序上的一个端点，并获取结果返回。
+为此，你可以使用 <code class="docutils literal notranslate"><span class="pre">call()</span></code> 方法。</p>
+<ol class="arabic">
+<li><p>第一个参数是要使用的 HTTP 方法（通常是 GET 或 POST）。</p></li>
+<li><p>第二个参数是要测试的站点上的 URI 路径。</p></li>
+<li><p>第三个参数 <code class="docutils literal notranslate"><span class="pre">$params</span></code> 接受一个数组，用于填充你正在使用的 HTTP 动词的超全局变量。因此，<strong>GET</strong> 方法将填充 <strong>$_GET</strong> 变量，而 <strong>POST</strong> 请求将填充 <strong>$_POST</strong> 数组。<code class="docutils literal notranslate"><span class="pre">$params</span></code> 也用于 <a class="reference internal" href="#feature-formatting-the-request"><span class="std std-ref">格式化请求</span></a>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p><code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组并不适用于每个 HTTP 动词，但为了保持一致性而包含在内。</p>
+</div>
+</li>
+</ol>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// Get a simple page</span>
@@ -343,6 +356,8 @@
 <span class="p">]);</span>
 </pre></div>
 </div>
+<section id="id4">
+<h3><a class="toc-backref" href="#id13">缩写方法</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>为每个 HTTP 动词提供了缩写方法,以减少输入并增加清晰度:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -354,12 +369,9 @@
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">(</span><span class="nv">$path</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">备注</p>
-<p>并非每个 HTTP 动词都适合 <code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组,但为了一致性而包含它。</p>
-</div>
-<section id="id4">
-<h3><a class="toc-backref" href="#id13">设置不同的路由</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id14">设置不同的路由</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>你可以通过将“routes”数组传递到 <code class="docutils literal notranslate"><span class="pre">withRoutes()</span></code> 方法来使用自定义路由集合。这将覆盖系统中的任何现有路由:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -372,8 +384,8 @@
 </div>
 <p>每个“routes”都是一个包含 HTTP 动词(或“add”表示全部)、要匹配的 URI 和路由目的地的 3 元素数组。</p>
 </section>
-<section id="id5">
-<h3><a class="toc-backref" href="#id14">设置会话值</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<section id="id6">
+<h3><a class="toc-backref" href="#id15">设置会话值</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">withSession()</span></code> 方法在单次测试期间设置自定义会话值。这需要一个键/值对数组,在发出此请求时,它应存在于 <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 变量中,或者为 <code class="docutils literal notranslate"><span class="pre">null</span></code> 表示应使用 <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 的当前值。这在测试认证等方面很有用。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -391,8 +403,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3><a class="toc-backref" href="#id15">设置标头</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<section id="id7">
+<h3><a class="toc-backref" href="#id16">设置标头</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">withHeaders()</span></code> 方法设置标头值。这需要一个键/值对数组,它将作为调用中的标头传递:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -404,8 +416,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h3><a class="toc-backref" href="#id16">绕过事件</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<section id="id8">
+<h3><a class="toc-backref" href="#id17">绕过事件</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>事件在应用程序中很有用,但在测试中可能 problematic。特别是用于发送电子邮件的事件。你可以使用 <code class="docutils literal notranslate"><span class="pre">skipEvents()</span></code> 方法告诉系统跳过任何事件处理:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -413,9 +425,12 @@
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h3><a class="toc-backref" href="#id17">格式化请求</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
-<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">withBodyFormat()</span></code> 方法设置请求正文的格式。当前,这支持 <cite>json</cite> 或 <cite>xml</cite>。这将获取传递到 <code class="docutils literal notranslate"><span class="pre">call()</span></code>、<code class="docutils literal notranslate"><span class="pre">post()</span></code>、<code class="docutils literal notranslate"><span class="pre">get()</span></code> 等中的参数,并以给定格式分配给请求正文。这也会相应地为请求设置 <cite>Content-Type</cite> 标头。当测试 JSON 或 XML API 时,这很有用,以便以控制器期望的形式设置请求。</p>
+<section id="feature-formatting-the-request">
+<span id="id9"></span><h3><a class="toc-backref" href="#id18">格式化请求</a><a class="headerlink" href="#feature-formatting-the-request" title="永久链接至标题"></a></h3>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">withBodyFormat()</span></code> 方法设置请求体的格式。目前支持 <code class="docutils literal notranslate"><span class="pre">json</span></code> 或 <code class="docutils literal notranslate"><span class="pre">xml</span></code>。
+这在测试 JSON 或 XML API 时非常有用，因为你可以设置请求的格式，以符合控制器的预期。</p>
+<p>这将接收传递给 <code class="docutils literal notranslate"><span class="pre">call()</span></code>, <code class="docutils literal notranslate"><span class="pre">post()</span></code>, <code class="docutils literal notranslate"><span class="pre">get()</span></code>… 的参数，并将它们分配给请求体，以给定的格式。</p>
+<p>这还将相应地设置请求的 <cite>Content-Type</cite> 标头。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// If your feature test contains this:</span>
@@ -426,13 +441,14 @@
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h3><a class="toc-backref" href="#id18">设置正文</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
-<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">withBody()</span></code> 方法设置请求的正文。这允许你按照想要的格式设置正文格式。如果要测试更复杂的 XML,建议使用此方法。这也不会为你设置 Content-Type 标头,如果需要,可以使用 <code class="docutils literal notranslate"><span class="pre">withHeaders()</span></code> 方法设置它。</p>
+<section id="body">
+<span id="feature-setting-the-body"></span><h3><a class="toc-backref" href="#id19">设置 Body</a><a class="headerlink" href="#body" title="永久链接至标题"></a></h3>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">withBody()</span></code> 方法设置请求的 Body。这允许你按照所需的格式设置请求 Body。如果你有更复杂的 XML 需要测试，建议使用此方法。</p>
+<p>这不会为你设置 <cite>Content-Type</cite> 标头。如果需要，你可以使用 <code class="docutils literal notranslate"><span class="pre">withHeaders()</span></code> 方法设置它。</p>
 </section>
 </section>
 <section id="id10">
-<h2><a class="toc-backref" href="#id19">检查响应</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id20">检查响应</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">FeatureTestTrait::call()</span></code> 返回 <code class="docutils literal notranslate"><span class="pre">TestResponse</span></code> 的一个实例。请参阅 <a class="reference internal" href="response.html"><span class="doc">测试响应</span></a> 以了解如何使用此类在测试用例中执行其他断言和验证。</p>
 </section>
 </section>
@@ -449,7 +465,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -457,7 +473,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068dae3210>
+<jinja2.runtime.BlockReference object at 0x7f8b299ddd90>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

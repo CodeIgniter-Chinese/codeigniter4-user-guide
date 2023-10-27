@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>数据库命令 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据库命令 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -298,7 +299,7 @@
 <section id="db-table-show">
 <h4>db:table –show<a class="headerlink" href="#db-table-show" title="永久链接至标题"></a></h4>
 <p>要直接从喜欢的终端列出数据库中的所有表,可以使用 <code class="docutils literal notranslate"><span class="pre">db:table</span> <span class="pre">--show</span></code> 命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">table</span> <span class="o">--</span><span class="nx">show</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:table --show</span>
 </pre></div>
 </div>
 <p>使用此命令时,假定表存在。否则,CodeIgniter 将抱怨数据库没有表。</p>
@@ -309,17 +310,17 @@
 <section id="db-table">
 <h4>db:table<a class="headerlink" href="#db-table" title="永久链接至标题"></a></h4>
 <p>当你有一个名为 <code class="docutils literal notranslate"><span class="pre">my_table</span></code> 的表时,你可以看到表的字段名和记录:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">table</span> <span class="nx">my_table</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:table my_table</span>
 </pre></div>
 </div>
 <p>如果数据库中没有表 <code class="docutils literal notranslate"><span class="pre">my_table</span></code>,CodeIgniter 会显示可用表列表以供选择。</p>
 <p>你也可以不使用表名使用以下命令:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">table</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:table</span>
 </pre></div>
 </div>
 <p>在这种情况下,将询问表名。</p>
 <p>你还可以传递一些选项:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">table</span> <span class="nx">my_table</span> <span class="o">--</span><span class="nx">limit</span><span class="o">-</span><span class="nx">rows</span> <span class="mi">50</span> <span class="o">--</span><span class="nx">limit</span><span class="o">-</span><span class="nx">field</span><span class="o">-</span><span class="nx">value</span> <span class="mi">20</span> <span class="o">--</span><span class="nx">desc</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:table my_table --limit-rows 50 --limit-field-value 20 --desc</span>
 </pre></div>
 </div>
 <p>选项 <code class="docutils literal notranslate"><span class="pre">--limit-rows</span> <span class="pre">50</span></code> 将行数限制为 50 行。</p>
@@ -332,7 +333,7 @@
 <section id="db-table-metadata">
 <h4>db:table –metadata<a class="headerlink" href="#db-table-metadata" title="永久链接至标题"></a></h4>
 <p>当你有一个名为 <code class="docutils literal notranslate"><span class="pre">my_table</span></code> 的表时,你可以使用 <code class="docutils literal notranslate"><span class="pre">--metadata</span></code> 选项查看元数据,如列类型、表的最大长度:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">db</span><span class="o">:</span><span class="nx">table</span> <span class="nx">my_table</span> <span class="o">--</span><span class="nx">metadata</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:table my_table --metadata</span>
 </pre></div>
 </div>
 <p>使用此命令时,假定表存在。否则,CodeIgniter 将显示表列表以供选择。
@@ -354,7 +355,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -362,7 +363,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068e858e90>
+<jinja2.runtime.BlockReference object at 0x7f8b29990650>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

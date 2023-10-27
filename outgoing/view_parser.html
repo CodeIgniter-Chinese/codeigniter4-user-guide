@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>视图解析器 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>视图解析器 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">构建响应</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="view_layouts.html">视图布局</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -298,7 +299,7 @@
 <li><p><a class="reference internal" href="#id13" id="id35">条件逻辑</a></p></li>
 <li><p><a class="reference internal" href="#id15" id="id36">转义数据</a></p></li>
 <li><p><a class="reference internal" href="#id16" id="id37">过滤器</a></p></li>
-<li><p><a class="reference internal" href="#id19" id="id38">插件</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id38">解析器插件</a></p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#id22" id="id39">使用说明</a></p>
@@ -805,7 +806,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 </section>
 <section id="id18">
 <h4>自定义过滤器<a class="headerlink" href="#id18" title="永久链接至标题"></a></h4>
-<p>你可以通过编辑 <strong>app/Config/View.php</strong> 并向 <code class="docutils literal notranslate"><span class="pre">$filters</span></code> 数组添加新条目来轻松创建自己的过滤器。每个键是在视图中调用过滤器的名称，其值是任何有效的 PHP 可调用函数：</p>
+<p>你可以通过编辑 <strong>app/Config/View.php</strong> 并向 <code class="docutils literal notranslate"><span class="pre">$filters</span></code> 数组中添加新条目来轻松创建自己的过滤器。每个键是视图中调用过滤器的名称，其值是任何有效的 PHP 可调用对象：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
@@ -815,28 +816,8 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <span class="k">class</span> <span class="nc">View</span> <span class="k">extends</span> <span class="nx">BaseView</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nv">$filters</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;abs&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;\CodeIgniter\View\Filters::abs&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;capitalize&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;\CodeIgniter\View\Filters::capitalize&#39;</span><span class="p">,</span>
-    <span class="p">];</span>
-
-    <span class="c1">// ...</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="php">
-<h4>将 PHP 原生函数用作过滤器<a class="headerlink" href="#php" title="永久链接至标题"></a></h4>
-<p>你可以通过编辑 <strong>app/Config/View.php</strong> 并向 <code class="docutils literal notranslate"><span class="pre">$filters</span></code> 数组添加新条目，将原生的 PHP 函数用作过滤器。每个键是在视图中调用的原生 PHP 函数的名称，其值是任何有效的原生 PHP 函数，前缀为：</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">CodeIgniter\Config\View</span> <span class="k">as</span> <span class="nx">BaseView</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">View</span> <span class="k">extends</span> <span class="nx">BaseView</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$filters</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;str_repeat&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;\str_repeat&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;foo&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;\Some\Class::methodName&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;str_repeat&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;str_repeat&#39;</span><span class="p">,</span> <span class="c1">// native php function</span>
     <span class="p">];</span>
 
     <span class="c1">// ...</span>
@@ -846,7 +827,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 </section>
 </section>
 <section id="id19">
-<h3><a class="toc-backref" href="#id38">插件</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id38">解析器插件</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
 <p>插件允许你扩展解析器,为每个项目添加自定义功能。它们可以是任何 PHP 可调用的,因此实现起来非常简单。在模板中,插件由 <code class="docutils literal notranslate"><span class="pre">{+</span> <span class="pre">+}</span></code> 标记指定:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">+</span> <span class="nx">foo</span> <span class="o">+</span><span class="p">}</span> <span class="nx">inner</span> <span class="nx">content</span> <span class="p">{</span><span class="o">+</span> <span class="o">/</span><span class="nx">foo</span> <span class="o">+</span><span class="p">}</span>
 </pre></div>
@@ -1188,7 +1169,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <p>根据提供的模板源和已设置的任何数据构建输出:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="k">return</span> <span class="nv">$parser</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;myview&#39;</span><span class="p">);</span>
+<span class="k">return</span> <span class="nv">$parser</span><span class="o">-&gt;</span><span class="na">renderString</span><span class="p">(</span><span class="s1">&#39;&lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item 2&lt;/li&gt;&lt;/ul&gt;&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>支持的选项和行为与上述相同。</p>
@@ -1316,7 +1297,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -1324,7 +1305,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068d9c7910>
+<jinja2.runtime.BlockReference object at 0x7f8b294eb6d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

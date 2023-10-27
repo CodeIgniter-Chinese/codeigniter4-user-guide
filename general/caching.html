@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>网页缓存 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>网页缓存 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -283,21 +284,44 @@
 <p>虽然 CodeIgniter 很快,但你在页面上显示的动态信息量将直接关联到服务器资源、内存和处理周期的利用,这会影响你的页面加载速度。通过缓存页面,由于它们以完全渲染的状态保存,你可以达到更接近静态网页的性能。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id6">缓存是如何工作的?</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id7">启用缓存</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id8">删除缓存</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id8">缓存是如何工作的?</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id9">配置缓存</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id5" id="id10">设置缓存引擎</a></p></li>
+<li><p><a class="reference internal" href="#cachequerystring" id="id11">设置 $cacheQueryString</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id6" id="id12">启用缓存</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id13">删除缓存</a></p></li>
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id6">缓存是如何工作的?</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
-<p>缓存可以在每个页面的基础上启用,你可以设置页面保持缓存的时间长度,之后会刷新。当一个页面第一次加载时,该文件将使用当前配置的缓存引擎进行缓存。在后续页面加载中,会检索缓存文件并发送给请求用户的浏览器。如果已过期,它会在发送到浏览器前删除和刷新。</p>
+<h2><a class="toc-backref" href="#id8">缓存是如何工作的?</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>可以按页面启用缓存，并设置页面在刷新之前应保持缓存的时间长度。当首次加载页面时，将使用当前配置的缓存引擎对页面进行缓存。在后续的页面加载中，将检索缓存并发送给浏览器。如果缓存已过期，将在发送给浏览器之前删除并刷新。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>Benchmark 标签不会被缓存,所以启用缓存后你仍可以查看页面加载速度。</p>
 </div>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id7">启用缓存</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id9">配置缓存</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<section id="id5">
+<h3><a class="toc-backref" href="#id10">设置缓存引擎</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>在使用网页缓存之前，你必须通过编辑 <strong>app/Config/Cache.php</strong> 来设置缓存引擎。有关详细信息，请参阅 <a class="reference internal" href="../libraries/caching.html#libraries-caching-configuring-the-cache"><span class="std std-ref">配置缓存</span></a>。</p>
+</section>
+<section id="cachequerystring">
+<h3><a class="toc-backref" href="#id11">设置 $cacheQueryString</a><a class="headerlink" href="#cachequerystring" title="永久链接至标题"></a></h3>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">Config\Cache::$cacheQueryString</span></code> 设置是否在生成缓存时包含查询字符串。</p>
+<p>有效选项为：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">false</span></code>: （默认）禁用。不考虑查询字符串；对于具有相同 URI 路径但不同查询字符串的请求，返回相同的缓存。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">true</span></code>: 启用，考虑所有查询参数。请注意，这可能导致为同一页面反复生成大量缓存。</p></li>
+<li><p><strong>array</strong>: 启用，但仅考虑指定的查询参数列表。例如: <code class="docutils literal notranslate"><span class="pre">['q',</span> <span class="pre">'page']</span></code>。</p></li>
+</ul>
+</section>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id12">启用缓存</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p>要启用缓存,请在任何控制器方法中放入以下标签:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -308,16 +332,12 @@
 <p>上面的标签可以放在一个方法的任何位置。它的位置不会受到影响,所以将其放在你认为最合适的位置。一旦标签就位,你的页面就会开始被缓存。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>如果你改变了可能影响输出的配置选项,你必须手动删除缓存文件。</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">备注</p>
-<p>在可以写入缓存文件之前,你必须通过编辑 <strong>app/Config/Cache.php</strong> 来设置缓存引擎。</p>
+<p>如果你改变了可能影响输出的配置选项,你必须手动删除缓存。</p>
 </div>
 </section>
-<section id="id5">
-<h2><a class="toc-backref" href="#id8">删除缓存</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
-<p>如果你不再希望缓存一个文件,可以删除缓存标签,它就不会在过期时刷新。</p>
+<section id="id7">
+<h2><a class="toc-backref" href="#id13">删除缓存</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<p>如果你不再希望缓存一个页面,可以删除缓存标签,它就不会在过期时刷新。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>删除标签不会立即删除缓存。它必须正常过期。</p>
@@ -337,7 +357,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -345,7 +365,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068dbcf990>
+<jinja2.runtime.BlockReference object at 0x7f8b29d54610>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IncomingRequest 类 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>IncomingRequest 类 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -552,8 +553,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3>过滤输入数据<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<section id="incomingrequest-filtering-input-data">
+<span id="id6"></span><h3>过滤输入数据<a class="headerlink" href="#incomingrequest-filtering-input-data" title="永久链接至标题"></a></h3>
 <p>为了保持应用程序的安全,你会想要过滤所有输入。你可以将要使用的过滤器类型作为这些方法的第二个参数传递。使用内置的 <code class="docutils literal notranslate"><span class="pre">filter_var()</span></code> 函数进行过滤。前往 PHP 手册获取 <a class="reference external" href="https://www.php.net/manual/en/filter.filters.php">有效过滤器类型列表</a>。</p>
 <p>过滤 POST 变量的代码如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -625,32 +626,18 @@
 <span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getUserInfo</span><span class="p">();</span>       <span class="c1">// snoopy:password</span>
 <span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getHost</span><span class="p">();</span>           <span class="c1">// example.com</span>
 <span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getPort</span><span class="p">();</span>           <span class="c1">// 88</span>
-<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getPath</span><span class="p">();</span>           <span class="c1">// path/to/page</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getPath</span><span class="p">();</span>           <span class="c1">// /path/to/page</span>
+<span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getRoutePath</span><span class="p">();</span>      <span class="c1">// path/to/page</span>
 <span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">();</span>          <span class="c1">// foo=bar&amp;bar=baz</span>
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getSegments</span><span class="p">());</span>   <span class="c1">// Array ( [0] =&gt; path [1] =&gt; to [2] =&gt; page )</span>
 <span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getSegment</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>       <span class="c1">// path</span>
 <span class="k">echo</span> <span class="nv">$uri</span><span class="o">-&gt;</span><span class="na">getTotalSegments</span><span class="p">();</span>  <span class="c1">// 3</span>
 </pre></div>
 </div>
-<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">getPath()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setPath()</span></code> 方法使用当前请求的 URI 字符串(相对于 baseURL 的路径)。
-请注意,共享的 <code class="docutils literal notranslate"><span class="pre">IncomingRequest</span></code> 实例上的此相对路径是 <a class="reference internal" href="../helpers/url_helper.html"><span class="doc">URL 辅助函数</span></a>
-函数使用的内容,因此这是一种有用的方法来“伪造”传入请求以进行测试:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">MyMenuTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">testActiveLinkUsesCurrentUrl</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setPath</span><span class="p">(</span><span class="s1">&#39;users/list&#39;</span><span class="p">);</span>
-
-        <span class="nv">$menu</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyMenu</span><span class="p">();</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="s1">&#39;users/list&#39;</span><span class="p">,</span> <span class="nv">$menu</span><span class="o">-&gt;</span><span class="na">getActiveLink</span><span class="p">());</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">getRoutePath()</span></code> 方法来处理当前 URI 字符串（相对于你的 baseURL 的路径）。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自 v4.4.0 版本开始，可以使用 <code class="docutils literal notranslate"><span class="pre">getRoutePath()</span></code> 方法。在 v4.4.0 之前，<code class="docutils literal notranslate"><span class="pre">getPath()</span></code> 方法返回相对于你的 baseURL 的路径。</p>
 </div>
 </section>
 <section id="id9">
@@ -1041,27 +1028,36 @@
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>这是确定“当前 URI”最安全的方法,因为 <code class="docutils literal notranslate"><span class="pre">IncomingRequest::$uri</span></code>
-可能不了解完整的 App 配置的 base URL。</p>
+<p>该方法返回相对于 baseURL 的当前 URI 路径。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在 v4.4.0 之前，这是确定“当前 URI”的最安全的方法，因为 <code class="docutils literal notranslate"><span class="pre">IncomingRequest::$uri</span></code> 可能不知道完整的 App 配置的 base URL。</p>
+</div>
 </dd></dl>
 
 <dl class="php method">
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\IncomingRequest::setPath">
 <span class="sig-name descname"><span class="pre">setPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\IncomingRequest::setPath" title="永久链接至目标"></a></dt>
-<dd><dl class="field-list simple">
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">4.4.0 版后已移除.</span></p>
+</div>
+<dl class="field-list simple">
 <dt class="field-odd">参数</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$path</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要用作当前 URI 的相对路径</p></li>
+<li><p><strong>$path</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 用作当前 URI 的相对路径</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回</dt>
-<dd class="field-even"><p>这个 IncomingRequest</p>
+<dd class="field-even"><p>此传入请求</p>
 </dd>
 <dt class="field-odd">返回类型</dt>
 <dd class="field-odd"><p><span><a class="reference internal" href="#CodeIgniter\HTTP\IncomingRequest" title="CodeIgniter\HTTP\IncomingRequest"><code class="xref php php-obj docutils literal notranslate"><span class="pre">IncomingRequest</span></code></a></span></p>
 </dd>
 </dl>
-<p>主要用于测试目的,这允许你设置当前请求的相对路径值,而不是依赖于 URI 检测。这也会用新的路径更新底层的 <code class="docutils literal notranslate"><span class="pre">URI</span></code> 实例。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在 v4.4.0 之前，主要用于测试目的，这允许你设置当前请求的相对路径值，而不是依赖于 URI 检测。这也会更新底层的 <code class="docutils literal notranslate"><span class="pre">URI</span></code> 实例的新路径。</p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -1081,7 +1077,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -1089,7 +1085,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068dd04550>
+<jinja2.runtime.BlockReference object at 0x7f8b29f9dad0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

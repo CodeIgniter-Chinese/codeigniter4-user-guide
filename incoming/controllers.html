@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>控制器 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>控制器 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -282,55 +283,56 @@
 <p>控制器是你应用程序的核心,因为它们确定了如何处理 HTTP 请求。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id31">什么是控制器?</a></p></li>
-<li><p><a class="reference internal" href="#controller-constructor" id="id32">构造函数</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id33">包含的属性</a></p>
+<li><p><a class="reference internal" href="#id3" id="id33">什么是控制器?</a></p></li>
+<li><p><a class="reference internal" href="#controller-constructor" id="id34">构造函数</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id35">包含的属性</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id6" id="id34">请求对象</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id35">响应对象</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id36">日志对象</a></p></li>
-<li><p><a class="reference internal" href="#controllers-helpers" id="id37">辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id36">请求对象</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id37">响应对象</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id38">日志对象</a></p></li>
+<li><p><a class="reference internal" href="#controllers-helpers" id="id39">辅助函数</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#forcehttps" id="id38">forceHTTPS</a></p></li>
-<li><p><a class="reference internal" href="#controllers-validating-data" id="id39">验证数据</a></p>
+<li><p><a class="reference internal" href="#forcehttps" id="id40">forceHTTPS</a></p></li>
+<li><p><a class="reference internal" href="#controllers-validating-data" id="id41">验证数据</a></p>
 <ul>
-<li><p><a class="reference internal" href="#this-validate" id="id40">$this-&gt;validate()</a></p></li>
-<li><p><a class="reference internal" href="#this-validatedata" id="id41">$this-&gt;validateData()</a></p></li>
+<li><p><a class="reference internal" href="#this-validate" id="id42">$this-&gt;validate()</a></p></li>
+<li><p><a class="reference internal" href="#this-validatedata" id="id43">$this-&gt;validateData()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id11" id="id42">保护方法</a></p></li>
-<li><p><a class="reference internal" href="#controller-auto-routing-improved" id="id43">自动路由(改进)</a></p>
+<li><p><a class="reference internal" href="#id11" id="id44">保护方法</a></p></li>
+<li><p><a class="reference internal" href="#controller-auto-routing-improved" id="id45">自动路由(改进)</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id13" id="id44">让我们试一试:你好,世界!</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id45">方法</a></p></li>
-<li><p><a class="reference internal" href="#uri" id="id46">将 URI 段传递给你的方法</a></p></li>
-<li><p><a class="reference internal" href="#id18" id="id47">默认控制器</a></p></li>
-<li><p><a class="reference internal" href="#id20" id="id48">将控制器组织到子目录中</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id46">让我们试一试:你好,世界!</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id47">方法</a></p></li>
+<li><p><a class="reference internal" href="#uri" id="id48">将 URI 段传递给你的方法</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id49">默认控制器</a></p></li>
+<li><p><a class="reference internal" href="#controller-default-method-fallback" id="id50">默认方法回退</a></p></li>
+<li><p><a class="reference internal" href="#id22" id="id51">将控制器组织到子目录中</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#controller-auto-routing-legacy" id="id49">自动路由(传统)</a></p>
+<li><p><a class="reference internal" href="#controller-auto-routing-legacy" id="id52">自动路由(传统)</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id22" id="id50">让我们试一试:你好,世界!(传统)</a></p></li>
-<li><p><a class="reference internal" href="#id23" id="id51">方法(传统)</a></p></li>
-<li><p><a class="reference internal" href="#id24" id="id52">将 URI 段传递给你的方法(传统)</a></p></li>
-<li><p><a class="reference internal" href="#id25" id="id53">默认控制器(传统)</a></p></li>
-<li><p><a class="reference internal" href="#id27" id="id54">将控制器组织到子目录中(传统)</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id53">让我们试一试:你好,世界!(传统)</a></p></li>
+<li><p><a class="reference internal" href="#id25" id="id54">方法(传统)</a></p></li>
+<li><p><a class="reference internal" href="#id26" id="id55">将 URI 段传递给你的方法(传统)</a></p></li>
+<li><p><a class="reference internal" href="#id27" id="id56">默认控制器(传统)</a></p></li>
+<li><p><a class="reference internal" href="#id29" id="id57">将控制器组织到子目录中(传统)</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id28" id="id55">重映射方法调用</a></p></li>
-<li><p><a class="reference internal" href="#id29" id="id56">扩展控制器</a></p></li>
-<li><p><a class="reference internal" href="#id30" id="id57">就这样了！</a></p></li>
+<li><p><a class="reference internal" href="#id30" id="id58">重映射方法调用</a></p></li>
+<li><p><a class="reference internal" href="#id31" id="id59">扩展控制器</a></p></li>
+<li><p><a class="reference internal" href="#id32" id="id60">就这样了！</a></p></li>
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id31">什么是控制器?</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id33">什么是控制器?</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>一个控制器简单来说就是一个处理 HTTP 请求的类文件。<a class="reference internal" href="routing.html"><span class="doc">URI 路由</span></a> 将一个 URI 与一个控制器关联起来。</p>
 <p>你创建的每个控制器都应该扩展 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code> 类。
 这个类为你所有的控制器提供了几个可用的功能。</p>
 </section>
 <section id="controller-constructor">
-<span id="id4"></span><h2><a class="toc-backref" href="#id32">构造函数</a><a class="headerlink" href="#controller-constructor" title="永久链接至标题"></a></h2>
+<span id="id4"></span><h2><a class="toc-backref" href="#id34">构造函数</a><a class="headerlink" href="#controller-constructor" title="永久链接至标题"></a></h2>
 <p>CodeIgniter 的控制器有一个特殊的构造函数 <code class="docutils literal notranslate"><span class="pre">initController()</span></code>。
 它会在 PHP 的构造函数 <code class="docutils literal notranslate"><span class="pre">__construct()</span></code> 执行后由框架调用。</p>
 <p>如果你想重写 <code class="docutils literal notranslate"><span class="pre">initController()</span></code>,不要忘记在方法中添加 <code class="docutils literal notranslate"><span class="pre">parent::initController($request,</span> <span class="pre">$response,</span> <span class="pre">$logger);</span></code> :</p>
@@ -365,22 +367,22 @@
 <p><code class="docutils literal notranslate"><span class="pre">initController()</span></code> 方法设置了以下三个属性。</p>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id33">包含的属性</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id35">包含的属性</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>CodeIgniter 的控制器提供了这些属性。</p>
 <section id="id6">
-<h3><a class="toc-backref" href="#id34">请求对象</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id36">请求对象</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>应用程序的主要 <a class="reference internal" href="incomingrequest.html"><span class="doc">请求实例</span></a> 始终作为类属性 <code class="docutils literal notranslate"><span class="pre">$this-&gt;request</span></code> 可用。</p>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id35">响应对象</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id37">响应对象</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>应用程序的主要 <a class="reference internal" href="../outgoing/response.html"><span class="doc">响应实例</span></a> 始终作为类属性 <code class="docutils literal notranslate"><span class="pre">$this-&gt;response</span></code> 可用。</p>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id36">日志对象</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id38">日志对象</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p><a class="reference internal" href="../general/logging.html"><span class="doc">日志</span></a> 类的一个实例作为类属性 <code class="docutils literal notranslate"><span class="pre">$this-&gt;logger</span></code> 可用。</p>
 </section>
 <section id="controllers-helpers">
-<span id="id9"></span><h3><a class="toc-backref" href="#id37">辅助函数</a><a class="headerlink" href="#controllers-helpers" title="永久链接至标题"></a></h3>
+<span id="id9"></span><h3><a class="toc-backref" href="#id39">辅助函数</a><a class="headerlink" href="#controllers-helpers" title="永久链接至标题"></a></h3>
 <p>你可以将辅助函数文件的数组定义为类属性。每当加载控制器时,这些辅助函数文件都会自动加载到内存中,以便你可以在控制器内的任何地方使用它们的方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -395,7 +397,7 @@
 </section>
 </section>
 <section id="forcehttps">
-<h2><a class="toc-backref" href="#id38">forceHTTPS</a><a class="headerlink" href="#forcehttps" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id40">forceHTTPS</a><a class="headerlink" href="#forcehttps" title="永久链接至标题"></a></h2>
 <p>所有控制器中都可以使用强制通过 HTTPS 访问方法的便利方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -418,19 +420,11 @@
 </div>
 </section>
 <section id="controllers-validating-data">
-<span id="id10"></span><h2><a class="toc-backref" href="#id39">验证数据</a><a class="headerlink" href="#controllers-validating-data" title="永久链接至标题"></a></h2>
+<span id="id10"></span><h2><a class="toc-backref" href="#id41">验证数据</a><a class="headerlink" href="#controllers-validating-data" title="永久链接至标题"></a></h2>
 <section id="this-validate">
-<span id="controller-validate"></span><h3><a class="toc-backref" href="#id40">$this-&gt;validate()</a><a class="headerlink" href="#this-validate" title="永久链接至标题"></a></h3>
+<span id="controller-validate"></span><h3><a class="toc-backref" href="#id42">$this-&gt;validate()</a><a class="headerlink" href="#this-validate" title="永久链接至标题"></a></h3>
 <p>为了简化数据检查,控制器还提供了方便的 <code class="docutils literal notranslate"><span class="pre">validate()</span></code> 方法。
 该方法在第一个参数中接受规则数组,在可选的第二个参数中,接受自定义错误消息的数组,以在项目无效时显示。在内部,这使用控制器的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;request</span></code> 实例来获取要验证的数据。</p>
-<div class="admonition warning">
-<p class="admonition-title">警告</p>
-<p><code class="docutils literal notranslate"><span class="pre">validate()</span></code> 方法使用 <a class="reference internal" href="../libraries/validation.html#validation-withrequest"><span class="std std-ref">Validation::withRequest()</span></a> 方法。
-它会验证来自 <a class="reference internal" href="incomingrequest.html#incomingrequest-getting-json-data"><span class="std std-ref">$request-&gt;getJSON()</span></a>
-或 <a class="reference internal" href="incomingrequest.html#incomingrequest-retrieving-raw-data"><span class="std std-ref">$request-&gt;getRawInput()</span></a>
-或 <a class="reference internal" href="incomingrequest.html#incomingrequest-getting-data"><span class="std std-ref">$request-&gt;getVar()</span></a> 的数据。
-使用哪些数据取决于请求。请记住,攻击者可以自由地向服务器发送任何请求。</p>
-</div>
 <p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证库文档</span></a> 有关于规则和消息数组格式以及可用规则的详细信息:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -444,15 +438,29 @@
             <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;required|is_unique[users.email,id,</span><span class="si">{</span><span class="nv">$userID</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
             <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|alpha_numeric_spaces&#39;</span><span class="p">,</span>
         <span class="p">]))</span> <span class="p">{</span>
+            <span class="c1">// The validation failed.</span>
             <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;users/update&#39;</span><span class="p">,</span> <span class="p">[</span>
                 <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">(),</span>
             <span class="p">]);</span>
         <span class="p">}</span>
 
-        <span class="c1">// do something here if successful...</span>
+        <span class="c1">// The validation was successful.</span>
+
+        <span class="c1">// Get the validated data.</span>
+        <span class="nv">$validData</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="o">-&gt;</span><span class="na">getValidated</span><span class="p">();</span>
+
+        <span class="c1">// ...</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>当你使用 <code class="docutils literal notranslate"><span class="pre">validate()</span></code> 方法时，应该使用 <a class="reference internal" href="../libraries/validation.html#validation-getting-validated-data"><span class="std std-ref">getValidated()</span></a> 方法来获取经过验证的数据。因为 <code class="docutils literal notranslate"><span class="pre">validate()</span></code> 方法在内部使用了 <a class="reference internal" href="../libraries/validation.html#validation-withrequest"><span class="std std-ref">Validation::withRequest()</span></a> 方法，并且它会验证来自 <a class="reference internal" href="incomingrequest.html#incomingrequest-getting-json-data"><span class="std std-ref">$request-&gt;getJSON()</span></a>、<a class="reference internal" href="incomingrequest.html#incomingrequest-retrieving-raw-data"><span class="std std-ref">$request-&gt;getRawInput()</span></a> 或 <a class="reference internal" href="incomingrequest.html#incomingrequest-getting-data"><span class="std std-ref">$request-&gt;getVar()</span></a> 的数据，而攻击者可能会更改要验证的数据。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自 v4.4.0 版本开始，可以使用 <a class="reference internal" href="../libraries/validation.html#validation-getting-validated-data"><span class="std std-ref">$this-&gt;validator-&gt;getValidated()</span></a> 方法。</p>
 </div>
 <p>如果你发现在配置文件中保持规则更简单,你可以用 <strong>app/Config/Validation.php</strong> 中定义的组名替换 <code class="docutils literal notranslate"><span class="pre">$rules</span></code> 数组:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -464,12 +472,18 @@
     <span class="k">public</span> <span class="k">function</span> <span class="nf">updateUser</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$userID</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">(</span><span class="s1">&#39;userRules&#39;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="c1">// The validation failed.</span>
             <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;users/update&#39;</span><span class="p">,</span> <span class="p">[</span>
                 <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">(),</span>
             <span class="p">]);</span>
         <span class="p">}</span>
 
-        <span class="c1">// do something here if successful...</span>
+        <span class="c1">// The validation was successful.</span>
+
+        <span class="c1">// Get the validated data.</span>
+        <span class="nv">$validData</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="o">-&gt;</span><span class="na">getValidated</span><span class="p">();</span>
+
+        <span class="c1">// ...</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -480,7 +494,7 @@
 </div>
 </section>
 <section id="this-validatedata">
-<span id="controller-validatedata"></span><h3><a class="toc-backref" href="#id41">$this-&gt;validateData()</a><a class="headerlink" href="#this-validatedata" title="永久链接至标题"></a></h3>
+<span id="controller-validatedata"></span><h3><a class="toc-backref" href="#id43">$this-&gt;validateData()</a><a class="headerlink" href="#this-validatedata" title="永久链接至标题"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">4.2.0 新版功能.</span></p>
 </div>
@@ -519,7 +533,7 @@
 </section>
 </section>
 <section id="id11">
-<h2><a class="toc-backref" href="#id42">保护方法</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id44">保护方法</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
 <p>在某些情况下,你可能希望某些方法隐藏不对公众开放。
 为此,只需将方法声明为 <code class="docutils literal notranslate"><span class="pre">private</span></code> 或 <code class="docutils literal notranslate"><span class="pre">protected</span></code>。
 这将阻止通过 URL 请求提供服务。</p>
@@ -544,7 +558,7 @@
 <p>自动路由也不会起作用。</p>
 </section>
 <section id="controller-auto-routing-improved">
-<span id="id12"></span><h2><a class="toc-backref" href="#id43">自动路由(改进)</a><a class="headerlink" href="#controller-auto-routing-improved" title="永久链接至标题"></a></h2>
+<span id="id12"></span><h2><a class="toc-backref" href="#id45">自动路由(改进)</a><a class="headerlink" href="#controller-auto-routing-improved" title="永久链接至标题"></a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">4.2.0 新版功能.</span></p>
 </div>
@@ -568,7 +582,7 @@
 <p>当控制器的短名称与 URI 的第一段匹配时,它会被加载。</p>
 </div>
 <section id="id13">
-<h3><a class="toc-backref" href="#id44">让我们试一试:你好,世界!</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id46">让我们试一试:你好,世界!</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
 <p>让我们创建一个简单的控制器,以便你看到它的实际效果。使用文本编辑器,创建一个名为 <strong>Helloworld.php</strong> 的文件,并将以下代码放入其中。你会注意到 <code class="docutils literal notranslate"><span class="pre">Helloworld</span></code> 控制器正在扩展 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code>。你也可以扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Controller</span></code>,如果你不需要 BaseController 的功能的话。</p>
 <p>BaseController 为加载组件和执行所有控制器需要的函数提供了方便的位置。你可以在任何新控制器中扩展此类。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -654,7 +668,7 @@
 </div>
 </section>
 <section id="id14">
-<h3><a class="toc-backref" href="#id45">方法</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id47">方法</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
 <section id="id15">
 <h4>方法可见性<a class="headerlink" href="#id15" title="永久链接至标题"></a></h4>
 <p>当你定义通过 HTTP 请求可执行的方法时,该方法必须声明为 <code class="docutils literal notranslate"><span class="pre">public</span></code>。</p>
@@ -698,7 +712,7 @@
 </section>
 </section>
 <section id="uri">
-<h3><a class="toc-backref" href="#id46">将 URI 段传递给你的方法</a><a class="headerlink" href="#uri" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id48">将 URI 段传递给你的方法</a><a class="headerlink" href="#uri" title="永久链接至标题"></a></h3>
 <p>如果 URI 包含超过两个段,它们将作为参数传递给你的方法。</p>
 <p>例如,假设你有这样的 URI:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">sandals</span><span class="o">/</span><span class="mi">123</span>
@@ -718,15 +732,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition important">
-<p class="admonition-title">重要</p>
-<p>如果 URI 中的参数比方法的参数更多,
-自动路由(改进版)不会执行该方法,并导致 404
-未找到。</p>
-</div>
 </section>
 <section id="id18">
-<h3><a class="toc-backref" href="#id47">默认控制器</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id49">默认控制器</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
 <p>默认控制器是一个特殊的控制器,当 URI 以目录名称结束时使用,或者当 URI 不存在时使用,这种情况将在仅请求站点根 URL 时出现。</p>
 <section id="id19">
 <h4>定义默认控制器<a class="headerlink" href="#id19" title="永久链接至标题"></a></h4>
@@ -753,8 +761,70 @@
 <a class="reference internal" href="routing.html#routing-auto-routing-improved-configuration-options"><span class="std std-ref">URI 路由</span></a> 文档。</p>
 </section>
 </section>
-<section id="id20">
-<h3><a class="toc-backref" href="#id48">将控制器组织到子目录中</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
+<section id="controller-default-method-fallback">
+<span id="id20"></span><h3><a class="toc-backref" href="#id50">默认方法回退</a><a class="headerlink" href="#controller-default-method-fallback" title="永久链接至标题"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">4.4.0 新版功能.</span></p>
+</div>
+<p>如果与方法名的 URI 段对应的控制器方法不存在，并且如果定义了默认方法，则剩余的 URI 段将传递给默认方法进行执行。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Product</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getIndex</span><span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$action</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>加载以下 URL:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">product</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="nx">edit</span>
+</pre></div>
+</div>
+<p>该方法将传递 URI 段 2 和 3（<code class="docutils literal notranslate"><span class="pre">'15'</span></code> 和 <code class="docutils literal notranslate"><span class="pre">'edit'</span></code>）：</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>如果 URI 中的参数多于方法参数，自动路由（改进版）不会执行该方法，并返回 404 Not Found。</p>
+</div>
+<section id="id21">
+<h4>回退到默认控制器<a class="headerlink" href="#id21" title="永久链接至标题"></a></h4>
+<p>如果与控制器名的 URI 段对应的控制器不存在，并且如果默认控制器（默认为 <code class="docutils literal notranslate"><span class="pre">Home</span></code>）存在于目录中，则剩余的 URI 段将传递给默认控制器的默认方法。</p>
+<p>例如，当你在 <strong>app/Controllers/News</strong> 目录中有以下默认控制器 <code class="docutils literal notranslate"><span class="pre">Home</span></code> 时：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers\News</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Controllers\BaseController</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Home</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getIndex</span><span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>加载以下 URL:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">news</span><span class="o">/</span><span class="mi">101</span>
+</pre></div>
+</div>
+<p>将找到 <code class="docutils literal notranslate"><span class="pre">News\Home</span></code> 控制器和默认的 <code class="docutils literal notranslate"><span class="pre">getIndex()</span></code> 方法。因此，默认方法将传递 URI 段 2（<code class="docutils literal notranslate"><span class="pre">'101'</span></code>）：</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>如果存在 <code class="docutils literal notranslate"><span class="pre">App\Controllers\News</span></code> 控制器，则它具有优先权。URI 段按顺序搜索，找到的第一个控制器将被使用。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>如果 URI 中的参数多于方法参数，自动路由（改进版）不会执行该方法，并返回 404 Not Found。</p>
+</div>
+</section>
+</section>
+<section id="id22">
+<h3><a class="toc-backref" href="#id51">将控制器组织到子目录中</a><a class="headerlink" href="#id22" title="永久链接至标题"></a></h3>
 <p>如果你正在构建一个大型应用程序,你可能希望以分层的方式组织或结构化控制器到子目录中。CodeIgniter
 允许你执行此操作。</p>
 <p>只需在主 <strong>app/Controllers</strong> 下创建子目录,并将控制器类放在其中。</p>
@@ -780,7 +850,7 @@
 </section>
 </section>
 <section id="controller-auto-routing-legacy">
-<span id="id21"></span><h2><a class="toc-backref" href="#id49">自动路由(传统)</a><a class="headerlink" href="#controller-auto-routing-legacy" title="永久链接至标题"></a></h2>
+<span id="id23"></span><h2><a class="toc-backref" href="#id52">自动路由(传统)</a><a class="headerlink" href="#controller-auto-routing-legacy" title="永久链接至标题"></a></h2>
 <p>本节描述自动路由(传统)的功能,这是 CodeIgniter 3 的路由系统。
 它会自动路由 HTTP 请求,并执行相应的控制器方法,
 而无需路由定义。自动路由默认被禁用。</p>
@@ -803,8 +873,8 @@
 <p class="admonition-title">备注</p>
 <p>当控制器的短名称与 URI 的第一段匹配时,它会被加载。</p>
 </div>
-<section id="id22">
-<h3><a class="toc-backref" href="#id50">让我们试一试:你好,世界!(传统)</a><a class="headerlink" href="#id22" title="永久链接至标题"></a></h3>
+<section id="id24">
+<h3><a class="toc-backref" href="#id53">让我们试一试:你好,世界!(传统)</a><a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
 <p>让我们创建一个简单的控制器,以便你看到它的实际效果。使用文本编辑器,创建一个名为 <strong>Helloworld.php</strong> 的文件,并将以下代码放入其中。你会注意到 <code class="docutils literal notranslate"><span class="pre">Helloworld</span></code> 控制器正在扩展 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code>。你也可以扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Controller</span></code>,如果你不需要 BaseController 的功能的话。</p>
 <p>BaseController 为加载组件和执行所有控制器需要的函数提供了方便的位置。你可以在任何新控制器中扩展此类。</p>
 <p>出于安全考虑,请确保将任何新实用程序方法声明为 <code class="docutils literal notranslate"><span class="pre">protected</span></code> 或 <code class="docutils literal notranslate"><span class="pre">private</span></code>:</p>
@@ -886,8 +956,8 @@
 </div>
 </div>
 </section>
-<section id="id23">
-<h3><a class="toc-backref" href="#id51">方法(传统)</a><a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
+<section id="id25">
+<h3><a class="toc-backref" href="#id54">方法(传统)</a><a class="headerlink" href="#id25" title="永久链接至标题"></a></h3>
 <p>在上面的示例中,方法名称是 <code class="docutils literal notranslate"><span class="pre">index()</span></code>。<code class="docutils literal notranslate"><span class="pre">index()</span></code> 方法如果 URI 的 <strong>第二段</strong> 为空,总是被默认加载。另一种显示“Hello World”消息的方法是:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">helloworld</span><span class="o">/</span><span class="nx">index</span><span class="o">/</span>
 </pre></div>
@@ -918,8 +988,8 @@
 </div>
 <p>你应该可以看到新的消息。</p>
 </section>
-<section id="id24">
-<h3><a class="toc-backref" href="#id52">将 URI 段传递给你的方法(传统)</a><a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
+<section id="id26">
+<h3><a class="toc-backref" href="#id55">将 URI 段传递给你的方法(传统)</a><a class="headerlink" href="#id26" title="永久链接至标题"></a></h3>
 <p>如果 URI 包含两个以上段,则会作为参数传递给你的方法。</p>
 <p>例如,假设你有这样的一个 URI:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">sandals</span><span class="o">/</span><span class="mi">123</span>
@@ -940,11 +1010,11 @@
 </pre></div>
 </div>
 </section>
-<section id="id25">
-<h3><a class="toc-backref" href="#id53">默认控制器(传统)</a><a class="headerlink" href="#id25" title="永久链接至标题"></a></h3>
+<section id="id27">
+<h3><a class="toc-backref" href="#id56">默认控制器(传统)</a><a class="headerlink" href="#id27" title="永久链接至标题"></a></h3>
 <p>默认控制器是一个特殊的控制器,在 URI 以目录名结束或者 URI 不存在的情况下使用,这通常发生在仅请求站点根 URL 的情况。</p>
-<section id="id26">
-<h4>定义默认控制器(传统)<a class="headerlink" href="#id26" title="永久链接至标题"></a></h4>
+<section id="id28">
+<h4>定义默认控制器(传统)<a class="headerlink" href="#id28" title="永久链接至标题"></a></h4>
 <p>让我们以 <code class="docutils literal notranslate"><span class="pre">Helloworld</span></code> 控制器为例。</p>
 <p>要指定默认控制器,打开配置文件 <strong>app/Config/Routes.php</strong>,设置如下变量:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -968,8 +1038,8 @@
 <a class="reference internal" href="routing.html#routing-auto-routing-legacy-configuration-options"><span class="std std-ref">URI 路由</span></a> 文档。</p>
 </section>
 </section>
-<section id="id27">
-<h3><a class="toc-backref" href="#id54">将控制器组织到子目录中(传统)</a><a class="headerlink" href="#id27" title="永久链接至标题"></a></h3>
+<section id="id29">
+<h3><a class="toc-backref" href="#id57">将控制器组织到子目录中(传统)</a><a class="headerlink" href="#id29" title="永久链接至标题"></a></h3>
 <p>如果你正在构建一个大型应用程序,你可能需要分层组织控制器结构到子目录中。CodeIgniter 支持这种方式。</p>
 <p>只需要在主目录 <strong>app/Controllers</strong> 下创建子目录,并将控制器类放入其中即可。</p>
 <div class="admonition important">
@@ -992,8 +1062,8 @@
 <p>CodeIgniter 也支持通过 <a class="reference internal" href="routing.html#defined-route-routing"><span class="std std-ref">定义路由</span></a> 来映射 URI。</p>
 </section>
 </section>
-<section id="id28">
-<h2><a class="toc-backref" href="#id55">重映射方法调用</a><a class="headerlink" href="#id28" title="永久链接至标题"></a></h2>
+<section id="id30">
+<h2><a class="toc-backref" href="#id58">重映射方法调用</a><a class="headerlink" href="#id30" title="永久链接至标题"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p><strong>自动路由(改进版)</strong> 有意不支持此功能。</p>
@@ -1056,12 +1126,12 @@
 </pre></div>
 </div>
 </section>
-<section id="id29">
-<h2><a class="toc-backref" href="#id56">扩展控制器</a><a class="headerlink" href="#id29" title="永久链接至标题"></a></h2>
+<section id="id31">
+<h2><a class="toc-backref" href="#id59">扩展控制器</a><a class="headerlink" href="#id31" title="永久链接至标题"></a></h2>
 <p>如果你想扩展控制器,请查看 <a class="reference internal" href="../extending/basecontroller.html"><span class="doc">扩展控制器</span></a>。</p>
 </section>
-<section id="id30">
-<h2><a class="toc-backref" href="#id57">就这样了！</a><a class="headerlink" href="#id30" title="永久链接至标题"></a></h2>
+<section id="id32">
+<h2><a class="toc-backref" href="#id60">就这样了！</a><a class="headerlink" href="#id32" title="永久链接至标题"></a></h2>
 <p>这基本上就是关于控制器需要了解的所有内容。</p>
 </section>
 </section>
@@ -1078,7 +1148,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -1086,7 +1156,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068d830790>
+<jinja2.runtime.BlockReference object at 0x7f8b29b2ac10>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

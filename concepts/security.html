@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>安全指南 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>安全指南 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -316,8 +317,9 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 <section id="codeigniter">
 <h3>CodeIgniter 对应措施<a class="headerlink" href="#codeigniter" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p><a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">HTTP 库</span></a> 提供输入字段过滤和内容元数据</p></li>
-<li><p>验证库</p></li>
+<li><p><a class="reference internal" href="../incoming/filters.html#invalidchars"><span class="std std-ref">InvalidChars</span></a> 过滤器</p></li>
+<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
+<li><p><a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">HTTP 库</span></a> 提供了 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-filtering-input-data"><span class="std std-ref">输入字段过滤</span></a> 和内容元数据的功能</p></li>
 </ul>
 </section>
 </section>
@@ -339,6 +341,7 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 <ul class="simple">
 <li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">会话</span></a> 库</p></li>
 <li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">安全</span></a> 库提供 CSRF 验证</p></li>
+<li><p>一个官方的身份验证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
 <li><p>易于添加第三方认证</p></li>
 </ul>
 </section>
@@ -357,8 +360,9 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 <section id="id7">
 <h3>CodeIgniter 对应措施<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>esc 函数</p></li>
-<li><p>验证库</p></li>
+<li><p><a class="reference internal" href="../general/common_functions.html#esc" title="esc"><code class="xref php php-func docutils literal notranslate"><span class="pre">esc()</span></code></a> 函数</p></li>
+<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
+<li><p>支持 <a class="reference internal" href="../outgoing/response.html#content-security-policy"><span class="std std-ref">内容安全策略</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -377,7 +381,8 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 <section id="id9">
 <h3>CodeIgniter 对应措施<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>验证库</p></li>
+<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
+<li><p>一个官方的身份验证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
 <li><p>易于添加第三方认证</p></li>
 </ul>
 </section>
@@ -414,7 +419,10 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 <section id="id13">
 <h3>CodeIgniter 对应措施<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>会话密钥以加密形式存储</p></li>
+<li><p>全局安全访问的配置（<code class="docutils literal notranslate"><span class="pre">Config\App::$forceGlobalSecureRequests</span></code>）</p></li>
+<li><p><a class="reference internal" href="../general/common_functions.html#force_https" title="force_https"><code class="xref php php-func docutils literal notranslate"><span class="pre">force_https()</span></code></a> 函数</p></li>
+<li><p><a class="reference internal" href="../libraries/encryption.html"><span class="doc">Encryption 服务</span></a></p></li>
+<li><p><a class="reference internal" href="../database/configuration.html#database-config-explanation-of-values"><span class="std std-ref">数据库配置</span></a> (<code class="docutils literal notranslate"><span class="pre">encrypt</span></code>)</p></li>
 </ul>
 </section>
 </section>
@@ -432,8 +440,8 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 <section id="id15">
 <h3>CodeIgniter 对应措施<a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p>公共文件夹,应用程序和系统在外</p></li>
-<li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">安全库</span></a> 提供 CSRF 验证</p></li>
+<li><p><a class="reference internal" href="structure.html#application-structure-public"><span class="std std-ref">Public</span></a> 文件夹，其中应用程序和系统位于外部</p></li>
+<li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">安全库</span></a> 提供了 <a class="reference internal" href="../libraries/security.html#cross-site-request-forgery"><span class="std std-ref">CSRF 验证</span></a> 的功能</p></li>
 </ul>
 </section>
 </section>
@@ -451,7 +459,7 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 <section id="id17">
 <h3>CodeIgniter 对应措施<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
 <ul class="simple">
-<li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">安全库</span></a> 提供 CSRF 验证</p></li>
+<li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">安全库</span></a> 提供了 <a class="reference internal" href="../libraries/security.html#cross-site-request-forgery"><span class="std std-ref">CSRF 验证</span></a> 的功能</p></li>
 </ul>
 </section>
 </section>
@@ -486,7 +494,7 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 <h3>CodeIgniter 对应措施<a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">HTTP 库</span></a> 提供…</p></li>
-<li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">Session 库</span></a> 提供临时数据</p></li>
+<li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">Session 库</span></a> 提供 <a class="reference internal" href="../libraries/sessions.html#sessions-flashdata"><span class="std std-ref">Flashdata</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -504,7 +512,7 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -512,7 +520,7 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068ddd7210>
+<jinja2.runtime.BlockReference object at 0x7f8b29c1d950>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

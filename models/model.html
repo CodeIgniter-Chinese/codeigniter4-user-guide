@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>使用 CodeIgniter 的 Model &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>使用 CodeIgniter 的 Model &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -281,52 +282,99 @@
 <h1>使用 CodeIgniter 的 Model<a class="headerlink" href="#codeigniter-model" title="永久链接至标题"></a></h1>
 <div class="contents local topic" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id32">模型</a></p></li>
-<li><p><a class="reference internal" href="#accessing-models" id="id33">访问模型</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id34">CodeIgniter 的 Model</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id35">创建你的模型</a></p>
+<li><p><a class="reference internal" href="#id2" id="id35">模型</a></p></li>
+<li><p><a class="reference internal" href="#accessing-models" id="id36">访问模型</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id37">CodeIgniter 的 Model</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id38">创建你的模型</a></p>
 <ul>
-<li><p><a class="reference internal" href="#initialize" id="id36">initialize()</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id37">连接数据库</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id38">配置你的模型</a></p></li>
+<li><p><a class="reference internal" href="#initialize" id="id39">initialize()</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id40">连接数据库</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id41">配置你的模型</a></p>
+<ul>
+<li><p><a class="reference internal" href="#table" id="id42">$table</a></p></li>
+<li><p><a class="reference internal" href="#primarykey" id="id43">$primaryKey</a></p></li>
+<li><p><a class="reference internal" href="#useautoincrement" id="id44">$useAutoIncrement</a></p></li>
+<li><p><a class="reference internal" href="#returntype" id="id45">$returnType</a></p></li>
+<li><p><a class="reference internal" href="#usesoftdeletes" id="id46">$useSoftDeletes</a></p></li>
+<li><p><a class="reference internal" href="#allowedfields" id="id47">$allowedFields</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id48">日期</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id49">验证</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id50">回调</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id11" id="id39">使用数据</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id12" id="id40">查找数据</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id41">保存数据</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id42">删除数据</a></p></li>
-<li><p><a class="reference internal" href="#id15" id="id43">模型内验证</a></p></li>
-<li><p><a class="reference internal" href="#id19" id="id44">保护字段</a></p></li>
-<li><p><a class="reference internal" href="#id20" id="id45">运行时返回类型更改</a></p></li>
-<li><p><a class="reference internal" href="#id21" id="id46">处理大量数据</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#model-events-callbacks" id="id47">使用查询构建器</a></p>
+<li><p><a class="reference internal" href="#id11" id="id51">使用数据</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id23" id="id48">获取模型表的查询构建器</a></p></li>
-<li><p><a class="reference internal" href="#id24" id="id49">获取另一个表的查询构建器</a></p></li>
-<li><p><a class="reference internal" href="#id25" id="id50">混合使用查询构建器和模型的方法</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id52">查找数据</a></p>
+<ul>
+<li><p><a class="reference internal" href="#find" id="id53">find()</a></p></li>
+<li><p><a class="reference internal" href="#findcolumn" id="id54">findColumn()</a></p></li>
+<li><p><a class="reference internal" href="#findall" id="id55">findAll()</a></p></li>
+<li><p><a class="reference internal" href="#first" id="id56">first()</a></p></li>
+<li><p><a class="reference internal" href="#withdeleted" id="id57">withDeleted()</a></p></li>
+<li><p><a class="reference internal" href="#onlydeleted" id="id58">onlyDeleted()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id26" id="id51">模型事件</a></p>
+<li><p><a class="reference internal" href="#id13" id="id59">保存数据</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id27" id="id52">定义回调</a></p></li>
-<li><p><a class="reference internal" href="#id28" id="id53">指定要运行的回调</a></p></li>
-<li><p><a class="reference internal" href="#id29" id="id54">事件参数</a></p></li>
-<li><p><a class="reference internal" href="#id30" id="id55">修改 Find* 数据</a></p></li>
+<li><p><a class="reference internal" href="#insert" id="id60">insert()</a></p></li>
+<li><p><a class="reference internal" href="#allowemptyinserts" id="id61">allowEmptyInserts()</a></p></li>
+<li><p><a class="reference internal" href="#update" id="id62">update()</a></p></li>
+<li><p><a class="reference internal" href="#save" id="id63">save()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id31" id="id56">手动创建模型</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id64">删除数据</a></p>
+<ul>
+<li><p><a class="reference internal" href="#delete" id="id65">delete()</a></p></li>
+<li><p><a class="reference internal" href="#purgedeleted" id="id66">purgeDeleted()</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#in-model-validation" id="id67">模型内验证</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id16" id="id68">验证数据</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id69">设置验证规则</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id70">获取验证结果</a></p></li>
+<li><p><a class="reference internal" href="#model-getting-validation-errors" id="id71">获取验证错误</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id72">检索验证规则</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id73">验证占位符</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id22" id="id74">保护字段</a></p></li>
+<li><p><a class="reference internal" href="#id23" id="id75">运行时返回类型更改</a></p>
+<ul>
+<li><p><a class="reference internal" href="#asarray" id="id76">asArray()</a></p></li>
+<li><p><a class="reference internal" href="#asobject" id="id77">asObject()</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id24" id="id78">处理大量数据</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#model-events-callbacks" id="id79">使用查询构建器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id26" id="id80">获取模型表的查询构建器</a></p></li>
+<li><p><a class="reference internal" href="#id27" id="id81">获取另一个表的查询构建器</a></p></li>
+<li><p><a class="reference internal" href="#id28" id="id82">混合使用查询构建器和模型的方法</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id29" id="id83">模型事件</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id30" id="id84">定义回调</a></p></li>
+<li><p><a class="reference internal" href="#id31" id="id85">指定要运行的回调</a></p></li>
+<li><p><a class="reference internal" href="#id32" id="id86">事件参数</a></p></li>
+<li><p><a class="reference internal" href="#id33" id="id87">修改 Find* 数据</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id34" id="id88">手动创建模型</a></p></li>
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id32">模型</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id35">模型</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>CodeIgniter 的 Model 提供了方便的特性和额外的功能,可以使处理数据库中的 <strong>单个表</strong> 更方便。</p>
 <p>它内置了对标准的数据库表交互方式大部分帮助器方法,包括查找记录、更新记录、删除记录等等。</p>
 </section>
 <section id="accessing-models">
-<span id="id3"></span><h2><a class="toc-backref" href="#id33">访问模型</a><a class="headerlink" href="#accessing-models" title="永久链接至标题"></a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id36">访问模型</a><a class="headerlink" href="#accessing-models" title="永久链接至标题"></a></h2>
 <p>模型通常存储在 <strong>app/Models</strong> 目录中。它们应该具有与目录位置匹配的命名空间,如 <code class="docutils literal notranslate"><span class="pre">namespace</span> <span class="pre">App\Models</span></code>。</p>
 <p>你可以通过创建新实例或使用 <a class="reference internal" href="../general/common_functions.html#model" title="model"><code class="xref php php-func docutils literal notranslate"><span class="pre">model()</span></code></a> 辅助函数在类中访问模型。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -349,10 +397,10 @@
 <span class="nv">$userModel</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="s1">&#39;UserModel&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="nv">$db</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">model()</span></code> 内部使用 <code class="docutils literal notranslate"><span class="pre">Factories::models()</span></code>。详情参见 <a class="reference internal" href="../concepts/factories.html#factories-example"><span class="std std-ref">模型示例</span></a>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">model()</span></code> 内部使用 <code class="docutils literal notranslate"><span class="pre">Factories::models()</span></code>。详情参见 <a class="reference internal" href="../concepts/factories.html#factories-loading-class"><span class="std std-ref">加载类</span></a>。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id34">CodeIgniter 的 Model</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id37">CodeIgniter 的 Model</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>CodeIgniter 确实提供了一个模型类,具有一些不错的特性,包括:</p>
 <ul class="simple">
 <li><p>自动数据库连接</p></li>
@@ -364,7 +412,7 @@
 <p>该类为从中构建自己的模型提供了可靠的基础,允许你快速构建应用程序的模型层。</p>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id35">创建你的模型</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id38">创建你的模型</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>要利用 CodeIgniter 的模型,你只需创建一个扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Model</span></code> 的新模型类:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -380,7 +428,7 @@
 </div>
 <p>这个空类方便地访问数据库连接、查询构建器以及其他一些方便的方法。</p>
 <section id="initialize">
-<h3><a class="toc-backref" href="#id36">initialize()</a><a class="headerlink" href="#initialize" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id39">initialize()</a><a class="headerlink" href="#initialize" title="永久链接至标题"></a></h3>
 <p>如果你需要在模型中进行其他初始化,可以扩展 <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> 方法,它将在模型的构造函数之后立即运行。这允许你执行额外的步骤,而不需要重复构造函数参数,例如扩展其他模型:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -403,7 +451,7 @@
 </div>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id37">连接数据库</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id40">连接数据库</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>当类首次实例化时,如果没有向构造函数传递数据库连接实例,它将自动连接到配置中设置的默认数据库组。你可以通过在类中添加 <code class="docutils literal notranslate"><span class="pre">$DBGroup</span></code> 属性为每个模型修改使用的组。这确保模型内对 <code class="docutils literal notranslate"><span class="pre">$this-&gt;db</span></code> 的任何引用都通过适当的连接进行。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -420,7 +468,7 @@
 <p>你需要将“group_name”替换为数据库配置文件中定义的数据库组名称。</p>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id38">配置你的模型</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id41">配置你的模型</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>模型类具有一些配置选项,可以设置这些选项以使类的方法无缝为你工作。前两个用于 CRUD 方法来确定使用哪个表以及如何查找所需记录:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -467,11 +515,11 @@
 </pre></div>
 </div>
 <section id="table">
-<h4>$table<a class="headerlink" href="#table" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id42">$table</a><a class="headerlink" href="#table" title="永久链接至标题"></a></h4>
 <p>指定此模型主要使用的数据库表。这仅适用于内置的 CRUD 方法。在你自己的查询中不受限于只使用此表。</p>
 </section>
 <section id="primarykey">
-<h4>$primaryKey<a class="headerlink" href="#primarykey" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id43">$primaryKey</a><a class="headerlink" href="#primarykey" title="永久链接至标题"></a></h4>
 <p>这是唯一标识表中记录的列的名称。这不一定必须与数据库中指定的主键匹配,但与 <code class="docutils literal notranslate"><span class="pre">find()</span></code> 等方法一起使用时,用于匹配指定的值的列。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -479,7 +527,7 @@
 </div>
 </section>
 <section id="useautoincrement">
-<h4>$useAutoIncrement<a class="headerlink" href="#useautoincrement" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id44">$useAutoIncrement</a><a class="headerlink" href="#useautoincrement" title="永久链接至标题"></a></h4>
 <p>指定表是否使用 <code class="docutils literal notranslate"><span class="pre">$primaryKey</span></code> 的自动增量功能。如果设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code>,则你有责任为表中的每条记录提供主键值。当我们想实现 1:1 关系或在模型中使用 UUID 时,此功能可能很方便。默认值为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -487,11 +535,11 @@
 </div>
 </section>
 <section id="returntype">
-<h4>$returnType<a class="headerlink" href="#returntype" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id45">$returnType</a><a class="headerlink" href="#returntype" title="永久链接至标题"></a></h4>
 <p>模型的 CRUD 方法将一个步骤的工作从你这里带走,自动返回结果数据,而不是结果对象。此设置允许你定义返回的数据类型。有效值为 ‘<strong>array</strong>’ (默认)、 ‘<strong>object</strong>’ 或可以与结果对象的 <code class="docutils literal notranslate"><span class="pre">getCustomResultObject()</span></code> 方法一起使用的 <strong>完全限定的类名称</strong>。使用类的特殊常量 <code class="docutils literal notranslate"><span class="pre">::class</span></code> 可以让大多数 IDE 自动完成名称并允许诸如重构之类的功能更好地理解你的代码。</p>
 </section>
 <section id="usesoftdeletes">
-<span id="model-use-soft-deletes"></span><h4>$useSoftDeletes<a class="headerlink" href="#usesoftdeletes" title="永久链接至标题"></a></h4>
+<span id="model-use-soft-deletes"></span><h4><a class="toc-backref" href="#id46">$useSoftDeletes</a><a class="headerlink" href="#usesoftdeletes" title="永久链接至标题"></a></h4>
 <p>如果为 true,那么任何 <code class="docutils literal notranslate"><span class="pre">delete()</span></code> 方法调用都会在数据库中设置 <code class="docutils literal notranslate"><span class="pre">deleted_at</span></code>,而不是真正删除行。这可以在数据可能在其他地方被引用时保留数据,或者可以维护一个“回收站”,其中的对象可以恢复,或者即使只是保留它作为安全轨迹的一部分。如果为 true,则 <strong>find*()</strong> 方法只返回非已删除行,除非在调用 <strong>find*()</strong> 方法之前调用 <code class="docutils literal notranslate"><span class="pre">withDeleted()</span></code> 方法。</p>
 <p>这需要数据库中具有与模型的 <code class="docutils literal notranslate"><span class="pre">$dateFormat</span></code> 设置相应的数据类型的 DATETIME 或 INTEGER 字段。默认字段名称为 <code class="docutils literal notranslate"><span class="pre">deleted_at</span></code>,但是可以通过使用 <code class="docutils literal notranslate"><span class="pre">$deletedField</span></code> 属性将其配置为你选择的任何名称。</p>
 <div class="admonition important">
@@ -500,7 +548,7 @@
 </div>
 </section>
 <section id="allowedfields">
-<h4>$allowedFields<a class="headerlink" href="#allowedfields" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id47">$allowedFields</a><a class="headerlink" href="#allowedfields" title="永久链接至标题"></a></h4>
 <p>当通过 <code class="docutils literal notranslate"><span class="pre">save()</span></code>、<code class="docutils literal notranslate"><span class="pre">insert()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">update()</span></code> 方法设置时,此数组应更新可以设置的字段名称。这些字段名之外的任何字段都会被丢弃。这有助于防止只从表单获取输入并将其全部抛给模型,从而导致潜在的大规模分配漏洞。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -508,7 +556,7 @@
 </div>
 </section>
 <section id="id8">
-<h4>日期<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id48">日期</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
 <section id="usetimestamps">
 <h5>$useTimestamps<a class="headerlink" href="#usetimestamps" title="永久链接至标题"></a></h5>
 <p>此布尔值确定是否会向所有插入和更新自动添加当前日期。如果为 true,将以 <code class="docutils literal notranslate"><span class="pre">$dateFormat</span></code> 中指定的格式设置当前时间。这需要表中具有数据类型适当的 <strong>created_at</strong>、<strong>updated_at</strong> 和 <strong>deleted_at</strong> 列。</p>
@@ -531,7 +579,7 @@
 </section>
 </section>
 <section id="id9">
-<h4>验证<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id49">验证</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
 <section id="validationrules">
 <h5>$validationRules<a class="headerlink" href="#validationrules" title="永久链接至标题"></a></h5>
 <p>包含 <a class="reference internal" href="../libraries/validation.html#validation-array"><span class="std std-ref">如何保存规则</span></a> 中描述的验证规则数组或包含要应用的验证组名称的字符串,如同一节中所述。下面更详细地描述。</p>
@@ -557,7 +605,7 @@
 </section>
 </section>
 <section id="id10">
-<h4>回调<a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id50">回调</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
 <section id="allowcallbacks">
 <h5>$allowCallbacks<a class="headerlink" href="#allowcallbacks" title="永久链接至标题"></a></h5>
 <p>是否应使用下面定义的回调。</p>
@@ -603,12 +651,12 @@
 </section>
 </section>
 <section id="id11">
-<h2><a class="toc-backref" href="#id39">使用数据</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id51">使用数据</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
 <section id="id12">
-<h3><a class="toc-backref" href="#id40">查找数据</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id52">查找数据</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
 <p>提供了几个函数来对表执行基本的 CRUD 工作,包括 <code class="docutils literal notranslate"><span class="pre">find()</span></code>、<code class="docutils literal notranslate"><span class="pre">insert()</span></code>、<code class="docutils literal notranslate"><span class="pre">update()</span></code>、<code class="docutils literal notranslate"><span class="pre">delete()</span></code> 等等。</p>
 <section id="find">
-<h4>find()<a class="headerlink" href="#find" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id53">find()</a><a class="headerlink" href="#find" title="永久链接至标题"></a></h4>
 <p>在主键与作为第一参数传递的值匹配的情况下,返回单行。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -629,7 +677,7 @@
 </div>
 </section>
 <section id="findcolumn">
-<h4>findColumn()<a class="headerlink" href="#findcolumn" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id54">findColumn()</a><a class="headerlink" href="#findcolumn" title="永久链接至标题"></a></h4>
 <p>返回 null 或索引数组的列值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -639,7 +687,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">$column_name</span></code> 应该是单个列的名称,否则你会获得 <code class="docutils literal notranslate"><span class="pre">DataException</span></code>。</p>
 </section>
 <section id="findall">
-<h4>findAll()<a class="headerlink" href="#findall" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id55">findAll()</a><a class="headerlink" href="#findall" title="永久链接至标题"></a></h4>
 <p>返回所有结果:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -660,7 +708,7 @@
 </div>
 </section>
 <section id="first">
-<h4>first()<a class="headerlink" href="#first" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id56">first()</a><a class="headerlink" href="#first" title="永久链接至标题"></a></h4>
 <p>返回结果集中的第一行。这与查询构建器一起使用时最好。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -669,7 +717,7 @@
 </div>
 </section>
 <section id="withdeleted">
-<h4>withDeleted()<a class="headerlink" href="#withdeleted" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id57">withDeleted()</a><a class="headerlink" href="#withdeleted" title="永久链接至标题"></a></h4>
 <p>如果 <code class="docutils literal notranslate"><span class="pre">$useSoftDeletes</span></code> 为 true,则 <strong>find*()</strong> 方法不会返回任何 <code class="docutils literal notranslate"><span class="pre">deleted_at</span> <span class="pre">IS</span> <span class="pre">NOT</span> <span class="pre">NULL</span></code> 的行。
 要暂时覆盖此设置,可以在调用 <strong>find*()</strong> 方法之前使用 <code class="docutils literal notranslate"><span class="pre">withDeleted()</span></code> 方法。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -683,7 +731,7 @@
 </div>
 </section>
 <section id="onlydeleted">
-<h4>onlyDeleted()<a class="headerlink" href="#onlydeleted" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id58">onlyDeleted()</a><a class="headerlink" href="#onlydeleted" title="永久链接至标题"></a></h4>
 <p>而 <code class="docutils literal notranslate"><span class="pre">withDeleted()</span></code> 将返回已删除和未删除的行,此方法会修改下一个 <strong>find*()</strong> 方法仅返回软删除的行:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -693,9 +741,9 @@
 </section>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id41">保存数据</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id59">保存数据</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
 <section id="insert">
-<h4>insert()<a class="headerlink" href="#insert" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id60">insert()</a><a class="headerlink" href="#insert" title="永久链接至标题"></a></h4>
 <p>第一个参数是一个关联数组,用于在数据库中创建新行数据。
 如果传递对象而不是数组,它将尝试将其转换为数组。</p>
 <p>数组的键必须与 <code class="docutils literal notranslate"><span class="pre">$table</span></code> 中的列名匹配,而数组的值是要为该键保存的值。</p>
@@ -720,7 +768,7 @@
 </div>
 </section>
 <section id="allowemptyinserts">
-<span id="model-allow-empty-inserts"></span><h4>allowEmptyInserts()<a class="headerlink" href="#allowemptyinserts" title="永久链接至标题"></a></h4>
+<span id="model-allow-empty-inserts"></span><h4><a class="toc-backref" href="#id61">allowEmptyInserts()</a><a class="headerlink" href="#allowemptyinserts" title="永久链接至标题"></a></h4>
 <div class="versionadded">
 <p><span class="versionmodified added">4.3.0 新版功能.</span></p>
 </div>
@@ -733,7 +781,7 @@
 <p>你可以通过调用 <code class="docutils literal notranslate"><span class="pre">allowEmptyInserts(false)</span></code> 再次启用检查。</p>
 </section>
 <section id="update">
-<h4>update()<a class="headerlink" href="#update" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id62">update()</a><a class="headerlink" href="#update" title="永久链接至标题"></a></h4>
 <p>更新数据库中的现有记录。第一个参数是要更新的记录的 <code class="docutils literal notranslate"><span class="pre">$primaryKey</span></code>。关联数组作为第二个参数传递给此方法。数组的键必须与 <code class="docutils literal notranslate"><span class="pre">$table</span></code> 中的列名匹配,而数组的值是要为该键保存的值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -771,7 +819,7 @@
 </div>
 </section>
 <section id="save">
-<span id="model-save"></span><h4>save()<a class="headerlink" href="#save" title="永久链接至标题"></a></h4>
+<span id="model-save"></span><h4><a class="toc-backref" href="#id63">save()</a><a class="headerlink" href="#save" title="永久链接至标题"></a></h4>
 <p>这是 <code class="docutils literal notranslate"><span class="pre">insert()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">update()</span></code> 方法的包装器,可以根据是否找到与 <strong>主键</strong> 值匹配的数组键来自动处理插入或更新记录。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -861,9 +909,9 @@
 </section>
 </section>
 <section id="id14">
-<h3><a class="toc-backref" href="#id42">删除数据</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id64">删除数据</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
 <section id="delete">
-<h4>delete()<a class="headerlink" href="#delete" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id65">delete()</a><a class="headerlink" href="#delete" title="永久链接至标题"></a></h4>
 <p>以主键值作为第一个参数,从模型的表中删除匹配的记录:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -885,7 +933,7 @@
 </div>
 </section>
 <section id="purgedeleted">
-<h4>purgeDeleted()<a class="headerlink" href="#purgedeleted" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id66">purgeDeleted()</a><a class="headerlink" href="#purgedeleted" title="永久链接至标题"></a></h4>
 <p>通过永久删除所有 ‘deleted_at IS NOT NULL’ 的行来清理数据库表。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -894,10 +942,10 @@
 </div>
 </section>
 </section>
-<section id="id15">
-<h3><a class="toc-backref" href="#id43">模型内验证</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
+<section id="in-model-validation">
+<span id="id15"></span><h3><a class="toc-backref" href="#id67">模型内验证</a><a class="headerlink" href="#in-model-validation" title="永久链接至标题"></a></h3>
 <section id="id16">
-<h4>验证数据<a class="headerlink" href="#id16" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id68">验证数据</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h4>
 <p>对许多人来说,在模型中验证数据是确保数据符合单一标准的首选方法,而不重复代码。模型类提供了一种方法,可以在使用 <code class="docutils literal notranslate"><span class="pre">insert()</span></code>、<code class="docutils literal notranslate"><span class="pre">update()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">save()</span></code> 方法保存到数据库之前自动验证所有数据。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -906,6 +954,9 @@
 如果你想检查必填字段,可以通过配置更改行为。
 详情参见 <a class="reference internal" href="#clean-validation-rules"><span class="std std-ref">$cleanValidationRules</span></a>。</p>
 </div>
+</section>
+<section id="id17">
+<h4><a class="toc-backref" href="#id69">设置验证规则</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h4>
 <p>第一步是用将应用的字段和规则填充 <code class="docutils literal notranslate"><span class="pre">$validationRules</span></code> 类属性。如果你有要使用的自定义错误消息,请将其放入 <code class="docutils literal notranslate"><span class="pre">$validationMessages</span></code> 数组中:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -916,16 +967,29 @@
 <span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
 <span class="p">{</span>
     <span class="k">protected</span> <span class="nv">$validationRules</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;username&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|alpha_numeric_space|min_length[3]&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email]&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;password&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[8]&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;pass_confirm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required_with[password]|matches[password]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;username&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]|alpha_numeric_space|min_length[3]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email|is_unique[users.email]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|min_length[8]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;pass_confirm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required_with[password]|max_length[255]|matches[password]&#39;</span><span class="p">,</span>
     <span class="p">];</span>
     <span class="k">protected</span> <span class="nv">$validationMessages</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;is_unique&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sorry. That email has already been taken. Please choose another.&#39;</span><span class="p">,</span>
         <span class="p">],</span>
     <span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>如果你更喜欢在验证配置文件中组织你的规则和错误消息，你可以这样做，并将 <code class="docutils literal notranslate"><span class="pre">$validationRules</span></code> 设置为你创建的验证规则组的名称：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Model</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$validationRules</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -951,7 +1015,7 @@
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$fieldName</span>  <span class="o">=</span> <span class="s1">&#39;username&#39;</span><span class="p">;</span>
-<span class="nv">$fieldRules</span> <span class="o">=</span> <span class="s1">&#39;required|alpha_numeric_space|min_length[3]&#39;</span><span class="p">;</span>
+<span class="nv">$fieldRules</span> <span class="o">=</span> <span class="s1">&#39;required|max_length[30]|alpha_numeric_space|min_length[3]&#39;</span><span class="p">;</span>
 
 <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">setValidationRule</span><span class="p">(</span><span class="nv">$fieldName</span><span class="p">,</span> <span class="nv">$fieldRules</span><span class="p">);</span>
 </pre></div>
@@ -973,9 +1037,9 @@
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$validationRules</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|alpha_numeric_space|min_length[3]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[30]|alpha_numeric_space|min_length[3]&#39;</span><span class="p">,</span>
     <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="p">[</span>
-        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rules&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email|is_unique[users.email]&#39;</span><span class="p">,</span>
         <span class="s1">&#39;errors&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;We really need your email.&#39;</span><span class="p">,</span>
         <span class="p">],</span>
@@ -1036,7 +1100,14 @@
 </div>
 </dd></dl>
 
-<p>现在,每当调用 <code class="docutils literal notranslate"><span class="pre">insert()</span></code>、<code class="docutils literal notranslate"><span class="pre">update()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">save()</span></code> 方法时,数据都会被验证。如果失败,模型将返回布尔值 <strong>false</strong>。你可以使用 <code class="docutils literal notranslate"><span class="pre">errors()</span></code> 方法检索验证错误:</p>
+</section>
+<section id="id18">
+<h4><a class="toc-backref" href="#id70">获取验证结果</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h4>
+<p>现在，每当你调用 <code class="docutils literal notranslate"><span class="pre">insert()</span></code>、<code class="docutils literal notranslate"><span class="pre">update()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">save()</span></code> 方法时，数据将被验证。如果验证失败，模型将返回布尔值 <strong>false</strong>。</p>
+</section>
+<section id="model-getting-validation-errors">
+<span id="id19"></span><h4><a class="toc-backref" href="#id71">获取验证错误</a><a class="headerlink" href="#model-getting-validation-errors" title="永久链接至标题"></a></h4>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">errors()</span></code> 方法来检索验证错误：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$model</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
@@ -1054,22 +1125,9 @@
 <span class="cp">&lt;?php</span> <span class="k">endif</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>如果你更喜欢在验证配置文件中组织规则和错误消息,你可以这样做,并简单地将 <code class="docutils literal notranslate"><span class="pre">$validationRules</span></code> 设置为你创建的验证规则组的名称:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">CodeIgniter\Model</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
-<span class="p">{</span>
-    <span class="k">protected</span> <span class="nv">$validationRules</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
 </section>
-<section id="id17">
-<h4>检索验证规则<a class="headerlink" href="#id17" title="永久链接至标题"></a></h4>
+<section id="id20">
+<h4><a class="toc-backref" href="#id72">检索验证规则</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h4>
 <p>你可以通过访问其 <code class="docutils literal notranslate"><span class="pre">validationRules</span></code> 属性来检索模型的验证规则:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1092,8 +1150,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id18">
-<h4>验证占位符<a class="headerlink" href="#id18" title="永久链接至标题"></a></h4>
+<section id="id21">
+<h4><a class="toc-backref" href="#id73">验证占位符</a><a class="headerlink" href="#id21" title="永久链接至标题"></a></h4>
 <p>模型提供了一个简单的方法,根据传入的数据替换规则的一部分。这听起来相当模糊,但在使用 <code class="docutils literal notranslate"><span class="pre">is_unique</span></code> 验证规则时特别方便。占位符只是传入的数据(或数组键)周围的字段名称,用大括号括起来。它将被匹配的传入字段的 <strong>值</strong> 替换。一个示例应该可以澄清这一点:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1104,10 +1162,15 @@
 <span class="k">class</span> <span class="nc">MyModel</span> <span class="k">extends</span> <span class="nx">Model</span>
 <span class="p">{</span>
     <span class="k">protected</span> <span class="nv">$validationRules</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email,id,{id}]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;max_length[19]|is_natural_no_zero&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email|is_unique[users.email,id,{id}]&#39;</span><span class="p">,</span>
     <span class="p">];</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自 v4.3.5 起，你必须为占位符字段（<code class="docutils literal notranslate"><span class="pre">id</span></code>）设置验证规则。</p>
 </div>
 <p>在这组规则中,它说明电子邮件地址在数据库中应该是唯一的,除了具有与占位符的值匹配的 id 的行。假设表单 POST 数据如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1128,17 +1191,22 @@
 <span class="k">class</span> <span class="nc">MyModel</span> <span class="k">extends</span> <span class="nx">Model</span>
 <span class="p">{</span>
     <span class="k">protected</span> <span class="nv">$validationRules</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|valid_email|is_unique[users.email,id,4]&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;max_length[19]|is_natural_no_zero&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[254]|valid_email|is_unique[users.email,id,4]&#39;</span><span class="p">,</span>
     <span class="p">];</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>所以在验证电子邮件唯一性时,它会忽略数据库中 <code class="docutils literal notranslate"><span class="pre">id=4</span></code> 的行。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自 v4.3.5 起，如果占位符（<code class="docutils literal notranslate"><span class="pre">id</span></code>）的值未通过验证，占位符将不会被替换。</p>
+</div>
 <p>这也可以用于在运行时创建更动态的规则,只要你注意传入的动态键不与你的表单数据冲突即可。</p>
 </section>
 </section>
-<section id="id19">
-<h3><a class="toc-backref" href="#id44">保护字段</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<section id="id22">
+<h3><a class="toc-backref" href="#id74">保护字段</a><a class="headerlink" href="#id22" title="永久链接至标题"></a></h3>
 <p>为了帮助防止大规模分配攻击,模型类 <strong>要求</strong> 你列出可以在插入和更新期间更改的所有字段名称在 <code class="docutils literal notranslate"><span class="pre">$allowedFields</span></code> 类属性中。除这些字段外提供的任何数据在插入数据库之前都将被删除。这对确保时间戳或主键不被更改非常有用。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1161,15 +1229,15 @@
 </pre></div>
 </div>
 </section>
-<section id="id20">
-<h3><a class="toc-backref" href="#id45">运行时返回类型更改</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
+<section id="id23">
+<h3><a class="toc-backref" href="#id75">运行时返回类型更改</a><a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
 <p>你可以将 <code class="docutils literal notranslate"><span class="pre">find*()</span></code> 方法返回的数据格式指定为类属性 <code class="docutils literal notranslate"><span class="pre">$returnType</span></code>。但是,有时你可能希望以不同的格式返回数据。模型提供了允许你做到这一点的方法。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>这些方法仅更改下一个 <strong>find*()</strong> 方法调用的返回类型。之后,它将重置为默认值。</p>
 </div>
 <section id="asarray">
-<h4>asArray()<a class="headerlink" href="#asarray" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id76">asArray()</a><a class="headerlink" href="#asarray" title="永久链接至标题"></a></h4>
 <p>将下一个 <strong>find*()</strong> 方法的数据作为关联数组返回:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1178,7 +1246,7 @@
 </div>
 </section>
 <section id="asobject">
-<h4>asObject()<a class="headerlink" href="#asobject" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id77">asObject()</a><a class="headerlink" href="#asobject" title="永久链接至标题"></a></h4>
 <p>将下一个 <strong>find*()</strong> 方法的数据作为标准对象或自定义类实例返回:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1191,8 +1259,8 @@
 </div>
 </section>
 </section>
-<section id="id21">
-<h3><a class="toc-backref" href="#id46">处理大量数据</a><a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
+<section id="id24">
+<h3><a class="toc-backref" href="#id78">处理大量数据</a><a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
 <p>有时,你需要处理大量数据,存在耗尽内存的风险。为了简化这一点,你可以使用 chunk() 方法获取较小的块,然后对其执行操作。第一个参数是要在单个块中检索的行数。第二个参数是一个闭包,将为每一行数据调用。</p>
 <p>这最适合在定时任务、数据导出或其他大型任务期间使用。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1206,9 +1274,9 @@
 </section>
 </section>
 <section id="model-events-callbacks">
-<span id="id22"></span><h2><a class="toc-backref" href="#id47">使用查询构建器</a><a class="headerlink" href="#model-events-callbacks" title="永久链接至标题"></a></h2>
-<section id="id23">
-<h3><a class="toc-backref" href="#id48">获取模型表的查询构建器</a><a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
+<span id="id25"></span><h2><a class="toc-backref" href="#id79">使用查询构建器</a><a class="headerlink" href="#model-events-callbacks" title="永久链接至标题"></a></h2>
+<section id="id26">
+<h3><a class="toc-backref" href="#id80">获取模型表的查询构建器</a><a class="headerlink" href="#id26" title="永久链接至标题"></a></h3>
 <p>CodeIgniter 模型对该模型的数据库连接有一个查询构建器实例。
 你可以在任何需要时访问 <strong>共享</strong> 的查询构建器实例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1223,8 +1291,8 @@
 但是,由于查询构建器不是模型,你无法调用模型的方法。</p>
 </div>
 </section>
-<section id="id24">
-<h3><a class="toc-backref" href="#id49">获取另一个表的查询构建器</a><a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
+<section id="id27">
+<h3><a class="toc-backref" href="#id81">获取另一个表的查询构建器</a><a class="headerlink" href="#id27" title="永久链接至标题"></a></h3>
 <p>如果你需要访问另一个表,你可以获取查询构建器的另一个实例。
 将表名称作为参数传递,但要注意这 <strong>不会</strong> 返回共享实例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1233,8 +1301,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id25">
-<h3><a class="toc-backref" href="#id50">混合使用查询构建器和模型的方法</a><a class="headerlink" href="#id25" title="永久链接至标题"></a></h3>
+<section id="id28">
+<h3><a class="toc-backref" href="#id82">混合使用查询构建器和模型的方法</a><a class="headerlink" href="#id28" title="永久链接至标题"></a></h3>
 <p>你还可以在同一链式调用中使用查询构建器方法和模型的 CRUD 方法,这允许非常优雅地使用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1264,16 +1332,16 @@
 </div>
 </section>
 </section>
-<section id="id26">
-<h2><a class="toc-backref" href="#id51">模型事件</a><a class="headerlink" href="#id26" title="永久链接至标题"></a></h2>
+<section id="id29">
+<h2><a class="toc-backref" href="#id83">模型事件</a><a class="headerlink" href="#id29" title="永久链接至标题"></a></h2>
 <p>在模型执行的几个点上,你可以指定多个回调方法来运行。这些方法可以用于规范化数据、散列密码、保存相关实体等等。可以影响以下模型执行点,每个都通过一个类属性:<code class="docutils literal notranslate"><span class="pre">$beforeInsert</span></code>、<code class="docutils literal notranslate"><span class="pre">$afterInsert</span></code>、<code class="docutils literal notranslate"><span class="pre">$beforeUpdate</span></code>、<code class="docutils literal notranslate"><span class="pre">$afterUpdate</span></code>、<code class="docutils literal notranslate"><span class="pre">$afterFind</span></code> 和 <code class="docutils literal notranslate"><span class="pre">$afterDelete</span></code>。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p><code class="docutils literal notranslate"><span class="pre">$beforeInsertBatch</span></code>、<code class="docutils literal notranslate"><span class="pre">$afterInsertBatch</span></code>、<code class="docutils literal notranslate"><span class="pre">$beforeUpdateBatch</span></code> 和
 <code class="docutils literal notranslate"><span class="pre">$afterUpdateBatch</span></code> 可以从 v4.3.0 开始使用。</p>
 </div>
-<section id="id27">
-<h3><a class="toc-backref" href="#id52">定义回调</a><a class="headerlink" href="#id27" title="永久链接至标题"></a></h3>
+<section id="id30">
+<h3><a class="toc-backref" href="#id84">定义回调</a><a class="headerlink" href="#id30" title="永久链接至标题"></a></h3>
 <p>你通过在模型中首先创建要使用的新类方法来指定回调。此类将始终以 <code class="docutils literal notranslate"><span class="pre">$data</span></code> 数组作为其唯一参数接收。 <code class="docutils literal notranslate"><span class="pre">$data</span></code> 数组的确切内容将因事件而异,但将始终包含一个名为 <strong>data</strong> 的键,其中包含传递给原始方法的主要数据。对于 insert* 或 update* 方法,这将是要插入数据库的键/值对。主数组还将包含传递给方法的其他值,并在后面详细描述。回调方法必须返回原始的 $data 数组,以便其他回调具有完整的信息。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1298,8 +1366,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id28">
-<h3><a class="toc-backref" href="#id53">指定要运行的回调</a><a class="headerlink" href="#id28" title="永久链接至标题"></a></h3>
+<section id="id31">
+<h3><a class="toc-backref" href="#id85">指定要运行的回调</a><a class="headerlink" href="#id31" title="永久链接至标题"></a></h3>
 <p>你可以通过将方法名称添加到适当的类属性(<code class="docutils literal notranslate"><span class="pre">$beforeInsert</span></code>、<code class="docutils literal notranslate"><span class="pre">$afterUpdate</span></code> 等)来指定运行回调时机。可以向单个事件添加多个回调,并且它们将一个接一个地处理。你可以在多个事件中使用相同的回调:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1335,8 +1403,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id29">
-<h3><a class="toc-backref" href="#id54">事件参数</a><a class="headerlink" href="#id29" title="永久链接至标题"></a></h3>
+<section id="id32">
+<h3><a class="toc-backref" href="#id86">事件参数</a><a class="headerlink" href="#id32" title="永久链接至标题"></a></h3>
 <p>由于传递给每个回调的确切数据各不相同,因此这里详细介绍了传递给每个事件的 <code class="docutils literal notranslate"><span class="pre">$data</span></code> 参数中的内容:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1424,8 +1492,8 @@
 </tbody>
 </table>
 </section>
-<section id="id30">
-<h3><a class="toc-backref" href="#id55">修改 Find* 数据</a><a class="headerlink" href="#id30" title="永久链接至标题"></a></h3>
+<section id="id33">
+<h3><a class="toc-backref" href="#id87">修改 Find* 数据</a><a class="headerlink" href="#id33" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">beforeFind</span></code> 和 <code class="docutils literal notranslate"><span class="pre">afterFind</span></code> 方法都可以返回修改后的数据集以覆盖正常的模型响应。 对于 <code class="docutils literal notranslate"><span class="pre">afterFind</span></code> 返回数组中对 <code class="docutils literal notranslate"><span class="pre">data</span></code> 所做的任何更改都将自动传递回调用上下文。 为了使 <code class="docutils literal notranslate"><span class="pre">beforeFind</span></code> 拦截查找工作流,它还必须返回一个额外的布尔值 <code class="docutils literal notranslate"><span class="pre">returnData</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1456,8 +1524,8 @@
 </div>
 </section>
 </section>
-<section id="id31">
-<h2><a class="toc-backref" href="#id56">手动创建模型</a><a class="headerlink" href="#id31" title="永久链接至标题"></a></h2>
+<section id="id34">
+<h2><a class="toc-backref" href="#id88">手动创建模型</a><a class="headerlink" href="#id34" title="永久链接至标题"></a></h2>
 <p>你不需要扩展任何特殊类就可以为应用程序创建模型。你所需要的只是获取数据库连接的一个实例,就可以开始了。这允许你绕过 CodeIgniter 模型提供的开箱即用的功能,并创建一个完全自定义的体验。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1491,7 +1559,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -1499,7 +1567,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068d9a4dd0>
+<jinja2.runtime.BlockReference object at 0x7f8b29a3d1d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

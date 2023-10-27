@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>数据库配置 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数据库配置 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -294,7 +295,7 @@
 </ul>
 </li>
 <li><p><a class="reference internal" href="#env" id="id16">使用 .env 文件配置</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id17">值的解释:</a></p></li>
+<li><p><a class="reference internal" href="#database-config-explanation-of-values" id="id17">值的解释:</a></p></li>
 </ul>
 </div>
 <div class="admonition note">
@@ -513,14 +514,20 @@
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Database\Config</span><span class="p">;</span>
 
+<span class="sd">/**</span>
+<span class="sd"> * Database Configuration</span>
+<span class="sd"> */</span>
 <span class="k">class</span> <span class="nc">Database</span> <span class="k">extends</span> <span class="nx">Config</span>
 <span class="p">{</span>
+    <span class="c1">// ...</span>
     <span class="k">public</span> <span class="nv">$development</span> <span class="o">=</span> <span class="p">[</span><span class="cm">/* ... */</span><span class="p">];</span>
     <span class="k">public</span> <span class="nv">$test</span>        <span class="o">=</span> <span class="p">[</span><span class="cm">/* ... */</span><span class="p">];</span>
     <span class="k">public</span> <span class="nv">$production</span>  <span class="o">=</span> <span class="p">[</span><span class="cm">/* ... */</span><span class="p">];</span>
 
     <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
     <span class="p">{</span>
+        <span class="c1">// ...</span>
+
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">defaultGroup</span> <span class="o">=</span> <span class="nx">ENVIRONMENT</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -529,7 +536,7 @@
 </section>
 </section>
 <section id="env">
-<h2><a class="toc-backref" href="#id16">使用 .env 文件配置</a><a class="headerlink" href="#env" title="永久链接至标题"></a></h2>
+<span id="database-config-with-env-file"></span><h2><a class="toc-backref" href="#id16">使用 .env 文件配置</a><a class="headerlink" href="#env" title="永久链接至标题"></a></h2>
 <p>你还可以在当前服务器的 <strong>.env</strong> 文件中保存配置值。你只需要输入默认组配置设置中更改的值。值的命名格式应为,其中 <code class="docutils literal notranslate"><span class="pre">default</span></code> 是组名称:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">username</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
 <span class="nx">database</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="nx">password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
@@ -568,12 +575,12 @@
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h2><a class="toc-backref" href="#id17">值的解释:</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<section id="database-config-explanation-of-values">
+<span id="id9"></span><h2><a class="toc-backref" href="#id17">值的解释:</a><a class="headerlink" href="#database-config-explanation-of-values" title="永久链接至标题"></a></h2>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
+<col style="width: 11%" />
+<col style="width: 89%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>名称</p></th>
@@ -645,7 +652,7 @@
 <td><p>true/false (布尔值)- 是否强制“严格模式”连接,有助于开发应用程序时确保严格的 SQL (<code class="docutils literal notranslate"><span class="pre">MySQLi</span></code> 仅)。</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>port</strong></p></td>
-<td><p>数据库端口号。</p></td>
+<td><p>数据库端口号 - 默认端口为空字符串 <code class="docutils literal notranslate"><span class="pre">''</span></code> (或使用 <code class="docutils literal notranslate"><span class="pre">SQLSRV</span></code> 动态端口)。</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>foreignKeys</strong></p></td>
 <td><p>true/false (布尔值)- 是否启用外键约束(<code class="docutils literal notranslate"><span class="pre">SQLite3</span></code> 仅)。</p>
@@ -659,6 +666,9 @@
 </tr>
 <tr class="row-even"><td><p><strong>busyTimeout</strong></p></td>
 <td><p>毫秒(int) - 表锁定时休眠指定时间(<code class="docutils literal notranslate"><span class="pre">SQLite3</span></code> 仅)。</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>numberNative</strong></p></td>
+<td><p>true/false (布尔值) - 是否启用 MYSQLI_OPT_INT_AND_FLOAT_NATIVE（仅适用于 <code class="docutils literal notranslate"><span class="pre">MySQLi</span></code>）。</p></td>
 </tr>
 </tbody>
 </table>
@@ -681,7 +691,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -689,7 +699,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068e934f10>
+<jinja2.runtime.BlockReference object at 0x7f8b29bb8f10>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

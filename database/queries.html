@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>查询 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>查询 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -281,72 +282,74 @@
 <h1>查询<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id19">查询基础知识</a></p>
+<li><p><a class="reference internal" href="#id3" id="id21">查询基础知识</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id20">常规查询</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id21">简化的查询</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id22">常规查询</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id23">简化的查询</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id6" id="id22">手动使用数据库前缀</a></p>
+<li><p><a class="reference internal" href="#id8" id="id24">手动使用数据库前缀</a></p>
 <ul>
-<li><p><a class="reference internal" href="#db-prefixtable" id="id23">$db-&gt;prefixTable()</a></p></li>
-<li><p><a class="reference internal" href="#db-setprefix" id="id24">$db-&gt;setPrefix()</a></p></li>
-<li><p><a class="reference internal" href="#db-getprefix" id="id25">$db-&gt;getPrefix()</a></p></li>
+<li><p><a class="reference internal" href="#db-prefixtable" id="id25">$db-&gt;prefixTable()</a></p></li>
+<li><p><a class="reference internal" href="#db-setprefix" id="id26">$db-&gt;setPrefix()</a></p></li>
+<li><p><a class="reference internal" href="#db-getprefix" id="id27">$db-&gt;getPrefix()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id7" id="id26">保护标识符</a></p>
+<li><p><a class="reference internal" href="#id9" id="id28">保护标识符</a></p>
 <ul>
-<li><p><a class="reference internal" href="#db-protectidentifiers" id="id27">$db-&gt;protectIdentifiers()</a></p></li>
+<li><p><a class="reference internal" href="#db-protectidentifiers" id="id29">$db-&gt;protectIdentifiers()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id8" id="id28">转义值</a></p>
+<li><p><a class="reference internal" href="#id10" id="id30">转义值</a></p>
 <ul>
-<li><p><a class="reference internal" href="#db-escape" id="id29">1. $db-&gt;escape()</a></p></li>
-<li><p><a class="reference internal" href="#db-escapestring" id="id30">2. $db-&gt;escapeString()</a></p></li>
-<li><p><a class="reference internal" href="#db-escapelikestring" id="id31">3. $db-&gt;escapeLikeString()</a></p></li>
+<li><p><a class="reference internal" href="#db-escape" id="id31">1. $db-&gt;escape()</a></p></li>
+<li><p><a class="reference internal" href="#db-escapestring" id="id32">2. $db-&gt;escapeString()</a></p></li>
+<li><p><a class="reference internal" href="#db-escapelikestring" id="id33">3. $db-&gt;escapeLikeString()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id9" id="id32">查询绑定</a></p>
+<li><p><a class="reference internal" href="#id11" id="id34">查询绑定</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id10" id="id33">命名绑定</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id35">命名绑定</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id11" id="id34">处理错误</a></p>
+<li><p><a class="reference internal" href="#id13" id="id36">处理错误</a></p>
 <ul>
-<li><p><a class="reference internal" href="#db-error" id="id35">$db-&gt;error()</a></p></li>
+<li><p><a class="reference internal" href="#db-error" id="id37">$db-&gt;error()</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id12" id="id36">预处理查询</a></p>
+<li><p><a class="reference internal" href="#id14" id="id38">预处理查询</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id13" id="id37">准备查询</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id38">执行查询</a></p></li>
-<li><p><a class="reference internal" href="#id15" id="id39">其他方法</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id39">准备查询</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id40">执行查询</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id41">其他方法</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id16" id="id40">使用查询对象</a></p>
+<li><p><a class="reference internal" href="#id18" id="id42">使用查询对象</a></p>
 <ul>
-<li><p><a class="reference internal" href="#db-getlastquery" id="id41">$db-&gt;getLastQuery()</a></p></li>
-<li><p><a class="reference internal" href="#id17" id="id42">查询类</a></p></li>
+<li><p><a class="reference internal" href="#db-getlastquery" id="id43">$db-&gt;getLastQuery()</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id44">查询类</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id19">查询基础知识</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id21">查询基础知识</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>CodeIgniter 不支持数据库、表格和列名称中的点(<code class="docutils literal notranslate"><span class="pre">.</span></code>)。</p>
 </div>
 <section id="id4">
-<h3><a class="toc-backref" href="#id20">常规查询</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
-<p>要提交查询,请使用 <strong>query</strong> 函数:</p>
+<h3><a class="toc-backref" href="#id22">常规查询</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<section id="db-query">
+<span id="id5"></span><h4>$db-&gt;query()<a class="headerlink" href="#db-query" title="永久链接至标题"></a></h4>
+<p>要提交查询,请使用 <code class="docutils literal notranslate"><span class="pre">query()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$db</span> <span class="o">=</span> <span class="nx">db_connect</span><span class="p">();</span>
 <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;YOUR QUERY HERE&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>当运行“读取”类型查询时, <code class="docutils literal notranslate"><span class="pre">query()</span></code> 函数会返回一个可以用来 <a class="reference internal" href="results.html"><span class="doc">显示结果</span></a> 的数据库结果 <strong>对象</strong>。当运行“写入”类型查询时,它根据成功或失败简单地返回 true 或 false。检索数据时,你通常会将查询分配给自己的变量,如下所示:</p>
+<p>当运行“读取”类型查询时, <code class="docutils literal notranslate"><span class="pre">query()</span></code> 方法会返回一个可以用来 <a class="reference internal" href="results.html"><span class="doc">显示结果</span></a> 的数据库结果 <strong>对象</strong>。当运行“写入”类型查询时,它根据成功或失败简单地返回 true 或 false。检索数据时,你通常会将查询分配给自己的变量,如下所示:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;YOUR QUERY HERE&#39;</span><span class="p">);</span>
@@ -357,8 +360,11 @@
 <p>如果使用 OCI8 驱动程序,SQL 语句不应以分号 (<code class="docutils literal notranslate"><span class="pre">;</span></code>) 结尾。PL/SQL 语句应以分号 (<code class="docutils literal notranslate"><span class="pre">;</span></code>) 结尾。</p>
 </div>
 </section>
-<section id="id5">
-<h3><a class="toc-backref" href="#id21">简化的查询</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id23">简化的查询</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<section id="db-simplequery">
+<span id="id7"></span><h4>$db-&gt;simpleQuery()<a class="headerlink" href="#db-simplequery" title="永久链接至标题"></a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">simpleQuery()</span></code> 方法是 <code class="docutils literal notranslate"><span class="pre">$db-&gt;query()</span></code> 方法的简化版本。
 它不会返回数据库结果集,也不会设置查询计时器或编译绑定数据或存储调试查询。它只是让你提交一个查询。大多数用户很少使用此功能。</p>
 <p>它返回数据库驱动程序的 “execute” 函数返回的任何内容。对于写入类型的查询(如 INSERT、DELETE 或 UPDATE 语句),这通常在成功或失败时返回 true/false(这确实是应该使用它的地方),并在具有可获取结果的查询成功时返回资源/对象。</p>
@@ -377,10 +383,11 @@
 </div>
 </section>
 </section>
-<section id="id6">
-<h2><a class="toc-backref" href="#id22">手动使用数据库前缀</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id24">手动使用数据库前缀</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
 <section id="db-prefixtable">
-<h3><a class="toc-backref" href="#id23">$db-&gt;prefixTable()</a><a class="headerlink" href="#db-prefixtable" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id25">$db-&gt;prefixTable()</a><a class="headerlink" href="#db-prefixtable" title="永久链接至标题"></a></h3>
 <p>如果你已经配置了数据库前缀,并希望在本机 SQL 查询(例如)中将其添加到表名前,那么可以使用以下代码:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -389,7 +396,7 @@
 </div>
 </section>
 <section id="db-setprefix">
-<h3><a class="toc-backref" href="#id24">$db-&gt;setPrefix()</a><a class="headerlink" href="#db-setprefix" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id26">$db-&gt;setPrefix()</a><a class="headerlink" href="#db-setprefix" title="永久链接至标题"></a></h3>
 <p>如果由于任何原因你想以编程方式更改前缀,而不需要创建新的连接,则可以使用此方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -399,7 +406,7 @@
 </div>
 </section>
 <section id="db-getprefix">
-<h3><a class="toc-backref" href="#id25">$db-&gt;getPrefix()</a><a class="headerlink" href="#db-getprefix" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id27">$db-&gt;getPrefix()</a><a class="headerlink" href="#db-getprefix" title="永久链接至标题"></a></h3>
 <p>你可以使用此方法随时获取当前前缀:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -408,10 +415,10 @@
 </div>
 </section>
 </section>
-<section id="id7">
-<h2><a class="toc-backref" href="#id26">保护标识符</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<section id="id9">
+<h2><a class="toc-backref" href="#id28">保护标识符</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
 <section id="db-protectidentifiers">
-<h3><a class="toc-backref" href="#id27">$db-&gt;protectIdentifiers()</a><a class="headerlink" href="#db-protectidentifiers" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id29">$db-&gt;protectIdentifiers()</a><a class="headerlink" href="#db-protectidentifiers" title="永久链接至标题"></a></h3>
 <p>在许多数据库中,保护表格和字段名称(例如在 MySQL 中使用反引号)是可取的。<strong>查询构建器查询会自动受保护</strong>,但是如果你需要手动保护一个标识符,可以使用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -430,11 +437,11 @@
 </div>
 </section>
 </section>
-<section id="id8">
-<h2><a class="toc-backref" href="#id28">转义值</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<section id="id10">
+<h2><a class="toc-backref" href="#id30">转义值</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
 <p>在将数据提交到数据库之前对其进行转义是非常好的安全实践。CodeIgniter 提供了三种帮助你实现这一点的方法:</p>
 <section id="db-escape">
-<span id="database-queries-db-escape"></span><h3><a class="toc-backref" href="#id29">1. $db-&gt;escape()</a><a class="headerlink" href="#db-escape" title="永久链接至标题"></a></h3>
+<span id="database-queries-db-escape"></span><h3><a class="toc-backref" href="#id31">1. $db-&gt;escape()</a><a class="headerlink" href="#db-escape" title="永久链接至标题"></a></h3>
 <p>此函数确定数据类型,以便它只能转义字符串数据。它还会自动在数据周围添加单引号,所以你不必这样做:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -443,7 +450,7 @@
 </div>
 </section>
 <section id="db-escapestring">
-<h3><a class="toc-backref" href="#id30">2. $db-&gt;escapeString()</a><a class="headerlink" href="#db-escapestring" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id32">2. $db-&gt;escapeString()</a><a class="headerlink" href="#db-escapestring" title="永久链接至标题"></a></h3>
 <p>此函数转义传入的数据,而不考虑类型。大多数时间你会使用上面的函数而不是这个。像这样使用该函数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -452,7 +459,7 @@
 </div>
 </section>
 <section id="db-escapelikestring">
-<h3><a class="toc-backref" href="#id31">3. $db-&gt;escapeLikeString()</a><a class="headerlink" href="#db-escapelikestring" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id33">3. $db-&gt;escapeLikeString()</a><a class="headerlink" href="#db-escapelikestring" title="永久链接至标题"></a></h3>
 <p>当字符串将在 LIKE 条件中使用时,应使用此方法,
 以便字符串中的 LIKE 通配符 (<code class="docutils literal notranslate"><span class="pre">%</span></code>、<code class="docutils literal notranslate"><span class="pre">_</span></code>) 也适当转义。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -467,8 +474,8 @@
 </div>
 </section>
 </section>
-<section id="id9">
-<h2><a class="toc-backref" href="#id32">查询绑定</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<section id="id11">
+<h2><a class="toc-backref" href="#id34">查询绑定</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
 <p>绑定使你可以通过让系统为你组装查询来简化查询语法。考虑以下示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -490,8 +497,8 @@
 </div>
 <p>使用绑定的次要好处是值会自动转义,从而产生更安全的查询。
 你不必记住手动转义数据 - 引擎会自动为你完成这一操作。</p>
-<section id="id10">
-<h3><a class="toc-backref" href="#id33">命名绑定</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<section id="id12">
+<h3><a class="toc-backref" href="#id35">命名绑定</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
 <p>除了使用问号标记绑定值的位置外,你还可以命名绑定,允许传入值的键与查询中的占位符匹配:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -509,10 +516,10 @@
 </div>
 </section>
 </section>
-<section id="id11">
-<h2><a class="toc-backref" href="#id34">处理错误</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<section id="id13">
+<h2><a class="toc-backref" href="#id36">处理错误</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
 <section id="db-error">
-<h3><a class="toc-backref" href="#id35">$db-&gt;error()</a><a class="headerlink" href="#db-error" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id37">$db-&gt;error()</a><a class="headerlink" href="#db-error" title="永久链接至标题"></a></h3>
 <p>如果你需要获取最后发生的错误, <code class="docutils literal notranslate"><span class="pre">error()</span></code> 方法将返回包含代码和消息的数组。这是一个快速示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -523,11 +530,11 @@
 </div>
 </section>
 </section>
-<section id="id12">
-<h2><a class="toc-backref" href="#id36">预处理查询</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
+<section id="id14">
+<h2><a class="toc-backref" href="#id38">预处理查询</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h2>
 <p>大多数数据库引擎都支持某种形式的预编译语句,允许你预先准备一次查询,然后使用新的数据集多次运行该查询。这消除了 SQL 注入的可能性,因为数据采用不同于查询本身的格式传递给数据库。当需要多次运行相同的查询时,它也可以快得多。但是,对每个查询都这样做可能会大大降低性能,因为调用数据库的频率加倍。由于查询生成器和数据库连接已经为你处理了数据的转义,所以安全方面已经为你照顾好了。但是,有时候你需要通过运行预编译语句或预处理查询来优化查询。</p>
-<section id="id13">
-<h3><a class="toc-backref" href="#id37">准备查询</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<section id="id15">
+<h3><a class="toc-backref" href="#id39">准备查询</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
 <p>这可以通过 <code class="docutils literal notranslate"><span class="pre">prepare()</span></code> 方法轻松完成。它接受一个参数,该参数是一个返回查询对象的闭包。查询对象由任何“final”类型的查询自动生成,包括 <strong>insert</strong>、<strong>update</strong>、<strong>delete</strong>、<strong>replace</strong> 和 <strong>get</strong>。通过使用查询构建器运行查询来实现这一点最简单。查询实际上不会运行,值也不重要,因为它们从未应用,而是充当占位符。这将返回一个 PreparedQuery 对象:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -565,8 +572,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id14">
-<h3><a class="toc-backref" href="#id38">执行查询</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<section id="id16">
+<h3><a class="toc-backref" href="#id40">执行查询</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
 <p>一旦你有了预处理的查询,就可以使用 <code class="docutils literal notranslate"><span class="pre">execute()</span></code> 方法实际运行查询。你可以根据查询中的占位符数量传递任意多个变量。必须传入的参数数目必须与查询中的占位符数目匹配。它们还必须以在原始查询中出现的占位符的顺序传递:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -590,8 +597,8 @@
 </div>
 <p>对于“写入”类型的查询,它返回 true 或 false,指示查询的成功或失败。对于“读取”类型的查询,它返回一个标准的 <a class="reference internal" href="results.html"><span class="doc">结果集</span></a>。</p>
 </section>
-<section id="id15">
-<h3><a class="toc-backref" href="#id39">其他方法</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
+<section id="id17">
+<h3><a class="toc-backref" href="#id41">其他方法</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
 <p>除了这两个主要方法之外,预处理查询对象还有以下方法:</p>
 <section id="close">
 <span id="database-queries-stmt-close"></span><h4>close()<a class="headerlink" href="#close" title="永久链接至标题"></a></h4>
@@ -627,11 +634,11 @@
 </section>
 </section>
 </section>
-<section id="id16">
-<h2><a class="toc-backref" href="#id40">使用查询对象</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h2>
+<section id="id18">
+<h2><a class="toc-backref" href="#id42">使用查询对象</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h2>
 <p>在内部,所有查询都作为 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Database\Query</span></code> 的实例进行处理和存储。此类负责绑定参数,否则准备查询,并存储有关其查询的性能数据。</p>
 <section id="db-getlastquery">
-<h3><a class="toc-backref" href="#id41">$db-&gt;getLastQuery()</a><a class="headerlink" href="#db-getlastquery" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id43">$db-&gt;getLastQuery()</a><a class="headerlink" href="#db-getlastquery" title="永久链接至标题"></a></h3>
 <p>当你只需要检索最后一个查询对象时,使用 <code class="docutils literal notranslate"><span class="pre">getLastQuery()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -640,8 +647,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id17">
-<h3><a class="toc-backref" href="#id42">查询类</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
+<section id="id19">
+<h3><a class="toc-backref" href="#id44">查询类</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
 <p>每个查询对象都存储与查询本身相关的几个信息片段。这在一定程度上由时间线功能使用,但也可供你使用。</p>
 <section id="getquery">
 <h4>getQuery()<a class="headerlink" href="#getquery" title="永久链接至标题"></a></h4>
@@ -667,8 +674,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id18">
-<h4>hasError()<a class="headerlink" href="#id18" title="永久链接至标题"></a></h4>
+<section id="id20">
+<h4>hasError()<a class="headerlink" href="#id20" title="永久链接至标题"></a></h4>
 <p>如果在执行此查询期间遇到错误,则此方法将返回 true:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -733,7 +740,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -741,7 +748,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068e01fe50>
+<jinja2.runtime.BlockReference object at 0x7f8b29b34590>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

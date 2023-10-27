@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>运行你的应用程序 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>运行你的应用程序 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -281,217 +282,355 @@
 <h1>运行你的应用程序<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#initial-configuration" id="id11">初始配置</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id12">本地开发服务器</a></p></li>
-<li><p><a class="reference internal" href="#apache" id="id13">使用 Apache 托管</a></p>
+<li><p><a class="reference internal" href="#initial-configuration" id="id21">初始配置</a></p>
 <ul>
-<li><p><a class="reference internal" href="#htaccess" id="id14">.htaccess</a></p></li>
-<li><p><a class="reference internal" href="#index-php" id="id15">去除 index.php</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id16">虚拟主机</a></p></li>
-<li><p><a class="reference internal" href="#mod-userdir" id="id17">使用 mod_userdir（共享主机）</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id18">设置环境</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id19">测试</a></p></li>
+<li><p><a class="reference internal" href="#uri" id="id22">为你的站点 URI 进行配置</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id23">配置数据库连接设置</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id24">设置为开发模式</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id25">设置可写文件夹权限</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#nginx" id="id20">使用 Nginx 托管</a></p>
+<li><p><a class="reference internal" href="#id7" id="id26">本地开发服务器</a></p></li>
+<li><p><a class="reference internal" href="#apache" id="id27">使用 Apache 托管</a></p>
 <ul>
-<li><p><a class="reference internal" href="#default-conf" id="id21">default.conf</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id22">设置环境</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id28">配置主配置文件</a></p>
+<ul>
+<li><p><a class="reference internal" href="#mod-rewrite" id="id29">启用 mod_rewrite</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id30">设置文档根目录</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id10" id="id23">引导应用程序</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id31">使用虚拟主机托管</a></p>
+<ul>
+<li><p><a class="reference internal" href="#vhost-alias-module" id="id32">启用 vhost_alias_module</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id33">添加主机别名</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id34">设置虚拟主机</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id35">测试</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id14" id="id36">使用子文件夹进行托管</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id15" id="id37">创建符号链接</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id38">使用别名</a></p></li>
+<li><p><a class="reference internal" href="#htaccess" id="id39">添加 .htaccess</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#mod-userdir" id="id40">使用 mod_userdir 进行托管（共享主机）</a></p></li>
+<li><p><a class="reference internal" href="#index-php" id="id41">删除 index.php</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id42">设置环境</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#nginx" id="id43">使用 nginx 托管</a></p>
+<ul>
+<li><p><a class="reference internal" href="#default-conf" id="id44">default.conf</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id45">设置环境</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id20" id="id46">引导应用程序</a></p></li>
 </ul>
 </div>
-<p>CodeIgniter 4 应用程序可以通过多种方式运行：托管在 Web 服务器上，使用虚拟化，或者使用 CodeIgniter 的命令行工具进行测试。本节介绍如何使用每种技术，并解释了它们的一些优缺点。</p>
+<p>CodeIgniter 4 应用程序可以以多种不同的方式运行：托管在 Web 服务器上、使用虚拟化技术，或者使用 CodeIgniter 的命令行工具进行测试。本节介绍如何使用每种技术，并解释其中的一些优缺点。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>关于文件名的大小写，你应该始终小心。许多开发者在 Windows 或 macOS 上使用大小写不敏感的文件系统进行开发。然而，大多数服务器环境使用大小写敏感的文件系统。如果文件名大小写不正确，则在服务器上无法正常工作的代码在本地环境下也将无法正常工作。</p>
+<p>在文件名的大小写方面应始终小心。许多开发人员在 Windows 或 macOS 上使用不区分大小写的文件系统进行开发。然而，大多数服务器环境使用区分大小写的文件系统。如果文件名大小写不正确，本地上正常工作的代码在服务器上将无法正常工作。</p>
 </div>
-<p>如果你是 CodeIgniter 的新手，请阅读用户指南的 <a class="reference internal" href="../intro/index.html"><span class="doc">入门指南</span></a> 部分，开始学习构建动态 PHP 应用程序的方法。祝你使用愉快！</p>
+<p>如果你是 CodeIgniter 的新手，请阅读用户指南的 <a class="reference internal" href="../intro/index.html"><span class="doc">入门</span></a> 部分，开始学习如何构建动态的 PHP 应用程序。祝你使用愉快！</p>
 <section id="initial-configuration">
-<span id="id3"></span><h2><a class="toc-backref" href="#id11">初始配置</a><a class="headerlink" href="#initial-configuration" title="永久链接至标题"></a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id21">初始配置</a><a class="headerlink" href="#initial-configuration" title="永久链接至标题"></a></h2>
+<section id="uri">
+<h3><a class="toc-backref" href="#id22">为你的站点 URI 进行配置</a><a class="headerlink" href="#uri" title="永久链接至标题"></a></h3>
+<p>使用文本编辑器打开 <strong>app/Config/App.php</strong> 文件。</p>
 <ol class="arabic">
-<li><p>使用文本编辑器打开 <strong>app/Config/App.php</strong> 文件，并将你的基本 URL 设置为 <code class="docutils literal notranslate"><span class="pre">$baseURL</span></code>。如果你需要更灵活的配置，也可以在 <a class="reference internal" href="../general/configuration.html#dotenv-file"><span class="std std-ref">.env</span></a> 文件中设置 baseURL，例如 <code class="docutils literal notranslate"><span class="pre">app.baseURL</span> <span class="pre">=</span> <span class="pre">'http://example.com/'</span></code>。 （始终在基本 URL 后加上斜杠！）</p>
-<blockquote>
-<div><div class="admonition note">
+<li><dl>
+<dt>$baseURL</dt><dd><p>将你的基本 URL 设置为 <code class="docutils literal notranslate"><span class="pre">$baseURL</span></code>。如果你需要更大的灵活性，可以在 <a class="reference internal" href="../general/configuration.html#dotenv-file"><span class="std std-ref">.env</span></a> 文件中设置 baseURL，例如 <code class="docutils literal notranslate"><span class="pre">app.baseURL</span> <span class="pre">=</span> <span class="pre">'http://example.com/'</span></code>。<strong>始终在基本 URL 的末尾使用斜杠！</strong></p>
+<div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>如果未正确设置 <code class="docutils literal notranslate"><span class="pre">baseURL</span></code>，在开发模式下，调试工具栏可能无法正确加载，并且网页显示可能需要更长的时间。</p>
+<p>如果你没有正确设置 <code class="docutils literal notranslate"><span class="pre">baseURL</span></code>，在开发模式下，调试工具栏可能无法正确加载，网页可能需要更长的时间才能显示。</p>
 </div>
-</div></blockquote>
+</dd>
+</dl>
 </li>
-<li><p>如果你打算使用数据库，使用文本编辑器打开
-<strong>app/Config/Database.php</strong> 文件，并设置你的
-数据库设置。或者，你也可以在 <strong>.env</strong> 文件中进行设置。</p></li>
-<li><p>如果它不在生产服务器上，请在 <strong>.env</strong> 文件中将 <code class="docutils literal notranslate"><span class="pre">CI_ENVIRONMENT</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">development</span></code>，以便利用提供的调试工具。有关详细信息，请参阅 <a class="reference internal" href="../tutorial/index.html#setting-development-mode"><span class="std std-ref">设置开发模式</span></a>。</p>
-<blockquote>
-<div><div class="admonition important">
-<p class="admonition-title">重要</p>
-<p>在生产环境中，你应该禁用错误显示和任何其他仅用于开发的功能。在 CodeIgniter 中，可以通过将环境设置为“production”来实现。默认情况下，应用程序将使用“production”环境运行。另请参阅 <a class="reference internal" href="../general/environments.html#environment-constant"><span class="std std-ref">ENVIRONMENT 常量</span></a>。</p>
+<li><dl>
+<dt>$indexPage</dt><dd><p>如果你不想在站点 URI 中包含 <strong>index.php</strong>，请将 <code class="docutils literal notranslate"><span class="pre">$indexPage</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">''</span></code>。当框架生成你的站点 URI 时，将使用此设置。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>你可能需要配置你的 Web 服务器以访问不包含 <strong>index.php</strong> 的 URL。请参阅 <a class="reference internal" href="../general/urls.html#urls-remove-index-php"><span class="std std-ref">CodeIgniter URLs</span></a>。</p>
 </div>
-</div></blockquote>
+</dd>
+</dl>
 </li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">备注</p>
-<p>如果你将使用 Web 服务器（例如 Apache 或 Nginx）运行你的站点，你需要修改项目中的 <code class="docutils literal notranslate"><span class="pre">writable</span></code> 文件夹的权限，以便由 Web 服务器使用的用户或账户具有写入权限。</p>
-</div>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id12">本地开发服务器</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
-<p>CodeIgniter 4 自带一个本地开发服务器，利用 PHP 的内置 Web 服务器和 CodeIgniter 的路由功能。你可以使用 <code class="docutils literal notranslate"><span class="pre">serve</span></code> 脚本来启动它，在主目录下使用以下命令行:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">serve</span>
+<h3><a class="toc-backref" href="#id23">配置数据库连接设置</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>如果你打算使用数据库，请使用文本编辑器打开 <strong>app/Config/Database.php</strong> 文件，并设置你的数据库设置。或者，你可以在 <strong>.env</strong> 文件中设置这些设置。</p>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id24">设置为开发模式</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>如果不是在生产服务器上，请在 <strong>.env</strong> 文件中将 <code class="docutils literal notranslate"><span class="pre">CI_ENVIRONMENT</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">development</span></code>，以利用提供的调试工具。有关详细信息，请参阅 <a class="reference internal" href="../tutorial/index.html#setting-development-mode"><span class="std std-ref">设置开发模式</span></a>。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>在生产环境中，应禁用错误显示和任何其他仅用于开发的功能。在 CodeIgniter 中，可以通过将环境设置为 “production” 来实现。默认情况下，应用程序将在 “production” 环境下运行。另请参阅 <a class="reference internal" href="../general/environments.html#environment-constant"><span class="std std-ref">ENVIRONMENT 常量</span></a>。</p>
+</div>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id25">设置可写文件夹权限</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<p>如果你将使用 Web 服务器（例如 Apache 或 nginx）运行你的站点，你需要修改项目中的 <strong>writable</strong> 文件夹的权限，以便它可以被你的 Web 服务器使用的用户或帐户写入。</p>
+</section>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id26">本地开发服务器</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<p>CodeIgniter 4 自带一个本地开发服务器，利用 PHP 的内置 Web 服务器和 CodeIgniter 的路由功能。你可以使用以下命令在主目录中启动它：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark serve</span>
 </pre></div>
 </div>
-<p>这将启动服务器，并且你现在可以在浏览器中通过 <a class="reference external" href="http://localhost:8080">http://localhost:8080</a> 查看你的应用程序。</p>
+<p>这将启动服务器，你现在可以在浏览器中通过 <a class="reference external" href="http://localhost:8080">http://localhost:8080</a> 查看你的应用程序。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>内置的开发服务器应该只在本地开发机器上使用。绝对不要在生产服务器上使用。</p>
+<p>内置的开发服务器只应在本地开发机器上使用。它绝不能在生产服务器上使用。</p>
 </div>
-<p>如果你需要在除 localhost 之外的主机上运行站点，你首先需要将主机添加到你的 <code class="docutils literal notranslate"><span class="pre">hosts</span></code> 文件中。该文件的确切位置在每个主要操作系统中都有所不同，不过所有的类 Unix 系统（包括 OS X）通常将该文件保存在 <strong>/etc/hosts</strong> 中。</p>
-<p>可以使用三个命令行选项自定义本地开发服务器：</p>
+<p>如果你需要在除 localhost 之外的主机上运行站点，你首先需要将主机添加到你的 <strong>hosts</strong> 文件中。文件的确切位置因每个主要操作系统而异，但所有的类 Unix 类型的系统（包括 macOS）通常将文件保存在 <strong>/etc/hosts</strong> 中。</p>
+<p>本地开发服务器可以使用三个命令行选项进行自定义：</p>
 <ul>
-<li><p>你可以使用 <code class="docutils literal notranslate"><span class="pre">--host</span></code> CLI 选项指定要在其上运行应用程序的不同主机:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">serve</span> <span class="o">--</span><span class="nx">host</span> <span class="nx">example</span><span class="o">.</span><span class="nx">dev</span>
+<li><p>你可以使用 <code class="docutils literal notranslate"><span class="pre">--host</span></code> CLI 选项指定要运行应用程序的不同主机：</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark serve --host example.dev</span>
 </pre></div>
 </div>
+</div></blockquote>
 </li>
-<li><p>默认情况下，服务器运行在端口 8080 上，但你可能有多个站点正在运行，或者已经有另一个应用程序使用该端口。你可以使用 <code class="docutils literal notranslate"><span class="pre">--port</span></code> CLI 选项指定一个不同的端口:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">serve</span> <span class="o">--</span><span class="nx">port</span> <span class="mi">8081</span>
+<li><p>默认情况下，服务器在端口 8080 上运行，但你可能有多个站点正在运行，或者已经有其他应用程序使用该端口。你可以使用 <code class="docutils literal notranslate"><span class="pre">--port</span></code> CLI 选项指定不同的端口：</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark serve --port 8081</span>
 </pre></div>
 </div>
+</div></blockquote>
 </li>
-<li><p>你还可以使用 <code class="docutils literal notranslate"><span class="pre">--php</span></code> CLI 选项指定要使用的特定版本的 PHP，其值设置为要使用的 PHP 可执行文件的路径:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">php</span> <span class="nx">spark</span> <span class="nx">serve</span> <span class="o">--</span><span class="nx">php</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">php7</span><span class="o">.</span><span class="mf">6.5</span><span class="o">.</span><span class="mi">4</span>
+<li><p>你还可以使用 <code class="docutils literal notranslate"><span class="pre">--php</span></code> CLI 选项指定要使用的特定版本的 PHP，将其值设置为你要使用的 PHP 可执行文件的路径：</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark serve --php /usr/bin/php7.6.5.4</span>
 </pre></div>
 </div>
+</div></blockquote>
 </li>
 </ul>
 </section>
 <section id="apache">
-<h2><a class="toc-backref" href="#id13">使用 Apache 托管</a><a class="headerlink" href="#apache" title="永久链接至标题"></a></h2>
-<p>CodeIgniter 4 Web 应用程序通常托管在 Web 服务器上。Apache 的 <code class="docutils literal notranslate"><span class="pre">httpd</span></code> 是“标准”平台，在我们的大部分文档中都默认使用它。</p>
-<p>Apache 随附于许多平台，但也可以从 <a class="reference external" href="https://bitnami.com/stacks/infrastructure">Bitnami</a> 下载包含数据库引擎和 PHP 的捆绑包。</p>
-<section id="htaccess">
-<h3><a class="toc-backref" href="#id14">.htaccess</a><a class="headerlink" href="#htaccess" title="永久链接至标题"></a></h3>
-<p>我们的用户指南假设使用了“mod_rewrite”模块，该模块允许 URL 中没有 “index.php”，请确保该模块已启用（取消注释）在主配置文件中，例如 <code class="docutils literal notranslate"><span class="pre">apache2/conf/httpd.conf</span></code>:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">LoadModule</span> <span class="nx">rewrite_module</span> <span class="nx">modules</span><span class="o">/</span><span class="nx">mod_rewrite</span><span class="o">.</span><span class="nx">so</span>
+<h2><a class="toc-backref" href="#id27">使用 Apache 托管</a><a class="headerlink" href="#apache" title="永久链接至标题"></a></h2>
+<p>CodeIgniter 4 网站通常托管在 Web 服务器上。Apache HTTP Server 是“标准”平台，在我们的文档中假定使用它。</p>
+<p>Apache 与许多平台捆绑在一起，但也可以从 <a class="reference external" href="https://bitnami.com/stacks/infrastructure">Bitnami</a> 下载捆绑了数据库引擎和 PHP 的版本。</p>
+<section id="id8">
+<h3><a class="toc-backref" href="#id28">配置主配置文件</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<section id="mod-rewrite">
+<h4><a class="toc-backref" href="#id29">启用 mod_rewrite</a><a class="headerlink" href="#mod-rewrite" title="永久链接至标题"></a></h4>
+<p>“mod_rewrite” 模块允许在 URL 中不包含 “index.php”，我们在用户指南中假定了这一点。</p>
+<p>确保在主配置文件中启用（取消注释）重写模块，例如 <strong>apache2/conf/httpd.conf</strong>：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">LoadModule</span><span class="w"> </span>rewrite_module<span class="w"> </span>modules/mod_rewrite.so
 </pre></div>
 </div>
-<p>还要确保默认文档根目录的 &lt;Directory&gt; 元素也启用了此设置，在 “AllowOverride” 设置中:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">Directory</span> <span class="s2">&quot;/opt/lamp/apache2/htdocs&quot;</span><span class="o">&gt;</span>
-    <span class="nx">Options</span> <span class="nx">Indexes</span> <span class="nx">FollowSymLinks</span>
-    <span class="nx">AllowOverride</span> <span class="nx">All</span>
-    <span class="k">Require</span> <span class="nx">all</span> <span class="nx">granted</span>
-<span class="o">&lt;/</span><span class="nx">Directory</span><span class="o">&gt;</span>
+</section>
+<section id="id9">
+<h4><a class="toc-backref" href="#id30">设置文档根目录</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
+<p>还要确保默认文档根目录的 <code class="docutils literal notranslate"><span class="pre">&lt;Directory&gt;</span></code> 元素也启用了这一点，在 <code class="docutils literal notranslate"><span class="pre">AllowOverride</span></code> 设置中：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Directory</span><span class="w"> </span><span class="s">&quot;/opt/lamp/apache2/htdocs&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nb">Options</span><span class="w"> </span>Indexes<span class="w"> </span>FollowSymLinks
+<span class="w">    </span><span class="nb">AllowOverride</span><span class="w"> </span><span class="k">All</span>
+<span class="w">    </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>granted
+<span class="nt">&lt;/Directory&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id31">使用虚拟主机托管</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<p>我们建议使用“虚拟主机”来运行你的应用程序。你可以为你工作的每个应用程序设置不同的别名，</p>
+<section id="vhost-alias-module">
+<h4><a class="toc-backref" href="#id32">启用 vhost_alias_module</a><a class="headerlink" href="#vhost-alias-module" title="永久链接至标题"></a></h4>
+<p>确保在主配置文件中启用（取消注释）虚拟主机模块，例如 <strong>apache2/conf/httpd.conf</strong>：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">LoadModule</span><span class="w"> </span>vhost_alias_module<span class="w"> </span>modules/mod_vhost_alias.so
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h4><a class="toc-backref" href="#id33">添加主机别名</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h4>
+<p>在你的 “hosts” 文件中添加主机别名，通常在 Unix 类型平台上为 <strong>/etc/hosts</strong>，在 Windows 上为 <strong>c:WindowsSystem32driversetchosts</strong>。</p>
+<p>在文件中添加一行。例如，可以是 <code class="docutils literal notranslate"><span class="pre">myproject.local</span></code> 或 <code class="docutils literal notranslate"><span class="pre">myproject.test</span></code>:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="nx">myproject</span><span class="o">.</span><span class="nx">local</span>
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h4><a class="toc-backref" href="#id34">设置虚拟主机</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h4>
+<p>在虚拟主机配置中添加一个 <code class="docutils literal notranslate"><span class="pre">&lt;VirtualHost&gt;</span></code> 元素，用于你的 Web 应用程序，例如 <strong>apache2/conf/extra/httpd-vhost.conf</strong>：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;VirtualHost</span><span class="w"> </span><span class="s">*:80</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nb">DocumentRoot</span><span class="w"> </span><span class="s2">&quot;/opt/lamp/apache2/myproject/public&quot;</span>
+<span class="w">    </span><span class="nb">ServerName</span><span class="w">   </span>myproject.local
+<span class="w">    </span><span class="nb">ErrorLog</span><span class="w">     </span><span class="s2">&quot;logs/myproject-error_log&quot;</span>
+<span class="w">    </span><span class="nb">CustomLog</span><span class="w">    </span><span class="s2">&quot;logs/myproject-access_log&quot;</span><span class="w"> </span>common
+
+<span class="w">    </span><span class="nt">&lt;Directory</span><span class="w"> </span><span class="s">&quot;/opt/lamp/apache2/myproject/public&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nb">AllowOverride</span><span class="w"> </span><span class="k">All</span>
+<span class="w">        </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>granted
+<span class="w">    </span><span class="nt">&lt;/Directory&gt;</span>
+<span class="nt">&lt;/VirtualHost&gt;</span>
+</pre></div>
+</div>
+<p>上述配置假设项目文件夹位于以下位置：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>apache2/
+   ├── myproject/      (项目文件夹)
+   │      └── public/  (myproject.local 的 DocumentRoot)
+   └── htdocs/
+</pre></div>
+</div>
+<p>重启 Apache。</p>
+</section>
+<section id="id13">
+<h4><a class="toc-backref" href="#id35">测试</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h4>
+<p>使用上述配置，在浏览器中使用 URL <strong>http://myproject.local/</strong> 访问你的 Web 应用程序。</p>
+<p>每当更改 Apache 配置时，都需要重新启动 Apache。</p>
+</section>
+</section>
+<section id="id14">
+<h3><a class="toc-backref" href="#id36">使用子文件夹进行托管</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<p>如果你希望使用类似 <strong>http://localhost/myproject/</strong> 的子文件夹 baseURL，有三种方法可以实现。</p>
+<section id="id15">
+<h4><a class="toc-backref" href="#id37">创建符号链接</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h4>
+<p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">├──</span> <span class="nx">myproject</span><span class="o">/</span> <span class="p">(</span><span class="nx">项目文件夹</span><span class="p">)</span>
+<span class="nx">│</span>      <span class="nx">└──</span> <span class="k">public</span><span class="o">/</span>
+<span class="nx">└──</span> <span class="nx">htdocs</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>导航到 <strong>htdocs</strong> 文件夹并创建符号链接，如下所示：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd htdocs/</span>
+<span class="go">ln -s ../myproject/public/ myproject</span>
+</pre></div>
+</div>
+</section>
+<section id="id16">
+<h4><a class="toc-backref" href="#id38">使用别名</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h4>
+<p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录：</p>
+<blockquote>
+<div><p>├── myproject/ (项目文件夹)
+│      └── public/
+└── htdocs/</p>
+</div></blockquote>
+<p>在主配置文件中添加以下内容，例如 <strong>apache2/conf/httpd.conf</strong>：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">Alias</span><span class="w"> </span><span class="sx">/myproject</span><span class="w"> </span><span class="sx">/opt/lamp/apache2/myproject/public</span>
+<span class="nt">&lt;Directory</span><span class="w"> </span><span class="s">&quot;/opt/lamp/apache2/myproject/public&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nb">AllowOverride</span><span class="w"> </span><span class="k">All</span>
+<span class="w">    </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>granted
+<span class="nt">&lt;/Directory&gt;</span>
+</pre></div>
+</div>
+<p>重启 Apache。</p>
+</section>
+<section id="htaccess">
+<h4><a class="toc-backref" href="#id39">添加 .htaccess</a><a class="headerlink" href="#htaccess" title="永久链接至标题"></a></h4>
+<p>最后的选择是在项目根目录中添加 <strong>.htaccess</strong> 文件。</p>
+<p>不建议将项目文件夹放置在文档根目录中。但是，如果你没有其他选择，例如在共享服务器上，你可以使用此方法。</p>
+<p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录，并创建 <strong>.htaccess</strong> 文件：</p>
+<blockquote>
+<div><dl class="simple">
+<dt>└── htdocs/</dt><dd><dl class="simple">
+<dt>└── myproject/ (项目文件夹)</dt><dd><p>├── .htaccess
+└── public/</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>并将 <strong>.htaccess</strong> 编辑如下：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;IfModule</span><span class="w"> </span><span class="s">mod_rewrite.c</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nb">RewriteEngine</span><span class="w"> </span><span class="k">On</span>
+<span class="w">    </span><span class="nb">RewriteRule</span><span class="w"> </span>^(.*)$<span class="w"> </span>public/$1<span class="w"> </span>[L]
+<span class="nt">&lt;/IfModule&gt;</span>
+
+<span class="nt">&lt;FilesMatch</span><span class="w"> </span><span class="s">&quot;^\.&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>denied
+<span class="w">    </span><span class="nb">Satisfy</span><span class="w"> </span><span class="k">All</span>
+<span class="nt">&lt;/FilesMatch&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="mod-userdir">
+<h3><a class="toc-backref" href="#id40">使用 mod_userdir 进行托管（共享主机）</a><a class="headerlink" href="#mod-userdir" title="永久链接至标题"></a></h3>
+<p>在共享托管环境中，常见做法是使用 Apache 模块 “mod_userdir” 自动启用每个用户的虚拟主机。需要额外的配置才能允许 CodeIgniter4 从这些每个用户目录中运行。</p>
+<p>以下假设服务器已经配置为 mod_userdir。有关启用此模块的指南，请参阅 Apache 文档中的 <a class="reference external" href="https://httpd.apache.org/docs/2.4/howto/public_html.html">相关部分</a>。</p>
+<p>由于 CodeIgniter4 默认情况下期望服务器在 <strong>public/index.php</strong> 中找到框架前端控制器，因此你必须指定此位置作为替代位置以搜索请求（即使 CodeIgniter4 安装在每个用户的 Web 目录中）。</p>
+<p>默认的用户 Web 目录 <strong>~/public_html</strong> 由 <code class="docutils literal notranslate"><span class="pre">UserDir</span></code> 指令指定，通常位于 <strong>apache2/mods-available/userdir.conf</strong> 或 <strong>apache2/conf/extra/httpd-userdir.conf</strong> 中：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">UserDir</span><span class="w"> </span>public_html
+</pre></div>
+</div>
+<p>因此，你需要配置 Apache 在尝试提供默认服务之前首先查找 CodeIgniter 的 public 目录：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">UserDir</span><span class="w"> </span><span class="s2">&quot;public_html/public&quot;</span><span class="w"> </span><span class="s2">&quot;public_html&quot;</span>
+</pre></div>
+</div>
+<p>确保还为 CodeIgniter 的 public 目录指定选项和权限。一个 <strong>userdir.conf</strong> 可能如下所示：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;IfModule</span><span class="w"> </span><span class="s">mod_userdir.c</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nb">UserDir</span><span class="w"> </span><span class="s2">&quot;public_html/public&quot;</span><span class="w"> </span><span class="s2">&quot;public_html&quot;</span>
+<span class="w">    </span><span class="nb">UserDir</span><span class="w"> </span>disabled<span class="w"> </span>root
+
+<span class="w">    </span><span class="nt">&lt;Directory</span><span class="w"> </span><span class="s">/home/*/public_html</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nb">AllowOverride</span><span class="w"> </span><span class="k">All</span>
+<span class="w">        </span><span class="nb">Options</span><span class="w"> </span>MultiViews<span class="w"> </span>Indexes<span class="w"> </span>FollowSymLinks
+<span class="w">        </span><span class="nt">&lt;Limit</span><span class="w"> </span><span class="s">GET POST OPTIONS</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="c"># Apache &lt;= 2.2:</span>
+<span class="w">            </span><span class="c"># Order allow,deny</span>
+<span class="w">            </span><span class="c"># Allow from all</span>
+
+<span class="w">            </span><span class="c"># Apache &gt;= 2.4:</span>
+<span class="w">            </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>granted
+<span class="w">        </span><span class="nt">&lt;/Limit&gt;</span>
+<span class="w">        </span><span class="nt">&lt;LimitExcept</span><span class="w"> </span><span class="s">GET POST OPTIONS</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="c"># Apache &lt;= 2.2:</span>
+<span class="w">            </span><span class="c"># Order deny,allow</span>
+<span class="w">            </span><span class="c"># Deny from all</span>
+
+<span class="w">            </span><span class="c"># Apache &gt;= 2.4:</span>
+<span class="w">            </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>denied
+<span class="w">        </span><span class="nt">&lt;/LimitExcept&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Directory&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;Directory</span><span class="w"> </span><span class="s">/home/*/public_html/public</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nb">AllowOverride</span><span class="w"> </span><span class="k">All</span>
+<span class="w">        </span><span class="nb">Options</span><span class="w"> </span>MultiViews<span class="w"> </span>Indexes<span class="w"> </span>FollowSymLinks
+<span class="w">        </span><span class="nt">&lt;Limit</span><span class="w"> </span><span class="s">GET POST OPTIONS</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="c"># Apache &lt;= 2.2:</span>
+<span class="w">            </span><span class="c"># Order allow,deny</span>
+<span class="w">            </span><span class="c"># Allow from all</span>
+
+<span class="w">            </span><span class="c"># Apache &gt;= 2.4:</span>
+<span class="w">            </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>granted
+<span class="w">        </span><span class="nt">&lt;/Limit&gt;</span>
+<span class="w">        </span><span class="nt">&lt;LimitExcept</span><span class="w"> </span><span class="s">GET POST OPTIONS</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="c"># Apache &lt;= 2.2:</span>
+<span class="w">            </span><span class="c"># Order deny,allow</span>
+<span class="w">            </span><span class="c"># Deny from all</span>
+
+<span class="w">            </span><span class="c"># Apache &gt;= 2.4:</span>
+<span class="w">            </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>denied
+<span class="w">        </span><span class="nt">&lt;/LimitExcept&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Directory&gt;</span>
+<span class="nt">&lt;/IfModule&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="index-php">
-<h3><a class="toc-backref" href="#id15">去除 index.php</a><a class="headerlink" href="#index-php" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id41">删除 index.php</a><a class="headerlink" href="#index-php" title="永久链接至标题"></a></h3>
 <p>请参阅 <a class="reference internal" href="../general/urls.html#urls-remove-index-php-apache"><span class="std std-ref">CodeIgniter URLs</span></a>。</p>
 </section>
-<section id="id5">
-<h3><a class="toc-backref" href="#id16">虚拟主机</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
-<p>我们建议使用“虚拟主机”来运行你的应用程序。你可以为你工作的每个应用程序设置不同的别名。</p>
-<p>确保虚拟主机模块已在主配置文件中启用（取消注释），例如 <code class="docutils literal notranslate"><span class="pre">apache2/conf/httpd.conf</span></code>:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">LoadModule</span> <span class="nx">vhost_alias_module</span> <span class="nx">modules</span><span class="o">/</span><span class="nx">mod_vhost_alias</span><span class="o">.</span><span class="nx">so</span>
-</pre></div>
-</div>
-<p>在你的 “hosts” 文件中添加一个主机别名，通常在类 Unix 系统的平台上是 <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>，在 Windows 上是 <code class="docutils literal notranslate"><span class="pre">c:/Windows/System32/drivers/etc/hosts</span></code>。在文件中</p>
-<p>添加一行。例如，可以是 “myproject.local” 或 “myproject.test”:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="nx">myproject</span><span class="o">.</span><span class="nx">local</span>
-</pre></div>
-</div>
-<p>在虚拟主机配置内添加一个 &lt;VirtualHost&gt; 元素，例如在虚拟主机配置文件中的 <code class="docutils literal notranslate"><span class="pre">apache2/conf/extra/httpd-vhost.conf</span></code>:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">VirtualHost</span> <span class="o">*:</span><span class="mi">80</span><span class="o">&gt;</span>
-    <span class="nx">DocumentRoot</span> <span class="s2">&quot;/opt/lamp/apache2/htdocs/myproject/public&quot;</span>
-    <span class="nx">ServerName</span> <span class="nx">myproject</span><span class="o">.</span><span class="nx">local</span>
-    <span class="nx">ErrorLog</span> <span class="s2">&quot;logs/myproject-error_log&quot;</span>
-    <span class="nx">CustomLog</span> <span class="s2">&quot;logs/myproject-access_log&quot;</span> <span class="nx">common</span>
-<span class="o">&lt;/</span><span class="nx">VirtualHost</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>如果你的项目文件夹不是 Apache 文档根目录的子文件夹，则你的 &lt;VirtualHost&gt; 元素可能需要嵌套的 &lt;Directory&gt; 元素，以授予 Web 服务器对文件的访问权限。</p>
-</section>
-<section id="mod-userdir">
-<h3><a class="toc-backref" href="#id17">使用 mod_userdir（共享主机）</a><a class="headerlink" href="#mod-userdir" title="永久链接至标题"></a></h3>
-<p>在共享托管环境中的常见做法是使用 Apache 模块 “mod_userdir” 自动启用每个用户的虚拟主机。为了允许从这些每个用户目录中运行 CodeIgniter4，需要进行额外的配置。</p>
-<p>以下假设服务器已经配置了 mod_userdir。关于启用此模块的指南可在 <a class="reference external" href="https://httpd.apache.org/docs/2.4/howto/public_html.html">Apache 文档</a> 中找到。</p>
-<p>因为 CodeIgniter4 默认情况下期望服务器在 <code class="docutils literal notranslate"><span class="pre">/public/index.php</span></code> 处找到框架前端控制器，所以你必须指定此位置作为搜索请求的替代位置（即使 CodeIgniter4 安装在每个用户的 Web 目录中）。</p>
-<p>默认的用户 Web 目录 <code class="docutils literal notranslate"><span class="pre">~/public_html</span></code> 是由 <code class="docutils literal notranslate"><span class="pre">UserDir</span></code> 指令指定的，通常位于 <code class="docutils literal notranslate"><span class="pre">/apache2/mods-available/userdir.conf</span></code> 或 <code class="docutils literal notranslate"><span class="pre">/apache2/conf/extra/httpd-userdir.conf</span></code> 中:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">UserDir</span> <span class="nx">public_html</span>
-</pre></div>
-</div>
-<p>因此，你需要配置 Apache，在尝试提供默认服务之前，首先查找 CodeIgniter 的 public 目录:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">UserDir</span> <span class="s2">&quot;public_html/public&quot;</span> <span class="s2">&quot;public_html&quot;</span>
-</pre></div>
-</div>
-<p>还请确保为 CodeIgniter 的 public 目录指定选项和权限。一个 <code class="docutils literal notranslate"><span class="pre">userdir.conf</span></code> 可能如下所示:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">IfModule</span> <span class="nx">mod_userdir</span><span class="o">.</span><span class="nx">c</span><span class="o">&gt;</span>
-    <span class="nx">UserDir</span> <span class="s2">&quot;public_html/public&quot;</span> <span class="s2">&quot;public_html&quot;</span>
-    <span class="nx">UserDir</span> <span class="nx">disabled</span> <span class="nx">root</span>
-
-    <span class="o">&lt;</span><span class="nx">Directory</span> <span class="o">/</span><span class="nx">home</span><span class="cm">/*/public_html&gt;</span>
-<span class="cm">            AllowOverride All</span>
-<span class="cm">            Options MultiViews Indexes FollowSymLinks</span>
-<span class="cm">            &lt;Limit GET POST OPTIONS&gt;</span>
-<span class="cm">                    # Apache &lt;= 2.2:</span>
-<span class="cm">                    # Order allow,deny</span>
-<span class="cm">                    # Allow from all</span>
-
-<span class="cm">                    # Apache &gt;= 2.4:</span>
-<span class="cm">                    Require all granted</span>
-<span class="cm">            &lt;/Limit&gt;</span>
-<span class="cm">            &lt;LimitExcept GET POST OPTIONS&gt;</span>
-<span class="cm">                    # Apache &lt;= 2.2:</span>
-<span class="cm">                    # Order deny,allow</span>
-<span class="cm">                    # Deny from all</span>
-
-<span class="cm">                    # Apache &gt;= 2.4:</span>
-<span class="cm">                    Require all denied</span>
-<span class="cm">            &lt;/LimitExcept&gt;</span>
-<span class="cm">    &lt;/Directory&gt;</span>
-
-<span class="cm">    &lt;Directory /home/*/</span><span class="nx">public_html</span><span class="o">/</span><span class="k">public</span><span class="o">&gt;</span>
-            <span class="nx">AllowOverride</span> <span class="nx">All</span>
-            <span class="nx">Options</span> <span class="nx">MultiViews</span> <span class="nx">Indexes</span> <span class="nx">FollowSymLinks</span>
-            <span class="o">&lt;</span><span class="nx">Limit</span> <span class="nx">GET</span> <span class="nx">POST</span> <span class="nx">OPTIONS</span><span class="o">&gt;</span>
-                    <span class="c1"># Apache &lt;= 2.2:</span>
-                    <span class="c1"># Order allow,deny</span>
-                    <span class="c1"># Allow from all</span>
-
-                    <span class="c1"># Apache &gt;= 2.4:</span>
-                    <span class="k">Require</span> <span class="nx">all</span> <span class="nx">granted</span>
-            <span class="o">&lt;/</span><span class="nx">Limit</span><span class="o">&gt;</span>
-            <span class="o">&lt;</span><span class="nx">LimitExcept</span> <span class="nx">GET</span> <span class="nx">POST</span> <span class="nx">OPTIONS</span><span class="o">&gt;</span>
-                    <span class="c1"># Apache &lt;= 2.2:</span>
-                    <span class="c1"># Order deny,allow</span>
-                    <span class="c1"># Deny from all</span>
-
-                    <span class="c1"># Apache &gt;= 2.4:</span>
-                    <span class="k">Require</span> <span class="nx">all</span> <span class="nx">denied</span>
-            <span class="o">&lt;/</span><span class="nx">LimitExcept</span><span class="o">&gt;</span>
-    <span class="o">&lt;/</span><span class="nx">Directory</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="nx">IfModule</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-</section>
-<section id="id7">
-<h3><a class="toc-backref" href="#id18">设置环境</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
-<p>请参阅 <a class="reference internal" href="../general/environments.html#environment-apache"><span class="std std-ref">处理多环境</span></a>。</p>
-</section>
-<section id="id8">
-<h3><a class="toc-backref" href="#id19">测试</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
-<p>通过上述配置，你的 Web 应用程序将可以通过 URL <code class="docutils literal notranslate"><span class="pre">http://myproject.local</span></code> 在浏览器中访问。</p>
-<p>每当更改 Apache 配置时，都需要重新启动 Apache。</p>
+<section id="id18">
+<h3><a class="toc-backref" href="#id42">设置环境</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
+<p>请参阅 <a class="reference internal" href="../general/environments.html#environment-apache"><span class="std std-ref">处理多个环境</span></a>。</p>
 </section>
 </section>
 <section id="nginx">
-<h2><a class="toc-backref" href="#id20">使用 Nginx 托管</a><a class="headerlink" href="#nginx" title="永久链接至标题"></a></h2>
-<p>Nginx 是第二个最广泛使用的 Web 托管 HTTP 服务器。这里你可以找到使用 PHP 7.3 FPM（unix sockets）的 Ubuntu Server 的示例配置。</p>
+<h2><a class="toc-backref" href="#id43">使用 nginx 托管</a><a class="headerlink" href="#nginx" title="永久链接至标题"></a></h2>
+<p>nginx 是第二常用的用于 Web 托管的 HTTP 服务器。以下是一个在 Ubuntu Server 上使用 PHP 8.1 FPM（Unix 套接字）的示例配置。</p>
 <section id="default-conf">
-<h3><a class="toc-backref" href="#id21">default.conf</a><a class="headerlink" href="#default-conf" title="永久链接至标题"></a></h3>
-<p>此配置使 URL 中没有 “index.php”，并对以 “.php” 结尾的 URL 使用 CodeIgniter 的 “404 - 文件未找到”。</p>
+<h3><a class="toc-backref" href="#id44">default.conf</a><a class="headerlink" href="#default-conf" title="永久链接至标题"></a></h3>
+<p>此配置使 URL 中不包含 “index.php”，并对以 “.php” 结尾的 URL 使用 CodeIgniter 的 “404 - 文件未找到”。</p>
 <div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="s">[::]:80</span><span class="p">;</span>
@@ -509,14 +648,14 @@
 <span class="w">        </span><span class="kn">include</span><span class="w"> </span><span class="s">snippets/fastcgi-php.conf</span><span class="p">;</span>
 
 <span class="w">        </span><span class="c1"># 使用 php-fpm：</span>
-<span class="w">        </span><span class="kn">fastcgi_pass</span><span class="w"> </span><span class="s">unix:/run/php/php7.3-fpm.sock</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">fastcgi_pass</span><span class="w"> </span><span class="s">unix:/run/php/php8.1-fpm.sock</span><span class="p">;</span>
 <span class="w">        </span><span class="c1"># 使用 php-cgi：</span>
 <span class="w">        </span><span class="c1"># fastcgi_pass 127.0.0.1:9000;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kn">error_page</span><span class="w"> </span><span class="mi">404</span><span class="w"> </span><span class="s">/index.php</span><span class="p">;</span>
 
-<span class="w">    </span><span class="c1"># 拒绝访问隐藏文件，例如 .htaccess</span>
+<span class="w">    </span><span class="c1"># 禁止访问隐藏文件，如 .htaccess</span>
 <span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="p">~</span><span class="w"> </span><span class="sr">/\.</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kn">deny</span><span class="w"> </span><span class="s">all</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -524,15 +663,15 @@
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h3><a class="toc-backref" href="#id22">设置环境</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
-<p>请参阅 <a class="reference internal" href="../general/environments.html#environment-nginx"><span class="std std-ref">处理多环境</span></a>。</p>
+<section id="id19">
+<h3><a class="toc-backref" href="#id45">设置环境</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<p>请参阅 <a class="reference internal" href="../general/environments.html#environment-nginx"><span class="std std-ref">处理多个环境</span></a>。</p>
 </section>
 </section>
-<section id="id10">
-<h2><a class="toc-backref" href="#id23">引导应用程序</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
-<p>在某些场景中，你可能希望加载框架，而不实际运行整个应用程序。这对于对项目进行单元测试非常有用，但也可以用于使用第三方工具来分析和修改你的代码。该框架提供了一个专门用于这种情况的单独引导脚本：<code class="docutils literal notranslate"><span class="pre">system/Test/bootstrap.php</span></code>。</p>
-<p>大多数路径到你的项目都在引导过程中定义。你可以使用预定义的常量覆盖这些路径，但是当使用默认值时，请确保你的路径与预期的目录结构对齐，以适应你的安装方法。</p>
+<section id="id20">
+<h2><a class="toc-backref" href="#id46">引导应用程序</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h2>
+<p>在某些情况下，你可能希望加载框架而不实际运行整个应用程序。这对于对项目进行单元测试非常有用，但也可能对使用第三方工具分析和修改代码很有用。框架提供了一个专门用于此场景的独立引导脚本：<strong>system/Test/bootstrap.php</strong>。</p>
+<p>在引导过程中，大部分项目路径都会被定义。你可以使用预定义的常量来覆盖这些路径，但是当使用默认值时，请确保你的路径与安装方法的预期目录结构对齐。</p>
 </section>
 </section>
 
@@ -548,7 +687,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -556,7 +695,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068e2abed0>
+<jinja2.runtime.BlockReference object at 0x7f8b2998a210>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>配置 &mdash; CodeIgniter 4.3.6 中文手册|用户手册|用户指南|中文文档</title>
+  <title>配置 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -123,7 +123,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元格</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
@@ -245,6 +245,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">认证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
 </li>
@@ -283,41 +284,51 @@
 <p>与许多其他框架不同,CodeIgniter 的可配置项不包含在单个文件中。相反,每个需要可配置项的类都有一个与使用它的类同名的配置文件。你可以在 <strong>app/Config</strong> 文件夹中找到应用程序配置文件。</p>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id19">使用配置文件</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id20">创建配置文件</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id21">环境变量</a></p>
+<li><p><a class="reference internal" href="#id3" id="id21">使用配置文件</a></p>
 <ul>
-<li><p><a class="reference internal" href="#dotenv" id="id22">Dotenv 文件</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id22">获取配置对象</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id23">获取配置属性</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id12" id="id23">配置类和环境变量</a></p>
+<li><p><a class="reference internal" href="#id6" id="id24">创建配置文件</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id25">环境变量</a></p>
 <ul>
-<li><p><a class="reference internal" href="#env-var-replacements-for-data" id="id24">环境变量作为数据的替换</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id25">将环境变量视为数组</a></p></li>
+<li><p><a class="reference internal" href="#dotenv" id="id26">Dotenv 文件</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id15" id="id26">处理不同环境</a></p></li>
-<li><p><a class="reference internal" href="#registrars" id="id27">注册表</a></p>
+<li><p><a class="reference internal" href="#id14" id="id27">配置类和环境变量</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id17" id="id28">隐式注册表</a></p></li>
-<li><p><a class="reference internal" href="#id18" id="id29">显式注册表</a></p></li>
+<li><p><a class="reference internal" href="#env-var-replacements-for-data" id="id28">环境变量作为数据的替换</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id29">将环境变量视为数组</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id17" id="id30">处理不同环境</a></p></li>
+<li><p><a class="reference internal" href="#registrars" id="id31">注册器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id19" id="id32">隐式注册器</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id33">显式注册器</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id19">使用配置文件</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id21">使用配置文件</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="id4">
+<h3><a class="toc-backref" href="#id22">获取配置对象</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>你可以通过几种不同的方式访问类的配置文件。</p>
-<ul>
-<li><p>使用 <code class="docutils literal notranslate"><span class="pre">new</span></code> 关键字创建一个实例:</p>
+<section id="new">
+<h4>使用 new 关键字<a class="headerlink" href="#new" title="永久链接至标题"></a></h4>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">new</span></code> 关键字创建一个实例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// Creating new configuration object by hand</span>
 <span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Config\Pager</span><span class="p">();</span>
 </pre></div>
 </div>
-</li>
-<li><p>使用 <code class="docutils literal notranslate"><span class="pre">config()</span></code> 函数:</p>
+</section>
+<section id="config">
+<span id="configuration-config"></span><h4>config()<a class="headerlink" href="#config" title="永久链接至标题"></a></h4>
+<p>使用 <a class="reference internal" href="common_functions.html#config" title="config"><code class="xref php php-func docutils literal notranslate"><span class="pre">config()</span></code></a> 函数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// Get shared instance with config function</span>
@@ -331,8 +342,17 @@
 <span class="nv">$config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">(</span><span class="s1">&#39;Pager&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
 </pre></div>
 </div>
-</li>
-</ul>
+<p>如果未提供命名空间，它将首先在 <strong>app/Config</strong> 文件夹中查找文件，如果找不到，则在所有定义的命名空间的 <strong>Config</strong> 文件夹中查找。</p>
+<p>CodeIgniter 提供的所有配置文件都使用 <code class="docutils literal notranslate"><span class="pre">Config</span></code> 命名空间。在你的应用程序中使用这个命名空间将提供最佳性能,因为它确切知道在哪里可以找到这些文件。</p>
+<p>你可以通过使用不同的命名空间将配置文件放在任何你想要的文件夹中。这允许你在生产服务器上将配置文件放在一个不可公开访问的文件夹中,同时在开发期间保持其位于 <strong>/app</strong> 下方便访问。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在 v4.4.0 之前，<code class="docutils literal notranslate"><span class="pre">config()</span></code> 会在有与 shortname 相同的类时，在 <strong>app/Config/</strong> 中查找文件，即使你指定了完全限定的类名，如 <code class="docutils literal notranslate"><span class="pre">config(\Acme\Blog\Config\Blog::class)</span></code>。在 v4.4.0 中修复了此行为，并返回指定的实例。</p>
+</div>
+</section>
+</section>
+<section id="id5">
+<h3><a class="toc-backref" href="#id23">获取配置属性</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>所有配置对象属性都是公共的,所以你可以像访问任何其他属性一样访问设置:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -341,13 +361,13 @@
 <span class="nv">$pageSize</span> <span class="o">=</span> <span class="nv">$config</span><span class="o">-&gt;</span><span class="na">perPage</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>如果没有提供命名空间,它将在所有定义的命名空间以及 <strong>app/Config/</strong> 中查找该文件。</p>
-<p>CodeIgniter 提供的所有配置文件都使用 <code class="docutils literal notranslate"><span class="pre">Config</span></code> 命名空间。在你的应用程序中使用这个命名空间将提供最佳性能,因为它确切知道在哪里可以找到这些文件。</p>
-<p>你可以通过使用不同的命名空间将配置文件放在任何你想要的文件夹中。这允许你在生产服务器上将配置文件放在一个不可公开访问的文件夹中,同时在开发期间保持其位于 <strong>/app</strong> 下方便访问。</p>
 </section>
-<section id="id4">
-<h2><a class="toc-backref" href="#id20">创建配置文件</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id24">创建配置文件</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p>当你需要一个新的配置时,首先在所需位置创建一个新文件。默认文件位置(大多数情况下推荐)是 <strong>app/Config</strong>。该类应使用适当的命名空间,并且它应扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseConfig</span></code> 以确保它可以接收特定环境的设置。</p>
+<p>你可以通过使用不同的命名空间将配置文件放置在任何 <strong>Config</strong> 文件夹中。</p>
+<p>该类应使用适当的命名空间，并应扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseConfig</span></code> 以确保它可以接收特定于环境的设置。</p>
 <p>定义类并用代表你的设置的公共属性填充它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -364,15 +384,15 @@
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h2><a class="toc-backref" href="#id21">环境变量</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<section id="id7">
+<h2><a class="toc-backref" href="#id25">环境变量</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
 <p>今天应用程序设置的最佳实践之一是使用环境变量。原因之一是环境变量可以在不更改任何代码的情况下在部署之间轻松更改。配置在部署之间可能会有很大变化,但代码不会。例如,多个环境(如开发者的本地机器和生产服务器)通常需要针对每个特定设置配置不同的值。</p>
 <p>环境变量也应该用于任何私人信息,如密码、API 密钥或其他敏感数据。</p>
 <section id="dotenv">
-<span id="dotenv-file"></span><h3><a class="toc-backref" href="#id22">Dotenv 文件</a><a class="headerlink" href="#dotenv" title="永久链接至标题"></a></h3>
+<span id="dotenv-file"></span><h3><a class="toc-backref" href="#id26">Dotenv 文件</a><a class="headerlink" href="#dotenv" title="永久链接至标题"></a></h3>
 <p>CodeIgniter 通过使用 “dotenv” 文件使设置环境变量变得简单轻松。该术语来源于文件名,文件名以点号开头,然后是 “env”文本。</p>
-<section id="id6">
-<h4>创建 Dotenv 文件<a class="headerlink" href="#id6" title="永久链接至标题"></a></h4>
+<section id="id8">
+<h4>创建 Dotenv 文件<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
 <p>CodeIgniter 期望 <strong>.env</strong> 文件与 <strong>app</strong> 目录一起位于项目的根目录中。 CodeIgniter 中分发了一个位于项目根目录 named 的模板文件 <strong>env</strong> (注意开头没有点号(<code class="docutils literal notranslate"><span class="pre">.</span></code>)?)。</p>
 <p>它包含了项目可能会使用的大量变量,并分配了空、虚拟或默认值。你可以通过重命名模板为 <strong>.env</strong> 或复制为名为 <strong>.env</strong> 的副本,将此文件用作应用程序的起点。</p>
 <div class="admonition warning">
@@ -380,8 +400,8 @@
 <p>确保 <strong>.env</strong> 文件NOT被你的版本控制系统跟踪。 对于 <em>git</em> 来说,这意味着将其添加到 <strong>.gitignore</strong>。 否则可能会导致敏感证书被公开。</p>
 </div>
 </section>
-<section id="id7">
-<h4>设置变量<a class="headerlink" href="#id7" title="永久链接至标题"></a></h4>
+<section id="id9">
+<h4>设置变量<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
 <p>设置以简单的名称/值对的集合存储在 <strong>.env</strong> 文件中,用等号分隔。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">S3_BUCKET</span> <span class="o">=</span> <span class="nx">dotenv</span>
 <span class="nx">SECRET_KEY</span> <span class="o">=</span> <span class="nx">super_secret_key</span>
@@ -390,8 +410,8 @@
 </div>
 <p>当你的应用程序运行时, <strong>.env</strong> 将自动加载,并将变量放入环境中。如果环境中已经存在一个变量,它将不会被覆盖。</p>
 </section>
-<section id="id8">
-<h4>获取变量<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
+<section id="id10">
+<h4>获取变量<a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
 <p>加载的环境变量可以使用下列任意一种访问:
 <code class="docutils literal notranslate"><span class="pre">getenv()</span></code>、<code class="docutils literal notranslate"><span class="pre">$_SERVER</span></code> 或 <code class="docutils literal notranslate"><span class="pre">$_ENV</span></code>。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -403,11 +423,11 @@
 </div>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
-<p>请注意,来自 <strong>.env</strong> 文件的设置会添加到环境变量中。由此带来的一个副作用是,如果你的 CodeIgniter 应用程序生成一个 <code class="docutils literal notranslate"><span class="pre">var_dump($_ENV)</span></code> 或 <code class="docutils literal notranslate"><span class="pre">phpinfo()</span></code> (用于调试或其他有效原因) <strong>你的安全凭据可能会公开暴露</strong>。</p>
+<p>请注意,来自 <strong>.env</strong> 文件的设置会添加到 <code class="docutils literal notranslate"><span class="pre">$_SERVER</span></code> and <code class="docutils literal notranslate"><span class="pre">$_ENV</span></code> 中。由此带来的一个副作用是,如果你的 CodeIgniter 应用程序生成一个 <code class="docutils literal notranslate"><span class="pre">var_dump($_ENV)</span></code> 或 <code class="docutils literal notranslate"><span class="pre">phpinfo()</span></code> (用于调试或其他有效原因) ，或者在 <code class="docutils literal notranslate"><span class="pre">development</span></code> 环境中显示了详细的错误报告，<strong>你的安全凭据可能会公开暴露</strong>。</p>
 </div>
 </section>
-<section id="id9">
-<h4>嵌套变量<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
+<section id="id11">
+<h4>嵌套变量<a class="headerlink" href="#id11" title="永久链接至标题"></a></h4>
 <p>为了省去输入,你可以通过在 <code class="docutils literal notranslate"><span class="pre">${...}</span></code> 内包装变量名来重用已经在文件中指定的变量:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">BASE_DIR</span> <span class="o">=</span> <span class="s2">&quot;/var/webroot/project-root&quot;</span>
 <span class="nx">CACHE_DIR</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASE_DIR</span><span class="si">}</span><span class="s2">/cache&quot;</span>
@@ -415,8 +435,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id10">
-<h4>命名空间变量<a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
+<section id="id12">
+<h4>命名空间变量<a class="headerlink" href="#id12" title="永久链接至标题"></a></h4>
 <p>有时你会有多个同名变量。系统需要一种方法来确定应使用的正确设置。这通过为变量“命名空间”来解决这个问题。</p>
 <p>命名空间变量使用点表示法来限定变量名,以便在合并到环境时它们是唯一的。这是通过在变量名称前面包含区别前缀和点号(.)来完成的。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 非命名空间变量</span>
@@ -433,7 +453,7 @@
 </div>
 </section>
 <section id="env-var-namespace-separator">
-<span id="id11"></span><h4>命名空间分隔符<a class="headerlink" href="#env-var-namespace-separator" title="永久链接至标题"></a></h4>
+<span id="id13"></span><h4>命名空间分隔符<a class="headerlink" href="#env-var-namespace-separator" title="永久链接至标题"></a></h4>
 <p>某些环境,例如 Docker、CloudFormation 不允许带点号(<code class="docutils literal notranslate"><span class="pre">.</span></code>)的变量名。在这种情况下,从 v4.1.5 开始,你也可以使用下划线 (<code class="docutils literal notranslate"><span class="pre">_</span></code>) 作为分隔符。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 使用下划线的命名空间变量</span>
 <span class="nx">app_forceGlobalSecureRequests</span> <span class="o">=</span> <span class="k">true</span>
@@ -443,12 +463,16 @@
 </section>
 </section>
 </section>
-<section id="id12">
-<h2><a class="toc-backref" href="#id23">配置类和环境变量</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
+<section id="id14">
+<h2><a class="toc-backref" href="#id27">配置类和环境变量</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h2>
 <p>当你实例化一个配置类时,任何*命名空间*环境变量都会被考虑合并到配置对象的属性中。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>你无法通过设置环境变量来添加新属性,也不能将标量值改变为数组。请参见 <a class="reference internal" href="#env-var-replacements-for-data"><span class="std std-ref">环境变量作为数据的替换</span></a>。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>此功能是在 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseConfig</span></code> 类中实现的。因此，它不适用于 <strong>app/Config</strong> 文件夹中的一些文件，这些文件不扩展该类。</p>
 </div>
 <p>如果命名空间变量的前缀正好匹配配置类的命名空间,那么设置的尾部(点之后)将被视为配置属性。如果它与现有的配置属性匹配,环境变量的值将替换配置文件中相应的值。如果没有匹配,配置类属性保持不变。在此用法中,前缀必须是类的完整(区分大小写)命名空间。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">Config\App</span><span class="o">.</span><span class="nx">forceGlobalSecureRequests</span> <span class="o">=</span> <span class="k">true</span>
@@ -474,15 +498,15 @@
 <p>使用*短前缀*时,属性名称仍必须完全匹配类中定义的名称。</p>
 </div>
 <section id="env-var-replacements-for-data">
-<span id="id13"></span><h3><a class="toc-backref" href="#id24">环境变量作为数据的替换</a><a class="headerlink" href="#env-var-replacements-for-data" title="永久链接至标题"></a></h3>
+<span id="id15"></span><h3><a class="toc-backref" href="#id28">环境变量作为数据的替换</a><a class="headerlink" href="#env-var-replacements-for-data" title="永久链接至标题"></a></h3>
 <p>务必要始终记住,在 <strong>.env</strong> 中的环境变量 <strong>仅用于替换现有数据</strong>。</p>
 <p>简单地说,你只能通过在 <strong>.env</strong> 中设置来更改 Config 类中存在的属性的值。</p>
 <p>你不能添加 Config 类中未定义的属性,也不能将其更改为数组(如果定义的属性的值是标量)。</p>
 <p>例如,你不能只是在 <strong>.env</strong> 中放置 <code class="docutils literal notranslate"><span class="pre">app.myNewConfig</span> <span class="pre">=</span> <span class="pre">foo</span></code> 并期望你的 <code class="docutils literal notranslate"><span class="pre">Config\App</span></code> 在运行时神奇地拥有该属性和值。</p>
-<p>当你在 <code class="docutils literal notranslate"><span class="pre">Config\Database</span></code> 中有属性 <code class="docutils literal notranslate"><span class="pre">$default</span> <span class="pre">=</span> <span class="pre">['encrypt'</span> <span class="pre">=&gt;</span> <span class="pre">false]</span></code> 时,即使你在 <strong>.env</strong> 中放置 <code class="docutils literal notranslate"><span class="pre">database.default.encrypt.ssl_verify</span> <span class="pre">=</span> <span class="pre">true</span></code>,也不能将 <code class="docutils literal notranslate"><span class="pre">encrypt</span></code> 值更改为数组。</p>
+<p>当你在 <code class="docutils literal notranslate"><span class="pre">Config\Database</span></code> 中有属性 <code class="docutils literal notranslate"><span class="pre">$default</span> <span class="pre">=</span> <span class="pre">['encrypt'</span> <span class="pre">=&gt;</span> <span class="pre">false]</span></code> 时,即使你在 <strong>.env</strong> 中放置 <code class="docutils literal notranslate"><span class="pre">database.default.encrypt.ssl_verify</span> <span class="pre">=</span> <span class="pre">true</span></code>,也不能将 <code class="docutils literal notranslate"><span class="pre">encrypt</span></code> 值更改为数组。如果你想这样做，请参阅 <a class="reference internal" href="../database/configuration.html#database-config-with-env-file"><span class="std std-ref">Database Configuration</span></a>。</p>
 </section>
-<section id="id14">
-<h3><a class="toc-backref" href="#id25">将环境变量视为数组</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<section id="id16">
+<h3><a class="toc-backref" href="#id29">将环境变量视为数组</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
 <p>可以进一步将命名空间环境变量视为数组。
 如果前缀与配置类匹配,则环境变量名称的其余部分在也包含点时将被视为数组引用。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 常规命名空间变量</span>
@@ -509,26 +533,31 @@
 </div>
 </section>
 </section>
-<section id="id15">
-<h2><a class="toc-backref" href="#id26">处理不同环境</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
+<section id="id17">
+<h2><a class="toc-backref" href="#id30">处理不同环境</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
 <p>通过使用带有修改后的值来满足该环境需求的单独 <strong>.env</strong> 文件,可以轻松配置多个环境。</p>
 <p>该文件不应包含应用程序使用的每个可能的配置类的每一个可能设置。事实上,它应该只包含特定于该环境的项目,以及密码、API 密钥等不应公开暴露的敏感详细信息。但是任何在部署之间更改的都很合适。</p>
 <p>在每个环境中,将 <strong>.env</strong> 文件放在项目的根目录中。对于大多数设置来说,这将与 <code class="docutils literal notranslate"><span class="pre">app</span></code> 目录处于同一级别。</p>
 <p>不要使用版本控制系统跟踪 <strong>.env</strong> 文件。如果这样做,并且存储库被公开,你将在所有人都可以找到的地方放置敏感信息。</p>
 </section>
 <section id="registrars">
-<span id="id16"></span><h2><a class="toc-backref" href="#id27">注册表</a><a class="headerlink" href="#registrars" title="永久链接至标题"></a></h2>
-<p>“注册表”是可以在命名空间和文件之间在运行时提供其他配置属性的任何其他类。
-注册表提供了一种在运行时跨命名空间和文件更改配置的方法。
-有两种实现注册表的方法:隐式和显式。</p>
+<span id="id18"></span><h2><a class="toc-backref" href="#id31">注册器</a><a class="headerlink" href="#registrars" title="永久链接至标题"></a></h2>
+<p>“注册器”是可以在命名空间和文件之间在运行时提供其他配置属性的任何其他类。
+注册器提供了一种在运行时跨命名空间和文件更改配置的方法。</p>
+<p>如果在 <a class="reference internal" href="modules.html"><span class="doc">模块</span></a> 中启用了 <a class="reference internal" href="modules.html#auto-discovery"><span class="std std-ref">自动发现</span></a>，则注册器可以在命名空间和文件之间在运行时更改配置属性。</p>
+<p>有两种实现注册器的方法: <strong>隐式</strong> 和 <strong>显式</strong>。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>来自 <strong>.env</strong> 的值始终优先于注册表。</p>
+<p>来自 <strong>.env</strong> 的值始终优先于注册器。</p>
 </div>
-<section id="id17">
-<h3><a class="toc-backref" href="#id28">隐式注册表</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
-<p>如果在 <a class="reference internal" href="modules.html"><span class="doc">Modules</span></a> 中启用了发现,任何命名空间都可以通过使用 <strong>Config/Registrar.php</strong> 文件来定义注册表。这些文件是方法名为你希望扩展的每个配置类的类。例如,第三方模块可能希望在不覆盖开发者已经配置的的情况下为 <code class="docutils literal notranslate"><span class="pre">Pager</span></code> 提供额外的模板。在 <strong>src/Config/Registrar.php</strong> 中将有一个 <code class="docutils literal notranslate"><span class="pre">Registrar</span></code> 类,其中只有单个 <code class="docutils literal notranslate"><span class="pre">Pager()</span></code> 方法(请注意大小写敏感性):</p>
+<section id="id19">
+<h3><a class="toc-backref" href="#id32">隐式注册器</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<p>隐式注册器可以更改任何配置类的属性。</p>
+<p>任何命名空间都可以通过使用 <strong>Config/Registrar.php</strong> 文件定义隐式注册器。这些文件是类，其方法的名称与你希望扩展的每个配置类的名称相同。</p>
+<p>例如，第三方模块或 Composer 包可能希望为 <code class="docutils literal notranslate"><span class="pre">Config\Pager</span></code> 提供额外的模板，而不会覆盖开发人员已经配置的内容。在 <strong>src/Config/Registrar.php</strong> 中，将有一个名为 <code class="docutils literal notranslate"><span class="pre">Registrar</span></code> 的类，其中只有一个 <code class="docutils literal notranslate"><span class="pre">Pager()</span></code> 方法（注意大小写敏感）：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">CodeIgniter\Shield\Config</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">Registrar</span>
 <span class="p">{</span>
@@ -543,15 +572,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>注册方法必须始终返回一个数组,其中的键对应目标配置文件中的属性。存在的值被合并,注册表属性具有覆盖优先级。</p>
+<p>注册方法必须始终返回一个数组,其中的键对应目标配置文件中的属性。存在的值被合并,注册器属性具有覆盖优先级。</p>
 </section>
-<section id="id18">
-<h3><a class="toc-backref" href="#id29">显式注册表</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
-<p>配置文件还可以显式指定任意数量的注册表。
-这是通过在配置文件中添加一个 <code class="docutils literal notranslate"><span class="pre">$registrars</span></code> 属性来完成的,其中包含候选注册表的名称数组:</p>
+<section id="id20">
+<h3><a class="toc-backref" href="#id33">显式注册器</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
+<p>显式注册器只能更改其注册的配置类属性。</p>
+<p>配置文件还可以显式指定任意数量的注册器。
+这是通过在配置文件中添加一个 <code class="docutils literal notranslate"><span class="pre">$registrars</span></code> 属性来完成的,其中包含候选注册器的名称数组:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
 
 <span class="k">class</span> <span class="nc">MyConfig</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
@@ -563,7 +595,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>为了充当“注册表”,标识的类必须具有一个与配置类同名的静态函数,它应返回一个关联数组的属性设置。</p>
+<p>为了充当“注册器”,标识的类必须具有一个与配置类同名的静态函数,它应返回一个关联数组的属性设置。</p>
 <p>在实例化配置对象时,它将循环遍历 <code class="docutils literal notranslate"><span class="pre">$registrars</span></code> 中指定的类。对于这些类中的每个类,它都会调用以配置类命名的方法,并合并任何返回的属性。</p>
 <p>针对此设置的配置类示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -574,8 +606,8 @@
 
 <span class="k">class</span> <span class="nc">MySalesConfig</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$target</span>            <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nv">$campaign</span>          <span class="o">=</span> <span class="s1">&#39;Winter Wonderland&#39;</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$target</span>        <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$campaign</span>   <span class="o">=</span> <span class="s1">&#39;Winter Wonderland&#39;</span><span class="p">;</span>
     <span class="k">public</span> <span class="k">static</span> <span class="nv">$registrars</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;\App\Models\RegionalSales&#39;</span><span class="p">,</span>
     <span class="p">];</span>
@@ -589,7 +621,7 @@
 
 <span class="k">class</span> <span class="nc">RegionalSales</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">MySalesConfig</span><span class="p">()</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">MySalesConfig</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
     <span class="p">{</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="s1">&#39;target&#39;</span> <span class="o">=&gt;</span> <span class="mi">45</span><span class="p">,</span>
@@ -598,7 +630,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>通过上面的示例,在实例化 <code class="docutils literal notranslate"><span class="pre">MySalesConfig</span></code> 时,它将最终具有声明的三个属性,但 <code class="docutils literal notranslate"><span class="pre">$target</span></code> 属性的值将通过将 <code class="docutils literal notranslate"><span class="pre">RegionalSales</span></code> 视为“注册表”来覆盖。生成的配置属性:</p>
+<p>通过上面的示例,在实例化 <code class="docutils literal notranslate"><span class="pre">MySalesConfig</span></code> 时,它将最终具有声明的三个属性,但 <code class="docutils literal notranslate"><span class="pre">$target</span></code> 属性的值将通过将 <code class="docutils literal notranslate"><span class="pre">RegionalSales</span></code> 视为“注册器”来覆盖。生成的配置属性:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$target</span>   <span class="o">=</span> <span class="mi">45</span><span class="p">;</span>
@@ -621,7 +653,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-07-24.
+      <span class="lastupdated">最后更新于 2023-10-27.
       </span></p>
   </div>
 
@@ -629,7 +661,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f068e2cbfd0>
+<jinja2.runtime.BlockReference object at 0x7f8b29bc29d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
