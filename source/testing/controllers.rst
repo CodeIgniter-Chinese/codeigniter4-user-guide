@@ -88,6 +88,10 @@ withURI(string $uri)
 
 在测试期间始终提供 URI 可以避免意外情况,这是一种好的实践。
 
+.. note:: 从 v4.4.0 版本开始，该方法使用 URI 创建一个新的 Request 实例。
+    因为 Request 实例应该具有 URI 实例。如果 URI 字符串中的主机名与 ``Config\App`` 中的设置不匹配，
+    将会设置有效的主机名。
+
 withBody($body)
 ---------------
 

@@ -15,18 +15,28 @@ HTTP 功能测试
 
 .. literalinclude:: feature/001.php
 
+.. _feature-requesting-a-page:
+
 请求页面
 =================
 
-从本质上讲,功能测试只是允许你在应用程序上调用一个端点并获取结果。要做到这一点,请使用 ``call()`` 方法。第一个参数是要使用的 HTTP 方法(最常见的是 GET 或 POST)。第二个参数是要测试的站点上的路径。第三个参数接受一个数组,用于填充与你使用的 HTTP 动词对应的全局变量。因此, **GET** 方法会填充 **$_GET** 变量, **post** 请求会填充 **$_POST** 数组。
+基本上，功能测试允许你调用应用程序上的一个端点，并获取结果返回。
+为此，你可以使用 ``call()`` 方法。
+
+1. 第一个参数是要使用的 HTTP 方法（通常是 GET 或 POST）。
+2. 第二个参数是要测试的站点上的 URI 路径。
+3. 第三个参数 ``$params`` 接受一个数组，用于填充你正在使用的 HTTP 动词的超全局变量。因此，**GET** 方法将填充 **$_GET** 变量，而 **POST** 请求将填充 **$_POST** 数组。``$params`` 也用于 :ref:`feature-formatting-the-request`。
+
+   .. note:: ``$params`` 数组并不适用于每个 HTTP 动词，但为了保持一致性而包含在内。
 
 .. literalinclude:: feature/002.php
+
+缩写方法
+-----------------
 
 为每个 HTTP 动词提供了缩写方法,以减少输入并增加清晰度:
 
 .. literalinclude:: feature/003.php
-
-.. note:: 并非每个 HTTP 动词都适合 ``$params`` 数组,但为了一致性而包含它。
 
 设置不同的路由
 ------------------------
@@ -58,17 +68,28 @@ HTTP 功能测试
 
 .. literalinclude:: feature/007.php
 
+.. _feature-formatting-the-request:
+
 格式化请求
 -----------------------
 
-你可以使用 ``withBodyFormat()`` 方法设置请求正文的格式。当前,这支持 `json` 或 `xml`。这将获取传递到 ``call()``、``post()``、``get()`` 等中的参数,并以给定格式分配给请求正文。这也会相应地为请求设置 `Content-Type` 标头。当测试 JSON 或 XML API 时,这很有用,以便以控制器期望的形式设置请求。
+你可以使用 ``withBodyFormat()`` 方法设置请求体的格式。目前支持 ``json`` 或 ``xml``。
+这在测试 JSON 或 XML API 时非常有用，因为你可以设置请求的格式，以符合控制器的预期。
+
+这将接收传递给 ``call()``, ``post()``, ``get()``... 的参数，并将它们分配给请求体，以给定的格式。
+
+这还将相应地设置请求的 `Content-Type` 标头。
 
 .. literalinclude:: feature/008.php
 
-设置正文
+.. _feature-setting-the-body:
+
+设置 Body
 ----------------
 
-你可以使用 ``withBody()`` 方法设置请求的正文。这允许你按照想要的格式设置正文格式。如果要测试更复杂的 XML,建议使用此方法。这也不会为你设置 Content-Type 标头,如果需要,可以使用 ``withHeaders()`` 方法设置它。
+你可以使用 ``withBody()`` 方法设置请求的 Body。这允许你按照所需的格式设置请求 Body。如果你有更复杂的 XML 需要测试，建议使用此方法。
+
+这不会为你设置 `Content-Type` 标头。如果需要，你可以使用 ``withHeaders()`` 方法设置它。
 
 检查响应
 =====================

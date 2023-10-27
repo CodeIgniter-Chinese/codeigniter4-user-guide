@@ -107,6 +107,8 @@ CodeIgniter 提供了一个全面的数据验证类,可以帮助 minimizing 你�
 .. note:: 从 v4.3.0 开始,可以使用 :ref:`$this->request->is() <incomingrequest-is>` 方法。
     在早期版本中,需要使用 ``if (strtolower($this->request->getMethod()) !== 'post')``。
 
+.. note:: 自 v4.4.0 起，可以使用 :ref:`$this->validator->getValidated() <validation-getting-validated-data>` 方法。
+
 路由
 ==========
 
@@ -214,6 +216,7 @@ CodeIgniter 4 有两种验证规则类。
 该库以名为 **validation** 的服务加载:
 
 .. literalinclude:: validation/004.php
+   :lines: 2-
 
 这会自动加载 ``Config\Validation`` 文件,其中包含用于包含多个 Rulesets 的设置,以及可以轻松重用的规则集合。
 
@@ -240,6 +243,7 @@ setRule()
 ``$rules`` 可以接收管道分隔的规则列表,或者规则数组:
 
 .. literalinclude:: validation/005.php
+   :lines: 2-
 
 你传递给 ``$field`` 的值必须匹配传入数据数组的键。如果数据直接来自 ``$_POST``,那么它必须与表单输入名称完全匹配。
 
@@ -254,12 +258,16 @@ setRules()
 像 ``setRule()`` 一样,但接受字段名称及其规则的数组:
 
 .. literalinclude:: validation/006.php
+   :lines: 2-
 
 要给出带标签的错误消息,可以设置如下:
 
 .. literalinclude:: validation/007.php
+   :lines: 2-
 
 .. _validation-withrequest:
+
+.. note:: ``setRules()`` 会覆盖先前设置的任何规则。要向现有规则集添加多个规则，请多次使用 ``setRule()``。
 
 为数组数据设置规则
 ============================
@@ -267,15 +275,18 @@ setRules()
 如果你的数据在嵌套的关联数组中,你可以使用“点数组语法”来轻松验证数据:
 
 .. literalinclude:: validation/009.php
+   :lines: 2-
 
 你可以使用通配符 ``*`` 符号匹配任意一层数组:
 
 .. literalinclude:: validation/010.php
+   :lines: 2-
 
 当你有单维数组数据时,"点数组语法"也很有用。
 例如,下拉多选返回的数据:
 
 .. literalinclude:: validation/011.php
+   :lines: 2-
 
 withRequest()
 =============
@@ -283,14 +294,11 @@ withRequest()
 当验证从 HTTP 请求输入的数据时,你会最常使用验证库。如果需要的话,你可以传入当前请求对象的实例,它会获取所有输入数据并将其设置为要验证的数据:
 
 .. literalinclude:: validation/008.php
+   :lines: 2-
 
-.. note:: 这个方法会从
-    :ref:`$request->getJSON() <incomingrequest-getting-json-data>`
-    获取 JSON 数据,当请求是 JSON 请求时(``Content-Type: application/json``),
-    或者从
-    :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>`
-    获取原始数据,当请求是 PUT、PATCH、DELETE 请求且不是 HTML 表单 POST 时(``Content-Type: multipart/form-data``),
-    或者从 :ref:`$request->getVar() <incomingrequest-getting-data>` 获取数据。
+.. warning:: 当你使用此方法时，应使用 :ref:`getValidated() <validation-getting-validated-data>` 方法获取经过验证的数据。因为该方法从 :ref:`$request->getJSON() <incomingrequest-getting-json-data>` 获取 JSON 数据（当请求是 JSON 请求时，``Content-Type: application/json``），或者从 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>` 获取原始数据（当请求是 PUT、PATCH、DELETE 请求且不是 HTML 表单提交时，``Content-Type: multipart/form-data``），或者从 :ref:`$request->getVar() <incomingrequest-getting-data>` 获取数据，并且攻击者可以更改要验证的数据。
+
+.. note:: 自 v4.4.0 起，可以使用 :ref:`getValidated() <validation-getting-validated-data>` 方法。
 
 ***********************
 使用验证
@@ -310,6 +318,7 @@ withRequest()
 如果验证成功,该方法返回 true。
 
 .. literalinclude:: validation/043.php
+   :lines: 2-
 
 运行多个验证
 ============================
@@ -319,13 +328,37 @@ withRequest()
 如果你打算运行多个验证,例如对不同的数据集或之后的规则,你可能需要在每次运行之前调用 ``$validation->reset()`` 来清除之前运行的错误。要注意 ``reset()`` 会使任何数据、规则或自定义错误无效,所以 ``setRules()``、``setRuleGroup()`` 等需要重复:
 
 .. literalinclude:: validation/019.php
+   :lines: 2-
 
 验证单个值
 ==================
 
-对一个值针对一个规则进行验证:
+``check()`` 方法根据规则验证一个值。
+第一个参数 ``$value`` 是要验证的值。第二个参数 ``$rule`` 是验证规则。
+可选的第三个参数 ``$errors`` 是自定义错误消息。
 
 .. literalinclude:: validation/012.php
+   :lines: 2-
+
+.. note:: 在 v4.4.0 之前，此方法的第二个参数 ``$rule`` 的类型提示为 ``string``。在 v4.4.0 及之后的版本中，类型提示被移除，允许接受数组。
+
+.. note:: 此方法调用 ``setRule()`` 方法在内部设置规则。
+
+.. _validation-getting-validated-data:
+
+获取经过验证的数据
+======================
+
+.. versionadded:: 4.4.0
+
+可以使用 ``getValidated()`` 方法获取实际经过验证的数据。
+该方法返回一个仅包含已通过验证规则的元素的数组。
+
+.. literalinclude:: validation/044.php
+   :lines: 2-
+
+.. literalinclude:: validation/045.php
+   :lines: 2-
 
 将一组验证规则保存到配置文件
 ==================================================
@@ -347,6 +380,7 @@ withRequest()
 当调用 ``run()`` 方法时,你可以在第一个参数中指定要使用的组:
 
 .. literalinclude:: validation/014.php
+   :lines: 2-
 
 如何保存错误消息
 --------------------------
@@ -364,17 +398,21 @@ withRequest()
 获取和设置规则组
 -----------------------------
 
-**获取规则组**
+获取规则组
+^^^^^^^^^^^^^^
 
 此方法从验证配置中获取规则组:
 
 .. literalinclude:: validation/017.php
+   :lines: 2-
 
-**设置规则组**
+设置规则组
+^^^^^^^^^^^^^^
 
 此方法将验证配置中的规则组设置到验证服务中:
 
 .. literalinclude:: validation/018.php
+   :lines: 2-
 
 .. _validation-placeholders:
 
@@ -384,16 +422,19 @@ withRequest()
 验证类提供了一种简单的方法,基于传入的数据替换规则的一部分。这听起来比较模糊,但在使用 ``is_unique`` 验证规则时特别有用。占位符简单地是以花括号括起来的字段名(或数组键),该字段名作为 ``$data`` 传入。它将被传入字段的 **值** 所替换。以下示例将阐明这一点:
 
 .. literalinclude:: validation/020.php
+   :lines: 2-
 
 .. note:: 从 v4.3.5 开始,你必须为占位符字段(``id``)设置验证规则。
 
 在这组规则中,它说明电子邮件地址在数据库中应该是唯一的,除了具有与占位符的值匹配的 id 的行。假设表单 POST 数据如下:
 
 .. literalinclude:: validation/021.php
+   :lines: 2-
 
 然后 ``{id}`` 占位符会被替换为数字 **4**,得到这条修改后的规则:
 
 .. literalinclude:: validation/022.php
+   :lines: 2-
 
 所以在验证电子邮件唯一性时,它会忽略数据库中 ``id=4`` 的行。
 
@@ -421,10 +462,12 @@ withRequest()
 作为最后一个参数:
 
 .. literalinclude:: validation/023.php
+   :lines: 2-
 
 或者以标签样式:
 
 .. literalinclude:: validation/024.php
+   :lines: 2-
 
 如果你想要包含字段的“人类”名称,或某些规则允许的可选参数(如 max_length),或者被验证的值,你可以分别在消息中添加 ``{field}``、``{param}`` 和 ``{value}`` 标签::
 
@@ -444,6 +487,7 @@ withRequest()
 我们可以简单地使用这个文件中定义的语言行,像这样:
 
 .. literalinclude:: validation/025.php
+   :lines: 2-
 
 .. _validation-getting-all-errors:
 
@@ -453,6 +497,7 @@ withRequest()
 如果你需要检索所有失败字段的错误消息,可以使用 ``getErrors()`` 方法:
 
 .. literalinclude:: validation/026.php
+   :lines: 2-
 
 如果没有错误,将返回一个空数组。
 
@@ -482,11 +527,11 @@ withRequest()
 你可以使用 ``getError()`` 方法检索单个字段的错误。唯一的参数是字段名称:
 
 .. literalinclude:: validation/027.php
+   :lines: 2-
 
 如果没有错误,将返回一个空字符串。
 
 .. note:: 当使用通配符时,所有匹配通配符的找到的错误将组合成一行,以 EOL 字符分隔。
-
 
 检查错误是否存在
 =====================
@@ -494,10 +539,12 @@ withRequest()
 你可以使用 ``hasError()`` 方法检查是否存在错误。唯一的参数是字段名称:
 
 .. literalinclude:: validation/028.php
+   :lines: 2-
 
 当指定使用通配符的字段时,将检查匹配通配符的所有错误:
 
 .. literalinclude:: validation/029.php
+   :lines: 2-
 
 .. _validation-redirect-and-validation-errors:
 
@@ -532,6 +579,7 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 在视图内可以使用名为 ``$errors`` 的数组,它包含错误列表,其中键是有错误的字段名称,值是错误消息,像这样:
 
 .. literalinclude:: validation/031.php
+   :lines: 2-
 
 实际上有两种类型的视图你可以创建。第一种具有所有错误的数组,这就是我们刚才看到的。另一种更简单,只包含一个名为 ``$error`` 的变量,其中包含错误消息。这在使用 ``showError()`` 方法时使用,该方法必须指定错误属于的字段::
 
@@ -593,6 +641,7 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 你的新自定义规则现在可以像任何其他规则一样使用了:
 
 .. literalinclude:: validation/036.php
+   :lines: 2-
 
 允许参数
 -------------------
@@ -622,6 +671,7 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 你需要为验证规则使用数组:
 
 .. literalinclude:: validation/040.php
+   :lines: 2-
 
 你必须为闭包规则设置错误消息。
 设置错误消息时,请为闭包规则设置数组键。
@@ -630,6 +680,7 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 或者可以使用以下参数:
 
 .. literalinclude:: validation/041.php
+   :lines: 2-
 
 ***************
 可用规则
@@ -639,6 +690,7 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
     ``ignore_value`` 前后不能有空格。
 
 .. literalinclude:: validation/038.php
+   :lines: 2-
 
 常规规则
 =====================

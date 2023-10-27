@@ -12,32 +12,41 @@ CodeIgniter 提供了面向对象的方式来在你的应用中使用 URI。这�
 创建 URI 实例
 ======================
 
-创建一个 URI 实例就像创建一个新的类实例一样简单:
+创建一个 URI 实例就像创建一个新的类实例一样简单。
+
+当你创建新实例时，可以在构造函数中传递完整或部分 URL，并将其解析为相应的部分：
 
 .. literalinclude:: uri/001.php
+    :lines: 2-
 
-或者,你可以使用 ``service()`` 函数来获取一个实例:
-
-.. literalinclude:: uri/002.php
-
-当你创建新实例时,可以在构造函数中传递全部或部分 URL,它会解析成适当的部分:
+或者,你可以使用 :php:func:`service()` 函数来获取一个实例:
 
 .. literalinclude:: uri/003.php
+    :lines: 2-
+
+自 v4.4.0 起，如果你没有传递 URL，则返回当前的 URI：
+
+.. literalinclude:: uri/002.php
+    :lines: 2-
+
+.. note:: 上述代码返回 ``SiteURI`` 实例，它扩展了 ``URI`` 类。``URI`` 类用于一般的 URI，而 ``SiteURI`` 类用于你的站点 URI。
 
 当前 URI
 ---------------
 
-大多数时候,你真正想要的只是一个表示当前请求 URL 的对象。
-你可以使用 :doc:`../helpers/url_helper` 中可用的函数之一:
+很多时候，你只需要一个表示当前请求的 URL 的对象。你可以使用 :doc:`../helpers/url_helper` 中提供的 :php:func:`current_url()` 函数：
 
 .. literalinclude:: uri/004.php
+    :lines: 2-
 
 你必须传递 ``true`` 作为第一个参数,否则它会返回当前 URL 的字符串表示。
 
 这个 URI 基于当前请求对象和你在 ``Config\App`` 中的设置(``baseURL``、``indexPage`` 和 ``forceGlobalSecureRequests``)确定的相对路径。
-假设你在一个扩展 ``CodeIgniter\Controller`` 的控制器中,你可以获取这个相对路径:
+
+假设你在一个扩展了 ``CodeIgniter\Controller`` 的控制器中，你还可以获取当前的 SiteURI 实例：
 
 .. literalinclude:: uri/005.php
+    :lines: 2-
 
 ===========
 URI 字符串
@@ -121,8 +130,10 @@ path 是站点本身内的所有段。如你所料,可以使用 ``getPath()`` �
 
 .. note:: 当用这种或类允许的任何其他方式设置路径时,它会被编码以对任何危险字符进行转义,并移除段点以确保安全。
 
+.. note:: 自 v4.4.0 起，``SiteURI::getRoutePath()`` 方法返回相对于 baseURL 的 URI 路径，而 ``SiteURI::getPath()`` 方法始终返回带有前导 ``/`` 的完整 URI 路径。
+
 Query(查询)
----------------
+-----------
 
 可以通过类使用简单的字符串表示来操作查询数据。
 

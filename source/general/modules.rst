@@ -2,15 +2,19 @@
 代码模块
 ############
 
-CodeIgniter 支持一种代码模块化形式,以帮助你创建可重用的代码。模块通常围绕特定主题展开,可以认为是你更大的应用程序中的微型应用程序。框架支持的任何标准文件类型都受支持,如控制器、模型、视图、配置文件、辅助函数、语言文件等。模块可以包含尽可能少或多的这些文件。
+CodeIgniter 支持一种代码模块化形式,以帮助你创建可重用的代码。模块通常围绕特定主题展开,可以认为是你更大的应用程序中的微型应用程序。
+
+框架支持的任何标准文件类型都受支持,如控制器、模型、视图、配置文件、辅助函数、语言文件等。模块可以包含尽可能少或多的这些文件。
+
+如果你想将一个模块创建为 Composer 包，请参阅 :doc:`../extending/composer_packages`。
 
 .. contents::
     :local:
     :depth: 2
 
-==========
+**********
 命名空间
-==========
+**********
 
 模块功能的核心元素来自 CodeIgniter 使用的 :doc:`兼容 PSR-4 的自动加载 <../concepts/autoloader>`。虽然任何代码都可以使用 PSR-4 自动加载器和命名空间,但充分利用模块的主要方法是为你的代码添加命名空间并将其添加到 **app/Config/Autoload.php** 中的 ``$psr4`` 属性。
 
@@ -47,9 +51,9 @@ CodeIgniter 支持一种代码模块化形式,以帮助你创建可重用的代�
 
 当然,没有什么能强制你使用这个确切的结构,你应该以最适合模块的方式组织它,省略不需要的目录,为实体、接口或存储库等创建新目录。
 
-===========================
+***************************
 自动加载非类文件
-===========================
+***************************
 
 通常,你的模块不仅包含 PHP 类,还包含像程序函数、引导文件、模块常量文件等通常不会像加载类那样加载的文件。一种方法是在使用文件位置的开头 ``require`` 这些文件。
 
@@ -57,28 +61,30 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 .. literalinclude:: modules/002.php
 
-==============
+.. _auto-discovery:
+
+**************
 自动发现
-==============
+**************
 
 通常,你需要指定要包含的文件的完全命名空间,但是可以通过自动发现许多不同类型的文件来配置 CodeIgniter,从而使将模块集成到应用程序中更简单,包括:
 
 - :doc:`Events <../extending/events>`
 - :doc:`Filters <../incoming/filters>`
-- :doc:`Registrars <./configuration>`
+- :ref:`registrars`
 - :doc:`Route files <../incoming/routing>`
 - :doc:`Services <../concepts/services>`
 
 这在文件 **app/Config/Modules.php** 中配置。
 
-自动发现系统通过扫描在 **Config/Autoload.php** 中定义的 psr4 命名空间下的特定目录和文件来工作。
+自动发现系统通过扫描在 **Config/Autoload.php** 和 Composer 包中定义的 psr4 命名空间下的特定目录和文件来工作。
 
-例如,发现过程将在路径中查找可以发现的项,并应该找到 **/acme/Blog/Config/Routes.php** 中的 routes 文件。
+例如,发现过程将在路径中查找可以发现的项,并应该找到 **acme/Blog/Config/Routes.php** 中的 routes 文件。
 
 启用/禁用发现
 =======================
 
-你可以通过系统中的 ``$enabled`` 类变量打开或关闭所有自动发现。False 将禁用所有发现,优化性能,但会消除模块的特殊功能。
+你可以通过系统中的 ``$enabled`` 类变量打开或关闭所有自动发现。False 将禁用所有发现,优化性能,但会消除模块和 Composer 包的特殊功能。
 
 指定要发现的项
 =======================
@@ -112,9 +118,9 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 .. literalinclude:: modules/004.php
 
-==================
+******************
 使用文件
-==================
+******************
 
 本节将查看每种文件类型(控制器、视图、语言文件等)以及如何在模块中使用它们。用户指南的相关位置已对其中一些信息进行了更详细的描述,但在此重复以更容易掌握所有部分的关系。
 
@@ -127,8 +133,16 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 使用模块时,如果应用程序中的路由包含通配符,这可能是一个问题。在这种情况下,请参阅 :ref:`routing-priority`。
 
+.. _modules-filters:
+
 过滤器
 =======
+
+.. deprecated:: 4.4.2
+
+.. note:: 此功能已被弃用。请改用 :ref:`registrars`，如下所示：
+
+    .. literalinclude:: modules/015.php
 
 默认情况下,模块内会自动扫描 :doc:`过滤器 <../incoming/filters>`。可以在上面描述的 **Modules** 配置文件中将其关闭。
 
@@ -156,11 +170,11 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 .. literalinclude:: modules/008.php
 
-每次使用始终可用的 ``config()`` 函数时,都会自动发现配置文件。
+无论何时使用始终可用的 :php:func:`config()` 函数，并将一个短类名传递给它，配置文件都会被自动发现。
 
-.. note:: 我们不建议在模块中使用相同的短类名。需要覆盖或添加 **app/Config/** 中已知配置的模块应使用 :ref:`registrars`。
+.. note:: 我们不建议在模块中使用相同的短类名。需要覆盖或添加 **app/Config/** 中已知配置的模块应使用 :ref:`Implicit Registrars <registrars>`。
 
-.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``config(\Acme\Blog\Config\Blog::class)``), ``config()`` 也会在 **app/Config/** 中找到该文件。这是因为 ``config()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`Factories 示例 <factories-example>`。
+.. note:: 在 v4.4.0 之前，即使你指定了一个完全限定的类名，如 ``config(\Acme\Blog\Config\Blog::class)``，``config()`` 仍会在 **app/Config/** 中查找文件，只要存在与短类名相同的类。在 v4.4.0 中修复了这个行为，并返回指定的实例。
 
 迁移
 ==========
@@ -170,13 +184,19 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 种子
 =====
 
-只要提供完全限定的命名空间,就可以从 CLI 和其他种子文件中调用种子文件。如果在 CLI 上调用,则需要提供双反斜杠::
+只要提供完全限定的命名空间,就可以从 CLI 和其他种子文件中调用种子文件。如果在 CLI 上调用,则需要提供双反斜杠:
 
-    For Unix:
-    > php spark db:seed Acme\\Blog\\Database\\Seeds\\TestPostSeeder
+For Unix:
 
-    For Windows:
-    > php spark db:seed Acme\Blog\Database\Seeds\TestPostSeeder
+.. code-block:: console
+
+    php spark db:seed Acme\\Blog\\Database\\Seeds\\TestPostSeeder
+
+For Windows:
+
+.. code-block:: console
+
+    php spark db:seed Acme\Blog\Database\Seeds\TestPostSeeder
 
 辅助函数
 ========
@@ -210,7 +230,7 @@ CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这�
 
 .. note:: 我们不建议在模块中使用相同的短类名。
 
-.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``model(\Acme\Blog\Model\PostModel::class)``), ``model()`` 也会在 **app/Models/** 中找到该文件。这是因为 ``model()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`Factories 示例 <factories-example>`。
+.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``model(\Acme\Blog\Model\PostModel::class)``), ``model()`` 也会在 **app/Models/** 中找到该文件。这是因为 ``model()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`factories-loading-class`。
 
 视图
 =====

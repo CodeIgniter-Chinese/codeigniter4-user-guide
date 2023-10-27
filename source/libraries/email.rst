@@ -55,6 +55,8 @@ CodeIgniter 强大的 Email 类支持以下功能:
 **app/Config/Email.php** 文件,并在电子邮件属性中设置你的配置。然后保存文件,它将被自动使用。
 如果你在配置文件中设置了首选项,将 **不需要** 使用 ``$email->initialize()`` 方法。
 
+.. _email-ssl-tls-for-smtp:
+
 SMTP 协议的 SSL 与 TLS
 --------------------------------
 
@@ -64,7 +66,7 @@ SMTP 协议的 SSL 与 TLS
 
 关键差异在于端口 465 要求从一开始就使用 TLS 按照 `RFC 8314 <https://tools.ietf.org/html/rfc8314>`_ 来保护通信通道。而端口 587 上的连接允许明文连接,之后会使用 ``STARTTLS`` SMTP 命令升级通道以使用加密。
 
-端口 465 上的连接是否支持升级可能由服务器决定,所以如果服务器不允许, ``STARTTLS`` SMTP 命令可能会失败。如果你将端口设置为 465,你应该尝试让 ``SMTPCrypto`` 设置为空,因为通信从一开始就是用 TLS 保护的,不需要 ``STARTTLS``。
+端口 465 上的连接是否支持升级可能由服务器决定,所以如果服务器不允许, ``STARTTLS`` SMTP 命令可能会失败。如果你将端口设置为 465,你应该尝试设置 ``SMTPCrypto`` 为空字符串（``''``）,因为通信从一开始就是用 TLS 保护的,不需要 ``STARTTLS``。
 
 如果你的配置要求你连接到端口 587,你最好将 ``SMTPCrypto`` 设置为 ``tls``,因为这将在与 SMTP 服务器通信时实现 ``STARTTLS`` 命令,将明文通道切换为加密通道。初始通信将是明文的,并使用 ``STARTTLS`` 命令将通道升级为 TLS。
 
@@ -87,13 +89,18 @@ SMTP 协议的 SSL 与 TLS
 **SMTPHost**        无默认值               无                           SMTP 服务器地址。
 **SMTPUser**        无默认值               无                           SMTP 用户名。
 **SMTPPass**        无默认值               无                           SMTP 密码。
-**SMTPPort**        25                     无                           SMTP 端口。(如果设置为 465,不管 SMTPCrypto 设置如何,都将使用 TLS 建立连接)
+**SMTPPort**        25                     无                           SMTP 端口。(如果设置为 ``465``,不管 ``SMTPCrypto`` 设置如何,
+                                                                        都将使用 TLS 建立连接)
 **SMTPTimeout**     5                      无                           SMTP 超时(秒)。
 **SMTPKeepAlive**   false                  true 或 false(布尔值)        启用持久 SMTP 连接。
-**SMTPCrypto**      无默认值               tls 或 ssl                   SMTP 加密。将此设置为“ssl”将使用 SSL 创建到服务器的安全通道,“tls”将向服务器发出 ``STARTTLS`` 命令。连接端口 465 应将此留空。
+**SMTPCrypto**      tls                    tls, ssl 或空字符串          SMTP 加密。将其设置为 ``ssl`` 将使用 SSL 创建与服务器的安全通道，
+                                                                        而 ``tls`` 将向服务器发出 ``STARTTLS`` 命令。
+                                                                        在端口 465 上的连接应将其设置为空字符串（``''``）。
+                                                                        另请参阅 :ref:`email-ssl-tls-for-smtp`。
 **wordWrap**        true                   true 或 false(布尔值)        启用自动换行。
 **wrapChars**       76                                                  换行处的字符数。
-**mailType**        text                   text 或 html                 邮件类型。如果发送 HTML 电子邮件,你必须将其作为完整的网页发送。确保你没有任何相对链接或相对图像路径,否则它们将无法工作。
+**mailType**        text                   text 或 html                 邮件类型。如果发送 HTML 电子邮件,你必须将其作为完整的网页发送。
+                                                                        确保你没有任何相对链接或相对图像路径,否则它们将无法工作。
 **charset**         utf-8                                               字符集(utf-8、iso-8859-1 等)。
 **validate**        true                   true 或 false(布尔值)        是否验证电子邮件地址。
 **priority**        3                      1、2、3、4、5                电子邮件优先级。1 最高。5 最低。3 为正常。

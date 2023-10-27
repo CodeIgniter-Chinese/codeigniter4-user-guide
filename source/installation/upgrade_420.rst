@@ -26,11 +26,13 @@ index.php 和 spark
 
 .. important:: 如果你不更新以上两个文件,在运行 ``composer update`` 后 CodeIgniter 将完全无法工作。
 
-    升级过程例如如下::
+    升级过程例如如下:
 
-        > composer update
-        > cp vendor/codeigniter4/framework/public/index.php public/index.php
-        > cp vendor/codeigniter4/framework/spark .
+    .. code-block:: console
+
+        composer update
+        cp vendor/codeigniter4/framework/public/index.php public/index.php
+        cp vendor/codeigniter4/framework/spark .
 
 Config/Constants.php
 ====================

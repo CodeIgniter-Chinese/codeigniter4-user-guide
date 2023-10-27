@@ -173,6 +173,9 @@ HTML 表单
 1. ``$_POST`` 数组
 2. HTTP 头
 3. ``php://input`` (JSON 请求) - 请记住,这种方法是最慢的,因为我们必须解码 JSON 然后重新编码它
+4. ``php://input`` (原始 body) - 适用于 PUT、PATCH 和 DELETE 类型的请求
+
+.. note:: 自 v4.4.2 起，会检查 ``php://input`` (原始 body)。
 
 *********************
 其他有用的方法

@@ -34,8 +34,9 @@ OWASP 建议
 CodeIgniter 对应措施
 ======================
 
-- :doc:`HTTP 库 <../incoming/incomingrequest>` 提供输入字段过滤和内容元数据
-- 验证库
+- :ref:`invalidchars` 过滤器
+- :doc:`../libraries/validation` 库
+- :doc:`HTTP 库 <../incoming/incomingrequest>` 提供了 :ref:`输入字段过滤 <incomingrequest-filtering-input-data>` 和内容元数据的功能
 
 *********************************************
 A2 弱认证和会话管理
@@ -57,6 +58,7 @@ CodeIgniter 对应措施
 
 - :doc:`会话 <../libraries/sessions>` 库
 - :doc:`安全 </libraries/security>` 库提供 CSRF 验证
+- 一个官方的身份验证和授权框架 :ref:`CodeIgniter Shield <shield>`
 - 易于添加第三方认证
 
 *****************************
@@ -75,8 +77,9 @@ OWASP 建议
 CodeIgniter 对应措施
 ======================
 
-- esc 函数
-- 验证库
+- :php:func:`esc()` 函数
+- :doc:`../libraries/validation` 库
+- 支持 :ref:`content-security-policy`
 
 ***********************************
 A4 不安全的直接对象引用
@@ -95,7 +98,8 @@ OWASP 建议
 CodeIgniter 对应措施
 ======================
 
-- 验证库
+- :doc:`../libraries/validation` 库
+- 一个官方的身份验证和授权框架 :ref:`CodeIgniter Shield <shield>`
 - 易于添加第三方认证
 
 ****************************
@@ -132,7 +136,10 @@ OWASP 建议
 CodeIgniter 对应措施
 ======================
 
-- 会话密钥以加密形式存储
+- 全局安全访问的配置（``Config\App::$forceGlobalSecureRequests``）
+- :php:func:`force_https()` 函数
+- :doc:`../libraries/encryption`
+- :ref:`数据库配置 <database-config-explanation-of-values>` (``encrypt``)
 
 ****************************************
 A7 缺少功能级访问控制
@@ -150,8 +157,8 @@ OWASP 建议
 CodeIgniter 对应措施
 ======================
 
-- 公共文件夹,应用程序和系统在外
-- :doc:`安全库 </libraries/security>` 提供 CSRF 验证
+- :ref:`Public <application-structure-public>` 文件夹，其中应用程序和系统位于外部
+- :doc:`安全库 </libraries/security>` 提供了 :ref:`CSRF 验证 <cross-site-request-forgery>` 的功能
 
 ************************************
 A8 跨站请求伪造(CSRF)
@@ -169,7 +176,7 @@ OWASP 建议
 CodeIgniter 对应措施
 ======================
 
-- :doc:`安全库 </libraries/security>` 提供 CSRF 验证
+- :doc:`安全库 </libraries/security>` 提供了 :ref:`CSRF 验证 <cross-site-request-forgery>` 的功能
 
 **********************************************
 A9 使用已知漏洞的组件
@@ -204,4 +211,4 @@ CodeIgniter 对应措施
 ======================
 
 - :doc:`HTTP 库 <../incoming/incomingrequest>` 提供...
-- :doc:`Session 库 <../libraries/sessions>` 提供临时数据
+- :doc:`Session 库 <../libraries/sessions>` 提供 :ref:`sessions-flashdata`

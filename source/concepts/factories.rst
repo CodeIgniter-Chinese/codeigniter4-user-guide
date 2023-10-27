@@ -32,65 +32,74 @@
 
 另一方面,服务具有创建实例的代码,所以它可以创建一个需要其他服务或类实例的复杂实例。获取服务时,服务需要一个服务名称,而不是一个类名,所以可以在不更改客户端代码的情况下更改返回的实例。
 
+.. _factories-loading-class:
+
 加载类
 ***************
 
 加载一个类
 ===============
 
-.. _factories-example:
-
-模型示例
--------------
-
 以 **模型** 为例。你可以通过使用 Factories 类的魔术静态方法 ``Factories::models()`` 访问特定于模型的工厂。
 
-静态方法名称称为 *组件*。
+静态方法名称称为 *component*。
 
-默认情况下,工厂首先在 ``App`` 命名空间中搜索与魔术静态方法名称对应的路径。``Factories::models()`` 搜索 **app/Models** 目录。
+.. _factories-passing-classname-without-namespace:
 
-在以下代码中,如果你有 ``App\Models\UserModel``,将返回实例:
+不带命名空间的类名
+-----------------------------------
+
+如果你传递一个不带命名空间的类名，Factories 首先会在 ``App`` 命名空间中搜索与魔术静态方法名对应的路径。``Factories::models()`` 会搜索 **app/Models** 目录。
+
+传递短类名
+^^^^^^^^^^^^^^^^^^^^^^^
+
+在下面的代码中，如果你有 ``App\Models\UserModel``，将返回该实例：
 
 .. literalinclude:: factories/001.php
 
-或者你也可以请求一个特定的类:
+如果没有 ``App\Models\UserModel``，它会在所有命名空间中搜索 ``Models\UserModel``。
+
+下次你在代码中的任何地方请求相同的类时，Factories 将确保你获得之前的实例：
+
+.. literalinclude:: factories/003.php
+
+传递带有子目录的短类名
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+如果要加载子目录中的类，可以使用 ``/`` 作为分隔符。如果存在，以下代码将加载 **app/Libraries/Sub/SubLib.php**：
+
+.. literalinclude:: factories/013.php
+   :lines: 2-
+
+传递完全限定类名
+--------------------------------
+
+你还可以请求一个完全限定的类名：
 
 .. literalinclude:: factories/002.php
    :lines: 2-
 
-如果你只有 ``Blog\Models\UserModel``,将返回实例。
-但如果你同时有 ``App\Models\UserModel`` 和 ``Blog\Models\UserModel``,
-将返回 ``App\Models\UserModel`` 的实例。
+如果存在，它将返回 ``Blog\Models\UserModel`` 的实例。
 
-如果你想获取 ``Blog\Models\UserModel``,你需要禁用 ``preferApp`` 选项:
+.. note:: 在 v4.4.0 之前，当你请求一个完全限定的类名时，如果只有 ``Blog\Models\UserModel``，将返回该实例。但是，如果同时存在 ``App\Models\UserModel`` 和 ``Blog\Models\UserModel``，将返回 ``App\Models\UserModel`` 的实例。
 
-.. literalinclude:: factories/010.php
-   :lines: 2-
+    如果你想获取 ``Blog\Models\UserModel``，你需要禁用选项 ``preferApp``：
 
-参见 :ref:`factories-options` 了解详细信息。
-
-下次你在代码中的任何地方请求相同的类,工厂都会确保像以前一样返回该实例:
-
-.. literalinclude:: factories/003.php
-
-在子目录中加载类
-==================================
-
-如果你想在子目录中加载类,可以使用 ``/`` 作为分隔符。
-以下代码加载 **app/Libraries/Sub/SubLib.php**:
-
-.. literalinclude:: factories/013.php
-   :lines: 2-
+    .. literalinclude:: factories/010.php
+       :lines: 2-
 
 便利函数
 *********************
 
 为工厂提供了两个快捷函数。这些函数始终可用。
 
+.. _factories-config:
+
 config()
 ========
 
-第一个是 ``config()``,它返回一个新的 Config 类实例。唯一必需的参数是类名称:
+第一个是 :php:func:`config()`,它返回一个新的 Config 类实例。唯一必需的参数是类名称:
 
 .. literalinclude:: factories/008.php
 
@@ -100,6 +109,25 @@ model()
 第二个函数 :php:func:`model()` 返回一个新的模型类实例。唯一必需的参数是类名称:
 
 .. literalinclude:: factories/009.php
+
+.. _factories-defining-classname-to-be-loaded:
+
+定义要加载的类名
+*******************************
+
+.. versionadded:: 4.4.0
+
+你可以使用 ``Factories::define()`` 方法定义在加载类之前要加载的类名：
+
+.. literalinclude:: factories/014.php
+   :lines: 2-
+
+第一个参数是组件。第二个参数是类别名（Factories 魔术静态方法的第一个参数），第三个参数是要加载的真实完全限定类名。
+
+之后，如果使用 Factories 加载 ``Myth\Auth\Models\UserModel``，将返回 ``App\Models\UserModel`` 的实例：
+
+.. literalinclude:: factories/015.php
+   :lines: 2-
 
 工厂参数
 ******************
@@ -130,6 +158,8 @@ instanceOf string 或 null 要匹配返回实例上的必需类名称。        
 getShared  boolean        是否返回类的共享实例或者加载一个新实例。                                ``true``
 preferApp  boolean        是否优先使用 App 命名空间中具有相同基本名称的类而不是其他明确的类请求。 ``true``
 ========== ============== ======================================================================= ===================================================
+
+.. note:: 自 v4.4.0 起，``preferApp`` 仅在你请求 :ref:`不带命名空间的类名 <factories-passing-classname-without-namespace>` 时起作用。
 
 工厂行为
 ******************
@@ -191,3 +221,71 @@ setOptions 方法
 
 .. literalinclude:: factories/007.php
    :lines: 2-
+
+.. _factories-config-caching:
+
+配置缓存
+**************
+
+.. versionadded:: 4.4.0
+
+为了提高性能，实现了配置缓存。
+
+先决条件
+============
+
+.. important:: 当不满足先决条件时使用此功能将阻止 CodeIgniter 正常运行。在这种情况下不要使用此功能。
+
+- 要使用此功能，Factories 中实例化的所有 Config 对象的属性在实例化后不能被修改。换句话说，Config 类必须是不可变或只读的类。
+- 默认情况下，每个被缓存的 Config 类必须实现 ``__set_state()`` 方法。
+
+工作原理
+============
+
+- 如果 Factories 中的 Config 实例的状态发生变化，则在关闭之前将所有 Config 实例保存到缓存文件中。
+- 如果有缓存可用，则在 CodeIgniter 初始化之前恢复缓存的 Config 实例。
+
+简而言之，Factories 持有的所有 Config 实例在关闭之前都会被缓存，并且缓存的实例将永久使用。
+
+如何更新配置值
+===========================
+
+一旦存储，缓存的版本将永不过期。更改现有的 Config 文件（或更改其环境变量）不会更新缓存或 Config 值。
+
+因此，如果要更新 Config 值，请更新 Config 文件或其环境变量，并且必须手动删除缓存文件。
+
+你可以使用 ``spark cache:clear`` 命令：
+
+.. code-block:: console
+
+    php spark cache:clear
+
+或者直接删除 **writable/cache/FactoriesCache_config** 文件。
+
+如何启用配置缓存
+============================
+
+取消 **public/index.php** 中以下代码的注释::
+
+    --- a/public/index.php
+    +++ b/public/index.php
+    @@ -49,8 +49,8 @@ if (! defined('ENVIRONMENT')) {
+     }
+
+     // Load Config Cache
+    -// $factoriesCache = new \CodeIgniter\Cache\FactoriesCache();
+    -// $factoriesCache->load('config');
+    +$factoriesCache = new \CodeIgniter\Cache\FactoriesCache();
+    +$factoriesCache->load('config');
+     // ^^^ Uncomment these lines if you want to use Config Caching.
+
+     /*
+    @@ -79,7 +79,7 @@ $app->setContext($context);
+     $app->run();
+
+     // Save Config Cache
+    -// $factoriesCache->save('config');
+    +$factoriesCache->save('config');
+     // ^^^ Uncomment this line if you want to use Config Caching.
+
+     // Exits the application, setting the exit code for CLI-based applications

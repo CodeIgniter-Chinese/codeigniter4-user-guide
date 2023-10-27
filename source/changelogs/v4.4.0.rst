@@ -1,0 +1,304 @@
+版本 4.4.0
+#############
+
+发布日期：2023年8月25日
+
+CodeIgniter4 的 4.4.0 版本发布
+
+.. contents::
+    :local:
+    :depth: 3
+
+亮点
+**********
+
+- 调试工具栏现在具有新的“热重载”功能
+  (*由* `lonnieezell <https://github.com/lonnieezell>`_ 贡献)。
+  请参阅 `测试`_。
+
+重大变更
+********
+
+行为变更
+================
+
+URI::setSegment() 和不存在的段
+------------------------------------------
+
+当你设置最后一个 ``+2`` 段时，现在会抛出异常。
+在之前的版本中，只有当指定了最后一个段的 ``+3`` 或更多时才会抛出异常。请参阅 :ref:`upgrade-440-uri-setsegment`。
+
+当前最后一个段的下一个段（``+1``）可以像以前一样设置。
+
+.. _v440-factories:
+
+工厂
+---------
+
+使用命名空间传递类名
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+现在，只有在请求 :ref:`不带命名空间的类名 <factories-passing-classname-without-namespace>` 时，``preferApp`` 才起作用。
+
+例如，当你调用 ``model(\Myth\Auth\Models\UserModel::class)`` 或
+``model('Myth\Auth\Models\UserModel')`` 时：
+
+   - 之前：
+
+      - 如果存在 ``App\Models\UserModel`` 并且 ``preferApp`` 为 true（默认值），则返回该类
+      - 如果存在 ``Myth\Auth\Models\UserModel`` 并且 ``preferApp`` 为 false，则返回该类
+
+   - 现在：
+
+      - 无论 ``preferApp`` 是否为 true（默认值），都返回 ``Myth\Auth\Models\UserModel``
+      - 如果在调用 ``model()`` 之前定义了 ``Factories::define('models', 'Myth\Auth\Models\UserModel', 'App\Models\UserModel')``，则返回 ``App\Models\UserModel``
+
+如果你错误地传递了一个不存在的类名，之前的版本会返回 ``App`` 或 ``Config`` 命名空间中的类实例，因为存在 ``preferApp`` 功能。
+
+例如，在控制器（``namespace App\Controllers``）中，如果你错误地调用了 ``config(Config\App::class)`` (注意类名缺少前导的 ``\``)，实际上传递的是 ``App\Controllers\Config\App``。
+但是该类不存在，因此 Factories 现在将返回 ``null``。
+
+属性名称
+^^^^^^^^^^^^^
+
+属性 ``Factories::$basenames`` 已更名为 ``$aliases``。
+
+自动加载器
+----------
+
+以前，CodeIgniter 的自动加载器允许加载以 `.php` 扩展名结尾的类名。这意味着可以实例化类似 `new Foo.php()` 的对象，并将其实例化为 `new Foo()`。由于 `Foo.php` 是无效的类名，自动加载器的行为已更改。现在，实例化这样的类将失败。
+
+.. _v440-codeigniter-and-exit:
+
+CodeIgniter 和 exit()
+----------------------
+
+``CodeIgniter::run()`` 方法不再调用 ``exit(EXIT_SUCCESS)``。退出调用已移至 **public/index.php**。
+
+.. _v440-site-uri-changes:
+
+站点 URI 更改
+----------------
+
+添加了一个扩展了 ``URI`` 类并表示站点 URI 的新 ``SiteURI`` 类，并且现在在许多需要当前 URI 的地方使用它。
+
+控制器中的 ``$this->request->getUri()`` 返回 ``SiteURI`` 实例。
+此外，:php:func:`site_url()` 、:php:func:`base_url()` 和 :php:func:`current_url()`
+在内部使用 SiteURI。
+
+getPath()
+^^^^^^^^^
+
+``getPath()`` 方法现在始终返回带有前导 ``/`` 的完整 URI 路径。
+因此，当你的 baseURL 具有子目录并且你想获取相对于 baseURL 的路径时，必须使用新的 ``getRoutePath()`` 方法。
+
+例如::
+
+           baseURL: http://localhost:8888/CodeIgniter4/
+          当前 URI: http://localhost:8888/CodeIgniter4/foo/bar
+         getPath(): /CodeIgniter4/foo/bar
+    getRoutePath(): foo/bar
+
+站点 URI 值
+^^^^^^^^^^^^^^^
+
+SiteURI 类现在比以前更严格地规范化站点 URI，并修复了一些错误。
+
+因此，与之前的版本相比，框架可能会以稍微不同的方式返回站点 URI 或 URI 路径。
+例如，在 ``index.php`` 之后会添加 ``/``::
+
+    http://example.com/test/index.php?page=1
+    ↓
+    http://example.com/test/index.php/?page=1
+
+.. _v440-interface-changes:
+
+接口更改
+=================
+
+.. note:: 只要你没有扩展相关的 CodeIgniter 核心类或实现这些接口，所有这些更改都是向后兼容的，无需干预。
+
+- **Validation:** 在 ``ValidationInterface`` 中添加了 ``getValidated()`` 方法。
+
+.. _v440-method-signature-changes:
+
+方法签名更改
+========================
+
+.. _v440-parameter-type-changes:
+
+参数类型更改
+----------------------
+
+- **Services:**
+    - ``Services::security()`` 的第一个参数已从 ``Config\App`` 更改为 ``Config\Security``。
+    - ``Services::session()`` 的第一个参数已从 ``Config\App`` 更改为 ``Config\Session``。
+- **Session:**
+    - ``Session::__construct()`` 的第二个参数已从 ``Config\App`` 更改为 ``Config\Session``。
+    - 数据库的 ``BaseHandler``、``DatabaseHandler``、``FileHandler``、``MemcachedHandler`` 和 ``RedisHandler`` 中的 ``__construct()`` 的第一个参数已从 ``Config\App`` 更改为 ``Config\Session``。
+- **Security:** ``Security::__construct()`` 的第一个参数已从 ``Config\App`` 更改为 ``Config\Security``。
+- **Validation:** ``Validation::check()`` 的方法签名已更改。``$rule`` 参数上的 ``string`` 类型提示已被删除。
+- **CodeIgniter:** ``CodeIgniter::setRequest()`` 的方法签名已更改。``$request`` 参数上的 ``Request`` 类型提示已被删除。
+- **FeatureTestCase:**
+    - ``FeatureTestCase::populateGlobals()`` 的方法签名已更改。``$request`` 参数上的 ``Request`` 类型提示已被删除。
+    - ``FeatureTestCase::setRequestBody()`` 的方法签名已更改。``$request`` 参数上的 ``Request`` 类型提示和返回类型 ``Request`` 已被删除。
+
+添加的参数
+----------------
+
+- **Routing:** 在 ``RouteCollection::__construct()`` 中添加了第三个参数 ``Routing $routing``。
+
+删除的参数
+------------------
+
+- **Services:** 在 ``Services::exceptions()`` 中删除了第二个参数 ``$request`` 和第三个参数 ``$response``。
+- **错误处理:** 在 ``CodeIgniter\Debug\Exceptions::__construct()`` 中删除了第二个参数 ``$request`` 和第三个参数 ``$response``。
+
+返回类型更改
+-------------------
+
+- **自动加载器:** ``loadClass`` 和 ``loadClassmap`` 方法的返回签名都改为 ``void``，以便与 ``spl_autoload_register`` 和 ``spl_autoload_unregister`` 函数中的回调兼容。
+
+增强功能
+************
+
+命令
+========
+
+- **spark routes:**
+    - 现在你可以在请求 URL 中指定主机。
+      请参阅 :ref:`routing-spark-routes-specify-host`。
+    - 它在 *Handler* 中显示 :ref:`view-routes` 的视图文件，如下所示：
+
+        +---------+-------------+------+------------------------------+----------------+---------------+
+        | Method  | Route       | Name | Handler                      | Before Filters | After Filters |
+        +---------+-------------+------+------------------------------+----------------+---------------+
+        | GET     | about       | »    | (View) pages/about           |                | toolbar       |
+        +---------+-------------+------+------------------------------+----------------+---------------+
+
+
+测试
+=======
+
+- **调试工具栏:**
+    - 调试工具栏现在具有新的“热重载”功能，可以在文件更改时自动重新加载页面。
+      请参阅 :ref:`debug-toolbar-hot-reload`。
+    - 现在，在 *Routes* 选项卡的 *DEFINED ROUTES* 中显示 :ref:`view-routes`。
+
+数据库
+========
+
+- **MySQLi:** 在数据库配置中添加了 ``numberNative`` 属性，以保持 SQL 查询后获取的变量类型与数据库中设置的类型一致。
+  请参阅 :ref:`Database Configuration <database-config-explanation-of-values>`。
+- **SQLSRV:** 字段元数据现在包括 ``nullable``。请参阅 :ref:`db-metadata-getfielddata`。
+
+模型
+=====
+
+- 为实体添加了特殊的 getter/setter，以避免方法名称冲突。
+  请参阅 :ref:`entities-special-getter-setter`。
+
+库
+=========
+
+- **Validation:** 添加了 ``Validation::getValidated()`` 方法，用于获取实际验证的数据。请参阅 :ref:`validation-getting-validated-data` 了解详细信息。
+- **Images:** 现在可以使用选项 ``$quality`` 压缩 WebP 图像。
+- **Uploaded Files:** 添加了 ``UploadedFiles::getClientPath()`` 方法，如果通过目录上传方式上传文件，则返回文件的 `full_path` 索引的值。
+- **CURLRequest:** 添加了请求选项 ``proxy``。请参阅 :ref:`CURLRequest Class <curlrequest-request-options-proxy>`。
+- **URI:** 添加了一个扩展了 ``URI`` 并表示站点 URI 的新 ``SiteURI`` 类。
+
+辅助函数和方法
+=====================
+
+- **Array:** 添加了 :php:func:`array_group_by()` 辅助函数，用于将数据值分组在一起。支持点符号语法。
+- **Common:** :php:func:`force_https()` 不再终止应用程序，而是抛出 ``RedirectException``。
+
+其他
+======
+
+- **DownloadResponse:** 添加了 ``DownloadResponse::inline()`` 方法，将 ``Content-Disposition: inline`` 标头设置为在浏览器中显示文件。
+  请参阅 :ref:`open-file-in-browser` 了解详细信息。
+- **View:** 在 ``renderSection()`` 上添加了可选的第二个参数 ``$saveData``，以防止在显示后自动清除数据。请参阅 :ref:`View Layouts <creating-a-layout>` 了解详细信息。
+- **自动路由（改进）：**
+    - 现在你可以路由到模块。请参阅 :ref:`auto-routing-improved-module-routing` 了解详细信息。
+    - 如果找到与 URI 段对应的控制器，并且该控制器没有为该 URI 段定义的方法，则将执行默认方法。这样可以更灵活地处理自动路由中的 URI。请参阅 :ref:`controller-default-method-fallback` 了解详细信息。
+- **过滤器：** 现在可以在 :ref:`$filters 属性 <filters-filters-filter-arguments>` 中使用过滤器参数。
+- **请求：** 添加了 ``IncomingRequest::setValidLocales()`` 方法，用于设置有效的区域设置。
+- **Table:** 添加了 ``Table::setSyncRowsWithHeading()`` 方法，用于将行列与标题同步。请参阅 :ref:`table-sync-rows-with-headings` 了解详细信息。
+- **错误处理：** 现在可以使用 :ref:`custom-exception-handlers`。
+- **RedirectException:**
+    - 它还可以接受实现 ``ResponseInterface`` 的对象作为第一个参数。
+    - 它实现了 ``ResponsableInterface``。
+- **Factories:**
+    - 现在可以定义实际加载的类名。请参阅 :ref:`factories-defining-classname-to-be-loaded`。
+    - 实现了配置缓存。请参阅 :ref:`factories-config-caching` 了解详细信息。
+
+消息更改
+***************
+
+- 添加了 ``Core.invalidDirectory`` 错误消息。
+- 改进了 ``HTTP.invalidHTTPProtocol`` 错误消息。
+
+变更
+*******
+
+- **Images:** 在 ``GDHandler`` 中，WebP 的默认质量从 80 改为 90。
+- **Config:**
+    - 删除了 **app/Config/App.php** 中已弃用的 Cookie 项。
+    - 删除了 **app/Config/App.php** 中已弃用的 Session 项。
+    - 删除了 **app/Config/App.php** 中已弃用的 CSRF 项。
+    - 将路由设置移至 **app/Config/Routing.php** 配置文件。
+      请参阅 :ref:`Upgrading Guide <upgrade-440-config-routing>`。
+- **DownloadResponse:** 在生成响应标头时，如果之前已指定了 ``Content-Disposition`` 标头，则不替换它。
+- **自动加载器：**
+    - 在 v4.4.0 之前，CodeIgniter 的自动加载器不允许在某些操作系统上的文件名中使用特殊字符。
+      可以使用的符号是 ``/``、``_``、``.``、``:``、``\`` 和空格。
+      因此，如果你将 CodeIgniter 安装在包含特殊字符（如 ``(``、``)`` 等）的文件夹中，CodeIgniter 将无法工作。
+      从 v4.4.0 开始，此限制已被移除。
+    - ``Autoloader::loadClass()`` 和 ``Autoloader::loadClassmap()`` 方法现在都标记为 ``@internal``。
+- **RouteCollection:** 受保护属性 ``$routes`` 的数组结构已进行了修改以提高性能。
+- **HSTS:** 现在，无论是通过 :php:func:`force_https()` 还是 ``Config\App::$forceGlobalSecureRequests = true``，都会设置 HTTP 状态码 307，允许在重定向后保留 HTTP 请求方法。
+  在之前的版本中，它是 302。
+
+弃用
+************
+
+- **Entity:** 弃用了 ``Entity::setAttributes()`` 方法。请改用 ``Entity::injectRawData()``。
+- **错误处理：** 弃用了 ``CodeIgniter\Debug\Exceptions`` 中的许多方法和属性。因为这些方法已移至 ``BaseExceptionHandler`` 或 ``ExceptionHandler``。
+- **自动加载器：** 弃用了 ``Autoloader::sanitizeFilename()``。
+- **CodeIgniter:**
+    - 弃用了 ``CodeIgniter::$returnResponse`` 属性。不再使用。
+    - 弃用了 ``CodeIgniter::$cacheTTL`` 属性。不再使用。请改用 ``ResponseCache``。
+    - 弃用了 ``CodeIgniter::cache()`` 方法。不再使用。请改用 ``ResponseCache``。
+    - 弃用了 ``CodeIgniter::cachePage()`` 方法。不再使用。请改用 ``ResponseCache``。
+    - 弃用了 ``CodeIgniter::generateCacheName()`` 方法。不再使用。请改用 ``ResponseCache``。
+    - 弃用了 ``CodeIgniter::callExit()`` 方法。不再使用。
+- **RedirectException:** 弃用了 ``\CodeIgniter\Router\Exceptions\RedirectException``。请改用 ``\CodeIgniter\HTTP\Exceptions\RedirectException``。
+- **Session:** 弃用了 ``Session`` 中的属性 ``$sessionDriverName``、``$sessionCookieName``、
+  ``$sessionExpiration``、``$sessionSavePath``、``$sessionMatchIP``、
+  ``$sessionTimeToUpdate`` 和 ``$sessionRegenerateDestroy``，不再使用。请改用 ``$config``。
+- **Security:** 弃用了 ``Security`` 中的属性 ``$csrfProtection``、``$tokenRandomize``、
+  ``$tokenName``、``$headerName``、``$expires``、``$regenerate`` 和
+  ``$redirect``，不再使用。请改用 ``$config``。
+- **URI:**
+    - 弃用了 ``URI::$uriString``。
+    - 弃用了 ``URI::$baseURL``。请改用 ``SiteURI``。
+    - 弃用了 ``URI::setSilent()``。
+    - 弃用了 ``URI::setScheme()``。请改用 ``withScheme()``。
+    - 弃用了 ``URI::setURI()``。
+
+- **IncomingRequest:**
+    - 弃用了 ``IncomingRequest::detectURI()``，不再使用。
+    - 弃用了 ``IncomingRequest::detectPath()``，不再使用。已移至 ``SiteURIFactory``。
+    - 弃用了 ``IncomingRequest::parseRequestURI()``，不再使用。已移至 ``SiteURIFactory``。
+    - 弃用了 ``IncomingRequest::parseQueryString()``，不再使用。已移至 ``SiteURIFactory``。
+    - 弃用了 ``IncomingRequest::setPath()``。
+
+已修复的错误
+************
+
+- **自动路由（改进）：** 在之前的版本中，当 ``$translateURIDashes`` 为 true 时，两个 URI 对应于单个控制器方法，一个 URI 用于破折号（例如 **foo-bar**），另一个 URI 用于下划线（例如 **foo_bar**）。修复了此错误。现在，下划线的 URI（**foo_bar**）无法访问。
+- **输出缓冲：** 修复了输出缓冲的错误。
+- **ControllerTestTrait：** ``ControllerTestTrait::withUri()`` 使用 URI 创建一个新的 Request 实例。因为 Request 实例应该具有 URI 实例。此外，如果 URI 字符串中的主机名与 ``Config\App`` 中的有效主机名不匹配，则将设置有效的主机名。
+
+有关修复的所有错误的完整列表，请参阅存储库的 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_。

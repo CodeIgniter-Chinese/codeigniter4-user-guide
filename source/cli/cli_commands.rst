@@ -51,7 +51,9 @@ run()
 
 ``run()`` 方法是在运行命令时调用的方法。``$params`` 数组是命令名称后面的任何 CLI 参数列表,供你使用。如果 CLI 字符串是:
 
-    > php spark foo bar baz
+.. code-block:: console
+
+    php spark foo bar baz
 
 那么 **foo** 是命令名称, ``$params`` 数组将是:
 

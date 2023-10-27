@@ -296,6 +296,16 @@ getClientMimeType()
 
 .. literalinclude:: uploaded_files/015.php
 
+getClientPath()
+---------------
+
+.. versionadded:: 4.4.0
+
+当客户端通过目录上传方式上传文件时，返回上传文件的 `webkit 相对路径 <https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath>`_。
+在 PHP 8.1 以下的版本中，返回 ``null``。
+
+.. literalinclude:: uploaded_files/023.php
+
 移动文件
 ============
 

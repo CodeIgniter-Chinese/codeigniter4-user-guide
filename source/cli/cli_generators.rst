@@ -13,9 +13,11 @@ CodeIgniter4 现在配备了生成器,以简化常规控制器、模型、实体
 ************
 
 所有内置生成器在使用 ``php spark list`` 列出时都位于 ``Generators`` 组下。
-要查看特定生成器的完整描述和使用信息,请使用命令::
+要查看特定生成器的完整描述和使用信息,请使用命令:
 
-    > php spark help <生成器命令>
+.. code-block:: console
+
+    php spark help <生成器命令>
 
 其中 ``<生成器命令>`` 将替换为要检查的命令。
 
@@ -265,9 +267,11 @@ make:validation
 
 不要担心!CodeIgniter4 还配备了专用的 ``make:scaffold`` 命令,它基本上是控制器、模型、实体、迁移和种子生成器命令的包装器。你只需要输入用于命名所有生成类的类名。另外, **每个生成器命令支持的单独选项** 也会被脚手架命令识别。
 
-在终端中运行此命令::
+在终端中运行此命令:
 
-    > php spark make:scaffold user
+.. code-block:: console
+
+    php spark make:scaffold user
 
 将创建以下文件:
 

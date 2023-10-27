@@ -16,6 +16,8 @@ PHP 及所需扩展
   - `mbstring <https://www.php.net/manual/en/mbstring.requirements.php>`_
   - `json <https://www.php.net/manual/en/json.requirements.php>`_
 
+.. warning:: PHP 7.4 的生命周期结束日期是 2022 年 11 月 28 日。如果你仍在使用 PHP 7.4，应立即升级。PHP 8.0 的生命周期结束日期将是 2023 年 11 月 26 日。
+
 ***********************
 可选的 PHP 扩展
 ***********************

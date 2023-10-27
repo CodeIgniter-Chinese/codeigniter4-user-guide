@@ -436,8 +436,8 @@
 
     示例::
 
-        <input type="checkbox" name="mycheck" value="1" <?= set_checkbox('mycheck', '1') ?>>
-        <input type="checkbox" name="mycheck" value="2" <?= set_checkbox('mycheck', '2') ?>>
+        <input type="checkbox" name="mycheck[]" value="1" <?= set_checkbox('mycheck', '1') ?>>
+        <input type="checkbox" name="mycheck[]" value="2" <?= set_checkbox('mycheck', '2') ?>>
 
 .. php:function:: set_radio($field[, $value = ''[, $default = false]])
 
@@ -465,6 +465,8 @@
 
     返回的数组与 ``Validation::getErrors()`` 相同。详见 :ref:`验证 <validation-redirect-and-validation-errors>`。
 
+    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果你想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
+
     示例::
 
         <?php $errors = validation_errors(); ?>
@@ -482,6 +484,8 @@
     参数 ``$template`` 是一个验证模板名称。详见 :ref:`validation-customizing-error-display`。
 
     此函数在内部使用 :php:func:`validation_errors()`。
+
+    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果你想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
 
     示例::
 
@@ -501,6 +505,8 @@
     参数 ``$template`` 是一个验证模板名称。详见 :ref:`validation-customizing-error-display`。
 
     此函数在内部使用 :php:func:`validation_errors()`。
+
+    .. note:: 此函数与 :ref:`in-model-validation` 不兼容。如果你想在模型验证中获取验证错误，请参阅 :ref:`model-getting-validation-errors`。
 
     示例::
 

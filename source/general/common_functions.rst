@@ -27,6 +27,21 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     .. literalinclude:: common_functions/001.php
 
+.. php:function:: config(string $name[, bool $getShared = true])
+
+    :param string $name: 配置类名。
+    :param bool $getShared: 是否返回共享实例。
+    :returns: 配置实例。
+    :rtype: object|null
+
+    从工厂获取配置实例的更简单方式。
+
+    有关详细信息，请参阅 :ref:`Configuration <configuration-config>` 和
+    :ref:`Factories <factories-config>`。
+
+    ``config()`` 在内部使用 ``Factories::config()``。
+    有关第一个参数 ``$name`` 的详细信息，请参阅 :ref:`factories-loading-class`。
+
 .. php:function:: cookie(string $name[, string $value = ''[, array $options = []]])
 
     :param string $name: Cookie 名称
@@ -70,7 +85,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     如果 $data 是字符串,则简单转义并返回它。如果 $data 是数组,则遍历它,转义每个键/值对的 'value'。
 
-    有效的 context 值:html、js、css、url、attr、raw
+    有效的 context 值: ``html``, ``js``, ``css``, ``url``, ``attr``, ``raw``
 
 .. php:function:: helper($filename)
 
@@ -101,17 +116,17 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     获取模型实例的更简单方法。
 
-    ``model()`` 在内部使用 ``Factories::models()``。有关第一个参数 ``$name`` 的详细信息,请参阅 :ref:`factories-example`。
+    ``model()`` 在内部使用 ``Factories::models()``。有关第一个参数 ``$name`` 的详细信息,请参阅 :ref:`factories-loading-class`。
 
     另请参阅 :ref:`使用 CodeIgniter 的模型 <accessing-models>`。
 
 .. php:function:: old($key[, $default = null,[, $escape = 'html']])
 
     :param string $key: 要检查的旧表单数据的名称
-    :param mixed  $default: 如果 $key 不存在,返回的默认值
-    :param mixed  $escape: `转义 <#esc>`_ 上下文或禁用它的 false
+    :param string|null  $default: 如果 $key 不存在,返回的默认值
+    :param false|string  $escape: `转义 <#esc>`_ 上下文或设置 false 禁用它
     :returns: 定义键的值或默认值
-    :rtype: mixed
+    :rtype: array|string|null
 
     提供了一种简单的方式来访问提交表单后的“旧输入数据”。
 
@@ -119,7 +134,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     .. literalinclude:: common_functions/002.php
 
-.. note:: 如果使用 :doc:`表单辅助器 </helpers/form_helper>`,则此功能已内置。只有在不使用表单辅助器时,才需要使用此函数。
+.. note:: 如果你在 :doc:`表单辅助函数 </helpers/form_helper>` 中使用了 :php:func:`set_value()`、:php:func:`set_select()`、:php:func:`set_checkbox()` 和 :php:func:`set_radio()` 函数，这个功能已经内置了。只有在不使用表单辅助函数时才需要使用此函数。
 
 .. php:function:: session([$key])
 
@@ -245,7 +260,9 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
     :param  RequestInterface $request: 当前 Request 对象的实例
     :param  ResponseInterface $response: 当前 Response 对象的实例
 
-    检查页面当前是否通过 HTTPS 访问。如果是,则什么都不做。如果不是,则将用户重定向回当前的 URI,但通过 HTTPS。将设置 HTTP 严格传输安全性标头,它指示现代浏览器自动将任何 HTTP 请求修改为 HTTPS 请求,持续时间为 $duration。
+    检查当前页面是否通过 HTTPS 访问。如果是，则不执行任何操作。如果不是，则将用户重定向回当前 URI，但通过 HTTPS 进行访问。将设置 HTTP 严格传输安全（HTST）头，指示现代浏览器将任何 HTTP 请求自动修改为 HTTPS 请求，持续时间为 ``$duration``。
+
+    .. note:: 当你将 ``Config\App:$forceGlobalSecureRequests`` 设置为 true 时，也会使用此函数。
 
 .. php:function:: function_usable($function_name)
 

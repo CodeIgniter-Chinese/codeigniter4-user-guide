@@ -4,7 +4,7 @@
 
 .. contents::
     :local:
-    :depth: 2
+    :depth: 3
 
 模型
 ******
@@ -24,7 +24,7 @@ CodeIgniter 的 Model 提供了方便的特性和额外的功能,可以使处理
 
 .. literalinclude:: model/001.php
 
-``model()`` 内部使用 ``Factories::models()``。详情参见 :ref:`factories-example`。
+``model()`` 内部使用 ``Factories::models()``。详情参见 :ref:`factories-loading-class`。
 
 CodeIgniter 的 Model
 ***********************
@@ -377,6 +377,8 @@ purgeDeleted()
 
 .. literalinclude:: model/026.php
 
+.. _in-model-validation:
+
 模型内验证
 ===================
 
@@ -391,9 +393,16 @@ purgeDeleted()
     如果你想检查必填字段,可以通过配置更改行为。
     详情参见 :ref:`clean-validation-rules`。
 
+设置验证规则
+------------------------
+
 第一步是用将应用的字段和规则填充 ``$validationRules`` 类属性。如果你有要使用的自定义错误消息,请将其放入 ``$validationMessages`` 数组中:
 
 .. literalinclude:: model/027.php
+
+如果你更喜欢在验证配置文件中组织你的规则和错误消息，你可以这样做，并将 ``$validationRules`` 设置为你创建的验证规则组的名称：
+
+.. literalinclude:: model/034.php
 
 向字段设置验证规则的另一种方法是使用函数:
 
@@ -445,17 +454,23 @@ purgeDeleted()
 
     .. literalinclude:: model/031.php
 
-现在,每当调用 ``insert()``、``update()`` 或 ``save()`` 方法时,数据都会被验证。如果失败,模型将返回布尔值 **false**。你可以使用 ``errors()`` 方法检索验证错误:
+获取验证结果
+-------------------------
+
+现在，每当你调用 ``insert()``、``update()`` 或 ``save()`` 方法时，数据将被验证。如果验证失败，模型将返回布尔值 **false**。
+
+.. _model-getting-validation-errors:
+
+获取验证错误
+-------------------------
+
+你可以使用 ``errors()`` 方法来检索验证错误：
 
 .. literalinclude:: model/032.php
 
 这会返回一个包含字段名称及其关联错误的数组,可以用来显示表单顶部的所有错误,或单独显示它们:
 
 .. literalinclude:: model/033.php
-
-如果你更喜欢在验证配置文件中组织规则和错误消息,你可以这样做,并简单地将 ``$validationRules`` 设置为你创建的验证规则组的名称:
-
-.. literalinclude:: model/034.php
 
 检索验证规则
 ---------------------------
@@ -479,6 +494,8 @@ purgeDeleted()
 
 .. literalinclude:: model/038.php
 
+.. note:: 自 v4.3.5 起，你必须为占位符字段（``id``）设置验证规则。
+
 在这组规则中,它说明电子邮件地址在数据库中应该是唯一的,除了具有与占位符的值匹配的 id 的行。假设表单 POST 数据如下:
 
 .. literalinclude:: model/039.php
@@ -488,6 +505,8 @@ purgeDeleted()
 .. literalinclude:: model/040.php
 
 所以在验证电子邮件唯一性时,它会忽略数据库中 ``id=4`` 的行。
+
+.. note:: 自 v4.3.5 起，如果占位符（``id``）的值未通过验证，占位符将不会被替换。
 
 这也可以用于在运行时创建更动态的规则,只要你注意传入的动态键不与你的表单数据冲突即可。
 

@@ -89,7 +89,7 @@ Inflector 辅助函数文件包含了允许你将 **英语** 单词更改为复�
 
     获取多个驼峰或帕斯卡单词并将它们转换为下划线分隔的单词。示例:
 
-    .. literalinclude:: inflector_helper/007.php
+    .. literalinclude:: inflector_helper/014.php
 
 .. php:function:: humanize($string[, $separator = '_'])
 

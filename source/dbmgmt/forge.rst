@@ -51,18 +51,23 @@ $forge->dropDatabase('db_name')
 
 CodeIgniter 支持直接从喜欢的终端使用专用的 ``db:create`` 命令创建数据库。通过使用此命令,假定数据库还不存在。否则,CodeIgniter 将抱怨数据库创建失败。
 
-首先,只需键入命令和数据库名称(例如 ``foo``)::
+首先,只需键入命令和数据库名称(例如 ``foo``):
 
-    > php spark db:create foo
+.. code-block:: console
+
+    php spark db:create foo
 
 如果一切顺利,你应该会看到显示的 ``Database "foo" successfully created.`` 消息。
 
 如果你在测试环境中或正在使用 SQLite3 驱动程序,可以使用 ``--ext`` 选项
 为将创建数据库的文件传递文件扩展名。有效值为 ``db`` 和 ``sqlite``,默认为 ``db``。请记住,这些前面不应有句点。
-::
+:
 
-    > php spark db:create foo --ext sqlite
-    // 将在 WRITEPATH/foo.sqlite 中创建 db 文件
+.. code-block:: console
+
+    php spark db:create foo --ext sqlite
+
+上述命令将创建名为 **WRITEPATH/foo.sqlite** 的数据库文件。
 
 .. note:: 当使用特殊的 SQLite3 数据库名称 ``:memory:`` 时,请注意命令仍会生成成功消息,但不会创建数据库文件。这是因为 SQLite3 将只使用内存中的数据库。
 

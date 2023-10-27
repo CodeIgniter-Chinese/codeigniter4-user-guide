@@ -21,11 +21,13 @@ Composer 版本
 如果你使用的是更早版本的 Composer,请升级你的 ``composer`` 工具,
 删除 **vendor/** 目录,并再次运行 ``composer update``。
 
-例如,过程如下::
+例如,过程如下:
 
-    > composer self-update
-    > rm -rf vendor/
-    > composer update
+.. code-block:: console
+
+    composer self-update
+    rm -rf vendor/
+    composer update
 
 必备文件变更
 **********************
