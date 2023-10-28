@@ -352,12 +352,12 @@
 </section>
 <section id="id6">
 <h4>停止后续过滤器<a class="headerlink" href="#id6" title="永久链接至标题"></a></h4>
-<p>当你有一系列过滤器时,你可能还希望在某个过滤器后停止后续过滤器的执行。你可以通过返回任何非空结果轻松地实现这一点。如果 before 过滤器返回空结果,仍将执行控制器操作或后续过滤器。</p>
-<p>非空结果规则的一个例外是 <code class="docutils literal notranslate"><span class="pre">Request</span></code> 实例。在 before 过滤器中返回它不会停止执行,只会替换当前的 <code class="docutils literal notranslate"><span class="pre">$request</span></code> 对象。</p>
+<p>当你有一系列过滤器时,你可能还希望在某个过滤器后停止后续过滤器的执行。你可以通过返回任何非空结果轻松地实现这一点。如果前置过滤器返回空结果,仍将执行控制器操作或后续过滤器。</p>
+<p>非空结果规则的一个例外是 <code class="docutils literal notranslate"><span class="pre">Request</span></code> 实例。在前置过滤器中返回它不会停止执行,只会替换当前的 <code class="docutils literal notranslate"><span class="pre">$request</span></code> 对象。</p>
 </section>
 <section id="id7">
 <h4>返回响应<a class="headerlink" href="#id7" title="永久链接至标题"></a></h4>
-<p>由于 before 过滤器是在执行控制器之前执行的,所以有时你可能希望停止控制器中的操作。</p>
+<p>由于前置过滤器是在执行控制器之前执行的,所以有时你可能希望停止控制器中的操作。</p>
 <p>这通常用于执行重定向,如下面的示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -385,7 +385,7 @@
 </section>
 <section id="after-filters">
 <span id="id8"></span><h3><a class="toc-backref" href="#id17">后置过滤器</a><a class="headerlink" href="#after-filters" title="永久链接至标题"></a></h3>
-<p>After 过滤器与 Before 过滤器几乎完全相同,只是你只能返回 <code class="docutils literal notranslate"><span class="pre">$response</span></code> 对象,并且无法停止脚本执行。这确实允许你修改最终输出,或者只是做一些最终输出的事情。这可以用于确保某些安全头正确设置,缓存最终输出,或者使用禁用词过滤器过滤最终输出。</p>
+<p>后置过滤器与前置过滤器几乎完全相同,只是你只能返回 <code class="docutils literal notranslate"><span class="pre">$response</span></code> 对象,并且无法停止脚本执行。这确实允许你修改最终输出,或者只是做一些最终输出的事情。这可以用于确保某些安全头正确设置,缓存最终输出,或者使用禁用词过滤器过滤最终输出。</p>
 </section>
 </section>
 <section id="id9">
@@ -544,7 +544,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>与 <code class="docutils literal notranslate"><span class="pre">$globals</span></code> 或 <code class="docutils literal notranslate"><span class="pre">$filters</span></code> 属性不同,这些只能作为 before 过滤器运行。</p>
+<p>与 <code class="docutils literal notranslate"><span class="pre">$globals</span></code> 或 <code class="docutils literal notranslate"><span class="pre">$filters</span></code> 属性不同,这些只能作为前置过滤器运行。</p>
 </div>
 <p>除了标准的 HTTP 方法外,这也支持一个特殊情况:<code class="docutils literal notranslate"><span class="pre">cli</span></code>。<code class="docutils literal notranslate"><span class="pre">cli</span></code> 方法将应用于所有从命令行运行的请求。</p>
 </section>
@@ -684,7 +684,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f41a5958e50>
+<jinja2.runtime.BlockReference object at 0x7fe990d844d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
