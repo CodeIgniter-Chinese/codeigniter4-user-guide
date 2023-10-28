@@ -353,7 +353,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     .. note:: 此函数要求控制器/方法必须在 **app/Config/routes.php** 中定义路由。
 
-    .. important:: ``route_to()`` 返回一个*路由*路径,而不是站点的完整 URI 路径。如果你的 **baseURL** 包含子文件夹,返回值与链接的 URI 并不相同。在这种情况下,请改用 :php:func:`url_to()`。另请参阅 :ref:`urls-url-structure`。
+    .. important:: ``route_to()`` 返回一个 *路由* 路径,而不是站点的完整 URI 路径。如果你的 **baseURL** 包含子文件夹,返回值与链接的 URI 并不相同。在这种情况下,请改用 :php:func:`url_to()`。另请参阅 :ref:`urls-url-structure`。
 
     根据 controller::method 组合为你生成路由。将根据提供的参数生成路由。
 

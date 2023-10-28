@@ -2,7 +2,7 @@
 Encryption 服务
 ##################
 
-.. important:: 不要使用这个或任何其他*加密*库来存储密码!密码必须是*哈希过的*,你应该通过 PHP 的 `Password Hashing 扩展 <https://www.php.net/password>`_ 来完成。
+.. important:: 不要使用这个或任何其他 *加密* 库来存储密码!密码必须是 *哈希过的* ,你应该通过 PHP 的 `Password Hashing 扩展 <https://www.php.net/password>`_ 来完成。
 
 Encryption 服务提供对称(密钥)数据的双向加密。正如下面所解释的,该服务将实例化和/或初始化一个加密 **处理程序** 以适应你的参数。
 

@@ -42,7 +42,7 @@
 
 以 **模型** 为例。你可以通过使用 Factories 类的魔术静态方法 ``Factories::models()`` 访问特定于模型的工厂。
 
-静态方法名称称为 *component*。
+静态方法名为 *component*。
 
 .. _factories-passing-classname-without-namespace:
 
@@ -132,14 +132,14 @@ model()
 工厂参数
 ******************
 
-``工厂`` 的第二个参数是一个选项值数组(如下所述)。
+``Factories`` 的第二个参数是一个选项值数组(如下所述)。
 这些指令将覆盖为每个组件配置的默认选项。
 
 同时传递的任何更多参数将转发到类构造函数,使你可以即时配置类实例。例如,假设你的应用使用单独的数据库进行身份验证,并且你希望确保尝试访问用户记录的任何尝试都通过该连接:
 
 .. literalinclude:: factories/004.php
 
-现在从 ``工厂`` 加载的 ``UserModel`` 每次实际上都会返回使用备用数据库连接的类实例。
+现在从 ``Factories`` 加载的 ``UserModel`` 每次实际上都会返回使用备用数据库连接的类实例。
 
 .. _factories-options:
 

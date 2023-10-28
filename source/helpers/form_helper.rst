@@ -268,7 +268,7 @@
 
 .. php:function:: form_fieldset_close([$extra = ''])
 
-    :param    string    $extra: 在关闭标签后要追加的任何内容,*原样*
+    :param    string    $extra: 在关闭标签后要追加的任何内容, *原样*
     :returns:    一个 HTML fieldset 关闭标签
     :rtype:    string
 
@@ -378,7 +378,7 @@
 
 .. php:function:: form_close([$extra = ''])
 
-    :param    string    $extra: 在关闭标签后要追加的任何内容,*原样*
+    :param    string    $extra: 在关闭标签后要追加的任何内容, *原样*
     :returns:    一个 HTML 表单关闭标签
     :rtype:    string
 

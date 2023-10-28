@@ -28,7 +28,7 @@ CodeIgniter 安装假定你已经按 :ref:`要求 <requirements-supported-databa
 
 此外,添加一些种子记录。现在,我们只向你展示创建表所需的 SQL 语句,但是你应该意识到,一旦对 CodeIgniter 更熟悉,就可以以编程方式完成此操作;稍后,你可以阅读有关 :doc:`迁移 <../dbmgmt/migration>` 和 :doc:`种子 <../dbmgmt/seeds>` 的信息,以创建更有用的数据库设置。
 
-需要注意的是:在 Web 出版的上下文中,“slug”是指用于 URL 中识别和描述资源的用户和搜索引擎友好的短文本。
+一个有趣的注释：在 Web 发布的上下文中，“slug”是一个用户友好且符合 SEO 的短文本，用于在 URL 中标识和描述资源。
 
 种子记录可能如下::
 

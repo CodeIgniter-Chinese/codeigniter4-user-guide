@@ -797,9 +797,9 @@ spark 路由
 
 *Route* 列显示要匹配的路由路径。定义路由的路由以正则表达式表示。
 
-自 v4.3.0 起,*Name* 列显示路由名称。``»`` 表示名称与路由路径相同。
+自 v4.3.0 起, *Name* 列显示路由名称。``»`` 表示名称与路由路径相同。
 
-.. important:: 该系统并非完美。如果使用自定义占位符,*Filters* 可能不正确。如果要检查路由的过滤器,可以使用 :ref:`spark filter:check <spark-filter-check>` 命令。
+.. important:: 该系统并非完美。如果使用自定义占位符, *Filters* 可能不正确。如果要检查路由的过滤器,可以使用 :ref:`spark filter:check <spark-filter-check>` 命令。
 
 自动路由(改进版)
 -----------------------
