@@ -143,7 +143,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">连接数据库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/queries.html">运行查询</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/results.html">生成查询结果</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助方法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构建器类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">事务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">获取元数据</a></li>
@@ -175,21 +175,21 @@
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">Encryption 服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">Honeypot 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">蜜罐类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/publisher.html">Publisher</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">用户代理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">User Agent 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证</a></li>
 </ul>
 </li>
@@ -280,33 +280,33 @@
              
   <section id="id1">
 <h1>测试响应<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">TestResponse</span></code> 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常, <code class="docutils literal notranslate"><span class="pre">TestResponse</span></code> 将作为你的结果提供,:doc:<cite>控制器测试 &lt;controllers&gt;</cite> 或 <a class="reference internal" href="feature.html"><span class="doc">HTTP 功能测试</span></a>,但你始终可以直接使用任何 <code class="docutils literal notranslate"><span class="pre">ResponseInterface</span></code> 创建自己的:</p>
+<p><code class="docutils literal notranslate"><span class="pre">TestResponse</span></code> 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常, <code class="docutils literal notranslate"><span class="pre">TestResponse</span></code> 将作为你的结果提供, <a class="reference internal" href="controllers.html"><span class="doc">控制器测试</span></a> 或 <a class="reference internal" href="feature.html"><span class="doc">HTTP 功能测试</span></a>,但你始终可以直接使用任何 <code class="docutils literal notranslate"><span class="pre">ResponseInterface</span></code> 创建自己的:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Test\TestResponse</span><span class="p">(</span><span class="nv">$response</span><span class="p">);</span>
 <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertOK</span><span class="p">();</span>
 </pre></div>
 </div>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id9">测试响应</a></p>
+<li><p><a class="reference internal" href="#id3" id="id7">测试响应</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id10">访问请求/响应</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id11">检查响应状态</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id12">会话断言</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id13">标头断言</a></p></li>
-<li><p><a class="reference internal" href="#cookie" id="id14">Cookie 断言</a></p></li>
-<li><p><a class="reference internal" href="#dom" id="id15">DOM 辅助函数</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id16">DOM 断言</a></p></li>
-<li><p><a class="reference internal" href="#json" id="id17">使用 JSON</a></p></li>
-<li><p><a class="reference internal" href="#xml" id="id18">使用 XML</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id8">访问请求/响应</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id9">检查响应状态</a></p></li>
+<li><p><a class="reference internal" href="#session" id="id10">Session 断言</a></p></li>
+<li><p><a class="reference internal" href="#header" id="id11">Header 断言</a></p></li>
+<li><p><a class="reference internal" href="#cookie" id="id12">Cookie 断言</a></p></li>
+<li><p><a class="reference internal" href="#dom" id="id13">DOM 辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id14">DOM 断言</a></p></li>
+<li><p><a class="reference internal" href="#json" id="id15">使用 JSON</a></p></li>
+<li><p><a class="reference internal" href="#xml" id="id16">使用 XML</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id9">测试响应</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id7">测试响应</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>无论你是从测试中获得 <code class="docutils literal notranslate"><span class="pre">TestResponse</span></code> 还是自己创建,都可以在测试中使用许多新的断言。</p>
 <section id="id4">
-<h3><a class="toc-backref" href="#id10">访问请求/响应</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id8">访问请求/响应</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <section id="request">
 <h4>request()<a class="headerlink" href="#request" title="永久链接至标题"></a></h4>
 <p>如果在测试期间设置了请求,你可以直接访问请求对象:</p>
@@ -323,7 +323,7 @@
 </section>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id11">检查响应状态</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id9">检查响应状态</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <section id="isok">
 <h4>isOK()<a class="headerlink" href="#isok" title="永久链接至标题"></a></h4>
 <p>根据响应是否被视为“正常”返回布尔值 true/false。这主要由 200 或 300 范围内的响应状态代码确定。如果重定向,空响应正文不被视为有效。</p>
@@ -379,42 +379,42 @@
 </div>
 </section>
 </section>
-<section id="id6">
-<h3><a class="toc-backref" href="#id12">会话断言</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<section id="session">
+<h3><a class="toc-backref" href="#id10">Session 断言</a><a class="headerlink" href="#session" title="永久链接至标题"></a></h3>
 <section id="assertsessionhas-string-key-value-null">
 <h4>assertSessionHas(string $key, $value = null)<a class="headerlink" href="#assertsessionhas-string-key-value-null" title="永久链接至标题"></a></h4>
-<p>断言结果会话中存在一个值。如果传递了 $value,还将断言变量的值与指定的相匹配。</p>
+<p>断言结果 Session 中存在一个值。如果传递了 $value,还将断言变量的值与指定的相匹配。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSessionHas</span><span class="p">(</span><span class="s1">&#39;logged_in&#39;</span><span class="p">,</span> <span class="mi">123</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertsessionmissing-string-key">
 <h4>assertSessionMissing(string $key)<a class="headerlink" href="#assertsessionmissing-string-key" title="永久链接至标题"></a></h4>
-<p>断言结果会话不包括指定的 $key。</p>
+<p>断言结果 Session 不包括指定的 $key。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertSessionMissing</span><span class="p">(</span><span class="s1">&#39;logged_in&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id7">
-<h3><a class="toc-backref" href="#id13">标头断言</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<section id="header">
+<h3><a class="toc-backref" href="#id11">Header 断言</a><a class="headerlink" href="#header" title="永久链接至标题"></a></h3>
 <section id="assertheader-string-key-value-null">
 <h4>assertHeader(string $key, $value = null)<a class="headerlink" href="#assertheader-string-key-value-null" title="永久链接至标题"></a></h4>
-<p>断言响应中存在一个名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的标头。如果 <code class="docutils literal notranslate"><span class="pre">$value</span></code> 非空,还将断言值匹配。</p>
+<p>断言响应中存在一个名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的 Header。如果 <code class="docutils literal notranslate"><span class="pre">$value</span></code> 非空,还将断言值匹配。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertHeader</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/html&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="assertheadermissing-string-key">
 <h4>assertHeaderMissing(string $key)<a class="headerlink" href="#assertheadermissing-string-key" title="永久链接至标题"></a></h4>
-<p>断言响应中不存在名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的标头。</p>
+<p>断言响应中不存在名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的 Header。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">assertHeader</span><span class="p">(</span><span class="s1">&#39;Accepts&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="cookie">
-<h3><a class="toc-backref" href="#id14">Cookie 断言</a><a class="headerlink" href="#cookie" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id12">Cookie 断言</a><a class="headerlink" href="#cookie" title="永久链接至标题"></a></h3>
 <section id="assertcookie-string-key-value-null-string-prefix">
 <h4>assertCookie(string $key, $value = null, string $prefix = ‘’)<a class="headerlink" href="#assertcookie-string-key-value-null-string-prefix" title="永久链接至标题"></a></h4>
 <p>断言响应中存在一个名为 <code class="docutils literal notranslate"><span class="pre">$key</span></code> 的 Cookie。如果 <code class="docutils literal notranslate"><span class="pre">$value</span></code> 非空,还将断言值匹配。如有必要,可以通过第三个参数传入前缀来设置 Cookie 前缀。</p>
@@ -438,7 +438,7 @@
 </section>
 </section>
 <section id="dom">
-<h3><a class="toc-backref" href="#id15">DOM 辅助函数</a><a class="headerlink" href="#dom" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id13">DOM 辅助函数</a><a class="headerlink" href="#dom" title="永久链接至标题"></a></h3>
 <p>你得到的响应包含许多帮助方法来检查响应中的 HTML 输出。这些在测试中的断言中很有用。</p>
 <section id="see">
 <h4>see()<a class="headerlink" href="#see" title="永久链接至标题"></a></h4>
@@ -543,8 +543,8 @@
 </div>
 </section>
 </section>
-<section id="id8">
-<h3><a class="toc-backref" href="#id16">DOM 断言</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<section id="id6">
+<h3><a class="toc-backref" href="#id14">DOM 断言</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>你可以使用以下断言来测试响应正文中是否存在特定元素/文本等。</p>
 <section id="assertsee-string-search-null-string-element-null">
 <h4>assertSee(string $search = null, string $element = null)<a class="headerlink" href="#assertsee-string-search-null-string-element-null" title="永久链接至标题"></a></h4>
@@ -617,7 +617,7 @@
 </section>
 </section>
 <section id="json">
-<h3><a class="toc-backref" href="#id17">使用 JSON</a><a class="headerlink" href="#json" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id15">使用 JSON</a><a class="headerlink" href="#json" title="永久链接至标题"></a></h3>
 <p>响应通常会包含 JSON 响应,特别是在使用 API 方法时。以下方法可以帮助测试响应。</p>
 <section id="getjson">
 <h4>getJSON()<a class="headerlink" href="#getjson" title="永久链接至标题"></a></h4>
@@ -667,7 +667,7 @@
 </section>
 </section>
 <section id="xml">
-<h3><a class="toc-backref" href="#id18">使用 XML</a><a class="headerlink" href="#xml" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id16">使用 XML</a><a class="headerlink" href="#xml" title="永久链接至标题"></a></h3>
 <section id="getxml">
 <h4>getXML()<a class="headerlink" href="#getxml" title="永久链接至标题"></a></h4>
 <p>如果应用程序返回 XML,则可以通过此方法检索它。</p>
@@ -696,7 +696,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fe990cae390>
+<jinja2.runtime.BlockReference object at 0x7f8f8d91d6d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
