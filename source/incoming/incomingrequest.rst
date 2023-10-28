@@ -167,7 +167,7 @@ getMethod()
 
 .. literalinclude:: incomingrequest/015.php
 
-如果你只需要单个标头,可以将名称传递给 ``header()`` 方法。这将以不区分大小写的方式获取指定的标头对象(如果存在)。如果不存在,则返回 ``null``::
+如果你只需要单个标头,可以将名称传递给 ``header()`` 方法。这将以不区分大小写的方式获取指定的标头对象(如果存在)。如果不存在,则返回 ``null``:
 
 .. literalinclude:: incomingrequest/016.php
 

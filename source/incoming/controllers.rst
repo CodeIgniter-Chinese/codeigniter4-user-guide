@@ -158,7 +158,7 @@ $this->validateData()
 
 .. note:: 当控制器的短名称与 URI 的第一段匹配时,它会被加载。
 
-让我们试一试:你好,世界!
+让我们试一试: Hello World!
 ==========================
 
 让我们创建一个简单的控制器,以便你看到它的实际效果。使用文本编辑器,创建一个名为 **Helloworld.php** 的文件,并将以下代码放入其中。你会注意到 ``Helloworld`` 控制器正在扩展 ``BaseController``。你也可以扩展 ``CodeIgniter\Controller``,如果你不需要 BaseController 的功能的话。
@@ -361,7 +361,7 @@ CodeIgniter 还允许你使用其 :ref:`定义的路由 <defined-route-routing>`
 
 .. note:: 当控制器的短名称与 URI 的第一段匹配时,它会被加载。
 
-让我们试一试:你好,世界!(传统)
+让我们试一试: Hello World!(传统)
 ===================================
 
 让我们创建一个简单的控制器,以便你看到它的实际效果。使用文本编辑器,创建一个名为 **Helloworld.php** 的文件,并将以下代码放入其中。你会注意到 ``Helloworld`` 控制器正在扩展 ``BaseController``。你也可以扩展 ``CodeIgniter\Controller``,如果你不需要 BaseController 的功能的话。
@@ -414,7 +414,7 @@ BaseController 为加载组件和执行所有控制器需要的函数提供了�
 
     example.com/index.php/helloworld/index/
 
-**URI的第二段决定了控制器中调用哪个方法。**
+**URI 的第二段决定了控制器中调用哪个方法。**
 
 让我们试一试。在你的控制器中添加一个新方法:
 
