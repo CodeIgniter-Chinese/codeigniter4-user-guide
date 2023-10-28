@@ -3,7 +3,7 @@
 ##################
 
 CodeIgniter 提供了一个 File 类,它封装了 `SplFileInfo <https://www.php.net/manual/en/class.splfileinfo.php>`_ 类,
-并提供了一些额外的方便方法。这个类是 :doc:`上传文件 </libraries/uploaded_files>` 和 :doc:`图像 </libraries/images>` 的基类。
+并提供了一些额外的方便方法。这个类是 :doc:`上传文件 </libraries/uploaded_files>` 和 :doc:`图像处理 </libraries/images>` 的基类。
 
 .. contents::
     :local:

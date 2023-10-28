@@ -2,7 +2,7 @@
 生成测试数据
 ####################
 
-测试应用程序的时候,你经常需要一些示例数据。``Fabricator`` 类使用 fzaninotto 的 `Faker <https://github.com/FakerPHP/Faker>`_ 将模型转化为随机数据生成器。在种子文件或测试用例中使用 fabricators 来准备假数据用于单元测试。
+测试应用程序的时候,你经常需要一些示例数据。``Fabricator`` 类使用 fzaninotto 的 `Faker <https://github.com/FakerPHP/Faker>`_ 将模型转化为随机数据生成器。在种子文件或测试用例中使用 fabricator 来准备假数据用于单元测试。
 
 .. contents::
     :local:
@@ -17,7 +17,7 @@
 
 .. note:: 除了方法之外,接口还概述了目标模型所需的一些必要属性。请参阅接口代码以获取详细信息。
 
-加载 Fabricators
+加载 Fabricator
 ===================
 
 最基本的 fabricator 只需要模型进行操作:
@@ -28,14 +28,14 @@
 
 .. literalinclude:: fabricator/003.php
 
-定义 Formatters
+定义 Formatter
 ===================
 
-Faker 通过从 formatter 请求数据来生成数据。如果没有定义 formatters, ``Fabricator`` 将尝试根据字段名称和它所表示的模型的属性来猜测最合适的匹配,如果找不到则回退到 ``$fabricator->defaultFormatter``。如果字段名称与常用 formatter 对应,或者你不太关心字段的内容,这可能就可以了,但大多数情况下你会想指定要使用的 formatter,可以将它们作为构造函数的第二个参数:
+Faker 通过从 formatter 请求数据来生成数据。如果没有定义 formatter, ``Fabricator`` 将尝试根据字段名称和它所表示的模型的属性来猜测最合适的匹配,如果找不到则回退到 ``$fabricator->defaultFormatter``。如果字段名称与常用 formatter 对应,或者你不太关心字段的内容,这可能就可以了,但大多数情况下你会想指定要使用的 formatter,可以将它们作为构造函数的第二个参数:
 
 .. literalinclude:: fabricator/004.php
 
-你也可以在初始化 fabricator 后使用 ``setFormatters()`` 方法更改 formatters。
+你也可以在初始化 fabricator 后使用 ``setFormatters()`` 方法更改 formatter。
 
 高级格式化
 -------------------
@@ -44,7 +44,7 @@ Faker 通过从 formatter 请求数据来生成数据。如果没有定义 forma
 
 .. literalinclude:: fabricator/005.php
 
-请注意,在这个例子中,前三个值等效于之前的 formatters。但是对于 ``avatar`` 我们请求了与默认不同的图像大小, ``login`` 使用基于应用配置的条件,这两者在使用 ``$formatters`` 参数时都是不可能的。
+请注意,在这个例子中,前三个值等效于之前的 formatter。但是对于 ``avatar`` 我们请求了与默认不同的图像大小, ``login`` 使用基于应用配置的条件,这两者在使用 ``$formatters`` 参数时都是不可能的。
 你可能希望将测试数据与生产模型分开,所以最好是在测试支持文件夹中定义一个子类:
 
 .. literalinclude:: fabricator/006.php

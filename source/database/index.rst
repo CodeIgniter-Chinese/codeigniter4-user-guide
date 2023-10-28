@@ -12,7 +12,7 @@ CodeIgniter 带有一个功能齐全且非常快速的抽象数据库类,它支�
     连接数据库 <connecting>
     运行查询 <queries>
     生成查询结果 <results>
-    查询辅助函数 <helpers>
+    查询辅助方法 <helpers>
     查询构建器类 <query_builder>
     事务 <transactions>
     获取元数据 <metadata>

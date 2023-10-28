@@ -16,7 +16,7 @@ CodeIgniter 通过其资源路由和 `ResourceController` 可以轻松创建资�
 资源路由
 ***************
 
-你可以使用 ``resource()`` 方法快速为单个资源创建一小 handful 的 RESTful 路由。这会创建完全 CRUD 资源所需的最常见的 5 个路由:创建新资源、更新现有资源、列出所有该资源、显示单个资源以及删除单个资源。第一个参数是资源名称:
+你可以使用 ``resource()`` 方法快速为单个资源创建一组 RESTful 路由。这将创建用于完整 CRUD 操作的 5 个最常用的路由：创建新资源、更新现有资源、列出所有资源、显示单个资源和删除单个资源。第一个参数是资源名称：
 
 .. literalinclude:: restful/001.php
 
@@ -143,14 +143,14 @@ Presenter/Controller 对比
 ================ ========= ====================== ======================== ====================== ======================
 **New**          GET       photos/new             photos/new               ``new()``              ``new()``
 **Create**       POST      photos                 photos                   ``create()``           ``create()``
-创建(别名)       POST                             photos/create                                   ``create()``
+Create(别名)     POST                             photos/create                                   ``create()``
 **List**         GET       photos                 photos                   ``index()``            ``index()``
 **Show**         GET       photos/(:segment)      photos/(:segment)        ``show($id = null)``   ``show($id = null)``
-显示(别名)       GET                              photos/show/(:segment)                          ``show($id = null)``
+Show(别名)       GET                              photos/show/(:segment)                          ``show($id = null)``
 **Edit**         GET       photos/(:segment)/edit photos/edit/(:segment)   ``edit($id = null)``   ``edit($id = null)``
 **Update**       PUT/PATCH photos/(:segment)                               ``update($id = null)``
-更新(网页安全)   POST      photos/(:segment)      photos/update/(:segment) ``update($id = null)`` ``update($id = null)``
+Update(网页安全) POST      photos/(:segment)      photos/update/(:segment) ``update($id = null)`` ``update($id = null)``
 **Remove**       GET                              photos/remove/(:segment)                        ``remove($id = null)``
 **Delete**       DELETE    photos/(:segment)                               ``delete($id = null)``
-删除(网页安全)   POST                             photos/delete/(:segment) ``delete($id = null)`` ``delete($id = null)``
+Delete(网页安全) POST                             photos/delete/(:segment) ``delete($id = null)`` ``delete($id = null)``
 ================ ========= ====================== ======================== ====================== ======================

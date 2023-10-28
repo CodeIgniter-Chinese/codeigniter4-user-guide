@@ -1,8 +1,8 @@
 ##############
-Honeypot 类
+蜜罐类
 ##############
 
-如果在 **app\Config\Filters.php** 文件中启用 Honeypot,Honeypot 类可以确定何时机器人向 CodeIgniter4 应用程序发出请求。这是通过将表单字段附加到任何表单上完成的,这个表单字段对人类隐藏但对机器人可访问。当数据输入字段时,假定请求来自机器人,你可以抛出一个 ``HoneypotException``。
+如果在 **app\Config\Filters.php** 文件中启用蜜罐,蜜罐类可以确定何时机器人向 CodeIgniter4 应用程序发出请求。这是通过将表单字段附加到任何表单上完成的,这个表单字段对人类隐藏但对机器人可访问。当数据输入字段时,假定请求来自机器人,你可以抛出一个 ``HoneypotException``。
 
 .. contents::
     :local:

@@ -140,7 +140,7 @@ redirect()->withInput() 和验证错误
 这种行为是一个错误,在 v4.3.0 中已修复。
 
 如果你的代码依赖于此错误,则需要更改代码。
-使用新的 Form 辅助函数,:php:func:`validation_errors()`、:php:func:`validation_list_errors()` 和 :php:func:`validation_show_error()`
+使用新的 Form 辅助函数, :php:func:`validation_errors()`、:php:func:`validation_list_errors()` 和 :php:func:`validation_show_error()`
 来显示验证错误,而不是 Validation 对象。
 
 验证更改
@@ -152,7 +152,7 @@ redirect()->withInput() 和验证错误
 Time 修复
 ==========
 
-- 由于错误修复,:doc:`Time <../libraries/time>` 中的一些方法已从可变行为更改为不可变; ``Time`` 现在扩展 ``DateTimeImmutable``。详细信息请参阅 :ref:`ChangeLog <v430-time-fix>`。
+- 由于错误修复, :doc:`Time <../libraries/time>` 中的一些方法已从可变行为更改为不可变; ``Time`` 现在扩展 ``DateTimeImmutable``。详细信息请参阅 :ref:`ChangeLog <v430-time-fix>`。
 - 如果需要修改前 ``Time`` 的行为,已添加了一个兼容的 ``TimeLegacy`` 类。请在应用程序代码中全部替换 ``Time`` 为 ``TimeLegacy``。
 - 但是 ``TimeLegacy`` 已被废弃。因此我们建议你更新代码。
 

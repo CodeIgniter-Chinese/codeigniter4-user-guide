@@ -211,7 +211,7 @@ wipe()
 
 从 ``$destination`` 中删除所有文件、目录和子目录。
 
-.. important:: 明智使用。
+.. important:: 想清楚再使用。
 
 copy(bool $replace = true): bool
 --------------------------------

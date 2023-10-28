@@ -302,7 +302,7 @@ $forge->modifyColumn()
 重命名表
 ================
 
-执行 TABLE 重命名
+执行 TABLE RENAME
 
 .. literalinclude:: forge/021.php
 

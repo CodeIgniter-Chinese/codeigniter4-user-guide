@@ -1,8 +1,8 @@
 ########
-安全性
+安全
 ########
 
-Security 类包含帮助保护你的网站免受跨站请求伪造(CSRF)攻击的方法。
+安全类包含帮助保护你的网站免受跨站请求伪造(CSRF)攻击的方法。
 
 .. contents::
     :local:
@@ -139,7 +139,7 @@ CSRF 保护方法
 
 .. literalinclude:: security/009.php
 
-.. Warning:: 如果使用 ``$methods`` 过滤器,你应该 :ref:`禁用自动路由(遗留) <use-defined-routes-only>`,因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。使用你不期望的方法访问控制器可能会绕过过滤器。
+.. Warning:: 如果使用 ``$methods`` 过滤器,你应该 :ref:`禁用自动路由(传统) <use-defined-routes-only>`,因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。使用你不期望的方法访问控制器可能会绕过过滤器。
 
 HTML 表单
 ==========

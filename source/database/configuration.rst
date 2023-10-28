@@ -126,7 +126,7 @@ DSN
 **DBDriver**     数据库驱动名称。驱动名称区分大小写。
                  你可以设置完全限定的类名以使用自定义驱动。
                  支持的驱动:``MySQLi``、``Postgre``、``SQLite3``、``SQLSRV`` 和 ``OCI8``。
-**DBPrefix**     可选的表前缀,在运行时会添加到表名中:doc:`查询构造器 <query_builder>` 查询。这允许多个 CodeIgniter 安装共享一个数据库。
+**DBPrefix**     可选的表前缀,在运行时会添加到表名中 :doc:`查询构造器 <query_builder>` 查询。这允许多个 CodeIgniter 安装共享一个数据库。
 **pConnect**     true/false (布尔值)- 是否使用持久连接。
 **DBDebug**      true/false (布尔值)- 数据库错误发生时是否抛出异常。
 **charset**      与数据库通信使用的字符集。

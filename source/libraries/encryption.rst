@@ -1,5 +1,5 @@
 ##################
-Encryption 服务
+加密服务
 ##################
 
 .. important:: 不要使用这个或任何其他 *加密* 库来存储密码!密码必须是 *哈希过的* ,你应该通过 PHP 的 `Password Hashing 扩展 <https://www.php.net/password>`_ 来完成。

@@ -2,7 +2,7 @@
 测试响应
 #################
 
-``TestResponse`` 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常, ``TestResponse`` 将作为你的结果提供,:doc:`控制器测试 <controllers>` 或 :doc:`HTTP 功能测试 <feature>`,但你始终可以直接使用任何 ``ResponseInterface`` 创建自己的:
+``TestResponse`` 类提供了许多有用的函数来解析测试用例中的响应并对其进行测试。通常, ``TestResponse`` 将作为你的结果提供, :doc:`控制器测试 <controllers>` 或 :doc:`HTTP 功能测试 <feature>`,但你始终可以直接使用任何 ``ResponseInterface`` 创建自己的:
 
 .. literalinclude:: response/001.php
    :lines: 2-
@@ -94,13 +94,13 @@ assertStatus(int $code)
 .. literalinclude:: response/010.php
    :lines: 2-
 
-会话断言
+Session 断言
 ==================
 
 assertSessionHas(string $key, $value = null)
 --------------------------------------------
 
-断言结果会话中存在一个值。如果传递了 $value,还将断言变量的值与指定的相匹配。
+断言结果 Session 中存在一个值。如果传递了 $value,还将断言变量的值与指定的相匹配。
 
 .. literalinclude:: response/011.php
    :lines: 2-
@@ -108,18 +108,18 @@ assertSessionHas(string $key, $value = null)
 assertSessionMissing(string $key)
 ---------------------------------
 
-断言结果会话不包括指定的 $key。
+断言结果 Session 不包括指定的 $key。
 
 .. literalinclude:: response/012.php
    :lines: 2-
 
-标头断言
+Header 断言
 =================
 
 assertHeader(string $key, $value = null)
 ----------------------------------------
 
-断言响应中存在一个名为 ``$key`` 的标头。如果 ``$value`` 非空,还将断言值匹配。
+断言响应中存在一个名为 ``$key`` 的 Header。如果 ``$value`` 非空,还将断言值匹配。
 
 .. literalinclude:: response/013.php
    :lines: 2-
@@ -127,7 +127,7 @@ assertHeader(string $key, $value = null)
 assertHeaderMissing(string $key)
 --------------------------------
 
-断言响应中不存在名为 ``$key`` 的标头。
+断言响应中不存在名为 ``$key`` 的 Header。
 
 .. literalinclude:: response/014.php
    :lines: 2-

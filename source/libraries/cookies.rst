@@ -106,10 +106,10 @@ SameSite 属性只接受三个值:
 .. literalinclude:: cookies/006.php
 
 ***************
-发送 Cookies
+发送 Cookie
 ***************
 
-将 ``Cookie`` 对象设置在 Response 对象的 ``CookieStore`` 中，框架会自动发送 Cookies。
+将 ``Cookie`` 对象设置在 Response 对象的 ``CookieStore`` 中，框架会自动发送 Cookie。
 
 使用 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 来设置：
 
