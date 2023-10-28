@@ -2,8 +2,8 @@
 错误处理
 ##############
 
-CodeIgniter 通过 Exceptions 在你的系统中内置了错误报告,包括
-`SPL 集合 <https://www.php.net/manual/en/spl.exceptions.php>`_,以及框架提供的一些 exceptions。
+CodeIgniter 通过 Exception 在你的系统中内置了错误报告,包括
+`SPL 集合 <https://www.php.net/manual/en/spl.exceptions.php>`_,以及框架提供的一些 Exception。
 
 取决于你的环境设置,当抛出错误或异常时的默认操作是显示详细的错误报告,除非应用程序在 ``production`` 环境下运行。
 在 ``production`` 环境中,会显示更通用的消息以对用户保持最佳体验。
@@ -12,12 +12,12 @@ CodeIgniter 通过 Exceptions 在你的系统中内置了错误报告,包括
     :local:
     :depth: 2
 
-使用 Exceptions
+使用 Exception
 ================
 
-本节简要概述了对 Exceptions 不太了解的新程序员或开发人员的情况。
+本节简要概述了对 Exception 不太了解的新程序员或开发人员的情况。
 
-Exceptions 简单来说就是在抛出异常时发生的事件。这将中止脚本的当前流程,然后执行将转移到错误处理程序,后者将显示适当的错误页面:
+Exception 简单来说就是在抛出异常时发生的事件。这将中止脚本的当前流程,然后执行将转移到错误处理程序,后者将显示适当的错误页面:
 
 .. literalinclude:: errors/001.php
 
@@ -51,7 +51,7 @@ Exceptions 简单来说就是在抛出异常时发生的事件。这将中止脚
 
 .. warning:: 请注意，**.env** 文件中的设置会添加到 ``$_SERVER`` 和 ``$_ENV`` 中。作为副作用，这意味着如果显示详细的错误报告，**你的安全凭据将被公开**。
 
-记录 Exceptions
+记录 Exception
 ------------------
 
 默认情况下,除了 404 - 页面未找到异常之外的所有异常都会记录日志。这可以通过设置 **app/Config/Exceptions.php** 的 ``$log`` 值来打开和关闭:
@@ -62,9 +62,9 @@ Exceptions 简单来说就是在抛出异常时发生的事件。这将中止脚
 
 .. literalinclude:: errors/006.php
 
-.. note:: 如果你当前的日志设置没有配置记录 **关键** 错误,则仍可能不会为exceptions记录日志,因为所有exceptions都记录为关键错误。
+.. note:: 如果你当前的日志设置没有配置记录 **关键** 错误,则仍可能不会为 exception 记录日志,因为所有 exception 都记录为关键错误。
 
-框架 Exceptions
+框架 Exception
 ====================
 
 以下框架异常可用:
