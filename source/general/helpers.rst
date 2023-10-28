@@ -16,7 +16,7 @@
 
 CodeIgniter 默认不加载辅助文件,所以使用辅助函数的第一步是加载它。一旦加载,它就可以在你的 :doc:`控制器 <../incoming/controllers>` 和 :doc:`视图 <../outgoing/views>` 中全局使用。
 
-辅助函数通常存储在  **system/Helpers** 或 **app/Helpers** 目录中。 CodeIgniter 会首先在你的 **app/Helpers** 目录中查找。如果目录不存在或指定的 helper 不在那里,CI 将改为在全局的 **system/Helpers** 目录中查找。
+辅助函数通常存储在 **system/Helpers** 或 **app/Helpers** 目录中。
 
 ****************
 加载辅助函数
@@ -24,7 +24,10 @@ CodeIgniter 默认不加载辅助文件,所以使用辅助函数的第一步是�
 
 .. note:: URL 辅助函数总是加载的,所以你不需要自己加载它。
 
-使用以下方法加载辅助文件非常简单:
+加载单个辅助函数
+================
+
+使用以下方法加载辅助函数文件非常简单:
 
 .. literalinclude:: helpers/001.php
 
@@ -37,6 +40,19 @@ CodeIgniter 默认不加载辅助文件,所以使用辅助函数的第一步是�
 .. literalinclude:: helpers/002.php
 
 .. note:: 上面的辅助函数加载方法不返回值,所以不要试图将其分配给变量。只按显示的方式使用它。
+
+自动发现和 Composer 包
+------------------------
+
+默认情况下，CodeIgniter 会通过 :ref:`auto-discovery` 在所有定义的命名空间中搜索辅助函数文件。
+你可以使用 spark 命令来检查你定义的命名空间。请参阅 :ref:`confirming-namespaces`。
+
+如果你使用了许多 Composer 包，那么你将有许多已定义的命名空间。
+CodeIgniter 默认会扫描所有命名空间。
+
+为了避免浪费时间扫描不相关的 Composer 包，你可以手动指定要进行自动发现的包。请参阅 :ref:`modules-specify-composer-packages` 了解详细信息。
+
+或者，你可以为要加载的辅助函数 :ref:`指定一个命名空间 <helpers-loading-from-specified-namespace>`。
 
 加载多个辅助函数
 ========================
@@ -54,12 +70,14 @@ CodeIgniter 默认不加载辅助文件,所以使用辅助函数的第一步是�
 
 但是,如果你想在控制器构造函数中加载,则可以改用 Controller 中的 ``$helpers`` 属性。参见 :ref:`控制器 <controllers-helpers>`。
 
-.. _helpers-loading-from-non-standard-locations:
+.. _helpers-loading-from-specified-namespace:
 
-从非标准位置加载
+从指定命名空间加载
 ===================================
 
-只要通过 :doc:`自动加载器配置文件 <../concepts/autoloader>` 中的 PSR-4 部分设置的命名空间可以找到该路径,就可以从 **app/Helpers** 和 **system/Helpers** 之外的目录加载辅助函数。你会使用可以找到它们的命名空间前缀辅助函数的名称。在该命名空间目录内,加载器期望它存在于名为 **Helpers** 的子目录中。一个示例将有助于理解这一点。
+辅助函数可以从 **app/Helpers** 和 **system/Helpers** 之外的目录加载，只要该路径可以在定义的命名空间中找到即可。
+
+你会使用可以找到它们的命名空间前缀辅助函数的名称。在该命名空间目录内,加载器期望它存在于名为 **Helpers** 的子目录中。一个示例将有助于理解这一点。
 
 对于此示例,假设我们已经将所有与博客相关的代码分组到自己的命名空间 ``Example\Blog`` 中。文件存在于我们的服务器上的 **Modules/Blog/** 中。因此,我们会将博客模块的辅助函数文件放在 **Modules/Blog/Helpers/** 中。**blog_helper** 文件将位于 **Modules/Blog/Helpers/blog_helper.php**。在我们的控制器中,我们可以使用以下命令加载辅助函数:
 

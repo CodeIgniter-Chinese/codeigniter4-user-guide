@@ -201,11 +201,11 @@ For Windows:
 辅助函数
 ========
 
-在使用 ``helper()`` 函数时,定义的命名空间内的辅助函数将被自动发现,只要它们在 **Helpers** 目录内:
+在使用 :php:func:`helper()` 函数时,定义的命名空间内的辅助函数将被自动发现,只要它们在 **Helpers** 目录内:
 
 .. literalinclude:: modules/009.php
 
-你可以指定命名空间。详情请参阅 :ref:`helpers-loading-from-non-standard-locations`。
+你可以指定命名空间。详情请参阅 :ref:`helpers-loading-from-specified-namespace`。
 
 语言文件
 ==============
