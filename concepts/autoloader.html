@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>自动加载文件 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
+  <title>自动加载文件 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -282,17 +282,22 @@
 <h1>自动加载文件<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#codeigniter4" id="id7">CodeIgniter4 自动加载器</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id8">配置</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id9">命名空间</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id10">类映射</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id11">Composer 支持</a></p></li>
+<li><p><a class="reference internal" href="#codeigniter4" id="id9">CodeIgniter4 自动加载器</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id10">配置</a></p>
+<ul>
+<li><p><a class="reference internal" href="#autoloader-namespaces" id="id11">命名空间</a></p></li>
+<li><p><a class="reference internal" href="#confirming-namespaces" id="id12">确认命名空间</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id13">应用程序命名空间</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id14">类映射</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id15">Composer 支持</a></p></li>
 </ul>
 </div>
 <p>每个应用程序由许多不同位置的大量类组成。
 框架为核心功能提供类。你的应用程序将具有许多库、模型和其他实体才能正常工作。你可能会使用第三方类。跟踪每个文件的位置,并在一系列 <code class="docutils literal notranslate"><span class="pre">require()</span></code> 中硬编码该位置是一个巨大的头疼且极易出错。这就是自动加载器的用武之地。</p>
 <section id="codeigniter4">
-<h2><a class="toc-backref" href="#id7">CodeIgniter4 自动加载器</a><a class="headerlink" href="#codeigniter4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id9">CodeIgniter4 自动加载器</a><a class="headerlink" href="#codeigniter4" title="永久链接至标题"></a></h2>
 <p>CodeIgniter 提供了一个非常灵活的自动加载器,可以通过非常少的配置即可使用。
 它可以定位遵循 <a class="reference external" href="https://www.php-fig.org/psr/psr-4/">PSR-4</a>
 自动加载目录结构的单个命名空间类。</p>
@@ -306,11 +311,10 @@
 </div>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id8">配置</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10">配置</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>初始配置在 <strong>app/Config/Autoload.php</strong> 中完成。该文件包含两个主要数组:一个用于类映射,一个用于 PSR-4 兼容命名空间。</p>
-</section>
-<section id="id4">
-<h2><a class="toc-backref" href="#id9">命名空间</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<section id="autoloader-namespaces">
+<span id="id4"></span><h3><a class="toc-backref" href="#id11">命名空间</a><a class="headerlink" href="#autoloader-namespaces" title="永久链接至标题"></a></h3>
 <p>组织类的推荐方法是为应用程序文件创建一个或多个命名空间。这对于任何业务逻辑相关的类、实体类等尤为重要。配置文件中的 <code class="docutils literal notranslate"><span class="pre">$psr4</span></code> 数组允许你将命名空间映射到可以找到这些类的目录:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -332,13 +336,16 @@
 </div>
 <p>每行的键是命名空间本身。这个不需要尾部反斜杠。
 值是可以找到类的目录位置。</p>
-<div class="admonition note">
-<p class="admonition-title">备注</p>
+</section>
+<section id="confirming-namespaces">
+<span id="id5"></span><h3><a class="toc-backref" href="#id12">确认命名空间</a><a class="headerlink" href="#confirming-namespaces" title="永久链接至标题"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">spark</span> <span class="pre">namespaces</span></code> 命令检查命名空间配置:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark namespaces</span>
 </pre></div>
 </div>
-</div>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id13">应用程序命名空间</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>默认情况下,应用程序目录被映射到 <code class="docutils literal notranslate"><span class="pre">App</span></code> 命名空间。你必须为应用程序目录中的控制器、库或模型添加命名空间,它们将在 <code class="docutils literal notranslate"><span class="pre">App</span></code> 命名空间下被找到。</p>
 <p>你可以通过编辑 <strong>app/Config/Constants.php</strong> 文件并在 <code class="docutils literal notranslate"><span class="pre">APP_NAMESPACE</span></code> 设置下设置新的命名空间值来更改此命名空间:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nb">defined</span><span class="p">(</span><span class="s1">&#39;APP_NAMESPACE&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;APP_NAMESPACE&#39;</span><span class="p">,</span> <span class="s1">&#39;App&#39;</span><span class="p">);</span>
@@ -350,8 +357,8 @@
 <p>配置文件使用 <code class="docutils literal notranslate"><span class="pre">Config</span></code> 命名空间,而不是你可能期望的 <code class="docutils literal notranslate"><span class="pre">App\Config</span></code>。这使得核心系统文件总是能够定位它们,即使应用程序命名空间已更改。</p>
 </div>
 </section>
-<section id="id5">
-<h2><a class="toc-backref" href="#id10">类映射</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<section id="id7">
+<h3><a class="toc-backref" href="#id14">类映射</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>CodeIgniter 通过不通过文件系统进行额外的 <code class="docutils literal notranslate"><span class="pre">is_file()</span></code> 调用来获取系统最后的性能,广泛使用类映射。你可以使用类映射链接到未使用命名空间的第三方库:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -372,8 +379,9 @@
 </div>
 <p>每行的键是你要定位的类的名称。值是定位它的路径。</p>
 </section>
-<section id="id6">
-<h2><a class="toc-backref" href="#id11">Composer 支持</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id15">Composer 支持</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
 <p>默认情况下会自动初始化 Composer 支持。默认情况下,它会在 <code class="docutils literal notranslate"><span class="pre">ROOTPATH</span> <span class="pre">.</span> <span class="pre">'vendor/autoload.php'</span></code> 查找 Composer 的自动加载文件。如果由于任何原因需要更改该文件的位置,可以修改 <strong>app/Config/Constants.php</strong> 中定义的值。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -394,7 +402,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-27.
+      <span class="lastupdated">最后更新于 2023-10-28.
       </span></p>
   </div>
 
@@ -402,7 +410,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f1092b93850>
+<jinja2.runtime.BlockReference object at 0x7fedab12a8d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

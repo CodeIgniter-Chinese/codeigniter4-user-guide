@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>辅助函数 &mdash; CodeIgniter 4.4.2 中文手册|用户手册|用户指南|中文文档</title>
+  <title>辅助函数 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -282,34 +282,37 @@
 <h1>辅助函数<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <div class="contents local topic" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id12">什么是辅助函数?</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id13">加载辅助函数</a></p>
+<li><p><a class="reference internal" href="#id3" id="id13">什么是辅助函数?</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id14">加载辅助函数</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id5" id="id14">加载多个辅助函数</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id15">在控制器中加载</a></p></li>
-<li><p><a class="reference internal" href="#helpers-loading-from-non-standard-locations" id="id16">从非标准位置加载</a></p></li>
-<li><p><a class="reference internal" href="#auto-loading-helpers" id="id17">自动加载辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id15">加载单个辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id16">加载多个辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id17">在控制器中加载</a></p></li>
+<li><p><a class="reference internal" href="#helpers-loading-from-specified-namespace" id="id18">从指定命名空间加载</a></p></li>
+<li><p><a class="reference internal" href="#auto-loading-helpers" id="id19">自动加载辅助函数</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id9" id="id18">使用辅助函数</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id19">“扩展”辅助函数</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id20">接下来呢?</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id20">使用辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id21">“扩展”辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id22">接下来呢?</a></p></li>
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id12">什么是辅助函数?</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id13">什么是辅助函数?</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>顾名思义,辅助函数可以帮助你完成任务。每个 helper 文件只是某个特定类别的函数集合。有 <strong>URL 辅助函数</strong>,可以帮助创建链接,有 <strong>表单辅助函数</strong> 可以帮助创建表单元素, <strong>文本辅助函数</strong> 执行各种文本格式化, <strong>Cookie 辅助函数</strong> 设置和读取cookie, <strong>文件辅助函数</strong> 帮助处理文件等等。</p>
 <p>与 CodeIgniter 中的大多数其他系统不同,辅助函数不是面向对象的格式。它们是简单的程序性函数。每个辅助函数执行一个特定的任务,不依赖于其他函数。</p>
 <p>CodeIgniter 默认不加载辅助文件,所以使用辅助函数的第一步是加载它。一旦加载,它就可以在你的 <a class="reference internal" href="../incoming/controllers.html"><span class="doc">控制器</span></a> 和 <a class="reference internal" href="../outgoing/views.html"><span class="doc">视图</span></a> 中全局使用。</p>
-<p>辅助函数通常存储在  <strong>system/Helpers</strong> 或 <strong>app/Helpers</strong> 目录中。 CodeIgniter 会首先在你的 <strong>app/Helpers</strong> 目录中查找。如果目录不存在或指定的 helper 不在那里,CI 将改为在全局的 <strong>system/Helpers</strong> 目录中查找。</p>
+<p>辅助函数通常存储在 <strong>system/Helpers</strong> 或 <strong>app/Helpers</strong> 目录中。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id13">加载辅助函数</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id14">加载辅助函数</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>URL 辅助函数总是加载的,所以你不需要自己加载它。</p>
 </div>
-<p>使用以下方法加载辅助文件非常简单:</p>
+<section id="id5">
+<h3><a class="toc-backref" href="#id15">加载单个辅助函数</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>使用以下方法加载辅助函数文件非常简单:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
@@ -330,8 +333,18 @@
 <p class="admonition-title">备注</p>
 <p>上面的辅助函数加载方法不返回值,所以不要试图将其分配给变量。只按显示的方式使用它。</p>
 </div>
-<section id="id5">
-<h3><a class="toc-backref" href="#id14">加载多个辅助函数</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<section id="composer">
+<h4>自动发现和 Composer 包<a class="headerlink" href="#composer" title="永久链接至标题"></a></h4>
+<p>默认情况下，CodeIgniter 会通过 <a class="reference internal" href="modules.html#auto-discovery"><span class="std std-ref">自动发现</span></a> 在所有定义的命名空间中搜索辅助函数文件。
+你可以使用 spark 命令来检查你定义的命名空间。请参阅 <a class="reference internal" href="../concepts/autoloader.html#confirming-namespaces"><span class="std std-ref">确认命名空间</span></a>。</p>
+<p>如果你使用了许多 Composer 包，那么你将有许多已定义的命名空间。
+CodeIgniter 默认会扫描所有命名空间。</p>
+<p>为了避免浪费时间扫描不相关的 Composer 包，你可以手动指定要进行自动发现的包。请参阅 <a class="reference internal" href="modules.html#modules-specify-composer-packages"><span class="std std-ref">指定 Composer 包</span></a> 了解详细信息。</p>
+<p>或者，你可以为要加载的辅助函数 <a class="reference internal" href="#helpers-loading-from-specified-namespace"><span class="std std-ref">指定一个命名空间</span></a>。</p>
+</section>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id16">加载多个辅助函数</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>如果你需要一次加载多个辅助函数,可以传递一个文件名数组,它们都会被加载:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -339,15 +352,16 @@
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3><a class="toc-backref" href="#id15">在控制器中加载</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<section id="id7">
+<h3><a class="toc-backref" href="#id17">在控制器中加载</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>可以在控制器方法中的任何位置加载辅助函数(甚至在视图文件中,尽管这不是一个好的实践),只要在使用它之前加载它即可。</p>
 <p>你可以在控制器构造函数中加载辅助函数,以使它们自动在任何方法中可用,或者你可以在需要它的特定方法中加载辅助函数。</p>
 <p>但是,如果你想在控制器构造函数中加载,则可以改用 Controller 中的 <code class="docutils literal notranslate"><span class="pre">$helpers</span></code> 属性。参见 <a class="reference internal" href="../incoming/controllers.html#controllers-helpers"><span class="std std-ref">控制器</span></a>。</p>
 </section>
-<section id="helpers-loading-from-non-standard-locations">
-<span id="id7"></span><h3><a class="toc-backref" href="#id16">从非标准位置加载</a><a class="headerlink" href="#helpers-loading-from-non-standard-locations" title="永久链接至标题"></a></h3>
-<p>只要通过 <a class="reference internal" href="../concepts/autoloader.html"><span class="doc">自动加载器配置文件</span></a> 中的 PSR-4 部分设置的命名空间可以找到该路径,就可以从 <strong>app/Helpers</strong> 和 <strong>system/Helpers</strong> 之外的目录加载辅助函数。你会使用可以找到它们的命名空间前缀辅助函数的名称。在该命名空间目录内,加载器期望它存在于名为 <strong>Helpers</strong> 的子目录中。一个示例将有助于理解这一点。</p>
+<section id="helpers-loading-from-specified-namespace">
+<span id="id8"></span><h3><a class="toc-backref" href="#id18">从指定命名空间加载</a><a class="headerlink" href="#helpers-loading-from-specified-namespace" title="永久链接至标题"></a></h3>
+<p>辅助函数可以从 <strong>app/Helpers</strong> 和 <strong>system/Helpers</strong> 之外的目录加载，只要该路径可以在定义的命名空间中找到即可。</p>
+<p>你会使用可以找到它们的命名空间前缀辅助函数的名称。在该命名空间目录内,加载器期望它存在于名为 <strong>Helpers</strong> 的子目录中。一个示例将有助于理解这一点。</p>
 <p>对于此示例,假设我们已经将所有与博客相关的代码分组到自己的命名空间 <code class="docutils literal notranslate"><span class="pre">Example\Blog</span></code> 中。文件存在于我们的服务器上的 <strong>Modules/Blog/</strong> 中。因此,我们会将博客模块的辅助函数文件放在 <strong>Modules/Blog/Helpers/</strong> 中。<strong>blog_helper</strong> 文件将位于 <strong>Modules/Blog/Helpers/blog_helper.php</strong>。在我们的控制器中,我们可以使用以下命令加载辅助函数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -366,7 +380,7 @@
 </div>
 </section>
 <section id="auto-loading-helpers">
-<span id="id8"></span><h3><a class="toc-backref" href="#id17">自动加载辅助函数</a><a class="headerlink" href="#auto-loading-helpers" title="永久链接至标题"></a></h3>
+<span id="id9"></span><h3><a class="toc-backref" href="#id19">自动加载辅助函数</a><a class="headerlink" href="#auto-loading-helpers" title="永久链接至标题"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">4.3.0 新版功能.</span></p>
 </div>
@@ -374,8 +388,8 @@
 这是通过打开 <strong>app/Config/Autoload.php</strong> 文件,并将辅助函数添加到 <code class="docutils literal notranslate"><span class="pre">$helpers</span></code> 属性来完成的。</p>
 </section>
 </section>
-<section id="id9">
-<h2><a class="toc-backref" href="#id18">使用辅助函数</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<section id="id10">
+<h2><a class="toc-backref" href="#id20">使用辅助函数</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
 <p>一旦你加载了包含要使用的函数的辅助文件,你就可以像调用标准 PHP 函数一样调用它。</p>
 <p>例如,要在视图文件中使用 <a class="reference internal" href="../helpers/url_helper.html#anchor" title="anchor"><code class="xref php php-func docutils literal notranslate"><span class="pre">anchor()</span></code></a> 函数创建一个链接,你会这样做:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
@@ -385,8 +399,8 @@
 </div>
 <p>其中 “Click Here” 是链接的名称,“blog/comments” 是你想要链接到的控制器/方法的 URI。</p>
 </section>
-<section id="id10">
-<h2><a class="toc-backref" href="#id19">“扩展”辅助函数</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<section id="id11">
+<h2><a class="toc-backref" href="#id21">“扩展”辅助函数</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
 <p>要“扩展”辅助函数,请在 <strong>app/Helpers/</strong> 文件夹中创建一个与现有辅助函数相同名称的文件。</p>
 <p>如果你只需要为现有辅助函数添加一些功能 - 可能添加一个或两个函数,或者更改某个特定辅助函数的工作方式 - 那么用你的版本完全替换整个辅助函数有点过度设计。在这种情况下,最好只是“扩展”辅助函数。</p>
 <div class="admonition note">
@@ -430,8 +444,8 @@
 <li><p>system/Helpers - 基础文件最后加载。</p></li>
 </ol>
 </section>
-<section id="id11">
-<h2><a class="toc-backref" href="#id20">接下来呢?</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<section id="id12">
+<h2><a class="toc-backref" href="#id22">接下来呢?</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
 <p>在目录中,你会找到所有可用 <a class="reference internal" href="../helpers/index.html"><span class="doc">辅助函数</span></a> 的列表。浏览每个函数以查看它们的作用。</p>
 </section>
 </section>
@@ -448,7 +462,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-27.
+      <span class="lastupdated">最后更新于 2023-10-28.
       </span></p>
   </div>
 
@@ -456,7 +470,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f1092a97c50>
+<jinja2.runtime.BlockReference object at 0x7fedab2d4490>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
