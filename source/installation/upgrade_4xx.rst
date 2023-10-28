@@ -110,11 +110,13 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
 钩子
 =====
 
-- `钩子 <https://www.codeigniter.com/userguide3/general/hooks.html>`_ 已被
-  :doc:`../extending/events` 替换。
+- `钩子 <https://www.codeigniter.com/userguide3/general/hooks.html>`_ 已被 :doc:`../extending/events` 替换。
 - 不再使用 CI3 的 ``$hook['post_controller_constructor']``,现在使用
   ``Events::on('post_controller_constructor', ['MyClass', 'MyFunction']);``,命名空间为 ``CodeIgniter\Events\Events;``。
 - 事件始终启用,并全局可用。
+- 挂钩点 ``pre_controller`` 和 ``post_controller`` 已被移除。使用 :doc:`../incoming/filters` 代替。
+- 挂钩点 ``display_override`` 和 ``cache_override`` 已被移除。因为基础方法已被移除。
+- 挂钩点 ``post_system`` 已经移动到在发送最终渲染页面之前。
 
 扩展框架
 =======================

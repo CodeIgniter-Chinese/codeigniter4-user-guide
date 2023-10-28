@@ -41,7 +41,11 @@ Exceptions 简单来说就是在抛出异常时发生的事件。这将中止脚
 错误报告
 ---------------
 
-默认情况下,CodeIgniter 将在 ``development`` 和 ``testing`` 环境中显示包含所有错误的详细错误报告,并且在 ``production`` 环境中不显示任何错误。你可以通过在 :ref:`.env <dotenv-file>` 文件中设置 ``CI_ENVIRONMENT`` 变量来更改此设置。
+默认情况下，CodeIgniter 在 ``development`` 和 ``testing`` 环境下会显示包含所有错误的详细错误报告，并且在 ``production`` 环境下不会显示任何错误。
+
+.. image:: ../images/error.png
+
+你可以通过设置 ``CI_ENVIRONMENT`` 变量来更改你的环境。请参阅 :ref:`setting-environment`。
 
 .. important:: 禁用错误报告并不会停止在错误发生时写入日志。
 

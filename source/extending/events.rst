@@ -64,14 +64,16 @@ Events 库也使你可以在自己的代码中简单地创建事件。要使用�
 
 .. literalinclude:: events/008.php
 
-事件点
+.. _event-points:
+
+事件挂钩点
 ============
 
-以下是 CodeIgniter 核心代码中可用的事件点列表:
+以下是 CodeIgniter 核心代码中可用的事件挂钩点列表:
 
-* **pre_system** 在系统执行非常早期时调用。此时仅加载了 benchmark 和 events 类。没有进行路由或其他处理。
+* **pre_system** 在系统执行的早期调用。URI、请求和响应已经实例化，但尚未进行页面缓存检查、路由和执行“before”控制器过滤器。
 * **post_controller_constructor** 在控制器实例化后但在任何方法调用发生前立即调用。
-* **post_system** 在向浏览器发送最终渲染页面后调用,在向浏览器发送最终数据后系统执行结束时调用。
+* **post_system** 在系统执行结束后，在最终渲染的页面发送到浏览器之前调用，在执行“after”控制器过滤器之后。
 * **email** 从 ``CodeIgniter\Email\Email`` 成功发送邮件后调用。接收 ``Email`` 类属性数组作为参数。
 * **DBQuery** 在数据库查询成功或失败后调用。接收 ``Query`` 对象。
 * **migrate** 在对 ``latest()`` 或 ``regress()`` 的成功迁移调用后调用。接收 ``MigrationRunner`` 的当前属性以及方法名称。
