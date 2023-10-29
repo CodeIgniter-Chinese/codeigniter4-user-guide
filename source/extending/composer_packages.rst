@@ -165,7 +165,7 @@ DevKit 提供了基于 `PHP-CS-Fixer <https://github.com/PHP-CS-Fixer/PHP-CS-Fix
 在 app/Config 中覆盖设置
 =================================
 
-如果你需要在 **app/Config** 文件夹中覆盖或添加已知配置，可以使用 :ref:`Implicit Registrars <registrars>`。
+如果你需要在 **app/Config** 文件夹中覆盖或添加已知配置，可以使用 :ref:`隐式注册器 <registrars>`。
 
 **********
 参考资料

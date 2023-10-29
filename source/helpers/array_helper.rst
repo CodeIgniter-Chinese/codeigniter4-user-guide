@@ -1,8 +1,8 @@
 ##############
-Array 辅助函数
+数组辅助函数
 ##############
 
-Array 辅助函数提供了几个函数来简化数组的更复杂用法。它不打算重复 PHP 提供的任何现有功能 - 除非是为了极大地简化它们的用法。
+数组辅助函数提供了几个函数来简化数组的更复杂用法。它不打算重复 PHP 提供的任何现有功能 - 除非是为了极大地简化它们的用法。
 
 .. contents::
     :local:
@@ -31,7 +31,7 @@ Array 辅助函数提供了几个函数来简化数组的更复杂用法。它�
 
     .. literalinclude:: array_helper/002.php
 
-    我们可以使用搜索字符串“foo.buzz.fizz”定位'fizz'的值。类似地,可以使用“foo.bar.baz”找到 baz 的值:
+    我们可以使用搜索字符串“foo.buzz.fizz”定位 'fizz' 的值。类似地,可以使用“foo.bar.baz”找到 baz 的值:
 
     .. literalinclude:: array_helper/003.php
 
