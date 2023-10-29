@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>认证 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
+  <title>身份验证 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
@@ -196,9 +196,9 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">Array 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">数组辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">Date 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">日期辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">表单辅助函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML 辅助函数</a></li>
@@ -244,7 +244,7 @@
 <li class="toctree-l2"><a class="reference internal" href="common.html">替换通用函数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="events.html">事件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basecontroller.html">扩展控制器</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">认证</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">身份验证</a></li>
 <li class="toctree-l2"><a class="reference internal" href="composer_packages.html">创建 Composer 包</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contributing.html">为 CodeIgniter 做贡献</a></li>
 </ul>
@@ -269,7 +269,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">扩展 CodeIgniter</a></li>
-      <li class="breadcrumb-item active">认证</li>
+      <li class="breadcrumb-item active">身份验证</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -279,16 +279,14 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>认证<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<p>CodeIgniter 为 CodeIgniter 4 提供了一个官方的认证和授权框架
-<a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a>,
-它旨在提供安全、灵活且易于扩展以满足不同类型网站的需求。</p>
-<p>为了在开发者之间保持一致,以下是一些推荐的准则。</p>
+<h1>身份验证<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>CodeIgniter 为 CodeIgniter 4 提供了一个官方的身份验证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a>，它被设计为安全、灵活且易于扩展，以满足许多不同类型网站的需求。</p>
+<p>为了在开发者之间保持一致，以下是一些推荐的准则。</p>
 <section id="id2">
 <h2>推荐<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <ul class="simple">
 <li><p>处理登录和登出操作的模块在成功时应该触发 <code class="docutils literal notranslate"><span class="pre">login</span></code> 和 <code class="docutils literal notranslate"><span class="pre">logout</span></code> 事件</p></li>
-<li><p>定义“当前用户”的模块应该定义 <code class="docutils literal notranslate"><span class="pre">user_id()</span></code> 函数以返回用户的唯一标识符,如果没有当前用户则返回 <code class="docutils literal notranslate"><span class="pre">null</span></code></p></li>
+<li><p>定义“当前用户”的模块应该定义 <code class="docutils literal notranslate"><span class="pre">user_id()</span></code> 函数以返回用户的唯一标识符，如果没有当前用户则返回 <code class="docutils literal notranslate"><span class="pre">null</span></code></p></li>
 </ul>
 <p>符合这些推荐的模块可以在 <strong>composer.json</strong> 中添加以下内容表示兼容:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;provide&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -312,7 +310,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-28.
+      <span class="lastupdated">最后更新于 2023-10-29.
       </span></p>
   </div>
 
@@ -320,7 +318,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fc7ee686c50>
+<jinja2.runtime.BlockReference object at 0x7f6f425086d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
