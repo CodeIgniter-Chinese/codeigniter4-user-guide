@@ -103,6 +103,8 @@ Traits
 
 .. literalinclude:: overview/006.php
 
+.. literalinclude:: overview/022.php
+
 其他断言
 ---------------------
 
@@ -227,6 +229,20 @@ Services::resetSingle(string $name)
 .. literalinclude:: overview/017.php
 
 .. note:: 所有组件工厂在每个测试之间默认重置。如果需要实例持久化,请修改测试用例的 ``$setUpMethods``。
+
+测试和时间
+================
+
+测试依赖于时间的代码可能会很有挑战性。然而，当使用 :doc:`Time <../libraries/time>` 类时，可以在测试期间随意固定或更改当前时间。
+
+下面是一个固定当前时间的样本测试代码：
+
+.. literalinclude:: overview/021.php
+
+你可以使用 ``Time::setTestNow()`` 方法来固定当前时间。
+你还可以选择性地将地区设置为第二个参数。
+
+不要忘记在测试后通过调用它而不带参数来重置当前时间。
 
 .. _testing-cli-output:
 

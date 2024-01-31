@@ -104,7 +104,8 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
 - 在 CI4 中, ``redirect()`` 与 CI3 中的完全不同。
     - `redirect() 文档 CodeIgniter 3.X <https://codeigniter.com/userguide3/helpers/url_helper.html#redirect>`_
     - `redirect() 文档 CodeIgniter 4.X <../general/common_functions.html#redirect>`_
-    - 在 CI4 中, ``redirect()`` 返回一个 ``RedirectResponse`` 实例,而不是重定向和终止脚本执行。你必须返回它。
+    - 在 CI4 中，:php:func:`redirect()` 返回一个 ``RedirectResponse`` 实例，而不是重定向并终止脚本执行。你必须从控制器或控制器过滤器中返回它。
+    - 在调用 ``redirect()`` 之前设置的 Cookie 和 Header 不会自动携带到 ``RedirectResponse``。如果你想发送它们，你需要手动调用 ``withCookies()`` 或 ``withHeaders()``。
     - 你需要将 CI3 的 ``redirect('login/form')`` 改为 ``return redirect()->to('login/form')``。
 
 钩子
@@ -117,6 +118,20 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
 - 挂钩点 ``pre_controller`` 和 ``post_controller`` 已被移除。使用 :doc:`../incoming/filters` 代替。
 - 挂钩点 ``display_override`` 和 ``cache_override`` 已被移除。因为基础方法已被移除。
 - 挂钩点 ``post_system`` 已经移动到在发送最终渲染页面之前。
+
+错误处理
+==============
+
+- CI4 中的行为已经稍有更改。
+
+  - 在 CI3 中，行为在 **index.php** 文件中设置：
+
+      - 错误级别由 ``error_reporting()`` 设置的错误将被记录（但根据 ``log_threshold`` 设置，它们可能不会被写入日志文件）。
+      - 错误级别为 ``E_ERROR | E_PARSE | E_COMPILE_ERROR | E_CORE_ERROR | E_USER_ERROR`` 的错误将停止框架处理，无论在 ``error_reporting()`` 中设置的错误级别如何。
+  - 在 CI4 中，行为在 **app/Config/Boot/{environment}.php** 文件中设置：
+
+      - 错误级别由 ``error_reporting()`` 设置的错误将被记录（但根据 ``Config\Logger::$threshold`` 设置，它们可能不会被写入日志文件）。
+      - 所有不被 ``error_reporting()`` 忽略的错误都将停止框架处理。
 
 扩展框架
 =======================

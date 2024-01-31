@@ -186,28 +186,37 @@ setSurroundCount()
 
 在第一行中, ``setSurroundCount()`` 方法指定我们希望在当前页面链接的两侧显示两个链接。它只接受显示链接数的参数。
 
+.. note:: 你必须首先调用此方法来生成正确的分页链接。
+
 hasPrevious() & hasNext()
 -------------------------
 
-这些方法返回一个布尔值,如果根据传给 ``setSurroundCount()`` 的值,在当前页面的任一侧有更多可以显示的链接,则返回 true。例如,假设我们有 20 页数据。当前页面是第 3 页。如果周围计数为 2,那么将在列表中显示以下链接:1、2、3、4 和 5。由于显示的第一个链接是第 1 页,所以 ``hasPrevious()`` 将返回 **false**,因为没有 0 页。但是, ``hasNext()`` 将返回 **true**,因为在第 5 页之后还有 15 页结果。
+这些方法会返回一个布尔值 ``true``，如果在当前页面的两侧可以显示更多的链接，这取决于传递给 `setSurroundCount()`_ 的值。
+
+例如，假设我们有 20 页的数据。当前的页面是第 3 页。如果周围的数量是 2，那么以下链接会显示如下::
+
+    1  |  2  |  3  |  4  |  5
+
+由于显示的第一个链接是第一页，``hasPrevious()`` 将返回 ``false``，因为没有第零页。然而，
+``hasNext()`` 将返回 ``true``，因为在第五页之后还有 15 页的结果。
 
 getPrevious() & getNext()
 -------------------------
 
-这些方法返回在编号链接任一侧当前页面之前和之后的结果页面的 URL。
+这些方法返回数字链接两侧的上一页或下一页结果的 **URL**。
 
-例如,你将当前页面设置为 5,并希望它前后(surroundCount)的链接分别为 2 个,这将给你这样的结果::
+例如，你将当前页面设置为 5，你希望在之前和之后的链接（surroundCount）各为 2，那么你会得到如下内容::
 
     3  |  4  |  5  |  6  |  7
 
 ``getPrevious()`` 返回第 2 页的 URL。``getNext()`` 返回第 8 页的 URL。
 
-如果你想要第 4 页和第 6 页,请改用 ``getPreviousPage()`` 和 ``getNextPage()``。
+如果你想要第 4 页和第 6 页,请改用 `getPreviousPage() & getNextPage()`_。
 
 getFirst() & getLast()
 ----------------------
 
-与 ``getPrevious()`` 和 ``getNext()`` 类似,这些方法返回结果集中的第一页和最后一页的链接。
+与 `getPrevious() & getNext()`_ 类似,这些方法返回结果集中的第一页和最后一页的 **URL**。
 
 links()
 -------
@@ -216,9 +225,9 @@ links()
 
 .. literalinclude:: pagination/013.php
 
-在为标准分页结构提供的代码中,使用 ``getPrevious()`` 和 ``getNext()`` 方法分别获取前一个和下一个分页组的链接。
+在为标准分页结构提供的代码中,使用 `getPrevious() & getNext()`_ 方法分别获取前一个和下一个分页组的链接。
 
-如果你要使用上一页和下一页将链接到当前页面基于当前页面的上一页和下一页的分页结构,只需分别用 ``getPreviousPage()`` 和 ``getNextPage()`` 替换 ``getPrevious()`` 和 ``getNext()``,以及分别用 ``hasPreviousPage()`` 和 ``hasNextPage()`` 替换 ``hasPrevious()`` 和 ``hasNext()``。
+如果你要使用上一页和下一页将链接到当前页面基于当前页面的上一页和下一页的分页结构,只需分别用 `getPreviousPage() & getNextPage()`_ 替换 `getPrevious() & getNext()`_,以及分别用 `hasPreviousPage() & hasNextPage()`_ 替换 `hasPrevious() & hasNext()`_。
 
 请参阅以下示例及其更改:
 
@@ -227,22 +236,31 @@ links()
 hasPreviousPage() & hasNextPage()
 ---------------------------------
 
-该方法分别返回一个布尔值,指示当前显示页面之前和之后是否存在链接。
+这个方法返回一个布尔值 ``true``，如果在当前显示的页面前后各有一个页面的链接。
 
-它们与 ``hasPrevious()`` 和 ``hasNext()`` 的区别在于,它们基于当前显示的页面,而 ``hasPrevious()`` 和 ``hasNext()`` 基于传入 ``setSurroundCount()`` 的值设置在当前页面之前和之后的链接集。
+例如，假设我们有 20 页的数据。当前的页面是第 3 页。如果周围的数量是 2，那么以下链接会显示如下::
+
+    1  |  2  |  3  |  4  |  5
+
+``hasPreviousPage()`` 将返回 ``true``，因为有第 2 页。并且，
+``hasNextPage()`` 将返回 ``true``，因为有第 4 页。
+
+.. note:: 与 `hasPrevious() & hasNext()`_ 的区别在于，它们是基于当前页面的，而 `hasPrevious() & hasNext()`_ 是基于在当前页面前后显示的链接集，这取决于传递给 `setSurroundCount()`_ 的值。
 
 getPreviousPage() & getNextPage()
 ---------------------------------
 
-这些方法返回当前显示页面之前和之后的页面的 URL,与 ``getPrevious()`` 和 ``getNext()`` 不同,后两者返回编号链接任一侧之前和之后的结果页面的 URL。请参阅前一段落的完整说明。
+这些方法返回当前显示页面的前一页和后一页的 **URL**。
 
-例如,你将当前页面设置为 5,并希望它前后(surroundCount)的链接分别为 2 个,这将给你这样的结果::
+例如，你将当前页面设置为 5，你希望在之前和之后的链接（surroundCount）各为 2，那么你会得到如下内容::
 
     3  |  4  |  5  |  6  |  7
 
 ``getPreviousPage()`` 返回第 4 页的 URL。``getNextPage()`` 返回第 6 页的 URL。
 
-如果你想要页面数而不是 URL,可以使用以下方法:
+.. note:: `getPrevious() & getNext()`_ 返回数字链接两侧的上一页或下一页结果的 URL。
+
+如果你希望得到的是页面数字而不是 URL，你可以使用以下方法：
 
 getPreviousPageNumber() & getNextPageNumber()
 ---------------------------------------------
@@ -252,7 +270,13 @@ getPreviousPageNumber() & getNextPageNumber()
 getFirstPageNumber() & getLastPageNumber()
 ------------------------------------------
 
-这些方法分别返回结果集中的第一页和最后一页的页码。
+这些方法返回要显示的链接集中第一页和最后一页的页码。例如，如果要显示的链接集如下所示::
+
+    3  |  4  |  5  |  6  |  7
+
+``getFirstPageNumber()`` 将返回 3，而 ``getLastPageNumber()`` 将返回 7。
+
+.. note:: 要获取整个结果集中第一页和最后一页的页码，你可以使用以下方法：第一页的页码总是 1，可以使用 `getPageCount()`_ 来获取最后一页的页码。
 
 getCurrentPageNumber()
 ----------------------

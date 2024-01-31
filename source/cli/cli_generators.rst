@@ -75,7 +75,7 @@ make:command
 选项:
 ========
 * ``--command``:在 spark 中运行的命令名称。默认为 ``command:name``。
-* ``--group``:命令的组/命名空间。对于基本命令默认为 ``CodeIgniter``,对于生成器命令默认为 ``Generators``。
+* ``--group``:命令的组/命名空间。对于基本命令默认为 ``App``,对于生成器命令默认为 ``Generators``。
 * ``--type``:命令类型,可以是 ``basic`` 基本命令或 ``generator`` 生成器命令。默认为 ``basic``。
 * ``--namespace``:设置根命名空间。默认为 ``APP_NAMESPACE`` 的值。
 * ``--suffix``:在生成的类名后附加组件后缀。

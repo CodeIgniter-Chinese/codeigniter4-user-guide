@@ -82,26 +82,58 @@ CodeIgniter 支持直接从喜欢的终端使用专用的 ``db:create`` 命令�
 添加字段
 =============
 
-字段通常通过关联数组创建。在数组中,你必须包含与字段的数据类型相关的 ``type`` 键。 例如,INT、VARCHAR、TEXT 等。许多数据类型(例如 VARCHAR)还需要一个 ``constraint`` 键。
+$forge->addField()
+------------------
+
+字段通常通过关联数组创建。在数组中,你必须包含与字段的数据类型相关的 ``type`` 键。
+
+例如, ``INT``、``VARCHAR``、``TEXT`` 等。许多数据类型(例如 ``VARCHAR``)还需要一个 ``constraint`` 键。
 
 .. literalinclude:: forge/006.php
 
 另外,可以使用以下键/值:
 
-- ``unsigned``/true : 在字段定义中生成“UNSIGNED”。
-- ``default``/value : 在字段定义中生成默认值。
-- ``null``/true : 在字段定义中生成“null”。如果不指定,字段将默认为“NOT null”。
-- ``auto_increment``/true : 在字段上生成 auto_increment 标志。请注意,字段类型必须是支持这一点的类型,如整数。
+- ``unsigned``/true : 在字段定义中生成 ``UNSIGNED``。
+- ``default``/value : 在字段定义中生成 ``DEFAULT`` 约束。
+- ``null``/true : 在字段定义中生成 ``null``。如果不指定,字段将默认为 ``NOT null``。
+- ``auto_increment``/true : 在字段上生成 auto_increment 标志。请注意,字段类型必须是支持这一点的类型,如 ``INTEGER``。
 - ``unique``/true : 为字段定义生成唯一键。
 
 .. literalinclude:: forge/007.php
 
-在定义了字段后,可以使用 ``$forge->addField($fields)`` 后跟对 ``createTable()`` 方法的调用来添加它们。
+在定义了字段后,可以使用 ``$forge->addField($fields)`` 后跟对 :ref:`createTable() <creating-a-table>` 方法的调用来添加它们。
 
-$forge->addField()
-------------------
+关于数据类型的注解
+-------------------
 
-``addField()`` 方法将接受上述数组。
+浮点类型
+^^^^^^^^^^^^^^^^^^^^
+
+浮点类型，如 ``FLOAT`` 和 ``DOUBLE``，表示的是近似值。因此，当需要精确值时，不应使用它们。
+
+::
+
+    mysql> CREATE TABLE t (f FLOAT, d DOUBLE);
+    mysql> INSERT INTO t VALUES(99.9, 99.9);
+
+    mysql> SELECT * FROM t WHERE f=99.9;
+    Empty set (0.00 sec)
+
+    mysql> SELECT * FROM t WHERE f > 99.89 AND f < 99.91;
+    +------+------+
+    | f    | d    |
+    +------+------+
+    | 99.9 | 99.9 |
+    +------+------+
+    1 row in set (0.01 sec)
+
+当需要保存精确的精度时，例如在处理货币数据，应使用 ``DECIMAL`` 或 ``NUMERIC``。
+
+TEXT
+^^^^
+
+SQLSRV 上不应使用 ``TEXT``，它已被弃用。
+欲知详情，请参见 `ntext, text, 和 image (Transact-SQL) - SQL Server | Microsoft Learn <https://learn.microsoft.com/en-us/sql/t-sql/data-types/ntext-text-and-image-transact-sql?view=sql-server-ver16>`_。
 
 .. _forge-addfield-default-value-rawsql:
 
@@ -174,6 +206,8 @@ $forge->addUniqueKey()
 .. literalinclude:: forge/013.php
 
 .. note:: SQLite3 不支持命名外键。CodeIgniter 将引用它们的 ``prefix_table_column_foreign``。
+
+.. _creating-a-table:
 
 创建表格
 ================
@@ -259,9 +293,9 @@ $forge->modifyColumn()
 
 .. note:: ``modifyColumn()`` 可能会意外地更改 ``NULL``/``NOT NULL``。因此,建议始终为 ``null`` 键指定值。与创建表不同,如果未指定 ``null``,列将为 ``NULL``,而不是 ``NOT NULL``。
 
-.. note:: 由于一个错误,在 v4.3.3 之前,即使指定 ``'null' => false``,SQLite3 也可能不设置 ``NOT NULL``。
+.. note:: 由于一个错误,在 v4.3.4 之前,即使指定 ``'null' => false``,SQLite3 也可能不设置 ``NOT NULL``。
 
-.. note:: 由于一个错误,在 v4.3.3 之前,Postgres 和 SQLSRV 即使指定 ``'null' => false`` 也会设置 ``NOT NULL``。
+.. note:: 由于一个错误,在 v4.3.4 之前,Postgres 和 SQLSRV 即使指定 ``'null' => true`` 也会设置 ``NOT NULL``。
 
 .. _db-forge-adding-keys-to-a-table:
 

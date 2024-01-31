@@ -731,15 +731,17 @@ $builder->insert()
 
 第一个参数是一个关联数组。
 
+.. note:: 除 ``RawSql`` 外,所有值都会自动转义,生成更安全的查询。
+
+.. warning:: 当你使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
+
 这是一个使用对象的示例:
 
 .. literalinclude:: query_builder/077.php
 
+.. literalinclude:: query_builder/121.php
+
 第一个参数是一个对象。
-
-.. note:: 除 ``RawSql`` 外,所有值都会自动转义,生成更安全的查询。
-
-.. warning:: 当你使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
 
 $builder->ignore()
 ------------------
@@ -775,6 +777,9 @@ insertBatch
 $builder->insertBatch()
 -----------------------
 
+通过数据插入
+^^^^^^^^^^^^^^^^
+
 根据你提供的数据生成 insert 字符串,并运行查询。你可以将一个 **数组** 或 **对象** 传递给该方法。下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/081.php
@@ -784,6 +789,9 @@ $builder->insertBatch()
 .. note:: 除 ``RawSql`` 外,所有值都会自动转义,生成更安全的查询。
 
 .. warning:: 当你使用 ``RawSql`` 时,必须手动对数据进行转义。否则可能会导致 SQL 注入。
+
+通过查询插入
+^^^^^^^^^^^^^^^^^^^
 
 你也可以从查询中插入:
 
@@ -815,6 +823,8 @@ $builder->upsert()
 
 这是一个使用对象的示例:
 
+.. literalinclude:: query_builder/122.php
+
 .. literalinclude:: query_builder/113.php
 
 第一个参数是一个对象。
@@ -842,13 +852,21 @@ $builder->upsertBatch()
 
 .. versionadded:: 4.3.0
 
-根据你提供的数据生成插入更新字符串,并运行查询。你可以将一个 **数组** 或 **对象** 传递给该方法。默认情况下,约束将按顺序定义。首先选择主键,然后是唯一键。MySQL 将默认使用任何约束。下面是一个使用数组的示例:
+通过数据插入更新
+^^^^^^^^^^^^^^^^
+
+根据你提供的数据生成插入更新字符串,并运行查询。你可以将一个 **数组** 或 **对象** 传递给该方法。默认情况下,约束将按顺序定义。首先选择主键,然后是唯一键。MySQL 将默认使用任何约束。
+
+下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/108.php
 
 第一个参数是一个关联数组。
 
 .. note:: 所有值都会自动转义,生成更安全的查询。
+
+通过查询插入更新
+^^^^^^^^^^^^^^^^^^^
 
 你也可以从查询中插入更新:
 
@@ -928,6 +946,8 @@ $builder->set()
 
 或者一个对象:
 
+.. literalinclude:: query_builder/077.php
+
 .. literalinclude:: query_builder/087.php
 
 $builder->update()
@@ -938,6 +958,8 @@ $builder->update()
 .. literalinclude:: query_builder/088.php
 
 或者你可以提供一个对象:
+
+.. literalinclude:: query_builder/077.php
 
 .. literalinclude:: query_builder/089.php
 
@@ -956,6 +978,15 @@ $builder->update()
 
 你也可以在执行更新时使用上面描述的 ``$builder->set()`` 方法。
 
+$builder->getCompiledUpdate()
+-----------------------------
+
+此方法的工作方式与 ``$builder->getCompiledInsert()`` 完全相同，只是它生成的是 **UPDATE** SQL 字符串，而不是 **INSERT** SQL 字符串。
+
+要获取更多信息，请查看 `$builder->getCompiledInsert()`_ 的文档。
+
+.. note:: 这个方法不适用于批量更新。
+
 .. _update-batch:
 
 UpdateBatch
@@ -966,15 +997,18 @@ $builder->updateBatch()
 
 .. note:: 从 v4.3.0 开始, ``updateBatch()`` 的第二个参数 ``$index`` 改为 ``$constraints``。它现在接受数组、字符串或 ``RawSql`` 类型。
 
+通过数据更新
+^^^^^^^^^^^^^^^^
+
 根据你提供的数据生成 update 字符串,并运行查询。你可以将一个 **数组** 或 **对象** 传递给该方法。下面是一个使用数组的示例:
 
 .. literalinclude:: query_builder/092.php
 
-.. note:: 从 v4.3.0 开始,生成的 SQL 结构得到了改进。
-
 第一个参数是一个关联数组,第二个参数是 where 键。
 
-从 v4.3.0 开始,你也可以使用 ``setQueryAsData()``、``onConstraint()`` 和 ``updateFields()`` 方法:
+.. note:: 从 v4.3.0 开始,生成的 SQL 结构得到了改进。
+
+从 v4.3.0 开始,你也可以使用 ``onConstraint()`` 和 ``updateFields()`` 方法:
 
 .. literalinclude:: query_builder/120.php
 
@@ -985,22 +1019,14 @@ $builder->updateBatch()
 .. note:: 由于这项工作的性质,此方法无法为 ``affectedRows()`` 提供适当的结果。
     相反, ``updateBatch()`` 返回受影响的行数。
 
-你也可以从查询中更新:
+通过查询更新
+^^^^^^^^^^^^^^^^^^^
+
+从 v4.3.0 开始，你也可以使用 ``setQueryAsData()`` 方法从查询中进行更新：
 
 .. literalinclude:: query_builder/116.php
 
-.. note:: 可以从 v4.3.0 开始使用 ``setQueryAsData()``、``onConstraint()`` 和 ``updateFields()`` 方法。
-
 .. note:: 必须将选择查询的列别名为目标表的列名。
-
-$builder->getCompiledUpdate()
------------------------------
-
-此方法的工作方式与 ``$builder->getCompiledInsert()`` 完全相同,只是它生成 **UPDATE** SQL 字符串而不是 **INSERT** SQL 字符串。
-
-有关更多信息,请查看 ``$builder->getCompiledInsert()`` 的文档。
-
-.. note:: 此方法不适用于批量更新。
 
 *************
 删除数据
@@ -1023,12 +1049,25 @@ $builder->delete()
 
 如果要从表中删除所有数据,可以使用 ``truncate()`` 方法或 ``emptyTable()``。
 
+$builder->getCompiledDelete()
+-----------------------------
+
+此方法的工作方式与 ``$builder->getCompiledInsert()`` 完全相同,只是它生成 **DELETE** SQL 字符串而不是 **INSERT** SQL 字符串。
+
+有关更多信息,请查看 `$builder->getCompiledInsert()`_ 的文档。
+
 .. _delete-batch:
+
+DeleteBatch
+===========
 
 $builder->deleteBatch()
 -----------------------
 
 .. versionadded:: 4.3.0
+
+通过数据删除
+^^^^^^^^^^^^^^^^
 
 根据一组数据生成批量 **DELETE** 语句。
 
@@ -1036,13 +1075,14 @@ $builder->deleteBatch()
 
 当在具有复合主键的表中删除数据时,此方法特别有用。
 
-.. note:: SQLite 不支持使用 ``where()``。
+.. note:: SQLite3 不支持使用 ``where()``。
+
+通过查询删除
+^^^^^^^^^^^^^^^^^^^
 
 你也可以从查询中删除:
 
 .. literalinclude:: query_builder/119.php
-
-.. note:: 可以从 v4.3.0 开始使用 ``deleteBatch()``。
 
 $builder->emptyTable()
 ----------------------
@@ -1059,13 +1099,6 @@ $builder->truncate()
 .. literalinclude:: query_builder/096.php
 
 .. note:: 如果不可用 TRUNCATE 命令, ``truncate()`` 将使用 ``DELETE FROM table``。
-
-$builder->getCompiledDelete()
------------------------------
-
-此方法的工作方式与 ``$builder->getCompiledInsert()`` 完全相同,只是它生成 **DELETE** SQL字符串而不是 **INSERT** SQL字符串。
-
-有关更多信息,请查看 ``$builder->getCompiledInsert()`` 的文档。
 
 **********************
 条件语句

@@ -8,10 +8,12 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
     :local:
     :depth: 2
 
-使用响应
+处理响应
 =========================
 
-一个 Response 类实例会为你实例化并传入控制器中。它可以通过 ``$this->response`` 访问。许多时候你不需要直接接触该类,因为 CodeIgniter 会为你发送 header 和 body。如果页面成功地创建了它被要求的内容,情况就是这样。当事情出错时,或者你需要发送非常具体的状态码回应,或者利用 HTTP 缓存的强大功能,它就为你提供了这些。
+一个响应类已经为你实例化并传入你的控制器。它可以通过 ``$this->response`` 访问。它和 ``Services::response()`` 返回的实例是同一个。我们称之为全局响应实例。
+
+许多时候你不需要直接接触该类,因为 CodeIgniter 会为你发送 header 和 body。如果页面成功地创建了它被要求的内容,情况就是这样。当事情出错时,或者你需要发送非常具体的状态码回应,或者利用 HTTP 缓存的强大功能,它就为你提供了这些。
 
 设置输出
 ------------------
@@ -28,18 +30,33 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 
 .. literalinclude:: response/003.php
 
-设置标题
+设置 Header
 ---------------
 
-你经常需要为响应设置标题。Response 类使得这非常简单,通过 ``setHeader()`` 方法。第一个参数是标题的名称。第二个参数是值,可以是字符串或在发送到客户端时将正确组合的字符串数组。与使用原生 PHP 函数相比,使用这些函数可以确保标题不会过早发送,从而造成错误,并使测试成为可能。
+setHeader()
+^^^^^^^^^^^
+
+你经常需要为响应设置 Header。Response 类使得这非常简单,通过 ``setHeader()`` 方法。
+
+第一个参数是 Header 的名称。第二个参数是值,可以是字符串或在发送到客户端时将正确组合的字符串数组。
 
 .. literalinclude:: response/004.php
 
-如果标题已经存在且可以有多个值,则可以使用 ``appendHeader()`` 和 ``prependHeader()`` 方法将值添加到值列表的末尾或开头。第一个参数是标题名称,第二个参数是要追加或前置的价值。
+与使用原生 PHP 函数相比,使用这些函数可以确保 Header 不会过早发送,从而造成错误,并使测试成为可能。
+
+.. note:: 这个方法只是将头部设置到响应实例。所以，如果你创建并返回另一个响应实例（例如，如果你调用 :php:func:`redirect()`），这里设置的头部不会自动发送。
+
+appendHeader()
+^^^^^^^^^^^^^^
+
+如果 Header 已经存在且可以有多个值,则可以使用 ``appendHeader()`` 和 ``prependHeader()`` 方法将值添加到值列表的末尾或开头。第一个参数是 Header 名称,第二个参数是要追加或前置的价值。
 
 .. literalinclude:: response/005.php
 
-可以使用 ``removeHeader()`` 方法从响应中删除标题,该方法仅将标题名称作为唯一参数。这不区分大小写。
+removeHeader()
+^^^^^^^^^^^^^^
+
+可以使用 ``removeHeader()`` 方法从响应中删除 Header,该方法仅将 Header 名称作为唯一参数。这不区分大小写。
 
 .. literalinclude:: response/006.php
 
@@ -48,8 +65,11 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 重定向
 ========
 
-如果你想要创建一个重定向,请使用 :php:func:`redirect()` 函数。
-它将返回一个 ``RedirectResponse`` 实例。
+如果你想创建一个重定向，使用 :php:func:`redirect()` 函数。
+
+它返回一个 ``RedirectResponse`` 实例。它是一个与 ``Services::response()`` 返回的全局响应实例不同的实例。
+
+.. warning:: 如果你在调用 ``redirect()`` 之前设置了 Cookie 或响应头部，它们会被设置到全局响应实例，它们并不会自动复制到 ``RedirectResponse`` 实例。要发送它们，你需要手动调用 ``withCookies()`` 或 ``withHeaders()`` 方法。
 
 .. important:: 如果你想要重定向,必须在 :doc:`Controller <../incoming/controllers>`
     或 :doc:`Controller Filter <../incoming/filters>` 的方法中返回 ``RedirectResponse`` 实例。
@@ -93,6 +113,26 @@ Response 类通过只适合服务器对调用它的客户端做出响应的方�
 .. note:: ``redirect()->back()`` 与浏览器的“后退”按钮不同。
     当 Session 可用时,它会将访问者带到“在 Session 期间查看的最后一页”。
     如果没有加载 Session,或者 Session 不可用,那么将使用 HTTP_REFERER 的安全版本。
+
+带 Cookie 的重定向
+---------------------
+
+如果你在调用 ``redirect()`` 之前设置了 Cookie，它们会被设置到全局响应实例，它们并不会自动复制到 ``RedirectResponse`` 实例。
+
+要发送 Cookie，你需要手动调用 ``withCookies()`` 方法。
+
+.. literalinclude:: ./response/034.php
+    :lines: 2-
+
+带 Header 的重定向
+---------------------
+
+如果你在调用 ``redirect()`` 之前设置了响应头部，它们会被设置到全局响应实例，它们并不会自动复制到 ``RedirectResponse`` 实例。
+
+要发送 Header，你需要手动调用 ``withHeaders()`` 方法。
+
+.. literalinclude:: ./response/035.php
+    :lines: 2-
 
 .. _response-redirect-status-code:
 
@@ -164,97 +204,6 @@ HTTP 缓存
 .. literalinclude:: response/010.php
 
 ``$options`` 数组简单地以 key/value 对的形式获取通常分配给 ``Cache-Control`` 头的数组。你可以自由地根据具体情况完全设置所需的所有选项。虽然大多数选项应用于 ``Cache-Control`` 头,但它也智能地处理 ``etag`` 和 ``last-modified`` 选项到适当的头。
-
-.. _content-security-policy:
-
-内容安全策略
-=======================
-
-防止站点遭受 XSS 攻击的最佳保护之一是在站点上实现内容安全策略。这会强制你列出站点 HTML 中拉入的每一个内容源,包括图像、样式表、javascript 文件等。浏览器将拒绝不符合白名单的内容源。这个白名单在响应的 ``Content-Security-Policy`` 头中创建,可以用多种不同的方式进行配置。
-
-这听起来很复杂,在一些网站上,确实可能具有挑战性。但是,对于许多简单的网站来说,其中所有内容都由同一域服务(http://example.com), integrating 它非常简单。
-
-由于这是一个复杂的主题,本用户指南不会详细介绍所有细节。欲了解更多信息,你应访问以下网站:
-
-* `Content Security Policy 主站点 <https://content-security-policy.com/>`_
-* `W3C 规范 <https://www.w3.org/TR/CSP>`_
-* `HTML5Rocks 入门 <https://www.html5rocks.com/en/tutorials/security/content-security-policy/>`_
-* `SitePoint 的文章 <https://www.sitepoint.com/improving-web-security-with-the-content-security-policy/>`_
-
-打开 CSP
---------------
-
-.. important:: :ref:`Debug 工具栏 <the-debug-toolbar>` 可能使用 Kint,它
-    输出内联脚本。因此,打开 CSP 时,Debug 工具栏的 CSP nonce 将自动输出。
-    但是,如果你不使用 CSP nonce,这将改变 CSP 头以实现你不打算的方式,
-    它的行为与生产环境不同;如果你想验证 CSP 的行为,请关闭 Debug 工具栏。
-
-默认情况下,不支持此功能。要在应用程序中启用支持,请编辑 **app/Config/App.php** 中的 ``CSPEnabled`` 值:
-
-.. literalinclude:: response/011.php
-
-启用后,响应对象将包含 ``CodeIgniter\HTTP\ContentSecurityPolicy`` 的一个实例。
-**app/Config/ContentSecurityPolicy.php** 中设置的值将应用于该实例,如果运行时不需要更改,那么格式正确的头将被发送,你就完成了。
-
-启用 CSP 后,会向 HTTP 响应添加两行头:一个是 **Content-Security-Policy** 头,其中包含策略以标识在不同上下文中明确允许的内容类型或来源;另一个是 **Content-Security-Policy-Report-Only** 头,它标识将被允许但也将报告给你选择的目标的内容类型或来源。
-
-我们的实现提供了对默认处理的支持,可以通过 ``reportOnly()`` 方法更改。
-当向 CSP 指令添加额外条目时,如下所示,它将添加到适当的用于阻止或防止的 CSP 头中。这可以在每次调用的基础上通过提供可选的第二个参数来覆盖。
-
-运行时配置
----------------------
-
-如果你的应用程序需要在运行时进行更改,你可以在控制器中通过 ``$this->response->getCSP()`` 访问实例。
-该类包含许多与适当的头值映射非常清楚的方法。示例如下,使用不同的组合参数,尽管所有这些“add”方法都接受指令名称或指令名称数组:
-
-.. literalinclude:: response/012.php
-
-每个“add”方法的第一个参数是一个适当的字符串值或值数组。
-
-``reportOnly()`` 方法允许你为后续源指定默认报告处理,除非被覆盖。例如,你可以指定 youtube.com 被允许,然后提供几个允许但报告的源:
-
-.. literalinclude:: response/013.php
-
-内联内容
---------------
-
-可以将网站设置为不保护自己页面上的内联脚本和样式,因为这可能是用户生成内容的结果。为了防止这种情况,CSP 允许你在 ``<style>`` 和 ``<script>`` 标签中指定一个 nonce,并将这些值添加到响应的头中。这在实际生活中是一个痛点,但是在代码中生成效果最好。为了简化这一过程,你可以在标签中包含一个 ``{csp-style-nonce}`` 或 ``{csp-script-nonce}`` 占位符,它将自动为你处理::
-
-    // 原始的
-    <script {csp-script-nonce}>
-        console.log("Script won't run as it doesn't contain a nonce attribute");
-    </script>
-
-    // 变为
-    <script nonce="Eskdikejidojdk978Ad8jf">
-        console.log("Script won't run as it doesn't contain a nonce attribute");
-    </script>
-
-    // 或者
-    <style {csp-style-nonce}>
-        . . .
-    </style>
-
-.. warning:: 如果攻击者注入类似 ``<script {csp-script-nonce}>`` 的字符串,它可能会成为带有这个功能的真正 nonce 属性。你可以在 **app/Config/ContentSecurityPolicy.php** 中使用 ``$scriptNonceTag`` 和 ``$styleNonceTag`` 属性自定义占位符字符串。
-
-如果你不喜欢这种自动替换功能,可以在 **app/Config/ContentSecurityPolicy.php** 中设置 ``$autoNonce = false`` 来关闭它。
-
-在这种情况下,你可以使用函数 :php:func:`csp_script_nonce()` 和 :php:func:`csp_style_nonce()` ::
-
-	// 原始的
-	<script <?= csp_script_nonce() ?>>
-		console.log("Script won't run as it doesn't contain a nonce attribute");
-	</script>
-
-	// 变为
-	<script nonce="Eskdikejidojdk978Ad8jf">
-		console.log("Script won't run as it doesn't contain a nonce attribute");
-	</script>
-
-	// 或者
-	<style <?= csp_style_nonce() ?>>
-		. . .
-	</style>
 
 类参考
 ===============
@@ -402,7 +351,9 @@ HTTP 缓存
         .. note:: 在 v4.2.7 之前版本,由于一个错误, ``$secure`` 和 ``$httponly`` 的默认值为 ``false``,
             从未使用来自 **app/Config/Cookie.php** 的这些值。
 
-        使用你指定的值设置 cookie。有两种传递信息的方式以便可以设置 cookie:数组方法和离散参数:
+        将包含你指定值的 Cookie 设置到响应实例。
+
+        有两种传递信息的方式以便可以设置 Cookie: 数组方法和离散参数:
 
         **数组方法**
 
@@ -444,6 +395,8 @@ HTTP 缓存
         :rtype: void
 
         删除现有的 cookie。
+
+        .. note:: 这也只是设置浏览器 cookie 以删除 cookie。
 
         仅 ``name`` 是必需的。
 

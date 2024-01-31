@@ -64,7 +64,7 @@ getMethod()
 检索输入
 ******************
 
-你可以通过 Request 对象检索来自 ``$_SERVER``、``$_GET``、``$_POST`` 和 ``$_ENV`` 的输入。
+你可以通过 Request 对象检索来自 ``$_GET``、``$_POST``、``$_COOKIE``、``$_SERVER`` 和 ``$_ENV`` 的输入。
 数据不会自动过滤,并以请求中传递的原始输入数据形式返回。
 
 .. note:: 使用全局变量是不好的做法。基本上,应该避免使用它,建议使用 Request 对象的方法。
@@ -82,23 +82,67 @@ getMethod()
 获取数据
 ============
 
-``getVar()`` 方法将从 ``$_REQUEST`` 中获取数据,因此将返回 ``$_GET``、``$_POST`` 或 ``$_COOKIE`` 中的任何数据(取决于 php.ini `request-order <https://www.php.net/manual/en/ini.core.php#ini.request-order>`_ )。
+getGet()
+--------
 
-.. note:: 如果传入请求的 ``Content-Type`` 标头设置为 ``application/json``,
-    ``getVar()`` 方法会返回 JSON 数据,而不是 ``$_REQUEST`` 数据。
-
-虽然这很方便,但你通常需要使用更具体的方法,如:
+``getGet()`` 方法将从 ``$_GET`` 中获取。
 
 * ``$request->getGet()``
+
+getPost()
+---------
+
+``getPost()`` 方法将从 ``$_POST`` 中获取。
+
 * ``$request->getPost()``
+
+getCookie()
+-----------
+
+``getCookie()`` 方法将从 ``$_COOKIE`` 中获取。
+
 * ``$request->getCookie()``
+
+getServer()
+-----------
+
+``getServer()`` 方法将从 ``$_SERVER`` 中获取。
+
 * ``$request->getServer()``
+
+getEnv()
+--------
+
+.. deprecated:: 4.4.4 该方法从一开始就不起作用。请使用 :php:func:`env()` 替代。
+
+``getEnv()`` 方法将从 ``$_ENV`` 中获取。
+
 * ``$request->getEnv()``
 
-另外,还有一些实用程序方法可以从 ``$_GET`` 或 ``$_POST`` 中检索信息,同时保持控制查找顺序的能力:
+getPostGet()
+------------
 
-* ``$request->getPostGet()`` - 首先检查 ``$_POST``,然后检查 ``$_GET``
-* ``$request->getGetPost()`` - 首先检查 ``$_GET``,然后检查 ``$_POST``
+此外，还有一些用于从 ``$_GET`` 或 ``$_POST`` 中检索信息的实用方法，同时保持控制查找的顺序：
+
+* ``$request->getPostGet()`` - 先检查 ``$_POST``，然后是 ``$_GET``
+
+getGetPost()
+------------
+
+* ``$request->getGetPost()`` - 先检查 ``$_GET``，然后是 ``$_POST``
+
+getVar()
+--------
+
+.. important:: 该方法仅存在于向后兼容中。不要在新项目中使用它。即使你已经在使用，我们也建议你使用另一个更合适的方法。
+
+``getVar()`` 方法将从 ``$_REQUEST`` 中获取，因此会返回任何来自 ``$_GET``, ``$POST``, 或者 ``$_COOKIE`` 的数据（取决于 php.ini `request-order <https://www.php.net/manual/en/ini.core.php#ini.request-order>`_）。
+
+.. warning:: 如果你只想验证 POST 数据，不要使用 ``getVar()``。
+    新值会覆盖旧值。如果 POST 值和 Cookie 有相同的名字，并且你在 `request-order <https://www.php.net/manual/en/ini.core.php#ini.request-order>`_ 中先设置 "P" 之后设置 "C"，则 POST 的值可能会被 Cookie 覆盖。
+
+.. note:: 如果传入的请求的 ``Content-Type`` 头设置为 ``application/json``，
+    则 ``getVar()`` 方法会返回 JSON 数据，而不是 ``$_REQUEST`` 数据。
 
 .. _incomingrequest-getting-json-data:
 
@@ -113,18 +157,16 @@ getMethod()
 
 默认情况下,这将返回 JSON 数据中的任何对象作为对象。如果你想要将其转换为关联数组,请在第一个参数中传递 ``true``。
 
-第二和第三个参数与 `json_decode <https://www.php.net/manual/en/function.json-decode.php>`_ PHP 函数的 ``depth`` 和 ``options`` 参数对应。
-
-如果传入请求的 ``Content-Type`` 标头设置为 ``application/json``,你也可以使用 ``getVar()`` 来获取 JSON 流。以这种方式使用 ``getVar()`` 将始终返回一个对象。
+第二和第三个参数与 `json_decode() <https://www.php.net/manual/en/function.json-decode.php>`_ PHP 函数的 ``$depth`` 和 ``$flags`` 参数对应。
 
 从 JSON 获取特定数据
 ===============================
 
-你可以通过向 ``getVar()`` 传入变量名来从 JSON 流中获取特定的数据片段,用于获取所需的数据,或者可以使用“点”表示法深入到 JSON 中,以获取不在根级别的数据。
+你可以通过向 ``getJsonVar()`` 传入变量名来从 JSON 流中获取特定的数据片段,用于获取所需的数据,或者可以使用“点”表示法深入到 JSON 中,以获取不在根级别的数据。
 
 .. literalinclude:: incomingrequest/010.php
 
-如果要结果是一个关联数组而不是对象,可以使用 ``getJsonVar()`` ,并在第二个参数中传递 true。如果你无法保证传入请求具有正确的 ``Content-Type`` 标头,也可以使用此函数。
+如果你希望结果是关联数组而不是对象，你可以在第二个参数中传入 true：
 
 .. literalinclude:: incomingrequest/011.php
 
@@ -279,47 +321,47 @@ getMethod()
 
         :param  string  $index: 要查找的变量/键的名称。
         :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+                        `过滤器类型 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
         :param  int     $flags: 要应用的标志。标志列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+                        `过滤器 flag <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
         :returns:   如果没有提供参数,则返回 ``$_REQUEST``,否则如果找到则返回 REQUEST 值,如果没找到则为 null
         :rtype: array|bool|float|int|object|string|null
 
-        第一个参数将包含要查找的 REQUEST 项的名称:
+        .. important:: 该方法仅存在于向后兼容中。不要在新项目中使用它。即使你已经在使用，我们也建议你使用另一个更合适的方法。
 
-        .. literalinclude:: incomingrequest/027.php
+        这个方法与 ``getGet()`` 相同，只是它获取的是 REQUEST 数据。
+
+    .. php:method:: getGet([$index = null[, $filter = null[, $flags = null]]])
+
+        :param  string  $index: 要查找的变量/键的名称。
+        :param  int     $filter: 要应用的过滤类型。过滤器类型列表可以在 `过滤器类型 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
+        :param  int     $flags: 要应用的标记。标记列表可以在 `过滤器 flag <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
+        :returns:       如果没有提供参数，则为 ``$_GET``，否则如果找到 GET 值则为 GET 值，如果未找到则为 null
+        :rtype: array|bool|float|int|object|string|null
+
+        第一个参数将包含你正在查找的 GET 项的名称：
+
+        .. literalinclude:: incomingrequest/041.php
 
         如果尝试检索的项目不存在,该方法将返回 null。
 
         第二个可选参数允许你通过 PHP 的过滤器运行数据。将所需的过滤器类型作为第二个参数传递:
 
-        .. literalinclude:: incomingrequest/028.php
+        .. literalinclude:: incomingrequest/042.php
 
-        若要返回所有 POST 项,请不带任何参数调用。
+        若要返回所有 GET 项,请不带任何参数调用。
 
-        要返回所有 POST 项并通过过滤器传递它们,请将第一个参数设置为 null,同时将第二个参数设置为要使用的过滤器:
+        要返回所有 GET 项并通过过滤器传递它们,请将第一个参数设置为 null,同时将第二个参数设置为要使用的过滤器:
 
-        .. literalinclude:: incomingrequest/029.php
+        .. literalinclude:: incomingrequest/043.php
 
-        要返回多个 POST 参数的数组,请传递所有所需键的数组:
+        要返回多个 GET 参数的数组,请传递所有所需键的数组:
 
-        .. literalinclude:: incomingrequest/030.php
+        .. literalinclude:: incomingrequest/044.php
 
         这里也应用了相同的规则,要使用过滤检索参数,请将第二个参数设置为要应用的过滤器类型:
 
-        .. literalinclude:: incomingrequest/031.php
-
-    .. php:method:: getGet([$index = null[, $filter = null[, $flags = null]]])
-
-        :param  string  $index: 要查找的变量/键的名称。
-        :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
-        :param  int     $flags: 要应用的标志。标志列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
-        :returns:       如果没有提供参数,则返回 ``$_GET``,否则如果找到则返回 GET 值,如果没找到则为 null
-        :rtype: array|bool|float|int|object|string|null
-
-        此方法与 ``getVar()`` 相同,只是它获取 GET 数据。
+        .. literalinclude:: incomingrequest/045.php
 
     .. php:method:: getPost([$index = null[, $filter = null[, $flags = null]]])
 
@@ -331,15 +373,15 @@ getMethod()
         :returns:       如果没有提供参数,则返回 ``$_POST``,否则如果找到则返回 POST 值,如果没找到则为 null
         :rtype: array|bool|float|int|object|string|null
 
-            此方法与 ``getVar()`` 相同,只是它获取 POST 数据。
+            此方法与 ``getGet()`` 相同,只是它获取 POST 数据。
 
     .. php:method:: getPostGet([$index = null[, $filter = null[, $flags = null]]])
 
         :param  string  $index: 要查找的变量/键的名称。
         :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+                        `过滤器类型 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
         :param  int     $flags: 要应用的标志。标志列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+                        `过滤器 flag <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
         :returns:       如果没有指定参数,则返回 ``$_POST`` 和 ``$_GET`` 组合(冲突时优先 POST 值),
                         否则首先查找 POST 值,找不到则查找 GET 值,如果没找到则返回 null
         :rtype: array|bool|float|int|object|string|null
@@ -356,9 +398,9 @@ getMethod()
 
         :param  string  $index: 要查找的变量/键的名称。
         :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+                        `过滤器类型 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
         :param  int     $flags: 要应用的标志。标志列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+                        `过滤器 flag <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
         :returns:       如果没有指定参数,则返回 ``$_GET`` 和 ``$_POST`` 组合(冲突时优先 GET 值),
                         否则首先查找 GET 值,找不到则查找 POST 值,如果没找到则返回 null
         :rtype: array|bool|float|int|object|string|null
@@ -375,9 +417,9 @@ getMethod()
 
         :param  array|string|null    $index: COOKIE 名称
         :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+                        `过滤器类型 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
         :param  int     $flags: 要应用的标志。标志列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+                        `过滤器 flag <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
         :returns:        如果没有提供参数,则返回 ``$_COOKIE``,否则如果找到则返回 COOKIE 值,如果没有找到则为 null
         :rtype: array|bool|float|int|object|string|null
 
@@ -395,13 +437,13 @@ getMethod()
 
         :param  array|string|null    $index: 值名称
         :param  int     $filter: 要应用的过滤器类型。过滤器列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
+                        `过滤器类型 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
         :param  int     $flags: 要应用的标志。标志列表可在
-                        `这里 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 找到。
+                        `过滤器 flag <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。
         :returns:        如果找到则返回 ``$_SERVER`` 项的值,否则为 null
         :rtype: array|bool|float|int|object|string|null
 
-        此方法与 ``getPost()``、``getGet()`` 和 ``getCookie()`` 方法相同,只是它获取 getServer 数据(``$_SERVER``):
+        此方法与 ``getPost()``、``getGet()`` 和 ``getCookie()`` 方法相同,只是它获取 Server 数据(``$_SERVER``):
 
         .. literalinclude:: incomingrequest/036.php
 
@@ -409,14 +451,12 @@ getMethod()
 
         .. literalinclude:: incomingrequest/037.php
 
-    .. php:method:: getUserAgent([$filter = null])
+    .. php:method:: getUserAgent()
 
-        :param  int $filter: 要应用的过滤器类型。过滤器列表可在
-                    `这里 <https://www.php.net/manual/en/filter.filters.php>`__ 找到。
         :returns:  在 SERVER 数据中找到的用户代理字符串,如果没有找到则为 null。
         :rtype: CodeIgniter\\HTTP\\UserAgent
 
-        此方法返回来自 SERVER 数据的用户代理字符串:
+        此方法返回来自 SERVER 数据的用户代理实例:
 
         .. literalinclude:: incomingrequest/038.php
 
