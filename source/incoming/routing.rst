@@ -66,6 +66,8 @@ ID 将被设置为 ``34``:
 
 .. literalinclude:: routing/009.php
 
+.. _routing-http-verb-routes:
+
 HTTP 动词路由
 ================
 
@@ -79,6 +81,8 @@ HTTP 动词路由
 
 指定路由处理程序
 =========================
+
+.. _controllers-namespace:
 
 控制器的命名空间
 ----------------------
@@ -176,14 +180,28 @@ HTTP 动词路由
 .. note:: ``{locale}`` 不能作为占位符或路由的其他部分使用,因为它保留用于
     :doc:`localization </outgoing/localization>`。
 
-请注意,单个 ``(:any)`` 将在 URL 中匹配多个段(如果存在)。例如,路由:
+.. _routing-placeholder-any:
+
+(:any) 的行为
+^^^^^^^^^^^^^^^^^^^^^^
+
+请注意,单个 ``(:any)`` 将在 URL 中匹配多个段(如果存在)。
+
+例如,路由:
 
 .. literalinclude:: routing/010.php
 
 将匹配 **product/123**、**product/123/456**、**product/123/456/789** 等等。
+
+在上面的例子中，如果 ``$1`` 占位符包含一个斜杠（``/``），当传递给 ``Catalog::productLookup()`` 时，它仍然会被分割成多个参数。
+
 控制器中的实现应考虑最大参数:
 
 .. literalinclude:: routing/011.php
+
+或者你可以使用 `变长参数列表 <https://www.php.net/manual/en/functions.arguments.php#functions.variable-arg-list>`_：
+
+.. literalinclude:: routing/068.php
 
 .. important:: 不要在 ``(:any)`` 后面放任何占位符。因为传递给控制器方法的参数数量可能会改变。
 
@@ -221,6 +239,8 @@ HTTP 动词路由
 例如,如果用户访问你的 Web 应用程序的密码保护区域,并且你希望能够在他们登录后将他们重定向回同一页面,你可能会发现此示例很有用:
 
 .. literalinclude:: routing/019.php
+
+在上面的例子中，如果 ``$1`` 占位符包含一个斜杠（``/``），当传递给 ``Auth::login()`` 时，它仍然会被分割成多个参数。
 
 对于那些不了解正则表达式并希望学习更多知识的人,`regular-expressions.info <https://www.regular-expressions.info/>`_ 可能是一个不错的起点。
 
@@ -268,6 +288,8 @@ HTTP 动词路由
 任意 HTTP 动词的路由
 ==========================
 
+.. important:: 这个方法只为了向后兼容而存在。在新项目中不要使用它。即使你已经在使用它，我们也建议你使用另一种更适合的方法。
+
 .. warning:: 尽管 ``add()`` 方法看起来很方便,但建议始终使用基于 HTTP 动词的路由,如上所述,因为它更安全。
     如果你使用 :doc:`CSRF 保护 </libraries/security>`,它不会保护 **GET** 请求。
     如果 ``add()`` 方法中指定的 URI 可以通过 GET 方法访问,CSRF 保护将不起作用。
@@ -281,6 +303,8 @@ HTTP 动词路由
 
 映射多个路由
 =======================
+
+.. important:: 这个方法只为了向后兼容而存在。在新项目中不要使用它。即使你已经在使用它，我们也建议你使用另一种更适合的方法。
 
 .. warning:: 不推荐使用 ``map()`` 方法,就像 ``add()`` 一样,因为它在内部调用 ``add()``。
 
@@ -618,7 +642,7 @@ RoutesCollection 类提供了几个选项，可以影响所有路由，并且可
 启用自动路由
 ===================
 
-要使用它,你需要在 **app/Config/Routing.php** 中将 ``$autoRoute`` 选项设置为 true::
+要使用它,你需要在 **app/Config/Routing.php** 中将 ``$autoRoute`` 选项设置为 ``true``::
 
     public bool $autoRoute = true;
 
@@ -653,7 +677,7 @@ URI 段
 配置选项
 =====================
 
-这些选项在 **app/Config/Routes.php** 的顶部可用。
+这些选项在 **app/Config/Routing.php** 文件中可用。
 
 默认控制器
 ------------------
@@ -661,11 +685,11 @@ URI 段
 针对网站根 URI
 ^^^^^^^^^^^^^^^^^
 
-当用户访问你站点的根目录(即 **example.com**)时,除非为它明确定义了路由,否则使用的控制器由 ``setDefaultController()`` 方法设置的值确定。
+当用户访问你站点的根目录(即 **example.com**)时,除非为它明确定义了路由,否则使用的控制器由 ``$defaultController`` 属性设置的值确定。
 
-默认值为 ``Home``,它与 **app/Controllers/Home.php** 中的控制器匹配:
+默认值为 ``Home``,它与 **app/Controllers/Home.php** 中的控制器匹配::
 
-.. literalinclude:: routing/047.php
+    public string $defaultController = 'Home';
 
 针对目录 URI
 ^^^^^^^^^^^^^^^^^
@@ -679,9 +703,9 @@ URI 段
 
 这与默认控制器设置类似,但用于在找到与 URI 匹配的控制器但不存在方法段时确定使用的默认方法。默认值为 ``index``。
 
-在此示例中,如果用户访问 **example.com/products**,且存在 ``Products`` 控制器,将执行 ``Products::listAll()`` 方法:
+在此示例中,如果用户访问 **example.com/products**,且存在 ``Products`` 控制器,将执行 ``Products::getListAll()`` 方法::
 
-.. literalinclude:: routing/048.php
+    public string $defaultMethod = 'listAll';
 
 .. important:: 你无法使用控制器的默认方法名称访问控制器。在上面的示例中,你可以访问 **example.com/products**,但是如果访问 **example.com/products/listall** 将找不到。
 
@@ -709,6 +733,8 @@ URI 段
 自动路由(传统)
 *********************
 
+.. important:: 这个功能只为了向后兼容而存在。在新项目中不要使用它。即使你已经在使用它，我们也推荐你使用 :ref:`auto-routing-improved` 替代。
+
 自动路由(传统)是来自 CodeIgniter 3 的路由系统。它可以根据约定自动路由 HTTP 请求,并执行相应的控制器方法。
 
 推荐在 **app/Config/Routes.php** 文件中定义所有路由,或者使用 :ref:`auto-routing-improved`。
@@ -722,9 +748,13 @@ URI 段
 
 自 v4.2.0 起,默认禁用自动路由。
 
-要使用它,你需要在 **app/Config/Routing.php** 中将 ``$autoRoute`` 选项设置为 true::
+要使用它,你需要在 **app/Config/Routing.php** 中将 ``$autoRoute`` 选项设置为 ``true``::
 
-    $routes->setAutoRoute(true);
+    public bool $autoRoute = true;
+
+并且在 **app/Config/Feature.php** 中，将属性 ``$autoRoutesImproved`` 设置为 ``false``::
+
+    public bool $autoRoutesImproved = false;
 
 URI 段(传统)
 =====================
@@ -738,7 +768,7 @@ URI 段(传统)
 配置选项(传统)
 ==============================
 
-这些选项在 **app/Config/Routes.php** 的顶部可用。
+这些选项在 **app/Config/Routing.php** 文件中可用。
 
 默认控制器(传统)
 ---------------------------
@@ -746,9 +776,11 @@ URI 段(传统)
 针对网站根 URI(传统)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-当用户访问你站点的根目录(即 example.com)时,除非为它明确定义了路由,否则使用的控制器由 ``setDefaultController()`` 方法设置的值确定。默认值为 ``Home``,它与 **app/Controllers/Home.php** 中的控制器匹配:
+当用户访问你网站的根（例如，**example.com**）时，除非存在明确的路由，否则将根据 ``$defaultController`` 属性设定的值来确定要使用的控制器。
 
-.. literalinclude:: routing/047.php
+对于这个属性，默认值是 ``Home``，它匹配在 **app/Controllers/Home.php** 的控制器::
+
+    public string $defaultController = 'Home';
 
 针对目录 URI(传统)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -764,7 +796,7 @@ URI 段(传统)
 
 在此示例中,如果用户访问 **example.com/products**,且存在 ``Products`` 控制器,将执行 ``Products::listAll()`` 方法:
 
-.. literalinclude:: routing/048.php
+    public string $defaultMethod = 'listAll';
 
 确认路由
 *****************
@@ -799,7 +831,9 @@ spark 路由
 
 自 v4.3.0 起, *Name* 列显示路由名称。``»`` 表示名称与路由路径相同。
 
-.. important:: 该系统并非完美。如果使用自定义占位符, *Filters* 可能不正确。如果要检查路由的过滤器,可以使用 :ref:`spark filter:check <spark-filter-check>` 命令。
+.. important:: 系统并非完美。对于包含如 ``([^/]+)`` 或 ``{locale}`` 的正则表达式模式的路由，显示的 *Filters* 可能不正确（如果你在 **app/Config/Filters.php** 中为过滤器设置了复杂的 URI 模式），或者它显示为 ``<unknown>``。
+
+    :ref:`spark filter:check <spark-filter-check>` 命令可以用来检查 100% 准确的过滤器。
 
 自动路由(改进版)
 -----------------------

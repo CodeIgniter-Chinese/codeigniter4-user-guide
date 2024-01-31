@@ -311,7 +311,7 @@ date              格式(Y-m-d)      与 PHP **date** 兼容的格式化字符�
 date_modify       要添加/减去的值  与 **strtotime** 兼容的字符串,用于修改日期,                 { v|date_modify(+1 day) }
                                    如 ``+5 day`` 或 ``-1 week``。
 
-default           默认值           如果变量为空或未定义,显示默认值。                           { v|default(just in case) }
+default           默认值           如果变量为 `empty()`_,显示默认值。                          { v|default(just in case) }
 
 esc               html、attr、     指定转义数据的上下文。                                      { v|esc(attr) }
                   css、js
@@ -350,6 +350,8 @@ title                              以“标题大小写”显示字符串,所�
 
 upper                              将字符串显示为全部大写。                                    { v|upper }
 ================ ================= =========================================================== ======================================
+
+.. _empty(): https://www.php.net/manual/en/function.empty.php
 
 有关与“local_number”过滤器相关的详细信息，请参阅 `PHP 的 NumberFormatter <https://www.php.net/manual/en/numberformatter.create.php>`_。
 

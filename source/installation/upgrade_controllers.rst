@@ -20,6 +20,7 @@
 - CI4 为你提供了 :doc:`Request </incoming/incomingrequest>` 和 :doc:`Responses </outgoing/response>`
   对象来使用 - 比 CI3 的方式更强大。
 - 如果你需要一个基类控制器(CI3 中的 ``MY_Controller``),请使用 **app/Controllers/BaseController.php**。
+- 在控制器中调用 ``echo``，如同在 CI3 中一样，仍然被支持，但建议从控制器返回字符串或 Response 对象。
 
 升级指南
 =============

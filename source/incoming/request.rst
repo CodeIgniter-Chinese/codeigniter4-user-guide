@@ -94,6 +94,8 @@
 
     .. php:method:: getEnv([$index = null[, $filter = null[, $flags = null]]])
 
+        .. deprecated:: 4.4.4 从一开始，这个方法就不起作用。请改用 :php:func:`env()`。
+
         :param    mixed     $index: 值名称
         :param    int       $filter: 要应用的过滤类型。过滤器列表可在 `PHP 手册 <https://www.php.net/manual/en/filter.filters.php>`__ 中找到。
         :param    int|array $flags: 要应用的标志。标志列表可在 `PHP 手册 <https://www.php.net/manual/en/filter.filters.flags.php>`__ 中找到。

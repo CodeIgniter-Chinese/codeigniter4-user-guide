@@ -17,28 +17,43 @@
 
 以下是每次 CodeIgniter 运行时都会调用的核心系统类列表:
 
-* ``CodeIgniter\Autoloader\Autoloader``
-* ``CodeIgniter\CodeIgniter``
-* ``CodeIgniter\Config\DotEnv``
-* ``CodeIgniter\Config\Services``
-* ``CodeIgniter\Controller``
-* ``CodeIgniter\Debug\Exceptions``
-* ``CodeIgniter\Debug\Timer``
-* ``CodeIgniter\Events\Events``
-* ``CodeIgniter\Filters\Filters``
-* ``CodeIgniter\HTTP\ContentSecurityPolicy``
-* ``CodeIgniter\HTTP\CLIRequest`` (如果仅从命令行启动)
-* ``CodeIgniter\HTTP\IncomingRequest`` (如果通过 HTTP 启动)
-* ``CodeIgniter\HTTP\Request``
-* ``CodeIgniter\HTTP\Response``
-* ``CodeIgniter\HTTP\Message``
-* ``CodeIgniter\HTTP\URI``
-* ``CodeIgniter\Log\Logger``
-* ``CodeIgniter\Log\Handlers\BaseHandler``
-* ``CodeIgniter\Log\Handlers\FileHandler``
-* ``CodeIgniter\Router\RouteCollection``
-* ``CodeIgniter\Router\Router``
-* ``CodeIgniter\View\View``
+*  ``CodeIgniter\Autoloader\Autoloader``
+*  ``CodeIgniter\Autoloader\FileLocator``
+*  ``CodeIgniter\Cache\CacheFactory``
+*  ``CodeIgniter\Cache\Handlers\BaseHandler``
+*  ``CodeIgniter\Cache\Handlers\FileHandler``
+*  ``CodeIgniter\Cache\ResponseCache``
+*  ``CodeIgniter\CodeIgniter``
+*  ``CodeIgniter\Config\BaseService``
+*  ``CodeIgniter\Config\DotEnv``
+*  ``CodeIgniter\Config\Factories``
+*  ``CodeIgniter\Config\Services``
+*  ``CodeIgniter\Controller``
+*  ``CodeIgniter\Cookie\Cookie``
+*  ``CodeIgniter\Cookie\CookieStore``
+*  ``CodeIgniter\Debug\Exceptions``
+*  ``CodeIgniter\Debug\Timer``
+*  ``CodeIgniter\Events\Events``
+*  ``CodeIgniter\Filters\Filters``
+*  ``CodeIgniter\HTTP\CLIRequest`` (如果仅从命令行启动)
+*  ``CodeIgniter\HTTP\ContentSecurityPolicy``
+*  ``CodeIgniter\HTTP\Header``
+*  ``CodeIgniter\HTTP\IncomingRequest`` (如果通过 HTTP 启动)
+*  ``CodeIgniter\HTTP\Message``
+*  ``CodeIgniter\HTTP\OutgoingRequest``
+*  ``CodeIgniter\HTTP\Request``
+*  ``CodeIgniter\HTTP\Response``
+*  ``CodeIgniter\HTTP\SiteURI``
+*  ``CodeIgniter\HTTP\SiteURIFactory``
+*  ``CodeIgniter\HTTP\URI``
+*  ``CodeIgniter\HTTP\UserAgent`` (如果通过 HTTP 启动)
+*  ``CodeIgniter\Log\Logger``
+*  ``CodeIgniter\Log\Handlers\BaseHandler``
+*  ``CodeIgniter\Log\Handlers\FileHandler``
+*  ``CodeIgniter\Router\RouteCollection``
+*  ``CodeIgniter\Router\Router``
+*  ``CodeIgniter\Superglobals``
+*  ``CodeIgniter\View\View``
 
 替换核心类
 ======================

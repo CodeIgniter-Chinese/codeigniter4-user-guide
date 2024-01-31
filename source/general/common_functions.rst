@@ -206,14 +206,14 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
     :returns: 脚本标签的 CSP 随机数属性
     :rtype: string
 
-    返回脚本标签的随机数属性。例如:``nonce="Eskdikejidojdk978Ad8jf"``。请参阅 :ref:`content-security-policy`。
+    返回脚本标签的随机数属性。例如:``nonce="Eskdikejidojdk978Ad8jf"``。请参阅 :ref:`內容安全策略 <csp-using-functions>`。
 
 .. php:function:: csp_style_nonce()
 
     :returns: 样式标签的 CSP 随机数属性
     :rtype: string
 
-    返回样式标签的随机数属性。例如:``nonce="Eskdikejidojdk978Ad8jf"``。请参阅 :ref:`content-security-policy`。
+    返回样式标签的随机数属性。例如:``nonce="Eskdikejidojdk978Ad8jf"``。请参阅 :ref:`內容安全策略 <csp-using-functions>`。
 
 .. php:function:: csrf_token()
 

@@ -40,6 +40,8 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
     :doc:`Response 库 </outgoing/response>`,因为此函数是
     :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 的别名。
 
+    .. note:: 这个辅助函数只设置全局响应实例的浏览器 Cookie（由 ``Services::response()`` 返回）。所以，如果你创建并返回另一个响应实例（例如，如果你调用 :php:func:`redirect()`），这里设置的 Cookie 不会自动发送。
+
 .. php:function:: get_cookie($index[, $xssClean = false[, $prefix = '']])
 
     :param    string    $index: Cookie 名称
@@ -68,6 +70,8 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
 
     此函数与 :php:func:`set_cookie()` 其他方面相同,只是它没有 ``value`` 和 ``expire`` 参数。
 
+    这也只是为删除全局响应实例（由 ``Services::response()`` 返回）的浏览器 Cookie 设置浏览器 Cookie。
+
     .. note:: 当你使用 :php:func:`set_cookie()` 时,如果 ``value`` 设置为空字符串且 ``expire`` 设置为 ``0``,则 cookie 将被删除。
         如果 ``value`` 设置为非空字符串且 ``expire`` 设置为 ``0``,则 cookie 仅在浏览器打开时有效。
 
@@ -82,4 +86,4 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
     :param string $prefix: Cookie 前缀
     :rtype: bool
 
-    通过名称检查 cookie 是否存在。这是 ``Response::hasCookie()`` 的别名。
+    检查在全局响应实例中（由 ``Services::response()`` 返回）是否存在同名的 Cookie。这是 :php:meth::`CodeIgniter\\HTTP\\Response::hasCookie()` 的别名。

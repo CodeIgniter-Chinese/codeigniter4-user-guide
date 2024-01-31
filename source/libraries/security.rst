@@ -67,6 +67,11 @@ CSRF 配置
 CSRF 保护方法
 -----------------------
 
+.. warning:: 如果你使用 :doc:`Session <./sessions>`，一定要使用基于 Session 的
+    CSRF 保护。基于 Cookie 的 CSRF 保护无法防止同站攻击。
+    详情请参见
+    `GHSA-5hm8-vh6r-2cjq <https://github.com/codeigniter4/shield/security/advisories/GHSA-5hm8-vh6r-2cjq>`_ 。
+
 默认情况下,使用基于 Cookie 的 CSRF 保护。它是 OWASP 跨站请求伪造预防备忘单上的
 `双重提交 Cookie <https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie>`_。
 
@@ -93,9 +98,14 @@ CSRF 保护方法
 令牌再生成
 ------------------
 
-令牌可以在每次提交时重新生成(默认),或者在 CSRF cookie 的整个生命周期内保持不变。令牌的默认再生成提供了更严格的安全性,但可能导致可用性问题,因为其他令牌变得无效(后退/前进导航、多个选项卡/窗口、异步操作等)。你可以通过编辑以下配置参数的值在 **app/Config/Security.php** 来更改此行为:
+令牌可以在每次提交时重新生成(默认),或者在 Session 或 CSRF Cookie 的整个生命周期内保持不变。
+
+令牌的默认再生成提供了更严格的安全性,但可能导致可用性问题,因为其他令牌变得无效(后退/前进导航、多个选项卡/窗口、异步操作等)。你可以通过编辑以下配置参数的值在 **app/Config/Security.php** 来更改此行为:
 
 .. literalinclude:: security/004.php
+
+.. warning:: 如果你使用基于 Cookie 的 CSRF 保护，并在提交后使用 :php:func:`redirect()`，
+    你必须调用 ``withCookie()`` 来发送重新生成的 CSRF Cookie。详情请参见 :ref:`response-redirect`。
 
 .. note:: 自 v4.2.3 起,你可以用 ``Security::generateHash()`` 方法手动重新生成 CSRF 令牌。
 

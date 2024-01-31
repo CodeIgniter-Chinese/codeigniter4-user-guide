@@ -90,9 +90,9 @@ $primaryKey
 $useAutoIncrement
 -----------------
 
-指定表是否使用 ``$primaryKey`` 的自动增量功能。如果设置为 ``false``,则你有责任为表中的每条记录提供主键值。当我们想实现 1:1 关系或在模型中使用 UUID 时,此功能可能很方便。默认值为 ``true``。
+指定表是否使用 `$primaryKey`_ 的自增功能。如果设置为 ``false``,则你有责任为表中的每条记录提供主键值。当我们想实现 1:1 关系或在模型中使用 UUID 时,此功能可能很方便。默认值为 ``true``。
 
-.. note:: 如果你将 ``$useAutoIncrement`` 设置为 ``false``,请确保在数据库中将主键设置为 ``unique``。这样可以确保模型的所有功能与以前一样工作。
+.. note:: 如果你将 `$useAutoIncrement`_ 设置为 ``false``,请确保在数据库中将主键设置为 ``unique``。这样可以确保模型的所有功能与以前一样工作。
 
 $returnType
 -----------
@@ -106,7 +106,7 @@ $useSoftDeletes
 
 如果为 true,那么任何 ``delete()`` 方法调用都会在数据库中设置 ``deleted_at``,而不是真正删除行。这可以在数据可能在其他地方被引用时保留数据,或者可以维护一个“回收站”,其中的对象可以恢复,或者即使只是保留它作为安全轨迹的一部分。如果为 true,则 **find*()** 方法只返回非已删除行,除非在调用 **find*()** 方法之前调用 ``withDeleted()`` 方法。
 
-这需要数据库中具有与模型的 ``$dateFormat`` 设置相应的数据类型的 DATETIME 或 INTEGER 字段。默认字段名称为 ``deleted_at``,但是可以通过使用 ``$deletedField`` 属性将其配置为你选择的任何名称。
+这需要数据库中具有与模型的 `$dateFormat`_ 设置相应的数据类型的 DATETIME 或 INTEGER 字段。默认字段名称为 ``deleted_at``,但是可以通过使用 `$deletedField`_ 属性将其配置为你选择的任何名称。
 
 .. important:: ``deleted_at`` 字段必须可为空。
 
@@ -115,7 +115,16 @@ $allowedFields
 
 当通过 ``save()``、``insert()`` 或 ``update()`` 方法设置时,此数组应更新可以设置的字段名称。这些字段名之外的任何字段都会被丢弃。这有助于防止只从表单获取输入并将其全部抛给模型,从而导致潜在的大规模分配漏洞。
 
-.. note:: ``$primaryKey`` 字段永远不应该是允许的字段。
+.. note:: `$primaryKey`_ 字段永远不应该是允许的字段。
+
+$allowEmptyInserts
+------------------
+
+.. versionadded:: 4.3.0
+
+是否允许插入空数据。默认值是 ``false``，意味着如果你试图插入空数据，将会抛出 "There is no data to insert." 的异常。
+
+你也可以通过 :ref:`model-allow-empty-inserts` 方法来改变这个设置。
 
 日期
 -----
@@ -123,22 +132,22 @@ $allowedFields
 $useTimestamps
 ^^^^^^^^^^^^^^
 
-此布尔值确定是否会向所有插入和更新自动添加当前日期。如果为 true,将以 ``$dateFormat`` 中指定的格式设置当前时间。这需要表中具有数据类型适当的 **created_at**、**updated_at** 和 **deleted_at** 列。
+此布尔值确定是否会向所有插入和更新自动添加当前日期。如果为 ``true``,将以 `$dateFormat`_ 中指定的格式设置当前时间。这需要表中具有数据类型适当的 **created_at**、**updated_at** 和 **deleted_at** 列。也可参考 `$createdField`_, `$updatedField`_ 和 `$deletedField`_。
 
 $dateFormat
 ^^^^^^^^^^^
 
-此值与 ``$useTimestamps`` 和 ``$useSoftDeletes`` 一起使用,以确保插入到数据库中的是正确类型的日期值。默认情况下,这会创建 DATETIME 值,但有效选项有: ``'datetime'``、 ``'date'`` 或 ``'int'`` (PHP 时间戳)。在缺少或无效的 **dateFormat** 情况下使用 **useSoftDeletes** 或 **useTimestamps** 会引发异常。
+此值与 `$useTimestamps`_ 和 `$useSoftDeletes`_ 一起使用,以确保插入到数据库中的是正确类型的日期值。默认情况下,这会创建 DATETIME 值,但有效选项有: ``'datetime'``、 ``'date'`` 或 ``'int'`` (PHP 时间戳)。在缺少或无效的 `$dateFormat`_ 情况下使用 `$useSoftDeletes`_ 或 `$useTimestamps`_ 会引发异常。
 
 $createdField
 ^^^^^^^^^^^^^
 
-指定用于数据记录创建时间戳的数据库字段。如果留空则不更新它(即使启用了 ``$useTimestamps``)。
+指定用于数据记录创建时间戳的数据库字段。如果设置为空字符串 (``''``) 则不更新它(即使启用了 `$useTimestamps`_)。
 
 $updatedField
 ^^^^^^^^^^^^^
 
-指定应该用于保持数据记录更新时间戳的数据库字段。如果留空则不更新它(即使启用了 ``$useTimestamps``)。
+指定应该用于保持数据记录更新时间戳的数据库字段。如果设置为空字符串 (``''``) 则不更新它(即使启用了 `$useTimestamps`_)。
 
 $deletedField
 ^^^^^^^^^^^^^
@@ -182,24 +191,16 @@ $cleanValidationRules
 $allowCallbacks
 ^^^^^^^^^^^^^^^
 
-是否应使用下面定义的回调。
+是否应使用下面定义的回调。参考 :ref:`model-events`。
 
 $beforeInsert
 ^^^^^^^^^^^^^
 $afterInsert
-^^^^^^^^^^^^^
-$beforeInsertBatch
-^^^^^^^^^^^^^^^^^^
-$afterInsertBatch
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
 $beforeUpdate
 ^^^^^^^^^^^^^
 $afterUpdate
 ^^^^^^^^^^^^^
-$beforeUpdateBatch
-^^^^^^^^^^^^^^^^^^
-$afterUpdateBatch
-^^^^^^^^^^^^^^^^^
 $beforeFind
 ^^^^^^^^^^^
 $afterFind
@@ -208,8 +209,16 @@ $beforeDelete
 ^^^^^^^^^^^^^
 $afterDelete
 ^^^^^^^^^^^^
+$beforeInsertBatch
+^^^^^^^^^^^^^^^^^^
+$afterInsertBatch
+^^^^^^^^^^^^^^^^^
+$beforeUpdateBatch
+^^^^^^^^^^^^^^^^^^
+$afterUpdateBatch
+^^^^^^^^^^^^^^^^^
 
-这些数组允许你指定在属性名称中指定的时间回调方法。
+这些数组允许你指定在属性名称中指定的时间回调方法。参考 :ref:`model-events`。
 
 使用数据
 *****************
@@ -226,7 +235,7 @@ find()
 
 .. literalinclude:: model/006.php
 
-该值以 ``$returnType`` 中指定的格式返回。
+该值以 `$returnType`_ 中指定的格式返回。
 
 你可以通过传递主键值数组而不是一个来指定要返回多行。
 
@@ -269,7 +278,7 @@ first()
 withDeleted()
 -------------
 
-如果 ``$useSoftDeletes`` 为 true,则 **find*()** 方法不会返回任何 ``deleted_at IS NOT NULL`` 的行。
+如果 `$useSoftDeletes`_ 为 true,则 **find*()** 方法不会返回任何 ``deleted_at IS NOT NULL`` 的行。
 要暂时覆盖此设置,可以在调用 **find*()** 方法之前使用 ``withDeleted()`` 方法。
 
 .. literalinclude:: model/013.php
@@ -290,7 +299,7 @@ insert()
 第一个参数是一个关联数组,用于在数据库中创建新行数据。
 如果传递对象而不是数组,它将尝试将其转换为数组。
 
-数组的键必须与 ``$table`` 中的列名匹配,而数组的值是要为该键保存的值。
+数组的键必须与 `$table`_ 中的列名匹配,而数组的值是要为该键保存的值。
 
 可选的第二个参数为布尔类型,如果设置为 false,该方法将返回一个布尔值,表示查询的成功或失败。
 
@@ -309,17 +318,19 @@ allowEmptyInserts()
 
 .. literalinclude:: model/056.php
 
+你也可以通过 `$allowEmptyInserts`_ 属性来改变这个设置。
+
 你可以通过调用 ``allowEmptyInserts(false)`` 再次启用检查。
 
 update()
 --------
 
-更新数据库中的现有记录。第一个参数是要更新的记录的 ``$primaryKey``。关联数组作为第二个参数传递给此方法。数组的键必须与 ``$table`` 中的列名匹配,而数组的值是要为该键保存的值:
+更新数据库中的现有记录。第一个参数是要更新的记录的 `$primaryKey`_。关联数组作为第二个参数传递给此方法。数组的键必须与 `$table`_ 中的列名匹配,而数组的值是要为该键保存的值:
 
 .. literalinclude:: model/016.php
 
 .. important:: 从 v4.3.0 开始,如果它生成没有 WHERE 子句的 SQL 语句,此方法会抛出 ``DatabaseException``。
-    在以前的版本中,如果在没有指定 ``$primaryKey`` 的情况下调用它并生成没有 WHERE 子句的 SQL 语句,查询仍会执行,表中的所有记录都会被更新。
+    在以前的版本中,如果在没有指定 `$primaryKey`_ 的情况下调用它并生成没有 WHERE 子句的 SQL 语句,查询仍会执行,表中的所有记录都会被更新。
 
 可以通过作为第一个参数传递主键数组来一次更新多条记录:
 
@@ -364,7 +375,7 @@ delete()
 
 .. literalinclude:: model/023.php
 
-如果模型的 ``$useSoftDeletes`` 值为 true,这将更新行以将 ``deleted_at`` 设置为当前日期和时间。你可以通过将第二个参数设置为 true 来强制永久删除。
+如果模型的 `$useSoftDeletes`_ 值为 true,这将更新行以将 ``deleted_at`` 设置为当前日期和时间。你可以通过将第二个参数设置为 true 来强制永久删除。
 
 可以作为第一个参数传递主键数组,以一次删除多条记录:
 
@@ -400,11 +411,11 @@ purgeDeleted()
 设置验证规则
 ------------------------
 
-第一步是用将应用的字段和规则填充 ``$validationRules`` 类属性。如果你有要使用的自定义错误消息,请将其放入 ``$validationMessages`` 数组中:
+第一步是用将应用的字段和规则填充 `$validationRules`_ 类属性。如果你有要使用的自定义错误消息,请将其放入 `$validationMessages`_ 数组中:
 
 .. literalinclude:: model/027.php
 
-如果你更喜欢在验证配置文件中组织你的规则和错误消息，你可以这样做，并将 ``$validationRules`` 设置为你创建的验证规则组的名称：
+如果你更喜欢在验证配置文件中组织你的规则和错误消息，你可以这样做，并将 `$validationRules`_ 设置为你创建的验证规则组的名称：
 
 .. literalinclude:: model/034.php
 
@@ -517,7 +528,7 @@ purgeDeleted()
 保护字段
 =================
 
-为了帮助防止大规模分配攻击,模型类 **要求** 你列出可以在插入和更新期间更改的所有字段名称在 ``$allowedFields`` 类属性中。除这些字段外提供的任何数据在插入数据库之前都将被删除。这对确保时间戳或主键不被更改非常有用。
+为了帮助防止大规模分配攻击,模型类 **要求** 你列出可以在插入和更新期间更改的所有字段名称在 `$allowedFields`_ 类属性中。除这些字段外提供的任何数据在插入数据库之前都将被删除。这对确保时间戳或主键不被更改非常有用。
 
 .. literalinclude:: model/041.php
 
@@ -528,7 +539,7 @@ purgeDeleted()
 运行时返回类型更改
 ===========================
 
-你可以将 ``find*()`` 方法返回的数据格式指定为类属性 ``$returnType``。但是,有时你可能希望以不同的格式返回数据。模型提供了允许你做到这一点的方法。
+你可以将 ``find*()`` 方法返回的数据格式指定为类属性 `$returnType`_。但是,有时你可能希望以不同的格式返回数据。模型提供了允许你做到这一点的方法。
 
 .. note:: 这些方法仅更改下一个 **find*()** 方法调用的返回类型。之后,它将重置为默认值。
 
@@ -568,7 +579,7 @@ CodeIgniter 模型对该模型的数据库连接有一个查询构建器实例�
 
 .. literalinclude:: model/043.php
 
-此构建器已经使用模型的 ``$table`` 设置。
+此构建器已经使用模型的 `$table`_ 设置。
 
 .. note:: 一旦你获取查询构建器实例,你就可以调用查询构建器的方法。
     但是,由于查询构建器不是模型,你无法调用模型的方法。
@@ -603,29 +614,46 @@ CodeIgniter 模型对该模型的数据库连接有一个查询构建器实例�
 
     .. literalinclude:: model/046.php
 
+.. _model-events:
+
 模型事件
 ************
 
-在模型执行的几个点上,你可以指定多个回调方法来运行。这些方法可以用于规范化数据、散列密码、保存相关实体等等。可以影响以下模型执行点,每个都通过一个类属性:``$beforeInsert``、``$afterInsert``、``$beforeUpdate``、``$afterUpdate``、``$afterFind`` 和 ``$afterDelete``。
+在模型执行的几个点上,你可以指定多个回调方法来运行。这些方法可以用于规范化数据、散列密码、保存相关实体等等。
+
+可以影响以下模型执行点,每个都通过一个类属性:
+
+- `$beforeInsert`_, `$afterInsert`_
+- `$beforeUpdate`_, `$afterUpdate`_
+- `$beforeFind`_, `$afterFind`_
+- `$beforeDelete`_, `$afterDelete`_
+- `$beforeInsertBatch`_, `$afterInsertBatch`_
+- `$beforeUpdateBatch`_, `$afterUpdateBatch`_
 
 .. note:: ``$beforeInsertBatch``、``$afterInsertBatch``、``$beforeUpdateBatch`` 和
     ``$afterUpdateBatch`` 可以从 v4.3.0 开始使用。
 
-定义回调
+定义回调函数
 ==================
 
-你通过在模型中首先创建要使用的新类方法来指定回调。此类将始终以 ``$data`` 数组作为其唯一参数接收。 ``$data`` 数组的确切内容将因事件而异,但将始终包含一个名为 **data** 的键,其中包含传递给原始方法的主要数据。对于 insert* 或 update* 方法,这将是要插入数据库的键/值对。主数组还将包含传递给方法的其他值,并在后面详细描述。回调方法必须返回原始的 $data 数组,以便其他回调具有完整的信息。
+你可以通过在模型中创建一个新的类方法来指定回调函数。
+
+这个类方法总是会接收一个 ``$data`` 数组作为唯一的参数。
+
+``$data`` 数组的具体内容会因事件而异，但总是会包含一个名为 ``data`` 的键，该键包含传递给原始方法的主要数据。在 **insert*()** 或 **update*()** 方法的情况下，这将是正在插入到数据库中的键/值对。主要的 ``$data`` 数组也会包含传递给方法的其他值，并在 `事件参数`_ 中详细说明。
+
+回调方法必须返回原始的 ``$data`` 数组，以便其他回调函数获取完整信息。
 
 .. literalinclude:: model/050.php
 
 指定要运行的回调
 ===========================
 
-你可以通过将方法名称添加到适当的类属性(``$beforeInsert``、``$afterUpdate`` 等)来指定运行回调时机。可以向单个事件添加多个回调,并且它们将一个接一个地处理。你可以在多个事件中使用相同的回调:
+你可以通过将方法名称添加到适当的类属性(`$beforeInsert`_, `$afterUpdate`_ 等)来指定运行回调时机。可以向单个事件添加多个回调,并且它们将一个接一个地处理。你可以在多个事件中使用相同的回调:
 
 .. literalinclude:: model/051.php
 
-此外,每个模型可以通过设置其 ``$allowCallbacks`` 属性在类级别允许(默认)或拒绝回调。
+此外,每个模型可以通过设置其 `$allowCallbacks`_ 属性在类级别允许(默认)或拒绝回调。
 
 .. literalinclude:: model/052.php
 
@@ -641,34 +669,37 @@ CodeIgniter 模型对该模型的数据库连接有一个查询构建器实例�
 ================= =========================================================================================================
 事件               $data 内容
 ================= =========================================================================================================
-beforeInsert      **data** = 正在插入的键/值对。如果向 insert 方法传递对象或实体类,则首先转换为数组。
-afterInsert       **id** = 新行的主键,如果失败则为 0。
+beforeInsert      **data** = 正在插入的键/值对。如果将对象或 Entity 类传递给
+                  ``insert()`` 方法，它首先会被转换为数组。
+afterInsert       **id** = 新行的主键，如果失败则为 0。
                   **data** = 正在插入的键/值对。
-                  **result** = 通过查询构建器使用的 insert() 方法的结果。
-beforeInsertBatch **data** = 正在插入的值的关联数组。如果向 insertBatch 方法传递对象或实体类,则首先转换为数组。
-afterInsertBatch  **data** = 正在插入的值的关联数组。
-                  **result** = 通过查询构建器使用的 insertBatch() 方法的结果。
+                  **result** = 通过查询构建器使用的 ``insert()`` 方法的结果。
 beforeUpdate      **id** = 正在更新的行的主键数组。
-                  **data** = 正在更新的键/值对。如果向 update 方法传递对象或实体类,则首先转换为数组。
+                  **data** = 正在更新的键/值对。如果将对象或 Entity 类传递给
+                  ``update()`` 方法，它首先会被转换为数组。
 afterUpdate       **id** = 正在更新的行的主键数组。
                   **data** = 正在更新的键/值对。
-                  **result** = 通过查询构建器使用的 update() 方法的结果。
-beforeUpdateBatch **data** = 正在更新的值的关联数组。如果向 updateBatch 方法传递对象或实体类,则首先转换为数组。
-afterUpdateBatch  **data** = 正在更新的键/值对。
-                  **result** = 通过查询构建器使用的 updateBatch() 方法的结果。
-beforeFind        调用的 **方法** 名称,是否请求了 **单例**,以及这些附加字段:
-- first()         无附加字段
-- find()          **id** = 正在搜索的行的主键。
-- findAll()       **limit** = 要找到的行数。
-                  **offset** = 在搜索期间要跳过的行数。
-afterFind         与 **beforeFind** 相同,但包括结果行数据,如果未找到结果则为 null。
-beforeDelete      根据 delete* 方法而变化。参见以下内容:
-- delete()        **id** = 正在删除的行的主键。
-                  **purge** = 是否应该硬删除软删除的行的布尔值。
-afterDelete       **id** = 正在删除的行的主键。
-                  **purge** = 是否应该硬删除软删除的行的布尔值。
-                  **result** = 在查询构建器上的 delete() 调用的结果。
+                  **result** = 通过查询构建器使用的 ``update()`` 方法的结果。
+beforeFind        调用 **method** 的名称，是否请求了 **singleton**，以及以下附加字段：
+- ``first()``     没有附加字段
+- ``find()``      **id** = 正在搜索的行的主键。
+- ``findAll()``   **limit** = 要查找的行数。
+                  **offset** = 在搜索过程中要跳过的行数。
+afterFind         与 **beforeFind** 相同，但包括找到的行的数据结果，如果没有找到结果则为 null。
+beforeDelete      **id** = 被传递给 ``delete()`` 方法的行的主键。
+                  **purge** = 是否应硬删除软删除的行的布尔值。
+afterDelete       **id** = 被传递给 ``delete()`` 方法的行的主键。
+                  **purge** = 是否应硬删除软删除的行的布尔值。
+                  **result** = 在查询构建器上调用 ``delete()`` 的结果。
                   **data** = 未使用。
+beforeInsertBatch **data** = 正在插入的值的关联数组。如果将对象或 Entity 类传递给
+                  ``insertBatch()`` 方法，它首先会被转换为数组。
+afterInsertBatch  **data** = 正在插入的值的关联数组。
+                  **result** = 通过查询构建器使用的 ``insertBatch()`` 方法的结果。
+beforeUpdateBatch **data** = 正在更新的值的关联数组。如果将对象或 Entity 类传递给
+                  ``updateBatch()`` 方法，它首先会被转换为数组。
+afterUpdateBatch  **data** = 正在更新的键/值对。
+                  **result** = 通过查询构建器使用的 ``updateBatch()`` 方法的结果。
 ================= =========================================================================================================
 
 修改 Find* 数据

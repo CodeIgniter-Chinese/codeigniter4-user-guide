@@ -90,12 +90,19 @@ News 控制器
 
 上面的代码添加了很多功能。
 
+获取数据
+^^^^^^^^^^^^^^^^^
+
+首先，我们使用由框架在控制器中设置的 :doc:`IncomingRequest <../incoming/incomingrequest>` 对象 ``$this->request``。
+
+我们从用户的 **POST** 数据中获取必要的项目，并将它们设置在 ``$data`` 变量中。
+
 验证数据
 ^^^^^^^^^^^^^^^^^
 
-你将使用控制器提供的辅助函数 :ref:`validate() <controller-validate>` 来验证提交的数据。
-在这种情况下，标题和正文字段是必填的，并且有特定的长度要求。
-CodeIgniter 提供了一个强大的验证库，如上所示。你可以阅读更多关于 :doc:`验证库 <../libraries/validation>` 的信息。
+接下来，你将使用由 Controller 提供的辅助函数 :ref:`validateData() <controller-validatedata>` 来验证提交的数据。在这种情况下，标题和正文字段是必需的，并且具有特定的长度。
+
+如上所示，CodeIgniter 拥有一个强大的验证库。你可以阅读更多关于 :doc:`验证库 <../libraries/validation>` 的信息。
 
 如果验证失败，我们调用刚刚创建的 ``new()`` 方法并返回 HTML 表单。
 

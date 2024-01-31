@@ -14,7 +14,7 @@ CodeIgniter 框架无法解决开发者将遇到的所有问题。许多用户�
 Shield
 ******
 
-`CodeIgniter Shield <https://codeigniter4.github.io/shield/>`_ 是 CodeIgniter 4 的身份验证和授权框架。它旨在安全、灵活且易于扩展以满足许多不同类型网站的需求。其中许多功能包括:
+`CodeIgniter Shield <https://shield.codeigniter.com/>`_ 是 CodeIgniter 4 的身份验证和授权框架。它旨在安全、灵活且易于扩展以满足许多不同类型网站的需求。其中许多功能包括:
 
 * 基于会话的身份验证
 * 个人访问令牌认证
@@ -27,8 +27,21 @@ Shield
 Settings
 ********
 
-`CodeIgniter Settings <https://github.com/codeigniter4/settings>`_ 是配置文件包装器,允许任何配置设置保存到数据库中,同时在没有自定义值存储时默认为配置文件。这允许应用程序与默认配置值一起发布,但随着项目的发展或服务器的迁移而不必接触代码而适应。
+`CodeIgniter Settings <https://settings.codeigniter.com>`_ 是配置文件包装器,允许任何配置设置保存到数据库中,同时在没有自定义值存储时默认为配置文件。这允许应用程序与默认配置值一起发布,但随着项目的发展或服务器的迁移而不必接触代码而适应。
 
+************
+任务 (BETA)
+************
+
+`CodeIgniter 任务 <https://tasks.codeigniter.com>`_ 是 CodeIgniter 4 的一个简单任务调度器。
+它允许你安排任务在特定时间运行，或者定期运行。它的设计目标是简单易用，但足够灵活以处理大多数使用场景。
+
+************
+队列 (BETA)
+************
+
+`CodeIgniter 队列 <https://queue.codeigniter.com>`_ 是 CodeIgniter 4 的一个简单队列系统。
+它允许你将任务排队，以便稍后运行。
 
 *****
 Cache

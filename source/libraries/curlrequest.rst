@@ -21,7 +21,9 @@ CURLRequest 配置
 共享选项
 ===============
 
-.. note:: 自 v4.4.0 起，默认值已更改为 ``false``。此设置仅用于向后兼容。新用户无需更改此设置。
+.. important:: 这个设置只是为了向后兼容而存在。在新项目中不要使用它。即使你已经在使用它，我们也建议你禁用它。
+
+.. note:: 自 v4.4.0 起，其默认值已被改为 ``false``。
 
 如果你想在多个请求之间共享所有选项，请在 **app/Config/CURLRequest.php** 中将 ``$shareOptions`` 设置为 ``true``：
 
@@ -64,6 +66,10 @@ CURLRequest 配置
 
 .. literalinclude:: curlrequest/005.php
 
+.. important:: 默认情况下，如果返回的 HTTP
+    代码大于或等于 400，CURLRequest 将抛出 ``HTTPException``。如果你想获取响应，
+    请查看 `http_errors`_ 选项。
+
 .. note:: 当 ``$shareOptions`` 为 false 时,传入方法的选项将用于该请求。发送请求后,选项将被清除。如果你想对所有请求使用选项,请在构造函数中传入选项。
 
 由于响应是一个 ``CodeIgniter\HTTP\Response`` 实例,你可以使用所有正常的信息:
@@ -87,12 +93,12 @@ CURLRequest 配置
     =====================   ================   ========================
     baseURI                 URI                结果
     =====================   ================   ========================
-    `http://foo.com`        /bar               `http://foo.com/bar`
-    `http://foo.com/foo`    /bar               `http://foo.com/bar`
-    `http://foo.com/foo`    bar                `http://foo.com/bar`
-    `http://foo.com/foo/`   bar                `http://foo.com/foo/bar`
-    `http://foo.com`        `http://baz.com`   `http://baz.com`
-    `http://foo.com/?bar`   bar                `http://foo.com/bar`
+    \http://foo.com         /bar               \http://foo.com/bar
+    \http://foo.com/foo     /bar               \http://foo.com/bar
+    \http://foo.com/foo     bar                \http://foo.com/bar
+    \http://foo.com/foo/    bar                \http://foo.com/foo/bar
+    \http://foo.com         \http://baz.com    \http://baz.com
+    \http://foo.com/?bar    bar                \http://foo.com/bar
     =====================   ================   ========================
 
 使用响应

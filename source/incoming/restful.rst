@@ -35,6 +35,12 @@ CodeIgniter 通过其资源路由和 `ResourceController` 可以轻松创建资�
 
 .. literalinclude:: restful/003.php
 
+.. literalinclude:: restful/017.php
+
+.. literalinclude:: restful/018.php
+
+也可参考 :ref:`controllers-namespace`。
+
 更改使用的占位符
 ===========================
 
@@ -97,6 +103,12 @@ Presenter 路由
 你可以通过使用应该使用的控制器的名称传递 ``controller`` 选项来指定应该使用的控制器:
 
 .. literalinclude:: restful/011.php
+
+.. literalinclude:: restful/019.php
+
+.. literalinclude:: restful/020.php
+
+也可参考 :ref:`controllers-namespace`。
 
 更改使用的占位符
 ===========================

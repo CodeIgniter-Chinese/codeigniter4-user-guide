@@ -2,7 +2,7 @@
 文件系统辅助函数
 #################
 
-文件系统辅助函数文件包含了帮助处理目录的函数。
+文件系统辅助函数文件包含了帮助处理文件和目录的函数。
 
 .. contents::
     :local:
@@ -23,7 +23,7 @@
 .. php:function:: directory_map($sourceDir[, $directoryDepth = 0[, $hidden = false]])
 
     :param    string  $sourceDir: 源目录路径
-    :param    int   $directoryDepth: 遍历的目录深度(0 = 完全递归,1 = 当前目录,等等)
+    :param    int   $directoryDepth: 遍历的目录深度(``0`` = 完全递归, ``1`` = 当前目录,等等)
     :param    bool    $hidden: 是否包含隐藏路径
     :returns:    文件数组
     :rtype:    array
@@ -32,13 +32,13 @@
 
     .. literalinclude:: filesystem_helper/002.php
 
-    .. note:: 路径几乎总是相对于你的 main index.php 文件。
+    .. note:: 路径几乎总是相对于你的主 **index.php** 文件。
 
-    包含在目录中的子文件夹也将被映射。如果你希望控制递归深度,可以使用第二个参数(整数)。深度为 1 只会映射顶级目录:
+    包含在目录中的子文件夹也将被映射。如果你希望控制递归深度,可以使用第二个参数(整数)。深度为 ``1`` 只会映射顶级目录:
 
     .. literalinclude:: filesystem_helper/003.php
 
-    默认情况下,返回的数组中不包括隐藏文件,跳过隐藏目录。要覆盖此行为,可以将第三个参数设置为 true(布尔值):
+    默认情况下,返回的数组中不包括隐藏文件,跳过隐藏目录。要覆盖此行为,可以将第三个参数设置为 ``true`` (布尔值):
 
     .. literalinclude:: filesystem_helper/004.php
 
@@ -92,7 +92,7 @@
     :param    string    $path: 文件路径
     :param    string    $data: 要写入文件的数据
     :param    string    $mode: ``fopen()`` 模式
-    :returns:    如果写入成功则为 true,如果有错误则为 false
+    :returns:    如果写入成功则为 ``true``,如果有错误则为 ``false``
     :rtype:    bool
 
     将数据写入路径中指定的文件。如果文件不存在,则该函数将创建它。
@@ -105,11 +105,11 @@
 
     .. literalinclude:: filesystem_helper/007.php
 
-    默认模式为 'wb'。写入模式选项请参阅 `PHP 用户指南 <https://www.php.net/manual/en/function.fopen.php>`_。
+    默认模式为 ``'wb'``。写入模式选项请参阅 PHP 用户指南的 `fopen() <https://www.php.net/manual/en/function.fopen.php>`。
 
     .. note:: 为了使此函数能够将数据写入文件,必须设置其权限以使其可写。如果文件不存在,则包含它的目录必须可写。
 
-    .. note:: 该路径是相对于你的主站点 index.php 文件,而不是你的控制器或视图文件。CodeIgniter 使用前端控制器,因此路径始终相对于主站点 index。
+    .. note:: 该路径是相对于你的主站点 **index.php** 文件,而不是你的控制器或视图文件。CodeIgniter 使用前端控制器,因此路径始终相对于主站点 index。
 
     .. note:: 此函数在写入文件时对该文件进行排他锁定。
 
@@ -119,7 +119,7 @@
     :param    bool    $delDir: 是否也删除目录
     :param    bool    $htdocs: 是否跳过删除 .htaccess 和索引页面文件
     :param    bool    $hidden: 是否也删除隐藏文件(以句点开头的文件)
-    :returns:    成功为 true,错误为 false
+    :returns:    成功为 ``true``,错误为 ``false``
     :rtype:    bool
 
     删除提供的路径中包含的所有文件。
@@ -128,7 +128,7 @@
 
     .. literalinclude:: filesystem_helper/008.php
 
-    如果第二个参数设置为 true,则提供的根路径中包含的任何目录也将被删除。
+    如果第二个参数设置为 ``true``,则提供的根路径中包含的任何目录也将被删除。
 
     例子:
 
@@ -146,6 +146,8 @@
     :rtype:    array
 
     获取一个服务器路径作为输入,返回一个包含其中包含的所有文件名的数组。通过将第二个参数设置为 'relative' 获取相对路径,或任何其他非空值以获取完整文件路径,可以选择将文件路径添加到文件名中。
+
+    .. note:: 在 v4.4.4 之前，由于一个错误，这个函数并未跟随文件夹的符号链接。
 
     示例:
 
@@ -181,7 +183,7 @@
     :returns:    符号权限字符串
     :rtype:    string
 
-    获取数字权限(例如 ``fileperms()`` 返回的)并返回标准符号表示法的文件权限。
+    获取数字权限(例如 `fileperms() <https://www.php.net/manual/en/function.fileperms.php>`_ 返回的)并返回标准符号表示法的文件权限。
 
     .. literalinclude:: filesystem_helper/012.php
 
@@ -191,7 +193,7 @@
     :returns:    八进制权限字符串
     :rtype:    string
 
-    获取数字权限(例如 ``fileperms()`` 返回的)并返回三字符八进制表示法的文件权限。
+    获取数字权限(例如 `fileperms() <https://www.php.net/manual/en/function.fileperms.php>`_ 返回的)并返回三字符八进制表示法的文件权限。
 
     .. literalinclude:: filesystem_helper/013.php
 

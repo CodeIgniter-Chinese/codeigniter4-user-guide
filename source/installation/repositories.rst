@@ -32,6 +32,8 @@ CodeIgniter 4 开源项目有自己的
 +------------------+--------------+-----------------------------------------------------------------+
 | cache_           | 开发者       | CodeIgniter 4 的 PSR-6 和 PSR-16 缓存适配器                     |
 +------------------+--------------+-----------------------------------------------------------------+
+| queue_           | 开发者       | CodeIgniter 4 的队列                                            |
++------------------+--------------+-----------------------------------------------------------------+
 
 .. _CodeIgniter4: https://github.com/codeigniter4/CodeIgniter4
 .. _translations: https://github.com/codeigniter4/translations
@@ -41,6 +43,7 @@ CodeIgniter 4 开源项目有自己的
 .. _shield: https://codeigniter4.github.io/shield
 .. _tasks: https://github.com/codeigniter4/tasks
 .. _cache: https://github.com/codeigniter4/cache
+.. _queue: https://github.com/codeigniter4/queue
 
 还有几个部署仓库,在安装说明中引用。
 部署仓库在发布新版本时会自动构建,不直接贡献。

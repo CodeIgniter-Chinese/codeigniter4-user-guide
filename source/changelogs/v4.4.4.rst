@@ -1,0 +1,63 @@
+#############
+版本 4.4.4
+#############
+
+发布日期：2023 年 12 月 28 日
+
+**CodeIgniter4 的 4.4.4 版本发布**
+
+.. contents::
+    :local:
+    :depth: 3
+
+********
+重大变化
+********
+
+采用 Dot 数组语法进行验证
+=========================
+
+使用通配符 ``*`` 的验证规则现在只验证符合"Dot 数组语法"的正确维度数据。
+详见 :ref:`升级 <upgrade-444-validation-with-dot-array-syntax>` 获取详情。
+
+验证规则匹配和差异
+===================
+
+在严格和传统规则中，``matches`` 和 ``differs`` 验证非字符串类型数据的情况已修复。
+
+在 CURLRequest 中移除了 `ssl_key` 选项的使用
+============================================
+
+由于一个错误，我们在 CURLRequest 中使用了未记录的 `ssl_key` 配置选项来定义 CA bundle。现在已经修复，并且按照文档要求工作。你可以通过 `verify` 选项来定义你的 CA bundle。
+
+文件系统助手
+=============
+
+:php:func:`get_filenames()` 现在会跟踪符号连接文件夹，而之前只是返回而不跟踪。
+
+********
+改进
+********
+
+- 完全支持 PHP 8.3。
+
+***************
+消息变更
+***************
+
+- 添加 ``HTTP.invalidJSON`` 错误消息。
+- 添加 ``HTTP.unsupportedJSONFormat`` 错误消息。
+
+************
+弃用
+************
+
+- **请求：** :php:meth:`CodeIgniter\\HTTP\\Request::getEnv()` 方法已被弃用。此方法自从一开始就没有工作，请使用 :php:func:`env()`。
+
+************
+已修复的错误
+************
+
+- **CURLRequest：** 修复了即使配置项 'verify' 设置为 *false* 时，也会检查主机名的错误。
+
+要查看完整的错误修复列表，请去看仓库的 `CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_。
