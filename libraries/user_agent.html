@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Agent 类 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>User Agent 类 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="user-agent">
-<h1>User Agent 类<a class="headerlink" href="#user-agent" title="永久链接至标题"></a></h1>
+<h1>User Agent 类<a class="headerlink" href="#user-agent" title="此标题的永久链接"></a></h1>
 <p>User Agent 类提供了一些有助于识别访问你网站的浏览器、移动设备或机器人的信息的函数。</p>
-<div class="contents local topic" id="id1">
+<nav class="contents local" id="id1">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id2" id="id7">使用 User Agent 类</a></p>
 <ul>
@@ -292,11 +297,11 @@
 </li>
 <li><p><a class="reference internal" href="#namespace-CodeIgniter\HTTP" id="id11">类参考</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id7">使用 User Agent 类</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">使用 User Agent 类</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <section id="id3">
-<h3><a class="toc-backref" href="#id8">初始化类</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">初始化类</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
 <p>User Agent 类总是可以直接从当前的 <a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">IncomingRequest</span></a> 实例获取。
 默认情况下,在你的控制器中会有一个请求实例,你可以从中获取 User Agent 类:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -306,12 +311,12 @@
 </div>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id9">User Agent 定义</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">User Agent 定义</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>User Agent 名称定义位于以下配置文件中:<strong>app/Config/UserAgents.php</strong>。
 如果需要的话你可以在各种 User Agent 数组中添加项。</p>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id10">示例</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">示例</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>当 User Agent 类被初始化时,它会试图确定是否正在浏览你的网站的 User Agent 是网页浏览器、移动设备还是机器人。
 如果可用的话,它也会收集平台信息:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -336,7 +341,7 @@
 </section>
 </section>
 <section id="namespace-CodeIgniter\HTTP">
-<span id="id6"></span><h2><a class="toc-backref" href="#id11">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\HTTP" title="永久链接至标题"></a></h2>
+<span id="id6"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\HTTP" title="此标题的永久链接"></a></h2>
 <dl class="php class">
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\HTTP\</span></span><span class="sig-name descname"><span class="pre">UserAgent</span></span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent" title="永久链接至目标"></a></dt>
@@ -344,15 +349,15 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::isBrowser">
 <span class="sig-name descname"><span class="pre">isBrowser</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$key</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::isBrowser" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 可选的浏览器名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>如果 User Agent 是(指定的)浏览器则为 true,否则为 false</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -377,15 +382,15 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::isMobile">
 <span class="sig-name descname"><span class="pre">isMobile</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$key</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::isMobile" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 可选的移动设备名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>如果 User Agent 是(指定的)移动设备则为 true,否则为 false</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -407,15 +412,15 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::isRobot">
 <span class="sig-name descname"><span class="pre">isRobot</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$key</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::isRobot" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 可选的机器人名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>如果 User Agent 是(指定的)机器人则为 true,否则为 false</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -432,10 +437,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::isReferral">
 <span class="sig-name descname"><span class="pre">isReferral</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::isReferral" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>如果 User Agent 来自其他网站的推荐则为 true,否则为 false</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -446,10 +451,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::getBrowser">
 <span class="sig-name descname"><span class="pre">getBrowser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::getBrowser" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>检测到的浏览器或空字符串</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -460,10 +465,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::getVersion">
 <span class="sig-name descname"><span class="pre">getVersion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::getVersion" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>检测到的浏览器版本或空字符串</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -474,10 +479,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::getMobile">
 <span class="sig-name descname"><span class="pre">getMobile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::getMobile" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>检测到的移动设备品牌或空字符串</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -488,10 +493,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::getRobot">
 <span class="sig-name descname"><span class="pre">getRobot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::getRobot" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>检测到的机器人名称或空字符串</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -502,10 +507,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::getPlatform">
 <span class="sig-name descname"><span class="pre">getPlatform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::getPlatform" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>检测到的操作系统或空字符串</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -516,10 +521,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::getReferrer">
 <span class="sig-name descname"><span class="pre">getReferrer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::getReferrer" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>检测到的引用网站或空字符串</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -537,10 +542,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::getAgentString">
 <span class="sig-name descname"><span class="pre">getAgentString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::getAgentString" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>完整的 User Agent 字符串或空字符串</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -554,12 +559,12 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\UserAgent::parse">
 <span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\UserAgent::parse" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$string</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 自定义 User Agent 字符串</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">void</span></code></span></p>
 </dd>
 </dl>
@@ -582,8 +587,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -591,7 +596,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f414e9390>
+<jinja2.runtime.BlockReference object at 0x7f1629521210>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

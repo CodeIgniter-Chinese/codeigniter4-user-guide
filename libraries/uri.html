@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>使用 URI &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>使用 URI &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="uri">
-<h1>使用 URI<a class="headerlink" href="#uri" title="永久链接至标题"></a></h1>
+<h1>使用 URI<a class="headerlink" href="#uri" title="此标题的永久链接"></a></h1>
 <p>CodeIgniter 提供了面向对象的方式来在你的应用中使用 URI。这使得确保 URI 结构始终正确变得很简单,无论 URI 有多复杂,都可以安全正确地添加相对 URI 到现有的 URI。</p>
-<div class="contents local topic" id="id1">
+<nav class="contents local" id="id1">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id2" id="id13">创建 URI 实例</a></p>
 <ul>
@@ -304,9 +309,9 @@
 <li><p><a class="reference internal" href="#id11" id="id25">URI 段</a></p></li>
 <li><p><a class="reference internal" href="#id12" id="id26">禁用抛出异常</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id13">创建 URI 实例</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">创建 URI 实例</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p>创建一个 URI 实例就像创建一个新的类实例一样简单。</p>
 <p>当你创建新实例时，可以在构造函数中传递完整或部分 URL，并将其解析为相应的部分：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$uri</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\HTTP\URI</span><span class="p">(</span><span class="s1">&#39;http://www.example.com/some/path&#39;</span><span class="p">);</span>
@@ -325,7 +330,7 @@
 <p>上述代码返回 <code class="docutils literal notranslate"><span class="pre">SiteURI</span></code> 实例，它扩展了 <code class="docutils literal notranslate"><span class="pre">URI</span></code> 类。<code class="docutils literal notranslate"><span class="pre">URI</span></code> 类用于一般的 URI，而 <code class="docutils literal notranslate"><span class="pre">SiteURI</span></code> 类用于你的站点 URI。</p>
 </div>
 <section id="id3">
-<h3><a class="toc-backref" href="#id14">当前 URI</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">当前 URI</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
 <p>很多时候，你只需要一个表示当前请求的 URL 的对象。你可以使用 <a class="reference internal" href="../helpers/url_helper.html"><span class="doc">URL 辅助函数</span></a> 中提供的 <a class="reference internal" href="../helpers/url_helper.html#current_url" title="current_url"><code class="xref php php-func docutils literal notranslate"><span class="pre">current_url()</span></code></a> 函数：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$uri</span> <span class="o">=</span> <span class="nx">current_url</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
 </pre></div>
@@ -339,7 +344,7 @@
 </section>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id15">URI 字符串</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">URI 字符串</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <p>很多时候,你真正想要的只是获取一个 URI 的字符串表示。把 URI 转换为字符串就可以简单地做到这一点:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -349,6 +354,8 @@
 </div>
 <p>如果你知道 URI 的各个部分,只是想确保它们都格式化正确,可以使用 URI 类的静态 <code class="docutils literal notranslate"><span class="pre">createURIString()</span></code> 方法生成一个字符串:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\HTTP\URI</span><span class="p">;</span>
 
 <span class="nv">$uriString</span> <span class="o">=</span> <span class="nx">URI</span><span class="o">::</span><span class="na">createURIString</span><span class="p">(</span><span class="nv">$scheme</span><span class="p">,</span> <span class="nv">$authority</span><span class="p">,</span> <span class="nv">$path</span><span class="p">,</span> <span class="nv">$query</span><span class="p">,</span> <span class="nv">$fragment</span><span class="p">);</span>
 
@@ -362,10 +369,10 @@
 </div>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id16">URI 各部分</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">URI 各部分</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <p>一旦你有了一个 URI 实例,你就可以设置或检索 URI 的各个部分。本节将详细介绍这些部分是什么,以及如何使用它们。</p>
 <section id="scheme">
-<h3><a class="toc-backref" href="#id17">Scheme(方案)</a><a class="headerlink" href="#scheme" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Scheme(方案)</a><a class="headerlink" href="#scheme" title="此标题的永久链接"></a></h3>
 <p>Scheme 常常是 ‘http’ 或 ‘https’,但任何 scheme 都是被支持的,包括 ‘file’、’mailto’ 等。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -377,7 +384,7 @@
 </div>
 </section>
 <section id="authority">
-<h3><a class="toc-backref" href="#id18">Authority(权限)</a><a class="headerlink" href="#authority" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Authority(权限)</a><a class="headerlink" href="#authority" title="此标题的永久链接"></a></h3>
 <p>许多 URI 包含一些统称为 ‘authority’ 的元素。这包括任何用户信息、主机和端口号。你可以使用 <code class="docutils literal notranslate"><span class="pre">getAuthority()</span></code>
 方法作为一个字符串检索所有这些部分,或者可以操作各个部分。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -410,7 +417,7 @@
 </div>
 </section>
 <section id="userinfo">
-<h3><a class="toc-backref" href="#id19">UserInfo(用户信息)</a><a class="headerlink" href="#userinfo" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">UserInfo(用户信息)</a><a class="headerlink" href="#userinfo" title="此标题的永久链接"></a></h3>
 <p>userinfo 部分简单就是你在 FTP URI 中可能看到的用户名和密码。虽然你可以作为 Authority 的一部分获取它,但你也可以自己获取它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -426,7 +433,7 @@
 </div>
 </section>
 <section id="host">
-<h3><a class="toc-backref" href="#id20">Host(主机)</a><a class="headerlink" href="#host" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Host(主机)</a><a class="headerlink" href="#host" title="此标题的永久链接"></a></h3>
 <p>URI 的 host 部分通常是 URL 的域名。可以使用 <code class="docutils literal notranslate"><span class="pre">getHost()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setHost()</span></code> 方法简单设置和获取它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -438,7 +445,7 @@
 </div>
 </section>
 <section id="port">
-<h3><a class="toc-backref" href="#id21">Port(端口)</a><a class="headerlink" href="#port" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Port(端口)</a><a class="headerlink" href="#port" title="此标题的永久链接"></a></h3>
 <p>端口是一个介于 0 和 65535 之间的整数。每个 scheme 都有一个默认值与之关联。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -451,7 +458,7 @@
 <p>使用 <code class="docutils literal notranslate"><span class="pre">setPort()</span></code> 方法时,会检查端口是否在有效范围内,然后进行分配。</p>
 </section>
 <section id="path">
-<h3><a class="toc-backref" href="#id22">Path(路径)</a><a class="headerlink" href="#path" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Path(路径)</a><a class="headerlink" href="#path" title="此标题的永久链接"></a></h3>
 <p>path 是站点本身内的所有段。如你所料,可以使用 <code class="docutils literal notranslate"><span class="pre">getPath()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setPath()</span></code> 方法来操作它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -471,10 +478,10 @@
 </div>
 </section>
 <section id="query">
-<h3><a class="toc-backref" href="#id23">Query(查询)</a><a class="headerlink" href="#query" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">Query(查询)</a><a class="headerlink" href="#query" title="此标题的永久链接"></a></h3>
 <p>可以通过类使用简单的字符串表示来操作查询数据。</p>
 <section id="id6">
-<h4>获取/设置查询<a class="headerlink" href="#id6" title="永久链接至标题"></a></h4>
+<h4>获取/设置查询<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h4>
 <p>当前查询值只能作为字符串进行设置。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -491,7 +498,7 @@
 </div>
 </section>
 <section id="id7">
-<h4>从数组设置查询<a class="headerlink" href="#id7" title="永久链接至标题"></a></h4>
+<h4>从数组设置查询<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
 <p>你可以使用数组设置查询值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -501,7 +508,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">setQueryArray()</span></code> 方法会覆盖任何现有的查询变量。</p>
 </section>
 <section id="id8">
-<h4>添加查询值<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
+<h4>添加查询值<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h4>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">addQuery()</span></code> 方法向查询变量集合中添加一个值,而不会破坏现有的查询变量。第一个参数是变量名称,第二个参数是值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -510,7 +517,7 @@
 </div>
 </section>
 <section id="id9">
-<h4>过滤查询值<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
+<h4>过滤查询值<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
 <p>你可以通过向 <code class="docutils literal notranslate"><span class="pre">getQuery()</span></code> 方法传递一个选项数组来过滤返回的查询值,包含一个 <em>only</em> 键或一个 <em>except</em> 键:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -526,7 +533,7 @@
 <p>这只改变此次调用返回的值。如果你需要更永久地修改 URI 的查询值,</p>
 </section>
 <section id="id10">
-<h4>更改查询值<a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
+<h4>更改查询值<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h4>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">stripQuery()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">keepQuery()</span></code> 方法改变实际对象的查询变量集合:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -547,7 +554,7 @@
 </section>
 </section>
 <section id="fragment">
-<h3><a class="toc-backref" href="#id24">Fragment(片段)</a><a class="headerlink" href="#fragment" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Fragment(片段)</a><a class="headerlink" href="#fragment" title="此标题的永久链接"></a></h3>
 <p>片段是 URL 末尾以井号 (<code class="docutils literal notranslate"><span class="pre">#</span></code>) 开头的部分。在 HTML URL 中它们链接到页面内的锚点。媒体 URI 可以以各种其他方式使用它们。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -560,7 +567,7 @@
 </section>
 </section>
 <section id="id11">
-<h2><a class="toc-backref" href="#id25">URI 段</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">URI 段</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
 <p>路径之间的每个斜杠之间的部分都是单个段。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -622,7 +629,7 @@
 </div>
 </section>
 <section id="id12">
-<h2><a class="toc-backref" href="#id26">禁用抛出异常</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">禁用抛出异常</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h2>
 <p>默认情况下,此类的某些方法可能会抛出异常。如果你要禁用它,可以设置一个特殊标志来防止抛出异常。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -647,8 +654,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -656,7 +663,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f427e1750>
+<jinja2.runtime.BlockReference object at 0x7f1628e9e590>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

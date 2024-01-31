@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>创建 Composer 包 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>创建 Composer 包 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="composer">
-<h1>创建 Composer 包<a class="headerlink" href="#composer" title="永久链接至标题"></a></h1>
+<h1>创建 Composer 包<a class="headerlink" href="#composer" title="此标题的永久链接"></a></h1>
 <p>你可以将你创建的 <a class="reference internal" href="../general/modules.html"><span class="doc">代码模块</span></a> 转换为 Composer 包，或者为 CodeIgniter 4 创建一个 Composer 包。</p>
-<div class="contents local topic" id="id1">
+<nav class="contents local" id="id1">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id2" id="id10">文件夹结构</a></p></li>
 <li><p><a class="reference internal" href="#composer-json" id="id11">创建 composer.json</a></p>
@@ -305,9 +310,9 @@
 </li>
 <li><p><a class="reference internal" href="#id9" id="id21">参考资料</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id10">文件夹结构</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">文件夹结构</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p>下面是一个典型的 Composer 包的目录结构示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">your</span><span class="o">-</span><span class="nx">package</span><span class="o">-</span><span class="nx">name</span><span class="o">/</span>
 <span class="nx">├──</span> <span class="o">.</span><span class="nx">gitattributes</span>
@@ -323,7 +328,7 @@
 </div>
 </section>
 <section id="composer-json">
-<h2><a class="toc-backref" href="#id11">创建 composer.json</a><a class="headerlink" href="#composer-json" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">创建 composer.json</a><a class="headerlink" href="#composer-json" title="此标题的永久链接"></a></h2>
 <p>在你的包目录的根目录中，创建一个 <strong>composer.json</strong> 文件。该文件定义了关于你的包及其依赖项的元数据。</p>
 <p>使用 <code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">init</span></code> 命令可以帮助你创建它。</p>
 <p>例如，<strong>composer.json</strong> 可能如下所示:</p>
@@ -353,7 +358,7 @@
 </pre></div>
 </div>
 <section id="id3">
-<h3><a class="toc-backref" href="#id12">包名称</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">包名称</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">name</span></code> 字段在这里非常重要。包名称通常以 “vendor-name/package-name” 的格式书写，全部小写。以下是一个常见的示例：</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">your-vendor-name</span></code>：标识供应商（包的创建者）的名称，例如你的姓名或组织名称。</p></li>
@@ -362,7 +367,7 @@
 <p>因此，为了使名称唯一以区分其它包，使其与其他包区分开是非常重要的，尤其是在发布时。</p>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id13">命名空间</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">命名空间</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>包名称决定了 <code class="docutils literal notranslate"><span class="pre">autoload.psr4</span></code> 中的供应商命名空间。</p>
 <p>如果你的包名称是 <code class="docutils literal notranslate"><span class="pre">your-vendor/your-package</span></code>，那么供应商命名空间必须是 <code class="docutils literal notranslate"><span class="pre">YourVendor</span></code>。因此，你需要像下面这样编写:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;autoload&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -375,15 +380,15 @@
 <p>这个设置指示 Composer 自动加载你的包的源代码。</p>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id14">选择许可证</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">选择许可证</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>如果你对开源许可证不熟悉，请参考 <a class="reference external" href="https://choosealicense.com/">https://choosealicense.com/</a>。许多 PHP 包，包括 CodeIgniter，使用 MIT 许可证。</p>
 </section>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id15">准备开发工具</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">准备开发工具</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
 <p>有许多工具可以帮助确保代码质量。因此，你应该使用它们。你可以使用 <a class="reference external" href="https://github.com/codeigniter4/devkit">CodeIgniter DevKit</a> 轻松安装和配置此类工具。</p>
 <section id="devkit">
-<h3><a class="toc-backref" href="#id16">安装 DevKit</a><a class="headerlink" href="#devkit" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">安装 DevKit</a><a class="headerlink" href="#devkit" title="此标题的永久链接"></a></h3>
 <p>在你的包目录的根目录中，运行以下命令：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">composer config minimum-stability dev</span>
 <span class="go">composer config prefer-stable true</span>
@@ -393,7 +398,7 @@
 <p>DevKit 安装了各种 Composer 包，帮助你进行开发，并在 <strong>vendor/codeigniter4/devkit/src/Template</strong> 中为它们安装了模板。将其中的文件复制到你的项目根目录，并根据你的需求进行编辑。</p>
 </section>
 <section id="coding-standards-fixer">
-<h3><a class="toc-backref" href="#id17">配置 Coding Standards Fixer</a><a class="headerlink" href="#coding-standards-fixer" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">配置 Coding Standards Fixer</a><a class="headerlink" href="#coding-standards-fixer" title="此标题的永久链接"></a></h3>
 <p>DevKit 提供了基于 <a class="reference external" href="https://github.com/PHP-CS-Fixer/PHP-CS-Fixer">PHP-CS-Fixer</a> 的 <a class="reference external" href="https://github.com/CodeIgniter/coding-standard">CodeIgniter Coding Standard</a> 的 Coding Standards Fixer。</p>
 <p>将 <strong>vendor/codeigniter4/devkit/src/Template/.php-cs-fixer.dist.php</strong> 复制到你的项目根目录。</p>
 <p>为缓存文件创建 <strong>build</strong> 文件夹:</p>
@@ -433,19 +438,19 @@
 </section>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id18">配置文件</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">配置文件</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <section id="id8">
-<h3><a class="toc-backref" href="#id19">允许用户覆盖设置</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">允许用户覆盖设置</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
 <p>如果你的包有一个配置文件，并且你希望用户能够覆盖设置，可以使用 <a class="reference internal" href="../general/common_functions.html#config" title="config"><code class="xref php php-func docutils literal notranslate"><span class="pre">config()</span></code></a> 函数与短类名（例如 <code class="docutils literal notranslate"><span class="pre">config('YourConfig')</span></code>）来调用配置文件。</p>
 <p>然后，用户可以通过在 <strong>app/Config</strong> 中放置一个与短类名相同且扩展了包配置类的配置类（例如 <code class="docutils literal notranslate"><span class="pre">YourVendor\YourPackage\Config\YourConfig</span></code>）来覆盖包配置。</p>
 </section>
 <section id="app-config">
-<h3><a class="toc-backref" href="#id20">在 app/Config 中覆盖设置</a><a class="headerlink" href="#app-config" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">在 app/Config 中覆盖设置</a><a class="headerlink" href="#app-config" title="此标题的永久链接"></a></h3>
 <p>如果你需要在 <strong>app/Config</strong> 文件夹中覆盖或添加已知配置，可以使用 <a class="reference internal" href="../general/configuration.html#registrars"><span class="std std-ref">隐式注册器</span></a>。</p>
 </section>
 </section>
 <section id="id9">
-<h2><a class="toc-backref" href="#id21">参考资料</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">参考资料</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
 <p>我们已经发布了一些官方包。你可以在创建自己的包时使用这些包作为参考：</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/codeigniter4/shield">https://github.com/codeigniter4/shield</a></p></li>
@@ -467,8 +472,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -476,7 +481,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41b4d610>
+<jinja2.runtime.BlockReference object at 0x7f16293242d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>扩展控制器 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>扩展控制器 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,7 +284,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>扩展控制器<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>扩展控制器<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>CodeIgniter 的核心控制器不应该改变,但是在
 <strong>app/Controllers/BaseController.php</strong> 提供了一个默认的类扩展。你创建的任何新控制器都应该扩展 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code> 来利用预加载的组件和你提供的任何其他功能:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -292,15 +297,15 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id6">预加载组件</a></p></li>
 <li><p><a class="reference internal" href="#id4" id="id7">其他方法</a></p></li>
 <li><p><a class="reference internal" href="#id5" id="id8">其他选择</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id6">预加载组件</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">预加载组件</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>基础控制器是一个很好的地方,可以加载你打算在项目每次运行时使用的任何辅助函数、模型、类库、服务等。辅助函数应该添加到预定义的 <code class="docutils literal notranslate"><span class="pre">$helpers</span></code> 数组中。例如,如果你需要 HTML 和 Text 辅助函数在所有地方可用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -346,11 +351,11 @@
 </div>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id7">其他方法</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">其他方法</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <p>基础控制器是不可路由的。作为一个额外的安全措施, <strong>所有</strong> 你创建的新方法都应该声明为 <code class="docutils literal notranslate"><span class="pre">protected</span></code> 或 <code class="docutils literal notranslate"><span class="pre">private</span></code>,并且只能通过扩展 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code> 的控制器访问它们。</p>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id8">其他选择</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">其他选择</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <p>你可能会发现需要多个基础控制器。只要其他控制器扩展正确的基础控制器,就可以创建多个基础控制器。例如,如果你的项目有复杂的公共接口和简单的管理门户,可以考虑让公共控制器扩展 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code>,为任何管理控制器创建 <code class="docutils literal notranslate"><span class="pre">AdminController</span></code>。</p>
 <p>如果你不想使用基础控制器,可以通过让控制器扩展系统的 Controller 来绕过它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -379,8 +384,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -388,7 +393,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f4189ae90>
+<jinja2.runtime.BlockReference object at 0x7f1629162c90>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

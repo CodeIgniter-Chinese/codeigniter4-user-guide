@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>版本 4.1.5 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>版本 4.1.5 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -280,10 +285,10 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>版本 4.1.5<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>版本 4.1.5<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>发布日期:2021 年 11 月 8 日</p>
 <p><strong>CodeIgniter 4.1.5 版发布</strong></p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id8">不兼容变更</a></p></li>
 <li><p><a class="reference internal" href="#id4" id="id9">增强功能</a></p></li>
@@ -291,9 +296,9 @@
 <li><p><a class="reference internal" href="#id6" id="id11">弃用功能</a></p></li>
 <li><p><a class="reference internal" href="#id7" id="id12">错误修复</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id8">不兼容变更</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">不兼容变更</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p>修复了 CSRF 保护上的一个错误。现在,当应用 CSRF 过滤器时,CSRF 保护也适用于 PUT/PATCH/DELETE 请求。如果使用这些请求,则需要发送 CSRF token。</p></li>
 <li><p>在以前的版本中,如果你没有提供自己的 headers, <code class="docutils literal notranslate"><span class="pre">CURLRequest</span></code> 会由于一个错误而发送来自浏览器的请求头。从本版本开始,它不再发送它们。</p></li>
@@ -302,7 +307,7 @@
 </ul>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id9">增强功能</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">增强功能</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p>为保留字符添加了缓存配置</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Forge</span></code> 类的 <a class="reference internal" href="../dbmgmt/forge.html#adding-foreign-keys"><span class="std std-ref">addForeignKey()</span></a> 函数现在可以在数组中定义复合外键</p></li>
@@ -323,19 +328,19 @@
 </ul>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id10">变更</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">变更</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p>始终在 <code class="docutils literal notranslate"><span class="pre">BaseBuilder</span></code> 的 <code class="docutils literal notranslate"><span class="pre">set</span></code>、<code class="docutils literal notranslate"><span class="pre">setUpdateBatch</span></code> 和 <code class="docutils literal notranslate"><span class="pre">insertBatch</span></code> 函数中转义标识符。</p></li>
 </ul>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id11">弃用功能</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">弃用功能</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p>弃用 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\\Cache\\Handlers\\BaseHandler::RESERVED_CHARACTERS</span></code>,改用新的配置属性</p></li>
 </ul>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id12">错误修复</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">错误修复</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <p>有关完整的错误修复列表,请参阅仓库的
 <a class="reference external" href="https://github.com/codeigniter4/CodeIgniter4/blob/develop/changelogs/CHANGELOG_4.1.md">CHANGELOG_4.1.md</a>。</p>
 </section>
@@ -352,8 +357,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -361,7 +366,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f4240d2d0>
+<jinja2.runtime.BlockReference object at 0x7f1628f06b50>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

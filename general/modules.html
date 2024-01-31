@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>代码模块 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>代码模块 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,11 +284,11 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>代码模块<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>代码模块<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>CodeIgniter 支持一种代码模块化形式,以帮助你创建可重用的代码。模块通常围绕特定主题展开,可以认为是你更大的应用程序中的微型应用程序。</p>
 <p>框架支持的任何标准文件类型都受支持,如控制器、模型、视图、配置文件、辅助函数、语言文件等。模块可以包含尽可能少或多的这些文件。</p>
 <p>如果你想将一个模块创建为 Composer 包，请参阅 <a class="reference internal" href="../extending/composer_packages.html"><span class="doc">创建 Composer 包</span></a>。</p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id22">命名空间</a></p></li>
 <li><p><a class="reference internal" href="#id4" id="id23">自动加载非类文件</a></p></li>
@@ -310,9 +315,9 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id22">命名空间</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">命名空间</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>模块功能的核心元素来自 CodeIgniter 使用的 <a class="reference internal" href="../concepts/autoloader.html"><span class="doc">兼容 PSR-4 的自动加载</span></a>。虽然任何代码都可以使用 PSR-4 自动加载器和命名空间,但充分利用模块的主要方法是为你的代码添加命名空间并将其添加到 <strong>app/Config/Autoload.php</strong> 中的 <code class="docutils literal notranslate"><span class="pre">$psr4</span></code> 属性。</p>
 <p>例如,假设我们想保留一个简单的博客模块,以便在应用程序之间重用。我们可以创建一个文件夹,名为 Acme,来存储所有的模块。我们将它放在主项目根目录中的 <strong>app</strong> 目录旁边:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">acme</span><span class="o">/</span>        <span class="c1">// 新模块目录</span>
@@ -362,7 +367,7 @@
 <p>当然,没有什么能强制你使用这个确切的结构,你应该以最适合模块的方式组织它,省略不需要的目录,为实体、接口或存储库等创建新目录。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id23">自动加载非类文件</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">自动加载非类文件</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <p>通常,你的模块不仅包含 PHP 类,还包含像程序函数、引导文件、模块常量文件等通常不会像加载类那样加载的文件。一种方法是在使用文件位置的开头 <code class="docutils literal notranslate"><span class="pre">require</span></code> 这些文件。</p>
 <p>CodeIgniter 提供的另一种方法是像自动加载类一样自动加载这些 <em>非类</em> 文件。我们需要做的就是提供这些文件路径的列表,并将它们包含在 <strong>app/Config/Autoload.php</strong> 文件的 <code class="docutils literal notranslate"><span class="pre">$files</span></code> 属性中。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -387,7 +392,7 @@
 </div>
 </section>
 <section id="auto-discovery">
-<span id="id5"></span><h2><a class="toc-backref" href="#id24">自动发现</a><a class="headerlink" href="#auto-discovery" title="永久链接至标题"></a></h2>
+<span id="id5"></span><h2><a class="toc-backref" href="#id24" role="doc-backlink">自动发现</a><a class="headerlink" href="#auto-discovery" title="此标题的永久链接"></a></h2>
 <p>通常,你需要指定要包含的文件的完全命名空间,但是可以通过自动发现许多不同类型的文件来配置 CodeIgniter,从而使将模块集成到应用程序中更简单,包括:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../extending/events.html"><span class="doc">Events</span></a></p></li>
@@ -400,20 +405,20 @@
 <p>自动发现系统通过扫描在 <strong>Config/Autoload.php</strong> 和 Composer 包中定义的 psr4 命名空间下的特定目录和文件来工作。</p>
 <p>例如,发现过程将在路径中查找可以发现的项,并应该找到 <strong>acme/Blog/Config/Routes.php</strong> 中的 routes 文件。</p>
 <section id="id6">
-<h3><a class="toc-backref" href="#id25">启用/禁用发现</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">启用/禁用发现</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>你可以通过系统中的 <code class="docutils literal notranslate"><span class="pre">$enabled</span></code> 类变量打开或关闭所有自动发现。False 将禁用所有发现,优化性能,但会消除模块和 Composer 包的特殊功能。</p>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id26">指定要发现的项</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">指定要发现的项</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
 <p>使用 <code class="docutils literal notranslate"><span class="pre">$aliases</span></code> 选项,你可以指定要自动发现的项。如果不存在该项,则不会为该项执行自动发现,但数组中的其他项仍将被发现。</p>
 </section>
 <section id="composer">
-<h3><a class="toc-backref" href="#id27">发现和 Composer</a><a class="headerlink" href="#composer" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">发现和 Composer</a><a class="headerlink" href="#composer" title="此标题的永久链接"></a></h3>
 <p>使用 PSR-4 命名空间通过 Composer 安装的包也将默认被发现。使用 PSR-0 命名空间的包将不会被检测到。</p>
 <section id="modules-specify-composer-packages">
-<span id="id8"></span><h4>指定 Composer 包<a class="headerlink" href="#modules-specify-composer-packages" title="永久链接至标题"></a></h4>
+<span id="id8"></span><h4>指定 Composer 包<a class="headerlink" href="#modules-specify-composer-packages" title="此标题的永久链接"></a></h4>
 <div class="versionadded">
-<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
 <p>为避免花时间扫描不相关的 Composer 包,你可以通过编辑 <strong>app/Config/Modules.php</strong> 中的 <code class="docutils literal notranslate"><span class="pre">$composerPackages</span></code> 变量手动指定要发现的包:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -461,7 +466,7 @@
 </div>
 </section>
 <section id="id9">
-<h4>禁用 Composer 包发现<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
+<h4>禁用 Composer 包发现<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
 <p>如果你不希望在查找文件时扫描 Composer 的所有已知目录,可以通过编辑 <strong>app/Config/Modules.php</strong> 中的 <code class="docutils literal notranslate"><span class="pre">$discoverInComposer</span></code> 变量将其关闭:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -481,10 +486,10 @@
 </section>
 </section>
 <section id="id10">
-<h2><a class="toc-backref" href="#id28">使用文件</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id28" role="doc-backlink">使用文件</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
 <p>本节将查看每种文件类型(控制器、视图、语言文件等)以及如何在模块中使用它们。用户指南的相关位置已对其中一些信息进行了更详细的描述,但在此重复以更容易掌握所有部分的关系。</p>
 <section id="id11">
-<h3><a class="toc-backref" href="#id29">路由</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">路由</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
 <p>默认情况下,模块内会自动扫描 <a class="reference internal" href="../incoming/routing.html"><span class="doc">路由</span></a>。可以在上面描述的 <strong>Modules</strong> 配置文件中将其关闭。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -493,9 +498,9 @@
 <p>使用模块时,如果应用程序中的路由包含通配符,这可能是一个问题。在这种情况下,请参阅 <a class="reference internal" href="../incoming/routing.html#routing-priority"><span class="std std-ref">路由优先级</span></a>。</p>
 </section>
 <section id="modules-filters">
-<span id="id12"></span><h3><a class="toc-backref" href="#id30">过滤器</a><a class="headerlink" href="#modules-filters" title="永久链接至标题"></a></h3>
+<span id="id12"></span><h3><a class="toc-backref" href="#id30" role="doc-backlink">过滤器</a><a class="headerlink" href="#modules-filters" title="此标题的永久链接"></a></h3>
 <div class="deprecated">
-<p><span class="versionmodified deprecated">4.4.2 版后已移除.</span></p>
+<p><span class="versionmodified deprecated">自 4.4.2 版本弃用.</span></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -533,12 +538,12 @@
 <p>在模块的 <strong>Config/Filters.php</strong> 文件中,你需要定义使用的过滤器的别名:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="nv">$filters</span><span class="o">-&gt;</span><span class="na">aliases</span><span class="p">[</span><span class="s1">&#39;menus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">MenusFilter</span><span class="o">::</span><span class="na">class</span><span class="p">;</span>
+<span class="nv">$filters</span><span class="o">-&gt;</span><span class="na">aliases</span><span class="p">[</span><span class="s1">&#39;menus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">\App\Filters\MenusFilter</span><span class="o">::</span><span class="na">class</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id31">控制器</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">控制器</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
 <p><strong>app/Controllers</strong> 目录之外的控制器无法通过 URI 检测自动路由,而必须在 Routes 文件本身中指定:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -556,7 +561,7 @@
 </div>
 </section>
 <section id="id14">
-<h3><a class="toc-backref" href="#id32">配置文件</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">配置文件</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h3>
 <p>使用配置文件时不需要特殊更改。这些仍然是命名空间类,并使用 <code class="docutils literal notranslate"><span class="pre">new</span></code> 命令加载:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -574,11 +579,11 @@
 </div>
 </section>
 <section id="id15">
-<h3><a class="toc-backref" href="#id33">迁移</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">迁移</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h3>
 <p>定义命名空间中的迁移文件将被自动发现。跨所有命名空间找到的所有迁移将在每次运行时都执行。</p>
 </section>
 <section id="id16">
-<h3><a class="toc-backref" href="#id34">种子</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">种子</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h3>
 <p>只要提供完全限定的命名空间,就可以从 CLI 和其他种子文件中调用种子文件。如果在 CLI 上调用,则需要提供双反斜杠:</p>
 <p>For Unix:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark db:seed Acme\\Blog\\Database\\Seeds\\TestPostSeeder</span>
@@ -590,7 +595,7 @@
 </div>
 </section>
 <section id="id17">
-<h3><a class="toc-backref" href="#id35">辅助函数</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">辅助函数</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h3>
 <p>在使用 <a class="reference internal" href="common_functions.html#helper" title="helper"><code class="xref php php-func docutils literal notranslate"><span class="pre">helper()</span></code></a> 函数时,定义的命名空间内的辅助函数将被自动发现,只要它们在 <strong>Helpers</strong> 目录内:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -600,11 +605,11 @@
 <p>你可以指定命名空间。详情请参阅 <a class="reference internal" href="helpers.html#helpers-loading-from-specified-namespace"><span class="std std-ref">从指定命名空间加载</span></a>。</p>
 </section>
 <section id="id18">
-<h3><a class="toc-backref" href="#id36">语言文件</a><a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">语言文件</a><a class="headerlink" href="#id18" title="此标题的永久链接"></a></h3>
 <p>只要文件遵循与主应用程序目录相同的目录结构,在使用 <code class="docutils literal notranslate"><span class="pre">lang()</span></code> 方法时就会从定义的命名空间自动定位语言文件。</p>
 </section>
 <section id="id19">
-<h3><a class="toc-backref" href="#id37">库</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">库</a><a class="headerlink" href="#id19" title="此标题的永久链接"></a></h3>
 <p>库总是通过它们的完全限定类名实例化的,所以不提供特殊访问:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -613,7 +618,7 @@
 </div>
 </section>
 <section id="id20">
-<h3><a class="toc-backref" href="#id38">模型</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">模型</a><a class="headerlink" href="#id20" title="此标题的永久链接"></a></h3>
 <p>如果你通过完全限定的类名用 <code class="docutils literal notranslate"><span class="pre">new</span></code> 关键字实例化模型,则不提供特殊访问:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -631,7 +636,7 @@
 </div>
 </section>
 <section id="id21">
-<h3><a class="toc-backref" href="#id39">视图</a><a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">视图</a><a class="headerlink" href="#id21" title="此标题的永久链接"></a></h3>
 <p>如 <a class="reference internal" href="../outgoing/views.html"><span class="doc">视图</span></a> 文档中所述,可以使用类命名空间加载视图:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -653,8 +658,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -662,7 +667,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41b4c7d0>
+<jinja2.runtime.BlockReference object at 0x7f16285eba90>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

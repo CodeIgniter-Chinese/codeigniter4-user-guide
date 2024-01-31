@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>使用实体类 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>使用实体类 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>使用实体类<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<p>CodeIgniter 在其数据库层全面支持实体类,同时保持它们的完全可选。它们通常用作存储库模式的一部分,但如果更符合你的需求,也可以直接与 <a class="reference internal" href="model.html"><span class="doc">Model</span></a> 一起使用。</p>
-<div class="contents local topic" id="id2">
+<h1>使用实体类<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<p>CodeIgniter 全面支持实体类,同时保持它们的完全可选。它们通常用作存储库模式的一部分,但如果更符合你的需求,也可以直接与 <a class="reference internal" href="model.html"><span class="doc">Model</span></a> 一起使用。</p>
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id18">实体用法</a></p>
 <ul>
@@ -306,10 +311,16 @@
 </li>
 <li><p><a class="reference internal" href="#id17" id="id30">检查更改的属性</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id18">实体用法</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
-<p>核心上,实体类仅仅是一个代表单个数据库行的类。它具有表示数据库列的类属性,并提供任何其他方法来实现该行的业务逻辑。但是,关键是它不知道如何持久化自己。这是模型或存储库类的责任。这样,如果你需要保存对象的方式发生了任何更改,你不需要更改整个应用程序中该对象的使用方式。这使得在快速原型阶段使用 JSON 或 XML 文件存储对象成为可能,然后在概念证明有效时轻松切换到数据库。</p>
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">实体用法</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<p>本质上,实体类仅仅是一个代表单个数据库行的类。它具有表示数据库列的类属性,并提供任何其他方法来实现该行的业务逻辑。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>为了便于理解，这里的解释是基于使用数据库的情况。然而，实体也可以用于不来自数据库的数据。</p>
+</div>
+<p>然而,关键是它不知道如何持久化自己。这是模型或存储库类的责任。这样,如果你需要保存对象的方式发生了任何更改,你不需要更改整个应用程序中该对象的使用方式。</p>
+<p>这使得在快速原型阶段使用 JSON 或 XML 文件存储对象成为可能,然后在概念证明有效时轻松切换到数据库。</p>
 <p>让我们来看一个非常简单的用户实体示例,并介绍如何使用它以使事情变得清楚。</p>
 <p>假设你有一个名为 <code class="docutils literal notranslate"><span class="pre">users</span></code> 的数据库表,具有以下模式:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">id</span>          <span class="o">-</span> <span class="nx">integer</span>
@@ -324,7 +335,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> 是一个保留字,供内部使用。如果你将其用作列名,实体将无法正确工作。</p>
 </div>
 <section id="id4">
-<h3><a class="toc-backref" href="#id19">创建实体类</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">创建实体类</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>现在创建一个新的实体类。由于没有默认的位置来存储这些类,也不符合现有的目录结构,所以在 <strong>app/Entities</strong> 中创建一个新目录。在 <strong>app/Entities/User.php</strong> 中创建实体本身。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -341,7 +352,7 @@
 <p>就这么简单,尽管我们马上会让它更有用。</p>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id20">创建模型</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">创建模型</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>首先在 <strong>app/Models/UserModel.php</strong> 创建模型,以便我们可以与其交互:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -363,7 +374,7 @@
 <p>模型在数据库的所有活动中使用 <code class="docutils literal notranslate"><span class="pre">users</span></code> 表。我们已经设置了 <code class="docutils literal notranslate"><span class="pre">$allowedFields</span></code> 属性,以包含我们希望外部类更改的所有字段。 <code class="docutils literal notranslate"><span class="pre">id</span></code>、<code class="docutils literal notranslate"><span class="pre">created_at</span></code> 和 <code class="docutils literal notranslate"><span class="pre">updated_at</span></code> 字段由类或数据库自动处理,所以我们不想更改它们。最后,我们将实体类设置为 <code class="docutils literal notranslate"><span class="pre">$returnType</span></code>。这确保从数据库返回行的所有模型方法都会返回我们的 User 实体类的实例,而不是正常的对象或数组。</p>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id21">使用实体类</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">使用实体类</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>现在各部分就绪,你将像使用任何其他类一样使用实体类:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -392,7 +403,7 @@
 <p>你可能已经注意到, <code class="docutils literal notranslate"><span class="pre">User</span></code> 类还没有为列设置任何属性,但你仍然可以像它们是公共属性一样访问它们。基类 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Entity\Entity</span></code> 会替你处理这些,以及提供使用 <code class="docutils literal notranslate"><span class="pre">isset()</span></code> 检查属性,或 <code class="docutils literal notranslate"><span class="pre">unset()</span></code> 属性的能力,并跟踪对象创建或从数据库中提取后哪些列发生了更改。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>实体类在属性 <code class="docutils literal notranslate"><span class="pre">$attributes</span></code> 中存储数据。</p>
+<p>实体类在内部的类属性 <code class="docutils literal notranslate"><span class="pre">$attributes</span></code> 中存储数据。</p>
 </div>
 <p>当 User 传递给模型的 <code class="docutils literal notranslate"><span class="pre">save()</span></code> 方法时,它会自动读取属性并保存 <code class="docutils literal notranslate"><span class="pre">$allowedFields</span></code> 属性中列出的任何更改。它还知道是创建新行还是更新现有行。</p>
 <div class="admonition note">
@@ -401,7 +412,7 @@
 </div>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id22">快速填充属性</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">快速填充属性</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
 <p>实体类还提供了一个方法 <code class="docutils literal notranslate"><span class="pre">fill()</span></code>,允许你将键/值对数组推入类中并填充类属性。数组中的任何属性都将在实体上设置。但是,通过模型保存时,实际上只会将 <code class="docutils literal notranslate"><span class="pre">$allowedFields</span></code> 中的字段保存到数据库,所以你可以在实体上存储其他数据,而不必担心错误地保存多余的字段。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -423,12 +434,12 @@
 </div>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id23">批量访问属性</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">批量访问属性</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
 <p>实体类有两个方法可以将所有可用属性提取到一个数组中:<code class="docutils literal notranslate"><span class="pre">toArray()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">toRawArray()</span></code>。使用原始版本将绕过魔术“getter”方法和转换。两个方法都可以接受一个布尔第一个参数,指定返回的值是否应该由更改的那些过滤,以及一个布尔最后一个参数,以使方法递归,以防出现嵌套的实体。</p>
 </section>
 </section>
 <section id="id9">
-<h2><a class="toc-backref" href="#id24">处理业务逻辑</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">处理业务逻辑</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
 <p>虽然上面的例子很方便,但它们没有帮助执行任何业务逻辑。基本实体类实现了一些智能的 <code class="docutils literal notranslate"><span class="pre">__get()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">__set()</span></code> 方法,这些方法将检查特殊方法并使用那些方法,而不是直接使用属性,从而允许你执行任何需要的业务逻辑或数据转换。</p>
 <p>这是一个更新的用户实体,提供了一些如何使用它的示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -484,9 +495,9 @@
 </pre></div>
 </div>
 <section id="getter-setter">
-<span id="entities-special-getter-setter"></span><h3><a class="toc-backref" href="#id25">特殊的 Getter/Setter</a><a class="headerlink" href="#getter-setter" title="永久链接至标题"></a></h3>
+<span id="entities-special-getter-setter"></span><h3><a class="toc-backref" href="#id25" role="doc-backlink">特殊的 Getter/Setter</a><a class="headerlink" href="#getter-setter" title="此标题的永久链接"></a></h3>
 <div class="versionadded">
-<p><span class="versionmodified added">4.4.0 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
 </div>
 <p>例如，如果你的实体的父类已经定义了一个名为 <code class="docutils literal notranslate"><span class="pre">getParent()</span></code> 的方法，并且你的实体还有一个名为 <code class="docutils literal notranslate"><span class="pre">parent</span></code> 的列，当你尝试在实体类中为 <code class="docutils literal notranslate"><span class="pre">getParent()</span></code> 方法添加业务逻辑时，该方法已经被定义了。</p>
 <p>在这种情况下，你可以使用特殊的 getter/setter。而不是使用 <code class="docutils literal notranslate"><span class="pre">getX()</span></code>/<code class="docutils literal notranslate"><span class="pre">setX()</span></code>，使用 <code class="docutils literal notranslate"><span class="pre">_getX()</span></code>/<code class="docutils literal notranslate"><span class="pre">_setX()</span></code>。</p>
@@ -494,7 +505,7 @@
 </section>
 </section>
 <section id="id10">
-<h2><a class="toc-backref" href="#id26">数据映射</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">数据映射</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
 <p>在你的职业生涯的多个时间点上,你会遇到应用程序使用的情况发生变化,数据库中的原始列名不再有意义的情况。或者你发现你的编程风格更喜欢驼峰式类属性,但你的数据库模式要求使用蛇形名称。这些情况可以通过实体类的数据映射功能轻松处理。</p>
 <p>举个例子,假设你有在整个应用程序中使用的简化的 User 实体:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -550,9 +561,9 @@
 </div>
 </section>
 <section id="id11">
-<h2><a class="toc-backref" href="#id27">变更器</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">变更器</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
 <section id="id12">
-<h3><a class="toc-backref" href="#id28">日期变更器</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">日期变更器</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
 <p>默认情况下,当设置或检索名称为 <cite>created_at</cite>、<cite>updated_at</cite> 或 <cite>deleted_at</cite> 的字段时,实体类会将其转换为 <a class="reference internal" href="../libraries/time.html"><span class="doc">时间</span></a> 实例。Time 类以不可变的本地化方式提供了大量有用的方法。</p>
 <p>你可以通过将名称添加到 <code class="docutils literal notranslate"><span class="pre">$dates</span></code> 属性来定义哪些属性会自动转换:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -582,12 +593,12 @@
 </div>
 </section>
 <section id="entities-property-casting">
-<span id="id13"></span><h3><a class="toc-backref" href="#id29">属性转换</a><a class="headerlink" href="#entities-property-casting" title="永久链接至标题"></a></h3>
+<span id="id13"></span><h3><a class="toc-backref" href="#id29" role="doc-backlink">属性转换</a><a class="headerlink" href="#entities-property-casting" title="此标题的永久链接"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">$casts</span></code> 属性指定实体中的属性应该转换为常见的数据类型。
 该选项应该是一个数组，其中键是类属性的名称，值是应该转换为的数据类型。</p>
 <p>属性转换影响读取（获取）和写入（设置），但某些类型只影响读取（获取）。</p>
 <section id="id14">
-<h4>标量类型转换<a class="headerlink" href="#id14" title="永久链接至标题"></a></h4>
+<h4>标量类型转换<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h4>
 <p>属性可以转换为以下任何数据类型：
 <strong>integer</strong>、<strong>float</strong>、<strong>double</strong>、<strong>string</strong>、<strong>boolean</strong>、<strong>object</strong>、<strong>array</strong>、<strong>datetime</strong>、<strong>timestamp</strong>、<strong>uri</strong> 和 <strong>int-bool</strong>。
 在类型的开头加上问号，将属性标记为可为空，例如 <strong>?string</strong>、<strong>?integer</strong>。</p>
@@ -613,7 +624,7 @@
 </div>
 </section>
 <section id="json">
-<h4>数组/JSON 转换<a class="headerlink" href="#json" title="永久链接至标题"></a></h4>
+<h4>数组/JSON 转换<a class="headerlink" href="#json" title="此标题的永久链接"></a></h4>
 <p>当转换为以下类型时,数组/JSON 转换特别适用于存储序列化数组或 JSON 的字段:</p>
 <ul class="simple">
 <li><p><strong>array</strong> 时,它们将自动反序列化,</p></li>
@@ -656,7 +667,7 @@
 </div>
 </section>
 <section id="csv">
-<h4>CSV 转换<a class="headerlink" href="#csv" title="永久链接至标题"></a></h4>
+<h4>CSV 转换<a class="headerlink" href="#csv" title="此标题的永久链接"></a></h4>
 <p>如果你知道有一个简单值的平面数组,将它们编码为序列化或 JSON 字符串可能比原始结构更复杂。转换为逗号分隔值(CSV)是一个更简单的替代方法,结果是一个使用的空间更少、更容易被人类读取的字符串:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -684,7 +695,7 @@
 </div>
 </section>
 <section id="id15">
-<h4>自定义转换<a class="headerlink" href="#id15" title="永久链接至标题"></a></h4>
+<h4>自定义转换<a class="headerlink" href="#id15" title="此标题的永久链接"></a></h4>
 <p>你可以为获取和设置数据定义自己的转换类型。</p>
 <p>首先你需要为你的类型创建一个处理程序类。
 假设这个类将位于 <strong>app/Entities/Cast</strong> 目录中:</p>
@@ -725,7 +736,7 @@
 
     <span class="c1">// Bind the type to the handler</span>
     <span class="k">protected</span> <span class="nv">$castHandlers</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;base64&#39;</span> <span class="o">=&gt;</span> <span class="nx">\App\Entities\Cast\CastBase64</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">&#39;base64&#39;</span> <span class="o">=&gt;</span> <span class="nx">Cast\CastBase64</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
     <span class="p">];</span>
 <span class="p">}</span>
 
@@ -753,7 +764,7 @@
 </div>
 </section>
 <section id="id16">
-<h4>参数<a class="headerlink" href="#id16" title="永久链接至标题"></a></h4>
+<h4>参数<a class="headerlink" href="#id16" title="此标题的永久链接"></a></h4>
 <p>在某些情况下,一种类型是不够的。在这种情况下,你可以使用额外的参数。
 额外的参数用方括号表示,并以逗号分隔列表,例如 <code class="docutils literal notranslate"><span class="pre">type[param1,</span> <span class="pre">param2]</span></code>。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -811,7 +822,7 @@
 </section>
 </section>
 <section id="id17">
-<h2><a class="toc-backref" href="#id30">检查更改的属性</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id30" role="doc-backlink">检查更改的属性</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h2>
 <p>你可以检查自创建以来实体属性是否发生了更改。唯一的参数是要检查的属性名称:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -842,8 +853,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -851,7 +862,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f416a1990>
+<jinja2.runtime.BlockReference object at 0x7f1628486110>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

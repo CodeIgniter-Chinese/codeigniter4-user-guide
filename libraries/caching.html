@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>缓存驱动 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>缓存驱动 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>缓存驱动<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>缓存驱动<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>CodeIgniter 提供了一些最常用的快速动态缓存的封装。除基于文件的缓存外,所有缓存都需要特定的服务器要求,如果服务器要求不符,会抛出一个致命异常。</p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id11">使用示例</a></p></li>
 <li><p><a class="reference internal" href="#libraries-caching-configuring-the-cache" id="id12">配置缓存</a></p>
@@ -313,9 +318,9 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id11">使用示例</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">使用示例</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>下面的示例展示了在控制器中的一种常见用法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -340,22 +345,22 @@
 </div>
 </section>
 <section id="libraries-caching-configuring-the-cache">
-<span id="id4"></span><h2><a class="toc-backref" href="#id12">配置缓存</a><a class="headerlink" href="#libraries-caching-configuring-the-cache" title="永久链接至标题"></a></h2>
+<span id="id4"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">配置缓存</a><a class="headerlink" href="#libraries-caching-configuring-the-cache" title="此标题的永久链接"></a></h2>
 <p>缓存引擎的所有配置都在 <strong>app/Config/Cache.php</strong> 中。该文件中可用的选项如下:</p>
 <section id="handler">
-<h3><a class="toc-backref" href="#id13">$handler</a><a class="headerlink" href="#handler" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">$handler</a><a class="headerlink" href="#handler" title="此标题的永久链接"></a></h3>
 <p>这是启动缓存引擎时使用的主处理程序的名称。可用名称有:dummy、file、memcached、redis、predis、wincache。</p>
 </section>
 <section id="backuphandler">
-<h3><a class="toc-backref" href="#id14">$backupHandler</a><a class="headerlink" href="#backuphandler" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">$backupHandler</a><a class="headerlink" href="#backuphandler" title="此标题的永久链接"></a></h3>
 <p>如果首选的 <code class="docutils literal notranslate"><span class="pre">$handler</span></code> 不可用,则此处是要加载的下一个缓存处理程序。由于文件系统总是可用的,因此这通常是 <code class="docutils literal notranslate"><span class="pre">File</span></code> 处理程序,但可能不适合更复杂的多服务器设置。</p>
 </section>
 <section id="prefix">
-<h3><a class="toc-backref" href="#id15">$prefix</a><a class="headerlink" href="#prefix" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">$prefix</a><a class="headerlink" href="#prefix" title="此标题的永久链接"></a></h3>
 <p>如果你有多个应用程序使用相同的缓存存储,你可以在这里添加一个自定义的前缀字符串,该字符串会添加到所有键名的前面。</p>
 </section>
 <section id="ttl">
-<h3><a class="toc-backref" href="#id16">$ttl</a><a class="headerlink" href="#ttl" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">$ttl</a><a class="headerlink" href="#ttl" title="此标题的永久链接"></a></h3>
 <p>没有指定时保存项目的默认秒数。</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
@@ -363,31 +368,31 @@
 </div>
 </section>
 <section id="file">
-<h3><a class="toc-backref" href="#id17">$file</a><a class="headerlink" href="#file" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">$file</a><a class="headerlink" href="#file" title="此标题的永久链接"></a></h3>
 <p>这是一组针对 <code class="docutils literal notranslate"><span class="pre">File</span></code> 处理程序的设置数组,用来确定其应如何保存缓存文件。</p>
 </section>
 <section id="memcached">
-<h3><a class="toc-backref" href="#id18">$memcached</a><a class="headerlink" href="#memcached" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">$memcached</a><a class="headerlink" href="#memcached" title="此标题的永久链接"></a></h3>
 <p>这是在使用 <code class="docutils literal notranslate"><span class="pre">Memcache(d)</span></code> 处理程序时要使用的一组服务器数组。</p>
 </section>
 <section id="redis">
-<h3><a class="toc-backref" href="#id19">$redis</a><a class="headerlink" href="#redis" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">$redis</a><a class="headerlink" href="#redis" title="此标题的永久链接"></a></h3>
 <p>使用 <code class="docutils literal notranslate"><span class="pre">Redis</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Predis</span></code> 处理程序时,希望使用的 Redis 服务器的设置。</p>
 </section>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id20">命令行工具</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">命令行工具</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <p>CodeIgniter 提供了几个可以从命令行使用的 <a class="reference internal" href="../cli/spark_commands.html"><span class="doc">commands</span></a>,以帮助你使用缓存。
 这些工具不是使用缓存驱动所必需的,但可能对你有帮助。</p>
 <section id="cache-clear">
-<h3><a class="toc-backref" href="#id21">cache:clear</a><a class="headerlink" href="#cache-clear" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">cache:clear</a><a class="headerlink" href="#cache-clear" title="此标题的永久链接"></a></h3>
 <p>清除当前系统缓存:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark cache:clear</span>
 </pre></div>
 </div>
 </section>
 <section id="cache-info">
-<h3><a class="toc-backref" href="#id22">cache:info</a><a class="headerlink" href="#cache-info" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">cache:info</a><a class="headerlink" href="#cache-info" title="此标题的永久链接"></a></h3>
 <p>显示当前系统中的文件缓存信息:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark cache:info</span>
 </pre></div>
@@ -399,7 +404,7 @@
 </section>
 </section>
 <section id="namespace-CodeIgniter\Cache">
-<span id="id6"></span><h2><a class="toc-backref" href="#id23">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\Cache" title="永久链接至标题"></a></h2>
+<span id="id6"></span><h2><a class="toc-backref" href="#id23" role="doc-backlink">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\Cache" title="此标题的永久链接"></a></h2>
 <dl class="php class">
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\Cache\</span></span><span class="sig-name descname"><span class="pre">CacheInterface</span></span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface" title="永久链接至目标"></a></dt>
@@ -407,10 +412,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::isSupported">
 <span class="sig-name descname"><span class="pre">isSupported</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::isSupported" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>如果支持则为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,不支持则为 <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -420,15 +425,15 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$key</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mixed</span></span></span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::get" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 缓存项名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>项的值,如果没找到则为 <code class="docutils literal notranslate"><span class="pre">null</span></code></p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
@@ -445,17 +450,17 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::remember">
 <span class="sig-name descname"><span class="pre">remember</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$key</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$ttl</span></em>, <em class="sig-param"><span class="pre">Closure</span> <span class="pre">$callback</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::remember" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 缓存项名称</p></li>
 <li><p><strong>$ttl</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – 生存时间,以秒为单位</p></li>
 <li><p><strong>$callback</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">Closure</span></code></span>) – 当缓存项返回 null 时要调用的回调</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>缓存项的值</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
@@ -466,7 +471,7 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::save">
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$key</span></em>, <em class="sig-param"><span class="pre">$data</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$ttl</span> <span class="pre">=</span> <span class="pre">60</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$raw</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::save" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 缓存项名称</p></li>
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要保存的数据</p></li>
@@ -474,10 +479,10 @@
 <li><p><strong>$raw</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否保存原始值</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>保存成功则为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,失败则为 <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -498,15 +503,15 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::delete">
 <span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$key</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::delete" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 缓存项名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>删除成功则为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,失败则为 <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -523,15 +528,15 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::deleteMatching">
 <span class="sig-name descname"><span class="pre">deleteMatching</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$pattern</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">integer</span></span></span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::deleteMatching" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$pattern</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要匹配缓存项键的 glob 样式模式</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>已删除项的数量</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">integer</span></code></span></p>
 </dd>
 </dl>
@@ -555,16 +560,16 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::increment">
 <span class="sig-name descname"><span class="pre">increment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$key</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$offset</span> <span class="pre">=</span> <span class="pre">1</span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mixed</span></span></span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::increment" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 缓存 ID</p></li>
 <li><p><strong>$offset</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – 要添加的步长/值</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>成功则返回新值,失败则返回 <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
@@ -583,16 +588,16 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::decrement">
 <span class="sig-name descname"><span class="pre">decrement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$key</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$offset</span> <span class="pre">=</span> <span class="pre">1</span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mixed</span></span></span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::decrement" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 缓存 ID</p></li>
 <li><p><strong>$offset</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – 要减少的步长/值</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>成功则返回新值,失败则返回 <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
@@ -611,10 +616,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::clean">
 <span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::clean" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>清除成功则为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,失败则为 <code class="docutils literal notranslate"><span class="pre">false</span></code></p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -631,10 +636,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::getCacheInfo">
 <span class="sig-name descname"><span class="pre">getCacheInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::getCacheInfo" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>整个缓存数据库的信息</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
@@ -655,15 +660,15 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::getMetadata">
 <span class="sig-name descname"><span class="pre">getMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::getMetadata" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 缓存项名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>缓存项的元数据。缺少项时为 <code class="docutils literal notranslate"><span class="pre">null</span></code>,如果绝对到期时间是永不过期,则至少应包含 “expire” 键的数组。</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array|null</span></code></span></p>
 </dd>
 </dl>
@@ -684,22 +689,24 @@
 <dt class="sig sig-object php" id="CodeIgniter\Cache\CacheInterface::validateKey">
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">validateKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$key</span></em>, <em class="sig-param"><span class="pre">string</span> <span class="pre">$prefix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\Cache\CacheInterface::validateKey" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 潜在的缓存键</p></li>
 <li><p><strong>$prefix</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 可选的前缀</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>验证和加前缀后的键。如果键超过了驱动的最大键长度,它将被哈希。</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
 <p>这个方法由处理程序方法用来检查键是否有效。它会对非字符串、无效字符和空长度抛出 <code class="docutils literal notranslate"><span class="pre">InvalidArgumentException</span></code>。</p>
 <p>例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Cache\Handlers\BaseHandler</span><span class="p">;</span>
 
 <span class="nv">$prefixedKey</span> <span class="o">=</span> <span class="nx">BaseHandler</span><span class="o">::</span><span class="na">validateKey</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="nv">$prefix</span><span class="p">);</span>
 </pre></div>
@@ -710,13 +717,13 @@
 
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id24">驱动程序</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">驱动程序</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <section id="id8">
-<h3><a class="toc-backref" href="#id25">基于文件的缓存</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">基于文件的缓存</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
 <p>与来自 Output 类的缓存不同,基于文件的驱动缓存允许缓存视图文件的一部分。谨慎使用此功能,并确保对应用进行基准测试,因为在某个点上,磁盘 I/O 将抵消缓存的积极效果。这需要一个真正可写的缓存目录。</p>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id26">Memcached 缓存</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">Memcached 缓存</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
 <p>可以在缓存配置文件中指定 Memcached 服务器。可用选项如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -743,13 +750,13 @@
 <a class="reference external" href="https://www.php.net/memcached">https://www.php.net/memcached</a>。</p>
 </section>
 <section id="wincache">
-<h3><a class="toc-backref" href="#id27">WinCache 缓存</a><a class="headerlink" href="#wincache" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">WinCache 缓存</a><a class="headerlink" href="#wincache" title="此标题的永久链接"></a></h3>
 <p>在 Windows 下,你也可以使用 WinCache 驱动程序。</p>
 <p>有关 WinCache 的更多信息,请查看
 <a class="reference external" href="https://www.php.net/wincache">https://www.php.net/wincache</a>。</p>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id28">Redis 缓存</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">Redis 缓存</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
 <p>Redis 是一个内存中的键值存储,可以以 LRU 缓存模式运行。要使用它,你需要 <a class="reference external" href="https://github.com/phpredis/phpredis">Redis server 和 phpredis PHP 扩展</a>。</p>
 <p>连接到 redis 服务器的配置选项存储在缓存配置文件中。可用选项如下:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -778,7 +785,7 @@
 <a class="reference external" href="https://redis.io">https://redis.io</a>。</p>
 </section>
 <section id="predis">
-<h3><a class="toc-backref" href="#id29">Predis 缓存</a><a class="headerlink" href="#predis" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Predis 缓存</a><a class="headerlink" href="#predis" title="此标题的永久链接"></a></h3>
 <p>Predis 是一个用于 Redis 键值存储的灵活且功能完善的 PHP 客户端库。要使用它,从项目根目录的命令行中运行:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">composer require predis/predis</span>
 </pre></div>
@@ -787,7 +794,7 @@
 <a class="reference external" href="https://github.com/nrk/predis">https://github.com/nrk/predis</a>。</p>
 </section>
 <section id="dummy">
-<h3><a class="toc-backref" href="#id30">Dummy 缓存</a><a class="headerlink" href="#dummy" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Dummy 缓存</a><a class="headerlink" href="#dummy" title="此标题的永久链接"></a></h3>
 <p>这是一个缓存后端,将始终“未命中”。它不存储任何数据,但允许你在不支持你选择的缓存的环境中保持缓存代码。</p>
 </section>
 </section>
@@ -804,8 +811,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -813,7 +820,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f417ebd90>
+<jinja2.runtime.BlockReference object at 0x7f1628266650>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

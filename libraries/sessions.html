@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Session 库 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>Session 库 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,10 +284,10 @@
            <div itemprop="articleBody">
              
   <section id="session">
-<h1>Session 库<a class="headerlink" href="#session" title="永久链接至标题"></a></h1>
+<h1>Session 库<a class="headerlink" href="#session" title="此标题的永久链接"></a></h1>
 <p>Session 类允许你在用户浏览你的站点时维护用户的“状态”并跟踪他们的活动。</p>
 <p>CodeIgniter 带有几个 session 存储驱动器,你可以在目录内容的最后一节中看到:</p>
-<div class="contents local topic" id="id1">
+<nav class="contents local" id="id1">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id2" id="id28">使用 Session 类</a></p>
 <ul>
@@ -310,11 +315,11 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id28">使用 Session 类</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id28" role="doc-backlink">使用 Session 类</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <section id="id3">
-<h3><a class="toc-backref" href="#id29">初始化 Session</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">初始化 Session</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
 <p>Session 通常会与每个页面加载一起全局运行,所以 Session 类应该自动初始化。</p>
 <p>要访问和初始化 Session:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -335,7 +340,7 @@
 </div>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id30">Session 如何工作?</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">Session 如何工作?</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>当页面加载时,session 类将检查用户的浏览器是否发送了有效的 session cookie。如果 session cookie <strong>不存在</strong> (或与服务器上存储的不匹配或已过期),则将创建一个新 session 并保存。</p>
 <p>如果存在有效的 session,则会更新其信息。使用每次更新,如果配置了 session ID 可能会被重新生成。</p>
 <p>Initialized 后,Session 类会自动运行这一点非常重要。你不需要做任何事情就可以引起上述行为发生。如下所示,你可以使用 session 数据,但读取、写入和更新 session 的过程是自动的。</p>
@@ -344,7 +349,7 @@
 <p>在 CLI 下,Session 库将自动停止自己,因为这是一个完全基于 HTTP 协议的概念。</p>
 </div>
 <section id="id5">
-<h4>关于并发的注意事项<a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
+<h4>关于并发的注意事项<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h4>
 <p>除非你正在开发一个使用大量 AJAX 的网站,否则可以跳过这个部分。但是,如果是这样,并且如果遇到性能问题,那么这条注意事项正是你所需要的。</p>
 <p>CodeIgniter 2.x 中的 session 并没有实现锁定,这意味着可以完全同时运行两个使用相同 session 的 HTTP 请求。使用一个更合适的技术术语来说——请求是非阻塞的。</p>
 <p>但是,在 session 背景下的非阻塞请求也意味着不安全,因为一个请求中的 session 数据修改(或 session ID 重新生成)可能会干扰第二个并发请求的执行。这一细节是许多问题的根源,也是 CodeIgniter 3 完全重写 Session 库的主要原因。</p>
@@ -359,7 +364,7 @@
 </section>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id31">什么是 Session 数据?</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">什么是 Session 数据?</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>Session 数据只是一个与特定 Session ID 相关联的数组(Cookie)。</p>
 <p>如果你之前使用过 PHP 的 session,你应该熟悉 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/reserved.variables.session.php">$_SESSION 超全局变量</a> (如果不熟悉,请阅读该链接的内容)。</p>
 <p>CodeIgniter 通过相同的方式提供对其 Session 数据的访问,因为它使用 PHP 提供的 Session 处理程序机制。 使用 Session 数据就像操作(读取、设置和取消设置值) <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 数组一样简单。</p>
@@ -374,7 +379,7 @@
 </div>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id32">检索 Session 数据</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">检索 Session 数据</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
 <p>可以通过 <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 超全局变量访问 Session 数组中的任何信息:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -431,7 +436,7 @@
 </div>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id33">添加 Session 数据</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">添加 Session 数据</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
 <p>假设特定用户登录你的站点。一旦认证,你可以将用户名和电子邮件地址添加到 session 中,这使得当你需要时可以全局访问它们而无需运行数据库查询。</p>
 <p>你可以简单地像对任何其他变量一样将数据分配给 <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 数组。或者作为 <code class="docutils literal notranslate"><span class="pre">$session</span></code> 的属性。</p>
 <p>你可以传递一个包含新 Session 数据的数组到 <code class="docutils literal notranslate"><span class="pre">set()</span></code> 方法:</p>
@@ -476,7 +481,7 @@
 </div>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id34">向 Session 数据中推送新值</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">向 Session 数据中推送新值</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">push()</span></code> 方法用于将新值推送到一个是数组的 Session 值上。例如,如果 <code class="docutils literal notranslate"><span class="pre">hobbies</span></code> 键包含爱好数组,你可以像这样向数组添加一个新值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -485,7 +490,7 @@
 </div>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id35">删除 Session 数据</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">删除 Session 数据</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
 <p>与任何其他变量一样,可以通过 <code class="docutils literal notranslate"><span class="pre">unset()</span></code> 取消设置 <code class="docutils literal notranslate"><span class="pre">$_SESSION</span></code> 中的值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -512,7 +517,7 @@
 </div>
 </section>
 <section id="flashdata">
-<span id="sessions-flashdata"></span><h3><a class="toc-backref" href="#id36">Flashdata</a><a class="headerlink" href="#flashdata" title="永久链接至标题"></a></h3>
+<span id="sessions-flashdata"></span><h3><a class="toc-backref" href="#id36" role="doc-backlink">Flashdata</a><a class="headerlink" href="#flashdata" title="此标题的永久链接"></a></h3>
 <p>CodeIgniter 支持 “flashdata”,也就是只在下一次请求中可用,然后自动清除的 session 数据。</p>
 <p>这在需要一次性信息、错误或状态消息时非常有用(例如:“记录 2 已删除”)。</p>
 <p>需要注意的是,flashdata 变量是由 CodeIgniter session 处理程序管理的普通 session 变量。</p>
@@ -577,7 +582,7 @@
 </div>
 </section>
 <section id="tempdata">
-<h3><a class="toc-backref" href="#id37">Tempdata</a><a class="headerlink" href="#tempdata" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">Tempdata</a><a class="headerlink" href="#tempdata" title="此标题的永久链接"></a></h3>
 <p>CodeIgniter 还支持 “tempdata”,也就是在特定过期时间后自动删除的 session 数据。在值过期或 session 过期或删除后,该值将自动删除。</p>
 <p>与 flashdata 类似,tempdata 变量由 CodeIgniter session 处理程序内部管理。</p>
 <p>要将现有项标记为 “tempdata”,只需传递其键和过期时间(以秒为单位!)给 <code class="docutils literal notranslate"><span class="pre">markAsTempdata()</span></code> 方法:</p>
@@ -665,11 +670,11 @@
 </div>
 </section>
 <section id="id12">
-<h3><a class="toc-backref" href="#id38">关闭一个 Session</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">关闭一个 Session</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
 <section id="close">
-<span id="session-close"></span><h4>close()<a class="headerlink" href="#close" title="永久链接至标题"></a></h4>
+<span id="session-close"></span><h4>close()<a class="headerlink" href="#close" title="此标题的永久链接"></a></h4>
 <div class="versionadded">
-<p><span class="versionmodified added">4.4.0 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
 </div>
 <p>在不再需要当前 Session 时，可以使用 <code class="docutils literal notranslate"><span class="pre">close()</span></code> 方法手动关闭 Session：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -682,9 +687,9 @@
 </section>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id39">销毁一个 Session</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">销毁一个 Session</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
 <section id="destroy">
-<span id="session-destroy"></span><h4>destroy()<a class="headerlink" href="#destroy" title="永久链接至标题"></a></h4>
+<span id="session-destroy"></span><h4>destroy()<a class="headerlink" href="#destroy" title="此标题的永久链接"></a></h4>
 <p>要清除当前 session(例如在退出登录时),可以使用类库的 <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -700,9 +705,9 @@
 </div>
 </section>
 <section id="stop">
-<span id="session-stop"></span><h4>stop()<a class="headerlink" href="#stop" title="永久链接至标题"></a></h4>
+<span id="session-stop"></span><h4>stop()<a class="headerlink" href="#stop" title="此标题的永久链接"></a></h4>
 <div class="deprecated">
-<p><span class="versionmodified deprecated">4.3.5 版后已移除.</span></p>
+<p><span class="versionmodified deprecated">自 4.3.5 版本弃用.</span></p>
 </div>
 <p>Session 类还有 <code class="docutils literal notranslate"><span class="pre">stop()</span></code> 方法。</p>
 <div class="admonition warning">
@@ -713,7 +718,7 @@
 </section>
 </section>
 <section id="id15">
-<h3><a class="toc-backref" href="#id40">访问 Session 元数据</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">访问 Session 元数据</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h3>
 <p>在 CodeIgniter 2 中,默认情况下 session 数据数组包含 4 个项:
 ‘session_id’、’ip_address’、’user_agent’、’last_activity’。</p>
 <p>这是由于 session 工作方式的特殊性,但现在在我们的新实现中不再是必需的。
@@ -729,7 +734,7 @@
 </section>
 </section>
 <section id="id16">
-<h2><a class="toc-backref" href="#id41">Session 首选项</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id41" role="doc-backlink">Session 首选项</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h2>
 <p>CodeIgniter 通常会使一切正常工作。但是,Session 是任何应用程序中一个非常敏感的组件,因此必须谨慎配置。请花时间考虑所有选项及其影响。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -737,12 +742,6 @@
 </div>
 <p>你会在 <strong>app/Config/Session.php</strong> 文件中找到以下与 Session 相关的首选项:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 21%" />
-<col style="width: 24%" />
-<col style="width: 44%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>首选项</p></th>
 <th class="head"><p>默认值</p></th>
@@ -808,11 +807,6 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </div>
 <p>此外,在你的 <strong>app/Config/Cookie.php</strong> 文件中使用了以下配置值用于 Session cookie:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 14%" />
-<col style="width: 72%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Preference</p></th>
 <th class="head"><p>Default</p></th>
@@ -844,7 +838,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </div>
 </section>
 <section id="id17">
-<h2><a class="toc-backref" href="#id42">Session 驱动程序</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">Session 驱动程序</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h2>
 <p>如前所述,Session 库提供了 4 个处理程序或存储引擎可以使用:</p>
 <blockquote>
 <div><ul class="simple">
@@ -862,7 +856,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 <p>ArrayHandler 在测试时使用,并将所有数据存储在 PHP 数组中,同时防止数据持久化。</p>
 </div>
 <section id="filehandler">
-<h3><a class="toc-backref" href="#id43">FileHandler 驱动程序(默认)</a><a class="headerlink" href="#filehandler" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">FileHandler 驱动程序(默认)</a><a class="headerlink" href="#filehandler" title="此标题的永久链接"></a></h3>
 <p>‘FileHandler’ 驱动程序使用你的文件系统来存储 session 数据。</p>
 <p>可以安全地说,它的工作方式与 PHP 自己的默认 session 实现完全相同,但如果这对你很重要,请记住这实际上不是相同的代码,并且它有一些限制(和优点)。</p>
 <p>更具体地说,它不支持 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/session.configuration.php#ini.session.save-path">session.save_path 中使用的目录级别和模式格式</a>,大多数选项出于安全考虑都是硬编码的。相反,它只支持绝对路径作为 <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">string</span> <span class="pre">$savePath</span></code>。</p>
@@ -875,14 +869,14 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </pre></div>
 </div>
 <section id="id18">
-<h4>奖励提示<a class="headerlink" href="#id18" title="永久链接至标题"></a></h4>
+<h4>奖励提示<a class="headerlink" href="#id18" title="此标题的永久链接"></a></h4>
 <p>你们中一些人可能会选择另一个 session 驱动程序,因为文件存储通常较慢。这只有一半是真的。</p>
 <p>一个非常基本的测试可能会误导你相信 SQL 数据库更快,但在 99% 的情况下,这仅当你只有少量当前 session 时才是真的。随着 session 计数和服务器负载的增加——这是至关重要的时候——文件系统将始终优于几乎所有关系数据库设置。</p>
 <p>另外,如果性能是你唯一的关注点,你可能需要研究使用 <a class="reference external" href="https://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/">tmpfs</a>,(警告:外部资源),它可以使你的 session 飞快。</p>
 </section>
 </section>
 <section id="databasehandler">
-<span id="sessions-databasehandler-driver"></span><h3><a class="toc-backref" href="#id44">DatabaseHandler 驱动程序</a><a class="headerlink" href="#databasehandler" title="永久链接至标题"></a></h3>
+<span id="sessions-databasehandler-driver"></span><h3><a class="toc-backref" href="#id44" role="doc-backlink">DatabaseHandler 驱动程序</a><a class="headerlink" href="#databasehandler" title="此标题的永久链接"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>由于其他平台缺乏顾问锁定机制,因此仅正式支持 MySQL 和 PostgreSQL 数据库。在其他平台上使用不带锁定的会话可能会导致各种问题,特别是在大量使用 AJAX 的情况下,我们不会支持此类情况。如果遇到性能问题,请在处理完 session 数据后使用 <a class="reference internal" href="#session-close"><span class="std std-ref">close()</span></a> 方法。</p>
@@ -895,9 +889,9 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </ul>
 </div></blockquote>
 <section id="id19">
-<h4>配置 DatabaseHandler<a class="headerlink" href="#id19" title="永久链接至标题"></a></h4>
+<h4>配置 DatabaseHandler<a class="headerlink" href="#id19" title="此标题的永久链接"></a></h4>
 <section id="id20">
-<h5>设置表名<a class="headerlink" href="#id20" title="永久链接至标题"></a></h5>
+<h5>设置表名<a class="headerlink" href="#id20" title="此标题的永久链接"></a></h5>
 <p>为了使用 ‘DatabaseHandler’ session 驱动程序,还必须创建我们已经提到的表,然后将其设置为你的 <code class="docutils literal notranslate"><span class="pre">$savePath</span></code> 值。例如,如果你想使用 ‘ci_sessions’ 作为表名,你将执行以下操作:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -920,7 +914,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </div>
 </section>
 <section id="id21">
-<h5>创建数据库表<a class="headerlink" href="#id21" title="永久链接至标题"></a></h5>
+<h5>创建数据库表<a class="headerlink" href="#id21" title="此标题的永久链接"></a></h5>
 <p>然后当然,创建数据库表……</p>
 <p>对于 MySQL:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CREATE</span> <span class="nx">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="nx">EXISTS</span> <span class="sb">`ci_sessions`</span> <span class="p">(</span>
@@ -949,7 +943,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </div>
 </section>
 <section id="id22">
-<h5>添加主键<a class="headerlink" href="#id22" title="永久链接至标题"></a></h5>
+<h5>添加主键<a class="headerlink" href="#id22" title="此标题的永久链接"></a></h5>
 <p><strong>根据你的 $matchIP 设置</strong>，你还需要添加一个主键。以下示例适用于 MySQL 和 PostgreSQL:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 当 $matchIP = true 时</span>
 <span class="nx">ALTER</span> <span class="nx">TABLE</span> <span class="nx">ci_sessions</span> <span class="nx">ADD</span> <span class="nx">PRIMARY</span> <span class="nx">KEY</span> <span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">ip_address</span><span class="p">);</span>
@@ -971,7 +965,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </div>
 </section>
 <section id="id23">
-<h5>更改数据库组<a class="headerlink" href="#id23" title="永久链接至标题"></a></h5>
+<h5>更改数据库组<a class="headerlink" href="#id23" title="此标题的永久链接"></a></h5>
 <p>默认情况下使用默认数据库组。
 你可以通过更改 <strong>app/Config/Session.php</strong> 文件中的 <code class="docutils literal notranslate"><span class="pre">$DBGroup</span></code> 属性为要使用的组的名称来更改数据库组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -990,7 +984,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </div>
 </section>
 <section id="id24">
-<h5>使用命令设置数据库表<a class="headerlink" href="#id24" title="永久链接至标题"></a></h5>
+<h5>使用命令设置数据库表<a class="headerlink" href="#id24" title="此标题的永久链接"></a></h5>
 <p>当然,如果你不想手动执行所有这些操作,可以使用 cli 中的 <code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">spark</span> <span class="pre">make:migration</span> <span class="pre">--session</span></code> 命令为你生成迁移文件:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark make:migration --session</span>
 <span class="go">php spark migrate</span>
@@ -1001,7 +995,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </section>
 </section>
 <section id="redishandler">
-<span id="sessions-redishandler-driver"></span><h3><a class="toc-backref" href="#id45">RedisHandler 驱动程序</a><a class="headerlink" href="#redishandler" title="永久链接至标题"></a></h3>
+<span id="sessions-redishandler-driver"></span><h3><a class="toc-backref" href="#id45" role="doc-backlink">RedisHandler 驱动程序</a><a class="headerlink" href="#redishandler" title="此标题的永久链接"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>由于 Redis 没有公开锁定机制,因此通过单独保留 300 秒的额外值来模拟此驱动程序的锁。在 <code class="docutils literal notranslate"><span class="pre">v4.3.2</span></code> 或更高版本中,你可以使用 <strong>TLS</strong> 协议连接 <code class="docutils literal notranslate"><span class="pre">Redis</span></code>。</p>
@@ -1010,7 +1004,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 <p>缺点是它不像关系数据库那么无所不在,并且需要系统上安装 <a class="reference external" href="https://github.com/phpredis/phpredis">phpredis</a> PHP 扩展,而该扩展不与 PHP 一起打包。
 除非你已经熟悉并出于其他目的使用 Redis,否则只会考虑使用 RedisHandler 驱动程序。</p>
 <section id="id25">
-<h4>配置 RedisHandler<a class="headerlink" href="#id25" title="永久链接至标题"></a></h4>
+<h4>配置 RedisHandler<a class="headerlink" href="#id25" title="此标题的永久链接"></a></h4>
 <p>与 ‘FileHandler’ 和 ‘DatabaseHandler’ 驱动程序一样,你还必须通过 <code class="docutils literal notranslate"><span class="pre">$savePath</span></code> 设置配置你的 session 的存储位置。
 这里的格式有点不同,同时也比较复杂。最好通过 <em>phpredis</em> 扩展的 README 文件进行解释,所以我们简单地链接到它:</p>
 <blockquote>
@@ -1043,7 +1037,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </section>
 </section>
 <section id="memcachedhandler">
-<span id="sessions-memcachedhandler-driver"></span><h3><a class="toc-backref" href="#id46">MemcachedHandler 驱动程序</a><a class="headerlink" href="#memcachedhandler" title="永久链接至标题"></a></h3>
+<span id="sessions-memcachedhandler-driver"></span><h3><a class="toc-backref" href="#id46" role="doc-backlink">MemcachedHandler 驱动程序</a><a class="headerlink" href="#memcachedhandler" title="此标题的永久链接"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>由于 Memcached 没有公开锁定机制,因此通过单独保留 300 秒的额外值来模拟此驱动程序的锁。</p>
@@ -1052,7 +1046,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 <p>除此之外,如果没有任何故意的偏见针对 Redis,关于 Memcached 就没有太多不同的可说的 —— 它也是一个流行的产品,以其速度而闻名。</p>
 <p>但是,值得注意的是,Memcached 所做的唯一保证是,设置值 X 在 Y 秒后过期将导致在 Y 秒过去后删除该值(但不一定保证不会比该时间过期更早)。这种情况非常罕见,但应该考虑到它可能导致 session 丢失。</p>
 <section id="id26">
-<h4>配置 MemcachedHandler<a class="headerlink" href="#id26" title="永久链接至标题"></a></h4>
+<h4>配置 MemcachedHandler<a class="headerlink" href="#id26" title="此标题的永久链接"></a></h4>
 <p>这里的 <code class="docutils literal notranslate"><span class="pre">$savePath</span></code> 格式相当简单,只是一个 <code class="docutils literal notranslate"><span class="pre">host:port</span></code> 对:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1075,7 +1069,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </div>
 </section>
 <section id="id27">
-<h4>奖励提示<a class="headerlink" href="#id27" title="永久链接至标题"></a></h4>
+<h4>奖励提示<a class="headerlink" href="#id27" title="此标题的永久链接"></a></h4>
 <p>也支持多服务器配置,以可选的 <em>weight</em> 参数作为第三个冒号分隔(<code class="docutils literal notranslate"><span class="pre">:weight</span></code>)值,但我们必须注意,我们还没有测试这一特性的可靠性。</p>
 <p>如果你想要实验此功能(自负风险),只需用逗号分隔多个服务器路径:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1113,8 +1107,8 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -1122,7 +1116,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f428dedd0>
+<jinja2.runtime.BlockReference object at 0x7f1628702d50>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

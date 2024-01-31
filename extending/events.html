@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>事件 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>事件 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,10 +284,10 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>事件<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>事件<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>CodeIgniter 的 Events 功能提供了一种利用内部机制而不修改核心文件的方式。CodeIgniter 运行时遵循特定的执行流程,但有时你可能希望在执行流程的特定阶段引发某些操作。例如,你可能希望在控制器加载之前或之后运行一个脚本,或者你可能希望在其他位置触发自己的脚本。</p>
 <p>事件遵循 <em>发布/订阅</em> 模式,即在脚本执行的某个时刻触发一个事件。其他脚本可以通过在 Events 类中注册来“订阅”该事件,以表明它们希望在触发该事件时执行操作。</p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id10">启用事件</a></p></li>
 <li><p><a class="reference internal" href="#id4" id="id11">定义事件</a></p>
@@ -294,13 +299,13 @@
 <li><p><a class="reference internal" href="#id8" id="id14">模拟事件</a></p></li>
 <li><p><a class="reference internal" href="#event-points" id="id15">事件挂钩点</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id10">启用事件</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">启用事件</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>事件总是启用的,并全局可用。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id11">定义事件</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">定义事件</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <p>大多数事件在 <strong>app/Config/Events.php</strong> 文件中定义。你可以使用 <code class="docutils literal notranslate"><span class="pre">Events</span></code> 类的 <code class="docutils literal notranslate"><span class="pre">on()</span></code> 方法为一个事件订阅一个操作。第一个参数是要订阅的事件名称。第二个参数是一个回调,在触发该事件时会运行它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -312,11 +317,13 @@
 <p>在这个例子中,每当执行 <code class="docutils literal notranslate"><span class="pre">pre_system</span></code> 事件时,会创建 <code class="docutils literal notranslate"><span class="pre">MyClass</span></code> 的一个实例并运行 <code class="docutils literal notranslate"><span class="pre">myFunction()</span></code> 方法。注意,第二个参数可以是 PHP 支持的任何形式的 <a class="reference external" href="https://www.php.net/manual/en/function.is-callable.php">可调用项</a>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
+
 <span class="c1">// Call a standalone function</span>
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;pre_system&#39;</span><span class="p">,</span> <span class="s1">&#39;some_function&#39;</span><span class="p">);</span>
 
 <span class="c1">// Call on an instance method</span>
-<span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">();</span>
+<span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\App\Libraries\User</span><span class="p">();</span>
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;pre_system&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nv">$user</span><span class="p">,</span> <span class="s1">&#39;someMethod&#39;</span><span class="p">]);</span>
 
 <span class="c1">// Call on a static method</span>
@@ -329,9 +336,11 @@
 </pre></div>
 </div>
 <section id="id6">
-<h3><a class="toc-backref" href="#id12">设置优先级</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">设置优先级</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>由于可以为单个事件订阅多个方法,因此你需要一种定义这些方法调用顺序的方式。你可以通过在 <code class="docutils literal notranslate"><span class="pre">on()</span></code> 方法的第三个参数传递一个优先级值来实现这一点。较低的值会先执行,值 1 具有最高优先级,对较低值没有限制:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
 
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;post_controller_constructor&#39;</span><span class="p">,</span> <span class="s1">&#39;some_function&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
 </pre></div>
@@ -355,7 +364,7 @@
 </section>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id13">发布你自己的事件</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">发布你自己的事件</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <p>Events 库也使你可以在自己的代码中简单地创建事件。要使用此功能,你只需要用事件名称调用 <strong>Events</strong> 类的 <code class="docutils literal notranslate"><span class="pre">trigger()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -365,7 +374,9 @@
 <p>通过添加更多参数,你可以向订阅者传递任意数量的参数。订阅者将以定义的相同顺序获取参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="nx">\CodeIgniter\Events\Events</span><span class="o">::</span><span class="na">trigger</span><span class="p">(</span><span class="s1">&#39;some_events&#39;</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">);</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
+
+<span class="nx">Events</span><span class="o">::</span><span class="na">trigger</span><span class="p">(</span><span class="s1">&#39;some_events&#39;</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">,</span> <span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">);</span>
 
 <span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;some_event&#39;</span><span class="p">,</span> <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$foo</span><span class="p">,</span> <span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// ...</span>
@@ -374,9 +385,11 @@
 </div>
 </section>
 <section id="id8">
-<h2><a class="toc-backref" href="#id14">模拟事件</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">模拟事件</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
 <p>在测试期间,你可能不希望事件实际触发,因为每天发送数百封电子邮件既缓慢又适得其反。你可以使用 <code class="docutils literal notranslate"><span class="pre">simulate()</span></code> 方法告诉 Events 类仅模拟运行事件。当值为 <strong>true</strong> 时,在 trigger 方法期间将跳过所有事件。但是其他一切都将正常工作。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
 
 <span class="nx">Events</span><span class="o">::</span><span class="na">simulate</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
 </pre></div>
@@ -384,12 +397,14 @@
 <p>你可以通过传递 false 来停止模拟:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
+
 <span class="nx">Events</span><span class="o">::</span><span class="na">simulate</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="event-points">
-<span id="id9"></span><h2><a class="toc-backref" href="#id15">事件挂钩点</a><a class="headerlink" href="#event-points" title="永久链接至标题"></a></h2>
+<span id="id9"></span><h2><a class="toc-backref" href="#id15" role="doc-backlink">事件挂钩点</a><a class="headerlink" href="#event-points" title="此标题的永久链接"></a></h2>
 <p>以下是 CodeIgniter 核心代码中可用的事件挂钩点列表:</p>
 <ul class="simple">
 <li><p><strong>pre_system</strong> 在系统执行的早期调用。URI、请求和响应已经实例化，但尚未进行页面缓存检查、路由和执行“before”控制器过滤器。</p></li>
@@ -413,8 +428,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -422,7 +437,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41d467d0>
+<jinja2.runtime.BlockReference object at 0x7f1628ad4d50>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

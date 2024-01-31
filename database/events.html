@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>数据库事件 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>数据库事件 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,14 +18,16 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="实用工具" href="utilities.html" />
+    <link rel="next" title="数据库实用工具类" href="utilities.html" />
     <link rel="prev" title="自定义函数调用" href="call_function.html" /> 
 </head>
 
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>数据库事件<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>数据库事件<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>数据库类包含几个可以利用的 <a class="reference internal" href="../extending/events.html"><span class="doc">事件</span></a>,以了解数据库执行期间发生的更多信息。这些事件可用于收集数据以进行分析和报告。 <a class="reference internal" href="../testing/debugging.html"><span class="doc">调试工具栏</span></a> 使用此操作来收集在工具栏中显示的查询。</p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id4">事件</a></p>
 <ul>
@@ -289,16 +294,31 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id4">事件</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">事件</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <section id="dbquery">
-<h3><a class="toc-backref" href="#id5">DBQuery</a><a class="headerlink" href="#dbquery" title="永久链接至标题"></a></h3>
-<p>每当运行新查询时,无论成功与否,都会触发此事件。唯一的参数是当前查询的 <a class="reference internal" href="queries.html"><span class="doc">查询</span></a> 实例。你可以使用它在 STDOUT 中显示所有查询,或日志记录到文件,甚至创建工具来执行自动查询分析以帮助你发现可能缺少的索引、慢查询等。示例用法可能是:</p>
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">DBQuery</a><a class="headerlink" href="#dbquery" title="此标题的永久链接"></a></h3>
+<p>无论成功与否，每当有新的查询被执行时，此事件就会被触发。唯一的参数是当前查询的 <a class="reference internal" href="queries.html"><span class="doc">查询</span></a> 实例。你可以使用这个来在 STDOUT 显示所有的查询，或者记录到文件，甚至创建工具来进行自动查询分析，帮助你发现可能丢失的索引、慢查询等。</p>
+<p>示例用法可能是:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// In app/Config/Events.php</span>
-<span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span><span class="s1">&#39;DBQuery&#39;</span><span class="p">,</span> <span class="s1">&#39;CodeIgniter\Debug\Toolbar\Collectors\Database::collect&#39;</span><span class="p">);</span>
+
+<span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Events\Events</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Exceptions\FrameworkException</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\HotReloader\HotReloader</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+
+<span class="nx">Events</span><span class="o">::</span><span class="na">on</span><span class="p">(</span>
+    <span class="s1">&#39;DBQuery&#39;</span><span class="p">,</span>
+    <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nx">\CodeIgniter\Database\Query</span> <span class="nv">$query</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">log_message</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nv">$query</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -310,14 +330,14 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="call_function.html" class="btn btn-neutral float-left" title="自定义函数调用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="utilities.html" class="btn btn-neutral float-right" title="实用工具" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="utilities.html" class="btn btn-neutral float-right" title="数据库实用工具类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -325,7 +345,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41fb8bd0>
+<jinja2.runtime.BlockReference object at 0x7f1628d07990>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

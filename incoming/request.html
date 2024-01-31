@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>请求类 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>请求类 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,12 +284,12 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>请求类<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>请求类<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>请求类是 HTTP 请求的面向对象表示。这旨在适用于传入请求,例如来自浏览器对应用程序的请求,以及传出请求,例如应用程序对第三方应用程序的请求所用的请求。</p>
 <p>这个类提供了它们都需要的常见功能,但这两种情况都有自定义类来扩展请求类以添加特定功能。在实践中,你需要使用这些类。</p>
 <p>有关更多使用详细信息,请参阅 <a class="reference internal" href="incomingrequest.html"><span class="doc">IncomingRequest 类</span></a> 和 <a class="reference internal" href="../libraries/curlrequest.html"><span class="doc">CURLRequest 类</span></a> 的文档。</p>
 <section id="namespace-CodeIgniter\HTTP">
-<span id="id2"></span><h2>类参考<a class="headerlink" href="#namespace-CodeIgniter\HTTP" title="永久链接至标题"></a></h2>
+<span id="id2"></span><h2>类参考<a class="headerlink" href="#namespace-CodeIgniter\HTTP" title="此标题的永久链接"></a></h2>
 <dl class="php class">
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\HTTP\</span></span><span class="sig-name descname"><span class="pre">Request</span></span><a class="headerlink" href="#CodeIgniter\HTTP\Request" title="永久链接至目标"></a></dt>
@@ -292,10 +297,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request::getIPAddress">
 <span class="sig-name descname"><span class="pre">getIPAddress</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Request::getIPAddress" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>如果可以检测到,则为用户的 IP 地址。如果 IP 地址不是有效的 IP 地址,则返回 <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code>。</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -315,23 +320,23 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request::isValidIP">
 <span class="sig-name descname"><span class="pre">isValidIP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$ip</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$which</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Request::isValidIP" title="永久链接至目标"></a></dt>
 <dd><div class="deprecated">
-<p><span class="versionmodified deprecated">4.0.5 版后已移除: </span>请改用 <a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a>。</p>
+<p><span class="versionmodified deprecated">自 4.0.5 版本弃用: </span>请改用 <a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a>。</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>此方法已弃用。它将在未来版本中删除。</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$ip</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – IP 地址</p></li>
 <li><p><strong>$which</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – IP 协议(<code class="docutils literal notranslate"><span class="pre">ipv4</span></code> 或 <code class="docutils literal notranslate"><span class="pre">ipv6</span></code>)</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>如果地址有效则为 true,如果无效则为 false</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -360,15 +365,15 @@
 <p><code class="docutils literal notranslate"><span class="pre">$upper</span></code> 参数的使用已被弃用。它将在未来版本中删除。</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$upper</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否以大写或小写返回请求方法名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>HTTP 请求方法</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -386,18 +391,18 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request::setMethod">
 <span class="sig-name descname"><span class="pre">setMethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$method</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Request::setMethod" title="永久链接至目标"></a></dt>
 <dd><div class="deprecated">
-<p><span class="versionmodified deprecated">4.0.5 版后已移除: </span>请改用 <a class="reference internal" href="#CodeIgniter\HTTP\Request::withMethod" title="CodeIgniter\HTTP\Request::withMethod"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::withMethod()</span></code></a>。</p>
+<p><span class="versionmodified deprecated">自 4.0.5 版本弃用: </span>请改用 <a class="reference internal" href="#CodeIgniter\HTTP\Request::withMethod" title="CodeIgniter\HTTP\Request::withMethod"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Request::withMethod()</span></code></a>。</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$method</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 设置请求方法。在伪造请求时使用。</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>这个请求</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><a class="reference internal" href="#CodeIgniter\HTTP\Request" title="CodeIgniter\HTTP\Request"><code class="xref php php-obj docutils literal notranslate"><span class="pre">Request</span></code></a></span></p>
 </dd>
 </dl>
@@ -407,18 +412,18 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request::withMethod">
 <span class="sig-name descname"><span class="pre">withMethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$method</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Request::withMethod" title="永久链接至目标"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">4.0.5 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.0.5 版本加入.</span></p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$method</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 设置请求方法。</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>新的请求实例</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><a class="reference internal" href="#CodeIgniter\HTTP\Request" title="CodeIgniter\HTTP\Request"><code class="xref php php-obj docutils literal notranslate"><span class="pre">Request</span></code></a></span></p>
 </dd>
 </dl>
@@ -428,17 +433,17 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request::getServer">
 <span class="sig-name descname"><span class="pre">getServer</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$index</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$filter</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$flags</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Request::getServer" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$index</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 值名称</p></li>
 <li><p><strong>$filter</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – 要应用的过滤类型。过滤器列表可在 <a class="reference external" href="https://www.php.net/manual/en/filter.filters.php">PHP 手册</a> 中找到。</p></li>
 <li><p><strong>$flags</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int|array</span></code></span>) – 要应用的标志。标志列表可在 <a class="reference external" href="https://www.php.net/manual/en/filter.filters.flags.php">PHP 手册</a> 中找到。</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>如果找到,则返回 <code class="docutils literal notranslate"><span class="pre">$_SERVER</span></code> 项目的值,如果没有找到,则为 null</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
@@ -459,18 +464,21 @@
 <dl class="php method">
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request::getEnv">
 <span class="sig-name descname"><span class="pre">getEnv</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$index</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$filter</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$flags</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Request::getEnv" title="永久链接至目标"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified deprecated">自 4.4.4 版本弃用: </span>从一开始，这个方法就不起作用。请改用 <a class="reference internal" href="../general/common_functions.html#env" title="env"><code class="xref php php-func docutils literal notranslate"><span class="pre">env()</span></code></a>。</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$index</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 值名称</p></li>
 <li><p><strong>$filter</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – 要应用的过滤类型。过滤器列表可在 <a class="reference external" href="https://www.php.net/manual/en/filter.filters.php">PHP 手册</a> 中找到。</p></li>
 <li><p><strong>$flags</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int|array</span></code></span>) – 要应用的标志。标志列表可在 <a class="reference external" href="https://www.php.net/manual/en/filter.filters.flags.php">PHP 手册</a> 中找到。</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>如果找到,则返回 <code class="docutils literal notranslate"><span class="pre">$_ENV</span></code> 项目的值,如果没有找到,则为 null</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
@@ -492,16 +500,16 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request::setGlobal">
 <span class="sig-name descname"><span class="pre">setGlobal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$method</span></em>, <em class="sig-param"><span class="pre">$value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Request::setGlobal" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$method</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 方法名称</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要添加的数据</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>这个请求</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><a class="reference internal" href="#CodeIgniter\HTTP\Request" title="CodeIgniter\HTTP\Request"><code class="xref php php-obj docutils literal notranslate"><span class="pre">Request</span></code></a></span></p>
 </dd>
 </dl>
@@ -512,7 +520,7 @@
 <dt class="sig sig-object php" id="CodeIgniter\HTTP\Request::fetchGlobal">
 <span class="sig-name descname"><span class="pre">fetchGlobal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$method</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$index</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$filter</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$flags</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Request::fetchGlobal" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$method</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 输入过滤常量</p></li>
 <li><p><strong>$index</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 值名称</p></li>
@@ -520,7 +528,7 @@
 <li><p><strong>$flags</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int|array</span></code></span>) – 要应用的标志。标志列表可在 <a class="reference external" href="https://www.php.net/manual/en/filter.filters.flags.php">PHP 手册</a> 中找到。</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
@@ -543,8 +551,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -552,7 +560,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41acdbd0>
+<jinja2.runtime.BlockReference object at 0x7f1629105590>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

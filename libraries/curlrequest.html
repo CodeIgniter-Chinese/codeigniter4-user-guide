@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CURLRequest 类 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>CURLRequest 类 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="curlrequest">
-<h1>CURLRequest 类<a class="headerlink" href="#curlrequest" title="永久链接至标题"></a></h1>
+<h1>CURLRequest 类<a class="headerlink" href="#curlrequest" title="此标题的永久链接"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">CURLRequest</span></code> 类是一个轻量级的基于 CURL 的 HTTP 客户端,允许你与其他网站和服务器进行通信。它可以用于获取谷歌搜索的内容、检索网页或图片,或与 API 进行通信等多种用途。</p>
-<div class="contents local topic" id="id1">
+<nav class="contents local" id="id1">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id2" id="id10">CURLRequest 配置</a></p>
 <ul>
@@ -319,19 +324,23 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <p>这个类模仿了 <a class="reference external" href="http://docs.guzzlephp.org/en/latest/">Guzzle HTTP 客户端</a> 库,因为它是使用最广泛的库之一。在可能的情况下,语法保持相同,所以如果你的应用程序需要比这个库提供的功能更强大的东西,你将需要做很少的改变就可以过渡到使用 Guzzle。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>这个类需要你的 PHP 版本中安装 <a class="reference external" href="https://www.php.net/manual/en/book.curl.php">cURL 库</a>。这是一个非常常见的库,通常是可用的,但并非所有主机都会提供它,所以如果你遇到问题,请与你的主机确认。</p>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id10">CURLRequest 配置</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">CURLRequest 配置</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <section id="curlrequest-sharing-options">
-<span id="id3"></span><h3><a class="toc-backref" href="#id11">共享选项</a><a class="headerlink" href="#curlrequest-sharing-options" title="永久链接至标题"></a></h3>
+<span id="id3"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">共享选项</a><a class="headerlink" href="#curlrequest-sharing-options" title="此标题的永久链接"></a></h3>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>这个设置只是为了向后兼容而存在。在新项目中不要使用它。即使你已经在使用它，我们也建议你禁用它。</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>自 v4.4.0 起，默认值已更改为 <code class="docutils literal notranslate"><span class="pre">false</span></code>。此设置仅用于向后兼容。新用户无需更改此设置。</p>
+<p>自 v4.4.0 起，其默认值已被改为 <code class="docutils literal notranslate"><span class="pre">false</span></code>。</p>
 </div>
 <p>如果你想在多个请求之间共享所有选项，请在 <strong>app/Config/CURLRequest.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$shareOptions</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -355,7 +364,7 @@
 </section>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id12">加载库</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">加载库</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <p>可以通过手动方式或通过 <a class="reference internal" href="../concepts/services.html"><span class="doc">Services 类</span></a> 来加载该库。</p>
 <p>要通过 Services 类调用,使用 <code class="docutils literal notranslate"><span class="pre">curlrequest()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -390,10 +399,10 @@
 </div>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id13">使用该库</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">使用该库</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <p>使用 CURL 请求非常简单,只需创建请求并获取返回的 <a class="reference internal" href="../outgoing/response.html"><span class="doc">Response 对象</span></a>。它旨在处理通信。之后你可以完全控制信息的处理方式。</p>
 <section id="id6">
-<h3><a class="toc-backref" href="#id14">发起请求</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">发起请求</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>大部分通信是通过 <code class="docutils literal notranslate"><span class="pre">request()</span></code> 方法完成的,它会发出请求,然后返回一个 Response 实例给你。它以 HTTP 方法、URL 和选项数组作为参数。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -403,6 +412,12 @@
     <span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;pass&#39;</span><span class="p">],</span>
 <span class="p">]);</span>
 </pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>默认情况下，如果返回的 HTTP
+代码大于或等于 400，CURLRequest 将抛出 <code class="docutils literal notranslate"><span class="pre">HTTPException</span></code>。如果你想获取响应，
+请查看 <a class="reference internal" href="#http-errors">http_errors</a> 选项。</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -430,7 +445,7 @@
 </pre></div>
 </div>
 <section id="uri">
-<h4>基本 URI<a class="headerlink" href="#uri" title="永久链接至标题"></a></h4>
+<h4>基本 URI<a class="headerlink" href="#uri" title="此标题的永久链接"></a></h4>
 <p>可以在实例化类时将 <code class="docutils literal notranslate"><span class="pre">baseURI</span></code> 作为一个选项传入。这允许你设置一个基本 URI,然后使用相对 URL 对该客户端的所有请求进行调用。当与 API 一起使用时,这特别方便:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -449,11 +464,6 @@
 为了节省你一些时间,这里有一些组合结果的示例。</p>
 <blockquote>
 <div><table class="docutils align-default">
-<colgroup>
-<col style="width: 34%" />
-<col style="width: 26%" />
-<col style="width: 39%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>baseURI</p></th>
 <th class="head"><p>URI</p></th>
@@ -461,29 +471,29 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><cite>http://foo.com</cite></p></td>
+<tr class="row-even"><td><p>http://foo.com</p></td>
 <td><p>/bar</p></td>
-<td><p><cite>http://foo.com/bar</cite></p></td>
+<td><p>http://foo.com/bar</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>http://foo.com/foo</cite></p></td>
+<tr class="row-odd"><td><p>http://foo.com/foo</p></td>
 <td><p>/bar</p></td>
-<td><p><cite>http://foo.com/bar</cite></p></td>
+<td><p>http://foo.com/bar</p></td>
 </tr>
-<tr class="row-even"><td><p><cite>http://foo.com/foo</cite></p></td>
+<tr class="row-even"><td><p>http://foo.com/foo</p></td>
 <td><p>bar</p></td>
-<td><p><cite>http://foo.com/bar</cite></p></td>
+<td><p>http://foo.com/bar</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>http://foo.com/foo/</cite></p></td>
+<tr class="row-odd"><td><p>http://foo.com/foo/</p></td>
 <td><p>bar</p></td>
-<td><p><cite>http://foo.com/foo/bar</cite></p></td>
+<td><p>http://foo.com/foo/bar</p></td>
 </tr>
-<tr class="row-even"><td><p><cite>http://foo.com</cite></p></td>
-<td><p><cite>http://baz.com</cite></p></td>
-<td><p><cite>http://baz.com</cite></p></td>
+<tr class="row-even"><td><p>http://foo.com</p></td>
+<td><p>http://baz.com</p></td>
+<td><p>http://baz.com</p></td>
 </tr>
-<tr class="row-odd"><td><p><cite>http://foo.com/?bar</cite></p></td>
+<tr class="row-odd"><td><p>http://foo.com/?bar</p></td>
 <td><p>bar</p></td>
-<td><p><cite>http://foo.com/bar</cite></p></td>
+<td><p>http://foo.com/bar</p></td>
 </tr>
 </tbody>
 </table>
@@ -491,7 +501,7 @@
 </section>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id15">使用响应</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">使用响应</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
 <p>每个 <code class="docutils literal notranslate"><span class="pre">request()</span></code> 调用都会返回一个 Response 对象,其中包含大量有用的信息和一些有用的方法。最常用的方法让你确定响应本身。</p>
 <p>你可以获取响应的状态码和原因短语:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -529,10 +539,10 @@
 </section>
 </section>
 <section id="id8">
-<h2><a class="toc-backref" href="#id16">请求选项</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">请求选项</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
 <p>本节描述了可以传递到构造函数、<code class="docutils literal notranslate"><span class="pre">request()</span></code> 方法或任何快捷方法中的所有可用选项。</p>
 <section id="allow-redirects">
-<h3><a class="toc-backref" href="#id17">allow_redirects</a><a class="headerlink" href="#allow-redirects" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">allow_redirects</a><a class="headerlink" href="#allow-redirects" title="此标题的永久链接"></a></h3>
 <p>默认情况下,cURL 将遵循远程服务器返回的所有“Location:”标头。<code class="docutils literal notranslate"><span class="pre">allow_redirects</span></code> 选项允许你修改此行为。</p>
 <p>如果将值设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code>,则它将不会遵循任何重定向:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -567,7 +577,7 @@
 </div>
 </section>
 <section id="auth">
-<h3><a class="toc-backref" href="#id18">auth</a><a class="headerlink" href="#auth" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">auth</a><a class="headerlink" href="#auth" title="此标题的永久链接"></a></h3>
 <p>允许你为 <a class="reference external" href="https://www.ietf.org/rfc/rfc2069.txt">HTTP 基本认证</a> 和 <a class="reference external" href="https://www.ietf.org/rfc/rfc2069.txt">摘要认证</a> 提供认证细节。你的脚本可能需要做额外的工作来支持摘要认证 - 这只是简单地为你传递用户名和密码。值必须是一个数组,其中第一个元素是用户名,第二个是密码。第三个参数应该是要使用的认证类型,可以是 <code class="docutils literal notranslate"><span class="pre">basic</span></code> 或 <code class="docutils literal notranslate"><span class="pre">digest</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -576,7 +586,7 @@
 </div>
 </section>
 <section id="body">
-<h3><a class="toc-backref" href="#id19">body</a><a class="headerlink" href="#body" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">body</a><a class="headerlink" href="#body" title="此标题的永久链接"></a></h3>
 <p>对于支持 body 的请求类型(如 PUT、POST 等),有两种方式设置请求 body。第一种方式是使用 <code class="docutils literal notranslate"><span class="pre">setBody()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -591,7 +601,7 @@
 </div>
 </section>
 <section id="cert">
-<h3><a class="toc-backref" href="#id20">cert</a><a class="headerlink" href="#cert" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">cert</a><a class="headerlink" href="#cert" title="此标题的永久链接"></a></h3>
 <p>要指定客户端证书的位置,需要以字符串形式传递包含完整路径的 <code class="docutils literal notranslate"><span class="pre">cert</span></code> 选项。如果需要密码,请将值设置为一个数组,其中第一个元素是证书的路径,第二个是密码:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -600,7 +610,7 @@
 </div>
 </section>
 <section id="connect-timeout">
-<h3><a class="toc-backref" href="#id21">connect_timeout</a><a class="headerlink" href="#connect-timeout" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">connect_timeout</a><a class="headerlink" href="#connect-timeout" title="此标题的永久链接"></a></h3>
 <p>默认情况下,CodeIgniter 不对 cURL 尝试连接到网站的时间施加限制。如果你需要修改此值,可以以秒为单位传递 <code class="docutils literal notranslate"><span class="pre">connect_timeout</span></code> 选项。你可以传递 0 以无限期等待:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -609,7 +619,7 @@
 </div>
 </section>
 <section id="cookie">
-<h3><a class="toc-backref" href="#id22">cookie</a><a class="headerlink" href="#cookie" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">cookie</a><a class="headerlink" href="#cookie" title="此标题的永久链接"></a></h3>
 <p>这指定了 CURL 应该使用的文件名,用于读取和保存 cookie 值。这是通过 <code class="docutils literal notranslate"><span class="pre">CURL_COOKIEJAR</span></code> 和 <code class="docutils literal notranslate"><span class="pre">CURL_COOKIEFILE</span></code> 选项完成的。例如:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -618,7 +628,7 @@
 </div>
 </section>
 <section id="debug">
-<h3><a class="toc-backref" href="#id23">debug</a><a class="headerlink" href="#debug" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">debug</a><a class="headerlink" href="#debug" title="此标题的永久链接"></a></h3>
 <p>当 <code class="docutils literal notranslate"><span class="pre">debug</span></code> 被传递并设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 时,这将在脚本执行期间启用写入 STDERR 的其他调试信息。</p>
 <p>这是通过传递 <code class="docutils literal notranslate"><span class="pre">CURLOPT_VERBOSE</span></code> 并回显输出来完成的。因此,当你通过 <code class="docutils literal notranslate"><span class="pre">spark</span> <span class="pre">serve</span></code> 运行内置服务器时,你会在控制台中看到输出。否则,输出将被写入服务器的错误日志中。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -634,7 +644,7 @@
 </div>
 </section>
 <section id="delay">
-<h3><a class="toc-backref" href="#id24">delay</a><a class="headerlink" href="#delay" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">delay</a><a class="headerlink" href="#delay" title="此标题的永久链接"></a></h3>
 <p>允许在发送请求之前暂停一定的毫秒数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -644,7 +654,7 @@
 </div>
 </section>
 <section id="form-params">
-<h3><a class="toc-backref" href="#id25">form_params</a><a class="headerlink" href="#form-params" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">form_params</a><a class="headerlink" href="#form-params" title="此标题的永久链接"></a></h3>
 <p>你可以通过在 <code class="docutils literal notranslate"><span class="pre">form_params</span></code> 选项中传递关联数组来发送 application/x-www-form-urlencoded POST 请求中的表单数据。如果尚未设置,这将设置 <code class="docutils literal notranslate"><span class="pre">Content-Type</span></code> 标头为 <code class="docutils literal notranslate"><span class="pre">application/x-www-form-urlencoded</span></code> :</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -662,7 +672,7 @@
 </div>
 </section>
 <section id="headers">
-<span id="curlrequest-request-options-headers"></span><h3><a class="toc-backref" href="#id26">headers</a><a class="headerlink" href="#headers" title="永久链接至标题"></a></h3>
+<span id="curlrequest-request-options-headers"></span><h3><a class="toc-backref" href="#id26" role="doc-backlink">headers</a><a class="headerlink" href="#headers" title="此标题的永久链接"></a></h3>
 <p>虽然你可以使用 <code class="docutils literal notranslate"><span class="pre">setHeader()</span></code> 方法设置此请求需要的任何标头,但你也可以将关联数组的标头作为选项传递。每个键都是标头的名称,每个值是表示标头字段值的字符串或字符串数组:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -678,7 +688,7 @@
 <p>如果标头被传递到构造函数中,它们会被视为默认值,并被后续的标头数组或对 <code class="docutils literal notranslate"><span class="pre">setHeader()</span></code> 的调用覆盖。</p>
 </section>
 <section id="http-errors">
-<h3><a class="toc-backref" href="#id27">http_errors</a><a class="headerlink" href="#http-errors" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">http_errors</a><a class="headerlink" href="#http-errors" title="此标题的永久链接"></a></h3>
 <p>默认情况下，如果返回的 HTTP 状态码大于等于 400，CURLRequest 将抛出 <code class="docutils literal notranslate"><span class="pre">HTTPException</span></code> 异常。</p>
 <p>如果你想查看响应正文，可以将 <code class="docutils literal notranslate"><span class="pre">http_errors</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code>，以返回内容而不是抛出异常：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -694,7 +704,7 @@
 </div>
 </section>
 <section id="json">
-<h3><a class="toc-backref" href="#id28">json</a><a class="headerlink" href="#json" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">json</a><a class="headerlink" href="#json" title="此标题的永久链接"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">json</span></code> 选项用于轻松地将 JSON 编码的数据作为请求的 body 上传。添加了 <code class="docutils literal notranslate"><span class="pre">application/json</span></code> 的 Content-Type 标头,覆盖任何可能已经设置的 Content-Type。传给此选项的数据可以是 <code class="docutils literal notranslate"><span class="pre">json_encode()</span></code> 接受的任何值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -707,7 +717,7 @@
 </div>
 </section>
 <section id="multipart">
-<h3><a class="toc-backref" href="#id29">multipart</a><a class="headerlink" href="#multipart" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">multipart</a><a class="headerlink" href="#multipart" title="此标题的永久链接"></a></h3>
 <p>当你需要通过 POST 请求发送文件和其他数据时,可以使用 <code class="docutils literal notranslate"><span class="pre">multipart</span></code> 选项,以及 <a class="reference external" href="https://www.php.net/manual/en/class.curlfile.php">CURLFile 类</a>。值应该是一个关联数组,包含要发送的 POST 数据。为了更安全地使用,上传文件通过在名称前加上 <cite>&#64;</cite> 的遗留方法已被禁用。你想要发送的任何文件必须作为 CURLFile 实例传递:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -724,9 +734,9 @@
 </div>
 </section>
 <section id="proxy">
-<span id="curlrequest-request-options-proxy"></span><h3><a class="toc-backref" href="#id30">proxy</a><a class="headerlink" href="#proxy" title="永久链接至标题"></a></h3>
+<span id="curlrequest-request-options-proxy"></span><h3><a class="toc-backref" href="#id30" role="doc-backlink">proxy</a><a class="headerlink" href="#proxy" title="此标题的永久链接"></a></h3>
 <div class="versionadded">
-<p><span class="versionmodified added">4.4.0 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
 </div>
 <p>你可以通过将关联数组作为 <code class="docutils literal notranslate"><span class="pre">proxy</span></code> 选项来设置代理：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -740,7 +750,7 @@
 </div>
 </section>
 <section id="query">
-<h3><a class="toc-backref" href="#id31">query</a><a class="headerlink" href="#query" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">query</a><a class="headerlink" href="#query" title="此标题的永久链接"></a></h3>
 <p>你可以通过作为 <code class="docutils literal notranslate"><span class="pre">query</span></code> 选项传递关联数组,来传递要作为查询字符串变量发送的数据:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -750,7 +760,7 @@
 </div>
 </section>
 <section id="timeout">
-<h3><a class="toc-backref" href="#id32">timeout</a><a class="headerlink" href="#timeout" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">timeout</a><a class="headerlink" href="#timeout" title="此标题的永久链接"></a></h3>
 <p>默认情况下,允许 cURL 函数无限期运行,没有时间限制。你可以使用 <code class="docutils literal notranslate"><span class="pre">timeout</span></code> 选项对其进行修改。值应该是你希望函数执行的秒数。使用 0 表示无限期等待:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -759,7 +769,7 @@
 </div>
 </section>
 <section id="user-agent">
-<h3><a class="toc-backref" href="#id33">user_agent</a><a class="headerlink" href="#user-agent" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">user_agent</a><a class="headerlink" href="#user-agent" title="此标题的永久链接"></a></h3>
 <p>允许指定请求的用户代理:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -768,7 +778,7 @@
 </div>
 </section>
 <section id="verify">
-<h3><a class="toc-backref" href="#id34">verify</a><a class="headerlink" href="#verify" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">verify</a><a class="headerlink" href="#verify" title="此标题的永久链接"></a></h3>
 <p>此选项描述了 SSL 证书验证行为。如果 <code class="docutils literal notranslate"><span class="pre">verify</span></code> 选项为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,它将启用 SSL 证书验证并使用操作系统提供的默认 CA 包。如果设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code>,它将禁用证书验证(这是不安全的,并允许中间人攻击!)。你可以将其设置为包含 CA 包路径的字符串,以使用自定义证书启用验证。默认值为 true:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -784,7 +794,7 @@
 </div>
 </section>
 <section id="version">
-<span id="curlrequest-version"></span><h3><a class="toc-backref" href="#id35">version</a><a class="headerlink" href="#version" title="永久链接至标题"></a></h3>
+<span id="curlrequest-version"></span><h3><a class="toc-backref" href="#id35" role="doc-backlink">version</a><a class="headerlink" href="#version" title="此标题的永久链接"></a></h3>
 <p>要设置要使用的 HTTP 协议,你可以传递带有版本号的字符串或浮点数(通常为 <code class="docutils literal notranslate"><span class="pre">1.0</span></code> 或 <code class="docutils literal notranslate"><span class="pre">1.1</span></code>,v4.3.0 开始支持 <code class="docutils literal notranslate"><span class="pre">2.0</span></code>)。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -807,8 +817,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -816,7 +826,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f4175a350>
+<jinja2.runtime.BlockReference object at 0x7f16284a50d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

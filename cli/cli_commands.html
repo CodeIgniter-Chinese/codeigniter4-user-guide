@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>创建 Spark 命令 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>创建 Spark 命令 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="spark">
-<h1>创建 Spark 命令<a class="headerlink" href="#spark" title="永久链接至标题"></a></h1>
+<h1>创建 Spark 命令<a class="headerlink" href="#spark" title="此标题的永久链接"></a></h1>
 <p>虽然能够像其它路由一样通过 CLI 使用控制器很方便,但你可能会发现有时需要一些不同的东西。这就是 Spark 命令的用武之地。它们是简单的类,不需要为它们定义路由,使其成为构建可以帮助开发人员简化工作的工具的完美选择,无论是通过处理迁移或数据库填充,检查任务状态,甚至为你的公司构建定制代码生成器。</p>
-<div class="contents local topic" id="id1">
+<nav class="contents local" id="id1">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id2" id="id6">创建新命令</a></p>
 <ul>
@@ -291,9 +296,9 @@
 </li>
 <li><p><a class="reference internal" href="#basecommand" id="id9">BaseCommand</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id6">创建新命令</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">创建新命令</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p>你可以非常轻松地创建新的命令供自己开发使用。每个类必须在其自己的文件中,并且必须扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\CLI\BaseCommand</span></code>,并实现 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法。</p>
 <p>应使用以下属性将命令列入 CLI 命令并添加帮助功能:</p>
 <ul class="simple">
@@ -306,7 +311,7 @@
 </ul>
 <p><strong>帮助描述将根据上述参数自动生成。</strong></p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id7">文件位置</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">文件位置</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
 <p>命令必须存储在名为 <strong>Commands</strong> 的目录中。但是,该目录必须位于 PSR-4 命名空间中,以便 <a class="reference internal" href="../concepts/autoloader.html"><span class="doc">自动加载程序</span></a> 可以定位它。这可能在 <strong>app/Commands</strong> 中,或者是一个用于所有项目开发的命令目录,像 <strong>Acme/Commands</strong>。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -314,7 +319,7 @@
 </div>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id8">一个示例命令</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">一个示例命令</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>让我们逐步创建一个示例命令,其唯一的功能是报告有关应用程序本身的一些基本信息,以演示用途。首先在 <strong>app/Commands/AppInfo.php</strong> 中创建一个新文件。它
 应该包含以下代码:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -341,7 +346,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">$name</span></code> 属性是可以调用此命令的名称。唯一的要求是它不得包含空格,并且所有字符在命令行本身必须有效。不过,按照惯例,命令应该是小写的,并且通过在命令名称本身使用冒号进一步对命令进行分组,以帮助防止多个命令发生命名冲突。</p>
 <p>最后一个属性 <code class="docutils literal notranslate"><span class="pre">$description</span></code> 是一个简短的字符串,在 <strong>list</strong> 命令中显示,并应描述命令的作用。</p>
 <section id="run">
-<h4>run()<a class="headerlink" href="#run" title="永久链接至标题"></a></h4>
+<h4>run()<a class="headerlink" href="#run" title="此标题的永久链接"></a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法是在运行命令时调用的方法。<code class="docutils literal notranslate"><span class="pre">$params</span></code> 数组是命令名称后面的任何 CLI 参数列表,供你使用。如果 CLI 字符串是:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark foo bar baz</span>
 </pre></div>
@@ -380,7 +385,7 @@
 <p>请参阅 <a class="reference internal" href="cli_library.html"><span class="doc">CLI 库</span></a> 页面了解详细信息。</p>
 </section>
 <section id="id5">
-<h4>命令终止<a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
+<h4>命令终止<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h4>
 <p>默认情况下,命令以成功代码 <code class="docutils literal notranslate"><span class="pre">0</span></code> 退出。如果在执行命令时遇到错误,你可以通过在 <code class="docutils literal notranslate"><span class="pre">run()</span></code> 方法中使用 <code class="docutils literal notranslate"><span class="pre">return</span></code> 语句和退出代码来终止命令。</p>
 <p>例如, <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">EXIT_ERROR;</span></code></p>
 <p>这种方法可以帮助系统级调试,如果命令例如通过 crontab 运行。</p>
@@ -389,7 +394,7 @@
 </section>
 </section>
 <section id="basecommand">
-<h2><a class="toc-backref" href="#id9">BaseCommand</a><a class="headerlink" href="#basecommand" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">BaseCommand</a><a class="headerlink" href="#basecommand" title="此标题的永久链接"></a></h2>
 <p>所有命令必须扩展的 <code class="docutils literal notranslate"><span class="pre">BaseCommand</span></code> 类有一些你应该熟悉的有用实用方法,当创建自己的命令时。它还具有可以通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;logger</span></code> 访问的 <a class="reference internal" href="../general/logging.html"><span class="doc">日志</span></a>。</p>
 <span class="target" id="namespace-CodeIgniter\CLI"></span><dl class="php class">
 <dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand">
@@ -399,7 +404,7 @@
 <dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::call">
 <span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$command</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">array</span> <span class="pre">$params</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::call" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$command</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要调用的另一个命令的名称。</p></li>
 <li><p><strong>$params</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 要传递给该命令的其他 CLI 参数。</p></li>
@@ -419,7 +424,7 @@
 <dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::showError">
 <span class="sig-name descname"><span class="pre">showError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Throwable</span> <span class="pre">$e</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::showError" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$e</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">Throwable</span></code></span>) – 用于报告错误的异常。</p></li>
 </ul>
@@ -447,7 +452,7 @@
 <dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::setPad">
 <span class="sig-name descname"><span class="pre">setPad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$item</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$max</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">2</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$indent</span> <span class="pre">=</span> <span class="pre">0</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">string</span></span></span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::setPad" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$item</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字符串项目。</p></li>
 <li><p><strong>$max</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – 最大长度。</p></li>
@@ -479,10 +484,10 @@
 <dt class="sig sig-object php" id="CodeIgniter\CLI\BaseCommand::getPad">
 <span class="sig-name descname"><span class="pre">getPad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$array</span></em>, <em class="sig-param"><span class="pre">$pad</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\CLI\BaseCommand::getPad" title="永久链接至目标"></a></dt>
 <dd><div class="deprecated">
-<p><span class="versionmodified deprecated">4.0.5 版后已移除: </span>请使用 <a class="reference internal" href="#CodeIgniter\CLI\BaseCommand::setPad" title="CodeIgniter\CLI\BaseCommand::setPad"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\CLI\BaseCommand::setPad()</span></code></a>。</p>
+<p><span class="versionmodified deprecated">自 4.0.5 版本弃用: </span>请使用 <a class="reference internal" href="#CodeIgniter\CLI\BaseCommand::setPad" title="CodeIgniter\CLI\BaseCommand::setPad"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\CLI\BaseCommand::setPad()</span></code></a>。</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$array</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – <code class="docutils literal notranslate"><span class="pre">$key</span> <span class="pre">=&gt;</span> <span class="pre">$value</span></code> 数组。</p></li>
 <li><p><strong>$pad</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – 填充的空格数。</p></li>
@@ -508,8 +513,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -517,7 +522,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f42811050>
+<jinja2.runtime.BlockReference object at 0x7f162910bf50>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

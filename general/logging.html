@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>记录信息 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>记录信息 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,8 +284,8 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>记录信息<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<div class="contents local topic" id="id2">
+<h1>记录信息<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id8">日志级别</a></p></li>
 <li><p><a class="reference internal" href="#logging-configuration" id="id9">配置</a></p>
@@ -291,9 +296,9 @@
 <li><p><a class="reference internal" href="#id6" id="id11">使用上下文修改消息</a></p></li>
 <li><p><a class="reference internal" href="#id7" id="id12">使用第三方日志器</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id8">日志级别</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">日志级别</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>你可以通过使用 <a class="reference internal" href="common_functions.html#log_message" title="log_message"><code class="xref php php-func docutils literal notranslate"><span class="pre">log_message()</span></code></a> 方法将信息记录到本地日志文件中。你必须在第一个参数中提供错误的“级别”,指示消息的类型(调试、错误等)。第二个参数是消息本身:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -304,10 +309,6 @@
 </div>
 <p>有八种不同的日志级别,与 <a class="reference external" href="https://tools.ietf.org/html/rfc5424">RFC 5424</a> 级别匹配,如下所示:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 88%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>级别</p></th>
 <th class="head"><p>描述</p></th>
@@ -343,7 +344,7 @@
 <p>日志系统不提供通知系统管理员或网站管理员这些事件的方法,它仅记录信息。对于许多更关键的事件级别,日志由上述错误处理程序自动完成。</p>
 </section>
 <section id="logging-configuration">
-<span id="id4"></span><h2><a class="toc-backref" href="#id9">配置</a><a class="headerlink" href="#logging-configuration" title="永久链接至标题"></a></h2>
+<span id="id4"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">配置</a><a class="headerlink" href="#logging-configuration" title="此标题的永久链接"></a></h2>
 <p>你可以修改实际记录的级别,以及为不同级别分配不同的记录器,都在 <strong>app/Config/Logger.php</strong> 配置文件中完成。</p>
 <p>配置文件中的 <code class="docutils literal notranslate"><span class="pre">threshold</span></code> 值确定跨应用程序记录的级别。如果应用程序请求记录任何级别,但阈值当前不允许它们记录,则它们将被忽略。使用的最简单方法是将此值设置为你希望记录的最低级别。例如,如果你想记录警告消息而不是信息消息,你应该将阈值设置为 <code class="docutils literal notranslate"><span class="pre">5</span></code>。级别为 5 或更低(包括运行时错误、系统错误等)的任何日志请求都会被记录,而 info、notice 和 debug 会被忽略:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -378,7 +379,7 @@
 </pre></div>
 </div>
 <section id="id5">
-<h3><a class="toc-backref" href="#id10">使用多个日志处理程序</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">使用多个日志处理程序</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>日志系统可以同时支持运行多个日志处理方法。每个处理程序可以设置为处理特定级别并忽略其余级别。默认安装中提供了三个处理程序:</p>
 <ul class="simple">
 <li><p><strong>File Handler</strong> 是默认的处理程序,将每天在本地创建一个文件。这是推荐的日志方法。</p></li>
@@ -408,7 +409,7 @@
 </section>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id11">使用上下文修改消息</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">使用上下文修改消息</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
 <p>你会经常想根据日志的事件上下文修改消息的详细信息。你可能需要记录用户 id、IP 地址、当前的 POST 变量等。你可以通过在消息中使用占位符来实现这一点。每个占位符必须用大括号包装。在第三个参数中,你必须提供一个占位符名称(不带括号)和它们的值的数组。这些将插入到消息字符串中:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -433,10 +434,6 @@
 </div>
 <p>根据当前页面请求,存在几个核心占位符将自动为你展开:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 24%" />
-<col style="width: 76%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>占位符</p></th>
 <th class="head"><p>插入的值</p></th>
@@ -468,7 +465,7 @@
 </table>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id12">使用第三方日志器</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">使用第三方日志器</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <p>只要它扩展自 <code class="docutils literal notranslate"><span class="pre">Psr\Log\LoggerInterface</span></code> 并且与 <a class="reference external" href="https://www.php-fig.org/psr/psr-3/">PSR-3</a> 兼容,你就可以使用任何其他你喜欢的日志器。这意味着你可以轻松使用任何兼容 PSR-3 的日志器,或创建你自己的日志器。</p>
 <p>你必须确保系统能够找到第三方日志器,方法是将其添加到 <strong>app/Config/Autoload.php</strong> 配置文件中,或通过另一个自动加载器(如 Composer)。接下来,你应该修改 <strong>app/Config/Services.php</strong> 以将 <code class="docutils literal notranslate"><span class="pre">logger</span></code> 别名指向新的类名。</p>
 <p>现在,通过 <a class="reference internal" href="common_functions.html#log_message" title="log_message"><code class="xref php php-func docutils literal notranslate"><span class="pre">log_message()</span></code></a> 函数执行的任何调用都将使用你的库。</p>
@@ -486,8 +483,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -495,7 +492,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41ba0c50>
+<jinja2.runtime.BlockReference object at 0x7f1629303c50>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

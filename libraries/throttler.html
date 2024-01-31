@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>限速器 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>限速器 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,8 +284,8 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>限速器<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<div class="contents local topic" id="id2">
+<h1>限速器<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id9">概览</a></p></li>
 <li><p><a class="reference internal" href="#id5" id="id10">速率限制</a></p>
@@ -291,10 +296,10 @@
 </li>
 <li><p><a class="reference internal" href="#id8" id="id13">类参考</a></p></li>
 </ul>
-</div>
+</nav>
 <p>限速器类提供了一种非常简单的方法来限制在一定时间内执行的活动次数。这最常用于对 API 进行速率限制,或者限制用户尝试表单的次数以帮助防止暴力攻击。该类本身可以用于你需要根据一定时间间隔内的动作进行限速的任何事物。</p>
 <section id="id3">
-<h2><a class="toc-backref" href="#id9">概览</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">概览</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>限速器实现了 <a class="reference external" href="https://en.wikipedia.org/wiki/Token_bucket">令牌桶</a> 算法的简化版本。这基本上将你想要的每个操作视为一个桶。当你调用 <code class="docutils literal notranslate"><span class="pre">check()</span></code> 方法时,你告诉它桶的大小,它可以容纳的令牌数和时间间隔。默认情况下,每个 <code class="docutils literal notranslate"><span class="pre">check()</span></code> 调用会使用可用令牌中的1个。让我们通过一个示例来说明这一点。</p>
 <p>假设我们想要每秒钟发生一次操作。首次调用限速器将如下所示。第一个参数是桶的名称,第二个参数是桶容纳的令牌数,第三个是桶重新填充所需的时间量:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -312,10 +317,10 @@
 </div>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id10">速率限制</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">速率限制</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <p>限速器类本身不执行任何速率限制或请求限制,但它是使速率限制起作用的关键。提供了一个示例 <a class="reference internal" href="../incoming/filters.html"><span class="doc">过滤器</span></a>,它实现了每个IP地址每秒一个请求的非常简单的速率限制。在这里,我们将介绍它的工作原理,以及如何在你的应用程序中设置和开始使用它。</p>
 <section id="id6">
-<h3><a class="toc-backref" href="#id11">代码</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">代码</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>你可以在 <strong>app/Filters/Throttle.php</strong> 中创建自己的限速器过滤器,如下所示:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -364,7 +369,7 @@
 <p>运行时,此方法首先获取限速器的一个实例。接下来,它使用 IP 地址作为桶名称,并将其设置为限制每秒一个请求。如果限速器拒绝检查,返回 false,那么我们返回一个响应状态代码设置为 429 - 太多尝试的响应,并且在它到达控制器之前脚本执行就结束了。这个例子将基于针对站点的所有请求对单个 IP 地址进行限制,而不是针对每个页面。</p>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id12">应用过滤器</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">应用过滤器</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
 <p>我们不一定需要限制网站上的每个页面。对于许多 Web 应用程序,这最适合仅应用于 POST 请求,尽管 API 可能希望限制用户发出的每个请求。为了将其应用于传入请求,你需要编辑 <strong>app/Config/Filters.php</strong> 并首先为过滤器添加一个别名:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -409,12 +414,12 @@
 </section>
 </section>
 <section id="id8">
-<h2><a class="toc-backref" href="#id13">类参考</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">类参考</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
 <dl class="php method">
 <dt class="sig sig-object php" id="check">
 <span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$key</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$capacity</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$seconds</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">int</span> <span class="pre">$cost</span> <span class="pre">=</span> <span class="pre">1</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#check" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 桶的名称</p></li>
 <li><p><strong>$capacity</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – 桶容纳的令牌数</p></li>
@@ -422,10 +427,10 @@
 <li><p><strong>$cost</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – 此操作消耗的令牌数</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>如果可以执行操作则为 true,否则为 false</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
@@ -436,10 +441,10 @@
 <dt class="sig sig-object php" id="getTokentime">
 <span class="sig-name descname"><span class="pre">getTokentime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#getTokentime" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>直到另一个令牌可用的秒数。</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">整数</span></code></span></p>
 </dd>
 </dl>
@@ -450,15 +455,15 @@
 <dt class="sig sig-object php" id="remove">
 <span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">string</span> <span class="pre">$key</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">self</span></span></span><a class="headerlink" href="#remove" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$key</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 桶的名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>$this</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">self</span></code></span></p>
 </dd>
 </dl>
@@ -479,8 +484,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -488,7 +493,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f415e7e50>
+<jinja2.runtime.BlockReference object at 0x7f1628757250>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

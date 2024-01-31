@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>视图解析器 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>视图解析器 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,8 +284,8 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>视图解析器<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<div class="contents local topic" id="id2">
+<h1>视图解析器<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id25">使用视图解析器类</a></p>
 <ul>
@@ -309,7 +314,7 @@
 </li>
 <li><p><a class="reference internal" href="#namespace-CodeIgniter\View" id="id41">类参考</a></p></li>
 </ul>
-</div>
+</nav>
 <p>视图解析器可以对视图文件中的伪变量进行简单的文本替换。
 它可以解析简单变量或变量标签对。</p>
 <p>伪变量名称或控制结构用大括号括起来,像这样:</p>
@@ -338,7 +343,7 @@
 因为他们觉得设计师在使用 PHP 时会感到困惑。</p>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id25">使用视图解析器类</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">使用视图解析器类</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>通过其服务加载解析器类的最简单方法是:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -361,7 +366,7 @@
 <p>这是有意为之的:不包含 PHP 的视图文件。</p>
 </div>
 <section id="id4">
-<h3><a class="toc-backref" href="#id26">它的工作原理</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">它的工作原理</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Parser</span></code> 类处理存储在应用程序的视图路径中的“PHP/HTML 脚本”。
 这些脚本不能包含任何 PHP。</p>
 <p>每个视图参数(我们称之为伪变量)都会触发一次替换,基于你为它提供的值的类型。
@@ -372,7 +377,7 @@
 你将必须为每个转义值提供一个唯一的参数名称。</p>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id27">解析器模板</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">解析器模板</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 方法来解析(或渲染)简单模板,像这样:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -393,7 +398,7 @@
 </div>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id28">解析器配置选项</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">解析器配置选项</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>可以将几个选项传递给 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">renderString()</span></code> 方法。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cache</span></code> - 以秒为单位,保存视图结果的时间;对 renderString() 忽略</p></li>
@@ -412,7 +417,7 @@
 </section>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id29">替换变体</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">替换变体</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <p>支持三种替换类型:简单、循环和嵌套。
 替换的执行顺序与添加伪变量的顺序相同。</p>
 <p>解析器执行的 <strong>简单替换</strong> 是一对一地替换伪变量,其中相应的数据参数具有标量或字符串值,如本例所示:</p>
@@ -433,7 +438,7 @@
 <li><p>处理其余的单个替换</p></li>
 </ul>
 <section id="id8">
-<h3><a class="toc-backref" href="#id30">循环替换</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">循环替换</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
 <p>当伪变量的值是数组的序列化数组时,就会发生循环替换,例如数据库记录的数组。</p>
 <p>上面的示例代码允许简单变量被替换。如果你想让整个变量块重复,每个迭代都包含新值呢?
 考虑我们在页面顶部显示的模板示例:</p>
@@ -491,7 +496,7 @@
 <p>当与实体类一起使用时,这尤其有用,因为它有一个 <code class="docutils literal notranslate"><span class="pre">asArray()</span></code> 方法,该方法返回所有公共和受保护的属性(减去 _options 属性),并使它们可用于解析器。</p>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id31">嵌套替换</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">嵌套替换</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
 <p>当伪变量的值是关联数组时,就会发生嵌套替换,例如来自数据库的记录:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -523,7 +528,7 @@
 <p>如果希望 <code class="docutils literal notranslate"><span class="pre">blog_entries</span></code> 作用域内的其他伪变量可用,请确保 <code class="docutils literal notranslate"><span class="pre">cascadeData</span></code> 选项设置为 true。</p>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id32">注释</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id32" role="doc-backlink">注释</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
 <p>你可以在模板中用 <code class="docutils literal notranslate"><span class="pre">{#</span> <span class="pre">#}</span></code> 符号将注释括起来,它们在解析期间将被忽略并删除。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="c1"># 这个注释在解析过程中会被删除。#}</span>
 <span class="p">{</span><span class="nx">blog_entry</span><span class="p">}</span>
@@ -536,7 +541,7 @@
 </div>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id33">数据级联</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">数据级联</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
 <p>对于嵌套替换和循环替换,你可以选择将数据对级联到内部替换。</p>
 <p>以下示例不受级联的影响:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -577,7 +582,7 @@
 </div>
 </section>
 <section id="id12">
-<h3><a class="toc-backref" href="#id34">阻止解析</a><a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">阻止解析</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">{noparse}</span></code> <code class="docutils literal notranslate"><span class="pre">{/noparse}</span></code> 标签对指定不要解析的页面部分。这对括号之间的任何内容都将完全保持原样,不会发生变量替换、循环等。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nx">noparse</span><span class="p">}</span>
     <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Untouched</span> <span class="nx">Code</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
@@ -586,7 +591,7 @@
 </div>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id35">条件逻辑</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">条件逻辑</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
 <p>解析器类支持一些基本条件来处理 <code class="docutils literal notranslate"><span class="pre">if</span></code>、<code class="docutils literal notranslate"><span class="pre">else</span></code> 和 <code class="docutils literal notranslate"><span class="pre">elseif</span></code> 语法。所有 <code class="docutils literal notranslate"><span class="pre">if</span></code> 块必须用 <code class="docutils literal notranslate"><span class="pre">endif</span></code> 标签关闭:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="k">if</span> <span class="nv">$role</span><span class="o">==</span><span class="s1">&#39;admin&#39;</span><span class="p">}</span>
     <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Welcome</span><span class="p">,</span> <span class="nx">Admin</span><span class="o">!&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
@@ -614,7 +619,7 @@
 <p>在后台,条件语句使用 <code class="docutils literal notranslate"><span class="pre">eval()</span></code> 进行解析,所以你必须确保在条件语句中使用的数据来自可信来源,否则可能会面临安全风险。</p>
 </div>
 <section id="id14">
-<h4>更改条件分隔符<a class="headerlink" href="#id14" title="永久链接至标题"></a></h4>
+<h4>更改条件分隔符<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h4>
 <p>如果你的模板中有像下面的 JavaScript 代码,解析器会抛出语法错误,因为存在可以解释为条件的字符串:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
     <span class="k">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
@@ -642,7 +647,7 @@
 </section>
 </section>
 <section id="id15">
-<h3><a class="toc-backref" href="#id36">转义数据</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">转义数据</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h3>
 <p>默认情况下,所有变量替换都被转义,以帮助防止页面上的 XSS 攻击。CodeIgniter 的 <code class="docutils literal notranslate"><span class="pre">esc()</span></code> 方法支持几种不同的上下文,如常规的 <code class="docutils literal notranslate"><span class="pre">html</span></code>、HTML <code class="docutils literal notranslate"><span class="pre">attr</span></code> 中的、<code class="docutils literal notranslate"><span class="pre">css</span></code> 中的、<code class="docutils literal notranslate"><span class="pre">js</span></code> 中的等。如果没有指定其他内容,数据将假定在 HTML 上下文中。你可以使用 <code class="docutils literal notranslate"><span class="pre">esc()</span></code> 过滤器指定所使用的上下文:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nx">user_styles</span> <span class="o">|</span> <span class="nx">esc</span><span class="p">(</span><span class="nx">css</span><span class="p">)</span> <span class="p">}</span>
 <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;{ user_link | esc(attr) }&quot;</span><span class="o">&gt;</span><span class="p">{</span> <span class="nx">title</span> <span class="p">}</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span>
@@ -654,7 +659,7 @@
 </div>
 </section>
 <section id="id16">
-<h3><a class="toc-backref" href="#id37">过滤器</a><a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">过滤器</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h3>
 <p>可以对单个变量替换应用一个或多个过滤器以修改其呈现方式。这些旨在修改输出,而不是大幅改变它。上面讨论的 <code class="docutils literal notranslate"><span class="pre">esc</span></code> 过滤器就是一个例子。日期是另一个常见的用例,其中你可能需要以页面上的几个部分不同的方式格式化同一数据。</p>
 <p>过滤器是在伪变量名称之后、用竖线符号 <code class="docutils literal notranslate"><span class="pre">|</span></code> 分隔的命令:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 显示 -55 为 55</span>
@@ -670,15 +675,9 @@
 </pre></div>
 </div>
 <section id="id17">
-<h4>提供的过滤器<a class="headerlink" href="#id17" title="永久链接至标题"></a></h4>
+<h4>提供的过滤器<a class="headerlink" href="#id17" title="此标题的永久链接"></a></h4>
 <p>使用解析器时,可用以下过滤器:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 13%" />
-<col style="width: 45%" />
-<col style="width: 29%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>过滤器</p></th>
 <th class="head"><p>参数</p></th>
@@ -710,7 +709,7 @@
 </tr>
 <tr class="row-even"><td><p>default</p></td>
 <td><p>默认值</p></td>
-<td><p>如果变量为空或未定义,显示默认值。</p></td>
+<td><p>如果变量为 <a class="reference external" href="https://www.php.net/manual/en/function.empty.php">empty()</a>,显示默认值。</p></td>
 <td><p>{ v|default(just in case) }</p></td>
 </tr>
 <tr class="row-odd"><td><p>esc</p></td>
@@ -805,7 +804,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <p>有关与“local_number”过滤器相关的详细信息，请参阅 <a class="reference external" href="https://www.php.net/manual/en/numberformatter.create.php">PHP 的 NumberFormatter</a>。</p>
 </section>
 <section id="id18">
-<h4>自定义过滤器<a class="headerlink" href="#id18" title="永久链接至标题"></a></h4>
+<h4>自定义过滤器<a class="headerlink" href="#id18" title="此标题的永久链接"></a></h4>
 <p>你可以通过编辑 <strong>app/Config/View.php</strong> 并向 <code class="docutils literal notranslate"><span class="pre">$filters</span></code> 数组中添加新条目来轻松创建自己的过滤器。每个键是视图中调用过滤器的名称，其值是任何有效的 PHP 可调用对象：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -827,7 +826,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 </section>
 </section>
 <section id="id19">
-<h3><a class="toc-backref" href="#id38">解析器插件</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">解析器插件</a><a class="headerlink" href="#id19" title="此标题的永久链接"></a></h3>
 <p>插件允许你扩展解析器,为每个项目添加自定义功能。它们可以是任何 PHP 可调用的,因此实现起来非常简单。在模板中,插件由 <code class="docutils literal notranslate"><span class="pre">{+</span> <span class="pre">+}</span></code> 标记指定:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">+</span> <span class="nx">foo</span> <span class="o">+</span><span class="p">}</span> <span class="nx">inner</span> <span class="nx">content</span> <span class="p">{</span><span class="o">+</span> <span class="o">/</span><span class="nx">foo</span> <span class="o">+</span><span class="p">}</span>
 </pre></div>
@@ -846,15 +845,9 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 </pre></div>
 </div>
 <section id="id20">
-<h4>提供的插件<a class="headerlink" href="#id20" title="永久链接至标题"></a></h4>
+<h4>提供的插件<a class="headerlink" href="#id20" title="此标题的永久链接"></a></h4>
 <p>使用解析器时,可用以下插件:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 17%" />
-<col style="width: 29%" />
-<col style="width: 42%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>插件</p></th>
 <th class="head"><p>参数</p></th>
@@ -917,7 +910,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 </table>
 </section>
 <section id="id21">
-<h4>注册插件<a class="headerlink" href="#id21" title="永久链接至标题"></a></h4>
+<h4>注册插件<a class="headerlink" href="#id21" title="此标题的永久链接"></a></h4>
 <p>最简单的方法是将新插件添加到 <strong>app/Config/View.php</strong> 中的 <code class="docutils literal notranslate"><span class="pre">$plugins</span></code> 数组,即可注册并准备使用新插件。键是模板文件中使用的插件名称。值是任何有效的 PHP 可调用项,包括静态类方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1002,7 +995,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 </section>
 </section>
 <section id="id22">
-<h2><a class="toc-backref" href="#id39">使用说明</a><a class="headerlink" href="#id22" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">使用说明</a><a class="headerlink" href="#id22" title="此标题的永久链接"></a></h2>
 <p>如果包含了模板中未引用的替换参数,会被忽略:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1052,7 +1045,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 </pre></div>
 </div>
 <section id="id23">
-<h3><a class="toc-backref" href="#id40">视图片段</a><a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">视图片段</a><a class="headerlink" href="#id23" title="此标题的永久链接"></a></h3>
 <p>你不必使用变量对在视图中实现迭代。可以使用视图片段代替变量对内部的内容,并在控制器中控制迭代。</p>
 <p>在视图中控制迭代的示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$template</span> <span class="o">=</span> <span class="s1">&#39;&lt;ul&gt;{menuitems}</span>
@@ -1108,7 +1101,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 </section>
 </section>
 <section id="namespace-CodeIgniter\View">
-<span id="id24"></span><h2><a class="toc-backref" href="#id41">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\View" title="永久链接至标题"></a></h2>
+<span id="id24"></span><h2><a class="toc-backref" href="#id41" role="doc-backlink">类参考</a><a class="headerlink" href="#namespace-CodeIgniter\View" title="此标题的永久链接"></a></h2>
 <dl class="php class">
 <dt class="sig sig-object php" id="CodeIgniter\View\Parser">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">CodeIgniter\View\</span></span><span class="sig-name descname"><span class="pre">Parser</span></span><a class="headerlink" href="#CodeIgniter\View\Parser" title="永久链接至目标"></a></dt>
@@ -1116,17 +1109,17 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <dt class="sig sig-object php" id="CodeIgniter\View\Parser::render">
 <span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$view</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$options</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$saveData</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\View\Parser::render" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$view</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 视图源文件的名称</p></li>
 <li><p><strong>$options</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 选项的键/值对数组</p></li>
 <li><p><strong>$saveData</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">boolean</span></code></span>) – 如果为 true,将保存数据供随后调用,如果为 false,在渲染视图后清除数据</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>所选视图的渲染文本</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1152,17 +1145,17 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <dt class="sig sig-object php" id="CodeIgniter\View\Parser::renderString">
 <span class="sig-name descname"><span class="pre">renderString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$template</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$options</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$saveData</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\View\Parser::renderString" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$template</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 作为字符串提供的视图源</p></li>
 <li><p><strong>$options</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 选项的键/值对数组</p></li>
 <li><p><strong>$saveData</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">boolean</span></code></span>) – 如果为 true,将保存数据供随后调用,如果为 false,在渲染视图后清除数据</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>所选视图的渲染文本</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1179,16 +1172,16 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <dt class="sig sig-object php" id="CodeIgniter\View\Parser::setData">
 <span class="sig-name descname"><span class="pre">setData</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$context</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\View\Parser::setData" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 视图数据字符串的关联数组,作为键/值对</p></li>
 <li><p><strong>$context</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 用于数据转义的上下文</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>渲染器,用于方法链</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">CodeIgniter\View\RendererInterface</span></code></span></p>
 </dd>
 </dl>
@@ -1206,17 +1199,17 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <dt class="sig sig-object php" id="CodeIgniter\View\Parser::setVar">
 <span class="sig-name descname"><span class="pre">setVar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$name</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$context</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\View\Parser::setVar" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 视图数据变量的名称</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 此视图数据的值</p></li>
 <li><p><strong>$context</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 用于数据转义的上下文</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>渲染器,用于方法链</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">CodeIgniter\View\RendererInterface</span></code></span></p>
 </dd>
 </dl>
@@ -1234,16 +1227,16 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <dt class="sig sig-object php" id="CodeIgniter\View\Parser::setDelimiters">
 <span class="sig-name descname"><span class="pre">setDelimiters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$leftDelimiter</span> <span class="pre">=</span> <span class="pre">'{'</span></em>, <em class="sig-param"><span class="pre">$rightDelimiter</span> <span class="pre">=</span> <span class="pre">'}'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\View\Parser::setDelimiters" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$leftDelimiter</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 替换字段的左分隔符</p></li>
 <li><p><strong>$rightDelimiter</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 替换字段的右分隔符</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>渲染器,用于方法链</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">CodeIgniter\View\RendererInterface</span></code></span></p>
 </dd>
 </dl>
@@ -1259,16 +1252,16 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
 <dt class="sig sig-object php" id="CodeIgniter\View\Parser::setConditionalDelimiters">
 <span class="sig-name descname"><span class="pre">setConditionalDelimiters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$leftDelimiter</span> <span class="pre">=</span> <span class="pre">'{'</span></em>, <em class="sig-param"><span class="pre">$rightDelimiter</span> <span class="pre">=</span> <span class="pre">'}'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\View\Parser::setConditionalDelimiters" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$leftDelimiter</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 条件的左分隔符</p></li>
 <li><p><strong>$rightDelimiter</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 条件的右分隔符</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>渲染器,用于方法链</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">CodeIgniter\View\RendererInterface</span></code></span></p>
 </dd>
 </dl>
@@ -1296,8 +1289,8 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -1305,7 +1298,7 @@ percent、scientific、spellout、ordinal、duration之一。</p></td>
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f414ddc10>
+<jinja2.runtime.BlockReference object at 0x7f16284642d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CLI 库 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>CLI 库 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,7 +284,7 @@
            <div itemprop="articleBody">
              
   <section id="cli">
-<h1>CLI 库<a class="headerlink" href="#cli" title="永久链接至标题"></a></h1>
+<h1>CLI 库<a class="headerlink" href="#cli" title="此标题的永久链接"></a></h1>
 <p>CodeIgniter 的 CLI 库可以轻松创建交互式命令行脚本,包括:</p>
 <ul class="simple">
 <li><p>提示用户提供更多信息</p></li>
@@ -288,7 +293,7 @@
 <li><p>在长时间任务期间显示进度条</p></li>
 <li><p>将过长的文本行包装以适应窗口</p></li>
 </ul>
-<div class="contents local topic" id="id1">
+<nav class="contents local" id="id1">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id2" id="id5">初始化类</a></p></li>
 <li><p><a class="reference internal" href="#id3" id="id6">获取用户输入</a></p>
@@ -313,9 +318,9 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id5">初始化类</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">初始化类</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p>你不需要创建 CLI 库的实例,因为它的所有方法都是静态的。相反,你只需要通过控制器顶部的 <code class="docutils literal notranslate"><span class="pre">use</span></code> 语句确保控制器可以定位它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -338,7 +343,7 @@
 <p>该类在首次加载文件时会自动初始化。</p>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id6">获取用户输入</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">获取用户输入</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>有时你需要询问用户更多信息。他们可能没有提供可选的命令行参数,或者脚本可能遇到现有文件并需要确认才能覆盖。这通过 <code class="docutils literal notranslate"><span class="pre">prompt()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">promptByKey()</span></code> 方法来处理。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -346,9 +351,11 @@
 请参阅 <a class="reference internal" href="../testing/overview.html#testing-cli-input"><span class="std std-ref">测试 CLI 输入</span></a>。</p>
 </div>
 <section id="prompt">
-<h3><a class="toc-backref" href="#id7">prompt()</a><a class="headerlink" href="#prompt" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">prompt()</a><a class="headerlink" href="#prompt" title="此标题的永久链接"></a></h3>
 <p>你可以通过作为第一个参数传递问题来提供一个问题:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nv">$color</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">prompt</span><span class="p">(</span><span class="s1">&#39;What is your favorite color?&#39;</span><span class="p">);</span>
 </pre></div>
@@ -356,11 +363,15 @@
 <p>你可以通过在第二个参数中传递默认值,为用户只需按 Enter 提供默认答案:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
+
 <span class="nv">$color</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">prompt</span><span class="p">(</span><span class="s1">&#39;What is your favorite color?&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>你可以通过作为第二个参数传递允许答案的数组来限制可接受的答案:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nv">$overwrite</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">prompt</span><span class="p">(</span><span class="s1">&#39;File exists. Overwrite?&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">]);</span>
 </pre></div>
@@ -368,20 +379,26 @@
 <p>最后,你可以将答案输入的 <a class="reference internal" href="../libraries/validation.html#validation"><span class="std std-ref">验证</span></a> 规则作为第三个参数传递:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
+
 <span class="nv">$email</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">prompt</span><span class="p">(</span><span class="s1">&#39;What is your email?&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="s1">&#39;required|valid_email&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>验证规则也可以以数组语法编写:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
+
 <span class="nv">$email</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">prompt</span><span class="p">(</span><span class="s1">&#39;What is your email?&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;required&#39;</span><span class="p">,</span> <span class="s1">&#39;valid_email&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
 </section>
 <section id="promptbykey">
-<h3><a class="toc-backref" href="#id8">promptByKey()</a><a class="headerlink" href="#promptbykey" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">promptByKey()</a><a class="headerlink" href="#promptbykey" title="此标题的永久链接"></a></h3>
 <p>预定义的提示答案(选项)有时需要描述或过于复杂,无法通过其值进行选择。<code class="docutils literal notranslate"><span class="pre">promptByKey()</span></code> 允许用户通过其键而不是值来选择选项:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nv">$fruit</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">promptByKey</span><span class="p">(</span><span class="s1">&#39;These are your choices:&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;The red apple&#39;</span><span class="p">,</span> <span class="s1">&#39;The plump orange&#39;</span><span class="p">,</span> <span class="s1">&#39;The ripe banana&#39;</span><span class="p">]);</span>
 <span class="cm">/*</span>
@@ -396,6 +413,8 @@
 </div>
 <p>命名键也是可能的:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nv">$fruit</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">promptByKey</span><span class="p">([</span><span class="s1">&#39;These are your choices:&#39;</span><span class="p">,</span> <span class="s1">&#39;Which would you like?&#39;</span><span class="p">],</span> <span class="p">[</span>
     <span class="s1">&#39;apple&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;The red apple&#39;</span><span class="p">,</span>
@@ -415,12 +434,14 @@
 <p>最后,你可以将答案输入的 <a class="reference internal" href="../libraries/validation.html#validation"><span class="std std-ref">验证</span></a> 规则作为第三个参数传递,可接受的答案会自动限制为传入的选项。</p>
 </section>
 <section id="promptbymultiplekeys">
-<span id="prompt-by-multiple-keys"></span><h3><a class="toc-backref" href="#id9">promptByMultipleKeys()</a><a class="headerlink" href="#promptbymultiplekeys" title="永久链接至标题"></a></h3>
+<span id="prompt-by-multiple-keys"></span><h3><a class="toc-backref" href="#id9" role="doc-backlink">promptByMultipleKeys()</a><a class="headerlink" href="#promptbymultiplekeys" title="此标题的永久链接"></a></h3>
 <div class="versionadded">
-<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
 <p>这个方法与 <code class="docutils literal notranslate"><span class="pre">promptByKey()</span></code> 相同,但它支持多个值。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nv">$hobbies</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">promptByMultipleKeys</span><span class="p">(</span><span class="s1">&#39;Select your hobbies:&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Playing game&#39;</span><span class="p">,</span> <span class="s1">&#39;Sleep&#39;</span><span class="p">,</span> <span class="s1">&#39;Badminton&#39;</span><span class="p">]);</span>
 <span class="cm">/*</span>
@@ -447,11 +468,13 @@
 </section>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id10">提供反馈</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">提供反馈</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <section id="write">
-<h3><a class="toc-backref" href="#id11">write()</a><a class="headerlink" href="#write" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">write()</a><a class="headerlink" href="#write" title="此标题的永久链接"></a></h3>
 <p>提供了几种方法来向用户提供反馈。这可以是简单的单个状态更新,也可以是复杂的信息表格,会换行到用户的终端窗口。这其核心是 <code class="docutils literal notranslate"><span class="pre">write()</span></code> 方法,它以要输出的字符串作为第一个参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;The rain in Spain falls mainly on the plains.&#39;</span><span class="p">);</span>
 </pre></div>
@@ -459,11 +482,15 @@
 <p>你可以通过在第二个参数中传递颜色名称来更改文本颜色:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
+
 <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;File created.&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>这可以用来按状态区分消息,或通过使用不同的颜色创建“标题”。你甚至可以通过将颜色名称作为第三个参数传递来设置背景颜色:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;File overwritten.&#39;</span><span class="p">,</span> <span class="s1">&#39;light_red&#39;</span><span class="p">,</span> <span class="s1">&#39;dark_gray&#39;</span><span class="p">);</span>
 </pre></div>
@@ -501,9 +528,11 @@
 </ul>
 </section>
 <section id="print">
-<h3><a class="toc-backref" href="#id12">print()</a><a class="headerlink" href="#print" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">print()</a><a class="headerlink" href="#print" title="此标题的永久链接"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">print()</span></code> 的作用与 <code class="docutils literal notranslate"><span class="pre">write()</span></code> 方法相同,只是它不会在前后强制换行。相反,它会将内容打印到光标当前所在的屏幕上。这允许你从不同的调用中在同一行上打印多个项目。当你想显示一个状态,执行一些操作,然后在同一行上打印“Done”时,这特别有用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">CLI</span><span class="o">::</span><span class="na">print</span><span class="p">(</span><span class="nv">$i</span><span class="p">);</span>
@@ -512,9 +541,11 @@
 </div>
 </section>
 <section id="color">
-<span id="cli-library-color"></span><h3><a class="toc-backref" href="#id13">color()</a><a class="headerlink" href="#color" title="永久链接至标题"></a></h3>
+<span id="cli-library-color"></span><h3><a class="toc-backref" href="#id13" role="doc-backlink">color()</a><a class="headerlink" href="#color" title="此标题的永久链接"></a></h3>
 <p>虽然 <code class="docutils literal notranslate"><span class="pre">write()</span></code> 命令会将单行写入终端,并在结束时带有 EOL 字符,但你可以使用 <code class="docutils literal notranslate"><span class="pre">color()</span></code> 方法来制作一个字符串片段,可以以相同的方式使用,不同之处在于打印后不会强制 EOL。这允许你在同一行上创建多个输出。或者,更常见的是,你可以在 <code class="docutils literal notranslate"><span class="pre">write()</span></code> 方法中使用它来创建不同颜色的字符串:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s2">&quot;fileA </span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">.</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="s1">&#39;/path/to/file&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">),</span> <span class="s1">&#39;yellow&#39;</span><span class="p">);</span>
 </pre></div>
@@ -522,18 +553,22 @@
 <p>这个示例将在窗口中写入一行, <code class="docutils literal notranslate"><span class="pre">fileA</span></code> 为黄色,后跟一个制表符,然后是白色的 <code class="docutils literal notranslate"><span class="pre">/path/to/file</span></code>。</p>
 </section>
 <section id="error">
-<h3><a class="toc-backref" href="#id14">error()</a><a class="headerlink" href="#error" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">error()</a><a class="headerlink" href="#error" title="此标题的永久链接"></a></h3>
 <p>如果需要输出错误,你应该使用适当命名的 <code class="docutils literal notranslate"><span class="pre">error()</span></code> 方法。这会将浅红色文本写入 STDERR,而不是像 <code class="docutils literal notranslate"><span class="pre">write()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">color()</span></code> 那样写入 STDOUT。如果你有监视错误的脚本,这样可以方便它们不必筛选所有信息,而只提取实际的错误消息。你可以像使用 <code class="docutils literal notranslate"><span class="pre">write()</span></code> 方法一样使用它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nx">CLI</span><span class="o">::</span><span class="na">error</span><span class="p">(</span><span class="s1">&#39;Cannot write to file: &#39;</span> <span class="o">.</span> <span class="nv">$file</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="wrap">
-<h3><a class="toc-backref" href="#id15">wrap()</a><a class="headerlink" href="#wrap" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">wrap()</a><a class="headerlink" href="#wrap" title="此标题的永久链接"></a></h3>
 <p>这个命令将获取一个字符串,开始在当前行打印它,并将其换行到设置的长度。当显示你想要在当前窗口中换行而不是超出屏幕的选项及其描述时,这可能很有用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nx">CLI</span><span class="o">::</span><span class="na">color</span><span class="p">(</span><span class="s2">&quot;task1</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">);</span>
 <span class="nx">CLI</span><span class="o">::</span><span class="na">wrap</span><span class="p">(</span><span class="s1">&#39;Some long description goes here that might be longer than the current window.&#39;</span><span class="p">);</span>
@@ -542,12 +577,16 @@
 <p>默认情况下,字符串将换行到终端宽度。Windows 当前没有提供确定窗口大小的方法,因此我们默认为 80 个字符。如果你想将宽度限制为一些可以相当确定适合窗口的较短长度,请将最大行长度作为第二个参数传递。这将在最接近的词边界处中断字符串,以免单词被断开。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
+
 <span class="c1">// Wrap the text at max 20 characters wide</span>
 <span class="nx">CLI</span><span class="o">::</span><span class="na">wrap</span><span class="p">(</span><span class="nv">$description</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>你可能会发现,你想要标题、文件或任务的左边有一列,而右边有描述文本的一列。默认情况下,这将回绕到窗口的左边缘,这不允许项目按列对齐。在这种情况下,你可以传入换行后要填充的空格数,以便在左边有一个整齐的列边界:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nv">$titles</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;task1a&#39;</span><span class="p">,</span>
@@ -587,25 +626,29 @@ task1abc   Lorem Ipsum 从1500年代起
 </div>
 </section>
 <section id="newline">
-<h3><a class="toc-backref" href="#id16">newLine()</a><a class="headerlink" href="#newline" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">newLine()</a><a class="headerlink" href="#newline" title="此标题的永久链接"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">newLine()</span></code> 方法向用户显示一个空行。它不接受任何参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nx">CLI</span><span class="o">::</span><span class="na">newLine</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 <section id="clearscreen">
-<h3><a class="toc-backref" href="#id17">clearScreen()</a><a class="headerlink" href="#clearscreen" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">clearScreen()</a><a class="headerlink" href="#clearscreen" title="此标题的永久链接"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">clearScreen()</span></code> 方法清除当前的终端窗口。在大多数 Windows 版本中,这只会插入 40 行空白行,因为 Windows 不支持此功能。Windows 10 bash 集成应该会改变这一点:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nx">CLI</span><span class="o">::</span><span class="na">clearScreen</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 <section id="showprogress">
-<h3><a class="toc-backref" href="#id18">showProgress()</a><a class="headerlink" href="#showprogress" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">showProgress()</a><a class="headerlink" href="#showprogress" title="此标题的永久链接"></a></h3>
 <p>如果你有一个长时间运行的任务,希望保持用户了解进度,可以使用 <code class="docutils literal notranslate"><span class="pre">showProgress()</span></code> 方法,它会显示类似以下内容:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[####......] 40% Complete
 </pre></div>
@@ -613,6 +656,8 @@ task1abc   Lorem Ipsum 从1500年代起
 <p>此块会就地进行动画以产生非常好的效果。</p>
 <p>使用时,请将当前步骤作为第一个参数传递,将总步骤数作为第二个参数。完成百分比和显示长度将根据该数字确定。完成时,请将 <code class="docutils literal notranslate"><span class="pre">false</span></code> 作为第一个参数传入,进度条将被删除。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nv">$totalSteps</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$tasks</span><span class="p">);</span>
 <span class="nv">$currStep</span>   <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -628,8 +673,10 @@ task1abc   Lorem Ipsum 从1500年代起
 </div>
 </section>
 <section id="table">
-<h3><a class="toc-backref" href="#id19">table()</a><a class="headerlink" href="#table" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">table()</a><a class="headerlink" href="#table" title="此标题的永久链接"></a></h3>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="nv">$thead</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="s1">&#39;Updated At&#39;</span><span class="p">,</span> <span class="s1">&#39;Active&#39;</span><span class="p">];</span>
 <span class="nv">$tbody</span> <span class="o">=</span> <span class="p">[</span>
@@ -650,9 +697,11 @@ task1abc   Lorem Ipsum 从1500年代起
 </div>
 </section>
 <section id="wait">
-<h3><a class="toc-backref" href="#id20">wait()</a><a class="headerlink" href="#wait" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">wait()</a><a class="headerlink" href="#wait" title="此标题的永久链接"></a></h3>
 <p>等待一定的秒数,可选择显示等待消息并等待按键。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
 
 <span class="c1">// wait for specified interval, with countdown displayed</span>
 <span class="nx">CLI</span><span class="o">::</span><span class="na">wait</span><span class="p">(</span><span class="nv">$seconds</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
@@ -679,8 +728,8 @@ task1abc   Lorem Ipsum 从1500年代起
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -688,7 +737,7 @@ task1abc   Lorem Ipsum 从1500年代起
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41e63990>
+<jinja2.runtime.BlockReference object at 0x7f1628c513d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

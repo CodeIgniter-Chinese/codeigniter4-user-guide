@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>创建新闻 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>创建新闻 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,30 +284,30 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>创建新闻<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<div class="contents local topic" id="id2">
+<h1>创建新闻<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#csrf" id="id11">启用 CSRF 过滤器</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id12">添加路由规则</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id13">创建表单</a></p>
+<li><p><a class="reference internal" href="#csrf" id="id12">启用 CSRF 过滤器</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id13">添加路由规则</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id14">创建表单</a></p>
 <ul>
-<li><p><a class="reference internal" href="#news-create" id="id14">创建 news/create 视图文件</a></p></li>
-<li><p><a class="reference internal" href="#news" id="id15">News 控制器</a></p>
+<li><p><a class="reference internal" href="#news-create" id="id15">创建 news/create 视图文件</a></p></li>
+<li><p><a class="reference internal" href="#news" id="id16">News 控制器</a></p>
 <ul>
-<li><p><a class="reference internal" href="#news-new" id="id16">添加 News::new() 方法以显示表单</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id17">添加 News::create() 以创建新闻项目</a></p></li>
+<li><p><a class="reference internal" href="#news-new" id="id17">添加 News::new() 方法以显示表单</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id18">添加 News::create() 以创建新闻项目</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#newsmodel" id="id18">更新 NewsModel</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id19">创建新闻项目</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id20">恭喜</a></p></li>
+<li><p><a class="reference internal" href="#newsmodel" id="id19">更新 NewsModel</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id20">创建新闻项目</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id21">恭喜</a></p></li>
 </ul>
-</div>
+</nav>
 <p>你现在已经知道如何使用 CodeIgniter 从数据库中读取数据,但是你还没有将任何信息写入数据库。在本节中,你将扩展之前创建的新闻控制器和模型,以包括此功能。</p>
 <section id="csrf">
-<h2><a class="toc-backref" href="#id11">启用 CSRF 过滤器</a><a class="headerlink" href="#csrf" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">启用 CSRF 过滤器</a><a class="headerlink" href="#csrf" title="此标题的永久链接"></a></h2>
 <p>在创建表单之前,让我们启用 CSRF 保护。</p>
 <p>打开 <strong>app/Config/Filters.php</strong> 文件,并如下更新 <code class="docutils literal notranslate"><span class="pre">$methods</span></code> 属性:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -333,7 +338,7 @@
 </div>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id12">添加路由规则</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">添加路由规则</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>在你开始向 CodeIgniter 应用程序中添加新闻项目之前，你需要在 <strong>app/Config/Routes.php</strong> 文件中添加一个额外的规则。确保你的文件包含以下内容：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -356,9 +361,9 @@
 <p>你可以在 <a class="reference internal" href="../incoming/routing.html#defined-route-routing"><span class="std std-ref">设置路由规则</span></a> 中了解更多关于不同路由类型的信息。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id13">创建表单</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">创建表单</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <section id="news-create">
-<h3><a class="toc-backref" href="#id14">创建 news/create 视图文件</a><a class="headerlink" href="#news-create" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">创建 news/create 视图文件</a><a class="headerlink" href="#news-create" title="此标题的永久链接"></a></h3>
 <p>为了将数据输入数据库,你需要创建一个表单,在表单中你可以输入要存储的信息。这意味着你需要一个带有两个字段的表单,一个用于标题,一个用于文本。我们会在模型中从标题中派生 slug。</p>
 <p>在 <strong>app/Views/news/create.php</strong> 中创建一个新的视图:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
@@ -389,10 +394,10 @@
 <p><a class="reference internal" href="../helpers/form_helper.html#set_value" title="set_value"><code class="xref php php-func docutils literal notranslate"><span class="pre">set_value()</span></code></a> 函数由 <a class="reference internal" href="../helpers/form_helper.html"><span class="doc">表单辅助函数</span></a> 提供,用于在发生错误时显示旧输入数据。</p>
 </section>
 <section id="news">
-<h3><a class="toc-backref" href="#id15">News 控制器</a><a class="headerlink" href="#news" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">News 控制器</a><a class="headerlink" href="#news" title="此标题的永久链接"></a></h3>
 <p>返回到你的 <code class="docutils literal notranslate"><span class="pre">News</span></code> 控制器。</p>
 <section id="news-new">
-<h4><a class="toc-backref" href="#id16">添加 News::new() 方法以显示表单</a><a class="headerlink" href="#news-new" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id17" role="doc-backlink">添加 News::new() 方法以显示表单</a><a class="headerlink" href="#news-new" title="此标题的永久链接"></a></h4>
 <p>首先，创建一个方法来显示你创建的 HTML 表单。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -420,7 +425,7 @@
 <p>然后返回创建的表单视图。</p>
 </section>
 <section id="id5">
-<h4><a class="toc-backref" href="#id17">添加 News::create() 以创建新闻项目</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id18" role="doc-backlink">添加 News::create() 以创建新闻项目</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h4>
 <p>接下来，创建一个方法来根据提交的数据创建新闻项目。</p>
 <p>在这里，你将完成三件事：</p>
 <ol class="arabic simple">
@@ -443,8 +448,10 @@
     <span class="p">{</span>
         <span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
 
+        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">]);</span>
+
         <span class="c1">// Checks whether the submitted data passed the validation rules.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validateData</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="p">[</span>
             <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|min_length[3]&#39;</span><span class="p">,</span>
             <span class="s1">&#39;body&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[5000]|min_length[10]&#39;</span><span class="p">,</span>
         <span class="p">]))</span> <span class="p">{</span>
@@ -472,22 +479,26 @@
 </div>
 <p>上面的代码添加了很多功能。</p>
 <section id="id6">
-<h5>验证数据<a class="headerlink" href="#id6" title="永久链接至标题"></a></h5>
-<p>你将使用控制器提供的辅助函数 <a class="reference internal" href="../incoming/controllers.html#controller-validate"><span class="std std-ref">validate()</span></a> 来验证提交的数据。
-在这种情况下，标题和正文字段是必填的，并且有特定的长度要求。
-CodeIgniter 提供了一个强大的验证库，如上所示。你可以阅读更多关于 <a class="reference internal" href="../libraries/validation.html"><span class="doc">验证库</span></a> 的信息。</p>
-<p>如果验证失败，我们调用刚刚创建的 <code class="docutils literal notranslate"><span class="pre">new()</span></code> 方法并返回 HTML 表单。</p>
+<h5>获取数据<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h5>
+<p>首先，我们使用由框架在控制器中设置的 <a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">IncomingRequest</span></a> 对象 <code class="docutils literal notranslate"><span class="pre">$this-&gt;request</span></code>。</p>
+<p>我们从用户的 <strong>POST</strong> 数据中获取必要的项目，并将它们设置在 <code class="docutils literal notranslate"><span class="pre">$data</span></code> 变量中。</p>
 </section>
 <section id="id7">
-<h5>保存新闻项目<a class="headerlink" href="#id7" title="永久链接至标题"></a></h5>
+<h5>验证数据<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h5>
+<p>接下来，你将使用由 Controller 提供的辅助函数 <a class="reference internal" href="../incoming/controllers.html#controller-validatedata"><span class="std std-ref">validateData()</span></a> 来验证提交的数据。在这种情况下，标题和正文字段是必需的，并且具有特定的长度。</p>
+<p>如上所示，CodeIgniter 拥有一个强大的验证库。你可以阅读更多关于 <a class="reference internal" href="../libraries/validation.html"><span class="doc">验证库</span></a> 的信息。</p>
+<p>如果验证失败，我们调用刚刚创建的 <code class="docutils literal notranslate"><span class="pre">new()</span></code> 方法并返回 HTML 表单。</p>
+</section>
+<section id="id8">
+<h5>保存新闻项目<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h5>
 <p>如果验证通过了所有规则，我们通过 <a class="reference internal" href="../libraries/validation.html#validation-getting-validated-data"><span class="std std-ref">$this-&gt;validator-&gt;getValidated()</span></a> 获取验证后的数据，并将其设置在 <code class="docutils literal notranslate"><span class="pre">$post</span></code> 变量中。</p>
 <p>加载并调用 <code class="docutils literal notranslate"><span class="pre">NewsModel</span></code>。这将负责将新闻项目传递给模型。根据是否找到与主键匹配的数组键，<a class="reference internal" href="../models/model.html#model-save"><span class="std std-ref">save()</span></a> 方法会自动处理插入或更新记录。</p>
 <p>这包含一个新函数 <a class="reference internal" href="../helpers/url_helper.html#url_title" title="url_title"><code class="xref php php-func docutils literal notranslate"><span class="pre">url_title()</span></code></a>。这个函数由 <a class="reference internal" href="../helpers/url_helper.html"><span class="doc">URL 辅助函数</span></a> 提供 -
 它会剥离你传递给它的字符串,用破折号 (<code class="docutils literal notranslate"><span class="pre">-</span></code>) 替换所有空格,并确保所有内容都是小写。
 这会给你一个不错的 slug,非常适合创建 URI。</p>
 </section>
-<section id="id8">
-<h5>返回成功页面<a class="headerlink" href="#id8" title="永久链接至标题"></a></h5>
+<section id="id9">
+<h5>返回成功页面<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h5>
 <p>之后,视图文件被加载并返回以显示成功消息。在 <strong>app/Views/news/success.php</strong> 中创建一个视图,并编写成功消息。</p>
 <p>这可以简单地写成:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">新闻项目创建成功。</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
@@ -498,7 +509,7 @@ CodeIgniter 提供了一个强大的验证库，如上所示。你可以阅读�
 </section>
 </section>
 <section id="newsmodel">
-<h2><a class="toc-backref" href="#id18">更新 NewsModel</a><a class="headerlink" href="#newsmodel" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">更新 NewsModel</a><a class="headerlink" href="#newsmodel" title="此标题的永久链接"></a></h2>
 <p>唯一剩下的就是确保你的模型设置为允许数据被正确保存。
 在使用的 <code class="docutils literal notranslate"><span class="pre">save()</span></code> 方法将确定信息应插入还是如果行已经存在则应更新,这取决于主键的存在。
 在这种情况下,没有传递 <code class="docutils literal notranslate"><span class="pre">id</span></code> 字段给它,所以它会在它的表格 <code class="docutils literal notranslate"><span class="pre">news</span></code> 中插入新行。</p>
@@ -521,15 +532,15 @@ CodeIgniter 提供了一个强大的验证库，如上所示。你可以阅读�
 <p>这个新属性现在包含我们允许保存到数据库的字段。请注意,我们排除了 <code class="docutils literal notranslate"><span class="pre">id</span></code> 字段?这是因为你几乎永远不需要这样做,因为它是一个数据库中的自动递增字段。
 这有助于防止批量分配漏洞。如果你的模型处理了时间戳,你也会排除它们。</p>
 </section>
-<section id="id9">
-<h2><a class="toc-backref" href="#id19">创建新闻项目</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<section id="id10">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">创建新闻项目</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
 <p>现在指向你安装了 CodeIgniter 的本地开发环境的浏览器,并在 URL 中添加 <strong>/news/new</strong>。
 添加一些新闻并查看你创建的不同页面。</p>
 <a class="reference internal image-reference" href="../_images/tutorial3.png"><img alt="../_images/tutorial3.png" class="align-center" src="../_images/tutorial3.png" style="width: 45%; height: 415px;" /></a>
 <a class="reference internal image-reference" href="../_images/tutorial4.png"><img alt="../_images/tutorial4.png" class="align-center" src="../_images/tutorial4.png" style="width: 45%; height: 415px;" /></a>
 </section>
-<section id="id10">
-<h2><a class="toc-backref" href="#id20">恭喜</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<section id="id11">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">恭喜</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
 <p>你刚刚完成了你的第一个 CodeIgniter4 应用程序!</p>
 <p>下面的图表显示了你的项目的 <strong>app</strong> 文件夹，其中包含你创建或修改的所有文件。</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>app/
@@ -569,8 +580,8 @@ CodeIgniter 提供了一个强大的验证库，如上所示。你可以阅读�
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -578,7 +589,7 @@ CodeIgniter 提供了一个强大的验证库，如上所示。你可以阅读�
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f419388d0>
+<jinja2.runtime.BlockReference object at 0x7f16307cb590>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

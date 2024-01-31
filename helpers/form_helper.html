@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>表单辅助函数 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>表单辅助函数 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,22 +284,22 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>表单辅助函数<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>表单辅助函数<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>表单辅助函数文件包含了帮助处理表单的函数。</p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id7">配置</a></p></li>
 <li><p><a class="reference internal" href="#id4" id="id8">加载此辅助函数</a></p></li>
 <li><p><a class="reference internal" href="#id5" id="id9">转义字段值</a></p></li>
 <li><p><a class="reference internal" href="#id6" id="id10">可用函数</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id7">配置</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">配置</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>从 v4.3.0 开始, <code class="docutils literal notranslate"><span class="pre">form_helper</span></code> 函数中的空 HTML 元素(如 <code class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code>)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 <strong>app/Config/DocTypes.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$html5</span></code> 属性设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code>。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id8">加载此辅助函数</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">加载此辅助函数</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <p>使用以下代码加载此辅助函数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -303,7 +308,7 @@
 </div>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id9">转义字段值</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">转义字段值</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <p>你可能需要在表单元素中使用 HTML 和诸如引号之类的字符。为了安全地做到这一点,你需要使用
 <a class="reference internal" href="../general/common_functions.html"><span class="doc">common function</span></a>
 <a class="reference internal" href="../general/common_functions.html#esc" title="esc"><code class="xref php php-func docutils literal notranslate"><span class="pre">esc()</span></code></a>。</p>
@@ -327,23 +332,23 @@
 </div>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id10">可用函数</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">可用函数</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
 <p>以下函数可用:</p>
 <dl class="php function">
 <dt class="sig sig-object php" id="form_open">
 <span class="sig-name descname"><span class="pre">form_open</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$action</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$hidden</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_open" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$action</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 表单操作/目标 URI 字符串</p></li>
 <li><p><strong>$attributes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – HTML 属性,作为数组或转义的字符串</p></li>
 <li><p><strong>$hidden</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 隐藏字段定义的数组</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 表单开启标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -427,17 +432,17 @@
 <dt class="sig sig-object php" id="form_open_multipart">
 <span class="sig-name descname"><span class="pre">form_open_multipart</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$action</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$hidden</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_open_multipart" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$action</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 表单操作/目标 URI 字符串</p></li>
 <li><p><strong>$attributes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – HTML 属性,作为数组或转义的字符串</p></li>
 <li><p><strong>$hidden</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 隐藏字段定义的数组</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 多部分表单开启标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -448,16 +453,16 @@
 <dt class="sig sig-object php" id="form_hidden">
 <span class="sig-name descname"><span class="pre">form_hidden</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$name</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_hidden" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段名称</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段值</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 隐藏输入字段标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -528,7 +533,7 @@
 <dt class="sig sig-object php" id="form_input">
 <span class="sig-name descname"><span class="pre">form_input</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$type</span> <span class="pre">=</span> <span class="pre">'text'</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_input" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 字段属性数据</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段值</p></li>
@@ -536,10 +541,10 @@
 <li><p><strong>$type</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 输入字段的类型。即,’text’、’email’、’number’等</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 文本输入字段标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -625,17 +630,17 @@
 <dt class="sig sig-object php" id="form_password">
 <span class="sig-name descname"><span class="pre">form_password</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_password" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 字段属性数据</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段值</p></li>
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 密码输入字段标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -646,17 +651,17 @@
 <dt class="sig sig-object php" id="form_upload">
 <span class="sig-name descname"><span class="pre">form_upload</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_upload" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 字段属性数据</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段值</p></li>
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 文件上传输入字段标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -667,17 +672,17 @@
 <dt class="sig sig-object php" id="form_textarea">
 <span class="sig-name descname"><span class="pre">form_textarea</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_textarea" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 字段属性数据</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段值</p></li>
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML textarea 标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -692,7 +697,7 @@
 <dt class="sig sig-object php" id="form_dropdown">
 <span class="sig-name descname"><span class="pre">form_dropdown</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$name</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$options</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$selected</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_dropdown" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段名称</p></li>
 <li><p><strong>$options</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 要列出的选项的关联数组</p></li>
@@ -700,10 +705,10 @@
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 下拉选择字段标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -766,7 +771,7 @@
 <dt class="sig sig-object php" id="form_multiselect">
 <span class="sig-name descname"><span class="pre">form_multiselect</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$name</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$options</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$selected</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_multiselect" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段名称</p></li>
 <li><p><strong>$options</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 要列出的选项的关联数组</p></li>
@@ -774,10 +779,10 @@
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 下拉多选字段标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -789,16 +794,16 @@
 <dt class="sig sig-object php" id="form_fieldset">
 <span class="sig-name descname"><span class="pre">form_fieldset</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$legend_text</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_fieldset" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$legend_text</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要放入 &lt;legend&gt; 标签中的文本</p></li>
 <li><p><strong>$attributes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 要在 &lt;fieldset&gt; 标签上设置的属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML fieldset 开启标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -846,15 +851,15 @@
 <dt class="sig sig-object php" id="form_fieldset_close">
 <span class="sig-name descname"><span class="pre">form_fieldset_close</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_fieldset_close" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 在关闭标签后要追加的任何内容, <em>原样</em></p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML fieldset 关闭标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -872,7 +877,7 @@
 <dt class="sig sig-object php" id="form_checkbox">
 <span class="sig-name descname"><span class="pre">form_checkbox</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$checked</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_checkbox" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 字段属性数据</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段值</p></li>
@@ -880,10 +885,10 @@
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 复选框输入标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -930,7 +935,7 @@
 <dt class="sig sig-object php" id="form_radio">
 <span class="sig-name descname"><span class="pre">form_radio</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$checked</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_radio" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 字段属性数据</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段值</p></li>
@@ -938,10 +943,10 @@
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 单选按钮输入标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -952,17 +957,17 @@
 <dt class="sig sig-object php" id="form_label">
 <span class="sig-name descname"><span class="pre">form_label</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$label_text</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$id</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_label" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$label_text</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要放入 &lt;label&gt; 标签中的文本</p></li>
 <li><p><strong>$id</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 我们为其创建标签的表单元素的 ID</p></li>
 <li><p><strong>$attributes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – HTML 属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 字段标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -992,17 +997,17 @@
 <dt class="sig sig-object php" id="form_submit">
 <span class="sig-name descname"><span class="pre">form_submit</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_submit" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 按钮名称</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 按钮值</p></li>
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 输入提交标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1020,17 +1025,17 @@
 <dt class="sig sig-object php" id="form_reset">
 <span class="sig-name descname"><span class="pre">form_reset</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_reset" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 按钮名称</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 按钮值</p></li>
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 输入重置按钮标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1041,17 +1046,17 @@
 <dt class="sig sig-object php" id="form_button">
 <span class="sig-name descname"><span class="pre">form_button</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$content</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_button" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$data</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 按钮名称</p></li>
 <li><p><strong>$content</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 按钮标签</p></li>
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 要作为数组或字符串添加到标记的额外属性</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 按钮标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1090,15 +1095,15 @@
 <dt class="sig sig-object php" id="form_close">
 <span class="sig-name descname"><span class="pre">form_close</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$extra</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#form_close" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$extra</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 在关闭标签后要追加的任何内容, <em>原样</em></p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>一个 HTML 表单关闭标签</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1116,17 +1121,17 @@
 <dt class="sig sig-object php" id="set_value">
 <span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$field</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$default</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$html_escape</span> <span class="pre">=</span> <span class="pre">true</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#set_value" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$field</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段名称</p></li>
 <li><p><strong>$default</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 默认值</p></li>
 <li><p><strong>$html_escape</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否关闭 HTML 转义值</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>字段值</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1142,17 +1147,17 @@
 <dt class="sig sig-object php" id="set_select">
 <span class="sig-name descname"><span class="pre">set_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$field</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$default</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#set_select" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$field</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段名称</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要检查的值</p></li>
 <li><p><strong>$default</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 值是否也是默认值</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>‘selected’ 属性或空字符串</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1172,17 +1177,17 @@
 <dt class="sig sig-object php" id="set_checkbox">
 <span class="sig-name descname"><span class="pre">set_checkbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$field</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$default</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#set_checkbox" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$field</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段名称</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要检查的值</p></li>
 <li><p><strong>$default</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 值是否也是默认值</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>‘checked’ 属性或空字符串</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1199,17 +1204,17 @@
 <dt class="sig sig-object php" id="set_radio">
 <span class="sig-name descname"><span class="pre">set_radio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$field</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$value</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$default</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#set_radio" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$field</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段名称</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 要检查的值</p></li>
 <li><p><strong>$default</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 值是否也是默认值</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>‘checked’ 属性或空字符串</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1225,13 +1230,13 @@
 <dt class="sig sig-object php" id="validation_errors">
 <span class="sig-name descname"><span class="pre">validation_errors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#validation_errors" title="永久链接至目标"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">返回</dt>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
 <dd class="field-odd"><p>验证错误</p>
 </dd>
-<dt class="field-even">返回类型</dt>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span></p>
 </dd>
 </dl>
@@ -1251,18 +1256,18 @@
 <dt class="sig sig-object php" id="validation_list_errors">
 <span class="sig-name descname"><span class="pre">validation_list_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$template</span> <span class="pre">=</span> <span class="pre">'list'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#validation_list_errors" title="永久链接至目标"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$template</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 验证模板名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>验证错误的渲染 HTML</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1283,19 +1288,19 @@
 <dt class="sig sig-object php" id="validation_show_error">
 <span class="sig-name descname"><span class="pre">validation_show_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$field</span></em>, <em class="sig-param"><span class="pre">$template</span> <span class="pre">=</span> <span class="pre">'single'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#validation_show_error" title="永久链接至目标"></a></dt>
 <dd><div class="versionadded">
-<p><span class="versionmodified added">4.3.0 新版功能.</span></p>
+<p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">参数</dt>
+<dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$field</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 字段名称</p></li>
 <li><p><strong>$template</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 验证模板名称</p></li>
 </ul>
 </dd>
-<dt class="field-even">返回</dt>
+<dt class="field-even">返回<span class="colon">:</span></dt>
 <dd class="field-even"><p>格式化的验证错误 HTML</p>
 </dd>
-<dt class="field-odd">返回类型</dt>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
@@ -1326,8 +1331,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -1335,7 +1340,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f42888d90>
+<jinja2.runtime.BlockReference object at 0x7f16285e3910>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升级视图解析器 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>升级视图解析器 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -281,8 +286,8 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>升级视图解析器<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<div class="contents local topic" id="id2">
+<h1>升级视图解析器<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id8">文档</a></p></li>
 <li><p><a class="reference internal" href="#id4" id="id9">变更点</a></p></li>
@@ -294,32 +299,32 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id8">文档</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">文档</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="http://codeigniter.com/userguide3/libraries/parser.html">CodeIgniter 3.X 模板解析器文档</a></p></li>
 <li><p><a class="reference internal" href="../outgoing/view_parser.html"><span class="doc">CodeIgniter 4.X 视图解析器文档</span></a></p></li>
 </ul>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id9">变更点</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">变更点</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p>你必须更改解析器库的实现和加载方式。</p></li>
 <li><p>视图可以从 CI3 复制。通常不需要对其进行任何更改。</p></li>
 </ul>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id10">升级指南</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">升级指南</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <ol class="arabic simple">
 <li><p>在使用视图解析器库的任何地方,用 <code class="docutils literal notranslate"><span class="pre">$parser</span> <span class="pre">=</span> <span class="pre">service('parser');</span></code> 替换 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;library('parser');</span></code>。</p></li>
 <li><p>你必须将控制器中的渲染部分从 <code class="docutils literal notranslate"><span class="pre">$this-&gt;parser-&gt;parse('blog_template',</span> <span class="pre">$data);</span></code> 改为 <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">$parser-&gt;setData($data)-&gt;render('blog_template');</span></code>。</p></li>
 </ol>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id11">代码示例</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">代码示例</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
 <section id="id7">
-<h3><a class="toc-backref" href="#id12">CodeIgniter 3.x 版本</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">CodeIgniter 3.x 版本</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;parser&#39;</span><span class="p">);</span>
@@ -335,7 +340,7 @@
 </div>
 </section>
 <section id="codeigniter-4-x">
-<h3><a class="toc-backref" href="#id13">CodeIgniter 4.x 版本</a><a class="headerlink" href="#codeigniter-4-x" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">CodeIgniter 4.x 版本</a><a class="headerlink" href="#codeigniter-4-x" title="此标题的永久链接"></a></h3>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$parser</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;parser&#39;</span><span class="p">);</span>
@@ -363,8 +368,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -372,7 +377,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41f6c490>
+<jinja2.runtime.BlockReference object at 0x7f1628eaf150>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

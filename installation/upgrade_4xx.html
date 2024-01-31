@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>从 3.x 升级到 4.x &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>从 3.x 升级到 4.x &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -280,7 +285,7 @@
            <div itemprop="articleBody">
              
   <section id="x-4-x">
-<h1>从 3.x 升级到 4.x<a class="headerlink" href="#x-4-x" title="永久链接至标题"></a></h1>
+<h1>从 3.x 升级到 4.x<a class="headerlink" href="#x-4-x" title="此标题的永久链接"></a></h1>
 <p>CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序转换更合适,而不是升级它。一旦你完成了转换,从 CodeIgniter 4 的一个版本升级到下一个版本将很简单。</p>
 <p>“精简、敏捷、简单”的理念仍然保留,但实现与 CodeIgniter 3 有很多不同。</p>
 <p>升级没有 12 步检查表。相反,请在一个新的项目文件夹中使用 CodeIgniter 4 的副本开始,
@@ -288,42 +293,43 @@
 我们将尽量指出这里最重要的注意事项。</p>
 <p>为了升级你的项目,我们总结出两项主要工作。首先,有一些对每个项目都很重要的一般调整,必须处理。其次是 CodeIgniter 构建的库,包含一些最重要的函数。这些库可以互相独立工作,所以你必须一一查看它们。</p>
 <p><strong>在启动项目转换之前,请阅读用户指南!</strong></p>
-<div class="contents local topic" id="id1">
+<nav class="contents local" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id18">一般调整</a></p>
+<li><p><a class="reference internal" href="#id2" id="id19">一般调整</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id19">下载</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id20">命名空间</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id21">应用程序结构</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id22">路由</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id23">模型、视图和控制器</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id24">类加载</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id25">库</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id26">辅助函数</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id27">钩子</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id28">扩展框架</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id20">下载</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">命名空间</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id22">应用程序结构</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id23">路由</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id24">模型、视图和控制器</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id25">类加载</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id26">库</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id27">辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id28">钩子</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id29">错误处理</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id30">扩展框架</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id14" id="id29">升级库</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id31">升级库</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id18">一般调整</a><a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">一般调整</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <section id="id3">
-<h3><a class="toc-backref" href="#id19">下载</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">下载</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p>CI4 仍以 <a class="reference internal" href="installing_manual.html"><span class="doc">ready-to-run 压缩包或 tarball</span></a> 形式提供。</p></li>
 <li><p>它也可以使用 <a class="reference internal" href="installing_composer.html"><span class="doc">Composer</span></a> 安装。</p></li>
 </ul>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id20">命名空间</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">命名空间</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p>CI4 是为 PHP 7.4+ 构建的,框架中的所有内容都使用了命名空间,除了 helper 和 lang 文件。</p></li>
 </ul>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id21">应用程序结构</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">应用程序结构</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p><strong>application</strong> 文件夹重命名为 <strong>app</strong>,框架仍然有 <strong>system</strong> 文件夹,与以前的解释相同。</p></li>
 <li><p>框架现在提供了 <strong>public</strong> 文件夹,旨在作为你的应用程序的文档根目录。</p></li>
@@ -335,7 +341,7 @@
 </ul>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id22">路由</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">路由</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p>默认情况下自动路由被禁用。你需要 <a class="reference internal" href="../incoming/routing.html#defined-route-routing"><span class="std std-ref">定义所有路由</span></a>。</p></li>
 <li><p>如果你希望以与 CI3 相同的方式使用自动路由,则需要启用 <a class="reference internal" href="../incoming/routing.html#auto-routing-legacy"><span class="std std-ref">自动路由(传统)</span></a>。</p></li>
@@ -343,7 +349,7 @@
 </ul>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id23">模型、视图和控制器</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">模型、视图和控制器</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p>CodeIgniter 基于 MVC 概念。因此,模型、视图和控制器的更改是你必须处理的最重要的事项之一。</p></li>
 <li><p>在 CodeIgniter 4 中,模型现在位于 <strong>app/Models</strong> 中,在打开的 php 标记之后,你必须添加 <code class="docutils literal notranslate"><span class="pre">namespace</span> <span class="pre">App\Models;</span></code> 以及 <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">CodeIgniter\Model;</span></code>。最后一步是将 <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">CI_Model</span></code> 替换为 <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">Model</span></code>。</p></li>
@@ -360,7 +366,7 @@
 </div>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id24">类加载</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">类加载</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p>不再有 CodeIgniter “超级对象”,其中框架组件引用以属性的形式神奇地注入到你的控制器中。</p></li>
 <li><p>类根据需要进行实例化,框架组件通过 <a class="reference internal" href="../concepts/services.html"><span class="doc">服务</span></a> 进行管理。</p></li>
@@ -370,14 +376,14 @@
 </ul>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id25">库</a><a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">库</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p>你的应用类仍然可以放在 <strong>app/Libraries</strong> 中,但不必这样做。</p></li>
 <li><p>不再使用 CI3 的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;library('x');</span></code> ,现在可以使用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;x</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">\App\Libraries\X();</span></code>,遵循你组件的命名空间约定。或者,你可以使用 <a class="reference internal" href="../concepts/factories.html"><span class="doc">工厂</span></a>:<code class="docutils literal notranslate"><span class="pre">$this-&gt;x</span> <span class="pre">=</span> <span class="pre">\CodeIgniter\Config\Factories::libraries('X');</span></code>。</p></li>
 </ul>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id26">辅助函数</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">辅助函数</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="../general/helpers.html"><span class="doc">辅助函数</span></a> 与以前基本相同,尽管有些进行了简化。</p></li>
 <li><p>从 v4.3.0 开始,你可以通过 <strong>app/Config/Autoload.php</strong> 自动加载辅助函数,就像 CI3 一样。</p></li>
@@ -400,7 +406,8 @@
 <dt>在 CI4 中, <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 与 CI3 中的完全不同。</dt><dd><ul>
 <li><p><a class="reference external" href="https://codeigniter.com/userguide3/helpers/url_helper.html#redirect">redirect() 文档 CodeIgniter 3.X</a></p></li>
 <li><p><a class="reference external" href="../general/common_functions.html#redirect">redirect() 文档 CodeIgniter 4.X</a></p></li>
-<li><p>在 CI4 中, <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 返回一个 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例,而不是重定向和终止脚本执行。你必须返回它。</p></li>
+<li><p>在 CI4 中，<a class="reference internal" href="../general/common_functions.html#redirect" title="redirect"><code class="xref php php-func docutils literal notranslate"><span class="pre">redirect()</span></code></a> 返回一个 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例，而不是重定向并终止脚本执行。你必须从控制器或控制器过滤器中返回它。</p></li>
+<li><p>在调用 <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 之前设置的 Cookie 和 Header 不会自动携带到 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code>。如果你想发送它们，你需要手动调用 <code class="docutils literal notranslate"><span class="pre">withCookies()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">withHeaders()</span></code>。</p></li>
 <li><p>你需要将 CI3 的 <code class="docutils literal notranslate"><span class="pre">redirect('login/form')</span></code> 改为 <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">redirect()-&gt;to('login/form')</span></code>。</p></li>
 </ul>
 </dd>
@@ -409,7 +416,7 @@
 </ul>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id27">钩子</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">钩子</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.codeigniter.com/userguide3/general/hooks.html">钩子</a> 已被 <a class="reference internal" href="../extending/events.html"><span class="doc">事件</span></a> 替换。</p></li>
 <li><p>不再使用 CI3 的 <code class="docutils literal notranslate"><span class="pre">$hook['post_controller_constructor']</span></code>,现在使用
@@ -421,7 +428,32 @@
 </ul>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id28">扩展框架</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">错误处理</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<ul>
+<li><p>CI4 中的行为已经稍有更改。</p>
+<ul>
+<li><p>在 CI3 中，行为在 <strong>index.php</strong> 文件中设置：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>错误级别由 <code class="docutils literal notranslate"><span class="pre">error_reporting()</span></code> 设置的错误将被记录（但根据 <code class="docutils literal notranslate"><span class="pre">log_threshold</span></code> 设置，它们可能不会被写入日志文件）。</p></li>
+<li><p>错误级别为 <code class="docutils literal notranslate"><span class="pre">E_ERROR</span> <span class="pre">|</span> <span class="pre">E_PARSE</span> <span class="pre">|</span> <span class="pre">E_COMPILE_ERROR</span> <span class="pre">|</span> <span class="pre">E_CORE_ERROR</span> <span class="pre">|</span> <span class="pre">E_USER_ERROR</span></code> 的错误将停止框架处理，无论在 <code class="docutils literal notranslate"><span class="pre">error_reporting()</span></code> 中设置的错误级别如何。</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>在 CI4 中，行为在 <strong>app/Config/Boot/{environment}.php</strong> 文件中设置：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>错误级别由 <code class="docutils literal notranslate"><span class="pre">error_reporting()</span></code> 设置的错误将被记录（但根据 <code class="docutils literal notranslate"><span class="pre">Config\Logger::$threshold</span></code> 设置，它们可能不会被写入日志文件）。</p></li>
+<li><p>所有不被 <code class="docutils literal notranslate"><span class="pre">error_reporting()</span></code> 忽略的错误都将停止框架处理。</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id14">
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">扩展框架</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h3>
 <ul class="simple">
 <li><p>你不需要 <strong>core</strong> 文件夹来保存 <code class="docutils literal notranslate"><span class="pre">MY_...</span></code> 框架组件扩展或替换文件。</p></li>
 <li><p>你不需要在 libraries 文件夹中使用 <code class="docutils literal notranslate"><span class="pre">MY_X</span></code> 类来扩展或替换 CI4 组件。</p></li>
@@ -430,8 +462,8 @@
 </ul>
 </section>
 </section>
-<section id="id14">
-<h2><a class="toc-backref" href="#id29">升级库</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h2>
+<section id="id15">
+<h2><a class="toc-backref" href="#id31" role="doc-backlink">升级库</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p>你的应用类仍然可以放在 <strong>app/Libraries</strong> 中,但不必这样做。</p></li>
 <li><p>不再使用 CI3 的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;load-&gt;library('x');</span></code>,现在可以使用 <code class="docutils literal notranslate"><span class="pre">$this-&gt;x</span> <span class="pre">=</span> <span class="pre">new</span> <span class="pre">\App\Libraries\X();</span></code>,遵循你组件的命名空间约定。或者,你可以使用 <a class="reference internal" href="../concepts/factories.html"><span class="doc">工厂</span></a>:<code class="docutils literal notranslate"><span class="pre">$this-&gt;x</span> <span class="pre">=</span> <span class="pre">\CodeIgniter\Config\Factories::libraries('X');</span></code>。</p></li>
@@ -480,8 +512,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -489,7 +521,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41af4e50>
+<jinja2.runtime.BlockReference object at 0x7f162824c190>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

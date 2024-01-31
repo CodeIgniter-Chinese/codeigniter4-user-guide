@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>安全 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>安全 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,9 +284,9 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>安全<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>安全<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>安全类包含帮助保护你的网站免受跨站请求伪造(CSRF)攻击的方法。</p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id16">加载库</a></p></li>
 <li><p><a class="reference internal" href="#csrf" id="id17">跨站请求伪造(CSRF)</a></p>
@@ -311,9 +316,9 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id16">加载库</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">加载库</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>如果你加载库的唯一兴趣是处理 CSRF 保护,那么你永远不需要加载它,因为它作为过滤器运行且没有手动交互。</p>
 <p>但是,如果你发现确实需要直接访问,你可以通过 Services 文件加载它:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -323,16 +328,16 @@
 </div>
 </section>
 <section id="csrf">
-<span id="cross-site-request-forgery"></span><h2><a class="toc-backref" href="#id17">跨站请求伪造(CSRF)</a><a class="headerlink" href="#csrf" title="永久链接至标题"></a></h2>
+<span id="cross-site-request-forgery"></span><h2><a class="toc-backref" href="#id17" role="doc-backlink">跨站请求伪造(CSRF)</a><a class="headerlink" href="#csrf" title="此标题的永久链接"></a></h2>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>CSRF 保护仅适用于 <strong>POST/PUT/PATCH/DELETE</strong> 请求。不保护其他方法的请求。</p>
 </div>
 <section id="id4">
-<h3><a class="toc-backref" href="#id18">先决条件</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">先决条件</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>当你使用 CodeIgniter 的 CSRF 保护时,仍需要按如下方式编写代码。否则,CSRF 保护可能会被绕过。</p>
 <section id="id5">
-<h4><a class="toc-backref" href="#id19">当自动路由被禁用时</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">当自动路由被禁用时</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h4>
 <p>执行以下操作之一:</p>
 <ol class="arabic simple">
 <li><p>不要使用 <code class="docutils literal notranslate"><span class="pre">$routes-&gt;add()</span></code>,并在路由中使用 HTTP 动词。</p></li>
@@ -351,7 +356,7 @@
 </div>
 </section>
 <section id="id6">
-<h4><a class="toc-backref" href="#id20">当自动路由被启用时</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">当自动路由被启用时</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h4>
 <ol class="arabic simple">
 <li><p>在处理之前,在控制器方法中检查请求方法。</p></li>
 </ol>
@@ -364,9 +369,16 @@
 </section>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id21">CSRF 配置</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">CSRF 配置</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
 <section id="csrf-protection-methods">
-<span id="id8"></span><h4><a class="toc-backref" href="#id22">CSRF 保护方法</a><a class="headerlink" href="#csrf-protection-methods" title="永久链接至标题"></a></h4>
+<span id="id8"></span><h4><a class="toc-backref" href="#id22" role="doc-backlink">CSRF 保护方法</a><a class="headerlink" href="#csrf-protection-methods" title="此标题的永久链接"></a></h4>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>如果你使用 <a class="reference internal" href="sessions.html"><span class="doc">Session</span></a>，一定要使用基于 Session 的
+CSRF 保护。基于 Cookie 的 CSRF 保护无法防止同站攻击。
+详情请参见
+<a class="reference external" href="https://github.com/codeigniter4/shield/security/advisories/GHSA-5hm8-vh6r-2cjq">GHSA-5hm8-vh6r-2cjq</a> 。</p>
+</div>
 <p>默认情况下,使用基于 Cookie 的 CSRF 保护。它是 OWASP 跨站请求伪造预防备忘单上的
 <a class="reference external" href="https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie">双重提交 Cookie</a>。</p>
 <p>你也可以使用基于会话的 CSRF 保护。它是
@@ -388,7 +400,7 @@
 </div>
 </section>
 <section id="id10">
-<h4><a class="toc-backref" href="#id23">令牌随机化</a><a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
+<h4><a class="toc-backref" href="#id23" role="doc-backlink">令牌随机化</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h4>
 <p>为了缓解像 <a class="reference external" href="https://en.wikipedia.org/wiki/BREACH">BREACH</a> 这样的压缩旁道攻击,并阻止攻击者猜测 CSRF 令牌,你可以配置令牌随机化(默认关闭)。</p>
 <p>如果你启用它,随机掩码会添加到令牌中并用于扰乱它。</p>
 <p>你可以通过编辑以下配置参数的值在 <strong>app/Config/Security.php</strong> 来启用它:</p>
@@ -408,8 +420,9 @@
 </div>
 </section>
 <section id="id11">
-<h4><a class="toc-backref" href="#id24">令牌再生成</a><a class="headerlink" href="#id11" title="永久链接至标题"></a></h4>
-<p>令牌可以在每次提交时重新生成(默认),或者在 CSRF cookie 的整个生命周期内保持不变。令牌的默认再生成提供了更严格的安全性,但可能导致可用性问题,因为其他令牌变得无效(后退/前进导航、多个选项卡/窗口、异步操作等)。你可以通过编辑以下配置参数的值在 <strong>app/Config/Security.php</strong> 来更改此行为:</p>
+<h4><a class="toc-backref" href="#id24" role="doc-backlink">令牌再生成</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h4>
+<p>令牌可以在每次提交时重新生成(默认),或者在 Session 或 CSRF Cookie 的整个生命周期内保持不变。</p>
+<p>令牌的默认再生成提供了更严格的安全性,但可能导致可用性问题,因为其他令牌变得无效(后退/前进导航、多个选项卡/窗口、异步操作等)。你可以通过编辑以下配置参数的值在 <strong>app/Config/Security.php</strong> 来更改此行为:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
@@ -424,13 +437,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>如果你使用基于 Cookie 的 CSRF 保护，并在提交后使用 <a class="reference internal" href="../general/common_functions.html#redirect" title="redirect"><code class="xref php php-func docutils literal notranslate"><span class="pre">redirect()</span></code></a>，
+你必须调用 <code class="docutils literal notranslate"><span class="pre">withCookie()</span></code> 来发送重新生成的 CSRF Cookie。详情请参见 <a class="reference internal" href="../outgoing/response.html#response-redirect"><span class="std std-ref">重定向</span></a>。</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>自 v4.2.3 起,你可以用 <code class="docutils literal notranslate"><span class="pre">Security::generateHash()</span></code> 方法手动重新生成 CSRF 令牌。</p>
 </div>
 </section>
 <section id="csrf-redirection-on-failure">
-<span id="id12"></span><h4><a class="toc-backref" href="#id25">失败时重定向</a><a class="headerlink" href="#csrf-redirection-on-failure" title="永久链接至标题"></a></h4>
+<span id="id12"></span><h4><a class="toc-backref" href="#id25" role="doc-backlink">失败时重定向</a><a class="headerlink" href="#csrf-redirection-on-failure" title="此标题的永久链接"></a></h4>
 <p>自 v4.3.0 起,当请求失败 CSRF 验证检查时,它将默认抛出 SecurityException。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -462,7 +480,7 @@
 </section>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id26">启用 CSRF 保护</a><a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">启用 CSRF 保护</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
 <p>你可以通过更改 <strong>app/Config/Filters.php</strong> 并全局启用 <cite>csrf</cite> 过滤器来启用 CSRF 保护:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -545,7 +563,7 @@
 </div>
 </section>
 <section id="html">
-<h3><a class="toc-backref" href="#id27">HTML 表单</a><a class="headerlink" href="#html" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">HTML 表单</a><a class="headerlink" href="#html" title="此标题的永久链接"></a></h3>
 <p>如果使用 <a class="reference internal" href="../helpers/form_helper.html"><span class="doc">表单辅助函数</span></a>,那么 <code class="xref py py-func docutils literal notranslate"><span class="pre">form_open()</span></code> 将自动在你的表单中插入一个隐藏的 csrf 字段。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -569,7 +587,7 @@
 </div>
 </section>
 <section id="id14">
-<h3><a class="toc-backref" href="#id28">用户发送令牌的顺序</a><a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">用户发送令牌的顺序</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h3>
 <p>检查 CSRF 令牌可用性的顺序如下:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">$_POST</span></code> 数组</p></li>
@@ -584,10 +602,10 @@
 </section>
 </section>
 <section id="id15">
-<h2><a class="toc-backref" href="#id29">其他有用的方法</a><a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">其他有用的方法</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h2>
 <p>你很少需要直接使用 Security 类中的大多数方法。以下是与 CSRF 保护无关的可能对你有帮助的方法。</p>
 <section id="sanitizefilename">
-<h3><a class="toc-backref" href="#id30">sanitizeFilename()</a><a class="headerlink" href="#sanitizefilename" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id30" role="doc-backlink">sanitizeFilename()</a><a class="headerlink" href="#sanitizefilename" title="此标题的永久链接"></a></h3>
 <p>试图清理文件名以防止目录遍历攻击和其他安全威胁,这对于通过用户输入提供的文件特别有用。第一个参数是要清理的路径。</p>
 <p>如果用户输入可以包含相对路径,例如 <strong>file/in/some/approved/folder.txt</strong>,你可以将第二个可选参数 <code class="docutils literal notranslate"><span class="pre">$relativePath</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -610,8 +628,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -619,7 +637,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41a7aa90>
+<jinja2.runtime.BlockReference object at 0x7f1628eba790>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

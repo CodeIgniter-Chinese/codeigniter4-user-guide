@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>升级迁移 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>升级迁移 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -281,8 +286,8 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>升级迁移<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<div class="contents local topic" id="id2">
+<h1>升级迁移<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id9">文档</a></p></li>
 <li><p><a class="reference internal" href="#id4" id="id10">变更点</a></p></li>
@@ -295,16 +300,16 @@
 </li>
 <li><p><a class="reference internal" href="#id8" id="id15">搜索和替换</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id9">文档</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">文档</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="http://codeigniter.com/userguide3/libraries/migration.html">CodeIgniter 3.X 数据库迁移文档</a></p></li>
 <li><p><a class="reference internal" href="../dbmgmt/migration.html"><span class="doc">CodeIgniter 4.X 数据库迁移文档</span></a></p></li>
 </ul>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id10">变更点</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">变更点</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <ul class="simple">
 <li><p>首先,迁移文件的顺序命名(<code class="docutils literal notranslate"><span class="pre">001_create_users</span></code>、<code class="docutils literal notranslate"><span class="pre">002_create_posts</span></code>)不再被支持。CodeIgniter 4 版本仅支持时间戳方案(<code class="docutils literal notranslate"><span class="pre">20121031100537_create_users</span></code>、<code class="docutils literal notranslate"><span class="pre">20121031500638_create_posts</span></code>)。如果使用了顺序命名,则需要重命名每个迁移文件。</p></li>
 <li><p>迁移表定义已更改。如果从 CI3 升级到 CI4 并使用相同的数据库,则需要升级迁移表定义及其数据。</p></li>
@@ -315,7 +320,7 @@
 </div>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id11">升级指南</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">升级指南</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <ol class="arabic">
 <li><p>如果 v3 项目使用顺序迁移名,则需要将其更改为时间戳名称。</p></li>
 <li><p>必须将所有迁移文件移至新的文件夹 <strong>app/Database/Migrations</strong>。</p></li>
@@ -347,9 +352,9 @@
 </ol>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id12">代码示例</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">代码示例</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
 <section id="id7">
-<h3><a class="toc-backref" href="#id13">CodeIgniter 3.x 版本</a><a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">CodeIgniter 3.x 版本</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
 <p>路径:<strong>application/migrations</strong>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -388,7 +393,7 @@
 </div>
 </section>
 <section id="codeigniter-4-x">
-<h3><a class="toc-backref" href="#id14">CodeIgniter 4.x 版本</a><a class="headerlink" href="#codeigniter-4-x" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">CodeIgniter 4.x 版本</a><a class="headerlink" href="#codeigniter-4-x" title="此标题的永久链接"></a></h3>
 <p>路径:<strong>app/Database/Migrations</strong>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -430,13 +435,9 @@
 </section>
 </section>
 <section id="id8">
-<h2><a class="toc-backref" href="#id15">搜索和替换</a><a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">搜索和替换</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
 <p>你可以使用以下表格搜索和替换旧的 CI3 文件。</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 52%" />
-<col style="width: 48%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>搜索</p></th>
 <th class="head"><p>替换</p></th>
@@ -474,8 +475,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -483,7 +484,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41f02cd0>
+<jinja2.runtime.BlockReference object at 0x7f162931f750>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

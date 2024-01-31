@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>官方包 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>官方包 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -130,6 +134,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -277,20 +282,22 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>官方包<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>官方包<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>CodeIgniter 框架无法解决开发者将遇到的所有问题。许多用户说他们喜欢框架小巧、快速的特点,所以我们不想让核心框架臃肿。为了弥合这一差距,我们正在发布官方包以提供不是每个网站都需要或想要的额外功能。</p>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#shield" id="id5">Shield</a></p></li>
-<li><p><a class="reference internal" href="#settings" id="id6">Settings</a></p></li>
-<li><p><a class="reference internal" href="#cache" id="id7">Cache</a></p></li>
-<li><p><a class="reference internal" href="#devkit" id="id8">DevKit</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id9">编码标准</a></p></li>
+<li><p><a class="reference internal" href="#shield" id="id8">Shield</a></p></li>
+<li><p><a class="reference internal" href="#settings" id="id9">Settings</a></p></li>
+<li><p><a class="reference internal" href="#beta" id="id10">任务 (BETA)</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id11">队列 (BETA)</a></p></li>
+<li><p><a class="reference internal" href="#cache" id="id12">Cache</a></p></li>
+<li><p><a class="reference internal" href="#devkit" id="id13">DevKit</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id14">编码标准</a></p></li>
 </ul>
-</div>
+</nav>
 <section id="shield">
-<span id="id3"></span><h2><a class="toc-backref" href="#id5">Shield</a><a class="headerlink" href="#shield" title="永久链接至标题"></a></h2>
-<p><a class="reference external" href="https://codeigniter4.github.io/shield/">CodeIgniter Shield</a> 是 CodeIgniter 4 的身份验证和授权框架。它旨在安全、灵活且易于扩展以满足许多不同类型网站的需求。其中许多功能包括:</p>
+<span id="id3"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">Shield</a><a class="headerlink" href="#shield" title="此标题的永久链接"></a></h2>
+<p><a class="reference external" href="https://shield.codeigniter.com/">CodeIgniter Shield</a> 是 CodeIgniter 4 的身份验证和授权框架。它旨在安全、灵活且易于扩展以满足许多不同类型网站的需求。其中许多功能包括:</p>
 <ul class="simple">
 <li><p>基于会话的身份验证</p></li>
 <li><p>个人访问令牌认证</p></li>
@@ -301,19 +308,29 @@
 </ul>
 </section>
 <section id="settings">
-<h2><a class="toc-backref" href="#id6">Settings</a><a class="headerlink" href="#settings" title="永久链接至标题"></a></h2>
-<p><a class="reference external" href="https://github.com/codeigniter4/settings">CodeIgniter Settings</a> 是配置文件包装器,允许任何配置设置保存到数据库中,同时在没有自定义值存储时默认为配置文件。这允许应用程序与默认配置值一起发布,但随着项目的发展或服务器的迁移而不必接触代码而适应。</p>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Settings</a><a class="headerlink" href="#settings" title="此标题的永久链接"></a></h2>
+<p><a class="reference external" href="https://settings.codeigniter.com">CodeIgniter Settings</a> 是配置文件包装器,允许任何配置设置保存到数据库中,同时在没有自定义值存储时默认为配置文件。这允许应用程序与默认配置值一起发布,但随着项目的发展或服务器的迁移而不必接触代码而适应。</p>
+</section>
+<section id="beta">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">任务 (BETA)</a><a class="headerlink" href="#beta" title="此标题的永久链接"></a></h2>
+<p><a class="reference external" href="https://tasks.codeigniter.com">CodeIgniter 任务</a> 是 CodeIgniter 4 的一个简单任务调度器。
+它允许你安排任务在特定时间运行，或者定期运行。它的设计目标是简单易用，但足够灵活以处理大多数使用场景。</p>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">队列 (BETA)</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
+<p><a class="reference external" href="https://queue.codeigniter.com">CodeIgniter 队列</a> 是 CodeIgniter 4 的一个简单队列系统。
+它允许你将任务排队，以便稍后运行。</p>
 </section>
 <section id="cache">
-<h2><a class="toc-backref" href="#id7">Cache</a><a class="headerlink" href="#cache" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Cache</a><a class="headerlink" href="#cache" title="此标题的永久链接"></a></h2>
 <p>我们为 CodeIgniter 4 提供了带有 <a class="reference external" href="https://github.com/codeigniter4/cache">PSR-6 和 PSR-16 缓存适配器</a> 的库。这不是必需的,因为 CodeIgniter 4 自带完全功能的缓存组件。此模块仅用于集成依赖 PSR 接口规定的第三方包。</p>
 </section>
 <section id="devkit">
-<h2><a class="toc-backref" href="#id8">DevKit</a><a class="headerlink" href="#devkit" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">DevKit</a><a class="headerlink" href="#devkit" title="此标题的永久链接"></a></h2>
 <p><a class="reference external" href="https://github.com/codeigniter4/devkit">CodeIgniter DevKit</a> 提供了 CodeIgniter 用来帮助确保高质量代码的所有开发工具,包括我们的编码标准、静态分析工具和规则、单元测试、数据生成、文件系统模拟、安全建议等等。这可以在你的任何个人项目或库中使用,以快速设置 17 种不同的工具。</p>
 </section>
-<section id="id4">
-<h2><a class="toc-backref" href="#id9">编码标准</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<section id="id6">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">编码标准</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
 <p><a class="reference external" href="https://github.com/CodeIgniter/coding-standard">CodeIgniter 编码标准</a> 包含了基于 PHP CS Fixer 和 Nexus CS Config 的 CodeIgniter 的官方编码标准。这可以在你自己的项目中使用,以形成一致的风格规则集合,可以自动应用于你的代码。</p>
 </section>
 </section>
@@ -328,8 +345,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -337,7 +354,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41805dd0>
+<jinja2.runtime.BlockReference object at 0x7f16284ed1d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

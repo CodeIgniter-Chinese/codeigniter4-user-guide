@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>模型、视图和控制器 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>模型、视图和控制器 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -279,8 +284,8 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>模型、视图和控制器<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<div class="contents local topic" id="id2">
+<h1>模型、视图和控制器<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#mvc" id="id7">什么是 MVC?</a></p></li>
 <li><p><a class="reference internal" href="#id3" id="id8">组件</a></p>
@@ -291,9 +296,9 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="mvc">
-<h2><a class="toc-backref" href="#id7">什么是 MVC?</a><a class="headerlink" href="#mvc" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">什么是 MVC?</a><a class="headerlink" href="#mvc" title="此标题的永久链接"></a></h2>
 <p>无论何时创建应用程序,都必须找到一种组织代码的方式,以便轻松定位正确的文件并简化维护。与大多数 Web 框架一样,CodeIgniter 使用模型、视图、控制器(MVC)模式来组织文件。这将数据、表示和应用程序流保持为单独的部分。</p>
 <p>应该指出,对于每个元素的确切角色有许多不同看法,但本文档描述了我们的看法。如果你有不同的看法,你可以根据需要自由修改如何使用每个部分。</p>
 <p><strong>模型</strong> 管理应用程序的数据,并帮助执行应用程序可能需要的任何特殊业务规则。</p>
@@ -303,9 +308,9 @@
 <p>让我们更仔细地看看这三个主要组件中的每个组件。</p>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id8">组件</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">组件</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <section id="id4">
-<h3><a class="toc-backref" href="#id9">视图</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">视图</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>视图是最简单的文件,通常是包含很少 PHP 的 HTML。PHP 应该非常简单,通常只是显示变量的内容,或者循环一些项目并在表中显示它们的信息。</p>
 <p>视图从控制器获取要显示的数据,控制器将其作为变量传递给视图,然后可以用简单的 <code class="docutils literal notranslate"><span class="pre">echo</span></code> 调用显示。你也可以在视图中显示其他视图,这样就可以很容易地在每个页面显示通用标头或页脚。</p>
 <p>视图通常存储在 <strong>app/Views</strong> 中,但是如果不以某种方式组织,很快就会变得难以管理。CodeIgniter 不强制任何类型的组织,但是一个好的经验法则是在 <strong>Views</strong> 目录中为每个控制器创建一个新目录。然后,用方法名称命名视图。这样以后就很容易找到它们。例如,用户个人资料可能在名为 <code class="docutils literal notranslate"><span class="pre">User</span></code> 的控制器以及名为 <code class="docutils literal notranslate"><span class="pre">profile</span></code> 的方法中显示。你可以将此方法的视图文件存储在 <strong>app/Views/user/profile.php</strong> 中。</p>
@@ -313,14 +318,14 @@
 <p><a class="reference internal" href="../outgoing/views.html"><span class="doc">了解更多关于视图的信息</span></a></p>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id10">模型</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">模型</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>模型的任务是为应用程序维护一种数据类型。这可能是用户、博客文章、事务等。在这种情况下,模型的工作有两部分:在从数据库中获取或放入数据库时,对数据执行业务规则;以及从数据库保存和检索数据。</p>
 <p>对许多开发人员来说,确定执行了哪些业务规则会造成困惑。这简单意味着任何对数据的限制或要求都由模型处理。这可能包括在保存以满足公司标准之前规范化原始数据,或者以某种方式格式化列,然后才将其交给控制器。通过在模型中保留这些业务要求,你不会在多个控制器中重复代码,并且不会意外地遗漏更新某个区域。</p>
 <p>模型通常存储在 <strong>app/Models</strong> 中,尽管它们可以使用命名空间按需要进行分组。</p>
 <p><a class="reference internal" href="../models/model.html"><span class="doc">了解更多关于模型的信息</span></a></p>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id11">控制器</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">控制器</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>控制器有几个不同的角色。最明显的一点是它们从用户那里接收输入,然后确定对其进行何种处理。这通常涉及将数据传递给模型以保存它,或者从模型请求数据,然后将其传递给视图以显示。如果需要,这还包括加载其他实用程序类来处理模型范围之外的专门任务。</p>
 <p>控制器的另一个职责是处理与 HTTP 请求相关的所有内容 - 重定向、身份验证、Web 安全、编码等。简而言之,控制器是确保人们被允许访问那里,并以他们可以使用的格式获取所需数据的地方。</p>
 <p>控制器通常存储在 <strong>app/Controllers</strong> 中,尽管它们可以使用命名空间按需要分组。</p>
@@ -340,8 +345,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -349,7 +354,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f42062f10>
+<jinja2.runtime.BlockReference object at 0x7f162f04a410>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

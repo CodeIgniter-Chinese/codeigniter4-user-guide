@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="zh-CN">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>从 4.0.4 升级到 4.0.5 &mdash; CodeIgniter 4.4.3 中文手册|用户手册|用户指南|中文文档</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/citheme_dark.css" type="text/css" />
+  <title>从 4.0.4 升级到 4.0.5 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -16,7 +18,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/translations.js"></script>
         <script src="../_static/js/citheme.js"></script>
         <script src="../_static/js/carbon.js"></script>
@@ -131,6 +135,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
 </ul>
@@ -280,14 +285,14 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>从 4.0.4 升级到 4.0.5<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<h1>从 4.0.4 升级到 4.0.5<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <p>请参考与你的安装方法相对应的升级说明。</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="installing_composer.html#app-starter-upgrading"><span class="std std-ref">通过 Composer 安装应用启动器升级</span></a></p></li>
 <li><p><a class="reference internal" href="installing_composer.html#adding-codeigniter4-upgrading"><span class="std std-ref">通过 Composer 安装到现有项目升级</span></a></p></li>
 <li><p><a class="reference internal" href="installing_manual.html#installing-manual-upgrading"><span class="std std-ref">手动安装升级</span></a></p></li>
 </ul>
-<div class="contents local topic" id="id2">
+<nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id7">重大增强</a></p>
 <ul>
@@ -304,11 +309,11 @@
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id7">重大增强</a><a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">重大增强</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <section id="cookie-samesite">
-<h3><a class="toc-backref" href="#id8">Cookie SameSite 支持</a><a class="headerlink" href="#cookie-samesite" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Cookie SameSite 支持</a><a class="headerlink" href="#cookie-samesite" title="此标题的永久链接"></a></h3>
 <p>CodeIgniter 4.0.5 引入了 cookie 的 SameSite 属性设置。先前版本没有设置此属性。
 cookie的默认设置现在是`Lax`。这将影响 cookie 在跨域环境中的处理,你可能需要在项目中调整此设置。
 在 <strong>app/Config/App.php</strong> 中为响应 cookie 和 CSRF cookie 分别存在独立设置。</p>
@@ -317,7 +322,7 @@ SameSite 规范描述在 <a class="reference external" href="https://tools.ietf.
 <a class="reference external" href="https://datatracker.ietf.org/doc/draft-ietf-httpbis-rfc6265bis/?include_text=1">RFC 6265bis 修订版</a> 中。</p>
 </section>
 <section id="message-getheader-s">
-<h3><a class="toc-backref" href="#id9">Message::getHeader(s)</a><a class="headerlink" href="#message-getheader-s" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Message::getHeader(s)</a><a class="headerlink" href="#message-getheader-s" title="此标题的永久链接"></a></h3>
 <p>HTTP 层正在向 <a class="reference external" href="https://www.php-fig.org/psr/psr-7/">PSR-7 兼容</a> 迈进。
 为此, <code class="docutils literal notranslate"><span class="pre">Message::getHeader()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Message::getHeaders()</span></code> 已被废弃,
 应分别替换为 <code class="docutils literal notranslate"><span class="pre">Message::header()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Message::headers()</span></code>。
@@ -335,7 +340,7 @@ SameSite 规范描述在 <a class="reference external" href="https://tools.ietf.
 </ul>
 </section>
 <section id="responseinterface">
-<h3><a class="toc-backref" href="#id10">ResponseInterface</a><a class="headerlink" href="#responseinterface" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">ResponseInterface</a><a class="headerlink" href="#responseinterface" title="此标题的永久链接"></a></h3>
 <p>该接口旨在包括任何框架兼容的响应类所需的方法。缺少许多框架所需的方法,现已添加。
 如果你使用任何直接实现 <code class="docutils literal notranslate"><span class="pre">ResponseInterface</span></code> 的类,它们需要与更新后的要求兼容。
 这些方法如下:</p>
@@ -361,14 +366,14 @@ SameSite 规范描述在 <a class="reference external" href="https://tools.ietf.
 <code class="docutils literal notranslate"><span class="pre">DownloadResponse</span></code> 现在直接扩展 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 以确保最大兼容性。</p>
 </section>
 <section id="config-services">
-<h3><a class="toc-backref" href="#id11">Config\Services</a><a class="headerlink" href="#config-services" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Config\Services</a><a class="headerlink" href="#config-services" title="此标题的永久链接"></a></h3>
 <p>服务发现已更新,允许第三方服务(在通过 Modules 启用时)优先于核心服务。
 请更新 <strong>app/Config/Services.php</strong>,使类扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Config\BaseService</span></code>
 以允许正确发现第三方服务。</p>
 </section>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id12">项目文件</a><a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">项目文件</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <p>项目空间(根目录、app、public、writable)中的许多文件都已更新。
 由于这些文件超出系统范围,如果不进行干预,它们将不会更改。
 有一些第三方 CodeIgniter 模块可用于帮助合并项目空间中的更改:
@@ -379,7 +384,7 @@ SameSite 规范描述在 <a class="reference external" href="https://tools.ietf.
 直到下一个主版本之前,这里注明的所有更改都是可选的,任何强制性更改都将在上面的部分中介绍。</p>
 </div>
 <section id="id5">
-<h3><a class="toc-backref" href="#id13">内容更改</a><a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">内容更改</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>建议你将更新版本与应用程序合并,因为以下文件收到显着更改(包括不推荐使用或视觉调整):</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">app/Views/*</span></code></p></li>
@@ -391,7 +396,7 @@ SameSite 规范描述在 <a class="reference external" href="https://tools.ietf.
 </ul>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id14">所有更改</a><a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">所有更改</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>这是项目空间中已更改的所有文件的列表;其中许多只是注释或格式更改,不会对运行时产生影响:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">LICENSE</span></code></p></li>
@@ -460,8 +465,8 @@ SameSite 规范描述在 <a class="reference external" href="https://tools.ietf.
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2023 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2023-10-29.
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-01-31.
       </span></p>
   </div>
 
@@ -469,7 +474,7 @@ SameSite 规范描述在 <a class="reference external" href="https://tools.ietf.
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7f6f41ac30d0>
+<jinja2.runtime.BlockReference object at 0x7f1628b78290>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
