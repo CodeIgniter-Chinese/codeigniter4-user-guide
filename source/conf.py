@@ -130,7 +130,7 @@ latex_engine = 'xelatex'
 # toctree_only)
 latex_documents = [
   ('index', 'CodeIgniter.tex', u'CodeIgniter4 中文手册',
-   r'\hfill CodeIgniter 基金会\\CodeIgniter 中国开发者社区', 'manual'),
+   r'\hspace{4em}CodeIgniter 基金会\\CodeIgniter 中国开发者社区', 'manual'),
 ]
 
 latex_elements = {
