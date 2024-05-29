@@ -43,10 +43,10 @@ CodeIgniter 使用一种非常类似于流行数据库类 ADODB 的方法来处�
 管理错误
 ===============
 
-当你在 **app/Config/Database.php** 文件中设置 ``DBDebug`` 为 true 时,如果查询错误发生,
-所有查询都将回滚,并抛出异常。所以你会看到一个标准的错误页面。
+.. note::
+    自 v4.3.0 起，即使 ``DBDebug`` 为 true，在事务期间默认也不会抛出异常。
 
-如果 ``DBDebug`` 为 false,你可以像这样管理自己的错误:
+你可以像这样管理自己的错误：
 
 .. literalinclude:: transactions/003.php
 

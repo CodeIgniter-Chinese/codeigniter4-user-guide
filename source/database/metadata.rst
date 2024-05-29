@@ -48,13 +48,13 @@ $db->getFieldNames()
 
 返回包含字段名称的数组。可以通过两种方式调用此查询:
 
-1. 你可以提供表格名称并从 ``$db->object`` 调用它:
+1. 你可以提供表格名称并从 ``$db`` 对象调用它:
 
-   .. literalinclude:: metadata/003.php
+    .. literalinclude:: metadata/003.php
 
 2. 你可以通过从查询结果对象调用函数来收集与任何查询关联的字段名称:
 
-.. literalinclude:: metadata/004.php
+    .. literalinclude:: metadata/004.php
 
 确定表中是否存在字段
 ==========================================
@@ -86,18 +86,25 @@ $db->getFieldData()
 
 .. literalinclude:: metadata/006.php
 
-如果你已经运行了一个查询,你可以使用结果对象而不是提供表格名称:
+如果你的数据库支持，下列数据可以通过此函数获取：
+
+- ``name`` - 列名称
+- ``type`` - 列的类型
+- ``max_length`` - 列的最大长度
+- ``nullable`` - 如果列允许为空，则为布尔值 ``true`` ，否则为布尔值 ``false``
+- ``default`` - 默认值
+- ``primary_key`` - 如果列是主键，则为整数 ``1``（即使有多个主键，所有主键值都是整数 ``1``），否则为整数 ``0``（此字段目前仅对 ``MySQLi`` 和 ``SQLite3`` 可用）
+
+.. note:: 自 v4.4.0 起，SQLSRV 支持 ``nullable``。
+
+$query->getFieldData()
+----------------------
+
+如果你已经运行了一个查询，可以使用结果对象而不是提供表名：
 
 .. literalinclude:: metadata/007.php
 
-如果数据库支持,可以从此函数获取以下数据:
-
-- name - 列名称
-- type - 列的类型
-- max_length - 列的最大长度
-- primary_key - 如果列是主键,则为整数 ``1`` (即使有多个主键,也全部为整数 ``1``),否则为整数 ``0`` (此字段当前仅适用于 MySQL 和 SQLite3)
-- nullable - 如果列可为空,则为布尔值 ``true``,否则为布尔值 ``false``
-- default - 默认值
+.. note:: 返回的数据与 ``$db->getFieldData()`` 返回的数据不同。如果你无法获取所需的数据，请使用 ``$db->getFieldData()``。
 
 列出表中的索引
 ===========================

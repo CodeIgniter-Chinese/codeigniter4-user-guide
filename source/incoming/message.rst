@@ -4,7 +4,7 @@ HTTP 消息
 
 Message 类为 HTTP 消息中请求和响应共有的部分提供了一个接口,包括消息体、协议版本、用于处理头的实用程序以及处理内容协商的方法。
 
-此类是 :doc:`请求类 <../incoming/request>` 和 :doc:`响应类 <../outgoing/response>` 都扩展的父类。
+这个类是 :doc:`请求类 <../incoming/request>` 和 :doc:`响应类 <../outgoing/response>` 的父类，不能直接使用。
 
 ***************
 类参考
@@ -133,6 +133,19 @@ Message 类为 HTTP 消息中请求和响应共有的部分提供了一个接口
         在现有标头前面添加一个值。标头必须已经是一个值数组,而不是单个字符串。如果它是一个字符串,则会抛出 LogicException。
 
         .. literalinclude:: message/009.php
+
+    .. php:method:: addHeader($name, $value)
+
+        .. versionadded:: 4.5.0
+
+        :param string $name: 要添加的头名称。
+        :param string $value: 头的值。
+        :returns: 当前消息实例
+        :rtype: CodeIgniter\\HTTP\\Message
+
+        添加具有相同名称的头（不是头的值）。仅在设置多个具有相同名称的头时使用。
+
+        .. literalinclude:: message/011.php
 
     .. php:method:: getProtocolVersion()
 

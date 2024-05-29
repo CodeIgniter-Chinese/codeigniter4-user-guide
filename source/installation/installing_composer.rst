@@ -5,17 +5,16 @@ Composer 安装
     :local:
     :depth: 2
 
-Composer 可以通过几种方式在你的系统上安装 CodeIgniter4。
+Composer 可以通过两种方式在你的系统上安装 CodeIgniter4。
 
 .. important:: CodeIgniter4 需要 Composer 2.0.14 或更高版本。
 
 .. note:: 如果你不熟悉 Composer,我们建议你先阅读
     `基本用法 <https://getcomposer.org/doc/01-basic-usage.md>`_。
 
-第一种技术描述了使用 CodeIgniter4 创建骨架项目的方法,然后你可以将其用作新 Web 应用程序的基础。
-下面描述的第二种技术允许你将 CodeIgniter4 添加到现有的 Web 应用程序中。
+第一个方法描述了如何使用 CodeIgniter4 创建一个项目骨架（App Starter），你可以将其作为新 Web 应用的基础。下面描述的第二个方法允许你将 CodeIgniter4 添加到已有的 Web 应用中。
 
-.. note:: 如果你使用 Git 仓库存储代码或与他人协作,那么 **vendor** 文件夹通常会被“git 忽略”。在这种情况下,当你将仓库克隆到新系统时,需要运行 ``composer update``。
+.. note:: 如果你使用 Git 仓库来存储代码或与他人协作，那么 **vendor** 文件夹通常会被 “git 忽略”。在这种情况下，当你将仓库克隆到一个新系统时，你需要执行 ``composer install``（如果你想更新所有 Composer 依赖项，则执行 ``composer update``）。
 
 App Starter
 ===========
@@ -48,6 +47,32 @@ App Starter
 
     上述命令将只移除开发环境下的 Composer 软件包,这些软件包在生产环境中不需要。这将大大减少 vendor 文件夹的大小。
 
+安装先前版本
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+例如，你可能希望在 v4.5.0 发布后安装 v4.4.8。
+
+在这种情况下，在命令中指定版本：
+
+.. code-block:: console
+
+    composer create-project codeigniter4/appstarter:4.4.8 project-root
+
+然后，在项目根文件夹中打开 **composer.json**，并指定框架版本：
+
+.. code-block:: text
+
+    "require": {
+        ...
+        "codeigniter4/framework": "4.4.8"
+    },
+
+然后，运行 ``composer update`` 命令。
+
+.. note:: 当你在 **composer.json** 中使用固定版本号如 ``"codeigniter4/framework": "4.4.8"`` 时，``composer update`` 命令将不会更新框架到最新版本。请参见 `Writing Version Constraints`_ 了解如何指定版本。
+
+.. _Writing Version Constraints: https://getcomposer.org/doc/articles/versions.md#writing-version-constraints
+
 初始配置
 ---------------------
 
@@ -64,7 +89,25 @@ App Starter
 
     composer update
 
-阅读 :doc:`升级说明 <upgrading>`,并查看已破坏的更改和增强功能。
+阅读 :doc:`升级说明 <upgrading>` 和 :doc:`变更日志 <../changelogs/index>`，并检查重大变更和增强功能。
+
+升级到指定版本
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+例如，你可能希望在 v4.5.0 发布后从 v4.4.7 升级到 v4.4.8。
+
+在这种情况下，在项目根文件夹中打开 **composer.json**，并指定框架版本：
+
+.. code-block:: text
+
+    "require": {
+        ...
+        "codeigniter4/framework": "4.4.8"
+    },
+
+然后，运行 ``composer update`` 命令。
+
+.. note:: 当你在 **composer.json** 中使用固定版本号如 ``"codeigniter4/framework": "4.4.8"`` 时，``composer update`` 命令将不会更新框架到最新版本。请参见 `Writing Version Constraints`_ 了解如何指定版本。
 
 优点
 ----
@@ -113,11 +156,11 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 
 如果你想使用下一个次要版本的分支，在使用 ``builds`` 命令后手动编辑 **composer.json**。
 
-如果你尝试使用 ``4.4`` 分支，请将版本更改为 ``4.4.x-dev``::
+如果你尝试使用 ``4.6`` 分支，请将版本更改为 ``4.6.x-dev``::
 
     "require": {
-        "php": "^7.4 || ^8.0",
-        "codeigniter4/codeigniter4": "4.4.x-dev"
+        "php": "^8.1",
+        "codeigniter4/codeigniter4": "4.6.x-dev"
     },
 
 然后运行 ``composer update``，以使你的 vendor 文件夹与最新的目标构建同步。然后，根据需要检查升级指南（**user_guide_src/source/installation/upgrade_{version}.rst**）并更新项目文件。
@@ -150,9 +193,9 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 
 .. important:: 将应用程序部署到生产服务器时,不要忘记运行以下命令:
 
-.. code-block:: console
+    .. code-block:: console
 
-    composer install --no-dev
+        composer install --no-dev
 
     上述命令将只移除开发环境下的 Composer 软件包,这些软件包在生产环境中不需要。这将大大减少 vendor 文件夹的大小。
 
@@ -179,7 +222,23 @@ App Starter 仓库带有 ``builds`` 脚本,可在当前稳定版本和框架的�
 
     composer update
 
-阅读 :doc:`升级说明 <upgrading>`,并查看已破坏的更改和增强功能。
+阅读 :doc:`升级说明 <upgrading>` 和 :doc:`变更日志 <../changelogs/index>`，并检查重大变更和增强功能。
+
+升级到指定版本
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+例如，你可能希望在 v4.5.0 发布后从 v4.4.7 升级到 v4.4.8。
+
+在这种情况下，在项目根文件夹中打开 **composer.json**，并指定框架版本：
+
+.. code-block:: text
+
+    "require": {
+        ...
+        "codeigniter4/framework": "4.4.8"
+    },
+
+然后，运行 ``composer update`` 命令。
 
 优点
 ----

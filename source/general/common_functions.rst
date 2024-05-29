@@ -178,7 +178,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     .. literalinclude:: common_functions/004.php
 
-    有关更多详细信息,请参阅 :doc:`视图 </outgoing/views>` 页面。
+    有关更多详细信息,请参阅 :doc:`视图 <../outgoing/views>` 和 :doc:`../outgoing/view_renderer` 页面。
 
 .. php:function:: view_cell($library[, $params = null[, $ttl = 0[, $cacheName = null]]])
 
@@ -297,12 +297,14 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
     :param   string   $level: 严重级别
     :param   string   $message: 要记录的消息
     :param   array    $context: 应在 $message 中替换的标签及其值的关联数组
-    :returns: 如果记录成功则为 true,如果记录有问题则为 false
+    :returns: void
     :rtype: bool
+
+    .. note:: 自 v4.5.0 起，返回值被固定为兼容 PSR Log。在以前的版本中，如果日志记录成功则返回 ``true``，如果有问题则返回 ``false``。
 
     使用 **app/Config/Logger.php** 中定义的日志处理程序记录消息。
 
-    级别可以是以下值之一:**emergency**、**alert**、**critical**、**error**、**warning**、**notice**、**info** 或 **debug**。
+    日志级别可以是以下值之一：``emergency``、``alert``、``critical``、``error``、``warning``、``notice``、``info`` 或 ``debug``。
 
     上下文可以用来在消息字符串中替换值。有关完整详细信息,请参阅 :doc:`日志记录信息 <logging>` 页面。
 
@@ -351,7 +353,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
     :returns: 路由路径(基于 baseURL 的 URI 相对路径)
     :rtype: string
 
-    .. note:: 此函数要求控制器/方法必须在 **app/Config/routes.php** 中定义路由。
+    .. note:: 此函数要求控制器/方法必须在 **app/Config/Routes.php** 中定义路由。
 
     .. important:: ``route_to()`` 返回一个 *路由* 路径,而不是站点的完整 URI 路径。如果你的 **baseURL** 包含子文件夹,返回值与链接的 URI 并不相同。在这种情况下,请改用 :php:func:`url_to()`。另请参阅 :ref:`urls-url-structure`。
 

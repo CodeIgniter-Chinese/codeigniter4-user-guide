@@ -4,7 +4,7 @@
 
 在 CodeIgniter 中通过表单使用文件上传功能将会比直接使用 PHP 的 ``$_FILES`` 数组更加简单和安全。这是 :doc:`文件类 </libraries/files>` 的扩展,因此获得了该类所有的特性。
 
-.. note:: 这和 CodeIgniter v3.x 中的文件上传类不太一样。这里提供了一个访问上传文件的原始接口和一些小特性。
+.. note:: 这和 CodeIgniter 3 中的文件上传类不太一样。这里提供了一个访问上传文件的原始接口和一些小特性。
 
 .. contents::
     :local:

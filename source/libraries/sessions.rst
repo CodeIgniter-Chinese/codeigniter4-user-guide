@@ -512,7 +512,9 @@ DatabaseHandler 驱动程序
 RedisHandler 驱动程序
 =======================
 
-.. note:: 由于 Redis 没有公开锁定机制,因此通过单独保留 300 秒的额外值来模拟此驱动程序的锁。在 ``v4.3.2`` 或更高版本中,你可以使用 **TLS** 协议连接 ``Redis``。
+.. note:: 由于 Redis 没有暴露锁机制，因此该驱动的锁是通过一个单独的值来模拟的，该值最多保留 300 秒。
+
+.. note:: 从 v4.3.2 开始，你可以使用 **TLS** 协议连接 Redis。
 
 Redis 是一个通常用于缓存且以高性能而著称的存储引擎,这也可能是你使用 'RedisHandler' session 驱动程序的原因。
 
@@ -532,6 +534,12 @@ Redis 是一个通常用于缓存且以高性能而著称的存储引擎,这也�
 但是,对于最常见的情况,一个简单的 ``host:port`` 对应关系应该就足够了:
 
 .. literalinclude:: sessions/041.php
+
+从 v4.5.0 开始，你可以使用 Redis ACL（用户名和密码）::
+
+    public string $savePath = 'tcp://localhost:6379?auth[user]=username&auth[pass]=password';
+
+.. note:: 从 v4.5.0 开始，获取锁的间隔时间（``$lockRetryInterval``）和重试次数（``$lockMaxRetries``）是可配置的。
 
 .. _sessions-memcachedhandler-driver:
 

@@ -10,7 +10,7 @@
 查询基础知识
 ************
 
-.. note:: CodeIgniter 不支持数据库、表格和列名称中的点(``.``)。
+.. note:: CodeIgniter 不支持在表名和列名中使用点（``.``）。自 v4.5.0 起，支持带点的数据库名称。
 
 常规查询
 ===============
@@ -90,6 +90,7 @@ $db->protectIdentifiers()
 
 .. literalinclude:: queries/008.php
 
+.. _database-queries-escaping:
 
 ***************
 转义值
@@ -122,6 +123,8 @@ $db->protectIdentifiers()
 .. literalinclude:: queries/011.php
 
 .. important:: ``escapeLikeString()`` 方法使用 ``'!'`` (感叹号)来转义 ``LIKE`` 条件的特殊字符。因为此方法转义了你自己要用引号括起来的部分字符串,所以它无法自动为你添加 ``ESCAPE '!'`` 条件,因此你必须手动完成这一操作。
+
+.. _database-queries-query-bindings:
 
 **************
 查询绑定

@@ -14,6 +14,7 @@
 使用以下代码加载此辅助函数:
 
 .. literalinclude:: array_helper/001.php
+        :lines: 2-
 
 可用函数
 ===================
@@ -27,21 +28,25 @@
     :returns: 在数组中找到的值,如果没有找到则为 null
     :rtype: mixed
 
-    该方法允许你使用点表示法在数组中搜索特定键,并允许使用通配符 '*'。给定以下数组:
+    该方法允许你使用点表示法在数组中搜索特定键,并允许使用通配符 ``*``。给定以下数组:
 
     .. literalinclude:: array_helper/002.php
+        :lines: 2-
 
-    我们可以使用搜索字符串“foo.buzz.fizz”定位 'fizz' 的值。类似地,可以使用“foo.bar.baz”找到 baz 的值:
+    我们可以使用搜索字符串 ``foo.buzz.fizz`` 定位 ``fizz`` 的值。类似地，可以使用 ``foo.bar.baz`` 找到 ``baz`` 的值:
 
     .. literalinclude:: array_helper/003.php
+        :lines: 2-
 
-    你可以使用星号作为通配符来替换任何段。找到时,它将搜索所有子节点直到找到它。如果你不知道值,或如果你的值具有数值索引,这很方便:
+    你可以使用星号（``*``）作为通配符来替换任何段。找到时,它将搜索所有子节点直到找到它。如果你不知道值,或如果你的值具有数值索引,这很方便:
 
     .. literalinclude:: array_helper/004.php
+        :lines: 2-
 
-    如果数组键包含点,则可以用反斜杠转义键:
+    如果数组键包含点（``.``），则可以用反斜杠（``\``）转义键：
 
     .. literalinclude:: array_helper/005.php
+        :lines: 2-
 
 .. note:: 在 v4.2.0 之前,由于一个 bug, ``dot_array_search('foo.bar.baz', ['foo' => ['bar' => 23]])`` 返回的是 ``23``。v4.2.0 及更高版本返回 ``null``。
 
@@ -64,16 +69,19 @@
     此方法以分层方式根据一个或多个键的值对多维数组的元素进行排序。例如,从某个模型的 ``find()`` 函数返回以下数组:
 
     .. literalinclude:: array_helper/006.php
+        :lines: 2-
 
     现在按两个键对该数组进行排序。请注意,该方法支持使用点表示法访问更深层数组级别中的值,但不支持通配符:
 
     .. literalinclude:: array_helper/007.php
+        :lines: 2-
 
-    现在 ``$players`` 数组已根据每个球员 'team' 子数组中的 'order' 值排序。如果对几个球员此值相等,则这些球员将根据其 'position' 进行排序。结果数组为:
+    现在 ``$players`` 数组已根据每个球员 ``team`` 子数组中的 ``order`` 值排序。如果对几个球员此值相等,则这些球员将根据其 ``position`` 进行排序。结果数组为:
 
     .. literalinclude:: array_helper/008.php
+        :lines: 2-
 
-    同样,该方法也可以处理对象数组。在上面的示例中,每个 'player' 都可能由一个数组表示,而 'teams' 是对象。该方法将检测每个嵌套级别中的元素类型并相应处理。
+    同样,该方法也可以处理对象数组。在上面的示例中,每个 ``player`` 都可能由一个数组表示,而 ``teams`` 是对象。该方法将检测每个嵌套级别中的元素类型并相应处理。
 
 .. php:function:: array_flatten_with_dots(iterable $array[, string $id = '']): array
 
@@ -85,14 +93,17 @@
     此函数使用点作为键的分隔符,将多维数组展平为单个键值对数组。
 
     .. literalinclude:: array_helper/009.php
+        :lines: 2-
 
     检查后, ``$flattened`` 等于:
 
     .. literalinclude:: array_helper/010.php
+        :lines: 2-
 
     用户可以自己使用 ``$id`` 参数,但不需要这样做。该函数在内部使用此参数来跟踪展平后的键。如果用户将提供初始 ``$id``,它将添加到所有键前面。
 
     .. literalinclude:: array_helper/011.php
+        :lines: 2-
 
 .. php:function:: array_group_by(array $array, array $indexes[, bool $includeEmpty = false]): array
 
@@ -107,11 +118,14 @@
     以下示例显示了一些数据（例如从 API 加载的数据）和嵌套数组。
 
     .. literalinclude:: array_helper/012.php
+        :lines: 2-
 
-    我们首先想要按 "gender" 分组，然后按 "hr.department" 分组（最大深度为 2）。首先排除空值的结果如下：
+    我们首先想要按 ``gender`` 分组，然后按 ``hr.department`` 分组（最大深度为 2）。首先排除空值的结果如下：
 
     .. literalinclude:: array_helper/013.php
+        :lines: 2-
 
     这里是相同的代码，但这次我们想要包括空值：
 
     .. literalinclude:: array_helper/014.php
+        :lines: 2-

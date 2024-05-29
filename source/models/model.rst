@@ -97,7 +97,11 @@ $useAutoIncrement
 $returnType
 -----------
 
-模型的 CRUD 方法将一个步骤的工作从你这里带走,自动返回结果数据,而不是结果对象。此设置允许你定义返回的数据类型。有效值为 '**array**' (默认)、 '**object**' 或可以与结果对象的 ``getCustomResultObject()`` 方法一起使用的 **完全限定的类名称**。使用类的特殊常量 ``::class`` 可以让大多数 IDE 自动完成名称并允许诸如重构之类的功能更好地理解你的代码。
+模型的 **find*()** 方法将为你减少一些工作，自动返回结果数据，而不是 Result 对象。
+
+此设置允许你定义返回的数据类型。有效值为 '**array**'（默认值）、'**object**' 或者可以与 Result 对象的 ``getCustomResultObject()`` 方法一起使用的 **类的完全限定名**。
+
+使用类的特殊常量 ``::class`` 将允许大多数 IDE 自动补全名称，并使重构等功能更好地理解你的代码。
 
 .. _model-use-soft-deletes:
 
@@ -108,7 +112,9 @@ $useSoftDeletes
 
 这需要数据库中具有与模型的 `$dateFormat`_ 设置相应的数据类型的 DATETIME 或 INTEGER 字段。默认字段名称为 ``deleted_at``,但是可以通过使用 `$deletedField`_ 属性将其配置为你选择的任何名称。
 
-.. important:: ``deleted_at`` 字段必须可为空。
+.. important:: 数据库中的 ``deleted_at`` 字段必须是 nullable 的。
+
+.. _model-allowed-fields:
 
 $allowedFields
 --------------
@@ -122,9 +128,28 @@ $allowEmptyInserts
 
 .. versionadded:: 4.3.0
 
-是否允许插入空数据。默认值是 ``false``，意味着如果你试图插入空数据，将会抛出 "There is no data to insert." 的异常。
+是否允许插入空数据。默认值是 ``false``，这意味着如果你尝试插入空数据，将会抛出带有 "There is no data to insert." 信息的 ``DataException``。
 
 你也可以通过 :ref:`model-allow-empty-inserts` 方法来改变这个设置。
+
+.. _model-update-only-changed:
+
+$updateOnlyChanged
+------------------
+
+.. versionadded:: 4.5.0
+
+是否仅更新 :doc:`Entity <./entities>` 的已更改字段。默认值是 ``true``，这意味着在更新到数据库时仅使用已更改的字段数据。因此，如果你尝试更新一个没有更改的 Entity，将会抛出带有 "There is no data to update." 信息的 ``DataException``。
+
+将此属性设置为 ``false`` 将确保 Entity 的所有允许字段在任何时候都提交到数据库并进行更新。
+
+$casts
+------
+
+.. versionadded:: 4.5.0
+
+这允许你将从数据库检索到的数据转换为适当的 PHP 类型。
+此选项应为一个数组，其中键是字段的名称，值是数据类型。详情请参见 :ref:`model-field-casting`。
 
 日期
 -----
@@ -137,7 +162,7 @@ $useTimestamps
 $dateFormat
 ^^^^^^^^^^^
 
-此值与 `$useTimestamps`_ 和 `$useSoftDeletes`_ 一起使用,以确保插入到数据库中的是正确类型的日期值。默认情况下,这会创建 DATETIME 值,但有效选项有: ``'datetime'``、 ``'date'`` 或 ``'int'`` (PHP 时间戳)。在缺少或无效的 `$dateFormat`_ 情况下使用 `$useSoftDeletes`_ 或 `$useTimestamps`_ 会引发异常。
+此值与 `$useTimestamps`_ 和 `$useSoftDeletes`_ 一起使用,以确保插入到数据库中的是正确类型的日期值。默认情况下,这会创建 DATETIME 值,但有效选项有: ``'datetime'``、 ``'date'`` 或 ``'int'`` (UNIX 时间戳)。在缺少或无效的 `$dateFormat`_ 情况下使用 `$useSoftDeletes`_ 或 `$useTimestamps`_ 会引发异常。
 
 $createdField
 ^^^^^^^^^^^^^
@@ -219,6 +244,112 @@ $afterUpdateBatch
 ^^^^^^^^^^^^^^^^^
 
 这些数组允许你指定在属性名称中指定的时间回调方法。参考 :ref:`model-events`。
+
+.. _model-field-casting:
+
+模型字段类型转换
+****************
+
+.. versionadded:: 4.5.0
+
+从数据库检索数据时，整数类型的数据可能会在 PHP 中转换为字符串类型。你可能还希望将日期/时间数据转换为 PHP 中的 Time 对象。
+
+模型字段类型转换允许你将从数据库检索到的数据转换为适当的 PHP 类型。
+
+.. important::
+    如果你在使用 :doc:`Entity <./entities>` 时使用了此功能，请不要使用
+    :ref:`Entity 属性类型转换 <entities-property-casting>`。同时使用这两种类型转换是无效的。
+
+    Entity 属性类型转换在 (1)(4) 处工作，而此类型转换在 (2)(3) 处工作::
+
+        [应用代码] --- (1) --> [Entity] --- (2) --> [数据库]
+        [应用代码] <-- (4) --- [Entity] <-- (3) --- [数据库]
+
+    使用此类型转换时，Entity 将在属性中具有正确类型的 PHP 值。这种行为与之前的行为完全不同。不要期望属性中持有来自数据库的原始数据。
+
+定义数据类型
+=============
+
+``$casts`` 属性设置其定义。此选项应为一个数组，其中键是字段的名称，值是数据类型：
+
+.. literalinclude:: model/057.php
+
+数据类型
+=========
+
+默认提供以下类型。在类型前添加问号以标记字段为可为空，例如，``?int``，``?datetime``。
+
++---------------+----------------+---------------------------+
+| 类型          | PHP 类型       | 数据库字段类型            |
++===============+================+===========================+
+|``int``        | int            | int 类型                  |
++---------------+----------------+---------------------------+
+|``float``      | float          | float（数值）类型         |
++---------------+----------------+---------------------------+
+|``bool``       | bool           | bool/int/string 类型      |
++---------------+----------------+---------------------------+
+|``int-bool``   | bool           | int 类型（1 或 0）        |
++---------------+----------------+---------------------------+
+|``array``      | array          | string 类型（序列化）     |
++---------------+----------------+---------------------------+
+|``csv``        | array          | string 类型（CSV）        |
++---------------+----------------+---------------------------+
+|``json``       | stdClass       | json/string 类型          |
++---------------+----------------+---------------------------+
+|``json-array`` | array          | json/string 类型          |
++---------------+----------------+---------------------------+
+|``datetime``   | Time           | datetime 类型             |
++---------------+----------------+---------------------------+
+|``timestamp``  | Time           | int 类型（UNIX 时间戳）   |
++---------------+----------------+---------------------------+
+|``uri``        | URI            | string 类型               |
++---------------+----------------+---------------------------+
+
+csv
+---
+
+将类型转换为 ``csv`` 使用 PHP 的内部 ``implode()`` 和 ``explode()`` 函数，并假设所有值都是字符串安全且不含逗号。对于更复杂的数据类型转换，尝试使用 ``array`` 或 ``json``。
+
+datetime
+--------
+
+你可以传递类似 ``datetime[ms]`` 的参数表示带有毫秒的日期/时间，或 ``datetime[us]`` 表示带有微秒的日期/时间。
+
+日期时间格式在 **app/Config/Database.php** 文件中的 :ref:`数据库配置 <database-config-explanation-of-values>` 的 ``dateFormat`` 数组中设置。
+
+自定义类型转换
+===============
+
+你可以定义自己的转换类型。
+
+创建自定义处理程序
+--------------------
+
+首先，你需要为你的类型创建一个处理程序类。假设该类位于 **app/Models/Cast** 目录中：
+
+.. literalinclude:: model/058.php
+
+如果你不需要在获取或设置值时更改值，那么只需不实现相应的方法：
+
+.. literalinclude:: model/060.php
+
+注册自定义处理程序
+--------------------
+
+现在你需要注册它：
+
+.. literalinclude:: model/059.php
+
+参数
+----
+
+在某些情况下，一种类型是不够的。在这种情况下，你可以使用附加参数。附加参数在方括号中指示，并用逗号列出，例如 ``type[param1, param2]``。
+
+.. literalinclude:: model/061.php
+
+.. literalinclude:: model/062.php
+
+.. note:: 如果类型转换类型标记为 nullable，例如 ``?bool``，并且传递的值不为空，那么值为 ``nullable`` 的参数将传递给类型转换处理程序。如果类型转换具有预定义参数，则 ``nullable`` 将添加到列表的末尾。
 
 使用数据
 *****************
@@ -364,6 +495,18 @@ save 方法在使用自定义类结果对象时也可以大大简化工作,它�
 
 .. note:: 如果你发现自己频繁使用实体,CodeIgniter 提供了一个内置的 :doc:`实体类 </models/entities>`,
     它提供了使开发实体更简单的几个方便的功能。
+
+.. _model-saving-dates:
+
+保存日期
+--------
+
+.. versionadded:: 4.5.0
+
+在保存数据时，如果你传递 :doc:`Time <../libraries/time>` 实例，它们会根据
+:ref:`数据库配置 <database-config-explanation-of-values>` 中 ``dateFormat['datetime']`` 和 ``dateFormat['date']`` 定义的格式转换为字符串。
+
+.. note:: 在 v4.5.0 之前，日期/时间格式在 Model 类中是硬编码为 ``Y-m-d H:i:s`` 和 ``Y-m-d``。
 
 删除数据
 =============

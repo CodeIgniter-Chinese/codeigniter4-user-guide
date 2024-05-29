@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X URI 路由文档 <http://codeigniter.com/userguide3/general/routing.html>`_
-- :doc:`CodeIgniter 4.X URI 路由文档 </incoming/routing>`
+- `CodeIgniter 3.x URI 路由文档 <http://codeigniter.com/userguide3/general/routing.html>`_
+- :doc:`CodeIgniter 4.x URI 路由文档 </incoming/routing>`
 
 变更点
 =====================

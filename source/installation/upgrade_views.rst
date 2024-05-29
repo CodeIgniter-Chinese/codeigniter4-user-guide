@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 视图文档 <http://codeigniter.com/userguide3/general/views.html>`_
-- :doc:`CodeIgniter 4.X 视图文档 </outgoing/views>`
+- `CodeIgniter 3.x 视图文档 <http://codeigniter.com/userguide3/general/views.html>`_
+- :doc:`CodeIgniter 4.x 视图文档 </outgoing/views>`
 
 变更点
 =====================

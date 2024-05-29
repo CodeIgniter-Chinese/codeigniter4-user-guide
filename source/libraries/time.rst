@@ -4,7 +4,9 @@
 
 CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类,该类基于 PHP 的 DateTimeImmutable 对象构建,但使用 Intl 扩展的功能在时区之间转换时间并针对不同的语言环境正确显示输出。这个类是 ``Time`` 类,位于 ``CodeIgniter\I18n`` 命名空间中。
 
-.. note:: 由于 Time 类扩展了 ``DateTimeImmutable``,如果这个类没有提供你需要的功能,你很可能可以在 `DateTimeImmutable <https://www.php.net/manual/en/class.datetimeimmutable.php>`_ 类本身中找到它们。
+.. note:: 由于 Time 类扩展了 ``DateTimeImmutable``，如果你需要的功能该类没有提供，你很可能可以在 `DateTimeImmutable`_ 类中找到它们。
+
+.. _DateTimeImmutable: https://www.php.net/manual/zh/class.datetimeimmutable.php
 
 .. note:: 在 v4.3.0 之前,Time 类扩展了 ``DateTime``,并且一些继承的方法改变了当前对象状态。这个 bug 在 v4.3.0 中修复了。如果你需要旧的 Time 类用于向后兼容,你可以暂时使用已弃用的 ``TimeLegacy`` 类。
 
@@ -21,6 +23,10 @@ CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类,该
 当你以这种方式执行时,你可以传递一个表示所需时间的字符串。这可以是 PHP 的 `strtotime()`_ 函数可以解析的任何字符串:
 
 .. _strtotime(): https://www.php.net/manual/en/function.strtotime.php
+
+当你以这种方式执行时，你可以传入一个表示所需时间的字符串。这个字符串可以是 PHP 的 `DateTimeImmutable`_ 构造函数可以解析的任何字符串。详情请参见 `支持的日期和时间格式`_。
+
+.. _支持的日期和时间格式: https://www.php.net/manual/zh/datetime.formats.php
 
 .. literalinclude:: time/001.php
 
@@ -91,12 +97,16 @@ createFromFormat()
 
 .. literalinclude:: time/011.php
 
+.. _time-createfromtimestamp:
+
 createFromTimestamp()
 =====================
 
 该方法获取一个 UNIX 时间戳和可选的时区和语言环境来创建一个新的 Time 实例:
 
 .. literalinclude:: time/012.php
+
+.. note:: 由于一个 bug，在 v4.4.6 之前的版本中，当你没有指定时区时，该方法返回的是 UTC 时区的 Time 实例。
 
 createFromInstance()
 ====================
@@ -310,16 +320,26 @@ isAfter()
 
 .. literalinclude:: time/037.php
 
+.. _time-viewing-differences:
+
 查看差异
 ===================
 
-要直接比较两个 Time,你需要使用 ``difference()`` 方法,它返回一个 ``CodeIgniter\I18n\TimeDifference`` 实例。第一个参数是一个 Time 实例、一个 DateTime 实例或一个包含日期/时间的字符串。 如果在第一个参数中传递了一个字符串,第二个参数可以是一个时区字符串:
+要直接比较两个 Time，你可以使用 ``difference()`` 方法，该方法返回一个 ``CodeIgniter\I18n\TimeDifference`` 实例。
+
+第一个参数可以是一个 Time 实例、一个 DateTime 实例，或者一个包含日期/时间的字符串。如果第一个参数是字符串，第二个参数可以是一个时区字符串：
 
 .. literalinclude:: time/038.php
 
 一旦你有了 TimeDifference 实例,你就有几种方法可以用来查找两个时间之间的差异信息。如果它在原始时间之前,返回的值将为负数,如果在未来,则返回正数:
 
 .. literalinclude:: time/039.php
+
+.. note:: 在 v4.4.7 之前，Time 总是在比较之前将时区转换为 UTC。这可能会导致在由于夏令时 (DST) 导致一天不等于 24 小时时出现意外结果。
+
+    从 v4.4.7 开始，当比较相同时区的日期/时间时，比较将按原样进行，不再转换为 UTC。
+
+        .. literalinclude:: time/042.php
 
 你可以使用 ``getX()`` 方法,也可以像访问属性一样访问计算的值:
 

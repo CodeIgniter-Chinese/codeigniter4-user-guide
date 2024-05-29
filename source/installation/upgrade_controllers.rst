@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 控制器文档 <http://codeigniter.com/userguide3/general/controllers.html>`_
-- :doc:`CodeIgniter 4.X 控制器文档 </incoming/controllers>`
+- `CodeIgniter 3.x 控制器文档 <http://codeigniter.com/userguide3/general/controllers.html>`_
+- :doc:`CodeIgniter 4.x 控制器文档 </incoming/controllers>`
 
 变更点
 =====================

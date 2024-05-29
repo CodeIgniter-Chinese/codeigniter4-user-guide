@@ -69,11 +69,30 @@ Events 库也使你可以在自己的代码中简单地创建事件。要使用�
 事件挂钩点
 ============
 
-以下是 CodeIgniter 核心代码中可用的事件挂钩点列表:
+用于 Web 应用
+-------------
 
-* **pre_system** 在系统执行的早期调用。URI、请求和响应已经实例化，但尚未进行页面缓存检查、路由和执行“before”控制器过滤器。
-* **post_controller_constructor** 在控制器实例化后但在任何方法调用发生前立即调用。
-* **post_system** 在系统执行结束后，在最终渲染的页面发送到浏览器之前调用，在执行“after”控制器过滤器之后。
-* **email** 从 ``CodeIgniter\Email\Email`` 成功发送邮件后调用。接收 ``Email`` 类属性数组作为参数。
+以下是由 **public/index.php** 触发的可用事件挂钩点列表:
+
+* **pre_system** 在系统执行早期调用。URI、Request 和 Response 已经实例化，但页面缓存检查、路由和“before”控制器过滤器的执行尚未发生。
+* **post_controller_constructor** 在控制器实例化后立即调用，但在任何方法调用发生之前。
+* **post_system** 在系统执行结束时、在执行“after”控制器过滤器之后、最终渲染的页面发送到浏览器之前调用。
+
+.. _event-points-for-cli-apps:
+
+用于 CLI 应用
+-------------
+
+以下是 :doc:`../cli/spark_commands` 触发的可用事件点列表:
+
+* **pre_command** 在命令代码执行之前调用。
+* **post_command** 在命令代码执行之后调用。
+
+其他
+------
+
+以下是每个库可用的事件点列表:
+
+* **email** 在 ``CodeIgniter\Email\Email`` 成功发送电子邮件之后调用。接收一个包含 ``Email`` 类属性的数组作为参数。
 * **DBQuery** 在数据库查询成功或失败后调用。接收 ``Query`` 对象。
-* **migrate** 在对 ``latest()`` 或 ``regress()`` 的成功迁移调用后调用。接收 ``MigrationRunner`` 的当前属性以及方法名称。
+* **migrate** 在成功调用 ``latest()`` 或 ``regress()`` 进行迁移后调用。接收当前 ``MigrationRunner`` 属性以及方法名称。

@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 数据库参考文档 <http://codeigniter.com/userguide3/database/index.html>`_
-- :doc:`CodeIgniter 4.X 使用数据库文档 </database/index>`
+- `CodeIgniter 3.x 数据库参考文档 <http://codeigniter.com/userguide3/database/index.html>`_
+- :doc:`CodeIgniter 4.x 使用数据库文档 </database/index>`
 
 变更点
 =====================
@@ -42,6 +42,7 @@
     - ``$this->db->having('user_id',  45);`` 改为 ``$builder->having('user_id',  45);``
 6. CI4 不提供 CI3 中已知的`数据库缓存 <https://www.codeigniter.com/userguide3/database/caching.html>`_
    层,所以如果需要缓存结果,请改用 :doc:`../libraries/caching`。
+7. 如果你在 Query Builder 中使用 ``limit(0)``，由于一个 bug，CI4 会返回所有记录而不是没有记录。但从 v4.5.0 开始，你可以通过一个设置来改变这种不正确的行为。所以请更改该设置。详细信息参见 :ref:`v450-query-builder-limit-0-behavior`。
 
 代码示例
 ============

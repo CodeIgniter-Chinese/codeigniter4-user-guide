@@ -4,7 +4,7 @@
 
 .. contents::
     :local:
-    :depth: 2
+    :depth: 3
 
 控制器过滤器允许你在控制器执行之前或之后执行操作。与 :doc:`事件 <../extending/events>` 不同，你可以选择将过滤器应用于特定的 URI 或路由。前置过滤器可以修改请求，而后置过滤器可以对响应进行操作甚至修改，从而提供了很大的灵活性和功能。
 
@@ -66,16 +66,17 @@
 
 如果你想为特定的路由指定过滤器，请使用 **app/Config/Routes.php** 并参考 :ref:`URI Routing <applying-filters>`。
 
-在路由中指定的过滤器（在 **app/Config/Routes.php** 中）会在 **app/Config/Filters.php** 中指定的过滤器之前执行。
-
 .. note:: 最安全的应用过滤器方法是 :ref:`禁用自动路由 <use-defined-routes-only>`,并 :ref:`设置过滤器到路由 <applying-filters>`。
+
+app/Config/Filters.php
+======================
 
 **app/Config/Filters.php** 文件包含四个属性，允许你精确配置过滤器的运行时机。
 
 .. warning:: 建议你在过滤器设置中的 URI 末尾始终添加 ``*``。因为控制器方法可能比你想象的通过不同的 URL 访问。例如,当启用 :ref:`auto-routing-legacy` 时,如果你有 ``Blog::index``,它可以通过 ``blog``、``blog/index`` 和 ``blog/index/1`` 等方式访问。
 
 $aliases
-========
+--------
 
 ``$aliases`` 数组用于将简单名称与一个或多个完全限定的类名相关联,这些类名是要运行的过滤器:
 
@@ -89,10 +90,25 @@ $aliases
 
 你应该根据需要定义尽可能多的别名。
 
-$globals
-========
+$required
+---------
 
-第二部分允许你定义任何应用于框架的每个有效请求的过滤器。
+.. versionadded:: 4.5.0
+
+本章节允许你定义 **Required Filters**（必需过滤器）。它们是应用于框架所做的每个请求的特殊过滤器。它们在其他种类的过滤器之前和之后应用，这些过滤器将在下面解释。
+
+.. note:: Required Filters 总是会执行，即使路由不存在。
+
+你应该注意在这里使用的数量，因为在每个请求上运行太多可能会带来性能影响。但默认设置的过滤器提供了框架功能。如果移除，这些功能将不再工作。详细信息请参见 :ref:`provided-filters`。
+
+过滤器可以通过将它们的别名添加到 ``before`` 或 ``after`` 数组中来指定：
+
+.. literalinclude:: filters/013.php
+
+$globals
+--------
+
+本章节允许你定义任何应用于框架的每个有效请求的过滤器。
 
 在这里使用太多可能会对性能产生影响,所以要小心。
 
@@ -100,14 +116,16 @@ $globals
 
 .. literalinclude:: filters/005.php
 
-除了少数 URI
----------------------
+排除少数 URI
+^^^^^^^^^^^^^^^^^^^^^
 
-有时你希望将过滤器应用于几乎所有请求,但有一些应该不受影响。一个常见的示例是,如果你需要从 CSRF 保护过滤器中排除几个 URI,以允许第三方网站的请求访问一个或两个特定的 URI,同时保持其余 URI 受保护。
+有时候你想将过滤器应用于几乎每个请求，但有一些请求需要被排除在外。一个常见的例子就是，如果你需要从 CSRF 保护过滤器中排除几个 URI，以允许第三方网站的请求访问一个或两个特定的 URI，同时保持其余 URI 的保护。
 
-要做到这一点,请在别名旁边添加一个包含 ``except`` 键和要匹配的 URI 路径（相对于 BaseURL）值的数组:
+要做到这一点，请在别名旁边添加一个包含 ``except`` 键和要匹配的 URI 路径（相对于 BaseURL）值的数组：
 
 .. literalinclude:: filters/006.php
+
+.. warning:: 在 v4.4.7 之前，由于一个漏洞，被过滤器处理的 URI 路径没有进行 URL 解码。换句话说，路由中指定的 URI 路径和过滤器中指定的 URI 路径可能会不同。详细信息请参见 :ref:`upgrade-447-filter-paths`。
 
 在过滤器设置中可以使用 URI 路径（相对于 BaseURL）的任何位置,你都可以使用正则表达式,或者像在这个例子中使用星号 (``*``) 作为通配符,匹配之后的所有字符。在这个例子中,任何以 ``api/`` 开头的 URI 路径都将被免于 CSRF 保护,但网站的表单将全部受保护。
 
@@ -116,7 +134,7 @@ $globals
 .. literalinclude:: filters/007.php
 
 $methods
-========
+--------
 
 .. warning:: 如果使用 ``$methods`` 过滤器,你应该 :ref:`禁用自动路由(传统) <use-defined-routes-only>`,因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。以你不期望的方法访问控制器可能会绕过过滤器。
 
@@ -129,16 +147,18 @@ $methods
 除了标准的 HTTP 方法外,这也支持一个特殊情况:``cli``。``cli`` 方法将应用于所有从命令行运行的请求。
 
 $filters
-========
+--------
 
 该属性是一个过滤器别名数组。对于每个别名,你可以为 ``before`` 和 ``after`` 数组指定过滤器应该应用到的一系列 URI 路径（相对于 BaseURL）模式:
 
 .. literalinclude:: filters/009.php
 
+.. warning:: 在 v4.4.7 之前，由于一个漏洞，被过滤器处理的 URI 路径没有进行 URL 解码。换句话说，路由中指定的 URI 路径和过滤器中指定的 URI 路径可能会不同。详细信息请参见 :ref:`upgrade-447-filter-paths`。
+
 .. _filters-filters-filter-arguments:
 
 过滤器参数
-----------------
+^^^^^^^^^^^^^^^^
 
 .. versionadded:: 4.4.0
 
@@ -147,6 +167,22 @@ $filters
 .. literalinclude:: filters/012.php
 
 在这个例子中，当 URI 匹配 ``admin/*'`` 时，数组 ``['admin', 'superadmin']`` 将作为 ``$arguments`` 传递给 ``group`` 过滤器的 ``before()`` 方法。当 URI 匹配 ``admin/users/*'`` 时，数组 ``['users.manage']`` 将作为 ``$arguments`` 传递给 ``permission`` 过滤器的 ``before()`` 方法。
+
+.. _filter-execution-order:
+
+过滤器执行顺序
+================
+
+.. important:: 从 v4.5.0 开始，过滤器的执行顺序发生了变化。如果你希望保持与之前版本相同的执行顺序，你必须将 ``Config\Feature::$oldFilterOrder`` 设置为 ``true``。
+
+过滤器按照以下顺序执行：
+
+- **前置过滤器**: required → globals → methods → filters → route
+- **后置过滤器**: route → filters → globals → required
+
+.. note:: *required* 过滤器可以从 v4.5.0 开始使用。
+
+.. note:: 在 v4.5.0 之前，指定给路由（在 **app/Config/Routes.php** 中）的过滤器会先于在 **app/Config/Filters.php** 中指定的过滤器执行。而在 Route 过滤器和 Filters 过滤器的后置过滤器执行顺序并没有倒序。详细信息请参见 :ref:`升级指南 <upgrade-450-filter-execution-order>`。
 
 ******************
 确认过滤器
@@ -181,13 +217,55 @@ filter:check
 但是当你在路由中使用正则表达式时，它可能无法显示准确的过滤器。
 具体详情请查看 :ref:`URI 路由 <routing-spark-routes>`。
 
+.. _provided-filters:
+
 ****************
-提供的过滤器
+自带的过滤器
 ****************
 
-CodeIgniter4 提供的过滤器有: :doc:`Honeypot <../libraries/honeypot>`、:ref:`CSRF <cross-site-request-forgery>`、``InvalidChars``、``SecureHeaders`` 和 :ref:`DebugToolbar <the-debug-toolbar>`。
+CodeIgniter4 自带的过滤器有：
+
+- ``cors`` => :doc:`../libraries/cors`
+- ``csrf`` => :ref:`CSRF <cross-site-request-forgery>`
+- ``toolbar`` => :ref:`DebugToolbar <the-debug-toolbar>`
+- ``honeypot`` => :doc:`Honeypot <../libraries/honeypot>`
+- ``invalidchars`` => :ref:`invalidchars`
+- ``secureheaders`` => :ref:`secureheaders`
+- ``forcehttps`` => :ref:`forcehttps`
+- ``pagecache`` => :doc:`PageCache <../general/caching>`
+- ``performance`` => :ref:`performancemetrics`
 
 .. note:: 过滤器按配置文件中定义的顺序执行。但是,如果启用, ``DebugToolbar`` 总是最后执行,因为它应该能够捕获其他过滤器中发生的所有事情。
+
+.. _forcehttps:
+
+ForceHTTPS
+==========
+
+.. versionadded:: 4.5.0
+
+此过滤器提供了“强制全局安全请求”功能。
+
+如果你将 ``Config\App:$forceGlobalSecureRequests`` 设置为 true，这将强制所有对该应用程序的请求通过安全连接（HTTPS）进行。如果传入的请求不安全，用户将被重定向到页面的安全版本，并且会设置 HTTP 严格传输安全 (HSTS) 头。
+
+.. _performancemetrics:
+
+PerformanceMetrics
+==================
+
+.. versionadded:: 4.5.0
+
+此过滤器提供性能指标的伪变量。
+
+如果你想显示从 CodeIgniter 启动到最终输出发送到浏览器前这一时间段的总耗时，只需在一个视图文件中放置这个伪变量::
+
+    {elapsed_time}
+
+如果你想在视图文件中显示你的内存使用量，使用此伪变量::
+
+    {memory_usage}
+
+如果你不需要此功能，请从 ``$required['after']`` 中移除 ``'performance'``。
 
 .. _invalidchars:
 

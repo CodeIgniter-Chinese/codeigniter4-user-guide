@@ -55,6 +55,45 @@ URI 路径   /ci-blog/blog/news/2022/10
 查询       page=2
 ========== ==================================== =========================================
 
+.. _urls-uri-security:
+
+URI 安全性
+==========
+
+.. versionadded:: 4.4.7
+
+.. important::
+    从 v4.4.7 版本之前升级的用户需要在 **app/Config/App.php** 中添加以下内容才能使用此功能::
+
+        public string $permittedURIChars = 'a-z 0-9~%.:_\-';
+
+为了帮助尽量减少可能将恶意数据传递到你的应用程序的可能性，CodeIgniter 对 URI 字符串（路由路径）允许的字符相当严格。URI 只能包含以下内容：
+
+- 字母数字文本（仅限拉丁字符）
+- 波浪号：``~``
+- 百分号：``%``
+- 句点：``.``
+- 冒号：``:``
+- 下划线：``_``
+- 减号：``-``
+- 空格：`` ``
+
+.. note::
+    该检查由 ``Router`` 执行。Router 获取由 ``SiteURI`` 类保存的 URL 编码值，对其进行解码，然后检查它是否包含不允许的字符串。
+
+添加允许的字符
+----------------
+
+可以通过 ``Config\App::$permittedURIChars`` 更改允许的字符。
+
+如果你想在 URI 路径中使用 Unicode，请对其进行修改以允许使用这些字符。例如，如果你想使用孟加拉语字符，你需要在 **app/Config/App.php** 中设置以下值::
+
+    public string $permittedURIChars = 'a-z 0-9~%.:_\-\x{0980}-\x{09ff}';
+
+可以在维基百科的 `Unicode block`_ 中找到完整的 Unicode 范围列表。
+
+.. _Unicode block: https://en.wikipedia.org/wiki/Unicode_block
+
 .. _urls-remove-index-php:
 
 删除 index.php 文件

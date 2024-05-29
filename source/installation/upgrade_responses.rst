@@ -7,8 +7,8 @@
 
 文档
 ==============
-- `CodeIgniter 3.X 输出类文档 <http://codeigniter.com/userguide3/libraries/output.html>`_
-- :doc:`CodeIgniter 4.X HTTP 响应文档 </outgoing/response>`
+- `CodeIgniter 3.x 输出类文档 <http://codeigniter.com/userguide3/libraries/output.html>`_
+- :doc:`CodeIgniter 4.x HTTP 响应文档 </outgoing/response>`
 
 变更点
 =====================

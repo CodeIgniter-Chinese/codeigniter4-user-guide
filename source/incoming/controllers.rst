@@ -152,7 +152,7 @@ $this->validate()
 
 自 v4.2.0 起,引入了新的更安全的自动路由。
 
-.. note:: 如果你熟悉自动路由,它在 CodeIgniter 3 到 4.1.x 中默认启用,你可以在
+.. note:: 如果你熟悉自动路由,它在 CodeIgniter 3.x 到 4.1.x 中默认启用,你可以在
     :ref:`ChangeLog v4.2.0 <v420-new-improved-auto-routing>` 中看到差异。
 
 本节描述了新自动路由的功能。
@@ -180,7 +180,9 @@ BaseController 为加载组件和执行所有控制器需要的函数提供了�
 
 然后将该文件保存到你的 **app/Controllers** 目录中。
 
-.. important:: 该文件必须命名为 **Helloworld.php**,H 字母大写。当你使用自动路由时,控制器类名称必须以大写字母开头,并且只有第一个字符可以大写。
+.. important:: 该文件必须命名为 **Helloworld.php**，``H`` 字母大写。当你使用自动路由时，控制器类名称必须以大写字母开头，并且只有第一个字母可以大写。
+
+    自 v4.5.0 版本起，如果你启用 ``$translateUriToCamelCase`` 选项，则可以使用驼峰命名法的类名。详细信息请参见 :ref:`controller-translate-uri-to-camelcase`。
 
 .. important:: 通过自动路由(改进版)执行的控制器方法需要 HTTP 动词(``get``、``post``、``put`` 等)前缀,如 ``getIndex()``、``postCreate()``。
 
@@ -203,6 +205,8 @@ BaseController 为加载组件和执行所有控制器需要的函数提供了�
 无效的写法:
 
 .. literalinclude:: controllers/011.php
+
+.. note:: 自 v4.5.0 版本起，如果你启用 ``$translateUriToCamelCase`` 选项，则可以使用驼峰命名法的类名。详细信息请参见 :ref:`controller-translate-uri-to-camelcase`。
 
 此外,始终确保你的控制器扩展父控制器类,以便它可以继承其所有方法。
 
@@ -334,6 +338,8 @@ URI 的第二段通常确定控制器中的哪个方法被调用。
 
 .. important:: 目录名称必须以大写字母开头,并且只有第一个字符可以大写。
 
+    自 v4.5.0 版本起，如果你启用 ``$translateUriToCamelCase`` 选项，则可以使用驼峰命名法的类名。详细信息请参见 :ref:`controller-translate-uri-to-camelcase`。
+
 使用此功能时,URI 的第一段必须指定目录。例如,假设你有一个位于这里的控制器::
 
     app/Controllers/Products/Shoes.php
@@ -348,6 +354,28 @@ URI 的第二段通常确定控制器中的哪个方法被调用。
 你的每个子目录都可以包含一个默认控制器,如果 URL 只包含 *子目录*,则会调用该控制器。只需把一个控制器放在那里,使其与 **app/Config/Routing.php** 文件中指定的默认控制器名称匹配即可。
 
 CodeIgniter 还允许你使用其 :ref:`定义的路由 <defined-route-routing>` 映射 URI。
+
+.. _controller-translate-uri-to-camelcase:
+
+将 URI 转换为驼峰命名法
+==========================
+
+.. versionadded:: 4.5.0
+
+自 v4.5.0 版本起，已实现 ``$translateUriToCamelCase`` 选项，该选项与当前 CodeIgniter 的编码标准很好地配合使用。
+
+此选项使你能够在控制器和方法 URI 段中，自动将带有连字符（``-``）的 URI 翻译为驼峰命名法。
+
+例如，URI ``sub-dir/hello-controller/some-method`` 将会执行 ``SubDir\HelloController::getSomeMethod()`` 方法。
+
+.. note:: 当启用此选项时，``$translateURIDashes`` 选项将被忽略。
+
+启用将 URI 转换为驼峰命名法
+---------------------------------
+
+要启用它，你需要在 **app/Config/Routing.php** 中将 ``$translateUriToCamelCase`` 选项设置为 ``true``::
+
+    public bool $translateUriToCamelCase = true;
 
 .. _controller-auto-routing-legacy:
 
@@ -364,7 +392,9 @@ CodeIgniter 还允许你使用其 :ref:`定义的路由 <defined-route-routing>`
     自动路由(传统)。很容易创建漏洞应用,其中控制器过滤器
     或 CSRF 保护被绕过。
 
-.. important:: 自动路由(传统)会将任何 HTTP 方法的 HTTP 请求路由到控制器方法。
+.. important:: 自动路由(传统)可以使用 **任何** HTTP 方法将 HTTP 请求路由到控制器方法。
+
+.. important:: 自 v4.5.0 版本起，如果自动路由(传统)找不到控制器，它会在控制器过滤器执行之前抛出 ``PageNotFoundException`` 异常。
 
 考虑这个 URI::
 

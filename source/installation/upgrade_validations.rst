@@ -8,20 +8,21 @@
 库文档
 =========================
 
-- `CodeIgniter 3.X 表单验证文档 <http://codeigniter.com/userguide3/libraries/form_validation.html>`_
-- :doc:`CodeIgniter 4.X 验证文档 </libraries/validation>`
+- `CodeIgniter 3.x 表单验证文档 <http://codeigniter.com/userguide3/libraries/form_validation.html>`_
+- :doc:`CodeIgniter 4.x 验证文档 </libraries/validation>`
 
 变更点
 =====================
-- 如果要更改验证错误显示,必须设置 CI4 :ref:`验证视图模板 <validation-customizing-error-display>`。
-- CI4 验证没有 CI3 的回调和可调用函数。
-  请使用 :ref:`规则类 <validation-using-rule-classes>` 或
-  :ref:`闭包规则 <validation-using-closure-rule>`
-  代替。
-- 在 CI3 中，回调/可调用规则具有优先级，但在 CI4 中，闭包规则没有优先级，并且按照它们在列表中的顺序进行检查。
-- CI4 验证格式规则不允许为空字符串。
-- CI4 验证永远不会改变你的数据。
-- 从 v4.3.0 开始,引入了 :php:func:`validation_errors()`,但 API 与 CI3 的不同。
+- 如果你想更改验证错误的显示方式，你需要设置 CI4 的 :ref:`验证视图模板 <validation-customizing-error-display>`。
+- CI4 验证中没有 CI3 中的 `回调 <https://codeigniter.org.cn/userguide3/libraries/form_validation.html#id13>`。
+  请使用 :ref:`Callable Rules <validation-using-callable-rule>`（从 v4.5.0 开始）或
+  :ref:`Closure Rules <validation-using-closure-rule>`（从 v4.3.0 开始）或
+  :ref:`Rule Classes <validation-using-rule-classes>` 代替。
+- 在 CI3 中，Callbacks/Callable 规则有优先级，但在 CI4 中，Closure/Callable 规则没有优先级，按列出的顺序进行检查。
+- 从 v4.5.0 开始引入了 :ref:`Callable Rules <validation-using-callable-rule>`，但它与 CI3 的 `Callable <https://codeigniter.org.cn/userguide3/libraries/form_validation.html#id14>`_ 有些不同。
+- CI4 验证格式规则不允许空字符串。
+- CI4 验证永远不会更改你的数据。
+- 从 v4.3.0 开始，引入了 :php:func:`validation_errors()`，但其 API 与 CI3 的不同。
 
 升级指南
 =============
@@ -31,9 +32,10 @@
 
 2. 在控制器中进行更改:
 
-    - ``$this->load->helper(array('form', 'url'));`` 改为 ``helper(['form', 'url']);``
+    - ``$this->load->helper(array('form', 'url'));`` 改为 ``helper('form');``
     - 移除 ``$this->load->library('form_validation');``
-    - ``if ($this->form_validation->run() == FALSE)`` 改为 ``if (! $this->validate([]))``
+    - ``if ($this->form_validation->run() == FALSE)`` 改为 ``if (! $this->validateData($data, $rules))``
+      其中 ``$data`` 是要验证的数据，通常是 POST 数据 ``$this->request->getPost()``。
     - ``$this->load->view('myform');`` 改为 ``return view('myform', ['validation' => $this->validator,]);``
 
 3. 必须更改验证规则。新语法是在控制器中将规则设置为数组:

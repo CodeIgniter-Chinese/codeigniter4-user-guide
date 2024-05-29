@@ -47,15 +47,12 @@
 
         可选的第二个字符串参数为“ipv4”或“ipv6”来指定 IP 格式。默认检查这两种格式。
 
-    .. php:method:: getMethod([$upper = false])
+    .. php:method:: getMethod()
 
-        .. important:: ``$upper`` 参数的使用已被弃用。它将在未来版本中删除。
-
-        :param bool $upper: 是否以大写或小写返回请求方法名称
         :returns: HTTP 请求方法
         :rtype: string
 
-        返回 ``$_SERVER['REQUEST_METHOD']``,可选择设置为大写或小写。
+        返回 ``$_SERVER['REQUEST_METHOD']``。
 
         .. literalinclude:: request/003.php
 

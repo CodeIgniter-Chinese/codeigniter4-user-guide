@@ -262,10 +262,26 @@ setOptions 方法
 
 或者直接删除 **writable/cache/FactoriesCache_config** 文件。
 
+.. note::
+    自 v4.5.0 起，``spark optimize`` 命令会清除缓存。
+
 如何启用配置缓存
 ============================
 
-取消 **public/index.php** 中以下代码的注释::
+.. versionadded:: 4.5.0
+
+在 **app/Config/Optimize.php** 中将以下属性设置为 ``true``::
+
+    public bool $configCacheEnabled = true;
+
+自 v4.5.0 起，你可以使用 ``spark optimize`` 命令来启用此功能。
+
+.. note::
+    此属性无法通过
+    :ref:`环境变量 <configuration-classes-and-environment-variables>` 重写。
+
+.. note::
+    在 v4.5.0 之前，请在 **public/index.php** 中取消以下代码的注释::
 
     --- a/public/index.php
     +++ b/public/index.php

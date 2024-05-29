@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 安全类文档 <http://codeigniter.com/userguide3/libraries/security.html>`_
-- :doc:`CodeIgniter 4.X 安全性文档 </libraries/security>`
+- `CodeIgniter 3.x 安全类文档 <http://codeigniter.com/userguide3/libraries/security.html>`_
+- :doc:`CodeIgniter 4.x 安全性文档 </libraries/security>`
 
 .. note::
     如果使用 :doc:`../helpers/form_helper` 并全局启用 CSRF 过滤器,那么 :php:func:`form_open()` 将自动在表单中插入隐藏的 CSRF 字段。所以你不需要自行升级这个。

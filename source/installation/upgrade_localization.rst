@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 语言文档 <http://codeigniter.com/userguide3/libraries/language.html>`_
-- :doc:`CodeIgniter 4.X 本地化文档 </outgoing/localization>`
+- `CodeIgniter 3.x 语言文档 <http://codeigniter.com/userguide3/libraries/language.html>`_
+- :doc:`CodeIgniter 4.x 本地化文档 </outgoing/localization>`
 
 变更点
 =====================

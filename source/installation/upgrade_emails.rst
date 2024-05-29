@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 邮件文档 <http://codeigniter.com/userguide3/libraries/email.html>`_
-- :doc:`CodeIgniter 4.X 邮件文档 </libraries/email>`
+- `CodeIgniter 3.x 邮件文档 <http://codeigniter.com/userguide3/libraries/email.html>`_
+- :doc:`CodeIgniter 4.x 邮件文档 </libraries/email>`
 
 变更点
 =====================

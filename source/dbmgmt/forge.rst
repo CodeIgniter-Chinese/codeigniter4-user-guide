@@ -135,6 +135,14 @@ TEXT
 SQLSRV 上不应使用 ``TEXT``，它已被弃用。
 欲知详情，请参见 `ntext, text, 和 image (Transact-SQL) - SQL Server | Microsoft Learn <https://learn.microsoft.com/en-us/sql/t-sql/data-types/ntext-text-and-image-transact-sql?view=sql-server-ver16>`_。
 
+ENUM
+^^^^
+
+并非所有数据库都支持 ``ENUM``。
+
+从 v4.5.0 开始，``SQLSRV`` Forge 会将 ``ENUM`` 数据类型转换为 ``VARCHAR(n)``。
+之前的版本转换为 ``TEXT``。
+
 .. _forge-addfield-default-value-rawsql:
 
 作为默认值的原始 SQL 字符串

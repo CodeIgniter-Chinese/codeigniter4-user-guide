@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 配置文档 <http://codeigniter.com/userguide3/libraries/config.html>`_
-- :doc:`CodeIgniter 4.X 配置文档 </general/configuration>`
+- `CodeIgniter 3.x 配置文档 <http://codeigniter.com/userguide3/libraries/config.html>`_
+- :doc:`CodeIgniter 4.x 配置文档 </general/configuration>`
 
 变更点
 =====================

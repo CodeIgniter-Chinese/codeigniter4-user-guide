@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X HTML表格文档 <http://codeigniter.com/userguide3/libraries/table.html>`_
-- :doc:`CodeIgniter 4.X HTML表格文档 </outgoing/table>`
+- `CodeIgniter 3.x HTML表格文档 <http://codeigniter.com/userguide3/libraries/table.html>`_
+- :doc:`CodeIgniter 4.x HTML表格文档 </outgoing/table>`
 
 变更点
 =====================

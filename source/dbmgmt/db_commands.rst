@@ -24,7 +24,22 @@ db:table --show
 
     php spark db:table --show
 
-使用此命令时,假定表存在。否则,CodeIgniter 将抱怨数据库没有表。
+使用此命令时，假设数据库中已存在表。
+否则，CodeIgniter 会提示数据库中没有表。
+
+指定数据库组
+==========================
+
+db:table --dbgroup
+------------------
+
+.. versionadded:: 4.5.0
+
+你可以使用 ``--dbgroup`` 选项来指定使用的数据库组：
+
+.. code-block:: console
+
+    php spark db:table --show --dbgroup tests
 
 检索一些记录
 =====================

@@ -10,6 +10,15 @@
     :local:
     :depth: 2
 
+什么是配置类？
+*******************************
+
+配置类用于定义系统默认配置值。系统配置值通常是*静态*的。配置类旨在保留配置应用程序操作方式的设置，而不是响应每个用户的个别设置。
+
+不建议在配置类实例化后，在执行期间修改值。换句话说，建议将配置类视为不可变或只读的类。这尤其重要，如果你使用 :ref:`factories-config-caching`。
+
+配置值可以在类文件中硬编码，也可以在实例化时从环境变量中获取。
+
 使用配置文件
 **********************************
 
@@ -151,6 +160,8 @@ CodeIgniter 期望 **.env** 文件与 **app** 目录一起位于项目的根目�
     app_forceGlobalSecureRequests = true
     app_CSPEnabled = true
 
+.. _configuration-classes-and-environment-variables:
+
 配置类和环境变量
 ***********************************************
 
@@ -185,14 +196,16 @@ CodeIgniter 期望 **.env** 文件与 **app** 目录一起位于项目的根目�
 
 .. _env-var-replacements-for-data:
 
-环境变量作为数据的替换
+作为数据的环境变量
 ==============================================
 
-务必要始终记住,在 **.env** 中的环境变量 **仅用于替换现有数据**。
+务必要始终记住，你的 **.env** 文件中的环境变量**只是现有标量值的替代**。
 
-简单地说,你只能通过在 **.env** 中设置来更改 Config 类中存在的属性的值。
+简单来说，你只能通过在 **.env** 文件中设置来更改 Config 类中存在的属性的标量值。
 
-你不能添加 Config 类中未定义的属性,也不能将其更改为数组(如果定义的属性的值是标量)。
+    1. 你不能添加 Config 类中未定义的属性。
+    2. 你不能将属性中的标量值更改为数组。
+    3. 你不能向现有数组中添加元素。
 
 例如,你不能只是在 **.env** 中放置 ``app.myNewConfig = foo`` 并期望你的 ``Config\App`` 在运行时神奇地拥有该属性和值。
 
@@ -290,3 +303,50 @@ CodeIgniter 期望 **.env** 文件与 **app** 目录一起位于项目的根目�
 通过上面的示例,在实例化 ``MySalesConfig`` 时,它将最终具有声明的三个属性,但 ``$target`` 属性的值将通过将 ``RegionalSales`` 视为“注册器”来覆盖。生成的配置属性:
 
 .. literalinclude:: configuration/011.php
+
+确认配置值
+************************
+
+实际的 Config 对象属性值在运行时由 :ref:`registrars`、:ref:`环境变量 <configuration-classes-and-environment-variables>` 和 :ref:`factories-config-caching` 进行更改。
+
+CodeIgniter 有以下 :doc:`命令 <../cli/spark_commands>` 来检查实际的配置值。
+
+.. _spark-config-check:
+
+config:check
+============
+
+.. versionadded:: 4.5.0
+
+例如，如果你想检查 ``Config\App`` 实例：
+
+.. code-block:: console
+
+    php spark config:check App
+
+输出结果如下：
+
+.. code-block:: none
+
+    Config\App#6 (12) (
+        public 'baseURL' -> string (22) "http://localhost:8080/"
+        public 'allowedHostnames' -> array (0) []
+        public 'indexPage' -> string (9) "index.php"
+        public 'uriProtocol' -> string (11) "REQUEST_URI"
+        public 'defaultLocale' -> string (2) "en"
+        public 'negotiateLocale' -> boolean false
+        public 'supportedLocales' -> array (1) [
+            0 => string (2) "en"
+        ]
+        public 'appTimezone' -> string (3) "UTC"
+        public 'charset' -> string (5) "UTF-8"
+        public 'forceGlobalSecureRequests' -> boolean false
+        public 'proxyIPs' -> array (0) []
+        public 'CSPEnabled' -> boolean false
+    )
+
+    Config Caching: Disabled
+
+你可以看到配置缓存是否已启用。
+
+.. note:: 如果启用了配置缓存，则始终使用缓存的值。有关详情，请参阅 :ref:`factories-config-caching`。

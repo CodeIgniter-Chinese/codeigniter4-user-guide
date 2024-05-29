@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 模型文档 <http://codeigniter.com/userguide3/general/models.html>`_
-- :doc:`CodeIgniter 4.X 模型文档 </models/model>`
+- `CodeIgniter 3.x 模型文档 <http://codeigniter.com/userguide3/general/models.html>`_
+- :doc:`CodeIgniter 4.x 模型文档 </models/model>`
 
 变更点
 =====================

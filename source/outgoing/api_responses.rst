@@ -24,19 +24,20 @@ API 响应特性
 
 .. literalinclude:: api_responses/002.php
 
+.. _api-response-trait-handling-response-types:
+
 ***********************
 处理响应类型
 ***********************
 
 当你在任何这些方法中传递数据时,它们将根据以下标准确定数据类型以格式化结果:
 
-* 如果数据是字符串,它将被视为要返回给客户端的 HTML。
-* 如果数据是数组,它将根据控制器的 ``$this->format`` 值进行格式化。如果为空,
-  它将尝试用客户端请求的内容类型协商内容类型,默认为 JSON
-  如果在 **Config/Format.php** 中的 ``$supportedResponseFormats`` 属性未指定其他格式。
+* 格式是根据控制器的 ``$this->format`` 值确定的。如果该值为 ``null``，它将尝试与客户端请求的内容类型进行协商，默认为 **app/Config/Format.php** 中 ``$supportedResponseFormats`` 属性的第一个元素（默认是 JSON）。
+* 数据将根据格式进行格式化。如果格式不是 JSON 且数据是字符串，它将被视为 HTML 发送回客户端。
 
-要定义用于格式化的格式器,请编辑 **Config/Format.php**。 ``$supportedResponseFormats`` 包含应用程序可以
-自动格式化响应的 mime 类型列表。默认情况下,系统知道如何格式化 XML 和 JSON 响应:
+.. note:: 在 v4.5.0 之前，由于一个错误，如果数据是字符串，即使格式是 JSON，它也会被视为 HTML。
+
+要定义使用的格式化程序，请编辑 **app/Config/Format.php**。``$supportedResponseFormats`` 包含你的应用程序可以自动格式化响应的 mime 类型列表。默认情况下，系统知道如何格式化 XML 和 JSON 响应：
 
 .. literalinclude:: api_responses/003.php
 

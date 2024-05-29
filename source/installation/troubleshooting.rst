@@ -85,9 +85,4 @@
 CodeIgniter 错误日志
 ----------------------
 
-CodeIgniter 根据 **app/Config/Logger.php** 中的设置记录错误消息。
-
-你可以调整错误阈值以查看更多或更少的消息。有关详细信息,请参阅 :ref:`日志记录 <logging-configuration>`。
-
-默认配置将每日日志文件存储在 **writable/logs** 中。
-如果事情没有按你期望的那样工作,最好检查一下它们!
+参阅 :ref:`codeigniter-error-logs`。

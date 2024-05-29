@@ -6,7 +6,7 @@ CodeIgniter 支持两种安装方法:手动下载和使用 `Composer <https://ge
 对你来说哪个是正确的?
 
 - 我们推荐使用 Composer 安装,因为它可以轻松地保持 CodeIgniter 的更新。
-- 如果你希望使用 CodeIgniter3 所知的简单“下载并使用”安装,请选择手动安装。
+- 如果你希望使用 CodeIgniter 3 所知的简单“下载并使用”安装,请选择手动安装。
 
 无论你选择以何种方式安装和运行 CodeIgniter4,最新的
 `用户指南 <https://codeigniter.com/user_guide/>`_ 都可以在线访问。
@@ -27,6 +27,7 @@ CodeIgniter 支持两种安装方法:手动下载和使用 `Composer <https://ge
     installing_manual
     running
     troubleshooting
+    deployment
     ../changelogs/index
     upgrading
     repositories

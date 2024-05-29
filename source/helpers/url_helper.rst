@@ -20,10 +20,10 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 
 .. php:function:: site_url([$uri = ''[, $protocol = null[, $altConfig = null]]])
 
-    :param  array|string         $uri: URI字符串或URI段数组
-    :param  string        $protocol: 协议,例如'http'或'https'
+    :param  array|string         $uri: URI 字符串或 URI 段数组
+    :param  string        $protocol: 协议，例如 'http' 或 'https'。如果设置为空字符串 ''，则返回一个 protocol-relative 链接。
     :param  \\Config\\App $altConfig: 要使用的备用配置
-    :returns: 站点URL
+    :returns: 站点 URL
     :rtype:    string
 
     .. note:: 从 v4.3.0 开始,如果你设置了 ``Config\App::$allowedHostnames``,
@@ -48,9 +48,9 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 
 .. php:function:: base_url([$uri = ''[, $protocol = null]])
 
-    :param  array|string   $uri: URI字符串或URI段数组
-    :param  string  $protocol: 协议,例如'http'或'https'
-    :returns: 基础URL
+    :param  array|string   $uri: URI 字符串或 URI 段数组
+    :param  string  $protocol: 协议，例如 'http' 或 'https'。如果设置为空字符串 ''，则返回一个 protocol-relative 链接。
+    :returns: Base URL
     :rtype: string
 
     .. note:: 从 v4.3.0 开始,如果你设置了 ``Config\App::$allowedHostnames``,
@@ -71,6 +71,8 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 
     上面的示例将返回类似内容:
     **http://example.com/blog/post/123**
+
+    如果你传递一个空字符串 ``''`` 作为第二个参数，它会返回 protocol-relative 链接：
 
     这很有用,因为与 :php:func:`site_url()` 不同,你可以为文件(如图像或样式表)提供字符串。例如:
 
@@ -317,7 +319,7 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
     :returns: 绝对 URL
     :rtype: string
 
-    .. note:: 此函数要求在 **app/Config/routes.php** 中为控制器/方法定义路由。
+    .. note:: 此函数要求在 **app/Config/Routes.php** 中为控制器/方法定义路由。
 
     在你的应用程序中构建指向控制器方法的绝对 URL。示例:
 
