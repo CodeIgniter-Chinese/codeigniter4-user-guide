@@ -16,7 +16,7 @@
 项目文件
 *************
 
-**项目空间**（根目录，app，public，writable）中的一些文件接收到更新。由于这些文件在 **system** 范围之外，它们不会在没有你的干预的情况下被更改。
+**项目空间** （根目录，app，public，writable）中的一些文件接收到更新。由于这些文件在 **system** 范围之外，它们不会在没有你的干预的情况下被更改。
 
 有一些第三方 CodeIgniter 模块可用于帮助合并对项目空间的更改：`在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 

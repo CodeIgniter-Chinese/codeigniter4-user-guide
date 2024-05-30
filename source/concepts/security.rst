@@ -103,7 +103,7 @@ OWASP 建议
 - 避免已弃用的密码学函数和填充方案，如 MD5、SHA1、PKCS 编号 1 v1.5。
 - 独立验证配置和设置的有效性。
 
-CodeIgniter 的解决措施
+CodeIgniter 的保护措施
 ----------------------
 
 - 全局安全访问的配置 (``Config\App::$forceGlobalSecureRequests``)

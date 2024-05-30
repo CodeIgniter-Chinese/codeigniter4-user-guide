@@ -18,7 +18,7 @@
 index.php 和 spark
 ===================
 
-以下文件进行了重大更改，
+以下文件进行了破坏性变更，
 **你必须将更新的版本** 合并到你的应用程序中：
 
 - ``public/index.php``
@@ -34,7 +34,7 @@ index.php 和 spark
         cp vendor/codeigniter4/framework/public/index.php public/index.php
         cp vendor/codeigniter4/framework/spark spark
 
-重大变更
+破坏性变更
 ****************
 
 .. _upgrade-450-lowercase-http-method-name:
@@ -205,7 +205,7 @@ Factories
 
 一些弃用项已被移除。如果你仍在使用这些项或扩展这些类，请升级你的代码。详情请参阅 :ref:`ChangeLog <v450-removed-deprecated-items>`。
 
-打破性增强
+破坏性改进
 *********************
 
 .. _upgrade-450-404-override:
@@ -231,7 +231,7 @@ Validation::run() 签名
 项目文件
 *************
 
-**项目空间**（root, app, public, writable）中的一些文件收到了更新。由于这些文件位于 **system** 范围之外，没有你的干预它们不会被更改。
+**项目空间** （root, app, public, writable）中的一些文件收到了更新。由于这些文件位于 **system** 范围之外，没有你的干预它们不会被更改。
 
 有一些第三方的 CodeIgniter 模块可以帮助合并对项目空间的更改：`在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
