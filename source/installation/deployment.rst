@@ -115,7 +115,7 @@ PHP 预加载
 第二种方式是使用两个目录，并调整路径。
 一个用于应用程序，另一个是默认的文档根目录。
 
-将 **public** 目录的内容上传到 **public_html**（默认的文档根目录），其他文件上传到用于应用程序的目录：
+将 **public** 目录的内容上传到 **public_html** （默认的文档根目录），其他文件上传到用于应用程序的目录::
 
     ├── example.com/ (用于应用程序)
     │       ├── app/
@@ -128,7 +128,7 @@ PHP 预加载
             └── robots.txt
 
 参见
-`Install CodeIgniter 4 on Shared Hosting（cPanel） <https://forum.codeigniter.com/showthread.php?tid=76779>`_
+`Install CodeIgniter 4 on Shared Hosting (cPanel) <https://forum.codeigniter.com/showthread.php?tid=76779>`_
 获取详细信息。
 
 添加 .htaccess

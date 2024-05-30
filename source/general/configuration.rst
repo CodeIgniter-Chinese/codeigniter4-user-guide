@@ -304,6 +304,8 @@ CodeIgniter 期望 **.env** 文件与 **app** 目录一起位于项目的根目�
 
 .. literalinclude:: configuration/011.php
 
+.. _confirming-config-values:
+
 确认配置值
 ************************
 

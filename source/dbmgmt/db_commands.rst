@@ -27,6 +27,8 @@ db:table --show
 使用此命令时，假设数据库中已存在表。
 否则，CodeIgniter 会提示数据库中没有表。
 
+.. _db-command-specify-the-dbgroup:
+
 指定数据库组
 ==========================
 

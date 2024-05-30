@@ -12,7 +12,6 @@
     :local:
     :depth: 2
 
-**********************
 强制文件更改
 **********************
 
@@ -35,7 +34,6 @@ index.php 和 spark
         cp vendor/codeigniter4/framework/public/index.php public/index.php
         cp vendor/codeigniter4/framework/spark spark
 
-****************
 重大变更
 ****************
 
@@ -230,7 +228,6 @@ Validation::run() 签名
 
 ``Validation::run()`` 和 ``ValidationInterface::run()`` 的方法签名已更改。``$dbGroup`` 参数的 ``?string`` 类型提示已被移除。扩展的类也应移除该参数以不破坏 LSP。
 
-*************
 项目文件
 *************
 
