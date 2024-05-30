@@ -30,10 +30,17 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
 命名空间
 ==========
 
-- CI4 是为 PHP 7.4+ 构建的,框架中的所有内容都使用了命名空间,除了 helper 和 lang 文件。
+- CI4 是为 PHP 8.1+ 构建的,框架中的所有内容都使用了命名空间,除了 helper 和 lang 文件。
 
 应用程序结构
 =====================
+
+.. important::
+    **index.php** 不再位于项目的根目录！为了更好的安全性和组件分离，它已被移到 **public** 文件夹内。
+
+    这意味着你需要配置你的 Web 服务器指向你项目的 **public** 文件夹，而不是项目根目录。
+
+    如果你使用共享主机，参见 :ref:`deployment-to-shared-hosting-services`。
 
 - **application** 文件夹重命名为 **app**,框架仍然有 **system** 文件夹,与以前的解释相同。
 - 框架现在提供了 **public** 文件夹,旨在作为你的应用程序的文档根目录。
@@ -65,6 +72,17 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
     upgrade_models
     upgrade_views
     upgrade_controllers
+
+核心类更改
+==================
+
+- Input
+    - CI3 的 `Input <http://codeigniter.com/userguide3/libraries/input.html>`_
+      对应于 CI4 的 :doc:`IncomingRequest </incoming/incomingrequest>`。
+    - 因为历史原因，CI3 和 CI4 使用了不正确的 HTTP 方法名称，比如 "get", "post"。从 v4.5.0 开始，CI4 使用了正确的 HTTP 方法名称，比如 "GET", "POST"。
+- Output
+    - CI3 的 `Output <http://codeigniter.com/userguide3/libraries/output.html>`_
+      对应于 CI4 的 :doc:`Responses </outgoing/response>`。
 
 类加载
 =============
@@ -102,8 +120,8 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
 - CI3 的 `String Helper <https://www.codeigniter.com/userguide3/helpers/string_helper.html>`_ 函数
   在 CI4 的 :doc:`../helpers/text_helper` 中。
 - 在 CI4 中, ``redirect()`` 与 CI3 中的完全不同。
-    - `redirect() 文档 CodeIgniter 3.X <https://codeigniter.com/userguide3/helpers/url_helper.html#redirect>`_
-    - `redirect() 文档 CodeIgniter 4.X <../general/common_functions.html#redirect>`_
+    - `redirect() 文档 CodeIgniter 3.x <https://codeigniter.com/userguide3/helpers/url_helper.html#redirect>`_
+    - `redirect() 文档 CodeIgniter 4.x <../general/common_functions.html#redirect>`_
     - 在 CI4 中，:php:func:`redirect()` 返回一个 ``RedirectResponse`` 实例，而不是重定向并终止脚本执行。你必须从控制器或控制器过滤器中返回它。
     - 在调用 ``redirect()`` 之前设置的 Cookie 和 Header 不会自动携带到 ``RedirectResponse``。如果你想发送它们，你需要手动调用 ``withCookies()`` 或 ``withHeaders()``。
     - 你需要将 CI3 的 ``redirect('login/form')`` 改为 ``return redirect()->to('login/form')``。
@@ -153,8 +171,6 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
   `引用通告 <http://codeigniter.com/userguide3/libraries/trackback.html>`_,
   `XML-RPC /服务器 <http://codeigniter.com/userguide3/libraries/xmlrpc.html>`_ 和
   `Zip 编码 <http://codeigniter.com/userguide3/libraries/zip.html>`_。
-- CI3 的 `Input <http://codeigniter.com/userguide3/libraries/input.html>`_ 对应于 CI4 的 :doc:`传入请求 </incoming/incomingrequest>`。
-- CI3 的 `Output <http://codeigniter.com/userguide3/libraries/output.html>`_ 对应于 CI4 的 :doc:`响应 </outgoing/response>`。
 - 存在于两个 CodeIgniter 版本中的所有其他库都可以通过一些调整来升级。
   最重要和使用最广泛的库都有一个升级指南,它将通过简单的步骤和示例帮助你调整代码。
 
@@ -167,6 +183,7 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
     upgrade_encryption
     upgrade_file_upload
     upgrade_html_tables
+    upgrade_images
     upgrade_localization
     upgrade_migrations
     upgrade_pagination

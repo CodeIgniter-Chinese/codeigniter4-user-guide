@@ -335,7 +335,7 @@ HTTP 缓存
 
         告诉响应将所有内容发送回客户端。这将首先发送 header,然后是响应 body。对于主应用程序响应,你不需要调用它,因为 CodeIgniter 会自动处理。
 
-    .. php:method:: setCookie($name = ''[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httponly = false[, $samesite = null]]]]]]]])
+    .. php:method:: setCookie($name = ''[, $value = ''[, $expire = 0[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httponly = false[, $samesite = null]]]]]]]])
 
         :param array|Cookie|string $name: Cookie 名称 *或* 包含此方法可用的所有参数的关联数组 *或* ``CodeIgniter\Cookie\Cookie`` 的实例。
         :param string $value: Cookie 值
@@ -361,7 +361,7 @@ HTTP 缓存
 
         .. literalinclude:: response/023.php
 
-        仅 ``name`` 和 ``value`` 是必需的。要删除 cookie,请将 ``expire`` 置空。
+        仅 ``name`` 和 ``value`` 是必需的。要删除 cookie,请将 ``value`` 置空。
 
         ``expire`` 以 **秒** 设置,将添加到当前时间。不要包括时间,而只设置从 *现在* 希望 cookie 有效的秒数。如果 ``expire`` 设置为零,cookie 将只在浏览器打开时有效。
 

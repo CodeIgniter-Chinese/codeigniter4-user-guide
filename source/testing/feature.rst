@@ -23,13 +23,14 @@ HTTP 功能测试
 基本上，功能测试允许你调用应用程序上的一个端点，并获取结果返回。
 为此，你可以使用 ``call()`` 方法。
 
-1. 第一个参数是要使用的 HTTP 方法（通常是 GET 或 POST）。
+1. 第一个参数是要使用的 HTTP 方法（通常是 ``GET`` 或 ``POST``）。
 2. 第二个参数是要测试的站点上的 URI 路径。
-3. 第三个参数 ``$params`` 接受一个数组，用于填充你正在使用的 HTTP 动词的超全局变量。因此，**GET** 方法将填充 **$_GET** 变量，而 **POST** 请求将填充 **$_POST** 数组。``$params`` 也用于 :ref:`feature-formatting-the-request`。
+3. 第三个参数 ``$params`` 接受一个数组，用于填充你正在使用的 HTTP 动词的超全局变量。因此，**GET** 方法将填充 ``$_GET`` 变量，而 **POST** 请求将填充 ``$_POST`` 数组。``$params`` 也用于 :ref:`feature-formatting-the-request`。
 
    .. note:: ``$params`` 数组并不适用于每个 HTTP 动词，但为了保持一致性而包含在内。
 
 .. literalinclude:: feature/002.php
+   :lines: 2-
 
 缩写方法
 -----------------
@@ -37,6 +38,7 @@ HTTP 功能测试
 为每个 HTTP 动词提供了缩写方法,以减少输入并增加清晰度:
 
 .. literalinclude:: feature/003.php
+   :lines: 2-
 
 设置不同的路由
 ------------------------
@@ -44,6 +46,7 @@ HTTP 功能测试
 你可以通过将“routes”数组传递到 ``withRoutes()`` 方法来使用自定义路由集合。这将覆盖系统中的任何现有路由:
 
 .. literalinclude:: feature/004.php
+   :lines: 2-
 
 每个“routes”都是一个包含 HTTP 动词(或“add”表示全部)、要匹配的 URI 和路由目的地的 3 元素数组。
 
@@ -53,6 +56,7 @@ HTTP 功能测试
 你可以使用 ``withSession()`` 方法在单次测试期间设置自定义会话值。这需要一个键/值对数组,在发出此请求时,它应存在于 ``$_SESSION`` 变量中,或者为 ``null`` 表示应使用 ``$_SESSION`` 的当前值。这在测试认证等方面很有用。
 
 .. literalinclude:: feature/005.php
+   :lines: 2-
 
 设置标头
 ---------------
@@ -60,6 +64,7 @@ HTTP 功能测试
 你可以使用 ``withHeaders()`` 方法设置标头值。这需要一个键/值对数组,它将作为调用中的标头传递:
 
 .. literalinclude:: feature/006.php
+   :lines: 2-
 
 绕过事件
 ----------------
@@ -67,6 +72,7 @@ HTTP 功能测试
 事件在应用程序中很有用,但在测试中可能 problematic。特别是用于发送电子邮件的事件。你可以使用 ``skipEvents()`` 方法告诉系统跳过任何事件处理:
 
 .. literalinclude:: feature/007.php
+   :lines: 2-
 
 .. _feature-formatting-the-request:
 
@@ -81,6 +87,7 @@ HTTP 功能测试
 这还将相应地设置请求的 `Content-Type` 标头。
 
 .. literalinclude:: feature/008.php
+   :lines: 2-
 
 .. _feature-setting-the-body:
 

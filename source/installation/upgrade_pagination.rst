@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 分页类文档 <http://codeigniter.com/userguide3/libraries/pagination.html>`_
-- :doc:`CodeIgniter 4.X 分页文档 </libraries/pagination>`
+- `CodeIgniter 3.x 分页类文档 <http://codeigniter.com/userguide3/libraries/pagination.html>`_
+- :doc:`CodeIgniter 4.x 分页文档 </libraries/pagination>`
 
 变更点
 =====================

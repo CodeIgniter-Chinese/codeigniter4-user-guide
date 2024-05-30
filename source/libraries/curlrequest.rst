@@ -131,15 +131,17 @@ CURLRequest 配置
 allow_redirects
 ===============
 
-默认情况下,cURL 将遵循远程服务器返回的所有“Location:”标头。``allow_redirects`` 选项允许你修改此行为。
+默认情况下，cURL 不会跟随远程服务器发送回的任何 "Location:" 头。``allow_redirects`` 选项允许你修改这种行为。
 
-如果将值设置为 ``false``,则它将不会遵循任何重定向:
-
-.. literalinclude:: curlrequest/013.php
-
-将其设置为 ``true`` 将对请求应用默认设置:
+如果你将该值设置为 ``true``，那么它将会跟随重定向：
 
 .. literalinclude:: curlrequest/014.php
+
+.. warning:: 请注意，启用重定向可能会重定向到你未预期的 URL，并可能导致 SSRF 攻击。
+
+将其设置为 ``false`` 将对请求应用默认设置：
+
+.. literalinclude:: curlrequest/013.php
 
 你可以将数组作为 ``allow_redirects`` 选项的值传递,以指定新的设置以代替默认设置:
 

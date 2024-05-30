@@ -27,8 +27,6 @@ CodeIgniter4 现在配备了生成器,以简化常规控制器、模型、实体
 
 .. warning:: 设置 ``--namespace`` 选项时,请确保提供的命名空间是在 ``Config\Autoload`` 中的 ``$psr4`` 数组或你的 composer 自动加载文件中定义的有效命名空间。否则,代码生成将中断。
 
-.. important:: 从 v4.0.5 开始,使用 ``migrate:create`` 创建迁移文件已被弃用。它将在未来版本中删除。请使用 ``make:migration`` 作为替代。另外,请使用 ``make:migration --session`` 来代替已弃用的 ``session:migration``。
-
 *******************
 内置生成器
 *******************
@@ -212,6 +210,30 @@ make:seeder
 ========
 * ``--namespace``:设置根命名空间。默认为 ``APP_NAMESPACE`` 的值。
 * ``--suffix``:在生成的类名后附加组件后缀。
+* ``--force``：设置此标志以覆盖目标上的现有文件。
+
+.. _cli-generators-make-test:
+
+make:test
+-----------
+
+.. versionadded:: 4.5.0
+
+创建一个新的测试文件。
+
+用法：
+======
+::
+
+    make:test <name> [options]
+
+参数：
+=========
+* ``name``：测试类的名称。 **[必需]**
+
+选项：
+========
+* ``--namespace``：设置根命名空间。默认为 ``Tests`` 的值。
 * ``--force``:设置此标志以覆盖目标上的现有文件。
 
 make:migration

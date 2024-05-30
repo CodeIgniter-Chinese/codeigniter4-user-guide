@@ -37,7 +37,9 @@ is()
 
 .. versionadded:: 4.3.0
 
-自 v4.3.0 起,你可以使用 ``is()`` 方法。它返回布尔值。
+自 v4.3.0 起，你可以使用 ``is()`` 方法。它接受一个 HTTP 方法、``'ajax'`` 或 ``'json'``，并返回布尔值。
+
+.. note:: HTTP 方法应该区分大小写，但参数是不区分大小写的。
 
 .. literalinclude:: incomingrequest/040.php
 
@@ -48,14 +50,14 @@ getMethod()
 
 .. literalinclude:: incomingrequest/005.php
 
-默认情况下,该方法以小写字符串形式返回(即 ``'get'``、``'post'`` 等)。
+HTTP 方法是区分大小写的，按照惯例，标准化方法是用全大写的 US-ASCII 字母定义的。
 
-.. important:: 将返回值转换为小写的功能已被弃用。它将在未来版本中删除,此方法将等效于 PSR-7。
+.. note:: 在 v4.5.0 之前，默认情况下，该方法会返回小写字符串（即 ``'get'``、``'post'`` 等）。但这是一个 bug。
 
-你可以通过将调用包装在 ``strtoupper()`` 中获取大写版本::
+你可以通过用 ``strtolower()`` 包装调用来获取小写版本的字符串::
 
-    // 返回 'GET'
-    $method = strtoupper($request->getMethod());
+    // 返回 'get'
+    $method = strtolower($request->getMethod());
 
 你还可以使用 ``isSecure()`` 方法检查请求是否通过 HTTPS 连接发出:
 

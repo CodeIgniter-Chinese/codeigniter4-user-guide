@@ -66,6 +66,7 @@
 例如,假设我们在 Autoload 配置文件中定义了以下命名空间:
 
 .. literalinclude:: migration/004.php
+    :lines: 2-
 
 这将查找 **APPPATH/Database/Migrations** 和 **ROOTPATH/MyCompany/Database/Migrations** 中的任何迁移。这使得在你的可重用、模块化代码套件中包含迁移变得很简单。
 

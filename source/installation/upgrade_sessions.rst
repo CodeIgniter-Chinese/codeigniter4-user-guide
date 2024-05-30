@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X Session 库文档 <http://codeigniter.com/userguide3/libraries/sessions.html>`_
-- :doc:`CodeIgniter 4.X Session 库文档 </libraries/sessions>`
+- `CodeIgniter 3.x Session 库文档 <http://codeigniter.com/userguide3/libraries/sessions.html>`_
+- :doc:`CodeIgniter 4.x Session 库文档 </libraries/sessions>`
 
 变更点
 =====================

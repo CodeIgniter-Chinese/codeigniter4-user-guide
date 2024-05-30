@@ -114,11 +114,13 @@ CSRF 保护方法
 失败时重定向
 ----------------------
 
-自 v4.3.0 起,当请求失败 CSRF 验证检查时,它将默认抛出 SecurityException。
+从 v4.5.0 开始，当请求未通过 CSRF 验证检查时，在生产环境中，默认情况下用户会被重定向到前一页面；在其他环境中，则会抛出一个 SecurityException。
 
 .. note:: 在生产环境中,当你使用 HTML 表单时,建议启用此重定向以获得更好的用户体验。
 
-如果你想重定向到上一页,请在 **app/Config/Security.php** 中更改以下配置参数的值:
+    升级用户应检查他们的配置文件。
+
+如果你希望将其重定向到前一页面，请在 **app/Config/Security.php** 中将以下配置参数值设置为 ``true``：
 
 .. literalinclude:: security/005.php
 

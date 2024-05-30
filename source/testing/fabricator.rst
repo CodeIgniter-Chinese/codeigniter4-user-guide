@@ -2,7 +2,7 @@
 生成测试数据
 ####################
 
-测试应用程序的时候,你经常需要一些示例数据。``Fabricator`` 类使用 fzaninotto 的 `Faker <https://github.com/FakerPHP/Faker>`_ 将模型转化为随机数据生成器。在种子文件或测试用例中使用 fabricator 来准备假数据用于单元测试。
+通常，你需要示例数据来运行应用程序的测试。``Fabricator`` 类使用 `Faker <https://github.com/FakerPHP/Faker>`_ 将模型转换为随机数据生成器。在你的种子或测试用例中使用 fabricators 来为单元测试准备虚假数据。
 
 .. contents::
     :local:
@@ -45,9 +45,27 @@ Faker 通过从 formatter 请求数据来生成数据。如果没有定义 forma
 .. literalinclude:: fabricator/005.php
 
 请注意,在这个例子中,前三个值等效于之前的 formatter。但是对于 ``avatar`` 我们请求了与默认不同的图像大小, ``login`` 使用基于应用配置的条件,这两者在使用 ``$formatters`` 参数时都是不可能的。
-你可能希望将测试数据与生产模型分开,所以最好是在测试支持文件夹中定义一个子类:
+
+你可能希望将测试数据与生产模型分开，所以最好是在测试支持文件夹中定义一个子类：
 
 .. literalinclude:: fabricator/006.php
+
+设置修饰符
+=================
+
+.. versionadded:: 4.5.0
+
+Faker 提供了三个特殊的提供者，``unique()``, ``optional()`` 和 ``valid()``，可以在任何提供者之前调用。Fabricator 通过提供专用方法完全支持这些修饰符。
+
+.. literalinclude:: fabricator/022.php
+
+在字段名称之后传递的参数会直接按原样传递给修饰符。你可以参考 `Faker 的修饰符文档`_ 了解详细信息。
+
+.. _Faker 的修饰符文档: https://fakerphp.github.io/#modifiers
+
+如果你在模型上使用 ``fake()`` 方法，你可以直接使用 Faker 的修饰符，而不是在 Fabricator 上调用每个方法。
+
+.. literalinclude:: fabricator/023.php
 
 本地化
 ============

@@ -1,0 +1,404 @@
+#############
+版本 4.5.0
+#############
+
+发布日期：2024 年 4 月 7 日
+
+**CodeIgniter4 的 4.5.0 版本发布**
+
+.. contents::
+    :local:
+    :depth: 3
+
+**********
+亮点
+**********
+
+- 更新最低 PHP 要求至 8.1。
+- 更新最低 PHPUnit 要求至 10.5。
+- **CORS 过滤器** （*由* `kenjis <https://github.com/kenjis>`_ *贡献*）
+  详见 :doc:`../libraries/cors`。
+- 用于在生产环境中提升性能的 **spark optimize** 命令（*由* `kenjis <https://github.com/kenjis>`_ *贡献*）。
+  见 :ref:`spark_optimize`。
+
+************
+增强功能
+************
+
+.. _v450-required-filters:
+
+必需过滤器
+==========
+
+引入了新的 :ref:`必需过滤器 <filters-required>`。这些是特殊的过滤器，它们在其他种类的过滤器之前和之后应用，并且即使路由不存在也总会应用。
+
+以下现有功能已重新实现为必需过滤器。
+
+- :ref:`强制全局安全请求 <forcehttps>`
+- :doc:`../general/caching`
+- :ref:`性能指标 <performancemetrics>`
+- :ref:`调试工具栏 <the-debug-toolbar>`
+
+调试工具栏使用的 Benchmark **Timers** 现在收集 *必需前过滤器* 和 *必需后过滤器* 数据。
+
+基准测试点已经更改：
+
+- 之前：
+
+   - ``bootstrap``: 创建 Request 和 Response 对象，事件 ``pre_system``，实例化 RouteCollection 对象，加载 Routes 文件，实例化 Router 对象，
+   - ``routing``: 路由，
+- 之后：
+
+   - ``bootstrap``: 创建 Request 和 Response 对象，事件 ``pre_system``。
+   - ``required_before_filters``: 实例化 Filters 对象，运行 *必需前过滤器*。
+   - ``routing``: 实例化 RouteCollection 对象，加载 Routes 文件，实例化 Router 对象，路由，
+
+路由
+====
+
+- **AutoRouting 改进：** 添加了 ``$translateUriToCamelCase`` 选项，允许使用驼峰式（CamelCase）控制器和方法名称。详见 :ref:`controller-translate-uri-to-camelcase`。
+- **其他改进：**
+    - 添加了 ``$multipleSegmentsOneParam`` 选项。启用该选项时，匹配多个段的占位符（如 ``(:any)``）将直接作为一个参数传递，即使它包含多个段。详见 :ref:`multiple-uri-segments-as-one-parameter`。
+    - 现在你在 ``$override404`` 中设置的 404 控制器方法也会接收到 ``PageNotFoundException`` 消息作为第一个参数。
+    - 现在你可以使用 ``__invoke()`` 方法作为默认方法。详见 :ref:`routing-default-method`。
+
+命令
+====
+
+- 添加了 ``spark optimize`` 命令来优化生产环境的配置。详见 :ref:`spark_optimize`。
+- 添加了 ``spark make:test`` 命令来生成测试文件的骨架。详见 :ref:`cli-generators-make-test`。
+- 添加了 ``spark config:check`` 命令来检查配置值。详见 :ref:`confirming-config-values`。
+- 添加了 ``spark phpini:check`` 命令来检查重要的 PHP ini 设置。详见 :ref:`spark-phpini-check`。
+- 添加了 ``spark lang:find`` 命令来更新翻译键。详见 :ref:`generating-translation-files-via-command`。
+- ``spark db:table`` 命令中已添加 ``--dbgroup`` 选项。详见 :ref:`Database Commands <db-command-specify-the-dbgroup>`。
+
+测试
+====
+
+- **DomParser:** 添加了新方法 ``seeXPath()`` 和 ``dontSeeXPath()``，允许用户使用复杂表达式直接与 DOMXPath 对象交互。
+- **CLI:** 添加了新类 ``InputOutput``，现在如果你使用 ``MockInputOutput``，可以更轻松地为命令编写测试。详见 :ref:`using-mock-input-output`。
+- **Fabricator:** Fabricator 类现在有 ``setUnique()``、``setOptional()`` 和 ``setValid()`` 方法，以允许在生成值之前对每个字段调用 Faker 的修饰符。
+- **TestResponse:** TestResponse 不再继承 ``PHPUnit\Framework\TestCase``，因为它不是一个测试。断言的返回类型现在本地化为 ``void``。
+
+数据库
+======
+
+查询生成器
+-----------
+
+.. _v450-query-builder-limit-0-behavior:
+
+limit(0) 行为
+^^^^^^^^^^^^^^^^^
+
+- 添加了一个功能标志 ``Feature::$limitZeroAsAll`` 来修正 ``limit(0)`` 的错误行为。
+- 如果在 SQL 语句中指定了 ``LIMIT 0``，则返回 0 条记录。然而，查询生成器中存在一个错误，如果指定了 ``limit(0)``，生成的 SQL 语句将没有 ``LIMIT`` 子句，并返回所有记录。
+- 建议在 **app/Config/Feature.php** 中将 ``$limitZeroAsAll`` 设置为 ``false``，因为这个错误行为将在未来版本中修复。详见 :ref:`v450-model-findall-limit-0-behavior`。
+
+其他
+------
+
+- 支持包含点（``.``）的数据库名称。
+
+模型
+====
+
+模型字段转换
+-------------------
+
+添加了一个功能来将从数据库检索到的数据转换为合适的 PHP 类型。详见 :ref:`model-field-casting`。
+
+.. _v450-model-findall-limit-0-behavior:
+
+findAll(0) 行为
+-------------------
+
+- 添加了一个功能标志 ``Feature::$limitZeroAsAll`` 来修正 Query Builder 的 ``limit(0)`` 的错误行为。详见 :ref:`v450-query-builder-limit-0-behavior`。
+- 如果你禁用此标志，你需要将 ``findAll(0, $offset)`` 更改为 ``findAll(null, $offset)``。
+
+$updateOnlyChanged
+------------------
+
+添加了一个属性 ``$updateOnlyChanged``，用于决定是否仅更新 :doc:`Entity <../models/entities>` 的更改字段。如果你将此属性设置为 ``false``，当你更新一个 Entity 时，即使 Entity 中的值没有变化，也不会抛出 ``DataException`` "There is no data to update"。
+
+详见 :ref:`Using CodeIgniter’s Model <model-update-only-changed>`。
+
+保存日期
+------------
+
+现在你可以配置保存 :doc:`Time <../libraries/time>` 实例时的日期/时间格式。详见 :ref:`model-saving-dates`。
+
+库
+=========
+
+- **CORS:** 添加了 :doc:`../libraries/cors` 过滤器和类。
+- **Validation:**
+    - 新增规则 ``field_exists``，用于检查字段是否存在于要验证的数据中。
+    - ``Validation::run()`` 的 ``$dbGroup`` 参数现在不仅接受数据库组名，还接受数据库连接实例或数据库设置数组。
+- **Session:**
+    - ``RedisHandler`` 现在可以配置获取锁的时间间隔（``$lockRetryInterval``）和重试次数（``$lockMaxRetries``）。
+    - 现在你可以在 ``RedisHandler`` 中使用 Redis ACL（用户名和密码）。详见 :ref:`sessions-redishandler-driver`。
+- **Security:** ``Config\Security::$redirect`` 现在是特定于环境的。在生产环境中默认改为 ``true``，但在其他环境中仍然是 ``false``。
+
+其他
+======
+
+- **Bootstrap:** 引入了 ``CodeIgniter\Boot`` 类，取代了 **system/bootstrap.php**。
+- **Autoloader:**
+    - 使用 Composer 时的自动加载性能有所提升。在 **composer.json** 中在 ``autoload.psr4`` 设置中添加 ``App`` 命名空间也可能会提升应用的性能。详见 :ref:`autoloader-application-namespace`。
+    - 实现了 FileLocator 缓存。详见 :ref:`file-locator-caching`。
+    - 添加了 ``FileLocatorInterface``。
+- **CodeIgniter:** 新增伪变量 ``{memory_usage}``，在视图文件中显示内存使用情况，这是 CodeIgniter 3 支持的功能。
+- **Events:** 为 Spark 命令添加了事件点 ``pre_command`` 和 ``post_command``。详见 :ref:`Event Points <event-points-for-cli-apps>`。
+- **HTTP:** 添加了 ``Message::addHeader()`` 方法来添加另一个具有相同名称的头。详见 :php:meth:`CodeIgniter\\HTTP\\Message::addHeader()`。
+- **Web 页面缓存:** ``ResponseCache`` 已改进，包含在缓存键中的请求 HTTP 方法。意味着如果 HTTP 方法不同，相同的 URI 将分别缓存。
+- **CSP:** 添加了 ``ContentSecurityPolicy::clearDirective()`` 方法来清除现有的 CSP 指令。详见 :ref:`csp-clear-directives`。
+
+********
+重大变更
+********
+
+行为更改
+========
+
+小写 HTTP 方法名
+------------------
+
+由于历史原因，框架使用小写的 HTTP 方法名，如 "get"、"post"。
+但方法令牌是区分大小写的，因为它可能用于具有区分大小写方法名的基于对象的系统。按照惯例，标准化方法用全大写字母 US-ASCII 字母定义。
+详见 https://www.rfc-editor.org/rfc/rfc9110#name-overview。
+
+现在框架使用正确的 HTTP 方法名，如 "GET"、"POST"。
+
+- ``Request::getMethod()`` 返回大写的 HTTP 方法。
+- ``CURLRequest::request()`` 不会将接受的 HTTP 方法更改为大写。
+
+详情见 :ref:`upgrade-450-lowercase-http-method-name`。
+
+过滤器执行顺序
+----------------------
+
+控制器过滤器的执行顺序已更改。详见 :ref:`升级指南 <upgrade-450-filter-execution-order>`。
+
+嵌套路由组和选项
+-------------------------------
+
+由于错误修复，行为已更改，使得传递给外部 ``group()`` 的选项与内部 ``group()`` 的选项合并。
+详见 :ref:`升级指南 <upgrade-450-nested-route-groups-and-options>`。
+
+API\\ResponseTrait
+------------------
+
+现在当响应格式为 JSON 时，如果你传递字符串数据，框架将返回 JSON 响应。在以前的版本中，它返回 HTML 响应。
+详见 :ref:`升级指南 <upgrade-450-api-response-trait>`。
+
+Factories 类
+---------------
+
+:doc:`../concepts/factories` 已更改为最终类（final class）。它是一个静态类，即使它被扩展，也没有替换它的方式。
+
+其他
+------
+
+- **AutoRouting Legacy:** 如果请求 URI 对应的控制器不存在，则改为抛出 ``PageNotFoundException``。
+- **Logger:** :php:func:`log_message()` 函数和 ``CodeIgniter\Log\Logger`` 中的 logger 方法现在不再返回 ``bool`` 值。返回类型已固定为 ``void``，以遵循 PSR-3 接口。
+- **Autoloader:** 已删除 ``FileLocator::findQualifiedNameFromPath()`` 返回的完全限定类名中的前缀 ``\``。
+- **BaseModel:** ``getIdValue()`` 方法已更改为 ``abstract``。
+- **Routing:** :ref:`404-override` 功能默认改变 Response 状态代码为 404。详见 :ref:`升级指南 <upgrade-450-404-override>`。
+- **system/bootstrap.php:** 此文件不能再使用。代码已移动到新类 ``CodeIgniter\Boot``。
+
+接口更改
+========
+
+.. note:: 只要你没有扩展相关的 CodeIgniter 核心类或实现这些接口，所有这些更改都是向后兼容的，不需要任何干预。
+
+- **ResponseInterface:** ``ResponseInterface::setCookie()`` 的第三个参数 ``$expire`` 的默认值已从 ``''`` 修正为 ``0``。
+- **Logger:** `psr/log <https://packagist.org/packages/psr/log>`_ 包已升级到 v3.0.0。
+- **Validation:** ``ValidationInterface::run()`` 的方法签名已更改。删除了 ``$dbGroup`` 参数上的 ``?string`` 类型提示。
+
+.. _v450-method-signature-changes:
+
+方法签名更改
+============
+
+设置 Cookie
+-------------
+
+:php:func:`set_cookie()` 和 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 的第三个参数 ``$expire`` 已修正。
+
+类型已从 ``string`` 更改为 ``int``，默认值已从 ``''`` 更改为 ``0``。
+
+FileLocatorInterface
+--------------------
+
+- **Router:** ``RouteCollection`` 构造函数的第一个参数已从 ``FileLocator`` 更改为 ``FileLocatorInterface``。
+- **View:** ``View`` 构造函数的第三个参数已从 ``FileLocator`` 更改为 ``FileLocatorInterface``。
+
+返回类型更改
+------------
+
+- **Model:** ``Model`` 和 ``BaseModel`` 类中 ``objectToRawArray()`` 方法的返回类型已从 ``?array`` 更改为 ``array``。
+
+传统验证规则
+---------------
+
+为了在框架代码库中添加 ``declare(strict_types=1)``，所有传统验证规则类 ``CodeIgniter\Validation\FormatRules`` 和 ``CodeIgniter\Validation\Rules`` 中用于验证值的方法参数类型 ``?string`` 已移除。
+
+例如，方法签名更改如下::
+
+    之前：public function integer(?string $str = null): bool
+    之后：public function integer($str = null): bool
+
+其他
+------
+
+- **Logger:** 实现 PSR-3 接口的 ``CodeIgniter\Log\Logger`` 中方法的签名已修正。``bool`` 返回类型已更改为 ``void``。``$message`` 参数现在具有 ``string|Stringable`` 类型。
+- **Validation:** ``Validation::run()`` 的方法签名已更改。去掉了 ``?string`` 类型提示。
+
+.. _v450-removed-deprecated-items:
+
+移除的弃用项
+============
+
+Request
+-------
+
+- ``RequestInterface`` 和 ``Request`` 中 ``getMethod()`` 的 ``$upper`` 参数已移除。详见 :ref:`upgrade-450-lowercase-http-method-name`。
+- ``RequestInterface`` 和 ``Request`` 中弃用的 ``isValidIP()`` 方法已移除。
+- ``IncomingRequest`` 中弃用的 ``$uri`` 和 ``$config`` 属性的可见性已更改为 protected。
+- ``IncomingRequest`` 中的 ``$enableCSRF`` 属性已移除。
+- ``IncomingRequest`` 中的 ``removeRelativeDirectory()`` 方法已移除。
+- ``Request`` 中的 ``$proxyIPs`` 属性已移除。
+
+Filters
+-------
+
+- 已移除以下弃用项，因为现在始终启用 :ref:`multiple-filters`。
+
+    - ``Filters::enableFilter()``
+    - ``RouteCollection::getFilterForRoute()``
+    - ``Router::$filterInfo``
+    - ``Router::getFilter()``
+
+数据库
+--------
+
+- ``ModelFactory``
+
+模型
+-----
+
+- ``BaseModel::idValue()``
+- ``BaseModel::fillPlaceholders()``
+- ``Model::idValue()``
+- ``Model::classToArray()``
+
+Response
+--------
+
+- ``ResponseTrait::$CSP`` 属性的可见性已更改为 protected。
+- 以下弃用的属性已移除：
+
+    - ``ResponseTrait::$CSPEnabled``
+    - ``ResponseTrait::$cookiePrefix``
+    - ``ResponseTrait::$cookieDomain``
+    - ``ResponseTrait::$cookiePath``
+    - ``ResponseTrait::$cookieSecure``
+    - ``ResponseTrait::$cookieHTTPOnly``
+    - ``ResponseTrait::$cookieSameSite``
+    - ``ResponseTrait::$cookies``
+
+Security
+--------
+
+- ``SecurityInterface::isExpired()``
+- ``Security::isExpired()``
+- ``Security::CSRFVerify()``
+- ``Security::getCSRFHash()``
+- ``Security::getCSRFTokenName()``
+- ``Security::sendCookie()``
+- ``Security::doSendCookie()``
+
+CodeIgniter
+-----------
+
+- ``$path``
+- ``$useSafeOutput``
+- ``useSafeOutput()``
+- ``setPath()``
+
+测试
+----
+
+- ``CIDatabaseTestCase``
+- ``ControllerResponse``
+- ``ControllerTester``
+- ``FeatureResponse``
+- ``FeatureTestCase``
+- ``Mock\MockSecurityConfig``
+
+Spark 命令
+--------------
+
+- ``migrate:create``
+- ``session:migration``
+
+其他
+------
+
+- **Cache:** 已移除 ``CodeIgniter\Cache\Exceptions\ExceptionInterface``。
+- **Config:**
+    - 已移除 ``CodeIgniter\Config\Config`` 类。
+    - 已移除 ``CodeIgniter\Config\BaseService::discoverServices()`` 方法。
+- **Controller:** 已移除 ``Controller::loadHelpers()`` 方法。
+- **Exceptions:** 已移除 ``CodeIgniter\Exceptions\CastException`` 类。
+- **Entity:** 已移除 ``CodeIgniter\Entity`` 类。请使用 ``CodeIgniter\Entity\Entity``。
+- **spark:** 已移除 ``SPARKED`` 常量。
+
+***************
+消息更改
+***************
+
+- 添加了 ``CLI.generator.className.test`` 消息。
+- 添加了 ``Validation.field_exists`` 错误消息。
+
+*******
+更改
+*******
+
+- **Bootstrap:** **.env** 的加载和 ``ENVIRONMENT`` 的定义已移至 **bootstrap.php** 之前加载。
+- **Config:**
+    - ``Config\Feature::$multipleFilters`` 已移除，因为现在始终启用 :ref:`multiple-filters`。
+    - 生产环境中的默认错误级别（**app/Config/Boot/production.php**）已更改为 ``E_ALL & ~E_DEPRECATED``，以匹配生产环境的默认 **php.ini**。
+- **RouteCollection:** 受保护属性 ``$routes`` 中的 HTTP 方法键已从小写修正为大写。
+- **Exceptions:** 未使用的 ``CodeIgniter\Exceptions\AlertError`` 和 ``CodeIgniter\Exceptions\EmergencyError`` 已移除。
+- **Forge:** ``SQLSRV`` Forge 现在在添加表列时将 ``ENUM`` 数据类型转换为 ``VARCHAR(n)``。在以前的版本中，它被转换为 SQL Server 中弃用的 ``TEXT``。
+- ``declare(strict_types=1)`` 已添加到大多数框架代码库。
+
+************
+弃用项
+************
+
+- **Services:** ``BaseService::$services`` 属性已弃用，不再使用。
+- **CodeIgniter:**
+    - ``determinePath()`` 方法已弃用，不再使用。
+    - ``resolvePlatformExtensions()`` 方法已弃用，不再使用。它已被移到 ``CodeIgniter\Boot::checkMissingExtensions()`` 方法。
+    - ``bootstrapEnvironment()`` 方法已弃用，不再使用。它已被移到 ``CodeIgniter\Boot::loadEnvironmentBootstrap()`` 方法。
+    - ``initializeKint()`` 方法已弃用，不再使用。它已移到 ``Autoloader``。
+    - ``autoloadKint()`` 方法已弃用，不再使用。它已移到 ``Autoloader``。
+    - ``configureKint()`` 方法已弃用，不再使用。它已移到 ``Autoloader``。
+- **Response:** 构造函数参数 ``$config`` 已弃用，不再使用。
+- **Filters:**
+    - ``Filters`` 接受 ``Config\Filters::$methods`` 的小写 HTTP 方法键的功能已弃用。请改用正确的大写 HTTP 方法键。
+    - ``spark filter:check`` 命令接受小写 HTTP 方法的功能已弃用。请改用正确的大写 HTTP 方法。
+- **RouteCollection:** ``match()`` 和 ``setHTTPVerb()`` 方法接受小写 HTTP 方法的功能已弃用。请改用正确的大写 HTTP 方法。
+- **FeatureTestTrait:** ``call()`` 和 ``withRoutes()`` 方法接受小写 HTTP 方法的功能已弃用。请改用正确的大写 HTTP 方法。
+- **Database:** ``BaseConnection::$strictOn`` 已弃用，未来将迁移到 ``MySQLi\Connection``。
+
+**********
+修复的错误
+**********
+
+请参阅仓库中的
+`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
+获取完整的错误修复列表。

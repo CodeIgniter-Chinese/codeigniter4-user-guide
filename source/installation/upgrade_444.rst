@@ -63,7 +63,7 @@ CURLRequest 选项 `verify` 也可以像往常一样接受 *布尔值*。
 项目文件
 *************
 
-**项目空间**（root，app，public，writable）中的一些文件已经更新。由于这些文件在 **system** 范围之外，没有你的干预不会发生改变。
+**项目空间** （root，app，public，writable）中的一些文件已经更新。由于这些文件在 **system** 范围之外，没有你的干预不会发生改变。
 
 有一些第三方 CodeIgniter 模块可用于帮助合并对项目空间的更改：`在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 

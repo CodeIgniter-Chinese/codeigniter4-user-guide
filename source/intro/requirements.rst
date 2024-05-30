@@ -10,13 +10,19 @@
 PHP 及所需扩展
 ***************************
 
-需要 `PHP <https://www.php.net/>`_ 7.4 或更高版本,并启用以下 PHP 扩展:
+需要 `PHP <https://www.php.net/>`_ 8.1 或更高版本，并启用以下 PHP 扩展：
 
   - `intl <https://www.php.net/manual/en/intl.requirements.php>`_
   - `mbstring <https://www.php.net/manual/en/mbstring.requirements.php>`_
   - `json <https://www.php.net/manual/en/json.requirements.php>`_
 
 .. warning:: PHP 7.4 的生命周期结束日期是 2022 年 11 月 28 日。如果你仍在使用 PHP 7.4，应立即升级。PHP 8.0 的生命周期结束日期将是 2023 年 11 月 26 日。
+
+.. warning::
+    - PHP 7.4 的生命周期结束日期是 2022 年 11 月 28 日。
+    - PHP 8.0 的生命周期结束日期是 2023 年 11 月 26 日。
+    - 如果你仍在使用 PHP 7.4 或 8.0，你应该立即升级。
+    - PHP 8.1 的生命周期结束日期将是 2024 年 11 月 25 日。
 
 ***********************
 可选的 PHP 扩展
@@ -54,7 +60,7 @@ PHP 及所需扩展
   - MySQL,通过 ``MySQLi`` 驱动程序(仅版本 5.1 及以上)
   - PostgreSQL,通过 ``Postgre`` 驱动程序(仅版本 7.4 及以上)
   - SQLite3,通过 ``SQLite3`` 驱动程序
-  - Microsoft SQL Server,通过 ``SQLSRV`` 驱动程序(仅版本 2005 及以上)
+  - Microsoft SQL Server,通过 ``SQLSRV`` 驱动程序(仅版本 2012 及以上)
   - Oracle 数据库,通过 ``OCI8`` 驱动程序(仅版本 12.1 及以上)
 
 并非所有驱动程序都已为 CodeIgniter4 转换/重写。

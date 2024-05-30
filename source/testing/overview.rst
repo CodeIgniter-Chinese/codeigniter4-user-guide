@@ -52,20 +52,22 @@ Phar
 PHPUnit 配置
 =====================
 
-项目根目录中有一个 ``phpunit.xml.dist`` 文件。它控制框架本身的单元测试。如果提供自己的 ``phpunit.xml``,则会覆盖它。
+在你的 CodeIgniter 项目根目录中，有一个 ``phpunit.xml.dist`` 文件。这个文件控制着你的应用程序的单元测试。如果你提供了自己的 ``phpunit.xml``，它将覆盖默认文件。
 
-如果正在对应用程序进行单元测试,则 ``phpunit.xml`` 应该排除 ``system`` 文件夹以及任何 ``vendor`` 或 ``ThirdParty`` 文件夹。
+默认情况下，测试文件放置在项目根目录下的 **tests** 目录中。
 
 测试类
 ==============
 
-为了利用所提供的其他工具,测试必须扩展 ``CIUnitTestCase``。默认情况下,所有测试都预计位于 **tests/app** 目录中。
+为了利用提供的额外工具，你的测试必须继承 ``CodeIgniter\Test\CIUnitTestCase``。
 
-要测试新的库 **Foo**,你将在 **tests/app/Libraries/FooTest.php** 中创建一个新文件:
+对于测试文件的放置位置没有硬性规定。然而，我们建议你提前制定放置规则，以便你能快速了解测试文件的位置。
+
+在本文档中，我们将把与 **app** 目录中的类对应的测试文件放置在 **tests/app** 目录中。要测试一个新的库 **app/Libraries/Foo.php**，你需要在 **tests/app/Libraries/FooTest.php** 创建一个新文件：
 
 .. literalinclude:: overview/001.php
 
-要测试模型之一,你最终可能会在 **tests/app/Models/OneOfMyModelsTest.php** 中以类似以下形式结束:
+要测试你的某个模型 **app/Models/UserModel.php**，你可能会在 **tests/app/Models/UserModelTest.php** 中得到如下内容：
 
 .. literalinclude:: overview/002.php
 
@@ -88,7 +90,7 @@ PHPUnit 配置
 
 静态方法 ``setUpBeforeClass()`` 和 ``tearDownAfterClass()`` 分别在整个测试用例之前和之后运行,而受保护的方法 ``setUp()`` 和 ``tearDown()`` 在每个测试之间运行。
 
-如果实现了这些特殊函数中的任何一个,请确保也运行其父函数,以免扩展的测试用例干扰环境搭建:
+如果你实现了这些特殊函数中的任何一个，请确保你也运行它们的父级函数，以免扩展的测试用例干扰到分阶段测试：
 
 .. literalinclude:: overview/003.php
 
@@ -239,77 +241,6 @@ Services::resetSingle(string $name)
 
 .. literalinclude:: overview/021.php
 
-你可以使用 ``Time::setTestNow()`` 方法来固定当前时间。
-你还可以选择性地将地区设置为第二个参数。
+你可以使用 ``Time::setTestNow()`` 方法来固定当前时间。可选地，你可以指定一个语言环境作为第二个参数。
 
-不要忘记在测试后通过调用它而不带参数来重置当前时间。
-
-.. _testing-cli-output:
-
-测试 CLI 输出
-==================
-
-StreamFilterTrait
------------------
-
-.. versionadded:: 4.3.0
-
-**StreamFilterTrait** 提供了这些帮助方法的替代方法。
-
-你可能需要测试一些难以测试的内容。有时,捕获流,如 PHP 自己的 STDOUT 或 STDERR,可能会有所帮助。``StreamFilterTrait`` 帮助你从选择的流中捕获输出。
-
-**方法概览**
-
-- ``StreamFilterTrait::getStreamFilterBuffer()`` 获取缓冲区中的捕获数据。
-- ``StreamFilterTrait::resetStreamFilterBuffer()`` 重置捕获的数据。
-
-在测试用例中演示此用法的示例:
-
-.. literalinclude:: overview/018.php
-
-``StreamFilterTrait`` 具有自动调用的配置器。请参阅 :ref:`Testing Traits <testing-overview-traits>`。
-
-如果在测试中覆盖 ``setUp()`` 或 ``tearDown()`` 方法,则必须分别调用 ``parent::setUp()`` 和 ``parent::tearDown()`` 方法来配置 ``StreamFilterTrait``。
-
-CITestStreamFilter
-------------------
-
-**CITestStreamFilter** 用于手动单次使用。
-
-如果只需要在一个测试中捕获流,那么可以手动将过滤器添加到流,而不是使用 StreamFilterTrait trait。
-
-**方法概览**
-
-- ``CITestStreamFilter::registration()`` 过滤器注册。
-- ``CITestStreamFilter::addOutputFilter()`` 向输出流添加过滤器。
-- ``CITestStreamFilter::addErrorFilter()`` 向错误流添加过滤器。
-- ``CITestStreamFilter::removeOutputFilter()`` 从输出流中移除过滤器。
-- ``CITestStreamFilter::removeErrorFilter()`` 从错误流中移除过滤器。
-
-.. literalinclude:: overview/020.php
-
-.. _testing-cli-input:
-
-测试 CLI 输入
-=================
-
-PhpStreamWrapper
-----------------
-
-.. versionadded:: 4.3.0
-
-**PhpStreamWrapper** 提供了测试需要用户输入的方法(如 ``CLI::prompt()``、``CLI::wait()`` 和 ``CLI::input()``)的途径。
-
-.. note:: PhpStreamWrapper 是一个流包装器类。如果你不了解 PHP 的流包装器,请参阅 PHP 手册中的 `The streamWrapper class <https://www.php.net/manual/en/class.streamwrapper.php>`_。
-
-**方法概览**
-
-- ``PhpStreamWrapper::register()`` 将 ``PhpStreamWrapper`` 注册到 ``php`` 协议。
-- ``PhpStreamWrapper::restore()`` 将 php 协议包装器恢复为内置的 PHP 包装器。
-- ``PhpStreamWrapper::setContent()`` 设置输入数据。
-
-.. important:: PhpStreamWrapper 仅用于测试 ``php://stdin``。但是在注册时,它会处理所有 `php 协议 <https://www.php.net/manual/en/wrappers.php.php>`_ 流,例如 ``php://stdout``、``php://stderr``、``php://memory``。所以,强烈建议仅在需要时注册/取消注册 PhpStreamWrapper。否则,它会在注册期间干扰其他内置的 php 流。
-
-在测试用例中演示用法的示例:
-
-.. literalinclude:: overview/019.php
+不要忘记在测试后调用该方法（不带参数）来重置当前时间。

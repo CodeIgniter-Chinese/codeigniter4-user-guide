@@ -42,6 +42,8 @@
 
   .. literalinclude:: managing_apps/003.php
 
+.. _running-multiple-app:
+
 使用一个 CodeIgniter 安装运行多个应用程序
 ===============================================================
 

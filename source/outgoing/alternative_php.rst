@@ -11,11 +11,11 @@
 
 通常要输出或打印一个变量,你会这样做::
 
-    <?php echo $variable; ?>
+    <?php echo esc($variable); ?>
 
 使用替代语法,你可以这样做::
 
-    <?= $variable ?>
+    <?= esc($variable) ?>
 
 替代控制结构
 ==============================

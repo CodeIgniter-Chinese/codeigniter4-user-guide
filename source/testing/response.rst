@@ -209,6 +209,22 @@ seeCheckboxIsChecked()
 .. literalinclude:: response/023.php
    :lines: 2-
 
+seeXPath()
+----------
+
+.. versionadded:: 4.5.0
+
+你可以使用 ``seeXPath()`` 来充分利用 xpath 提供的强大功能。
+此方法针对的是希望直接使用 DOMXPath 对象编写更复杂表达式的高级用户：
+
+.. literalinclude:: response/033.php
+   :lines: 2-
+
+``dontSeeXPath()`` 方法则完全相反：
+
+.. literalinclude:: response/034.php
+   :lines: 2-
+
 DOM 断言
 ==============
 

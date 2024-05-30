@@ -36,7 +36,7 @@ CodeIgniter 4 应用程序可以以多种不同的方式运行：托管在 Web �
 配置数据库连接设置
 ======================================
 
-如果你打算使用数据库，请使用文本编辑器打开 **app/Config/Database.php** 文件，并设置你的数据库设置。或者，你可以在 **.env** 文件中设置这些设置。
+如果你打算使用数据库，使用文本编辑器打开 **app/Config/Database.php** 文件并设置数据库配置。或者，你也可以在 **.env** 文件中设置这些配置。详细信息请参阅 :ref:`数据库配置 <database-config-explanation-of-values>`。
 
 设置为开发模式
 =======================
@@ -49,6 +49,44 @@ CodeIgniter 4 应用程序可以以多种不同的方式运行：托管在 Web �
 ==============================
 
 如果你将使用 Web 服务器（例如 Apache 或 nginx）运行你的站点，你需要修改项目中的 **writable** 文件夹的权限，以便它可以被你的 Web 服务器使用的用户或帐户写入。
+
+.. _spark-phpini-check:
+
+检查 PHP ini 设置
+=========================
+
+.. versionadded:: 4.5.0
+
+`PHP ini 设置`_ 更改 PHP 的行为。CodeIgniter 提供了一个命令来检查重要的 PHP 设置。
+
+.. _PHP ini 设置: https://www.php.net/manual/en/ini.list.php
+
+.. code-block:: console
+
+    php spark phpini:check
+
+*推荐* 列显示了生产环境的推荐值。它们在开发环境中可能会有所不同。
+
+.. note::
+    如果你不能使用 spark 命令，可以在你的控制器中使用 ``CheckPhpIni::run(false)``。
+
+    例如，
+
+    .. code-block:: php
+
+        <?php
+
+        namespace App\Controllers;
+
+        use CodeIgniter\Security\CheckPhpIni;
+
+        class Home extends BaseController
+        {
+            public function index(): string
+            {
+                return CheckPhpIni::run(false);
+            }
+        }
 
 ************************
 本地开发服务器
@@ -251,6 +289,29 @@ Apache 与许多平台捆绑在一起，但也可以从 `Bitnami <https://bitnam
         Satisfy All
     </FilesMatch>
 
+并且移除 **public/.htaccess** 中的重定向设置：
+
+.. code-block:: diff
+
+    --- a/public/.htaccess
+    +++ b/public/.htaccess
+    @@ -16,16 +16,6 @@ Options -Indexes
+        # http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
+        # RewriteBase /
+
+    -   # Redirect Trailing Slashes...
+    -   RewriteCond %{REQUEST_FILENAME} !-d
+    -   RewriteCond %{REQUEST_URI} (.+)/$
+    -   RewriteRule ^ %1 [L,R=301]
+    -
+    -   # Rewrite "www.example.com -> example.com"
+    -   RewriteCond %{HTTPS} !=on
+    -   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    -   RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+    -
+        # 检查用户是否尝试访问有效文件，
+        # 例如图像或 css 文档，如果不是真的则将请求发送到前端控制器 index.php
+
 使用 mod_userdir 进行托管（共享主机）
 =======================================
 
@@ -380,6 +441,12 @@ default.conf
 ===================
 
 请参阅 :ref:`处理多个环境 <environment-nginx>`。
+
+*************************************
+部署到共享主机服务
+*************************************
+
+参见 :ref:`Deployment <deployment-to-shared-hosting-services>`。
 
 *********************
 引导应用程序

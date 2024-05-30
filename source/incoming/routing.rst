@@ -46,8 +46,8 @@ RouteCollection 类 (``$routes``),允许你指定自己的路由标准。
 
 这是一些基本的路由示例。
 
-包含单词 **journals** 的 URL 的第一个路径段将被映射到 ``\App\Controllers\Blogs`` 类,
-以及默认方法,通常是 ``index()``:
+URL 的第一个段包含 **journals** 的情况下，会被映射到 ``\App\Controllers\Blogs`` 类，
+以及 :ref:`默认方法 <routing-default-method>`，通常是 ``index()``:
 
 .. literalinclude:: routing/006.php
 
@@ -117,9 +117,7 @@ HTTP 动词路由
 .. literalinclude:: routing/014.php
    :lines: 2-
 
-如果忘记添加 ``use App\Controllers\Home;``,控制器类名将被解释为
-``Config\Home``,而不是 ``App\Controllers\Home``,因为
-**app/Config/Routes.php** 顶部有 ``namespace Config;``。
+如果你忘记添加 ``use App\Controllers\Home;``，控制器类名会被解释为 ``\Home``，而不是 ``App\Controllers\Home``。
 
 .. note:: 当你使用数组可调用语法时,类名总是被解释为完全限定的类名。
     所以 :ref:`routing-default-namespace` 和 :ref:`namespace 选项 <assigning-namespace>`
@@ -193,7 +191,11 @@ HTTP 动词路由
 
 将匹配 **product/123**、**product/123/456**、**product/123/456/789** 等等。
 
-在上面的例子中，如果 ``$1`` 占位符包含一个斜杠（``/``），当传递给 ``Catalog::productLookup()`` 时，它仍然会被分割成多个参数。
+默认情况下，在上面的例子中，如果 ``$1`` 占位符包含斜杠（``/``），在传递给
+``Catalog::productLookup()`` 时，它仍然会被拆分为多个参数。
+
+.. note:: 自 v4.5.0 起，你可以通过配置选项更改此行为。
+    详情请参见 :ref:`multiple-uri-segments-as-one-parameter`。
 
 控制器中的实现应考虑最大参数:
 
@@ -240,7 +242,11 @@ HTTP 动词路由
 
 .. literalinclude:: routing/019.php
 
-在上面的例子中，如果 ``$1`` 占位符包含一个斜杠（``/``），当传递给 ``Auth::login()`` 时，它仍然会被分割成多个参数。
+默认情况下，在上面的例子中，如果 ``$1`` 占位符包含斜杠（``/``），在传递给
+``Auth::login()`` 时，它仍然会被拆分为多个参数。
+
+.. note:: 自 v4.5.0 起，你可以通过配置选项更改此行为。
+    详情请参见 :ref:`multiple-uri-segments-as-one-parameter`。
 
 对于那些不了解正则表达式并希望学习更多知识的人,`regular-expressions.info <https://www.regular-expressions.info/>`_ 可能是一个不错的起点。
 
@@ -375,12 +381,18 @@ HTTP 动词路由
 
 .. literalinclude:: routing/036.php
 
-多个过滤器
+.. _multiple-filters:
+
+多重过滤器
 ----------------
 
 .. versionadded:: 4.1.5
 
-.. important:: *多个过滤器* 默认禁用。因为它破坏了向后兼容性。如果要使用它,需要进行配置。有关详细信息,请参阅 :ref:`upgrade-415-multiple-filters-for-a-route`。
+.. important:: 自 v4.5.0 起，*多重过滤器* 始终启用。
+    在 v4.5.0 之前，*多重过滤器* 默认是禁用的。
+    如果你想在 v4.5.0 之前的版本中使用，请参见
+    :ref:`从 4.1.4 升级到 4.1.5 <upgrade-415-multiple-filters-for-a-route>`
+    了解详情。
 
 你可以为过滤器值指定一个数组:
 
@@ -505,6 +517,8 @@ HTTP 动词路由
 
 .. literalinclude:: routing/027.php
 
+.. _routing-nesting-groups:
+
 嵌套分组
 ==============
 
@@ -514,7 +528,12 @@ HTTP 动词路由
 
 这将处理在 **admin/users/list** 的 URL。
 
-.. note:: 传递给外部 ``group()`` 的选项(例如 ``namespace`` 和 ``filter``)不会与内部 ``group()`` 选项合并。
+**Filter** 选项传递给外部的 ``group()`` 时，会与内部的 ``group()`` 过滤器选项合并。
+上述代码对路由 ``admin`` 运行 ``myfilter:config``，对路由 ``admin/users/list`` 运行 ``myfilter:config`` 和 ``myfilter:region``。
+
+任何传递给内部 `group()` 的其他重叠选项都会覆盖它们的值。
+
+.. note:: 在 v4.5.0 之前，由于一个错误，传递给外部 ``group()`` 的选项不会与内部 ``group()`` 的选项合并。
 
 .. _routing-priority:
 
@@ -568,6 +587,30 @@ RoutesCollection 类提供了几个选项，可以影响所有路由，并且可
 
 .. literalinclude:: routing/046.php
 
+.. _routing-default-method:
+
+默认方法
+==============
+
+该设置在路由处理器只有控制器名称而没有方法名称列出时使用。默认值是 ``index``。
+::
+
+    // 在 app/Config/Routing.php 中
+    public string $defaultMethod = 'index';
+
+.. note:: ``$defaultMethod`` 也常用于自动路由。
+    请参见 :ref:`自动路由（改进版） <routing-auto-routing-improved-default-method>`
+    或 :ref:`自动路由（传统版） <routing-auto-routing-legacy-default-method>`。
+
+如果你定义了以下路由::
+
+    $routes->get('/', 'Home');
+
+当路由匹配时，将执行 ``App\Controllers\Home`` 控制器的 ``index()`` 方法。
+
+.. note:: 方法名称以 ``_`` 开头时不能用作默认方法。
+    但是，从 v4.5.0 开始，允许使用 ``__invoke`` 方法。
+
 转换 URI 中的破折号
 ====================
 
@@ -594,20 +637,21 @@ RoutesCollection 类提供了几个选项，可以影响所有路由，并且可
 .. warning:: 如果你使用 :doc:`CSRF 保护 </libraries/security>`,它不会保护 **GET** 请求。
     如果 URI 可以通过 GET 方法访问,CSRF 保护将不起作用。
 
+.. _404-override:
+
 404 重写
 ============
 
-当未找到与当前 URI 匹配的页面时,系统将显示一个泛型 404 视图。
-你可以通过指定 ``set404Override()`` 方法要发生的操作来更改此行为。
-值可以是与任何路由中所示的有效类/方法对,或者是一个闭包:
+当找不到与当前 URI 匹配的页面时，系统将显示一个通用的 404 页面。通过在路由配置文件中使用 ``$override404`` 属性，你可以为 404 路由定义控制器类/方法。
 
 .. literalinclude:: routing/051.php
 
-在路由配置文件中使用 ``$override404`` 属性，你可以使用闭包函数。在路由文件中定义覆盖是限制在类或方法对上的。
+你还可以在路由配置文件中使用 ``set404Override()`` 方法指定在发生 404 错误时执行的操作。该值可以是一个有效的类/方法对，或者是一个闭包：
 
-.. note:: ``set404Override()`` 方法不会将响应状态码更改为 ``404``。如果你不在设置的控制器中设置状态码,
-    将返回默认状态码 ``200``。有关如何设置状态码的信息,请参阅
-    :php:meth:`CodeIgniter\\HTTP\\Response::setStatusCode()`。
+.. literalinclude:: routing/069.php
+
+.. note:: 从 v4.5.0 开始，404 覆盖功能默认将响应状态代码设置为 ``404``。在之前的版本中，状态代码是 ``200``。
+    如果你想在控制器中更改状态代码，请参见 :php:meth:`CodeIgniter\\HTTP\\Response::setStatusCode()` 获取有关如何设置状态代码的信息。
 
 按优先级处理路由
 ============================
@@ -616,6 +660,24 @@ RoutesCollection 类提供了几个选项，可以影响所有路由，并且可
 此功能影响所有路由。有关降低优先级的示例用法,请参阅 :ref:`routing-priority`:
 
 .. literalinclude:: routing/052.php
+
+.. _multiple-uri-segments-as-one-parameter:
+
+将多个 URI 段作为一个参数
+======================================
+
+.. versionadded:: 4.5.0
+
+启用此选项时，匹配多个段的占位符，例如 ``(:any)``，将直接按原样传递给一个参数，即使它包含多个段。
+
+.. literalinclude:: routing/070.php
+
+例如，以下路由：
+
+.. literalinclude:: routing/010.php
+
+将匹配 **product/123**、**product/123/456**、**product/123/456/789** 等等。
+如果 URI 是 **product/123/456**，``123/456`` 将被传递给 ``Catalog::productLookup()`` 方法的第一个参数。
 
 .. _auto-routing-improved:
 
@@ -626,7 +688,7 @@ RoutesCollection 类提供了几个选项，可以影响所有路由，并且可
 
 自 v4.2.0 起,引入了新的更安全的自动路由。
 
-.. note:: 如果你熟悉自动路由,在 CodeIgniter 3 到 4.1.x 中默认启用,
+.. note:: 如果你熟悉自动路由,在 CodeIgniter 3.x 到 4.1.x 中默认启用,
     你可以在 :ref:`ChangeLog v4.2.0 <v420-new-improved-auto-routing>` 中看到区别。
 
 当未找到与 URI 匹配的定义路由时,如果启用了自动路由,系统将尝试将该 URI 与控制器和方法匹配。
@@ -697,6 +759,8 @@ URI 段
 默认控制器也在未找到匹配的路由且 URI 指向控制器目录中的目录时使用。例如,如果用户访问 **example.com/admin**,如果在 **app/Controllers/Admin/Home.php** 中找到了一个控制器,则会使用它。
 
 更多信息请参阅 :ref:`控制器中的自动路由(改进版) <controller-auto-routing-improved>`。
+
+.. _routing-auto-routing-improved-default-method:
 
 默认方法
 --------------
@@ -788,6 +852,8 @@ URI 段(传统)
 默认控制器也在未找到匹配的路由且 URI 指向控制器目录中的目录时使用。例如,如果用户访问 **example.com/admin**,如果在 **app/Controllers/Admin/Home.php** 中找到了一个控制器,则会使用它。
 
 更多信息请参阅 :ref:`控制器中的自动路由(传统) <controller-auto-routing-legacy>`。
+
+.. _routing-auto-routing-legacy-default-method:
 
 默认方法(传统)
 -----------------------

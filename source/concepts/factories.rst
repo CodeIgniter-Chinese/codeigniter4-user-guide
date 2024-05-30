@@ -262,30 +262,46 @@ setOptions 方法
 
 或者直接删除 **writable/cache/FactoriesCache_config** 文件。
 
+.. note::
+    自 v4.5.0 起，``spark optimize`` 命令会清除缓存。
+
 如何启用配置缓存
 ============================
 
-取消 **public/index.php** 中以下代码的注释::
+.. versionadded:: 4.5.0
 
-    --- a/public/index.php
-    +++ b/public/index.php
-    @@ -49,8 +49,8 @@ if (! defined('ENVIRONMENT')) {
-     }
+在 **app/Config/Optimize.php** 中将以下属性设置为 ``true``::
 
-     // Load Config Cache
-    -// $factoriesCache = new \CodeIgniter\Cache\FactoriesCache();
-    -// $factoriesCache->load('config');
-    +$factoriesCache = new \CodeIgniter\Cache\FactoriesCache();
-    +$factoriesCache->load('config');
-     // ^^^ Uncomment these lines if you want to use Config Caching.
+    public bool $configCacheEnabled = true;
 
-     /*
-    @@ -79,7 +79,7 @@ $app->setContext($context);
-     $app->run();
+自 v4.5.0 起，你可以使用 ``spark optimize`` 命令来启用此功能。
 
-     // Save Config Cache
-    -// $factoriesCache->save('config');
-    +$factoriesCache->save('config');
-     // ^^^ Uncomment this line if you want to use Config Caching.
+.. note::
+    此属性无法通过
+    :ref:`环境变量 <configuration-classes-and-environment-variables>` 重写。
 
-     // Exits the application, setting the exit code for CLI-based applications
+.. note::
+    在 v4.5.0 之前，请在 **public/index.php** 中取消以下代码的注释::
+
+        --- a/public/index.php
+        +++ b/public/index.php
+        @@ -49,8 +49,8 @@ if (! defined('ENVIRONMENT')) {
+         }
+
+         // Load Config Cache
+        -// $factoriesCache = new \CodeIgniter\Cache\FactoriesCache();
+        -// $factoriesCache->load('config');
+        +$factoriesCache = new \CodeIgniter\Cache\FactoriesCache();
+        +$factoriesCache->load('config');
+         // ^^^ Uncomment these lines if you want to use Config Caching.
+
+         /*
+        @@ -79,7 +79,7 @@ $app->setContext($context);
+         $app->run();
+
+         // Save Config Cache
+        -// $factoriesCache->save('config');
+        +$factoriesCache->save('config');
+         // ^^^ Uncomment this line if you want to use Config Caching.
+
+         // Exits the application, setting the exit code for CLI-based applications

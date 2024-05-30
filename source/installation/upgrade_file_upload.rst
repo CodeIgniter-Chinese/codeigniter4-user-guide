@@ -7,8 +7,8 @@
 
 文档
 ==============
-- `CodeIgniter 3.X 文件上传类文档 <http://codeigniter.com/userguide3/libraries/file_uploading.html>`_
-- :doc:`CodeIgniter 4.X 上传文件处理文档 </libraries/uploaded_files>`
+- `CodeIgniter 3.x 文件上传类文档 <http://codeigniter.com/userguide3/libraries/file_uploading.html>`_
+- :doc:`CodeIgniter 4.x 上传文件处理文档 </libraries/uploaded_files>`
 
 变更点
 =====================

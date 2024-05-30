@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 模板解析器文档 <http://codeigniter.com/userguide3/libraries/parser.html>`_
-- :doc:`CodeIgniter 4.X 视图解析器文档 </outgoing/view_parser>`
+- `CodeIgniter 3.x 模板解析器文档 <http://codeigniter.com/userguide3/libraries/parser.html>`_
+- :doc:`CodeIgniter 4.x 视图解析器文档 </outgoing/view_parser>`
 
 变更点
 =====================

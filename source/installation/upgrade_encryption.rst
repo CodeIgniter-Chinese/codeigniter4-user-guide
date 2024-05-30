@@ -8,8 +8,8 @@
 文档
 **************
 
-- `CodeIgniter 3.X 加密库文档 <http://codeigniter.com/userguide3/libraries/encryption.html>`_
-- :doc:`CodeIgniter 4.X 加密服务文档 </libraries/encryption>`
+- `CodeIgniter 3.x 加密库文档 <http://codeigniter.com/userguide3/libraries/encryption.html>`_
+- :doc:`CodeIgniter 4.x 加密服务文档 </libraries/encryption>`
 
 变更点
 *********************

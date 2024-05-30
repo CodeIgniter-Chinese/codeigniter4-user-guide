@@ -8,8 +8,8 @@
 文档
 ==============
 
-- `CodeIgniter 3.X 数据库迁移文档 <http://codeigniter.com/userguide3/libraries/migration.html>`_
-- :doc:`CodeIgniter 4.X 数据库迁移文档 </dbmgmt/migration>`
+- `CodeIgniter 3.x 数据库迁移文档 <http://codeigniter.com/userguide3/libraries/migration.html>`_
+- :doc:`CodeIgniter 4.x 数据库迁移文档 </dbmgmt/migration>`
 
 变更点
 =====================

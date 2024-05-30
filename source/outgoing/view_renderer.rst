@@ -99,13 +99,16 @@ View 类在内部使用关联数组来累积视图参数,直到你调用它的 `
 视图渲染器选项
 =====================
 
-可以将几个选项传递给 ``render()`` 或 ``renderString()`` 方法:
+可以将多个选项传递给 ``render()`` 或 ``renderString()`` 方法：
 
-- ``cache`` - 以秒为单位,保存视图结果的时间;对 renderString() 忽略
-- ``cache_name`` - 用于保存/检索缓存视图结果的 ID;默认为视图路径;对 renderString() 忽略
-- ``saveData`` - 如果为 true,视图数据参数应保留以供随后的调用
+- ``$options``
 
-.. note:: 接口要求 ``saveData()`` 必须是布尔值,但实现类(如下面的 ``View``)可以扩展它以包含 ``null`` 值。
+    - ``cache`` - 缓存视图结果的时间（以秒为单位）；对于 ``renderString()`` 无效。
+    - ``cache_name`` - 用于保存/检索缓存视图结果的 ID；默认为 ``$viewPath``；对于 ``renderString()`` 无效。
+    - ``debug`` - 可以设置为 false 以禁用 :ref:`调试工具栏 <the-debug-toolbar>` 的调试代码添加。
+- ``$saveData`` - 如果视图数据参数应保留以供后续调用，则为 true。
+
+.. note:: 接口定义的 ``$saveData`` 必须是布尔值，但实现类（如下面的 ``View``）可以扩展为包括 ``null`` 值。
 
 ***************
 类参考

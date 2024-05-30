@@ -20,7 +20,7 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
 
 以下函数可用:
 
-.. php:function:: set_cookie($name[, $value = ''[, $expire = ''[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httpOnly = false[, $sameSite = '']]]]]]]])
+.. php:function:: set_cookie($name[, $value = ''[, $expire = 0[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httpOnly = false[, $sameSite = '']]]]]]]])
 
     :param    array|Cookie|string    $name: Cookie 名称 *或* 此函数可用的所有参数的关联数组 *或* ``CodeIgniter\Cookie\Cookie`` 的实例
     :param    string    $value: Cookie 值
