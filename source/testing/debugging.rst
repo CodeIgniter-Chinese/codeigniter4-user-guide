@@ -1,16 +1,45 @@
-**************************
+##########################
 调试应用程序
-**************************
+##########################
 
 .. contents::
     :local:
     :depth: 2
 
-================
-替换 var_dump
-================
+*************
+检查日志
+*************
 
-虽然使用 XDebug 和良好的 IDE 可以帮助调试应用程序,但有时一个快速的 ``var_dump()`` 就能搞定。CodeIgniter 通过内置优秀的 `Kint <https://kint-php.github.io/kint/>`_ PHP 调试工具使调试更便利。Kint 比常规工具提供了更多功能,如将时间戳格式化为可识别日期,将十六进制代码显示为颜色,以表格形式展示数组数据方便阅读等等。
+.. _codeigniter-error-logs:
+
+CodeIgniter 错误日志
+======================
+
+CodeIgniter 根据 **app/Config/Logger.php** 中的设置记录错误信息。
+
+默认配置下，日志文件每天存储在 **writable/logs** 目录中。
+如果事情没有按预期进行，检查这些日志是个好主意！
+
+你可以调整错误阈值以查看更多或更少的信息。详情请参见
+:ref:`Logging <logging-configuration>`。
+
+记录所有 SQL 查询
+=======================
+
+CodeIgniter 发出的所有 SQL 查询都可以被记录。
+详情请参见 :ref:`Database Events <database-events-dbquery>`。
+
+********************
+替换 var_dump()
+********************
+
+虽然使用 Xdebug 和一个好的 IDE 对调试你的应用程序是不可或缺的，
+但有时一个简单的 ``var_dump()`` 就足够了。CodeIgniter 通过捆绑
+优秀的 PHP 调试工具 `Kint <https://kint-php.github.io/kint/>`_ 使这一点变得更好。
+
+这远远超出了你通常的工具，提供了许多替代数据，
+例如将时间戳格式化为可识别的日期，显示颜色的十六进制代码，
+将数组数据显示为易于阅读的表格，等等。
 
 启用 Kint
 =============
@@ -26,6 +55,7 @@ d()
 ``d()`` 方法将传入的唯一参数的数据全部输出到屏幕,允许脚本继续执行:
 
 .. literalinclude:: debugging/001.php
+    :lines: 2-
 
 dd()
 ----
@@ -38,14 +68,15 @@ trace()
 这会以 Kint 独特的方式提供当前执行点的回溯:
 
 .. literalinclude:: debugging/002.php
+    :lines: 2-
 
 更多信息请参考 `Kint 文档 <https://kint-php.github.io/kint//>`_。
 
 .. _the-debug-toolbar:
 
-=================
+*****************
 调试工具栏
-=================
+*****************
 
 调试工具栏可以一目了然地查看当前页面请求的信息,包括基准测试结果、执行的查询、请求和响应数据等。这在开发过程中有助于调试和优化。
 
@@ -58,7 +89,9 @@ trace()
 
 .. note:: 当你的 ``baseURL`` 设置(在 **app/Config/App.php** 或 ``app.baseURL`` 在 **.env** 中)与实际 URL 不匹配时,不会显示调试工具栏。
 
-工具栏本身作为 :doc:`After 过滤器 </incoming/filters>` 显示。可以通过在 **app/Config/Filters.php** 的 ``$globals`` 属性中删除它来完全禁用。
+工具栏本身显示为一个 :doc:`后置过滤器 </incoming/filters>`。你可以通过从 **app/Config/Filters.php** 文件的 ``$required``（或 ``$globals``）属性中移除 ``'toolbar'`` 来阻止它运行。
+
+.. note:: 在 v4.5.0 之前，工具栏默认设置为 ``$globals``。
 
 选择显示内容
 ---------------------

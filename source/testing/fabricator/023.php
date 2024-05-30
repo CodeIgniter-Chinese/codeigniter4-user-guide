@@ -13,8 +13,8 @@ class UserModel
     {
         return [
             'first'    => $faker->firstName(),
-            'email'    => $faker->email(),
-            'group_id' => mt_rand(1, Fabricator::getCount('groups')),
+            'email'    => $faker->unique()->email(),
+            'group_id' => $faker->optional()->passthrough(mt_rand(1, Fabricator::getCount('groups'))),
         ];
     }
 }

@@ -68,7 +68,7 @@ CodeIgniter 安装假定你已经按 :ref:`要求 <requirements-supported-databa
 现在数据库和模型已经设置好了,你需要一个从数据库中获取所有帖子的方法。为此,CodeIgniter 包含的数据库抽象层 :doc:`查询构建器 <../database/query_builder>` 在 ``CodeIgniter\Model`` 中使用。这使你可以编写一次'查询',并在 :doc:`所有支持的数据库系统 <../intro/requirements>` 上使用。Model 类也允许你轻松使用 Query Builder 并提供一些额外的工具,以简化使用数据。向模型添加以下代码。
 
 .. literalinclude:: news_section/002.php
-    :lines: 11-18
+    :lines: 11-23
 
 使用此代码,你可以执行两种不同的查询。你可以获取所有新闻记录,也可以通过其 slug 获取新闻项。你可能已经注意到,在运行查询之前没有转义 ``$slug`` 变量; :doc:`查询构建器 <../database/query_builder>` 会为你完成这一步。
 
@@ -120,7 +120,7 @@ CodeIgniter 安装假定你已经按 :ref:`要求 <requirements-supported-databa
 .. literalinclude:: news_section/005.php
 
 .. note:: 我们再次使用 :php:func:`esc()` 来帮助防止 XSS 攻击。
-    但这次我们还传递了“url”作为第二个参数。这是因为根据输出使用的上下文,攻击模式是不同的。
+    但这次我们还传递了 "url" 作为第二个参数。这是因为攻击模式会根据输出使用的上下文而有所不同。
 
 在这里,每个新闻条目被循环并显示给用户。你可以看到我们使用 PHP 混合 HTML 编写了模板。如果你更喜欢使用模板语言,可以使用 CodeIgniter 的 :doc:`视图解析器 </outgoing/view_parser>` 或第三方解析器。
 

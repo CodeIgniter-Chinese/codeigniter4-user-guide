@@ -13,6 +13,7 @@ CodeIgniter 具备许多工具，可帮助你彻底测试和调试应用程序�
     测试控制器 <controllers>
     HTTP 测试 <feature>
     response
+    cli
+    模拟 <mocking>
     benchmark
     debugging
-    模拟 <mocking>
