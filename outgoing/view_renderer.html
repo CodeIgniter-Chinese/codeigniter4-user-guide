@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>视图渲染器 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>视图渲染器 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -381,15 +384,22 @@
 </section>
 <section id="id9">
 <h3><a class="toc-backref" href="#id16" role="doc-backlink">视图渲染器选项</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
-<p>可以将几个选项传递给 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">renderString()</span></code> 方法:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cache</span></code> - 以秒为单位,保存视图结果的时间;对 renderString() 忽略</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cache_name</span></code> - 用于保存/检索缓存视图结果的 ID;默认为视图路径;对 renderString() 忽略</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">saveData</span></code> - 如果为 true,视图数据参数应保留以供随后的调用</p></li>
+<p>可以将多个选项传递给 <code class="docutils literal notranslate"><span class="pre">render()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">renderString()</span></code> 方法：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">$options</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cache</span></code> - 缓存视图结果的时间（以秒为单位）；对于 <code class="docutils literal notranslate"><span class="pre">renderString()</span></code> 无效。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache_name</span></code> - 用于保存/检索缓存视图结果的 ID；默认为 <code class="docutils literal notranslate"><span class="pre">$viewPath</span></code>；对于 <code class="docutils literal notranslate"><span class="pre">renderString()</span></code> 无效。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">debug</span></code> - 可以设置为 false 以禁用 <a class="reference internal" href="../testing/debugging.html#the-debug-toolbar"><span class="std std-ref">调试工具栏</span></a> 的调试代码添加。</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$saveData</span></code> - 如果视图数据参数应保留以供后续调用，则为 true。</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>接口要求 <code class="docutils literal notranslate"><span class="pre">saveData()</span></code> 必须是布尔值,但实现类(如下面的 <code class="docutils literal notranslate"><span class="pre">View</span></code>)可以扩展它以包含 <code class="docutils literal notranslate"><span class="pre">null</span></code> 值。</p>
+<p>接口定义的 <code class="docutils literal notranslate"><span class="pre">$saveData</span></code> 必须是布尔值，但实现类（如下面的 <code class="docutils literal notranslate"><span class="pre">View</span></code>）可以扩展为包括 <code class="docutils literal notranslate"><span class="pre">null</span></code> 值。</p>
 </div>
 </section>
 </section>
@@ -521,7 +531,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -529,7 +539,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b7577710>
+<jinja2.runtime.BlockReference object at 0x7f2cef98cc50>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

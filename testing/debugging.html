@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>调试应用程序 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>调试应用程序 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -27,7 +27,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="模拟系统类" href="mocking.html" />
+    <link rel="next" title="命令行使用" href="../cli/index.html" />
     <link rel="prev" title="基准测试" href="benchmark.html" /> 
 </head>
 
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="benchmark.html">基准测试</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -287,37 +290,62 @@
 <h1>调试应用程序<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#var-dump" id="id14">替换 var_dump</a></p>
+<li><p><a class="reference internal" href="#id3" id="id15">检查日志</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id15">启用 Kint</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id16">使用 Kint</a></p></li>
+<li><p><a class="reference internal" href="#codeigniter" id="id16">CodeIgniter 错误日志</a></p></li>
+<li><p><a class="reference internal" href="#sql" id="id17">记录所有 SQL 查询</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#the-debug-toolbar" id="id17">调试工具栏</a></p>
+<li><p><a class="reference internal" href="#var-dump" id="id18">替换 var_dump()</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id7" id="id18">启用工具栏</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id19">设置基准点</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id20">创建自定义收集器</a></p></li>
-<li><p><a class="reference internal" href="#debug-toolbar-hot-reload" id="id21">热重载</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id19">启用 Kint</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id20">使用 Kint</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#the-debug-toolbar" id="id21">调试工具栏</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id8" id="id22">启用工具栏</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id23">设置基准点</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id24">创建自定义收集器</a></p></li>
+<li><p><a class="reference internal" href="#debug-toolbar-hot-reload" id="id25">热重载</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
-<section id="var-dump">
-<h2><a class="toc-backref" href="#id14" role="doc-backlink">替换 var_dump</a><a class="headerlink" href="#var-dump" title="此标题的永久链接"></a></h2>
-<p>虽然使用 XDebug 和良好的 IDE 可以帮助调试应用程序,但有时一个快速的 <code class="docutils literal notranslate"><span class="pre">var_dump()</span></code> 就能搞定。CodeIgniter 通过内置优秀的 <a class="reference external" href="https://kint-php.github.io/kint/">Kint</a> PHP 调试工具使调试更便利。Kint 比常规工具提供了更多功能,如将时间戳格式化为可识别日期,将十六进制代码显示为颜色,以表格形式展示数组数据方便阅读等等。</p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id15" role="doc-backlink">启用 Kint</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">检查日志</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<section id="codeigniter">
+<span id="codeigniter-error-logs"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">CodeIgniter 错误日志</a><a class="headerlink" href="#codeigniter" title="此标题的永久链接"></a></h3>
+<p>CodeIgniter 根据 <strong>app/Config/Logger.php</strong> 中的设置记录错误信息。</p>
+<p>默认配置下，日志文件每天存储在 <strong>writable/logs</strong> 目录中。
+如果事情没有按预期进行，检查这些日志是个好主意！</p>
+<p>你可以调整错误阈值以查看更多或更少的信息。详情请参见
+<a class="reference internal" href="../general/logging.html#logging-configuration"><span class="std std-ref">Logging</span></a>。</p>
+</section>
+<section id="sql">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">记录所有 SQL 查询</a><a class="headerlink" href="#sql" title="此标题的永久链接"></a></h3>
+<p>CodeIgniter 发出的所有 SQL 查询都可以被记录。
+详情请参见 <a class="reference internal" href="../database/events.html#database-events-dbquery"><span class="std std-ref">Database Events</span></a>。</p>
+</section>
+</section>
+<section id="var-dump">
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">替换 var_dump()</a><a class="headerlink" href="#var-dump" title="此标题的永久链接"></a></h2>
+<p>虽然使用 Xdebug 和一个好的 IDE 对调试你的应用程序是不可或缺的，
+但有时一个简单的 <code class="docutils literal notranslate"><span class="pre">var_dump()</span></code> 就足够了。CodeIgniter 通过捆绑
+优秀的 PHP 调试工具 <a class="reference external" href="https://kint-php.github.io/kint/">Kint</a> 使这一点变得更好。</p>
+<p>这远远超出了你通常的工具，提供了许多替代数据，
+例如将时间戳格式化为可识别的日期，显示颜色的十六进制代码，
+将数组数据显示为易于阅读的表格，等等。</p>
+<section id="id4">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">启用 Kint</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>默认情况下,Kint 仅在 <strong>development</strong> 和 <strong>testing</strong> <a class="reference internal" href="../general/environments.html"><span class="doc">环境</span></a> 中启用。当常量 <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> 定义且值为 true 时就会启用它。常量定义在引导文件中(例如 <strong>app/Config/Boot/development.php</strong>)。</p>
 </section>
-<section id="id4">
-<h3><a class="toc-backref" href="#id16" role="doc-backlink">使用 Kint</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<section id="id5">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">使用 Kint</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <section id="d">
 <h4>d()<a class="headerlink" href="#d" title="此标题的永久链接"></a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">d()</span></code> 方法将传入的唯一参数的数据全部输出到屏幕,允许脚本继续执行:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nx">d</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">d</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -328,9 +356,7 @@
 <section id="trace">
 <h4>trace()<a class="headerlink" href="#trace" title="此标题的永久链接"></a></h4>
 <p>这会以 Kint 独特的方式提供当前执行点的回溯:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nx">trace</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">trace</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>更多信息请参考 <a class="reference external" href="https://kint-php.github.io/kint//">Kint 文档</a>。</p>
@@ -338,22 +364,26 @@
 </section>
 </section>
 <section id="the-debug-toolbar">
-<span id="id6"></span><h2><a class="toc-backref" href="#id17" role="doc-backlink">调试工具栏</a><a class="headerlink" href="#the-debug-toolbar" title="此标题的永久链接"></a></h2>
+<span id="id7"></span><h2><a class="toc-backref" href="#id21" role="doc-backlink">调试工具栏</a><a class="headerlink" href="#the-debug-toolbar" title="此标题的永久链接"></a></h2>
 <p>调试工具栏可以一目了然地查看当前页面请求的信息,包括基准测试结果、执行的查询、请求和响应数据等。这在开发过程中有助于调试和优化。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>调试工具栏仍在开发中,许多计划的功能尚未实现。</p>
 </div>
-<section id="id7">
-<h3><a class="toc-backref" href="#id18" role="doc-backlink">启用工具栏</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
+<section id="id8">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">启用工具栏</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
 <p>除 <strong>production</strong> 环境外,调试工具栏在其他所有 <a class="reference internal" href="../general/environments.html"><span class="doc">环境</span></a> 下默认启用。当常量 <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> 定义且值为 true 时就会显示。常量定义在引导文件中(例如 <strong>app/Config/Boot/development.php</strong>),可以在其中修改以确定显示的环境。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>当你的 <code class="docutils literal notranslate"><span class="pre">baseURL</span></code> 设置(在 <strong>app/Config/App.php</strong> 或 <code class="docutils literal notranslate"><span class="pre">app.baseURL</span></code> 在 <strong>.env</strong> 中)与实际 URL 不匹配时,不会显示调试工具栏。</p>
 </div>
-<p>工具栏本身作为 <a class="reference internal" href="../incoming/filters.html"><span class="doc">After 过滤器</span></a> 显示。可以通过在 <strong>app/Config/Filters.php</strong> 的 <code class="docutils literal notranslate"><span class="pre">$globals</span></code> 属性中删除它来完全禁用。</p>
-<section id="id8">
-<h4>选择显示内容<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h4>
+<p>工具栏本身显示为一个 <a class="reference internal" href="../incoming/filters.html"><span class="doc">后置过滤器</span></a>。你可以通过从 <strong>app/Config/Filters.php</strong> 文件的 <code class="docutils literal notranslate"><span class="pre">$required``（或</span> <span class="pre">``$globals</span></code>）属性中移除 <code class="docutils literal notranslate"><span class="pre">'toolbar'</span></code> 来阻止它运行。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在 v4.5.0 之前，工具栏默认设置为 <code class="docutils literal notranslate"><span class="pre">$globals</span></code>。</p>
+</div>
+<section id="id9">
+<h4>选择显示内容<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
 <p>CodeIgniter 默认带有多个 Collector ,它们收集要在工具栏上显示的数据。你可以方便地自定义 Collector 。要确定显示哪些收集器,请查看配置文件 <strong>app/Config/Toolbar.php</strong>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -395,13 +425,13 @@
 </ul>
 </section>
 </section>
-<section id="id9">
-<h3><a class="toc-backref" href="#id19" role="doc-backlink">设置基准点</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
+<section id="id10">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">设置基准点</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
 <p>为展示定界器的基准数据,必须使用特定语法命名标记点。</p>
 <p>请参考 <a class="reference internal" href="benchmark.html"><span class="doc">基准测试库</span></a> 文档中的说明。</p>
 </section>
-<section id="id10">
-<h3><a class="toc-backref" href="#id20" role="doc-backlink">创建自定义收集器</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<section id="id11">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">创建自定义收集器</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
 <p>创建自定义收集器很简单。创建一个新的类,使用命名空间完全限定以便自动加载,它需要扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Debug\Toolbar\Collectors\BaseCollector</span></code>。BaseCollector 提供可重写的方法,并要求正确设置四个必需类属性以确定收集器的行为:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -425,8 +455,8 @@
 <p>如果收集器要显示自定义选项卡和内容,应将 <code class="docutils literal notranslate"><span class="pre">$hasTabContent</span></code> 设为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。如果为 true,需要提供 <code class="docutils literal notranslate"><span class="pre">$title</span></code>、实现 <code class="docutils literal notranslate"><span class="pre">display()</span></code> 渲染选项卡内容,如果要在标题右侧显示额外信息,还可能需要实现 <code class="docutils literal notranslate"><span class="pre">getTitleDetails()</span></code>。</p>
 <p>如果要向 <code class="docutils literal notranslate"><span class="pre">Vars</span></code> 选项卡添加数据,应将 <code class="docutils literal notranslate"><span class="pre">$hasVarData</span></code> 设为 <code class="docutils literal notranslate"><span class="pre">true</span></code>,并实现 <code class="docutils literal notranslate"><span class="pre">getVarData()</span></code>。</p>
 <p><code class="docutils literal notranslate"><span class="pre">$title</span></code> 显示在打开的选项卡上。</p>
-<section id="id11">
-<h4>显示工具栏选项卡<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h4>
+<section id="id12">
+<h4>显示工具栏选项卡<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h4>
 <p>显示工具栏选项卡需要:</p>
 <ol class="arabic simple">
 <li><p>在 <code class="docutils literal notranslate"><span class="pre">$title</span></code> 填入显示为工具栏和选项卡标题的文本。</p></li>
@@ -437,8 +467,8 @@
 <p><code class="docutils literal notranslate"><span class="pre">display()</span></code> 返回显示在选项卡中的 HTML,不需要处理标题,由工具栏自动处理。它应返回 HTML 字符串。</p>
 <p><code class="docutils literal notranslate"><span class="pre">getTitleDetails()</span></code> 返回在标题右侧显示的字符串,可提供概述信息。比如,数据库选项卡显示所有连接的查询总数,文件选项卡显示总文件数。</p>
 </section>
-<section id="id12">
-<h4>提供时间线数据<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h4>
+<section id="id13">
+<h4>提供时间线数据<a class="headerlink" href="#id13" title="此标题的永久链接"></a></h4>
 <p>提供时间线数据需要:</p>
 <ol class="arabic simple">
 <li><p>将 <code class="docutils literal notranslate"><span class="pre">$hasTimeline</span></code> 设为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。</p></li>
@@ -481,7 +511,7 @@
 </section>
 </section>
 <section id="debug-toolbar-hot-reload">
-<span id="id13"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink">热重载</a><a class="headerlink" href="#debug-toolbar-hot-reload" title="此标题的永久链接"></a></h3>
+<span id="id14"></span><h3><a class="toc-backref" href="#id25" role="doc-backlink">热重载</a><a class="headerlink" href="#debug-toolbar-hot-reload" title="此标题的永久链接"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
 </div>
@@ -498,14 +528,14 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="benchmark.html" class="btn btn-neutral float-left" title="基准测试" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="mocking.html" class="btn btn-neutral float-right" title="模拟系统类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../cli/index.html" class="btn btn-neutral float-right" title="命令行使用" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -513,7 +543,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b7973f10>
+<jinja2.runtime.BlockReference object at 0x7f2cefddd8d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

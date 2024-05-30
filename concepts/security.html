@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>安全指南 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>安全指南 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -285,222 +288,665 @@
              
   <section id="id1">
 <h1>安全指南<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
-<p>我们认真对待安全。
-CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,或使你可以轻松地这样做。</p>
-<p>我们尊重 <a class="reference external" href="https://owasp.org">开放 Web 应用程序安全项目(OWASP)</a>
-并尽可能遵循他们的建议。</p>
-<p>以下内容来自
-<a class="reference external" href="https://owasp.org/www-project-top-ten/">OWASP 十大安全漏洞简介</a>,
-识别 Web 应用程序的十大漏洞。
-对于每个漏洞,我们提供简要描述、OWASP 建议和 CodeIgniter 的对应措施。</p>
+<p>我们非常重视安全。
+CodeIgniter 包含许多功能和技术，以便强制执行良好的安全实践，或者让你轻松地做到这一点。</p>
+<p>我们尊重 <a class="reference external" href="https://owasp.org">开放 Web 应用安全项目 (OWASP)</a> 并尽可能地遵循他们的建议。</p>
+<p>以下内容来自于
+<a class="reference external" href="https://owasp.org/www-project-top-ten/">OWASP Top Ten</a> 和
+<a class="reference external" href="https://owasp.org/API-Security/editions/2023/en/0x11-t10/">OWASP API Security Top 10</a>
+识别出网络应用和 API 的主要漏洞。
+我们为每个漏洞提供一个简短的描述、OWASP 的建议，然后介绍 CodeIgniter 解决这些问题的措施。</p>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#a1" id="id22">A1 注入</a></p></li>
-<li><p><a class="reference internal" href="#a2" id="id23">A2 弱认证和会话管理</a></p></li>
-<li><p><a class="reference internal" href="#a3-xss" id="id24">A3 跨站脚本(XSS)</a></p></li>
-<li><p><a class="reference internal" href="#a4" id="id25">A4 不安全的直接对象引用</a></p></li>
-<li><p><a class="reference internal" href="#a5" id="id26">A5 安全配置不当</a></p></li>
-<li><p><a class="reference internal" href="#a6" id="id27">A6 敏感数据暴露</a></p></li>
-<li><p><a class="reference internal" href="#a7" id="id28">A7 缺少功能级访问控制</a></p></li>
-<li><p><a class="reference internal" href="#a8-csrf" id="id29">A8 跨站请求伪造(CSRF)</a></p></li>
-<li><p><a class="reference internal" href="#a9" id="id30">A9 使用已知漏洞的组件</a></p></li>
-<li><p><a class="reference internal" href="#a10" id="id31">A10 未验证的重定向和转发</a></p></li>
+<li><p><a class="reference internal" href="#owasp-top-10-2021" id="id41">OWASP Top 10 2021</a></p>
+<ul>
+<li><p><a class="reference internal" href="#a01-2021" id="id42">A01:2021 访问控制失效</a></p></li>
+<li><p><a class="reference internal" href="#a02-2021" id="id43">A02:2021 密码学失败</a></p></li>
+<li><p><a class="reference internal" href="#a03-2021" id="id44">A03:2021 注入攻击</a></p></li>
+<li><p><a class="reference internal" href="#a04-2021" id="id45">A04:2021 不安全设计</a></p></li>
+<li><p><a class="reference internal" href="#a05-2021" id="id46">A05:2021 安全配置错误</a></p></li>
+<li><p><a class="reference internal" href="#a06-2021" id="id47">A06:2021 漏洞和过时的组件</a></p></li>
+<li><p><a class="reference internal" href="#a07-2021" id="id48">A07:2021 身份识别和认证失败</a></p></li>
+<li><p><a class="reference internal" href="#a08-2021" id="id49">A08:2021 软件和数据完整性失败</a></p></li>
+<li><p><a class="reference internal" href="#a09-2021" id="id50">A09:2021 安全日志记录和监控失败</a></p></li>
+<li><p><a class="reference internal" href="#a10-2021-ssrf" id="id51">A10:2021 服务器端请求伪造（SSRF）</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#owasp-api-security-top-10-2023" id="id52">OWASP API Security Top 10 2023</a></p>
+<ul>
+<li><p><a class="reference internal" href="#api1-2023" id="id53">API1:2023 对象级授权失效</a></p></li>
+<li><p><a class="reference internal" href="#api2-2023" id="id54">API2:2023 认证失效</a></p></li>
+<li><p><a class="reference internal" href="#api3-2023" id="id55">API3:2023 对象属性级授权失效</a></p></li>
+<li><p><a class="reference internal" href="#api4-2023" id="id56">API4:2023 不受限制的资源消耗</a></p></li>
+<li><p><a class="reference internal" href="#api5-2023" id="id57">API5:2023 功能级授权失效</a></p></li>
+<li><p><a class="reference internal" href="#api6-2023" id="id58">API6:2023 不受限制访问敏感业务流程</a></p></li>
+<li><p><a class="reference internal" href="#api7-2023" id="id59">API7:2023 服务端请求伪造</a></p></li>
+<li><p><a class="reference internal" href="#api8-2023" id="id60">API8:2023 安全配置错误</a></p></li>
+<li><p><a class="reference internal" href="#api9-2023" id="id61">API9:2023 不当的库存管理</a></p></li>
+<li><p><a class="reference internal" href="#api10-2023-api" id="id62">API10:2023 不安全的 API 消费</a></p></li>
+</ul>
+</li>
 </ul>
 </nav>
-<section id="a1">
-<h2><a class="toc-backref" href="#id22" role="doc-backlink">A1 注入</a><a class="headerlink" href="#a1" title="此标题的永久链接"></a></h2>
-<p>注入是通过从客户端到应用程序的输入数据不当地插入部分或全部数据。攻击向量包括 SQL、XML、ORM、代码和缓冲区溢出。</p>
-<section id="id3">
-<h3>OWASP 建议<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<section id="owasp-top-10-2021">
+<h2><a class="toc-backref" href="#id41" role="doc-backlink">OWASP Top 10 2021</a><a class="headerlink" href="#owasp-top-10-2021" title="此标题的永久链接"></a></h2>
+<section id="a01-2021">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">A01:2021 访问控制失效</a><a class="headerlink" href="#a01-2021" title="此标题的永久链接"></a></h3>
+<p>访问控制执行策略，以确保用户不能在他们预期的权限之外进行操作。失败通常会导致未经授权的信息泄露、修改或销毁所有数据，或执行超出用户限制的业务功能。</p>
+<p>常见的访问控制漏洞包括：</p>
 <ul class="simple">
-<li><p>表示层:设置正确的内容类型、字符集和区域设置</p></li>
-<li><p>提交层:验证字段并提供反馈</p></li>
-<li><p>控制器层: sanitize 输入;使用正确的字符集进行正向输入验证</p></li>
-<li><p>模型层:参数化查询</p></li>
+<li><p>违反最小特权原则或默认拒绝原则，访问应该只授予特定功能、角色或用户，但对任何人开放。</p></li>
+<li><p>通过修改 URL（参数篡改或强制浏览）、内部应用状态或 HTML 页面，或使用攻击工具修改 API 请求来绕过访问控制检查。</p></li>
+<li><p>允许通过提供其唯一标识符来查看或编辑他人的帐户（不安全的直接对象引用）。</p></li>
+<li><p>访问缺少 POST、PUT 和 DELETE 访问控制的 API。</p></li>
+<li><p>权限提升。作为未登录的用户或作为已登录的用户时作为管理员操作。</p></li>
+<li><p>元数据操作，例如重放或篡改 JSON Web 令牌 (JWT) 访问控制令牌、或操纵 cookie 或隐藏字段以提升权限或滥用 JWT 失效。</p></li>
+<li><p>CORS 配置错误允许从未经授权/未受信任的起源访问 API。</p></li>
+<li><p>强制浏览到身份验证页面的未认证用户或标准用户的特权页面。</p></li>
+</ul>
+<section id="owasp">
+<h4>OWASP 建议<a class="headerlink" href="#owasp" title="此标题的永久链接"></a></h4>
+<p>访问控制仅在受信任的服务器端代码或无服务器 API 中有效，在这些情况下，攻击者无法修改访问控制检查或元数据。</p>
+<ul class="simple">
+<li><p>除了公共资源外，一律默认拒绝。</p></li>
+<li><p>实现一次访问控制机制，并在整个应用中重用，包括最小化跨域资源共享 (CORS) 的使用。</p></li>
+<li><p>模型访问控制应执行记录所有权，而不是接受用户可以创建、读取、更新或删除任何记录的情况。</p></li>
+<li><p>应通过域模型强制执行独特的应用业务限制要求。</p></li>
+<li><p>禁用 Web 服务器目录列表，并确保文件元数据（例如 .git）和备用文件不在 Web 根目录中。</p></li>
+<li><p>记录访问控制失败，在适当时向管理员发出警报（例如，重复失败）。</p></li>
+<li><p>限制 API 和控制器访问，以最小化自动化攻击工具的危害。</p></li>
+<li><p>在注销后在服务器上使状态会话标识符失效。无状态 JWT 令牌应该是短命的，以使攻击者的机会之窗最小化。对于更长寿命的 JWT，强烈建议遵循 OAuth 标准撤销访问。</p></li>
 </ul>
 </section>
 <section id="codeigniter">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#codeigniter" title="此标题的永久链接"></a></h3>
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#codeigniter" title="此标题的永久链接"></a></h4>
 <ul class="simple">
-<li><p><a class="reference internal" href="../incoming/filters.html#invalidchars"><span class="std std-ref">InvalidChars</span></a> 过滤器</p></li>
+<li><p><a class="reference internal" href="structure.html#application-structure-public"><span class="std std-ref">Public</span></a> 文件夹，包括外部的应用和系统文件</p></li>
 <li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
-<li><p><a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">HTTP 库</span></a> 提供了 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-filtering-input-data"><span class="std std-ref">输入字段过滤</span></a> 和内容元数据的功能</p></li>
+<li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">Security</span></a> 库提供的
+<a class="reference internal" href="../libraries/security.html#cross-site-request-forgery"><span class="std std-ref">CSRF 保护</span></a></p></li>
+<li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">Session 库</span></a> 库</p></li>
+<li><p><a class="reference internal" href="../libraries/throttler.html"><span class="doc">限速器</span></a> 库用于限速</p></li>
+<li><p><a class="reference internal" href="../libraries/cors.html"><span class="doc">跨域资源共享 (CORS)</span></a> 过滤器</p></li>
+<li><p>用于记录的 <a class="reference internal" href="../general/common_functions.html#log_message" title="log_message"><code class="xref php php-func docutils literal notranslate"><span class="pre">log_message()</span></code></a> 函数</p></li>
+<li><p>官方认证与授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
+<li><p>易于添加第三方认证</p></li>
 </ul>
 </section>
 </section>
-<section id="a2">
-<h2><a class="toc-backref" href="#id23" role="doc-backlink">A2 弱认证和会话管理</a><a class="headerlink" href="#a2" title="此标题的永久链接"></a></h2>
-<p>不充分的身份验证或不当的会话管理可能导致用户获得比他们有权获得的更多权限。</p>
+<section id="a02-2021">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">A02:2021 密码学失败</a><a class="headerlink" href="#a02-2021" title="此标题的永久链接"></a></h3>
+<p>首先需要确定传输和静态数据的保护需要。 例如，密码、信用卡号、健康记录、个人信息和商业机密需要额外保护，尤其是如果这些数据受到隐私法律（例如欧盟一般数据保护条例 (GDPR)）或法规（例如金融数据保护，如 PCI 数据安全标准 (PCI DSS)）的约束。在所有此类数据中：</p>
+<ul class="simple">
+<li><p>有任何数据以明文传输吗？这涉及到诸如 HTTP, SMTP, FTP 等协议同样使用 TLS 升级如 STARTTLS。外部互联网流量是危险的。验证所有内部流量，例如负载均衡器、Web 服务器或后端系统之间的流量。</p></li>
+<li><p>是否存在默认使用、弱加密算法或协议，或者旧代码中使用？</p></li>
+<li><p>是否使用默认加密密钥，生成或重复使用弱加密密钥，或者缺乏适当的密钥管理或轮换？密钥是否已被提交到源代码库？</p></li>
+<li><p>是否没有强制加密，例如，是否缺少任何 HTTP 头（浏览器）安全指令或头？</p></li>
+<li><p>服务器证书和信任链是否正确验证？</p></li>
+<li><p>初始化向量是否被忽略、重复使用，还是未为加密模式生成足够安全的初始化向量？是否在使用不安全的操作模式，例如 ECB 模式？当使用认证加密更为合适时，是否仅使用加密？</p></li>
+<li><p>在缺乏基于密码的密钥派生函数的情况下，是否正在使用密码作为加密密钥？</p></li>
+<li><p>随机性是否用于密码学目的，但未设计为满足密码学要求？即使选择了正确的函数，是否需要开发者播种，如果没有，开发者是否覆盖了其内建的强播种功能，使用了缺乏足够熵/不可预测性的种子？</p></li>
+<li><p>是否使用了如 MD5 或 SHA1 等已废弃的哈希函数，或在需要密码学哈希函数时使用了非密码学哈希函数？</p></li>
+<li><p>是否正在使用如 PKCS 编号 1 v1.5 等已废弃的密码学填充方法？</p></li>
+<li><p>是否存在可被利用的密码学错误消息或侧信道信息，例如填充 Oracle 攻击中的形式？</p></li>
+</ul>
+<section id="id3">
+<h4>OWASP 建议<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h4>
+<p>至少执行以下操作，并参考相应文档：</p>
+<ul class="simple">
+<li><p>对由应用程序处理、存储或传输的数据进行分类。根据隐私法、法规要求或业务需求，确定哪些数据是敏感的。</p></li>
+<li><p>不要不必要地存储敏感数据。尽快丢弃它，或使用符合 PCI DSS 的令牌化或甚至截断。无法保留的数据不能被窃取。</p></li>
+<li><p>确保所有敏感数据在静态时都加密。</p></li>
+<li><p>确保使用最新的强标准算法、协议和密钥；使用适当的密钥管理。</p></li>
+<li><p>用安全协议（如具有前向安全性 (FS) 密码的 TLS、服务器优先的密码序列和安全参数）加密所有传输中的数据。使用诸如 HTTP 严格传输安全 (HSTS) 等指令强制加密。</p></li>
+<li><p>禁用包含敏感数据的响应缓存。</p></li>
+<li><p>根据数据分类应用所需的安全控制。</p></li>
+<li><p>不使用旧协议如 FTP 和 SMTP 传输敏感数据。</p></li>
+<li><p>使用具有工作因子（延迟因子）强自适应和加盐哈希函数来存储密码，例如 Argon2、scrypt、bcrypt 或 PBKDF2。</p></li>
+<li><p>初始化向量必须为操作模式选择合适的值。对于许多模式，这意味着使用 CSPRNG（密码学安全伪随机数生成器）。对于需要 nonce 的模式，初始化向量 (IV) 不需要 CSPRNG。在所有情况下，IV 不得在固定密钥的情况下重复使用。</p></li>
+<li><p>始终使用认证加密而不仅仅是加密。</p></li>
+<li><p>应密码学随机生成密钥，并以字节数组的形式存储在内存中。如果使用密码，则必须通过适当的密码基于密钥派生函数将其转换为密钥。</p></li>
+<li><p>确保在适当的情况下使用密码学随机性，且没有以可预测的方式或低熵例播种。大多数现代 API 不需要开发者播种 CSPRNG 以获得安全性。</p></li>
+<li><p>避免已弃用的密码学函数和填充方案，如 MD5、SHA1、PKCS 编号 1 v1.5。</p></li>
+<li><p>独立验证配置和设置的有效性。</p></li>
+</ul>
+</section>
 <section id="id4">
-<h3>OWASP 建议<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h4>
 <ul class="simple">
-<li><p>表示层:验证认证和角色;使用表单发送 CSRF 令牌</p></li>
-<li><p>设计:仅使用内置会话管理</p></li>
-<li><p>控制器层:验证用户、角色、CSRF 令牌</p></li>
-<li><p>模型层:验证角色</p></li>
-<li><p>提示:考虑使用请求管理器</p></li>
-</ul>
-</section>
-<section id="id5">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">会话</span></a> 库</p></li>
-<li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">安全</span></a> 库提供 CSRF 验证</p></li>
-<li><p>一个官方的身份验证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
-<li><p>易于添加第三方认证</p></li>
-</ul>
-</section>
-</section>
-<section id="a3-xss">
-<h2><a class="toc-backref" href="#id24" role="doc-backlink">A3 跨站脚本(XSS)</a><a class="headerlink" href="#a3-xss" title="此标题的永久链接"></a></h2>
-<p>输入验证不足,一个用户可以在网页上添加内容,当其他用户查看该网页时,这些内容可能是有害的。</p>
-<section id="id6">
-<h3>OWASP 建议<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p>表示层:根据输出上下文对所有用户数据进行输出编码;设置输入约束</p></li>
-<li><p>控制器层:正向输入验证</p></li>
-<li><p>提示:仅处理可信数据;不要在数据库中 HTML 编码存储数据</p></li>
-</ul>
-</section>
-<section id="id7">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p><a class="reference internal" href="../general/common_functions.html#esc" title="esc"><code class="xref php php-func docutils literal notranslate"><span class="pre">esc()</span></code></a> 函数</p></li>
-<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
-<li><p>支持 <a class="reference internal" href="../outgoing/csp.html#content-security-policy"><span class="std std-ref">内容安全策略</span></a></p></li>
-</ul>
-</section>
-</section>
-<section id="a4">
-<h2><a class="toc-backref" href="#id25" role="doc-backlink">A4 不安全的直接对象引用</a><a class="headerlink" href="#a4" title="此标题的永久链接"></a></h2>
-<p>不安全的直接对象引用发生在应用程序根据用户提供的输入直接提供对对象的访问时。由于这个漏洞,
-攻击者可以绕过授权并直接访问系统中的资源,例如数据库记录或文件。</p>
-<section id="id8">
-<h3>OWASP 建议<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p>表示层:不公开内部数据;使用随机引用映射</p></li>
-<li><p>控制器层:从可信源或随机引用映射获取数据</p></li>
-<li><p>模型层:在更新数据之前验证用户角色</p></li>
-</ul>
-</section>
-<section id="id9">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
-<li><p>一个官方的身份验证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
-<li><p>易于添加第三方认证</p></li>
-</ul>
-</section>
-</section>
-<section id="a5">
-<h2><a class="toc-backref" href="#id26" role="doc-backlink">A5 安全配置不当</a><a class="headerlink" href="#a5" title="此标题的永久链接"></a></h2>
-<p>应用程序架构的不正确配置可能导致错误,这些错误可能危及整个架构的安全。</p>
-<section id="id10">
-<h3>OWASP 建议<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p>表示层:增强 Web 和应用服务器;使用 HTTP 严格传输安全</p></li>
-<li><p>控制器层:增强 Web 和应用服务器;保护 XML 堆栈</p></li>
-<li><p>模型层:增强数据库服务器</p></li>
-</ul>
-</section>
-<section id="id11">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p>引导期间的正常检查</p></li>
-</ul>
-</section>
-</section>
-<section id="a6">
-<h2><a class="toc-backref" href="#id27" role="doc-backlink">A6 敏感数据暴露</a><a class="headerlink" href="#a6" title="此标题的永久链接"></a></h2>
-<p>敏感数据在通过网络传输时必须受到保护。此类数据可以包括用户凭据和信用卡。经验法则是,如果存储的数据必须受到保护,那么在传输过程中也必须受到保护。</p>
-<section id="id12">
-<h3>OWASP 建议<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p>表示层:使用 TLS 1.2;使用强密码和散列;不要将密钥或散列发送到浏览器</p></li>
-<li><p>控制器层:使用强密码和散列</p></li>
-<li><p>模型层:强制与服务器进行加密通信</p></li>
-</ul>
-</section>
-<section id="id13">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p>全局安全访问的配置（<code class="docutils literal notranslate"><span class="pre">Config\App::$forceGlobalSecureRequests</span></code>）</p></li>
+<li><p>全局安全访问的配置 (<code class="docutils literal notranslate"><span class="pre">Config\App::$forceGlobalSecureRequests</span></code>)</p></li>
 <li><p><a class="reference internal" href="../general/common_functions.html#force_https" title="force_https"><code class="xref php php-func docutils literal notranslate"><span class="pre">force_https()</span></code></a> 函数</p></li>
 <li><p><a class="reference internal" href="../libraries/encryption.html"><span class="doc">加密服务</span></a></p></li>
-<li><p><a class="reference internal" href="../database/configuration.html#database-config-explanation-of-values"><span class="std std-ref">数据库配置</span></a> (<code class="docutils literal notranslate"><span class="pre">encrypt</span></code>)</p></li>
+<li><p>数据库配置中的 <a class="reference internal" href="../database/configuration.html#database-config-explanation-of-values"><span class="std std-ref">数据库配置</span></a> (<code class="docutils literal notranslate"><span class="pre">encrypt</span></code>)</p></li>
+<li><p>官方认证与授权框架
+<a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
 </ul>
 </section>
 </section>
-<section id="a7">
-<h2><a class="toc-backref" href="#id28" role="doc-backlink">A7 缺少功能级访问控制</a><a class="headerlink" href="#a7" title="此标题的永久链接"></a></h2>
-<p>敏感数据在通过网络传输时必须受到保护。此类数据可以包括用户凭据和信用卡。经验法则是,如果存储的数据必须受到保护,那么在传输过程中也必须受到保护。</p>
+<section id="a03-2021">
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">A03:2021 注入攻击</a><a class="headerlink" href="#a03-2021" title="此标题的永久链接"></a></h3>
+<p>当应用程序存在以下情况时，容易遭受攻击：</p>
+<ul class="simple">
+<li><p>用户提供的数据没有经过应用程序验证、过滤或清理。</p></li>
+<li><p>直接在解释器中使用动态查询或没有上下文感知转义的非参数化调用。</p></li>
+<li><p>使用对象关系映射（ORM）搜索参数中的恶意数据来提取额外的敏感记录。</p></li>
+<li><p>在动态查询、命令或存储过程中的结构和恶意数据直接使用或拼接恶意数据。</p></li>
+</ul>
+<p>一些常见的注入类型包括 SQL、NoSQL、操作系统命令、对象关系映射（ORM）、LDAP 和表达式语言（EL）或对象图导航库（OGNL）注入。所有解释器中的概念都是相同的。源代码审查是检测应用程序是否易受注入攻击的最佳方法。强烈建议自动化测试所有参数、头信息、URL、Cookies、JSON、SOAP 和 XML 数据输入。组织可以将静态（SAST）、动态（DAST）和交互式（IAST）应用程序安全测试工具纳入 CI/CD 管道，以在生产部署前识别引入的注入漏洞。</p>
+<section id="id5">
+<h4>OWASP 建议<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h4>
+<p>防止注入攻击需要将数据与命令和查询分开：</p>
+<ul>
+<li><p>首选选项是使用安全的 API，它完全避免使用解释器、提供参数化接口或迁移到对象关系映射工具（ORM）。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>注意：即使是参数化的存储过程，如果 PL/SQL 或 T-SQL 拼接查询和数据或使用 EXECUTE IMMEDIATE 或 exec() 执行恶意数据，也可能引入 SQL 注入。</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>使用正向服务器端输入验证。这不是一个完全的防御，因为许多应用程序需要使用特殊字符，如文本区域或移动应用程序的 API。</p></li>
+<li><p>对于任何剩余的动态查询，使用特定解释器的转义语法来转义特殊字符。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>注意：无法转义 SQL 结构（如表名、列名等），因此用户提供的结构名是危险的。这在报告生成软件中是一个常见问题。</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>在查询中使用 LIMIT 和其他 SQL 控制，以防止在 SQL 注入的情况下大规模披露记录。</p></li>
+</ul>
+</section>
+<section id="id6">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../general/urls.html#urls-uri-security"><span class="std std-ref">URI 安全性</span></a></p></li>
+<li><p><a class="reference internal" href="../incoming/filters.html#invalidchars"><span class="std std-ref">InvalidChars</span></a> 过滤器</p></li>
+<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
+<li><p><a class="reference internal" href="../general/common_functions.html#esc" title="esc"><code class="xref php php-func docutils literal notranslate"><span class="pre">esc()</span></code></a> 函数</p></li>
+<li><p><a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">HTTP library</span></a> 提供
+<a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-filtering-input-data"><span class="std std-ref">input field filtering</span></a></p></li>
+<li><p>支持 <a class="reference internal" href="../outgoing/csp.html#content-security-policy"><span class="std std-ref">内容安全策略</span></a></p></li>
+<li><p><a class="reference internal" href="../database/query_builder.html"><span class="doc">查询构建器类</span></a></p></li>
+<li><p><a class="reference internal" href="../database/queries.html#database-queries-escaping"><span class="std std-ref">Database escape methods</span></a></p></li>
+<li><p><a class="reference internal" href="../database/queries.html#database-queries-query-bindings"><span class="std std-ref">查询绑定</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="a04-2021">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">A04:2021 不安全设计</a><a class="headerlink" href="#a04-2021" title="此标题的永久链接"></a></h3>
+<p>不安全设计是代表不同弱点的一个广泛类别，表述为“缺失或无效的控制设计”。不安全设计不是所有其他前 10 名风险类别的来源。我们需要区分不安全设计和不安全实现，它们的根本原因和补救措施不同。</p>
+<p>一个安全的设计在实现上存在缺陷，可能会导致易于被利用的漏洞。而不安全的设计，即使有完美的实现，也无法弥补其缺陷，因为从定义上说，所需的安全控制从未被创建用于防御特定攻击。不安全设计的一个因素是缺乏在开发软件或系统时内在的业务风险评估，从而未能确定需要什么级别的安全设计。</p>
+<section id="id7">
+<h4>OWASP 建议<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>建立并使用一个安全开发生命周期，与 AppSec 专业人员合作，帮助评估和设计与安全和隐私相关的控制</p></li>
+<li><p>建立并使用一个安全设计模式库或预先准备好使用的组件</p></li>
+<li><p>使用威胁建模来针对关键的认证、访问控制、业务逻辑和关键流程</p></li>
+<li><p>将安全语言和控制集成到用户故事中</p></li>
+<li><p>在应用程序的每一层（从前端到后端）集成合理性检查</p></li>
+<li><p>编写单元和集成测试，验证所有关键流程是否能抵御威胁模型。编写每一层的用例和错误用例。</p></li>
+<li><p>根据暴露和保护需求在系统和网络层分隔层级</p></li>
+<li><p>在所有层级中通过设计来稳固地分隔租户</p></li>
+<li><p>限制用户或服务的资源消耗</p></li>
+</ul>
+</section>
+<section id="id8">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../testing/overview.html"><span class="doc">PHPUnit testing</span></a></p></li>
+<li><p>使用 <a class="reference internal" href="../libraries/throttler.html"><span class="doc">限速器</span></a> 进行速率限制</p></li>
+<li><p>一个官方的身份验证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="a05-2021">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">A05:2021 安全配置错误</a><a class="headerlink" href="#a05-2021" title="此标题的永久链接"></a></h3>
+<p>如果应用程序存在以下情况，可能会暴露于安全风险中：</p>
+<ul class="simple">
+<li><p>在应用程序堆栈的任何部分缺乏适当的安全加固，或云服务上配置不当的权限。</p></li>
+<li><p>启用了或安装了不必要的功能（例如，不必要的端口、服务、页面、账户或权限）。</p></li>
+<li><p>默认账户及其密码仍然启用且未更改。</p></li>
+<li><p>错误处理向用户透露了堆栈跟踪或其他过度详细的错误信息。</p></li>
+<li><p>对于升级系统，最新的安全功能被禁用或未安全配置。</p></li>
+<li><p>应用服务器、应用框架（如 Struts、Spring、ASP.NET）、库、数据库等的安全设置未设定为安全值。</p></li>
+<li><p>服务器没有发送安全头或指令，或它们未设定为安全值。</p></li>
+<li><p>软件过时或存在漏洞（参见 A06:2021-漏洞和过时的组件）。</p></li>
+</ul>
+<p>如果没有一个集中的、可重复的应用程序安全配置过程，系统将面临更高的风险。</p>
+<section id="id9">
+<h4>OWASP 建议<a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
+<p>应实施安全的安装流程，包括：</p>
+<ul class="simple">
+<li><p>一个可重复的加固过程，使部署另一个适当锁定的环境变得快速且简单。开发、QA 和生产环境应全部按相同的方式配置，并在每个环境中使用不同的凭证。此过程应自动化，以尽量减少设置新安全环境所需的精力。</p></li>
+<li><p>一个最小的平台，没有任何不必要的功能、组件、文档和示例。删除或不安装未使用的功能和框架。</p></li>
+<li><p>将审查和更新配置作为补丁管理过程的一部分，适用于所有安全说明、更新和补丁（参见 A06:2021-漏洞和过时的组件）。审查云存储权限（例如 S3 存储桶权限）。</p></li>
+<li><p>一个分段的应用程序架构提供了组件或租户之间的有效且安全的分离，使用分段、容器化或云安全组（ACL）。</p></li>
+<li><p>向客户端发送安全指令，例如安全头信息。</p></li>
+<li><p>一个自动化过程，在所有环境中验证配置和设置的有效性。</p></li>
+</ul>
+</section>
+<section id="id10">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id10" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../general/configuration.html#confirming-config-values"><span class="std std-ref">spark config:check</span></a> 命令</p></li>
+<li><p><a class="reference internal" href="../installation/running.html#spark-phpini-check"><span class="std std-ref">spark phpini:check</span></a> 命令</p></li>
+<li><p>默认情况下使用 <a class="reference internal" href="../general/environments.html#environment-constant"><span class="std std-ref">生产模式</span></a></p></li>
+<li><p><a class="reference internal" href="../incoming/filters.html#secureheaders"><span class="std std-ref">SecureHeaders</span></a> 过滤器</p></li>
+</ul>
+</section>
+</section>
+<section id="a06-2021">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">A06:2021 漏洞和过时的组件</a><a class="headerlink" href="#a06-2021" title="此标题的永久链接"></a></h3>
+<p>当存在以下情况时，你可能会受到漏洞的影响：</p>
+<ul class="simple">
+<li><p>如果你不知道所使用的所有组件（包括客户端和服务端）的版本。这包括你直接使用的组件以及嵌套依赖项。</p></li>
+<li><p>如果软件存在漏洞、不再受支持或过期。这包括操作系统、Web/应用服务器、数据库管理系统（DBMS）、应用程序、API 以及所有组件、运行环境和库。</p></li>
+<li><p>如果你没有定期扫描漏洞并订阅与所用组件相关的安全公告。</p></li>
+<li><p>如果你没有基于风险在及时的基础上修复或升级底层平台、框架和依赖项。这在补丁管理是月度或季度任务的环境中很常见，会使组织在数天或数月内不必要地暴露于已修复的漏洞中。</p></li>
+<li><p>如果软件开发人员没有测试更新、升级或打补丁的库的兼容性。</p></li>
+<li><p>如果你没有保障组件的配置安全（参见 A05:2021-安全配置错误）。</p></li>
+</ul>
+<section id="id11">
+<h4>OWASP 建议<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h4>
+<p>应有一个补丁管理流程，以：</p>
+<ul class="simple">
+<li><p>删除未使用的依赖项、不必要的功能、组件、文件和文档。</p></li>
+<li><p>持续清点客户端和服务端组件（如框架、库）及其依赖项的版本，使用 tools like versions、OWASP Dependency Check、retire.js 等工具。持续监控如公共漏洞和暴露（CVE）和国家漏洞数据库（NVD）等来源，以查找组件中的漏洞。使用软件组成分析工具来自动化此过程。订阅电子邮件警报，以获取与所用组件相关的安全漏洞。</p></li>
+<li><p>仅从官方来源通过安全链接获取组件。优先选择签名包以减少包含已修改的恶意组件的可能（参见 A08:2021-软件和数据完整性失败）。</p></li>
+<li><p>监控未维护或不为旧版本创建安全补丁的库和组件。如果打补丁不可能，考虑部署虚拟补丁来监控、检测或防护发现的问题。</p></li>
+</ul>
+<p>每个组织必须确保有一个持续的计划，用于在应用程序或组合的生命周期内监控、分类和应用更新或配置更改。</p>
+</section>
+<section id="id12">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id12" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>使用 Composer <a class="reference internal" href="../installation/installing_composer.html#app-starter-upgrading"><span class="std std-ref">升级</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="a07-2021">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">A07:2021 身份识别和认证失败</a><a class="headerlink" href="#a07-2021" title="此标题的永久链接"></a></h3>
+<p>确认用户身份、认证和 Session 管理对防范与认证相关的攻击至关重要。如果应用程序存在以下情况，可能存在认证弱点：</p>
+<ul class="simple">
+<li><p>允许自动攻击，例如凭证填充攻击，攻击者拥有一份有效的用户名和密码列表。</p></li>
+<li><p>允许暴力破解或其他自动化攻击。</p></li>
+<li><p>允许默认、弱或众所周知的密码，例如“Password1”或“admin/admin”。</p></li>
+<li><p>使用弱或无效的凭证恢复和忘记密码流程，例如不能保障安全的“基于知识的答案”。</p></li>
+<li><p>使用明文、加密或弱哈希的密码数据存储（参见 A02:2021-加密失败）。</p></li>
+<li><p>缺失或无效的多因素认证。</p></li>
+<li><p>在 URL 中暴露 Session 标识符。</p></li>
+<li><p>成功登录后重用 Session 标识符。</p></li>
+<li><p>未能正确使 Session ID 无效。用户 Session 或认证令牌（主要是单点登录（SSO）令牌）在注销或一段时间不活动期间未被正确使无效。</p></li>
+</ul>
+<section id="id13">
+<h4>OWASP 建议<a class="headerlink" href="#id13" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>在可能的情况下，实现多因素认证，以防范自动化凭证填充、暴力破解和被盗凭证重复使用攻击。</p></li>
+<li><p>不要使用任何默认凭证进行运输或部署，特别是对于管理员用户。</p></li>
+<li><p>实施弱密码检查，例如针对最差的 10,000 个密码列表测试新或更改的密码。</p></li>
+<li><p>根据国家标准与技术研究所（NIST）800-63b 第 5.1.1 节的记忆密码或其他现代、基于证据的密码策略，调整密码长度、复杂性和轮换策略。</p></li>
+<li><p>确保注册、凭证恢复和 API 路径针对账户枚举攻击进行了加强，即对所有结果使用相同的消息。</p></li>
+<li><p>限制或逐渐延迟失败的登录尝试，但要小心不要创建拒绝服务情景。记录所有失败并在检测到凭证填充、暴力破解或其他攻击时警告管理员。</p></li>
+<li><p>使用服务器端的安全内置 Session 管理器，在登录后生成高熵的新随机 Session ID。Session 标识符不应在 URL 中出现，应安全存储，并在注销、空闲和绝对超时后使其失效。</p></li>
+</ul>
+</section>
 <section id="id14">
-<h3>OWASP 建议<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h3>
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id14" title="此标题的永久链接"></a></h4>
 <ul class="simple">
-<li><p>表示层:确保非 Web 数据在 Web 根目录之外;验证用户和角色;发送 CSRF 令牌</p></li>
-<li><p>控制器层:验证用户和角色;验证 CSRF 令牌</p></li>
-<li><p>模型层:验证角色</p></li>
+<li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">Session</span></a> 库</p></li>
+<li><p>官方的认证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
 </ul>
 </section>
+</section>
+<section id="a08-2021">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">A08:2021 软件和数据完整性失败</a><a class="headerlink" href="#a08-2021" title="此标题的永久链接"></a></h3>
+<p>软件和数据完整性失败涉及未能保护代码和基础设施免受完整性违反的影响。例如，当应用程序依赖来自不受信任来源、仓库和内容分发网络（CDNs）的插件、库或模块时，就可能存在问题。不安全的 CI/CD 管道可能引入未经授权的访问、恶意代码或系统泄露的潜在风险。</p>
+<p>最后，许多应用程序现在包括自动更新功能，而这些更新在没有充分的完整性验证的情况下下载并应用于先前受信任的应用程序。攻击者可能会上传他们自己的更新，并分发和运行在所有安装中。</p>
+<p>另一个例子是，当对象或数据被编码或序列化为攻击者可以看到和修改的结构时，存在不安全的反序列化风险。</p>
 <section id="id15">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id15" title="此标题的永久链接"></a></h3>
+<h4>OWASP 建议<a class="headerlink" href="#id15" title="此标题的永久链接"></a></h4>
 <ul class="simple">
-<li><p><a class="reference internal" href="structure.html#application-structure-public"><span class="std std-ref">Public</span></a> 文件夹，其中应用程序和系统位于外部</p></li>
-<li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">安全库</span></a> 提供了 <a class="reference internal" href="../libraries/security.html#cross-site-request-forgery"><span class="std std-ref">CSRF 验证</span></a> 的功能</p></li>
+<li><p>使用数字签名或类似机制来验证软件或数据是否来自预期来源，并且未被修改。</p></li>
+<li><p>确保库和依赖项（如 npm 或 Maven）使用受信任的仓库。如果你有更高的风险配置文件，请考虑托管一个经过验证的内部已知良好仓库。</p></li>
+<li><p>确保使用软件供应链安全工具（如 OWASP Dependency Check 或 OWASP CycloneDX）来验证组件不包含已知漏洞。</p></li>
+<li><p>确保对代码和配置更改进行审查过程，以尽量减少引入恶意代码或配置到软件管道中的可能性。</p></li>
+<li><p>确保你的 CI/CD 管道具有适当的隔离、配置和访问控制，以确保代码在构建和部署过程中的完整性。</p></li>
+<li><p>确保未签名或未加密的序列化数据未发送到不受信任的客户端，而不进行某种形式的完整性检查或数字签名，以检测序列化数据的篡改或重放。</p></li>
 </ul>
 </section>
-</section>
-<section id="a8-csrf">
-<h2><a class="toc-backref" href="#id29" role="doc-backlink">A8 跨站请求伪造(CSRF)</a><a class="headerlink" href="#a8-csrf" title="此标题的永久链接"></a></h2>
-<p>CSRF 是一种攻击,它强制最终用户在其当前已认证的 Web 应用程序上执行不需要的操作。</p>
 <section id="id16">
-<h3>OWASP 建议<a class="headerlink" href="#id16" title="此标题的永久链接"></a></h3>
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id16" title="此标题的永久链接"></a></h4>
 <ul class="simple">
-<li><p>表示层:验证用户和角色;发送 CSRF 令牌</p></li>
-<li><p>控制器层:验证用户和角色;验证 CSRF 令牌</p></li>
-<li><p>模型层:验证角色</p></li>
+<li><p>不适用</p></li>
 </ul>
 </section>
+</section>
+<section id="a09-2021">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">A09:2021 安全日志记录和监控失败</a><a class="headerlink" href="#a09-2021" title="此标题的永久链接"></a></h3>
+<p>此类别旨在帮助检测、升级和响应活动中的入侵。如果没有日志记录和监控，入侵将无法被检测到。以下情况下发生日志记录、检测、监控和主动响应不足的情况：</p>
+<ul class="simple">
+<li><p>可审计事件（如登录、登录失败和高价值交易）未被记录。</p></li>
+<li><p>警告和错误没有生成、生成不充分或不清晰的日志消息。</p></li>
+<li><p>未监控应用程序和 API 的日志以发现可疑活动。</p></li>
+<li><p>日志仅本地存储。</p></li>
+<li><p>适当的警报阈值和响应升级过程没有到位或无效。</p></li>
+<li><p>动态应用安全测试（DAST）工具（如 OWASP ZAP）的渗透测试和扫描未触发警报。</p></li>
+<li><p>应用程序无法实时或接近实时检测、升级或警报活跃攻击。</p></li>
+</ul>
+<p>如果将日志记录和警报事件暴露给用户或攻击者（参见 A01:2021-访问控制失效），你就可能会受到信息泄露的影响。</p>
 <section id="id17">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id17" title="此标题的永久链接"></a></h3>
+<h4>OWASP 建议<a class="headerlink" href="#id17" title="此标题的永久链接"></a></h4>
+<p>开发人员应根据应用程序的风险实施以下一些或所有控制：</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../libraries/security.html"><span class="doc">安全库</span></a> 提供了 <a class="reference internal" href="../libraries/security.html#cross-site-request-forgery"><span class="std std-ref">CSRF 验证</span></a> 的功能</p></li>
+<li><p>确保所有登录、访问控制和服务器端输入验证失败事件都能够记录下来，并具有足够的用户上下文以识别可疑或恶意账户，并保存足够长的时间以允许延迟的法证分析。</p></li>
+<li><p>确保生成的日志格式易于日志管理解决方案消费。</p></li>
+<li><p>确保日志数据正确编码，以防止对日志记录或监控系统的注入或攻击。</p></li>
+<li><p>确保高价值交易有完整性控制的审计追踪，以防止篡改或删除，如只追加数据库表或类似机制。</p></li>
+<li><p>DevSecOps 团队应建立有效的监控和警报系统，以便快速检测和响应可疑活动。</p></li>
+<li><p>建立或采用事故响应和恢复计划，如国家标准与技术研究所（NIST）800-61r2 或更新版本。</p></li>
 </ul>
+<p>存在商业和开源的应用保护框架，如 OWASP ModSecurity Core Rule Set，以及开源日志关联软件，如 Elasticsearch、Logstash、Kibana（ELK）堆栈，具有自定义仪表板和警报功能。</p>
 </section>
-</section>
-<section id="a9">
-<h2><a class="toc-backref" href="#id30" role="doc-backlink">A9 使用已知漏洞的组件</a><a class="headerlink" href="#a9" title="此标题的永久链接"></a></h2>
-<p>许多应用程序都有已知的漏洞和已知的攻击策略,可被利用以获得远程控制或利用数据。</p>
 <section id="id18">
-<h3>OWASP 建议<a class="headerlink" href="#id18" title="此标题的永久链接"></a></h3>
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id18" title="此标题的永久链接"></a></h4>
 <ul class="simple">
-<li><p>不要使用这些</p></li>
+<li><p><a class="reference internal" href="../general/logging.html"><span class="doc">Logging</span></a> 库</p></li>
+<li><p>官方的认证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
 </ul>
 </section>
+</section>
+<section id="a10-2021-ssrf">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink">A10:2021 服务器端请求伪造（SSRF）</a><a class="headerlink" href="#a10-2021-ssrf" title="此标题的永久链接"></a></h3>
+<p>当一个 Web 应用程序在获取远程资源时未验证用户提供的 URL，就会发生 SSRF 漏洞。它允许攻击者强迫应用程序将构造的请求发送到意料之外的目的地，即使受到防火墙、VPN 或其他类型的网络访问控制列表（ACL）的保护。</p>
+<p>由于现代 Web 应用程序为最终用户提供了便利的功能，获取 URL 成为了常见的情况。因此，SSRF 的发生率在增加。与此同时，由于云服务和架构的复杂性，SSRF 的严重性也在增加。</p>
 <section id="id19">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id19" title="此标题的永久链接"></a></h3>
-<ul class="simple">
-<li><p>必须审查纳入的第三方库</p></li>
+<h4>OWASP 建议<a class="headerlink" href="#id19" title="此标题的永久链接"></a></h4>
+<p>开发人员可以通过实施以下一些或所有的深度防御控制来预防 SSRF：</p>
+<p>从网络层：</p>
+<ul>
+<li><p>将远程资源访问功能划分到不同的网络中，以减少 SSRF 的影响</p></li>
+<li><p>强制执行“默认拒绝”的防火墙策略或网络访问控制规则，以阻止所有不重要的内部网络流量。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>提示：</p>
+<ul>
+<li><p>基于应用程序建立防火墙规则的所有权和生命周期。</p></li>
+<li><p>记录防火墙上所有接受和阻止的网络流（参见 A09:2021-安全日志记录和监控失败）。</p></li>
 </ul>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>从应用层：</p>
+<ul class="simple">
+<li><p>清理和验证所有客户端提供的输入数据</p></li>
+<li><p>通过允许列表强制 URL 模式、端口和目的地</p></li>
+<li><p>不要将原始响应发送给客户端</p></li>
+<li><p>禁用 HTTP 重定向</p></li>
+<li><p>注意 URL 一致性，以避免 DNS 重新绑定和“检查时与使用时”(TOCTOU) 竞争条件等攻击</p></li>
+</ul>
+<p>不要通过使用拒绝列表或正则表达式来缓解 SSRF。攻击者拥有绕过拒绝列表的有效负载列表、工具和技能。</p>
 </section>
-</section>
-<section id="a10">
-<h2><a class="toc-backref" href="#id31" role="doc-backlink">A10 未验证的重定向和转发</a><a class="headerlink" href="#a10" title="此标题的永久链接"></a></h2>
-<p>缺陷的业务逻辑或注入的可执行代码可能会不当地重定向用户。</p>
 <section id="id20">
-<h3>OWASP 建议<a class="headerlink" href="#id20" title="此标题的永久链接"></a></h3>
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id20" title="此标题的永久链接"></a></h4>
 <ul class="simple">
-<li><p>表示层:不要使用 URL 重定向;使用随机间接引用</p></li>
-<li><p>控制器层:不要使用 URL 重定向;使用随机间接引用</p></li>
-<li><p>模型层:验证角色</p></li>
+<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
+<li><p><a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">HTTP 库</span></a> 提供了 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-filtering-input-data"><span class="std std-ref">输入字段过滤</span></a></p></li>
 </ul>
 </section>
+</section>
+</section>
+<section id="owasp-api-security-top-10-2023">
+<h2><a class="toc-backref" href="#id52" role="doc-backlink">OWASP API Security Top 10 2023</a><a class="headerlink" href="#owasp-api-security-top-10-2023" title="此标题的永久链接"></a></h2>
+<section id="api1-2023">
+<h3><a class="toc-backref" href="#id53" role="doc-backlink">API1:2023 对象级授权失效</a><a class="headerlink" href="#api1-2023" title="此标题的永久链接"></a></h3>
+<p>API 往往会暴露处理对象标识符的端点，这样会产生广泛的对象级访问控制问题。在每个使用来自用户的 ID 访问数据源的函数中，都应考虑对象级授权检查。</p>
 <section id="id21">
-<h3>CodeIgniter 对应措施<a class="headerlink" href="#id21" title="此标题的永久链接"></a></h3>
+<h4>OWASP 建议<a class="headerlink" href="#id21" title="此标题的永久链接"></a></h4>
 <ul class="simple">
-<li><p><a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">HTTP 库</span></a> 提供…</p></li>
-<li><p><a class="reference internal" href="../libraries/sessions.html"><span class="doc">Session 库</span></a> 提供 <a class="reference internal" href="../libraries/sessions.html#sessions-flashdata"><span class="std std-ref">Flashdata</span></a></p></li>
+<li><p>实施依赖于用户策略和层级的适当授权机制。</p></li>
+<li><p>使用授权机制检查登录用户是否有权在每个使用客户端输入访问数据库记录的函数中执行请求的操作。</p></li>
+<li><p>优先使用随机且不可预测的值作为记录 ID 的 GUID。</p></li>
+<li><p>编写测试以评估授权机制的漏洞。不要部署使测试失败的更改。</p></li>
 </ul>
+</section>
+<section id="id22">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id22" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>官方的认证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
+<li><p><a class="reference internal" href="../testing/overview.html"><span class="doc">PHPUnit 测试</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="api2-2023">
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">API2:2023 认证失效</a><a class="headerlink" href="#api2-2023" title="此标题的永久链接"></a></h3>
+<p>认证机制常常被错误地实现，使得攻击者能够破解认证令牌或利用实现缺陷临时或永久地假冒其他用户的身份。破坏系统识别客户端/用户的能力就会破坏 API 的整体安全性。</p>
+<section id="id23">
+<h4>OWASP 建议<a class="headerlink" href="#id23" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>确保了解所有可能的 API 认证流程（移动应用/Web/实现单击认证的深层链接等）。询问你的工程师是否遗漏了某些流程。</p></li>
+<li><p>了解你的认证机制。确保理解它们的用途和使用方法。OAuth 不是认证，API 密钥也不是。</p></li>
+<li><p>不要在认证、令牌生成或密码存储方面重新发明轮子。使用标准。</p></li>
+<li><p>凭据恢复/忘记密码端点应在防御暴力破解、速率限制和锁定保护方面与登录端点同等对待。</p></li>
+<li><p>对于敏感操作（例如更改账户所有者的电子邮件地址/两因素认证电话号码），需要重新认证。</p></li>
+<li><p>使用 OWASP 认证备忘清单。</p></li>
+<li><p>尽可能实施多因素认证。</p></li>
+<li><p>实施防暴力破解机制，以减轻凭据填充、字典攻击和针对认证端点的暴力破解攻击。此机制应比 API 上的常规速率限制机制更严格。</p></li>
+<li><p>实施账号锁定/验证码机制，以防止针对特定用户的暴力破解攻击。实施弱密码检查。</p></li>
+<li><p>API 密钥不应用于用户认证。它们仅应用于 API 客户端认证。</p></li>
+</ul>
+</section>
+<section id="id24">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id24" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../incoming/filters.html"><span class="doc">控制器过滤器</span></a></p></li>
+<li><p><a class="reference internal" href="../incoming/routing.html#routing-spark-routes"><span class="std std-ref">spark 路由</span></a> 命令</p></li>
+<li><p>官方的认证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
+<li><p>用于速率限制的 <a class="reference internal" href="../libraries/throttler.html"><span class="doc">限速器</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="api3-2023">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">API3:2023 对象属性级授权失效</a><a class="headerlink" href="#api3-2023" title="此标题的永久链接"></a></h3>
+<p>这一类别结合了 API3:2019 的过度数据暴露和 API6:2019 的大量赋值问题，集中在根本原因：缺乏或不当的对象属性级授权验证。这导致了未经授权方的信息暴露或篡改。</p>
+<section id="id25">
+<h4>OWASP 建议<a class="headerlink" href="#id25" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>当通过 API 端点暴露一个对象时，始终确保用户应该访问你暴露的对象属性。</p></li>
+<li><p>避免使用诸如 to_json() 和 to_string() 之类的通用方法。相反，应选择具体的对象属性进行返回。</p></li>
+<li><p>如果可能，避免使用自动将客户端输入绑定到代码变量、内部对象或对象属性的功能（“大量赋值”）。</p></li>
+<li><p>仅允许客户端更新对象的特定属性。</p></li>
+<li><p>实施基于模式的响应验证机制作为额外的安全层。作为该机制的一部分，定义并强制执行所有 API 方法返回的数据。</p></li>
+<li><p>根据端点的业务/功能需求，将返回的数据结构保持在最低限度。</p></li>
+</ul>
+</section>
+<section id="id26">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id26" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>模型的 <a class="reference internal" href="../models/model.html#model-allowed-fields"><span class="std std-ref">$allowedFields</span></a></p></li>
+<li><p>官方的认证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="api4-2023">
+<h3><a class="toc-backref" href="#id56" role="doc-backlink">API4:2023 不受限制的资源消耗</a><a class="headerlink" href="#api4-2023" title="此标题的永久链接"></a></h3>
+<p>满足 API 请求需要诸如网络带宽、CPU、内存和存储等资源。其他诸如电子邮件/SMS/电话或生物信息验证等资源由服务提供商通过 API 集成提供，并按请求付费。成功的攻击可能导致拒绝服务或运营成本增加。</p>
+<section id="id27">
+<h4>OWASP 建议<a class="headerlink" href="#id27" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>使用一种可以轻松限制内存、CPU、重启次数、文件描述符和进程（如容器/无服务器代码，例如 Lambdas）的方法。</p></li>
+<li><p>定义并强制执行所有传入参数和负载数据的最大尺寸，例如字符串的最大长度、数组中的最大元素数和最大上传文件大小（无论存储在本地还是云存储中）。</p></li>
+<li><p>实施限制客户端在定义时间范围内与 API 交互频率的机制（速率限制）。</p></li>
+<li><p>速率限制应根据业务需求进行微调。某些 API 端点可能需要更严格的策略。</p></li>
+<li><p>限制/节流单个 API 客户端/用户执行单个操作的次数或频率（例如验证一次性密码，或在不访问一次性 URL 的情况下请求密码恢复）。</p></li>
+<li><p>添加适当的服务器端验证以控制查询字符串和请求体参数，尤其是那些控制响应中返回记录数量的参数。</p></li>
+<li><p>为所有服务提供商/API 集成配置消费限制。如果无法设置消费限制，应配置帐单警报。</p></li>
+</ul>
+</section>
+<section id="id28">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id28" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
+<li><p>用于速率限制的 <a class="reference internal" href="../libraries/throttler.html"><span class="doc">限速器</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="api5-2023">
+<h3><a class="toc-backref" href="#id57" role="doc-backlink">API5:2023 功能级授权失效</a><a class="headerlink" href="#api5-2023" title="此标题的永久链接"></a></h3>
+<p>复杂的访问控制策略，包括不同的层级、组和角色，以及行政和常规功能之间不明确的分离，往往导致授权缺陷。通过利用这些问题，攻击者可以访问其他用户的资源和/或管理功能。</p>
+<section id="id29">
+<h4>OWASP 建议<a class="headerlink" href="#id29" title="此标题的永久链接"></a></h4>
+<p>你的应用程序应有一个一致且易于分析的授权模块，该模块应从所有业务功能中调用。通常，这种保护是由应用代码外部的一个或多个组件提供的。</p>
+<ul class="simple">
+<li><p>执行机制应该默认拒绝所有访问，需要对每个功能的访问显式授予特定角色。</p></li>
+<li><p>根据功能级授权缺陷审查你的 API 端点，同时牢记应用程序的业务逻辑和组层次结构。</p></li>
+<li><p>确保所有管理控制器都继承自实现基于用户组/角色的授权检查的管理抽象控制器。</p></li>
+<li><p>确保常规控制器内的管理功能实现基于用户组和角色的授权检查。</p></li>
+</ul>
+</section>
+<section id="id30">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id30" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../incoming/filters.html"><span class="doc">控制器过滤器</span></a></p></li>
+<li><p>官方的认证和授权框架 <a class="reference internal" href="../libraries/official_packages.html#shield"><span class="std std-ref">CodeIgniter Shield</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="api6-2023">
+<h3><a class="toc-backref" href="#id58" role="doc-backlink">API6:2023 不受限制访问敏感业务流程</a><a class="headerlink" href="#api6-2023" title="此标题的永久链接"></a></h3>
+<p>存在这种风险的 API 暴露了某些业务流程——例如购票或发布评论——而没有考虑到这些功能如果以自动化的方式被过度使用会对业务造成怎样的损害。这并不一定来源于实现上的漏洞。</p>
+<section id="id31">
+<h4>OWASP 建议<a class="headerlink" href="#id31" title="此标题的永久链接"></a></h4>
+<p>缓解计划应该分两层进行：</p>
+<ul class="simple">
+<li><p>业务层：识别出如果过度使用可能对业务造成损害的业务流程。</p></li>
+<li><p>工程层：选择合适的保护机制来减轻业务风险。</p></li>
+</ul>
+<p>一些保护机制相对简单，而另一些则更复杂。以下方法通常用于减缓自动化威胁：</p>
+<ul class="simple">
+<li><p>设备指纹识别：拒绝意外客户端设备的服务（例如无头浏览器）往往会使威胁行为者使用更复杂的解决方案，从而增加其成本。</p></li>
+<li><p>人类检测：使用验证码或更先进的生物识别解决方案（例如输入模式）。</p></li>
+<li><p>非人类模式检测：分析用户流程以检测非人类模式（例如用户在不到一秒钟内访问了“添加到购物车”和“完成购买”功能）。</p></li>
+<li><p>考虑阻止 Tor 出站节点和知名代理的 IP 地址。</p></li>
+</ul>
+<p>保护并限制直接由机器使用的 API（如开发者和 B2B API）的访问。这些 API 往往是攻击者的容易目标，因为它们通常没有实现所有必要的保护机制。</p>
+</section>
+<section id="id32">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id32" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>不适用</p></li>
+</ul>
+</section>
+</section>
+<section id="api7-2023">
+<h3><a class="toc-backref" href="#id59" role="doc-backlink">API7:2023 服务端请求伪造</a><a class="headerlink" href="#api7-2023" title="此标题的永久链接"></a></h3>
+<p>服务端请求伪造（SSRF）漏洞可能会在 API 获取远程资源时未对用户提供的 URI 进行验证时出现。这使得攻击者能够迫使应用程序向意外的目标发送伪造的请求，即使这些目标受防火墙或 VPN 保护。</p>
+<section id="id33">
+<h4>OWASP 建议<a class="headerlink" href="#id33" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>在你的网络中隔离资源获取机制：通常这些功能是为了获取远程资源而不是内部资源。</p></li>
+<li><p>在可能的情况下，使用白名单：</p>
+<ul>
+<li><p>用户预计下载资源的远程来源（例如 Google Drive, Gravatar 等）</p></li>
+<li><p>URL 方案和端口</p></li>
+<li><p>给定功能的可接受媒体类型</p></li>
+</ul>
+</li>
+<li><p>禁用 HTTP 重定向。</p></li>
+<li><p>使用经过良好测试和维护的 URL 解析器，以避免由于 URL 解析不一致引起的问题。</p></li>
+<li><p>验证并清理所有客户端提供的输入数据。</p></li>
+<li><p>不要向客户端发送原始响应。</p></li>
+</ul>
+</section>
+<section id="id34">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id34" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
+<li><p><a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">HTTP library</span></a> 提供 <a class="reference internal" href="../incoming/incomingrequest.html#incomingrequest-filtering-input-data"><span class="std std-ref">输入字段过滤</span></a></p></li>
+<li><p><a class="reference internal" href="../libraries/curlrequest.html"><span class="doc">CURLRequest</span></a> 类</p></li>
+<li><p><a class="reference internal" href="../libraries/uri.html"><span class="doc">URI</span></a> 类</p></li>
+</ul>
+</section>
+</section>
+<section id="api8-2023">
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">API8:2023 安全配置错误</a><a class="headerlink" href="#api8-2023" title="此标题的永久链接"></a></h3>
+<p>API 及其支持系统通常包含复杂的配置，旨在使 API 更加可定制。软件和 DevOps 工程师可能会忽视这些配置，或在配置时未遵循安全最佳实践，从而为各种类型的攻击打开了大门。</p>
+<section id="id35">
+<h4>OWASP 建议<a class="headerlink" href="#id35" title="此标题的永久链接"></a></h4>
+<p>API 生命周期应包括：</p>
+<ul class="simple">
+<li><p>一个可重复的强化过程，以快速轻松地部署一个适当锁定的环境。</p></li>
+<li><p>在整个 API 栈中审查和更新配置的任务。审查应包含：编排文件、API 组件和云服务（例如 S3 存储桶权限）。</p></li>
+<li><p>一个自动化过程，持续评估所有环境中配置和设置的有效性。</p></li>
+</ul>
+<p>此外：</p>
+<ul class="simple">
+<li><p>确保所有从客户端到 API 服务器及任何上下游组件的 API 通信都在加密通信通道（TLS）上进行，无论它是内部 API 还是公开 API。</p></li>
+<li><p>明确每个 API 可以访问的 HTTP 动词：应禁用所有其他 HTTP 动词（例如 HEAD）。</p></li>
+<li><p>预计从基于浏览器的客户端（例如，Web 应用前端）访问的 API 应至少：</p>
+<ul>
+<li><p>实施适当的跨域资源共享（CORS）策略</p></li>
+<li><p>包含适用的安全头</p></li>
+</ul>
+</li>
+<li><p>将传入内容类型/数据格式限制为符合业务/功能要求的那些。</p></li>
+<li><p>确保 HTTP 服务器链中的所有服务器（例如，负载均衡器、反向和正向代理、后端服务器）以一致的方式处理传入请求，以避免反序列化问题。</p></li>
+<li><p>在适用的情况下，定义并强制执行所有 API 响应负载模式，包括错误响应，以防止异常跟踪和其他有价值的信息被返回给攻击者。</p></li>
+</ul>
+</section>
+<section id="id36">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id36" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>全局安全访问配置（<code class="docutils literal notranslate"><span class="pre">Config\App::$forceGlobalSecureRequests</span></code>）</p></li>
+<li><p><a class="reference internal" href="../general/common_functions.html#force_https" title="force_https"><code class="xref php php-func docutils literal notranslate"><span class="pre">force_https()</span></code></a> 函数</p></li>
+<li><p><a class="reference internal" href="../incoming/routing.html#defined-route-routing"><span class="std std-ref">已定义路由</span></a></p></li>
+<li><p><a class="reference internal" href="../incoming/routing.html#auto-routing-improved"><span class="std std-ref">自动路由(改进版)</span></a></p></li>
+<li><p><a class="reference internal" href="../libraries/cors.html"><span class="doc">跨域资源共享 (CORS)</span></a> 过滤器</p></li>
+</ul>
+</section>
+</section>
+<section id="api9-2023">
+<h3><a class="toc-backref" href="#id61" role="doc-backlink">API9:2023 不当的库存管理</a><a class="headerlink" href="#api9-2023" title="此标题的永久链接"></a></h3>
+<p>相比传统的 web 应用程序，API 往往暴露更多的端点，因此适当且更新的文档变得尤为重要。适当的主机和已部署 API 版本的库存管理也很重要，可以减轻诸如弃用 API 版本和暴露调试端点等问题。</p>
+<section id="id37">
+<h4>OWASP 建议<a class="headerlink" href="#id37" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>清点所有 API 主机并记录每个主机的重要方面，关注 API 环境（例如生产、暂存、测试、开发），谁应具有对主机的网络访问权限（例如公共、内部、合作伙伴）以及 API 版本。</p></li>
+<li><p>清点集成的服务并记录其重要方面，例如它们在系统中的角色、交换的数据（数据流）及其敏感性。</p></li>
+<li><p>记录 API 的所有方面，例如认证、错误、重定向、速率限制、跨域资源共享（CORS）策略和端点，包括它们的参数、请求和响应。</p></li>
+<li><p>通过采用开放标准自动生成文档。在你的 CI/CD 流水线中包含文档构建。</p></li>
+<li><p>仅向授权使用 API 的人提供 API 文档。</p></li>
+<li><p>对所有暴露的 API 版本使用外部保护措施（例如专门的 API 安全解决方案），而不仅限于当前的生产版本。</p></li>
+<li><p>避免在非生产 API 部署中使用生产数据。如果无法避免，这些端点应得到与生产端点相同的安全处理。</p></li>
+<li><p>当新版本的 API 包含安全改进时，进行风险分析，以通知旧版本所需的缓解措施。例如，是否可以在不破坏 API 兼容性的情况下向后移植改进，或需要迅速移除旧版本并强迫所有客户端迁移到最新版本。</p></li>
+</ul>
+</section>
+<section id="id38">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id38" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../incoming/routing.html#routing-spark-routes"><span class="std std-ref">spark 路由</span></a> 命令</p></li>
+</ul>
+</section>
+</section>
+<section id="api10-2023-api">
+<h3><a class="toc-backref" href="#id62" role="doc-backlink">API10:2023 不安全的 API 消费</a><a class="headerlink" href="#api10-2023-api" title="此标题的永久链接"></a></h3>
+<p>开发者往往比起用户输入更信任从第三方 API 接收的数据，因此更倾向于采用较弱的安全标准。为了攻击 API，攻击者更可能是针对集成的第三方服务，而不是直接尝试攻击目标 API。</p>
+<section id="id39">
+<h4>OWASP 建议<a class="headerlink" href="#id39" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p>在评估服务提供商时，评估其 API 的安全状态。</p></li>
+<li><p>确保所有 API 交互都通过安全通信通道（TLS）进行。</p></li>
+<li><p>在使用从集成 API 接收到的数据之前，始终验证并适当清理这些数据。</p></li>
+<li><p>保持一个集成 API 可能重定向到的已知位置白名单：不要盲目跟随重定向。</p></li>
+</ul>
+</section>
+<section id="id40">
+<h4>CodeIgniter 的保护措施<a class="headerlink" href="#id40" title="此标题的永久链接"></a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="../libraries/curlrequest.html"><span class="doc">CURLRequest</span></a> 类</p></li>
+<li><p><a class="reference internal" href="../libraries/validation.html"><span class="doc">验证</span></a> 库</p></li>
+</ul>
+</section>
 </section>
 </section>
 </section>
@@ -517,7 +963,7 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -525,7 +971,7 @@ CodeIgniter 集成了许多功能和技术,以强制实施良好的安全实践,
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b885cb10>
+<jinja2.runtime.BlockReference object at 0x7f2cf006ab50>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>测试控制器 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>测试控制器 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -323,13 +326,13 @@
 <p>要启用控制器测试,你需要在测试中使用 <code class="docutils literal notranslate"><span class="pre">ControllerTestTrait</span></code> trait:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="k">namespace</span> <span class="nx">CodeIgniter</span><span class="p">;</span>
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\ControllerTestTrait</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\DatabaseTestTrait</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">TestControllerA</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
+<span class="k">class</span> <span class="nc">FooControllerTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
 <span class="p">{</span>
     <span class="k">use</span> <span class="nx">ControllerTestTrait</span><span class="p">;</span>
     <span class="k">use</span> <span class="nx">DatabaseTestTrait</span><span class="p">;</span>
@@ -339,13 +342,13 @@
 <p>一旦包含了trait,你就可以开始设置环境,包括请求和响应类、请求体、URI等。你可以使用 <code class="docutils literal notranslate"><span class="pre">controller()</span></code> 方法指定要使用的控制器,传入控制器的完全限定类名。最后,用要运行的方法名作为参数调用 <code class="docutils literal notranslate"><span class="pre">execute()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="k">namespace</span> <span class="nx">CodeIgniter</span><span class="p">;</span>
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\ControllerTestTrait</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\DatabaseTestTrait</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">TestControllerA</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
+<span class="k">class</span> <span class="nc">ForumControllerTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
 <span class="p">{</span>
     <span class="k">use</span> <span class="nx">ControllerTestTrait</span><span class="p">;</span>
     <span class="k">use</span> <span class="nx">DatabaseTestTrait</span><span class="p">;</span>
@@ -353,7 +356,7 @@
     <span class="k">public</span> <span class="k">function</span> <span class="nf">testShowCategories</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">withURI</span><span class="p">(</span><span class="s1">&#39;http://example.com/categories&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">\App\Controllers\ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">controller</span><span class="p">(</span><span class="nx">ForumController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
             <span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="s1">&#39;showCategories&#39;</span><span class="p">);</span>
 
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isOK</span><span class="p">());</span>
@@ -494,12 +497,12 @@
 <p>与控制器测试器一样,你需要在测试用例中包含 <code class="docutils literal notranslate"><span class="pre">FilterTestTrait</span></code> 来启用这些功能:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="k">namespace</span> <span class="nx">CodeIgniter</span><span class="p">;</span>
+<span class="k">namespace</span> <span class="nx">App\Filters</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\FilterTestTrait</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">FilterTestCase</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
+<span class="k">class</span> <span class="nc">FooFilterTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
 <span class="p">{</span>
     <span class="k">use</span> <span class="nx">FilterTestTrait</span><span class="p">;</span>
 <span class="p">}</span>
@@ -520,12 +523,12 @@
 <p>默认配置通常对测试最有利,因为它最接近“实时”项目,但是(例如)如果要模拟过滤器意外触发未过滤的路由,可以将其添加到 Config 中:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="k">namespace</span> <span class="nx">CodeIgniter</span><span class="p">;</span>
+<span class="k">namespace</span> <span class="nx">App\Filters</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\FilterTestTrait</span><span class="p">;</span>
 
-<span class="k">final</span> <span class="k">class</span> <span class="nc">FilterTestCase</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
+<span class="k">final</span> <span class="k">class</span> <span class="nc">FooFilterTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
 <span class="p">{</span>
     <span class="k">use</span> <span class="nx">FilterTestTrait</span><span class="p">;</span>
 
@@ -593,12 +596,12 @@
 <p>用法示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="k">namespace</span> <span class="nx">CodeIgniter</span><span class="p">;</span>
+<span class="k">namespace</span> <span class="nx">App\Filters</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\FilterTestTrait</span><span class="p">;</span>
 
-<span class="k">final</span> <span class="k">class</span> <span class="nc">FilterTestCase</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
+<span class="k">final</span> <span class="k">class</span> <span class="nc">FooFilterTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
 <span class="p">{</span>
     <span class="k">use</span> <span class="nx">FilterTestTrait</span><span class="p">;</span>
 
@@ -675,7 +678,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -683,7 +686,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b76d0c10>
+<jinja2.runtime.BlockReference object at 0x7f2cefba8850>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

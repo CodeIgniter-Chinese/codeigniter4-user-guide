@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>视图 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>视图 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -322,7 +325,7 @@
 </section>
 <section id="id4">
 <h2><a class="toc-backref" href="#id12" role="doc-backlink">显示视图</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
-<p>要加载和显示特定的视图文件,你需要在控制器中使用以下代码:</p>
+<p>要加载和显示特定的视图文件，你可以在控制器中使用 <a class="reference internal" href="../general/common_functions.html#view" title="view"><code class="xref php php-func docutils literal notranslate"><span class="pre">view()</span></code></a> 函数，如以下代码所示：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -359,7 +362,8 @@
 </section>
 <section id="id5">
 <h2><a class="toc-backref" href="#id13" role="doc-backlink">加载多个视图</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
-<p>如果控制器内有多个 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 调用,CodeIgniter 将智能地处理它们。如果发生多次调用,它们将被追加在一起。例如,你可能希望有一个头部视图、菜单视图、内容视图和页脚视图。可能如下所示:</p>
+<p>CodeIgniter 会智能地处理控制器内对 <a class="reference internal" href="../general/common_functions.html#view" title="view"><code class="xref php php-func docutils literal notranslate"><span class="pre">view()</span></code></a> 的多次调用。如果发生多次调用，它们将被拼接在一起。</p>
+<p>例如，你可能希望有一个头部视图、一个菜单视图、一个内容视图和一个底部视图。代码可能如下所示：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
@@ -407,7 +411,7 @@
 </section>
 <section id="caching-views">
 <span id="id8"></span><h2><a class="toc-backref" href="#id16" role="doc-backlink">缓存视图</a><a class="headerlink" href="#caching-views" title="此标题的永久链接"></a></h2>
-<p>你可以通过在第三个参数中传递 <code class="docutils literal notranslate"><span class="pre">cache</span></code> 选项和缓存视图的秒数来缓存 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 函数的视图:</p>
+<p>你可以通过在 <a class="reference internal" href="../general/common_functions.html#view" title="view"><code class="xref php php-func docutils literal notranslate"><span class="pre">view()</span></code></a> 函数的第三个参数中传递一个 <code class="docutils literal notranslate"><span class="pre">cache</span></code> 选项，并指定缓存视图的秒数来缓存视图：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Cache the view for 60 seconds</span>
 <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;file_name&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;cache&#39;</span> <span class="o">=&gt;</span> <span class="mi">60</span><span class="p">]);</span>
 </pre></div>
@@ -420,7 +424,8 @@
 </section>
 <section id="id9">
 <h2><a class="toc-backref" href="#id17" role="doc-backlink">向视图添加动态数据</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
-<p>通过 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 函数的第二个参数中的数组,控制器的数据传递给视图。这里有个例子:</p>
+<p>数据通过 <a class="reference internal" href="../general/common_functions.html#view" title="view"><code class="xref php php-func docutils literal notranslate"><span class="pre">view()</span></code></a> 函数的第二个参数以数组的形式从控制器传递到视图。</p>
+<p>这里有个例子：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;title&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span><span class="p">,</span>
     <span class="s1">&#39;heading&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My Heading&#39;</span><span class="p">,</span>
@@ -472,7 +477,7 @@
 <p>然后在你一直使用的 URL 加载页面,你应该可以看到变量被替换了。</p>
 <section id="savedata">
 <h3><a class="toc-backref" href="#id18" role="doc-backlink">saveData 选项</a><a class="headerlink" href="#savedata" title="此标题的永久链接"></a></h3>
-<p>传入的数据在对 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 的后续调用中保留。如果在单个请求中多次调用该函数,则不必为每个 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 传递所需的数据。</p>
+<p>传递的数据在后续对 <a class="reference internal" href="../general/common_functions.html#view" title="view"><code class="xref php php-func docutils literal notranslate"><span class="pre">view()</span></code></a> 的调用中会被保留。如果你在单个请求中多次调用该函数，你不需要每次都将所需数据传递给每个 <code class="docutils literal notranslate"><span class="pre">view()</span></code>。</p>
 <p>但这可能无法防止任何数据“渗透”到其他视图中,从而潜在地造成问题。如果你更喜欢在一次调用后清除数据,可以将 <code class="docutils literal notranslate"><span class="pre">saveData</span></code> 选项传递到第三个参数中的 <code class="docutils literal notranslate"><span class="pre">$option</span></code> 数组中。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;title&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span><span class="p">,</span>
@@ -546,7 +551,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -554,7 +559,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b75efbd0>
+<jinja2.runtime.BlockReference object at 0x7f2cef8445d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

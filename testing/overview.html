@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>测试 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>测试 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -288,58 +291,47 @@
 <p>CodeIgniter 从一开始就尽可能地简化了框架和应用程序的测试。对 <a class="reference external" href="https://phpunit.de/">PHPUnit</a> 的支持是内置的,框架还提供了许多方便的辅助方法,使得对应用程序的各个方面的测试变得尽可能轻松。</p>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id14">系统设置</a></p>
+<li><p><a class="reference internal" href="#id3" id="id13">系统设置</a></p>
 <ul>
-<li><p><a class="reference internal" href="#phpunit" id="id15">安装 PHPUnit</a></p>
+<li><p><a class="reference internal" href="#phpunit" id="id14">安装 PHPUnit</a></p>
 <ul>
-<li><p><a class="reference internal" href="#composer" id="id16">Composer</a></p></li>
-<li><p><a class="reference internal" href="#phar" id="id17">Phar</a></p></li>
+<li><p><a class="reference internal" href="#composer" id="id15">Composer</a></p></li>
+<li><p><a class="reference internal" href="#phar" id="id16">Phar</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id4" id="id18">测试应用程序</a></p>
+<li><p><a class="reference internal" href="#id4" id="id17">测试应用程序</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id5" id="id19">PHPUnit 配置</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id20">测试类</a></p>
+<li><p><a class="reference internal" href="#id5" id="id18">PHPUnit 配置</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id19">测试类</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id7" id="id21">搭建环境</a></p></li>
-<li><p><a class="reference internal" href="#traits" id="id22">Traits</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id23">其他断言</a></p></li>
-<li><p><a class="reference internal" href="#protected-private" id="id24">访问 Protected/Private 属性</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id20">搭建环境</a></p></li>
+<li><p><a class="reference internal" href="#traits" id="id21">Traits</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id22">其他断言</a></p></li>
+<li><p><a class="reference internal" href="#protected-private" id="id23">访问 Protected/Private 属性</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id11" id="id25">模拟服务</a></p>
+<li><p><a class="reference internal" href="#id11" id="id24">模拟服务</a></p>
 <ul>
-<li><p><a class="reference internal" href="#services-injectmock" id="id26">Services::injectMock()</a></p></li>
-<li><p><a class="reference internal" href="#services-reset" id="id27">Services::reset()</a></p></li>
-<li><p><a class="reference internal" href="#services-resetsingle-string-name" id="id28">Services::resetSingle(string $name)</a></p></li>
+<li><p><a class="reference internal" href="#services-injectmock" id="id25">Services::injectMock()</a></p></li>
+<li><p><a class="reference internal" href="#services-reset" id="id26">Services::reset()</a></p></li>
+<li><p><a class="reference internal" href="#services-resetsingle-string-name" id="id27">Services::resetSingle(string $name)</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#factory" id="id29">模拟 Factory 实例</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id30">测试和时间</a></p></li>
-<li><p><a class="reference internal" href="#cli" id="id31">测试 CLI 输出</a></p>
-<ul>
-<li><p><a class="reference internal" href="#streamfiltertrait" id="id32">StreamFilterTrait</a></p></li>
-<li><p><a class="reference internal" href="#citeststreamfilter" id="id33">CITestStreamFilter</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#testing-cli-input" id="id34">测试 CLI 输入</a></p>
-<ul>
-<li><p><a class="reference internal" href="#phpstreamwrapper" id="id35">PhpStreamWrapper</a></p></li>
-</ul>
-</li>
+<li><p><a class="reference internal" href="#factory" id="id28">模拟 Factory 实例</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id29">测试和时间</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id14" role="doc-backlink">系统设置</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">系统设置</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <section id="phpunit">
-<h3><a class="toc-backref" href="#id15" role="doc-backlink">安装 PHPUnit</a><a class="headerlink" href="#phpunit" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">安装 PHPUnit</a><a class="headerlink" href="#phpunit" title="此标题的永久链接"></a></h3>
 <p>CodeIgniter 使用 <a class="reference external" href="https://phpunit.de/">PHPUnit</a> 作为所有测试的基础。有两种在系统内安装 PHPUnit 的方法。</p>
 <section id="composer">
-<h4><a class="toc-backref" href="#id16" role="doc-backlink">Composer</a><a class="headerlink" href="#composer" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">Composer</a><a class="headerlink" href="#composer" title="此标题的永久链接"></a></h4>
 <p>推荐的方法是使用 <a class="reference external" href="https://getcomposer.org/">Composer</a> 在项目中安装它。尽管可以全局安装,但我们不建议这样做,因为随着时间的推移,它可能与系统上的其他项目造成兼容性问题。</p>
 <p>确保系统中安装了 Composer。从项目根目录(包含应用程序和系统目录的目录)命令行输入以下命令:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">composer require --dev phpunit/phpunit</span>
@@ -355,22 +347,23 @@
 </div>
 </section>
 <section id="phar">
-<h4><a class="toc-backref" href="#id17" role="doc-backlink">Phar</a><a class="headerlink" href="#phar" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id16" role="doc-backlink">Phar</a><a class="headerlink" href="#phar" title="此标题的永久链接"></a></h4>
 <p>另一种选择是从 <a class="reference external" href="https://phpunit.de/getting-started/phpunit-9.html">PHPUnit</a> 站点下载 .phar 文件。这是一个独立的文件,应该放在项目根目录中。</p>
 </section>
 </section>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id18" role="doc-backlink">测试应用程序</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">测试应用程序</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <section id="id5">
-<h3><a class="toc-backref" href="#id19" role="doc-backlink">PHPUnit 配置</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
-<p>项目根目录中有一个 <code class="docutils literal notranslate"><span class="pre">phpunit.xml.dist</span></code> 文件。它控制框架本身的单元测试。如果提供自己的 <code class="docutils literal notranslate"><span class="pre">phpunit.xml</span></code>,则会覆盖它。</p>
-<p>如果正在对应用程序进行单元测试,则 <code class="docutils literal notranslate"><span class="pre">phpunit.xml</span></code> 应该排除 <code class="docutils literal notranslate"><span class="pre">system</span></code> 文件夹以及任何 <code class="docutils literal notranslate"><span class="pre">vendor</span></code> 或 <code class="docutils literal notranslate"><span class="pre">ThirdParty</span></code> 文件夹。</p>
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">PHPUnit 配置</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
+<p>在你的 CodeIgniter 项目根目录中，有一个 <code class="docutils literal notranslate"><span class="pre">phpunit.xml.dist</span></code> 文件。这个文件控制着你的应用程序的单元测试。如果你提供了自己的 <code class="docutils literal notranslate"><span class="pre">phpunit.xml</span></code>，它将覆盖默认文件。</p>
+<p>默认情况下，测试文件放置在项目根目录下的 <strong>tests</strong> 目录中。</p>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id20" role="doc-backlink">测试类</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
-<p>为了利用所提供的其他工具,测试必须扩展 <code class="docutils literal notranslate"><span class="pre">CIUnitTestCase</span></code>。默认情况下,所有测试都预计位于 <strong>tests/app</strong> 目录中。</p>
-<p>要测试新的库 <strong>Foo</strong>,你将在 <strong>tests/app/Libraries/FooTest.php</strong> 中创建一个新文件:</p>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">测试类</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
+<p>为了利用提供的额外工具，你的测试必须继承 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Test\CIUnitTestCase</span></code>。</p>
+<p>对于测试文件的放置位置没有硬性规定。然而，我们建议你提前制定放置规则，以便你能快速了解测试文件的位置。</p>
+<p>在本文档中，我们将把与 <strong>app</strong> 目录中的类对应的测试文件放置在 <strong>tests/app</strong> 目录中。要测试一个新的库 <strong>app/Libraries/Foo.php</strong>，你需要在 <strong>tests/app/Libraries/FooTest.php</strong> 创建一个新文件：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Libraries</span><span class="p">;</span>
@@ -386,14 +379,14 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>要测试模型之一,你最终可能会在 <strong>tests/app/Models/OneOfMyModelsTest.php</strong> 中以类似以下形式结束:</p>
+<p>要测试你的某个模型 <strong>app/Models/UserModel.php</strong>，你可能会在 <strong>tests/app/Models/UserModelTest.php</strong> 中得到如下内容：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">OneOfMyModelsTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
+<span class="k">class</span> <span class="nc">UserModelTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">testFooNotBar</span><span class="p">()</span>
     <span class="p">{</span>
@@ -409,7 +402,7 @@
 </div>
 <p>在测试数据库结果时,必须在类中使用 <a class="reference internal" href="database.html"><span class="doc">DatabaseTestTrait</span></a>。</p>
 <section id="id7">
-<h4><a class="toc-backref" href="#id21" role="doc-backlink">搭建环境</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">搭建环境</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
 <p>大多数测试都需要一些准备才能正确运行。PHPUnit 的 <code class="docutils literal notranslate"><span class="pre">TestCase</span></code> 提供了四个方法来帮助搭建环境和清理:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">setUpBeforeClass</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
 <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">tearDownAfterClass</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
@@ -419,14 +412,14 @@
 </pre></div>
 </div>
 <p>静态方法 <code class="docutils literal notranslate"><span class="pre">setUpBeforeClass()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">tearDownAfterClass()</span></code> 分别在整个测试用例之前和之后运行,而受保护的方法 <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">tearDown()</span></code> 在每个测试之间运行。</p>
-<p>如果实现了这些特殊函数中的任何一个,请确保也运行其父函数,以免扩展的测试用例干扰环境搭建:</p>
+<p>如果你实现了这些特殊函数中的任何一个，请确保你也运行它们的父级函数，以免扩展的测试用例干扰到分阶段测试：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 
-<span class="k">final</span> <span class="k">class</span> <span class="nc">OneOfMyModelsTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
+<span class="k">final</span> <span class="k">class</span> <span class="nc">UserModelTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
 <span class="p">{</span>
     <span class="k">protected</span> <span class="k">function</span> <span class="nf">setUp</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
     <span class="p">{</span>
@@ -441,7 +434,7 @@
 </div>
 </section>
 <section id="traits">
-<span id="testing-overview-traits"></span><h4><a class="toc-backref" href="#id22" role="doc-backlink">Traits</a><a class="headerlink" href="#traits" title="此标题的永久链接"></a></h4>
+<span id="testing-overview-traits"></span><h4><a class="toc-backref" href="#id21" role="doc-backlink">Traits</a><a class="headerlink" href="#traits" title="此标题的永久链接"></a></h4>
 <p>通过 traits 统一不同测试用例的环境搭建是一个加强测试的常用方式。<code class="docutils literal notranslate"><span class="pre">CIUnitTestCase</span></code> 将检测任何类 traits,并查找以 trait 本身命名的环境搭建方法(即 <cite>setUp{TraitName}()</cite> 和 <cite>tearDown{TraitName}()</cite>)。</p>
 <p>例如,如果你需要在某些测试用例中添加认证,可以创建一个具有假登录用户设置方法的认证 trait:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -477,7 +470,7 @@
 </div>
 </section>
 <section id="id8">
-<h4><a class="toc-backref" href="#id23" role="doc-backlink">其他断言</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id22" role="doc-backlink">其他断言</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">CIUnitTestCase</span></code> 提供了你可能会发现有用的其他单元测试断言。</p>
 <section id="assertlogged-level-expectedmessage">
 <h5>assertLogged($level, $expectedMessage)<a class="headerlink" href="#assertlogged-level-expectedmessage" title="此标题的永久链接"></a></h5>
@@ -587,7 +580,7 @@
 </section>
 </section>
 <section id="protected-private">
-<h4><a class="toc-backref" href="#id24" role="doc-backlink">访问 Protected/Private 属性</a><a class="headerlink" href="#protected-private" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id23" role="doc-backlink">访问 Protected/Private 属性</a><a class="headerlink" href="#protected-private" title="此标题的永久链接"></a></h4>
 <p>在测试期间,可以使用以下 setter 和 getter 方法访问要测试类中的 protected 和 private 方法和属性。</p>
 <section id="getprivatemethodinvoker-instance-method">
 <h5>getPrivateMethodInvoker($instance, $method)<a class="headerlink" href="#getprivatemethodinvoker-instance-method" title="此标题的永久链接"></a></h5>
@@ -642,13 +635,16 @@
 </section>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id25" role="doc-backlink">模拟服务</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">模拟服务</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
 <p>在测试中,你经常会发现需要模拟 <strong>app/Config/Services.php</strong> 中定义的服务之一,以将测试限制于仅检查相关代码,同时模拟服务的各种响应。这在测试控制器和其他集成测试中尤其如此。<strong>Services</strong> 类提供了以下方法来简化此操作。</p>
 <section id="services-injectmock">
-<h4><a class="toc-backref" href="#id26" role="doc-backlink">Services::injectMock()</a><a class="headerlink" href="#services-injectmock" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id25" role="doc-backlink">Services::injectMock()</a><a class="headerlink" href="#services-injectmock" title="此标题的永久链接"></a></h4>
 <p>此方法允许你定义 Services 类将返回的确切实例。你可以使用它来设置服务的属性,以使其以某种方式运行,或将服务替换为模拟类。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
+<span class="k">namespace</span> <span class="nx">Tests</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\HTTP\CURLRequest</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
 
@@ -656,8 +652,8 @@
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">testSomething</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="nv">$curlrequest</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getMockBuilder</span><span class="p">(</span><span class="s1">&#39;CodeIgniter\HTTP\CURLRequest&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setMethods</span><span class="p">([</span><span class="s1">&#39;request&#39;</span><span class="p">])</span>
+        <span class="nv">$curlrequest</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getMockBuilder</span><span class="p">(</span><span class="nx">CURLRequest</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">onlyMethods</span><span class="p">([</span><span class="s1">&#39;request&#39;</span><span class="p">])</span>
             <span class="o">-&gt;</span><span class="na">getMock</span><span class="p">();</span>
         <span class="nx">Services</span><span class="o">::</span><span class="na">injectMock</span><span class="p">(</span><span class="s1">&#39;curlrequest&#39;</span><span class="p">,</span> <span class="nv">$curlrequest</span><span class="p">);</span>
 
@@ -669,7 +665,7 @@
 <p>第一个参数是要替换的服务。名称必须与 Services 类中的函数名称完全匹配。第二个参数是要替换的实例。</p>
 </section>
 <section id="services-reset">
-<h4><a class="toc-backref" href="#id27" role="doc-backlink">Services::reset()</a><a class="headerlink" href="#services-reset" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id26" role="doc-backlink">Services::reset()</a><a class="headerlink" href="#services-reset" title="此标题的永久链接"></a></h4>
 <p>从 Services 类中删除所有模拟类,将其恢复到原始状态。</p>
 <p>你也可以使用 <code class="docutils literal notranslate"><span class="pre">CIUnitTestCase</span></code> 提供的 <code class="docutils literal notranslate"><span class="pre">$this-&gt;resetServices()</span></code> 方法。</p>
 <div class="admonition note">
@@ -678,7 +674,7 @@
 </div>
 </section>
 <section id="services-resetsingle-string-name">
-<h4><a class="toc-backref" href="#id28" role="doc-backlink">Services::resetSingle(string $name)</a><a class="headerlink" href="#services-resetsingle-string-name" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id27" role="doc-backlink">Services::resetSingle(string $name)</a><a class="headerlink" href="#services-resetsingle-string-name" title="此标题的永久链接"></a></h4>
 <p>通过名称删除单个服务的所有模拟和共享实例。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -687,12 +683,13 @@
 </section>
 </section>
 <section id="factory">
-<h3><a class="toc-backref" href="#id29" role="doc-backlink">模拟 Factory 实例</a><a class="headerlink" href="#factory" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">模拟 Factory 实例</a><a class="headerlink" href="#factory" title="此标题的永久链接"></a></h3>
 <p>与 Services 类似,在测试期间你可能需要提供预先配置的类实例用于 <code class="docutils literal notranslate"><span class="pre">Factories</span></code>。像 <strong>Services</strong> 一样使用相同的 <code class="docutils literal notranslate"><span class="pre">Factories::injectMock()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Factories::reset()</span></code> 静态方法,但它们需要在前面附加组件名称作为额外参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Tests</span><span class="p">;</span>
 
+<span class="k">use</span> <span class="nx">App\Models\UserModel</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Config\Factories</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Tests\Support\Mock\MockUserModel</span><span class="p">;</span>
@@ -704,7 +701,7 @@
         <span class="k">parent</span><span class="o">::</span><span class="na">setUp</span><span class="p">();</span>
 
         <span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MockUserModel</span><span class="p">();</span>
-        <span class="nx">Factories</span><span class="o">::</span><span class="na">injectMock</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Models\UserModel&#39;</span><span class="p">,</span> <span class="nv">$model</span><span class="p">);</span>
+        <span class="nx">Factories</span><span class="o">::</span><span class="na">injectMock</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">,</span> <span class="nx">UserModel</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="nv">$model</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -715,7 +712,7 @@
 </div>
 </section>
 <section id="id12">
-<h3><a class="toc-backref" href="#id30" role="doc-backlink">测试和时间</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">测试和时间</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
 <p>测试依赖于时间的代码可能会很有挑战性。然而，当使用 <a class="reference internal" href="../libraries/time.html"><span class="doc">Time</span></a> 类时，可以在测试期间随意固定或更改当前时间。</p>
 <p>下面是一个固定当前时间的样本测试代码：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -746,138 +743,8 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">Time::setTestNow()</span></code> 方法来固定当前时间。
-你还可以选择性地将地区设置为第二个参数。</p>
-<p>不要忘记在测试后通过调用它而不带参数来重置当前时间。</p>
-</section>
-<section id="cli">
-<span id="testing-cli-output"></span><h3><a class="toc-backref" href="#id31" role="doc-backlink">测试 CLI 输出</a><a class="headerlink" href="#cli" title="此标题的永久链接"></a></h3>
-<section id="streamfiltertrait">
-<h4><a class="toc-backref" href="#id32" role="doc-backlink">StreamFilterTrait</a><a class="headerlink" href="#streamfiltertrait" title="此标题的永久链接"></a></h4>
-<div class="versionadded">
-<p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
-</div>
-<p><strong>StreamFilterTrait</strong> 提供了这些帮助方法的替代方法。</p>
-<p>你可能需要测试一些难以测试的内容。有时,捕获流,如 PHP 自己的 STDOUT 或 STDERR,可能会有所帮助。<code class="docutils literal notranslate"><span class="pre">StreamFilterTrait</span></code> 帮助你从选择的流中捕获输出。</p>
-<p><strong>方法概览</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">StreamFilterTrait::getStreamFilterBuffer()</span></code> 获取缓冲区中的捕获数据。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">StreamFilterTrait::resetStreamFilterBuffer()</span></code> 重置捕获的数据。</p></li>
-</ul>
-<p>在测试用例中演示此用法的示例:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">CodeIgniter\Test\StreamFilterTrait</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">SomeTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
-<span class="p">{</span>
-    <span class="k">use</span> <span class="nx">StreamFilterTrait</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">testSomeOutput</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;first.&#39;</span><span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertSame</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">first.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getStreamFilterBuffer</span><span class="p">());</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resetStreamFilterBuffer</span><span class="p">();</span>
-
-        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;second.&#39;</span><span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertSame</span><span class="p">(</span><span class="s2">&quot;second.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getStreamFilterBuffer</span><span class="p">());</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">StreamFilterTrait</span></code> 具有自动调用的配置器。请参阅 <a class="reference internal" href="#testing-overview-traits"><span class="std std-ref">Testing Traits</span></a>。</p>
-<p>如果在测试中覆盖 <code class="docutils literal notranslate"><span class="pre">setUp()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">tearDown()</span></code> 方法,则必须分别调用 <code class="docutils literal notranslate"><span class="pre">parent::setUp()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">parent::tearDown()</span></code> 方法来配置 <code class="docutils literal notranslate"><span class="pre">StreamFilterTrait</span></code>。</p>
-</section>
-<section id="citeststreamfilter">
-<h4><a class="toc-backref" href="#id33" role="doc-backlink">CITestStreamFilter</a><a class="headerlink" href="#citeststreamfilter" title="此标题的永久链接"></a></h4>
-<p><strong>CITestStreamFilter</strong> 用于手动单次使用。</p>
-<p>如果只需要在一个测试中捕获流,那么可以手动将过滤器添加到流,而不是使用 StreamFilterTrait trait。</p>
-<p><strong>方法概览</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">CITestStreamFilter::registration()</span></code> 过滤器注册。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CITestStreamFilter::addOutputFilter()</span></code> 向输出流添加过滤器。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CITestStreamFilter::addErrorFilter()</span></code> 向错误流添加过滤器。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CITestStreamFilter::removeOutputFilter()</span></code> 从输出流中移除过滤器。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CITestStreamFilter::removeErrorFilter()</span></code> 从错误流中移除过滤器。</p></li>
-</ul>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">CodeIgniter\Test\Filters\CITestStreamFilter</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">SomeTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">testSomeOutput</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nx">CITestStreamFilter</span><span class="o">::</span><span class="na">registration</span><span class="p">();</span>
-        <span class="nx">CITestStreamFilter</span><span class="o">::</span><span class="na">addOutputFilter</span><span class="p">();</span>
-
-        <span class="nx">CLI</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;first.&#39;</span><span class="p">);</span>
-
-        <span class="nx">CITestStreamFilter</span><span class="o">::</span><span class="na">removeOutputFilter</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="testing-cli-input">
-<span id="id13"></span><h3><a class="toc-backref" href="#id34" role="doc-backlink">测试 CLI 输入</a><a class="headerlink" href="#testing-cli-input" title="此标题的永久链接"></a></h3>
-<section id="phpstreamwrapper">
-<h4><a class="toc-backref" href="#id35" role="doc-backlink">PhpStreamWrapper</a><a class="headerlink" href="#phpstreamwrapper" title="此标题的永久链接"></a></h4>
-<div class="versionadded">
-<p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
-</div>
-<p><strong>PhpStreamWrapper</strong> 提供了测试需要用户输入的方法(如 <code class="docutils literal notranslate"><span class="pre">CLI::prompt()</span></code>、<code class="docutils literal notranslate"><span class="pre">CLI::wait()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">CLI::input()</span></code>)的途径。</p>
-<div class="admonition note">
-<p class="admonition-title">备注</p>
-<p>PhpStreamWrapper 是一个流包装器类。如果你不了解 PHP 的流包装器,请参阅 PHP 手册中的 <a class="reference external" href="https://www.php.net/manual/en/class.streamwrapper.php">The streamWrapper class</a>。</p>
-</div>
-<p><strong>方法概览</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">PhpStreamWrapper::register()</span></code> 将 <code class="docutils literal notranslate"><span class="pre">PhpStreamWrapper</span></code> 注册到 <code class="docutils literal notranslate"><span class="pre">php</span></code> 协议。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PhpStreamWrapper::restore()</span></code> 将 php 协议包装器恢复为内置的 PHP 包装器。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PhpStreamWrapper::setContent()</span></code> 设置输入数据。</p></li>
-</ul>
-<div class="admonition important">
-<p class="admonition-title">重要</p>
-<p>PhpStreamWrapper 仅用于测试 <code class="docutils literal notranslate"><span class="pre">php://stdin</span></code>。但是在注册时,它会处理所有 <a class="reference external" href="https://www.php.net/manual/en/wrappers.php.php">php 协议</a> 流,例如 <code class="docutils literal notranslate"><span class="pre">php://stdout</span></code>、<code class="docutils literal notranslate"><span class="pre">php://stderr</span></code>、<code class="docutils literal notranslate"><span class="pre">php://memory</span></code>。所以,强烈建议仅在需要时注册/取消注册 PhpStreamWrapper。否则,它会在注册期间干扰其他内置的 php 流。</p>
-</div>
-<p>在测试用例中演示用法的示例:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">use</span> <span class="nx">CodeIgniter\CLI\CLI</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">CodeIgniter\Test\CIUnitTestCase</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">CodeIgniter\Test\PhpStreamWrapper</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">SomeTest</span> <span class="k">extends</span> <span class="nx">CIUnitTestCase</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">testPrompt</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="c1">// Register the PhpStreamWrapper.</span>
-        <span class="nx">PhpStreamWrapper</span><span class="o">::</span><span class="na">register</span><span class="p">();</span>
-
-        <span class="c1">// Set the user input to &#39;red&#39;. It will be provided as `php://stdin` output.</span>
-        <span class="nv">$expected</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
-        <span class="nx">PhpStreamWrapper</span><span class="o">::</span><span class="na">setContent</span><span class="p">(</span><span class="nv">$expected</span><span class="p">);</span>
-
-        <span class="nv">$output</span> <span class="o">=</span> <span class="nx">CLI</span><span class="o">::</span><span class="na">prompt</span><span class="p">(</span><span class="s1">&#39;What is your favorite color?&#39;</span><span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertSame</span><span class="p">(</span><span class="nv">$expected</span><span class="p">,</span> <span class="nv">$output</span><span class="p">);</span>
-
-        <span class="c1">// Restore php protocol wrapper.</span>
-        <span class="nx">PhpStreamWrapper</span><span class="o">::</span><span class="na">restore</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">Time::setTestNow()</span></code> 方法来固定当前时间。可选地，你可以指定一个语言环境作为第二个参数。</p>
+<p>不要忘记在测试后调用该方法（不带参数）来重置当前时间。</p>
 </section>
 </section>
 </section>
@@ -894,7 +761,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -902,7 +769,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b7b01990>
+<jinja2.runtime.BlockReference object at 0x7f2cef778190>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

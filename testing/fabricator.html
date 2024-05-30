@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>生成测试数据 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>生成测试数据 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -285,29 +288,30 @@
              
   <section id="id1">
 <h1>生成测试数据<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
-<p>测试应用程序的时候,你经常需要一些示例数据。<code class="docutils literal notranslate"><span class="pre">Fabricator</span></code> 类使用 fzaninotto 的 <a class="reference external" href="https://github.com/FakerPHP/Faker">Faker</a> 将模型转化为随机数据生成器。在种子文件或测试用例中使用 fabricator 来准备假数据用于单元测试。</p>
+<p>通常，你需要示例数据来运行应用程序的测试。<code class="docutils literal notranslate"><span class="pre">Fabricator</span></code> 类使用 <a class="reference external" href="https://github.com/FakerPHP/Faker">Faker</a> 将模型转换为随机数据生成器。在你的种子或测试用例中使用 fabricators 来为单元测试准备虚假数据。</p>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id11">支持的模型</a></p></li>
-<li><p><a class="reference internal" href="#fabricator" id="id12">加载 Fabricator</a></p></li>
-<li><p><a class="reference internal" href="#formatter" id="id13">定义 Formatter</a></p>
+<li><p><a class="reference internal" href="#id3" id="id13">支持的模型</a></p></li>
+<li><p><a class="reference internal" href="#fabricator" id="id14">加载 Fabricator</a></p></li>
+<li><p><a class="reference internal" href="#formatter" id="id15">定义 Formatter</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id14">高级格式化</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id16">高级格式化</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id5" id="id15">本地化</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id16">伪造数据</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id17">指定测试数据</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id18">测试辅助函数</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id19">表计数</a></p>
+<li><p><a class="reference internal" href="#id5" id="id17">设置修饰符</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id18">本地化</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id19">伪造数据</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id20">指定测试数据</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id21">测试辅助函数</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id22">表计数</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id10" id="id20">方法</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id23">方法</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink">支持的模型</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">支持的模型</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Fabricator</span></code> 支持任何扩展框架核心模型 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Model</span></code> 的模型。你可以通过确保自己的自定义模型实现 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Test\Interfaces\FabricatorModel</span></code> 接口来使用它们:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -317,6 +321,16 @@
 
 <span class="k">class</span> <span class="nc">MyModel</span> <span class="k">implements</span> <span class="nx">FabricatorModel</span>
 <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">find</span><span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// TODO: Implement find() method.</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="nx">bool</span> <span class="nv">$returnID</span> <span class="o">=</span> <span class="k">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// TODO: Implement insert() method.</span>
+    <span class="p">}</span>
+
     <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
@@ -327,7 +341,7 @@
 </div>
 </section>
 <section id="fabricator">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink">加载 Fabricator</a><a class="headerlink" href="#fabricator" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">加载 Fabricator</a><a class="headerlink" href="#fabricator" title="此标题的永久链接"></a></h2>
 <p>最基本的 fabricator 只需要模型进行操作:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -350,7 +364,7 @@
 </div>
 </section>
 <section id="formatter">
-<h2><a class="toc-backref" href="#id13" role="doc-backlink">定义 Formatter</a><a class="headerlink" href="#formatter" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">定义 Formatter</a><a class="headerlink" href="#formatter" title="此标题的永久链接"></a></h2>
 <p>Faker 通过从 formatter 请求数据来生成数据。如果没有定义 formatter, <code class="docutils literal notranslate"><span class="pre">Fabricator</span></code> 将尝试根据字段名称和它所表示的模型的属性来猜测最合适的匹配,如果找不到则回退到 <code class="docutils literal notranslate"><span class="pre">$fabricator-&gt;defaultFormatter</span></code>。如果字段名称与常用 formatter 对应,或者你不太关心字段的内容,这可能就可以了,但大多数情况下你会想指定要使用的 formatter,可以将它们作为构造函数的第二个参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -369,11 +383,13 @@
 </div>
 <p>你也可以在初始化 fabricator 后使用 <code class="docutils literal notranslate"><span class="pre">setFormatters()</span></code> 方法更改 formatter。</p>
 <section id="id4">
-<h3><a class="toc-backref" href="#id14" role="doc-backlink">高级格式化</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">高级格式化</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>有时 formatter 的默认返回值是不够的。Faker 提供者允许大多数 formatter 使用参数来进一步限制随机数据的范围。fabricator 将检查其代表模型的 <code class="docutils literal notranslate"><span class="pre">fake()</span></code> 方法,在其中你可以定义伪造的数据应该是什么样的:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Faker\Generator</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">UserModel</span>
 <span class="p">{</span>
@@ -382,10 +398,10 @@
     <span class="k">public</span> <span class="k">function</span> <span class="nf">fake</span><span class="p">(</span><span class="nx">Generator</span> <span class="o">&amp;</span><span class="nv">$faker</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;first&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">firstName</span><span class="p">,</span>
-            <span class="s1">&#39;email&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">,</span>
-            <span class="s1">&#39;phone&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">phoneNumber</span><span class="p">,</span>
-            <span class="s1">&#39;avatar&#39;</span> <span class="o">=&gt;</span> <span class="nx">Faker\Provider\Image</span><span class="o">::</span><span class="na">imageUrl</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
+            <span class="s1">&#39;first&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">firstName</span><span class="p">(),</span>
+            <span class="s1">&#39;email&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">(),</span>
+            <span class="s1">&#39;phone&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">phoneNumber</span><span class="p">(),</span>
+            <span class="s1">&#39;avatar&#39;</span> <span class="o">=&gt;</span> <span class="nx">\Faker\Provider\Image</span><span class="o">::</span><span class="na">imageUrl</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
             <span class="s1">&#39;login&#39;</span>  <span class="o">=&gt;</span> <span class="nx">config</span><span class="p">(</span><span class="s1">&#39;Auth&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">allowRemembering</span> <span class="o">?</span> <span class="nb">date</span><span class="p">(</span><span class="s1">&#39;Y-m-d&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="k">null</span><span class="p">,</span>
         <span class="p">];</span>
 
@@ -393,10 +409,10 @@
 <span class="cm">         * Or you can return a return type object.</span>
 
 <span class="cm">        return new User([</span>
-<span class="cm">            &#39;first&#39;  =&gt; $faker-&gt;firstName,</span>
-<span class="cm">            &#39;email&#39;  =&gt; $faker-&gt;email,</span>
-<span class="cm">            &#39;phone&#39;  =&gt; $faker-&gt;phoneNumber,</span>
-<span class="cm">            &#39;avatar&#39; =&gt; Faker\Provider\Image::imageUrl(800, 400),</span>
+<span class="cm">            &#39;first&#39;  =&gt; $faker-&gt;firstName(),</span>
+<span class="cm">            &#39;email&#39;  =&gt; $faker-&gt;email(),</span>
+<span class="cm">            &#39;phone&#39;  =&gt; $faker-&gt;phoneNumber(),</span>
+<span class="cm">            &#39;avatar&#39; =&gt; \Faker\Provider\Image::imageUrl(800, 400),</span>
 <span class="cm">            &#39;login&#39;  =&gt; config(&#39;Auth&#39;)-&gt;allowRemembering ? date(&#39;Y-m-d&#39;) : null,</span>
 <span class="cm">        ]);</span>
 
@@ -405,17 +421,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>请注意,在这个例子中,前三个值等效于之前的 formatter。但是对于 <code class="docutils literal notranslate"><span class="pre">avatar</span></code> 我们请求了与默认不同的图像大小, <code class="docutils literal notranslate"><span class="pre">login</span></code> 使用基于应用配置的条件,这两者在使用 <code class="docutils literal notranslate"><span class="pre">$formatters</span></code> 参数时都是不可能的。
-你可能希望将测试数据与生产模型分开,所以最好是在测试支持文件夹中定义一个子类:</p>
+<p>请注意,在这个例子中,前三个值等效于之前的 formatter。但是对于 <code class="docutils literal notranslate"><span class="pre">avatar</span></code> 我们请求了与默认不同的图像大小, <code class="docutils literal notranslate"><span class="pre">login</span></code> 使用基于应用配置的条件,这两者在使用 <code class="docutils literal notranslate"><span class="pre">$formatters</span></code> 参数时都是不可能的。</p>
+<p>你可能希望将测试数据与生产模型分开，所以最好是在测试支持文件夹中定义一个子类：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Tests\Support\Models</span><span class="p">;</span>
 
 <span class="k">use</span> <span class="nx">App\Models\UserModel</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Faker\Generator</span><span class="p">;</span>
 
 <span class="k">class</span> <span class="nc">UserFabricator</span> <span class="k">extends</span> <span class="nx">UserModel</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">fake</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$faker</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">fake</span><span class="p">(</span><span class="nx">Generator</span> <span class="o">&amp;</span><span class="nv">$faker</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// ...</span>
     <span class="p">}</span>
@@ -425,7 +442,51 @@
 </section>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id15" role="doc-backlink">本地化</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">设置修饰符</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.5.0 版本加入.</span></p>
+</div>
+<p>Faker 提供了三个特殊的提供者，<code class="docutils literal notranslate"><span class="pre">unique()</span></code>, <code class="docutils literal notranslate"><span class="pre">optional()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">valid()</span></code>，可以在任何提供者之前调用。Fabricator 通过提供专用方法完全支持这些修饰符。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">use</span> <span class="nx">App\Models\UserModel</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Test\Fabricator</span><span class="p">;</span>
+
+<span class="nv">$fabricator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fabricator</span><span class="p">(</span><span class="nx">UserModel</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+<span class="nv">$fabricator</span><span class="o">-&gt;</span><span class="na">setUnique</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">);</span> <span class="c1">// sets generated emails to be always unique</span>
+<span class="nv">$fabricator</span><span class="o">-&gt;</span><span class="na">setOptional</span><span class="p">(</span><span class="s1">&#39;group_id&#39;</span><span class="p">);</span> <span class="c1">// sets group id to be optional, with 50% chance to be `null`</span>
+<span class="nv">$fabricator</span><span class="o">-&gt;</span><span class="na">setValid</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="k">static</span> <span class="nx">fn</span> <span class="p">(</span><span class="nx">int</span> <span class="nv">$age</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span> <span class="o">=&gt;</span> <span class="nv">$age</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">);</span> <span class="c1">// sets age to be 18 and above only</span>
+
+<span class="nv">$users</span> <span class="o">=</span> <span class="nv">$fabricator</span><span class="o">-&gt;</span><span class="na">make</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>在字段名称之后传递的参数会直接按原样传递给修饰符。你可以参考 <a class="reference external" href="https://fakerphp.github.io/#modifiers">Faker 的修饰符文档</a> 了解详细信息。</p>
+<p>如果你在模型上使用 <code class="docutils literal notranslate"><span class="pre">fake()</span></code> 方法，你可以直接使用 Faker 的修饰符，而不是在 Fabricator 上调用每个方法。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Test\Fabricator</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Faker\Generator</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">UserModel</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">fake</span><span class="p">(</span><span class="nx">Generator</span> <span class="o">&amp;</span><span class="nv">$faker</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">&#39;first&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">firstName</span><span class="p">(),</span>
+            <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">unique</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">(),</span>
+            <span class="s1">&#39;group_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">optional</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">passthrough</span><span class="p">(</span><span class="nb">mt_rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">Fabricator</span><span class="o">::</span><span class="na">getCount</span><span class="p">(</span><span class="s1">&#39;groups&#39;</span><span class="p">))),</span>
+        <span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">本地化</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <p>Faker 支持许多不同的语言环境。请查看其文档以确定哪些提供程序支持你的语言环境。在初始化 fabricator 时,可以在第三个参数中指定语言环境:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -438,14 +499,15 @@
 <p>如果未指定语言环境,它将使用在 <strong>app/Config/App.php</strong> 中定义为 <code class="docutils literal notranslate"><span class="pre">defaultLocale</span></code> 的语言环境。
 你可以使用其 <code class="docutils literal notranslate"><span class="pre">getLocale()</span></code> 方法查看现有 fabricator 的语言环境。</p>
 </section>
-<section id="id6">
-<h2><a class="toc-backref" href="#id16" role="doc-backlink">伪造数据</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
+<section id="id8">
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">伪造数据</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
 <p>正确初始化 fabricator 后,使用 <code class="docutils literal notranslate"><span class="pre">make()</span></code> 命令生成测试数据很容易:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Test\Fabricator</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Tests\Support\Models\UserFabricator</span><span class="p">;</span>
 
-<span class="nv">$fabricator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fabricator</span><span class="p">(</span><span class="nx">\UserFabricator</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+<span class="nv">$fabricator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fabricator</span><span class="p">(</span><span class="nx">UserFabricator</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
 <span class="nv">$testUser</span>   <span class="o">=</span> <span class="nv">$fabricator</span><span class="o">-&gt;</span><span class="na">make</span><span class="p">();</span>
 <span class="nb">print_r</span><span class="p">(</span><span class="nv">$testUser</span><span class="p">);</span>
 </pre></div>
@@ -507,8 +569,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h2><a class="toc-backref" href="#id17" role="doc-backlink">指定测试数据</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
+<section id="id9">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">指定测试数据</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
 <p>生成的数据很好,但有时你可能希望在不损害 formatter 配置的情况下为测试提供特定字段的值。与为每个变体创建新的 fabricator 相比,你可以使用 <code class="docutils literal notranslate"><span class="pre">setOverrides()</span></code> 来指定任何字段的值:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -566,8 +628,8 @@
 </div>
 <p>如果没有提供第二个参数,则传递的值默认持久化。</p>
 </section>
-<section id="id8">
-<h2><a class="toc-backref" href="#id18" role="doc-backlink">测试辅助函数</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
+<section id="id10">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">测试辅助函数</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
 <p>通常你只需要一个一次性的伪对象用于测试。测试辅助函数提供了 <code class="docutils literal notranslate"><span class="pre">fake($model,</span> <span class="pre">$overrides,</span> <span class="pre">$persist</span> <span class="pre">=</span> <span class="pre">true)</span></code> 来实现这一目的:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -587,8 +649,8 @@
 </div>
 <p>如果你只需要一个不保存到数据库的伪对象,可以将 persist 参数设置为 false。</p>
 </section>
-<section id="id9">
-<h2><a class="toc-backref" href="#id19" role="doc-backlink">表计数</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
+<section id="id11">
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">表计数</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
 <p>经常地,你的伪数据将依赖于其他伪数据。<code class="docutils literal notranslate"><span class="pre">Fabricator</span></code> 为每个表提供了已创建的伪项数的静态计数。考虑以下例子:</p>
 <p>你的项目有用户和组。在测试用例中,你想创建具有不同组大小的各种场景,所以你使用 <code class="docutils literal notranslate"><span class="pre">Fabricator</span></code> 来创建一些组。
 现在你想要创建伪用户,但不想分配给不存在的组 ID。
@@ -597,6 +659,9 @@
 
 <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
 
+<span class="k">use</span> <span class="nx">CodeIgniter\Test\Fabricator</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Faker\Generator</span><span class="p">;</span>
+
 <span class="k">class</span> <span class="nc">UserModel</span>
 <span class="p">{</span>
     <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span><span class="p">;</span>
@@ -604,8 +669,8 @@
     <span class="k">public</span> <span class="k">function</span> <span class="nf">fake</span><span class="p">(</span><span class="nx">Generator</span> <span class="o">&amp;</span><span class="nv">$faker</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;first&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">firstName</span><span class="p">,</span>
-            <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">,</span>
+            <span class="s1">&#39;first&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">firstName</span><span class="p">(),</span>
+            <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">(),</span>
             <span class="s1">&#39;group_id&#39;</span> <span class="o">=&gt;</span> <span class="nb">mt_rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">Fabricator</span><span class="o">::</span><span class="na">getCount</span><span class="p">(</span><span class="s1">&#39;groups&#39;</span><span class="p">)),</span>
         <span class="p">];</span>
     <span class="p">}</span>
@@ -613,8 +678,8 @@
 </pre></div>
 </div>
 <p>现在创建新用户将确保它属于有效的组:<code class="docutils literal notranslate"><span class="pre">$user</span> <span class="pre">=</span> <span class="pre">fake(UserModel::class);</span></code></p>
-<section id="id10">
-<h3><a class="toc-backref" href="#id20" role="doc-backlink">方法</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<section id="id12">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">方法</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Fabricator</span></code> 在内部处理计数,但你也可以访问这些静态方法来帮助使用它们:</p>
 <section id="getcount-string-table-int">
 <h4>getCount(string $table): int<a class="headerlink" href="#getcount-string-table-int" title="此标题的永久链接"></a></h4>
@@ -652,7 +717,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -660,7 +725,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b857e490>
+<jinja2.runtime.BlockReference object at 0x7f2cef6c8cd0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>运行你的应用程序 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>运行你的应用程序 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="installing_manual.html">手动安装</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -287,50 +290,52 @@
 <h1>运行你的应用程序<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#initial-configuration" id="id21">初始配置</a></p>
+<li><p><a class="reference internal" href="#initial-configuration" id="id23">初始配置</a></p>
 <ul>
-<li><p><a class="reference internal" href="#uri" id="id22">为你的站点 URI 进行配置</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id23">配置数据库连接设置</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id24">设置为开发模式</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id25">设置可写文件夹权限</a></p></li>
+<li><p><a class="reference internal" href="#uri" id="id24">为你的站点 URI 进行配置</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id25">配置数据库连接设置</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id26">设置为开发模式</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id27">设置可写文件夹权限</a></p></li>
+<li><p><a class="reference internal" href="#php-ini" id="id28">检查 PHP ini 设置</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id7" id="id26">本地开发服务器</a></p></li>
-<li><p><a class="reference internal" href="#apache" id="id27">使用 Apache 托管</a></p>
+<li><p><a class="reference internal" href="#id8" id="id29">本地开发服务器</a></p></li>
+<li><p><a class="reference internal" href="#apache" id="id30">使用 Apache 托管</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id8" id="id28">配置主配置文件</a></p>
+<li><p><a class="reference internal" href="#id9" id="id31">配置主配置文件</a></p>
 <ul>
-<li><p><a class="reference internal" href="#mod-rewrite" id="id29">启用 mod_rewrite</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id30">设置文档根目录</a></p></li>
+<li><p><a class="reference internal" href="#mod-rewrite" id="id32">启用 mod_rewrite</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id33">设置文档根目录</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id10" id="id31">使用虚拟主机托管</a></p>
+<li><p><a class="reference internal" href="#id11" id="id34">使用虚拟主机托管</a></p>
 <ul>
-<li><p><a class="reference internal" href="#vhost-alias-module" id="id32">启用 vhost_alias_module</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id33">添加主机别名</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id34">设置虚拟主机</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id35">测试</a></p></li>
+<li><p><a class="reference internal" href="#vhost-alias-module" id="id35">启用 vhost_alias_module</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id36">添加主机别名</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id37">设置虚拟主机</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id38">测试</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id14" id="id36">使用子文件夹进行托管</a></p>
+<li><p><a class="reference internal" href="#id15" id="id39">使用子文件夹进行托管</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id15" id="id37">创建符号链接</a></p></li>
-<li><p><a class="reference internal" href="#id16" id="id38">使用别名</a></p></li>
-<li><p><a class="reference internal" href="#htaccess" id="id39">添加 .htaccess</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id40">创建符号链接</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id41">使用别名</a></p></li>
+<li><p><a class="reference internal" href="#htaccess" id="id42">添加 .htaccess</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#mod-userdir" id="id40">使用 mod_userdir 进行托管（共享主机）</a></p></li>
-<li><p><a class="reference internal" href="#index-php" id="id41">删除 index.php</a></p></li>
-<li><p><a class="reference internal" href="#id18" id="id42">设置环境</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#nginx" id="id43">使用 Nginx 托管</a></p>
-<ul>
-<li><p><a class="reference internal" href="#default-conf" id="id44">default.conf</a></p></li>
+<li><p><a class="reference internal" href="#mod-userdir" id="id43">使用 mod_userdir 进行托管（共享主机）</a></p></li>
+<li><p><a class="reference internal" href="#index-php" id="id44">删除 index.php</a></p></li>
 <li><p><a class="reference internal" href="#id19" id="id45">设置环境</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id20" id="id46">引导应用程序</a></p></li>
+<li><p><a class="reference internal" href="#nginx" id="id46">使用 Nginx 托管</a></p>
+<ul>
+<li><p><a class="reference internal" href="#default-conf" id="id47">default.conf</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id48">设置环境</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id21" id="id49">部署到共享主机服务</a></p></li>
+<li><p><a class="reference internal" href="#id22" id="id50">引导应用程序</a></p></li>
 </ul>
 </nav>
 <p>CodeIgniter 4 应用程序可以以多种不同的方式运行：托管在 Web 服务器上、使用虚拟化技术，或者使用 CodeIgniter 的命令行工具进行测试。本节介绍如何使用每种技术，并解释其中的一些优缺点。</p>
@@ -340,9 +345,9 @@
 </div>
 <p>如果你是 CodeIgniter 的新手，请阅读用户指南的 <a class="reference internal" href="../intro/index.html"><span class="doc">入门</span></a> 部分，开始学习如何构建动态的 PHP 应用程序。祝你使用愉快！</p>
 <section id="initial-configuration">
-<span id="id3"></span><h2><a class="toc-backref" href="#id21" role="doc-backlink">初始配置</a><a class="headerlink" href="#initial-configuration" title="此标题的永久链接"></a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id23" role="doc-backlink">初始配置</a><a class="headerlink" href="#initial-configuration" title="此标题的永久链接"></a></h2>
 <section id="uri">
-<h3><a class="toc-backref" href="#id22" role="doc-backlink">为你的站点 URI 进行配置</a><a class="headerlink" href="#uri" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">为你的站点 URI 进行配置</a><a class="headerlink" href="#uri" title="此标题的永久链接"></a></h3>
 <p>使用文本编辑器打开 <strong>app/Config/App.php</strong> 文件。</p>
 <ol class="arabic">
 <li><dl>
@@ -366,11 +371,11 @@
 </ol>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink">配置数据库连接设置</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
-<p>如果你打算使用数据库，请使用文本编辑器打开 <strong>app/Config/Database.php</strong> 文件，并设置你的数据库设置。或者，你可以在 <strong>.env</strong> 文件中设置这些设置。</p>
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">配置数据库连接设置</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<p>如果你打算使用数据库，使用文本编辑器打开 <strong>app/Config/Database.php</strong> 文件并设置数据库配置。或者，你也可以在 <strong>.env</strong> 文件中设置这些配置。详细信息请参阅 <a class="reference internal" href="../database/configuration.html#database-config-explanation-of-values"><span class="std std-ref">数据库配置</span></a>。</p>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id24" role="doc-backlink">设置为开发模式</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">设置为开发模式</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>如果不是在生产服务器上，请在 <strong>.env</strong> 文件中将 <code class="docutils literal notranslate"><span class="pre">CI_ENVIRONMENT</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">development</span></code>，以利用提供的调试工具。有关详细信息，请参阅 <a class="reference internal" href="../tutorial/index.html#setting-development-mode"><span class="std std-ref">设置开发模式</span></a>。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -378,12 +383,43 @@
 </div>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id25" role="doc-backlink">设置可写文件夹权限</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">设置可写文件夹权限</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
 <p>如果你将使用 Web 服务器（例如 Apache 或 nginx）运行你的站点，你需要修改项目中的 <strong>writable</strong> 文件夹的权限，以便它可以被你的 Web 服务器使用的用户或帐户写入。</p>
 </section>
+<section id="php-ini">
+<span id="spark-phpini-check"></span><h3><a class="toc-backref" href="#id28" role="doc-backlink">检查 PHP ini 设置</a><a class="headerlink" href="#php-ini" title="此标题的永久链接"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.5.0 版本加入.</span></p>
+</div>
+<p><a class="reference external" href="https://www.php.net/manual/en/ini.list.php">PHP ini 设置</a> 更改 PHP 的行为。CodeIgniter 提供了一个命令来检查重要的 PHP 设置。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark phpini:check</span>
+</pre></div>
+</div>
+<p><em>推荐</em> 列显示了生产环境的推荐值。它们在开发环境中可能会有所不同。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>如果你不能使用 spark 命令，可以在你的控制器中使用 <code class="docutils literal notranslate"><span class="pre">CheckPhpIni::run(false)</span></code>。</p>
+<p>例如，</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Security\CheckPhpIni</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Home</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">CheckPhpIni</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </section>
-<section id="id7">
-<h2><a class="toc-backref" href="#id26" role="doc-backlink">本地开发服务器</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
+</section>
+<section id="id8">
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">本地开发服务器</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
 <p>CodeIgniter 4 自带一个本地开发服务器，利用 PHP 的内置 Web 服务器和 CodeIgniter 的路由功能。你可以使用以下命令在主目录中启动它：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark serve</span>
 </pre></div>
@@ -420,21 +456,21 @@
 </ul>
 </section>
 <section id="apache">
-<h2><a class="toc-backref" href="#id27" role="doc-backlink">使用 Apache 托管</a><a class="headerlink" href="#apache" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id30" role="doc-backlink">使用 Apache 托管</a><a class="headerlink" href="#apache" title="此标题的永久链接"></a></h2>
 <p>CodeIgniter 4 网站通常托管在 Web 服务器上。Apache HTTP Server 是“标准”平台，在我们的文档中假定使用它。</p>
 <p>Apache 与许多平台捆绑在一起，但也可以从 <a class="reference external" href="https://bitnami.com/stacks/infrastructure">Bitnami</a> 下载捆绑了数据库引擎和 PHP 的版本。</p>
-<section id="id8">
-<h3><a class="toc-backref" href="#id28" role="doc-backlink">配置主配置文件</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<section id="id9">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">配置主配置文件</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
 <section id="mod-rewrite">
-<h4><a class="toc-backref" href="#id29" role="doc-backlink">启用 mod_rewrite</a><a class="headerlink" href="#mod-rewrite" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id32" role="doc-backlink">启用 mod_rewrite</a><a class="headerlink" href="#mod-rewrite" title="此标题的永久链接"></a></h4>
 <p>“mod_rewrite” 模块允许在 URL 中不包含 “index.php”，我们在用户指南中假定了这一点。</p>
 <p>确保在主配置文件中启用（取消注释）重写模块，例如 <strong>apache2/conf/httpd.conf</strong>：</p>
 <div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">LoadModule</span><span class="w"> </span>rewrite_module<span class="w"> </span>modules/mod_rewrite.so
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h4><a class="toc-backref" href="#id30" role="doc-backlink">设置文档根目录</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
+<section id="id10">
+<h4><a class="toc-backref" href="#id33" role="doc-backlink">设置文档根目录</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h4>
 <p>还要确保默认文档根目录的 <code class="docutils literal notranslate"><span class="pre">&lt;Directory&gt;</span></code> 元素也启用了这一点，在 <code class="docutils literal notranslate"><span class="pre">AllowOverride</span></code> 设置中：</p>
 <div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Directory</span><span class="w"> </span><span class="s">&quot;/opt/lamp/apache2/htdocs&quot;</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nb">Options</span><span class="w"> </span>Indexes<span class="w"> </span>FollowSymLinks
@@ -445,26 +481,26 @@
 </div>
 </section>
 </section>
-<section id="id10">
-<h3><a class="toc-backref" href="#id31" role="doc-backlink">使用虚拟主机托管</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<section id="id11">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">使用虚拟主机托管</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
 <p>我们建议使用“虚拟主机”来运行你的应用程序。你可以为你工作的每个应用程序设置不同的别名，</p>
 <section id="vhost-alias-module">
-<h4><a class="toc-backref" href="#id32" role="doc-backlink">启用 vhost_alias_module</a><a class="headerlink" href="#vhost-alias-module" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">启用 vhost_alias_module</a><a class="headerlink" href="#vhost-alias-module" title="此标题的永久链接"></a></h4>
 <p>确保在主配置文件中启用（取消注释）虚拟主机模块，例如 <strong>apache2/conf/httpd.conf</strong>：</p>
 <div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nb">LoadModule</span><span class="w"> </span>vhost_alias_module<span class="w"> </span>modules/mod_vhost_alias.so
 </pre></div>
 </div>
 </section>
-<section id="id11">
-<h4><a class="toc-backref" href="#id33" role="doc-backlink">添加主机别名</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h4>
+<section id="id12">
+<h4><a class="toc-backref" href="#id36" role="doc-backlink">添加主机别名</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h4>
 <p>在你的 “hosts” 文件中添加主机别名，通常在 Unix 类型平台上为 <strong>/etc/hosts</strong>，在 Windows 上为 <strong>c:WindowsSystem32driversetchosts</strong>。</p>
 <p>在文件中添加一行。例如，可以是 <code class="docutils literal notranslate"><span class="pre">myproject.local</span></code> 或 <code class="docutils literal notranslate"><span class="pre">myproject.test</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="nx">myproject</span><span class="o">.</span><span class="nx">local</span>
 </pre></div>
 </div>
 </section>
-<section id="id12">
-<h4><a class="toc-backref" href="#id34" role="doc-backlink">设置虚拟主机</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h4>
+<section id="id13">
+<h4><a class="toc-backref" href="#id37" role="doc-backlink">设置虚拟主机</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h4>
 <p>在虚拟主机配置中添加一个 <code class="docutils literal notranslate"><span class="pre">&lt;VirtualHost&gt;</span></code> 元素，用于你的 Web 应用程序，例如 <strong>apache2/conf/extra/httpd-vhost.conf</strong>：</p>
 <div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;VirtualHost</span><span class="w"> </span><span class="s">*:80</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nb">DocumentRoot</span><span class="w"> </span><span class="s2">&quot;/opt/lamp/apache2/myproject/public&quot;</span>
@@ -488,17 +524,17 @@
 </div>
 <p>重启 Apache。</p>
 </section>
-<section id="id13">
-<h4><a class="toc-backref" href="#id35" role="doc-backlink">测试</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h4>
+<section id="id14">
+<h4><a class="toc-backref" href="#id38" role="doc-backlink">测试</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h4>
 <p>使用上述配置，在浏览器中使用 URL <strong>http://myproject.local/</strong> 访问你的 Web 应用程序。</p>
 <p>每当更改 Apache 配置时，都需要重新启动 Apache。</p>
 </section>
 </section>
-<section id="id14">
-<h3><a class="toc-backref" href="#id36" role="doc-backlink">使用子文件夹进行托管</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h3>
-<p>如果你希望使用类似 <strong>http://localhost/myproject/</strong> 的子文件夹 baseURL，有三种方法可以实现。</p>
 <section id="id15">
-<h4><a class="toc-backref" href="#id37" role="doc-backlink">创建符号链接</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h4>
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">使用子文件夹进行托管</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h3>
+<p>如果你希望使用类似 <strong>http://localhost/myproject/</strong> 的子文件夹 baseURL，有三种方法可以实现。</p>
+<section id="id16">
+<h4><a class="toc-backref" href="#id40" role="doc-backlink">创建符号链接</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h4>
 <p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">├──</span> <span class="nx">myproject</span><span class="o">/</span> <span class="p">(</span><span class="nx">项目文件夹</span><span class="p">)</span>
 <span class="nx">│</span>      <span class="nx">└──</span> <span class="k">public</span><span class="o">/</span>
@@ -511,8 +547,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id16">
-<h4><a class="toc-backref" href="#id38" role="doc-backlink">使用别名</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h4>
+<section id="id17">
+<h4><a class="toc-backref" href="#id41" role="doc-backlink">使用别名</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h4>
 <p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">├──</span> <span class="nx">myproject</span><span class="o">/</span> <span class="p">(</span><span class="nx">项目文件夹</span><span class="p">)</span>
 <span class="nx">│</span>      <span class="nx">└──</span> <span class="k">public</span><span class="o">/</span>
@@ -530,7 +566,7 @@
 <p>重启 Apache。</p>
 </section>
 <section id="htaccess">
-<h4><a class="toc-backref" href="#id39" role="doc-backlink">添加 .htaccess</a><a class="headerlink" href="#htaccess" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id42" role="doc-backlink">添加 .htaccess</a><a class="headerlink" href="#htaccess" title="此标题的永久链接"></a></h4>
 <p>最后的选择是在项目根目录中添加 <strong>.htaccess</strong> 文件。</p>
 <p>不建议将项目文件夹放置在文档根目录中。但是，如果你没有其他选择，例如在共享服务器上，你可以使用此方法。</p>
 <p>将你的项目文件夹放置在以下位置，其中 <strong>htdocs</strong> 是 Apache 的文档根目录，并创建 <strong>.htaccess</strong> 文件:</p>
@@ -552,10 +588,31 @@
 <span class="nt">&lt;/FilesMatch&gt;</span>
 </pre></div>
 </div>
+<p>并且移除 <strong>public/.htaccess</strong> 中的重定向设置：</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- a/public/.htaccess</span>
+<span class="gi">+++ b/public/.htaccess</span>
+<span class="gu">@@ -16,16 +16,6 @@ Options -Indexes</span>
+<span class="w"> </span>   # http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
+<span class="w"> </span>   # RewriteBase /
+
+<span class="gd">-   # Redirect Trailing Slashes...</span>
+<span class="gd">-   RewriteCond %{REQUEST_FILENAME} !-d</span>
+<span class="gd">-   RewriteCond %{REQUEST_URI} (.+)/$</span>
+<span class="gd">-   RewriteRule ^ %1 [L,R=301]</span>
+<span class="gd">-</span>
+<span class="gd">-   # Rewrite &quot;www.example.com -&gt; example.com&quot;</span>
+<span class="gd">-   RewriteCond %{HTTPS} !=on</span>
+<span class="gd">-   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]</span>
+<span class="gd">-   RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]</span>
+<span class="gd">-</span>
+<span class="w"> </span>   # 检查用户是否尝试访问有效文件，
+<span class="w"> </span>   # 例如图像或 css 文档，如果不是真的则将请求发送到前端控制器 index.php
+</pre></div>
+</div>
 </section>
 </section>
 <section id="mod-userdir">
-<h3><a class="toc-backref" href="#id40" role="doc-backlink">使用 mod_userdir 进行托管（共享主机）</a><a class="headerlink" href="#mod-userdir" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">使用 mod_userdir 进行托管（共享主机）</a><a class="headerlink" href="#mod-userdir" title="此标题的永久链接"></a></h3>
 <p>在共享托管环境中，常见做法是使用 Apache 模块 “mod_userdir” 自动启用每个用户的虚拟主机。需要额外的配置才能允许 CodeIgniter4 从这些每个用户目录中运行。</p>
 <p>以下假设服务器已经配置为 mod_userdir。有关启用此模块的指南，请参阅 Apache 文档中的 <a class="reference external" href="https://httpd.apache.org/docs/2.4/howto/public_html.html">相关部分</a>。</p>
 <p>由于 CodeIgniter4 默认情况下期望服务器在 <strong>public/index.php</strong> 中找到框架前端控制器，因此你必须指定此位置作为替代位置以搜索请求（即使 CodeIgniter4 安装在每个用户的 Web 目录中）。</p>
@@ -618,19 +675,19 @@
 </div>
 </section>
 <section id="index-php">
-<h3><a class="toc-backref" href="#id41" role="doc-backlink">删除 index.php</a><a class="headerlink" href="#index-php" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">删除 index.php</a><a class="headerlink" href="#index-php" title="此标题的永久链接"></a></h3>
 <p>请参阅 <a class="reference internal" href="../general/urls.html#urls-remove-index-php-apache"><span class="std std-ref">CodeIgniter URL</span></a>。</p>
 </section>
-<section id="id18">
-<h3><a class="toc-backref" href="#id42" role="doc-backlink">设置环境</a><a class="headerlink" href="#id18" title="此标题的永久链接"></a></h3>
+<section id="id19">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">设置环境</a><a class="headerlink" href="#id19" title="此标题的永久链接"></a></h3>
 <p>请参阅 <a class="reference internal" href="../general/environments.html#environment-apache"><span class="std std-ref">处理多个环境</span></a>。</p>
 </section>
 </section>
 <section id="nginx">
-<h2><a class="toc-backref" href="#id43" role="doc-backlink">使用 Nginx 托管</a><a class="headerlink" href="#nginx" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id46" role="doc-backlink">使用 Nginx 托管</a><a class="headerlink" href="#nginx" title="此标题的永久链接"></a></h2>
 <p>Nginx 是第二常用的用于 Web 托管的 HTTP 服务器。以下是一个在 Ubuntu Server 上使用 PHP 8.1 FPM（Unix 套接字）的示例配置。</p>
 <section id="default-conf">
-<h3><a class="toc-backref" href="#id44" role="doc-backlink">default.conf</a><a class="headerlink" href="#default-conf" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">default.conf</a><a class="headerlink" href="#default-conf" title="此标题的永久链接"></a></h3>
 <p>此配置使 URL 中不包含 “index.php”，并对以 “.php” 结尾的 URL 使用 CodeIgniter 的 “404 - File Not Found”。</p>
 <div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
@@ -664,13 +721,17 @@
 </pre></div>
 </div>
 </section>
-<section id="id19">
-<h3><a class="toc-backref" href="#id45" role="doc-backlink">设置环境</a><a class="headerlink" href="#id19" title="此标题的永久链接"></a></h3>
+<section id="id20">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">设置环境</a><a class="headerlink" href="#id20" title="此标题的永久链接"></a></h3>
 <p>请参阅 <a class="reference internal" href="../general/environments.html#environment-nginx"><span class="std std-ref">处理多个环境</span></a>。</p>
 </section>
 </section>
-<section id="id20">
-<h2><a class="toc-backref" href="#id46" role="doc-backlink">引导应用程序</a><a class="headerlink" href="#id20" title="此标题的永久链接"></a></h2>
+<section id="id21">
+<h2><a class="toc-backref" href="#id49" role="doc-backlink">部署到共享主机服务</a><a class="headerlink" href="#id21" title="此标题的永久链接"></a></h2>
+<p>参见 <a class="reference internal" href="deployment.html#deployment-to-shared-hosting-services"><span class="std std-ref">Deployment</span></a>。</p>
+</section>
+<section id="id22">
+<h2><a class="toc-backref" href="#id50" role="doc-backlink">引导应用程序</a><a class="headerlink" href="#id22" title="此标题的永久链接"></a></h2>
 <p>在某些情况下，你可能希望加载框架而不实际运行整个应用程序。这对于对项目进行单元测试非常有用，但也可能对使用第三方工具分析和修改代码很有用。框架提供了一个专门用于此场景的独立引导脚本：<strong>system/Test/bootstrap.php</strong>。</p>
 <p>在引导过程中，大部分项目路径都会被定义。你可以使用预定义的常量来覆盖这些路径，但是当使用默认值时，请确保你的路径与安装方法的预期目录结构对齐。</p>
 </section>
@@ -688,7 +749,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -696,7 +757,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b84a0390>
+<jinja2.runtime.BlockReference object at 0x7f2cf04bd3d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

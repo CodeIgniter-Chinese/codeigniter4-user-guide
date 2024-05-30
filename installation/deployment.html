@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>部署 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script src="../_static/js/citheme.js"></script>
+        <script src="../_static/js/carbon.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="变更记录" href="../changelogs/index.html" />
+    <link rel="prev" title="故障排除" href="troubleshooting.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/ci-logo-text.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">安装</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installing_composer.html">Composer 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing_manual.html">手动安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running.html">运行你的应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading.html">从前一版本升级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repositories.html">CodeIgniter 仓库</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用程序</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">静态页面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">结束语</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用程序结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型、视图和控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">自动加载文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">全局函数和常量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/errors.html">错误处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/caching.html">网页缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/modules.html">代码模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多个环境</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../incoming/index.html">控制器和路由</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/content_negotiation.html">内容协商</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/methodspoofing.html">HTTP 方法欺骗</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/restful.html">RESTful 资源处理</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">使用数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">快速入门:使用示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">数据库配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">连接数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">运行查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">生成查询结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构建器类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">事务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">获取元数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">自定义函数调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/events.html">数据库事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库实用工具</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../models/index.html">数据建模</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的 Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/entities.html">使用实体类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">蜜罐类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/publisher.html">Publisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">User Agent 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">数组辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">日期辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">表单辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">数字辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">安全辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/test_helper.html">测试辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">文本辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML 辅助函数</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">测试</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">入门指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/fabricator.html">生成数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">命令行使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_overview.html">CLI 概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_controllers.html">通过 CLI 运行控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/spark_commands.html">Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_commands.html">创建 Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_generators.html">CLI 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_library.html">CLI 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_request.html">CLIRequest 类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">扩展 CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../extending/core_classes.html">创建核心系统类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/common.html">替换通用函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">身份验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/official_packages.html">官方包</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">安装</a></li>
+      <li class="breadcrumb-item active">部署</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>部署<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<nav class="contents local" id="id2">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id3" id="id15">优化</a></p>
+<ul>
+<li><p><a class="reference internal" href="#spark-optimize" id="id16">spark optimize</a></p></li>
+<li><p><a class="reference internal" href="#composer" id="id17">Composer 优化</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id5" id="id18">移除开发包</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id19">指定发现的包</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id7" id="id20">配置缓存</a></p></li>
+<li><p><a class="reference internal" href="#filelocator" id="id21">FileLocator 缓存</a></p></li>
+<li><p><a class="reference internal" href="#php" id="id22">PHP 预加载</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id23">需求</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id24">配置</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#deployment-to-shared-hosting-services" id="id25">部署到共享主机服务</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id26">指定文档根目录</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id27">使用两个目录</a></p></li>
+<li><p><a class="reference internal" href="#htaccess" id="id28">添加 .htaccess</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="id3">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">优化</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<p>在将你的 CodeIgniter 应用程序部署到生产环境之前，有若干事情可以做以提高应用程序的运行效率。</p>
+<p>本节将描述 CodeIgniter 提供的优化功能。</p>
+<section id="spark-optimize">
+<span id="id4"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">spark optimize</a><a class="headerlink" href="#spark-optimize" title="此标题的永久链接"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.5.0 版本加入.</span></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">spark</span> <span class="pre">optimize</span></code> 命令执行以下优化操作：</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id5">移除开发包</a></p></li>
+<li><p>启用 <a class="reference internal" href="#id7">配置缓存</a></p></li>
+<li><p>启用 <a class="reference internal" href="#filelocator">FileLocator 缓存</a></p></li>
+</ul>
+</section>
+<section id="composer">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Composer 优化</a><a class="headerlink" href="#composer" title="此标题的永久链接"></a></h3>
+<section id="id5">
+<h4><a class="toc-backref" href="#id18" role="doc-backlink">移除开发包</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h4>
+<p>当你部署时，不要忘记运行以下命令：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">composer install --no-dev</span>
+</pre></div>
+</div>
+<p>上述命令将移除仅在开发环境中需要的 Composer 包，这些包在生产环境中并不需要。这将极大地减少 vendor 目录的大小。</p>
+</section>
+<section id="id6">
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">指定发现的包</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h4>
+<p>如果启用了 Composer 包自动发现功能，则在需要时所有的 Composer 包都会被扫描。但没有必要扫描那些不是 CodeIgniter 包的包，所以指定需要扫描的包可以防止不必要的扫描。</p>
+<p>参见 <a class="reference internal" href="../general/modules.html#modules-specify-composer-packages"><span class="std std-ref">指定 Composer 包</span></a>。</p>
+</section>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">配置缓存</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
+<p>缓存配置对象可以提高性能。然而，在更改配置值时必须手动删除缓存。</p>
+<p>参见 <a class="reference internal" href="../concepts/factories.html#factories-config-caching"><span class="std std-ref">配置缓存</span></a>。</p>
+</section>
+<section id="filelocator">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">FileLocator 缓存</a><a class="headerlink" href="#filelocator" title="此标题的永久链接"></a></h3>
+<p>缓存 FileLocator 找到的文件路径可以提高性能。然而，在添加/删除/更改文件路径时必须手动删除缓存。</p>
+<p>参见 <a class="reference internal" href="../concepts/autoloader.html#file-locator-caching"><span class="std std-ref">FileLocator 缓存</span></a>。</p>
+</section>
+<section id="php">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">PHP 预加载</a><a class="headerlink" href="#php" title="此标题的永久链接"></a></h3>
+<p>使用 PHP 预加载，你可以指示服务器在启动时将核心文件如函数和类加载到内存中。这意味着这些元素在所有请求中都可立即使用，跳过了通常的加载过程，从而提升了应用程序的性能。然而，这会带来增加内存使用的代价，并且需要重启 PHP 引擎才能生效。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>如果你想使用 <a class="reference external" href="https://www.php.net/manual/en/opcache.preloading.php">预加载</a>，
+我们提供了 <a class="reference external" href="https://github.com/codeigniter4/CodeIgniter4/blob/develop/preload.php">预加载脚本</a>。</p>
+</div>
+<section id="id10">
+<h4><a class="toc-backref" href="#id23" role="doc-backlink">需求</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h4>
+<p>使用预加载需要一个专门的 PHP 处理器。通常情况下，Web 服务器配置为使用一个 PHP 处理器，所以一个应用程序需要一个专用的 Web 服务器。如果你想在一个 Web 服务器上为多个应用使用预加载，请配置你的服务器以使用带有多个 PHP 处理器的虚拟主机，例如多个 PHP-FPM，每个虚拟主机使用一个 PHP 处理器。预加载通过读取在 <code class="docutils literal notranslate"><span class="pre">opcache.preload</span></code> 中指定的文件将相关定义保留在内存中。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>参见 <a class="reference internal" href="../general/managing_apps.html#running-multiple-app"><span class="std std-ref">使用一个 CodeIgniter 安装运行多个应用程序</span></a> 以使用一个核心的 CodeIgniter4 处理多个应用。</p>
+</div>
+</section>
+<section id="id11">
+<h4><a class="toc-backref" href="#id24" role="doc-backlink">配置</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h4>
+<p>打开 <code class="docutils literal notranslate"><span class="pre">php.ini</span></code> 或 <code class="docutils literal notranslate"><span class="pre">xx-opcache.ini``（如果你将</span> <span class="pre">INI</span> <span class="pre">配置分离开来），建议设置</span> <span class="pre">``opcache.preload=/path/to/preload.php</span></code> 和 <code class="docutils literal notranslate"><span class="pre">opcache.preload_user=myuser</span></code>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p><code class="docutils literal notranslate"><span class="pre">myuser</span></code> 是在你的 Web 服务器中运行的用户。如果你想找到分离的 INI 配置的位置，只需运行 <code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">--ini</span></code> 或打开 <code class="docutils literal notranslate"><span class="pre">phpinfo()</span></code> 文件并搜索 <em>Additional .ini files parsed</em>。</p>
+</div>
+<p>确保你使用的是 appstarter 安装。如果使用手动安装，你必须更改 <code class="docutils literal notranslate"><span class="pre">include</span></code> 路径中的目录。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">class</span> <span class="nc">preload</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @var array Paths to preload.</span>
+<span class="sd">     */</span>
+    <span class="k">private</span> <span class="k">array</span> <span class="nv">$paths</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s1">&#39;include&#39;</span> <span class="o">=&gt;</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/system&#39;</span><span class="p">,</span> <span class="c1">// &lt;== change this line to where CI is installed</span>
+            <span class="c1">// ...</span>
+        <span class="p">],</span>
+    <span class="p">];</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="c1">// ...</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="deployment-to-shared-hosting-services">
+<span id="id12"></span><h2><a class="toc-backref" href="#id25" role="doc-backlink">部署到共享主机服务</a><a class="headerlink" href="#deployment-to-shared-hosting-services" title="此标题的永久链接"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p><strong>index.php</strong> 不再位于项目的根目录中！它已移动到 <strong>public</strong> 目录中，这样更安全，并能更好地分离组件。</p>
+<p>这意味着你应该配置你的 Web 服务器指向项目的 <strong>public</strong> 目录，而不是项目根目录。</p>
+</div>
+<section id="id13">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">指定文档根目录</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<p>最好的方式是在服务器配置中将文档根目录设置为 <strong>public</strong> 目录：</p>
+<blockquote>
+<div><dl class="simple">
+<dt>└── example.com/ (项目目录)</dt><dd><p>└── public/  (文档根目录)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>请与你的主机服务提供商确认是否可以更改文档根目录。如果不能更改文档根目录，请参考下一种方法。</p>
+</section>
+<section id="id14">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">使用两个目录</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h3>
+<p>第二种方式是使用两个目录，并调整路径。
+一个用于应用程序，另一个是默认的文档根目录。</p>
+<p>将 <strong>public</strong> 目录的内容上传到 <strong>public_html</strong> （默认的文档根目录），其他文件上传到用于应用程序的目录:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">├──</span> <span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span> <span class="p">(</span><span class="nx">用于应用程序</span><span class="p">)</span>
+<span class="nx">│</span>       <span class="nx">├──</span> <span class="nx">app</span><span class="o">/</span>
+<span class="nx">│</span>       <span class="nx">├──</span> <span class="nx">vendor</span><span class="o">/</span> <span class="p">(</span><span class="nx">或</span> <span class="nb">system</span><span class="o">/</span><span class="p">)</span>
+<span class="nx">│</span>       <span class="nx">└──</span> <span class="nx">writable</span><span class="o">/</span>
+<span class="nx">└──</span> <span class="nx">public_html</span><span class="o">/</span> <span class="p">(</span><span class="nx">默认的文档根目录</span><span class="p">)</span>
+        <span class="nx">├──</span> <span class="o">.</span><span class="nx">htaccess</span>
+        <span class="nx">├──</span> <span class="nx">favicon</span><span class="o">.</span><span class="nx">ico</span>
+        <span class="nx">├──</span> <span class="nx">index</span><span class="o">.</span><span class="nx">php</span>
+        <span class="nx">└──</span> <span class="nx">robots</span><span class="o">.</span><span class="nx">txt</span>
+</pre></div>
+</div>
+<p>参见
+<a class="reference external" href="https://forum.codeigniter.com/showthread.php?tid=76779">Install CodeIgniter 4 on Shared Hosting (cPanel)</a>
+获取详细信息。</p>
+</section>
+<section id="htaccess">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">添加 .htaccess</a><a class="headerlink" href="#htaccess" title="此标题的永久链接"></a></h3>
+<p>最后一招是在项目根目录中添加 <strong>.htaccess</strong> 文件。</p>
+<p>不建议将项目文件夹放在文档根目录中。然而，如果没有其他选择，你可以使用这种方法。</p>
+<p>按照以下方式放置你的项目文件夹，其中 <strong>public_html</strong> 是文档根目录，并创建 <strong>.htaccess</strong> 文件：</p>
+<blockquote>
+<div><dl class="simple">
+<dt>└── public_html/     (默认的文档根目录)</dt><dd><dl class="simple">
+<dt>└── example.com/ (项目文件夹)</dt><dd><p>├── .htaccess
+└── public/</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>并按如下内容编辑 <strong>.htaccess</strong>：</p>
+<div class="highlight-apache notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;IfModule</span><span class="w"> </span><span class="s">mod_rewrite.c</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nb">RewriteEngine</span><span class="w"> </span><span class="k">On</span>
+<span class="w">    </span><span class="nb">RewriteRule</span><span class="w"> </span>^(.*)$<span class="w"> </span>public/$1<span class="w"> </span>[L]
+<span class="nt">&lt;/IfModule&gt;</span>
+
+<span class="nt">&lt;FilesMatch</span><span class="w"> </span><span class="s">&quot;^\.&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nb">Require</span><span class="w"> </span><span class="k">all</span><span class="w"> </span>denied
+<span class="w">    </span><span class="nb">Satisfy</span><span class="w"> </span><span class="k">All</span>
+<span class="nt">&lt;/FilesMatch&gt;</span>
+</pre></div>
+</div>
+<p>然后，删除 <strong>public/.htaccess</strong> 中的重定向设置：</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">--- a/public/.htaccess</span>
+<span class="gi">+++ b/public/.htaccess</span>
+<span class="gu">@@ -16,16 +16,6 @@ Options -Indexes</span>
+<span class="w"> </span>   # http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
+<span class="w"> </span>   # RewriteBase /
+
+<span class="gd">-   # Redirect Trailing Slashes...</span>
+<span class="gd">-   RewriteCond %{REQUEST_FILENAME} !-d</span>
+<span class="gd">-   RewriteCond %{REQUEST_URI} (.+)/$</span>
+<span class="gd">-   RewriteRule ^ %1 [L,R=301]</span>
+<span class="gd">-</span>
+<span class="gd">-   # Rewrite &quot;www.example.com -&gt; example.com&quot;</span>
+<span class="gd">-   RewriteCond %{HTTPS} !=on</span>
+<span class="gd">-   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]</span>
+<span class="gd">-   RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]</span>
+<span class="gd">-</span>
+<span class="w"> </span>   # 检查用户是否试图访问有效文件，如图片或 css 文档，如果不是真的，则将
+<span class="w"> </span>   # 请求发送到前端控制器 index.php
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="troubleshooting.html" class="btn btn-neutral float-left" title="故障排除" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../changelogs/index.html" class="btn btn-neutral float-right" title="变更记录" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2024-05-30.
+      </span></p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+  
+<jinja2.runtime.BlockReference object at 0x7f2ceff501d0>
+
+<div style="margin-top: 16px;">
+  <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
+  <p style="margin-bottom: 0;">
+    <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
+    ·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
+    ·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
+  </p>
+</div>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

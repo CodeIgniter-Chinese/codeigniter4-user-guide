@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Session 库 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Session 库 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">类库参考</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -998,7 +1001,11 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 <span id="sessions-redishandler-driver"></span><h3><a class="toc-backref" href="#id45" role="doc-backlink">RedisHandler 驱动程序</a><a class="headerlink" href="#redishandler" title="此标题的永久链接"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>由于 Redis 没有公开锁定机制,因此通过单独保留 300 秒的额外值来模拟此驱动程序的锁。在 <code class="docutils literal notranslate"><span class="pre">v4.3.2</span></code> 或更高版本中,你可以使用 <strong>TLS</strong> 协议连接 <code class="docutils literal notranslate"><span class="pre">Redis</span></code>。</p>
+<p>由于 Redis 没有暴露锁机制，因此该驱动的锁是通过一个单独的值来模拟的，该值最多保留 300 秒。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从 v4.3.2 开始，你可以使用 <strong>TLS</strong> 协议连接 Redis。</p>
 </div>
 <p>Redis 是一个通常用于缓存且以高性能而著称的存储引擎,这也可能是你使用 ‘RedisHandler’ session 驱动程序的原因。</p>
 <p>缺点是它不像关系数据库那么无所不在,并且需要系统上安装 <a class="reference external" href="https://github.com/phpredis/phpredis">phpredis</a> PHP 扩展,而该扩展不与 PHP 一起打包。
@@ -1033,6 +1040,14 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
     <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<p>从 v4.5.0 开始，你可以使用 Redis ACL（用户名和密码）:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">string</span> <span class="nv">$savePath</span> <span class="o">=</span> <span class="s1">&#39;tcp://localhost:6379?auth[user]=username&amp;auth[pass]=password&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>从 v4.5.0 开始，获取锁的间隔时间（<code class="docutils literal notranslate"><span class="pre">$lockRetryInterval</span></code>）和重试次数（<code class="docutils literal notranslate"><span class="pre">$lockMaxRetries</span></code>）是可配置的。</p>
 </div>
 </section>
 </section>
@@ -1108,7 +1123,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -1116,7 +1131,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b7336f90>
+<jinja2.runtime.BlockReference object at 0x7f2cef954150>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

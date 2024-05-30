@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>新闻部分 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>新闻部分 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -368,7 +371,12 @@
 <section id="newsmodel-getnews">
 <h3><a class="toc-backref" href="#id13" role="doc-backlink">添加 NewsModel::getNews() 方法</a><a class="headerlink" href="#newsmodel-getnews" title="此标题的永久链接"></a></h3>
 <p>现在数据库和模型已经设置好了,你需要一个从数据库中获取所有帖子的方法。为此,CodeIgniter 包含的数据库抽象层 <a class="reference internal" href="../database/query_builder.html"><span class="doc">查询构建器</span></a> 在 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Model</span></code> 中使用。这使你可以编写一次’查询’,并在 <a class="reference internal" href="../intro/requirements.html"><span class="doc">所有支持的数据库系统</span></a> 上使用。Model 类也允许你轻松使用 Query Builder 并提供一些额外的工具,以简化使用数据。向模型添加以下代码。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getNews</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span>    <span class="sd">/**</span>
+<span class="sd">     * @param false|string $slug</span>
+<span class="sd">     *</span>
+<span class="sd">     * @return array|null</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getNews</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nv">$slug</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">findAll</span><span class="p">();</span>
@@ -419,10 +427,10 @@
     <span class="p">{</span>
         <span class="nv">$model</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="nx">NewsModel</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
 
-        <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;news&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">getNews</span><span class="p">();</span>
+        <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;news_list&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">getNews</span><span class="p">();</span>
     <span class="p">}</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">show</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">show</span><span class="p">(</span><span class="o">?</span><span class="nx">string</span> <span class="nv">$slug</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="nv">$model</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="nx">NewsModel</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
 
@@ -452,8 +460,8 @@
         <span class="nv">$model</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="nx">NewsModel</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
 
         <span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;news&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">getNews</span><span class="p">(),</span>
-            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;News archive&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;news_list&#39;</span> <span class="o">=&gt;</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">getNews</span><span class="p">(),</span>
+            <span class="s1">&#39;title&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;News archive&#39;</span><span class="p">,</span>
         <span class="p">];</span>
 
         <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;templates/header&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span>
@@ -472,9 +480,9 @@
 <p>在 <strong>app/Views/news/index.php</strong> 中创建并添加下一段代码。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 
-<span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$news</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nb">is_array</span><span class="p">(</span><span class="nv">$news</span><span class="p">))</span><span class="o">:</span> <span class="cp">?&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$news_list</span> <span class="o">!==</span> <span class="p">[])</span><span class="o">:</span> <span class="cp">?&gt;</span>
 
-    <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$news</span> <span class="k">as</span> <span class="nv">$news_item</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$news_list</span> <span class="k">as</span> <span class="nv">$news_item</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
 
         <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$news_item</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
 
@@ -497,7 +505,7 @@
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>我们再次使用 <a class="reference internal" href="../general/common_functions.html#esc" title="esc"><code class="xref php php-func docutils literal notranslate"><span class="pre">esc()</span></code></a> 来帮助防止 XSS 攻击。
-但这次我们还传递了“url”作为第二个参数。这是因为根据输出使用的上下文,攻击模式是不同的。</p>
+但这次我们还传递了 “url” 作为第二个参数。这是因为攻击模式会根据输出使用的上下文而有所不同。</p>
 </div>
 <p>在这里,每个新闻条目被循环并显示给用户。你可以看到我们使用 PHP 混合 HTML 编写了模板。如果你更喜欢使用模板语言,可以使用 CodeIgniter 的 <a class="reference internal" href="../outgoing/view_parser.html"><span class="doc">视图解析器</span></a> 或第三方解析器。</p>
 </section>
@@ -515,13 +523,13 @@
 <span class="p">{</span>
     <span class="c1">// ...</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">show</span><span class="p">(</span><span class="nv">$slug</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">show</span><span class="p">(</span><span class="o">?</span><span class="nx">string</span> <span class="nv">$slug</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="nv">$model</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="nx">NewsModel</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
 
         <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;news&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">getNews</span><span class="p">(</span><span class="nv">$slug</span><span class="p">);</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;news&#39;</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;news&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">throw</span> <span class="k">new</span> <span class="nx">PageNotFoundException</span><span class="p">(</span><span class="s1">&#39;Cannot find the news item: &#39;</span> <span class="o">.</span> <span class="nv">$slug</span><span class="p">);</span>
         <span class="p">}</span>
 
@@ -562,7 +570,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -570,7 +578,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b7a55490>
+<jinja2.runtime.BlockReference object at 0x7f2cef7ea910>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

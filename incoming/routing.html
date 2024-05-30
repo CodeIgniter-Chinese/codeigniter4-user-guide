@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>URI 路由 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>URI 路由 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -287,105 +290,107 @@
 <h1>URI 路由<a class="headerlink" href="#uri" title="此标题的永久链接"></a></h1>
 <nav class="contents local" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id68">什么是 URI 路由?</a></p></li>
-<li><p><a class="reference internal" href="#defined-route-routing" id="id69">设置路由规则</a></p>
+<li><p><a class="reference internal" href="#id2" id="id70">什么是 URI 路由?</a></p></li>
+<li><p><a class="reference internal" href="#defined-route-routing" id="id71">设置路由规则</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id70">示例</a></p></li>
-<li><p><a class="reference internal" href="#http" id="id71">HTTP 动词路由</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id72">指定路由处理程序</a></p>
+<li><p><a class="reference internal" href="#id4" id="id72">示例</a></p></li>
+<li><p><a class="reference internal" href="#http" id="id73">HTTP 动词路由</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id74">指定路由处理程序</a></p>
 <ul>
-<li><p><a class="reference internal" href="#controllers-namespace" id="id73">控制器的命名空间</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id74">数组可调用语法</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id75">使用闭包</a></p></li>
+<li><p><a class="reference internal" href="#controllers-namespace" id="id75">控制器的命名空间</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id76">数组可调用语法</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id77">使用闭包</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id10" id="id76">指定路由路径</a></p>
+<li><p><a class="reference internal" href="#id10" id="id78">指定路由路径</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id11" id="id77">占位符</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id78">自定义占位符</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id79">正则表达式</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id79">占位符</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id80">自定义占位符</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id81">正则表达式</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#view-routes" id="id80">视图路由</a></p></li>
-<li><p><a class="reference internal" href="#redirecting-routes" id="id81">重定向路由</a></p></li>
-<li><p><a class="reference internal" href="#id17" id="id82">环境限制</a></p></li>
-<li><p><a class="reference internal" href="#id18" id="id83">任意 HTTP 动词的路由</a></p></li>
-<li><p><a class="reference internal" href="#id19" id="id84">映射多个路由</a></p></li>
-<li><p><a class="reference internal" href="#command-line-only-routes" id="id85">仅命令行路由</a></p></li>
+<li><p><a class="reference internal" href="#view-routes" id="id82">视图路由</a></p></li>
+<li><p><a class="reference internal" href="#redirecting-routes" id="id83">重定向路由</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id84">环境限制</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id85">任意 HTTP 动词的路由</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id86">映射多个路由</a></p></li>
+<li><p><a class="reference internal" href="#command-line-only-routes" id="id87">仅命令行路由</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id21" id="id86">全局选项</a></p>
+<li><p><a class="reference internal" href="#id21" id="id88">全局选项</a></p>
 <ul>
-<li><p><a class="reference internal" href="#applying-filters" id="id87">应用过滤器</a></p>
+<li><p><a class="reference internal" href="#applying-filters" id="id89">应用过滤器</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id23" id="id88">别名过滤器</a></p></li>
-<li><p><a class="reference internal" href="#id24" id="id89">类名过滤器</a></p></li>
-<li><p><a class="reference internal" href="#id25" id="id90">多个过滤器</a></p></li>
+<li><p><a class="reference internal" href="#id23" id="id90">别名过滤器</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id91">类名过滤器</a></p></li>
+<li><p><a class="reference internal" href="#multiple-filters" id="id92">多重过滤器</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#assigning-namespace" id="id91">分配命名空间</a></p></li>
-<li><p><a class="reference internal" href="#id28" id="id92">限制主机名</a></p></li>
-<li><p><a class="reference internal" href="#id29" id="id93">限制子域名</a></p></li>
-<li><p><a class="reference internal" href="#id30" id="id94">偏移匹配参数</a></p></li>
+<li><p><a class="reference internal" href="#assigning-namespace" id="id93">分配命名空间</a></p></li>
+<li><p><a class="reference internal" href="#id28" id="id94">限制主机名</a></p></li>
+<li><p><a class="reference internal" href="#id29" id="id95">限制子域名</a></p></li>
+<li><p><a class="reference internal" href="#id30" id="id96">偏移匹配参数</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#reverse-routing" id="id95">反向路由</a></p></li>
-<li><p><a class="reference internal" href="#using-named-routes" id="id96">命名路由</a></p></li>
-<li><p><a class="reference internal" href="#id33" id="id97">分组路由</a></p>
+<li><p><a class="reference internal" href="#reverse-routing" id="id97">反向路由</a></p></li>
+<li><p><a class="reference internal" href="#using-named-routes" id="id98">命名路由</a></p></li>
+<li><p><a class="reference internal" href="#id33" id="id99">分组路由</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id34" id="id98">设置命名空间</a></p></li>
-<li><p><a class="reference internal" href="#id35" id="id99">设置过滤器</a></p></li>
-<li><p><a class="reference internal" href="#id36" id="id100">设置其他选项</a></p></li>
-<li><p><a class="reference internal" href="#id37" id="id101">嵌套分组</a></p></li>
+<li><p><a class="reference internal" href="#id34" id="id100">设置命名空间</a></p></li>
+<li><p><a class="reference internal" href="#id35" id="id101">设置过滤器</a></p></li>
+<li><p><a class="reference internal" href="#id36" id="id102">设置其他选项</a></p></li>
+<li><p><a class="reference internal" href="#routing-nesting-groups" id="id103">嵌套分组</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#routing-priority" id="id102">路由优先级</a></p>
+<li><p><a class="reference internal" href="#routing-priority" id="id104">路由优先级</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id39" id="id103">更改路由优先级</a></p></li>
+<li><p><a class="reference internal" href="#id39" id="id105">更改路由优先级</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#routes-configuration-options" id="id104">路由配置选项</a></p>
+<li><p><a class="reference internal" href="#routes-configuration-options" id="id106">路由配置选项</a></p>
 <ul>
-<li><p><a class="reference internal" href="#routing-default-namespace" id="id105">默认命名空间</a></p></li>
-<li><p><a class="reference internal" href="#id42" id="id106">转换 URI 中的破折号</a></p></li>
-<li><p><a class="reference internal" href="#use-defined-routes-only" id="id107">仅使用定义的路由</a></p></li>
-<li><p><a class="reference internal" href="#id44" id="id108">404 重写</a></p></li>
-<li><p><a class="reference internal" href="#id45" id="id109">按优先级处理路由</a></p></li>
+<li><p><a class="reference internal" href="#routing-default-namespace" id="id107">默认命名空间</a></p></li>
+<li><p><a class="reference internal" href="#routing-default-method" id="id108">默认方法</a></p></li>
+<li><p><a class="reference internal" href="#id43" id="id109">转换 URI 中的破折号</a></p></li>
+<li><p><a class="reference internal" href="#use-defined-routes-only" id="id110">仅使用定义的路由</a></p></li>
+<li><p><a class="reference internal" href="#override" id="id111">404 重写</a></p></li>
+<li><p><a class="reference internal" href="#id46" id="id112">按优先级处理路由</a></p></li>
+<li><p><a class="reference internal" href="#multiple-uri-segments-as-one-parameter" id="id113">将多个 URI 段作为一个参数</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#auto-routing-improved" id="id110">自动路由(改进版)</a></p>
+<li><p><a class="reference internal" href="#auto-routing-improved" id="id114">自动路由(改进版)</a></p>
 <ul>
-<li><p><a class="reference internal" href="#enabled-auto-routing-improved" id="id111">启用自动路由</a></p></li>
-<li><p><a class="reference internal" href="#id48" id="id112">URI 段</a></p></li>
-<li><p><a class="reference internal" href="#routing-auto-routing-improved-configuration-options" id="id113">配置选项</a></p>
+<li><p><a class="reference internal" href="#enabled-auto-routing-improved" id="id115">启用自动路由</a></p></li>
+<li><p><a class="reference internal" href="#id50" id="id116">URI 段</a></p></li>
+<li><p><a class="reference internal" href="#routing-auto-routing-improved-configuration-options" id="id117">配置选项</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id50" id="id114">默认控制器</a></p></li>
-<li><p><a class="reference internal" href="#id53" id="id115">默认方法</a></p></li>
+<li><p><a class="reference internal" href="#id52" id="id118">默认控制器</a></p></li>
+<li><p><a class="reference internal" href="#routing-auto-routing-improved-default-method" id="id119">默认方法</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#auto-routing-improved-module-routing" id="id116">模块路由</a></p></li>
+<li><p><a class="reference internal" href="#auto-routing-improved-module-routing" id="id120">模块路由</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#auto-routing-legacy" id="id117">自动路由(传统)</a></p>
+<li><p><a class="reference internal" href="#auto-routing-legacy" id="id121">自动路由(传统)</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id56" id="id118">启用自动路由(传统)</a></p></li>
-<li><p><a class="reference internal" href="#id57" id="id119">URI 段(传统)</a></p></li>
-<li><p><a class="reference internal" href="#routing-auto-routing-legacy-configuration-options" id="id120">配置选项(传统)</a></p>
+<li><p><a class="reference internal" href="#id58" id="id122">启用自动路由(传统)</a></p></li>
+<li><p><a class="reference internal" href="#id59" id="id123">URI 段(传统)</a></p></li>
+<li><p><a class="reference internal" href="#routing-auto-routing-legacy-configuration-options" id="id124">配置选项(传统)</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id59" id="id121">默认控制器(传统)</a></p></li>
-<li><p><a class="reference internal" href="#id62" id="id122">默认方法(传统)</a></p></li>
+<li><p><a class="reference internal" href="#id61" id="id125">默认控制器(传统)</a></p></li>
+<li><p><a class="reference internal" href="#routing-auto-routing-legacy-default-method" id="id126">默认方法(传统)</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id63" id="id123">确认路由</a></p>
+<li><p><a class="reference internal" href="#id65" id="id127">确认路由</a></p>
 <ul>
-<li><p><a class="reference internal" href="#spark" id="id124">spark 路由</a></p>
+<li><p><a class="reference internal" href="#spark" id="id128">spark 路由</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id64" id="id125">自动路由(改进版)</a></p></li>
-<li><p><a class="reference internal" href="#id65" id="id126">自动路由(传统)</a></p></li>
-<li><p><a class="reference internal" href="#routing-spark-routes-sort-by-handler" id="id127">按处理程序排序</a></p></li>
-<li><p><a class="reference internal" href="#routing-spark-routes-specify-host" id="id128">指定主机</a></p></li>
+<li><p><a class="reference internal" href="#id66" id="id129">自动路由(改进版)</a></p></li>
+<li><p><a class="reference internal" href="#id67" id="id130">自动路由(传统)</a></p></li>
+<li><p><a class="reference internal" href="#routing-spark-routes-sort-by-handler" id="id131">按处理程序排序</a></p></li>
+<li><p><a class="reference internal" href="#routing-spark-routes-specify-host" id="id132">指定主机</a></p></li>
 </ul>
 </li>
 </ul>
@@ -393,7 +398,7 @@
 </ul>
 </nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id68" role="doc-backlink">什么是 URI 路由?</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id70" role="doc-backlink">什么是 URI 路由?</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p>URI 路由将一个 URI 与一个控制器的方法相关联。</p>
 <p>CodeIgniter 有两种路由方式。一种是 <strong>定义路由</strong>,另一种是 <strong>自动路由</strong>。
 通过定义路由,你可以手动定义路由规则。它允许灵活的 URL。
@@ -401,7 +406,7 @@
 <p>首先,让我们看看定义路由。如果你想使用自动路由,请参阅 <a class="reference internal" href="#auto-routing-improved"><span class="std std-ref">自动路由(改进版)</span></a>。</p>
 </section>
 <section id="defined-route-routing">
-<span id="id3"></span><h2><a class="toc-backref" href="#id69" role="doc-backlink">设置路由规则</a><a class="headerlink" href="#defined-route-routing" title="此标题的永久链接"></a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id71" role="doc-backlink">设置路由规则</a><a class="headerlink" href="#defined-route-routing" title="此标题的永久链接"></a></h2>
 <p>路由规则定义在 <strong>app/Config/Routes.php</strong> 文件中。你会看到它实例化了
 RouteCollection 类 (<code class="docutils literal notranslate"><span class="pre">$routes</span></code>),允许你指定自己的路由标准。
 路由可以使用占位符或正则表达式来指定。</p>
@@ -427,10 +432,10 @@ RouteCollection 类 (<code class="docutils literal notranslate"><span class="pre
 </pre></div>
 </div>
 <section id="id4">
-<h3><a class="toc-backref" href="#id70" role="doc-backlink">示例</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id72" role="doc-backlink">示例</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>这是一些基本的路由示例。</p>
-<p>包含单词 <strong>journals</strong> 的 URL 的第一个路径段将被映射到 <code class="docutils literal notranslate"><span class="pre">\App\Controllers\Blogs</span></code> 类,
-以及默认方法,通常是 <code class="docutils literal notranslate"><span class="pre">index()</span></code>:</p>
+<p>URL 的第一个段包含 <strong>journals</strong> 的情况下，会被映射到 <code class="docutils literal notranslate"><span class="pre">\App\Controllers\Blogs</span></code> 类，
+以及 <a class="reference internal" href="#routing-default-method"><span class="std std-ref">默认方法</span></a>，通常是 <code class="docutils literal notranslate"><span class="pre">index()</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;journals&#39;</span><span class="p">,</span> <span class="s1">&#39;Blogs&#39;</span><span class="p">);</span>
@@ -459,7 +464,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="http">
-<span id="routing-http-verb-routes"></span><h3><a class="toc-backref" href="#id71" role="doc-backlink">HTTP 动词路由</a><a class="headerlink" href="#http" title="此标题的永久链接"></a></h3>
+<span id="routing-http-verb-routes"></span><h3><a class="toc-backref" href="#id73" role="doc-backlink">HTTP 动词路由</a><a class="headerlink" href="#http" title="此标题的永久链接"></a></h3>
 <p>你可以使用任何标准的 HTTP 动词(GET、POST、PUT、DELETE、OPTIONS 等):</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -471,14 +476,14 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>你可以通过将它们作为数组传递给 <code class="docutils literal notranslate"><span class="pre">match()</span></code> 方法来指定路由应匹配的多个动词:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">([</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="s1">&#39;put&#39;</span><span class="p">],</span> <span class="s1">&#39;products&#39;</span><span class="p">,</span> <span class="s1">&#39;Product::feature&#39;</span><span class="p">);</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">],</span> <span class="s1">&#39;products&#39;</span><span class="p">,</span> <span class="s1">&#39;Product::feature&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id72" role="doc-backlink">指定路由处理程序</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id74" role="doc-backlink">指定路由处理程序</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <section id="controllers-namespace">
-<span id="id6"></span><h4><a class="toc-backref" href="#id73" role="doc-backlink">控制器的命名空间</a><a class="headerlink" href="#controllers-namespace" title="此标题的永久链接"></a></h4>
+<span id="id6"></span><h4><a class="toc-backref" href="#id75" role="doc-backlink">控制器的命名空间</a><a class="headerlink" href="#controllers-namespace" title="此标题的永久链接"></a></h4>
 <p>当你以字符串的形式指定控制器和方法名称时,如果控制器没有以 <code class="docutils literal notranslate"><span class="pre">\</span></code> 开头,
 将会在前面加上 <a class="reference internal" href="#routing-default-namespace"><span class="std std-ref">默认命名空间</span></a>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -504,7 +509,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>详细信息请参阅 <a class="reference internal" href="#assigning-namespace"><span class="std std-ref">分配命名空间</span></a>。</p>
 </section>
 <section id="id7">
-<h4><a class="toc-backref" href="#id74" role="doc-backlink">数组可调用语法</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id76" role="doc-backlink">数组可调用语法</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.2.0 版本加入.</span></p>
 </div>
@@ -518,9 +523,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">Home</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>如果忘记添加 <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">App\Controllers\Home;</span></code>,控制器类名将被解释为
-<code class="docutils literal notranslate"><span class="pre">Config\Home</span></code>,而不是 <code class="docutils literal notranslate"><span class="pre">App\Controllers\Home</span></code>,因为
-<strong>app/Config/Routes.php</strong> 顶部有 <code class="docutils literal notranslate"><span class="pre">namespace</span> <span class="pre">Config;</span></code>。</p>
+<p>如果你忘记添加 <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">App\Controllers\Home;</span></code>，控制器类名会被解释为 <code class="docutils literal notranslate"><span class="pre">\Home</span></code>，而不是 <code class="docutils literal notranslate"><span class="pre">App\Controllers\Home</span></code>。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>当你使用数组可调用语法时,类名总是被解释为完全限定的类名。
@@ -551,7 +554,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="id9">
-<h4><a class="toc-backref" href="#id75" role="doc-backlink">使用闭包</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id77" role="doc-backlink">使用闭包</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
 <p>你可以使用匿名函数或闭包作为路由映射的目标。当用户访问该 URI 时,此函数将被执行。
 这对于快速执行小任务或只显示简单视图很方便:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -568,9 +571,9 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id76" role="doc-backlink">指定路由路径</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id78" role="doc-backlink">指定路由路径</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
 <section id="id11">
-<h4><a class="toc-backref" href="#id77" role="doc-backlink">占位符</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id79" role="doc-backlink">占位符</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h4>
 <p>一个典型的路由可能如下所示:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -625,7 +628,13 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 <p>将匹配 <strong>product/123</strong>、<strong>product/123/456</strong>、<strong>product/123/456/789</strong> 等等。</p>
-<p>在上面的例子中，如果 <code class="docutils literal notranslate"><span class="pre">$1</span></code> 占位符包含一个斜杠（<code class="docutils literal notranslate"><span class="pre">/</span></code>），当传递给 <code class="docutils literal notranslate"><span class="pre">Catalog::productLookup()</span></code> 时，它仍然会被分割成多个参数。</p>
+<p>默认情况下，在上面的例子中，如果 <code class="docutils literal notranslate"><span class="pre">$1</span></code> 占位符包含斜杠（<code class="docutils literal notranslate"><span class="pre">/</span></code>），在传递给
+<code class="docutils literal notranslate"><span class="pre">Catalog::productLookup()</span></code> 时，它仍然会被拆分为多个参数。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自 v4.5.0 起，你可以通过配置选项更改此行为。
+详情请参见 <a class="reference internal" href="#multiple-uri-segments-as-one-parameter"><span class="std std-ref">将多个 URI 段作为一个参数</span></a>。</p>
+</div>
 <p>控制器中的实现应考虑最大参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -672,7 +681,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="id13">
-<h4><a class="toc-backref" href="#id78" role="doc-backlink">自定义占位符</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id80" role="doc-backlink">自定义占位符</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h4>
 <p>你可以创建自己的占位符,在路由文件中使用它们以完全自定义体验和可读性。</p>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">addPlaceholder()</span></code> 方法添加新占位符。第一个参数是将用作占位符的字符串。
 第二个参数是它应该被替换的正则表达式模式。这必须在添加路由之前调用:</p>
@@ -684,7 +693,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="id14">
-<h4><a class="toc-backref" href="#id79" role="doc-backlink">正则表达式</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id81" role="doc-backlink">正则表达式</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h4>
 <p>如果你愿意,可以使用正则表达式来定义路由规则。允许任何有效的正则表达式,以及反向引用。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -705,7 +714,13 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;login/(.+)&#39;</span><span class="p">,</span> <span class="s1">&#39;Auth::login/$1&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>在上面的例子中，如果 <code class="docutils literal notranslate"><span class="pre">$1</span></code> 占位符包含一个斜杠（<code class="docutils literal notranslate"><span class="pre">/</span></code>），当传递给 <code class="docutils literal notranslate"><span class="pre">Auth::login()</span></code> 时，它仍然会被分割成多个参数。</p>
+<p>默认情况下，在上面的例子中，如果 <code class="docutils literal notranslate"><span class="pre">$1</span></code> 占位符包含斜杠（<code class="docutils literal notranslate"><span class="pre">/</span></code>），在传递给
+<code class="docutils literal notranslate"><span class="pre">Auth::login()</span></code> 时，它仍然会被拆分为多个参数。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自 v4.5.0 起，你可以通过配置选项更改此行为。
+详情请参见 <a class="reference internal" href="#multiple-uri-segments-as-one-parameter"><span class="std std-ref">将多个 URI 段作为一个参数</span></a>。</p>
+</div>
 <p>对于那些不了解正则表达式并希望学习更多知识的人,`regular-expressions.info &lt;<a class="reference external" href="https://www.regular-expressions.info/">https://www.regular-expressions.info/</a>&gt;`_ 可能是一个不错的起点。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -714,7 +729,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="view-routes">
-<span id="id15"></span><h3><a class="toc-backref" href="#id80" role="doc-backlink">视图路由</a><a class="headerlink" href="#view-routes" title="此标题的永久链接"></a></h3>
+<span id="id15"></span><h3><a class="toc-backref" href="#id82" role="doc-backlink">视图路由</a><a class="headerlink" href="#view-routes" title="此标题的永久链接"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
@@ -738,7 +753,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="redirecting-routes">
-<span id="id16"></span><h3><a class="toc-backref" href="#id81" role="doc-backlink">重定向路由</a><a class="headerlink" href="#redirecting-routes" title="此标题的永久链接"></a></h3>
+<span id="id16"></span><h3><a class="toc-backref" href="#id83" role="doc-backlink">重定向路由</a><a class="headerlink" href="#redirecting-routes" title="此标题的永久链接"></a></h3>
 <p>任何存在足够长的站点都会有页面移动的情况。你可以使用 <code class="docutils literal notranslate"><span class="pre">addRedirect()</span></code> 方法指定应重定向到其他路由的路由。
 第一个参数是旧路由的 URI 模式。第二个参数是重定向的新 URI,或命名路由的名称。
 第三个参数是应随重定向一起发送的 HTTP 状态码。默认值为 <code class="docutils literal notranslate"><span class="pre">302</span></code>,这是临时重定向,在大多数情况下都推荐使用:</p>
@@ -767,7 +782,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>如果在页面加载期间匹配到重定向路由,用户将在控制器加载之前立即重定向到新页面。</p>
 </section>
 <section id="id17">
-<h3><a class="toc-backref" href="#id82" role="doc-backlink">环境限制</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id84" role="doc-backlink">环境限制</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h3>
 <p>你可以创建一组路由,这些路由只能在某些环境中查看。这允许你创建仅开发人员才能在其本地机器上使用的工具,这些工具在测试或生产服务器上无法访问。
 可以使用 <code class="docutils literal notranslate"><span class="pre">environment()</span></code> 方法来完成。第一个参数是环境的名称。此闭包中定义的任何路由只能从给定环境访问:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -779,7 +794,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="id18">
-<h3><a class="toc-backref" href="#id83" role="doc-backlink">任意 HTTP 动词的路由</a><a class="headerlink" href="#id18" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id85" role="doc-backlink">任意 HTTP 动词的路由</a><a class="headerlink" href="#id18" title="此标题的永久链接"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>这个方法只为了向后兼容而存在。在新项目中不要使用它。即使你已经在使用它，我们也建议你使用另一种更适合的方法。</p>
@@ -803,7 +818,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="id19">
-<h3><a class="toc-backref" href="#id84" role="doc-backlink">映射多个路由</a><a class="headerlink" href="#id19" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id86" role="doc-backlink">映射多个路由</a><a class="headerlink" href="#id19" title="此标题的永久链接"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>这个方法只为了向后兼容而存在。在新项目中不要使用它。即使你已经在使用它，我们也建议你使用另一种更适合的方法。</p>
@@ -826,7 +841,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="command-line-only-routes">
-<span id="id20"></span><h3><a class="toc-backref" href="#id85" role="doc-backlink">仅命令行路由</a><a class="headerlink" href="#command-line-only-routes" title="此标题的永久链接"></a></h3>
+<span id="id20"></span><h3><a class="toc-backref" href="#id87" role="doc-backlink">仅命令行路由</a><a class="headerlink" href="#command-line-only-routes" title="此标题的永久链接"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>建议使用 Spark 命令作为 CLI 脚本,而不是通过 CLI 调用控制器。请参阅
@@ -847,7 +862,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="id21">
-<h2><a class="toc-backref" href="#id86" role="doc-backlink">全局选项</a><a class="headerlink" href="#id21" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id88" role="doc-backlink">全局选项</a><a class="headerlink" href="#id21" title="此标题的永久链接"></a></h2>
 <p>创建路由的所有方法(<code class="docutils literal notranslate"><span class="pre">get()</span></code>、<code class="docutils literal notranslate"><span class="pre">post()</span></code>、<a class="reference internal" href="restful.html"><span class="doc">resource()</span></a> 等)都可以带有一个选项数组,
 以修改生成的路由或进一步限制它们。<code class="docutils literal notranslate"><span class="pre">$options</span></code> 数组始终是最后一个参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -860,14 +875,14 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">options</span><span class="p">(</span><span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">patch</span><span class="p">(</span><span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
-<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">([</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="s1">&#39;put&#39;</span><span class="p">],</span> <span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">([</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">],</span> <span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">(</span><span class="s1">&#39;photos&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">map</span><span class="p">(</span><span class="nv">$array</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$options</span><span class="p">,</span> <span class="k">static</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{});</span>
 </pre></div>
 </div>
 <section id="applying-filters">
-<span id="id22"></span><h3><a class="toc-backref" href="#id87" role="doc-backlink">应用过滤器</a><a class="headerlink" href="#applying-filters" title="此标题的永久链接"></a></h3>
+<span id="id22"></span><h3><a class="toc-backref" href="#id89" role="doc-backlink">应用过滤器</a><a class="headerlink" href="#applying-filters" title="此标题的永久链接"></a></h3>
 <p>你可以通过在控制器之前或之后提供要运行的过滤器来更改特定路由的行为。这在认证或 API 日志记录时特别方便。
 过滤器的值可以是字符串或字符串数组:</p>
 <ul class="simple">
@@ -882,7 +897,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 在这种情况下,你为该路由指定的过滤器将不会应用。请参阅 <a class="reference internal" href="#use-defined-routes-only"><span class="std std-ref">仅使用定义的路由</span></a> 以禁用自动路由。</p>
 </div>
 <section id="id23">
-<h4><a class="toc-backref" href="#id88" role="doc-backlink">别名过滤器</a><a class="headerlink" href="#id23" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id90" role="doc-backlink">别名过滤器</a><a class="headerlink" href="#id23" title="此标题的永久链接"></a></h4>
 <p>你为过滤器值指定在 <strong>app/Config/Filters.php</strong> 中定义的别名:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -897,7 +912,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="id24">
-<h4><a class="toc-backref" href="#id89" role="doc-backlink">类名过滤器</a><a class="headerlink" href="#id24" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id91" role="doc-backlink">类名过滤器</a><a class="headerlink" href="#id24" title="此标题的永久链接"></a></h4>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.1.5 版本加入.</span></p>
 </div>
@@ -908,14 +923,18 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </section>
-<section id="id25">
-<h4><a class="toc-backref" href="#id90" role="doc-backlink">多个过滤器</a><a class="headerlink" href="#id25" title="此标题的永久链接"></a></h4>
+<section id="multiple-filters">
+<span id="id25"></span><h4><a class="toc-backref" href="#id92" role="doc-backlink">多重过滤器</a><a class="headerlink" href="#multiple-filters" title="此标题的永久链接"></a></h4>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.1.5 版本加入.</span></p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p><em>多个过滤器</em> 默认禁用。因为它破坏了向后兼容性。如果要使用它,需要进行配置。有关详细信息,请参阅 <a class="reference internal" href="../installation/upgrade_415.html#upgrade-415-multiple-filters-for-a-route"><span class="std std-ref">为路由设置多个过滤器</span></a>。</p>
+<p>自 v4.5.0 起，<em>多重过滤器</em> 始终启用。
+在 v4.5.0 之前，<em>多重过滤器</em> 默认是禁用的。
+如果你想在 v4.5.0 之前的版本中使用，请参见
+<a class="reference internal" href="../installation/upgrade_415.html#upgrade-415-multiple-filters-for-a-route"><span class="std std-ref">从 4.1.4 升级到 4.1.5</span></a>
+了解详情。</p>
 </div>
 <p>你可以为过滤器值指定一个数组:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -936,7 +955,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="assigning-namespace">
-<span id="id27"></span><h3><a class="toc-backref" href="#id91" role="doc-backlink">分配命名空间</a><a class="headerlink" href="#assigning-namespace" title="此标题的永久链接"></a></h3>
+<span id="id27"></span><h3><a class="toc-backref" href="#id93" role="doc-backlink">分配命名空间</a><a class="headerlink" href="#assigning-namespace" title="此标题的永久链接"></a></h3>
 <p>虽然 <a class="reference internal" href="#routing-default-namespace"><span class="std std-ref">默认命名空间</span></a> 将被预先添加到生成的控制器中,
 但你也可以在任何选项数组中使用 <code class="docutils literal notranslate"><span class="pre">namespace</span></code> 选项指定要使用的不同命名空间。
 值应该是要修改的命名空间:</p>
@@ -950,7 +969,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 对于创建多个路由的任何方法,新的命名空间将附加到该函数生成的所有路由,或者在 <code class="docutils literal notranslate"><span class="pre">group()</span></code> 的情况下,附加到闭包中生成的所有路由。</p>
 </section>
 <section id="id28">
-<h3><a class="toc-backref" href="#id92" role="doc-backlink">限制主机名</a><a class="headerlink" href="#id28" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id94" role="doc-backlink">限制主机名</a><a class="headerlink" href="#id28" title="此标题的永久链接"></a></h3>
 <p>你可以通过在选项数组中传递“hostname”选项以及允许的域来限制路由组仅在应用程序的某些域或子域中运行:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -961,7 +980,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 它不会在主站点 <strong>example.com</strong> 中工作。</p>
 </section>
 <section id="id29">
-<h3><a class="toc-backref" href="#id93" role="doc-backlink">限制子域名</a><a class="headerlink" href="#id29" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id95" role="doc-backlink">限制子域名</a><a class="headerlink" href="#id29" title="此标题的永久链接"></a></h3>
 <p>当存在 <code class="docutils literal notranslate"><span class="pre">subdomain</span></code> 选项时,系统将只允许路由在该子域上可用。仅当应用程序正在查看的子域是路由定义的子域时,才会匹配该路由:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -982,7 +1001,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="id30">
-<h3><a class="toc-backref" href="#id94" role="doc-backlink">偏移匹配参数</a><a class="headerlink" href="#id30" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id96" role="doc-backlink">偏移匹配参数</a><a class="headerlink" href="#id30" title="此标题的永久链接"></a></h3>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 选项以任意数字值偏移路由中的匹配参数,值是要偏移的段数。</p>
 <p>当使用 API 的第一个 URI 段是版本号时,这很有用。它也可以在第一个参数是语言字符串时使用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -996,7 +1015,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="reverse-routing">
-<span id="id31"></span><h2><a class="toc-backref" href="#id95" role="doc-backlink">反向路由</a><a class="headerlink" href="#reverse-routing" title="此标题的永久链接"></a></h2>
+<span id="id31"></span><h2><a class="toc-backref" href="#id97" role="doc-backlink">反向路由</a><a class="headerlink" href="#reverse-routing" title="此标题的永久链接"></a></h2>
 <p>反向路由允许你定义控制器和方法,以及任何参数,使链接应该指向的位置,并让路由器查找当前路由。
 这允许路由定义更改而不必更新应用程序代码。这通常在视图中用于创建链接。</p>
 <p>例如,如果你有一个指向相册的路由要链接到,你可以使用 <a class="reference internal" href="../helpers/url_helper.html#url_to" title="url_to"><code class="xref php php-func docutils literal notranslate"><span class="pre">url_to()</span></code></a> 辅助函数来获取应该使用的路由。
@@ -1016,7 +1035,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="using-named-routes">
-<span id="id32"></span><h2><a class="toc-backref" href="#id96" role="doc-backlink">命名路由</a><a class="headerlink" href="#using-named-routes" title="此标题的永久链接"></a></h2>
+<span id="id32"></span><h2><a class="toc-backref" href="#id98" role="doc-backlink">命名路由</a><a class="headerlink" href="#using-named-routes" title="此标题的永久链接"></a></h2>
 <p>你可以命名路由以使应用程序更加健壮。这会给路由指定一个名称,以后可以调用此名称,即使路由定义发生更改,
 使用 <a class="reference internal" href="../helpers/url_helper.html#url_to" title="url_to"><code class="xref php php-func docutils literal notranslate"><span class="pre">url_to()</span></code></a> 构建的应用程序中的所有链接也仍然有效,而无需进行任何更改。
 通过传递 <code class="docutils literal notranslate"><span class="pre">as</span></code> 选项及路由名称来命名路由:</p>
@@ -1035,7 +1054,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>这也使视图更具可读性。</p>
 </section>
 <section id="id33">
-<h2><a class="toc-backref" href="#id97" role="doc-backlink">分组路由</a><a class="headerlink" href="#id33" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id99" role="doc-backlink">分组路由</a><a class="headerlink" href="#id33" title="此标题的永久链接"></a></h2>
 <p>你可以使用 <code class="docutils literal notranslate"><span class="pre">group()</span></code> 方法在共同名称下对路由进行分组。组名称成为出现在组内定义的路由之前的一个段。
 这允许你减少构建共享开头字符串的大量路由所需的输入,例如构建管理区域:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1048,7 +1067,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 <p>这将为 <strong>users</strong> 和 <strong>blog</strong> URI 添加前缀 <strong>admin</strong>,处理像 <strong>admin/users</strong> 和 <strong>admin/blog</strong> 这样的 URL。</p>
 <section id="id34">
-<h3><a class="toc-backref" href="#id98" role="doc-backlink">设置命名空间</a><a class="headerlink" href="#id34" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id100" role="doc-backlink">设置命名空间</a><a class="headerlink" href="#id34" title="此标题的永久链接"></a></h3>
 <p>如果你需要为组分配选项,如 <a class="reference internal" href="#assigning-namespace"><span class="std std-ref">分配命名空间</span></a>,请在回调之前执行:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1060,7 +1079,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>这将处理指向 <code class="docutils literal notranslate"><span class="pre">App\API\v1\Users</span></code> 控制器的资源路由,URI 为 <strong>api/users</strong>。</p>
 </section>
 <section id="id35">
-<h3><a class="toc-backref" href="#id99" role="doc-backlink">设置过滤器</a><a class="headerlink" href="#id35" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id101" role="doc-backlink">设置过滤器</a><a class="headerlink" href="#id35" title="此标题的永久链接"></a></h3>
 <p>你还可以为路由组使用特定的 <a class="reference internal" href="filters.html"><span class="doc">过滤器</span></a>。这将始终在控制器之前或之后运行过滤器。
 这在认证或 API 日志记录时特别方便:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1073,7 +1092,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>过滤器的值必须与 <strong>app/Config/Filters.php</strong> 内定义的别名之一匹配。</p>
 </section>
 <section id="id36">
-<h3><a class="toc-backref" href="#id100" role="doc-backlink">设置其他选项</a><a class="headerlink" href="#id36" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id102" role="doc-backlink">设置其他选项</a><a class="headerlink" href="#id36" title="此标题的永久链接"></a></h3>
 <p>在某些时候,你可能要对路由进行分组以应用过滤器或其他路由配置选项,如命名空间、子域名等,而不一定需要为组添加前缀。
 你可以传入空字符串代替前缀,该组中的路由将路由,就好像组从未存在过一样,但具有给定的路由配置选项:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1086,27 +1105,32 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </section>
-<section id="id37">
-<h3><a class="toc-backref" href="#id101" role="doc-backlink">嵌套分组</a><a class="headerlink" href="#id37" title="此标题的永久链接"></a></h3>
+<section id="routing-nesting-groups">
+<span id="id37"></span><h3><a class="toc-backref" href="#id103" role="doc-backlink">嵌套分组</a><a class="headerlink" href="#routing-nesting-groups" title="此标题的永久链接"></a></h3>
 <p>如果需要,可以在组内嵌套组进行更细粒度的组织:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span> <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$routes</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$routes</span><span class="p">)</span> <span class="p">{</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;filter&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;myfilter:config&#39;</span><span class="p">],</span> <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$routes</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin\Admin::index&#39;</span><span class="p">);</span>
+
+    <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">group</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;filter&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;myfilter:region&#39;</span><span class="p">],</span> <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$routes</span><span class="p">)</span> <span class="p">{</span>
         <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;list&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin\Users::list&#39;</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">});</span>
 </pre></div>
 </div>
 <p>这将处理在 <strong>admin/users/list</strong> 的 URL。</p>
+<p><strong>Filter</strong> 选项传递给外部的 <code class="docutils literal notranslate"><span class="pre">group()</span></code> 时，会与内部的 <code class="docutils literal notranslate"><span class="pre">group()</span></code> 过滤器选项合并。
+上述代码对路由 <code class="docutils literal notranslate"><span class="pre">admin</span></code> 运行 <code class="docutils literal notranslate"><span class="pre">myfilter:config</span></code>，对路由 <code class="docutils literal notranslate"><span class="pre">admin/users/list</span></code> 运行 <code class="docutils literal notranslate"><span class="pre">myfilter:config</span></code> 和 <code class="docutils literal notranslate"><span class="pre">myfilter:region</span></code>。</p>
+<p>任何传递给内部 <cite>group()</cite> 的其他重叠选项都会覆盖它们的值。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>传递给外部 <code class="docutils literal notranslate"><span class="pre">group()</span></code> 的选项(例如 <code class="docutils literal notranslate"><span class="pre">namespace</span></code> 和 <code class="docutils literal notranslate"><span class="pre">filter</span></code>)不会与内部 <code class="docutils literal notranslate"><span class="pre">group()</span></code> 选项合并。</p>
+<p>在 v4.5.0 之前，由于一个错误，传递给外部 <code class="docutils literal notranslate"><span class="pre">group()</span></code> 的选项不会与内部 <code class="docutils literal notranslate"><span class="pre">group()</span></code> 的选项合并。</p>
 </div>
 </section>
 </section>
 <section id="routing-priority">
-<span id="id38"></span><h2><a class="toc-backref" href="#id102" role="doc-backlink">路由优先级</a><a class="headerlink" href="#routing-priority" title="此标题的永久链接"></a></h2>
+<span id="id38"></span><h2><a class="toc-backref" href="#id104" role="doc-backlink">路由优先级</a><a class="headerlink" href="#routing-priority" title="此标题的永久链接"></a></h2>
 <p>路由以它们被定义的顺序注册到路由表中。这意味着当访问一个 URI 时,第一个匹配的路由将被执行。</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
@@ -1114,7 +1138,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 <p>你可以通过运行 <a class="reference internal" href="#routing-spark-routes"><span class="std std-ref">spark routes</span></a> 命令来检查路由表中的注册路由。</p>
 <section id="id39">
-<h3><a class="toc-backref" href="#id103" role="doc-backlink">更改路由优先级</a><a class="headerlink" href="#id39" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id105" role="doc-backlink">更改路由优先级</a><a class="headerlink" href="#id39" title="此标题的永久链接"></a></h3>
 <p>在使用模块时,如果应用程序中的路由包含通配符,则模块路由将无法正确处理。
 你可以通过使用 <code class="docutils literal notranslate"><span class="pre">priority</span></code> 选项降低路由处理优先级来解决此问题。该参数接受正整数和零。
 在 <code class="docutils literal notranslate"><span class="pre">priority</span></code> 中指定的数字越高,处理队列中的路由优先级越低:</p>
@@ -1145,7 +1169,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="routes-configuration-options">
-<span id="id40"></span><h2><a class="toc-backref" href="#id104" role="doc-backlink">路由配置选项</a><a class="headerlink" href="#routes-configuration-options" title="此标题的永久链接"></a></h2>
+<span id="id40"></span><h2><a class="toc-backref" href="#id106" role="doc-backlink">路由配置选项</a><a class="headerlink" href="#routes-configuration-options" title="此标题的永久链接"></a></h2>
 <p>RoutesCollection 类提供了几个选项，可以影响所有路由，并且可以根据你的应用程序需求进行修改。这些选项可以在 <strong>app/Config/Routing.php</strong> 文件中找到。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
@@ -1153,7 +1177,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 在之前的版本中，使用 <strong>app/Config/Routes.php</strong> 中的 setter 方法来更改设置。</p>
 </div>
 <section id="routing-default-namespace">
-<span id="id41"></span><h3><a class="toc-backref" href="#id105" role="doc-backlink">默认命名空间</a><a class="headerlink" href="#routing-default-namespace" title="此标题的永久链接"></a></h3>
+<span id="id41"></span><h3><a class="toc-backref" href="#id107" role="doc-backlink">默认命名空间</a><a class="headerlink" href="#routing-default-namespace" title="此标题的永久链接"></a></h3>
 <p>在将控制器与路由匹配时,路由器会在路由指定的控制器前面添加默认的命名空间值。
 默认值为 <code class="docutils literal notranslate"><span class="pre">App\\Controllers</span></code>。</p>
 <p>如果你将值设置为空字符串 (<code class="docutils literal notranslate"><span class="pre">''</span></code>),它会让每个路由指定完全限定的控制器:</p>
@@ -1192,8 +1216,32 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </section>
-<section id="id42">
-<h3><a class="toc-backref" href="#id106" role="doc-backlink">转换 URI 中的破折号</a><a class="headerlink" href="#id42" title="此标题的永久链接"></a></h3>
+<section id="routing-default-method">
+<span id="id42"></span><h3><a class="toc-backref" href="#id108" role="doc-backlink">默认方法</a><a class="headerlink" href="#routing-default-method" title="此标题的永久链接"></a></h3>
+<p>该设置在路由处理器只有控制器名称而没有方法名称列出时使用。默认值是 <code class="docutils literal notranslate"><span class="pre">index</span></code>。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// 在 app/Config/Routing.php 中</span>
+<span class="k">public</span> <span class="nx">string</span> <span class="nv">$defaultMethod</span> <span class="o">=</span> <span class="s1">&#39;index&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p><code class="docutils literal notranslate"><span class="pre">$defaultMethod</span></code> 也常用于自动路由。
+请参见 <a class="reference internal" href="#routing-auto-routing-improved-default-method"><span class="std std-ref">自动路由（改进版）</span></a>
+或 <a class="reference internal" href="#routing-auto-routing-legacy-default-method"><span class="std std-ref">自动路由（传统版）</span></a>。</p>
+</div>
+<p>如果你定义了以下路由:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;Home&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>当路由匹配时，将执行 <code class="docutils literal notranslate"><span class="pre">App\Controllers\Home</span></code> 控制器的 <code class="docutils literal notranslate"><span class="pre">index()</span></code> 方法。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>方法名称以 <code class="docutils literal notranslate"><span class="pre">_</span></code> 开头时不能用作默认方法。
+但是，从 v4.5.0 开始，允许使用 <code class="docutils literal notranslate"><span class="pre">__invoke</span></code> 方法。</p>
+</div>
+</section>
+<section id="id43">
+<h3><a class="toc-backref" href="#id109" role="doc-backlink">转换 URI 中的破折号</a><a class="headerlink" href="#id43" title="此标题的永久链接"></a></h3>
 <p>该选项允许你在使用自动路由时，自动将控制器和方法的 URI 段中的破折号（<code class="docutils literal notranslate"><span class="pre">-</span></code>）替换为下划线，从而节省了额外的路由条目。这是必需的，因为破折号不是有效的类或方法名称字符，如果你尝试使用它，将会导致致命错误：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -1218,7 +1266,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="use-defined-routes-only">
-<span id="id43"></span><h3><a class="toc-backref" href="#id107" role="doc-backlink">仅使用定义的路由</a><a class="headerlink" href="#use-defined-routes-only" title="此标题的永久链接"></a></h3>
+<span id="id44"></span><h3><a class="toc-backref" href="#id110" role="doc-backlink">仅使用定义的路由</a><a class="headerlink" href="#use-defined-routes-only" title="此标题的永久链接"></a></h3>
 <p>自 v4.2.0 起,默认禁用自动路由。</p>
 <p>当未找到与当前 URI 匹配的定义路由时,如果启用了自动路由,系统将尝试将该 URI 与控制器和方法匹配。</p>
 <p>你可以通过将 <code class="docutils literal notranslate"><span class="pre">$autoRoute</span></code> 属性设置为 false 来禁用此自动匹配,
@@ -1246,11 +1294,9 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 如果 URI 可以通过 GET 方法访问,CSRF 保护将不起作用。</p>
 </div>
 </section>
-<section id="id44">
-<h3><a class="toc-backref" href="#id108" role="doc-backlink">404 重写</a><a class="headerlink" href="#id44" title="此标题的永久链接"></a></h3>
-<p>当未找到与当前 URI 匹配的页面时,系统将显示一个泛型 404 视图。
-你可以通过指定 <code class="docutils literal notranslate"><span class="pre">set404Override()</span></code> 方法要发生的操作来更改此行为。
-值可以是与任何路由中所示的有效类/方法对,或者是一个闭包:</p>
+<section id="override">
+<span id="id45"></span><h3><a class="toc-backref" href="#id111" role="doc-backlink">404 重写</a><a class="headerlink" href="#override" title="此标题的永久链接"></a></h3>
+<p>当找不到与当前 URI 匹配的页面时，系统将显示一个通用的 404 页面。通过在路由配置文件中使用 <code class="docutils literal notranslate"><span class="pre">$override404</span></code> 属性，你可以为 404 路由定义控制器类/方法。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// In app/Config/Routing.php</span>
@@ -1263,27 +1309,32 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
     <span class="k">public</span> <span class="o">?</span><span class="nx">string</span> <span class="nv">$override404</span> <span class="o">=</span> <span class="s1">&#39;App\Errors::show404&#39;</span><span class="p">;</span>
     <span class="c1">// ...</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<p>你还可以在路由配置文件中使用 <code class="docutils literal notranslate"><span class="pre">set404Override()</span></code> 方法指定在发生 404 错误时执行的操作。该值可以是一个有效的类/方法对，或者是一个闭包：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// In app/Config/Routes.php</span>
 <span class="c1">// Would execute the show404 method of the App\Errors class</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">set404Override</span><span class="p">(</span><span class="s1">&#39;App\Errors::show404&#39;</span><span class="p">);</span>
 
-<span class="c1">// Will display a custom view</span>
+<span class="c1">// Will display a custom view.</span>
 <span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">set404Override</span><span class="p">(</span><span class="k">static</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;my_errors/not_found.html&#39;</span><span class="p">);</span>
+    <span class="c1">// If you want to get the URI segments.</span>
+    <span class="nv">$segments</span> <span class="o">=</span> <span class="nx">request</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getUri</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getSegments</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;my_errors/not_found.html&#39;</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>在路由配置文件中使用 <code class="docutils literal notranslate"><span class="pre">$override404</span></code> 属性，你可以使用闭包函数。在路由文件中定义覆盖是限制在类或方法对上的。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p><code class="docutils literal notranslate"><span class="pre">set404Override()</span></code> 方法不会将响应状态码更改为 <code class="docutils literal notranslate"><span class="pre">404</span></code>。如果你不在设置的控制器中设置状态码,
-将返回默认状态码 <code class="docutils literal notranslate"><span class="pre">200</span></code>。有关如何设置状态码的信息,请参阅
-<a class="reference internal" href="../outgoing/response.html#CodeIgniter\HTTP\Response::setStatusCode" title="CodeIgniter\HTTP\Response::setStatusCode"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response::setStatusCode()</span></code></a>。</p>
+<p>从 v4.5.0 开始，404 覆盖功能默认将响应状态代码设置为 <code class="docutils literal notranslate"><span class="pre">404</span></code>。在之前的版本中，状态代码是 <code class="docutils literal notranslate"><span class="pre">200</span></code>。
+如果你想在控制器中更改状态代码，请参见 <a class="reference internal" href="../outgoing/response.html#CodeIgniter\HTTP\Response::setStatusCode" title="CodeIgniter\HTTP\Response::setStatusCode"><code class="xref php php-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response::setStatusCode()</span></code></a> 获取有关如何设置状态代码的信息。</p>
 </div>
 </section>
-<section id="id45">
-<h3><a class="toc-backref" href="#id109" role="doc-backlink">按优先级处理路由</a><a class="headerlink" href="#id45" title="此标题的永久链接"></a></h3>
+<section id="id46">
+<h3><a class="toc-backref" href="#id112" role="doc-backlink">按优先级处理路由</a><a class="headerlink" href="#id46" title="此标题的永久链接"></a></h3>
 <p>启用或禁用按优先级处理路由队列。在路由选项中降低优先级。默认禁用。
 此功能影响所有路由。有关降低优先级的示例用法,请参阅 <a class="reference internal" href="#routing-priority"><span class="std std-ref">路由优先级</span></a>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -1308,16 +1359,44 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </section>
+<section id="multiple-uri-segments-as-one-parameter">
+<span id="id47"></span><h3><a class="toc-backref" href="#id113" role="doc-backlink">将多个 URI 段作为一个参数</a><a class="headerlink" href="#multiple-uri-segments-as-one-parameter" title="此标题的永久链接"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.5.0 版本加入.</span></p>
+</div>
+<p>启用此选项时，匹配多个段的占位符，例如 <code class="docutils literal notranslate"><span class="pre">(:any)</span></code>，将直接按原样传递给一个参数，即使它包含多个段。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// In app/Config/Routing.php</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Config\Routing</span> <span class="k">as</span> <span class="nx">BaseRouting</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Routing</span> <span class="k">extends</span> <span class="nx">BaseRouting</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$multipleSegmentsOneParam</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>例如，以下路由：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;product/(:any)&#39;</span><span class="p">,</span> <span class="s1">&#39;Catalog::productLookup/$1&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>将匹配 <strong>product/123</strong>、<strong>product/123/456</strong>、<strong>product/123/456/789</strong> 等等。
+如果 URI 是 <strong>product/123/456</strong>，<code class="docutils literal notranslate"><span class="pre">123/456</span></code> 将被传递给 <code class="docutils literal notranslate"><span class="pre">Catalog::productLookup()</span></code> 方法的第一个参数。</p>
+</section>
 </section>
 <section id="auto-routing-improved">
-<span id="id46"></span><h2><a class="toc-backref" href="#id110" role="doc-backlink">自动路由(改进版)</a><a class="headerlink" href="#auto-routing-improved" title="此标题的永久链接"></a></h2>
+<span id="id48"></span><h2><a class="toc-backref" href="#id114" role="doc-backlink">自动路由(改进版)</a><a class="headerlink" href="#auto-routing-improved" title="此标题的永久链接"></a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.2.0 版本加入.</span></p>
 </div>
 <p>自 v4.2.0 起,引入了新的更安全的自动路由。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>如果你熟悉自动路由,在 CodeIgniter 3 到 4.1.x 中默认启用,
+<p>如果你熟悉自动路由,在 CodeIgniter 3.x 到 4.1.x 中默认启用,
 你可以在 <a class="reference internal" href="../changelogs/v4.2.0.html#v420-new-improved-auto-routing"><span class="std std-ref">ChangeLog v4.2.0</span></a> 中看到区别。</p>
 </div>
 <p>当未找到与 URI 匹配的定义路由时,如果启用了自动路由,系统将尝试将该 URI 与控制器和方法匹配。</p>
@@ -1331,7 +1410,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>自动路由(改进版)默认禁用。要使用它,请参阅下文。</p>
 </div>
 <section id="enabled-auto-routing-improved">
-<span id="id47"></span><h3><a class="toc-backref" href="#id111" role="doc-backlink">启用自动路由</a><a class="headerlink" href="#enabled-auto-routing-improved" title="此标题的永久链接"></a></h3>
+<span id="id49"></span><h3><a class="toc-backref" href="#id115" role="doc-backlink">启用自动路由</a><a class="headerlink" href="#enabled-auto-routing-improved" title="此标题的永久链接"></a></h3>
 <p>要使用它,你需要在 <strong>app/Config/Routing.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$autoRoute</span></code> 选项设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">bool</span> <span class="nv">$autoRoute</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 </pre></div>
@@ -1341,8 +1420,8 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </section>
-<section id="id48">
-<h3><a class="toc-backref" href="#id112" role="doc-backlink">URI 段</a><a class="headerlink" href="#id48" title="此标题的永久链接"></a></h3>
+<section id="id50">
+<h3><a class="toc-backref" href="#id116" role="doc-backlink">URI 段</a><a class="headerlink" href="#id50" title="此标题的永久链接"></a></h3>
 <p>按照 MVC 方法,URL 中的段通常代表:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">class</span><span class="o">/</span><span class="nx">method</span><span class="o">/</span><span class="nx">ID</span>
 </pre></div>
@@ -1365,26 +1444,26 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>更多信息请参阅 <a class="reference internal" href="controllers.html#controller-auto-routing-improved"><span class="std std-ref">控制器中的自动路由(改进版)</span></a>。</p>
 </section>
 <section id="routing-auto-routing-improved-configuration-options">
-<span id="id49"></span><h3><a class="toc-backref" href="#id113" role="doc-backlink">配置选项</a><a class="headerlink" href="#routing-auto-routing-improved-configuration-options" title="此标题的永久链接"></a></h3>
+<span id="id51"></span><h3><a class="toc-backref" href="#id117" role="doc-backlink">配置选项</a><a class="headerlink" href="#routing-auto-routing-improved-configuration-options" title="此标题的永久链接"></a></h3>
 <p>这些选项在 <strong>app/Config/Routing.php</strong> 文件中可用。</p>
-<section id="id50">
-<h4><a class="toc-backref" href="#id114" role="doc-backlink">默认控制器</a><a class="headerlink" href="#id50" title="此标题的永久链接"></a></h4>
-<section id="id51">
-<h5>针对网站根 URI<a class="headerlink" href="#id51" title="此标题的永久链接"></a></h5>
+<section id="id52">
+<h4><a class="toc-backref" href="#id118" role="doc-backlink">默认控制器</a><a class="headerlink" href="#id52" title="此标题的永久链接"></a></h4>
+<section id="id53">
+<h5>针对网站根 URI<a class="headerlink" href="#id53" title="此标题的永久链接"></a></h5>
 <p>当用户访问你站点的根目录(即 <strong>example.com</strong>)时,除非为它明确定义了路由,否则使用的控制器由 <code class="docutils literal notranslate"><span class="pre">$defaultController</span></code> 属性设置的值确定。</p>
 <p>默认值为 <code class="docutils literal notranslate"><span class="pre">Home</span></code>,它与 <strong>app/Controllers/Home.php</strong> 中的控制器匹配:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">string</span> <span class="nv">$defaultController</span> <span class="o">=</span> <span class="s1">&#39;Home&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
-<section id="id52">
-<h5>针对目录 URI<a class="headerlink" href="#id52" title="此标题的永久链接"></a></h5>
+<section id="id54">
+<h5>针对目录 URI<a class="headerlink" href="#id54" title="此标题的永久链接"></a></h5>
 <p>默认控制器也在未找到匹配的路由且 URI 指向控制器目录中的目录时使用。例如,如果用户访问 <strong>example.com/admin</strong>,如果在 <strong>app/Controllers/Admin/Home.php</strong> 中找到了一个控制器,则会使用它。</p>
 <p>更多信息请参阅 <a class="reference internal" href="controllers.html#controller-auto-routing-improved"><span class="std std-ref">控制器中的自动路由(改进版)</span></a>。</p>
 </section>
 </section>
-<section id="id53">
-<h4><a class="toc-backref" href="#id115" role="doc-backlink">默认方法</a><a class="headerlink" href="#id53" title="此标题的永久链接"></a></h4>
+<section id="routing-auto-routing-improved-default-method">
+<span id="id55"></span><h4><a class="toc-backref" href="#id119" role="doc-backlink">默认方法</a><a class="headerlink" href="#routing-auto-routing-improved-default-method" title="此标题的永久链接"></a></h4>
 <p>这与默认控制器设置类似,但用于在找到与 URI 匹配的控制器但不存在方法段时确定使用的默认方法。默认值为 <code class="docutils literal notranslate"><span class="pre">index</span></code>。</p>
 <p>在此示例中,如果用户访问 <strong>example.com/products</strong>,且存在 <code class="docutils literal notranslate"><span class="pre">Products</span></code> 控制器,将执行 <code class="docutils literal notranslate"><span class="pre">Products::getListAll()</span></code> 方法:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">string</span> <span class="nv">$defaultMethod</span> <span class="o">=</span> <span class="s1">&#39;listAll&#39;</span><span class="p">;</span>
@@ -1397,7 +1476,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="auto-routing-improved-module-routing">
-<span id="id54"></span><h3><a class="toc-backref" href="#id116" role="doc-backlink">模块路由</a><a class="headerlink" href="#auto-routing-improved-module-routing" title="此标题的永久链接"></a></h3>
+<span id="id56"></span><h3><a class="toc-backref" href="#id120" role="doc-backlink">模块路由</a><a class="headerlink" href="#auto-routing-improved-module-routing" title="此标题的永久链接"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
 </div>
@@ -1416,7 +1495,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="auto-routing-legacy">
-<span id="id55"></span><h2><a class="toc-backref" href="#id117" role="doc-backlink">自动路由(传统)</a><a class="headerlink" href="#auto-routing-legacy" title="此标题的永久链接"></a></h2>
+<span id="id57"></span><h2><a class="toc-backref" href="#id121" role="doc-backlink">自动路由(传统)</a><a class="headerlink" href="#auto-routing-legacy" title="此标题的永久链接"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>这个功能只为了向后兼容而存在。在新项目中不要使用它。即使你已经在使用它，我们也推荐你使用 <a class="reference internal" href="#auto-routing-improved"><span class="std std-ref">自动路由(改进版)</span></a> 替代。</p>
@@ -1431,8 +1510,8 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p class="admonition-title">重要</p>
 <p>自动路由(传统)会将任何 HTTP 方法的 HTTP 请求路由到控制器方法。</p>
 </div>
-<section id="id56">
-<h3><a class="toc-backref" href="#id118" role="doc-backlink">启用自动路由(传统)</a><a class="headerlink" href="#id56" title="此标题的永久链接"></a></h3>
+<section id="id58">
+<h3><a class="toc-backref" href="#id122" role="doc-backlink">启用自动路由(传统)</a><a class="headerlink" href="#id58" title="此标题的永久链接"></a></h3>
 <p>自 v4.2.0 起,默认禁用自动路由。</p>
 <p>要使用它,你需要在 <strong>app/Config/Routing.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$autoRoute</span></code> 选项设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">bool</span> <span class="nv">$autoRoute</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
@@ -1443,32 +1522,32 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </section>
-<section id="id57">
-<h3><a class="toc-backref" href="#id119" role="doc-backlink">URI 段(传统)</a><a class="headerlink" href="#id57" title="此标题的永久链接"></a></h3>
+<section id="id59">
+<h3><a class="toc-backref" href="#id123" role="doc-backlink">URI 段(传统)</a><a class="headerlink" href="#id59" title="此标题的永久链接"></a></h3>
 <p>在上面的示例中,CodeIgniter 会尝试找到一个名为 <strong>Helloworld.php</strong> 的控制器,并执行 <code class="docutils literal notranslate"><span class="pre">index()</span></code> 方法。</p>
 <p>更多信息请参阅 <a class="reference internal" href="controllers.html#controller-auto-routing-legacy"><span class="std std-ref">控制器中的自动路由(传统)</span></a>。</p>
 </section>
 <section id="routing-auto-routing-legacy-configuration-options">
-<span id="id58"></span><h3><a class="toc-backref" href="#id120" role="doc-backlink">配置选项(传统)</a><a class="headerlink" href="#routing-auto-routing-legacy-configuration-options" title="此标题的永久链接"></a></h3>
+<span id="id60"></span><h3><a class="toc-backref" href="#id124" role="doc-backlink">配置选项(传统)</a><a class="headerlink" href="#routing-auto-routing-legacy-configuration-options" title="此标题的永久链接"></a></h3>
 <p>这些选项在 <strong>app/Config/Routing.php</strong> 文件中可用。</p>
-<section id="id59">
-<h4><a class="toc-backref" href="#id121" role="doc-backlink">默认控制器(传统)</a><a class="headerlink" href="#id59" title="此标题的永久链接"></a></h4>
-<section id="id60">
-<h5>针对网站根 URI(传统)<a class="headerlink" href="#id60" title="此标题的永久链接"></a></h5>
+<section id="id61">
+<h4><a class="toc-backref" href="#id125" role="doc-backlink">默认控制器(传统)</a><a class="headerlink" href="#id61" title="此标题的永久链接"></a></h4>
+<section id="id62">
+<h5>针对网站根 URI(传统)<a class="headerlink" href="#id62" title="此标题的永久链接"></a></h5>
 <p>当用户访问你网站的根（例如，<strong>example.com</strong>）时，除非存在明确的路由，否则将根据 <code class="docutils literal notranslate"><span class="pre">$defaultController</span></code> 属性设定的值来确定要使用的控制器。</p>
 <p>对于这个属性，默认值是 <code class="docutils literal notranslate"><span class="pre">Home</span></code>，它匹配在 <strong>app/Controllers/Home.php</strong> 的控制器:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">string</span> <span class="nv">$defaultController</span> <span class="o">=</span> <span class="s1">&#39;Home&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
-<section id="id61">
-<h5>针对目录 URI(传统)<a class="headerlink" href="#id61" title="此标题的永久链接"></a></h5>
+<section id="id63">
+<h5>针对目录 URI(传统)<a class="headerlink" href="#id63" title="此标题的永久链接"></a></h5>
 <p>默认控制器也在未找到匹配的路由且 URI 指向控制器目录中的目录时使用。例如,如果用户访问 <strong>example.com/admin</strong>,如果在 <strong>app/Controllers/Admin/Home.php</strong> 中找到了一个控制器,则会使用它。</p>
 <p>更多信息请参阅 <a class="reference internal" href="controllers.html#controller-auto-routing-legacy"><span class="std std-ref">控制器中的自动路由(传统)</span></a>。</p>
 </section>
 </section>
-<section id="id62">
-<h4><a class="toc-backref" href="#id122" role="doc-backlink">默认方法(传统)</a><a class="headerlink" href="#id62" title="此标题的永久链接"></a></h4>
+<section id="routing-auto-routing-legacy-default-method">
+<span id="id64"></span><h4><a class="toc-backref" href="#id126" role="doc-backlink">默认方法(传统)</a><a class="headerlink" href="#routing-auto-routing-legacy-default-method" title="此标题的永久链接"></a></h4>
 <p>这与默认控制器设置类似,但用于在找到与 URI 匹配的控制器但不存在方法段时确定使用的默认方法。默认值为 <code class="docutils literal notranslate"><span class="pre">index</span></code>。</p>
 <p>在此示例中,如果用户访问 <strong>example.com/products</strong>,且存在 <code class="docutils literal notranslate"><span class="pre">Products</span></code> 控制器,将执行 <code class="docutils literal notranslate"><span class="pre">Products::listAll()</span></code> 方法:</p>
 <blockquote>
@@ -1477,11 +1556,11 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 </section>
-<section id="id63">
-<h2><a class="toc-backref" href="#id123" role="doc-backlink">确认路由</a><a class="headerlink" href="#id63" title="此标题的永久链接"></a></h2>
+<section id="id65">
+<h2><a class="toc-backref" href="#id127" role="doc-backlink">确认路由</a><a class="headerlink" href="#id65" title="此标题的永久链接"></a></h2>
 <p>CodeIgniter 有以下 <a class="reference internal" href="../cli/spark_commands.html"><span class="doc">命令</span></a> 可显示所有路由。</p>
 <section id="spark">
-<span id="routing-spark-routes"></span><h3><a class="toc-backref" href="#id124" role="doc-backlink">spark 路由</a><a class="headerlink" href="#spark" title="此标题的永久链接"></a></h3>
+<span id="routing-spark-routes"></span><h3><a class="toc-backref" href="#id128" role="doc-backlink">spark 路由</a><a class="headerlink" href="#spark" title="此标题的永久链接"></a></h3>
 <p>显示所有路由和过滤器:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark routes</span>
 </pre></div>
@@ -1503,8 +1582,8 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>系统并非完美。对于包含如 <code class="docutils literal notranslate"><span class="pre">([^/]+)</span></code> 或 <code class="docutils literal notranslate"><span class="pre">{locale}</span></code> 的正则表达式模式的路由，显示的 <em>Filters</em> 可能不正确（如果你在 <strong>app/Config/Filters.php</strong> 中为过滤器设置了复杂的 URI 模式），或者它显示为 <code class="docutils literal notranslate"><span class="pre">&lt;unknown&gt;</span></code>。</p>
 <p><a class="reference internal" href="filters.html#spark-filter-check"><span class="std std-ref">spark filter:check</span></a> 命令可以用来检查 100% 准确的过滤器。</p>
 </div>
-<section id="id64">
-<h4><a class="toc-backref" href="#id125" role="doc-backlink">自动路由(改进版)</a><a class="headerlink" href="#id64" title="此标题的永久链接"></a></h4>
+<section id="id66">
+<h4><a class="toc-backref" href="#id129" role="doc-backlink">自动路由(改进版)</a><a class="headerlink" href="#id66" title="此标题的永久链接"></a></h4>
 <p>当你使用自动路由(改进版)时,输出类似以下内容:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------+-------------------------+---------------+-----------------------------------+----------------+---------------+
 | Method    | Route                   | Name          | Handler                           | Before Filters | After Filters |
@@ -1533,8 +1612,8 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 <p>在 v4.3.4 之前,由于一个错误,无效路由会显示为正常路由。</p>
 </div>
 </section>
-<section id="id65">
-<h4><a class="toc-backref" href="#id126" role="doc-backlink">自动路由(传统)</a><a class="headerlink" href="#id65" title="此标题的永久链接"></a></h4>
+<section id="id67">
+<h4><a class="toc-backref" href="#id130" role="doc-backlink">自动路由(传统)</a><a class="headerlink" href="#id67" title="此标题的永久链接"></a></h4>
 <p>当你使用自动路由(传统)时,输出类似以下内容:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>+--------+--------------------+---------------+-----------------------------------+----------------+---------------+
 | Method | Route              | Name          | Handler                           | Before Filters | After Filters |
@@ -1551,7 +1630,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="routing-spark-routes-sort-by-handler">
-<span id="id66"></span><h4><a class="toc-backref" href="#id127" role="doc-backlink">按处理程序排序</a><a class="headerlink" href="#routing-spark-routes-sort-by-handler" title="此标题的永久链接"></a></h4>
+<span id="id68"></span><h4><a class="toc-backref" href="#id131" role="doc-backlink">按处理程序排序</a><a class="headerlink" href="#routing-spark-routes-sort-by-handler" title="此标题的永久链接"></a></h4>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
@@ -1561,7 +1640,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="routing-spark-routes-specify-host">
-<span id="id67"></span><h4><a class="toc-backref" href="#id128" role="doc-backlink">指定主机</a><a class="headerlink" href="#routing-spark-routes-specify-host" title="此标题的永久链接"></a></h4>
+<span id="id69"></span><h4><a class="toc-backref" href="#id132" role="doc-backlink">指定主机</a><a class="headerlink" href="#routing-spark-routes-specify-host" title="此标题的永久链接"></a></h4>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
 </div>
@@ -1586,7 +1665,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -1594,7 +1673,7 @@ ID 将被设置为 <code class="docutils literal notranslate"><span class="pre">
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b72b7ed0>
+<jinja2.runtime.BlockReference object at 0x7f2cefd31ed0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

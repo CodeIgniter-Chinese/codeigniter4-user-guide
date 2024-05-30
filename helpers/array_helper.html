@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>数组辅助函数 &mdash; CodeIgniter 4.4.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>数组辅助函数 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -67,6 +67,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
@@ -178,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
@@ -225,9 +227,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
 </ul>
 </li>
 </ul>
@@ -295,9 +298,7 @@
 <section id="id3">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">加载此辅助函数</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>使用以下代码加载此辅助函数:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -321,10 +322,8 @@
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span></p>
 </dd>
 </dl>
-<p>该方法允许你使用点表示法在数组中搜索特定键,并允许使用通配符 ‘*’。给定以下数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
+<p>该方法允许你使用点表示法在数组中搜索特定键,并允许使用通配符 <code class="docutils literal notranslate"><span class="pre">*</span></code>。给定以下数组:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;buzz&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;fizz&#39;</span> <span class="o">=&gt;</span> <span class="mi">11</span><span class="p">,</span>
@@ -336,27 +335,21 @@
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>我们可以使用搜索字符串“foo.buzz.fizz”定位 ‘fizz’ 的值。类似地,可以使用“foo.bar.baz”找到 baz 的值:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Returns: 11</span>
+<p>我们可以使用搜索字符串 <code class="docutils literal notranslate"><span class="pre">foo.buzz.fizz</span></code> 定位 <code class="docutils literal notranslate"><span class="pre">fizz</span></code> 的值。类似地，可以使用 <code class="docutils literal notranslate"><span class="pre">foo.bar.baz</span></code> 找到 <code class="docutils literal notranslate"><span class="pre">baz</span></code> 的值:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Returns: 11</span>
 <span class="nv">$fizz</span> <span class="o">=</span> <span class="nx">dot_array_search</span><span class="p">(</span><span class="s1">&#39;foo.buzz.fizz&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 
 <span class="c1">// Returns: 23</span>
 <span class="nv">$baz</span> <span class="o">=</span> <span class="nx">dot_array_search</span><span class="p">(</span><span class="s1">&#39;foo.bar.baz&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>你可以使用星号作为通配符来替换任何段。找到时,它将搜索所有子节点直到找到它。如果你不知道值,或如果你的值具有数值索引,这很方便:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Returns: 23</span>
+<p>你可以使用星号（<code class="docutils literal notranslate"><span class="pre">*</span></code>）作为通配符来替换任何段。找到时,它将搜索所有子节点直到找到它。如果你不知道值,或如果你的值具有数值索引,这很方便:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Returns: 23</span>
 <span class="nv">$baz</span> <span class="o">=</span> <span class="nx">dot_array_search</span><span class="p">(</span><span class="s1">&#39;foo.*.baz&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>如果数组键包含点,则可以用反斜杠转义键:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
+<p>如果数组键包含点（<code class="docutils literal notranslate"><span class="pre">.</span></code>），则可以用反斜杠（<code class="docutils literal notranslate"><span class="pre">\</span></code>）转义键：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;bar.baz&#39;</span> <span class="o">=&gt;</span> <span class="mi">23</span><span class="p">,</span>
     <span class="p">],</span>
@@ -415,9 +408,7 @@
 </dd>
 </dl>
 <p>此方法以分层方式根据一个或多个键的值对多维数组的元素进行排序。例如,从某个模型的 <code class="docutils literal notranslate"><span class="pre">find()</span></code> 函数返回以下数组:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$players</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$players</span> <span class="o">=</span> <span class="p">[</span>
     <span class="mi">0</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;name&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span>
         <span class="s1">&#39;team_id&#39;</span>  <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
@@ -449,18 +440,14 @@
 </pre></div>
 </div>
 <p>现在按两个键对该数组进行排序。请注意,该方法支持使用点表示法访问更深层数组级别中的值,但不支持通配符:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nx">array_sort_by_multiple_keys</span><span class="p">(</span><span class="nv">$players</span><span class="p">,</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">array_sort_by_multiple_keys</span><span class="p">(</span><span class="nv">$players</span><span class="p">,</span> <span class="p">[</span>
     <span class="s1">&#39;team.order&#39;</span> <span class="o">=&gt;</span> <span class="nx">SORT_ASC</span><span class="p">,</span>
     <span class="s1">&#39;position&#39;</span>   <span class="o">=&gt;</span> <span class="nx">SORT_ASC</span><span class="p">,</span>
 <span class="p">]);</span>
 </pre></div>
 </div>
-<p>现在 <code class="docutils literal notranslate"><span class="pre">$players</span></code> 数组已根据每个球员 ‘team’ 子数组中的 ‘order’ 值排序。如果对几个球员此值相等,则这些球员将根据其 ‘position’ 进行排序。结果数组为:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$players</span> <span class="o">=</span> <span class="p">[</span>
+<p>现在 <code class="docutils literal notranslate"><span class="pre">$players</span></code> 数组已根据每个球员 <code class="docutils literal notranslate"><span class="pre">team</span></code> 子数组中的 <code class="docutils literal notranslate"><span class="pre">order</span></code> 值排序。如果对几个球员此值相等,则这些球员将根据其 <code class="docutils literal notranslate"><span class="pre">position</span></code> 进行排序。结果数组为:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$players</span> <span class="o">=</span> <span class="p">[</span>
     <span class="mi">0</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;name&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;Frank&#39;</span><span class="p">,</span>
         <span class="s1">&#39;team_id&#39;</span>  <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
@@ -491,7 +478,7 @@
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>同样,该方法也可以处理对象数组。在上面的示例中,每个 ‘player’ 都可能由一个数组表示,而 ‘teams’ 是对象。该方法将检测每个嵌套级别中的元素类型并相应处理。</p>
+<p>同样,该方法也可以处理对象数组。在上面的示例中,每个 <code class="docutils literal notranslate"><span class="pre">player</span></code> 都可能由一个数组表示,而 <code class="docutils literal notranslate"><span class="pre">teams</span></code> 是对象。该方法将检测每个嵌套级别中的元素类型并相应处理。</p>
 </dd></dl>
 
 <dl class="php function">
@@ -512,9 +499,7 @@
 </dd>
 </dl>
 <p>此函数使用点作为键的分隔符,将多维数组展平为单个键值对数组。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$arrayToFlatten</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$arrayToFlatten</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;personal&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;john&#39;</span><span class="p">,</span>
         <span class="s1">&#39;last_name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;smith&#39;</span><span class="p">,</span>
@@ -528,9 +513,7 @@
 </pre></div>
 </div>
 <p>检查后, <code class="docutils literal notranslate"><span class="pre">$flattened</span></code> 等于:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="s1">&#39;personal.first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;john&#39;</span><span class="p">,</span>
     <span class="s1">&#39;personal.last_name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;smith&#39;</span><span class="p">,</span>
     <span class="s1">&#39;personal.age&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;26&#39;</span><span class="p">,</span>
@@ -540,9 +523,7 @@
 </pre></div>
 </div>
 <p>用户可以自己使用 <code class="docutils literal notranslate"><span class="pre">$id</span></code> 参数,但不需要这样做。该函数在内部使用此参数来跟踪展平后的键。如果用户将提供初始 <code class="docutils literal notranslate"><span class="pre">$id</span></code>,它将添加到所有键前面。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// using the same data from above</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// using the same data from above</span>
 <span class="nv">$flattened</span> <span class="o">=</span> <span class="nx">array_flatten_with_dots</span><span class="p">(</span><span class="nv">$arrayToFlatten</span><span class="p">,</span> <span class="s1">&#39;foo_&#39;</span><span class="p">);</span>
 <span class="cm">/*</span>
 <span class="cm"> * $flattened is now:</span>
@@ -578,9 +559,7 @@
 </dl>
 <p>该函数允许你按索引值将数据行分组在一起。返回的数组的深度等于作为参数传递的索引数。</p>
 <p>以下示例显示了一些数据（例如从 API 加载的数据）和嵌套数组。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$employees</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$employees</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">[</span>
         <span class="s1">&#39;id&#39;</span>         <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
         <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Urbano&#39;</span><span class="p">,</span>
@@ -674,10 +653,8 @@
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>我们首先想要按 “gender” 分组，然后按 “hr.department” 分组（最大深度为 2）。首先排除空值的结果如下：</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span> <span class="o">=</span> <span class="nx">array_group_by</span><span class="p">(</span><span class="nv">$employees</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;hr.department&#39;</span><span class="p">]);</span>
+<p>我们首先想要按 <code class="docutils literal notranslate"><span class="pre">gender</span></code> 分组，然后按 <code class="docutils literal notranslate"><span class="pre">hr.department</span></code> 分组（最大深度为 2）。首先排除空值的结果如下：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span> <span class="o">=</span> <span class="nx">array_group_by</span><span class="p">(</span><span class="nv">$employees</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;hr.department&#39;</span><span class="p">]);</span>
 
 <span class="nv">$result</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;Male&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -759,9 +736,7 @@
 </pre></div>
 </div>
 <p>这里是相同的代码，但这次我们想要包括空值：</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$result</span> <span class="o">=</span> <span class="nx">array_group_by</span><span class="p">(</span><span class="nv">$employees</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;hr.department&#39;</span><span class="p">],</span> <span class="k">true</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$result</span> <span class="o">=</span> <span class="nx">array_group_by</span><span class="p">(</span><span class="nv">$employees</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;hr.department&#39;</span><span class="p">],</span> <span class="k">true</span><span class="p">);</span>
 
 <span class="nv">$result</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -892,7 +867,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-02-04.
+      <span class="lastupdated">最后更新于 2024-05-30.
       </span></p>
   </div>
 
@@ -900,7 +875,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb6b7b8ded0>
+<jinja2.runtime.BlockReference object at 0x7f2cefe61b90>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
