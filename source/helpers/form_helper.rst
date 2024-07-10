@@ -54,7 +54,7 @@
     :returns:    一个 HTML 表单开启标签
     :rtype:    string
 
-    使用从 **Config\App::$baseURL** 构建的站点 URL 创建一个开启的表单标签。它将可选地允许你添加表单属性和隐藏的输入字段,并将始终根据配置文件中的 charset 值添加 `accept-charset` 属性。
+    创建一个开启的 form 标签，其 action 的 base 使用你的 ``Config\App::$baseURL`` 值。它将可选地允许你添加表单属性和隐藏输入字段，并且将始终根据你的 **app/Config/App.php** 配置文件中的 ``$charset`` 属性添加 `accept-charset` 属性。
 
     与硬编码你自己的 HTML 相比,使用此标签的主要好处在于,如果你的 URL 改变,它允许你的站点更便携。
 
@@ -88,16 +88,21 @@
 
             <form action="http://example.com/index.php/email/send" class="email" id="myform" method="post" accept-charset="utf-8">
 
-        如果 :ref:`CSRF <cross-site-request-forgery>` 过滤器已打开, ``form_open()`` 将在表单开头生成 CSRF 字段。你可以通过传递 csrf_id 作为 ``$attribute`` 数组的一部分来指定此字段的 ID:
+        如果 :ref:`CSRF <cross-site-request-forgery>` 过滤器已打开，``form_open()`` 将在表单开头生成 CSRF 字段。你可以通过传递 **csrf_id** 作为 ``$attribute`` 数组的一个元素来指定此字段的 ID：
 
         .. literalinclude:: form_helper/007.php
 
         将返回::
 
             <form action="http://example.com/index.php/u/sign-up" method="post" accept-charset="utf-8">
-            <input type="hidden" id="my-id" name="csrf_field" value="964ede6e0ae8a680f7b8eab69136717d">
+            <input type="hidden" id="my-id" name="csrf_test_name" value="964ede6e0ae8a680f7b8eab69136717d">
 
-        .. note:: 要使用 CSRF 字段的自动生成,你需要打开表单页面的 CSRF 过滤器。在大多数情况下,它使用 ``GET`` 方法请求。
+        .. note:: 要使用 CSRF 字段的自动生成，你需要打开 **app/Config/Filters.php** 文件中的 :ref:`CSRF 过滤器 <enable-csrf-protection>`。
+            在大多数情况下，表单页面是使用 GET 方法请求的。通常，POST/PUT/DELETE/PATCH 请求需要 CSRF 保护，
+            但即使是 GET 请求，对于显示表单的页面也必须启用 CSRF 过滤器。
+
+            如果你使用 :ref:`filters-globals` 启用 CSRF 过滤器，它将对所有请求类型生效。
+            但如果你使用 ``public array $methods = ['POST' => ['csrf']];`` 启用 CSRF 过滤器，那么在 GET 请求中不会添加隐藏的 CSRF 字段。
 
     **添加隐藏输入字段**
 
@@ -127,7 +132,7 @@
 
     :param    string    $name: 字段名称
     :param    string    $value: 字段值
-    :returns:    一个 HTML 隐藏输入字段标签
+    :returns:    一个 HTML 隐藏 input 元素
     :rtype:    string
 
     让你生成隐藏的输入字段。你可以提交名称/值字符串以创建一个字段:
@@ -152,7 +157,7 @@
     :param    string    $value: 字段值
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
     :param    string    $type: 输入字段的类型。即,'text'、'email'、'number'等
-    :returns:    一个 HTML 文本输入字段标签
+    :returns:    一个 HTML 文本 input 元素
     :rtype:    string
 
     允许你生成标准的文本输入字段。你可以至少在第一个和第二个参数中传递字段名称和值:
@@ -184,7 +189,7 @@
     :param    array    $data: 字段属性数据
     :param    string    $value: 字段值
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 密码输入字段标签
+    :returns:    一个 HTML 密码 input 元素
     :rtype:    string
 
     此函数在所有方面与上面的 :php:func:`form_input()` 函数相同,只是它使用 “password” 输入类型。
@@ -194,7 +199,7 @@
     :param    array    $data: 字段属性数据
     :param    string    $value: 字段值
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 文件上传输入字段标签
+    :returns:    一个 HTML 文件上传 input 元素
     :rtype:    string
 
     此函数在所有方面与上面的 :php:func:`form_input()` 函数相同,只是它使用 “file” 输入类型,允许它用于上传文件。
@@ -204,7 +209,7 @@
     :param    array    $data: 字段属性数据
     :param    string    $value: 字段值
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML textarea 标签
+    :returns:    一个 HTML textarea 元素
     :rtype:    string
 
     此函数在所有方面与上面的 :php:func:`form_input()` 函数相同,只是它生成一个 “textarea” 类型。
@@ -217,7 +222,7 @@
     :param    array    $options: 要列出的选项的关联数组
     :param    array    $selected: 要标记为 *selected* 属性的字段列表
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 下拉选择字段标签
+    :returns:    一个 HTML select(下拉框) 元素
     :rtype:    string
 
     允许你创建一个标准的下拉字段。第一个参数将包含字段的名称,第二个参数将包含选项的关联数组,第三个参数将包含你希望选中的值。你还可以通过第三个参数传递多个项的数组,辅助函数将为你创建一个多选字段。
@@ -242,7 +247,7 @@
     :param    array    $options: 要列出的选项的关联数组
     :param    array    $selected: 要标记为 *selected* 属性的字段列表
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 下拉多选字段标签
+    :returns:    一个 HTML 带有 multiple 属性的 select 元素
     :rtype:    string
 
     允许你创建一个标准的多选字段。第一个参数将包含字段的名称,第二个参数将包含选项的关联数组,第三个参数将包含你希望选中的值或值。
@@ -282,7 +287,7 @@
     :param    string    $value: 字段值
     :param    bool    $checked: 是否将复选框标记为 *checked*
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 复选框输入标签
+    :returns:    一个 HTML 复选框 input 元素
     :rtype:    string
 
     允许你生成一个复选框字段。简单示例:
@@ -309,7 +314,7 @@
     :param    string    $value: 字段值
     :param    bool    $checked: 是否将单选按钮标记为 *checked*
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 单选按钮输入标签
+    :returns:    一个 HTML 单选按钮 input 元素
     :rtype:    string
 
     此函数在所有方面与上面的 :php:func:`form_checkbox()` 函数相同,只是它使用 “radio” 输入类型。
@@ -319,7 +324,7 @@
     :param    string    $label_text: 要放入 <label> 标签中的文本
     :param    string    $id: 我们为其创建标签的表单元素的 ID
     :param    string    $attributes: HTML 属性
-    :returns:    一个 HTML 字段标签
+    :returns:    一个 HTML label 元素
     :rtype:    string
 
     生成一个 <label>。简单示例:
@@ -337,7 +342,7 @@
     :param    string    $data: 按钮名称
     :param    string    $value: 按钮值
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 输入提交标签
+    :returns:    一个 HTML 提交 input 元素
     :rtype:    string
 
     允许你生成一个标准的提交按钮。简单示例:
@@ -351,7 +356,7 @@
     :param    string    $data: 按钮名称
     :param    string    $value: 按钮值
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 输入重置按钮标签
+    :returns:    一个 HTML reset input 元素
     :rtype:    string
 
     允许你生成一个标准的重置按钮。用法与 :php:func:`form_submit()` 相同。
@@ -361,7 +366,7 @@
     :param    string    $data: 按钮名称
     :param    string    $content: 按钮标签
     :param    mixed    $extra: 要作为数组或字符串添加到标记的额外属性
-    :returns:    一个 HTML 按钮标签
+    :returns:    一个 HTML 按钮元素
     :rtype:    string
 
     允许你生成一个标准的按钮元素。你可以至少在第一个和第二个参数中传递按钮名称和内容:
@@ -394,7 +399,7 @@
     :returns:    字段值
     :rtype:    string
 
-    允许你设置输入表单或文本区域的值。你必须通过函数的第一个参数提供字段名称。第二个(可选)参数允许你为表单设置默认值。第三个(可选)参数允许你关闭值的 HTML 转义,以防你需要将此函数与 :php:func:`form_input()` 结合使用以避免双重转义。
+    允许你设置输入表单或 textarea 元素的值。你必须通过函数的第一个参数提供字段名称。第二个(可选)参数允许你为字段设置默认值。第三个(可选)参数允许你关闭值的 HTML 转义,以防你需要将此函数与 :php:func:`form_input()` 结合使用以避免双重转义。
 
     示例::
 

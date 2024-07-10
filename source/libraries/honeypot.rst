@@ -2,7 +2,7 @@
 蜜罐类
 ##############
 
-如果在 **app\Config\Filters.php** 文件中启用蜜罐,蜜罐类可以确定何时机器人向 CodeIgniter4 应用程序发出请求。这是通过将表单字段附加到任何表单上完成的,这个表单字段对人类隐藏但对机器人可访问。当数据输入字段时,假定请求来自机器人,你可以抛出一个 ``HoneypotException``。
+如果在 **app/Config/Filters.php** 文件中启用蜜罐,蜜罐类可以确定何时机器人向 CodeIgniter4 应用程序发出请求。这是通过将表单字段附加到任何表单上完成的,这个表单字段对人类隐藏但对机器人可访问。当数据输入字段时,假定请求来自机器人,你可以抛出一个 ``HoneypotException``。
 
 .. contents::
     :local:
@@ -16,9 +16,9 @@
 
 .. literalinclude:: honeypot/001.php
 
-一个样例蜜罐过滤器以 **system/Filters/Honeypot.php** 的形式绑定。
-如果它不合适,请在 **app/Filters/Honeypot.php** 中自建,
-并相应地修改配置中的 ``$aliases``。
+附带了一个示例蜜罐过滤器，位于 **system/Filters/Honeypot.php**。
+如果它不合适，你可以在 **app/Filters/Honeypot.php** 创建自己的过滤器，
+并相应地修改 **app/Config/Filters.php** 中的 ``$aliases``。
 
 ********************
 自定义蜜罐

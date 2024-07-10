@@ -1,4 +1,4 @@
-升级 HTTP 响应
+升级输出类
 ######################
 
 .. contents::
@@ -10,9 +10,10 @@
 - `CodeIgniter 3.x 输出类文档 <http://codeigniter.com/userguide3/libraries/output.html>`_
 - :doc:`CodeIgniter 4.x HTTP 响应文档 </outgoing/response>`
 
-变更点
+有哪些变化
 =====================
-- 方法已被重命名
+- 输出类已更改为响应类。
+- 方法已被重命名。
 
 升级指南
 =============

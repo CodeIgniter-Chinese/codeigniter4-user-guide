@@ -63,7 +63,7 @@ PHPUnit 配置
 
 对于测试文件的放置位置没有硬性规定。然而，我们建议你提前制定放置规则，以便你能快速了解测试文件的位置。
 
-在本文档中，我们将把与 **app** 目录中的类对应的测试文件放置在 **tests/app** 目录中。要测试一个新的库 **app/Libraries/Foo.php**，你需要在 **tests/app/Libraries/FooTest.php** 创建一个新文件：
+在本文档中，与 **app** 目录中的类对应的测试文件将放置在 **tests/app** 目录中。要测试一个新的库 **app/Libraries/Foo.php**，你需要在 **tests/app/Libraries/FooTest.php** 创建一个新文件：
 
 .. literalinclude:: overview/001.php
 
@@ -99,7 +99,7 @@ PHPUnit 配置
 Traits
 ------
 
-通过 traits 统一不同测试用例的环境搭建是一个加强测试的常用方式。``CIUnitTestCase`` 将检测任何类 traits,并查找以 trait 本身命名的环境搭建方法(即 `setUp{TraitName}()` 和 `tearDown{TraitName}()`)。
+一种常见的增强测试的方法是使用 traits 来整合不同测试用例中的准备工作。``CIUnitTestCase`` 会检测任何类的 traits，并查找以 trait 本身命名的准备方法来运行（即 `setUp{NameOfTrait}()` 和 `tearDown{NameOfTrait}()`）。
 
 例如,如果你需要在某些测试用例中添加认证,可以创建一个具有假登录用户设置方法的认证 trait:
 
@@ -138,7 +138,12 @@ assertHeaderEmitted($header, $ignoreCase = false)
 
 .. literalinclude:: overview/009.php
 
-.. note:: 带有此内容的测试用例应 `在 PHPunit 中作为单独进程运行 <https://docs.phpunit.de/en/9.6/annotations.html#runinseparateprocess>`_。
+.. note:: 测试用例应作为单独的进程运行
+    （使用 `@runInSeparateProcess annotation`_ 或 `RunInSeparateProcess attribute`_）
+    在 PHPUnit 中。
+
+.. _@runInSeparateProcess annotation: https://docs.phpunit.de/en/10.5/annotations.html#runinseparateprocess
+.. _RunInSeparateProcess attribute: https://docs.phpunit.de/en/10.5/attributes.html#runinseparateprocess
 
 assertHeaderNotEmitted($header, $ignoreCase = false)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -147,7 +152,9 @@ assertHeaderNotEmitted($header, $ignoreCase = false)
 
 .. literalinclude:: overview/010.php
 
-.. note:: 带有此内容的测试用例应 `在 PHPunit 中作为单独进程运行 <https://docs.phpunit.de/en/9.6/annotations.html#runinseparateprocess>`_。
+.. note:: 测试用例应作为单独的进程运行
+    （使用 `@runInSeparateProcess annotation`_ 或 `RunInSeparateProcess attribute`_）
+    在 PHPUnit 中。
 
 assertCloseEnough($expected, $actual, $message = '', $tolerance = 1)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,5 +1,5 @@
 #################
-数据库元数据
+获取元数据
 #################
 
 .. contents::
@@ -66,7 +66,7 @@ $db->fieldExists()
 
 .. literalinclude:: metadata/005.php
 
-.. note:: 用你要查找的字段名称替换 *field_name*,并用你要查找的表格名称替换 *table_name*。
+.. note:: 将 *field_name* 和 *table_name* 替换为你要查找的列名和表名。
 
 检索字段元数据
 =======================

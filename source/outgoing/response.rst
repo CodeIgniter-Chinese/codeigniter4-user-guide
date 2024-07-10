@@ -210,7 +210,7 @@ HTTP 缓存
 
 .. note:: 除了这里列出的方法之外,该类还继承了 :doc:`消息类 </incoming/message>` 的方法。
 
-父类提供的可用方法有:
+从 Message 类继承的方法有：
 
 * :meth:`CodeIgniter\\HTTP\\Message::body`
 * :meth:`CodeIgniter\\HTTP\\Message::setBody`

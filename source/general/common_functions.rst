@@ -97,14 +97,15 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
 .. php:function:: lang($line[, $args[, $locale]])
 
-    :param string $line: 要检索的文本行
-    :param array  $args: 要替换占位符的数据数组
-    :param string $locale: 指定使用的区域设置,而不是默认区域设置
-    :returns: 基于别名字符串的特定区域设置的文件
+    :param string $line: 需要检索的语言文件名和文本 key。
+    :param array  $args: 用于替换占位符的数据数组。
+    :param string $locale: 指定使用当前区域设置之外的区域设置。
+    :returns: 语言文件中的文本
+    :rtype: list<string>|string
 
-    根据别名字符串检索特定区域设置的文件。
+    从语言文件中检索文本。
 
-    有关更多信息,请参阅 :doc:`本地化 </outgoing/localization>` 页面。
+    更多信息，请参见 :ref:`language-localization`。
 
 .. php:function:: model($name[, $getShared = true[, &$conn = null]])
 
@@ -164,7 +165,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
     :returns: 来自视图的输出
     :rtype: string
 
-    获取当前与 RendererInterface 兼容的类,并告诉它渲染指定的视图。只是在控制器、库和路由闭包中使用的方便方法。
+    获取当前的 RendererInterface 兼容类（默认为 :doc:`视图 <../outgoing/view_renderer>` 类），并告诉它渲染指定的视图。这仅仅提供了一个方便的方法，可以在控制器、库以及在路由闭包中使用。
 
     当前,这些选项可用于 ``$options`` 数组中:
 
@@ -335,7 +336,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
     :returns: 共享的 Request 对象
     :rtype: IncomingRequest|CLIRequest
 
-    此函数是 ``Services::request()`` 的包装器。
+    此函数是 ``Services::request()`` 和 ``service('request')`` 的包装器。
 
 .. php:function:: response()
 
@@ -344,7 +345,7 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
     :returns: 共享的 Response 对象
     :rtype: Response
 
-    此函数是 ``Services::response()`` 的包装器。
+    此函数是 ``Services::response()`` 和 ``service('response')`` 的包装器。
 
 .. php:function:: route_to($method[, ...$params])
 

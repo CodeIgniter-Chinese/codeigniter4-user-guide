@@ -102,6 +102,8 @@ CodeIgniter 提供了几个工具来帮助你为不同的语言本地化应用�
 
 .. literalinclude:: localization/006.php
 
+.. _language-localization:
+
 *********************
 语言本地化
 *********************
@@ -126,7 +128,9 @@ CodeIgniter 提供了几个工具来帮助你为不同的语言本地化应用�
 基本用法
 ===========
 
-你可以使用 :php:func:`lang()` 辅助函数来检索任何语言文件中的文本,方法是将文件名和语言键作为第一个参数传递,用点号 (.) 分隔。例如,要从 **Errors.php** 语言文件加载 ``errorEmailMissing`` 字符串,你可以执行以下操作:
+你可以使用 :php:func:`lang()` 辅助函数来检索任何语言文件中的文本，方法是将文件名和语言键作为第一个参数传递，用点号 (``.``) 分隔。
+
+例如，要从 **Errors.php** 语言文件加载 ``errorEmailMissing`` 字符串，你可以执行以下操作：
 
 .. literalinclude:: localization/010.php
 
@@ -134,7 +138,7 @@ CodeIgniter 提供了几个工具来帮助你为不同的语言本地化应用�
 
 .. literalinclude:: localization/011.php
 
-如果请求的语言键在当前语言环境的文件中不存在,字符串将原封不动地返回。在此例中,如果它不存在,将返回 'Errors.errorEmailMissing' 或者 'Errors.nested.error.message'。
+如果请求的语言键在当前语言环境的文件中不存在,字符串将原封不动地返回。在此例中,如果它不存在,将返回 ``Errors.errorEmailMissing`` 或者 ``Errors.nested.error.message``。
 
 替换参数
 --------------------

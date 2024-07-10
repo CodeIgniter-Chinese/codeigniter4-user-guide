@@ -528,10 +528,12 @@ HTTP 动词路由
 
 这将处理在 **admin/users/list** 的 URL。
 
-**Filter** 选项传递给外部的 ``group()`` 时，会与内部的 ``group()`` 过滤器选项合并。
-上述代码对路由 ``admin`` 运行 ``myfilter:config``，对路由 ``admin/users/list`` 运行 ``myfilter:config`` 和 ``myfilter:region``。
+``filter`` 选项传递给外部的 ``group()`` 时，会与内部的 ``group()`` 过滤器选项合并。
+上述代码对路由 ``admin`` 运行 ``myfilter1:config``，对路由 ``admin/users/list`` 运行 ``myfilter1:config`` 和 ``myfilter2:region``。
 
-任何传递给内部 `group()` 的其他重叠选项都会覆盖它们的值。
+.. note:: 同一个过滤器不能带不同的参数多次运行。
+
+任何传递给内部 ``group()`` 的其他重叠选项都会覆盖它们的值。
 
 .. note:: 在 v4.5.0 之前，由于一个错误，传递给外部 ``group()`` 的选项不会与内部 ``group()`` 的选项合并。
 

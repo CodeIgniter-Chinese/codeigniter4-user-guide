@@ -34,7 +34,7 @@ CodeIgniter 提供了面向对象的方式来在你的应用中使用 URI。这�
 当前 URI
 ---------------
 
-很多时候，你只需要一个表示当前请求的 URL 的对象。你可以使用 :doc:`../helpers/url_helper` 中提供的 :php:func:`current_url()` 函数：
+当你需要一个表示当前请求 URL 的对象时，你可以使用 :doc:`../helpers/url_helper` 中提供的 :php:func:`current_url()` 函数：
 
 .. literalinclude:: uri/004.php
     :lines: 2-
@@ -124,11 +124,11 @@ Port(端口)
 Path(路径)
 ---------------
 
-path 是站点本身内的所有段。如你所料,可以使用 ``getPath()`` 和 ``setPath()`` 方法来操作它:
+路径是站点内部的所有段。正如预期的那样，可以使用 ``getPath()`` 和 ``setPath()`` 方法来操作它：
 
 .. literalinclude:: uri/016.php
 
-.. note:: 当用这种或类允许的任何其他方式设置路径时,它会被编码以对任何危险字符进行转义,并移除段点以确保安全。
+.. note:: 当设置路径时，它会被清理以编码任何危险字符，并移除“点段”（dot segment）以确保安全。
 
 .. note:: 自 v4.4.0 起，``SiteURI::getRoutePath()`` 方法返回相对于 baseURL 的 URI 路径，而 ``SiteURI::getPath()`` 方法始终返回带有前导 ``/`` 的完整 URI 路径。
 
@@ -144,7 +144,7 @@ Query(查询)
 
 .. literalinclude:: uri/017.php
 
-``setQuery()`` 方法会覆盖任何现有的查询变量。
+``setQuery()`` 方法会覆盖现有的查询变量。
 
 .. note:: 查询值不能包含片段。如果包含,会抛出一个 InvalidArgumentException。
 
@@ -155,7 +155,7 @@ Query(查询)
 
 .. literalinclude:: uri/018.php
 
-``setQueryArray()`` 方法会覆盖任何现有的查询变量。
+``setQueryArray()`` 方法会覆盖现有的查询变量。
 
 添加查询值
 ^^^^^^^^^^^^^^^^^^
@@ -171,12 +171,12 @@ Query(查询)
 
 .. literalinclude:: uri/020.php
 
-这只改变此次调用返回的值。如果你需要更永久地修改 URI 的查询值,
+这只改变此次调用返回的值。
 
 更改查询值
 ^^^^^^^^^^^^^^^^^^^^^
 
-你可以使用 ``stripQuery()`` 和 ``keepQuery()`` 方法改变实际对象的查询变量集合:
+如果你需要更永久地修改 URI 的查询值，你可以使用 ``stripQuery()`` 和 ``keepQuery()`` 方法来更改实际对象的查询变量集合：
 
 .. literalinclude:: uri/021.php
 

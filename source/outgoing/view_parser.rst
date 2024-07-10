@@ -76,9 +76,11 @@ Parser 类在内部使用关联数组来累积伪变量设置,直到你调用 ``
 
 .. literalinclude:: view_parser/003.php
 
-视图参数作为要在模板中替换的数据的关联数组传递给 ``setData()``。在上面的例子中,
-模板将包含两个变量:``{blog_title}`` 和 ``{blog_heading}``
-``render()`` 的第一个参数包含 :doc:`视图文件 </outgoing/views>` 的名称,其中 *blog_template* 是视图文件的名称。
+视图参数通过关联数组的形式传递给 ``setData()``，用于在模板中替换数据。
+
+在上面的例子中，模板将包含两个变量：``{blog_title}`` 和 ``{blog_heading}``
+
+``render()`` 的第一个参数包含模板的名称，其中 ``blog_template`` 是你的视图模板文件的名称。
 
 .. important:: 如果省略了文件扩展名,则视图预计以 .php 扩展名结束。
 
@@ -87,7 +89,7 @@ Parser 类在内部使用关联数组来累积伪变量设置,直到你调用 ``
 
 可以将几个选项传递给 ``render()`` 或 ``renderString()`` 方法。
 
-- ``cache`` - 以秒为单位,保存视图结果的时间;对 renderString() 忽略
+- ``cache`` - 以秒为单位,保存视图结果的时间;对 ``renderString()`` 忽略
 - ``cache_name`` - 用于保存/检索缓存视图结果的 ID;默认为视图路径;对 renderString() 忽略
 - ``saveData`` - 如果为 true,视图数据参数应保留以供随后的调用;默认为 **true**
 - ``cascadeData`` - 如果嵌套或循环替换发生时,数据对是否应该传播给内部替换;默认为 **true**

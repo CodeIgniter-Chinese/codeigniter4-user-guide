@@ -210,7 +210,7 @@ For Windows:
 语言文件
 ==============
 
-只要文件遵循与主应用程序目录相同的目录结构,在使用 ``lang()`` 方法时就会从定义的命名空间自动定位语言文件。
+只要文件遵循与主应用程序目录相同的目录结构，在使用 :php:func:`lang()` 函数时就会从定义的命名空间自动定位语言文件。
 
 库
 =========
@@ -230,11 +230,11 @@ For Windows:
 
 .. note:: 我们不建议在模块中使用相同的短类名。
 
-.. note:: 当有一个相同短名称的类时,即使你指定了完全限定的类名(如 ``model(\Acme\Blog\Model\PostModel::class)``), ``model()`` 也会在 **app/Models/** 中找到该文件。这是因为 ``model()`` 是 ``Factories`` 类的包装器,默认使用 ``preferApp``。有关更多信息,请参阅 :ref:`factories-loading-class`。
+.. note:: 在 v4.4.0 之前，即使你指定了一个完全限定的类名，如 ``model(\Acme\Blog\Model\PostModel::class)``，``model()`` 也会在 **app/Models/** 中查找具有相同短名称的类的文件。有关更多信息，请参阅 :ref:`factories-passing-fully-qualified-classname` 中的注释。
 
 视图
 =====
 
-如 :doc:`视图 </outgoing/views>` 文档中所述,可以使用类命名空间加载视图:
+如 :ref:`视图 <namespaced-views>` 文档中所述，可以使用类命名空间加载视图：
 
 .. literalinclude:: modules/012.php

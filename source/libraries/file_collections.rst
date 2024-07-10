@@ -12,7 +12,7 @@
 基本用法
 ***********
 
-在最基本的级别上, ``FileCollection`` 是一个你设置或构建的文件索引:
+在最基本的级别上, ``FileCollection`` 是一个你设置或构建的文件数组:
 
 .. literalinclude:: files/011.php
 
@@ -42,7 +42,7 @@ define()
 
 .. literalinclude:: files/014.php
 
-现在你可以在项目的任何地方使用 ``ConfigCollection`` 来访问所有 App 配置文件,而不必每次都重新调用集合方法。
+现在你可以在项目的任何地方使用 ``ConfigCollection`` ，访问 **app/Config/** 目录下的所有 PHP 文件，而无需每次都重新调用集合方法。
 
 set(array $files)
 =================
@@ -84,8 +84,11 @@ removePattern(string $pattern, string $scope = null)
 retainPattern(string $pattern, string $scope = null)
 ====================================================
 
-通过模式(和可选作用域)过滤当前文件列表,删除或保留匹配的文件。``$pattern`` 可以是一个完整的正则表达式(如 ``'#[A-Za-z]+\.php#'``),也可以是类似 ``glob()`` 的伪正则表达式(如 ``*.css``)。
-如果提供了 ``$scope``,则只考虑该目录中的文件(即 ``$scope`` 之外的文件总是保留)。如果没有提供作用域,则所有文件都将被考虑。
+通过模式（和可选的作用域）过滤当前文件列表，移除或保留匹配的文件。
+
+``$pattern`` 可以是一个完整的正则表达式（如 ``'#\A[A-Za-z]+\.php\z#'``）或类似于 ``glob()`` 的伪正则表达式（如 ``'*.css'``）。
+
+如果提供了 ``$scope``，则只有在该目录或其子目录中的文件会被考虑（即，``$scope`` 之外的文件总是被保留）。当没有提供作用域时，所有文件都将被考虑。
 
 例子:
 

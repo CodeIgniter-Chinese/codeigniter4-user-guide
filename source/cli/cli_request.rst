@@ -29,7 +29,7 @@ getOptions()
 
 .. literalinclude:: cli_request/003.php
 
-getOption($which)
+getOption($key)
 -----------------
 
 返回被视为选项的特定命令行参数的值:

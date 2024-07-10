@@ -14,3 +14,4 @@ CodeIgniter4 概览
     factories
     http
     security
+    goals

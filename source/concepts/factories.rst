@@ -72,6 +72,8 @@
 .. literalinclude:: factories/013.php
    :lines: 2-
 
+.. _factories-passing-fully-qualified-classname:
+
 传递完全限定类名
 --------------------------------
 
@@ -229,6 +231,8 @@ setOptions 方法
 
 .. versionadded:: 4.4.0
 
+.. important:: 除非你已经仔细阅读了这一节并理解了这个功能是如何工作的，否则不要使用这个功能。否则，你的应用程序将无法正常工作。
+
 为了提高性能，实现了配置缓存。
 
 先决条件
@@ -241,6 +245,8 @@ setOptions 方法
 
 工作原理
 ============
+
+.. important:: 一旦缓存，配置值在缓存被删除之前永远不会改变，即使配置文件或 **.env** 发生了变化。
 
 - 如果 Factories 中的 Config 实例的状态发生变化，则在关闭之前将所有 Config 实例保存到缓存文件中。
 - 如果有缓存可用，则在 CodeIgniter 初始化之前恢复缓存的 Config 实例。
