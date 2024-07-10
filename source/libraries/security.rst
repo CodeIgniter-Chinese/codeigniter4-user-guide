@@ -132,6 +132,8 @@ CSRF 保护方法
 
 即使重定向值为 ``true``,AJAX 调用也不会重定向,而会抛出 SecurityException。
 
+.. _enable-csrf-protection:
+
 启用 CSRF 保护
 ======================
 

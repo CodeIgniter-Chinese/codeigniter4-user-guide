@@ -42,6 +42,8 @@
 
 .. important:: 如果省略了文件扩展名,则视图预期以 **.php** 扩展名结尾。
 
+.. note:: ``view()`` 函数内部使用了 :doc:`view_renderer`。
+
 现在,在 **app/Controllers** 目录中创建一个名为 **Blog.php** 的文件,并将此内容放入其中:
 
 .. literalinclude:: views/002.php
@@ -75,6 +77,8 @@ CodeIgniter 会智能地处理控制器内对 :php:func:`view()` 的多次调用
 
 .. literalinclude:: views/004.php
    :lines: 2-
+
+.. _namespaced-views:
 
 命名空间视图
 ================

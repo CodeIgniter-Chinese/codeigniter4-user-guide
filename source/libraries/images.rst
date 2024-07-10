@@ -20,11 +20,11 @@ CodeIgniter 的图像处理类允许你执行以下操作:
 初始化类
 **********************
 
-与 CodeIgniter 中的其他大多数类一样,在控制器中通过调用 Services 类来初始化图像类:
+与 CodeIgniter 中的其他大多数类一样,在控制器中通过调用全局函数 ``service()`` 来初始化图像类:
 
 .. literalinclude:: images/001.php
 
-你可以将要使用的图像库的别名传递给服务函数:
+你可以将你希望使用的图像库的别名传递给全局函数 ``service()``：
 
 .. literalinclude:: images/002.php
 

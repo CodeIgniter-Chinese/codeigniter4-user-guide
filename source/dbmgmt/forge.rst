@@ -35,7 +35,7 @@ $forge->createDatabase('db_name')
 
 .. literalinclude:: forge/003.php
 
-可选的第二个参数设置为 true 将添加 ``IF EXISTS`` 语句或检查数据库是否存在,然后再创建它(取决于 DBMS)。
+可选的第二个参数设置为 true 将添加 ``IF EXISTS`` 语句，或者在创建数据库之前检查数据库是否存在（具体取决于 DBMS）。
 
 .. literalinclude:: forge/004.php
 

@@ -16,7 +16,7 @@ CodeIgniter 提供了一些最常用的快速动态缓存的封装。除基于�
 
 .. literalinclude:: caching/001.php
 
-你可以通过 Services 类直接获取缓存引擎的一个实例:
+你可以通过全局函数 ``service()`` 直接获取缓存引擎的实例：
 
 .. literalinclude:: caching/002.php
 
@@ -53,17 +53,17 @@ $ttl
 $file
 =====
 
-这是一组针对 ``File`` 处理程序的设置数组,用来确定其应如何保存缓存文件。
+这是一组针对 **File** 处理程序的设置数组,用来确定其应如何保存缓存文件。
 
 $memcached
 ==========
 
-这是在使用 ``Memcache(d)`` 处理程序时要使用的一组服务器数组。
+这是在使用 **Memcached** 处理程序时要使用的一组服务器数组。
 
 $redis
 ======
 
-使用 ``Redis`` 和 ``Predis`` 处理程序时,希望使用的 Redis 服务器的设置。
+使用 **Redis** 和 **Predis** 处理程序时，希望使用的 Redis 服务器的设置。
 
 ******************
 命令行工具
@@ -127,12 +127,11 @@ cache:info
 
         从缓存中获取一个项。如果返回 ``null``,则调用回调并保存结果。无论哪种方式,都会返回该值。
 
-    .. php:method:: save(string $key, $data[, int $ttl = 60[, $raw = false]])
+    .. php:method:: save(string $key, $data[, int $ttl = 60])
 
         :param string $key: 缓存项名称
         :param mixed $data: 要保存的数据
         :param int $ttl: 生存时间,以秒为单位,默认 60
-        :param bool $raw: 是否保存原始值
         :returns: 保存成功则为 ``true``,失败则为 ``false``
         :rtype: bool
 
@@ -141,8 +140,6 @@ cache:info
         例如:
 
         .. literalinclude:: caching/004.php
-
-        .. note:: ``$raw`` 参数仅由 Memcache 使用,以允许使用 ``increment()`` 和 ``decrement()``。
 
     .. php:method:: delete($key): bool
 
@@ -257,7 +254,9 @@ cache:info
 基于文件的缓存
 ==================
 
-与来自 Output 类的缓存不同,基于文件的驱动缓存允许缓存视图文件的一部分。谨慎使用此功能,并确保对应用进行基准测试,因为在某个点上,磁盘 I/O 将抵消缓存的积极效果。这需要一个真正可写的缓存目录。
+这需要缓存目录确实可被应用程序写入。
+
+使用时请小心，并确保对你的应用程序进行基准测试，因为磁盘 I/O 可能会在某个点抵消缓存的正向收益。
 
 Memcached 缓存
 =================

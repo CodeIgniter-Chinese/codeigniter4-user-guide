@@ -186,8 +186,8 @@ CodeIgniter 4 是框架的重写,并且不向后兼容。将你的应用程序�
     upgrade_images
     upgrade_localization
     upgrade_migrations
-    upgrade_pagination
     upgrade_responses
+    upgrade_pagination
     upgrade_routing
     upgrade_security
     upgrade_sessions

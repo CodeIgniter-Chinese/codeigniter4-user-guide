@@ -94,6 +94,10 @@ CodeIgniter 支持两种类型的视图单元：简单的和受控制的。
 
 .. literalinclude:: view_cells/010.php
 
+.. note:: 如果你使用类型化属性，你必须设置初始值：
+
+    .. literalinclude:: view_cells/023.php
+
 .. _generating-cell-via-command:
 
 通过命令生成单元

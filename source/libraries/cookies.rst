@@ -89,7 +89,7 @@ cookie 名称可以是任何 US-ASCII 字符,以下字符除外:
 验证 SameSite 属性
 =================================
 
-SameSite 属性只接受三个值:
+SameSite 属性接受三个值:
 
 - **Lax**: 在第三方站点加载图像或框架等正常跨站子请求时不会发送 Cookie,但是在用户导航到源站点时会发送(即点击链接时)。
 - **Strict**: Cookie 只会在第一方环境下发送,不会随第三方网站发起的请求一起发送。
@@ -209,10 +209,10 @@ Cookie 个性化
 **$expires**         ``DateTimeInterface|string|int``      ``0``     过期时间戳。
 **$path**            ``string``                            ``/``     cookie 的 path 属性。
 **$domain**          ``string``                            ``''``    cookie 的 domain 属性,带尾部斜杠。
-**$secure**          ``true/false``                        ``false`` 是否通过安全的 HTTPS 发送。
-**$httponly**        ``true/false``                        ``true``  是否不可通过 JavaScript 访问。
-**$samesite**        ``Lax|None|Strict|lax|none|strict''`` ``Lax``   SameSite 属性。
-**$raw**             ``true/false``                        ``false`` 是否使用 ``setrawcookie()`` 进行分派。
+**$secure**          ``true``/``false``                    ``false`` 是否通过安全的 HTTPS 发送。
+**$httponly**        ``true``/``false``                    ``true``  是否不可通过 JavaScript 访问。
+**$samesite**        ``Lax``/``None``/``Strict``           ``Lax``   SameSite 属性。
+**$raw**             ``true``/``false``                    ``false`` 是否使用 ``setrawcookie()`` 进行分派。
 ==================== ===================================== ========= =====================================================
 
 在运行时,你可以使用 ``Cookie::setDefaults()`` 方法手动提供新的默认值。

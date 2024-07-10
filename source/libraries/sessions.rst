@@ -368,12 +368,12 @@ Preference           Default         Description
 **sameSite**   Lax             Session cookie 的 SameSite 设置
 ============== =============== ===========================================================================
 
-.. note:: ``httponly`` 设置不会对 session 产生影响。出于安全原因,HttpOnly 参数始终启用。另外,完全忽略了 ``Config\Cookie::$prefix`` 设置。
+.. note:: ``httponly`` 设置（在 **app/Config/Cookie.php** 中）不会对 session 产生影响。出于安全原因，HttpOnly 参数始终启用。另外，完全忽略了 ``Config\Cookie::$prefix`` 设置。
 
 Session 驱动程序
 *******************
 
-如前所述,Session 库提供了 4 个处理程序或存储引擎可以使用:
+如前所述，Session 库提供了 5 个处理程序或存储引擎可以使用:
 
   - CodeIgniter\\Session\\Handlers\\FileHandler
   - CodeIgniter\\Session\\Handlers\\DatabaseHandler
@@ -381,9 +381,9 @@ Session 驱动程序
   - CodeIgniter\\Session\\Handlers\\RedisHandler
   - CodeIgniter\\Session\\Handlers\\ArrayHandler
 
-初始化 session 时,如果不指定,将使用 ``FileHandler`` 驱动程序,因为这是最安全的选择,并且预期它可以在任何环境中使用(几乎每种环境都有文件系统)。
+初始化 session 时，如果不指定，将使用 ``FileHandler``，因为这是最安全的选择，并且预期它可以在任何环境中使用(几乎每种环境都有文件系统)。
 
-但是,如果选择这样做,可以通过 **app/Config/Session.php** 文件中的 ``public $driver`` 行来选择任何其他驱动程序。但是请记住,每个驱动程序都有不同的使用注意事项,所以在做出选择之前,请确保熟悉它们(如下所述)。
+然而，如果你愿意，可以通过 **app/Config/Session.php** 文件中的 ``$driver`` 设置来选择任何其他驱动。但请记住，每个驱动都有不同的注意事项，所以在你做出选择之前，确保你熟悉它们（如下所示）。
 
 .. note:: ArrayHandler 在测试时使用,并将所有数据存储在 PHP 数组中,同时防止数据持久化。
 
@@ -392,11 +392,11 @@ FileHandler 驱动程序(默认)
 
 'FileHandler' 驱动程序使用你的文件系统来存储 session 数据。
 
-可以安全地说,它的工作方式与 PHP 自己的默认 session 实现完全相同,但如果这对你很重要,请记住这实际上不是相同的代码,并且它有一些限制(和优点)。
+可以肯定地说，它的工作方式与 PHP 自带的默认 Session 实现完全一样。但如果你认为这是一个重要的细节，实际上，它并不是相同的代码，并且有一些限制（以及优势）。
 
-更具体地说,它不支持 PHP 的 `session.save_path 中使用的目录级别和模式格式 <https://www.php.net/manual/en/session.configuration.php#ini.session.save-path>`_,大多数选项出于安全考虑都是硬编码的。相反,它只支持绝对路径作为 ``public string $savePath``。
+更具体地说，它不支持 PHP 的 `session.save_path 中使用的目录级别和模式格式 <https://www.php.net/manual/zh/session.configuration.php#ini.session.save-path>`_。并且，出于安全考虑，大部分选项都是硬编码的。相反，只支持使用 ``$savePath`` 设置的绝对路径。
 
-另一件重要的事情是,你应该知道,不要使用公开可读或共享的目录来存储 session 文件。请确保 *只有你* 可以查看选择的 *savePath* 目录的内容。否则,任何能够执行此操作的人都可以偷取当前的任何 session(也称为“会话固定”攻击)。
+另一件你需要知道的重要事情是，确保你不要使用公开可读或共享的目录来存储你的 session 文件。*只有你* 可以访问你选择的 *savePath* 目录的内容。否则，任何人都可以查看并窃取 Session 数据（这也被称为 "会话固定" 攻击）。
 
 在类 UNIX 操作系统上,这通常通过使用 `chmod` 命令对该目录设置 0700 模式权限来实现,它仅允许目录所有者在其上执行读写操作。但是要小心,因为 *运行* 脚本的系统用户通常不是你自己,而是类似 'www-data' 的用户,所以只设置这些权限可能会中断你的应用程序。
 
@@ -413,22 +413,20 @@ FileHandler 驱动程序(默认)
 
 你们中一些人可能会选择另一个 session 驱动程序,因为文件存储通常较慢。这只有一半是真的。
 
-一个非常基本的测试可能会误导你相信 SQL 数据库更快,但在 99% 的情况下,这仅当你只有少量当前 session 时才是真的。随着 session 计数和服务器负载的增加——这是至关重要的时候——文件系统将始终优于几乎所有关系数据库设置。
+一个非常基本的测试可能会让你误以为 SQL 数据库更快，但在 99% 的情况下，这种观点只有在你的当前 Session 数量很少时才成立。随着 Session 数量的增加和服务器负载的提升——这才是真正重要的时刻——文件系统将始终优于几乎所有的关系型数据库设置。
 
-另外,如果性能是你唯一的关注点,你可能需要研究使用 `tmpfs <https://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/>`_,(警告:外部资源),它可以使你的 session 飞快。
+另外，如果性能是你唯一的关注点，你可能需要研究使用 `tmpfs <https://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/>`_，它可以使你的 session 飞快。
 
 .. _sessions-databasehandler-driver:
 
 DatabaseHandler 驱动程序
 ==========================
 
-.. important:: 由于其他平台缺乏顾问锁定机制,因此仅正式支持 MySQL 和 PostgreSQL 数据库。在其他平台上使用不带锁定的会话可能会导致各种问题,特别是在大量使用 AJAX 的情况下,我们不会支持此类情况。如果遇到性能问题,请在处理完 session 数据后使用 :ref:`session-close` 方法。
+.. important:: 由于其他平台缺乏咨询锁机制，因此官方仅支持 MySQL 和 PostgreSQL 数据库。在不使用锁的情况下使用 Session 可能会导致各种问题，特别是在大量使用 AJAX 的情况下。如果你遇到性能问题，在处理完 Session 数据后，请使用 :ref:`session-close` 方法。
 
 'DatabaseHandler' 驱动程序使用 MySQL 或 PostgreSQL 等关系数据库来存储会话。这对许多用户来说是一个流行的选择,因为它允许开发人员轻松访问应用程序中的 session 数据——它只是数据库中的另一个表。
 
-但是,必须满足一些条件:
-
-  - 你不能使用持久连接。
+然而，有一个限制：你不能使用持久连接。
 
 配置 DatabaseHandler
 -------------------------
@@ -443,7 +441,7 @@ DatabaseHandler 驱动程序
 创建数据库表
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-然后当然,创建数据库表......
+然后当然，创建数据库表。
 
 对于 MySQL::
 
@@ -518,14 +516,14 @@ RedisHandler 驱动程序
 
 Redis 是一个通常用于缓存且以高性能而著称的存储引擎,这也可能是你使用 'RedisHandler' session 驱动程序的原因。
 
-缺点是它不像关系数据库那么无所不在,并且需要系统上安装 `phpredis <https://github.com/phpredis/phpredis>`_ PHP 扩展,而该扩展不与 PHP 一起打包。
-除非你已经熟悉并出于其他目的使用 Redis,否则只会考虑使用 RedisHandler 驱动程序。
+缺点是它不像关系型数据库那样普遍，并且需要安装 `phpredis <https://github.com/phpredis/phpredis>`_ PHP 扩展在你的系统上，而这个扩展并不随 PHP 一起捆绑提供。
+很可能，你只有在已经熟悉 Redis 并且还出于其他目的使用它的情况下，才会使用 RedisHandler 驱动。
 
 配置 RedisHandler
 ----------------------
 
-与 'FileHandler' 和 'DatabaseHandler' 驱动程序一样,你还必须通过 ``$savePath`` 设置配置你的 session 的存储位置。
-这里的格式有点不同,同时也比较复杂。最好通过 *phpredis* 扩展的 README 文件进行解释,所以我们简单地链接到它:
+就像 'FileHandler' 和 'DatabaseHandler' 驱动一样，你也必须通过 ``$savePath`` 设置来配置你的 Session 存储位置。
+这里的格式有点不同且复杂。最好是通过 *phpredis* 扩展的 README 文件来解释，因此我们将直接提供一个链接：
 
     https://github.com/phpredis/phpredis
 

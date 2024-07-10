@@ -4,21 +4,6 @@
 
 默认情况下,假设你只打算在 **app** 目录中使用 CodeIgniter 来管理一个应用程序。但是,可以拥有多个共享单个 CodeIgniter 安装的应用程序集,或者重命名或重新定位你的应用程序目录。
 
-.. important:: 如果你安装了 CodeIgniter v4.1.9 或更早版本,并且在 ``/composer.json`` 的 ``autoload.psr-4`` 中有像下面这样的 ``App\\`` 和 ``Config\\`` 命名空间,你需要删除这些行并运行 ``composer dump-autoload``。
-
-    .. code-block:: text
-
-        {
-            ...
-            "autoload": {
-                "psr-4": {
-                    "App\\": "app",             <-- 移除这行
-                    "Config\\": "app/Config"    <-- 移除这行
-                }
-            },
-            ...
-        }
-
 .. contents::
     :local:
     :depth: 2
@@ -34,13 +19,15 @@
 
 你需要修改项目根目录中的另外两个文件,以便它们可以找到 **Paths** 配置文件:
 
-- **/spark** 运行命令行应用程序。
+- **spark** 运行命令行应用程序。
 
   .. literalinclude:: managing_apps/002.php
+      :lines: 2-
 
-- **/public/index.php** 是你的 Web 应用程序的前端控制器。
+- **public/index.php** 是你的 Web 应用程序的前端控制器。
 
   .. literalinclude:: managing_apps/003.php
+      :lines: 2-
 
 .. _running-multiple-app:
 

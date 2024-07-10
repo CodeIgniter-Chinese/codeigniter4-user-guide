@@ -107,6 +107,8 @@ $required
 
 .. literalinclude:: filters/013.php
 
+.. _filters-globals:
+
 $globals
 --------
 

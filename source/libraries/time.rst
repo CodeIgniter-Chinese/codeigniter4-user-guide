@@ -2,7 +2,7 @@
 时间和日期
 ###############
 
-CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类,该类基于 PHP 的 DateTimeImmutable 对象构建,但使用 Intl 扩展的功能在时区之间转换时间并针对不同的语言环境正确显示输出。这个类是 ``Time`` 类,位于 ``CodeIgniter\I18n`` 命名空间中。
+CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类，它基于 PHP 的 DateTimeImmutable 类构建，但使用 Intl 扩展的功能来转换不同时区的时间，并正确显示不同区域的输出。这个类是 ``Time`` 类，位于 ``CodeIgniter\I18n`` 命名空间中。
 
 .. note:: 由于 Time 类扩展了 ``DateTimeImmutable``，如果你需要的功能该类没有提供，你很可能可以在 `DateTimeImmutable`_ 类中找到它们。
 
@@ -30,14 +30,14 @@ CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类,该
 
 .. literalinclude:: time/001.php
 
-你可以在第二个和第三个参数中分别传递表示时区和语言环境的字符串。时区可以是 PHP 的 `DateTimeZone <https://www.php.net/manual/en/timezones.php>`__ 类支持的任何时区。语言环境可以是 PHP 的 `Locale <https://www.php.net/manual/en/class.locale.php>`__ 类支持的任何语言环境。如果没有提供语言环境或时区,将使用应用程序默认值。
+你可以分别在第二个和第三个参数中传入表示时区和语言环境的字符串。时区可以是 PHP 的 `DateTimeZone <https://www.php.net/manual/en/timezones.php>`__ 类支持的任何一个。语言环境可以是 PHP 的 `Locale <https://www.php.net/manual/en/class.locale.php>`__ 类支持的任何一个。如果没有提供语言环境或时区，将使用应用程序的默认值。
 
 .. literalinclude:: time/002.php
 
 now()
 =====
 
-Time 类有几个帮助方法来实例化该类。第一个是 ``now()`` 方法,它返回一个设置为当前时间的新实例。你可以在第二个和第三个参数中分别传递表示时区和语言环境的字符串。如果没有提供语言环境或时区,将使用应用程序默认值。
+Time 类有几个辅助方法来实例化这个类。第一个是 ``now()`` 方法，它返回一个设置为当前时间的新实例。你可以在第二个和第三个参数中分别传入表示时区和语言环境的字符串。如果没有提供语言环境或时区，将使用应用程序的默认值。
 
 .. literalinclude:: time/003.php
 
@@ -72,21 +72,21 @@ tomorrow()
 createFromDate()
 ================
 
-给定独立的 **year**、**month** 和 **day** 输入,将返回一个新的实例。如果这些参数中的任何一个未提供,它将使用当前值来填充它。在第四个和第五个参数中接受时区和语言环境的字符串:
+给定 **年**、**月** 和 **日** 的单独输入，将返回一个新的实例。如果这些参数中的任何一个没有提供，它将使用当前的年、月和日。在第四个和第五个参数中接受时区和语言环境的字符串：
 
 .. literalinclude:: time/008.php
 
 createFromTime()
 ================
 
-类似于 ``createFromDate()``,只关心 **hours**、**minutes** 和 **seconds**。使用当前日期作为 Time 实例的日期部分。在第四个和第五个参数中接受时区和语言环境的字符串:
+类似于 ``createFromDate()``，只关心 **hours**、**minutes** 和 **seconds**。使用当前日期作为 Time 实例的日期部分。在第四个和第五个参数中接受时区和语言环境的字符串:
 
 .. literalinclude:: time/009.php
 
 create()
 ========
 
-前两个方法的组合,以 **year**、**month**、**day**、**hour**、**minutes** 和 **seconds** 作为单独的参数。未提供的值将使用当前日期和时间来确定。在第四个和第五个参数中接受时区和语言环境的字符串:
+结合前两种方法，接受 **年**、**月**、**日**、**小时**、**分钟** 和 **秒** 作为单独的参数。任何未提供的值将使用当前的日期和时间。在第四个和第五个参数中接受时区和语言环境的字符串：
 
 .. literalinclude:: time/010.php
 
@@ -174,17 +174,17 @@ humanize()
 =============================== =================================
 时间差                           结果
 =============================== =================================
-$time > 1年 且 < 2年            in 1 year / 1 year ago
-$time > 1月 且 < 1年            in 6 months / 6 months ago
-$time > 7天 且 < 1月            in 3 weeks / 3 weeks ago
-$time > 今天 且 < 7天           in 4 days / 4 days ago
-$time == 明天/昨天              Tomorrow / Yesterday
-$time > 59分钟 且 < 1天         in 2 hours / 2 hours ago
-$time > 现在 且 < 1小时         in 35 minutes / 35 minutes ago
-$time == 现在                   Now
+1 年 < $time < 2 年              in 1 year / 1 year ago
+1 个月 < $time < 1 年            in 6 months / 6 months ago
+7 天 < $time < 1 个月            in 3 weeks / 3 weeks ago
+今天 < $time < 7 天              in 4 days / 4 days ago
+$time == 昨天 / 明天             Tomorrow / Yesterday
+59 分钟 < $time < 1 天           in 2 hours / 2 hours ago
+现在 < $time < 1 小时            in 35 minutes / 35 minutes ago
+$time == 现在                    Now
 =============================== =================================
 
-确切使用的语言通过语言文件 **Time.php** 控制。
+结果字符串来自语言文件，**system/Language/en/Time.php**。如果你想要覆盖它们，请创建 **app/Language/{locale}/Time.php**。
 
 ******************************
 使用单个值
@@ -208,7 +208,7 @@ Time 对象提供了许多方法来获取和设置现有实例的各个项,如�
 getAge()
 --------
 
-根据出生日期返回 Time 实例与当前时间之间的年龄。非常适合根据生日检查某人的年龄:
+返回 Time 实例与当前时间之间的年龄，以年为单位。非常适合根据某人的生日来检查年龄：
 
 .. literalinclude:: time/022.php
 
@@ -357,13 +357,14 @@ humanize()
 =============================== =================================
 时间差                           结果
 =============================== =================================
-$time > 1年 且 < 2年            in 1 year / 1 year ago
-$time > 1月 且 < 1年            in 6 months / 6 months ago
-$time > 7天 且 < 1月            in 3 weeks / 3 weeks ago
-$time > 今天 且 < 7天           in 4 days / 4 days ago
-$time > 1小时 且 < 1天          in 8 hours / 8 hours ago
-$time > 1分钟 且 < 1小时        in 35 minutes / 35 minutes ago
-$time < 1分钟                   Now
+1 年 < $time < 2 年              in 1 year / 1 year ago
+1 个月 < $time < 1 年            in 6 months / 6 months ago
+7 天 < $time < 1 个月            in 3 weeks / 3 weeks ago
+今天 < $time < 7 天              in 4 days / 4 days ago
+1 小时 < $time < 1 天            in 8 hours / 8 hours ago
+1 分钟 < $time < 1 小时          in 35 minutes / 35 minutes ago
+$time < 1 分钟                   Now
 =============================== =================================
 
-确切使用的语言通过语言文件 **Time.php** 控制。
+结果字符串来自语言文件，**system/Language/en/Time.php**。
+如果你想要覆盖它们，请创建 **app/Language/{locale}/Time.php**。

@@ -69,7 +69,9 @@ $builder->get()
 
 .. literalinclude:: query_builder/004.php
 
-有关结果生成的完整讨论,请访问 :doc:`getResult*() 方法 <results>` 页面。
+有关结果生成的完整讨论,请访问 :ref:`getResult() <getresult>` 方法页面。
+
+请访问 :ref:`getResult() <getresult>` 方法，以了解关于结果生成的完整讨论。
 
 $builder->getCompiledSelect()
 -----------------------------
@@ -80,12 +82,11 @@ $builder->getCompiledSelect()
 
 .. literalinclude:: query_builder/005.php
 
-第一个参数使你可以设置查询构建器查询是否将重置(默认情况下,它将重置,就像使用 ``$builder->get()`` 一样):
+下面第一个查询中的参数 (false) 允许你设置查询构建器是否会被重置（因为该参数的默认值为 true，即默认情况下 ``getCompiledSelect(bool $reset = true)`` 会像使用 ``$builder->get()`` 一样被重置）：
 
 .. literalinclude:: query_builder/006.php
 
-上例中的关键是要注意第二个查询没有利用 ``limit(10, 20)``,但生成的 SQL 查询具有 ``LIMIT 20, 10``。
-这种结果的原因是因为第一个参数设置为 ``false``。
+在上述示例中需要注意的关键点是，第二个查询并没有使用 ``limit(10, 20)``，但生成的 SQL 查询却包含 ``LIMIT 20, 10``。这种结果的原因是因为第一个查询中的参数被设置为 ``false``，因此 ``limit(10, 20)`` 在第二个查询中仍然有效。
 
 $builder->getWhere()
 --------------------

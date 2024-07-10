@@ -75,14 +75,23 @@ CodeIgniter 通过“异常（Exception）”在你的系统中内置了错误�
 
 .. _logging_deprecation_warnings:
 
-弃用警告日志
-------------
+记录弃用警告
+----------------------------
 
 .. versionadded:: 4.3.0
 
-默认情况下，所有由 ``error_reporting()`` 报告的错误都会作为 ``ErrorException`` 对象抛出。这包括 ``E_DEPRECATED`` 和 ``E_USER_DEPRECATED`` 错误。随着 PHP 8.1+ 的使用激增，许多用户可能会看到由于 `passing null to non-nullable arguments of internal functions <https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg>`_ 抛出的异常。为了简化向 PHP 8.1 的迁移，你可以指示 CodeIgniter 记录这些弃用警告，而不是抛出它们。
+在 v4.3.0 之前，所有通过 ``error_reporting()`` 报告的错误都会被抛出为一个 ``ErrorException`` 对象。
 
-首先，确保你的 ``Config\Exceptions`` 副本已更新了两个新属性并设置如下：
+但随着 PHP 8.1+ 的广泛使用，许多用户可能会遇到因为 `passing null to non-nullable arguments of internal functions <https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg>`_ 而抛出的异常。
+
+为了更顺利地迁移到 PHP 8.1，从 v4.3.0 开始，CodeIgniter 增加了仅记录弃用错误（``E_DEPRECATED`` 和 ``E_USER_DEPRECATED``）而不将其作为异常抛出的功能。
+
+默认情况下，CodeIgniter 在开发环境中仅记录弃用警告而不抛出异常。在生产环境中，则不进行记录且不抛出异常。
+
+配置
+^^^^^^^^^^^^^
+
+此功能的设置如下。首先，确保你的 ``Config\Exceptions`` 副本更新了两个新属性，并按以下方式设置：
 
 .. literalinclude:: errors/012.php
 
@@ -90,7 +99,7 @@ CodeIgniter 通过“异常（Exception）”在你的系统中内置了错误�
 
 .. literalinclude:: errors/013.php
 
-之后，后续的弃用警告将会被记录而不是抛出。
+之后，后续的弃用警告将按照配置进行记录，而不会作为异常抛出。
 
 此功能也适用于用户弃用警告：
 

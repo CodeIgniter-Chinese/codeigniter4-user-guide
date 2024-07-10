@@ -39,7 +39,7 @@ CURLRequest 配置
 
 可以通过手动方式或通过 :doc:`Services 类 </concepts/services>` 来加载该库。
 
-要通过 Services 类调用,使用 ``curlrequest()`` 方法:
+要通过 Services 类调用,使用 ``curlrequest()`` 方法或全局函数 ``service()``：
 
 .. literalinclude:: curlrequest/002.php
 
