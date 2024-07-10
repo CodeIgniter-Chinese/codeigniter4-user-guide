@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>验证 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
+  <title>验证 &mdash; CodeIgniter 4.5.3 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/goals.html">设计与架构目标</a></li>
 </ul>
 </li>
 </ul>
@@ -128,9 +129,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
@@ -168,7 +169,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">数据库 Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
@@ -354,7 +355,7 @@
 </li>
 <li><p><a class="reference internal" href="#id55" id="id98">可用规则</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id56" id="id99">常规规则</a></p></li>
+<li><p><a class="reference internal" href="#rules-for-general-use" id="id99">常规规则</a></p></li>
 <li><p><a class="reference internal" href="#rules-for-file-uploads" id="id100">文件上传规则</a></p></li>
 </ul>
 </li>
@@ -622,7 +623,7 @@
 <section id="id17">
 <h2><a class="toc-backref" href="#id69" role="doc-backlink">加载库</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h2>
 <p>该库以名为 <strong>validation</strong> 的服务加载:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;validation&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>这会自动加载 <code class="docutils literal notranslate"><span class="pre">Config\Validation</span></code> 文件,其中包含用于包含多个 Rulesets 的设置,以及可以轻松重用的规则集合。</p>
@@ -776,8 +777,8 @@
 Cookie 覆盖。</p>
 </div>
 <p>当验证从 HTTP 请求输入的数据时,你会最常使用验证库。如果需要的话,你可以传入当前请求对象的实例,它会获取所有输入数据并将其设置为要验证的数据:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
-<span class="nv">$request</span>    <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">request</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;validation&#39;</span><span class="p">);</span>
+<span class="nv">$request</span>    <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">);</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">withRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">())</span> <span class="p">{</span>
     <span class="c1">// If you use the input data, you should get it from the getValidated() method.</span>
@@ -864,7 +865,7 @@ Cookie 覆盖。</p>
 </div>
 <p>可以使用 <code class="docutils literal notranslate"><span class="pre">getValidated()</span></code> 方法获取实际经过验证的数据。
 该方法返回一个仅包含已通过验证规则的元素的数组。</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$validation</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;validation&#39;</span><span class="p">);</span>
 <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">([</span>
     <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required&#39;</span><span class="p">,</span>
     <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|min_length[10]&#39;</span><span class="p">,</span>
@@ -1255,8 +1256,8 @@ Cookie 覆盖。</p>
 </section>
 <section id="id45">
 <h3><a class="toc-backref" href="#id92" role="doc-backlink">配置</a><a class="headerlink" href="#id45" title="此标题的永久链接"></a></h3>
-<p>一旦你创建了视图,就需要让 Validation 库知道它们。打开 <strong>app/Config/Validation.php</strong>。
-在里面,你会找到 <code class="docutils literal notranslate"><span class="pre">$templates</span></code> 属性,你可以在其中列出尽可能多的自定义视图,并提供一个它们可以通过的简短别名。如果我们要添加上面例子中的文件,它会是这样:</p>
+<p>一旦你创建了视图，你需要让 Validation 库知道它们的存在。打开 <strong>app/Config/Validation.php</strong> 文件。
+在文件中，你会找到 <code class="docutils literal notranslate"><span class="pre">$templates</span></code> 属性，在这里你可以列出任意数量的自定义视图，并提供一个简短的别名以便引用。如果我们要添加上面的示例文件，它看起来会像这样：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
@@ -1294,7 +1295,7 @@ Cookie 覆盖。</p>
 <h2><a class="toc-backref" href="#id94" role="doc-backlink">创建自定义规则</a><a class="headerlink" href="#id47" title="此标题的永久链接"></a></h2>
 <section id="validation-using-rule-classes">
 <span id="id48"></span><h3><a class="toc-backref" href="#id95" role="doc-backlink">使用规则类</a><a class="headerlink" href="#validation-using-rule-classes" title="此标题的永久链接"></a></h3>
-<p>规则存储在简单的命名空间类中。可以将它们存储在自动加载程序可以找到的任何位置。这些文件称为规则集。</p>
+<p>规则存储在简单的命名空间类中。它们可以存储在你喜欢的任何位置，只要自动加载器能够找到它们。这些文件被称为 RuleSets。</p>
 <section id="id49">
 <h4>添加规则集<a class="headerlink" href="#id49" title="此标题的永久链接"></a></h4>
 <p>要添加新的规则集,请编辑 <strong>app/Config/Validation.php</strong> 并将新文件添加到 <code class="docutils literal notranslate"><span class="pre">$ruleSets</span></code> 数组中:</p>
@@ -1323,7 +1324,7 @@ Cookie 覆盖。</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>你可以像上面显示的那样添加完整限定的类名的简单字符串,或使用 <code class="docutils literal notranslate"><span class="pre">::class</span></code> 后缀。这里的主要好处是在更高级的 IDE 中提供了一些额外的导航功能。</p>
+<p>你可以将其添加为一个包含完全限定类名的简单字符串，或者使用上面所示的 <code class="docutils literal notranslate"><span class="pre">::class</span></code> 后缀。使用 <code class="docutils literal notranslate"><span class="pre">::class</span></code> 后缀的主要好处是它在更高级的 IDE 中提供了一些额外的导航功能。</p>
 </section>
 <section id="id50">
 <h4>创建规则类<a class="headerlink" href="#id50" title="此标题的永久链接"></a></h4>
@@ -1400,7 +1401,7 @@ Cookie 覆盖。</p>
 
         <span class="c1">// Still here? Then we fail this test if</span>
         <span class="c1">// any of the fields are present in $data</span>
-        <span class="c1">// as $fields is the lis</span>
+        <span class="c1">// as $fields in the list</span>
         <span class="nv">$requiredFields</span> <span class="o">=</span> <span class="p">[];</span>
 
         <span class="k">foreach</span> <span class="p">(</span><span class="nv">$params</span> <span class="k">as</span> <span class="nv">$field</span><span class="p">)</span> <span class="p">{</span>
@@ -1478,8 +1479,6 @@ Cookie 覆盖。</p>
 <p>你需要为验证规则使用数组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
 
-<span class="k">use</span> <span class="nx">Config\Services</span><span class="p">;</span>
-
 <span class="k">class</span> <span class="nc">Form</span> <span class="k">extends</span> <span class="nx">BaseController</span>
 <span class="p">{</span>
     <span class="c1">// Define a custom validation rule.</span>
@@ -1492,7 +1491,7 @@ Cookie 覆盖。</p>
     <span class="p">{</span>
         <span class="c1">// ...</span>
 
-        <span class="nv">$validation</span> <span class="o">=</span> <span class="nx">Services</span><span class="o">::</span><span class="na">validation</span><span class="p">();</span>
+        <span class="nv">$validation</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;validation&#39;</span><span class="p">);</span>
         <span class="nv">$validation</span><span class="o">-&gt;</span><span class="na">setRules</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="s1">&#39;foo&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
@@ -1566,8 +1565,8 @@ Cookie 覆盖。</p>
 <span class="c1">// Otherwise, it is vulnerable.</span>
 </pre></div>
 </div>
-<section id="id56">
-<h3><a class="toc-backref" href="#id99" role="doc-backlink">常规规则</a><a class="headerlink" href="#id56" title="此标题的永久链接"></a></h3>
+<section id="rules-for-general-use">
+<span id="id56"></span><h3><a class="toc-backref" href="#id99" role="doc-backlink">常规规则</a><a class="headerlink" href="#rules-for-general-use" title="此标题的永久链接"></a></h3>
 <p>以下是可用的所有原生规则列表:</p>
 <table class="docutils align-default">
 <thead>
@@ -1629,7 +1628,8 @@ Cookie 覆盖。</p>
 </tr>
 <tr class="row-even"><td><p>exact_length</p></td>
 <td><p>是</p></td>
-<td><p>如果字段的长度不完全等于参数值,则失败。</p></td>
+<td><p>如果字段长度不完全等于参数值，则验证失败。
+可以使用一个或多个逗号分隔的值。</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">exact_length[5]</span></code> 或 <code class="docutils literal notranslate"><span class="pre">exact_length[5,8,12]</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>field_exists</p></td>
@@ -1802,9 +1802,10 @@ Cookie 覆盖。</p>
 </tr>
 <tr class="row-odd"><td><p>valid_date</p></td>
 <td><p>是</p></td>
-<td><p>如果字段不包含有效日期,则失败。任何 <a class="reference external" href="https://www.php.net/manual/en/function.strtotime.php">strtotime()</a>
-接受的字符串如果不指定可选参数以匹配日期格式都是
-有效的。<strong>所以通常有必要指定参数。</strong></p></td>
+<td><p>如果字段不包含有效日期，则验证失败。
+任何 <a class="reference external" href="https://www.php.net/manual/en/function.strtotime.php">strtotime()</a> 接受的字符串都是有效的，
+前提是你没有指定一个匹配日期格式的可选参数。
+<strong>因此，通常有必要指定该参数。</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">valid_date[d/m/Y]</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>valid_cc_number</p></td>
@@ -1855,6 +1856,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
 <span class="p">]);</span>
 </pre></div>
 </div>
+<p>参见 <a class="reference internal" href="uploaded_files.html#file-upload-form-tutorial"><span class="std std-ref">文件上传表单教程</span></a></p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>规则</p></th>
@@ -1872,9 +1874,9 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
 </tr>
 <tr class="row-odd"><td><p>max_size</p></td>
 <td><p>是</p></td>
-<td><p>如果名为参数的上传文件大于第二个参数的千字节(kb),则失败。
-或者如果文件大于 php.ini 配置文件中声明的
-最大大小 - <code class="docutils literal notranslate"><span class="pre">upload_max_filesize</span></code> 指令。</p></td>
+<td><p>如果上传的文件大于第二个参数指定的千字节（kb）大小，
+或者大于 php.ini 配置文件中声明的允许最大大小
+（<code class="docutils literal notranslate"><span class="pre">upload_max_filesize</span></code> 指令），则会失败。</p></td>
 <td></td>
 </tr>
 <tr class="row-even"><td><p>max_dims</p></td>
@@ -1918,7 +1920,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-05-30.
+      <span class="lastupdated">最后更新于 2024-07-10.
       </span></p>
   </div>
 
@@ -1926,7 +1928,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fe952e4f310>
+<jinja2.runtime.BlockReference object at 0x7fde9095a990>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

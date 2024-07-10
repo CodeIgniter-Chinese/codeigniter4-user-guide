@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Session 库 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
+  <title>Session 库 &mdash; CodeIgniter 4.5.3 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/goals.html">设计与架构目标</a></li>
 </ul>
 </li>
 </ul>
@@ -128,9 +129,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
@@ -168,7 +169,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">数据库 Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
@@ -327,7 +328,7 @@
 <p>要访问和初始化 Session:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="nv">$session</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">session</span><span class="p">(</span><span class="nv">$config</span><span class="p">);</span>
+<span class="nv">$session</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;session&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">$config</span></code> 参数是可选的 - 你的应用配置。如果没有提供,服务注册器将实例化你的默认配置。</p>
@@ -837,12 +838,12 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </table>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p><code class="docutils literal notranslate"><span class="pre">httponly</span></code> 设置不会对 session 产生影响。出于安全原因,HttpOnly 参数始终启用。另外,完全忽略了 <code class="docutils literal notranslate"><span class="pre">Config\Cookie::$prefix</span></code> 设置。</p>
+<p><code class="docutils literal notranslate"><span class="pre">httponly</span></code> 设置（在 <strong>app/Config/Cookie.php</strong> 中）不会对 session 产生影响。出于安全原因，HttpOnly 参数始终启用。另外，完全忽略了 <code class="docutils literal notranslate"><span class="pre">Config\Cookie::$prefix</span></code> 设置。</p>
 </div>
 </section>
 <section id="id17">
 <h2><a class="toc-backref" href="#id42" role="doc-backlink">Session 驱动程序</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h2>
-<p>如前所述,Session 库提供了 4 个处理程序或存储引擎可以使用:</p>
+<p>如前所述，Session 库提供了 5 个处理程序或存储引擎可以使用:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>CodeIgniter\Session\Handlers\FileHandler</p></li>
@@ -852,8 +853,8 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 <li><p>CodeIgniter\Session\Handlers\ArrayHandler</p></li>
 </ul>
 </div></blockquote>
-<p>初始化 session 时,如果不指定,将使用 <code class="docutils literal notranslate"><span class="pre">FileHandler</span></code> 驱动程序,因为这是最安全的选择,并且预期它可以在任何环境中使用(几乎每种环境都有文件系统)。</p>
-<p>但是,如果选择这样做,可以通过 <strong>app/Config/Session.php</strong> 文件中的 <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">$driver</span></code> 行来选择任何其他驱动程序。但是请记住,每个驱动程序都有不同的使用注意事项,所以在做出选择之前,请确保熟悉它们(如下所述)。</p>
+<p>初始化 session 时，如果不指定，将使用 <code class="docutils literal notranslate"><span class="pre">FileHandler</span></code>，因为这是最安全的选择，并且预期它可以在任何环境中使用(几乎每种环境都有文件系统)。</p>
+<p>然而，如果你愿意，可以通过 <strong>app/Config/Session.php</strong> 文件中的 <code class="docutils literal notranslate"><span class="pre">$driver</span></code> 设置来选择任何其他驱动。但请记住，每个驱动都有不同的注意事项，所以在你做出选择之前，确保你熟悉它们（如下所示）。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>ArrayHandler 在测试时使用,并将所有数据存储在 PHP 数组中,同时防止数据持久化。</p>
@@ -861,9 +862,9 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 <section id="filehandler">
 <h3><a class="toc-backref" href="#id43" role="doc-backlink">FileHandler 驱动程序(默认)</a><a class="headerlink" href="#filehandler" title="此标题的永久链接"></a></h3>
 <p>‘FileHandler’ 驱动程序使用你的文件系统来存储 session 数据。</p>
-<p>可以安全地说,它的工作方式与 PHP 自己的默认 session 实现完全相同,但如果这对你很重要,请记住这实际上不是相同的代码,并且它有一些限制(和优点)。</p>
-<p>更具体地说,它不支持 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/session.configuration.php#ini.session.save-path">session.save_path 中使用的目录级别和模式格式</a>,大多数选项出于安全考虑都是硬编码的。相反,它只支持绝对路径作为 <code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">string</span> <span class="pre">$savePath</span></code>。</p>
-<p>另一件重要的事情是,你应该知道,不要使用公开可读或共享的目录来存储 session 文件。请确保 <em>只有你</em> 可以查看选择的 <em>savePath</em> 目录的内容。否则,任何能够执行此操作的人都可以偷取当前的任何 session(也称为“会话固定”攻击)。</p>
+<p>可以肯定地说，它的工作方式与 PHP 自带的默认 Session 实现完全一样。但如果你认为这是一个重要的细节，实际上，它并不是相同的代码，并且有一些限制（以及优势）。</p>
+<p>更具体地说，它不支持 PHP 的 <a class="reference external" href="https://www.php.net/manual/zh/session.configuration.php#ini.session.save-path">session.save_path 中使用的目录级别和模式格式</a>。并且，出于安全考虑，大部分选项都是硬编码的。相反，只支持使用 <code class="docutils literal notranslate"><span class="pre">$savePath</span></code> 设置的绝对路径。</p>
+<p>另一件你需要知道的重要事情是，确保你不要使用公开可读或共享的目录来存储你的 session 文件。<em>只有你</em> 可以访问你选择的 <em>savePath</em> 目录的内容。否则，任何人都可以查看并窃取 Session 数据（这也被称为 “会话固定” 攻击）。</p>
 <p>在类 UNIX 操作系统上,这通常通过使用 <cite>chmod</cite> 命令对该目录设置 0700 模式权限来实现,它仅允许目录所有者在其上执行读写操作。但是要小心,因为 <em>运行</em> 脚本的系统用户通常不是你自己,而是类似 ‘www-data’ 的用户,所以只设置这些权限可能会中断你的应用程序。</p>
 <p>相反,你应该执行类似以下操作,这取决于你的环境:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir /&lt;path to your application directory&gt;/writable/sessions/</span>
@@ -874,23 +875,18 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 <section id="id18">
 <h4>奖励提示<a class="headerlink" href="#id18" title="此标题的永久链接"></a></h4>
 <p>你们中一些人可能会选择另一个 session 驱动程序,因为文件存储通常较慢。这只有一半是真的。</p>
-<p>一个非常基本的测试可能会误导你相信 SQL 数据库更快,但在 99% 的情况下,这仅当你只有少量当前 session 时才是真的。随着 session 计数和服务器负载的增加——这是至关重要的时候——文件系统将始终优于几乎所有关系数据库设置。</p>
-<p>另外,如果性能是你唯一的关注点,你可能需要研究使用 <a class="reference external" href="https://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/">tmpfs</a>,(警告:外部资源),它可以使你的 session 飞快。</p>
+<p>一个非常基本的测试可能会让你误以为 SQL 数据库更快，但在 99% 的情况下，这种观点只有在你的当前 Session 数量很少时才成立。随着 Session 数量的增加和服务器负载的提升——这才是真正重要的时刻——文件系统将始终优于几乎所有的关系型数据库设置。</p>
+<p>另外，如果性能是你唯一的关注点，你可能需要研究使用 <a class="reference external" href="https://eddmann.com/posts/storing-php-sessions-file-caches-in-memory-using-tmpfs/">tmpfs</a>，它可以使你的 session 飞快。</p>
 </section>
 </section>
 <section id="databasehandler">
 <span id="sessions-databasehandler-driver"></span><h3><a class="toc-backref" href="#id44" role="doc-backlink">DatabaseHandler 驱动程序</a><a class="headerlink" href="#databasehandler" title="此标题的永久链接"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>由于其他平台缺乏顾问锁定机制,因此仅正式支持 MySQL 和 PostgreSQL 数据库。在其他平台上使用不带锁定的会话可能会导致各种问题,特别是在大量使用 AJAX 的情况下,我们不会支持此类情况。如果遇到性能问题,请在处理完 session 数据后使用 <a class="reference internal" href="#session-close"><span class="std std-ref">close()</span></a> 方法。</p>
+<p>由于其他平台缺乏咨询锁机制，因此官方仅支持 MySQL 和 PostgreSQL 数据库。在不使用锁的情况下使用 Session 可能会导致各种问题，特别是在大量使用 AJAX 的情况下。如果你遇到性能问题，在处理完 Session 数据后，请使用 <a class="reference internal" href="#session-close"><span class="std std-ref">close()</span></a> 方法。</p>
 </div>
 <p>‘DatabaseHandler’ 驱动程序使用 MySQL 或 PostgreSQL 等关系数据库来存储会话。这对许多用户来说是一个流行的选择,因为它允许开发人员轻松访问应用程序中的 session 数据——它只是数据库中的另一个表。</p>
-<p>但是,必须满足一些条件:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>你不能使用持久连接。</p></li>
-</ul>
-</div></blockquote>
+<p>然而，有一个限制：你不能使用持久连接。</p>
 <section id="id19">
 <h4>配置 DatabaseHandler<a class="headerlink" href="#id19" title="此标题的永久链接"></a></h4>
 <section id="id20">
@@ -918,7 +914,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 </section>
 <section id="id21">
 <h5>创建数据库表<a class="headerlink" href="#id21" title="此标题的永久链接"></a></h5>
-<p>然后当然,创建数据库表……</p>
+<p>然后当然，创建数据库表。</p>
 <p>对于 MySQL:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">CREATE</span> <span class="nx">TABLE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="nx">EXISTS</span> <span class="sb">`ci_sessions`</span> <span class="p">(</span>
     <span class="sb">`id`</span> <span class="nx">varchar</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">null</span><span class="p">,</span>
@@ -1008,12 +1004,12 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 <p>从 v4.3.2 开始，你可以使用 <strong>TLS</strong> 协议连接 Redis。</p>
 </div>
 <p>Redis 是一个通常用于缓存且以高性能而著称的存储引擎,这也可能是你使用 ‘RedisHandler’ session 驱动程序的原因。</p>
-<p>缺点是它不像关系数据库那么无所不在,并且需要系统上安装 <a class="reference external" href="https://github.com/phpredis/phpredis">phpredis</a> PHP 扩展,而该扩展不与 PHP 一起打包。
-除非你已经熟悉并出于其他目的使用 Redis,否则只会考虑使用 RedisHandler 驱动程序。</p>
+<p>缺点是它不像关系型数据库那样普遍，并且需要安装 <a class="reference external" href="https://github.com/phpredis/phpredis">phpredis</a> PHP 扩展在你的系统上，而这个扩展并不随 PHP 一起捆绑提供。
+很可能，你只有在已经熟悉 Redis 并且还出于其他目的使用它的情况下，才会使用 RedisHandler 驱动。</p>
 <section id="id25">
 <h4>配置 RedisHandler<a class="headerlink" href="#id25" title="此标题的永久链接"></a></h4>
-<p>与 ‘FileHandler’ 和 ‘DatabaseHandler’ 驱动程序一样,你还必须通过 <code class="docutils literal notranslate"><span class="pre">$savePath</span></code> 设置配置你的 session 的存储位置。
-这里的格式有点不同,同时也比较复杂。最好通过 <em>phpredis</em> 扩展的 README 文件进行解释,所以我们简单地链接到它:</p>
+<p>就像 ‘FileHandler’ 和 ‘DatabaseHandler’ 驱动一样，你也必须通过 <code class="docutils literal notranslate"><span class="pre">$savePath</span></code> 设置来配置你的 Session 存储位置。
+这里的格式有点不同且复杂。最好是通过 <em>phpredis</em> 扩展的 README 文件来解释，因此我们将直接提供一个链接：</p>
 <blockquote>
 <div><p><a class="reference external" href="https://github.com/phpredis/phpredis">https://github.com/phpredis/phpredis</a></p>
 </div></blockquote>
@@ -1123,7 +1119,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-05-30.
+      <span class="lastupdated">最后更新于 2024-07-10.
       </span></p>
   </div>
 
@@ -1131,7 +1127,7 @@ CodeIgniter\Session\Handlers\ArrayHandler</p></td>
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fe953bd1f90>
+<jinja2.runtime.BlockReference object at 0x7fde90f65050>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

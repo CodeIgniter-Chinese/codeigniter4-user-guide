@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>错误处理 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
+  <title>错误处理 &mdash; CodeIgniter 4.5.3 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/goals.html">设计与架构目标</a></li>
 </ul>
 </li>
 </ul>
@@ -128,9 +129,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
@@ -168,7 +169,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">数据库 Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
@@ -294,43 +295,43 @@
 在 <code class="docutils literal notranslate"><span class="pre">production</span></code> 环境中,会显示更通用的消息以对用户保持最佳体验。</p>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id17">使用异常</a></p>
+<li><p><a class="reference internal" href="#id3" id="id18">使用异常</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id18">什么是异常</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id19">捕获异常</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id19">什么是异常</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id20">捕获异常</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id7" id="id20">配置</a></p>
+<li><p><a class="reference internal" href="#id7" id="id21">配置</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id8" id="id21">错误报告</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id22">记录异常</a></p></li>
-<li><p><a class="reference internal" href="#logging-deprecation-warnings" id="id23">弃用警告日志</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id22">错误报告</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id23">记录异常</a></p></li>
+<li><p><a class="reference internal" href="#logging-deprecation-warnings" id="id24">记录弃用警告</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id11" id="id24">框架异常</a></p>
+<li><p><a class="reference internal" href="#id12" id="id25">框架异常</a></p>
 <ul>
-<li><p><a class="reference internal" href="#pagenotfoundexception" id="id25">PageNotFoundException</a></p></li>
-<li><p><a class="reference internal" href="#configexception" id="id26">ConfigException</a></p></li>
-<li><p><a class="reference internal" href="#databaseexception" id="id27">DatabaseException</a></p></li>
-<li><p><a class="reference internal" href="#redirectexception" id="id28">RedirectException</a></p></li>
+<li><p><a class="reference internal" href="#pagenotfoundexception" id="id26">PageNotFoundException</a></p></li>
+<li><p><a class="reference internal" href="#configexception" id="id27">ConfigException</a></p></li>
+<li><p><a class="reference internal" href="#databaseexception" id="id28">DatabaseException</a></p></li>
+<li><p><a class="reference internal" href="#redirectexception" id="id29">RedirectException</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#http" id="id29">在异常中指定 HTTP 状态码</a></p></li>
-<li><p><a class="reference internal" href="#http-status-code-and-error-views" id="id30">HTTP 状态码和错误视图</a></p></li>
-<li><p><a class="reference internal" href="#error-specify-exit-code" id="id31">在你的异常中指定退出代码</a></p></li>
-<li><p><a class="reference internal" href="#custom-exception-handlers" id="id32">自定义异常处理程序</a></p>
+<li><p><a class="reference internal" href="#http" id="id30">在异常中指定 HTTP 状态码</a></p></li>
+<li><p><a class="reference internal" href="#http-status-code-and-error-views" id="id31">HTTP 状态码和错误视图</a></p></li>
+<li><p><a class="reference internal" href="#error-specify-exit-code" id="id32">在你的异常中指定退出代码</a></p></li>
+<li><p><a class="reference internal" href="#custom-exception-handlers" id="id33">自定义异常处理程序</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id15" id="id33">定义新的处理程序</a></p></li>
-<li><p><a class="reference internal" href="#id16" id="id34">配置新的处理程序</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id34">定义新的处理程序</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id35">配置新的处理程序</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id17" role="doc-backlink">使用异常</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id18" role="doc-backlink">使用异常</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>本节简要概述了对异常不太了解的新程序员或开发人员的情况。</p>
 <section id="id4">
-<h3><a class="toc-backref" href="#id18" role="doc-backlink">什么是异常</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">什么是异常</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <p>异常简单来说就是在抛出异常时发生的事件。这将中止脚本的当前流程,然后执行将转移到错误处理程序,后者将显示适当的错误页面:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -339,7 +340,7 @@
 </div>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id19" role="doc-backlink">捕获异常</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">捕获异常</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
 <p>如果你正在调用可能抛出异常的方法,你可以使用 <code class="docutils literal notranslate"><span class="pre">try/catch</span></code> 块捕获该异常:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -383,9 +384,9 @@
 </section>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id20" role="doc-backlink">配置</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">配置</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <section id="id8">
-<h3><a class="toc-backref" href="#id21" role="doc-backlink">错误报告</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">错误报告</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
 <p>默认情况下，CodeIgniter 在 <code class="docutils literal notranslate"><span class="pre">development</span></code> 和 <code class="docutils literal notranslate"><span class="pre">testing</span></code> 环境下会显示包含所有错误的详细错误报告，并且在 <code class="docutils literal notranslate"><span class="pre">production</span></code> 环境下不会显示任何错误。</p>
 <img alt="../_images/error.png" src="../_images/error.png" />
 <p>你可以通过设置 <code class="docutils literal notranslate"><span class="pre">CI_ENVIRONMENT</span></code> 变量来更改你的环境。请参阅 <a class="reference internal" href="environments.html#setting-environment"><span class="std std-ref">设置环境</span></a>。</p>
@@ -399,7 +400,7 @@
 </div>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id22" role="doc-backlink">记录异常</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">记录异常</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
 <p>默认情况下,除了“404 - Page Not Found”异常之外的所有异常都会记录日志。这可以通过设置 <strong>app/Config/Exceptions.php</strong> 的 <code class="docutils literal notranslate"><span class="pre">$log</span></code> 值来打开和关闭:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -436,12 +437,17 @@
 </div>
 </section>
 <section id="logging-deprecation-warnings">
-<span id="id10"></span><h3><a class="toc-backref" href="#id23" role="doc-backlink">弃用警告日志</a><a class="headerlink" href="#logging-deprecation-warnings" title="此标题的永久链接"></a></h3>
+<span id="id10"></span><h3><a class="toc-backref" href="#id24" role="doc-backlink">记录弃用警告</a><a class="headerlink" href="#logging-deprecation-warnings" title="此标题的永久链接"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
-<p>默认情况下，所有由 <code class="docutils literal notranslate"><span class="pre">error_reporting()</span></code> 报告的错误都会作为 <code class="docutils literal notranslate"><span class="pre">ErrorException</span></code> 对象抛出。这包括 <code class="docutils literal notranslate"><span class="pre">E_DEPRECATED</span></code> 和 <code class="docutils literal notranslate"><span class="pre">E_USER_DEPRECATED</span></code> 错误。随着 PHP 8.1+ 的使用激增，许多用户可能会看到由于 <a class="reference external" href="https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg">passing null to non-nullable arguments of internal functions</a> 抛出的异常。为了简化向 PHP 8.1 的迁移，你可以指示 CodeIgniter 记录这些弃用警告，而不是抛出它们。</p>
-<p>首先，确保你的 <code class="docutils literal notranslate"><span class="pre">Config\Exceptions</span></code> 副本已更新了两个新属性并设置如下：</p>
+<p>在 v4.3.0 之前，所有通过 <code class="docutils literal notranslate"><span class="pre">error_reporting()</span></code> 报告的错误都会被抛出为一个 <code class="docutils literal notranslate"><span class="pre">ErrorException</span></code> 对象。</p>
+<p>但随着 PHP 8.1+ 的广泛使用，许多用户可能会遇到因为 <a class="reference external" href="https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg">passing null to non-nullable arguments of internal functions</a> 而抛出的异常。</p>
+<p>为了更顺利地迁移到 PHP 8.1，从 v4.3.0 开始，CodeIgniter 增加了仅记录弃用错误（<code class="docutils literal notranslate"><span class="pre">E_DEPRECATED</span></code> 和 <code class="docutils literal notranslate"><span class="pre">E_USER_DEPRECATED</span></code>）而不将其作为异常抛出的功能。</p>
+<p>默认情况下，CodeIgniter 在开发环境中仅记录弃用警告而不抛出异常。在生产环境中，则不进行记录且不抛出异常。</p>
+<section id="id11">
+<h4>配置<a class="headerlink" href="#id11" title="此标题的永久链接"></a></h4>
+<p>此功能的设置如下。首先，确保你的 <code class="docutils literal notranslate"><span class="pre">Config\Exceptions</span></code> 副本更新了两个新属性，并按以下方式设置：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
@@ -451,10 +457,11 @@
 
 <span class="k">class</span> <span class="nc">Exceptions</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
-    <span class="c1">// ... other properties</span>
-
-    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$logDeprecations</span>       <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$deprecationLogLevel</span> <span class="o">=</span> <span class="nx">LogLevel</span><span class="o">::</span><span class="na">WARNING</span><span class="p">;</span> <span class="c1">// this should be one of the log levels supported by PSR-3</span>
+    <span class="c1">// ...</span>
+    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$logDeprecations</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c1">// If set to false, an exception will be thrown.</span>
+    <span class="c1">// ...</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$deprecationLogLevel</span> <span class="o">=</span> <span class="nx">LogLevel</span><span class="o">::</span><span class="na">WARNING</span><span class="p">;</span> <span class="c1">// This should be one of the log levels supported by PSR-3.</span>
+    <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -467,13 +474,14 @@
 
 <span class="k">class</span> <span class="nc">Logger</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
 <span class="p">{</span>
-    <span class="c1">// .. other properties</span>
-
-    <span class="k">public</span> <span class="nv">$threshold</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// originally 4 but changed to 5 to log the warnings from the deprecations</span>
+    <span class="c1">// ...</span>
+    <span class="c1">// This must contain the log level (5 for LogLevel::WARNING) corresponding to $deprecationLogLevel.</span>
+    <span class="k">public</span> <span class="nv">$threshold</span> <span class="o">=</span> <span class="p">(</span><span class="nx">ENVIRONMENT</span> <span class="o">===</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="mi">9</span><span class="p">;</span>
+    <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>之后，后续的弃用警告将会被记录而不是抛出。</p>
+<p>之后，后续的弃用警告将按照配置进行记录，而不会作为异常抛出。</p>
 <p>此功能也适用于用户弃用警告：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -484,11 +492,12 @@
 <p>对于测试你的应用程序，你可能希望总是抛出弃用警告。你可以通过将环境变量 <code class="docutils literal notranslate"><span class="pre">CODEIGNITER_SCREAM_DEPRECATIONS</span></code> 设置为真值来配置这一点。</p>
 </section>
 </section>
-<section id="id11">
-<h2><a class="toc-backref" href="#id24" role="doc-backlink">框架异常</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
+</section>
+<section id="id12">
+<h2><a class="toc-backref" href="#id25" role="doc-backlink">框架异常</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h2>
 <p>以下框架异常可用:</p>
 <section id="pagenotfoundexception">
-<h3><a class="toc-backref" href="#id25" role="doc-backlink">PageNotFoundException</a><a class="headerlink" href="#pagenotfoundexception" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">PageNotFoundException</a><a class="headerlink" href="#pagenotfoundexception" title="此标题的永久链接"></a></h3>
 <p>这用于表示 404，页面未找到错误：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -506,7 +515,7 @@
 <p>如果你在 <strong>app/Config/Routing.php</strong> 或 <strong>app/Config/Routes.php</strong> 中指定了 <a class="reference internal" href="../incoming/routing.html#override"><span class="std std-ref">404 重写</span></a>，那么将会调用这个覆盖页面，而不是标准的 404 页面。</p>
 </section>
 <section id="configexception">
-<h3><a class="toc-backref" href="#id26" role="doc-backlink">ConfigException</a><a class="headerlink" href="#configexception" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">ConfigException</a><a class="headerlink" href="#configexception" title="此标题的永久链接"></a></h3>
 <p>当配置类的值无效时,或者配置类不是正确的类型时,应使用此异常:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -516,7 +525,7 @@
 <p>这提供退出代码 3。</p>
 </section>
 <section id="databaseexception">
-<h3><a class="toc-backref" href="#id27" role="doc-backlink">DatabaseException</a><a class="headerlink" href="#databaseexception" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">DatabaseException</a><a class="headerlink" href="#databaseexception" title="此标题的永久链接"></a></h3>
 <p>此异常用于数据库错误,例如无法创建数据库连接或连接暂时丢失时:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -526,7 +535,7 @@
 <p>这提供退出代码 8。</p>
 </section>
 <section id="redirectexception">
-<h3><a class="toc-backref" href="#id28" role="doc-backlink">RedirectException</a><a class="headerlink" href="#redirectexception" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">RedirectException</a><a class="headerlink" href="#redirectexception" title="此标题的永久链接"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>自 v4.4.0 起，<code class="docutils literal notranslate"><span class="pre">RedirectException</span></code> 的命名空间已更改。之前是 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Router\Exceptions\RedirectException</span></code>。之前的类已被弃用。</p>
@@ -546,7 +555,7 @@
 <p>另外，自 v4.4.0 版本开始，可以将实现了 ResponseInterface 接口的类的对象用作第一个参数。这种解决方案适用于需要在响应中添加额外的头部或 Cookie 的情况。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="nv">$response</span> <span class="o">=</span> <span class="nx">\Config\Services</span><span class="o">::</span><span class="na">response</span><span class="p">()</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">redirect</span><span class="p">(</span><span class="s1">&#39;https://example.com/path&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setHeader</span><span class="p">(</span><span class="s1">&#39;Some&#39;</span><span class="p">,</span> <span class="s1">&#39;header&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setCookie</span><span class="p">(</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;cookie&#39;</span><span class="p">);</span>
@@ -557,7 +566,7 @@
 </section>
 </section>
 <section id="http">
-<span id="error-specify-http-status-code"></span><h2><a class="toc-backref" href="#id29" role="doc-backlink">在异常中指定 HTTP 状态码</a><a class="headerlink" href="#http" title="此标题的永久链接"></a></h2>
+<span id="error-specify-http-status-code"></span><h2><a class="toc-backref" href="#id30" role="doc-backlink">在异常中指定 HTTP 状态码</a><a class="headerlink" href="#http" title="此标题的永久链接"></a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
@@ -566,7 +575,7 @@
 <p>当 CodeIgniter 的异常处理程序捕获实现了 <code class="docutils literal notranslate"><span class="pre">HTTPExceptionInterface</span></code> 的异常时,异常代码将成为 HTTP 状态码。</p>
 </section>
 <section id="http-status-code-and-error-views">
-<span id="id12"></span><h2><a class="toc-backref" href="#id30" role="doc-backlink">HTTP 状态码和错误视图</a><a class="headerlink" href="#http-status-code-and-error-views" title="此标题的永久链接"></a></h2>
+<span id="id13"></span><h2><a class="toc-backref" href="#id31" role="doc-backlink">HTTP 状态码和错误视图</a><a class="headerlink" href="#http-status-code-and-error-views" title="此标题的永久链接"></a></h2>
 <p>异常处理程序会显示对应于 HTTP 状态码的错误视图（如果存在的话）。</p>
 <p>例如，<code class="docutils literal notranslate"><span class="pre">PageNotFoundException</span></code> 实现了 <code class="docutils literal notranslate"><span class="pre">HTTPExceptionInterface</span></code>，所以它的异常代码 <code class="docutils literal notranslate"><span class="pre">404</span></code> 将成为 HTTP 状态码。因此，如果它被抛出，系统将在处理网页请求时显示 <strong>app/Views/errors/html</strong> 文件夹中的 <strong>error_404.php</strong>。如果是通过 CLI 调用，系统将显示 <strong>app/Views/errors/cli</strong> 文件夹中的 <strong>error_404.php</strong>。</p>
 <p>如果没有与 HTTP 状态码对应的视图文件，那么将显示 <strong>production.php</strong> 或 <strong>error_exception.php</strong>。</p>
@@ -582,7 +591,7 @@
 </div>
 </section>
 <section id="error-specify-exit-code">
-<span id="id13"></span><h2><a class="toc-backref" href="#id31" role="doc-backlink">在你的异常中指定退出代码</a><a class="headerlink" href="#error-specify-exit-code" title="此标题的永久链接"></a></h2>
+<span id="id14"></span><h2><a class="toc-backref" href="#id32" role="doc-backlink">在你的异常中指定退出代码</a><a class="headerlink" href="#error-specify-exit-code" title="此标题的永久链接"></a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.3.0 版本加入.</span></p>
 </div>
@@ -590,13 +599,13 @@
 <p>当实现了 <code class="docutils literal notranslate"><span class="pre">HasExitCodeInterface</span></code> 的异常被 CodeIgniter 的异常处理程序捕获时，从 <code class="docutils literal notranslate"><span class="pre">getExitCode()</span></code> 方法返回的代码将成为退出代码。</p>
 </section>
 <section id="custom-exception-handlers">
-<span id="id14"></span><h2><a class="toc-backref" href="#id32" role="doc-backlink">自定义异常处理程序</a><a class="headerlink" href="#custom-exception-handlers" title="此标题的永久链接"></a></h2>
+<span id="id15"></span><h2><a class="toc-backref" href="#id33" role="doc-backlink">自定义异常处理程序</a><a class="headerlink" href="#custom-exception-handlers" title="此标题的永久链接"></a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
 </div>
 <p>如果你需要更多地控制异常的显示方式，现在可以定义自己的处理程序并指定它们适用的情况。</p>
-<section id="id15">
-<h3><a class="toc-backref" href="#id33" role="doc-backlink">定义新的处理程序</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h3>
+<section id="id16">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">定义新的处理程序</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h3>
 <p>第一步是创建一个新的类，该类实现了 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Debug\ExceptionHandlerInterface</span></code> 接口。你还可以扩展 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Debug\BaseExceptionHandler</span></code> 类。该类包含了许多在默认异常处理程序中使用的实用方法。新的处理程序必须实现一个方法：<code class="docutils literal notranslate"><span class="pre">handle()</span></code>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -629,8 +638,8 @@
 </div>
 <p>这个示例定义了通常需要的最少代码 - 显示一个视图并使用适当的退出代码退出。然而，<code class="docutils literal notranslate"><span class="pre">BaseExceptionHandler</span></code> 提供了许多其他的辅助函数和对象。</p>
 </section>
-<section id="id16">
-<h3><a class="toc-backref" href="#id34" role="doc-backlink">配置新的处理程序</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h3>
+<section id="id17">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">配置新的处理程序</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h3>
 <p>告诉 CodeIgniter 使用你的新异常处理程序类是在 <strong>app/Config/Exceptions.php</strong> 配置文件的 <code class="docutils literal notranslate"><span class="pre">handler()</span></code> 方法中完成的：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -697,7 +706,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-05-30.
+      <span class="lastupdated">最后更新于 2024-07-10.
       </span></p>
   </div>
 
@@ -705,7 +714,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fe953896490>
+<jinja2.runtime.BlockReference object at 0x7fde91ba67d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

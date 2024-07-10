@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>时间和日期 &mdash; CodeIgniter 4.5.1 中文手册|用户手册|用户指南|中文文档</title>
+  <title>时间和日期 &mdash; CodeIgniter 4.5.3 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/goals.html">设计与架构目标</a></li>
 </ul>
 </li>
 </ul>
@@ -128,9 +129,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
@@ -168,7 +169,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">使用数据库 Forge 维护数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">数据库 Forge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
@@ -288,7 +289,7 @@
              
   <section id="id1">
 <h1>时间和日期<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
-<p>CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类,该类基于 PHP 的 DateTimeImmutable 对象构建,但使用 Intl 扩展的功能在时区之间转换时间并针对不同的语言环境正确显示输出。这个类是 <code class="docutils literal notranslate"><span class="pre">Time</span></code> 类,位于 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\I18n</span></code> 命名空间中。</p>
+<p>CodeIgniter 提供了一个完全本地化的、不可变的日期/时间类，它基于 PHP 的 DateTimeImmutable 类构建，但使用 Intl 扩展的功能来转换不同时区的时间，并正确显示不同区域的输出。这个类是 <code class="docutils literal notranslate"><span class="pre">Time</span></code> 类，位于 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\I18n</span></code> 命名空间中。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>由于 Time 类扩展了 <code class="docutils literal notranslate"><span class="pre">DateTimeImmutable</span></code>，如果你需要的功能该类没有提供，你很可能可以在 <a class="reference external" href="https://www.php.net/manual/zh/class.datetimeimmutable.php">DateTimeImmutable</a> 类中找到它们。</p>
@@ -350,7 +351,7 @@
 <span class="nv">$myTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Time</span><span class="p">(</span><span class="s1">&#39;+3 week&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>你可以在第二个和第三个参数中分别传递表示时区和语言环境的字符串。时区可以是 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/timezones.php">DateTimeZone</a> 类支持的任何时区。语言环境可以是 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/class.locale.php">Locale</a> 类支持的任何语言环境。如果没有提供语言环境或时区,将使用应用程序默认值。</p>
+<p>你可以分别在第二个和第三个参数中传入表示时区和语言环境的字符串。时区可以是 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/timezones.php">DateTimeZone</a> 类支持的任何一个。语言环境可以是 PHP 的 <a class="reference external" href="https://www.php.net/manual/en/class.locale.php">Locale</a> 类支持的任何一个。如果没有提供语言环境或时区，将使用应用程序的默认值。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
@@ -360,7 +361,7 @@
 </div>
 <section id="now">
 <h3><a class="toc-backref" href="#id14" role="doc-backlink">now()</a><a class="headerlink" href="#now" title="此标题的永久链接"></a></h3>
-<p>Time 类有几个帮助方法来实例化该类。第一个是 <code class="docutils literal notranslate"><span class="pre">now()</span></code> 方法,它返回一个设置为当前时间的新实例。你可以在第二个和第三个参数中分别传递表示时区和语言环境的字符串。如果没有提供语言环境或时区,将使用应用程序默认值。</p>
+<p>Time 类有几个辅助方法来实例化这个类。第一个是 <code class="docutils literal notranslate"><span class="pre">now()</span></code> 方法，它返回一个设置为当前时间的新实例。你可以在第二个和第三个参数中分别传入表示时区和语言环境的字符串。如果没有提供语言环境或时区，将使用应用程序的默认值。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
@@ -415,7 +416,7 @@
 </section>
 <section id="createfromdate">
 <h3><a class="toc-backref" href="#id19" role="doc-backlink">createFromDate()</a><a class="headerlink" href="#createfromdate" title="此标题的永久链接"></a></h3>
-<p>给定独立的 <strong>year</strong>、<strong>month</strong> 和 <strong>day</strong> 输入,将返回一个新的实例。如果这些参数中的任何一个未提供,它将使用当前值来填充它。在第四个和第五个参数中接受时区和语言环境的字符串:</p>
+<p>给定 <strong>年</strong>、<strong>月</strong> 和 <strong>日</strong> 的单独输入，将返回一个新的实例。如果这些参数中的任何一个没有提供，它将使用当前的年、月和日。在第四个和第五个参数中接受时区和语言环境的字符串：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
@@ -428,7 +429,7 @@
 </section>
 <section id="createfromtime">
 <h3><a class="toc-backref" href="#id20" role="doc-backlink">createFromTime()</a><a class="headerlink" href="#createfromtime" title="此标题的永久链接"></a></h3>
-<p>类似于 <code class="docutils literal notranslate"><span class="pre">createFromDate()</span></code>,只关心 <strong>hours</strong>、<strong>minutes</strong> 和 <strong>seconds</strong>。使用当前日期作为 Time 实例的日期部分。在第四个和第五个参数中接受时区和语言环境的字符串:</p>
+<p>类似于 <code class="docutils literal notranslate"><span class="pre">createFromDate()</span></code>，只关心 <strong>hours</strong>、<strong>minutes</strong> 和 <strong>seconds</strong>。使用当前日期作为 Time 实例的日期部分。在第四个和第五个参数中接受时区和语言环境的字符串:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
@@ -441,7 +442,7 @@
 </section>
 <section id="create">
 <h3><a class="toc-backref" href="#id21" role="doc-backlink">create()</a><a class="headerlink" href="#create" title="此标题的永久链接"></a></h3>
-<p>前两个方法的组合,以 <strong>year</strong>、<strong>month</strong>、<strong>day</strong>、<strong>hour</strong>、<strong>minutes</strong> 和 <strong>seconds</strong> 作为单独的参数。未提供的值将使用当前日期和时间来确定。在第四个和第五个参数中接受时区和语言环境的字符串:</p>
+<p>结合前两种方法，接受 <strong>年</strong>、<strong>月</strong>、<strong>日</strong>、<strong>小时</strong>、<strong>分钟</strong> 和 <strong>秒</strong> 作为单独的参数。任何未提供的值将使用当前的日期和时间。在第四个和第五个参数中接受时区和语言环境的字符串：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
@@ -595,25 +596,25 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>$time &gt; 1年 且 &lt; 2年</p></td>
+<tr class="row-even"><td><p>1 年 &lt; $time &lt; 2 年</p></td>
 <td><p>in 1 year / 1 year ago</p></td>
 </tr>
-<tr class="row-odd"><td><p>$time &gt; 1月 且 &lt; 1年</p></td>
+<tr class="row-odd"><td><p>1 个月 &lt; $time &lt; 1 年</p></td>
 <td><p>in 6 months / 6 months ago</p></td>
 </tr>
-<tr class="row-even"><td><p>$time &gt; 7天 且 &lt; 1月</p></td>
+<tr class="row-even"><td><p>7 天 &lt; $time &lt; 1 个月</p></td>
 <td><p>in 3 weeks / 3 weeks ago</p></td>
 </tr>
-<tr class="row-odd"><td><p>$time &gt; 今天 且 &lt; 7天</p></td>
+<tr class="row-odd"><td><p>今天 &lt; $time &lt; 7 天</p></td>
 <td><p>in 4 days / 4 days ago</p></td>
 </tr>
-<tr class="row-even"><td><p>$time == 明天/昨天</p></td>
+<tr class="row-even"><td><p>$time == 昨天 / 明天</p></td>
 <td><p>Tomorrow / Yesterday</p></td>
 </tr>
-<tr class="row-odd"><td><p>$time &gt; 59分钟 且 &lt; 1天</p></td>
+<tr class="row-odd"><td><p>59 分钟 &lt; $time &lt; 1 天</p></td>
 <td><p>in 2 hours / 2 hours ago</p></td>
 </tr>
-<tr class="row-even"><td><p>$time &gt; 现在 且 &lt; 1小时</p></td>
+<tr class="row-even"><td><p>现在 &lt; $time &lt; 1 小时</p></td>
 <td><p>in 35 minutes / 35 minutes ago</p></td>
 </tr>
 <tr class="row-odd"><td><p>$time == 现在</p></td>
@@ -621,7 +622,7 @@
 </tr>
 </tbody>
 </table>
-<p>确切使用的语言通过语言文件 <strong>Time.php</strong> 控制。</p>
+<p>结果字符串来自语言文件，<strong>system/Language/en/Time.php</strong>。如果你想要覆盖它们，请创建 <strong>app/Language/{locale}/Time.php</strong>。</p>
 </section>
 </section>
 <section id="id6">
@@ -678,7 +679,7 @@
 </div>
 <section id="getage">
 <h4>getAge()<a class="headerlink" href="#getage" title="此标题的永久链接"></a></h4>
-<p>根据出生日期返回 Time 实例与当前时间之间的年龄。非常适合根据生日检查某人的年龄:</p>
+<p>返回 Time 实例与当前时间之间的年龄，以年为单位。非常适合根据某人的生日来检查年龄：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\I18n\Time</span><span class="p">;</span>
@@ -998,30 +999,31 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>$time &gt; 1年 且 &lt; 2年</p></td>
+<tr class="row-even"><td><p>1 年 &lt; $time &lt; 2 年</p></td>
 <td><p>in 1 year / 1 year ago</p></td>
 </tr>
-<tr class="row-odd"><td><p>$time &gt; 1月 且 &lt; 1年</p></td>
+<tr class="row-odd"><td><p>1 个月 &lt; $time &lt; 1 年</p></td>
 <td><p>in 6 months / 6 months ago</p></td>
 </tr>
-<tr class="row-even"><td><p>$time &gt; 7天 且 &lt; 1月</p></td>
+<tr class="row-even"><td><p>7 天 &lt; $time &lt; 1 个月</p></td>
 <td><p>in 3 weeks / 3 weeks ago</p></td>
 </tr>
-<tr class="row-odd"><td><p>$time &gt; 今天 且 &lt; 7天</p></td>
+<tr class="row-odd"><td><p>今天 &lt; $time &lt; 7 天</p></td>
 <td><p>in 4 days / 4 days ago</p></td>
 </tr>
-<tr class="row-even"><td><p>$time &gt; 1小时 且 &lt; 1天</p></td>
+<tr class="row-even"><td><p>1 小时 &lt; $time &lt; 1 天</p></td>
 <td><p>in 8 hours / 8 hours ago</p></td>
 </tr>
-<tr class="row-odd"><td><p>$time &gt; 1分钟 且 &lt; 1小时</p></td>
+<tr class="row-odd"><td><p>1 分钟 &lt; $time &lt; 1 小时</p></td>
 <td><p>in 35 minutes / 35 minutes ago</p></td>
 </tr>
-<tr class="row-even"><td><p>$time &lt; 1分钟</p></td>
+<tr class="row-even"><td><p>$time &lt; 1 分钟</p></td>
 <td><p>Now</p></td>
 </tr>
 </tbody>
 </table>
-<p>确切使用的语言通过语言文件 <strong>Time.php</strong> 控制。</p>
+<p>结果字符串来自语言文件，<strong>system/Language/en/Time.php</strong>。
+如果你想要覆盖它们，请创建 <strong>app/Language/{locale}/Time.php</strong>。</p>
 </section>
 </section>
 </section>
@@ -1039,7 +1041,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-05-30.
+      <span class="lastupdated">最后更新于 2024-07-10.
       </span></p>
   </div>
 
@@ -1047,7 +1049,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fe952ed6850>
+<jinja2.runtime.BlockReference object at 0x7fde90cf2a10>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
