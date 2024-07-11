@@ -54,3 +54,7 @@ https://bcit-ci.github.io/CodeIgniter4/contributing/signing.html
 4. PHP 语法相关的英文，比如类名，一律不翻译，例如 `Request 类`，不要翻译成`请求类`。
 
 （未完待续，欢迎补充）
+
+## rst 格式说明
+
+1. ``符号与全角左括号“（”之间要保留一个空格
