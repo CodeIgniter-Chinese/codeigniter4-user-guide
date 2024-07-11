@@ -4,7 +4,7 @@
 验证
 ##########
 
-CodeIgniter 提供了一个全面的数据验证类,可以帮助 minimizing 你编写的代码量。
+CodeIgniter 提供了一个全面的数据验证类，帮助你减少编写代码的数量。
 
 .. contents::
     :local:
