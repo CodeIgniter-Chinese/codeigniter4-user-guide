@@ -89,7 +89,7 @@ trace()
 
 .. note:: 当你的 ``baseURL`` 设置(在 **app/Config/App.php** 或 ``app.baseURL`` 在 **.env** 中)与实际 URL 不匹配时,不会显示调试工具栏。
 
-工具栏本身显示为一个 :doc:`后置过滤器 </incoming/filters>`。你可以通过从 **app/Config/Filters.php** 文件的 ``$required``（或 ``$globals``）属性中移除 ``'toolbar'`` 来阻止它运行。
+工具栏本身显示为一个 :doc:`后置过滤器 </incoming/filters>`。你可以通过从 **app/Config/Filters.php** 文件的 ``$required`` （或 ``$globals``）属性中移除 ``'toolbar'`` 来阻止它运行。
 
 .. note:: 在 v4.5.0 之前，工具栏默认设置为 ``$globals``。
 

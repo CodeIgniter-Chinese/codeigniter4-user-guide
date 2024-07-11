@@ -14,7 +14,7 @@ Composer 可以通过两种方式在你的系统上安装 CodeIgniter4。
 
 第一个方法描述了如何使用 CodeIgniter4 创建一个项目骨架（App Starter），你可以将其作为新 Web 应用的基础。下面描述的第二个方法允许你将 CodeIgniter4 添加到已有的 Web 应用中。
 
-.. note:: 如果你使用 Git 仓库来存储代码或与他人协作，那么 **vendor** 文件夹通常会被 “git 忽略”。在这种情况下，当你将仓库克隆到一个新系统时，你需要执行 ``composer install``（如果你想更新所有 Composer 依赖项，则执行 ``composer update``）。
+.. note:: 如果你使用 Git 仓库来存储代码或与他人协作，那么 **vendor** 文件夹通常会被 “git 忽略”。在这种情况下，当你将仓库克隆到一个新系统时，你需要执行 ``composer install`` （如果你想更新所有 Composer 依赖项，则执行 ``composer update``）。
 
 App Starter
 ===========

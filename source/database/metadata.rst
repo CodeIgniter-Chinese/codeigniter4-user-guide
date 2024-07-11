@@ -93,7 +93,7 @@ $db->getFieldData()
 - ``max_length`` - 列的最大长度
 - ``nullable`` - 如果列允许为空，则为布尔值 ``true`` ，否则为布尔值 ``false``
 - ``default`` - 默认值
-- ``primary_key`` - 如果列是主键，则为整数 ``1``（即使有多个主键，所有主键值都是整数 ``1``），否则为整数 ``0``（此字段目前仅对 ``MySQLi`` 和 ``SQLite3`` 可用）
+- ``primary_key`` - 如果列是主键，则为整数 ``1`` （即使有多个主键，所有主键值都是整数 ``1``），否则为整数 ``0`` （此字段目前仅对 ``MySQLi`` 和 ``SQLite3`` 可用）
 
 .. note:: 自 v4.4.0 起，SQLSRV 支持 ``nullable``。
 

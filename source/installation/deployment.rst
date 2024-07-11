@@ -82,7 +82,7 @@ PHP 预加载
 配置
 -------------
 
-打开 ``php.ini`` 或 ``xx-opcache.ini``（如果你将 INI 配置分离开来），建议设置 ``opcache.preload=/path/to/preload.php`` 和 ``opcache.preload_user=myuser``。
+打开 ``php.ini`` 或 ``xx-opcache.ini`` （如果你将 INI 配置分离开来），建议设置 ``opcache.preload=/path/to/preload.php`` 和 ``opcache.preload_user=myuser``。
 
 .. note:: ``myuser`` 是在你的 Web 服务器中运行的用户。如果你想找到分离的 INI 配置的位置，只需运行 ``php --ini`` 或打开 ``phpinfo()`` 文件并搜索 *Additional .ini files parsed*。
 
