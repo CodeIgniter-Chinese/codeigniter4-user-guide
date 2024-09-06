@@ -206,6 +206,8 @@ $builder->fromSubquery()
 Join
 ====
 
+.. _query-builder-join:
+
 $builder->join()
 ----------------
 
@@ -226,7 +228,7 @@ RawSql
 
 .. versionadded:: 4.2.0
 
-从 v4.2.0 开始, ``$builder->join()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例,它表示原始 SQL 字符串。
+自 v4.2.0 起，``$builder->join()`` 接受一个 ``CodeIgniter\Database\RawSql`` 实例作为 JOIN ON 条件，该实例用于表示原始 SQL 字符串。
 
 .. literalinclude:: query_builder/102.php
 
@@ -1329,13 +1331,13 @@ $builder->resetQuery()
     .. php:method:: join($table, $cond[, $type = ''[, $escape = null]])
 
         :param string $table: 要连接的表名
-        :param string $cond: JOIN ON 条件
+        :param string|RawSql $cond: JOIN ON 条件
         :param string $type: JOIN 类型
         :param bool    $escape: 是否转义值和标识符
         :returns:   ``BaseBuilder`` 实例(方法链)
         :rtype:     ``BaseBuilder``
 
-        向查询添加 ``JOIN`` 子句。
+        向查询添加 ``JOIN`` 子句。自 v4.2.0 起，``RawSql`` 可以用作 JOIN ON 条件。另见 :ref:`query-builder-join`。
 
     .. php:method:: where($key[, $value = null[, $escape = null]])
 

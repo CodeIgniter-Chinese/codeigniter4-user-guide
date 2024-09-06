@@ -261,6 +261,8 @@ CodeIgniter 期望 **.env** 文件与 **app** 目录一起位于项目的根目�
 
 如果在 :doc:`模块 </general/modules>` 中启用了 :ref:`auto-discovery`，则注册器可以在命名空间和文件之间在运行时更改配置属性。
 
+.. note:: 此功能在 ``CodeIgniter\Config\BaseConfig`` 类中实现。因此，它不适用于 **app/Config** 文件夹中未继承该类的某些文件。
+
 有两种实现注册器的方法: **隐式** 和 **显式**。
 
 .. note:: 来自 **.env** 的值始终优先于注册器。
