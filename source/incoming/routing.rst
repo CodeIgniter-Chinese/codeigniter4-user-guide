@@ -248,7 +248,7 @@ HTTP 动词路由
 .. note:: 自 v4.5.0 起，你可以通过配置选项更改此行为。
     详情请参见 :ref:`multiple-uri-segments-as-one-parameter`。
 
-对于那些不了解正则表达式并希望学习更多知识的人,`regular-expressions.info <https://www.regular-expressions.info/>`_ 可能是一个不错的起点。
+对于那些不了解正则表达式并希望学习更多知识的人, `regular-expressions.info <https://www.regular-expressions.info/>`_ 可能是一个不错的起点。
 
 .. note:: 你也可以将占位符与正则表达式结合使用。
 
