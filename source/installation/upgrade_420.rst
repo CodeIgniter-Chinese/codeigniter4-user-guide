@@ -42,6 +42,8 @@ Config/Constants.php
 composer.json
 =============
 
+.. note:: 此步骤在 v4.5.0 或更高版本中不再需要。
+
 如果你使用 Composer,在安装 CodeIgniter v4.1.9 或更早版本时,如果 ``/composer.json`` 的 ``autoload.psr-4`` 中存在类似下面的 ``App\\`` 和 ``Config\\`` 命名空间,你需要删除这些行并运行 ``composer dump-autoload``。
 
 .. code-block:: text

@@ -80,39 +80,40 @@ SMTP 协议的 SSL 与 TLS
 电子邮件首选项
 =================
 
-以下是可以在发送电子邮件时设置的所有首选项列表。
+以下是发送电子邮件时可以设置的所有首选项列表。
 
 =================== =================== ============================ =======================================================================
 首选项              默认值               选项                        描述
 =================== =================== ============================ =======================================================================
-**userAgent**       CodeIgniter         无                           "用户代理"。
-**protocol**        mail                ``mail``, ``sendmail``,      邮件发送协议。
+**fromEmail**                                                        在 "from" 标头中设置的电子邮件地址。
+**fromName**                                                         在 "from" 标头中设置的名称。
+**userAgent**       CodeIgniter                                      "user agent"。
+**protocol**        mail                ``mail``，``sendmail``，     邮件发送协议。
                                         或 ``smtp``
-**mailPath**        /usr/sbin/sendmail  无                           到 Sendmail 的服务器路径。
-**SMTPHost**        无默认值            无                           SMTP 服务器主机名。
-**SMTPUser**        无默认值            无                           SMTP 用户名。
-**SMTPPass**        无默认值            无                           SMTP 密码。
-**SMTPPort**        25                  无                           SMTP 端口。（如果设置为 ``465``，无论 ``SMTPCrypto`` 设置如何，
-                                                                     都将使用 TLS 连接。）
-**SMTPTimeout**     5                   无                           SMTP 超时时间（以秒为单位）。
-**SMTPKeepAlive**   false               ``true``/``false`` (布尔值)  启用持久化的 SMTP 连接。
-**SMTPCrypto**      tls                 ``tls``, ``ssl``, 或         SMTP 加密。将此设置为 ``ssl`` 将使用 SSL 创建一个安全
-                                        空字符串 (``''``)            通道到服务器，``tls`` 将向服务器发出
-                                                                     ``STARTTLS`` 命令。在端口 ``465`` 的连接应
-                                                                     将此设置为空字符串 (``''``)。请参见
-                                                                     :ref:`email-ssl-tls-for-smtp`。
-**wordWrap**        true                ``true``/``false`` (布尔值)  启用自动换行。
-**wrapChars**       76                                               换行字符数。
-**mailType**        text                ``text`` 或 ``html``         邮件类型。如果你发送 HTML 邮件，你必须将其作为一个完整的网页发送。
-                                                                     确保你没有任何相对链接或相对图像路径，否则它们将无法工作。
-**charset**         utf-8                                            字符集（``utf-8``, ``iso-8859-1``, 等等）。
-**validate**        true                ``true``/``false`` (布尔值)  是否验证电子邮件地址。
+**mailPath**        /usr/sbin/sendmail                               Sendmail 的服务器路径。
+**SMTPHost**                                                         SMTP 服务器主机名。
+**SMTPUser**                                                         SMTP 用户名。
+**SMTPPass**                                                         SMTP 密码。
+**SMTPPort**        25                                               SMTP 端口。（如果设置为 ``465``，则无论 ``SMTPCrypto`` 设置如何，
+                                                                     都会使用 TLS 进行连接。）
+**SMTPTimeout**     5                                                SMTP 超时时间（以秒为单位）。
+**SMTPKeepAlive**   false               ``true``/``false``           启用持久的 SMTP 连接。
+**SMTPCrypto**      tls                 ``tls``，``ssl``，或         SMTP 加密。将此设置为 ``ssl`` 将使用 SSL 创建到服务器的安全通道，
+                                                                     而 ``tls`` 将向服务器发出
+                                        空字符串（``''``）           ``STARTTLS`` 命令。在端口 ``465`` 上连接应将此设置为空字符串 (``''``)。
+                                                                     另请参见 :ref:`email-ssl-tls-for-smtp`。
+**wordWrap**        true                ``true``/``false``           启用自动换行。
+**wrapChars**       76                                               换行的字符数。
+**mailType**        text                ``text`` 或 ``html``         邮件类型。如果发送 HTML 邮件，必须将其作为完整的网页发送。
+                                                                     确保没有任何相对链接或相对图像路径，否则它们将无法工作。
+**charset**         UTF-8                                            字符集 (``utf-8``，``iso-8859-1`` 等)。
+**validate**        true                ``true``/``false``           是否验证电子邮件地址。
 **priority**        3                   1, 2, 3, 4, 5                邮件优先级。``1`` = 最高。``5`` = 最低。``3`` = 正常。
-**CRLF**            \\n                 ``\r\n`` 或 ``\n`` 或 ``\r`` 换行字符。（使用 ``\r\n`` 以符合 RFC 822）。
-**newline**         \\n                 ``\r\n`` 或 ``\n`` 或 ``\r`` 换行字符。（使用 ``\r\n`` 以符合 RFC 822）。
-**BCCBatchMode**    false               ``true``/``false`` (布尔值)  启用 BCC 批处理模式。
-**BCCBatchSize**    200                 无                           每个 BCC 批次的电子邮件数量。
-**DSN**             false               ``true``/``false`` (布尔值)  启用来自服务器的通知消息。
+**CRLF**            \\r\\n              ``\r\n``，``\n`` 或 ``\r``   换行符。（使用 ``\r\n`` 以符合 RFC 822）。
+**newline**         \\r\\n              ``\r\n``，``\n`` 或 ``\r``   换行符。（使用 ``\r\n`` 以符合 RFC 822）。
+**BCCBatchMode**    false               ``true``/``false``           启用 BCC 批处理模式。
+**BCCBatchSize**    200                                              每个 BCC 批次中的电子邮件数量。
+**DSN**             false               ``true``/``false``           启用来自服务器的通知消息。
 =================== =================== ============================ =======================================================================
 
 覆盖文字换行
@@ -139,40 +140,40 @@ CodeIgniter 允许你在消息的一部分手动覆盖文字换行,如下所示:
 
     .. php:method:: setFrom($from[, $name = ''[, $returnPath = null]])
 
-        :param    string    $from: “From” 电子邮件地址
-        :param    string    $name: “From” 显示名称
-        :param    string    $returnPath: 可选的电子邮件地址,用于重定向未送达的电子邮件
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :param    string    $from: "From" 电子邮件地址
+        :param    string    $name: "From" 显示名称
+        :param    string    $returnPath: 可选的电子邮件地址，用于重定向未送达的邮件
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        设置发送电子邮件的电子邮件地址和名称:
+        设置发送电子邮件的人的电子邮件地址和名称：
 
         .. literalinclude:: email/003.php
 
-        你还可以设置 Return-Path 来帮助重定向未送达的邮件:
+        你还可以设置 Return-Path，以帮助重定向未送达的邮件：
 
         .. literalinclude:: email/004.php
 
-        .. note:: 如果你已将协议配置为 'smtp',则无法使用 Return-Path。
+        .. note:: 如果你将协议配置为 'smtp'，则不能使用 Return-Path。
 
     .. php:method:: setReplyTo($replyto[, $name = ''])
 
-        :param    string    $replyto: 回复电子邮件地址
+        :param    string    $replyto: 回复的电子邮件地址
         :param    string    $name: 回复电子邮件地址的显示名称
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        设置回复地址。如果没有提供信息,将使用 `setFrom <#setFrom>`_ 方法中的信息。例如:
+        设置回复地址。如果未提供信息，则使用 `setFrom <#setFrom>`_ 方法中的信息。示例：
 
         .. literalinclude:: email/005.php
 
     .. php:method:: setTo($to)
 
-        :param    mixed    $to: 逗号分隔的电子邮件地址字符串或电子邮件地址数组
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :param    mixed    $to: 逗号分隔的字符串或电子邮件地址数组
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        设置收件人的电子邮件地址。可以是单个电子邮件,用逗号分隔的列表或数组:
+        设置收件人的电子邮件地址。可以是单个电子邮件、逗号分隔的列表或数组：
 
         .. literalinclude:: email/006.php
 
@@ -182,138 +183,138 @@ CodeIgniter 允许你在消息的一部分手动覆盖文字换行,如下所示:
 
     .. php:method:: setCC($cc)
 
-        :param    mixed    $cc: 逗号分隔的电子邮件地址字符串或电子邮件地址数组
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :param    mixed    $cc: 逗号分隔的字符串或电子邮件地址数组
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        设置抄送电子邮件地址。就像“to”,可以是单个电子邮件、用逗号分隔的列表或数组。
+        设置 CC 电子邮件地址。就像 "to" 一样，可以是单个电子邮件、逗号分隔的列表或数组。
 
     .. php:method:: setBCC($bcc[, $limit = ''])
 
-        :param    mixed    $bcc: 逗号分隔的电子邮件地址字符串或电子邮件地址数组
-        :param    int    $limit: 每批发送的最大电子邮件数
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :param    mixed    $bcc: 逗号分隔的字符串或电子邮件地址数组
+        :param    int    $limit: 每批发送的最大电子邮件数量
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        设置密送电子邮件地址。就像 ``setTo()`` 方法一样,可以是单个电子邮件、用逗号分隔的列表或数组。
+        设置 BCC 电子邮件地址。就像 ``setTo()`` 方法一样，可以是单个电子邮件、逗号分隔的列表或数组。
 
-        如果设置了 ``$limit``,将启用“批量模式”,它将以不超过指定的 ``$limit`` 为一批发送电子邮件。
+        如果设置了 ``$limit``，将启用“批处理模式”，这将按批次发送电子邮件，每批次不超过指定的 ``$limit``。
 
     .. php:method:: setSubject($subject)
 
         :param    string    $subject: 电子邮件主题
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        设置电子邮件主题:
+        设置电子邮件主题：
 
         .. literalinclude:: email/009.php
 
     .. php:method:: setMessage($body)
 
-        :param    string    $body: 电子邮件消息体
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :param    string    $body: 电子邮件正文
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        设置电子邮件消息体:
+        设置电子邮件正文：
 
         .. literalinclude:: email/010.php
 
     .. php:method:: setAltMessage($str)
 
-        :param    string    $str: 备用电子邮件消息体
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :param    string    $str: 替代电子邮件正文
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        设置备用电子邮件消息体:
+        设置替代电子邮件正文：
 
         .. literalinclude:: email/011.php
 
-        如果你发送 HTML 格式的电子邮件,这是一个可选的消息字符串,可以使用它。它允许你指定一个不含 HTML 格式的备用消息,该消息将添加到头字符串中,供不接受 HTML 电子邮件的人使用。如果你没有设置自己的消息,CodeIgniter 将从你的 HTML 电子邮件中提取消息并剥离标签。
+        这是一个可选的消息字符串，可以在你发送 HTML 格式的电子邮件时使用。它允许你指定一个没有 HTML 格式的替代消息，该消息将添加到头字符串中，以便那些不接受 HTML 电子邮件的人使用。如果你没有设置自己的消息，CodeIgniter 将从你的 HTML 电子邮件中提取消息并去除标签。
 
     .. php:method:: setHeader($header, $value)
 
-        :param    string    $header: 标题名称
-        :param    string    $value: 标题值
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :param    string    $header: 头名称
+        :param    string    $value: 头值
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype: CodeIgniter\\Email\\Email
 
-        追加其他标题到电子邮件:
+        向电子邮件添加附加头：
 
         .. literalinclude:: email/012.php
 
     .. php:method:: clear($clearAttachments = false)
 
         :param    bool    $clearAttachments: 是否清除附件
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
-        :rtype: CodeIgniter\\Email\\Email
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
+        :rtype:    CodeIgniter\\Email\\Email
 
-        将所有电子邮件变量初始化为空状态。如果你在循环中运行电子邮件发送方法,这种方法很有用,它允许在循环之间重置数据。
+        将所有电子邮件变量初始化为空状态。此方法旨在用于在循环中运行电子邮件发送方法，允许在循环之间重置数据。
 
         .. literalinclude:: email/013.php
 
-        如果你将参数设置为 true,任何附件也将被清除:
+        如果将参数设置为 true，任何附件也将被清除：
 
         .. literalinclude:: email/014.php
 
     .. php:method:: send($autoClear = true)
 
         :param    bool    $autoClear: 是否自动清除消息数据
-        :returns:    成功为 true,失败为 false
+        :returns:    成功时返回 true，失败时返回 false
         :rtype:    bool
 
-        电子邮件发送方法。根据成功或失败返回布尔值 true 或 false,使其可用于条件语句:
+        电子邮件发送方法。根据成功或失败返回布尔值 true 或 false，使其可以有条件地使用：
 
         .. literalinclude:: email/015.php
 
-        如果请求成功,此方法将自动清除所有参数。要停止此行为,请传递 false:
+        如果请求成功，此方法将自动清除所有参数。要停止此行为，请传递 false：
 
         .. literalinclude:: email/016.php
 
-        .. note:: 为了使用 ``printDebugger()`` 方法,你需要避免清除电子邮件参数。
+        .. note:: 为了使用 ``printDebugger()`` 方法，你需要避免清除电子邮件参数。
 
-        .. note:: 如果启用了 ``BCCBatchMode``,收件人多于 ``BCCBatchSize``,此方法将始终返回布尔值 ``true``。
+        .. note:: 如果启用了 ``BCCBatchMode``，并且收件人超过 ``BCCBatchSize``，此方法将始终返回布尔值 ``true``。
 
     .. php:method:: attach($filename[, $disposition = ''[, $newname = null[, $mime = '']]])
 
         :param    string    $filename: 文件名
-        :param    string    $disposition: 附件的 'disposition'。大多数电子邮件客户端会忽略这里使用的 MIME 规范并自行决定。https://www.iana.org/assignments/cont-disp/cont-disp.xhtml
-        :param    string    $newname: 要在电子邮件中使用的自定义文件名
-        :param    string    $mime: 要使用的 MIME 类型(对缓冲数据有用)
-        :returns:    CodeIgniter\\Email\\Email 实例(方法链式调用)
+        :param    string    $disposition: 附件的 'disposition'。大多数电子邮件客户端会根据此处使用的 MIME 规范自行决定。https://www.iana.org/assignments/cont-disp/cont-disp.xhtml
+        :param    string    $newname: 在电子邮件中使用的自定义文件名
+        :param    string    $mime: 要使用的 MIME 类型（对缓冲数据有用）
+        :returns:    CodeIgniter\\Email\\Email 实例（方法链）
         :rtype:    CodeIgniter\\Email\\Email
 
-        启用你发送一个附件。在第一个参数中放置文件路径/名称。对于多个附件,多次使用该方法。例如:
+        允许你发送附件。将文件路径/名称放在第一个参数中。对于多个附件，请多次使用该方法。例如：
 
         .. literalinclude:: email/017.php
 
-        要使用默认 disposition(attachment),请将第二个参数留空,否则使用自定义 disposition:
+        要使用默认的 disposition（附件），请将第二个参数留空，否则使用自定义 disposition：
 
         .. literalinclude:: email/018.php
 
-        你也可以使用 URL:
+        你还可以使用 URL：
 
         .. literalinclude:: email/019.php
 
-        如果你想使用自定义文件名,可以使用第三个参数:
+        如果你想使用自定义文件名，可以使用第三个参数：
 
         .. literalinclude:: email/020.php
 
-        如果你需要使用缓冲字符串而不是真实的物理文件,可以使用第一个参数作为缓冲区,第三个参数作为文件名,第四个参数为 MIME 类型:
+        如果你需要使用缓冲字符串而不是实际的物理文件，可以将第一个参数用作缓冲区，第三个参数用作文件名，第四个参数用作 MIME 类型：
 
         .. literalinclude:: email/021.php
 
     .. php:method:: setAttachmentCID($filename)
 
         :param    string    $filename: 已存在的附件文件名
-        :returns:    附件内容 ID,如果未找到则为 false
+        :returns:    附件内容 ID 或未找到时返回 false
         :rtype:    string
 
-        设置并返回附件的内容 ID,这使你可以将内嵌(图片)附件嵌入 HTML 中。第一个参数必须已附加的文件名。
+        设置并返回附件的内容 ID，这使你能够将内嵌（图片）附件嵌入 HTML 中。第一个参数必须是已附加的文件名。
 
         .. literalinclude:: email/022.php
 
-        .. note:: 为了使内容 ID 在每封电子邮件中都是唯一的,必须对其进行重新创建。
+        .. note:: 每封电子邮件的内容 ID 必须重新创建以确保其唯一性。
 
     .. php:method:: printDebugger($include = ['headers', 'subject', 'body'])
 
@@ -321,12 +322,12 @@ CodeIgniter 允许你在消息的一部分手动覆盖文字换行,如下所示:
         :returns:    格式化的调试数据
         :rtype:    string
 
-        返回包含任何服务器消息、电子邮件标头和电子邮件消息的字符串。用于调试。
+        返回包含任何服务器消息、电子邮件头和电子邮件消息的字符串。对调试很有用。
 
-        你可以选择只打印指定的消息部分。有效选项为:**headers**、**subject**、**body**。
+        你可以选择性地指定应打印消息的哪些部分。有效选项是：**headers**、**subject**、**body**。
 
-        例如:
+        示例：
 
         .. literalinclude:: email/023.php
 
-        .. note:: 默认情况下,所有原始数据都将被打印。
+        .. note:: 默认情况下，将打印所有原始数据。

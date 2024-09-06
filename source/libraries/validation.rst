@@ -759,11 +759,9 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 规则                    参数       描述                                                              示例
 ======================= ========== ================================================================= ===================================================
 alpha                   无         如果字段包含除 ASCII 字母字符之外的任何内容,则失败。
-alpha_space             无         如果字段包含 ASCII 空格和字母字符之外的任何内容,则失败。
 alpha_dash              无         如果字段包含除 ASCII 字母数字字符、下划线或破折号之外的任何内容,
                                    则失败。
 alpha_numeric           无         如果字段包含除 ASCII 字母数字字符之外的任何内容,则失败。
-alpha_numeric_space     无         如果字段包含除 ASCII 字母数字和空格字符之外的任何内容,则失败。
 alpha_numeric_punct     无         如果字段包含除字母数字、空格和这组有限标点之外的任何内容,
                                    则失败:``~`` (波浪号)、
                                    ``!`` (感叹号)、``#`` (数字)、
@@ -772,6 +770,8 @@ alpha_numeric_punct     无         如果字段包含除字母数字、空格�
                                    ``_`` (下划线), ``+`` (加号),
                                    ``=`` (等号), ``|`` (竖线),
                                    ``:`` (冒号), ``.`` (句点)。
+alpha_numeric_space     无         如果字段包含除 ASCII 字母数字和空格字符之外的任何内容,则失败。
+alpha_space             无         如果字段包含 ASCII 空格和字母字符之外的任何内容,则失败。
 decimal                 无         如果字段包含除十进制数字外的任何内容,则失败。
                                    也接受数字前的 ``+`` 或 ``-`` 号。
 differs                 是         如果字段与参数中字段的值不不同,则失败。                           ``differs[field_name]``
@@ -784,8 +784,10 @@ hex                     无         如果字段包含除十六进制字符之�
 if_exist                无         如果存在此规则,验证将仅在要验证的数据中存在字段键时检查该字段。
 in_list                 是         如果字段不在预定列表中,则失败。                                   ``in_list[red,blue,green]``
 integer                 无         如果字段包含除整数之外的任何内容,则失败。
-is_natural              无         如果字段包含除自然数之外的任何内容,则失败:0, 1, 2, 3等。
-is_natural_no_zero      无         如果字段包含除自然数和零之外的任何内容,则失败:1, 2, 3等。
+is_natural              无         如果字段包含除自然数之外的任何内容,则失败: ``0``, ``1``, ``2``,
+                                   ``3`` 等。
+is_natural_no_zero      无         如果字段包含除自然数和零之外的任何内容,则失败: ``1``, ``2``,
+                                   ``3`` 等。
 is_not_unique           是         检查数据库中是否存在给定的值。
                                    可以通过字段/值过滤器忽略记录(当前只接受一个过滤器)。
 is_unique               是         检查字段值是否存在于数据库中。可以可选地设置要忽略的列和值,
@@ -797,30 +799,14 @@ max_length              是         如果字段长于参数值,则失败。    
 min_length              是         如果字段短于参数值,则失败。                                       ``min_length[3]``
 not_in_list             是         如果字段在预定列表中,则失败。                                     ``not_in_list[red,blue,green]``
 numeric                 无         如果字段包含除数字外的任何内容,则失败。
-regex_match             是         如果字段不匹配正则表达式,则失败。                                 ``regex_match[/regex/]``
 permit_empty            无         允许字段接收空数组、空字符串、null 或 false。
+regex_match             是         如果字段不匹配正则表达式,则失败。                                 ``regex_match[/regex/]``
 required                无         如果字段为空数组、空字符串、null 或 false,则失败。
 required_with           是         当数据中任何其他字段不为空时,该字段是必需的。                     ``required_with[field1,field2]``
 required_without        是         当数据中任何其他字段为空时,该字段是必需的。                       ``required_without[field1,field2]``
-string                  无         alpha* 规则的通用替代,确认元素是一个字符串。
+string                  无         **alpha** 规则的通用替代,确认元素是一个字符串。
 timezone                无         如果字段不匹配 `timezone_identifiers_list()`_ 中的时区,则失败。
 valid_base64            无         如果字段包含除有效的 Base64 字符之外的任何内容,则失败。
-valid_json              无         如果字段不包含有效的 JSON 字符串,则失败。
-valid_email             无         如果字段不包含有效的电子邮件地址,则失败。
-valid_emails            无         如果任何以逗号分隔提供的值不是有效的电子邮件,则失败。
-valid_ip                是         如果提供的 IP 无效,则失败。
-                                   可选参数为 ``ipv4`` 或 ``valid_ip[ipv6]``
-                                   ``ipv6`` 以指定 IP 格式。
-valid_url               无         如果字段不包含(宽松的)URL,则失败。
-                                   包括可能是主机名的简单字符串,
-                                   如“codeigniter”。**通常,应使用** ``valid_url_strict``。
-valid_url_strict        是         如果字段不包含有效的 URL,则失败。你可以可选地指定                 ``valid_url_strict[https]``
-                                   有效 schema 的列表。如果未指定, ``http,https``
-                                   有效。此规则使用 PHP 的 ``FILTER_VALIDATE_URL``。
-valid_date              是         如果字段不包含有效日期，则验证失败。                              ``valid_date[d/m/Y]``
-                                   任何 `strtotime()`_ 接受的字符串都是有效的，
-                                   前提是你没有指定一个匹配日期格式的可选参数。
-                                   **因此，通常有必要指定该参数。**
 valid_cc_number         是         验证信用卡号是否与指定提供程序使用的格式匹配。                    ``valid_cc_number[amex]``
                                    当前支持的提供程序有:
                                    美国运通 (``amex``)、
@@ -840,10 +826,27 @@ valid_cc_number         是         验证信用卡号是否与指定提供程�
                                    Scotiabank 圣哥伦布卡 (``scotia``)、
                                    BMO 自动柜员机卡 (``bmoabm``)、
                                    HSBC 加拿大卡 (``hsbc``)
+valid_json              无         如果字段不包含有效的 JSON 字符串,则失败。
+valid_email             无         如果字段不包含有效的电子邮件地址,则失败。
+valid_emails            无         如果任何以逗号分隔提供的值不是有效的电子邮件,则失败。
+valid_ip                是         如果提供的 IP 无效,则失败。
+                                   可选参数为 ``ipv4`` 或 ``valid_ip[ipv6]``
+                                   ``ipv6`` 以指定 IP 格式。
+valid_url               无         如果字段不包含(宽松的)URL,则失败。
+                                   包括可能是主机名的简单字符串,
+                                   如“codeigniter”。**通常,应使用** ``valid_url_strict``。
+valid_url_strict        是         如果字段不包含有效的 URL,则失败。你可以可选地指定                 ``valid_url_strict[https]``
+                                   有效 schema 的列表。如果未指定, ``http,https``
+                                   有效。此规则使用 PHP 的 ``FILTER_VALIDATE_URL``。
+valid_date              是         如果字段不包含有效日期，则验证失败。                              ``valid_date[d/m/Y]``
+                                   任何 `strtotime()`_ 接受的字符串都是有效的，
+                                   前提是你没有指定一个匹配日期格式的可选参数。
+                                   **因此，通常有必要指定该参数。**
 ======================= ========== ================================================================= ===================================================
 
-.. note:: 你也可以使用任何返回布尔值且至少接受一个要验证的数据的参数的原生 PHP 函数。
-    验证库 **从不改变** 要验证的数据。
+.. note:: 你也可以使用任何返回布尔值并且至少允许一个参数（要验证的字段数据）的原生 PHP 函数。
+
+.. important:: 验证库 **从不更改** 要验证的数据。
 
 .. _timezone_identifiers_list(): https://www.php.net/manual/en/function.timezone-identifiers-list.php
 .. _strtotime(): https://www.php.net/manual/en/function.strtotime.php

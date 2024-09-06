@@ -62,29 +62,33 @@
 配置过滤器
 *******************
 
-配置过滤器运行时有两种方法。一种是在 **app/Config/Filters.php** 中进行配置，另一种是在 **app/Config/Routes.php** 中进行配置。
+配置过滤器的运行方式有两种。一种是在 **app/Config/Filters.php** 中进行配置，另一种是在 **app/Config/Routes.php** 中进行配置。
 
-如果你想为特定的路由指定过滤器，请使用 **app/Config/Routes.php** 并参考 :ref:`URI Routing <applying-filters>`。
+如果你想为定义的路由指定过滤器，请使用 **app/Config/Routes.php** 并参考 :ref:`URI 路由 <applying-filters>`。
 
-.. note:: 最安全的应用过滤器方法是 :ref:`禁用自动路由 <use-defined-routes-only>`,并 :ref:`设置过滤器到路由 <applying-filters>`。
+.. note:: 应用过滤器最安全的方法是 :ref:`禁用自动路由 <use-defined-routes-only>`，并 :ref:`将过滤器设置到路由 <applying-filters>`。
 
 app/Config/Filters.php
 ======================
 
 **app/Config/Filters.php** 文件包含四个属性，允许你精确配置过滤器的运行时机。
 
-.. warning:: 建议你在过滤器设置中的 URI 末尾始终添加 ``*``。因为控制器方法可能比你想象的通过不同的 URL 访问。例如,当启用 :ref:`auto-routing-legacy` 时,如果你有 ``Blog::index``,它可以通过 ``blog``、``blog/index`` 和 ``blog/index/1`` 等方式访问。
+.. warning:: 建议你在过滤器设置中的 URI 末尾始终添加 ``*``。因为控制器方法可能比你想象的通过不同的 URL 访问。例如,当启用 :ref:`auto-routing-legacy` 时,如果你有 ``Blog::index()``,它可以通过 ``blog``、``blog/index`` 和 ``blog/index/1`` 等方式访问。
+
+.. _filters-aliases:
 
 $aliases
 --------
 
-``$aliases`` 数组用于将简单名称与一个或多个完全限定的类名相关联,这些类名是要运行的过滤器:
+``$aliases`` 数组用于将一个简单的名称与一个或多个完全限定类名关联起来，这些类名是要运行的过滤器：
 
 .. literalinclude:: filters/003.php
 
-别名是强制性的,如果你稍后尝试使用完整的类名,系统将抛出错误。以这种方式定义使得切换使用的类变得简单。非常适合当你决定需要更改到不同的身份验证系统时,因为你只需要更改过滤器的类即可完成。
+别名是强制性的，如果你尝试稍后使用完整的类名，系统会抛出错误。
 
-你可以将多个过滤器组合成一个别名,使复杂的过滤器组非常简单:
+以这种方式定义它们可以简化类的切换。当你决定需要更换不同的认证系统时，这种方式非常有用，因为你只需更改过滤器的类即可。
+
+你可以将多个过滤器组合成一个别名，使得应用复杂的过滤器集变得简单：
 
 .. literalinclude:: filters/004.php
 
@@ -131,7 +135,7 @@ $globals
 
 .. warning:: 在 v4.4.7 之前，由于一个漏洞，被过滤器处理的 URI 路径没有进行 URL 解码。换句话说，路由中指定的 URI 路径和过滤器中指定的 URI 路径可能会不同。详细信息请参见 :ref:`upgrade-447-filter-paths`。
 
-在过滤器设置中可以使用 URI 路径（相对于 BaseURL）的任何位置,你都可以使用正则表达式,或者像在这个例子中使用星号 (``*``) 作为通配符,匹配之后的所有字符。在这个例子中,任何以 ``api/`` 开头的 URI 路径都将被免于 CSRF 保护,但网站的表单将全部受保护。
+在过滤器设置中，任何可以使用 URI 路径（相对于 BaseURL）的地方，你都可以使用正则表达式，或者像上面的例子中那样，使用星号 (``*``) 作为通配符来匹配其后的所有字符。在这个例子中，任何以 ``api/`` 开头的 URI 路径都将被排除在 CSRF 保护之外，但网站的表单将全部受到保护。
 
 如果你需要指定多个 URI,可以使用 URI 路径模式数组:
 
@@ -142,13 +146,15 @@ $methods
 
 .. warning:: 如果使用 ``$methods`` 过滤器,你应该 :ref:`禁用自动路由(传统) <use-defined-routes-only>`,因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。以你不期望的方法访问控制器可能会绕过过滤器。
 
-你可以将过滤器应用于所有某种 HTTP 方法的请求,如 POST、GET、PUT 等。在此数组中,你需要以 **全小写** 指定方法名称。它的值将是要运行的过滤器数组:
+你可以对某个 HTTP 方法（如 ``POST``、``GET``、``PUT`` 等）的所有请求应用过滤器。其值将是一个要运行的过滤器数组：
 
 .. literalinclude:: filters/008.php
 
 .. note:: 与 ``$globals`` 或 ``$filters`` 属性不同,这些只能作为前置过滤器运行。
 
-除了标准的 HTTP 方法外,这也支持一个特殊情况:``cli``。``cli`` 方法将应用于所有从命令行运行的请求。
+除了标准的 HTTP 方法外，这里还支持一个特殊情况：``CLI``。``CLI`` 方法将应用于所有从命令行运行的请求。
+
+.. note:: 在 v4.5.0 之前，由于一个错误，你需要以 **小写** 指定 HTTP 方法名称。
 
 $filters
 --------

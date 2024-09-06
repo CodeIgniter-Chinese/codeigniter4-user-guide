@@ -350,12 +350,13 @@ HTTP 动词路由
 ================
 
 你可以通过在控制器之前或之后提供要运行的过滤器来更改特定路由的行为。这在认证或 API 日志记录时特别方便。
+
 过滤器的值可以是字符串或字符串数组:
 
 * 与 **app/Config/Filters.php** 中定义的别名匹配。
 * 过滤器类名
 
-有关设置过滤器的更多信息,请参阅 :doc:`控制器过滤器 <filters>`。
+请参阅 :ref:`控制器过滤器 <filters-aliases>` 了解更多关于定义别名的信息。
 
 .. warning:: 如果你在 **app/Config/Routes.php** 中为路由设置过滤器(而不是在 **app/Config/Filters.php** 中)
     建议禁用 Auto Routing(传统)。当启用 :ref:`auto-routing-legacy` 时,控制器可能可以通过与配置路由不同的 URL 访问,
@@ -364,7 +365,7 @@ HTTP 动词路由
 别名过滤器
 ------------
 
-你为过滤器值指定在 **app/Config/Filters.php** 中定义的别名:
+你可以为过滤器值指定一个 :ref:`在 app/Config/Filters.php 中定义 <filters-aliases>` 的别名。
 
 .. literalinclude:: routing/034.php
 
@@ -377,7 +378,7 @@ HTTP 动词路由
 
 .. versionadded:: 4.1.5
 
-你可以为过滤器值指定过滤器类名:
+你可以为过滤器值指定一个过滤器类名：
 
 .. literalinclude:: routing/036.php
 
@@ -394,7 +395,7 @@ HTTP 动词路由
     :ref:`从 4.1.4 升级到 4.1.5 <upgrade-415-multiple-filters-for-a-route>`
     了解详情。
 
-你可以为过滤器值指定一个数组:
+你可以为过滤器值指定一个数组：
 
 .. literalinclude:: routing/037.php
 
@@ -508,6 +509,8 @@ HTTP 动词路由
 .. literalinclude:: routing/025.php
 
 过滤器的值必须与 **app/Config/Filters.php** 内定义的别名之一匹配。
+
+.. note:: 在 v4.5.4 之前，由于一个 bug，传递给 ``group()`` 的过滤器没有合并到传递给内部路由的过滤器中。
 
 设置其他选项
 =====================
