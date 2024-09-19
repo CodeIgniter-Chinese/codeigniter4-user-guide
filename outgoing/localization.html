@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>本地化 &mdash; CodeIgniter 4.5.4 中文手册|用户手册|用户指南|中文文档</title>
+  <title>本地化 &mdash; CodeIgniter 4.5.5 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -291,61 +291,53 @@
 <h1>本地化<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id21">使用语言环境</a></p>
+<li><p><a class="reference internal" href="#id3" id="id22">使用语言环境</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id22">配置语言环境</a></p>
+<li><p><a class="reference internal" href="#id4" id="id23">配置语言环境</a></p>
 <ul>
-<li><p><a class="reference internal" href="#setting-the-default-locale" id="id23">设置默认语言环境</a></p></li>
+<li><p><a class="reference internal" href="#setting-the-default-locale" id="id24">设置默认语言环境</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id6" id="id24">语言环境检测</a></p>
+<li><p><a class="reference internal" href="#id6" id="id25">语言环境检测</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id7" id="id25">内容协商</a></p></li>
-<li><p><a class="reference internal" href="#localization-in-routes" id="id26">在路由中</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id26">内容协商</a></p></li>
+<li><p><a class="reference internal" href="#localization-in-routes" id="id27">在路由中</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id9" id="id27">设置当前语言环境</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id28">获取当前语言环境</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id28">设置当前语言环境</a></p>
+<ul>
+<li><p><a class="reference internal" href="#incomingrequest" id="id29">IncomingRequest 语言环境</a></p></li>
+<li><p><a class="reference internal" href="#language" id="id30">Language 语言环境</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#language-localization" id="id29">语言本地化</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id12" id="id30">创建语言文件</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id31">基本用法</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id14" id="id32">替换参数</a></p></li>
-<li><p><a class="reference internal" href="#id15" id="id33">指定语言环境</a></p></li>
-<li><p><a class="reference internal" href="#id16" id="id34">嵌套数组</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id31">获取当前语言环境</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id17" id="id35">语言回退</a></p></li>
-<li><p><a class="reference internal" href="#id18" id="id36">消息翻译</a></p></li>
-<li><p><a class="reference internal" href="#generating-translation-files-via-command" id="id37">通过命令生成翻译文件</a></p></li>
+<li><p><a class="reference internal" href="#language-localization" id="id32">语言本地化</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id12" id="id33">创建语言文件</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id34">基本用法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id14" id="id35">替换参数</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id36">指定语言环境</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id37">嵌套数组</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id17" id="id38">语言回退</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id39">系统消息翻译</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id40">覆盖系统消息翻译</a></p></li>
+<li><p><a class="reference internal" href="#generating-translation-files-via-command" id="id41">通过命令生成翻译文件</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id21" role="doc-backlink">使用语言环境</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">使用语言环境</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>CodeIgniter 提供了几个工具来帮助你为不同的语言本地化应用程序。尽管完整地本地化一个应用程序是个复杂的题目,但在应用程序中用不同的支持语言交换字符串是非常简单的。</p>
-<p>语言字符串存储在 <strong>app/Language</strong> 目录中,每个支持的语言都有对应的子目录:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">app</span><span class="o">/</span>
-    <span class="nx">Language</span><span class="o">/</span>
-        <span class="nx">en</span><span class="o">/</span>
-            <span class="nx">App</span><span class="o">.</span><span class="nx">php</span>
-        <span class="nx">fr</span><span class="o">/</span>
-            <span class="nx">App</span><span class="o">.</span><span class="nx">php</span>
-</pre></div>
-</div>
-<div class="admonition important">
-<p class="admonition-title">重要</p>
-<p>仅基于网络的请求才会启用本地化检测,需要使用 IncomingRequest 类。
-命令行下的请求不支持这些特性。</p>
-</div>
 <section id="id4">
-<h3><a class="toc-backref" href="#id22" role="doc-backlink">配置语言环境</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">配置语言环境</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <section id="setting-the-default-locale">
-<span id="id5"></span><h4><a class="toc-backref" href="#id23" role="doc-backlink">设置默认语言环境</a><a class="headerlink" href="#setting-the-default-locale" title="此标题的永久链接"></a></h4>
+<span id="id5"></span><h4><a class="toc-backref" href="#id24" role="doc-backlink">设置默认语言环境</a><a class="headerlink" href="#setting-the-default-locale" title="此标题的永久链接"></a></h4>
 <p>每个站点都会有一个它们运作的默认语言环境/区域设置。这可以在 <strong>app/Config/App.php</strong> 中设置:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -368,12 +360,20 @@
 </section>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id24" role="doc-backlink">语言环境检测</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
-<p>在请求期间支持两种方法来检测正确的语言环境。第一种方法是一个“设置完就忘记”的方式,将自动为你执行 <a class="reference internal" href="../incoming/content_negotiation.html"><span class="doc">内容协商</span></a> 以确定使用的正确语言环境。第二种方法允许你在路由中指定一个片段来设置语言环境。</p>
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">语言环境检测</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>语言环境检测仅适用于使用 IncomingRequest 类的基于 Web 的请求。命令行请求将不具备这些功能。</p>
+</div>
+<p>在请求期间，有两种方法可以检测正确的语言环境。</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#id7">内容协商</a>：第一种是”设置完就忘记”的方法，它将自动为你执行 <a class="reference internal" href="../incoming/content_negotiation.html"><span class="doc">内容协商</span></a>，以确定要使用的正确语言环境。</p></li>
+<li><p><a class="reference internal" href="#id8">在路由中</a>：第二种方法允许你在路由中指定一个段，该段将用于设置语言环境。</p></li>
+</ol>
 <p>如果你需要直接设置语言环境,请参见 <a class="reference internal" href="#id9">设置当前语言环境</a> 。</p>
 <p>自 v4.4.0 起，添加了 <code class="docutils literal notranslate"><span class="pre">IncomingRequest::setValidLocales()</span></code> 方法，用于设置（和重置）从 <code class="docutils literal notranslate"><span class="pre">Config\App::$supportedLocales</span></code> 设置中设置的有效语言环境。</p>
 <section id="id7">
-<h4><a class="toc-backref" href="#id25" role="doc-backlink">内容协商</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id26" role="doc-backlink">内容协商</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h4>
 <p>你可以通过在 <strong>app/Config/App.php</strong> 中设置两个附加配置来启用内容协商自动执行。第一个值告诉 Request 类我们确实希望协商一个语言环境,所以简单地设置为 true :</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -410,18 +410,14 @@
 </div>
 </section>
 <section id="localization-in-routes">
-<span id="id8"></span><h4><a class="toc-backref" href="#id26" role="doc-backlink">在路由中</a><a class="headerlink" href="#localization-in-routes" title="此标题的永久链接"></a></h4>
+<span id="id8"></span><h4><a class="toc-backref" href="#id27" role="doc-backlink">在路由中</a><a class="headerlink" href="#localization-in-routes" title="此标题的永久链接"></a></h4>
 <p>第二种方法使用一个自定义占位符来检测所需的语言环境并在 Request 中设置它。可以将占位符 <code class="docutils literal notranslate"><span class="pre">{locale}</span></code> 作为路由中的一个片段。如果存在,匹配片段的内容将是你的语言环境:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;{locale}/books&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Books::index&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;{locale}/books&#39;</span><span class="p">,</span> <span class="s1">&#39;App\Books::index&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>在这个例子中,如果用户试图访问 <strong>http://example.com/fr/books</strong>,那么语言环境将被设置为 <code class="docutils literal notranslate"><span class="pre">fr</span></code>,假设它已经在 <code class="docutils literal notranslate"><span class="pre">$supportedLocales</span></code> 中被配置为有效的语言环境。</p>
 <p>如果该值与 <code class="docutils literal notranslate"><span class="pre">app/Config/App.php</span></code> 中定义的 <code class="docutils literal notranslate"><span class="pre">$supportedLocales</span></code> 中的有效语言环境不匹配,将使用默认语言环境取代,除非你设置只使用 App 配置文件中定义的受支持语言环境:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">useSupportedLocalesOnly</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">useSupportedLocalesOnly</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -431,8 +427,14 @@
 </section>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id27" role="doc-backlink">设置当前语言环境</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
-<p>如果你想直接设置语言环境，可以使用 <code class="docutils literal notranslate"><span class="pre">IncomingRequest::setLocale(string</span> <span class="pre">$locale)</span></code>。</p>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">设置当前语言环境</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
+<section id="incomingrequest">
+<h4><a class="toc-backref" href="#id29" role="doc-backlink">IncomingRequest 语言环境</a><a class="headerlink" href="#incomingrequest" title="此标题的永久链接"></a></h4>
+<p>如果你想直接设置语言环境，你可以在 <a class="reference internal" href="../incoming/incomingrequest.html"><span class="doc">IncomingRequest 类</span></a> 中使用 <code class="docutils literal notranslate"><span class="pre">setLocale()</span></code> 方法：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="sd">/** @var \CodeIgniter\HTTP\IncomingRequest $request */</span>
+<span class="nv">$request</span><span class="o">-&gt;</span><span class="na">setLocale</span><span class="p">(</span><span class="s1">&#39;ja&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
 <p>在设置语言环境之前，你必须设置有效的语言环境。因为任何尝试设置无效语言环境的操作都会导致设置 <a class="reference internal" href="#setting-the-default-locale"><span class="std std-ref">默认语言环境</span></a>。</p>
 <p>默认情况下，有效的语言环境在 <strong>app/Config/App.php</strong> 中的 <code class="docutils literal notranslate"><span class="pre">Config\App::$supportedLocales</span></code> 中定义：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -456,8 +458,19 @@
 <p>自 v4.4.0 起，<code class="docutils literal notranslate"><span class="pre">IncomingRequest::setValidLocales()</span></code> 已被添加用于设置（和重置）有效的语言环境。如果你想动态更改有效的语言环境，请使用它。</p>
 </div>
 </section>
+<section id="language">
+<h4><a class="toc-backref" href="#id30" role="doc-backlink">Language 语言环境</a><a class="headerlink" href="#language" title="此标题的永久链接"></a></h4>
+<p>在 <a class="reference internal" href="../general/common_functions.html#lang" title="lang"><code class="xref php php-func docutils literal notranslate"><span class="pre">lang()</span></code></a> 函数中使用的 <code class="docutils literal notranslate"><span class="pre">Language</span></code> 类也包含当前的语言环境。这是在实例化时设置为 <code class="docutils literal notranslate"><span class="pre">IncommingRequest</span></code> 的语言环境。</p>
+<p>如果你想在实例化语言类后更改语言环境，可以使用 <code class="docutils literal notranslate"><span class="pre">Language::setLocale()</span></code> 方法。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="sd">/** @var \CodeIgniter\Language\Language $lang */</span>
+<span class="nv">$lang</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">);</span>
+<span class="nv">$lang</span><span class="o">-&gt;</span><span class="na">setLocale</span><span class="p">(</span><span class="s1">&#39;ja&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id28" role="doc-backlink">获取当前语言环境</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">获取当前语言环境</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h3>
 <p>当前语言环境始终可以从 IncomingRequest 对象中通过 <code class="docutils literal notranslate"><span class="pre">getLocale()</span></code> 方法获取。
 如果你的控制器继承了 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Controller</span></code>,它将通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;request</span></code> 可用:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -474,17 +487,24 @@
 </pre></div>
 </div>
 <p>或者,你可以使用 <a class="reference internal" href="../concepts/services.html"><span class="doc">Services 类</span></a> 来检索当前请求:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$locale</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getLocale</span><span class="p">();</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$locale</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getLocale</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="language-localization">
-<span id="id11"></span><h2><a class="toc-backref" href="#id29" role="doc-backlink">语言本地化</a><a class="headerlink" href="#language-localization" title="此标题的永久链接"></a></h2>
+<span id="id11"></span><h2><a class="toc-backref" href="#id32" role="doc-backlink">语言本地化</a><a class="headerlink" href="#language-localization" title="此标题的永久链接"></a></h2>
 <section id="id12">
-<h3><a class="toc-backref" href="#id30" role="doc-backlink">创建语言文件</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">创建语言文件</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<p>语言字符串存储在 <strong>app/Language</strong> 目录中，每个支持的语言（语言环境）都有一个子目录:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">app</span><span class="o">/</span>
+    <span class="nx">Language</span><span class="o">/</span>
+        <span class="nx">en</span><span class="o">/</span>
+            <span class="nx">App</span><span class="o">.</span><span class="nx">php</span>
+        <span class="nx">fr</span><span class="o">/</span>
+            <span class="nx">App</span><span class="o">.</span><span class="nx">php</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>语言文件没有命名空间。</p>
@@ -497,6 +517,10 @@
     <span class="s1">&#39;languageKey&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;The actual message to be shown.&#39;</span><span class="p">,</span>
 <span class="p">];</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>你不能在语言键的开头和结尾使用点（<code class="docutils literal notranslate"><span class="pre">.</span></code>）。</p>
 </div>
 <p>它也支持嵌套定义:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -526,23 +550,19 @@
 </div>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id31" role="doc-backlink">基本用法</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">基本用法</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
 <p>你可以使用 <a class="reference internal" href="../general/common_functions.html#lang" title="lang"><code class="xref php php-func docutils literal notranslate"><span class="pre">lang()</span></code></a> 辅助函数来检索任何语言文件中的文本，方法是将文件名和语言键作为第一个参数传递，用点号 (<code class="docutils literal notranslate"><span class="pre">.</span></code>) 分隔。</p>
 <p>例如，要从 <strong>Errors.php</strong> 语言文件加载 <code class="docutils literal notranslate"><span class="pre">errorEmailMissing</span></code> 字符串，你可以执行以下操作：</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Errors.errorEmailMissing&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Errors.errorEmailMissing&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>对于嵌套定义,你可以执行以下操作:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Errors.nested.error.message&#39;</span><span class="p">);</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Errors.nested.error.message&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>如果请求的语言键在当前语言环境的文件中不存在,字符串将原封不动地返回。在此例中,如果它不存在,将返回 <code class="docutils literal notranslate"><span class="pre">Errors.errorEmailMissing</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">Errors.nested.error.message</span></code>。</p>
+<p>如果当前语言环境的文件中不存在请求的语言键（在 <a class="reference internal" href="#id17">语言回退</a> 之后），字符串将被原样返回。在这个例子中，如果不存在，它将返回 <code class="docutils literal notranslate"><span class="pre">Errors.errorEmailMissing</span></code> 或 <code class="docutils literal notranslate"><span class="pre">Errors.nested.error.message</span></code>。</p>
 <section id="id14">
-<h4><a class="toc-backref" href="#id32" role="doc-backlink">替换参数</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">替换参数</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>以下函数都需要在你的系统上加载 <a class="reference external" href="https://www.php.net/manual/en/book.intl.php">intl</a> 扩展才能工作。如果没有加载该扩展,将不会尝试替换。你可以在 <a class="reference external" href="https://www.sitepoint.com/localization-demystified-understanding-php-intl/">Sitepoint</a> 上找到很好的概述。</p>
@@ -562,16 +582,12 @@
 </pre></div>
 </div>
 <p>数组中第一个项目对应于索引的项目的占位符,如果是数字的话:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Displays &quot;The top 23 men out-performed the remaining 20&quot;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Displays &quot;The top 23 men out-performed the remaining 20&quot;</span>
 <span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Tests.men&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">23</span><span class="p">]);</span>
 </pre></div>
 </div>
 <p>你也可以使用命名键以保持简洁,如果你愿意的话:</p>
-<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// Displays &quot;I have 3 apples.&quot;</span>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Displays &quot;I have 3 apples.&quot;</span>
 <span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;Tests.namedApples&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;number_apples&#39;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">]);</span>
 </pre></div>
 </div>
@@ -632,8 +648,8 @@
 <p>你应该确保阅读 MessageFormatter 类和基础 ICU 格式相关的内容,以更好地了解它的功能,比如执行条件替换、复数化等。之前提供的两个链接都会给你关于可用选项的极好的主意。</p>
 </section>
 <section id="id15">
-<h4><a class="toc-backref" href="#id33" role="doc-backlink">指定语言环境</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h4>
-<p>要指定不同的语言环境用于替换参数,你可以将语言环境作为第三个参数传递给 <code class="docutils literal notranslate"><span class="pre">lang()</span></code> 函数。</p>
+<h4><a class="toc-backref" href="#id36" role="doc-backlink">指定语言环境</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h4>
+<p>要指定不同的语言环境用于替换参数,你可以将语言环境作为第三个参数传递给 <a class="reference internal" href="../general/common_functions.html#lang" title="lang"><code class="xref php php-func docutils literal notranslate"><span class="pre">lang()</span></code></a> 函数。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// Displays &quot;The time is now 23:21:28 GMT-5&quot;</span>
@@ -645,9 +661,10 @@
 <span class="k">echo</span> <span class="nx">lang</span><span class="p">(</span><span class="s1">&#39;{price, number, currency}&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;price&#39;</span> <span class="o">=&gt;</span> <span class="mf">7.41</span><span class="p">],</span> <span class="s1">&#39;en-US&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
+<p>如果你想更改当前的语言环境，请参见 <a class="reference internal" href="#language">Language 语言环境</a>。</p>
 </section>
 <section id="id16">
-<h4><a class="toc-backref" href="#id34" role="doc-backlink">嵌套数组</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h4>
+<h4><a class="toc-backref" href="#id37" role="doc-backlink">嵌套数组</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h4>
 <p>语言文件也允许使用嵌套数组使得使用列表等更简单。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -671,21 +688,21 @@
 </section>
 </section>
 <section id="id17">
-<h3><a class="toc-backref" href="#id35" role="doc-backlink">语言回退</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h3>
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">语言回退</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h3>
 <p>如果你为一个给定的语言环境拥有一组消息,例如
-<strong>Language/en/app.php</strong>,你可以为该语言环境添加语言变体,
-每种变体各自一个文件夹,例如 <strong>Language/en-US/app.php</strong>。</p>
+<strong>Language/en/App.php</strong>,你可以为该语言环境添加语言变体,
+每种变体各自一个文件夹,例如 <strong>Language/en-US/App.php</strong>。</p>
 <p>你只需要为需要针对该语言环境变体进行本地化的消息提供不同的值。
 任何缺失的消息定义将自动从主要的语言环境中获取。</p>
-<p>更好的是,本地化可以一直回退到英语,
+<p>更好的是,本地化可以一直回退到英语(<strong>en</strong>),
 以防还没有机会为你的语言环境翻译框架中添加的新消息。</p>
 <p>因此,如果你使用 <code class="docutils literal notranslate"><span class="pre">fr-CA</span></code> 语言环境,则本地化消息将首先在
 <strong>Language/fr-CA</strong> 目录中查找,然后在 <strong>Language/fr</strong> 目录中查找,
 最后在 <strong>Language/en</strong> 目录中查找。</p>
 </section>
 <section id="id18">
-<h3><a class="toc-backref" href="#id36" role="doc-backlink">消息翻译</a><a class="headerlink" href="#id18" title="此标题的永久链接"></a></h3>
-<p>我们在自己的 <a class="reference external" href="https://github.com/codeigniter4/translations">仓库</a> 中有一组“官方”翻译。</p>
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">系统消息翻译</a><a class="headerlink" href="#id18" title="此标题的永久链接"></a></h3>
+<p>我们在自己的 <a class="reference external" href="https://github.com/codeigniter4/translations">仓库</a> 中有一组“官方”系统消息翻译。</p>
 <p>你可以下载该仓库,并将其 <strong>Language</strong> 文件夹复制到
 你的 <strong>app</strong> 文件夹中。合并的翻译将被自动使用,因为 <code class="docutils literal notranslate"><span class="pre">App</span></code> 命名空间映射到你的 <strong>app</strong> 文件夹。</p>
 <p>或者,在你的项目中运行以下命令会更好:</p>
@@ -694,8 +711,13 @@
 </div>
 <p>翻译的消息将自动被使用,因为翻译文件夹得到了正确的映射。</p>
 </section>
+<section id="id20">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">覆盖系统消息翻译</a><a class="headerlink" href="#id20" title="此标题的永久链接"></a></h3>
+<p>框架提供了 <a class="reference internal" href="#id18">系统消息翻译</a>，你安装的包也可能提供消息翻译。</p>
+<p>如果你想覆盖某些语言消息，可以在 <strong>app/Language</strong> 目录下创建语言文件。然后，在文件中仅返回你想要覆盖的数组。</p>
+</section>
 <section id="generating-translation-files-via-command">
-<span id="id20"></span><h3><a class="toc-backref" href="#id37" role="doc-backlink">通过命令生成翻译文件</a><a class="headerlink" href="#generating-translation-files-via-command" title="此标题的永久链接"></a></h3>
+<span id="id21"></span><h3><a class="toc-backref" href="#id41" role="doc-backlink">通过命令生成翻译文件</a><a class="headerlink" href="#generating-translation-files-via-command" title="此标题的永久链接"></a></h3>
 <div class="versionadded">
 <p><span class="versionmodified added">在 4.5.0 版本加入.</span></p>
 </div>
@@ -770,7 +792,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-09-06.
+      <span class="lastupdated">最后更新于 2024-09-19.
       </span></p>
   </div>
 
@@ -778,7 +800,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb3dd943f90>
+<jinja2.runtime.BlockReference object at 0x7fe7e15e0b50>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

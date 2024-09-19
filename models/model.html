@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>使用 CodeIgniter 的 Model &mdash; CodeIgniter 4.5.4 中文手册|用户手册|用户指南|中文文档</title>
+  <title>使用 CodeIgniter 的 Model &mdash; CodeIgniter 4.5.5 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -364,7 +364,7 @@
 <li><p><a class="reference internal" href="#in-model-validation" id="id89">模型内验证</a></p>
 <ul>
 <li><p><a class="reference internal" href="#id25" id="id90">验证数据</a></p></li>
-<li><p><a class="reference internal" href="#id26" id="id91">设置验证规则</a></p></li>
+<li><p><a class="reference internal" href="#model-setting-validation-rules" id="id91">设置验证规则</a></p></li>
 <li><p><a class="reference internal" href="#id27" id="id92">获取验证结果</a></p></li>
 <li><p><a class="reference internal" href="#model-getting-validation-errors" id="id93">获取验证错误</a></p></li>
 <li><p><a class="reference internal" href="#id29" id="id94">检索验证规则</a></p></li>
@@ -649,11 +649,12 @@
 <h4><a class="toc-backref" href="#id61" role="doc-backlink">验证</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h4>
 <section id="validationrules">
 <h5>$validationRules<a class="headerlink" href="#validationrules" title="此标题的永久链接"></a></h5>
-<p>包含 <a class="reference internal" href="../libraries/validation.html#validation-array"><span class="std std-ref">如何保存规则</span></a> 中描述的验证规则数组或包含要应用的验证组名称的字符串,如同一节中所述。下面更详细地描述。</p>
+<p>包含一个验证规则数组，如 <a class="reference internal" href="../libraries/validation.html#validation-array"><span class="std std-ref">如何保存规则</span></a> 中所述，或者包含验证组名称的字符串，如同一节中所述。
+另请参见 <a class="reference internal" href="#model-setting-validation-rules"><span class="std std-ref">设置验证规则</span></a>。</p>
 </section>
 <section id="validationmessages">
 <h5>$validationMessages<a class="headerlink" href="#validationmessages" title="此标题的永久链接"></a></h5>
-<p>包含应在验证期间使用的自定义错误消息数组,如 <a class="reference internal" href="../libraries/validation.html#validation-custom-errors"><span class="std std-ref">设置自定义错误消息</span></a> 中所述。下面更详细地描述。</p>
+<p>包含一个自定义错误消息数组，这些消息将在验证过程中使用，如 <a class="reference internal" href="../libraries/validation.html#validation-custom-errors"><span class="std std-ref">设置自定义错误消息</span></a> 中所述。另请参见 <a class="reference internal" href="#model-setting-validation-rules"><span class="std std-ref">设置验证规则</span></a>。</p>
 </section>
 <section id="skipvalidation">
 <h5>$skipValidation<a class="headerlink" href="#skipvalidation" title="此标题的永久链接"></a></h5>
@@ -747,7 +748,7 @@
 <span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span>
 <span class="p">{</span>
     <span class="c1">// ...</span>
-    <span class="k">protected</span> <span class="nv">$casts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="k">protected</span> <span class="k">array</span> <span class="nv">$casts</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;id&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
         <span class="s1">&#39;birthdate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;?datetime&#39;</span><span class="p">,</span>
         <span class="s1">&#39;hobbies&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;json-array&#39;</span><span class="p">,</span>
@@ -1304,9 +1305,13 @@
 </section>
 <section id="in-model-validation">
 <span id="id24"></span><h3><a class="toc-backref" href="#id89" role="doc-backlink">模型内验证</a><a class="headerlink" href="#in-model-validation" title="此标题的永久链接"></a></h3>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>在模型内验证是在数据存储到数据库之前进行的。在此之前，数据尚未经过验证。在验证之前处理用户输入的数据可能会引入漏洞。</p>
+</div>
 <section id="id25">
 <h4><a class="toc-backref" href="#id90" role="doc-backlink">验证数据</a><a class="headerlink" href="#id25" title="此标题的永久链接"></a></h4>
-<p>对于许多人来说，在模型中验证数据是确保数据保持单一标准而不重复代码的首选方式。Model 类提供了一种方法，可以在使用 <code class="docutils literal notranslate"><span class="pre">insert()</span></code>、<code class="docutils literal notranslate"><span class="pre">update()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">save()</span></code> 方法保存到数据库之前自动验证所有数据。</p>
+<p>Model 类提供了一种方法，可以在使用 <code class="docutils literal notranslate"><span class="pre">insert()</span></code>、<code class="docutils literal notranslate"><span class="pre">update()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">save()</span></code> 方法保存到数据库之前自动验证所有数据。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>当你更新数据时，默认情况下，模型类中的验证只会验证提供的字段。这是为了避免在仅更新某些字段时出现验证错误。</p>
@@ -1315,9 +1320,14 @@
 <p>为了避免这种问题，可以通过配置更改此行为。详情请参见 <a class="reference internal" href="#clean-validation-rules"><span class="std std-ref">$cleanValidationRules</span></a>。</p>
 </div>
 </section>
-<section id="id26">
-<h4><a class="toc-backref" href="#id91" role="doc-backlink">设置验证规则</a><a class="headerlink" href="#id26" title="此标题的永久链接"></a></h4>
-<p>第一步是用将应用的字段和规则填充 <a class="reference internal" href="#validationrules">$validationRules</a> 类属性。如果你有要使用的自定义错误消息,请将其放入 <a class="reference internal" href="#validationmessages">$validationMessages</a> 数组中:</p>
+<section id="model-setting-validation-rules">
+<span id="id26"></span><h4><a class="toc-backref" href="#id91" role="doc-backlink">设置验证规则</a><a class="headerlink" href="#model-setting-validation-rules" title="此标题的永久链接"></a></h4>
+<p>第一步是填写 <a class="reference internal" href="#validationrules">$validationRules</a> 类属性，包含需要应用的字段和规则。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>你可以在 <a class="reference internal" href="../libraries/validation.html#validation-available-rules"><span class="std std-ref">可用规则</span></a> 中查看内置验证规则的列表。</p>
+</div>
+<p>如果你有自定义的错误消息，可以将它们放在 <a class="reference internal" href="#validationmessages">$validationMessages</a> 数组中：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
@@ -1342,7 +1352,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>如果你更喜欢在验证配置文件中组织你的规则和错误消息，你可以这样做，并将 <a class="reference internal" href="#validationrules">$validationRules</a> 设置为你创建的验证规则组的名称：</p>
+<p>如果你更愿意在 <a class="reference internal" href="../libraries/validation.html#saving-validation-rules-to-config-file"><span class="std std-ref">Validation Config File</span></a> 中组织你的规则和错误消息，你可以这样做，然后只需将 <a class="reference internal" href="#validationrules">$validationRules</a> 设置为你创建的验证规则组的名称：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
@@ -1815,12 +1825,12 @@
 <strong>result</strong> = 通过查询构建器使用的 <code class="docutils literal notranslate"><span class="pre">insert()</span></code> 方法的结果。</p></td>
 </tr>
 <tr class="row-even"><td><p>beforeUpdate</p></td>
-<td><p><strong>id</strong> = 正在更新的行的主键数组。
+<td><p><strong>id</strong> = 传递给 <code class="docutils literal notranslate"><span class="pre">update()</span></code> 方法的行的主键数组。
 <strong>data</strong> = 正在更新的键/值对。如果将对象或 Entity 类传递给
 <code class="docutils literal notranslate"><span class="pre">update()</span></code> 方法，它首先会被转换为数组。</p></td>
 </tr>
 <tr class="row-odd"><td><p>afterUpdate</p></td>
-<td><p><strong>id</strong> = 正在更新的行的主键数组。
+<td><p><strong>id</strong> = 传递给 <code class="docutils literal notranslate"><span class="pre">update()</span></code> 方法的行的主键数组。
 <strong>data</strong> = 正在更新的键/值对。
 <strong>result</strong> = 通过查询构建器使用的 <code class="docutils literal notranslate"><span class="pre">update()</span></code> 方法的结果。</p></td>
 </tr>
@@ -1947,7 +1957,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-09-06.
+      <span class="lastupdated">最后更新于 2024-09-19.
       </span></p>
   </div>
 
@@ -1955,7 +1965,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb3dd882790>
+<jinja2.runtime.BlockReference object at 0x7fe7e189cdd0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

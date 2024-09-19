@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HTML 辅助函数 &mdash; CodeIgniter 4.5.4 中文手册|用户手册|用户指南|中文文档</title>
+  <title>HTML 辅助函数 &mdash; CodeIgniter 4.5.5 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -299,7 +299,7 @@
 </nav>
 <section id="id2">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">配置</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
-<p>从 <code class="docutils literal notranslate"><span class="pre">v4.3.0</span></code> 开始, <code class="docutils literal notranslate"><span class="pre">html_helper</span></code> 函数中的空 HTML 元素(如 <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code>)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 <strong>app/Config/DocTypes.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$html5</span></code> 属性设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code>。</p>
+<p>从 <code class="docutils literal notranslate"><span class="pre">v4.3.0</span></code> 开始, <code class="docutils literal notranslate"><span class="pre">html_helper</span></code> 函数中的空 HTML 标签(如 <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code>)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 <strong>app/Config/DocTypes.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$html5</span></code> 属性设置为 <code class="docutils literal notranslate"><span class="pre">false</span></code>。</p>
 </section>
 <section id="id3">
 <h2><a class="toc-backref" href="#id6" role="doc-backlink">加载此辅助函数</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
@@ -325,27 +325,27 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 图像标签</p>
+<dd class="field-even"><p>一个 HTML img 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;img</span> <span class="pre">/&gt;</span></code> 标签。第一个参数包含图像源。示例:</p>
+<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> 标签。第一个参数包含图像源。示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nx">img</span><span class="p">(</span><span class="s1">&#39;images/picture.jpg&#39;</span><span class="p">);</span>
 <span class="c1">// &lt;img src=&quot;http://site.com/images/picture.jpg&quot;&gt;</span>
 </pre></div>
 </div>
-<p>有一个可选的第二个参数,它是一个 true/false 值,指定 <em>src</em> 是否应该添加由 <code class="docutils literal notranslate"><span class="pre">$config['indexPage']</span></code> 指定的页面地址。这可能是如果你使用媒体控制器的情况:</p>
+<p>有一个可选的第二个参数，一个 true/false 值，用于指定是否应在创建的地址中添加 <code class="docutils literal notranslate"><span class="pre">Config\App::$indexPage</span></code> 到 <em>src</em>。假设你在使用一个媒体控制器：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nx">img</span><span class="p">(</span><span class="s1">&#39;images/picture.jpg&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
 <span class="c1">// &lt;img src=&quot;http://site.com/index.php/images/picture.jpg&quot; alt=&quot;&quot;&gt;</span>
 </pre></div>
 </div>
-<p>另外,可以将关联数组作为第一个参数传递,以完全控制所有属性和值。如果没有提供 <em>alt</em> 属性,CodeIgniter 将生成一个空字符串。</p>
+<p>此外，可以将一个关联数组作为第一个参数传递，以完全控制所有属性和值。如果没有提供 <em>alt</em> 属性，CodeIgniter 将生成一个空字符串的 <em>alt</em> 属性。</p>
 <p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -367,7 +367,7 @@
 
 <dl class="php function">
 <dt class="sig sig-object php" id="img_data">
-<span class="sig-name descname"><span class="pre">img_data</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">$src</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$indexPage</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#img_data" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">img_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$path</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$mime</span> <span class="pre">=</span> <span class="pre">null</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#img_data" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -414,13 +414,13 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 链接标签</p>
+<dd class="field-even"><p>一个 HTML link 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;link</span> <span class="pre">/&gt;</span></code> 标签。这对于样式表链接很有用,也用于其他链接。参数是 <em>href</em>,可选的 <em>rel</em>、<em>type</em>、<em>title</em>、<em>media</em> 和 <em>indexPage</em>。</p>
+<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;link&gt;</span></code> 标签。这对于样式表链接很有用,也用于其他链接。参数是 <em>href</em>,可选的 <em>rel</em>、<em>type</em>、<em>title</em>、<em>media</em> 和 <em>indexPage</em>。</p>
 <p><em>indexPage</em> 是一个布尔值,指定 <em>href</em> 是否应该添加由 <code class="docutils literal notranslate"><span class="pre">$config['indexPage']</span></code> 指定的页面地址。</p>
 <p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -466,13 +466,13 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML script 标签</p>
+<dd class="field-even"><p>一个 HTML script 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;&lt;/script&gt;</span></code> 标签。参数是 <em>src</em>,可选的 <em>indexPage</em>。</p>
+<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> 标签。参数是 <em>src</em> 和可选的 <em>indexPage</em>。</p>
 <p><em>indexPage</em> 是一个布尔值,指定 <em>src</em> 是否应该添加由 <code class="docutils literal notranslate"><span class="pre">$config['indexPage']</span></code> 指定的页面地址。</p>
 <p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
@@ -503,7 +503,7 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 格式的无序列表</p>
+<dd class="field-even"><p>一个 HTML 无序列表标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
@@ -634,7 +634,7 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 格式的有序列表</p>
+<dd class="field-even"><p>一个 HTML 有序列表标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
@@ -650,20 +650,20 @@
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$src</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 源字符串或源数组。参见 <a class="reference internal" href="#source" title="source"><code class="xref php php-func docutils literal notranslate"><span class="pre">source()</span></code></a> 函数</p></li>
-<li><p><strong>$unsupportedMessage</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 如果浏览器不支持媒体标签应显示的消息</p></li>
+<li><p><strong>$unsupportedMessage</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 如果浏览器不支持 video 标签应显示的消息</p></li>
 <li><p><strong>$attributes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – HTML 属性</p></li>
 <li><p><strong>$tracks</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 在数组内使用 track 函数。参见 <a class="reference internal" href="#track" title="track"><code class="xref php php-func docutils literal notranslate"><span class="pre">track()</span></code></a> 函数</p></li>
 <li><p><strong>$indexPage</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 格式的视频元素</p>
+<dd class="field-even"><p>一个 HTML video 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>允许你从简单或源数组生成 HTML 视频元素。示例:</p>
+<p>允许你从一个源字符串或一个源数组生成一个 HTML video 标签。示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$tracks</span> <span class="o">=</span> <span class="p">[</span>
@@ -724,14 +724,14 @@
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$src</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – 源字符串或源数组。参见 <a class="reference internal" href="#source" title="source"><code class="xref php php-func docutils literal notranslate"><span class="pre">source()</span></code></a> 函数</p></li>
-<li><p><strong>$unsupportedMessage</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 如果浏览器不支持媒体标签应显示的消息</p></li>
+<li><p><strong>$unsupportedMessage</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 如果浏览器不支持 audio 标签应显示的消息</p></li>
 <li><p><strong>$attributes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – </p></li>
 <li><p><strong>$tracks</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 在数组内使用 track 函数。参见 <a class="reference internal" href="#track" title="track"><code class="xref php php-func docutils literal notranslate"><span class="pre">track()</span></code></a> 函数</p></li>
 <li><p><strong>$indexPage</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 格式的音频元素</p>
+<dd class="field-even"><p>一个 HTML audio 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
@@ -742,7 +742,7 @@
 
 <dl class="php function">
 <dt class="sig sig-object php" id="source">
-<span class="sig-name descname"><span class="pre">source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$src</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$type</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#source" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$src</span></em>, <em class="sig-param"><span class="pre">$type</span> <span class="pre">=</span> <span class="pre">'unknown'</span></em>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em>, <em class="sig-param"><span class="pre">$indexPage</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="sig-paren">)</span><a class="headerlink" href="#source" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -752,13 +752,13 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 源标签</p>
+<dd class="field-even"><p>一个 HTML source 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;source</span> <span class="pre">/&gt;</span></code> 标签。第一个参数包含源源。示例:</p>
+<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;source&gt;</span></code> 标签。第一个参数包含资源的路径。示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nx">source</span><span class="p">(</span><span class="s1">&#39;movie.mp4&#39;</span><span class="p">,</span> <span class="s1">&#39;video/mp4&#39;</span><span class="p">,</span> <span class="s1">&#39;class=&quot;test&quot;&#39;</span><span class="p">);</span>
@@ -780,13 +780,13 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 嵌入标签</p>
+<dd class="field-even"><p>一个 HTML embed 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;embed</span> <span class="pre">/&gt;</span></code> 标签。第一个参数包含嵌入源。示例:</p>
+<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;embed&gt;</span></code> 标签。第一个参数包含 embed 源。示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nx">embed</span><span class="p">(</span><span class="s1">&#39;movie.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;video/quicktime&#39;</span><span class="p">,</span> <span class="s1">&#39;class=&quot;test&quot;&#39;</span><span class="p">);</span>
@@ -797,7 +797,7 @@
 
 <dl class="php function">
 <dt class="sig sig-object php" id="object">
-<span class="sig-name descname"><span class="pre">object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$data</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$type</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#object" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$data</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$type</span> <span class="pre">=</span> <span class="pre">'unknown'</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$params</span> <span class="pre">=</span> <span class="pre">[]</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$indexPage</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#object" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -808,13 +808,13 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML 对象标签</p>
+<dd class="field-even"><p>一个 HTML object 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;object</span> <span class="pre">/&gt;</span></code> 标签。第一个参数包含对象数据。示例:</p>
+<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;object&gt;</span></code> 标签。第一个参数包含对象数据。示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nx">object</span><span class="p">(</span><span class="s1">&#39;movie.swf&#39;</span><span class="p">,</span> <span class="s1">&#39;application/x-shockwave-flash&#39;</span><span class="p">,</span> <span class="s1">&#39;class=&quot;test&quot;&#39;</span><span class="p">);</span>
@@ -843,7 +843,7 @@
 
 <dl class="php function">
 <dt class="sig sig-object php" id="param">
-<span class="sig-name descname"><span class="pre">param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$name</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$type</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#param" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$name</span></em>, <em class="sig-param"><span class="pre">$value</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$type</span> <span class="pre">=</span> <span class="pre">'ref'</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#param" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -853,13 +853,13 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML param 标签</p>
+<dd class="field-even"><p>一个 HTML param 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;param</span> <span class="pre">/&gt;</span></code> 标签。第一个参数包含 param 源。示例:</p>
+<p>允许你创建 HTML <code class="docutils literal notranslate"><span class="pre">&lt;param&gt;</span></code> 标签。第一个参数包含 param 源。示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nx">param</span><span class="p">(</span><span class="s1">&#39;movie.mov&#39;</span><span class="p">,</span> <span class="s1">&#39;video/quicktime&#39;</span><span class="p">,</span> <span class="s1">&#39;class=&quot;test&quot;&#39;</span><span class="p">);</span>
@@ -870,23 +870,24 @@
 
 <dl class="php function">
 <dt class="sig sig-object php" id="track">
-<span class="sig-name descname"><span class="pre">track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$name</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$type</span> <span class="pre">=</span> <span class="pre">false</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">$attributes</span> <span class="pre">=</span> <span class="pre">''</span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#track" title="永久链接至目标"></a></dt>
+<span class="sig-name descname"><span class="pre">track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">$src</span></em>, <em class="sig-param"><span class="pre">$kind</span></em>, <em class="sig-param"><span class="pre">$srcLanguage</span></em>, <em class="sig-param"><span class="pre">$label</span></em><span class="sig-paren">)</span><a class="headerlink" href="#track" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 参数名称</p></li>
-<li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 参数值</p></li>
-<li><p><strong>$attributes</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – HTML 属性</p></li>
+<li><p><strong>$src</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – track 文件 (.vtt 文件) 的路径</p></li>
+<li><p><strong>$kind</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 定时 track 的类型</p></li>
+<li><p><strong>$srcLanguage</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 定时 track 的语言</p></li>
+<li><p><strong>$label</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 定时 track 的用户可读标题</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML track 标签</p>
+<dd class="field-even"><p>一个 HTML track 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>生成用于指定定时轨道的 track 元素。轨道以 WebVTT 格式格式化。示例:</p>
+<p>生成用于指定定时轨道的 track 标签。轨道以 WebVTT 格式格式化。示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nx">track</span><span class="p">(</span><span class="s1">&#39;subtitles_no.vtt&#39;</span><span class="p">,</span> <span class="s1">&#39;subtitles&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;Norwegian No&#39;</span><span class="p">);</span>
@@ -905,13 +906,13 @@
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>HTML DocType 标签</p>
+<dd class="field-even"><p>一个 HTML DocType 标签</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>帮助生成文档类型声明或 DTD。默认使用 HTML 5,但有许多可用的文档类型。</p>
+<p>帮助你生成文档类型声明（DTD）。默认使用 HTML 5，但也有许多其他可用的文档类型。</p>
 <p>示例:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
@@ -922,11 +923,11 @@
 <span class="c1">// &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</span>
 </pre></div>
 </div>
-<p>以下是预定义的文档类型选择的列表。这些是可配置的,从 <strong>app/Config/DocTypes.php</strong> 中获取,或者可以在你的 <strong>.env</strong> 配置中重写。</p>
+<p>以下是预定义的文档类型列表。这些文档类型从 <strong>app/Config/DocTypes.php</strong> 中提取，或者可以在你的 <strong>.env</strong> 配置中重写。</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>文档类型</p></th>
-<th class="head"><p>选项</p></th>
+<th class="head"><p>$type 参数</p></th>
 <th class="head"><p>结果</p></th>
 </tr>
 </thead>
@@ -935,15 +936,15 @@
 <td><p>xhtml11</p></td>
 <td><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.1//EN” “<a class="reference external" href="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-odd"><td><p>XHTML 1.0 严格</p></td>
+<tr class="row-odd"><td><p>XHTML 1.0 Strict</p></td>
 <td><p>xhtml1-strict</p></td>
 <td><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Strict//EN” “<a class="reference external" href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-even"><td><p>XHTML 1.0 过渡</p></td>
+<tr class="row-even"><td><p>XHTML 1.0 Transitional</p></td>
 <td><p>xhtml1-trans</p></td>
 <td><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “<a class="reference external" href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-odd"><td><p>XHTML 1.0 框架集</p></td>
+<tr class="row-odd"><td><p>XHTML 1.0 Frameset</p></td>
 <td><p>xhtml1-frame</p></td>
 <td><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Frameset//EN” “<a class="reference external" href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd</a>”&gt;</p></td>
 </tr>
@@ -955,15 +956,15 @@
 <td><p>html5</p></td>
 <td><p>&lt;!DOCTYPE html&gt;</p></td>
 </tr>
-<tr class="row-even"><td><p>HTML 4 严格</p></td>
+<tr class="row-even"><td><p>HTML 4 Strict</p></td>
 <td><p>html4-strict</p></td>
 <td><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “<a class="reference external" href="http://www.w3.org/TR/html4/strict.dtd">http://www.w3.org/TR/html4/strict.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-odd"><td><p>HTML 4 过渡</p></td>
+<tr class="row-odd"><td><p>HTML 4 Transitional</p></td>
 <td><p>html4-trans</p></td>
 <td><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a class="reference external" href="http://www.w3.org/TR/html4/loose.dtd">http://www.w3.org/TR/html4/loose.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-even"><td><p>HTML 4 框架集</p></td>
+<tr class="row-even"><td><p>HTML 4 Frameset</p></td>
 <td><p>html4-frame</p></td>
 <td><p>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Frameset//EN” “<a class="reference external" href="http://www.w3.org/TR/html4/frameset.dtd">http://www.w3.org/TR/html4/frameset.dtd</a>”&gt;</p></td>
 </tr>
@@ -979,11 +980,11 @@
 <td><p>svg10</p></td>
 <td><p>&lt;!DOCTYPE svg PUBLIC “-//W3C//DTD SVG 1.0//EN” “<a class="reference external" href="http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-even"><td><p>SVG 1.1 完整</p></td>
+<tr class="row-even"><td><p>SVG 1.1 Full</p></td>
 <td><p>svg11</p></td>
 <td><p>&lt;!DOCTYPE svg PUBLIC “-//W3C//DTD SVG 1.1//EN” “<a class="reference external" href="http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-odd"><td><p>SVG 1.1 基本</p></td>
+<tr class="row-odd"><td><p>SVG 1.1 Basic</p></td>
 <td><p>svg11-basic</p></td>
 <td><p>&lt;!DOCTYPE svg PUBLIC “-//W3C//DTD SVG 1.1 Basic//EN” “<a class="reference external" href="http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd">http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd</a>”&gt;</p></td>
 </tr>
@@ -991,11 +992,11 @@
 <td><p>svg11-tiny</p></td>
 <td><p>&lt;!DOCTYPE svg PUBLIC “-//W3C//DTD SVG 1.1 Tiny//EN” “<a class="reference external" href="http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-odd"><td><p>XHTML+MathML+SVG (XHTML 主机)</p></td>
+<tr class="row-odd"><td><p>XHTML+MathML+SVG (XHTML host)</p></td>
 <td><p>xhtml-math-svg-xh</p></td>
 <td><p>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN” “<a class="reference external" href="http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd</a>”&gt;</p></td>
 </tr>
-<tr class="row-even"><td><p>XHTML+MathML+SVG (SVG 主机)</p></td>
+<tr class="row-even"><td><p>XHTML+MathML+SVG (SVG host)</p></td>
 <td><p>xhtml-math-svg-sh</p></td>
 <td><p>&lt;!DOCTYPE svg:svg PUBLIC “-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN” “http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd”&gt;</p></td>
 </tr>
@@ -1026,7 +1027,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-09-06.
+      <span class="lastupdated">最后更新于 2024-09-19.
       </span></p>
   </div>
 
@@ -1034,7 +1035,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb3dda7f3d0>
+<jinja2.runtime.BlockReference object at 0x7fe7e18bc6d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
