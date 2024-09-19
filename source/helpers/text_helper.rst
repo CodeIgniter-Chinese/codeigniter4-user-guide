@@ -110,7 +110,7 @@
 
     .. note:: 出于历史原因,此函数也接受并处理字符串输入。但是,这使它只是一个 ``stripslashes()`` 的别名。
 
-.. php:function:: reduce_multiples($str[, $character = ''[, $trim = false]])
+.. php:function:: reduce_multiples($str[, $character = ','[, $trim = false]])
 
     :param    string    $str: 要搜索的文本
     :param    string    $character: 要缩减的字符
@@ -122,7 +122,7 @@
 
     .. literalinclude:: text_helper/009.php
 
-    如果第三个参数设置为 true,则会移除字符串开头和结尾处的字符出现。示例:
+    如果第三个参数设置为 ``true``，它将移除字符串开头和结尾处出现的字符。例如：
 
     .. literalinclude:: text_helper/010.php
 

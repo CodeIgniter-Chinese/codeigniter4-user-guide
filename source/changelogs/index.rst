@@ -12,6 +12,7 @@
 .. toctree::
     :titlesonly:
 
+    v4.5.5
     v4.5.4
     v4.5.3
     v4.5.2

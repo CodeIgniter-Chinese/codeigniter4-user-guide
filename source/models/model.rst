@@ -185,12 +185,13 @@ $deletedField
 $validationRules
 ^^^^^^^^^^^^^^^^
 
-包含 :ref:`validation-array` 中描述的验证规则数组或包含要应用的验证组名称的字符串,如同一节中所述。下面更详细地描述。
+包含一个验证规则数组，如 :ref:`validation-array` 中所述，或者包含验证组名称的字符串，如同一节中所述。
+另请参见 :ref:`model-setting-validation-rules`。
 
 $validationMessages
 ^^^^^^^^^^^^^^^^^^^
 
-包含应在验证期间使用的自定义错误消息数组,如 :ref:`validation-custom-errors` 中所述。下面更详细地描述。
+包含一个自定义错误消息数组，这些消息将在验证过程中使用，如 :ref:`validation-custom-errors` 中所述。另请参见 :ref:`model-setting-validation-rules`。
 
 $skipValidation
 ^^^^^^^^^^^^^^^
@@ -540,10 +541,12 @@ purgeDeleted()
 模型内验证
 ===================
 
+.. warning:: 在模型内验证是在数据存储到数据库之前进行的。在此之前，数据尚未经过验证。在验证之前处理用户输入的数据可能会引入漏洞。
+
 验证数据
 ---------------
 
-对于许多人来说，在模型中验证数据是确保数据保持单一标准而不重复代码的首选方式。Model 类提供了一种方法，可以在使用 ``insert()``、``update()`` 或 ``save()`` 方法保存到数据库之前自动验证所有数据。
+Model 类提供了一种方法，可以在使用 ``insert()``、``update()`` 或 ``save()`` 方法保存到数据库之前自动验证所有数据。
 
 .. important:: 当你更新数据时，默认情况下，模型类中的验证只会验证提供的字段。这是为了避免在仅更新某些字段时出现验证错误。
 
@@ -553,14 +556,20 @@ purgeDeleted()
 
     为了避免这种问题，可以通过配置更改此行为。详情请参见 :ref:`clean-validation-rules`。
 
+.. _model-setting-validation-rules:
+
 设置验证规则
 ------------------------
 
-第一步是用将应用的字段和规则填充 `$validationRules`_ 类属性。如果你有要使用的自定义错误消息,请将其放入 `$validationMessages`_ 数组中:
+第一步是填写 `$validationRules`_ 类属性，包含需要应用的字段和规则。
+
+.. note:: 你可以在 :ref:`validation-available-rules` 中查看内置验证规则的列表。
+
+如果你有自定义的错误消息，可以将它们放在 `$validationMessages`_ 数组中：
 
 .. literalinclude:: model/027.php
 
-如果你更喜欢在验证配置文件中组织你的规则和错误消息，你可以这样做，并将 `$validationRules`_ 设置为你创建的验证规则组的名称：
+如果你更愿意在 :ref:`Validation Config File <saving-validation-rules-to-config-file>` 中组织你的规则和错误消息，你可以这样做，然后只需将 `$validationRules`_ 设置为你创建的验证规则组的名称：
 
 .. literalinclude:: model/034.php
 
@@ -819,10 +828,10 @@ beforeInsert      **data** = 正在插入的键/值对。如果将对象或 Enti
 afterInsert       **id** = 新行的主键，如果失败则为 0。
                   **data** = 正在插入的键/值对。
                   **result** = 通过查询构建器使用的 ``insert()`` 方法的结果。
-beforeUpdate      **id** = 正在更新的行的主键数组。
+beforeUpdate      **id** = 传递给 ``update()`` 方法的行的主键数组。
                   **data** = 正在更新的键/值对。如果将对象或 Entity 类传递给
                   ``update()`` 方法，它首先会被转换为数组。
-afterUpdate       **id** = 正在更新的行的主键数组。
+afterUpdate       **id** = 传递给 ``update()`` 方法的行的主键数组。
                   **data** = 正在更新的键/值对。
                   **result** = 通过查询构建器使用的 ``update()`` 方法的结果。
 beforeFind        调用 **method** 的名称，是否请求了 **singleton**，以及以下附加字段：

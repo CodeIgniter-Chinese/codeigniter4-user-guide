@@ -390,6 +390,8 @@ withRequest()
 .. literalinclude:: validation/045.php
    :lines: 2-
 
+.. _saving-validation-rules-to-config-file:
+
 将一组验证规则保存到配置文件
 ==================================================
 
@@ -737,6 +739,8 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 
 .. literalinclude:: validation/047.php
    :lines: 2-
+
+.. _validation-available-rules:
 
 ***************
 可用规则
