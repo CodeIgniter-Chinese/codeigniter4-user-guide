@@ -215,7 +215,7 @@ form_params
 
 .. literalinclude:: curlrequest/024.php
 
-.. note:: ``form_params`` 不能与 ``multipart`` 选项一起使用。你需要使用其中一个。对 ``application/x-www-form-urlencoded`` 请求使用 ``form_params``,对 ``multipart/form-data`` 请求使用 ``multipart``。
+.. note:: ``form_params`` 不能与 `multipart`_ 选项一起使用。你需要使用其中一个。对 ``application/x-www-form-urlencoded`` 请求使用 ``form_params``,对 ``multipart/form-data`` 请求使用 ``multipart``。
 
 .. _curlrequest-request-options-headers:
 
@@ -249,12 +249,13 @@ json
 multipart
 =========
 
-当你需要通过 POST 请求发送文件和其他数据时,可以使用 ``multipart`` 选项,以及 `CURLFile 类 <https://www.php.net/manual/en/class.curlfile.php>`_。值应该是一个关联数组,包含要发送的 POST 数据。为了更安全地使用,上传文件通过在名称前加上 `@` 的遗留方法已被禁用。你想要发送的任何文件必须作为 CURLFile 实例传递:
+当你需要通过 POST 请求发送文件和其他数据时，可以使用 ``multipart`` 选项，以及 `CURLFile 类 <https://www.php.net/manual/zh/class.curlfile.php>`_。
+
+这些值应该是一个关联数组，包含要发送的 POST 数据。为了更安全地使用，前缀带有 ``@`` 的旧方法已被禁用。任何你想发送的文件必须作为 CURLFile 的实例传递：
 
 .. literalinclude:: curlrequest/028.php
 
-.. note:: ``multipart`` 不能与 ``form_params`` 选项一起使用。你只能使用其中一个。对 ``application/x-www-form-urlencoded`` 请求使用
-        ``form_params``,对 ``multipart/form-data`` 请求使用 ``multipart``。
+.. note:: ``multipart`` 不能与 `form_params`_ 选项一起使用。你只能使用其中一个。使用 ``form_params`` 进行 ``application/x-www-form-urlencoded`` 请求，使用 ``multipart`` 进行 ``multipart/form-data`` 请求。
 
 .. _curlrequest-request-options-proxy:
 
