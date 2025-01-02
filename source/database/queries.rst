@@ -189,6 +189,8 @@ $db->error()
 
 .. literalinclude:: queries/018.php
 
+.. note:: 目前，唯一实际使用选项数组的数据库是 SQLSRV。
+
 执行查询
 ===================
 

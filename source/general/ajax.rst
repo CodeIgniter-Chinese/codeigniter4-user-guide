@@ -56,7 +56,7 @@ React
 htmx
 ====
 
-你可以使用 ajax-header 扩展。
+你可以使用 `ajax-header <https://github.com/bigskysoftware/htmx-extensions/blob/main/src/ajax-header/README.md>`_ 扩展。
 
 .. code-block:: html
 

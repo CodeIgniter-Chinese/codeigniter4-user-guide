@@ -21,7 +21,7 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 .. php:function:: site_url([$uri = ''[, $protocol = null[, $altConfig = null]]])
 
     :param  array|string         $uri: URI 字符串或 URI 段数组
-    :param  string        $protocol: 协议，例如 'http' 或 'https'。如果设置为空字符串 ''，则返回一个 protocol-relative 链接。
+    :param  string        $protocol: 协议，例如 ``'http'`` 或 ``'https'``。如果设置为空字符串 ``''``，则返回一个 protocol-relative 链接。
     :param  \\Config\\App $altConfig: 要使用的备用配置
     :returns: 站点 URL
     :rtype:    string
@@ -49,7 +49,7 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 .. php:function:: base_url([$uri = ''[, $protocol = null]])
 
     :param  array|string   $uri: URI 字符串或 URI 段数组
-    :param  string  $protocol: 协议，例如 'http' 或 'https'。如果设置为空字符串 ''，则返回一个 protocol-relative 链接。
+    :param  string  $protocol: 协议，例如 ``'http'`` 或 ``'https'``。如果设置为空字符串 ``''``，则返回一个 protocol-relative 链接。
     :returns: Base URL
     :rtype: string
 
@@ -107,7 +107,7 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 
     :param boolean $returnObject: 如果希望返回 URI 实例而不是字符串,则为 True。
     :returns: 用户之前所在的 URL
-    :rtype: string|mixed|\\CodeIgniter\\HTTP\\URI
+    :rtype: string|\\CodeIgniter\\HTTP\\URI
 
     返回用户之前完整的 URL(包括段)。
 
@@ -157,10 +157,10 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 
 .. php:function:: anchor([$uri = ''[, $title = ''[, $attributes = ''[, $altConfig = null]]]])
 
-    :param  mixed         $uri: URI字符串或URI段数组
-    :param  string        $title: 锚点标题
-    :param  mixed         $attributes: HTML属性
-    :param  \\Config\\App $altConfig: 要使用的备用配置
+    :param  array|string        $uri: URI字符串或URI段数组
+    :param  string              $title: 锚点标题
+    :param  array|object|string $attributes: HTML属性
+    :param  \\Config\\App|null  $altConfig: 要使用的备用配置
     :returns: HTML链接(锚点标签)
     :rtype:    string
 
@@ -184,10 +184,10 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 
 .. php:function:: anchor_popup([$uri = ''[, $title = ''[, $attributes = false[, $altConfig = null]]]])
 
-    :param  string          $uri: URI字符串
-    :param  string          $title: 锚点标题
-    :param  mixed           $attributes: HTML属性
-    :param  \\Config\\App   $altConfig: 要使用的备用配置
+    :param  string                    $uri: URI字符串
+    :param  string                    $title: 锚点标题
+    :param  array|false|object|string $attributes: HTML属性
+    :param  \\Config\\App             $altConfig: 要使用的备用配置
     :returns: 弹出式超链接
     :rtype: string
 
@@ -211,9 +211,9 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 
 .. php:function:: mailto($email[, $title = ''[, $attributes = '']])
 
-    :param  string  $email: 电子邮件地址
-    :param  string  $title: 锚点标题
-    :param  mixed   $attributes: HTML属性
+    :param  string              $email: 电子邮件地址
+    :param  string              $title: 锚点标题
+    :param  array|object|string $attributes: HTML属性
     :returns: “发送邮件到”超链接
     :rtype: string
 
@@ -229,9 +229,9 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 
 .. php:function:: safe_mailto($email[, $title = ''[, $attributes = '']])
 
-    :param  string  $email: 电子邮件地址
-    :param  string  $title: 锚点标题
-    :param  mixed   $attributes: HTML属性
+    :param  string              $email: 电子邮件地址
+    :param  string              $title: 锚点标题
+    :param  array|object|string $attributes: HTML属性
     :returns: 防垃圾邮件的“发送邮件到”超链接
     :rtype: string
 
@@ -240,7 +240,7 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 .. php:function:: auto_link($str[, $type = 'both'[, $popup = false]])
 
     :param  string  $str: 输入字符串
-    :param  string  $type: 链接类型('email'、'url' 或 'both')
+    :param  string  $type: 链接类型(``'email'``、``'url'`` 或 ``'both'``)
     :param  bool    $popup: 是否创建弹出链接
     :returns: 链接化的字符串
     :rtype: string
@@ -315,7 +315,7 @@ URL 辅助函数文件包含帮助使用 URL 的函数。
 .. php:function:: url_to($controller[, ...$args])
 
     :param  string  $controller: 路由名称或 Controller::method
-    :param  mixed   ...$args:    要传递给路由的一个或多个参数。最后一个参数允许你设置区域设置。
+    :param  int|string ...$args:    要传递给路由的一个或多个参数。最后一个参数允许你设置区域设置。
     :returns: 绝对 URL
     :rtype: string
 
