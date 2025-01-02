@@ -71,7 +71,7 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
     :param  string  $type:      相关文档的类型
     :param  string  $title:     链接标题
     :param  string  $media:     媒体类型
-    :param  bool    $indexPage: 是否应该将 `indexPage` 添加到链接路径中
+    :param  bool    $indexPage: 是否应该将 indexPage 添加到链接路径中
     :param  string  $hreflang:  Hreflang 类型
     :returns:   一个 HTML link 标签
     :rtype: string
@@ -198,7 +198,7 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
     :param  string  $unsupportedMessage: 如果浏览器不支持 video 标签应显示的消息
     :param  string  $attributes:          HTML 属性
     :param  array   $tracks:              在数组内使用 track 函数。参见 :php:func:`track()` 函数
-    :param  bool    $indexPage:           是否应该将 `indexPage` 添加到视频源路径中
+    :param  bool    $indexPage:           是否应该将 indexPage 添加到视频源路径中
     :returns:                             一个 HTML video 标签
     :rtype: string
 
@@ -236,7 +236,7 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
     :param  string  $unsupportedMessage: 如果浏览器不支持 audio 标签应显示的消息
     :param  string  $attributes:
     :param  array   $tracks:              在数组内使用 track 函数。参见 :php:func:`track()` 函数
-    :param  bool    $indexPage:           是否应该将 `indexPage` 添加到音频源路径中
+    :param  bool    $indexPage:           是否应该将 indexPage 添加到音频源路径中
     :returns:                             一个 HTML audio 标签
     :rtype: string
 
@@ -259,7 +259,7 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
     :param  string  $src:        要嵌入的资源路径
     :param  bool    $type:       MIME 类型
     :param  array   $attributes: HTML 属性
-    :param  bool    $indexPage:  是否应该将 `indexPage` 添加到源路径中
+    :param  bool    $indexPage:  是否应该将 indexPage 添加到源路径中
     :returns:   一个 HTML embed 标签
     :rtype: string
 
@@ -272,7 +272,7 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
     :param  string  $data:       资源 URL
     :param  bool    $type:       资源的内容类型
     :param  array   $attributes: HTML 属性
-    :param  bool    $indexPage:  是否应该将 `indexPage` 添加到资源 URL 中
+    :param  bool    $indexPage:  是否应该将 indexPage 添加到资源 URL 中
     :param  array   $params:     在数组中使用 param 函数。参见 :php:func:`param()` 函数
     :returns:   一个 HTML object 标签
     :rtype: string
