@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>查询 &mdash; CodeIgniter 4.5.5 中文手册|用户手册|用户指南|中文文档</title>
+  <title>查询 &mdash; CodeIgniter 4.5.7 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -547,13 +547,11 @@
 <p>这可以通过 <code class="docutils literal notranslate"><span class="pre">prepare()</span></code> 方法轻松完成。它接受一个参数,该参数是一个返回查询对象的闭包。查询对象由任何“final”类型的查询自动生成,包括 <strong>insert</strong>、<strong>update</strong>、<strong>delete</strong>、<strong>replace</strong> 和 <strong>get</strong>。通过使用查询构建器运行查询来实现这一点最简单。查询实际上不会运行,值也不重要,因为它们从未应用,而是充当占位符。这将返回一个 PreparedQuery 对象:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
-<span class="nv">$pQuery</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$db</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span>
-        <span class="s1">&#39;name&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;country&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
-    <span class="p">]);</span>
-<span class="p">});</span>
+<span class="nv">$pQuery</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="k">static</span> <span class="nx">fn</span> <span class="p">(</span><span class="nv">$db</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span>
+    <span class="s1">&#39;name&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;country&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+<span class="p">]));</span>
 </pre></div>
 </div>
 <p>如果不想使用查询构建器,可以使用问号作为值占位符手动创建查询对象:</p>
@@ -580,6 +578,10 @@
 <span class="p">},</span> <span class="nv">$options</span><span class="p">);</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>目前，唯一实际使用选项数组的数据库是 SQLSRV。</p>
+</div>
 </section>
 <section id="id16">
 <h3><a class="toc-backref" href="#id40" role="doc-backlink">执行查询</a><a class="headerlink" href="#id16" title="此标题的永久链接"></a></h3>
@@ -587,13 +589,11 @@
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// Prepare the Query</span>
-<span class="nv">$pQuery</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$db</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span>
-        <span class="s1">&#39;name&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;email&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;country&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
-    <span class="p">]);</span>
-<span class="p">});</span>
+<span class="nv">$pQuery</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="k">static</span> <span class="nx">fn</span> <span class="p">(</span><span class="nv">$db</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span>
+    <span class="s1">&#39;name&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;country&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;US&#39;</span><span class="p">,</span>
+<span class="p">]));</span>
 
 <span class="c1">// Collect the Data</span>
 <span class="nv">$name</span>    <span class="o">=</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">;</span>
@@ -748,8 +748,8 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; 版权所有 2019-2024 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2024-09-19.
+    <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2025-01-02.
       </span></p>
   </div>
 
@@ -757,7 +757,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fe7e16db710>
+<jinja2.runtime.BlockReference object at 0x7fec6f377cd0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
