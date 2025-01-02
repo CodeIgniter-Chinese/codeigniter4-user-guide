@@ -280,14 +280,14 @@ setOptions 方法
 
     public bool $configCacheEnabled = true;
 
-自 v4.5.0 起，你可以使用 ``spark optimize`` 命令来启用此功能。
+或者你可以使用 ``spark optimize`` 命令来启用此功能。
 
 .. note::
     此属性无法通过
     :ref:`环境变量 <configuration-classes-and-environment-variables>` 重写。
 
 .. note::
-    在 v4.5.0 之前，请在 **public/index.php** 中取消以下代码的注释::
+    在 v4.4.x 中，请在 **public/index.php** 中取消以下代码的注释::
 
         --- a/public/index.php
         +++ b/public/index.php

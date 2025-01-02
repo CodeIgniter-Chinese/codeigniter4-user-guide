@@ -79,7 +79,7 @@ withLogger($logger)
 
 如果未提供,将使用具有默认配置值的新的 Logger 实例传入控制器。
 
-withURI(string $uri)
+withUri(string $uri)
 --------------------
 
 允许你提供新的 URI,模拟客户端访问此控制器时的 URL。如果你需要在控制器中检查 URI 片段,这很有帮助。唯一的参数是一个表示有效 URI 的字符串:

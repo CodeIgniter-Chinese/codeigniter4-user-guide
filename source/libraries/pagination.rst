@@ -121,7 +121,7 @@ CodeIgniter 提供了一个非常简单但灵活的分页库,它易于主题化,
 
 请注意: ``$segment`` 值不能大于 URI 段数加 1。
 
-如果你需要在一页上显示多个分页器,那么定义组的额外参数可能会有所帮助:
+如果你需要在一个页面上显示多个分页器，那么可以使用额外的参数来定义一个分组，这可能会很有帮助：
 
 .. literalinclude:: pagination/007.php
 
@@ -184,7 +184,7 @@ CodeIgniter 提供了一个非常简单但灵活的分页库,它易于主题化,
 setSurroundCount()
 ------------------
 
-在第一行中, ``setSurroundCount()`` 方法指定我们希望在当前页面链接的两侧显示两个链接。它只接受显示链接数的参数。
+在第一行中，``setSurroundCount()`` 方法指定我们希望在当前页面链接的两侧各显示两个链接。它接受的唯一参数是要显示的链接数量。
 
 .. note:: 你必须首先调用此方法来生成正确的分页链接。
 
@@ -229,7 +229,7 @@ links()
 
 如果你要使用上一页和下一页将链接到当前页面基于当前页面的上一页和下一页的分页结构,只需分别用 `getPreviousPage() & getNextPage()`_ 替换 `getPrevious() & getNext()`_,以及分别用 `hasPreviousPage() & hasNextPage()`_ 替换 `hasPrevious() & hasNext()`_。
 
-请参阅以下示例及其更改:
+请参阅以下包含这些更改的示例：
 
 .. literalinclude:: pagination/014.php
 

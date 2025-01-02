@@ -29,11 +29,11 @@
 配置
 ------
 
-- composer.json
+- preload.php
 
 所有更改
 ===========
 
 这是 **项目空间** 中所有收到更改的文件列表；许多只是简单的注释或格式调整，对运行时没有影响：
 
-- composer.json
+- preload.php
