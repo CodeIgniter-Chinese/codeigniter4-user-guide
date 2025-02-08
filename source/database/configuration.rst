@@ -146,7 +146,10 @@ DSN
                      请参阅 `SQLite 文档 <https://www.sqlite.org/pragma.html#pragma_foreign_keys>`_。
                      要实施外键约束,请将此配置项设置为 true。
 **busyTimeout**  （仅限 ``SQLite3``）毫秒（int）- 当表被锁定时，休眠指定时间。
+**synchronous**  （仅限 ``SQLite3``）标志（int）- 控制事务期间 SQLite 将数据刷新到磁盘的严格程度。
+                 使用 `null` 可保持默认设置。该功能自 v4.6.0 版本起可用。
 **numberNative** （仅限 ``MySQLi``）true/false（布尔值）- 是否启用 MYSQLI_OPT_INT_AND_FLOAT_NATIVE。
+**foundRows**    （仅限 ``MySQLi``）true/false（布尔值）- 是否启用 MYSQLI_CLIENT_FOUND_ROWS。
 **dateFormat**   默认的日期/时间格式，如 PHP 的 `DateTime format`_。
                  * ``date``        - 日期格式
                  * ``datetime``    - 日期和时间格式

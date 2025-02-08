@@ -133,3 +133,16 @@ CodeIgniter 可以自动发现你可能在任何定义的命名空间中创建�
 .. literalinclude:: services/012.php
 
 .. note:: 如果多个 Services 文件具有相同的方法名,则返回找到的第一个实例。
+
+.. _resetting-services-cache:
+
+重置服务缓存
+========================
+
+.. versionadded:: 4.6.0
+
+当 Services 类在框架初始化过程的早期首次被调用时，通过自动发现找到的 Services 类会被缓存到一个属性中，并且后续不会更新。
+
+如果后续动态加载了模块，且这些模块中包含 Services 类，则必须更新缓存。
+
+可以通过运行 ``Config\Services::resetServicesCache()`` 来实现。这将清除缓存，并在需要时强制重新进行服务发现。
