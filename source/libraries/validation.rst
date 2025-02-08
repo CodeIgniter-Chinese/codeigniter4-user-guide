@@ -796,7 +796,7 @@ is_not_unique           是         检查数据库中是否存在给定的值�
                                    可以通过字段/值过滤器忽略记录(当前只接受一个过滤器)。             或 ``is_not_unique[dbGroup.table.field,where_field,where_value]``
                                    （自 v4.6.0 版本起，你可以选择性地将 dbGroup 作为参数传递。）
 is_unique               是         检查字段值是否存在于数据库中。可以可选地设置要忽略的列和值,       ``is_unique[table.field,ignore_field,ignore_value]``
-                                   在更新记录时很有用,忽略它本身。                                    或 ``is_unique[dbGroup.table.field,ignore_field,ignore_value]``
+                                   在更新记录时很有用,忽略它本身。                                   或 ``is_unique[dbGroup.table.field,ignore_field,ignore_value]``
                                    （自 v4.6.0 版本起，你可以选择性地将 dbGroup 作为参数传递。）
 less_than               是         如果字段大于或等于参数值,或不是数字,则失败。                      ``less_than[8]``
 less_than_equal_to      是         如果字段大于参数值,或不是数字,则失败。                            ``less_than_equal_to[8]``

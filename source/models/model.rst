@@ -46,7 +46,7 @@ CodeIgniter 提供的模型类包含以下特性：
 
 .. literalinclude:: model/002.php
 
-这个空类提供了对数据库连接、查询构造器和多个便捷方法的访问。
+这个空类提供了对数据库连接、查询构建器和多个便捷方法的访问。
 
 initialize()
 ============
@@ -312,7 +312,7 @@ datetime
 日期时间格式在 :ref:`数据库配置 <database-config-explanation-of-values>` 的 ``dateFormat`` 数组中设置，位于 **app/Config/Database.php** 文件。
 
 .. note::
-    当使用 ``ms`` 或 ``us`` 作为参数时，**模型** 会处理 Time 的秒的小数部分。但 **查询构造器** 不会。因此在将 Time 传递给查询构造器的方法（如 ``where()``）时，仍需使用 ``format()`` 方法：
+    当使用 ``ms`` 或 ``us`` 作为参数时，**模型** 会处理 Time 的秒的小数部分。但 **查询构建器** 不会。因此在将 Time 传递给查询构建器的方法（如 ``where()``）时，仍需使用 ``format()`` 方法：
 
     .. literalinclude:: model/063.php
         :lines: 2-
@@ -397,7 +397,7 @@ findAll()
 
 .. literalinclude:: model/009.php
 
-可在调用此方法前插入查询构造器命令来修改查询：
+可在调用此方法前插入查询构建器命令来修改查询：
 
 .. literalinclude:: model/010.php
 
@@ -408,7 +408,7 @@ findAll()
 first()
 -------
 
-返回结果集中的第一行。最好与查询构造器结合使用。
+返回结果集中的第一行。最好与查询构建器结合使用。
 
 .. literalinclude:: model/012.php
 

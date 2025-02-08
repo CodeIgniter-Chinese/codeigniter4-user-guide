@@ -92,12 +92,12 @@ Time::setTimestamp() 行为修正
 
 .. _upgrade-460-registrars-with-dirty-hack:
 
-Registrars 的脏数据修复
+注册器的脏数据修复
 ==========================
 
 为防止 :ref:`registrars` 的自动发现机制重复执行，当 Registrar 类被加载或实例化时，如果实例化了 Config 类（继承自 ``CodeIgniter\Config\BaseConfig``），将会抛出 ``ConfigException``。
 
-这是因为 Registrar 自动发现机制若重复执行，可能导致 Config 类属性被重复赋值。
+这是因为注册器的自动发现机制若重复执行，可能导致 Config 类属性被重复赋值。
 
 所有 Registrar 类（所有命名空间中的 **Config/Registrar.php**）必须修改为在加载或实例化时不实例化任何 Config 类。
 
