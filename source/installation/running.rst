@@ -176,7 +176,7 @@ Apache 与许多平台捆绑在一起，但也可以从 `Bitnami <https://bitnam
 添加主机别名
 -----------------
 
-在你的 "hosts" 文件中添加主机别名，通常在 Unix 类型平台上为 **/etc/hosts**，在 Windows 上为 **c:\Windows\System32\drivers\etc\hosts**。
+在你的 "hosts" 文件中添加主机别名，通常在 Unix 类型平台上为 **/etc/hosts**，在 Windows 上为 **c:\\Windows\\System32\\drivers\\etc\\hosts**。
 
 在文件中添加一行。例如，可以是 ``myproject.local`` 或 ``myproject.test``::
 

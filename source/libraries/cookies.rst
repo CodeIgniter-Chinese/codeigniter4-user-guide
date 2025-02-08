@@ -2,15 +2,15 @@
 Cookie
 #######
 
-一个 **HTTP Cookie** (网站 Cookie、浏览器 Cookie)是一个服务器发送到用户浏览器的一小段数据。浏览器可以存储它,并在以后向同一服务器的请求中发送它。通常,它用于判断两个请求是否来自同一个浏览器 - 例如,用于保持用户登录状态。它为无状态的 HTTP 协议保存状态信息。
+**HTTP Cookie** （网页 Cookie、浏览器 Cookie）是服务器发送到用户浏览器的一小段数据。浏览器会存储该数据并在后续向同一服务器发起请求时将其带回。通常用于判断两个请求是否来自同一浏览器——例如保持用户登录状态。它为无状态的 HTTP 协议提供了状态信息记忆能力。
 
-Cookie 主要用于三个目的:
+Cookies 主要用于以下三个场景：
 
-- **会话管理**:登录、购物车、游戏分数或服务器需要记住的任何其他内容
-- **个性化**:用户首选项、主题和其他设置
-- **跟踪**:记录和分析用户行为
+- **会话管理**：登录状态、购物车、游戏分数等需要服务器记忆的信息
+- **个性化设置**：用户偏好、主题及其他配置
+- **行为追踪**：记录和分析用户行为
 
-为了帮助你有效地向浏览器发送 Cookie，CodeIgniter 提供了 ``CodeIgniter\Cookie\Cookie`` 类来抽象化 Cookie 的交互。
+为帮助你高效地向浏览器发送 Cookies，CodeIgniter 提供了 ``CodeIgniter\Cookie\Cookie`` 类来抽象化 Cookie 交互。
 
 .. contents::
     :local:
@@ -20,33 +20,33 @@ Cookie 主要用于三个目的:
 创建 Cookie
 ****************
 
-目前有四种方式可以创建一个新的 ``Cookie`` 值对象。
+目前有四种方式创建新的 ``Cookie`` 值对象：
 
 .. literalinclude:: cookies/001.php
 
-在构造 ``Cookie`` 对象时,只需要 ``name`` 属性是必需的。其余的都是可选的。如果没有修改可选属性,它们的值将由 ``Cookie`` 类中保存的默认值填充。
+构建 ``Cookie`` 对象时，仅 ``name`` 属性为必填项，其他属性均为可选。若未修改可选属性，它们的值将由 ``Cookie`` 类中保存的默认值填充。
 
 覆盖默认值
 ===================
 
-要覆盖类中当前存储的默认值,你可以传递一个 ``Config\Cookie`` 实例或默认值数组给静态 ``Cookie::setDefaults()`` 方法。
+要覆盖类中存储的默认值，可以通过静态方法 ``Cookie::setDefaults()`` 传入 ``Config\Cookie`` 实例或包含默认值的数组：
 
 .. literalinclude:: cookies/002.php
 
-将 ``Config\Cookie`` 实例或数组传递给 ``Cookie::setDefaults()`` 将有效地覆盖你的默认值,并且持续到新的默认值被传递。
+向 ``Cookie::setDefaults()`` 传递 ``Config\Cookie`` 实例或数组将永久覆盖默认值，直到传入新的默认值为止。
 
-有限的时间内更改默认值
+临时修改默认值
 ------------------------------------
 
-如果你不想要这种行为,而只是想在有限的时间内更改默认值,你可以利用 ``Cookie::setDefaults()`` 的返回值,它返回旧的默认值数组。
+若希望临时修改默认值而非永久覆盖，可利用 ``Cookie::setDefaults()`` 返回旧默认值数组的特性：
 
 .. literalinclude:: cookies/003.php
 
 *****************************
-访问 Cookie 的属性
+访问 Cookie 属性
 *****************************
 
-一旦实例化,你就可以通过使用其 getter 方法之一轻松访问 ``Cookie`` 的属性。
+实例化后，可通过 getter 方法轻松访问 ``Cookie`` 属性：
 
 .. literalinclude:: cookies/004.php
 
@@ -54,54 +54,52 @@ Cookie 主要用于三个目的:
 不可变 Cookie
 *****************
 
-新的 ``Cookie`` 实例是一个 HTTP cookie 的不可变值对象表示。由于是不可变的,修改实例的任何属性都不会影响原始实例。修改 **总是** 返回一个新实例。你需要保留这个新实例才能使用它。
+``Cookie`` 实例是 HTTP Cookie 的不可变值对象。由于其不可变性，修改实例属性不会影响原实例，修改操作 **始终** 返回新实例。需保留新实例方可使用：
 
 .. literalinclude:: cookies/005.php
 
 ********************************
-验证 Cookie 的属性
+验证 Cookie 属性
 ********************************
 
-一个 HTTP cookie 受到几个规范的约束,这些规范需要遵循才能被浏览器接受。因此,在创建或修改 ``Cookie`` 的某些属性时,会对其进行验证,以检查它们是否遵循规范。
-
-如果报告了违规,则会抛出 ``CookieException``。
+HTTP Cookie 受多个规范约束以确保浏览器接受。因此在创建或修改 ``Cookie`` 的某些属性时，会进行规范符合性验证。若验证失败将抛出 ``CookieException``。
 
 验证名称属性
 =============================
 
-cookie 名称可以是任何 US-ASCII 字符,以下字符除外:
+Cookie 名称可为任意 US-ASCII 字符，但以下字符除外：
 
-- 控制字符;
-- 空格或制表符;
-- 分隔符,例如 ``( ) < > @ , ; : \ " / [ ] ? = { }``
+- 控制字符
+- 空格或制表符
+- 分隔字符：``( ) < > @ , ; : \ " / [ ] ? = { }``
 
-如果将 ``$raw`` 参数设置为 ``true``,则会严格进行此验证。这是因为 PHP 的 `setcookie() <https://www.php.net/manual/en/function.setcookie.php>`_ 和 `setrawcookie() <https://www.php.net/manual/en/function.setrawcookie.php>`_ 会拒绝具有无效名称的 cookie。另外,cookie 名称不能为空字符串。
+若设置 ``$raw`` 参数为 ``true`` 将执行严格验证，因为 PHP 的 `setcookie() <https://www.php.net/manual/zh/function.setcookie.php>`_ 和 `setrawcookie() <https://www.php.net/manual/zh/function.setrawcookie.php>`_ 会拒绝无效名称。此外，名称不能为空字符串。
 
 验证前缀属性
 ===============================
 
-在使用 ``__Secure-`` 前缀时,必须将 cookie 的 ``$secure`` 标志设置为 ``true``。如果使用 ``__Host-`` 前缀,cookie 必须展示以下特征:
+使用 ``__Secure-`` 前缀时，必须设置 ``$secure`` 标志为 ``true``。使用 ``__Host-`` 前缀时需满足：
 
-- 将 ``$secure`` 标志设置为 ``true``
+- ``$secure`` 标志设为 ``true``
 - ``$domain`` 为空
 - ``$path`` 必须为 ``/``
 
 验证 SameSite 属性
 =================================
 
-SameSite 属性接受三个值:
+SameSite 属性接受三个值：
 
-- **Lax**: 在第三方站点加载图像或框架等正常跨站子请求时不会发送 Cookie,但是在用户导航到源站点时会发送(即点击链接时)。
-- **Strict**: Cookie 只会在第一方环境下发送,不会随第三方网站发起的请求一起发送。
-- **None**: 在所有环境下发送 Cookie,即对第一方和跨域请求的响应中都会发送。
+- **Lax** （宽松模式）：跨站子请求（如图片加载）不发送 Cookie，但导航到源站时（如点击链接）会发送
+- **Strict** （严格模式）：仅在第一方上下文中发送 Cookie
+- **None** （无限制）：所有上下文中均发送 Cookie
 
-但是,CodeIgniter 允许你将 SameSite 属性设置为空字符串。提供空字符串时,将使用 ``Cookie`` 类中保存的默认 SameSite 设置。如上所述,你可以使用 ``Cookie::setDefaults()`` 更改默认 SameSite。
+CodeIgniter 允许将 SameSite 设为空字符串，此时使用 ``Cookie`` 类保存的默认值。可通过上文所述的 ``Cookie::setDefaults()`` 修改默认值。
 
-最近的 cookie 规范做了更改,要求现代浏览器在未提供时给一个默认的 SameSite。这个默认的是 ``Lax``。如果你已将 SameSite 设置为空字符串,而默认的 SameSite 也为空字符串,你的 cookie 将被赋予 ``Lax`` 值。
+现代浏览器规范要求未指定 SameSite 时默认使用 ``Lax``。若 SameSite 设为空字符串且默认值也为空，则 Cookie 将被赋予 ``Lax`` 值。
 
-如果将 SameSite 设置为 ``None``,你需要确保 ``Secure`` 也设置为 ``true``。
+当设置 SameSite 为 ``None`` 时，必须同时设置 ``Secure`` 为 ``true``。
 
-在编写 SameSite 属性时, ``Cookie`` 类以不区分大小写的方式接受任何这些值。你也可以利用类的常量来避免麻烦。
+``Cookie`` 类接受不区分大小写的 SameSite 值，也可使用类常量简化操作：
 
 .. literalinclude:: cookies/006.php
 
@@ -109,113 +107,110 @@ SameSite 属性接受三个值:
 发送 Cookie
 ***************
 
-将 ``Cookie`` 对象设置在 Response 对象的 ``CookieStore`` 中，框架会自动发送 Cookie。
+将 ``Cookie`` 对象存入 Response 对象的 ``CookieStore`` 中，框架会自动发送 Cookie。
 
-使用 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 来设置：
+使用 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 设置：
 
 .. literalinclude:: cookies/017.php
 
-你也可以使用 :php:func:`set_cookie()` 辅助函数：
+也可使用 :php:func:`set_cookie()` 辅助函数：
 
 .. literalinclude:: cookies/018.php
 
 **********************
-使用 Cookie 存储
+使用 Cookie 存储库
 **********************
 
-.. note:: 通常情况下，不需要直接使用 CookieStore。
+.. note:: 通常无需直接操作 CookieStore。
 
-``CookieStore`` 类表示 ``Cookie`` 对象的一个不可变集合。
+``CookieStore`` 类表示 ``Cookie`` 对象的不可变集合。
 
-从 Response 获取存储
+从 Response 获取存储库
 ===============================
 
-可以从当前的 ``Response`` 对象访问 ``CookieStore`` 实例。
+可通过当前 ``Response`` 对象访问 ``CookieStore`` 实例：
 
 .. literalinclude:: cookies/007.php
 
 创建 CookieStore
 ====================
 
-CodeIgniter 提供了另外三种创建 ``CookieStore`` 新实例的方法。
+CodeIgniter 提供三种方式创建新 ``CookieStore`` 实例：
 
 .. literalinclude:: cookies/008.php
 
-.. note:: 在使用全局 :php:func:`cookies()` 函数时,只有在第二个参数 ``$getGlobal`` 设置为 ``false`` 时,才会考虑传递的 ``Cookie`` 数组。
+.. note:: 使用全局函数 :php:func:`cookies()` 时，仅当第二个参数 ``$getGlobal`` 设为 ``false`` 时才会考虑传入的 ``Cookie`` 数组。
 
-检查存储中的 Cookie
+检查存储库中的 Cookie
 =========================
 
-要检查 ``CookieStore`` 实例中是否存在一个 ``Cookie`` 对象,你可以用几种方法:
+可通过多种方式检查 ``CookieStore`` 实例中是否存在某 ``Cookie`` 对象：
 
 .. literalinclude:: cookies/009.php
 
-获取存储中的 Cookie
+获取存储库中的 Cookie
 ========================
 
-在 cookie 集合中检索一个 ``Cookie`` 实例非常简单:
+从 Cookie 集合中检索 ``Cookie`` 实例非常简单：
 
 .. literalinclude:: cookies/010.php
 
-从 ``CookieStore`` 直接获取 ``Cookie`` 实例时,无效名称会抛出 ``CookieException``。
+直接从 ``CookieStore`` 获取实例时，无效名称会抛出 ``CookieException``：
 
 .. literalinclude:: cookies/011.php
 
-从当前 ``Response`` 的 cookie 集合获取 ``Cookie`` 实例时,无效名称只会返回 ``null``。
+从当前 ``Response`` 的 Cookie 集合获取时，无效名称返回 ``null``：
 
 .. literalinclude:: cookies/012.php
 
-如果在从 ``Response`` 获取 cookie 时没有提供参数,则会显示存储中的所有 ``Cookie`` 对象。
+若从 ``Response`` 获取时不带参数，将显示存储库中所有 ``Cookie`` 对象：
 
 .. literalinclude:: cookies/013.php
 
-.. note:: 辅助函数 :php:func:`get_cookie()` 从当前的 ``Request`` 对象获取 cookie,而不是从 ``Response`` 获取。如果该 cookie 已设置,此函数会检查 ``$_COOKIE`` 数组并立即获取它。
+.. note:: 辅助函数 :php:func:`get_cookie()` 从当前 ``Request`` 对象而非 ``Response`` 获取 Cookie。该函数检查 ``$_COOKIE`` 数组并直接获取。
 
-在存储中添加/删除 Cookie
+添加/删除存储库中的 Cookie
 ================================
 
-如前所述, ``CookieStore`` 对象是不可变的。你需要保存修改后的实例才能对其进行操作。原始实例保持不变。
+如前所述，``CookieStore`` 对象不可变。需保存修改后的实例才能生效，原实例保持不变：
 
 .. literalinclude:: cookies/014.php
 
-.. note:: 从存储中删除 cookie **不会** 从浏览器中删除它。
-    如果你打算从浏览器中删除 cookie,你必须向存储放入一个具有相同名称的空值 cookie。
+.. note:: 从存储库删除 Cookie **不会** 从浏览器删除。若要从浏览器删除 Cookie，必须向存储库添加同名空值 Cookie。
 
-当与当前 ``Response`` 对象中的 cookie 存储进行交互时,你可以安全地添加或删除 cookie,而不用担心 cookie 集合的不可变性质。 ``Response`` 对象将用修改后的实例替换该实例。
+与当前 ``Response`` 对象中的 Cookies 交互时，可安全添加/删除 Cookies，无需担心集合的不可变性。``Response`` 对象会自动替换为修改后的实例：
 
 .. literalinclude:: cookies/015.php
 
-分派存储中的 Cookie
+分发存储库中的 Cookie
 =============================
 
-.. deprecated:: 4.1.6
+.. important:: 该方法在 4.1.6 版本弃用，4.6.0 版本移除。
 
-.. important:: 该方法已被弃用。将在未来的版本中移除。
-
-更多时候,你不需要自己手动发送 cookie。CodeIgniter 会为你做这件事。但是,如果你真的需要手动发送 cookie,你可以使用 ``dispatch`` 方法。就像发送其他标头一样,你需要确保标头还未发送,方法是检查 ``headers_sent()`` 的值。
+通常无需手动发送 Cookie，CodeIgniter 会自动处理。如需手动发送，可使用 ``dispatch`` 方法。需通过 ``headers_sent()`` 检查确保标头未发送：
 
 .. literalinclude:: cookies/016.php
 
 **********************
-Cookie 个性化
+Cookie 个性化配置
 **********************
 
-``Cookie`` 类中已经有了一些默认设置,以确保平滑地创建 cookie 对象。但是,你可能希望通过更改 **app/Config/Cookie.php** 文件中的以下 ``Config\Cookie`` 类来定义自己的设置。
+``Cookie`` 类已预设合理默认值以确保正常创建。可通过修改 **app/Config/Cookie.php** 中的 ``Config\Cookie`` 类配置项来自定义：
 
 ==================== ===================================== ========= =====================================================
-设置                 选项/类型                             默认值      描述
+设置项               选项/类型                             默认值    描述
 ==================== ===================================== ========= =====================================================
-**$prefix**          ``string``                            ``''``    要添加到 cookie 名称前面的前缀。
-**$expires**         ``DateTimeInterface|string|int``      ``0``     过期时间戳。
-**$path**            ``string``                            ``/``     cookie 的 path 属性。
-**$domain**          ``string``                            ``''``    cookie 的 domain 属性,带尾部斜杠。
-**$secure**          ``true``/``false``                    ``false`` 是否通过安全的 HTTPS 发送。
-**$httponly**        ``true``/``false``                    ``true``  是否不可通过 JavaScript 访问。
-**$samesite**        ``Lax``/``None``/``Strict``           ``Lax``   SameSite 属性。
-**$raw**             ``true``/``false``                    ``false`` 是否使用 ``setrawcookie()`` 进行分派。
+**$prefix**          ``string``                            ``''``    Cookie 名前缀
+**$expires**         ``DateTimeInterface|string|int``      ``0``     过期时间戳
+**$path**            ``string``                            ``/``     Cookie 路径属性
+**$domain**          ``string``                            ``''``    Cookie 域名属性（带尾部斜线）
+**$secure**          ``true``/``false``                    ``false`` 是否仅通过 HTTPS 发送
+**$httponly**        ``true``/``false``                    ``true``  是否禁止 JavaScript 访问
+**$samesite**        ``Lax``/``None``/``Strict``           ``Lax``   SameSite 属性
+**$raw**             ``true``/``false``                    ``false`` 是否使用 ``setrawcookie()`` 发送
 ==================== ===================================== ========= =====================================================
 
-在运行时,你可以使用 ``Cookie::setDefaults()`` 方法手动提供新的默认值。
+运行时可通过 ``Cookie::setDefaults()`` 方法手动设置新默认值。
 
 ***************
 类参考
@@ -229,35 +224,35 @@ Cookie 个性化
 
         :param \\Config\\Cookie|array $config: 配置数组或实例
         :rtype: array<string, mixed>
-        :returns: 旧的默认值
+        :returns: 旧默认值数组
 
-        通过从 ``Config\Cookie`` 配置或数组中注入值来设置 Cookie 实例的默认属性。
+        通过注入 ``Config\Cookie`` 配置或数组来设置 Cookie 实例的默认属性。
 
     .. php:staticmethod:: fromHeaderString(string $header[, bool $raw = false])
 
-        :param string $header: ``Set-Cookie`` 头字符串
-        :param bool $raw: 是否不进行 URL 编码并通过 ``setrawcookie()`` 发送
+        :param string $header: ``Set-Cookie`` 标头字符串
+        :param bool $raw: 是否使用原始 Cookie
         :rtype: ``Cookie``
         :returns: ``Cookie`` 实例
         :throws: ``CookieException``
 
-        从 ``Set-Cookie`` 头创建一个新的 Cookie 实例。
+        从 ``Set-Cookie`` 标头创建新 Cookie 实例。
 
     .. php:method:: __construct(string $name[, string $value = ''[, array $options = []]])
 
-        :param string $name: cookie 名称
-        :param string $value: cookie 值
-        :param array $options: cookie 选项
+        :param string $name: Cookie 名称
+        :param string $value: Cookie 值
+        :param array $options: Cookie 选项
         :rtype: ``Cookie``
         :returns: ``Cookie`` 实例
         :throws: ``CookieException``
 
-        构造一个新的 Cookie 实例。
+        构造新 Cookie 实例。
 
     .. php:method:: getId()
 
         :rtype: string
-        :returns: 在 cookie 集合中的索引 ID。
+        :returns: 用于 Cookie 集合索引的 ID
 
     .. php:method:: getPrefix(): string
     .. php:method:: getName(): string
@@ -279,126 +274,124 @@ Cookie 个性化
 
         :param bool $raw:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个更新了 URL 编码选项的新的 Cookie。
+        创建带更新 URL 编码选项的新 Cookie。
 
     .. php:method:: withPrefix([string $prefix = ''])
 
         :param string $prefix:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新前缀的新的 Cookie。
+        创建带新前缀的 Cookie。
 
     .. php:method:: withName(string $name)
 
         :param string $name:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新名称的新的 Cookie。
+        创建带新名称的 Cookie。
 
     .. php:method:: withValue(string $value)
 
         :param string $value:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新值的新的 Cookie。
+        创建带新值的 Cookie。
 
     .. php:method:: withExpires($expires)
 
         :param DateTimeInterface|string|int $expires:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新的 cookie 过期时间的新的 Cookie。
+        创建带新过期时间的 Cookie。
 
     .. php:method:: withExpired()
 
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个从浏览器过期的新的 Cookie。
+        创建即将过期的 Cookie。
 
     .. php:method:: withNeverExpiring()
 
-        .. deprecated:: 4.2.6
-
-        .. important:: 这个方法已弃用。它将在未来的版本中删除。
+        .. important:: 该方法在 4.2.6 版本弃用，4.6.0 版本移除。
 
         :param string $name:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个几乎永不过期的新的 Cookie。
+        创建永不过期的 Cookie（已移除）。
 
     .. php:method:: withDomain(?string $domain)
 
         :param string|null $domain:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新域的新的 Cookie。
+        创建带新域名的 Cookie。
 
     .. php:method:: withPath(?string $path)
 
         :param string|null $path:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新路径的新的 Cookie。
+        创建带新路径的 Cookie。
 
     .. php:method:: withSecure([bool $secure = true])
 
         :param bool $secure:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新的“Secure”属性的新的 Cookie。
+        创建带新 "Secure" 属性的 Cookie。
 
     .. php:method:: withHTTPOnly([bool $httponly = true])
 
         :param bool $httponly:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新的“HttpOnly”属性的新的 Cookie。
+        创建带新 "HttpOnly" 属性的 Cookie。
 
     .. php:method:: withSameSite(string $samesite)
 
         :param string $samesite:
         :rtype: ``Cookie``
-        :returns: 新的 ``Cookie`` 实例
+        :returns: 新 ``Cookie`` 实例
 
-        创建一个带有新的“SameSite”属性的新的 Cookie。
+        创建带新 "SameSite" 属性的 Cookie。
 
     .. php:method:: toHeaderString()
 
         :rtype: string
-        :returns: 可以作为头字符串传递的字符串表示。
+        :returns: 可作为标头字符串传递的字符串表示
 
     .. php:method:: toArray()
 
         :rtype: array
-        :returns: 返回 Cookie 实例的数组表示形式。
+        :returns: Cookie 实例的数组表示
 
 .. php:class:: CookieStore
 
     .. php:staticmethod:: fromCookieHeaders(array $headers[, bool $raw = false])
 
-        :param array $header: ``Set-Cookie`` 头数组
-        :param bool $raw: 是否不使用 URL 编码
+        :param array $header: ``Set-Cookie`` 标头数组
+        :param bool $raw: 是否使用原始 Cookie
         :rtype: ``CookieStore``
         :returns: ``CookieStore`` 实例
         :throws: ``CookieException``
 
-        从 ``Set-Cookie`` 头数组创建一个 CookieStore。
+        从 ``Set-Cookie`` 标头数组创建 CookieStore。
 
     .. php:method:: __construct(array $cookies)
 
-        :param array $cookies: ``Cookie`` 对象数组
+        :param array $cookies: Cookie 对象数组
         :rtype: ``CookieStore``
         :returns: ``CookieStore`` 实例
         :throws: ``CookieException``
@@ -409,46 +402,48 @@ Cookie 个性化
         :param string $prefix: Cookie 前缀
         :param string|null $value: Cookie 值
         :rtype: bool
-        :returns: 检查由名称和前缀标识的 ``Cookie`` 对象是否存在于集合中。
+        :returns: 检查指定名称和前缀的 Cookie 是否存在
 
     .. php:method:: get(string $name[, string $prefix = '']): Cookie
 
         :param string $name: Cookie 名称
         :param string $prefix: Cookie 前缀
         :rtype: ``Cookie``
-        :returns: 检索由名称和前缀标识的 Cookie 实例。
+        :returns: 获取指定名称和前缀的 Cookie 实例
         :throws: ``CookieException``
 
     .. php:method:: put(Cookie $cookie): CookieStore
 
-        :param Cookie $cookie: 一个 Cookie 对象
+        :param Cookie $cookie: Cookie 对象
         :rtype: ``CookieStore``
-        :returns: 新的 ``CookieStore`` 实例
+        :returns: 新 ``CookieStore`` 实例
 
-        存储一个新 cookie 并返回一个新集合。原始集合保持不变。
+        存储新 Cookie 并返回新集合，原集合保持不变。
 
     .. php:method:: remove(string $name[, string $prefix = '']): CookieStore
 
         :param string $name: Cookie 名称
         :param string $prefix: Cookie 前缀
         :rtype: ``CookieStore``
-        :returns: 新的 ``CookieStore`` 实例
+        :returns: 新 ``CookieStore`` 实例
 
-        从集合中删除一个 cookie 并返回更新后的集合。原始集合保持不变。
+        移除 Cookie 并返回新集合，原集合保持不变。
 
     .. php:method:: dispatch(): void
 
+        .. important:: 该方法在 4.1.6 版本弃用，4.6.0 版本移除。
+
         :rtype: void
 
-        分派存储中的所有 cookie。
+        分发存储库中所有 Cookies（已移除）。
 
     .. php:method:: display(): array
 
         :rtype: array
-        :returns: 返回存储中的所有 cookie
+        :returns: 返回存储中的所有 Ccookie
 
     .. php:method:: clear(): void
 
         :rtype: void
 
-        清除 cookie 集合。
+        清除 Cookie 集合。

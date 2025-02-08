@@ -1700,7 +1700,7 @@ $builder->resetQuery()
         :param array $set: 要插入的数据
         :param bool $escape: 是否转义值
         :param int $batch_size: 一次插入的行数
-        :returns: 插入的行数,失败则为 ``false``
+        :returns: 插入的行数，或在没有数据执行插入操作时返回 ``false``
         :rtype:    int|false
 
         编译并执行批量 ``INSERT`` 语句。

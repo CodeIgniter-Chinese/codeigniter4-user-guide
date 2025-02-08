@@ -2,61 +2,63 @@
 HTTP 响应
 ==============
 
-Response 类通过只适合服务器对调用它的客户端做出响应的方法来扩展 :doc:`HTTP 消息类 </incoming/message>` 。
+Response 类继承自 :doc:`HTTP 消息类 </incoming/message>`，并添加了仅适用于服务器响应客户端请求的方法。
 
 .. contents::
     :local:
     :depth: 2
 
-处理响应
+使用响应类
 =========================
 
-一个响应类已经为你实例化并传入你的控制器。它可以通过 ``$this->response`` 访问。它和 ``Services::response()`` 返回的实例是同一个。我们称之为全局响应实例。
+系统会自动为你实例化一个 Response 类，并传递给你的控制器。你可以通过 ``$this->response`` 访问它。它与 ``Services::response()`` 返回的是同一个实例，我们称之为全局响应实例。
 
-许多时候你不需要直接接触该类,因为 CodeIgniter 会为你发送 header 和 body。如果页面成功地创建了它被要求的内容,情况就是这样。当事情出错时,或者你需要发送非常具体的状态码回应,或者利用 HTTP 缓存的强大功能,它就为你提供了这些。
+很多时候你不需要直接操作该类，因为 CodeIgniter 会自动处理头部和内容的发送。这在页面成功生成所需内容时非常方便。当出现错误、需要发送特定状态码或利用强大的 HTTP 缓存功能时，你可以直接使用该类。
 
-设置输出
+设置输出内容
 ------------------
 
-当你需要直接设置脚本的输出,而不依赖于 CodeIgniter 自动获取时,你可以用 ``setBody`` 方法手动设置。这通常与设置响应的状态码一起使用:
+当需要直接设置脚本输出内容，而不依赖 CodeIgniter 自动获取时，可以使用 ``setBody`` 方法手动设置。通常与设置响应状态码配合使用：
 
 .. literalinclude:: response/001.php
 
-原因短语(“OK”、“Created”、“Moved Permanently”)将被自动添加,但你可以在 ``setStatusCode()`` 方法的第二个参数中添加自定义原因:
+原因短语（'OK'、'Created'、'Moved Permanently'）会自动添加，但你也可以通过 ``setStatusCode()`` 方法的第二个参数自定义原因短语：
 
 .. literalinclude:: response/002.php
 
-你可以将一个数组格式化为 JSON 或 XML,并通过 ``setJSON()`` 和 ``setXML()`` 方法将 content type header 设置为适当的 MIME 类型。通常,你会传递一个数据数组进行转换:
+你可以使用 ``setJSON()`` 和 ``setXML()`` 方法将数组格式化为 JSON 或 XML，并设置相应的内容类型头部。通常你会发送一个待转换的数据数组：
 
 .. literalinclude:: response/003.php
 
-设置 Header
+设置头部
 ---------------
 
 setHeader()
 ^^^^^^^^^^^
 
-你经常需要为响应设置 Header。Response 类使得这非常简单,通过 ``setHeader()`` 方法。
+通常需要为响应设置头部。Response 类通过 ``setHeader()`` 方法简化了这个操作。
 
-第一个参数是 Header 的名称。第二个参数是值,可以是字符串或在发送到客户端时将正确组合的字符串数组。
+第一个参数是头部名称。第二个参数是值，可以是字符串或将被正确组合的值数组：
 
 .. literalinclude:: response/004.php
 
-与使用原生 PHP 函数相比,使用这些函数可以确保 Header 不会过早发送,从而造成错误,并使测试成为可能。
+使用这些方法代替原生 PHP 函数可以确保头部不会过早发送导致错误，并支持测试。
 
-.. note:: 这个方法只是将头部设置到响应实例。所以，如果你创建并返回另一个响应实例（例如，如果你调用 :php:func:`redirect()`），这里设置的头部不会自动发送。
+.. important:: 自 v4.6.0 起，如果使用 PHP 原生 ``header()`` 函数设置头部后，再通过 ``Response`` 类设置相同头部，前者将被覆盖。
+
+.. note:: 此方法仅将头部设置到响应实例。因此，如果创建并返回另一个响应实例（例如调用 :php:func:`redirect()`），此处设置的头部不会自动发送。
 
 appendHeader()
 ^^^^^^^^^^^^^^
 
-如果 Header 已经存在且可以有多个值,则可以使用 ``appendHeader()`` 和 ``prependHeader()`` 方法将值添加到值列表的末尾或开头。第一个参数是 Header 名称,第二个参数是要追加或前置的价值。
+如果头部已存在且允许多个值，可以使用 ``appendHeader()`` 和 ``prependHeader()`` 方法分别在值列表末尾或开头添加值。第一个参数是头部名称，第二个是要追加或前置的值：
 
 .. literalinclude:: response/005.php
 
 removeHeader()
 ^^^^^^^^^^^^^^
 
-可以使用 ``removeHeader()`` 方法从响应中删除 Header,该方法仅将 Header 名称作为唯一参数。这不区分大小写。
+可以通过 ``removeHeader()`` 方法移除响应中的头部，参数为不区分大小写的头部名称：
 
 .. literalinclude:: response/006.php
 
@@ -65,71 +67,63 @@ removeHeader()
 重定向
 ========
 
-如果你想创建一个重定向，使用 :php:func:`redirect()` 函数。
+如需创建重定向，请使用 :php:func:`redirect()` 函数。
 
-它返回一个 ``RedirectResponse`` 实例。它是一个与 ``Services::response()`` 返回的全局响应实例不同的实例。
+该函数返回一个 ``RedirectResponse`` 实例。这与 ``Services::response()`` 返回的全局响应实例不同。
 
-.. warning:: 如果你在调用 ``redirect()`` 之前设置了 Cookie 或响应头部，它们会被设置到全局响应实例，它们并不会自动复制到 ``RedirectResponse`` 实例。要发送它们，你需要手动调用 ``withCookies()`` 或 ``withHeaders()`` 方法。
+.. warning:: 如果在调用 ``redirect()`` 前设置了 Cookie 或响应头部，它们会被设置到全局响应实例，而不会自动复制到 ``RedirectResponse`` 实例。要发送它们，需手动调用 ``withCookies()`` 或 ``withHeaders()`` 方法。
 
-.. important:: 如果你想要重定向,必须在 :doc:`Controller <../incoming/controllers>`
-    或 :doc:`Controller Filter <../incoming/filters>` 的方法中返回 ``RedirectResponse`` 实例。
-    请注意, ``__construct()`` 或 ``initController()`` 方法不能返回任何值。
-    如果你忘记返回 ``RedirectResponse``,将不会发生重定向。
+.. important:: 若要进行重定向，必须在 :doc:`控制器 <../incoming/controllers>` 或 :doc:`控制器过滤器 <../incoming/filters>` 的方法中返回 ``RedirectResponse`` 实例。注意 ``__construct()`` 或 ``initController()`` 方法不能返回任何值。如果忘记返回 ``RedirectResponse``，将不会发生重定向。
 
-重定向到一个 URI 路径
+重定向到 URI 路径
 ----------------------
 
-当你想传递一个 URI 路径(相对于 baseURL)时,使用 ``redirect()->to()``:
+当需要传递相对于 baseURL 的 URI 路径时，使用 ``redirect()->to()``：
 
 .. literalinclude:: ./response/028.php
     :lines: 2-
 
-.. note:: 如果你的 URL 中有一个你想要删除的片段,你可以在该方法中使用 refresh 参数。
-    就像 ``return redirect()->to('admin/home', null, 'refresh');`` 一样。
+.. note:: 如果 URL 中包含需要移除的片段，可以在方法中使用 refresh 参数。例如 ``return redirect()->to('admin/home', null, 'refresh');``。
 
 重定向到定义的路由
 ---------------------------
 
-当你想传递一个 :ref:`路由名称 <using-named-routes>` 或 Controller::method
-进行 :ref:`反向路由 <reverse-routing>` 时,使用 ``redirect()->route()``:
+当需要传递 :ref:`路由名称 <using-named-routes>` 或用于 :ref:`反向路由 <reverse-routing>` 的 Controller::method 时，使用 ``redirect()->route()``：
 
 .. literalinclude:: ./response/029.php
     :lines: 2-
 
-当将参数传递到函数中时,它被视为路由名称或 Controller::method 进行反向路由,而不是相对/完整 URI,
-它的处理方式与使用 ``redirect()->route()`` 相同:
+当向函数传递参数时，会被视为反向路由的路由名称或 Controller::method，而非相对/完整 URI，效果等同于使用 ``redirect()->route()``：
 
 .. literalinclude:: ./response/030.php
     :lines: 2-
 
-重定向回上一页面
------------------
+返回重定向
+-------------
 
-当你想要重定向回上一页面时,使用 ``redirect()->back()``:
+当需要返回上一页时，使用 ``redirect()->back()``：
 
 .. literalinclude:: ./response/031.php
     :lines: 2-
 
-.. note:: ``redirect()->back()`` 与浏览器的“后退”按钮不同。
-    当 Session 可用时,它会将访问者带到“在 Session 期间查看的最后一页”。
-    如果没有加载 Session,或者 Session 不可用,那么将使用 HTTP_REFERER 的安全版本。
+.. note:: ``redirect()->back()`` 与浏览器 "返回" 按钮不同。当 Session 可用时，它会将访问者带到 "Session 期间最后查看的页面"。如果 Session 未加载或不可用，则会使用经过处理的 HTTP_REFERER。
 
 带 Cookie 的重定向
 ---------------------
 
-如果你在调用 ``redirect()`` 之前设置了 Cookie，它们会被设置到全局响应实例，它们并不会自动复制到 ``RedirectResponse`` 实例。
+如果在调用 ``redirect()`` 前设置了 Cookie，它们会被设置到全局响应实例，而不会自动复制到 ``RedirectResponse`` 实例。
 
-要发送 Cookie，你需要手动调用 ``withCookies()`` 方法。
+要发送这些 Cookie，需手动调用 ``withCookies()`` 方法：
 
 .. literalinclude:: ./response/034.php
     :lines: 2-
 
-带 Header 的重定向
+带头部的重定向
 ---------------------
 
-如果你在调用 ``redirect()`` 之前设置了响应头部，它们会被设置到全局响应实例，它们并不会自动复制到 ``RedirectResponse`` 实例。
+如果在调用 ``redirect()`` 前设置了响应头部，它们会被设置到全局响应实例，而不会自动复制到 ``RedirectResponse`` 实例。
 
-要发送 Header，你需要手动调用 ``withHeaders()`` 方法。
+要发送这些头部，需手动调用 ``withHeaders()`` 方法：
 
 .. literalinclude:: ./response/035.php
     :lines: 2-
@@ -139,78 +133,72 @@ removeHeader()
 重定向状态码
 --------------------
 
-GET 请求的默认 HTTP 状态码是 302。但是,当使用 HTTP/1.1
-或更高版本时,对于 POST/PUT/DELETE 请求使用 303,对于所有其他请求使用 307。
+GET 请求的默认 HTTP 状态码是 302。但在使用 HTTP/1.1 或更高版本时，POST/PUT/DELETE 请求使用 303，其他请求使用 307。
 
-你可以指定状态码:
+可以指定状态码：
 
 .. literalinclude:: ./response/032.php
     :lines: 2-
 
-.. note:: 由于一个错误,在 v4.3.3 或更早版本中,即使指定了状态码,
-    实际重定向响应的状态码也可能被改变。
-    请参阅 :ref:`ChangeLog v4.3.4 <v434-redirect-status-code>`。
+.. note:: 由于漏洞，在 v4.3.3 或更早版本中，即使指定了状态码，实际重定向响应的状态码也可能被更改。详见 :ref:`更新日志 v4.3.4 <v434-redirect-status-code>`。
 
-如果你不知道重定向的 HTTP 状态码,建议阅读
-`Redirections in HTTP <https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections>`_。
+如果不了解 HTTP 重定向状态码，建议阅读 `HTTP 重定向 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Redirections>`_。
 
 .. _force-file-download:
 
 强制文件下载
 ===================
 
-Response 类提供了一种简单的方法来将文件发送给客户端,提示浏览器下载数据到计算机。这会设置适当的头使其发生。
+Response 类提供了向客户端发送文件并提示浏览器下载的简便方法。它会设置适当的头部来实现此功能。
 
-第一个参数是 **希望下载的文件的名称**,第二个参数是文件数据。
+第一个参数是 **下载文件的名称**，第二个参数是文件数据。
 
-如果将第二个参数设置为 null,且 ``$filename`` 是一个存在的可读文件路径,
-则将读取其内容。
+如果第二个参数设为 null 且 ``$filename`` 是存在的可读文件路径，则会读取该文件内容。
 
-如果将第三个参数设置为布尔值 true,那么将发送实际的基于文件名扩展名的文件 MIME 类型,
-所以如果浏览器有该类型的处理程序,就可以使用它。
+如果第三个参数设为 true，则会发送实际的文件 MIME 类型（基于文件扩展名），以便浏览器使用对应的处理器。
 
-示例:
+示例：
 
 .. literalinclude:: response/007.php
 
-如果你想从服务器下载现有文件,你需要为第二个参数显式传递 ``null`` :
+如果要下载服务器上的现有文件，需显式将第二个参数设为 ``null``：
 
 .. literalinclude:: response/008.php
 
-使用可选的 ``setFileName()`` 方法可以更改发送到客户端浏览器的文件名:
+使用可选的 ``setFileName()`` 方法修改发送到客户端浏览器的文件名：
 
 .. literalinclude:: response/009.php
 
-.. note:: 必须返回响应对象以便下载被发送到客户端。这允许在被发送到客户端之前通过所有的 **后置** 过滤器来传递响应。
+.. note:: 必须返回响应对象才能将下载内容发送到客户端。这允许响应在发送前通过所有 **after** 过滤器。
 
 .. _open-file-in-browser:
 
 在浏览器中打开文件
 --------------------
 
-一些浏览器可以显示诸如 PDF 等文件。为了告诉浏览器显示文件而不是保存它，调用 ``DownloadResponse::inline()`` 方法。
+某些浏览器可以显示 PDF 等文件。要告知浏览器显示而非保存文件，可调用 ``DownloadResponse::inline()`` 方法：
 
 .. literalinclude:: response/033.php
 
 HTTP 缓存
 ============
 
-内置于 HTTP 规范的是帮助客户端(通常是网页浏览器)缓存结果的工具。如果使用正确,这可以为你的应用程序带来巨大的性能提升,因为它会告诉客户端他们不需要联系服务器,因为没有变化。你再也找不到更快的了。
+HTTP 规范内置了帮助客户端（通常是浏览器）缓存结果的工具。正确使用可以极大提升应用性能，因为它会告知客户端无需联系服务器（当内容未变化时）。
 
-这是通过 ``Cache-Control`` 和 ``ETag`` 头处理的。本指南不是适合对所有缓存头功能进行透彻的介绍,但是你可以在 `Google Developers <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_ 上很好地理解它。
+这通过 ``Cache-Control`` 和 ``ETag`` 头部实现。本指南不深入讲解所有缓存头部，但你可以通过 `Google 开发者文档 <https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching>`_ 获得详细理解。
 
-默认情况下,通过 CodeIgniter 发送的所有响应对象都关闭了 HTTP 缓存。由于我们无法创建一个好的默认值,除了关闭它之外的选项太多了。根据你的需要设置缓存值非常简单,可以通过 ``setCache()`` 方法完成:
+默认情况下，CodeIgniter 发送的所有响应对象都关闭了 HTTP 缓存。由于场景差异过大，我们选择关闭作为默认设置。你可以通过 ``setCache()`` 方法轻松设置所需缓存值：
 
 .. literalinclude:: response/010.php
 
-``$options`` 数组简单地以 key/value 对的形式获取通常分配给 ``Cache-Control`` 头的数组。你可以自由地根据具体情况完全设置所需的所有选项。虽然大多数选项应用于 ``Cache-Control`` 头,但它也智能地处理 ``etag`` 和 ``last-modified`` 选项到适当的头。
+``$options`` 数组接收键值对，除个别例外，这些参数会被分配到 ``Cache-Control`` 头部。你可以根据具体需求自由设置所有选项。虽然大多数选项应用于 ``Cache-Control`` 头部，但该方法会智能处理 ``etag`` 和 ``last-modified`` 选项到对应头部。
 
 类参考
 ===============
 
-.. note:: 除了这里列出的方法之外,该类还继承了 :doc:`消息类 </incoming/message>` 的方法。
+.. note:: 除了列出的方法外，此类继承自 :doc:`消息类 </incoming/message>` 的方法。
 
-从 Message 类继承的方法有：
+继承自消息类的方法包括：
 
 * :meth:`CodeIgniter\\HTTP\\Message::body`
 * :meth:`CodeIgniter\\HTTP\\Message::setBody`
@@ -235,57 +223,57 @@ HTTP 缓存
 
     .. php:method:: getStatusCode()
 
-        :returns: 当前 HTTP 状态码
+        :returns: 当前响应的 HTTP 状态码
         :rtype: int
 
-        返回当前响应的状态码。如果没有设置状态码,将抛出 BadMethodCallException:
+        返回当前响应的状态码。如果未设置状态码，将抛出 BadMethodCallException：
 
         .. literalinclude:: response/014.php
 
     .. php:method:: setStatusCode($code[, $reason=''])
 
         :param int $code: HTTP 状态码
-        :param string $reason: 可选的原因短语
-        :returns: 当前的 Response 实例
+        :param string $reason: 可选原因短语
+        :returns: 当前 Response 实例
         :rtype: ``CodeIgniter\HTTP\Response``
 
-        设置应随此响应一起发送的 HTTP 状态码:
+        设置响应应发送的 HTTP 状态码：
 
         .. literalinclude:: response/015.php
 
-        原因短语将根据官方列表自动生成。如果你需要为自定义状态码设置自己的原因短语,可以将原因短语作为第二个参数传递:
+        原因短语会根据官方列表自动生成。如需为自定义状态码设置短语，可通过第二个参数传递：
 
         .. literalinclude:: response/016.php
 
     .. php:method:: getReasonPhrase()
 
-        :returns: 当前的原因短语
+        :returns: 当前原因短语
         :rtype: string
 
-        返回当前状态码的原因短语。如果未设置状态,将返回空字符串:
+        返回当前响应的原因短语。如果未设置状态码，则返回空字符串：
 
         .. literalinclude:: response/017.php
 
     .. php:method:: setDate($date)
 
-        :param DateTime $date: 带有要为此响应设置时间的 DateTime 实例
+        :param DateTime $date: 包含响应时间的 DateTime 实例
         :returns: 当前响应实例
         :rtype: ``CodeIgniter\HTTP\Response``
 
-        设置此响应使用的日期。``$date`` 参数必须是一个 ``DateTime`` 实例。
+        设置响应日期。``$date`` 参数必须是 ``DateTime`` 实例。
 
     .. php:method:: setContentType($mime[, $charset='UTF-8'])
 
-        :param string $mime: 此响应所代表的内容类型
-        :param string $charset: 此响应使用的字符集
+        :param string $mime: 响应内容类型
+        :param string $charset: 响应字符集
         :returns: 当前响应实例
         :rtype: ``CodeIgniter\HTTP\Response``
 
-        设置此响应所代表的内容类型:
+        设置响应内容类型：
 
         .. literalinclude:: response/019.php
 
-        默认情况下,该方法将字符集设置为 ``UTF-8``。如果需要更改此设置,可以将字符集作为第二个参数传递:
+        默认字符集为 ``UTF-8``。如需修改，可通过第二个参数传递：
 
         .. literalinclude:: response/020.php
 
@@ -294,17 +282,17 @@ HTTP 缓存
         :returns: 当前响应实例
         :rtype: ``CodeIgniter\HTTP\Response``
 
-        设置 ``Cache-Control`` 头关闭所有 HTTP 缓存。这是所有响应消息的默认设置:
+        设置 ``Cache-Control`` 头部关闭所有 HTTP 缓存。这是所有响应消息的默认设置：
 
         .. literalinclude:: response/021.php
 
     .. php:method:: setCache($options)
 
-        :param array $options: 各种缓存控制设置的键/值数组
+        :param array $options: 缓存控制键值对数组
         :returns: 当前响应实例
         :rtype: ``CodeIgniter\HTTP\Response``
 
-        设置 ``Cache-Control`` 头,包括 ``ETags`` 和 ``Last-Modified``。典型的键包括:
+        设置 ``Cache-Control`` 头部，包括 ``ETags`` 和 ``Last-Modified``。常用键包括：
 
         * etag
         * last-modified
@@ -316,15 +304,15 @@ HTTP 缓存
         * proxy-revalidate
         * no-transform
 
-        当传入 last-modified 选项时,它可以是日期字符串或 DateTime 对象。
+        传递 last-modified 选项时，可以是日期字符串或 DateTime 对象。
 
     .. php:method:: setLastModified($date)
 
-        :param string|DateTime $date: 要设置 Last-Modified 头的日期
+        :param string|DateTime $date: 设置 Last-Modified 头部的日期
         :returns: 当前响应实例
         :rtype: ``CodeIgniter\HTTP\Response``
 
-        设置 ``Last-Modified`` 头。``$date`` 对象可以是字符串或 ``DateTime`` 实例:
+        设置 ``Last-Modified`` 头部。``$date`` 可以是字符串或 ``DateTime`` 实例：
 
         .. literalinclude:: response/022.php
 
@@ -333,56 +321,52 @@ HTTP 缓存
         :returns: 当前响应实例
         :rtype: ``CodeIgniter\HTTP\Response``
 
-        告诉响应将所有内容发送回客户端。这将首先发送 header,然后是响应 body。对于主应用程序响应,你不需要调用它,因为 CodeIgniter 会自动处理。
+        指示响应将所有内容发送回客户端。这会先发送头部，再发送响应体。主应用响应无需手动调用此方法，CodeIgniter 会自动处理。
 
     .. php:method:: setCookie($name = ''[, $value = ''[, $expire = 0[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httponly = false[, $samesite = null]]]]]]]])
 
-        :param array|Cookie|string $name: Cookie 名称 *或* 包含此方法可用的所有参数的关联数组 *或* ``CodeIgniter\Cookie\Cookie`` 的实例。
+        :param array|Cookie|string $name: Cookie 名称 *或* 包含本方法所有参数的关联数组 *或* ``CodeIgniter\Cookie\Cookie`` 实例
         :param string $value: Cookie 值
-        :param int $expire: Cookie 到期时间,以秒为单位。如果设置为 ``0`` cookie 将只保持浏览器打开时有效
+        :param int $expire: Cookie 过期时间（秒）。设为 ``0`` 时 Cookie 仅在浏览器打开期间有效
         :param string $domain: Cookie 域名
         :param string $path: Cookie 路径
-        :param string $prefix: Cookie 名称前缀。如果设置为 ``''``,将使用 **app/Config/Cookie.php** 中的默认值
-        :param bool $secure: 是否只通过 HTTPS 传输 cookie。如果设置为 ``null``,将使用 **app/Config/Cookie.php** 中的默认值
-        :param bool $httponly: 是否只将 cookie accessible 用于 HTTP 请求(无 JavaScript)。如果设置为 ``null``,将使用 **app/Config/Cookie.php** 中的默认值
-        :param string $samesite: SameSite cookie 参数的值。如果设置为 ``''``,cookie 将不设置 SameSite 属性。如果设置为 ``null``,将使用 **app/Config/Cookie.php** 中的默认值
+        :param string $prefix: Cookie 名称前缀。设为 ``''`` 时使用 **app/Config/Cookie.php** 的默认值
+        :param bool $secure: 是否仅通过 HTTPS 传输。设为 ``null`` 时使用 **app/Config/Cookie.php** 的默认值
+        :param bool $httponly: 是否仅允许 HTTP 请求访问（禁止 JavaScript）。设为 ``null`` 时使用 **app/Config/Cookie.php** 的默认值
+        :param string $samesite: SameSite 参数值。设为 ``''`` 时不设置该属性。设为 ``null`` 时使用 **app/Config/Cookie.php** 的默认值
         :rtype: void
 
-        .. note:: 在 v4.2.7 之前版本,由于一个错误, ``$secure`` 和 ``$httponly`` 的默认值为 ``false``,
-            从未使用来自 **app/Config/Cookie.php** 的这些值。
+        .. note:: 在 v4.2.7 之前，由于漏洞，``$secure`` 和 ``$httponly`` 的默认值为 ``false``，且 **app/Config/Cookie.php** 中的值未被使用。
 
-        将包含你指定值的 Cookie 设置到响应实例。
+        向响应实例设置包含指定值的 Cookie。
 
-        有两种传递信息的方式以便可以设置 Cookie: 数组方法和离散参数:
+        有两种传递信息设置 Cookie 的方式：数组法和离散参数法。
 
-        **数组方法**
+        **数组法**
 
-        使用此方法,关联数组作为第一个参数传递:
+        使用此方法时，第一个参数传递关联数组：
 
         .. literalinclude:: response/023.php
 
-        仅 ``name`` 和 ``value`` 是必需的。要删除 cookie,请将 ``value`` 置空。
+        仅需 ``name`` 和 ``value``。要删除 Cookie 可将 ``value`` 设为空。
 
-        ``expire`` 以 **秒** 设置,将添加到当前时间。不要包括时间,而只设置从 *现在* 希望 cookie 有效的秒数。如果 ``expire`` 设置为零,cookie 将只在浏览器打开时有效。
+        ``expire`` 以秒为单位，会添加到当前时间。请勿包含具体时间，只需设置从现在起有效的秒数。设为 ``0`` 时 Cookie 仅在浏览器打开期间有效。
 
-        .. note:: 但是如果同时将 ``value`` 设置为空字符串和 ``expire`` 设置为 ``0``,
-            cookie 将被删除。
+        .. note:: 但如果 ``value`` 设为空字符串且 ``expire`` 为 ``0``，Cookie 将被删除。
 
-        对于无论如何请求站点的站点范围 cookie,在域名前添加站点 URL,如:
-        .your-domain.com
+        要为整个站点设置 Cookie（无论请求方式），域名前加句点，如：.your-domain.com
 
-        通常不需要 ``path``,因为该方法设置根路径。
+        通常无需设置 ``path``，因为方法默认使用根路径。
 
-        仅在需要避免与服务器上其他同名 cookie 的名称冲突时才需要 ``prefix``。
+        仅在需要避免服务器上同名 Cookie 冲突时需设置 ``prefix``。
 
-        仅在希望通过设置为 ``true`` 将其设置为安全 cookie 时才需要 ``secure`` 标志。
+        仅在需要安全 Cookie 时设置 ``secure`` 为 ``true``。
 
-        ``samesite`` 值控制 cookie 在域和子域之间的共享方式。允许的值是 ``'None'``、``'Lax'``、 ``'Strict'`` 或空字符串 ``''``。
-        如果设置为空字符串,将设置默认的 SameSite 属性。
+        ``samesite`` 控制 Cookie 在域和子域间的共享方式。允许值为 ``'None'``、``'Lax'``、``'Strict'`` 或空字符串 ``''``。设为空字符串时使用默认 SameSite 属性。
 
-        **离散参数**
+        **独立参数**
 
-        如果你愿意,可以通过传递使用各个参数的数据来设置 cookie:
+        也可通过独立参数设置 Cookie：
 
         .. literalinclude:: response/024.php
 
@@ -394,41 +378,39 @@ HTTP 缓存
         :param string $prefix: Cookie 名称前缀
         :rtype: void
 
-        删除现有的 cookie。
+        删除现有 Cookie。
 
-        .. note:: 这也只是设置浏览器 cookie 以删除 cookie。
+        .. note:: 此方法只是设置浏览器 Cookie 来删除 Cookie。
 
-        仅 ``name`` 是必需的。
+        仅需 ``name`` 参数。
 
-        仅当需要避免与服务器上其他同名 cookie 的名称冲突时才需要 ``prefix``。
+        仅在需要避免服务器上同名 Cookie 冲突时需设置 ``prefix``。
 
-        如果希望只删除该子集的 cookie,请提供 ``prefix``。
-        如果只希望删除该域的 cookie,请提供 ``domain`` 名称。
-        如果只希望删除该路径的 cookie,请提供 ``path`` 名称。
+        设置 ``prefix`` 可限定仅删除该前缀的 Cookie。设置 ``domain`` 可限定仅删除该域名的 Cookie。设置 ``path`` 可限定仅删除该路径的 Cookie。
 
-        如果任何可选参数为空,则同名的 cookie 将在所有情况下被删除。
+        如果任意可选参数为空，则删除所有符合条件的同名 Cookie。
 
-        例子:
+        示例：
 
         .. literalinclude:: response/025.php
 
     .. php:method:: hasCookie($name = ''[, $value = null[, $prefix = '']])
 
         :param mixed $name: Cookie 名称或参数数组
-        :param string $value: cookie 值
+        :param string $value: Cookie 值
         :param string $prefix: Cookie 名称前缀
         :rtype: bool
 
-        检查响应是否具有指定的 cookie。
+        检查响应是否包含指定 Cookie。
 
         **注意**
 
-        仅 ``name`` 是必需的。如果指定了 ``prefix``,它将被添加到 cookie 名称前。
+        仅需 ``name`` 参数。若指定 ``prefix``，会将其预置到 Cookie 名称前。
 
-        如果没有给出 ``value``,该方法仅检查具有给定名称的 cookie 是否存在。
-        如果给出 ``value``,则该方法检查具有给定名称和值的 cookie 是否存在。
+        若未提供 ``value``，仅检查是否存在该名称的 Cookie。
+        若提供 ``value``，则同时检查 Cookie 是否存在且值匹配。
 
-        例子:
+        示例：
 
         .. literalinclude:: response/026.php
 
@@ -438,10 +420,10 @@ HTTP 缓存
         :param string $prefix: Cookie 名称前缀
         :rtype: ``Cookie|Cookie[]|null``
 
-        如果找到,返回指定的 cookie,否则返回 ``null``。
-        如果没有给出 ``name``,则返回 ``Cookie`` 对象数组。
+        返回找到的指定 Cookie，未找到则返回 ``null``。
+        若未提供 ``name``，返回所有 ``Cookie`` 对象数组。
 
-        例子:
+        示例：
 
         .. literalinclude:: response/027.php
 
@@ -449,5 +431,5 @@ HTTP 缓存
 
         :rtype: ``Cookie[]``
 
-        返回当前在 Response 实例中设置的所有 cookie。
-        这些是你在当前请求期间明确指定要设置的任何 cookie。
+        返回响应实例中当前设置的所有 Cookie。
+        这些是你在本次请求中明确指定要设置的 Cookie。

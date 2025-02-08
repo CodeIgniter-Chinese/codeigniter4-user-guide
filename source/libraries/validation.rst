@@ -792,10 +792,12 @@ is_natural              无         如果字段包含除自然数之外的任�
                                    ``3`` 等。
 is_natural_no_zero      无         如果字段包含除自然数和零之外的任何内容,则失败: ``1``, ``2``,
                                    ``3`` 等。
-is_not_unique           是         检查数据库中是否存在给定的值。
-                                   可以通过字段/值过滤器忽略记录(当前只接受一个过滤器)。
-is_unique               是         检查字段值是否存在于数据库中。可以可选地设置要忽略的列和值,
-                                   在更新记录时很有用,忽略它本身。
+is_not_unique           是         检查数据库中是否存在给定的值。                                    ``is_not_unique[table.field,where_field,where_value]``
+                                   可以通过字段/值过滤器忽略记录(当前只接受一个过滤器)。             或 ``is_not_unique[dbGroup.table.field,where_field,where_value]``
+                                   （自 v4.6.0 版本起，你可以选择性地将 dbGroup 作为参数传递。）
+is_unique               是         检查字段值是否存在于数据库中。可以可选地设置要忽略的列和值,       ``is_unique[table.field,ignore_field,ignore_value]``
+                                   在更新记录时很有用,忽略它本身。                                    或 ``is_unique[dbGroup.table.field,ignore_field,ignore_value]``
+                                   （自 v4.6.0 版本起，你可以选择性地将 dbGroup 作为参数传递。）
 less_than               是         如果字段大于或等于参数值,或不是数字,则失败。                      ``less_than[8]``
 less_than_equal_to      是         如果字段大于参数值,或不是数字,则失败。                            ``less_than_equal_to[8]``
 matches                 是         值必须匹配参数中字段的值。                                        ``matches[field]``
@@ -888,6 +890,10 @@ max_size                是         如果上传的文件大于第二个参数�
 max_dims                是         如果上传图像的最大宽度和高度超过值,则失败。
                                    第一个参数是字段名称。
                                    第二个是宽度,第三个是高度。如果无法确定文件是图像,也会失败。
+min_dims                是         当上传图片的最小宽度和高度不符合要求时，验证将失败。         ``min_dims[field_name,300,150]``
+                                   第一个参数是字段名称，第二个是宽度，第三个是高度。
+                                   如果文件无法被识别为图片，验证同样会失败。
+                                   （此规则在 v4.6.0 版本中新增。）
 mime_in                 是         如果文件的 mime 类型不在参数中列出,则失败。                  ``mime_in[field_name,image/png,image/jpeg]``
 ext_in                  是         如果文件扩展名不在参数中列出,则失败。                        ``ext_in[field_name,png,jpg,gif]``
 is_image                是         如果根据 mime 类型无法确定文件是图像,则失败。                ``is_image[field_name]``

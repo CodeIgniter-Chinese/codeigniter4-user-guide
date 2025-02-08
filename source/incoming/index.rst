@@ -10,6 +10,7 @@
     routing
     controllers
     filters
+    auto_routing_improved
     message
     request
     incomingrequest

@@ -23,10 +23,10 @@ year_now = datetime.date.today().year
 copyright = '2019-' + str(year_now) + ' CodeIgniter 基金会'
 
 # The short X.Y version.
-version = '4.5'
+version = '4.6'
 
 # The full version, including alpha/beta/rc tags.
-release = '4.5.7'
+release = '4.6.0'
 
 # -- General configuration ---------------------------------------------------
 

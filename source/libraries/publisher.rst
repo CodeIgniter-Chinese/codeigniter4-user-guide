@@ -2,115 +2,138 @@
 Publisher
 #########
 
-Publisher 库提供了使用强大的检测和错误检查在项目内复制文件的方法。
+Publisher 类库提供了一种在项目内复制文件的方法，具备强大的检测和错误检查功能。
 
 .. contents::
     :local:
     :depth: 2
 
 *******************
-加载库
+加载类库
 *******************
 
-因为 Publisher 实例针对其源和目标,所以这个库不通过 ``Services`` 提供,而应该直接实例化或扩展。例如:
+由于 Publisher 实例与其源路径和目标路径相关联，因此该类库不通过 ``Services`` 提供，而应直接实例化或扩展。例如：
 
 .. literalinclude:: publisher/001.php
 
 *****************
-概念和用法
+概念与用法
 *****************
 
-``Publisher`` 解决了在后端框架中工作时的一些常见问题:
+``Publisher`` 解决了在后端框架中工作时的一些常见问题：
 
-* 我如何维护具有版本依赖性的项目资产?
-* 我如何管理上传和其他需要网络访问的“动态”文件?
-* 当框架或模块发生更改时,我如何更新我的项目?
-* 组件如何向现有项目注入新内容?
+* 如何维护具有版本依赖关系的项目资源？
+* 如何管理需要 Web 访问的上传文件和其他"动态"文件？
+* 当框架或模块变更时如何更新项目？
+* 组件如何将新内容注入现有项目？
 
-最基本意义上,发布就是将一个或多个文件复制到项目中。``Publisher`` 扩展了 ``FileCollection`` 来执行流式样式的命令链,以读取、过滤和处理输入文件,然后将它们复制或合并到目标目标中。你可以根据需要在控制器或其他组件中使用 ``Publisher``,或者通过扩展类并利用 ``spark publish`` 进行发现来规划发布。
+本质上，发布操作等同于将文件复制到项目中。``Publisher`` 扩展了 ``FileCollection``，通过流式方法链来读取、过滤和处理输入文件，然后将它们复制或合并到目标路径。你可以在控制器或其他组件中按需使用 ``Publisher``，也可以通过扩展类并利用 ``spark publish`` 的发现机制来分阶段执行发布操作。
 
 按需使用
 =========
 
-通过实例化该类的新实例直接访问 ``Publisher``:
+通过直接实例化类来使用 ``Publisher``：
 
 .. literalinclude:: publisher/002.php
 
-默认情况下,源和目标分别设置为 ``ROOTPATH`` 和 ``FCPATH``,使 ``Publisher`` 可以轻松获取项目中的任何文件并使其可通过 Web 访问。或者,你可以在构造函数中传递一个新的源或源和目标:
+默认情况下，源路径和目标路径分别设置为 ``ROOTPATH`` 和 ``FCPATH``，这使得 ``Publisher`` 可以轻松访问项目中的任何文件并使其可通过 Web 访问。你也可以在构造函数中传入新的源路径或同时传入源路径和目标路径：
 
 .. literalinclude:: publisher/003.php
 
-一旦所有文件都准备就绪,使用输出命令之一(**copy()** 或 **merge()**)将暂存的文件处理到它们的目标位置:
+当所有文件准备就绪后，使用输出命令（**copy()** 或 **merge()**）将暂存文件处理到目标路径：
 
 .. literalinclude:: publisher/004.php
 
-请参阅 :ref:`reference` 以获取可用方法的完整描述。
+完整方法描述请参阅 :ref:`reference`。
 
-自动化和发现
+自动化与发现
 ========================
 
-你可能有在应用程序部署或维护的一部分中嵌入了定期发布任务。``Publisher`` 利用强大的 ``Autoloader`` 来定位任何准备发布的子类:
+你可能需要在应用部署或维护时执行定期发布任务。``Publisher`` 利用强大的 ``Autoloader`` 来定位所有准备发布的子类：
 
 .. literalinclude:: publisher/005.php
 
-默认情况下, ``discover()`` 将在所有命名空间中搜索“Publishers”目录,但你可以指定不同的目录,它将返回找到的任何子类:
+默认情况下 ``discover()`` 会在所有命名空间中搜索 "Publishers" 目录，但你可以指定其他目录来返回找到的子类：
 
 .. literalinclude:: publisher/006.php
 
-大多数时候你不需要自己处理发现,只需使用提供的“publish”命令:
+大多数情况下你无需自行处理发现机制，直接使用提供的 "publish" 命令即可：
 
 .. code-block:: console
 
     php spark publish
 
-默认情况下,在你的类扩展上 ``publish()`` 将从你的 ``$source`` 添加所有文件并合并到你的目标位置,在冲突时覆盖。
+默认情况下，类扩展中的 ``publish()`` 会从 ``$source`` 添加所有文件并将其合并到目标路径，遇到冲突时覆盖。
+
+.. _discovery-in-a-specific-namespace:
+
+在指定命名空间中发现
+---------------------------------
+
+.. versionadded:: 4.6.0
+
+自 v4.6.0 起，你还可以扫描特定命名空间。这不仅减少了需要扫描的文件数量，也避免了重新运行 Publisher 的需求。只需在 ``discover()`` 方法的第二个参数中指定目标根命名空间：
+
+.. literalinclude:: publisher/016.php
+
+指定的命名空间必须已注册到 CodeIgniter。你可以使用 "spark namespaces" 命令查看所有命名空间列表：
+
+.. code-block:: console
+
+    php spark namespaces
+
+"publish" 命令也提供 ``--namespace`` 选项来定义搜索 Publisher 的命名空间，适用于来自库的情况：
+
+.. code-block:: console
+
+    php spark publish --namespace Namespace\Vendor\Package
 
 安全性
 ========
 
-为了防止模块向你的项目注入恶意代码, ``Publisher`` 包含一个配置文件,其中定义了允许作为目标的目录和文件模式。默认情况下,文件只能发布到你的项目中(以防止访问文件系统的其余部分), ``public/`` 文件夹 (``FCPATH``) 只会接收以下扩展名的文件:
+为防止模块向项目注入恶意代码，``Publisher`` 包含一个配置文件来定义允许的目标目录和文件模式。默认情况下，文件只能发布到项目内（防止访问文件系统其他部分），且 **public/** 文件夹（``FCPATH``）仅接收以下扩展名的文件：
 
-* Web 资源:css、scss、js、map
-* 非可执行 Web 文件:htm、html、xml、json、webmanifest
-* 字体:ttf、eot、woff、woff2
-* 图像:gif、jpg、jpeg、tif、tiff、png、webp、bmp、ico、svg
+* Web 资源：css, scss, js, map
+* 非可执行 Web 文件：htm, html, xml, json, webmanifest
+* 字体：ttf, eot, woff, woff2
+* 图像：gif, jpg, jpeg, tif, tiff, png, webp, bmp, ico, svg
 
-如果你需要为项目添加或调整安全性,请更改 ``app/Config/Publisher.php`` 中的 ``Config\Publisher`` 的 ``$restrictions`` 属性。
+如需调整项目安全设置，请修改 **app/Config/Publisher.php** 中 ``Config\Publisher`` 的 ``$restrictions`` 属性。
 
 ********
 示例
 ********
 
-这里有一些示例用例及其实现来帮助你开始发布。
+以下是几个典型用例及其实现，帮助你快速上手发布操作。
 
 文件同步示例
 =================
 
-你想在主页上显示“每日照片”图像。你有每日照片的订阅源,但你需要将实际文件放入项目中可以浏览的位置,如 **public/images/daily_photo.jpg**。你可以设置 :doc:`自定义命令 </cli/cli_commands>` 每天运行一次来处理此操作:
+你希望在首页展示"每日图片"。虽然已有每日图片源，但需要将实际文件同步到项目的可浏览位置 **public/images/daily_photo.jpg**。可以设置每日运行的 :doc:`自定义命令 </cli/cli_commands>` 来处理：
 
 .. literalinclude:: publisher/007.php
 
-现在运行 ``spark publish:daily`` 将使你的主页图像保持更新。如果照片来自外部 API 呢?你可以使用 ``addUri()`` 代替 ``addPath()`` 来下载远程资源并发布它:
+现在运行 ``spark publish:daily`` 即可保持首页图片更新。如果图片来自外部 API 怎么办？可以使用 ``addUri()`` 替代 ``addPath()`` 来下载远程资源并发布：
 
 .. literalinclude:: publisher/008.php
 
-资产依赖项示例
+资源依赖示例
 ==========================
 
-你想将前端库“Bootstrap”集成到你的项目中,但频繁的更新使跟踪它变得很麻烦。你可以在项目中创建发布定义来通过扩展 ``Publisher`` 来同步前端资产。所以 **app/Publishers/BootstrapPublisher.php** 可能如下所示:
+你想在项目中集成前端库"Bootstrap"，但频繁更新带来维护难题。可以通过扩展 ``Publisher`` 创建发布定义来同步前端资源。例如 **app/Publishers/BootstrapPublisher.php** 可能如下：
 
 .. literalinclude:: publisher/009.php
 
-.. note:: 在执行命令之前，必须先创建目录 ``$destination``。
+.. note:: 目录 ``$destination`` 必须在执行命令前创建。
 
-现在通过 Composer 添加依赖项并调用 ``spark publish`` 来运行发布:
+现在通过 Composer 添加依赖并调用 ``spark publish`` 执行发布：
 
 .. code-block:: console
 
     composer require twbs/bootstrap
     php spark publish
 
-... 然后你会在项目中得到类似下面的结果::
+最终会生成如下结构::
 
     public/.htaccess
     public/favicon.ico
@@ -139,11 +162,11 @@ Publisher 库提供了使用强大的检测和错误检查在项目内复制文�
 模块部署示例
 =========================
 
-你希望允许使用你流行的身份验证模块的开发者能够扩展 Migration、Controller 和 Model 的默认行为。你可以为应用程序创建自己的模块“发布”命令来注入这些组件以供使用:
+你希望让使用流行认证模块的开发者能够扩展默认的 Migration、Controller 和 Model 行为。可以创建模块专属的"publish"命令来向应用中注入这些组件：
 
 .. literalinclude:: publisher/010.php
 
-现在当你的模块用户运行 ``php spark auth:publish`` 时,会向他们的项目添加以下内容::
+现在当模块用户运行 ``php spark auth:publish`` 时，项目中会添加以下文件::
 
     app/Controllers/AuthController.php
     app/Database/Migrations/2017-11-20-223112_create_auth_tables.php.php
@@ -153,10 +176,10 @@ Publisher 库提供了使用强大的检测和错误检查在项目内复制文�
 .. _reference:
 
 *****************
-库参考
+类库参考
 *****************
 
-.. note:: ``Publisher`` 是 :doc:`FileCollection </libraries/files>` 的扩展,因此可以访问读取和过滤文件的所有这些方法。
+.. note:: ``Publisher`` 继承自 :doc:`FileCollection </libraries/files>`，因此可以使用该类的所有文件读取和过滤方法。
 
 支持方法
 ===============
@@ -164,74 +187,74 @@ Publisher 库提供了使用强大的检测和错误检查在项目内复制文�
 [static] discover(string $directory = 'Publishers'): Publisher[]
 ----------------------------------------------------------------
 
-发现指定命名空间目录中的所有 Publishers 并返回。例如,如果 **app/Publishers/FrameworkPublisher.php** 和 **myModule/src/Publishers/AssetPublisher.php** 都存在并扩展了 ``Publisher``,那么 ``Publisher::discover()`` 会返回每个的一个实例。
+发现并返回指定命名空间目录中的所有 Publisher。例如，如果同时存在 **app/Publishers/FrameworkPublisher.php** 和 **myModule/src/Publishers/AssetPublisher.php** 且都是 ``Publisher`` 的扩展，则 ``Publisher::discover()`` 会返回每个实例。
 
 publish(): bool
 ---------------
 
-处理完整的输入-过程-输出链。默认情况下,这相当于调用 ``addPath($source)`` 和 ``merge(true)``,但子类通常会提供自己的实现。在运行 ``spark publish`` 时,会在所有发现的 Publisher 上调用 ``publish()``。返回成功或失败。
+处理完整的输入-处理-输出链。默认情况下等同于调用 ``addPath($source)`` 和 ``merge(true)``，但子类通常提供自己的实现。运行 ``spark publish`` 时会对所有发现的 Publisher 调用 ``publish()``。返回成功或失败状态。
 
 getScratch(): string
 --------------------
 
-返回临时工作区,如有必要则创建它。某些操作使用中间存储来暂存文件和更改,这提供了一个瞬态的可写目录的路径,你也可以使用它。
+返回临时工作区路径（必要时创建）。某些操作使用中间存储来暂存文件和变更，此方法提供可写入的临时目录路径。
 
 getErrors(): array<string, Throwable>
 -------------------------------------
 
-返回最后一次写入操作的任何错误。数组的键是导致错误的文件,值是捕获的 Throwable。使用 Throwable 的 ``getMessage()`` 来获取错误消息。
+返回上次写入操作的错误信息。数组键是引发错误的文件路径，值是对应的 Throwable 对象。使用 Throwable 的 ``getMessage()`` 获取错误信息。
 
 addPath(string $path, bool $recursive = true)
 ---------------------------------------------
 
-添加相对于 ``$source`` 的实际文件或目录指示的所有文件。如果相对路径解析为目录,则 ``$recursive`` 将包含子目录。
+添加相对路径指示的所有文件。路径是相对于 ``$source`` 的实际文件或目录引用。如果相对路径解析为目录，则 ``$recursive`` 会包含子目录。
 
 addPaths(array $paths, bool $recursive = true)
 ----------------------------------------------
 
-添加相对于 ``$source`` 的实际文件或目录指示的所有文件。如果相对路径解析为目录,则 ``$recursive`` 将包含子目录。
+添加多个相对路径指示的所有文件。路径是相对于 ``$source`` 的实际文件或目录引用。如果相对路径解析为目录，则 ``$recursive`` 会包含子目录。
 
 addUri(string $uri)
 -------------------
 
-使用 ``CURLRequest`` 下载 URI 的内容到临时工作区,然后将结果文件添加到列表中。
+使用 ``CURLRequest`` 将 URI 内容下载到临时工作区，然后将结果文件添加到列表。
 
 addUris(array $uris)
 --------------------
 
-使用 ``CURLRequest`` 将 URI 的内容下载到临时工作区,然后将结果文件添加到列表中。
+使用 ``CURLRequest`` 将多个 URI 内容下载到临时工作区，然后将结果文件添加到列表。
 
-.. note:: 所做的 CURL 请求是一个简单的 ``GET``,并使用响应主体作为文件内容。某些远程文件可能需要自定义请求才能正确处理。
+.. note:: CURL 请求是简单的 ``GET`` 请求并使用响应体作为文件内容。某些远程文件可能需要自定义请求处理。
 
-输出文件
+文件输出方法
 ================
 
 wipe()
 ------
 
-从 ``$destination`` 中删除所有文件、目录和子目录。
+删除 ``$destination`` 中的所有文件、目录和子目录。
 
-.. important:: 想清楚再使用。
+.. important:: 谨慎使用。
 
 copy(bool $replace = true): bool
 --------------------------------
 
-将所有文件复制到 ``$destination`` 中。这不会重新创建目录结构,因此来自当前列表的每个文件最终都会结束在同一目标目录中。使用 ``$replace`` 会导致文件在已经存在现有文件时被覆盖。返回成功或失败,使用 ``getPublished()`` 和 ``getErrors()`` 来排查故障。要注意基本名称冲突,例如:
+将所有文件复制到 ``$destination``。不重建目录结构，所有文件将置于同一目标目录。``$replace`` 为 true 时会覆盖现有文件。返回成功或失败状态，使用 ``getPublished()`` 和 ``getErrors()`` 排查故障。注意同名文件冲突，例如：
 
 .. literalinclude:: publisher/011.php
 
 merge(bool $replace = true): bool
 ---------------------------------
 
-将所有文件以适当的相对子目录复制到 ``$destination`` 中。与 ``$source`` 匹配的任何文件都将被放置到 ``$destination`` 中的等效目录中,从而有效地创建一个“镜像”或“rsync”操作。使用 ``$replace`` 会导致文件在已经存在现有文件时被覆盖;由于目录已合并,这不会影响目标中的其他文件。返回成功或失败,使用 ``getPublished()`` 和 ``getErrors()`` 来排查故障。
+将所有文件按相对子目录结构复制到 ``$destination``。匹配 ``$source`` 的文件会置于 ``$destination`` 的对应目录，实现"镜像"或"rsync"操作。``$replace`` 为 true 时覆盖现有文件（不影响目标目录其他文件）。返回成功或失败状态，使用 ``getPublished()`` 和 ``getErrors()`` 排查故障。
 
-例子:
+示例：
 
 .. literalinclude:: publisher/012.php
 
 .. _publisher-modifying-files:
 
-修改文件
+文件修改方法
 ===============
 
 replace(string $file, array $replaces): bool
@@ -239,7 +262,7 @@ replace(string $file, array $replaces): bool
 
 .. versionadded:: 4.3.0
 
-替换 ``$file`` 内容。第二个参数 ``$replaces`` 数组指定要搜索的字符串作为键,替换为值。
+替换 ``$file`` 文件内容。第二个参数 ``$replaces`` 数组以搜索字符串为键，替换内容为值。
 
 .. literalinclude:: publisher/013.php
 
