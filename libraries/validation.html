@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>验证 &mdash; CodeIgniter 4.5.7 中文手册|用户手册|用户指南|中文文档</title>
+  <title>验证 &mdash; CodeIgniter 4.6.0 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -54,7 +54,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器要求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
@@ -117,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/auto_routing_improved.html">自动路由（改进版）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
@@ -184,7 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">文件处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_collections.html">文件集合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="honeypot.html">蜜罐类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="images.html">图像处理类</a></li>
@@ -193,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session 库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="throttler.html">限速器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time.html">时间与日期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typography.html">排版</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uploaded_files.html">处理上传的文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uri.html">使用 URI</a></li>
@@ -1081,7 +1082,7 @@ Cookie 覆盖。</p>
         <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="s1">&#39;min_length&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Your password is too short. You want to get hacked?&#39;</span><span class="p">,</span>
         <span class="p">],</span>
-    <span class="p">]</span>
+    <span class="p">],</span>
 <span class="p">);</span>
 </pre></div>
 </div>
@@ -1682,14 +1683,21 @@ Cookie 覆盖。</p>
 <tr class="row-even"><td><p>is_not_unique</p></td>
 <td><p>是</p></td>
 <td><p>检查数据库中是否存在给定的值。
-可以通过字段/值过滤器忽略记录(当前只接受一个过滤器)。</p></td>
-<td></td>
+可以通过字段/值过滤器忽略记录(当前只接受一个过滤器)。
+（自 v4.6.0 版本起，你可以选择性地将 dbGroup 作为参数传递。）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">is_not_unique[table.field,where_field,where_value]</span></code>
+或 <code class="docutils literal notranslate"><span class="pre">is_not_unique[dbGroup.table.field,where_field,where_value]</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>is_unique</p></td>
 <td><p>是</p></td>
 <td><p>检查字段值是否存在于数据库中。可以可选地设置要忽略的列和值,
-在更新记录时很有用,忽略它本身。</p></td>
-<td></td>
+在更新记录时很有用,忽略它本身。
+（自 v4.6.0 版本起，你可以选择性地将 dbGroup 作为参数传递。）</p></td>
+<td><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">is_unique[table.field,ignore_field,ignore_value]</span></code></dt><dd><p>或 <code class="docutils literal notranslate"><span class="pre">is_unique[dbGroup.table.field,ignore_field,ignore_value]</span></code></p>
+</dd>
+</dl>
+</td>
 </tr>
 <tr class="row-even"><td><p>less_than</p></td>
 <td><p>是</p></td>
@@ -1891,17 +1899,25 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
 第二个是宽度,第三个是高度。如果无法确定文件是图像,也会失败。</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>mime_in</p></td>
+<tr class="row-odd"><td><p>min_dims</p></td>
+<td><p>是</p></td>
+<td><p>当上传图片的最小宽度和高度不符合要求时，验证将失败。
+第一个参数是字段名称，第二个是宽度，第三个是高度。
+如果文件无法被识别为图片，验证同样会失败。
+（此规则在 v4.6.0 版本中新增。）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min_dims[field_name,300,150]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>mime_in</p></td>
 <td><p>是</p></td>
 <td><p>如果文件的 mime 类型不在参数中列出,则失败。</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">mime_in[field_name,image/png,image/jpeg]</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>ext_in</p></td>
+<tr class="row-odd"><td><p>ext_in</p></td>
 <td><p>是</p></td>
 <td><p>如果文件扩展名不在参数中列出,则失败。</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ext_in[field_name,png,jpg,gif]</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>is_image</p></td>
+<tr class="row-even"><td><p>is_image</p></td>
 <td><p>是</p></td>
 <td><p>如果根据 mime 类型无法确定文件是图像,则失败。</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">is_image[field_name]</span></code></p></td>
@@ -1925,7 +1941,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2025-01-02.
+      <span class="lastupdated">最后更新于 2025-02-08.
       </span></p>
   </div>
 
@@ -1933,7 +1949,7 @@ HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fec6f51d750>
+<jinja2.runtime.BlockReference object at 0x7fbc20f78290>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

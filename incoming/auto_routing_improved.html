@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>自动路由（改进版） &mdash; CodeIgniter 4.6.0 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+        <script src="../_static/js/citheme.js"></script>
+        <script src="../_static/js/carbon.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="HTTP 消息" href="message.html" />
+    <link rel="prev" title="控制器过滤器" href="filters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/ci-logo-text.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_composer.html">Composer 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/installing_manual.html">手动安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/running.html">运行你的应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/deployment.html">部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelogs/index.html">变更记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/upgrading.html">从前一版本升级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/repositories.html">CodeIgniter 仓库</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">构建你的第一个应用程序</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/static_pages.html">静态页面</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/news_section.html">新闻部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/create_news_items.html">创建新闻</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/conclusion.html">结束语</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/index.html">CodeIgniter4 概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/structure.html">应用程序结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/mvc.html">模型、视图和控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/autoloader.html">自动加载文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/services.html">服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/factories.html">工厂</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/http.html">处理 HTTP 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/security.html">安全指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/goals.html">设计与架构目标</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">常规主题</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/configuration.html">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/urls.html">CodeIgniter URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/helpers.html">辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/common_functions.html">全局函数和常量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/logging.html">记录信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/errors.html">错误处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/caching.html">网页缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/ajax.html">AJAX 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/modules.html">代码模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/managing_apps.html">管理应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/environments.html">处理多个环境</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">控制器和路由</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="routing.html">URI 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html">控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html">控制器过滤器</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">自动路由（改进版）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="message.html">HTTP 消息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="request.html">请求类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="incomingrequest.html">IncomingRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content_negotiation.html">内容协商</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methodspoofing.html">HTTP 方法欺骗</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restful.html">RESTful 资源处理</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../outgoing/index.html">构建响应</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/views.html">视图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_renderer.html">视图渲染器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_cells.html">视图单元</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_parser.html">视图解析器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/view_decorators.html">视图装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/table.html">HTML 表格类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/response.html">HTTP 响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/api_responses.html">API 响应特性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/csp.html">内容安全策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/localization.html">本地化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">使用数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/examples.html">快速入门:使用示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/configuration.html">数据库配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/connecting.html">连接数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/queries.html">运行查询</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/results.html">生成查询结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/helpers.html">查询辅助方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/query_builder.html">查询构建器类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/transactions.html">事务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/metadata.html">获取元数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/call_function.html">自定义函数调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/events.html">数据库事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/utilities.html">数据库实用工具</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../models/index.html">数据建模</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../models/model.html">使用 CodeIgniter 的 Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../models/entities.html">使用实体类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dbmgmt/index.html">管理数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/forge.html">数据库 Forge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/migration.html">数据库迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/seeds.html">数据库填充</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dbmgmt/db_commands.html">数据库命令</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">类库参考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/caching.html">缓存驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cookies.html">Cookie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/cors.html">跨域资源共享 (CORS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">文件处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">蜜罐类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/pagination.html">分页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/publisher.html">Publisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间与日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/user_agent.html">User Agent 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/validation.html">验证</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">辅助函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/array_helper.html">数组辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/date_helper.html">日期辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/form_helper.html">表单辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/html_helper.html">HTML 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/inflector_helper.html">Inflector 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/number_helper.html">数字辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/security_helper.html">安全辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/test_helper.html">测试辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/text_helper.html">文本辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/url_helper.html">URL 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helpers/xml_helper.html">XML 辅助函数</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">测试</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../testing/overview.html">入门指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/database.html">数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/fabricator.html">生成数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/controllers.html">测试控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/feature.html">HTTP 测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/mocking.html">模拟</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/benchmark.html">基准测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/debugging.html">调试应用程序</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">命令行使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_overview.html">CLI 概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_controllers.html">通过 CLI 运行控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/spark_commands.html">Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_commands.html">创建 Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_generators.html">CLI 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_library.html">CLI 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cli/cli_request.html">CLIRequest 类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../extending/index.html">扩展 CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../extending/core_classes.html">创建核心系统类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/common.html">替换通用函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/events.html">事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/basecontroller.html">扩展控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/authentication.html">身份验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/composer_packages.html">创建 Composer 包</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/official_packages.html">官方包</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodeIgniter</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">控制器和路由</a></li>
+      <li class="breadcrumb-item active">自动路由（改进版）</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="auto-routing-improved">
+<span id="id1"></span><h1>自动路由（改进版）<a class="headerlink" href="#auto-routing-improved" title="此标题的永久链接"></a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.2.0 版本加入.</span></p>
+</div>
+<nav class="contents local" id="id2">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id3" id="id29">什么是自动路由（改进版）？</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id30">与自动路由（旧版）的差异</a></p></li>
+<li><p><a class="reference internal" href="#enabled-auto-routing-improved" id="id31">启用自动路由（改进版）</a></p></li>
+<li><p><a class="reference internal" href="#uri" id="id32">URI 分段</a></p></li>
+<li><p><a class="reference internal" href="#hello-world" id="id33">实践演练：Hello World!</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id6" id="id34">创建控制器</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id35">检查路由</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id36">访问页面</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id9" id="id37">控制器命名示例</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id38">控制器方法</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id11" id="id39">方法可见性</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id40">默认方法</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id41">常规方法</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id14" id="id42">向方法传递 URI 分段</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id43">默认控制器</a></p></li>
+<li><p><a class="reference internal" href="#auto-routing-improved-default-method-fallback" id="id44">默认方法回退</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id17" id="id45">回退至默认控制器</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id18" id="id46">控制器子目录组织</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id47">控制器/方法与 URI 对应示例</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id48">应用过滤器</a></p></li>
+<li><p><a class="reference internal" href="#routing-auto-routing-improved-configuration-options" id="id49">配置选项</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id22" id="id50">默认控制器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id23" id="id51">站点根 URI</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id52">目录 URI</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#routing-auto-routing-improved-default-method" id="id53">默认方法</a></p></li>
+<li><p><a class="reference internal" href="#translate-uri-to-camelcase" id="id54">URI 转驼峰命名</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id27" id="id55">禁用 URI 转驼峰命名</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#auto-routing-improved-module-routing" id="id56">模块路由</a></p></li>
+</ul>
+</nav>
+<section id="id3">
+<h2><a class="toc-backref" href="#id29" role="doc-backlink">什么是自动路由（改进版）？</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<p>默认情况下，所有路由都必须在配置文件中通过 <a class="reference internal" href="routing.html#defined-route-routing"><span class="std std-ref">defined</span></a> 方式定义。</p>
+<p>但通过 <strong>自动路由（改进版）</strong>，你可以根据约定定义控制器名称及其方法名称，系统将自动进行路由。换句话说，无需手动定义路由。</p>
+<p>启用自动路由（改进版）后，当未找到与 URI 匹配的已定义路由时，系统将尝试根据控制器和方法进行匹配。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>出于安全考虑，若控制器已在定义的路由中使用，则自动路由（改进版）不会路由到该控制器。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自动路由（改进版）默认禁用。要启用请参阅 <a class="reference internal" href="#enabled-auto-routing-improved"><span class="std std-ref">启用自动路由（改进版）</span></a>。</p>
+</div>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id30" role="doc-backlink">与自动路由（旧版）的差异</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
+<p><a class="reference internal" href="routing.html#auto-routing-legacy"><span class="std std-ref">自动路由（传统版）</span></a> 是 CodeIgniter 3 的路由系统。如果你不熟悉该功能，可直接阅读下一章节。</p>
+<p>如果你已了解旧版路由，以下是 <strong>自动路由（改进版）</strong> 的主要变化：</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>控制器方法需要添加 HTTP 动词前缀如 <code class="docutils literal notranslate"><span class="pre">getIndex()</span></code>、<code class="docutils literal notranslate"><span class="pre">postCreate()</span></code></dt><dd><ul>
+<li><p>由于开发者始终明确 HTTP 方法，使用非预期的 HTTP 方法请求将不会执行控制器</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>URI 中必须省略默认控制器（默认为 <code class="docutils literal notranslate"><span class="pre">Home</span></code>）和默认方法（默认为 <code class="docutils literal notranslate"><span class="pre">index</span></code>）</dt><dd><ul>
+<li><p>这保证了控制器方法与 URI 的一一对应关系</p></li>
+<li><p>例如默认情况下可访问 <code class="docutils literal notranslate"><span class="pre">/</span></code>，但 <code class="docutils literal notranslate"><span class="pre">/home</span></code> 和 <code class="docutils literal notranslate"><span class="pre">/home/index</span></code> 将返回 404 错误</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>检查方法参数数量</dt><dd><ul>
+<li><p>若 URI 中的参数数量超过方法参数数量，将返回 404 错误</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>不支持 <code class="docutils literal notranslate"><span class="pre">_remap()</span></code> 方法</dt><dd><ul>
+<li><p>这保证了控制器方法与 URI 的一一对应关系</p></li>
+<li><p>但提供了 <a class="reference internal" href="#auto-routing-improved-default-method-fallback"><span class="std std-ref">默认方法回退</span></a> 功能作为替代</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>无法访问已定义路由中的控制器</dt><dd><ul>
+<li><p>通过 <strong>自动路由</strong> 访问的控制器与通过 <strong>定义路由</strong> 访问的控制器完全分离</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="enabled-auto-routing-improved">
+<span id="id5"></span><h2><a class="toc-backref" href="#id31" role="doc-backlink">启用自动路由（改进版）</a><a class="headerlink" href="#enabled-auto-routing-improved" title="此标题的永久链接"></a></h2>
+<p>要使用该功能，需在 <strong>app/Config/Routing.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$autoRoute</span></code> 选项设为 <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">bool</span> <span class="nv">$autoRoute</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>同时需在 <strong>app/Config/Feature.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$autoRoutesImproved</span></code> 属性设为 <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">bool</span> <span class="nv">$autoRoutesImproved</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>使用自动路由（改进版）时，必须移除 <strong>app/Config/Routes.php</strong> 中的 <code class="docutils literal notranslate"><span class="pre">$routes-&gt;get('/',</span> <span class="pre">'Home::index');</span></code> 行。因为定义路由优先级高于自动路由，且出于安全考虑，自动路由（改进版）会拒绝访问已定义路由中的控制器。</p>
+</div>
+</section>
+<section id="uri">
+<h2><a class="toc-backref" href="#id32" role="doc-backlink">URI 分段</a><a class="headerlink" href="#uri" title="此标题的永久链接"></a></h2>
+<p>遵循 MVC 模式，URL 中的分段通常表示:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="p">{</span><span class="nx">class</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="nx">method</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="nx">param1</span><span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>第一分段表示要调用的控制器 <strong>类</strong></p></li>
+<li><p>第二分段表示要调用的类 <strong>方法</strong></p></li>
+<li><p>第三及后续分段表示传递给控制器方法的 <strong>参数</strong></p></li>
+</ol>
+<p>示例 URI:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">hello</span><span class="o">-</span><span class="nx">world</span><span class="o">/</span><span class="nx">hello</span><span class="o">/</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>当使用 <strong>GET</strong> 方法发送 HTTP 请求时，自动路由（改进版）会尝试查找名为 <code class="docutils literal notranslate"><span class="pre">App\Controllers\HelloWorld</span></code> 的控制器，并执行 <code class="docutils literal notranslate"><span class="pre">getHello()</span></code> 方法，同时传递 <code class="docutils literal notranslate"><span class="pre">'1'</span></code> 作为第一个参数。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>通过自动路由（改进版）执行的控制器方法需要添加 HTTP 动词（<code class="docutils literal notranslate"><span class="pre">get</span></code>、<code class="docutils literal notranslate"><span class="pre">post</span></code>、<code class="docutils literal notranslate"><span class="pre">put</span></code> 等）前缀，如 <code class="docutils literal notranslate"><span class="pre">getIndex()</span></code>、<code class="docutils literal notranslate"><span class="pre">postCreate()</span></code>。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>当控制器的短名称与 URI 的第一分段匹配时，该控制器将被加载。</p>
+</div>
+</section>
+<section id="hello-world">
+<h2><a class="toc-backref" href="#id33" role="doc-backlink">实践演练：Hello World!</a><a class="headerlink" href="#hello-world" title="此标题的永久链接"></a></h2>
+<p>让我们创建一个简单控制器来演示该功能。</p>
+<section id="id6">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">创建控制器</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
+<p>在 <strong>app/Controllers</strong> 目录中创建名为 <strong>HelloWorld.php</strong> 的文件，并添加以下代码：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">HelloWorld</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getIndex</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>文件名必须为 <strong>HelloWorld.php</strong>。使用自动路由（改进版）时，控制器类名必须采用大驼峰式命名法。</p>
+</div>
+<p>注意 <code class="docutils literal notranslate"><span class="pre">HelloWorld</span></code> 控制器继承自 <code class="docutils literal notranslate"><span class="pre">BaseController</span></code>。若不需要基控制器功能，也可直接继承 <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Controller</span></code>。</p>
+<p>BaseController 提供了方便的组件加载方式，并包含所有控制器共用的功能。你可以在任何新控制器中继承此类。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>通过自动路由（改进版）执行的控制器方法必须添加 HTTP 动词前缀，如 <code class="docutils literal notranslate"><span class="pre">getIndex()</span></code>、<code class="docutils literal notranslate"><span class="pre">postCreate()</span></code>。</p>
+</div>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">检查路由</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
+<p>可通过 <code class="docutils literal notranslate"><span class="pre">spark</span> <span class="pre">routes</span></code> 命令查看路由信息：</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">php spark routes</span>
+</pre></div>
+</div>
+<p>成功操作后将显示：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------+-------------+------+---------------------------------------+----------------+---------------+
+| Method    | Route       | Name | Handler                               | Before Filters | After Filters |
++-----------+-------------+------+---------------------------------------+----------------+---------------+
+| GET(auto) | hello-world |      | \App\Controllers\HelloWorld::getIndex |                |               |
++-----------+-------------+------+---------------------------------------+----------------+---------------+
+</pre></div>
+</div>
+<p>详情请参阅 <a class="reference internal" href="routing.html#routing-spark-routes"><span class="std std-ref">spark 路由</span></a>。</p>
+</section>
+<section id="id8">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">访问页面</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<p>现在通过以下 URL 访问你的站点:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">hello</span><span class="o">-</span><span class="nx">world</span>
+</pre></div>
+</div>
+<p>系统会自动将 URI 中的短横线（<code class="docutils literal notranslate"><span class="pre">-</span></code>）转换为控制器和方法的大驼峰式命名。</p>
+<p>例如 URI <code class="docutils literal notranslate"><span class="pre">sub-dir/hello-controller/some-method</span></code> 将执行 <code class="docutils literal notranslate"><span class="pre">SubDir\HelloController::getSomeMethod()</span></code> 方法。</p>
+<p>成功操作后将显示:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">!</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id9">
+<h2><a class="toc-backref" href="#id37" role="doc-backlink">控制器命名示例</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
+<p>以下为有效控制器名称，因为 <code class="docutils literal notranslate"><span class="pre">App\Controllers\HelloWorld</span></code> 采用大驼峰式命名：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">HelloWorld</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>以下为无效命名，因为首字母（<code class="docutils literal notranslate"><span class="pre">h</span></code>）未大写：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">helloworld</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>以下同样无效，因为首字母（<code class="docutils literal notranslate"><span class="pre">h</span></code>）未大写：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">helloWorld</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h2><a class="toc-backref" href="#id38" role="doc-backlink">控制器方法</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
+<section id="id11">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">方法可见性</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
+<p>通过 HTTP 请求执行的方法必须声明为 <code class="docutils literal notranslate"><span class="pre">public</span></code>。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>出于安全考虑，请将所有工具方法声明为 <code class="docutils literal notranslate"><span class="pre">protected</span></code> 或 <code class="docutils literal notranslate"><span class="pre">private</span></code>。</p>
+</div>
+</section>
+<section id="id12">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">默认方法</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<p>上述示例中的 <code class="docutils literal notranslate"><span class="pre">getIndex()</span></code> 方法称为 <strong>默认方法</strong>，当 URI 的 <strong>第二分段</strong> 为空时将被调用。</p>
+</section>
+<section id="id13">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">常规方法</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<p>URI 的第二分段决定调用控制器中的哪个方法。</p>
+<p>添加新方法进行测试：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">HelloWorld</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getIndex</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getComment</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;I am not flat!&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>现在访问以下 URL 查看 <code class="docutils literal notranslate"><span class="pre">getComment()</span></code> 方法:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">hello</span><span class="o">-</span><span class="nx">world</span><span class="o">/</span><span class="nx">comment</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>你将看到新消息。</p>
+</section>
+</section>
+<section id="id14">
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">向方法传递 URI 分段</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h2>
+<p>若 URI 包含超过两个分段，后续分段将作为参数传递给方法。</p>
+<p>示例 URI:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">sandals</span><span class="o">/</span><span class="mi">123</span>
+</pre></div>
+</div>
+<p>该方法将接收第 3、4 分段（<code class="docutils literal notranslate"><span class="pre">'sandals'</span></code> 和 <code class="docutils literal notranslate"><span class="pre">'123'</span></code>）：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Products</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getShoes</span><span class="p">(</span><span class="nv">$type</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$type</span> <span class="o">.</span> <span class="nv">$id</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>若 URI 参数数量超过方法参数数量，自动路由（改进版）不会执行该方法，并返回 404 错误。</p>
+</div>
+</section>
+<section id="id15">
+<h2><a class="toc-backref" href="#id43" role="doc-backlink">默认控制器</a><a class="headerlink" href="#id15" title="此标题的永久链接"></a></h2>
+<p><strong>默认控制器</strong> 是在 URI 以目录名结尾或未指定 URI（如访问站点根 URL）时使用的特殊控制器。</p>
+<p>默认控制器为 <code class="docutils literal notranslate"><span class="pre">Home</span></code>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>默认控制器中只应定义默认方法（GET 请求对应 <code class="docutils literal notranslate"><span class="pre">getIndex()</span></code>）。若定义其他公共方法，这些方法将无法执行。</p>
+</div>
+<p>更多信息请参考 <a class="reference internal" href="#routing-auto-routing-improved-configuration-options"><span class="std std-ref">配置选项</span></a>。</p>
+</section>
+<section id="auto-routing-improved-default-method-fallback">
+<span id="id16"></span><h2><a class="toc-backref" href="#id44" role="doc-backlink">默认方法回退</a><a class="headerlink" href="#auto-routing-improved-default-method-fallback" title="此标题的永久链接"></a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
+</div>
+<p>当 URI 方法名分段对应的控制器方法不存在，但默认方法已定义时，剩余 URI 分段将传递给默认方法执行。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Product</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getIndex</span><span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$action</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>访问以下 URL:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">product</span><span class="o">/</span><span class="mi">15</span><span class="o">/</span><span class="nx">edit</span>
+</pre></div>
+</div>
+<p>该方法将接收第 2、3 分段（<code class="docutils literal notranslate"><span class="pre">'15'</span></code> 和 <code class="docutils literal notranslate"><span class="pre">'edit'</span></code>）：</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>若 URI 参数数量超过方法参数数量，自动路由（改进版）不会执行该方法，并返回 404 错误。</p>
+</div>
+<section id="id17">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">回退至默认控制器</a><a class="headerlink" href="#id17" title="此标题的永久链接"></a></h3>
+<p>当 URI 控制器名分段对应的控制器不存在，但目录中存在默认控制器（默认为 <code class="docutils literal notranslate"><span class="pre">Home</span></code>）时，剩余 URI 分段将传递给默认控制器的默认方法。</p>
+<p>示例在 <strong>app/Controllers/News</strong> 目录中创建默认控制器 <code class="docutils literal notranslate"><span class="pre">Home</span></code>：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers\News</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Controllers\BaseController</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Home</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getIndex</span><span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>访问以下 URL:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">news</span><span class="o">/</span><span class="mi">101</span>
+</pre></div>
+</div>
+<p>系统将找到 <code class="docutils literal notranslate"><span class="pre">News\Home</span></code> 控制器及其默认 <code class="docutils literal notranslate"><span class="pre">getIndex()</span></code> 方法。默认方法将接收第二 URI 分段（<code class="docutils literal notranslate"><span class="pre">'101'</span></code>）：</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>若存在 <code class="docutils literal notranslate"><span class="pre">App\Controllers\News</span></code> 控制器，则优先使用。URI 分段将按顺序搜索，使用首个找到的控制器。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>若 URI 参数数量超过方法参数数量，自动路由（改进版）不会执行该方法，并返回 404 错误。</p>
+</div>
+</section>
+</section>
+<section id="id18">
+<h2><a class="toc-backref" href="#id46" role="doc-backlink">控制器子目录组织</a><a class="headerlink" href="#id18" title="此标题的永久链接"></a></h2>
+<p>在大型应用中，你可能希望将控制器组织到子目录中。CodeIgniter 支持此功能。</p>
+<p>只需在 <strong>app/Controllers</strong> 下创建子目录（目录名必须以大写字母开头并采用大驼峰式命名），并将控制器类存放其中。</p>
+<p>示例控制器路径:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">app</span><span class="o">/</span><span class="nx">Controllers</span><span class="o">/</span><span class="nx">Products</span><span class="o">/</span><span class="nx">Shoes</span><span class="o">.</span><span class="nx">php</span>
+</pre></div>
+</div>
+<p>调用该控制器的 URI 形如:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">http</span><span class="o">://</span><span class="nx">example</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">products</span><span class="o">/</span><span class="nx">shoes</span><span class="o">/</span><span class="nx">show</span><span class="o">/</span><span class="mi">123</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p><strong>app/Controllers</strong> 和 <strong>public</strong> 目录不能存在同名目录，否则 Web 服务器将直接访问该目录而不会路由到 CodeIgniter。</p>
+</div>
+<p>每个子目录可包含默认控制器，当 URL 仅包含子目录时将调用该控制器。需确保默认控制器名称与 <strong>app/Config/Routing.php</strong> 中配置一致。</p>
+</section>
+<section id="id19">
+<h2><a class="toc-backref" href="#id47" role="doc-backlink">控制器/方法与 URI 对应示例</a><a class="headerlink" href="#id19" title="此标题的永久链接"></a></h2>
+<p>在默认配置下，GET 请求的控制器/方法与 URI 对应关系如下：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>控制器/方法</p></th>
+<th class="head"><p>URI</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Home::getIndex()</span></code></p></td>
+<td><p>/</p></td>
+<td><p>默认控制器和默认方法</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Blog::getIndex()</span></code></p></td>
+<td><p>/blog</p></td>
+<td><p>默认方法</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UserProfile::getIndex()</span></code></p></td>
+<td><p>/user-profile</p></td>
+<td><p>默认方法</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Blog::getTags()</span></code></p></td>
+<td><p>/blog/tags</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Blog::getNews($id)</span></code></p></td>
+<td><p>/blog/news/123</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Blog\Home::getIndex()</span></code></p></td>
+<td><p>/blog</p></td>
+<td><p>子目录 <code class="docutils literal notranslate"><span class="pre">Blog</span></code> 中的默认控制器和默认方法。若存在 <code class="docutils literal notranslate"><span class="pre">Blog</span></code> 控制器则优先使用</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Blog\Tags::getIndex()</span></code></p></td>
+<td><p>/blog/tags</p></td>
+<td><p>子目录 <code class="docutils literal notranslate"><span class="pre">Blog</span></code> 中的默认方法。若存在 <code class="docutils literal notranslate"><span class="pre">Blog</span></code> 控制器则优先使用</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Blog\News::getIndex($id)</span></code></p></td>
+<td><p>/blog/news/123</p></td>
+<td><p>子目录 <code class="docutils literal notranslate"><span class="pre">Blog</span></code> 中的默认方法回退。若存在 <code class="docutils literal notranslate"><span class="pre">Blog</span></code> 控制器则优先使用</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id20">
+<h2><a class="toc-backref" href="#id48" role="doc-backlink">应用过滤器</a><a class="headerlink" href="#id20" title="此标题的永久链接"></a></h2>
+<p>应用控制器过滤器可在控制器方法执行前后添加处理逻辑，适用于身份验证或 API 日志记录等场景。</p>
+<p>使用自动路由时，需在 <strong>app/Config/Filters.php</strong> 中设置要应用的过滤器。详情请参阅 <a class="reference internal" href="filters.html"><span class="doc">控制器过滤器</span></a> 文档。</p>
+</section>
+<section id="routing-auto-routing-improved-configuration-options">
+<span id="id21"></span><h2><a class="toc-backref" href="#id49" role="doc-backlink">配置选项</a><a class="headerlink" href="#routing-auto-routing-improved-configuration-options" title="此标题的永久链接"></a></h2>
+<p>以下选项位于 <strong>app/Config/Routing.php</strong> 文件。</p>
+<section id="id22">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">默认控制器</a><a class="headerlink" href="#id22" title="此标题的永久链接"></a></h3>
+<section id="id23">
+<h4><a class="toc-backref" href="#id51" role="doc-backlink">站点根 URI</a><a class="headerlink" href="#id23" title="此标题的永久链接"></a></h4>
+<p>当用户访问站点根目录（如 <strong>http://example.com</strong>）时，除非存在显式路由，否则将使用 <code class="docutils literal notranslate"><span class="pre">$defaultController</span></code> 属性指定的控制器。</p>
+<p>默认值为 <code class="docutils literal notranslate"><span class="pre">Home</span></code>，对应 <strong>app/Controllers/Home.php</strong> 控制器:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">string</span> <span class="nv">$defaultController</span> <span class="o">=</span> <span class="s1">&#39;Home&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="id24">
+<h4><a class="toc-backref" href="#id52" role="doc-backlink">目录 URI</a><a class="headerlink" href="#id24" title="此标题的永久链接"></a></h4>
+<p>当未找到匹配路由且 URI 指向控制器目录时，也使用默认控制器。例如用户访问 <strong>http://example.com/admin</strong>，若存在 <strong>app/Controllers/Admin/Home.php</strong> 控制器，则使用该控制器。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>无法通过控制器名称的 URI 访问默认控制器。当默认控制器为 <code class="docutils literal notranslate"><span class="pre">Home</span></code> 时，可访问 <strong>http://example.com/</strong>，但访问 <strong>http://example.com/home</strong> 将返回 404 错误。</p>
+</div>
+</section>
+</section>
+<section id="routing-auto-routing-improved-default-method">
+<span id="id25"></span><h3><a class="toc-backref" href="#id53" role="doc-backlink">默认方法</a><a class="headerlink" href="#routing-auto-routing-improved-default-method" title="此标题的永久链接"></a></h3>
+<p>此设置与默认控制器类似，用于确定当找到匹配 URI 的控制器但未指定方法分段时使用的默认方法。默认值为 <code class="docutils literal notranslate"><span class="pre">index</span></code>。</p>
+<p>示例配置:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">string</span> <span class="nv">$defaultMethod</span> <span class="o">=</span> <span class="s1">&#39;listAll&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>当用户访问 <strong>example.com/products</strong> 且存在 <code class="docutils literal notranslate"><span class="pre">Products</span></code> 控制器时，将执行 <code class="docutils literal notranslate"><span class="pre">Products::getListAll()</span></code> 方法。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>无法通过默认方法名称的 URI 访问控制器。上述示例中可访问 <strong>example.com/products</strong>，但访问 <strong>example.com/products/listall</strong> 将返回 404 错误。</p>
+</div>
+</section>
+<section id="translate-uri-to-camelcase">
+<span id="id26"></span><h3><a class="toc-backref" href="#id54" role="doc-backlink">URI 转驼峰命名</a><a class="headerlink" href="#translate-uri-to-camelcase" title="此标题的永久链接"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.5.0 版本加入.</span></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>自 v4.6.0 起，<code class="docutils literal notranslate"><span class="pre">$translateUriToCamelCase</span></code> 选项默认启用</p>
+</div>
+<p>自 v4.5.0 起实现的 <code class="docutils literal notranslate"><span class="pre">$translateUriToCamelCase</span></code> 选项完美适配当前 CodeIgniter 的编码规范。</p>
+<p>此选项可自动将 URI 中的短横线（<code class="docutils literal notranslate"><span class="pre">-</span></code>）转换为控制器和方法的大驼峰式命名。</p>
+<p>示例 URI <code class="docutils literal notranslate"><span class="pre">sub-dir/hello-controller/some-method</span></code> 将执行 <code class="docutils literal notranslate"><span class="pre">SubDir\HelloController::getSomeMethod()</span></code> 方法。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>启用此选项时，<code class="docutils literal notranslate"><span class="pre">$translateURIDashes</span></code> 选项将被忽略。</p>
+</div>
+<section id="id27">
+<h4><a class="toc-backref" href="#id55" role="doc-backlink">禁用 URI 转驼峰命名</a><a class="headerlink" href="#id27" title="此标题的永久链接"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>禁用 “URI 转驼峰命名” 的选项仅用于向后兼容，不建议禁用。</p>
+</div>
+<p>在 <strong>app/Config/Routing.php</strong> 中将 <code class="docutils literal notranslate"><span class="pre">$translateUriToCamelCase</span></code> 设为 <code class="docutils literal notranslate"><span class="pre">false</span></code> 即可禁用:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="nx">bool</span> <span class="nv">$translateUriToCamelCase</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="auto-routing-improved-module-routing">
+<span id="id28"></span><h2><a class="toc-backref" href="#id56" role="doc-backlink">模块路由</a><a class="headerlink" href="#auto-routing-improved-module-routing" title="此标题的永久链接"></a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.4.0 版本加入.</span></p>
+</div>
+<p>即使使用 <a class="reference internal" href="../general/modules.html"><span class="doc">代码模块</span></a> 并将控制器放置在不同命名空间，仍可使用自动路由。</p>
+<p>要路由到模块，需在 <strong>app/Config/Routing.php</strong> 中设置 <code class="docutils literal notranslate"><span class="pre">$moduleRoutes</span></code> 属性:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">array</span> <span class="nv">$moduleRoutes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;blog&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Acme\Blog\Controllers&#39;</span><span class="p">,</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>键名为模块的第一个 URI 分段，值为控制器命名空间。上述配置中，<strong>http://localhost:8080/blog/foo/bar</strong> 将路由到 <code class="docutils literal notranslate"><span class="pre">Acme\Blog\Controllers\Foo::getBar()</span></code>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>若定义 <code class="docutils literal notranslate"><span class="pre">$moduleRoutes</span></code>，模块路由将优先处理。上述示例中即使存在 <code class="docutils literal notranslate"><span class="pre">App\Controllers\Blog</span></code> 控制器，<strong>http://localhost:8080/blog</strong> 仍会路由到默认控制器 <code class="docutils literal notranslate"><span class="pre">Acme\Blog\Controllers\Home</span></code>。</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="filters.html" class="btn btn-neutral float-left" title="控制器过滤器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="message.html" class="btn btn-neutral float-right" title="HTTP 消息" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
+      <span class="lastupdated">最后更新于 2025-02-08.
+      </span></p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+  
+<jinja2.runtime.BlockReference object at 0x7fbc21549090>
+
+<div style="margin-top: 16px;">
+  <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
+  <p style="margin-bottom: 0;">
+    <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
+    ·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
+    ·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
+  </p>
+</div>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

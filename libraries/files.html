@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>处理文件 &mdash; CodeIgniter 4.5.7 中文手册|用户手册|用户指南|中文文档</title>
+  <title>文件处理 &mdash; CodeIgniter 4.6.0 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -54,7 +54,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器要求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
@@ -117,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/auto_routing_improved.html">自动路由（改进版）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
@@ -184,7 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encryption.html">加密服务</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">处理文件</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">文件处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_collections.html">文件集合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="honeypot.html">蜜罐类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="images.html">图像处理类</a></li>
@@ -193,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session 库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="throttler.html">限速器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time.html">时间与日期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typography.html">排版</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uploaded_files.html">处理上传的文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uri.html">使用 URI</a></li>
@@ -278,7 +279,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">类库参考</a></li>
-      <li class="breadcrumb-item active">处理文件</li>
+      <li class="breadcrumb-item active">文件处理</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -288,36 +289,37 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>处理文件<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
-<p>CodeIgniter 提供了一个 File 类,它封装了 <a class="reference external" href="https://www.php.net/manual/en/class.splfileinfo.php">SplFileInfo</a> 类,
-并提供了一些额外的方便方法。这个类是 <a class="reference internal" href="uploaded_files.html"><span class="doc">上传文件</span></a> 和 <a class="reference internal" href="images.html"><span class="doc">图像处理</span></a> 的基类。</p>
+<h1>文件处理<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<p>CodeIgniter 提供了一个 File 类，它封装了 <a class="reference external" href="https://www.php.net/manual/zh/class.splfileinfo.php">SplFileInfo</a> 类并添加了一些便捷方法。该类是 <a class="reference internal" href="uploaded_files.html"><span class="doc">上传文件</span></a> 和 <a class="reference internal" href="images.html"><span class="doc">图像</span></a> 的基类。</p>
 <nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#file" id="id5">获取 File 实例</a></p></li>
-<li><p><a class="reference internal" href="#spl" id="id6">利用 Spl 的优势</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id7">新功能</a></p>
+<li><p><a class="reference internal" href="#spl" id="id6">利用 Spl 特性</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id7">新增功能</a></p>
 <ul>
 <li><p><a class="reference internal" href="#getrandomname" id="id8">getRandomName()</a></p></li>
 <li><p><a class="reference internal" href="#getsize" id="id9">getSize()</a></p></li>
 <li><p><a class="reference internal" href="#getsizebyunit" id="id10">getSizeByUnit()</a></p></li>
-<li><p><a class="reference internal" href="#getmimetype" id="id11">getMimeType()</a></p></li>
-<li><p><a class="reference internal" href="#guessextension" id="id12">guessExtension()</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id13">移动文件</a></p></li>
+<li><p><a class="reference internal" href="#getsizebybinaryunit" id="id11">getSizeByBinaryUnit()</a></p></li>
+<li><p><a class="reference internal" href="#getsizebymetricunit" id="id12">getSizeByMetricUnit()</a></p></li>
+<li><p><a class="reference internal" href="#getmimetype" id="id13">getMimeType()</a></p></li>
+<li><p><a class="reference internal" href="#guessextension" id="id14">guessExtension()</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id15">移动文件</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="file">
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">获取 File 实例</a><a class="headerlink" href="#file" title="此标题的永久链接"></a></h2>
-<p>你可以通过在构造函数中传入文件的路径来创建一个新的 File 实例。</p>
+<p>你可以通过将文件路径传入构造函数来创建新的 File 实例。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\CodeIgniter\Files\File</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>默认情况下，文件不需要存在。然而，你可以传递一个额外的参数 <code class="docutils literal notranslate"><span class="pre">true</span></code> 来检查文件是否存在，如果文件不存在则抛出 <code class="docutils literal notranslate"><span class="pre">FileNotFoundException()</span></code>。</p>
+<p>默认情况下，文件不需要存在。但是你可以传递额外的 <code class="docutils literal notranslate"><span class="pre">true</span></code> 参数来检查文件是否存在，如果不存在则会抛出 <code class="docutils literal notranslate"><span class="pre">FileNotFoundException()</span></code>。</p>
 </section>
 <section id="spl">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">利用 Spl 的优势</a><a class="headerlink" href="#spl" title="此标题的永久链接"></a></h2>
-<p>一旦你有了一个实例,你就可以完全使用 SplFileInfo 类的功能,包括:</p>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">利用 Spl 特性</a><a class="headerlink" href="#spl" title="此标题的永久链接"></a></h2>
+<p>一旦获得实例，你就可以使用 SplFileInfo 类的全部功能，包括：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Get the file&#39;s basename</span>
 <span class="k">echo</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getBasename</span><span class="p">();</span>
 <span class="c1">// Get last modified time</span>
@@ -339,11 +341,11 @@
 </div>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id7" role="doc-backlink">新功能</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
-<p>除了 SplFileInfo 类中的所有方法,你还可以获取一些新工具。</p>
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">新增功能</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<p>除了 SplFileInfo 类的所有方法外，还提供了一些新工具。</p>
 <section id="getrandomname">
 <h3><a class="toc-backref" href="#id8" role="doc-backlink">getRandomName()</a><a class="headerlink" href="#getrandomname" title="此标题的永久链接"></a></h3>
-<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">getRandomName()</span></code> 方法生成一个加密安全的随机文件名,文件名前面加上当前时间戳。当移动文件时,这对于使文件名不可猜测尤其有用:</p>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">getRandomName()</span></code> 方法生成带有当前时间戳前缀的加密安全随机文件名。这在移动文件时重命名文件特别有用，可以使文件名不可猜测：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Generates something like: 1465965676_385e33f741.jpg</span>
 <span class="nv">$newName</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getRandomName</span><span class="p">();</span>
 </pre></div>
@@ -359,7 +361,10 @@
 </section>
 <section id="getsizebyunit">
 <h3><a class="toc-backref" href="#id10" role="doc-backlink">getSizeByUnit()</a><a class="headerlink" href="#getsizebyunit" title="此标题的永久链接"></a></h3>
-<p>返回文件的大小，默认以字节为单位。你可以传入 <code class="docutils literal notranslate"><span class="pre">'kb'</span></code> 或 <code class="docutils literal notranslate"><span class="pre">'mb'</span></code> 作为第一个参数，以分别获取以千字节或兆字节为单位的结果：</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">自 4.6.0 版本弃用.</span></p>
+</div>
+<p>默认返回文件大小（以字节为单位）。你可以传入 <code class="docutils literal notranslate"><span class="pre">'kb'</span></code> 或 <code class="docutils literal notranslate"><span class="pre">'mb'</span></code> 作为第一个参数，分别以千字节或兆字节为单位获取结果：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$bytes</span>     <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByUnit</span><span class="p">();</span> <span class="c1">// 256901</span>
 <span class="nv">$kilobytes</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByUnit</span><span class="p">(</span><span class="s1">&#39;kb&#39;</span><span class="p">);</span> <span class="c1">// 250.880</span>
 <span class="nv">$megabytes</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByUnit</span><span class="p">(</span><span class="s1">&#39;mb&#39;</span><span class="p">);</span> <span class="c1">// 0.245</span>
@@ -367,9 +372,35 @@
 </div>
 <p>如果文件不存在或发生错误，将抛出 <code class="docutils literal notranslate"><span class="pre">RuntimeException</span></code>。</p>
 </section>
+<section id="getsizebybinaryunit">
+<span id="file-get-size-by-binary-unit"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">getSizeByBinaryUnit()</a><a class="headerlink" href="#getsizebybinaryunit" title="此标题的永久链接"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.6.0 版本加入.</span></p>
+</div>
+<p>默认返回文件大小（以字节为单位）。你可以传入不同的 FileSizeUnit 值作为第一个参数，分别以 KiB、MiB 等单位获取结果。可以通过第二个参数传入精度值来定义小数位数。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$bytes</span>     <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByBinaryUnit</span><span class="p">();</span> <span class="c1">// 256901</span>
+<span class="nv">$kibibytes</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByBinaryUnit</span><span class="p">(</span><span class="nx">FileSizeUnit</span><span class="o">::</span><span class="na">KB</span><span class="p">);</span> <span class="c1">// 250.880</span>
+<span class="nv">$mebibytes</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByBinaryUnit</span><span class="p">(</span><span class="nx">FileSizeUnit</span><span class="o">::</span><span class="na">MB</span><span class="p">);</span> <span class="c1">// 0.245</span>
+</pre></div>
+</div>
+<p>如果文件不存在或发生错误，将抛出 <code class="docutils literal notranslate"><span class="pre">RuntimeException</span></code>。</p>
+</section>
+<section id="getsizebymetricunit">
+<span id="file-get-size-by-metric-unit"></span><h3><a class="toc-backref" href="#id12" role="doc-backlink">getSizeByMetricUnit()</a><a class="headerlink" href="#getsizebymetricunit" title="此标题的永久链接"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.6.0 版本加入.</span></p>
+</div>
+<p>默认返回文件大小（以字节为单位）。你可以传入不同的 FileSizeUnit 值作为第一个参数，分别以 KB、MB 等单位获取结果。可以通过第二个参数传入精度值来定义小数位数。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$bytes</span>     <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByMetricUnit</span><span class="p">();</span> <span class="c1">// 256901</span>
+<span class="nv">$kilobytes</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByMetricUnit</span><span class="p">(</span><span class="nx">FileSizeUnit</span><span class="o">::</span><span class="na">KB</span><span class="p">);</span> <span class="c1">// 256.901</span>
+<span class="nv">$megabytes</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getSizeByMetricUnit</span><span class="p">(</span><span class="nx">FileSizeUnit</span><span class="o">::</span><span class="na">MB</span><span class="p">);</span> <span class="c1">// 0.256</span>
+</pre></div>
+</div>
+<p>如果文件不存在或发生错误，将抛出 <code class="docutils literal notranslate"><span class="pre">RuntimeException</span></code>。</p>
+</section>
 <section id="getmimetype">
-<h3><a class="toc-backref" href="#id11" role="doc-backlink">getMimeType()</a><a class="headerlink" href="#getmimetype" title="此标题的永久链接"></a></h3>
-<p>检索文件媒体类型(mime 类型)。在确定文件类型时,使用尽可能安全的方法:</p>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">getMimeType()</a><a class="headerlink" href="#getmimetype" title="此标题的永久链接"></a></h3>
+<p>检索文件的媒体类型（MIME 类型）。使用尽可能安全的方法来确定文件类型：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getMimeType</span><span class="p">();</span>
 
 <span class="k">echo</span> <span class="nv">$type</span><span class="p">;</span> <span class="c1">// image/png</span>
@@ -377,25 +408,25 @@
 </div>
 </section>
 <section id="guessextension">
-<h3><a class="toc-backref" href="#id12" role="doc-backlink">guessExtension()</a><a class="headerlink" href="#guessextension" title="此标题的永久链接"></a></h3>
-<p>尝试根据受信任的 <code class="docutils literal notranslate"><span class="pre">getMimeType()</span></code> 方法确定文件扩展名。如果 mime 类型未知,将返回 null。这通常是比仅使用文件名提供的扩展名更可信的来源。使用 <strong>app/Config/Mimes.php</strong> 中的值来确定扩展名:</p>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">guessExtension()</a><a class="headerlink" href="#guessextension" title="此标题的永久链接"></a></h3>
+<p>尝试基于可信的 <code class="docutils literal notranslate"><span class="pre">getMimeType()</span></code> 方法确定文件扩展名。如果 MIME 类型未知，则返回 null。这通常比仅使用文件名提供的扩展名更可靠。使用 <strong>app/Config/Mimes.php</strong> 中的值来确定扩展名：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Returns &#39;jpg&#39; (WITHOUT the period)</span>
 <span class="nv">$ext</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">guessExtension</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id13" role="doc-backlink">移动文件</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
-<p>每个文件都可以使用恰当命名的 <code class="docutils literal notranslate"><span class="pre">move()</span></code> 方法移动到新位置。第一个参数是要移动文件到的目录:</p>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">移动文件</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<p>每个文件都可以使用 <code class="docutils literal notranslate"><span class="pre">move()</span></code> 方法移动到新位置。第一个参数指定目标目录：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span> <span class="o">.</span> <span class="s1">&#39;uploads&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>默认情况下,使用了原始文件名。你可以通过作为第二个参数传递来指定一个新文件名:</p>
+<p>默认使用原始文件名。你可以通过第二个参数指定新文件名：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$newName</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getRandomName</span><span class="p">();</span>
 <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span> <span class="o">.</span> <span class="s1">&#39;uploads&#39;</span><span class="p">,</span> <span class="nv">$newName</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">move()</span></code> 方法返回重新定位文件的新的 File 实例,所以如果需要结果位置,必须捕获结果:</p>
+<p><code class="docutils literal notranslate"><span class="pre">move()</span></code> 方法会返回移动后文件的新 File 实例，因此如果需要使用新位置，必须捕获结果：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="nx">WRITEPATH</span> <span class="o">.</span> <span class="s1">&#39;uploads&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -415,7 +446,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2025-01-02.
+      <span class="lastupdated">最后更新于 2025-02-08.
       </span></p>
   </div>
 
@@ -423,7 +454,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fec771a2190>
+<jinja2.runtime.BlockReference object at 0x7fbc28dcfd10>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

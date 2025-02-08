@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>版本 4.3.0 &mdash; CodeIgniter 4.5.7 中文手册|用户手册|用户指南|中文文档</title>
+  <title>版本 4.3.0 &mdash; CodeIgniter 4.6.0 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -54,7 +54,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器要求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
@@ -117,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/auto_routing_improved.html">自动路由（改进版）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
@@ -184,7 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">文件处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">蜜罐类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
@@ -193,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间与日期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
@@ -386,7 +387,7 @@
 <li><p>通过这些更改, <code class="docutils literal notranslate"><span class="pre">DBDebug</span></code> <strong>现在表示数据库错误发生时是否抛出异常</strong>。
 虽然与调试无关,但名称未更改。</p></li>
 <li><p>当 <code class="docutils literal notranslate"><span class="pre">DBDebug</span></code> 为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 运行事务时,即使查询错误也不会抛出异常。以前,如果发生查询错误,
-所有查询都会回滚,并抛出异常,因此 <a class="reference internal" href="../database/transactions.html#transactions-managing-errors"><span class="std std-ref">管理错误</span></a> 或
+所有查询都会回滚,并抛出异常,因此 <a class="reference internal" href="../database/transactions.html#transactions-managing-errors"><span class="std std-ref">错误处理</span></a> 或
 <a class="reference internal" href="../database/transactions.html#transactions-manual-transactions"><span class="std std-ref">手动运行事务</span></a> 不起作用。</p></li>
 <li><p>现在,在 <code class="docutils literal notranslate"><span class="pre">Model</span></code> 中删除没有 WHERE 子句时,即使
 <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> 为 false 也会抛出 <code class="docutils literal notranslate"><span class="pre">DatabaseException</span></code>。以前,如果 <code class="docutils literal notranslate"><span class="pre">CI_DEBUG</span></code> 为 true 则会抛出。</p></li>
@@ -400,7 +401,7 @@
 <p>以前,CodeIgniter 的异常处理程序在某些情况下会使用 <em>异常代码</em> 作为 <em>HTTP 状态码</em>,并根据异常代码计算 <em>退出代码</em>。但是异常代码与 HTTP 状态码或退出代码之间不应该有逻辑联系。</p>
 <ul class="simple">
 <li><p>现在,异常处理程序默认将 HTTP 状态码设置为 <code class="docutils literal notranslate"><span class="pre">500</span></code>,并将退出代码设置为常量 <code class="docutils literal notranslate"><span class="pre">EXIT_ERROR</span></code> (= <code class="docutils literal notranslate"><span class="pre">1</span></code>)。</p></li>
-<li><p>你可以在异常类中实现 <code class="docutils literal notranslate"><span class="pre">HTTPExceptionInterface</span></code> 或 <code class="docutils literal notranslate"><span class="pre">HasExitCodeInterface</span></code> 来更改 HTTP 状态码或退出代码。请参阅 <a class="reference internal" href="../general/errors.html#error-specify-http-status-code"><span class="std std-ref">在异常中指定 HTTP 状态码</span></a> 和 <a class="reference internal" href="../general/errors.html#error-specify-exit-code"><span class="std std-ref">在你的异常中指定退出代码</span></a>。</p></li>
+<li><p>你可以在异常类中实现 <code class="docutils literal notranslate"><span class="pre">HTTPExceptionInterface</span></code> 或 <code class="docutils literal notranslate"><span class="pre">HasExitCodeInterface</span></code> 来更改 HTTP 状态码或退出代码。请参阅 <a class="reference internal" href="../general/errors.html#error-specify-http-status-code"><span class="std std-ref">在异常中指定 HTTP 状态码</span></a> 和 <a class="reference internal" href="../general/errors.html#error-specify-exit-code"><span class="std std-ref">在异常中指定退出码</span></a>。</p></li>
 </ul>
 <p>例如,退出代码已发生如下更改:</p>
 <ul class="simple">
@@ -766,7 +767,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2025-01-02.
+      <span class="lastupdated">最后更新于 2025-02-08.
       </span></p>
   </div>
 
@@ -774,7 +775,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fec6ff1c190>
+<jinja2.runtime.BlockReference object at 0x7fbc25896350>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

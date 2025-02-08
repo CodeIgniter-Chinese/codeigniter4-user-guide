@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HTTP 响应 &mdash; CodeIgniter 4.5.7 中文手册|用户手册|用户指南|中文文档</title>
+  <title>HTTP 响应 &mdash; CodeIgniter 4.6.0 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -54,7 +54,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器要求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
@@ -117,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/auto_routing_improved.html">自动路由（改进版）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
@@ -184,7 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">文件处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">蜜罐类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
@@ -193,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间与日期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
@@ -289,53 +290,53 @@
              
   <section id="http">
 <h1>HTTP 响应<a class="headerlink" href="#http" title="此标题的永久链接"></a></h1>
-<p>Response 类通过只适合服务器对调用它的客户端做出响应的方法来扩展 <a class="reference internal" href="../incoming/message.html"><span class="doc">HTTP 消息类</span></a> 。</p>
+<p>Response 类继承自 <a class="reference internal" href="../incoming/message.html"><span class="doc">HTTP 消息类</span></a>，并添加了仅适用于服务器响应客户端请求的方法。</p>
 <nav class="contents local" id="id1">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id13">处理响应</a></p>
+<li><p><a class="reference internal" href="#id2" id="id15">使用响应类</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id14">设置输出</a></p></li>
-<li><p><a class="reference internal" href="#header" id="id15">设置 Header</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id16">设置输出内容</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id17">设置头部</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#response-redirect" id="id16">重定向</a></p>
+<li><p><a class="reference internal" href="#response-redirect" id="id18">重定向</a></p>
 <ul>
-<li><p><a class="reference internal" href="#uri" id="id17">重定向到一个 URI 路径</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id18">重定向到定义的路由</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id19">重定向回上一页面</a></p></li>
-<li><p><a class="reference internal" href="#cookie" id="id20">带 Cookie 的重定向</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id21">带 Header 的重定向</a></p></li>
-<li><p><a class="reference internal" href="#response-redirect-status-code" id="id22">重定向状态码</a></p></li>
+<li><p><a class="reference internal" href="#uri" id="id19">重定向到 URI 路径</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id20">重定向到定义的路由</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id21">返回重定向</a></p></li>
+<li><p><a class="reference internal" href="#cookie" id="id22">带 Cookie 的重定向</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id23">带头部的重定向</a></p></li>
+<li><p><a class="reference internal" href="#response-redirect-status-code" id="id24">重定向状态码</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#force-file-download" id="id23">强制文件下载</a></p>
+<li><p><a class="reference internal" href="#force-file-download" id="id25">强制文件下载</a></p>
 <ul>
-<li><p><a class="reference internal" href="#open-file-in-browser" id="id24">在浏览器中打开文件</a></p></li>
+<li><p><a class="reference internal" href="#open-file-in-browser" id="id26">在浏览器中打开文件</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id11" id="id25">HTTP 缓存</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id26">类参考</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id27">HTTP 缓存</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id28">类参考</a></p></li>
 </ul>
 </nav>
 <section id="id2">
-<h2><a class="toc-backref" href="#id13" role="doc-backlink">处理响应</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
-<p>一个响应类已经为你实例化并传入你的控制器。它可以通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;response</span></code> 访问。它和 <code class="docutils literal notranslate"><span class="pre">Services::response()</span></code> 返回的实例是同一个。我们称之为全局响应实例。</p>
-<p>许多时候你不需要直接接触该类,因为 CodeIgniter 会为你发送 header 和 body。如果页面成功地创建了它被要求的内容,情况就是这样。当事情出错时,或者你需要发送非常具体的状态码回应,或者利用 HTTP 缓存的强大功能,它就为你提供了这些。</p>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">使用响应类</a><a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
+<p>系统会自动为你实例化一个 Response 类，并传递给你的控制器。你可以通过 <code class="docutils literal notranslate"><span class="pre">$this-&gt;response</span></code> 访问它。它与 <code class="docutils literal notranslate"><span class="pre">Services::response()</span></code> 返回的是同一个实例，我们称之为全局响应实例。</p>
+<p>很多时候你不需要直接操作该类，因为 CodeIgniter 会自动处理头部和内容的发送。这在页面成功生成所需内容时非常方便。当出现错误、需要发送特定状态码或利用强大的 HTTP 缓存功能时，你可以直接使用该类。</p>
 <section id="id3">
-<h3><a class="toc-backref" href="#id14" role="doc-backlink">设置输出</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
-<p>当你需要直接设置脚本的输出,而不依赖于 CodeIgniter 自动获取时,你可以用 <code class="docutils literal notranslate"><span class="pre">setBody</span></code> 方法手动设置。这通常与设置响应的状态码一起使用:</p>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">设置输出内容</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<p>当需要直接设置脚本输出内容，而不依赖 CodeIgniter 自动获取时，可以使用 <code class="docutils literal notranslate"><span class="pre">setBody</span></code> 方法手动设置。通常与设置响应状态码配合使用：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setStatusCode</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setBody</span><span class="p">(</span><span class="nv">$body</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>原因短语(“OK”、“Created”、“Moved Permanently”)将被自动添加,但你可以在 <code class="docutils literal notranslate"><span class="pre">setStatusCode()</span></code> 方法的第二个参数中添加自定义原因:</p>
+<p>原因短语（’OK’、’Created’、’Moved Permanently’）会自动添加，但你也可以通过 <code class="docutils literal notranslate"><span class="pre">setStatusCode()</span></code> 方法的第二个参数自定义原因短语：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setStatusCode</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="s1">&#39;Nope. Not here.&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>你可以将一个数组格式化为 JSON 或 XML,并通过 <code class="docutils literal notranslate"><span class="pre">setJSON()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setXML()</span></code> 方法将 content type header 设置为适当的 MIME 类型。通常,你会传递一个数据数组进行转换:</p>
+<p>你可以使用 <code class="docutils literal notranslate"><span class="pre">setJSON()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">setXML()</span></code> 方法将数组格式化为 JSON 或 XML，并设置相应的内容类型头部。通常你会发送一个待转换的数据数组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
@@ -350,27 +351,31 @@
 </pre></div>
 </div>
 </section>
-<section id="header">
-<h3><a class="toc-backref" href="#id15" role="doc-backlink">设置 Header</a><a class="headerlink" href="#header" title="此标题的永久链接"></a></h3>
+<section id="id4">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">设置头部</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
 <section id="setheader">
 <h4>setHeader()<a class="headerlink" href="#setheader" title="此标题的永久链接"></a></h4>
-<p>你经常需要为响应设置 Header。Response 类使得这非常简单,通过 <code class="docutils literal notranslate"><span class="pre">setHeader()</span></code> 方法。</p>
-<p>第一个参数是 Header 的名称。第二个参数是值,可以是字符串或在发送到客户端时将正确组合的字符串数组。</p>
+<p>通常需要为响应设置头部。Response 类通过 <code class="docutils literal notranslate"><span class="pre">setHeader()</span></code> 方法简化了这个操作。</p>
+<p>第一个参数是头部名称。第二个参数是值，可以是字符串或将被正确组合的值数组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setHeader</span><span class="p">(</span><span class="s1">&#39;Location&#39;</span><span class="p">,</span> <span class="s1">&#39;http://example.com&#39;</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="na">setHeader</span><span class="p">(</span><span class="s1">&#39;WWW-Authenticate&#39;</span><span class="p">,</span> <span class="s1">&#39;Negotiate&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>与使用原生 PHP 函数相比,使用这些函数可以确保 Header 不会过早发送,从而造成错误,并使测试成为可能。</p>
+<p>使用这些方法代替原生 PHP 函数可以确保头部不会过早发送导致错误，并支持测试。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>自 v4.6.0 起，如果使用 PHP 原生 <code class="docutils literal notranslate"><span class="pre">header()</span></code> 函数设置头部后，再通过 <code class="docutils literal notranslate"><span class="pre">Response</span></code> 类设置相同头部，前者将被覆盖。</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>这个方法只是将头部设置到响应实例。所以，如果你创建并返回另一个响应实例（例如，如果你调用 <a class="reference internal" href="../general/common_functions.html#redirect" title="redirect"><code class="xref php php-func docutils literal notranslate"><span class="pre">redirect()</span></code></a>），这里设置的头部不会自动发送。</p>
+<p>此方法仅将头部设置到响应实例。因此，如果创建并返回另一个响应实例（例如调用 <a class="reference internal" href="../general/common_functions.html#redirect" title="redirect"><code class="xref php php-func docutils literal notranslate"><span class="pre">redirect()</span></code></a>），此处设置的头部不会自动发送。</p>
 </div>
 </section>
 <section id="appendheader">
 <h4>appendHeader()<a class="headerlink" href="#appendheader" title="此标题的永久链接"></a></h4>
-<p>如果 Header 已经存在且可以有多个值,则可以使用 <code class="docutils literal notranslate"><span class="pre">appendHeader()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">prependHeader()</span></code> 方法将值添加到值列表的末尾或开头。第一个参数是 Header 名称,第二个参数是要追加或前置的价值。</p>
+<p>如果头部已存在且允许多个值，可以使用 <code class="docutils literal notranslate"><span class="pre">appendHeader()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">prependHeader()</span></code> 方法分别在值列表末尾或开头添加值。第一个参数是头部名称，第二个是要追加或前置的值：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setHeader</span><span class="p">(</span><span class="s1">&#39;Cache-Control&#39;</span><span class="p">,</span> <span class="s1">&#39;no-cache&#39;</span><span class="p">)</span>
@@ -380,7 +385,7 @@
 </section>
 <section id="removeheader">
 <h4>removeHeader()<a class="headerlink" href="#removeheader" title="此标题的永久链接"></a></h4>
-<p>可以使用 <code class="docutils literal notranslate"><span class="pre">removeHeader()</span></code> 方法从响应中删除 Header,该方法仅将 Header 名称作为唯一参数。这不区分大小写。</p>
+<p>可以通过 <code class="docutils literal notranslate"><span class="pre">removeHeader()</span></code> 方法移除响应中的头部，参数为不区分大小写的头部名称：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">removeHeader</span><span class="p">(</span><span class="s1">&#39;Location&#39;</span><span class="p">);</span>
@@ -390,51 +395,45 @@
 </section>
 </section>
 <section id="response-redirect">
-<span id="id4"></span><h2><a class="toc-backref" href="#id16" role="doc-backlink">重定向</a><a class="headerlink" href="#response-redirect" title="此标题的永久链接"></a></h2>
-<p>如果你想创建一个重定向，使用 <a class="reference internal" href="../general/common_functions.html#redirect" title="redirect"><code class="xref php php-func docutils literal notranslate"><span class="pre">redirect()</span></code></a> 函数。</p>
-<p>它返回一个 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。它是一个与 <code class="docutils literal notranslate"><span class="pre">Services::response()</span></code> 返回的全局响应实例不同的实例。</p>
+<span id="id5"></span><h2><a class="toc-backref" href="#id18" role="doc-backlink">重定向</a><a class="headerlink" href="#response-redirect" title="此标题的永久链接"></a></h2>
+<p>如需创建重定向，请使用 <a class="reference internal" href="../general/common_functions.html#redirect" title="redirect"><code class="xref php php-func docutils literal notranslate"><span class="pre">redirect()</span></code></a> 函数。</p>
+<p>该函数返回一个 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。这与 <code class="docutils literal notranslate"><span class="pre">Services::response()</span></code> 返回的全局响应实例不同。</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
-<p>如果你在调用 <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 之前设置了 Cookie 或响应头部，它们会被设置到全局响应实例，它们并不会自动复制到 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。要发送它们，你需要手动调用 <code class="docutils literal notranslate"><span class="pre">withCookies()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">withHeaders()</span></code> 方法。</p>
+<p>如果在调用 <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 前设置了 Cookie 或响应头部，它们会被设置到全局响应实例，而不会自动复制到 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。要发送它们，需手动调用 <code class="docutils literal notranslate"><span class="pre">withCookies()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">withHeaders()</span></code> 方法。</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>如果你想要重定向,必须在 <a class="reference internal" href="../incoming/controllers.html"><span class="doc">Controller</span></a>
-或 <a class="reference internal" href="../incoming/filters.html"><span class="doc">Controller Filter</span></a> 的方法中返回 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。
-请注意, <code class="docutils literal notranslate"><span class="pre">__construct()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">initController()</span></code> 方法不能返回任何值。
-如果你忘记返回 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code>,将不会发生重定向。</p>
+<p>若要进行重定向，必须在 <a class="reference internal" href="../incoming/controllers.html"><span class="doc">控制器</span></a> 或 <a class="reference internal" href="../incoming/filters.html"><span class="doc">控制器过滤器</span></a> 的方法中返回 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。注意 <code class="docutils literal notranslate"><span class="pre">__construct()</span></code> 或 <code class="docutils literal notranslate"><span class="pre">initController()</span></code> 方法不能返回任何值。如果忘记返回 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code>，将不会发生重定向。</p>
 </div>
 <section id="uri">
-<h3><a class="toc-backref" href="#id17" role="doc-backlink">重定向到一个 URI 路径</a><a class="headerlink" href="#uri" title="此标题的永久链接"></a></h3>
-<p>当你想传递一个 URI 路径(相对于 baseURL)时,使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;to()</span></code>:</p>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">重定向到 URI 路径</a><a class="headerlink" href="#uri" title="此标题的永久链接"></a></h3>
+<p>当需要传递相对于 baseURL 的 URI 路径时，使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;to()</span></code>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Go to specific URI path. &quot;admin/home&quot; is the URI path relative to baseURL.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="s1">&#39;admin/home&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>如果你的 URL 中有一个你想要删除的片段,你可以在该方法中使用 refresh 参数。
-就像 <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">redirect()-&gt;to('admin/home',</span> <span class="pre">null,</span> <span class="pre">'refresh');</span></code> 一样。</p>
+<p>如果 URL 中包含需要移除的片段，可以在方法中使用 refresh 参数。例如 <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">redirect()-&gt;to('admin/home',</span> <span class="pre">null,</span> <span class="pre">'refresh');</span></code>。</p>
 </div>
 </section>
-<section id="id5">
-<h3><a class="toc-backref" href="#id18" role="doc-backlink">重定向到定义的路由</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
-<p>当你想传递一个 <a class="reference internal" href="../incoming/routing.html#using-named-routes"><span class="std std-ref">路由名称</span></a> 或 Controller::method
-进行 <a class="reference internal" href="../incoming/routing.html#reverse-routing"><span class="std std-ref">反向路由</span></a> 时,使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;route()</span></code>:</p>
+<section id="id6">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">重定向到定义的路由</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
+<p>当需要传递 <a class="reference internal" href="../incoming/routing.html#using-named-routes"><span class="std std-ref">路由名称</span></a> 或用于 <a class="reference internal" href="../incoming/routing.html#reverse-routing"><span class="std std-ref">反向路由</span></a> 的 Controller::method 时，使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;route()</span></code>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Go to a named route. &quot;user_gallery&quot; is the route name, not a URI path.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">route</span><span class="p">(</span><span class="s1">&#39;user_gallery&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>当将参数传递到函数中时,它被视为路由名称或 Controller::method 进行反向路由,而不是相对/完整 URI,
-它的处理方式与使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;route()</span></code> 相同:</p>
+<p>当向函数传递参数时，会被视为反向路由的路由名称或 Controller::method，而非相对/完整 URI，效果等同于使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;route()</span></code>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Go to a named/reverse-routed URI.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;named_route&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3><a class="toc-backref" href="#id19" role="doc-backlink">重定向回上一页面</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
-<p>当你想要重定向回上一页面时,使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;back()</span></code>:</p>
+<section id="id7">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">返回重定向</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
+<p>当需要返回上一页时，使用 <code class="docutils literal notranslate"><span class="pre">redirect()-&gt;back()</span></code>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Go back to the previous page.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">();</span>
 
@@ -447,34 +446,31 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p><code class="docutils literal notranslate"><span class="pre">redirect()-&gt;back()</span></code> 与浏览器的“后退”按钮不同。
-当 Session 可用时,它会将访问者带到“在 Session 期间查看的最后一页”。
-如果没有加载 Session,或者 Session 不可用,那么将使用 HTTP_REFERER 的安全版本。</p>
+<p><code class="docutils literal notranslate"><span class="pre">redirect()-&gt;back()</span></code> 与浏览器 “返回” 按钮不同。当 Session 可用时，它会将访问者带到 “Session 期间最后查看的页面”。如果 Session 未加载或不可用，则会使用经过处理的 HTTP_REFERER。</p>
 </div>
 </section>
 <section id="cookie">
-<h3><a class="toc-backref" href="#id20" role="doc-backlink">带 Cookie 的重定向</a><a class="headerlink" href="#cookie" title="此标题的永久链接"></a></h3>
-<p>如果你在调用 <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 之前设置了 Cookie，它们会被设置到全局响应实例，它们并不会自动复制到 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。</p>
-<p>要发送 Cookie，你需要手动调用 <code class="docutils literal notranslate"><span class="pre">withCookies()</span></code> 方法。</p>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">带 Cookie 的重定向</a><a class="headerlink" href="#cookie" title="此标题的永久链接"></a></h3>
+<p>如果在调用 <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 前设置了 Cookie，它们会被设置到全局响应实例，而不会自动复制到 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。</p>
+<p>要发送这些 Cookie，需手动调用 <code class="docutils literal notranslate"><span class="pre">withCookies()</span></code> 方法：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Copies all cookies from global response instance.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">withCookies</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h3><a class="toc-backref" href="#id21" role="doc-backlink">带 Header 的重定向</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
-<p>如果你在调用 <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 之前设置了响应头部，它们会被设置到全局响应实例，它们并不会自动复制到 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。</p>
-<p>要发送 Header，你需要手动调用 <code class="docutils literal notranslate"><span class="pre">withHeaders()</span></code> 方法。</p>
+<section id="id8">
+<h3><a class="toc-backref" href="#id23" role="doc-backlink">带头部的重定向</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<p>如果在调用 <code class="docutils literal notranslate"><span class="pre">redirect()</span></code> 前设置了响应头部，它们会被设置到全局响应实例，而不会自动复制到 <code class="docutils literal notranslate"><span class="pre">RedirectResponse</span></code> 实例。</p>
+<p>要发送这些头部，需手动调用 <code class="docutils literal notranslate"><span class="pre">withHeaders()</span></code> 方法：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Copies all headers from the global response instance.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">withHeaders</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
 <section id="response-redirect-status-code">
-<span id="id8"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">重定向状态码</a><a class="headerlink" href="#response-redirect-status-code" title="此标题的永久链接"></a></h3>
-<p>GET 请求的默认 HTTP 状态码是 302。但是,当使用 HTTP/1.1
-或更高版本时,对于 POST/PUT/DELETE 请求使用 303,对于所有其他请求使用 307。</p>
-<p>你可以指定状态码:</p>
+<span id="id9"></span><h3><a class="toc-backref" href="#id24" role="doc-backlink">重定向状态码</a><a class="headerlink" href="#response-redirect-status-code" title="此标题的永久链接"></a></h3>
+<p>GET 请求的默认 HTTP 状态码是 302。但在使用 HTTP/1.1 或更高版本时，POST/PUT/DELETE 请求使用 303，其他请求使用 307。</p>
+<p>可以指定状态码：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="c1">// Redirect to a URI path relative to baseURL with status code 301.</span>
 <span class="k">return</span> <span class="nx">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="s1">&#39;admin/home&#39;</span><span class="p">,</span> <span class="mi">301</span><span class="p">);</span>
 
@@ -487,23 +483,18 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>由于一个错误,在 v4.3.3 或更早版本中,即使指定了状态码,
-实际重定向响应的状态码也可能被改变。
-请参阅 <a class="reference internal" href="../changelogs/v4.3.4.html#v434-redirect-status-code"><span class="std std-ref">ChangeLog v4.3.4</span></a>。</p>
+<p>由于漏洞，在 v4.3.3 或更早版本中，即使指定了状态码，实际重定向响应的状态码也可能被更改。详见 <a class="reference internal" href="../changelogs/v4.3.4.html#v434-redirect-status-code"><span class="std std-ref">更新日志 v4.3.4</span></a>。</p>
 </div>
-<p>如果你不知道重定向的 HTTP 状态码,建议阅读
-<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections">Redirections in HTTP</a>。</p>
+<p>如果不了解 HTTP 重定向状态码，建议阅读 <a class="reference external" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Redirections">HTTP 重定向</a>。</p>
 </section>
 </section>
 <section id="force-file-download">
-<span id="id9"></span><h2><a class="toc-backref" href="#id23" role="doc-backlink">强制文件下载</a><a class="headerlink" href="#force-file-download" title="此标题的永久链接"></a></h2>
-<p>Response 类提供了一种简单的方法来将文件发送给客户端,提示浏览器下载数据到计算机。这会设置适当的头使其发生。</p>
-<p>第一个参数是 <strong>希望下载的文件的名称</strong>,第二个参数是文件数据。</p>
-<p>如果将第二个参数设置为 null,且 <code class="docutils literal notranslate"><span class="pre">$filename</span></code> 是一个存在的可读文件路径,
-则将读取其内容。</p>
-<p>如果将第三个参数设置为布尔值 true,那么将发送实际的基于文件名扩展名的文件 MIME 类型,
-所以如果浏览器有该类型的处理程序,就可以使用它。</p>
-<p>示例:</p>
+<span id="id11"></span><h2><a class="toc-backref" href="#id25" role="doc-backlink">强制文件下载</a><a class="headerlink" href="#force-file-download" title="此标题的永久链接"></a></h2>
+<p>Response 类提供了向客户端发送文件并提示浏览器下载的简便方法。它会设置适当的头部来实现此功能。</p>
+<p>第一个参数是 <strong>下载文件的名称</strong>，第二个参数是文件数据。</p>
+<p>如果第二个参数设为 null 且 <code class="docutils literal notranslate"><span class="pre">$filename</span></code> 是存在的可读文件路径，则会读取该文件内容。</p>
+<p>如果第三个参数设为 true，则会发送实际的文件 MIME 类型（基于文件扩展名），以便浏览器使用对应的处理器。</p>
+<p>示例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$data</span> <span class="o">=</span> <span class="s1">&#39;Here is some text!&#39;</span><span class="p">;</span>
@@ -512,14 +503,14 @@
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">download</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>如果你想从服务器下载现有文件,你需要为第二个参数显式传递 <code class="docutils literal notranslate"><span class="pre">null</span></code> :</p>
+<p>如果要下载服务器上的现有文件，需显式将第二个参数设为 <code class="docutils literal notranslate"><span class="pre">null</span></code>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// Contents of photo.jpg will be automatically read</span>
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">download</span><span class="p">(</span><span class="s1">&#39;/path/to/photo.jpg&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>使用可选的 <code class="docutils literal notranslate"><span class="pre">setFileName()</span></code> 方法可以更改发送到客户端浏览器的文件名:</p>
+<p>使用可选的 <code class="docutils literal notranslate"><span class="pre">setFileName()</span></code> 方法修改发送到客户端浏览器的文件名：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">download</span><span class="p">(</span><span class="s1">&#39;awkwardEncryptedFileName.fakeExt&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setFileName</span><span class="p">(</span><span class="s1">&#39;expenses.csv&#39;</span><span class="p">);</span>
@@ -527,11 +518,11 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>必须返回响应对象以便下载被发送到客户端。这允许在被发送到客户端之前通过所有的 <strong>后置</strong> 过滤器来传递响应。</p>
+<p>必须返回响应对象才能将下载内容发送到客户端。这允许响应在发送前通过所有 <strong>after</strong> 过滤器。</p>
 </div>
 <section id="open-file-in-browser">
-<span id="id10"></span><h3><a class="toc-backref" href="#id24" role="doc-backlink">在浏览器中打开文件</a><a class="headerlink" href="#open-file-in-browser" title="此标题的永久链接"></a></h3>
-<p>一些浏览器可以显示诸如 PDF 等文件。为了告诉浏览器显示文件而不是保存它，调用 <code class="docutils literal notranslate"><span class="pre">DownloadResponse::inline()</span></code> 方法。</p>
+<span id="id12"></span><h3><a class="toc-backref" href="#id26" role="doc-backlink">在浏览器中打开文件</a><a class="headerlink" href="#open-file-in-browser" title="此标题的永久链接"></a></h3>
+<p>某些浏览器可以显示 PDF 等文件。要告知浏览器显示而非保存文件，可调用 <code class="docutils literal notranslate"><span class="pre">DownloadResponse::inline()</span></code> 方法：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$data</span> <span class="o">=</span> <span class="s1">&#39;Here is some text!&#39;</span><span class="p">;</span>
@@ -542,11 +533,11 @@
 </div>
 </section>
 </section>
-<section id="id11">
-<h2><a class="toc-backref" href="#id25" role="doc-backlink">HTTP 缓存</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
-<p>内置于 HTTP 规范的是帮助客户端(通常是网页浏览器)缓存结果的工具。如果使用正确,这可以为你的应用程序带来巨大的性能提升,因为它会告诉客户端他们不需要联系服务器,因为没有变化。你再也找不到更快的了。</p>
-<p>这是通过 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 和 <code class="docutils literal notranslate"><span class="pre">ETag</span></code> 头处理的。本指南不是适合对所有缓存头功能进行透彻的介绍,但是你可以在 <a class="reference external" href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching">Google Developers</a> 上很好地理解它。</p>
-<p>默认情况下,通过 CodeIgniter 发送的所有响应对象都关闭了 HTTP 缓存。由于我们无法创建一个好的默认值,除了关闭它之外的选项太多了。根据你的需要设置缓存值非常简单,可以通过 <code class="docutils literal notranslate"><span class="pre">setCache()</span></code> 方法完成:</p>
+<section id="id13">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">HTTP 缓存</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h2>
+<p>HTTP 规范内置了帮助客户端（通常是浏览器）缓存结果的工具。正确使用可以极大提升应用性能，因为它会告知客户端无需联系服务器（当内容未变化时）。</p>
+<p>这通过 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 和 <code class="docutils literal notranslate"><span class="pre">ETag</span></code> 头部实现。本指南不深入讲解所有缓存头部，但你可以通过 <a class="reference external" href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching">Google 开发者文档</a> 获得详细理解。</p>
+<p>默认情况下，CodeIgniter 发送的所有响应对象都关闭了 HTTP 缓存。由于场景差异过大，我们选择关闭作为默认设置。你可以通过 <code class="docutils literal notranslate"><span class="pre">setCache()</span></code> 方法轻松设置所需缓存值：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$options</span> <span class="o">=</span> <span class="p">[</span>
@@ -557,15 +548,15 @@
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setCache</span><span class="p">(</span><span class="nv">$options</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">$options</span></code> 数组简单地以 key/value 对的形式获取通常分配给 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头的数组。你可以自由地根据具体情况完全设置所需的所有选项。虽然大多数选项应用于 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头,但它也智能地处理 <code class="docutils literal notranslate"><span class="pre">etag</span></code> 和 <code class="docutils literal notranslate"><span class="pre">last-modified</span></code> 选项到适当的头。</p>
+<p><code class="docutils literal notranslate"><span class="pre">$options</span></code> 数组接收键值对，除个别例外，这些参数会被分配到 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头部。你可以根据具体需求自由设置所有选项。虽然大多数选项应用于 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头部，但该方法会智能处理 <code class="docutils literal notranslate"><span class="pre">etag</span></code> 和 <code class="docutils literal notranslate"><span class="pre">last-modified</span></code> 选项到对应头部。</p>
 </section>
-<section id="id12">
-<h2><a class="toc-backref" href="#id26" role="doc-backlink">类参考</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h2>
+<section id="id14">
+<h2><a class="toc-backref" href="#id28" role="doc-backlink">类参考</a><a class="headerlink" href="#id14" title="此标题的永久链接"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>除了这里列出的方法之外,该类还继承了 <a class="reference internal" href="../incoming/message.html"><span class="doc">消息类</span></a> 的方法。</p>
+<p>除了列出的方法外，此类继承自 <a class="reference internal" href="../incoming/message.html"><span class="doc">消息类</span></a> 的方法。</p>
 </div>
-<p>从 Message 类继承的方法有：</p>
+<p>继承自消息类的方法包括：</p>
 <ul class="simple">
 <li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::body()</span></code></p></li>
 <li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Message::setBody()</span></code></p></li>
@@ -592,13 +583,13 @@
 <span class="sig-name descname"><span class="pre">getStatusCode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Response::getStatusCode" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">返回<span class="colon">:</span></dt>
-<dd class="field-odd"><p>当前 HTTP 状态码</p>
+<dd class="field-odd"><p>当前响应的 HTTP 状态码</p>
 </dd>
 <dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 </dl>
-<p>返回当前响应的状态码。如果没有设置状态码,将抛出 BadMethodCallException:</p>
+<p>返回当前响应的状态码。如果未设置状态码，将抛出 BadMethodCallException：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">getStatusCode</span><span class="p">();</span>
@@ -613,23 +604,23 @@
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$code</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – HTTP 状态码</p></li>
-<li><p><strong>$reason</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 可选的原因短语</p></li>
+<li><p><strong>$reason</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 可选原因短语</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
-<dd class="field-even"><p>当前的 Response 实例</p>
+<dd class="field-even"><p>当前 Response 实例</p>
 </dd>
 <dt class="field-odd">返回类型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response</span></code></p>
 </dd>
 </dl>
-<p>设置应随此响应一起发送的 HTTP 状态码:</p>
+<p>设置响应应发送的 HTTP 状态码：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setStatusCode</span><span class="p">(</span><span class="mi">404</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>原因短语将根据官方列表自动生成。如果你需要为自定义状态码设置自己的原因短语,可以将原因短语作为第二个参数传递:</p>
+<p>原因短语会根据官方列表自动生成。如需为自定义状态码设置短语，可通过第二个参数传递：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setStatusCode</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="s1">&#39;Tardis initiated&#39;</span><span class="p">);</span>
@@ -642,13 +633,13 @@
 <span class="sig-name descname"><span class="pre">getReasonPhrase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CodeIgniter\HTTP\Response::getReasonPhrase" title="永久链接至目标"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">返回<span class="colon">:</span></dt>
-<dd class="field-odd"><p>当前的原因短语</p>
+<dd class="field-odd"><p>当前原因短语</p>
 </dd>
 <dt class="field-even">返回类型<span class="colon">:</span></dt>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span></p>
 </dd>
 </dl>
-<p>返回当前状态码的原因短语。如果未设置状态,将返回空字符串:</p>
+<p>返回当前响应的原因短语。如果未设置状态码，则返回空字符串：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">getReasonPhrase</span><span class="p">();</span>
@@ -662,7 +653,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$date</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">DateTime</span></code></span>) – 带有要为此响应设置时间的 DateTime 实例</p></li>
+<li><p><strong>$date</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">DateTime</span></code></span>) – 包含响应时间的 DateTime 实例</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
@@ -672,7 +663,7 @@
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response</span></code></p>
 </dd>
 </dl>
-<p>设置此响应使用的日期。<code class="docutils literal notranslate"><span class="pre">$date</span></code> 参数必须是一个 <code class="docutils literal notranslate"><span class="pre">DateTime</span></code> 实例。</p>
+<p>设置响应日期。<code class="docutils literal notranslate"><span class="pre">$date</span></code> 参数必须是 <code class="docutils literal notranslate"><span class="pre">DateTime</span></code> 实例。</p>
 </dd></dl>
 
 <dl class="php method">
@@ -681,8 +672,8 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$mime</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 此响应所代表的内容类型</p></li>
-<li><p><strong>$charset</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 此响应使用的字符集</p></li>
+<li><p><strong>$mime</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 响应内容类型</p></li>
+<li><p><strong>$charset</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – 响应字符集</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
@@ -692,7 +683,7 @@
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response</span></code></p>
 </dd>
 </dl>
-<p>设置此响应所代表的内容类型:</p>
+<p>设置响应内容类型：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setContentType</span><span class="p">(</span><span class="s1">&#39;text/plain&#39;</span><span class="p">);</span>
@@ -700,7 +691,7 @@
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setContentType</span><span class="p">(</span><span class="s1">&#39;application/json&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>默认情况下,该方法将字符集设置为 <code class="docutils literal notranslate"><span class="pre">UTF-8</span></code>。如果需要更改此设置,可以将字符集作为第二个参数传递:</p>
+<p>默认字符集为 <code class="docutils literal notranslate"><span class="pre">UTF-8</span></code>。如需修改，可通过第二个参数传递：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setContentType</span><span class="p">(</span><span class="s1">&#39;text/plain&#39;</span><span class="p">,</span> <span class="s1">&#39;x-pig-latin&#39;</span><span class="p">);</span>
@@ -719,7 +710,7 @@
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response</span></code></p>
 </dd>
 </dl>
-<p>设置 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头关闭所有 HTTP 缓存。这是所有响应消息的默认设置:</p>
+<p>设置 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头部关闭所有 HTTP 缓存。这是所有响应消息的默认设置：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">noCache</span><span class="p">();</span>
@@ -737,7 +728,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$options</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 各种缓存控制设置的键/值数组</p></li>
+<li><p><strong>$options</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – 缓存控制键值对数组</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
@@ -747,7 +738,7 @@
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response</span></code></p>
 </dd>
 </dl>
-<p>设置 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头,包括 <code class="docutils literal notranslate"><span class="pre">ETags</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code>。典型的键包括:</p>
+<p>设置 <code class="docutils literal notranslate"><span class="pre">Cache-Control</span></code> 头部，包括 <code class="docutils literal notranslate"><span class="pre">ETags</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code>。常用键包括：</p>
 <ul class="simple">
 <li><p>etag</p></li>
 <li><p>last-modified</p></li>
@@ -759,7 +750,7 @@
 <li><p>proxy-revalidate</p></li>
 <li><p>no-transform</p></li>
 </ul>
-<p>当传入 last-modified 选项时,它可以是日期字符串或 DateTime 对象。</p>
+<p>传递 last-modified 选项时，可以是日期字符串或 DateTime 对象。</p>
 </dd></dl>
 
 <dl class="php method">
@@ -768,7 +759,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$date</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string|DateTime</span></code></span>) – 要设置 Last-Modified 头的日期</p></li>
+<li><p><strong>$date</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string|DateTime</span></code></span>) – 设置 Last-Modified 头部的日期</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回<span class="colon">:</span></dt>
@@ -778,7 +769,7 @@
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response</span></code></p>
 </dd>
 </dl>
-<p>设置 <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code> 头。<code class="docutils literal notranslate"><span class="pre">$date</span></code> 对象可以是字符串或 <code class="docutils literal notranslate"><span class="pre">DateTime</span></code> 实例:</p>
+<p>设置 <code class="docutils literal notranslate"><span class="pre">Last-Modified</span></code> 头部。<code class="docutils literal notranslate"><span class="pre">$date</span></code> 可以是字符串或 <code class="docutils literal notranslate"><span class="pre">DateTime</span></code> 实例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setLastModified</span><span class="p">(</span><span class="nb">date</span><span class="p">(</span><span class="s1">&#39;D, d M Y H:i:s&#39;</span><span class="p">));</span>
@@ -798,7 +789,7 @@
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">CodeIgniter\HTTP\Response</span></code></p>
 </dd>
 </dl>
-<p>告诉响应将所有内容发送回客户端。这将首先发送 header,然后是响应 body。对于主应用程序响应,你不需要调用它,因为 CodeIgniter 会自动处理。</p>
+<p>指示响应将所有内容发送回客户端。这会先发送头部，再发送响应体。主应用响应无需手动调用此方法，CodeIgniter 会自动处理。</p>
 </dd></dl>
 
 <dl class="php method">
@@ -807,15 +798,15 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array|Cookie|string</span></code></span>) – Cookie 名称 <em>或</em> 包含此方法可用的所有参数的关联数组 <em>或</em> <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Cookie\Cookie</span></code> 的实例。</p></li>
+<li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">array|Cookie|string</span></code></span>) – Cookie 名称 <em>或</em> 包含本方法所有参数的关联数组 <em>或</em> <code class="docutils literal notranslate"><span class="pre">CodeIgniter\Cookie\Cookie</span></code> 实例</p></li>
 <li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 值</p></li>
-<li><p><strong>$expire</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – Cookie 到期时间,以秒为单位。如果设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code> cookie 将只保持浏览器打开时有效</p></li>
+<li><p><strong>$expire</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – Cookie 过期时间（秒）。设为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 时 Cookie 仅在浏览器打开期间有效</p></li>
 <li><p><strong>$domain</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 域名</p></li>
 <li><p><strong>$path</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 路径</p></li>
-<li><p><strong>$prefix</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 名称前缀。如果设置为 <code class="docutils literal notranslate"><span class="pre">''</span></code>,将使用 <strong>app/Config/Cookie.php</strong> 中的默认值</p></li>
-<li><p><strong>$secure</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否只通过 HTTPS 传输 cookie。如果设置为 <code class="docutils literal notranslate"><span class="pre">null</span></code>,将使用 <strong>app/Config/Cookie.php</strong> 中的默认值</p></li>
-<li><p><strong>$httponly</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否只将 cookie accessible 用于 HTTP 请求(无 JavaScript)。如果设置为 <code class="docutils literal notranslate"><span class="pre">null</span></code>,将使用 <strong>app/Config/Cookie.php</strong> 中的默认值</p></li>
-<li><p><strong>$samesite</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – SameSite cookie 参数的值。如果设置为 <code class="docutils literal notranslate"><span class="pre">''</span></code>,cookie 将不设置 SameSite 属性。如果设置为 <code class="docutils literal notranslate"><span class="pre">null</span></code>,将使用 <strong>app/Config/Cookie.php</strong> 中的默认值</p></li>
+<li><p><strong>$prefix</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 名称前缀。设为 <code class="docutils literal notranslate"><span class="pre">''</span></code> 时使用 <strong>app/Config/Cookie.php</strong> 的默认值</p></li>
+<li><p><strong>$secure</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否仅通过 HTTPS 传输。设为 <code class="docutils literal notranslate"><span class="pre">null</span></code> 时使用 <strong>app/Config/Cookie.php</strong> 的默认值</p></li>
+<li><p><strong>$httponly</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – 是否仅允许 HTTP 请求访问（禁止 JavaScript）。设为 <code class="docutils literal notranslate"><span class="pre">null</span></code> 时使用 <strong>app/Config/Cookie.php</strong> 的默认值</p></li>
+<li><p><strong>$samesite</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – SameSite 参数值。设为 <code class="docutils literal notranslate"><span class="pre">''</span></code> 时不设置该属性。设为 <code class="docutils literal notranslate"><span class="pre">null</span></code> 时使用 <strong>app/Config/Cookie.php</strong> 的默认值</p></li>
 </ul>
 </dd>
 <dt class="field-even">返回类型<span class="colon">:</span></dt>
@@ -824,13 +815,12 @@
 </dl>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>在 v4.2.7 之前版本,由于一个错误, <code class="docutils literal notranslate"><span class="pre">$secure</span></code> 和 <code class="docutils literal notranslate"><span class="pre">$httponly</span></code> 的默认值为 <code class="docutils literal notranslate"><span class="pre">false</span></code>,
-从未使用来自 <strong>app/Config/Cookie.php</strong> 的这些值。</p>
+<p>在 v4.2.7 之前，由于漏洞，<code class="docutils literal notranslate"><span class="pre">$secure</span></code> 和 <code class="docutils literal notranslate"><span class="pre">$httponly</span></code> 的默认值为 <code class="docutils literal notranslate"><span class="pre">false</span></code>，且 <strong>app/Config/Cookie.php</strong> 中的值未被使用。</p>
 </div>
-<p>将包含你指定值的 Cookie 设置到响应实例。</p>
-<p>有两种传递信息的方式以便可以设置 Cookie: 数组方法和离散参数:</p>
-<p><strong>数组方法</strong></p>
-<p>使用此方法,关联数组作为第一个参数传递:</p>
+<p>向响应实例设置包含指定值的 Cookie。</p>
+<p>有两种传递信息设置 Cookie 的方式：数组法和离散参数法。</p>
+<p><strong>数组法</strong></p>
+<p>使用此方法时，第一个参数传递关联数组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$cookie</span> <span class="o">=</span> <span class="p">[</span>
@@ -848,22 +838,19 @@
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setCookie</span><span class="p">(</span><span class="nv">$cookie</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>仅 <code class="docutils literal notranslate"><span class="pre">name</span></code> 和 <code class="docutils literal notranslate"><span class="pre">value</span></code> 是必需的。要删除 cookie,请将 <code class="docutils literal notranslate"><span class="pre">value</span></code> 置空。</p>
-<p><code class="docutils literal notranslate"><span class="pre">expire</span></code> 以 <strong>秒</strong> 设置,将添加到当前时间。不要包括时间,而只设置从 <em>现在</em> 希望 cookie 有效的秒数。如果 <code class="docutils literal notranslate"><span class="pre">expire</span></code> 设置为零,cookie 将只在浏览器打开时有效。</p>
+<p>仅需 <code class="docutils literal notranslate"><span class="pre">name</span></code> 和 <code class="docutils literal notranslate"><span class="pre">value</span></code>。要删除 Cookie 可将 <code class="docutils literal notranslate"><span class="pre">value</span></code> 设为空。</p>
+<p><code class="docutils literal notranslate"><span class="pre">expire</span></code> 以秒为单位，会添加到当前时间。请勿包含具体时间，只需设置从现在起有效的秒数。设为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 时 Cookie 仅在浏览器打开期间有效。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>但是如果同时将 <code class="docutils literal notranslate"><span class="pre">value</span></code> 设置为空字符串和 <code class="docutils literal notranslate"><span class="pre">expire</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code>,
-cookie 将被删除。</p>
+<p>但如果 <code class="docutils literal notranslate"><span class="pre">value</span></code> 设为空字符串且 <code class="docutils literal notranslate"><span class="pre">expire</span></code> 为 <code class="docutils literal notranslate"><span class="pre">0</span></code>，Cookie 将被删除。</p>
 </div>
-<p>对于无论如何请求站点的站点范围 cookie,在域名前添加站点 URL,如:
-.your-domain.com</p>
-<p>通常不需要 <code class="docutils literal notranslate"><span class="pre">path</span></code>,因为该方法设置根路径。</p>
-<p>仅在需要避免与服务器上其他同名 cookie 的名称冲突时才需要 <code class="docutils literal notranslate"><span class="pre">prefix</span></code>。</p>
-<p>仅在希望通过设置为 <code class="docutils literal notranslate"><span class="pre">true</span></code> 将其设置为安全 cookie 时才需要 <code class="docutils literal notranslate"><span class="pre">secure</span></code> 标志。</p>
-<p><code class="docutils literal notranslate"><span class="pre">samesite</span></code> 值控制 cookie 在域和子域之间的共享方式。允许的值是 <code class="docutils literal notranslate"><span class="pre">'None'</span></code>、<code class="docutils literal notranslate"><span class="pre">'Lax'</span></code>、 <code class="docutils literal notranslate"><span class="pre">'Strict'</span></code> 或空字符串 <code class="docutils literal notranslate"><span class="pre">''</span></code>。
-如果设置为空字符串,将设置默认的 SameSite 属性。</p>
-<p><strong>离散参数</strong></p>
-<p>如果你愿意,可以通过传递使用各个参数的数据来设置 cookie:</p>
+<p>要为整个站点设置 Cookie（无论请求方式），域名前加句点，如：.your-domain.com</p>
+<p>通常无需设置 <code class="docutils literal notranslate"><span class="pre">path</span></code>，因为方法默认使用根路径。</p>
+<p>仅在需要避免服务器上同名 Cookie 冲突时需设置 <code class="docutils literal notranslate"><span class="pre">prefix</span></code>。</p>
+<p>仅在需要安全 Cookie 时设置 <code class="docutils literal notranslate"><span class="pre">secure</span></code> 为 <code class="docutils literal notranslate"><span class="pre">true</span></code>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">samesite</span></code> 控制 Cookie 在域和子域间的共享方式。允许值为 <code class="docutils literal notranslate"><span class="pre">'None'</span></code>、<code class="docutils literal notranslate"><span class="pre">'Lax'</span></code>、<code class="docutils literal notranslate"><span class="pre">'Strict'</span></code> 或空字符串 <code class="docutils literal notranslate"><span class="pre">''</span></code>。设为空字符串时使用默认 SameSite 属性。</p>
+<p><strong>独立参数</strong></p>
+<p>也可通过独立参数设置 Cookie：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">setCookie</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$value</span><span class="p">,</span> <span class="nv">$expire</span><span class="p">,</span> <span class="nv">$domain</span><span class="p">,</span> <span class="nv">$path</span><span class="p">,</span> <span class="nv">$prefix</span><span class="p">,</span> <span class="nv">$secure</span><span class="p">,</span> <span class="nv">$httponly</span><span class="p">,</span> <span class="nv">$samesite</span><span class="p">);</span>
@@ -887,18 +874,16 @@ cookie 将被删除。</p>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">void</span></code></span></p>
 </dd>
 </dl>
-<p>删除现有的 cookie。</p>
+<p>删除现有 Cookie。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>这也只是设置浏览器 cookie 以删除 cookie。</p>
+<p>此方法只是设置浏览器 Cookie 来删除 Cookie。</p>
 </div>
-<p>仅 <code class="docutils literal notranslate"><span class="pre">name</span></code> 是必需的。</p>
-<p>仅当需要避免与服务器上其他同名 cookie 的名称冲突时才需要 <code class="docutils literal notranslate"><span class="pre">prefix</span></code>。</p>
-<p>如果希望只删除该子集的 cookie,请提供 <code class="docutils literal notranslate"><span class="pre">prefix</span></code>。
-如果只希望删除该域的 cookie,请提供 <code class="docutils literal notranslate"><span class="pre">domain</span></code> 名称。
-如果只希望删除该路径的 cookie,请提供 <code class="docutils literal notranslate"><span class="pre">path</span></code> 名称。</p>
-<p>如果任何可选参数为空,则同名的 cookie 将在所有情况下被删除。</p>
-<p>例子:</p>
+<p>仅需 <code class="docutils literal notranslate"><span class="pre">name</span></code> 参数。</p>
+<p>仅在需要避免服务器上同名 Cookie 冲突时需设置 <code class="docutils literal notranslate"><span class="pre">prefix</span></code>。</p>
+<p>设置 <code class="docutils literal notranslate"><span class="pre">prefix</span></code> 可限定仅删除该前缀的 Cookie。设置 <code class="docutils literal notranslate"><span class="pre">domain</span></code> 可限定仅删除该域名的 Cookie。设置 <code class="docutils literal notranslate"><span class="pre">path</span></code> 可限定仅删除该路径的 Cookie。</p>
+<p>如果任意可选参数为空，则删除所有符合条件的同名 Cookie。</p>
+<p>示例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">deleteCookie</span><span class="p">(</span><span class="nv">$name</span><span class="p">);</span>
@@ -913,7 +898,7 @@ cookie 将被删除。</p>
 <dt class="field-odd">参数<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>$name</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">mixed</span></code></span>) – Cookie 名称或参数数组</p></li>
-<li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – cookie 值</p></li>
+<li><p><strong>$value</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 值</p></li>
 <li><p><strong>$prefix</strong> (<span><code class="xref php php-obj docutils literal notranslate"><span class="pre">string</span></code></span>) – Cookie 名称前缀</p></li>
 </ul>
 </dd>
@@ -921,12 +906,12 @@ cookie 将被删除。</p>
 <dd class="field-even"><p><span><code class="xref php php-obj docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
-<p>检查响应是否具有指定的 cookie。</p>
+<p>检查响应是否包含指定 Cookie。</p>
 <p><strong>注意</strong></p>
-<p>仅 <code class="docutils literal notranslate"><span class="pre">name</span></code> 是必需的。如果指定了 <code class="docutils literal notranslate"><span class="pre">prefix</span></code>,它将被添加到 cookie 名称前。</p>
-<p>如果没有给出 <code class="docutils literal notranslate"><span class="pre">value</span></code>,该方法仅检查具有给定名称的 cookie 是否存在。
-如果给出 <code class="docutils literal notranslate"><span class="pre">value</span></code>,则该方法检查具有给定名称和值的 cookie 是否存在。</p>
-<p>例子:</p>
+<p>仅需 <code class="docutils literal notranslate"><span class="pre">name</span></code> 参数。若指定 <code class="docutils literal notranslate"><span class="pre">prefix</span></code>，会将其预置到 Cookie 名称前。</p>
+<p>若未提供 <code class="docutils literal notranslate"><span class="pre">value</span></code>，仅检查是否存在该名称的 Cookie。
+若提供 <code class="docutils literal notranslate"><span class="pre">value</span></code>，则同时检查 Cookie 是否存在且值匹配。</p>
+<p>示例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="na">hasCookie</span><span class="p">(</span><span class="nv">$name</span><span class="p">))</span> <span class="p">{</span>
@@ -950,9 +935,9 @@ cookie 将被删除。</p>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Cookie|Cookie[]|null</span></code></p>
 </dd>
 </dl>
-<p>如果找到,返回指定的 cookie,否则返回 <code class="docutils literal notranslate"><span class="pre">null</span></code>。
-如果没有给出 <code class="docutils literal notranslate"><span class="pre">name</span></code>,则返回 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象数组。</p>
-<p>例子:</p>
+<p>返回找到的指定 Cookie，未找到则返回 <code class="docutils literal notranslate"><span class="pre">null</span></code>。
+若未提供 <code class="docutils literal notranslate"><span class="pre">name</span></code>，返回所有 <code class="docutils literal notranslate"><span class="pre">Cookie</span></code> 对象数组。</p>
+<p>示例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">getCookie</span><span class="p">(</span><span class="nv">$name</span><span class="p">);</span>
@@ -968,8 +953,8 @@ cookie 将被删除。</p>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Cookie[]</span></code></p>
 </dd>
 </dl>
-<p>返回当前在 Response 实例中设置的所有 cookie。
-这些是你在当前请求期间明确指定要设置的任何 cookie。</p>
+<p>返回响应实例中当前设置的所有 Cookie。
+这些是你在本次请求中明确指定要设置的 Cookie。</p>
 </dd></dl>
 
 </dd></dl>
@@ -989,7 +974,7 @@ cookie 将被删除。</p>
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2025-01-02.
+      <span class="lastupdated">最后更新于 2025-02-08.
       </span></p>
   </div>
 
@@ -997,7 +982,7 @@ cookie 将被删除。</p>
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fec6f095310>
+<jinja2.runtime.BlockReference object at 0x7fbc206f0310>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

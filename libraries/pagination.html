@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>分页 &mdash; CodeIgniter 4.5.7 中文手册|用户手册|用户指南|中文文档</title>
+  <title>分页 &mdash; CodeIgniter 4.6.0 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -54,7 +54,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器要求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
@@ -117,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/auto_routing_improved.html">自动路由（改进版）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
@@ -184,7 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">文件处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_collections.html">文件集合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="honeypot.html">蜜罐类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="images.html">图像处理类</a></li>
@@ -193,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session 库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="throttler.html">限速器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time.html">时间与日期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typography.html">排版</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uploaded_files.html">处理上传的文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uri.html">使用 URI</a></li>
@@ -289,32 +290,33 @@
              
   <section id="id1">
 <h1>分页<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
-<p>CodeIgniter 提供了一个非常简单但灵活的分页库,它易于主题化,可与模型一起使用,并且能够在单个页面上支持多个分页器。</p>
+<p>CodeIgniter 提供了一个非常简洁但灵活的分页库，易于主题化，可与模型配合使用，并支持在单个页面上使用多个分页器。</p>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id14">加载库</a></p></li>
-<li><p><a class="reference internal" href="#paginating-with-models" id="id15">对模型进行分页</a></p>
+<li><p><a class="reference internal" href="#id3" id="id15">加载库文件</a></p></li>
+<li><p><a class="reference internal" href="#paginating-with-models" id="id16">使用模型进行分页</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id5" id="id16">自定义分页查询</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id17">显示分页链接</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id18">分页多个结果</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id19">手动设置页面</a></p></li>
-<li><p><a class="reference internal" href="#uri" id="id20">指定页面的 URI 段</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">自定义分页查询</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id18">显示分页链接</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id19">分页多个结果</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id20">手动设置页码</a></p></li>
+<li><p><a class="reference internal" href="#uri" id="id21">指定页码的 URI 段</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id9" id="id21">手动分页</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id22">仅分页预期查询</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id23">自定义链接</a></p>
+<li><p><a class="reference internal" href="#id9" id="id22">手动分页</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id23">仅使用预期查询进行分页</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id24">自定义链接</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id12" id="id24">视图配置</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id25">创建视图</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id25">视图配置</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id26">创建视图</a></p></li>
+<li><p><a class="reference internal" href="#displaying-the-number-of-items-on-the-page" id="id27">显示页面项数</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id14" role="doc-backlink">加载库</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
-<p>与 CodeIgniter 中的所有服务一样,它可以通过 <code class="docutils literal notranslate"><span class="pre">Config\Services</span></code> 加载,尽管你通常不需要手动加载它:</p>
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">加载库文件</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<p>与 CodeIgniter 中的所有服务一样，可以通过 <code class="docutils literal notranslate"><span class="pre">Config\Services</span></code> 加载分页库，不过通常你不需要手动加载它：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$pager</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;pager&#39;</span><span class="p">);</span>
@@ -322,9 +324,9 @@
 </div>
 </section>
 <section id="paginating-with-models">
-<span id="id4"></span><h2><a class="toc-backref" href="#id15" role="doc-backlink">对模型进行分页</a><a class="headerlink" href="#paginating-with-models" title="此标题的永久链接"></a></h2>
-<p>在大多数情况下,你将使用 Pager 库对从数据库检索的结果进行分页。当使用 <a class="reference internal" href="../models/model.html"><span class="doc">Model</span></a> 类时,你可以使用其内置的 <code class="docutils literal notranslate"><span class="pre">paginate()</span></code> 方法自动检索当前批次的结果,以及设置 Pager 库使其准备在控制器中使用。它甚至会通过当前 URL 中的 <code class="docutils literal notranslate"><span class="pre">page=X</span></code> 查询变量读取它应该显示的当前页面。</p>
-<p>要在应用程序中提供用户的分页列表,你的控制器方法类似于:</p>
+<span id="id4"></span><h2><a class="toc-backref" href="#id16" role="doc-backlink">使用模型进行分页</a><a class="headerlink" href="#paginating-with-models" title="此标题的永久链接"></a></h2>
+<p>在大多数情况下，你会使用 Pager 库来对从数据库检索的结果进行分页。当使用 <a class="reference internal" href="../models/model.html"><span class="doc">模型</span></a> 类时，可以使用其内置的 <code class="docutils literal notranslate"><span class="pre">paginate()</span></code> 方法自动检索当前批次的查询结果，并设置 Pager 库以便在控制器中使用。该方法还会通过 <code class="docutils literal notranslate"><span class="pre">page=X</span></code> 查询变量从当前 URL 中读取应显示的当前页码。</p>
+<p>要在应用程序中提供分页的用户列表，控制器的方法应如下所示：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
@@ -347,13 +349,13 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>在这个示例中,我们首先创建 <code class="docutils literal notranslate"><span class="pre">UserModel</span></code> 的新实例。然后我们填充要发送到视图的数据。第一个元素是来自数据库的结果, <strong>users</strong>,它为正确的页面检索出 10 个用户每页。必须发送到视图的第二个项目是 Pager 实例本身。为方便起见,Model 将保存它使用的实例,并将其存储在公共属性 <code class="docutils literal notranslate"><span class="pre">$pager</span></code> 中。所以,我们获取它并将其赋值给视图中的 <code class="docutils literal notranslate"><span class="pre">$pager</span></code> 变量。</p>
+<p>在此示例中，我们首先创建 <code class="docutils literal notranslate"><span class="pre">UserModel</span></code> 的新实例。然后将数据填充到要发送到视图的数据中。第一个元素是从数据库检索的 <strong>users</strong> 结果，该结果会针对正确的页面返回，每页返回 10 个用户。必须发送到视图的第二个项是 Pager 实例本身。为了方便起见，模型会保留其使用的实例并将其存储在公共属性 <code class="docutils literal notranslate"><span class="pre">$pager</span></code> 中。因此，我们获取该实例并将其分配给视图中的 <code class="docutils literal notranslate"><span class="pre">$pager</span></code> 变量。</p>
 <section id="id5">
-<h3><a class="toc-backref" href="#id16" role="doc-backlink">自定义分页查询</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
-<p>要在模型中自定义分页查询，你可以在 <code class="docutils literal notranslate"><span class="pre">paginate()</span></code> 方法之前添加 <a class="reference internal" href="../database/query_builder.html"><span class="doc">查询构建器</span></a> 方法。</p>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">自定义分页查询</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
+<p>要自定义模型中的分页查询，可以在 <code class="docutils literal notranslate"><span class="pre">paginate()</span></code> 方法之前添加 <a class="reference internal" href="../database/query_builder.html"><span class="doc">查询构建器</span></a> 方法。</p>
 <section id="where">
-<h4>添加 WHERE<a class="headerlink" href="#where" title="此标题的永久链接"></a></h4>
-<p>如果你想添加 WHERE 条件，可以直接指定条件：</p>
+<h4>添加 WHERE 条件<a class="headerlink" href="#where" title="此标题的永久链接"></a></h4>
+<p>如果要添加 WHERE 条件，可以直接指定条件：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">App\Models\UserModel</span><span class="p">;</span>
 
 <span class="c1">// In your Controller.</span>
@@ -365,7 +367,7 @@
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>你还可以将条件移动到单独的方法中：</p>
+<p>也可以将条件移动到单独的方法中：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
@@ -399,7 +401,7 @@
 </section>
 <section id="join">
 <h4>添加 JOIN<a class="headerlink" href="#join" title="此标题的永久链接"></a></h4>
-<p>你可以连接另一个表：</p>
+<p>可以连接其他表：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
@@ -428,29 +430,29 @@
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>需要理解的重要一点是，<code class="docutils literal notranslate"><span class="pre">Model::paginate()</span></code> 方法使用了 <strong>模型</strong> 和模型中的 <strong>查询构建器</strong> 实例。因此，尝试使用 <code class="docutils literal notranslate"><span class="pre">Model::paginate()</span></code> 与 <a class="reference internal" href="../database/queries.html#db-query"><span class="std std-ref">$db-&gt;query()</span></a> <strong>不起作用</strong>，因为 <code class="docutils literal notranslate"><span class="pre">$db-&gt;query()</span></code> 会立即执行查询，并且与查询构建器没有关联。</p>
+<p>需要理解的是，<code class="docutils literal notranslate"><span class="pre">Model::paginate()</span></code> 方法使用 <strong>模型</strong> 和模型中的 <strong>查询构建器</strong> 实例。因此，尝试将 <code class="docutils literal notranslate"><span class="pre">Model::paginate()</span></code> 与 <a class="reference internal" href="../database/queries.html#db-query"><span class="std std-ref">$db-&gt;query()</span></a> 结合使用 <strong>将无法工作</strong>，因为 <code class="docutils literal notranslate"><span class="pre">$db-&gt;query()</span></code> 会立即执行查询且不与查询构建器关联。</p>
 </div>
-<p>如果你需要一个无法使用查询构建器编写的复杂 SQL 查询，请尝试使用 <a class="reference internal" href="../database/queries.html#db-query"><span class="std std-ref">$db-&gt;query()</span></a> 和 <a class="reference internal" href="#id9">手动分页</a>。</p>
+<p>如果需要编写无法通过查询构建器实现的复杂 SQL 查询，请尝试使用 <a class="reference internal" href="../database/queries.html#db-query"><span class="std std-ref">$db-&gt;query()</span></a> 和 <a class="reference internal" href="#id9">手动分页</a>。</p>
 </section>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id17" role="doc-backlink">显示分页链接</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
-<p>在视图内,我们然后需要告诉它在何处显示生成的链接:</p>
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">显示分页链接</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
+<p>在视图中，我们需要指定显示分页链接的位置:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>就这么简单。Pager 类将渲染第一页和最后一页链接,以及当前页面两侧超过两个页面的下一页和上一页链接。</p>
-<p>重要的是要意识到下一页和上一页的库模式与用于传统分页结果的模式不同。</p>
-<p>这里的下一页和上一页链接到要在分页结构中显示的链接组,而不是记录的下一页或上一页。</p>
-<p>如果你更喜欢更简单的输出,可以使用 <code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 方法,它只使用“较旧”和“较新”链接,而不是详细的分页链接:</p>
+<p>这样就完成了所有设置。Pager 类将渲染首页和末页链接，以及当前页两侧超过两页的任何页面的下一页和上一页链接。</p>
+<p>需要注意的是，该库的下一页和上一页模式与传统分页结果的方式不同。</p>
+<p>此处的下一页和上一页链接到分页结构中要显示的链接组，而不是记录的下一页或上一页。</p>
+<p>如果更喜欢简单的输出，可以使用 <code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 方法，该方法仅使用 “较旧” 和 “较新” 链接，而不是详细的分页链接:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">simpleLinks</span><span class="p">()</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>在幕后,库加载一个视图文件来确定如何格式化链接,使其可以简单修改以满足需求。有关如何完全自定义输出的详细信息,请参阅下面。</p>
+<p>在底层，该库加载一个视图文件来确定链接的格式化方式，这使得根据需求进行修改变得简单。有关如何完全自定义输出的详细信息，请参阅下文。</p>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id18" role="doc-backlink">分页多个结果</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
-<p>如果你需要从两个不同的结果集提供链接,你可以将组名称传递给大多数分页方法以保持数据分开:</p>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">分页多个结果</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
+<p>如果需要从两个不同的结果集提供链接，可以将组名传递给大多数分页方法以保持数据分离：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
@@ -483,8 +485,8 @@
 </div>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id19" role="doc-backlink">手动设置页面</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
-<p>如果需要指定要返回哪个页面的结果,可以将页面指定为第 3 个参数。当你有一种不同于默认 <code class="docutils literal notranslate"><span class="pre">$_GET</span></code> 变量控制要显示哪个页面的方式时,这很方便。</p>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">手动设置页码</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
+<p>如果需要指定要返回的结果页码，可以将页码作为第三个参数。当使用不同于默认 <code class="docutils literal notranslate"><span class="pre">$_GET</span></code> 变量的方式控制显示页面时，这会非常方便。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">App\Models\UserModel</span><span class="p">;</span>
@@ -497,19 +499,19 @@
 </div>
 </section>
 <section id="uri">
-<h3><a class="toc-backref" href="#id20" role="doc-backlink">指定页面的 URI 段</a><a class="headerlink" href="#uri" title="此标题的永久链接"></a></h3>
-<p>也可以使用 URI 段作为页面编号,而不是页面查询参数。简单地将要使用的段编号指定为第四个参数。然后 Pager 生成的 URI 看起来像是 <strong>https://domain.tld/foo/bar/[pageNumber]</strong> 而不是 <strong>https://domain.tld/foo/bar?page=[pageNumber]</strong>。</p>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">指定页码的 URI 段</a><a class="headerlink" href="#uri" title="此标题的永久链接"></a></h3>
+<p>也可以使用 URI 段作为页码，而不是页面查询参数。只需将段编号指定为第四个参数。由分页器生成的 URI 将类似于 <strong>https://domain.tld/foo/bar/[pageNumber]</strong> 而不是 <strong>https://domain.tld/foo/bar?page=[pageNumber]</strong>。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$users</span> <span class="o">=</span> <span class="nv">$userModel</span><span class="o">-&gt;</span><span class="na">paginate</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;group1&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$segment</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>请注意: <code class="docutils literal notranslate"><span class="pre">$segment</span></code> 值不能大于 URI 段数加 1。</p>
+<p>注意：<code class="docutils literal notranslate"><span class="pre">$segment</span></code> 值不能大于 URI 段数加 1。</p>
 </section>
 </section>
 <section id="id9">
-<h2><a class="toc-backref" href="#id21" role="doc-backlink">手动分页</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
-<p>你可能会发现有时你只需要根据已知数据创建分页。你可以使用 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 方法手动创建链接,该方法的参数分别是当前页面、每页结果数和总项数:</p>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink">手动分页</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h2>
+<p>有时可能需要基于已知数据创建分页。可以使用 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 方法手动创建链接，该方法分别将当前页码、每页结果数和总项数作为第一、第二和第三个参数：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
@@ -543,16 +545,16 @@
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$pager_links</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
-<p>默认情况下,这将以一系列链接的正常方式显示链接,但你可以通过作为第四个参数传递模板的名称来更改使用的显示模板。更多细节可以在以下部分中找到:</p>
+<p>默认情况下，这将以正常方式显示链接，作为一系列链接，但可以通过将模板名称作为第四个参数传递来更改使用的显示模板。更多细节可以在以下部分找到:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;template_name&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>如前一节所述,也可以使用 URI 段作为页面编号,而不是页面查询参数。将要使用的段编号指定为 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 的第五个参数:</p>
+<p>如前一节所述，也可以使用 URI 段作为页码，而不是页面查询参数。将段编号指定为 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 的第五个参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;template_name&#39;</span><span class="p">,</span> <span class="nv">$segment</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>请注意: <code class="docutils literal notranslate"><span class="pre">$segment</span></code> 值不能大于 URI 段数加 1。</p>
-<p>如果你需要在一个页面上显示多个分页器，那么可以使用额外的参数来定义一个分组，这可能会很有帮助：</p>
+<p>注意：<code class="docutils literal notranslate"><span class="pre">$segment</span></code> 值不能大于 URI 段数加 1。</p>
+<p>如果需要在单个页面上显示多个分页器，则定义组的附加参数会很有帮助：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$pager</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;pager&#39;</span><span class="p">);</span>
@@ -560,32 +562,32 @@
 <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;template_name&#39;</span><span class="p">,</span> <span class="nv">$segment</span><span class="p">,</span> <span class="s1">&#39;my-group&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>分页库默认使用 <strong>page</strong> 查询参数进行 HTTP 查询(如果未给出组或 <code class="docutils literal notranslate"><span class="pre">default</span></code> 组名称)或自定义组名称的 <code class="docutils literal notranslate"><span class="pre">page_[groupName]</span></code>。</p>
+<p>分页库默认使用 <strong>page</strong> 查询参数进行 HTTP 查询（如果未指定组或给定 <code class="docutils literal notranslate"><span class="pre">default</span></code> 组名），或使用 <code class="docutils literal notranslate"><span class="pre">page_[groupName]</span></code> 作为自定义组名。</p>
 </section>
 <section id="id10">
-<h2><a class="toc-backref" href="#id22" role="doc-backlink">仅分页预期查询</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
-<p>默认情况下,所有 GET 查询都显示在分页链接中。</p>
-<p>例如,在访问 URL <strong>https://domain.tld?search=foo&amp;order=asc&amp;hello=i+am+here&amp;page=2</strong> 时,可以生成页面 3 的链接以及其他链接,如下所示:</p>
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">仅使用预期查询进行分页</a><a class="headerlink" href="#id10" title="此标题的永久链接"></a></h2>
+<p>默认情况下，所有 GET 查询都会显示在分页链接中。</p>
+<p>例如，当访问 URL <strong>https://domain.tld?search=foo&amp;order=asc&amp;hello=i+am+here&amp;page=2</strong> 时，可以生成第 3 页链接以及其他链接，如下所示：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">();</span>
 <span class="c1">// Page 3 link: https://domain.tld?search=foo&amp;order=asc&amp;hello=i+am+here&amp;page=3</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">only()</span></code> 方法允许你将其限制为仅预期的查询:</p>
+<p><code class="docutils literal notranslate"><span class="pre">only()</span></code> 方法允许将此限制为已预期的查询：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">only</span><span class="p">([</span><span class="s1">&#39;search&#39;</span><span class="p">,</span> <span class="s1">&#39;order&#39;</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">();</span>
 <span class="c1">// Page 3 link: https://domain.tld?search=foo&amp;order=asc&amp;page=3</span>
 </pre></div>
 </div>
-<p><em>page</em> 查询默认启用。<code class="docutils literal notranslate"><span class="pre">only()</span></code> 在所有分页链接中都起作用。</p>
+<p><em>page</em> 查询默认启用。并且 <code class="docutils literal notranslate"><span class="pre">only()</span></code> 作用于所有分页链接。</p>
 </section>
 <section id="id11">
-<h2><a class="toc-backref" href="#id23" role="doc-backlink">自定义链接</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id24" role="doc-backlink">自定义链接</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h2>
 <section id="id12">
-<h3><a class="toc-backref" href="#id24" role="doc-backlink">视图配置</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
-<p>将链接渲染到页面时,它们使用视图文件来描述 HTML。你可以通过编辑 <strong>app/Config/Pager.php</strong> 轻松更改使用的视图:</p>
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">视图配置</a><a class="headerlink" href="#id12" title="此标题的永久链接"></a></h3>
+<p>当链接渲染到页面时，它们使用视图文件来描述 HTML。可以通过编辑 <strong>app/Config/Pager.php</strong> 轻松更改使用的视图：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
@@ -603,16 +605,16 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>此设置存储要使用的视图的别名和 <a class="reference internal" href="../outgoing/views.html"><span class="doc">命名空间视图路径</span></a>。<code class="docutils literal notranslate"><span class="pre">default_full</span></code> 和 <code class="docutils literal notranslate"><span class="pre">default_simple</span></code> 视图分别用于 <code class="docutils literal notranslate"><span class="pre">links()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 方法。要应用程序范围内更改显示方式,可以在此处分配一个新视图。</p>
-<p>例如,假设你创建了一个与 Foundation CSS 框架一起使用的新视图文件,并将该文件放在 <strong>app/Views/Pagers/foundation_full.php</strong> 中。由于 <strong>application</strong> 目录用作 <code class="docutils literal notranslate"><span class="pre">App</span></code> 命名空间,其下的所有目录直接映射到命名空间的段,因此你可以通过它的命名空间定位视图文件:</p>
+<p>此设置存储应使用的视图的别名和 <a class="reference internal" href="../outgoing/views.html"><span class="doc">命名空间视图路径</span></a>。<code class="docutils literal notranslate"><span class="pre">default_full</span></code> 和 <code class="docutils literal notranslate"><span class="pre">default_simple</span></code> 视图分别用于 <code class="docutils literal notranslate"><span class="pre">links()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 方法。要全局更改这些显示方式，可以在此处分配新视图。</p>
+<p>例如，假设你创建了一个与 Foundation CSS 框架配合使用的新视图文件，并将其放置在 <strong>app/Views/Pagers/foundation_full.php</strong>。由于 <strong>application</strong> 目录的命名空间为 <code class="docutils literal notranslate"><span class="pre">App</span></code>，并且其下的所有目录直接映射到命名空间的段，因此可以通过其命名空间定位视图文件:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;default_full&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;App\Views\Pagers\foundation_full&#39;</span>
 </pre></div>
 </div>
-<p>但是,由于它在标准的 <strong>app/Views</strong> 目录下,你不需要命名空间,因为 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 方法可以通过文件名定位它。在这种情况下,你可以简单地提供子目录和文件名:</p>
+<p>由于它位于标准的 <strong>app/Views</strong> 目录下，因此不需要使用命名空间，因为 <code class="docutils literal notranslate"><span class="pre">view()</span></code> 方法可以通过文件名定位它。在这种情况下，只需提供子目录和文件名:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;default_full&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pagers/foundation_full&#39;</span>
 </pre></div>
 </div>
-<p>一旦你创建了视图并在配置中设置了它,它将自动使用。你不需要替换现有模板。你可以在配置文件中创建尽可能多的附加模板。一个常见的情况是前端和后端需要不同的样式。</p>
+<p>创建视图并在配置中设置后，它将自动被使用。你无需替换现有模板。你可以在配置文件中创建任意数量的附加模板。常见情况是在应用程序的前端和后端需要不同的样式。</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
@@ -631,7 +633,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>一旦配置完成,你可以将其指定为 <code class="docutils literal notranslate"><span class="pre">links()</span></code>、<code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 方法中的最后一个参数:</p>
+<p>配置完成后，可以将其指定为 <code class="docutils literal notranslate"><span class="pre">links()</span></code>、<code class="docutils literal notranslate"><span class="pre">simpleLinks()</span></code> 和 <code class="docutils literal notranslate"><span class="pre">makeLinks()</span></code> 方法的最后一个参数:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">(</span><span class="s1">&#39;group1&#39;</span><span class="p">,</span> <span class="s1">&#39;front_full&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">simpleLinks</span><span class="p">(</span><span class="s1">&#39;group2&#39;</span><span class="p">,</span> <span class="s1">&#39;front_full&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
 <span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">makeLinks</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$perPage</span><span class="p">,</span> <span class="nv">$total</span><span class="p">,</span> <span class="s1">&#39;front_full&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
@@ -639,8 +641,8 @@
 </div>
 </section>
 <section id="id13">
-<h3><a class="toc-backref" href="#id25" role="doc-backlink">创建视图</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
-<p>创建新视图时,你只需要创建生成分页链接本身所需的代码。你不应该创建不必要的包装 div,因为它可能在多个地方使用,你只会限制它们的有用性。通过展示你如何使用现有的 <code class="docutils literal notranslate"><span class="pre">default_full</span></code> 模板来创建一个新视图,可以很容易地演示如何创建新视图:</p>
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">创建视图</a><a class="headerlink" href="#id13" title="此标题的永久链接"></a></h3>
+<p>创建新视图时，只需编写用于创建分页链接本身的代码。不应创建不必要的包装 div，因为它可能在多个位置使用，这只会限制其可用性。通过展示现有的 <code class="docutils literal notranslate"><span class="pre">default_full</span></code> 模板，可以最容易地演示如何创建新视图：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">setSurroundCount</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="cp">?&gt;</span>
 
 <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Page navigation&quot;</span><span class="p">&gt;</span>
@@ -684,39 +686,38 @@
 </div>
 <section id="setsurroundcount">
 <h4>setSurroundCount()<a class="headerlink" href="#setsurroundcount" title="此标题的永久链接"></a></h4>
-<p>在第一行中，<code class="docutils literal notranslate"><span class="pre">setSurroundCount()</span></code> 方法指定我们希望在当前页面链接的两侧各显示两个链接。它接受的唯一参数是要显示的链接数量。</p>
+<p>在第一行中，<code class="docutils literal notranslate"><span class="pre">setSurroundCount()</span></code> 方法指定我们希望在当前页面链接两侧显示两个链接。它接受的唯一参数是要显示的链接数。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>你必须首先调用此方法来生成正确的分页链接。</p>
+<p>必须首先调用此方法以生成正确的分页链接。</p>
 </div>
 </section>
 <section id="hasprevious-hasnext">
-<h4>hasPrevious() &amp; hasNext()<a class="headerlink" href="#hasprevious-hasnext" title="此标题的永久链接"></a></h4>
-<p>这些方法会返回一个布尔值 <code class="docutils literal notranslate"><span class="pre">true</span></code>，如果在当前页面的两侧可以显示更多的链接，这取决于传递给 <a class="reference internal" href="#setsurroundcount">setSurroundCount()</a> 的值。</p>
-<p>例如，假设我们有 20 页的数据。当前的页面是第 3 页。如果周围的数量是 2，那么以下链接会显示如下:</p>
+<h4>hasPrevious() 和 hasNext()<a class="headerlink" href="#hasprevious-hasnext" title="此标题的永久链接"></a></h4>
+<p>如果基于传递给 <a class="reference internal" href="#setsurroundcount">setSurroundCount()</a> 的值，在当前页面任一侧有更多链接可以显示，则这些方法返回布尔值 <code class="docutils literal notranslate"><span class="pre">true</span></code>。</p>
+<p>例如，假设我们有 20 页数据。当前页是第 3 页。如果周围计数为 2，则显示的链接如下所示:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>  <span class="o">|</span>  <span class="mi">2</span>  <span class="o">|</span>  <span class="mi">3</span>  <span class="o">|</span>  <span class="mi">4</span>  <span class="o">|</span>  <span class="mi">5</span>
 </pre></div>
 </div>
-<p>由于显示的第一个链接是第一页，<code class="docutils literal notranslate"><span class="pre">hasPrevious()</span></code> 将返回 <code class="docutils literal notranslate"><span class="pre">false</span></code>，因为没有第零页。然而，
-<code class="docutils literal notranslate"><span class="pre">hasNext()</span></code> 将返回 <code class="docutils literal notranslate"><span class="pre">true</span></code>，因为在第五页之后还有 15 页的结果。</p>
+<p>由于显示的第一个链接是首页，因此 <code class="docutils literal notranslate"><span class="pre">hasPrevious()</span></code> 将返回 <code class="docutils literal notranslate"><span class="pre">false</span></code>，因为不存在第 0 页。但是，<code class="docutils literal notranslate"><span class="pre">hasNext()</span></code> 将返回 <code class="docutils literal notranslate"><span class="pre">true</span></code>，因为在第 5 页之后还有 15 页结果。</p>
 </section>
 <section id="getprevious-getnext">
-<h4>getPrevious() &amp; getNext()<a class="headerlink" href="#getprevious-getnext" title="此标题的永久链接"></a></h4>
-<p>这些方法返回数字链接两侧的上一页或下一页结果的 <strong>URL</strong>。</p>
-<p>例如，你将当前页面设置为 5，你希望在之前和之后的链接（surroundCount）各为 2，那么你会得到如下内容:</p>
+<h4>getPrevious() 和 getNext()<a class="headerlink" href="#getprevious-getnext" title="此标题的永久链接"></a></h4>
+<p>这些方法返回当前页面编号链接任一侧的上一组或下一组结果的 <strong>URL</strong>。</p>
+<p>例如，当前页设置为 5，你希望前后链接（surroundCount）各为 2 个，这将给出如下内容:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>  <span class="o">|</span>  <span class="mi">4</span>  <span class="o">|</span>  <span class="mi">5</span>  <span class="o">|</span>  <span class="mi">6</span>  <span class="o">|</span>  <span class="mi">7</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">getPrevious()</span></code> 返回第 2 页的 URL。<code class="docutils literal notranslate"><span class="pre">getNext()</span></code> 返回第 8 页的 URL。</p>
-<p>如果你想要第 4 页和第 6 页,请改用 <a class="reference internal" href="#getpreviouspage-getnextpage">getPreviousPage() &amp; getNextPage()</a>。</p>
+<p>如果要获取第 4 页和第 6 页，请改用 <a class="reference internal" href="#getpreviouspage-getnextpage">getPreviousPage() 和 getNextPage()</a>。</p>
 </section>
 <section id="getfirst-getlast">
-<h4>getFirst() &amp; getLast()<a class="headerlink" href="#getfirst-getlast" title="此标题的永久链接"></a></h4>
-<p>与 <a class="reference internal" href="#getprevious-getnext">getPrevious() &amp; getNext()</a> 类似,这些方法返回结果集中的第一页和最后一页的 <strong>URL</strong>。</p>
+<h4>getFirst() 和 getLast()<a class="headerlink" href="#getfirst-getlast" title="此标题的永久链接"></a></h4>
+<p>与 <a class="reference internal" href="#getprevious-getnext">getPrevious() 和 getNext()</a> 类似，这些方法返回结果集中首页和末页的 <strong>URL</strong>。</p>
 </section>
 <section id="links">
 <h4>links()<a class="headerlink" href="#links" title="此标题的永久链接"></a></h4>
-<p>返回有关所有编号链接的数据数组。每个链接的数组都包含链接的 uri、标题(只是数字)以及一个布尔值,告知链接是否是当前/活动链接:</p>
+<p>返回有关所有编号链接的数据数组。每个链接的数组包含链接的 uri、标题（即数字）以及一个布尔值，指示该链接是否是当前/活动链接：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$link</span> <span class="o">=</span> <span class="p">[</span>
@@ -726,9 +727,9 @@
 <span class="p">];</span>
 </pre></div>
 </div>
-<p>在为标准分页结构提供的代码中,使用 <a class="reference internal" href="#getprevious-getnext">getPrevious() &amp; getNext()</a> 方法分别获取前一个和下一个分页组的链接。</p>
-<p>如果你要使用上一页和下一页将链接到当前页面基于当前页面的上一页和下一页的分页结构,只需分别用 <a class="reference internal" href="#getpreviouspage-getnextpage">getPreviousPage() &amp; getNextPage()</a> 替换 <a class="reference internal" href="#getprevious-getnext">getPrevious() &amp; getNext()</a>,以及分别用 <a class="reference internal" href="#haspreviouspage-hasnextpage">hasPreviousPage() &amp; hasNextPage()</a> 替换 <a class="reference internal" href="#hasprevious-hasnext">hasPrevious() &amp; hasNext()</a>。</p>
-<p>请参阅以下包含这些更改的示例：</p>
+<p>在标准分页结构的代码中，<a class="reference internal" href="#getprevious-getnext">getPrevious() 和 getNext()</a> 方法用于分别获取上一组和下一组分页链接的 URL。</p>
+<p>如果希望使用基于当前页的上一页和下一页链接的分页结构，只需将 <a class="reference internal" href="#getprevious-getnext">getPrevious() 和 getNext()</a> 方法替换为 <a class="reference internal" href="#getpreviouspage-getnextpage">getPreviousPage() 和 getNextPage()</a>，并将 <a class="reference internal" href="#hasprevious-hasnext">hasPrevious() 和 hasNext()</a> 方法分别替换为 <a class="reference internal" href="#haspreviouspage-hasnextpage">hasPreviousPage() 和 hasNextPage()</a>。</p>
+<p>请参阅以下示例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">nav</span> <span class="nx">aria</span><span class="o">-</span><span class="nx">label</span><span class="o">=</span><span class="s2">&quot;&lt;?= lang(&#39;Pager.pageNavigation&#39;) ?&gt;&quot;</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;pagination&quot;</span><span class="o">&gt;</span>
         <span class="o">&lt;?</span><span class="nx">php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">hasPreviousPage</span><span class="p">())</span> <span class="o">:</span> <span class="cp">?&gt;</span>
@@ -770,56 +771,87 @@
 </div>
 </section>
 <section id="haspreviouspage-hasnextpage">
-<h4>hasPreviousPage() &amp; hasNextPage()<a class="headerlink" href="#haspreviouspage-hasnextpage" title="此标题的永久链接"></a></h4>
-<p>这个方法返回一个布尔值 <code class="docutils literal notranslate"><span class="pre">true</span></code>，如果在当前显示的页面前后各有一个页面的链接。</p>
-<p>例如，假设我们有 20 页的数据。当前的页面是第 3 页。如果周围的数量是 2，那么以下链接会显示如下:</p>
+<h4>hasPreviousPage() 和 hasNextPage()<a class="headerlink" href="#haspreviouspage-hasnextpage" title="此标题的永久链接"></a></h4>
+<p>如果当前显示页面的前后存在页面链接，则这些方法返回布尔值 <code class="docutils literal notranslate"><span class="pre">true</span></code>。</p>
+<p>例如，假设我们有 20 页数据。当前页是第 3 页。如果周围计数为 2，则显示的链接如下所示:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>  <span class="o">|</span>  <span class="mi">2</span>  <span class="o">|</span>  <span class="mi">3</span>  <span class="o">|</span>  <span class="mi">4</span>  <span class="o">|</span>  <span class="mi">5</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">hasPreviousPage()</span></code> 将返回 <code class="docutils literal notranslate"><span class="pre">true</span></code>，因为有第 2 页。并且，
-<code class="docutils literal notranslate"><span class="pre">hasNextPage()</span></code> 将返回 <code class="docutils literal notranslate"><span class="pre">true</span></code>，因为有第 4 页。</p>
+<p><code class="docutils literal notranslate"><span class="pre">hasPreviousPage()</span></code> 将返回 <code class="docutils literal notranslate"><span class="pre">true</span></code>，因为存在第 2 页。而 <code class="docutils literal notranslate"><span class="pre">hasNextPage()</span></code> 将返回 <code class="docutils literal notranslate"><span class="pre">true</span></code>，因为存在第 4 页。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>与 <a class="reference internal" href="#hasprevious-hasnext">hasPrevious() &amp; hasNext()</a> 的区别在于，它们是基于当前页面的，而 <a class="reference internal" href="#hasprevious-hasnext">hasPrevious() &amp; hasNext()</a> 是基于在当前页面前后显示的链接集，这取决于传递给 <a class="reference internal" href="#setsurroundcount">setSurroundCount()</a> 的值。</p>
+<p>与 <a class="reference internal" href="#hasprevious-hasnext">hasPrevious() 和 hasNext()</a> 的区别在于，这些方法基于当前页，而 <a class="reference internal" href="#hasprevious-hasnext">hasPrevious() 和 hasNext()</a> 基于根据 <a class="reference internal" href="#setsurroundcount">setSurroundCount()</a> 传递的值在当前页前后显示的链接组。</p>
 </div>
 </section>
 <section id="getpreviouspage-getnextpage">
-<h4>getPreviousPage() &amp; getNextPage()<a class="headerlink" href="#getpreviouspage-getnextpage" title="此标题的永久链接"></a></h4>
-<p>这些方法返回当前显示页面的前一页和后一页的 <strong>URL</strong>。</p>
-<p>例如，你将当前页面设置为 5，你希望在之前和之后的链接（surroundCount）各为 2，那么你会得到如下内容:</p>
+<h4>getPreviousPage() 和 getNextPage()<a class="headerlink" href="#getpreviouspage-getnextpage" title="此标题的永久链接"></a></h4>
+<p>这些方法返回与当前显示页面前后页面对应的 <strong>URL</strong>。</p>
+<p>例如，当前页设置为 5，你希望前后链接（surroundCount）各为 2 个，这将给出如下内容:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>  <span class="o">|</span>  <span class="mi">4</span>  <span class="o">|</span>  <span class="mi">5</span>  <span class="o">|</span>  <span class="mi">6</span>  <span class="o">|</span>  <span class="mi">7</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">getPreviousPage()</span></code> 返回第 4 页的 URL。<code class="docutils literal notranslate"><span class="pre">getNextPage()</span></code> 返回第 6 页的 URL。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p><a class="reference internal" href="#getprevious-getnext">getPrevious() &amp; getNext()</a> 返回数字链接两侧的上一页或下一页结果的 URL。</p>
+<p><a class="reference internal" href="#getprevious-getnext">getPrevious() 和 getNext()</a> 返回编号链接任一侧的上一组或下一组结果的 URL。</p>
 </div>
-<p>如果你希望得到的是页面数字而不是 URL，你可以使用以下方法：</p>
+<p>如果需要页码而不是 URL，可以使用以下方法：</p>
 </section>
 <section id="getpreviouspagenumber-getnextpagenumber">
-<h4>getPreviousPageNumber() &amp; getNextPageNumber()<a class="headerlink" href="#getpreviouspagenumber-getnextpagenumber" title="此标题的永久链接"></a></h4>
-<p>这些方法返回当前显示页面之前和之后的页面号。</p>
+<h4>getPreviousPageNumber() 和 getNextPageNumber()<a class="headerlink" href="#getpreviouspagenumber-getnextpagenumber" title="此标题的永久链接"></a></h4>
+<p>这些方法返回与当前显示页面前后页面对应的页码。</p>
 </section>
 <section id="getfirstpagenumber-getlastpagenumber">
-<h4>getFirstPageNumber() &amp; getLastPageNumber()<a class="headerlink" href="#getfirstpagenumber-getlastpagenumber" title="此标题的永久链接"></a></h4>
-<p>这些方法返回要显示的链接集中第一页和最后一页的页码。例如，如果要显示的链接集如下所示:</p>
+<h4>getFirstPageNumber() 和 getLastPageNumber()<a class="headerlink" href="#getfirstpagenumber-getlastpagenumber" title="此标题的永久链接"></a></h4>
+<p>这些方法返回要显示的链接组中首页和末页的页码。例如，如果要显示的链接组如下所示:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>  <span class="o">|</span>  <span class="mi">4</span>  <span class="o">|</span>  <span class="mi">5</span>  <span class="o">|</span>  <span class="mi">6</span>  <span class="o">|</span>  <span class="mi">7</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">getFirstPageNumber()</span></code> 将返回 3，而 <code class="docutils literal notranslate"><span class="pre">getLastPageNumber()</span></code> 将返回 7。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>要获取整个结果集中第一页和最后一页的页码，你可以使用以下方法：第一页的页码总是 1，可以使用 <a class="reference internal" href="#getpagecount">getPageCount()</a> 来获取最后一页的页码。</p>
+<p>要获取整个结果集的首页和末页页码，可以使用以下方法：首页页码始终为 1，<a class="reference internal" href="#getpagecount">getPageCount()</a> 可用于检索末页页码。</p>
 </div>
 </section>
 <section id="getcurrentpagenumber">
 <h4>getCurrentPageNumber()<a class="headerlink" href="#getcurrentpagenumber" title="此标题的永久链接"></a></h4>
-<p>该方法返回当前页面的页码。</p>
+<p>此方法返回当前页的页码。</p>
 </section>
 <section id="getpagecount">
 <h4>getPageCount()<a class="headerlink" href="#getpagecount" title="此标题的永久链接"></a></h4>
-<p>该方法返回总页数。</p>
+<p>此方法返回总页数。</p>
+</section>
+</section>
+<section id="displaying-the-number-of-items-on-the-page">
+<span id="id14"></span><h3><a class="toc-backref" href="#id27" role="doc-backlink">显示页面项数</a><a class="headerlink" href="#displaying-the-number-of-items-on-the-page" title="此标题的永久链接"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.6.0 版本加入.</span></p>
+</div>
+<p>在对项进行分页时，显示总项数以及当前页显示的项范围通常很有帮助。为了简化此任务，新增了以下方法。这些方法使管理和显示分页详细信息更加容易。示例如下：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">setSurroundCount</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+    Showing <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;font-medium&quot;</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">getPerPageStart</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    to <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;font-medium&quot;</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">getPerPageEnd</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    of <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;font-medium&quot;</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$pager</span><span class="o">-&gt;</span><span class="na">getTotal</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> results
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<section id="gettotal">
+<h4>getTotal()<a class="headerlink" href="#gettotal" title="此标题的永久链接"></a></h4>
+<p>返回页面的总项数。</p>
+</section>
+<section id="getperpage">
+<h4>getPerPage()<a class="headerlink" href="#getperpage" title="此标题的永久链接"></a></h4>
+<p>返回页面上显示的项数。</p>
+</section>
+<section id="getperpagestart">
+<h4>getPerPageStart()<a class="headerlink" href="#getperpagestart" title="此标题的永久链接"></a></h4>
+<p>返回页面起始项的编号。</p>
+</section>
+<section id="getperpageend">
+<h4>getPerPageEnd()<a class="headerlink" href="#getperpageend" title="此标题的永久链接"></a></h4>
+<p>返回页面结束项的编号。</p>
 </section>
 </section>
 </section>
@@ -837,7 +869,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2025-01-02.
+      <span class="lastupdated">最后更新于 2025-02-08.
       </span></p>
   </div>
 
@@ -845,7 +877,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fec77215750>
+<jinja2.runtime.BlockReference object at 0x7fbc20cac550>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

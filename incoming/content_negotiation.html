@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>内容协商 &mdash; CodeIgniter 4.5.7 中文手册|用户手册|用户指南|中文文档</title>
+  <title>内容协商 &mdash; CodeIgniter 4.6.0 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -54,7 +54,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器要求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
@@ -117,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto_routing_improved.html">自动路由（改进版）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="message.html">HTTP 消息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="incomingrequest.html">IncomingRequest 类</a></li>
@@ -184,7 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../libraries/curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/files.html">文件处理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/file_collections.html">文件集合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/honeypot.html">蜜罐类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/images.html">图像处理类</a></li>
@@ -193,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../libraries/security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/sessions.html">Session 库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/throttler.html">限速器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/time.html">时间与日期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/typography.html">排版</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/uploaded_files.html">处理上传的文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../libraries/uri.html">使用 URI</a></li>
@@ -291,60 +292,60 @@
 <h1>内容协商<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id10">什么是内容协商?</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id11">加载类</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id12">协商</a></p>
+<li><p><a class="reference internal" href="#id3" id="id12">什么是内容协商？</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id13">加载类</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id14">协商过程</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id6" id="id13">媒体</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id14">语言</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id15">编码</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id16">字符集</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id15">媒体类型</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id16">语言协商</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id17">编码协商</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id18">字符集协商</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id10" role="doc-backlink">什么是内容协商?</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
-<p>内容协商是一种根据客户端的处理能力和服务器的处理能力,来确定返回给客户端什么类型的内容的方法。这可以用来确定是否应该返回 HTML 还是 JSON 给客户端,图片应该返回 JPEG 格式还是 PNG 格式,支持什么类型的压缩等等。这是通过分析四个不同的 header 来实现的,每个 header 都可以支持多种值选项,每个选项都有自己的优先级。</p>
-<p>要手动匹配这些可以是非常具有挑战性的。CodeIgniter 提供了 <code class="docutils literal notranslate"><span class="pre">Negotiator</span></code> 类可以帮助你处理。</p>
-<p>内容协商的核心只是 HTTP 规范的一部分,它允许一个资源可以服务于多种类型的内容,允许客户端请求对其最有效的的数据类型。</p>
-<p>一个典型的例子是,一个不能显示 PNG 图片的浏览器可以请求只获取 GIF 或 JPEG 图片。当服务器收到请求时,它会查看客户端请求的可用文件类型,并从它支持的图片格式中选择最佳匹配,在这种情况下可能会选择返回一个 JPEG 图片。</p>
-<p>同样的协商可以发生在四种类型的数据上:</p>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">什么是内容协商？</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<p>内容协商是一种根据客户端处理能力和服务器处理能力，决定返回何种内容类型给客户端的方式。这种方式可用于判断客户端需要 HTML 还是 JSON 响应，图像应以 JPEG 还是 PNG 格式返回，支持哪种压缩类型等。该机制通过分析四个不同的头部实现，每个头部可支持多个具有优先级的选项值。</p>
+<p>手动实现这种匹配可能颇具挑战。CodeIgniter 提供了 <code class="docutils literal notranslate"><span class="pre">Negotiator</span></code> 类来为你处理这些工作。</p>
+<p>本质上，内容协商是 HTTP 规范的一部分，允许单一资源提供多种内容类型，让客户端请求最适合其需求的数据格式。</p>
+<p>一个经典例子是：无法显示 PNG 文件的浏览器可以请求仅限 GIF 或 JPEG 图像。服务器接收请求时，会查看客户端请求的可用文件类型，并从支持的图像格式中选择最佳匹配（本例中可能选择返回 JPEG 图像）。</p>
+<p>这种协商可应用于四种数据类型：</p>
 <ul class="simple">
-<li><p><strong>媒体/文档类型</strong> - 这可能是图像格式,或者 HTML 与 XML 或 JSON。</p></li>
-<li><p><strong>字符集</strong> - 返回的文档应该使用的字符集,通常是 UTF-8。</p></li>
-<li><p><strong>文档编码</strong> - 通常是对结果使用的压缩类型。</p></li>
-<li><p><strong>文档语言</strong> - 对于支持多种语言的网站,这有助于确定返回哪种语言。</p></li>
+<li><p><strong>媒体/文档类型</strong> - 可以是图像格式，或 HTML、XML、JSON 等文档格式</p></li>
+<li><p><strong>字符集</strong> - 返回文档应使用的字符集，通常为 UTF-8</p></li>
+<li><p><strong>文档编码</strong> - 通常指对结果使用的压缩类型</p></li>
+<li><p><strong>文档语言</strong> - 对于支持多语言的站点，帮助确定返回哪种语言版本</p></li>
 </ul>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink">加载类</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
-<p>你可以通过 Service 类手动加载类的一个实例:</p>
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">加载类</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
+<p>你可以通过 Service 类手动加载该类的实例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$negotiate</span> <span class="o">=</span> <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;negotiator&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>这将获取当前的请求实例并自动注入 Negotiator 类。</p>
-<p>这个类不需要单独加载。相反,它可以通过这个请求的 <code class="docutils literal notranslate"><span class="pre">IncomingRequest</span></code> 实例访问。虽然你不能直接通过这种方式访问它,但你可以通过 <code class="docutils literal notranslate"><span class="pre">negotiate()</span></code> 方法轻松访问所有方法:</p>
+<p>这将获取当前请求实例并自动注入到 Negotiator 类中。</p>
+<p>此类无需单独加载。你可以通过请求的 <code class="docutils literal notranslate"><span class="pre">IncomingRequest</span></code> 实例访问其方法。虽然不能直接访问，但可以通过 <code class="docutils literal notranslate"><span class="pre">negotiate()</span></code> 方法轻松调用所有功能：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>当以这种方式访问时,第一个参数是你正在尝试找到匹配项的内容类型,第二个是支持的值的数组。</p>
+<p>通过此方式访问时，第一个参数是你尝试匹配的内容类型，第二个参数是支持的选项数组。</p>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink">协商</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
-<p>在这一节中,我们将讨论可以协商的 4 种类型的内容,并展示使用上面描述的两种方法访问协商器的方式。</p>
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">协商过程</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
+<p>本节将讨论可协商的四种内容类型，并展示使用上述两种方法访问协商器的示例。</p>
 <section id="id6">
-<h3><a class="toc-backref" href="#id13" role="doc-backlink">媒体</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
-<p>首先要看的是处理“媒体”协商。这些是由 <code class="docutils literal notranslate"><span class="pre">Accept</span></code> 头提供的,它是可用的最复杂的头之一。一个常见的例子是客户端告诉服务器它希望数据的格式。这在 API 中特别常见。例如,一个客户端可能会从 API 端点请求 JSON 格式的数据:</p>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">媒体类型</a><a class="headerlink" href="#id6" title="此标题的永久链接"></a></h3>
+<p>首要处理的是「媒体类型」协商。这些信息由 <code class="docutils literal notranslate"><span class="pre">Accept</span></code> 头部提供，是最复杂的头部之一。常见用例是客户端告知服务器期望的数据格式，这在 API 中尤为常见。例如，客户端可能请求 API 端点返回 JSON 格式数据:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Accept</span><span class="o">:</span> <span class="nx">application</span><span class="o">/</span><span class="nx">json</span>
 </pre></div>
 </div>
-<p>服务器现在需要提供它可以提供的内容类型列表。在这个例子中,API 可能可以以原始 HTML、JSON 或 XML 的形式返回数据。这个列表应该按首选项顺序提供:</p>
+<p>服务器现在需要提供其支持的内容类型列表。在此示例中，API 可能返回原始 HTML、JSON 或 XML 格式数据。该列表应按优先级顺序排列：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
@@ -358,7 +359,7 @@
 <span class="nv">$format</span> <span class="o">=</span> <span class="nv">$negotiate</span><span class="o">-&gt;</span><span class="na">media</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>在这种情况下,客户端和服务器都可以就将数据格式化为 JSON 达成一致,所以从 negotiate 方法返回的是 ‘json’。默认情况下,如果没有找到匹配项,将返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组中的第一个元素。然而,在某些情况下,你可能需要强制格式严格匹配。如果你传递 <code class="docutils literal notranslate"><span class="pre">true</span></code> 作为最后一个值,则如果未找到匹配项,它将返回一个空字符串:</p>
+<p>本例中，客户端和服务器都同意使用 JSON 格式，因此 negotiate 方法返回 ‘json’。默认情况下，若未找到匹配项，将返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组的第一个元素。但有时需要严格匹配格式，若将最后一个参数设为 <code class="docutils literal notranslate"><span class="pre">true</span></code>，则无匹配时返回空字符串：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$format</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="nv">$supported</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
@@ -368,13 +369,13 @@
 </div>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id14" role="doc-backlink">语言</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
-<p>另一个常见的用法是确定应为内容提供的语言。如果你只运行单语言站点,这显然不会有太大差异,但任何可以提供内容多种翻译的站点都会发现这很有用,因为浏览器通常会在 <code class="docutils literal notranslate"><span class="pre">Accept-Language</span></code> 头中发送首选语言:</p>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">语言协商</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h3>
+<p>另一个常见用途是确定返回内容的语言。对于单语言站点影响不大，但任何支持多语言翻译的站点都会发现其用处，因为浏览器通常会在 <code class="docutils literal notranslate"><span class="pre">Accept-Language</span></code> 头部发送首选语言:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Accept</span><span class="o">-</span><span class="nx">Language</span><span class="o">:</span> <span class="nx">fr</span><span class="p">;</span> <span class="nx">q</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="nx">en</span><span class="p">;</span> <span class="nx">q</span><span class="o">=</span><span class="mf">0.5</span>
 </pre></div>
 </div>
-<p>在这个例子中,浏览器更倾向于法语,其次是英语。 如果你的网站支持英语和德语,你会这样做:</p>
+<p>本例中，浏览器首选法语，次选英语。若你的网站支持英语和德语，可进行如下操作：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
@@ -387,16 +388,54 @@
 <span class="nv">$lang</span> <span class="o">=</span> <span class="nv">$negotiate</span><span class="o">-&gt;</span><span class="na">language</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>在这个例子中,’en’ 将作为当前语言返回。如果没有找到匹配,它将返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组中的第一个元素,所以那应该总是首选语言。</p>
-</section>
+<p>此例将返回 ‘en’ 作为当前语言。若无匹配项，则返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组的第一个元素，因此该元素应始终设为首选语言。</p>
 <section id="id8">
-<h3><a class="toc-backref" href="#id15" role="doc-backlink">编码</a><a class="headerlink" href="#id8" title="此标题的永久链接"></a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Accept-Encoding</span></code> 头包含客户端偏好接收的字符集,并用于指定客户端支持的压缩类型:</p>
+<h4>严格区域设置协商<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h4>
+<div class="versionadded">
+<p><span class="versionmodified added">在 4.6.0 版本加入.</span></p>
+</div>
+<p>默认情况下，区域设置基于近似匹配（仅考虑 locale 字符串的首部分即语言）。这通常已足够。但有时我们需要区分诸如 <code class="docutils literal notranslate"><span class="pre">en-US</span></code> 和 <code class="docutils literal notranslate"><span class="pre">en-GB</span></code> 等区域版本以提供不同内容。</p>
+<p>针对此类情况，我们新增了可通过 <code class="docutils literal notranslate"><span class="pre">Config\Feature::$strictLocaleNegotiation</span></code> 启用的设置。这将确保首先进行严格比较。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>CodeIgniter 仅为主语言标签（’en’, ‘fr’ 等）提供翻译。若启用此功能且 <code class="docutils literal notranslate"><span class="pre">Config\App::$supportedLocales</span></code> 包含区域语言标签（’en-US’, ‘fr-FR’ 等），请注意：若你拥有自定义翻译文件，<strong>必须同时修改</strong> CodeIgniter 翻译文件的文件夹名称以匹配 <code class="docutils literal notranslate"><span class="pre">$supportedLocales</span></code> 数组中的设置。</p>
+</div>
+<p>现在考虑以下示例，浏览器首选语言设置为:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="nx">Accept</span><span class="o">-</span><span class="nx">Language</span><span class="o">:</span> <span class="nx">fr</span><span class="p">;</span> <span class="nx">q</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="nx">en</span><span class="o">-</span><span class="nx">GB</span><span class="p">;</span> <span class="nx">q</span><span class="o">=</span><span class="mf">0.5</span>
+</pre></div>
+</div>
+<p>本例中，浏览器首选法语，次选英语（英国）。而你的网站支持德语和英语（美国）：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$supported</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;de&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;en-US&#39;</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nv">$lang</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="nv">$supported</span><span class="p">);</span>
+<span class="c1">// or</span>
+<span class="nv">$lang</span> <span class="o">=</span> <span class="nv">$negotiate</span><span class="o">-&gt;</span><span class="na">language</span><span class="p">(</span><span class="nv">$supported</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>此例将返回 ‘en-US’ 作为当前语言。若无匹配项，则返回 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组的首元素。以下是区域选择过程的具体工作原理。</p>
+<p>尽管浏览器首选 ‘fr’，但其不在我们的 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组中。’en-GB’ 同样存在匹配问题，但我们可以搜索变体。首先回退到最通用的区域设置（本例为 ‘en’），其仍不在数组中。接着搜索区域设置 ‘en-‘’，此时将匹配 <code class="docutils literal notranslate"><span class="pre">$supported</span></code> 数组中的 ‘en-US’ 并返回。</p>
+<p>区域选择流程如下：</p>
+<ol class="arabic simple">
+<li><p>严格匹配（’en-GB’）- ISO 639-1 加 ISO 3166-1 alpha-2</p></li>
+<li><p>通用区域匹配（’en’）- ISO 639-1</p></li>
+<li><p>区域通配符匹配（’en-’）- ISO 639-1 加 ISO 3166-1 alpha-2 通配符</p></li>
+</ol>
+</section>
+</section>
+<section id="id9">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">编码协商</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Accept-Encoding</span></code> 头部包含客户端偏好的字符集，用于指定支持的压缩类型:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Accept</span><span class="o">-</span><span class="nx">Encoding</span><span class="o">:</span> <span class="nx">compress</span><span class="p">,</span> <span class="nx">gzip</span>
 </pre></div>
 </div>
-<p>你的 Web 服务器将定义你可以使用的压缩类型。一些,比如 Apache,只支持 <strong>gzip</strong>:</p>
+<p>你的 Web 服务器将定义可使用的压缩类型。某些服务器（如 Apache）仅支持 <strong>gzip</strong>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$type</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gzip&#39;</span><span class="p">]);</span>
@@ -404,16 +443,16 @@
 <span class="nv">$type</span> <span class="o">=</span> <span class="nv">$negotiate</span><span class="o">-&gt;</span><span class="na">encoding</span><span class="p">([</span><span class="s1">&#39;gzip&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-<p>参见更多内容 <a class="reference external" href="https://en.wikipedia.org/wiki/HTTP_compression">Wikipedia</a>。</p>
+<p>更多信息参见 <a class="reference external" href="https://en.wikipedia.org/wiki/HTTP_compression">维基百科</a>。</p>
 </section>
-<section id="id9">
-<h3><a class="toc-backref" href="#id16" role="doc-backlink">字符集</a><a class="headerlink" href="#id9" title="此标题的永久链接"></a></h3>
-<p>期望的字符集通过 <code class="docutils literal notranslate"><span class="pre">Accept-Charset</span></code> 头传递:</p>
+<section id="id11">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">字符集协商</a><a class="headerlink" href="#id11" title="此标题的永久链接"></a></h3>
+<p>期望的字符集通过 <code class="docutils literal notranslate"><span class="pre">Accept-Charset</span></code> 头部传递:</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="nx">GET</span> <span class="o">/</span><span class="nx">foo</span> <span class="nx">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
 <span class="nx">Accept</span><span class="o">-</span><span class="nx">Charset</span><span class="o">:</span> <span class="nx">utf</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span> <span class="nx">utf</span><span class="o">-</span><span class="mi">8</span>
 </pre></div>
 </div>
-<p>默认情况下,如果未找到匹配项,将返回 <strong>utf-8</strong>:</p>
+<p>默认情况下若无匹配项，将返回 <strong>utf-8</strong>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$charset</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">negotiate</span><span class="p">(</span><span class="s1">&#39;charset&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;utf-8&#39;</span><span class="p">]);</span>
@@ -437,7 +476,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2025-01-02.
+      <span class="lastupdated">最后更新于 2025-02-08.
       </span></p>
   </div>
 
@@ -445,7 +484,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fec6f130290>
+<jinja2.runtime.BlockReference object at 0x7fbc219481d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>

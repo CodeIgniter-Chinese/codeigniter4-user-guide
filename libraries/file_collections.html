@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>文件集合 &mdash; CodeIgniter 4.5.7 中文手册|用户手册|用户指南|中文文档</title>
+  <title>文件集合 &mdash; CodeIgniter 4.6.0 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -28,7 +28,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="蜜罐类" href="honeypot.html" />
-    <link rel="prev" title="处理文件" href="files.html" /> 
+    <link rel="prev" title="文件处理" href="files.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,7 +54,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../intro/index.html">欢迎使用 CodeIgniter4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器需求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro/requirements.html">服务器要求</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/credits.html">致谢</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../intro/psr.html">PSR 兼容性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../license.html">许可协议</a></li>
@@ -117,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../incoming/routing.html">URI 路由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/controllers.html">控制器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../incoming/auto_routing_improved.html">自动路由（改进版）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/message.html">HTTP 消息</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/request.html">请求类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../incoming/incomingrequest.html">IncomingRequest 类</a></li>
@@ -184,7 +185,7 @@
 <li class="toctree-l2"><a class="reference internal" href="curlrequest.html">CURLRequest 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="email.html">Email 类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="encryption.html">加密服务</a></li>
-<li class="toctree-l2"><a class="reference internal" href="files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html">文件处理</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">文件集合</a></li>
 <li class="toctree-l2"><a class="reference internal" href="honeypot.html">蜜罐类</a></li>
 <li class="toctree-l2"><a class="reference internal" href="images.html">图像处理类</a></li>
@@ -193,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="security.html">安全</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sessions.html">Session 库</a></li>
 <li class="toctree-l2"><a class="reference internal" href="throttler.html">限速器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="time.html">时间和日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time.html">时间与日期</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typography.html">排版</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uploaded_files.html">处理上传的文件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uri.html">使用 URI</a></li>
@@ -289,11 +290,11 @@
              
   <section id="id1">
 <h1>文件集合<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
-<p>处理文件组可能很麻烦,所以框架提供了 <code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 类来方便跨文件系统定位和处理文件组。</p>
+<p>处理文件组可能很繁琐，因此框架提供了 <code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 类来简化跨文件系统的文件组定位和操作。</p>
 <nav class="contents local" id="id2">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id3" id="id8">基本用法</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id9">启动一个集合</a></p>
+<li><p><a class="reference internal" href="#id4" id="id9">创建集合</a></p>
 <ul>
 <li><p><a class="reference internal" href="#construct-string-files" id="id10">__construct(string[] $files = [])</a></p></li>
 <li><p><a class="reference internal" href="#define" id="id11">define()</a></p></li>
@@ -313,18 +314,19 @@
 <ul>
 <li><p><a class="reference internal" href="#removepattern-string-pattern-string-scope-null" id="id20">removePattern(string $pattern, string $scope = null)</a></p></li>
 <li><p><a class="reference internal" href="#retainpattern-string-pattern-string-scope-null" id="id21">retainPattern(string $pattern, string $scope = null)</a></p></li>
+<li><p><a class="reference internal" href="#retainmultiplepatterns-array-pattern-string-scope-null" id="id22">retainMultiplePatterns(array $pattern, string $scope = null)</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id7" id="id22">检索文件</a></p>
+<li><p><a class="reference internal" href="#id7" id="id23">检索文件</a></p>
 <ul>
-<li><p><a class="reference internal" href="#get-string" id="id23">get(): string[]</a></p></li>
+<li><p><a class="reference internal" href="#get-string" id="id24">get(): string[]</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="id3">
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">基本用法</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
-<p>在最基本的级别上, <code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 是一个你设置或构建的文件数组:</p>
+<p>在最基础的用法中，<code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 是一个由你设置或构建的文件数组：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Files\FileCollection</span><span class="p">;</span>
@@ -336,7 +338,7 @@
 <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">addDirectory</span><span class="p">(</span><span class="nx">APPPATH</span> <span class="o">.</span> <span class="s1">&#39;Filters&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>在你输入要处理的文件后,可以删除文件或使用过滤命令删除或保留匹配某个正则表达式或 glob 样式模式的文件:</p>
+<p>在你输入要处理的文件后，可以移除文件或使用过滤命令来删除/保留匹配特定正则表达式或 glob 风格模式的文件：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">removeFile</span><span class="p">(</span><span class="nx">APPPATH</span> <span class="o">.</span> <span class="s1">&#39;Filters/DevelopToolbar.php&#39;</span><span class="p">);</span>
@@ -345,7 +347,7 @@
 <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">retainPattern</span><span class="p">(</span><span class="s1">&#39;*.php&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>当你的集合完成后,可以使用 <code class="docutils literal notranslate"><span class="pre">get()</span></code> 来检索最终的文件路径列表,或者利用 <code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 可数和可迭代的特性直接与每个 <code class="docutils literal notranslate"><span class="pre">File</span></code> 一起工作:</p>
+<p>当集合构建完成后，可以使用 <code class="docutils literal notranslate"><span class="pre">get()</span></code> 获取最终文件路径列表，或利用 <code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 的可计数和可迭代特性直接操作每个 <code class="docutils literal notranslate"><span class="pre">File</span></code>：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">echo</span> <span class="s1">&#39;My files: &#39;</span> <span class="o">.</span> <span class="nb">implode</span><span class="p">(</span><span class="nx">PHP_EOL</span><span class="p">,</span> <span class="nv">$files</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">());</span>
@@ -357,17 +359,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>下面是使用 <code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 的具体方法。</p>
+<p>以下是操作 <code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 的具体方法。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id9" role="doc-backlink">启动一个集合</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">创建集合</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
 <section id="construct-string-files">
 <h3><a class="toc-backref" href="#id10" role="doc-backlink">__construct(string[] $files = [])</a><a class="headerlink" href="#construct-string-files" title="此标题的永久链接"></a></h3>
-<p>构造函数接受一个可选的文件路径数组,用作初始集合。这些通过 <code class="docutils literal notranslate"><span class="pre">add()</span></code> 传递,所以任何子类在 <code class="docutils literal notranslate"><span class="pre">$files</span></code> 中提供的文件仍将保留。</p>
+<p>构造函数接受一个可选的文件路径数组作为初始集合。这些路径会传递给 <code class="docutils literal notranslate"><span class="pre">add()</span></code> 方法，因此子类通过 <code class="docutils literal notranslate"><span class="pre">$files</span></code> 提供的文件会保留。</p>
 </section>
 <section id="define">
 <h3><a class="toc-backref" href="#id11" role="doc-backlink">define()</a><a class="headerlink" href="#define" title="此标题的永久链接"></a></h3>
-<p>允许子类定义自己的初始文件。这个方法由构造函数调用,允许预定义集合而不必使用它们的方法。例如:</p>
+<p>允许子类定义自己的初始文件。此方法由构造函数调用，支持预定义集合而无需重复调用其方法。</p>
+<p>示例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
@@ -383,33 +386,33 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>现在你可以在项目的任何地方使用 <code class="docutils literal notranslate"><span class="pre">ConfigCollection</span></code> ，访问 <strong>app/Config/</strong> 目录下的所有 PHP 文件，而无需每次都重新调用集合方法。</p>
+<p>现在你可以在项目任意位置使用 <code class="docutils literal notranslate"><span class="pre">ConfigCollection</span></code> 来访问 <strong>app/Config/</strong> 下的所有 PHP 文件，无需每次重新调用集合方法。</p>
 </section>
 <section id="set-array-files">
 <h3><a class="toc-backref" href="#id12" role="doc-backlink">set(array $files)</a><a class="headerlink" href="#set-array-files" title="此标题的永久链接"></a></h3>
-<p>将输入文件设置为提供的文件路径字符串数组。这将从集合中删除任何现有文件,所以 <code class="docutils literal notranslate"><span class="pre">$collection-&gt;set([])</span></code> 本质上是一个硬重置。</p>
+<p>将输入文件列表设置为提供的文件路径字符串数组。这会移除集合中所有现有文件，因此 <code class="docutils literal notranslate"><span class="pre">$collection-&gt;set([])</span></code> 本质上是硬重置。</p>
 </section>
 </section>
 <section id="id5">
 <h2><a class="toc-backref" href="#id13" role="doc-backlink">输入文件</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
 <section id="add-string-string-paths-bool-recursive-true">
 <h3><a class="toc-backref" href="#id14" role="doc-backlink">add(string[]|string $paths, bool $recursive = true)</a><a class="headerlink" href="#add-string-string-paths-bool-recursive-true" title="此标题的永久链接"></a></h3>
-<p>添加路径或路径数组指示的所有文件。如果路径解析为目录,则 <code class="docutils literal notranslate"><span class="pre">$recursive</span></code> 将包含子目录。</p>
+<p>添加路径或路径数组指示的所有文件。如果路径解析为目录，则 <code class="docutils literal notranslate"><span class="pre">$recursive</span></code> 会包含子目录。</p>
 </section>
 <section id="addfile-string-file-addfiles-array-files">
 <h3><a class="toc-backref" href="#id15" role="doc-backlink">addFile(string $file) / addFiles(array $files)</a><a class="headerlink" href="#addfile-string-file-addfiles-array-files" title="此标题的永久链接"></a></h3>
-<p>将文件或文件添加到当前的输入文件列表中。文件是实际文件的绝对路径。</p>
+<p>将单个文件或多个文件添加到当前输入文件列表。文件必须是实际文件的绝对路径。</p>
 </section>
 <section id="removefile-string-file-removefiles-array-files">
 <h3><a class="toc-backref" href="#id16" role="doc-backlink">removeFile(string $file) / removeFiles(array $files)</a><a class="headerlink" href="#removefile-string-file-removefiles-array-files" title="此标题的永久链接"></a></h3>
-<p>从当前的输入文件列表中删除文件。</p>
+<p>从当前输入文件列表中移除单个文件或多个文件。</p>
 </section>
 <section id="adddirectory-string-directory-bool-recursive-false">
 <h3><a class="toc-backref" href="#id17" role="doc-backlink">addDirectory(string $directory, bool $recursive = false)</a><a class="headerlink" href="#adddirectory-string-directory-bool-recursive-false" title="此标题的永久链接"></a></h3>
 </section>
 <section id="adddirectories-array-directories-bool-recursive-false">
 <h3><a class="toc-backref" href="#id18" role="doc-backlink">addDirectories(array $directories, bool $recursive = false)</a><a class="headerlink" href="#adddirectories-array-directories-bool-recursive-false" title="此标题的永久链接"></a></h3>
-<p>从目录或目录中添加所有文件,可选地递归进入子目录。目录是实际目录的绝对路径。</p>
+<p>添加目录或多个目录中的所有文件，可选是否递归子目录。目录必须是实际目录的绝对路径。</p>
 </section>
 </section>
 <section id="id6">
@@ -419,10 +422,10 @@
 </section>
 <section id="retainpattern-string-pattern-string-scope-null">
 <h3><a class="toc-backref" href="#id21" role="doc-backlink">retainPattern(string $pattern, string $scope = null)</a><a class="headerlink" href="#retainpattern-string-pattern-string-scope-null" title="此标题的永久链接"></a></h3>
-<p>通过模式（和可选的作用域）过滤当前文件列表，移除或保留匹配的文件。</p>
-<p><code class="docutils literal notranslate"><span class="pre">$pattern</span></code> 可以是一个完整的正则表达式（如 <code class="docutils literal notranslate"><span class="pre">'#\A[A-Za-z]+\.php\z#'</span></code>）或类似于 <code class="docutils literal notranslate"><span class="pre">glob()</span></code> 的伪正则表达式（如 <code class="docutils literal notranslate"><span class="pre">'*.css'</span></code>）。</p>
-<p>如果提供了 <code class="docutils literal notranslate"><span class="pre">$scope</span></code>，则只有在该目录或其子目录中的文件会被考虑（即，<code class="docutils literal notranslate"><span class="pre">$scope</span></code> 之外的文件总是被保留）。当没有提供作用域时，所有文件都将被考虑。</p>
-<p>例子:</p>
+<p>通过模式（和可选作用域）过滤当前文件列表，移除或保留匹配文件。</p>
+<p><code class="docutils literal notranslate"><span class="pre">$pattern</span></code> 可以是完整正则表达式（如 <code class="docutils literal notranslate"><span class="pre">'#\A[A-Za-z]+\.php\z#'</span></code>）或类似 <code class="docutils literal notranslate"><span class="pre">glob()</span></code> 的伪正则表达式（如 <code class="docutils literal notranslate"><span class="pre">'*.css'</span></code>）。</p>
+<p>如果提供 <code class="docutils literal notranslate"><span class="pre">$scope</span></code>，则只有该目录下或其子目录中的文件会被考虑（即 <code class="docutils literal notranslate"><span class="pre">$scope</span></code> 外的文件始终保留）。未提供作用域时，所有文件都会参与过滤。</p>
+<p>示例：</p>
 <div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">CodeIgniter\Files\FileCollection</span><span class="p">;</span>
@@ -438,15 +441,25 @@
 </pre></div>
 </div>
 </section>
+<section id="retainmultiplepatterns-array-pattern-string-scope-null">
+<span id="file-collections-retain-multiple-patterns"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">retainMultiplePatterns(array $pattern, string $scope = null)</a><a class="headerlink" href="#retainmultiplepatterns-array-pattern-string-scope-null" title="此标题的永久链接"></a></h3>
+<p>提供与 <code class="docutils literal notranslate"><span class="pre">retainPattern()</span></code> 相同的功能，但接受模式数组来保留匹配所有模式的文件。</p>
+<p>示例：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nv">$files</span><span class="o">-&gt;</span><span class="na">retainMultiplePatterns</span><span class="p">([</span><span class="s1">&#39;*.css&#39;</span><span class="p">,</span> <span class="s1">&#39;*.js&#39;</span><span class="p">]);</span> <span class="c1">// Would keep only *.css and *.js files</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id22" role="doc-backlink">检索文件</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">检索文件</a><a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <section id="get-string">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink">get(): string[]</a><a class="headerlink" href="#get-string" title="此标题的永久链接"></a></h3>
-<p>返回加载的所有输入文件的数组。</p>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">get(): string[]</a><a class="headerlink" href="#get-string" title="此标题的永久链接"></a></h3>
+<p>返回所有已加载输入文件的数组。</p>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p><code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 是一个 <code class="docutils literal notranslate"><span class="pre">IteratorAggregate</span></code>,所以你可以直接使用它(例如 <code class="docutils literal notranslate"><span class="pre">foreach</span> <span class="pre">($collection</span> <span class="pre">as</span> <span class="pre">$file)</span></code>)。</p>
+<p><code class="docutils literal notranslate"><span class="pre">FileCollection</span></code> 实现了 <code class="docutils literal notranslate"><span class="pre">IteratorAggregate</span></code> 接口，因此可以直接操作（例如 <code class="docutils literal notranslate"><span class="pre">foreach</span> <span class="pre">($collection</span> <span class="pre">as</span> <span class="pre">$file)</span></code>）。</p>
 </div>
 </section>
 </section>
@@ -456,7 +469,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="files.html" class="btn btn-neutral float-left" title="处理文件" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="files.html" class="btn btn-neutral float-left" title="文件处理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="honeypot.html" class="btn btn-neutral float-right" title="蜜罐类" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -464,7 +477,7 @@
 
   <div role="contentinfo">
     <p>&#169; 版权所有 2019-2025 CodeIgniter 基金会.
-      <span class="lastupdated">最后更新于 2025-01-02.
+      <span class="lastupdated">最后更新于 2025-02-08.
       </span></p>
   </div>
 
@@ -472,7 +485,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fec6f129190>
+<jinja2.runtime.BlockReference object at 0x7fbc207aafd0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
