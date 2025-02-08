@@ -22,7 +22,7 @@
 - Model-View-Controller 基础知识
 - 路由基础知识
 - 表单验证
-- 使用 CodeIgniter 的 Model 执行基本数据库查询
+- 使用 CodeIgniter 的模型执行基本数据库查询
 
 整个教程分成几个页面,每个页面解释 CodeIgniter 框架的一小部分功能。你将按照以下页面进行操作:
 
