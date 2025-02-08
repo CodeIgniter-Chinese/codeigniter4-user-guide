@@ -258,7 +258,7 @@
 
         Here is a <span style="color:#990000;">nice text</span> string about nothing in particular.
 
-    .. note:: 本函数曾默认使用 ``<strong>`` 标签。如需支持旧版浏览器，建议在样式表中添加以下 CSS
+    .. note:: 本函数曾默认使用 ``<strong>`` 标签。如需支持旧版浏览器，建议在样式表中添加以下 CSS：
         ::
 
             mark {
