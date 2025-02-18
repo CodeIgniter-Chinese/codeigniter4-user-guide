@@ -1,54 +1,54 @@
 .. _validation:
 
 ##########
-验证
+数据验证
 ##########
 
-CodeIgniter 提供了一个全面的数据验证类，帮助你减少编写代码的数量。
+CodeIgniter 提供了全面的数据验证类，帮助你减少需要编写的代码量。
 
 .. contents::
     :local:
     :depth: 2
 
 ********
-概览
+概述
 ********
 
-在解释 CodeIgniter 的数据验证方法之前,让我们描述一下理想的场景:
+在解释 CodeIgniter 的数据验证方法之前，我们先描述理想场景：
 
-#. 显示一个表单。
-#. 你填写表单并提交。
-#. 如果你提交了无效的或缺少必需项的数据,表单会重新显示,并包含你的数据和描述问题的错误信息。
-#. 这个过程会继续,直到你提交了一个有效的表单。
+#. 显示表单。
+#. 填写并提交表单。
+#. 如果提交了无效内容，或可能遗漏了必填项，表单会重新显示包含你的数据和描述问题的错误信息。
+#. 此过程持续直到提交有效表单。
 
-接收端必须:
+在接收端，脚本必须：
 
-#. 检查必需的数据。
-#. 验证数据类型正确,并满足正确的标准。例如,如果提交了用户名,必须验证它只包含允许的字符。它必须有最小长度,并且不超过最大长度。用户名不能是其他人已存在的用户名,或者可能是保留字等。
-#. 为安全起见对数据进行 sanitize。
-#. 如果需要的话预格式化数据。
+#. 检查必填数据。
+#. 验证数据类型正确并符合正确标准。例如，如果提交用户名，必须验证其仅包含允许字符。必须满足最小长度且不超过最大长度。用户名不能是他人已存在的用户名，甚至可能是保留字等。
+#. 对数据进行安全过滤。
+#. 必要时预处理数据格式。
 #. 准备数据以便插入数据库。
 
-尽管上述过程没有非常复杂的地方,但通常需要大量的代码,为了显示错误信息,各种控制结构通常放在表单 HTML 中。表单验证虽简单但一般实现起来既混乱又乏味。
+尽管上述过程并不复杂，但通常需要大量代码，并且为了显示错误信息，通常会在表单 HTML 中放置各种控制结构。表单验证虽然创建简单，但实现起来通常非常混乱和繁琐。
 
-*************************
+************************
 表单验证教程
-*************************
+************************
 
-以下是实现 CodeIgniter 表单验证的“动手”教程。
+以下是实现 CodeIgniter 表单验证的实践教程。
 
-为了实现表单验证,你需要三件事:
+要实现表单验证，你需要三样东西：
 
 #. 包含表单的 :doc:`视图 </outgoing/views>` 文件。
-#. 包含成功提交的“成功”消息的视图文件。
-#. :doc:`控制器 </incoming/controllers>` 方法来接收和处理提交的数据。
+#. 包含成功提交后显示的 "成功" 信息的视图文件。
+#. 接收和处理提交数据的 :doc:`控制器 </incoming/controllers>` 方法。
 
-让我们创建这三件事,以会员注册表单为例。
+让我们以会员注册表单为例创建这三个内容。
 
 表单
 ========
 
-使用文本编辑器,创建一个名为 **signup.php** 的表单。在其中放入以下代码并保存到你的 **app/Views/** 文件夹::
+使用文本编辑器创建名为 **signup.php** 的表单。在其中放置以下代码并保存到 **app/Views/** 文件夹::
 
     <html>
     <head>
@@ -69,7 +69,7 @@ CodeIgniter 提供了一个全面的数据验证类，帮助你减少编写代�
             <h5>确认密码</h5>
             <input type="text" name="passconf" value="<?= set_value('passconf') ?>" size="50">
 
-            <h5>电子邮件地址</h5>
+            <h5>邮箱地址</h5>
             <input type="text" name="email" value="<?= set_value('email') ?>" size="50">
 
             <div><input type="submit" value="提交"></div>
@@ -82,7 +82,7 @@ CodeIgniter 提供了一个全面的数据验证类，帮助你减少编写代�
 成功页面
 ================
 
-使用文本编辑器,创建一个名为 **success.php** 的页面。在其中放入以下代码,并保存到你的 **app/Views/** 文件夹::
+使用文本编辑器创建名为 **success.php** 的表单。在其中放置以下代码并保存到 **app/Views/** 文件夹::
 
     <html>
     <head>
@@ -90,9 +90,9 @@ CodeIgniter 提供了一个全面的数据验证类，帮助你减少编写代�
     </head>
     <body>
 
-        <h3>你的表单已成功提交!</h3>
+        <h3>你的表单已成功提交！</h3>
 
-        <p><?= anchor('form', '再试一次!') ?></p>
+        <p><?= anchor('form', '再试一次！') ?></p>
 
     </body>
     </html>
@@ -100,73 +100,68 @@ CodeIgniter 提供了一个全面的数据验证类，帮助你减少编写代�
 控制器
 ==============
 
-使用文本编辑器,创建一个名为 **Form.php** 的控制器。在其中放入以下代码,并保存到你的 **app/Controllers/** 文件夹:
+使用文本编辑器创建名为 **Form.php** 的控制器。在其中放置以下代码并保存到 **app/Controllers/** 文件夹：
 
 .. literalinclude:: validation/001.php
 
-.. note:: 从 v4.3.0 开始,可以使用 :ref:`$this->request->is() <incomingrequest-is>` 方法。
-    在早期版本中,需要使用 ``if (strtolower($this->request->getMethod()) !== 'post')``。
+.. note:: 自 v4.3.0 起可使用 :ref:`$this->request->is() <incomingrequest-is>` 方法。在早期版本中，需使用 ``if (strtolower($this->request->getMethod()) !== 'post')``。
 
-.. note:: 自 v4.4.0 起，可以使用 :ref:`$this->validator->getValidated() <validation-getting-validated-data>` 方法。
+.. note:: :ref:`$this->validator->getValidated() <validation-getting-validated-data>` 方法自 v4.4.0 起可用。
 
 路由
 ==========
 
-然后在 **app/Config/Routes.php** 中为控制器添加路由:
+然后在 **app/Config/Routes.php** 中添加控制器的路由：
 
 .. literalinclude:: validation/039.php
    :lines: 2-
 
-试一试!
-=======
+尝试运行！
+==========
 
-要测试你的表单,使用类似这样的 URL 访问你的网站::
+要测试表单，使用类似以下 URL 访问你的站点::
 
     example.com/index.php/form/
 
-如果提交表单,你应该只是简单地看到表单重新加载。这是因为你还没有在 :ref:`controller-validatedata` 中设置任何验证规则。
+如果提交表单，你应会看到表单重新加载。这是因为你尚未在 :ref:`controller-validatedata` 中设置任何验证规则。
 
-``validateData()`` 方法是控制器中的一个方法。它使用内部的 **验证类**。参见 :ref:`controller-validatedata`。
+``validateData()`` 是控制器中的一个方法，它在内部使用 **验证类**。详见 :ref:`controller-validatedata`。
 
-.. note:: 由于你还没有告诉 ``validateData()`` 方法要验证任何内容,它 **默认返回 false** (布尔值 false)。只有在成功应用你的规则且没有失败时, ``validateData()`` 方法才会返回 true。
+.. note:: 由于尚未告知 ``validateData()`` 方法验证任何内容，默认情况下它会返回 false（布尔值）。只有当所有规则成功应用且未失败时，``validateData()`` 方法才会返回 true。
 
-解释
+说明
 ===========
 
-你会注意到上面的页面有几件事。
+你会注意到上述页面的一些特点。
 
 signup.php
 ----------
 
-表单(**signup.php**)是一个标准的网页表单,有一些例外:
+表单（**signup.php**）是标准网页表单，但有几点例外：
 
-#. 它使用 :doc:`表单辅助函数 </helpers/form_helper>` 来创建表单的开标签和闭标签。从技术上讲,这不是必需的。你可以使用标准 HTML 来创建表单。
-   但是,使用辅助函数的好处是它会根据你的配置文件中的 URL 为你生成 action URL。这使得在 URL 变更的情况下你的应用更具可移植性。
-#. 在表单顶部,你会注意到以下函数调用:
-   ::
+#. 使用 :doc:`表单辅助函数 </helpers/form_helper>` 创建表单开头和结尾。技术上这不是必需的，你可以使用标准 HTML 创建表单。但使用辅助函数的优点是根据配置中的 URL 生成 action URL，提高应用在 URL 变更时的可移植性。
+#. 在表单顶部你会注意到以下函数调用::
 
     <?= validation_list_errors() ?>
 
-   这个函数将返回验证器发送回的任何错误消息。如果没有消息,它会返回一个空字符串。
+   此函数返回验证器返回的所有错误信息。若无信息则返回空字符串。
 
 Form.php
 --------
 
-控制器(**Form.php**)有一个属性:``$helpers``。
-它加载了视图文件使用的表单辅助函数。
+控制器（**Form.php**）有一个属性 ``$helpers``，它加载视图文件使用的表单辅助函数。
 
-控制器有一个方法:``index()``。这个方法在收到非 POST 请求时返回 **signup** 视图以显示表单。否则,它使用控制器提供的 :ref:`controller-validatedata` 方法。它还运行验证例程。
-根据验证是否成功,它要么显示表单,要么显示成功页面。
+控制器有一个方法 ``index()``。当非 POST 请求时返回 **signup** 视图显示表单。否则使用控制器提供的 :ref:`controller-validatedata` 方法运行验证流程。根据验证结果展示表单或成功页面。
 
 添加验证规则
 ====================
 
-然后在控制器中添加验证规则(**Form.php**):
+然后在控制器（**Form.php**）中添加验证规则：
 
 .. literalinclude:: validation/002.php
    :lines: 2-
 
-如果提交表单,你应该看到成功页面或带错误消息的表单。
+提交表单后，你将看到成功页面或带有错误信息的表单。
 
 *********************
 验证配置
@@ -174,16 +169,16 @@ Form.php
 
 .. _validation-traditional-and-strict-rules:
 
-传统规则和严格规则
+传统规则与严格规则
 ============================
 
 CodeIgniter 4 有两种验证规则类。
 
-默认的规则类（**严格规则**）的命名空间是 ``CodeIgniter\Validation\StrictRules``，它们提供严格的验证。
+默认规则类（**严格规则**）使用命名空间 ``CodeIgniter\Validation\StrictRules``，提供严格验证。
 
-传统的规则类（**传统规则**）的命名空间是 ``CodeIgniter\Validation``。它们仅为向后兼容而提供。它们可能无法正确验证非字符串值，不建议在新项目中使用。
+传统规则类（**传统规则**）使用命名空间 ``CodeIgniter\Validation``，仅为向后兼容保留。它们可能无法正确验证非字符串值，新项目无需使用。
 
-.. note:: 从 v4.3.0 开始,默认使用 **严格规则** 以获得更好的安全性。
+.. note:: 自 v4.3.0 起默认使用 **严格规则** 以提高安全性。
 
 严格规则
 ------------
@@ -195,23 +190,20 @@ CodeIgniter 4 有两种验证规则类。
 传统规则
 -----------------
 
-.. important:: 传统规则只存在于向后兼容性。在新项目中不要使用它们。即使你已经在使用它们，我们也建议切换到严格规则。
+.. important:: 传统规则仅为向后兼容存在。新项目请勿使用。即使已在使用的项目也建议切换至严格规则。
 
-.. warning:: 在验证包含非字符串值的数据时，比如 JSON 数据，你应该使用 **严格规则**。
+.. warning:: 当验证包含非字符串值（如 JSON 数据）时，应使用 **严格规则**。
 
-**传统规则** 隐式地假设正在验证字符串值,输入值可能会隐式转换为字符串值。
-它适用于大多数基本情况,如验证 POST 数据。
+**传统规则** 隐式假设验证的是字符串值，输入值可能隐式转换为字符串。这对大多数基本用例（如验证 POST 数据）有效。
 
-但是,例如,如果你使用 JSON 输入数据,它可能是 bool/null/array 类型。
-当你使用传统规则类验证布尔值 ``true`` 时,它会被转换为字符串 ``'1'``。
-如果使用 ``integer`` 规则对其进行验证, ``'1'`` 可以通过验证。
+但例如使用 JSON 输入数据时，可能是布尔/空/数组类型。用传统规则验证布尔 ``true`` 会转换为字符串 ``'1'``。用 ``integer`` 规则验证时，``'1'`` 会通过验证。
 
 使用传统规则
 -----------------------
 
-.. warning:: **传统规则** 仅为向后兼容而提供。它们可能无法正确验证非字符串值，不建议在新项目中使用。
+.. warning:: **传统规则** 仅为向后兼容保留。新项目不建议使用，可能无法正确验证非字符串值。
 
-如果你想使用传统规则,需要在 **app/Config/Validation.php** 中更改规则类:
+若要使用传统规则，需修改 **app/Config/Validation.php** 中的规则类：
 
 .. literalinclude:: validation/003.php
 
@@ -219,24 +211,23 @@ CodeIgniter 4 有两种验证规则类。
 加载库
 *******************
 
-该库以名为 **validation** 的服务加载:
+验证库作为名为 **validation** 的服务加载：
 
 .. literalinclude:: validation/004.php
    :lines: 2-
 
-这会自动加载 ``Config\Validation`` 文件,其中包含用于包含多个 Rulesets 的设置,以及可以轻松重用的规则集合。
+这段代码会自动加载 ``Config\Validation`` 文件，其中包含用于引入多个规则集的设置以及可轻松复用的规则集合。
 
-.. note:: 你可能永远不需要使用这个方法,因为 :doc:`控制器 </incoming/controllers>` 和
-    :doc:`模型 </models/model>` 都提供了使验证更容易的方法。
+.. note:: 你可能永远不需要使用此方法，因为 :doc:`控制器 </incoming/controllers>` 和 :doc:`模型 </models/model>` 都提供了简化验证的方法。
 
 ********************
 验证的工作原理
 ********************
 
-- 验证从不改变要验证的数据。
-- 验证会根据你设置的验证规则依次检查每个字段。如果任何规则返回 false，则该字段的检查到此结束。
-- 格式规则不允许空字符串。如果你想允许空字符串，请添加 ``permit_empty`` 规则。
-- 如果要验证的数据中不存在某个字段，则该值被解释为 ``null``。如果你想检查该字段是否存在，请添加 ``field_exists`` 规则。
+- 验证过程永不更改待验证数据。
+- 根据设置的验证规则依次检查每个字段。若任何规则返回 false，该字段检查即终止。
+- 格式规则不允许空字符串。若要允许空字符串，需添加 ``permit_empty`` 规则。
+- 若待验证数据中不存在某字段，其值视为 ``null``。要检查字段是否存在，需添加 ``field_exists`` 规则。
 
 .. note:: ``field_exists`` 规则自 v4.5.0 起可用。
 
@@ -244,8 +235,7 @@ CodeIgniter 4 有两种验证规则类。
 设置验证规则
 ************************
 
-CodeIgniter 允许你根据需要为一个字段设置尽可能多的验证规则,级联地指定它们。要设置验证规则,
-你将使用 ``setRule()``、``setRules()`` 或 ``withRequest()`` 方法。
+CodeIgniter 允许为字段设置多个验证规则并按顺序级联。要设置验证规则，需使用 ``setRule()``、``setRules()`` 或 ``withRequest()`` 方法。
 
 设置单个规则
 =====================
@@ -253,18 +243,18 @@ CodeIgniter 允许你根据需要为一个字段设置尽可能多的验证规�
 setRule()
 ---------
 
-这个方法设置一个规则。它具有如下方法签名::
+此方法设置单个规则，方法签名为::
 
     setRule(string $field, ?string $label, array|string $rules[, array $errors = []])
 
-``$rules`` 可以接收管道分隔的规则列表,或者规则数组:
+``$rules`` 接受管道分隔的规则列表或规则数组：
 
 .. literalinclude:: validation/005.php
    :lines: 2-
 
-你传递给 ``$field`` 的值必须匹配传入数据数组的键。如果数据直接来自 ``$_POST``,那么它必须与表单输入名称完全匹配。
+传递给 ``$field`` 的值必须与发送的数据数组键名匹配。若数据直接来自 ``$_POST``，则必须与表单输入名称完全匹配。
 
-.. warning:: 在 v4.2.0 之前,这个方法的第三个参数 ``$rules`` 的类型提示是接收 ``string``。在 v4.2.0 及以后,类型提示被删除以允许数组。为避免在扩展类中覆盖此方法时违反 LSP,子类的方法也应修改为删除类型提示。
+.. warning:: v4.2.0 之前，此方法的第三个参数 ``$rules`` 类型限定为 ``string``。v4.2.0 及之后版本移除了类型限定以支持数组。为避免扩展类中重写此方法时破坏 LSP，子类方法也应移除类型限定。
 
 设置多个规则
 ======================
@@ -272,37 +262,36 @@ setRule()
 setRules()
 ----------
 
-像 ``setRule()`` 一样,但接受字段名称及其规则的数组:
+类似 ``setRule()``，但接受字段名和规则的数组：
 
 .. literalinclude:: validation/006.php
    :lines: 2-
 
-要给出带标签的错误消息,可以设置如下:
+要设置带标签的错误信息：
 
 .. literalinclude:: validation/007.php
    :lines: 2-
 
-.. note:: ``setRules()`` 会覆盖先前设置的任何规则。要向现有规则集添加多个规则，请多次使用 ``setRule()``。
+.. note:: ``setRules()`` 会覆盖之前设置的规则。要为现有规则集添加多个规则，需多次使用 ``setRule()``。
 
 .. _validation-dot-array-syntax:
 
 为数组数据设置规则
 ============================
 
-如果你的数据在嵌套的关联数组中,你可以使用“点数组语法”来轻松验证数据:
+若数据是嵌套关联数组，可使用 "点数组语法" 轻松验证：
 
 .. literalinclude:: validation/009.php
    :lines: 2-
 
-你可以使用通配符 ``*`` 符号匹配任意一层数组:
+可使用通配符 ``*`` 匹配数组的任意一级：
 
 .. literalinclude:: validation/010.php
    :lines: 2-
 
-.. note:: 在 v4.4.4 之前，由于一个错误，通配符 ``*`` 在错误的下标上验证了数据。详情请参见 :ref:`升级 <upgrade-444-validation-with-dot-array-syntax>`。
+.. note:: v4.4.4 之前存在 bug，通配符 ``*`` 会错误验证数据维度。详见 :ref:`升级指南 <upgrade-444-validation-with-dot-array-syntax>`。
 
-当你有单维数组数据时,"点数组语法"也很有用。
-例如,下拉多选返回的数据:
+"点数组语法" 对单维数组数据也很有用。例如多选下拉返回的数据：
 
 .. literalinclude:: validation/011.php
    :lines: 2-
@@ -312,23 +301,18 @@ setRules()
 withRequest()
 =============
 
-.. important:: 该方法只存在于向后兼容性。在新项目中不要使用它。即使你已经在使用它，我们也建议你使用另一个更适合的方法。
+.. important:: 此方法仅为向后兼容存在。新项目请勿使用。即使已在使用，也建议改用其他更合适的方法。
 
-.. warning:: 如果你只想验证 POST 数据，不要使用 ``withRequest()``。
-    此方法使用 :ref:`$request->getVar() <incomingrequest-getting-data>`
-    它按照该顺序返回 ``$_GET``, ``$_POST`` 或 ``$_COOKIE`` 数据
-    （取决于 php.ini `request-order <https://www.php.net/manual/en/ini.core.php#ini.request-order>`_）。
-    新的值会覆盖旧的值。如果它们具有相同的名称，POST 值可能会被
-    Cookie 覆盖。
+.. warning:: 若仅需验证 POST 数据，请勿使用 ``withRequest()``。此方法使用 :ref:`$request->getVar() <incomingrequest-getting-data>`，根据 php.ini 的 `request-order <https://www.php.net/manual/en/ini.core.php#ini.request-order>`_ 返回 ``$_GET``、``$_POST`` 或 ``$_COOKIE`` 数据（按顺序）。新值覆盖旧值。若同名，Cookie 可能覆盖 POST 值。
 
-当验证从 HTTP 请求输入的数据时,你会最常使用验证库。如果需要的话,你可以传入当前请求对象的实例,它会获取所有输入数据并将其设置为要验证的数据:
+最常见的验证场景是验证来自 HTTP 请求的输入数据。若需要，可传递当前 Request 对象实例，它会将所有输入数据设为待验证数据：
 
 .. literalinclude:: validation/008.php
    :lines: 2-
 
-.. warning:: 当你使用此方法时，应使用 :ref:`getValidated() <validation-getting-validated-data>` 方法获取经过验证的数据。因为该方法从 :ref:`$request->getJSON() <incomingrequest-getting-json-data>` 获取 JSON 数据（当请求是 JSON 请求时，``Content-Type: application/json``），或者从 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>` 获取原始数据（当请求是 PUT、PATCH、DELETE 请求且不是 HTML 表单提交时，``Content-Type: multipart/form-data``），或者从 :ref:`$request->getVar() <incomingrequest-getting-data>` 获取数据，并且攻击者可以更改要验证的数据。
+.. warning:: 使用此方法时，应使用 :ref:`getValidated() <validation-getting-validated-data>` 获取已验证数据。因为此方法在处理 JSON 请求（``Content-Type: application/json``）时通过 :ref:`$request->getJSON() <incomingrequest-getting-json-data>` 获取 JSON 数据，或处理非表单提交的 PUT、PATCH、DELETE 请求时通过 :ref:`$request->getRawInput() <incomingrequest-retrieving-raw-data>` 获取原始数据，攻击者可能改变验证数据。
 
-.. note:: 自 v4.4.0 起，可以使用 :ref:`getValidated() <validation-getting-validated-data>` 方法。
+.. note:: :ref:`getValidated() <validation-getting-validated-data>` 方法自 v4.4.0 起可用。
 
 ***********************
 使用验证
@@ -337,25 +321,23 @@ withRequest()
 运行验证
 ==================
 
-``run()`` 方法运行验证。它有如下方法签名::
+``run()`` 方法运行验证，方法签名为::
 
     run(?array $data = null, ?string $group = null, ?string $dbGroup = null): bool
 
-``$data`` 是要验证的数据数组。可选的第二个参数
-``$group`` 是要应用的 :ref:`预定义规则组 <validation-array>`。
-可选的第三个参数 ``$dbGroup`` 是要使用的数据库组。
+``$data`` 是待验证数据数组。可选参数 ``$group`` 是要应用的 :ref:`预定义规则组 <validation-array>`。可选参数 ``$dbGroup`` 是使用的数据库组。
 
-如果验证成功,该方法返回 true。
+验证成功时返回 true。
 
 .. literalinclude:: validation/043.php
    :lines: 2-
 
-运行多个验证
+运行多次验证
 ============================
 
-.. note:: ``run()`` 方法不会重置错误状态。如果前一次运行失败, ``run()`` 将总是返回 false, ``getErrors()`` 将返回所有先前的错误,直到明确重置。
+.. note:: ``run()`` 方法不会重置错误状态。若前次运行失败，``run()`` 将始终返回 false，且 ``getErrors()`` 返回所有先前错误直到显式重置。
 
-如果你打算运行多个验证,例如对不同的数据集或之后的规则,你可能需要在每次运行之前调用 ``$validation->reset()`` 来清除之前运行的错误。要注意 ``reset()`` 会使任何数据、规则或自定义错误无效,所以 ``setRules()``、``setRuleGroup()`` 等需要重复:
+若需运行多次验证（例如不同数据集或不同规则），可能需要在每次运行前调用 ``$validation->reset()`` 清除先前错误。注意 ``reset()`` 会清空之前设置的任何数据、规则或自定义错误，因此需重复调用 ``setRules()``、``setRuleGroup()`` 等：
 
 .. literalinclude:: validation/019.php
    :lines: 2-
@@ -363,26 +345,23 @@ withRequest()
 验证单个值
 ==================
 
-``check()`` 方法根据规则验证一个值。
-第一个参数 ``$value`` 是要验证的值。第二个参数 ``$rule`` 是验证规则。
-可选的第三个参数 ``$errors`` 是自定义错误消息。
+``check()`` 方法根据规则验证单个值。第一个参数 ``$value`` 是待验证值，第二个参数 ``$rule`` 是验证规则，可选第三个参数 ``$errors`` 是自定义错误信息。
 
 .. literalinclude:: validation/012.php
    :lines: 2-
 
-.. note:: 在 v4.4.0 之前，此方法的第二个参数 ``$rule`` 的类型提示为 ``string``。在 v4.4.0 及之后的版本中，类型提示被移除，允许接受数组。
+.. note:: v4.4.0 之前，此方法的第二个参数 ``$rule`` 类型限定为 ``string``。v4.4.0 及之后版本移除了类型限定以支持数组。
 
-.. note:: 此方法调用 ``setRule()`` 方法在内部设置规则。
+.. note:: 此方法内部调用 ``setRule()`` 设置规则。
 
 .. _validation-getting-validated-data:
 
-获取经过验证的数据
+获取已验证数据
 ======================
 
 .. versionadded:: 4.4.0
 
-可以使用 ``getValidated()`` 方法获取实际经过验证的数据。
-该方法返回一个仅包含已通过验证规则的元素的数组。
+实际已验证数据可通过 ``getValidated()`` 方法获取。此方法返回仅包含通过验证规则的元素数组。
 
 .. literalinclude:: validation/044.php
    :lines: 2-
@@ -392,40 +371,40 @@ withRequest()
 
 .. _saving-validation-rules-to-config-file:
 
-将一组验证规则保存到配置文件
+将验证规则保存到配置文件
 ==================================================
 
-验证类的一个很好的特性是它允许你将所有验证规则存储在配置文件中。你可以按“组”组织规则。每次运行验证时,你都可以指定不同的组。
+验证类的一个优点是可以将所有应用的验证规则存储在配置文件中。你可以将规则组织成"组"，每次运行验证时指定不同组。
 
 .. _validation-array:
 
 如何保存规则
 ----------------------
 
-要存储验证规则,只需在 ``Config\Validation`` 类中创建一个新的公共属性,名称为你的组名。这个元素将持有一个包含你的验证规则的数组。如前所示,验证数组的原型如下:
+要存储验证规则，只需在 ``Config\Validation`` 类中创建新的公共属性，属性名即组名。该元素将保存包含验证规则的数组。如前所示，验证数组原型如下：
 
 .. literalinclude:: validation/013.php
 
 如何指定规则组
 -------------------------
 
-当调用 ``run()`` 方法时,你可以在第一个参数中指定要使用的组:
+调用 ``run()`` 方法时指定要使用的组：
 
 .. literalinclude:: validation/014.php
    :lines: 2-
 
-如何保存错误消息
+如何保存错误信息
 --------------------------
 
-你也可以在此配置文件中存储自定义错误消息,方法是命名与组相同的属性,并追加 ``_errors``。这些将在使用该组时自动用于任何错误:
+也可在配置文件中通过创建与组同名并附加 ``_errors`` 的属性来存储自定义错误信息。使用该组时会自动应用这些错误信息：
 
 .. literalinclude:: validation/015.php
 
-或者以数组形式传入所有设置:
+或通过数组传递所有设置：
 
 .. literalinclude:: validation/016.php
 
-参见 :ref:`validation-custom-errors` 了解数组格式的细节。
+数组格式详见 :ref:`validation-custom-errors`。
 
 获取和设置规则组
 -----------------------------
@@ -433,7 +412,7 @@ withRequest()
 获取规则组
 ^^^^^^^^^^^^^^
 
-此方法从验证配置中获取规则组:
+此方法从验证配置获取规则组：
 
 .. literalinclude:: validation/017.php
    :lines: 2-
@@ -441,7 +420,7 @@ withRequest()
 设置规则组
 ^^^^^^^^^^^^^^
 
-此方法将验证配置中的规则组设置到验证服务中:
+此方法将验证配置中的规则组设置到验证服务：
 
 .. literalinclude:: validation/018.php
    :lines: 2-
@@ -451,75 +430,72 @@ withRequest()
 验证占位符
 =======================
 
-验证类提供了一种简单的方法,基于传入的数据替换规则的一部分。这听起来比较模糊,但在使用 ``is_unique`` 验证规则时特别有用。
+验证类提供了一种基于传入数据替换规则部分内容的简便方法。这听起来可能有些晦涩，但在使用 ``is_unique`` 验证规则时特别有用。
 
-占位符简单地是以花括号括起来的字段名(或数组键),该字段名作为 ``$data`` 传入。它将被传入字段的 **值** 所替换。以下示例将阐明这一点:
+占位符是用花括号包裹的传入数据字段名（或数组键）。它将被匹配传入字段的 **值** 替换。以下示例可阐明此概念：
 
 .. literalinclude:: validation/020.php
    :lines: 2-
 
-.. warning:: 自 v4.3.5 起，出于安全原因，你必须为占位符字段（上述示例代码中的 ``id`` 字段）设置验证规则。因为攻击者可以向你的应用程序发送任何数据。
+.. warning:: 自 v4.3.5 起，出于安全考虑必须为占位符字段（上例中的 ``id`` 字段）设置验证规则。因为攻击者可能向应用发送任意数据。
 
-在这组规则中,它说明电子邮件地址在数据库中应该是唯一的,除了具有与占位符的值匹配的 id 的行。假设表单 POST 数据如下:
+在此规则集中，声明邮箱地址应在数据库中唯一，除了 id 与占位符值匹配的行。假设表单 POST 数据如下：
 
 .. literalinclude:: validation/021.php
    :lines: 2-
 
-然后 ``{id}`` 占位符会被替换为数字 **4**,得到这条修改后的规则:
+则 ``{id}`` 占位符会被替换为数字 **4**，形成调整后的规则：
 
 .. literalinclude:: validation/022.php
    :lines: 2-
 
-所以在验证电子邮件唯一性时,它会忽略数据库中 ``id=4`` 的行。
+因此验证邮箱唯一性时将忽略数据库中 ``id=4`` 的行。
 
-.. note:: 从 v4.3.5 开始,如果占位符(``id``)的值未通过验证,占位符不会被替换。
+.. note:: 自 v4.3.5 起，若占位符（如 ``id``）值未通过验证，占位符将不被替换。
 
-只要传入的动态键不与表单数据冲突,这也可以在运行时用于创建更动态的规则。
+只要确保传入的动态键名不与表单数据冲突，这也可用于在运行时创建更动态的规则。
 
 *******************
 处理错误
 *******************
 
-验证库提供了几种方法来帮助你设置错误消息、提供自定义错误消息以及检索一个或多个错误以显示。
+验证库提供多种方法帮助你设置错误信息、提供自定义错误信息及获取一个或多个错误信息用于显示。
 
-默认情况下，错误消息来源于 **system/Language/en/Validation.php** 中的语言字符串，其中每个规则都有一个条目。如果你想要更改消息默认值，创建一个文件 **app/Language/en/Validation.php** （使用本地化对应的文件夹，替代 ``en``）
-并在其中放置那些不同于默认值的错误消息的 Key 和值。
+默认情况下，错误信息来自 **system/Language/en/Validation.php** 中的语言字符串，每个规则对应一个条目。若要更改默认信息，可创建 **app/Language/en/Validation.php** 文件（和/或对应语言环境文件夹），并在其中放置要修改的错误信息键值对。
 
 .. _validation-custom-errors:
 
-设置自定义错误消息
+设置自定义错误信息
 =============================
 
-``setRule()`` 和 ``setRules()`` 方法的最后一个参数都可以接受自定义消息数组,它将用于每个字段的特定错误。这允许对用户来说是非常愉快的体验,因为错误是针对每个实例定制的。如果没有提供自定义错误消息,将使用默认值。
+``setRule()`` 和 ``setRules()`` 方法均可接受自定义错误信息数组作为最后一个参数，为每个字段提供特定错误信息。若未提供自定义信息，则使用默认值。
 
-有两种方式可以提供自定义错误消息。
+有两种方式提供自定义错误信息：
 
-作为最后一个参数:
+作为最后一个参数：
 
 .. literalinclude:: validation/023.php
    :lines: 2-
 
-或者以标签样式:
+或标签式：
 
 .. literalinclude:: validation/024.php
    :lines: 2-
 
-如果你想要包含字段的“人类”名称,或某些规则允许的可选参数(如 max_length),或者被验证的值,你可以分别在消息中添加 ``{field}``、``{param}`` 和 ``{value}`` 标签::
+若要在信息中包含字段"人类可读"名称、规则允许的可选参数（如 max_length）或验证值，可在信息中添加 ``{field}``、``{param}`` 和 ``{value}`` 标签::
 
-    'min_length' => '提供的 {field} 值 ({value}) 必须至少有 {param} 个字符。'
+    'min_length' => '提供的值 ({value}) 对于 {field} 必须至少 {param} 个字符。'
 
-对一个人类名称为 Username、规则为 ``min_length[6]``、值为 "Pizza" 的字段,错误会显示:"提供的 Username 值 (Pizza) 必须至少有 6 个字符。"
+对于人类名称为"用户名"、规则为 ``min_length[6]``、值为 "Pizza" 的字段，错误信息将显示："提供的值 (Pizza) 对于用户名必须至少 6 个字符。"
 
-.. warning:: 如果使用 ``getErrors()`` 或 ``getError()`` 获取错误消息,消息不会被 HTML 转义。如果使用像 ``({value})`` 这样的用户输入数据来制作错误消息,它可能包含 HTML 标签。如果你在显示之前不转义消息,可能存在 XSS 攻击。
+.. warning:: 通过 ``getErrors()`` 或 ``getError()`` 获取错误信息时，信息未进行 HTML 转义。若使用用户输入数据（如 ``{value}``）生成错误信息，可能包含 HTML 标签。若未转义直接显示，可能导致 XSS 攻击。
 
-.. note:: 当使用标签样式的错误消息时,如果你向 ``setRules()`` 传递第二个参数,它将被第一个参数的值覆盖。
+.. note:: 使用标签式错误信息时，若传递第二个参数给 ``setRules()``，它会被第一个参数的值覆盖。
 
-翻译消息和验证标签
-============================================
+信息与验证标签的翻译
+=============================================
 
-要使用语言文件中的翻译字符串,我们可以简单地使用点语法。
-假设我们有一个位于这里的翻译文件:**app/Languages/en/Rules.php**。
-我们可以简单地使用这个文件中定义的语言行,像这样:
+要使用语言文件中的翻译字符串，可使用点语法。假设翻译文件位于 **app/Languages/en/Rules.php**，可如下使用定义的语言行：
 
 .. literalinclude:: validation/025.php
    :lines: 2-
@@ -529,16 +505,16 @@ withRequest()
 获取所有错误
 ==================
 
-如果你需要检索所有失败字段的错误消息,可以使用 ``getErrors()`` 方法:
+要获取所有失败字段的错误信息，可使用 ``getErrors()`` 方法：
 
 .. literalinclude:: validation/026.php
    :lines: 2-
 
-如果没有错误,将返回一个空数组。
+若无错误，返回空数组。
 
-当使用通配符 (``*``) 时,错误将指向特定的字段,用适当的键替换通配符::
+使用通配符（``*``）时，错误将指向特定字段，用相应键替换星号::
 
-    // 对于数据
+    // 数据
     'contacts' => [
         'friends' => [
             [
@@ -553,45 +529,44 @@ withRequest()
     // 规则
     'contacts.friends.*.name' => 'required'
 
-    // 错误将是
-    'contacts.friends.1.name' => 'contacts.friends.*.name 字段是必需的。'
+    // 错误为
+    'contacts.friends.1.name' => 'contacts.friends.*.name 字段是必填项。'
 
 获取单个错误
 ======================
 
-你可以使用 ``getError()`` 方法检索单个字段的错误。唯一的参数是字段名称:
+可用 ``getError()`` 方法获取单个字段错误。唯一参数是字段名：
 
 .. literalinclude:: validation/027.php
    :lines: 2-
 
-如果没有错误,将返回一个空字符串。
+若无错误，返回空字符串。
 
-.. note:: 当使用通配符时,所有匹配通配符的找到的错误将组合成一行,以 EOL 字符分隔。
+.. note:: 使用通配符时，所有匹配通配符的错误将合并为一行，用换行符分隔。
 
-检查错误是否存在
+检查是否存在错误
 =====================
 
-你可以使用 ``hasError()`` 方法检查是否存在错误。唯一的参数是字段名称:
+可用 ``hasError()`` 方法检查是否存在错误。唯一参数是字段名：
 
 .. literalinclude:: validation/028.php
    :lines: 2-
 
-当指定使用通配符的字段时,将检查匹配通配符的所有错误:
+指定带通配符的字段时，检查所有匹配错误：
 
 .. literalinclude:: validation/029.php
    :lines: 2-
 
 .. _validation-redirect-and-validation-errors:
 
-重定向和验证错误
+重定向与验证错误
 ==============================
 
-PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定向的请求中将没有验证错误,因为验证是在前一个请求中运行的。
+PHP 请求间不共享数据。因此若验证失败后重定向，新请求中不会有验证错误，因为验证在上次请求中运行。
 
-在这种情况下,你需要使用表单辅助函数 :php:func:`validation_errors()`、:php:func:`validation_list_errors()` 和 :php:func:`validation_show_error()`。
-这些函数检查存储在会话中的验证错误。
+此时需使用表单辅助函数 :php:func:`validation_errors()`、:php:func:`validation_list_errors()` 和 :php:func:`validation_show_error()`。这些函数检查存储在会话中的验证错误。
 
-要在会话中存储验证错误,你需要在 :php:func:`redirect()` 中使用 ``withInput()``:
+要将验证错误存入会话，需将 ``withInput()`` 与 :php:func:`redirect() <redirect>` 结合使用：
 
 .. literalinclude:: validation/042.php
    :lines: 2-
@@ -602,40 +577,39 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 自定义错误显示
 *************************
 
-当你调用 ``$validation->listErrors()`` 或 ``$validation->showError()`` 时,它会在后台加载一个视图文件,该文件确定如何显示错误。默认情况下,它们显示在一个 class 为 ``errors`` 的 div 中。你可以轻松地创建新视图并在整个应用中使用它们。
+调用 ``$validation->listErrors()`` 或 ``$validation->showError()`` 时，会在后台加载视图文件决定错误显示方式。默认情况下，用 ``errors`` class 包裹 div。可轻松创建新视图并在应用中复用。
 
 创建视图
 ==================
 
-第一步是创建自定义视图。可以将这些视图放在 ``view()`` 方法可以找到的任何位置,这意味着标准的视图目录或任何命名空间视图文件夹都可以工作。例如,你可以在 **app/Views/_errors_list.php** 创建一个新视图:
+第一步是创建自定义视图。这些视图可放在 ``view()`` 方法能定位的任何位置，如标准视图目录或命名空间视图文件夹。例如，可在 **app/Views/_errors_list.php** 创建新视图：
 
 .. literalinclude:: validation/030.php
 
-在视图内可以使用名为 ``$errors`` 的数组,它包含错误列表,其中键是有错误的字段名称,值是错误消息,像这样:
+视图中可用 ``$errors`` 数组包含错误列表，键为字段名，值为错误信息：
 
 .. literalinclude:: validation/031.php
    :lines: 2-
 
-实际上有两种类型的视图你可以创建。第一种具有所有错误的数组,这就是我们刚才看到的。另一种更简单,只包含一个名为 ``$error`` 的变量,其中包含错误消息。这在使用 ``showError()`` 方法时使用,该方法必须指定错误属于的字段::
+实际上有两种视图类型。第一种包含所有错误数组，如前所述。第二种更简单，仅包含单个变量 ``$error``，用于 ``showError()`` 方法指定字段时::
 
     <span class="help-block"><?= esc($error) ?></span>
 
 配置
 =============
 
-一旦你创建了视图，你需要让 Validation 库知道它们的存在。打开 **app/Config/Validation.php** 文件。
-在文件中，你会找到 ``$templates`` 属性，在这里你可以列出任意数量的自定义视图，并提供一个简短的别名以便引用。如果我们要添加上面的示例文件，它看起来会像这样：
+创建视图后，需让验证库知晓这些视图。打开 **app/Config/Validation.php** 文件，你会找到 ``$templates`` 属性。在此可以列出任意数量的自定义视图，并为其指定可引用的简短别名。如果添加上文示例文件，配置示例如下：
 
 .. literalinclude:: validation/032.php
 
 指定模板
 =======================
 
-你可以通过在 ``listErrors()`` 中作为第一个参数传递其别名来指定要使用的模板::
+通过别名指定模板作为 ``listErrors()`` 的第一个参数::
 
     <?= $validation->listErrors('my_list') ?>
 
-当显示特定字段的错误时,可以将别名作为 ``showError()`` 方法的第二个参数传递,紧跟着错误所属字段的名称::
+显示字段特定错误时，可将别名作为 ``showError()`` 的第二个参数::
 
     <?= $validation->showError('username', 'my_single') ?>
 
@@ -648,32 +622,32 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 使用规则类
 ==================
 
-规则存储在简单的命名空间类中。它们可以存储在你喜欢的任何位置，只要自动加载器能够找到它们。这些文件被称为 RuleSets。
+规则存储在简单的命名空间类中，只要自动加载器能找到即可。这些文件称为规则集。
 
 添加规则集
 ----------------
 
-要添加新的规则集,请编辑 **app/Config/Validation.php** 并将新文件添加到 ``$ruleSets`` 数组中:
+要添加新规则集，请编辑 **app/Config/Validation.php** 文件并将新文件加入 ``$ruleSets`` 数组：
 
 .. literalinclude:: validation/033.php
 
-你可以将其添加为一个包含完全限定类名的简单字符串，或者使用上面所示的 ``::class`` 后缀。使用 ``::class`` 后缀的主要好处是它在更高级的 IDE 中提供了一些额外的导航功能。
+可通过两种方式添加：使用完全限定类名的字符串形式，或如示例所示使用 ``::class`` 后缀。使用 ``::class`` 后缀的主要优势是在高级 IDE 中能提供额外的导航功能。
 
 创建规则类
 ---------------------
 
-在文件本身中,每个方法都是一条规则,必须接受要验证的值作为第一个参数,并返回一个布尔真或假值,表示如果通过测试则为真,否则为假:
+在该文件内，每个方法即代表一条规则，必须将待验证值作为第一个参数，且必须返回布尔值 true 或 false 表示验证是否通过：
 
 .. literalinclude:: validation/034.php
 
-默认情况下，系统会在 **system/Language/en/Validation.php** 中查找错误中使用的语言字符串。为了为你的自定义规则提供默认的错误消息，你可以将它们放在 **app/Language/en/Validation.php** 中（使用本地化对应的文件夹，替代 ``en``）。另外，如果你想使用其他语言字符串文件替代默认的 **Validation.php**，你可以通过接受一个 ``&$error`` 变量（作为第二个参数，或者，如果你的规则需要处理参数，如下所述 - 第四个参数）来提供错误消息：
+默认情况下，系统会在 **system/Language/en/Validation.php** 中查找错误信息使用的语言字符串。要为自定义规则提供默认错误信息，可将其置于 **app/Language/en/Validation.php**（和/或替代 ``en`` 的其他语言环境对应文件夹）。若需使用默认 **Validation.php** 之外的其他语言文件，可通过在第二个参数（若规则需要处理参数，则为第四个参数）以引用方式接受 ``&$error`` 变量来提供错误信息：
 
 .. literalinclude:: validation/035.php
 
 使用自定义规则
 -------------------
 
-你的新自定义规则现在可以像任何其他规则一样使用了:
+新自定义规则可像其他规则一样使用：
 
 .. literalinclude:: validation/036.php
    :lines: 2-
@@ -681,16 +655,16 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 允许参数
 -------------------
 
-如果你的方法需要使用参数,函数需要至少三个参数:
+若方法需要参数，函数至少需要三个参数：
 
-1. 要验证的值(``$value``)
-2. 参数字符串(``$params``)
-3. 提交表单的所有数据的数组(``$data``)
-4. (可选)自定义错误字符串(``&$error``),如上所述
+1. 待验证值（``$value``）
+2. 参数字符串（``$params``）
+3. 表单提交的所有数据数组（``$data``）
+4. （可选）自定义错误字符串（``&$error``）
 
-.. warning:: ``$data`` 中的值是未验证的(或可能无效的)。使用未验证的输入数据是漏洞的源头。你必须在自定义规则内对 ``$data`` 中的数据执行必要的验证,然后再使用它。
+.. warning:: ``$data`` 中的字段值未经验证（或可能无效）。使用未验证输入数据是漏洞来源。在使用数据前必须在自定义规则中执行必要验证。
 
-``$data`` 数组对需要检查提交的其他字段的值来确定结果的规则特别有用,比如 ``required_with`` :
+``$data`` 数组对于像 ``required_with`` 这样需要检查其他字段值的规则特别有用：
 
 .. literalinclude:: validation/037.php
 
@@ -701,18 +675,16 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 
 .. versionadded:: 4.3.0
 
-如果你的应用中只需要自定义规则的功能一次,你可以使用闭包 instead of 规则类。
+若自定义规则仅需在应用中使用一次，可使用闭包代替规则类。
 
-你需要为验证规则使用数组:
+需为验证规则使用数组：
 
 .. literalinclude:: validation/040.php
    :lines: 2-
 
-你必须为闭包规则设置错误消息。
-设置错误消息时,请为闭包规则设置数组键。
-在上面的代码中, ``required`` 规则的键为 ``0``,闭包的键为 ``1``。
+必须为闭包规则设置错误信息。指定错误信息时，需设置闭包规则的数组键。上例中，``required`` 规则键为 ``0``，闭包为 ``1``。
 
-或者可以使用以下参数:
+或使用以下参数：
 
 .. literalinclude:: validation/041.php
    :lines: 2-
@@ -724,18 +696,16 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 
 .. versionadded:: 4.5.0
 
-如果你想使用数组回调作为规则，可以用它来代替闭包规则。
+若想用数组回调作为规则，可替代闭包规则。
 
-你需要为验证规则使用数组：
+需为验证规则使用数组：
 
 .. literalinclude:: validation/046.php
    :lines: 2-
 
-你必须为可调用规则设置错误消息。
-当你指定错误消息时，为可调用规则设置数组键。
-在上面的代码中，``required`` 规则的键是 ``0``，而可调用规则的键是 ``1``。
+必须为可调用规则设置错误信息。指定错误信息时，需设置可调用规则的数组键。上例中，``required`` 规则键为 ``0``，可调用规则为 ``1``。
 
-或者你可以使用以下参数：
+或使用以下参数：
 
 .. literalinclude:: validation/047.php
    :lines: 2-
@@ -746,75 +716,76 @@ PHP 请求之间不共享任何内容。所以在验证失败时重定向,重定
 可用规则
 ***************
 
-.. note:: 规则是一个字符串;参数之间绝不能有 **空格**,特别是 ``is_unique`` 规则。
-    ``ignore_value`` 前后不能有空格。
+.. note:: 规则是一个字符串；参数之间 **不能有空格**，尤其是 ``is_unique`` 规则。``ignore_value`` 前后也不能有空格。
 
 .. literalinclude:: validation/038.php
    :lines: 2-
 
 .. _rules-for-general-use:
 
-常规规则
+通用规则
 =====================
 
-以下是可用的所有原生规则列表:
+以下是所有可用的原生规则列表：
 
-======================= ========== ================================================================= ===================================================
-规则                    参数       描述                                                              示例
-======================= ========== ================================================================= ===================================================
-alpha                   无         如果字段包含除 ASCII 字母字符之外的任何内容,则失败。
-alpha_dash              无         如果字段包含除 ASCII 字母数字字符、下划线或破折号之外的任何内容,
-                                   则失败。
-alpha_numeric           无         如果字段包含除 ASCII 字母数字字符之外的任何内容,则失败。
-alpha_numeric_punct     无         如果字段包含除字母数字、空格和这组有限标点之外的任何内容,
-                                   则失败:``~`` (波浪号)、
-                                   ``!`` (感叹号)、``#`` (数字)、
-                                   ``$`` (美元符号), ``%`` (百分号), ``&`` (和号),
-                                   ``*`` (星号), ``-`` (破折号),
-                                   ``_`` (下划线), ``+`` (加号),
-                                   ``=`` (等号), ``|`` (竖线),
-                                   ``:`` (冒号), ``.`` (句点)。
-alpha_numeric_space     无         如果字段包含除 ASCII 字母数字和空格字符之外的任何内容,则失败。
-alpha_space             无         如果字段包含 ASCII 空格和字母字符之外的任何内容,则失败。
-decimal                 无         如果字段包含除十进制数字外的任何内容,则失败。
-                                   也接受数字前的 ``+`` 或 ``-`` 号。
-differs                 是         如果字段与参数中字段的值不不同,则失败。                           ``differs[field_name]``
-exact_length            是         如果字段长度不完全等于参数值，则验证失败。                        ``exact_length[5]`` 或 ``exact_length[5,8,12]``
-                                   可以使用一个或多个逗号分隔的值。
-field_exists            是         如果字段不存在则失败。（此规则在 v4.5.0 中添加。）
-greater_than            是         如果字段小于或等于参数值,或不是数字,则失败。                      ``greater_than[8]``
-greater_than_equal_to   是         如果字段小于参数值,或不是数字,则失败。                            ``greater_than_equal_to[5]``
-hex                     无         如果字段包含除十六进制字符之外的任何内容,则失败。
-if_exist                无         如果存在此规则,验证将仅在要验证的数据中存在字段键时检查该字段。
-in_list                 是         如果字段不在预定列表中,则失败。                                   ``in_list[red,blue,green]``
-integer                 无         如果字段包含除整数之外的任何内容,则失败。
-is_natural              无         如果字段包含除自然数之外的任何内容,则失败: ``0``, ``1``, ``2``,
-                                   ``3`` 等。
-is_natural_no_zero      无         如果字段包含除自然数和零之外的任何内容,则失败: ``1``, ``2``,
-                                   ``3`` 等。
-is_not_unique           是         检查数据库中是否存在给定的值。                                    ``is_not_unique[table.field,where_field,where_value]``
-                                   可以通过字段/值过滤器忽略记录(当前只接受一个过滤器)。             或 ``is_not_unique[dbGroup.table.field,where_field,where_value]``
-                                   （自 v4.6.0 版本起，你可以选择性地将 dbGroup 作为参数传递。）
-is_unique               是         检查字段值是否存在于数据库中。可以可选地设置要忽略的列和值,       ``is_unique[table.field,ignore_field,ignore_value]``
-                                   在更新记录时很有用,忽略它本身。                                   或 ``is_unique[dbGroup.table.field,ignore_field,ignore_value]``
-                                   （自 v4.6.0 版本起，你可以选择性地将 dbGroup 作为参数传递。）
-less_than               是         如果字段大于或等于参数值,或不是数字,则失败。                      ``less_than[8]``
-less_than_equal_to      是         如果字段大于参数值,或不是数字,则失败。                            ``less_than_equal_to[8]``
-matches                 是         值必须匹配参数中字段的值。                                        ``matches[field]``
-max_length              是         如果字段长于参数值,则失败。                                       ``max_length[8]``
-min_length              是         如果字段短于参数值,则失败。                                       ``min_length[3]``
-not_in_list             是         如果字段在预定列表中,则失败。                                     ``not_in_list[red,blue,green]``
-numeric                 无         如果字段包含除数字外的任何内容,则失败。
-permit_empty            无         允许字段接收空数组、空字符串、null 或 false。
-regex_match             是         如果字段不匹配正则表达式,则失败。                                 ``regex_match[/regex/]``
-required                无         如果字段为空数组、空字符串、null 或 false,则失败。
-required_with           是         当数据中任何其他字段不为空时,该字段是必需的。                     ``required_with[field1,field2]``
-required_without        是         当数据中任何其他字段为空时,该字段是必需的。                       ``required_without[field1,field2]``
-string                  无         **alpha** 规则的通用替代,确认元素是一个字符串。
-timezone                无         如果字段不匹配 `timezone_identifiers_list()`_ 中的时区,则失败。
-valid_base64            无         如果字段包含除有效的 Base64 字符之外的任何内容,则失败。
-valid_cc_number         是         验证信用卡号是否与指定提供程序使用的格式匹配。                    ``valid_cc_number[amex]``
-                                   当前支持的提供程序有:
+======================= ========== ============================================= ===================================================
+规则                    参数       描述                                          示例
+======================= ========== ============================================= ===================================================
+alpha                   否         若字段包含非 ASCII 字母字符则失败。
+alpha_dash              否         若字段包含非字母数字、下划线或短横线
+                                   （ASCII）则失败。
+alpha_numeric           否         若字段包含非 ASCII 字母数字字符则失败。
+alpha_numeric_punct     否         若字段包含非字母数字、空格或以下标点则失败：
+                                   ``~``（波浪符）、``!``（叹号）、``#``（井号）、
+                                   ``$``（美元符）、``%``（百分号）、
+                                   ``&``（与符号）、``*``（星号）、``-``（短横）、
+                                   ``_``（下划线）、``+``（加号）、``=``（等号）、
+                                   ``|``（竖线）、``:``（冒号）、``.``（句点）。
+alpha_numeric_space     否         若字段包含非字母数字或空格（ASCII）则失败。
+alpha_space             否         若字段包含非字母或空格（ASCII）则失败。
+decimal                 否         若字段包含非十进制数则失败
+                                   （允许 ``+/-`` 符号）。
+differs                 是         若字段值与参数字段相同则失败。                ``differs[字段名]``
+exact_length            是         若字段长度不等于参数值则失败                  ``exact_length[5]`` 或 ``exact_length[5,8,12]``
+                                   （支持逗号分隔多值）。
+field_exists            是         若字段不存在则失败（v4.5.0 新增）。
+greater_than            是         若字段值小于等于参数值或非数字则失败。        ``greater_than[8]``
+greater_than_equal_to   是         若字段值小于参数值或非数字则失败。            ``greater_than_equal_to[5]``
+hex                     否         若字段包含非十六进制字符则失败。
+if_exist                否         仅当字段存在于验证数据中时才进行验证。
+in_list                 是         若字段值不在指定列表中则失败。                ``in_list[红,蓝,绿]``
+integer                 否         若字段包含非整数值则失败。
+is_natural              否         若字段包含非自然数（0,1,2...）则失败。
+is_natural_no_zero      否         若字段包含非自然数（1,2,3...）则失败。
+is_not_unique           是         检查数据库中是否存在给定的值。                ``is_not_unique[table.field,where_field,where_value]`` 或 ``is_not_unique[dbGroup.table.field,where_field,where_value]``
+                                   可以通过字段/值过滤器忽略记录
+                                   （当前只接受一个过滤器）。
+                                   （自 v4.6.0 版本起，你可以选择性地将
+                                   dbGroup 作为参数传递。）
+is_unique               是         检查字段值是否存在于数据库中。                ``is_unique[table.field,ignore_field,ignore_value]`` 或 ``is_unique[dbGroup.table.field,ignore_field,ignore_value]``
+                                   可以可选地设置要忽略的列和值,
+                                   在更新记录时很有用,忽略它本身。
+                                   （自 v4.6.0 版本起，你可以选择性地将
+                                   dbGroup 作为参数传递。）
+less_than               是         若字段值大于等于参数值或非数字则失败。        ``less_than[8]``
+less_than_equal_to      是         若字段值大于参数值或非数字则失败。            ``less_than_equal_to[8]``
+matches                 是         值必须与参数字段值匹配。                      ``matches[字段]``
+max_length              是         若字段长度超过参数值则失败。                  ``max_length[8]``
+min_length              是         若字段长度短于参数值则失败。                  ``min_length[3]``
+not_in_list             是         若字段值在指定列表中则失败。                  ``not_in_list[红,蓝,绿]``
+numeric                 否         若字段包含非数字字符则失败。
+permit_empty            否         允许字段为空数组、空字符串、null 或 false。
+regex_match             是         若字段不匹配正则表达式则失败。                ``regex_match[/正则表达式/]``
+required                否         若字段为空数组、空字符串、null 或
+                                   false 则失败。
+required_with           是         当其他任一字段非空时本字段必填。              ``required_with[字段1,字段2]``
+required_without        是         当其他任一字段为空时本字段必填。              ``required_without[字段1,字段2]``
+string                  否         通用字符串验证（替代 **alpha*** 系列规则）。
+timezone                否         若字段不符合时区标识符则失败
+                                   （基于 `timezone_identifiers_list()`_）。
+valid_base64            否         若字段包含非合法 Base64 字符则失败。
+valid_cc_number         是         验证信用卡号是否与指定提供程序                ``valid_cc_number[amex]``
+                                   使用的格式匹配。当前支持的提供程序有：
                                    美国运通 (``amex``)、
                                    中国银联 (``unionpay``)、
                                    Diners Club CarteBlance (``carteblanche``)、
@@ -822,8 +793,9 @@ valid_cc_number         是         验证信用卡号是否与指定提供程�
                                    Discover Card (``discover``)、
                                    Interpayment (``interpayment``)、
                                    JCB (``jcb``)、 Maestro (``maestro``)、
-                                   丹麦银行的 Dankort (``dankort``)、 NSPK MIR (``mir``)、
-                                   Troy (``troy``)、 MasterCard (``mastercard``)、
+                                   丹麦银行的 Dankort (``dankort``)、
+                                   NSPK MIR (``mir``)、Troy (``troy``)、
+                                   MasterCard (``mastercard``)、
                                    Visa (``visa``)、 UATP (``uatp``)、
                                    Verve (``verve``)、
                                    CIBC 便利卡 (``cibc``)、
@@ -832,27 +804,29 @@ valid_cc_number         是         验证信用卡号是否与指定提供程�
                                    Scotiabank 圣哥伦布卡 (``scotia``)、
                                    BMO 自动柜员机卡 (``bmoabm``)、
                                    HSBC 加拿大卡 (``hsbc``)
-valid_json              无         如果字段不包含有效的 JSON 字符串,则失败。
-valid_email             无         如果字段不包含有效的电子邮件地址,则失败。
-valid_emails            无         如果任何以逗号分隔提供的值不是有效的电子邮件,则失败。
-valid_ip                是         如果提供的 IP 无效,则失败。
-                                   可选参数为 ``ipv4`` 或 ``valid_ip[ipv6]``
-                                   ``ipv6`` 以指定 IP 格式。
-valid_url               无         如果字段不包含(宽松的)URL,则失败。
-                                   包括可能是主机名的简单字符串,
-                                   如“codeigniter”。**通常,应使用** ``valid_url_strict``。
-valid_url_strict        是         如果字段不包含有效的 URL,则失败。你可以可选地指定                 ``valid_url_strict[https]``
-                                   有效 schema 的列表。如果未指定, ``http,https``
-                                   有效。此规则使用 PHP 的 ``FILTER_VALIDATE_URL``。
-valid_date              是         如果字段不包含有效日期，则验证失败。                              ``valid_date[d/m/Y]``
-                                   任何 `strtotime()`_ 接受的字符串都是有效的，
-                                   前提是你没有指定一个匹配日期格式的可选参数。
-                                   **因此，通常有必要指定该参数。**
-======================= ========== ================================================================= ===================================================
+valid_date              是         如果字段不包含有效的日期，则验证失败。        ``valid_date[d/m/Y]``
+                                   任何 `strtotime()`_ 接受的字符串，
+                                   只要你不指定与日期格式匹配的可选参数，
+                                   都是有效的。**因此，通常有必要指定参数。**
+valid_email             否         若字段不符合邮箱格式则失败。
+valid_emails            否         若逗号分隔列表中任一邮箱无效则失败。
+valid_ip                是         如果提供的 IP 无效，则失败。                  ``valid_ip[ipv6]``
+                                   接受一个可选参数 ``ipv4`` 或 ``ipv6``
+                                   来指定 IP 格式。
+valid_json              否         若字段非合法 JSON 字符串则失败。
+valid_url               否         如果字段不包含（宽松意义上的）URL，
+                                   则验证失败。包括可能作为主机名的简单字符串，
+                                   例如 "codeigniter"。
+                                   **通常，应该使用 ``valid_url_strict``。**
+valid_url_strict        是         如果字段不包含有效的 URL，则验证失败。        ``valid_url_strict[https]``
+                                   你可以选择性地指定一个有效 schema 的列表。
+                                   如果未指定，则 ``http,https`` 是有效的。
+                                   此规则使用 PHP 的 ``FILTER_VALIDATE_URL``。
+======================= ========== ============================================= ===================================================
 
-.. note:: 你也可以使用任何返回布尔值并且至少允许一个参数（要验证的字段数据）的原生 PHP 函数。
+.. note:: 你还可以使用任何返回布尔值且至少接受一个参数（待验证字段数据）的原生 PHP 函数。
 
-.. important:: 验证库 **从不更改** 要验证的数据。
+.. important:: 验证库 **从不修改** 待验证数据。
 
 .. _timezone_identifiers_list(): https://www.php.net/manual/en/function.timezone-identifiers-list.php
 .. _strtotime(): https://www.php.net/manual/en/function.strtotime.php
@@ -863,11 +837,11 @@ valid_date              是         如果字段不包含有效日期，则验�
 文件上传规则
 ======================
 
-当你验证上传的文件时，必须使用专门为文件验证创建的规则。
+验证上传文件时，必须使用专门针对文件验证的规则。
 
-.. important:: 只有下表中列出的规则可以用于验证文件。因此，如果在文件验证规则数组或字符串中添加任何通用规则，如 ``permit_empty``，文件验证将无法正确工作。
+.. important:: 只能使用下表列出的规则验证文件。若在文件验证规则数组或字符串中添加通用规则（如 ``permit_empty``），将导致文件验证失效。
 
-由于文件上传 HTML 字段的值不存在,而是存储在 ``$_FILES`` 全局变量中,所以需要两次使用输入字段的名称。一次是像其他规则一样指定字段名称,另一次是作为所有与文件上传相关规则的第一个参数::
+由于文件上传字段的值不存在于常规数据中，而是存储在 ``$_FILES`` 全局变量，因此输入字段名需要被使用两次：一次作为常规字段名，另一次作为文件相关规则的第一个参数::
 
     // 在 HTML 中
     <input type="file" name="avatar">
@@ -877,26 +851,25 @@ valid_date              是         如果字段不包含有效日期，则验�
         'avatar' => 'uploaded[avatar]|max_size[avatar,1024]',
     ]);
 
-参见 :ref:`file-upload-form-tutorial`
+另见 :ref:`file-upload-form-tutorial`。
 
-======================= ========== ============================================================ ===================================================
-规则                    参数       描述                                                         示例
-======================= ========== ============================================================ ===================================================
-uploaded                是         如果参数的名称与任何上传文件的名称不匹配，则会失败。         ``uploaded[field_name]``
-                                   如果你希望文件上传是可选的（不是必需的），则不要定义此规则。
-max_size                是         如果上传的文件大于第二个参数指定的千字节（kb）大小，
-                                   或者大于 php.ini 配置文件中声明的允许最大大小
-                                   （``upload_max_filesize`` 指令），则会失败。
-max_dims                是         如果上传图像的最大宽度和高度超过值,则失败。
-                                   第一个参数是字段名称。
-                                   第二个是宽度,第三个是高度。如果无法确定文件是图像,也会失败。
-min_dims                是         当上传图片的最小宽度和高度不符合要求时，验证将失败。         ``min_dims[field_name,300,150]``
-                                   第一个参数是字段名称，第二个是宽度，第三个是高度。
-                                   如果文件无法被识别为图片，验证同样会失败。
-                                   （此规则在 v4.6.0 版本中新增。）
-mime_in                 是         如果文件的 mime 类型不在参数中列出,则失败。                  ``mime_in[field_name,image/png,image/jpeg]``
-ext_in                  是         如果文件扩展名不在参数中列出,则失败。                        ``ext_in[field_name,png,jpg,gif]``
-is_image                是         如果根据 mime 类型无法确定文件是图像,则失败。                ``is_image[field_name]``
-======================= ========== ============================================================ ===================================================
+======================= ========== ============================================= ===================================================
+规则                    参数       描述                                          示例
+======================= ========== ============================================= ===================================================
+uploaded                是         如果参数的名称与任何已上传文件的名称不匹配，  ``uploaded[字段名]``
+                                   则验证失败。 如果你希望文件上传是可选的
+                                   （非必需的），请不要定义此规则。
+max_size                是         若文件大小超过参数值（单位 KB）或 php.ini 中  ``max_size[字段名,2048]``
+                                   ``upload_max_filesize`` 限制则失败。
+max_dims                是         若图片尺寸超过指定宽高则失败，参数依次为      ``max_dims[字段名,300,150]``
+                                   字段名、最大宽度、最大高度。
+                                   若非图片文件也会失败。
+min_dims                是         若图片尺寸未达最小宽高则失败，参数依次为      ``min_dims[字段名,300,150]``
+                                   字段名、最小宽度、最小高度。
+                                   （此规则在 v4.6.0 版本新增）
+mime_in                 是         若文件 MIME 类型不在参数列表中则失败。        ``mime_in[字段名,image/png,image/jpeg]``
+ext_in                  是         若文件扩展名不在参数列表中则失败。            ``ext_in[字段名,png,jpg,gif]``
+is_image                是         若文件无法被识别为图片则失败。                ``is_image[字段名]``
+======================= ========== ============================================= ===================================================
 
-文件验证规则适用于单个和多个文件上传。
+文件验证规则同时适用于单文件和多文件上传场景。
