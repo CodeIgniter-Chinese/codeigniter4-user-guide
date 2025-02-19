@@ -1539,6 +1539,282 @@
 <section id="rules-for-general-use">
 <span id="id56"></span><h3><a class="toc-backref" href="#id99" role="doc-backlink">通用规则</a><a class="headerlink" href="#rules-for-general-use" title="此标题的永久链接"></a></h3>
 <p>以下是所有可用的原生规则列表：</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>规则</p></th>
+<th class="head"><p>参数</p></th>
+<th class="head"><p>描述</p></th>
+<th class="head"><p>示例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>alpha</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非 ASCII 字母字符则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>alpha_dash</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非字母数字、下划线或短横线
+（ASCII）则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>alpha_numeric</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非 ASCII 字母数字字符则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>alpha_numeric_punct</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非字母数字、空格或以下标点则失败：
+<code class="docutils literal notranslate"><span class="pre">~``（波浪符）、</span></code>!``（叹号）、
+<code class="docutils literal notranslate"><span class="pre">#``（井号）、``$``（美元符）、</span>
+<span class="pre">``%``（百分号）、``&amp;``（与符号）、</span>
+<span class="pre">``*``（星号）、</span></code>-<code class="docutils literal notranslate"><span class="pre">（短横）、</span>
+<span class="pre">``_``（下划线）、``+``（加号）、</span>
+<span class="pre">``=``（等号）、``|``（竖线）、</span>
+<span class="pre">``:``（冒号）、</span></code>.``（句点）。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>alpha_numeric_space</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非字母数字或空格（ASCII）则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>alpha_space</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非字母或空格（ASCII）则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>decimal</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非十进制数则失败
+（允许 <code class="docutils literal notranslate"><span class="pre">+/-</span></code> 符号）。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>differs</p></td>
+<td><p>是</p></td>
+<td><p>若字段值与参数字段相同则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">differs[字段名]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>exact_length</p></td>
+<td><p>是</p></td>
+<td><p>若字段长度不等于参数值则失败
+（支持逗号分隔多值）。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">exact_length[5]</span></code> 或 <code class="docutils literal notranslate"><span class="pre">exact_length[5,8,12]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>field_exists</p></td>
+<td><p>是</p></td>
+<td><p>若字段不存在则失败（v4.5.0 新增）。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>greater_than</p></td>
+<td><p>是</p></td>
+<td><p>若字段值小于等于参数值或非数字则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">greater_than[8]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>greater_than_equal_to</p></td>
+<td><p>是</p></td>
+<td><p>若字段值小于参数值或非数字则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">greater_than_equal_to[5]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>hex</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非十六进制字符则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>if_exist</p></td>
+<td><p>否</p></td>
+<td><p>仅当字段存在于验证数据中时才进行验证。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>in_list</p></td>
+<td><p>是</p></td>
+<td><p>若字段值不在指定列表中则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">in_list[红,蓝,绿]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>integer</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非整数值则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>is_natural</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非自然数（0,1,2…）则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>is_natural_no_zero</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非自然数（1,2,3…）则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>is_not_unique</p></td>
+<td><p>是</p></td>
+<td><p>检查数据库中是否存在给定的值。
+可以通过字段/值过滤器忽略记录
+（当前只接受一个过滤器）。
+（自 v4.6.0 版本起，你可以选择性地将
+dbGroup 作为参数传递。）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">is_not_unique[table.field,where_field,where_value]</span></code> 或 <code class="docutils literal notranslate"><span class="pre">is_not_unique[dbGroup.table.field,where_field,where_value]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>is_unique</p></td>
+<td><p>是</p></td>
+<td><p>检查字段值是否存在于数据库中。
+可以可选地设置要忽略的列和值,
+在更新记录时很有用,忽略它本身。
+（自 v4.6.0 版本起，你可以选择性地将
+dbGroup 作为参数传递。）</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">is_unique[table.field,ignore_field,ignore_value]</span></code> 或 <code class="docutils literal notranslate"><span class="pre">is_unique[dbGroup.table.field,ignore_field,ignore_value]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>less_than</p></td>
+<td><p>是</p></td>
+<td><p>若字段值大于等于参数值或非数字则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">less_than[8]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>less_than_equal_to</p></td>
+<td><p>是</p></td>
+<td><p>若字段值大于参数值或非数字则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">less_than_equal_to[8]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>matches</p></td>
+<td><p>是</p></td>
+<td><p>值必须与参数字段值匹配。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">matches[字段]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>max_length</p></td>
+<td><p>是</p></td>
+<td><p>若字段长度超过参数值则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max_length[8]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>min_length</p></td>
+<td><p>是</p></td>
+<td><p>若字段长度短于参数值则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">min_length[3]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>not_in_list</p></td>
+<td><p>是</p></td>
+<td><p>若字段值在指定列表中则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">not_in_list[红,蓝,绿]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>numeric</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非数字字符则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>permit_empty</p></td>
+<td><p>否</p></td>
+<td><p>允许字段为空数组、空字符串、null 或 false。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>regex_match</p></td>
+<td><p>是</p></td>
+<td><p>若字段不匹配正则表达式则失败。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">regex_match[/正则表达式/]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>required</p></td>
+<td><p>否</p></td>
+<td><p>若字段为空数组、空字符串、null 或
+false 则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>required_with</p></td>
+<td><p>是</p></td>
+<td><p>当其他任一字段非空时本字段必填。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">required_with[字段1,字段2]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>required_without</p></td>
+<td><p>是</p></td>
+<td><p>当其他任一字段为空时本字段必填。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">required_without[字段1,字段2]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>string</p></td>
+<td><p>否</p></td>
+<td><p>通用字符串验证（替代 <strong>alpha*</strong> 系列规则）。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>timezone</p></td>
+<td><p>否</p></td>
+<td><p>若字段不符合时区标识符则失败
+（基于 <a class="reference external" href="https://www.php.net/manual/en/function.timezone-identifiers-list.php">timezone_identifiers_list()</a>）。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>valid_base64</p></td>
+<td><p>否</p></td>
+<td><p>若字段包含非合法 Base64 字符则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>valid_cc_number</p></td>
+<td><p>是</p></td>
+<td><p>验证信用卡号是否与指定提供程序
+使用的格式匹配。当前支持的提供程序有：
+美国运通 (<code class="docutils literal notranslate"><span class="pre">amex</span></code>)、
+中国银联 (<code class="docutils literal notranslate"><span class="pre">unionpay</span></code>)、
+Diners Club CarteBlance (<code class="docutils literal notranslate"><span class="pre">carteblanche</span></code>)、
+Diners Club (<code class="docutils literal notranslate"><span class="pre">dinersclub</span></code>)、
+Discover Card (<code class="docutils literal notranslate"><span class="pre">discover</span></code>)、
+Interpayment (<code class="docutils literal notranslate"><span class="pre">interpayment</span></code>)、
+JCB (<code class="docutils literal notranslate"><span class="pre">jcb</span></code>)、 Maestro (<code class="docutils literal notranslate"><span class="pre">maestro</span></code>)、
+丹麦银行的 Dankort (<code class="docutils literal notranslate"><span class="pre">dankort</span></code>)、
+NSPK MIR (<code class="docutils literal notranslate"><span class="pre">mir</span></code>)、Troy (<code class="docutils literal notranslate"><span class="pre">troy</span></code>)、
+MasterCard (<code class="docutils literal notranslate"><span class="pre">mastercard</span></code>)、
+Visa (<code class="docutils literal notranslate"><span class="pre">visa</span></code>)、 UATP (<code class="docutils literal notranslate"><span class="pre">uatp</span></code>)、
+Verve (<code class="docutils literal notranslate"><span class="pre">verve</span></code>)、
+CIBC 便利卡 (<code class="docutils literal notranslate"><span class="pre">cibc</span></code>)、
+罗伊银行客户卡 (<code class="docutils literal notranslate"><span class="pre">rbc</span></code>)、
+TD Canada Trust 访问卡 (<code class="docutils literal notranslate"><span class="pre">tdtrust</span></code>)、
+Scotiabank 圣哥伦布卡 (<code class="docutils literal notranslate"><span class="pre">scotia</span></code>)、
+BMO 自动柜员机卡 (<code class="docutils literal notranslate"><span class="pre">bmoabm</span></code>)、
+HSBC 加拿大卡 (<code class="docutils literal notranslate"><span class="pre">hsbc</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">valid_cc_number[amex]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>valid_date</p></td>
+<td><p>是</p></td>
+<td><p>如果字段不包含有效的日期，则验证失败。
+任何 <a class="reference external" href="https://www.php.net/manual/en/function.strtotime.php">strtotime()</a> 接受的字符串，
+只要你不指定与日期格式匹配的可选参数，
+都是有效的。<strong>因此，通常有必要指定参数。</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">valid_date[d/m/Y]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>valid_email</p></td>
+<td><p>否</p></td>
+<td><p>若字段不符合邮箱格式则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>valid_emails</p></td>
+<td><p>否</p></td>
+<td><p>若逗号分隔列表中任一邮箱无效则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>valid_ip</p></td>
+<td><p>是</p></td>
+<td><p>如果提供的 IP 无效，则失败。
+接受一个可选参数 <code class="docutils literal notranslate"><span class="pre">ipv4</span></code> 或 <code class="docutils literal notranslate"><span class="pre">ipv6</span></code>
+来指定 IP 格式。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">valid_ip[ipv6]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>valid_json</p></td>
+<td><p>否</p></td>
+<td><p>若字段非合法 JSON 字符串则失败。</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>valid_url</p></td>
+<td><p>否</p></td>
+<td><p>如果字段不包含（宽松意义上的）URL，
+则验证失败。包括可能作为主机名的简单字符串，
+例如 “codeigniter”。
+<strong>通常，应该使用 ``valid_url_strict``。</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>valid_url_strict</p></td>
+<td><p>是</p></td>
+<td><p>如果字段不包含有效的 URL，则验证失败。
+你可以选择性地指定一个有效 schema 的列表。
+如果未指定，则 <code class="docutils literal notranslate"><span class="pre">http,https</span></code> 是有效的。
+此规则使用 PHP 的 <code class="docutils literal notranslate"><span class="pre">FILTER_VALIDATE_URL</span></code>。</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">valid_url_strict[https]</span></code></p></td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
 <p>你还可以使用任何返回布尔值且至少接受一个参数（待验证字段数据）的原生 PHP 函数。</p>
@@ -1644,7 +1920,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fb3ee067ad0>
+<jinja2.runtime.BlockReference object at 0x7fa45efab5d0>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
