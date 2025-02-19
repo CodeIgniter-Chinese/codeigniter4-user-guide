@@ -303,7 +303,7 @@ withRequest()
 
 .. important:: 此方法仅为向后兼容存在。新项目请勿使用。即使已在使用，也建议改用其他更合适的方法。
 
-.. warning:: 若仅需验证 POST 数据，请勿使用 ``withRequest()``。此方法使用 :ref:`$request->getVar() <incomingrequest-getting-data>`，根据 php.ini 的 `request-order <https://www.php.net/manual/en/ini.core.php#ini.request-order>`_ 返回 ``$_GET``、``$_POST`` 或 ``$_COOKIE`` 数据（按顺序）。新值覆盖旧值。若同名，Cookie 可能覆盖 POST 值。
+.. warning:: 若仅需验证 POST 数据，请勿使用 ``withRequest()``。此方法使用 :ref:`$request->getVar() <incomingrequest-getting-data>`，根据 php.ini 的 `request-order <https://www.php.net/manual/zh/ini.core.php#ini.request-order>`_ 返回 ``$_GET``、``$_POST`` 或 ``$_COOKIE`` 数据（按顺序）。新值覆盖旧值。若同名，Cookie 可能覆盖 POST 值。
 
 最常见的验证场景是验证来自 HTTP 请求的输入数据。若需要，可传递当前 Request 对象实例，它会将所有输入数据设为待验证数据：
 
@@ -830,9 +830,9 @@ valid_url_strict        是         如果字段不包含有效的 URL，则验�
 
 .. important:: 验证库 **从不修改** 待验证数据。
 
-.. _timezone_identifiers_list(): https://www.php.net/manual/en/function.timezone-identifiers-list.php
-.. _strtotime(): https://www.php.net/manual/en/function.strtotime.php
-.. _empty(): https://www.php.net/manual/en/function.empty.php
+.. _timezone_identifiers_list(): https://www.php.net/manual/zh/function.timezone-identifiers-list.php
+.. _strtotime(): https://www.php.net/manual/zh/function.strtotime.php
+.. _empty(): https://www.php.net/manual/zh/function.empty.php
 
 .. _rules-for-file-uploads:
 
