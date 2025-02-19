@@ -906,7 +906,7 @@ Update
 $builder->replace()
 -------------------
 
-此方法执行 **REPLACE** 语句，本质上是 SQL 标准的（可选）**DELETE** + **INSERT**，使用 *PRIMARY* 和 *UNIQUE* 作为决定因素。在我们的案例中，它将使你无需通过组合不同的 ``select()``、``update()``、``delete()`` 和 ``insert()`` 调用来实现复杂逻辑。
+此方法执行 **REPLACE** 语句，本质上是 SQL 标准的（可选） **DELETE** + **INSERT**，使用 *PRIMARY* 和 *UNIQUE* 作为决定因素。在我们的案例中，它将使你无需通过组合不同的 ``select()``、``update()``、``delete()`` 和 ``insert()`` 调用来实现复杂逻辑。
 
 示例：
 

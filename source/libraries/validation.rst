@@ -819,7 +819,7 @@ valid_json              否         若字段非合法 JSON 字符串则失败�
 valid_url               否         如果字段不包含（宽松意义上的）URL，
                                    则验证失败。包括可能作为主机名的简单字符串，
                                    例如 "codeigniter"。
-                                   **通常，应该使用 ``valid_url_strict``。**
+                                   **通常，应该使用** ``valid_url_strict``。
 valid_url_strict        是         如果字段不包含有效的 URL，则验证失败。        ``valid_url_strict[https]``
                                    你可以选择性地指定一个有效 schema 的列表。
                                    如果未指定，则 ``http,https`` 是有效的。
