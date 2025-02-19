@@ -21,7 +21,7 @@ SQL 注入防护
 传递给查询构建器的参数可以是：
     1. **标识符**，例如字段（或表）名
     2. 它们的 **值**
-    3. **SQL 字符串**的一部分
+    3. **SQL 字符串** 的一部分
 
 查询构建器默认会对所有 **值** 进行转义。
 
@@ -376,7 +376,7 @@ $builder->like()
 
     .. literalinclude:: query_builder/039.php
 
-    如果要控制通配符（**%**）的位置，可以使用可选的第三个参数。选项为 ``before``、``after`` 和 ``both``（默认）。
+    如果要控制通配符（ **%** ）的位置，可以使用可选的第三个参数。选项为 ``before``、``after`` 和 ``both`` （默认）。
 
     .. literalinclude:: query_builder/040.php
 
@@ -519,7 +519,7 @@ $builder->havingLike()
 
     .. literalinclude:: query_builder/060.php
 
-    如果要控制通配符（**%**）的位置，可以使用可选的第三个参数。选项为 ``before``、``after`` 和 ``both``（默认）。
+    如果要控制通配符（ **%** ）的位置，可以使用可选的第三个参数。选项为 ``before``、``after`` 和 ``both`` （默认）。
 
     .. literalinclude:: query_builder/061.php
 
@@ -742,7 +742,7 @@ $builder->insert()
 $builder->ignore()
 ------------------
 
-根据你提供的数据生成 insert ignore 字符串并运行查询。因此，如果具有相同主键的条目已存在，则不会插入该查询。你可以选择向该方法传递 **布尔值**。也可用于 **insertBatch**、**update** 和 **delete**（在支持时）。以下是使用上述示例数组的示例：
+根据你提供的数据生成 insert ignore 字符串并运行查询。因此，如果具有相同主键的条目已存在，则不会插入该查询。你可以选择向该方法传递 **布尔值**。也可用于 **insertBatch**、**update** 和 **delete** （在支持时）。以下是使用上述示例数组的示例：
 
 .. literalinclude:: query_builder/078.php
 
