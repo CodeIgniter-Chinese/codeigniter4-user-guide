@@ -813,6 +813,8 @@ $builder->upsert()
 
 .. literalinclude:: query_builder/112.php
 
+.. note:: 对于非 MySQL 的数据库，如果一个表包含多个键（主键或唯一键），在处理约束时默认会优先使用主键。如果你希望使用其他唯一键而非主键，请使用 ``onConstraint()`` 方法。
+
 第一个参数是值的关联数组。
 
 以下是使用对象的示例：

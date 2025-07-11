@@ -442,10 +442,10 @@ $forge->modifyColumn()
 
         创建新表。用法:参见 `创建表格`_。
 
-    .. php:method:: dropColumn($table, $column_name)
+    .. php:method:: dropColumn($table, $columnNames)
 
         :param    string    $table: 表名
-        :param    mixed    $column_names: 逗号分隔的字符串或列名称数组
+        :param    mixed    $columnNames: 逗号分隔的字符串或列名称数组
         :returns:    成功则为 true,失败则为 false
         :rtype:    bool
 
@@ -511,10 +511,10 @@ $forge->modifyColumn()
 
         修改表列。用法:参见 `修改表中的字段`_。
 
-    .. php:method:: renameTable($table_name, $new_table_name)
+    .. php:method:: renameTable($tableName, $newTableName)
 
-        :param    string    $table: 表的当前名称
-        :param    string    $new_table_name: 表的新名称
+        :param    string    $tableName: 表的当前名称
+        :param    string    $newTableName: 表的新名称
         :returns:   成功则为查询对象,失败则为 false
         :rtype:    mixed
 

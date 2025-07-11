@@ -265,9 +265,9 @@ CodeIgniter 提供了一些全局定义的函数和变量,在任何时候都可�
 
     .. note:: 当你将 ``Config\App:$forceGlobalSecureRequests`` 设置为 true 时，也会使用此函数。
 
-.. php:function:: function_usable($function_name)
+.. php:function:: function_usable($functionName)
 
-    :param string $function_name: 要检查的函数
+    :param string $functionName: 要检查的函数
     :returns: 如果函数存在且可安全调用则为 true,否则为 false
     :rtype: bool
 

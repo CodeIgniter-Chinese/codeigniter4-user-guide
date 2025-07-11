@@ -22,10 +22,10 @@
 
 以下方法可用:
 
-.. php:function:: autoTypography($str[, $reduce_linebreaks = false])
+.. php:function:: autoTypography($str[, $reduceLinebreaks = false])
 
     :param    string    $str: 输入字符串
-    :param    bool    $reduce_linebreaks: 是否把多个连续的空行减少到两个
+    :param    bool    $reduceLinebreaks: 是否把多个连续的空行减少到两个
     :returns:    HTML 格式的适合排版的字符串
     :rtype: string
 
