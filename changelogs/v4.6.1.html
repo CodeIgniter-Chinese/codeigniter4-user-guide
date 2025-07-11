@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>版本 4.5.1 &mdash; CodeIgniter 4.6.1 中文手册|用户手册|用户指南|中文文档</title>
+  <title>版本 4.6.1 &mdash; CodeIgniter 4.6.1 中文手册|用户手册|用户指南|中文文档</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme.css" />
       <link rel="stylesheet" type="text/css" href="../_static/css/citheme_dark.css" />
@@ -27,8 +27,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="版本 4.5.0" href="v4.5.0.html" />
-    <link rel="prev" title="版本 4.5.2" href="v4.5.2.html" /> 
+    <link rel="next" title="版本 4.6.0" href="v4.6.0.html" />
+    <link rel="prev" title="变更记录" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -280,7 +280,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../installation/index.html">安装</a></li>
           <li class="breadcrumb-item"><a href="index.html">变更记录</a></li>
-      <li class="breadcrumb-item active">版本 4.5.1</li>
+      <li class="breadcrumb-item active">版本 4.6.1</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -290,19 +290,46 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>版本 4.5.1<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
-<p>发布日期：2024 年 4 月 14 日</p>
-<p><strong>CodeIgniter4 的 4.5.1 版本发布</strong></p>
+<h1>版本 4.6.1<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h1>
+<p>发布日期: 2025 年 5 月 2 日</p>
+<p><strong>CodeIgniter4 的 4.6.1 版本发布</strong></p>
 <nav class="contents local" id="id2">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id3" id="id4">修复的错误</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id6">变更内容</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id7">废弃功能</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id8">错误修复</a></p></li>
 </ul>
 </nav>
 <section id="id3">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">修复的错误</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
-<p>请参阅仓库中的
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">变更内容</a><a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<ul class="simple">
+<li><p><strong>Mimes</strong>: 在 <code class="docutils literal notranslate"><span class="pre">Config\Mimes</span></code> 类中为 <code class="docutils literal notranslate"><span class="pre">stl</span></code> 扩展名添加了 <code class="docutils literal notranslate"><span class="pre">model/stl</span></code> 和 <code class="docutils literal notranslate"><span class="pre">application/octet-stream</span></code> MIME 类型。</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">废弃功能</a><a class="headerlink" href="#id4" title="此标题的永久链接"></a></h2>
+<ul class="simple">
+<li><p><strong>Cache:</strong> <code class="docutils literal notranslate"><span class="pre">FileHandler::writeFile()</span></code> 方法已被废弃。请使用 <code class="docutils literal notranslate"><span class="pre">write_file()</span></code> 代替。</p></li>
+<li><p><strong>Cache:</strong> <code class="docutils literal notranslate"><span class="pre">FileHandler::deleteFiles()</span></code> 方法已被废弃。请使用 <code class="docutils literal notranslate"><span class="pre">delete_files()</span></code> 代替。</p></li>
+<li><p><strong>Cache:</strong> <code class="docutils literal notranslate"><span class="pre">FileHandler::getDirFileInfo()</span></code> 方法已被废弃。请使用 <code class="docutils literal notranslate"><span class="pre">get_dir_file_info()</span></code> 代替。</p></li>
+<li><p><strong>Cache:</strong> <code class="docutils literal notranslate"><span class="pre">FileHandler::getFileInfo()</span></code> 方法已被废弃。请使用 <code class="docutils literal notranslate"><span class="pre">get_file_info()</span></code> 代替。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">错误修复</a><a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
+<ul class="simple">
+<li><p><strong>CURLRequest:</strong> 修复了在目标服务器进行多次重定向时，CURL 响应体中出现多个头部部分的问题。</p></li>
+<li><p><strong>Cors:</strong> 修复了 Cors 过滤器中的一个错误，该错误导致当另一个过滤器在 <code class="docutils literal notranslate"><span class="pre">before</span></code> 过滤器中返回响应对象时，未添加适当的头部。</p></li>
+<li><p><strong>Database:</strong> 修复了 <code class="docutils literal notranslate"><span class="pre">Postgre</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SQLite3</span></code> 处理程序中的一个错误，其中复合唯一键在 <code class="docutils literal notranslate"><span class="pre">upsert</span></code> 类型查询中未被完全考虑。</p></li>
+<li><p><strong>Database:</strong> 修复了 <code class="docutils literal notranslate"><span class="pre">OCI8</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SQLSRV</span></code> 驱动程序中的一个错误，其中 <code class="docutils literal notranslate"><span class="pre">getVersion()</span></code> 在数据库连接尚未建立时返回空字符串。</p></li>
+<li><p><strong>Logger:</strong> 修复了在记录消息时，<code class="docutils literal notranslate"><span class="pre">{line}</span></code> 变量无法在不指定 <code class="docutils literal notranslate"><span class="pre">{file}</span></code> 变量的情况下使用的错误。</p></li>
+<li><p><strong>Session:</strong> 修复了当向 <code class="docutils literal notranslate"><span class="pre">Session::setTempdata()</span></code> 提供数组数据时，<code class="docutils literal notranslate"><span class="pre">Session::markAsTempdata()</span></code> 会给出错误 TTL 的错误。</p></li>
+<li><p><strong>Toolbar:</strong> 修复了将 <code class="docutils literal notranslate"><span class="pre">maxHistory</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 会在调试工具栏中产生 JavaScript 错误的问题。</p></li>
+<li><p><strong>Toolbar:</strong> 修复了将 <code class="docutils literal notranslate"><span class="pre">maxHistory</span></code> 设置为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 会阻止日志文件被正确清除的问题。</p></li>
+</ul>
+<p>请查看仓库的
 <a class="reference external" href="https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md">CHANGELOG.md</a>
-获取完整的错误修复列表。</p>
+以获取完整的错误修复列表。</p>
 </section>
 </section>
 
@@ -310,8 +337,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="v4.5.2.html" class="btn btn-neutral float-left" title="版本 4.5.2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="v4.5.0.html" class="btn btn-neutral float-right" title="版本 4.5.0" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="变更记录" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="v4.6.0.html" class="btn btn-neutral float-right" title="版本 4.6.0" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -326,7 +353,7 @@
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
     由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
   
-<jinja2.runtime.BlockReference object at 0x7fe6e3a09310>
+<jinja2.runtime.BlockReference object at 0x7fe6df564990>
 
 <div style="margin-top: 16px;">
   <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
