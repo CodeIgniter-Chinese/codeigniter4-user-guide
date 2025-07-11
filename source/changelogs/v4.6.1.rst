@@ -1,0 +1,42 @@
+#############
+版本 4.6.1
+#############
+
+发布日期: 2025 年 5 月 2 日
+
+**CodeIgniter4 的 4.6.1 版本发布**
+
+.. contents::
+    :local:
+    :depth: 3
+
+********
+变更内容
+********
+- **Mimes**: 在 ``Config\Mimes`` 类中为 ``stl`` 扩展名添加了 ``model/stl`` 和 ``application/octet-stream`` MIME 类型。
+
+************
+废弃功能
+************
+
+- **Cache:** ``FileHandler::writeFile()`` 方法已被废弃。请使用 ``write_file()`` 代替。
+- **Cache:** ``FileHandler::deleteFiles()`` 方法已被废弃。请使用 ``delete_files()`` 代替。
+- **Cache:** ``FileHandler::getDirFileInfo()`` 方法已被废弃。请使用 ``get_dir_file_info()`` 代替。
+- **Cache:** ``FileHandler::getFileInfo()`` 方法已被废弃。请使用 ``get_file_info()`` 代替。
+
+**********
+错误修复
+**********
+
+- **CURLRequest:** 修复了在目标服务器进行多次重定向时，CURL 响应体中出现多个头部部分的问题。
+- **Cors:** 修复了 Cors 过滤器中的一个错误，该错误导致当另一个过滤器在 ``before`` 过滤器中返回响应对象时，未添加适当的头部。
+- **Database:** 修复了 ``Postgre`` 和 ``SQLite3`` 处理程序中的一个错误，其中复合唯一键在 ``upsert`` 类型查询中未被完全考虑。
+- **Database:** 修复了 ``OCI8`` 和 ``SQLSRV`` 驱动程序中的一个错误，其中 ``getVersion()`` 在数据库连接尚未建立时返回空字符串。
+- **Logger:** 修复了在记录消息时，``{line}`` 变量无法在不指定 ``{file}`` 变量的情况下使用的错误。
+- **Session:** 修复了当向 ``Session::setTempdata()`` 提供数组数据时，``Session::markAsTempdata()`` 会给出错误 TTL 的错误。
+- **Toolbar:** 修复了将 ``maxHistory`` 设置为 ``0`` 会在调试工具栏中产生 JavaScript 错误的问题。
+- **Toolbar:** 修复了将 ``maxHistory`` 设置为 ``0`` 会阻止日志文件被正确清除的问题。
+
+请查看仓库的
+`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
+以获取完整的错误修复列表。

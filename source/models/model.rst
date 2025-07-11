@@ -388,7 +388,7 @@ findColumn()
 
 .. literalinclude:: model/008.php
 
-``$column_name`` 应为单个字段名，否则将抛出 ``DataException``。
+``$columnName`` 应为单个字段名，否则将抛出 ``DataException``。
 
 findAll()
 ---------
@@ -830,9 +830,9 @@ beforeFind        调用 **方法** 的名称，是否请求 **单例**，以及
 - ``findAll()``   **limit** = 要查找的行数。
                   **offset** = 搜索期间跳过的行数。
 afterFind         同 **beforeFind**，但包含结果数据行（无结果时为 null）。
-beforeDelete      **id** = 传递给 ``delete()`` 方法的主键。
+beforeDelete      **id** = 传递给 ``delete()`` 方法的主键数组。
                   **purge** = 是否硬删除软删除行的布尔值。
-afterDelete       **id** = 传递给 ``delete()`` 方法的主键。
+afterDelete       **id** = 传递给 ``delete()`` 方法的主键数组。
                   **purge** = 是否硬删除软删除行的布尔值。
                   **result** = 查询构建器上 ``delete()`` 调用的结果。
                   **data** = 未使用。

@@ -429,6 +429,10 @@ HTTP 方法路由
 
 这样做还有一个额外的好处，就是让视图更具可读性。
 
+.. note:: 默认情况下，所有定义的路由都有与其路径匹配的名称，其中占位符被相应的正则表达式替换。例如，如果你定义一个路由如 ``$routes->get('edit/(:num)', 'PostController::edit/$1');``，你可以使用 ``route_to('edit/([0-9]+)', 12)`` 生成相应的 URL。
+
+.. warning:: 根据 :ref:`routing-priority`，如果首先定义了一个未命名的路由 (例如 ``$routes->get('edit', 'PostController::edit');``），然后定义了另一个命名路由，其名称与第一个路由的路径相同 (例如 ``$routes->get('edit/(:num)', 'PostController::edit/$1', ['as' => 'edit']);``），第二个路由将不会被注册，因为它的名称会与第一个路由的自动分配名称冲突。
+
 分组路由
 ***************
 
@@ -849,3 +853,12 @@ CodeIgniter 4 提供了一种简单的方法来使用 ``Router`` 类访问当前
 
 .. note:: ``getFilters()`` 方法仅返回为特定路由定义的过滤器。
      它不包括全局过滤器或在 **app/Config/Filters.php** 文件中指定的过滤器。
+
+获取当前路由的匹配路由选项
+===================================================
+
+当我们定义路由时，它们可能具有可选参数：``filter``、``namespace``、``hostname``、``subdomain``、``offset``、``priority``、``as``。所有这些参数都已在上面详细描述过。
+另外，如果我们使用 ``addRedirect()``，我们还可以期待 ``redirect`` 键。
+要访问这些参数的值，我们可以调用 ``Router::getMatchedRouteOptions()``。以下是返回数组的示例：
+
+.. literalinclude:: routing/074.php

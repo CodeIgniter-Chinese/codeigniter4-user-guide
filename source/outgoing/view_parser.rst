@@ -390,20 +390,20 @@ upper                              将字符串显示为全部大写。         
 
 使用解析器时,可用以下插件:
 
-================== ========================= ============================================ ================================================================
+================== ========================= ============================================ ===================================================================
 插件               参数                      描述                                         示例
-================== ========================= ============================================ ================================================================
-current_url                                  current_url 辅助函数的别名。                 {+ current_url +}
-previous_url                                 previous_url 辅助函数的别名。                {+ previous_url +}
-siteURL            “login”                   site_url 辅助函数的别名。                    {+ siteURL "login" +}
-mailto             email、标题、属性         mailto 辅助函数的别名。                      {+ mailto email=foo@example.com title="Stranger Things" +}
-safe_mailto        email、标题、属性         safe_mailto 辅助函数的别名。                 {+ safe_mailto email=foo@example.com title="Stranger Things" +}
-lang               语言字符串                lang 辅助函数的别名。                        {+ lang number.terabyteAbbr +}
-validation_errors  字段名(可选)              返回字段的错误字符串(如果指定),              {+ validation_errors +} , {+ validation_errors field="email" +}
-route              route 名称                route_to 辅助函数的别名。                    {+ route "login" +}
-csp_script_nonce                             csp_script_nonce 辅助函数的别名。            {+ csp_script_nonce +}
-csp_style_nonce                              csp_style_nonce 辅助函数的别名。             {+ csp_style_nonce +}
-================== ========================= ============================================ ================================================================
+================== ========================= ============================================ ===================================================================
+current_url                                  current_url 辅助函数的别名。                 ``{+ current_url +}``
+previous_url                                 previous_url 辅助函数的别名。                ``{+ previous_url +}``
+siteURL            “login”                   site_url 辅助函数的别名。                    ``{+ siteURL "login" +}``
+mailto             email、标题、属性         mailto 辅助函数的别名。                      ``{+ mailto email=foo@example.com title="Stranger Things" +}``
+safe_mailto        email、标题、属性         safe_mailto 辅助函数的别名。                 ``{+ safe_mailto email=foo@example.com title="Stranger Things" +}``
+lang               语言字符串                lang 辅助函数的别名。                        ``{+ lang number.terabyteAbbr +}``
+validation_errors  字段名(可选)              返回字段的错误字符串(如果指定),              ``{+ validation_errors +} , {+ validation_errors field="email" +}``
+route              route 名称                route_to 辅助函数的别名。                    ``{+ route "login" +}``
+csp_script_nonce                             csp_script_nonce 辅助函数的别名。            ``{+ csp_script_nonce +}``
+csp_style_nonce                              csp_style_nonce 辅助函数的别名。             ``{+ csp_style_nonce +}``
+================== ========================= ============================================ ===================================================================
 
 注册插件
 --------------------

@@ -14,6 +14,7 @@
 
     backward_compatibility_notes
 
+    upgrade_461
     upgrade_460
     upgrade_458
     upgrade_457

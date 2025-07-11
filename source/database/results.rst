@@ -250,9 +250,9 @@ dataSeek()
 
         用法:参见 `获取 stdClass 的数组`_ 。
 
-    .. php:method:: getCustomResultObject($class_name)
+    .. php:method:: getCustomResultObject($className)
 
-        :param    string    $class_name: 结果集的类名
+        :param    string    $className: 结果集的类名
         :returns:    包含提取行的数组
         :rtype:    array
 

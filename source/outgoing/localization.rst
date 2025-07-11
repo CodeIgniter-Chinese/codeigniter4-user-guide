@@ -94,7 +94,7 @@ IncomingRequest 区域设置
 语言区域设置
 ---------------
 
-:php:func:`lang()` 函数中使用的 ``Language`` 类也具有当前区域设置。该设置在实例化期间设置为 ``IncommingRequest`` 区域设置。
+:php:func:`lang()` 函数中使用的 ``Language`` 类也具有当前区域设置。该设置在实例化期间设置为 ``IncomingRequest`` 区域设置。
 
 如果要在实例化语言类后更改区域设置，请使用 ``Language::setLocale()`` 方法。
 
