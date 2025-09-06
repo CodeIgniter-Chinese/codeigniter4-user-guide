@@ -20,16 +20,16 @@
 
 以下函数可用:
 
-.. php:function:: sanitize_filename($filename)
+.. php:function:: sanitize_filename($filename[, $relativePath = false])
 
     :param    string    $filename: 文件名
+    :param    bool      $relativePath: 是否接受相对路径（自 v4.6.2 起可用）
     :returns:    安全的文件名
     :rtype:    string
 
     提供对目录遍历的保护。
 
-    此函数是 ``\CodeIgniter\Security::sanitizeFilename()`` 的别名。
-    更多信息,请参阅 :doc:`安全库 <../libraries/security>` 文档。
+    更多信息，请参阅 :doc:`安全 <../libraries/security>` 文档。
 
 .. php:function:: strip_image_tags($str)
 

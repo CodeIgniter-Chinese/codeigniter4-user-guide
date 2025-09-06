@@ -1,0 +1,54 @@
+#############
+版本 4.6.2
+#############
+
+发布日期：2025 年 7 月 26 日
+
+**CodeIgniter4 的 4.6.2 版本发布**
+
+.. contents::
+    :local:
+    :depth: 3
+
+********
+安全更新
+********
+
+- **ImageMagick 处理器：** 修复了 *ImageMagick 处理器中的命令注入漏洞*。
+  详情请参阅 `安全公告 GHSA-9952-gv64-x94c <https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-9952-gv64-x94c>`_。
+
+********
+变更内容
+********
+
+- **Security：** Security 辅助函数的 ``sanitize_filename()`` 函数现在支持第二个参数来控制是否允许相对路径。
+
+************
+废弃功能
+************
+
+- **Security：** ``Security::sanitizeFilename()`` 方法已废弃。请使用 ``sanitize_filename()`` 代替。
+- **Security：** ``SecurityInterface::sanitizeFilename()`` 方法已废弃。
+
+**********
+错误修复
+**********
+
+- **Cache：** 修复了损坏或不可读的缓存文件可能在 ``FileHandler::getItem()`` 中引发未处理异常的错误。
+- **Commands：** 修复了 ``make:test`` 在 Windows 上总是出错的错误。
+- **Commands：** 修复了 ``make:test`` 生成的测试文件不以 ``Test.php`` 结尾的错误。
+- **Commands：** 修复了 ``make:test`` 在未输入类名后输入提示会显示三次的错误。
+- **CURLRequest：** 修复了在某些情况下中间 HTTP 响应未从响应链中正确移除的错误，该错误会导致返回不正确的状态码和标头而非最终响应。
+- **Database：** 修复了 ``ConditionalTrait`` 中的 ``when()`` 和 ``whenNot()`` 错误地将某些假值（如 ``[]``、``0``、``0.0`` 和 ``'0'``）评估为真值的错误，导致回调被意外执行。这些方法现在使用 ``(bool)`` 将条件转换为布尔值，以确保与 PHP 原生真值性的一致行为。
+- **Database：** 修复了 ``BasePreparedQuery`` 在访问 ``BaseConnection::transStatus`` 受保护属性时的封装违规问题。
+- **DownloadResponse：** 修复了使用内联处置时 ``Content-Disposition`` 标头中缺少 ``filename`` 参数的错误，该错误会导致浏览器使用 URL 的最后一段作为文件名而不是预期的文件名。
+- **Email：** 修复了当 ``$_SERVER['SERVER_NAME']`` 未设置时 ``Email::getHostname()`` 无法使用 ``$_SERVER['SERVER_ADDR']`` 的错误。
+- **Security：** 修复了 Security 辅助函数的 ``sanitize_filename()`` 函数在 CLI 请求中使用时会抛出错误的问题。
+- **Session：** 修复了对不受支持的数据库驱动程序（如 ``SQLSRV``、``OCI8`` 或 ``SQLite3``）使用 ``DatabaseHandler`` 时未抛出适当错误的问题。
+- **SiteURI：** 修复了 ``SiteURIFactory::parseRequestURI()`` 中在使用 ``mod_rewrite`` 从子文件夹提供应用程序服务同时保留 ``index.php`` 文件时会导致错误路由路径检测的错误。
+- **SiteURI：** 修复了 ``SiteURIFactory::parseRequestURI()`` 中当应用程序从子文件夹提供服务时包含多字节（非 ASCII）字符的文件夹名称无法正确解析的错误。
+- **URI：** 修复了 ``URI::getAuthority()`` 中没有定义默认端口的方案（如 ``rtsp://``）由于缺少数组键处理而导致问题的错误。
+
+请参阅仓库的
+`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
+获取已修复错误的完整列表。

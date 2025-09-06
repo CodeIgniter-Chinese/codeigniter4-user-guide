@@ -178,6 +178,8 @@ Session ID (SID) 变更
     - 新增 ``Config\Feature::$strictLocaleNegotiation``
 - app/Config/Routing.php
     - ``Config\Routing::$translateUriToCamelCase`` 已变更为 ``true``
+- app/Config/Kint.php
+    - ``Config\Kint::$richSort`` 已被移除。Kint v6 不再使用 ``AbstractRenderer::SORT_FULL``。如果在你的代码中保留此属性，将因未定义常量而导致运行时错误。
 
 所有变更
 ===========

@@ -26,7 +26,7 @@ copyright = '2019-' + str(year_now) + ' CodeIgniter 基金会'
 version = '4.6'
 
 # The full version, including alpha/beta/rc tags.
-release = '4.6.1'
+release = '4.6.3'
 
 # -- General configuration ---------------------------------------------------
 

@@ -205,3 +205,5 @@ sanitizeFilename()
 如果用户输入可以包含相对路径,例如 **file/in/some/approved/folder.txt**,你可以将第二个可选参数 ``$relativePath`` 设置为 ``true``。
 
 .. literalinclude:: security/010.php
+
+此方法是 Security 辅助函数中 ``sanitize_filename()`` 函数的别名。

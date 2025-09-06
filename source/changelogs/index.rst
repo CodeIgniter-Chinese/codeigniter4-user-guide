@@ -12,6 +12,8 @@
 .. toctree::
     :titlesonly:
 
+    v4.6.3
+    v4.6.2
     v4.6.1
     v4.6.0
     v4.5.8
