@@ -10,7 +10,7 @@ This is the Chinese translation of the CodeIgniter 4 User Guide, built using Sph
 
 ### Building Documentation
 ```bash
-# Install dependencies (requires Python 3.5+)
+# Install dependencies (requires Python 3.7+)
 pip install -r requirements.txt
 
 # Build HTML documentation
@@ -89,3 +89,11 @@ GitHub Actions automatically:
 - Static assets: `source/_static/**/*`
 - Templates: `source/_templates/**/*`
 - Build output: `build/**/*` (git-ignored)
+
+## AI Team Configuration
+
+For CodeIgniter documentation translation tasks, use the **codeigniter-translator** agent which specializes in:
+- Translating CodeIgniter 4 documentation from English to Chinese
+- Preserving ReStructuredText formatting and Sphinx directives
+- Maintaining technical terminology consistency
+- Following Chinese copywriting standards
