@@ -2,7 +2,7 @@
 创建 Spark 命令
 #######################
 
-虽然能够像其它路由一样通过 CLI 使用控制器很方便,但你可能会发现有时需要一些不同的东西。这就是 Spark 命令的用武之地。它们是简单的类,不需要为它们定义路由,使其成为构建可以帮助开发人员简化工作的工具的完美选择,无论是通过处理迁移或数据库填充,检查任务状态,甚至为你的公司构建定制代码生成器。
+虽然通过 CLI 使用控制器（就像使用其他任何路由一样）很方便，但你可能会遇到需要一些不同功能的情况。这时 Spark 命令就派上用场了。它们是简单的类，不需要定义路由，非常适合构建开发者可用的工具，让工作更轻松，无论是处理迁移或数据库填充、检查 cronjob 状态，还是为你公司构建自定义代码生成器。
 
 .. contents::
     :local:
@@ -12,77 +12,76 @@
 创建新命令
 *********************
 
-你可以非常轻松地创建新的命令供自己开发使用。每个类必须在其自己的文件中,并且必须扩展 ``CodeIgniter\CLI\BaseCommand``,并实现 ``run()`` 方法。
+你可以非常轻松地创建新命令用于自己的开发。每个类必须位于自己的文件中，并且必须继承 ``CodeIgniter\CLI\BaseCommand``，并实现 ``run()`` 方法。
 
-应使用以下属性将命令列入 CLI 命令并添加帮助功能:
+应使用以下属性，以便在 CLI 命令列表中显示你的命令并为其添加帮助功能：
 
-* ``$group``:描述命令分组的字符串。例如:``数据库``
-* ``$name``:描述命令名称的字符串。例如:``make:controller``
-* ``$description``:描述命令的字符串。例如:``生成一个新的控制器文件。``
-* ``$usage``:描述命令用法的字符串。例如:``make:controller <name> [options]``
-* ``$arguments``:描述每个命令参数的字符串数组。例如:``'name' => '控制器类名。'``
-* ``$options``:描述每个命令选项的字符串数组。例如:``'--force' => '强制覆盖现有文件。'``
+* ``$group``：一个字符串，用于描述命令在列出时所属的组。例如：``Database``
+* ``$name``：一个字符串，用于描述命令的名称。例如：``make:controller``
+* ``$description``：一个字符串，用于描述命令。例如：``Generates a new controller file.``
+* ``$usage``：一个字符串，用于描述命令的用法。例如：``make:controller <name> [options]``
+* ``$arguments``：一个字符串数组，用于描述每个命令参数。例如：``'name' => 'The controller class name.'``
+* ``$options``：一个字符串数组，用于描述每个命令选项。例如：``'--force' => 'Force overwrite existing file.'``
 
 **帮助描述将根据上述参数自动生成。**
 
 文件位置
 =============
 
-命令必须存储在名为 **Commands** 的目录中。但是,该目录必须位于 PSR-4 命名空间中,以便 :doc:`自动加载程序 </concepts/autoloader>` 可以定位它。这可能在 **app/Commands** 中,或者是一个用于所有项目开发的命令目录,像 **Acme/Commands**。
+命令必须存储在名为 **Commands** 的目录中。但是，该目录必须位于 PSR-4 命名空间中，以便 :doc:`自动加载器 </concepts/autoloader>` 能够找到它。这可以是 **app/Commands**，或者你为所有项目开发保存命令的目录，例如 **Acme/Commands**。
 
-.. note:: 当执行命令时,会加载完整的 CodeIgniter CLI 环境,使你可以获取环境信息、路径信息,并使用控制器中会使用的任何工具。
+.. note:: 执行命令时，完整的 CodeIgniter CLI 环境已经加载，因此可以获取环境信息、路径信息，并使用创建控制器时会用到的任何工具。
 
-一个示例命令
+示例命令
 ==================
 
-让我们逐步创建一个示例命令,其唯一的功能是报告有关应用程序本身的一些基本信息,以演示用途。首先在 **app/Commands/AppInfo.php** 中创建一个新文件。它
-应该包含以下代码:
+让我们通过一个示例命令来逐步了解，该命令的唯一功能是报告应用程序本身的基本信息，仅用于演示目的。首先在 **app/Commands/AppInfo.php** 创建一个新文件。它应包含以下代码：
 
 .. literalinclude:: cli_commands/002.php
 
-如果运行 **list** 命令,你将在自己的 ``Demo`` 组下看到新命令被列出。如果仔细看,应该可以相当容易地理解它的工作方式。``$group`` 属性简单地告诉它如何组织此命令与所有其他存在的命令,告诉它在哪个标题下列出它。
+如果运行 **list** 命令，你将看到新命令列在它自己的 ``Demo`` 组下。仔细观察，你应该很容易理解它是如何工作的。``$group`` 属性只是告诉它如何将此命令与所有其他存在的命令组织在一起，告诉它在哪个标题下列出。
 
-``$name`` 属性是可以调用此命令的名称。唯一的要求是它不得包含空格,并且所有字符在命令行本身必须有效。不过,按照惯例,命令应该是小写的,并且通过在命令名称本身使用冒号进一步对命令进行分组,以帮助防止多个命令发生命名冲突。
+``$name`` 属性是此命令的调用名称。唯一的要求是它不能包含空格，且所有字符在命令行本身上必须是有效的。不过按照惯例，命令是小写的，通过在命令名称本身使用冒号来进行进一步的命令分组。这有助于避免多个命令出现命名冲突。
 
-最后一个属性 ``$description`` 是一个简短的字符串,在 **list** 命令中显示,并应描述命令的作用。
+最后一个属性 ``$description`` 是一个短字符串，在 **list** 命令中显示，应描述命令的功能。
 
 run()
 -----
 
-``run()`` 方法是在运行命令时调用的方法。``$params`` 数组是命令名称后面的任何 CLI 参数列表,供你使用。如果 CLI 字符串是:
+``run()`` 方法是执行命令时调用的方法。``$params`` 数组是你可用的命令名称之后的任何 CLI 参数列表。如果 CLI 字符串是：
 
 .. code-block:: console
 
     php spark foo bar baz
 
-那么 **foo** 是命令名称, ``$params`` 数组将是:
+那么 **foo** 是命令名称，``$params`` 数组将是：
 
 .. literalinclude:: cli_commands/003.php
 
-这也可以通过 :doc:`CLI </cli/cli_library>` 库访问,但这里已经从字符串中删除了你的命令。这些参数可以用于自定义脚本的行为方式。
+这也可以通过 :doc:`CLI </cli/cli_library>` 库访问，但它已经从字符串中移除了你的命令。这些参数可用于自定义脚本的行为方式。
 
-我们的演示命令可能有一个 ``run()`` 方法,如下所示:
+我们的演示命令的 ``run()`` 方法可能类似于：
 
 .. literalinclude:: cli_commands/004.php
 
-请参阅 :doc:`CLI 库 </cli/cli_library>` 页面了解详细信息。
+有关详细信息，请参阅 :doc:`CLI 库 </cli/cli_library>` 页面。
 
 命令终止
 -------------------
 
-默认情况下,命令以成功代码 ``0`` 退出。如果在执行命令时遇到错误,你可以通过在 ``run()`` 方法中使用 ``return`` 语句和退出代码来终止命令。
+默认情况下，命令以成功代码 ``0`` 退出。如果在执行命令时遇到错误，可以在 ``run()`` 方法中使用 ``return`` 语言结构并附带退出代码来终止命令。
 
-例如, ``return EXIT_ERROR;``
+例如，``return EXIT_ERROR;``
 
-这种方法可以帮助系统级调试,如果命令例如通过 crontab 运行。
+如果命令（例如通过 crontab 运行）在系统级别进行调试，这种方法会很有帮助。
 
-你可以使用 **app/Config/Constants.php** 文件中定义的 ``EXIT_*`` 退出代码常量。
+你可以使用在 **app/Config/Constants.php** 文件中定义的 ``EXIT_*`` 退出代码常量。
 
 ***********
 BaseCommand
 ***********
 
-所有命令必须扩展的 ``BaseCommand`` 类有一些你应该熟悉的有用实用方法,当创建自己的命令时。它还具有可以通过 ``$this->logger`` 访问的 :doc:`日志 </general/logging>`。
+所有命令必须继承的 ``BaseCommand`` 类有几个在创建自己命令时应熟悉的有用工具方法。它还在 ``$this->logger`` 处提供了一个 :doc:`Logger </general/logging>`。
 
 .. php:namespace:: CodeIgniter\CLI
 
@@ -91,42 +90,42 @@ BaseCommand
     .. php:method:: call(string $command[, array $params = []])
 
         :param string $command: 要调用的另一个命令的名称。
-        :param array $params: 要传递给该命令的其他 CLI 参数。
+        :param array $params: 提供给该命令的额外 CLI 参数。
 
-        此方法允许你在当前命令执行期间运行其他命令:
+        此方法允许你在当前命令执行期间运行其他命令：
 
         .. literalinclude:: cli_commands/005.php
 
     .. php:method:: showError(Throwable $e)
 
-        :param Throwable $e: 用于报告错误的异常。
+        :param Throwable $e: 用于错误报告的异常。
 
-        一种保持 CLI 错误输出一致且清晰的便捷方法:
+        一种便捷方法，用于在 CLI 中保持一致且清晰的错误输出：
 
         .. literalinclude:: cli_commands/006.php
 
     .. php:method:: showHelp()
 
-        显示命令帮助的方法:(用法、参数、描述、选项)
+        一种显示命令帮助的方法：（用法、参数、描述、选项）
 
     .. php:method:: setPad(string $item, int $max, int $extra = 2, int $indent = 0): string
 
-        :param string   $item: 字符串项目。
-        :param integer  $max: 最大长度。
+        :param string   $item: 字符串项。
+        :param integer  $max: 最大尺寸。
         :param integer  $extra: 在末尾添加的额外空格数。
         :param integer  $indent: 缩进空格数。
 
-        填充我们的字符串,以便所有标题的长度相同,以美观地排列描述:
+        填充字符串，使所有标题长度相同，以便整齐地对齐描述：
 
         .. literalinclude:: cli_commands/007.php
             :lines: 2-
 
-   .. php:method:: getPad($array, $pad)
+    .. php:method:: getPad($array, $pad)
 
         .. deprecated:: 4.0.5
-            请使用 :php:meth:`CodeIgniter\\CLI\\BaseCommand::setPad()`。
+            改用 :php:meth:`CodeIgniter\\CLI\\BaseCommand::setPad()`。
 
-        :param array    $array: ``$key => $value`` 数组。
-        :param integer  $pad: 填充的空格数。
+        :param array    $array: $key => $value 数组。
+        :param integer  $pad: 填充空格数。
 
-        计算用于 ``$key => $value`` 数组输出的填充的方法。该填充可用于在 CLI 中输出格式良好的表格。
+        一种计算 ``$key => $value`` 数组输出填充的方法。填充可用于在 CLI 中输出格式良好的表格。
