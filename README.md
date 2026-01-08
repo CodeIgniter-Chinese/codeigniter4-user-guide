@@ -123,7 +123,7 @@ make html
     <td align="center"><a href="https://github.com/zhangxiaoshua"><img src="https://avatars3.githubusercontent.com/u/31472394?v=4?s=100" width="100px;" alt=""/><br /><sub><b>zhangxiaoshua</b></sub></a><br /><a href="#translation-zhangxiaoshua" title="Translation">🌍</a></td>
     <td align="center"><a href="https://www.qichengzx.com"><img src="https://avatars0.githubusercontent.com/u/1927478?v=4?s=100" width="100px;" alt=""/><br /><sub><b>xin zhao</b></sub></a><br /><a href="#translation-qichengzx" title="Translation">🌍</a></td>
     <td align="center"><a href="https://www.minipudding.com"><img src="https://avatars0.githubusercontent.com/u/11162253?v=4?s=100" width="100px;" alt=""/><br /><sub><b>icicle198514</b></sub></a><br /><a href="#translation-icicle198514" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/calciferlh"><img src="https://avatars0.githubusercontent.com/u/14966692?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Calcifer</b></sub></a><br /><a href="#translation-calciferlh" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/moe-hao"><img src="https://avatars0.githubusercontent.com/u/14966692?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hao</b></sub></a><br /><a href="#moe-hao" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/DuXuanXuan"><img src="https://avatars1.githubusercontent.com/u/17022815?v=4?s=100" width="100px;" alt=""/><br /><sub><b>DuXuanXuan</b></sub></a><br /><a href="#translation-DuXuanXuan" title="Translation">🌍</a></td>
   </tr>
   <tr>
