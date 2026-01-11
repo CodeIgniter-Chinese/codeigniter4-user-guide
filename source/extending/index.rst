@@ -2,7 +2,7 @@
 扩展 CodeIgniter
 #####################
 
-扩展或基于 CodeIgniter 4 构建非常容易。
+CodeIgniter 4 被设计为易于扩展，也适合在其基础上构建定制化的应用或框架。
 
 .. toctree::
     :titlesonly:

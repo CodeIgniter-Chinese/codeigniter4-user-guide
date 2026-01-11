@@ -56,7 +56,7 @@ HTTP 是用于描述这种交换约定的术语，其全称为超文本传输协
 
 .. literalinclude:: http/001.php
 
-请求类在后台为你做了大量工作，你无需为此担心。``isAJAX()`` 和 ``isSecure()`` 方法会检查多种不同的方式来确定正确的答案。
+Request 类在后台为你做了大量工作，你无需为此担心。``isAJAX()`` 和 ``isSecure()`` 方法会检查多种不同的方式来确定正确的答案。
 
 .. note:: ``isAJAX()`` 方法依赖于 ``X-Requested-With`` 头，但在某些情况下，通过 JavaScript 发起的 XHR 请求（例如 fetch）默认不会发送该头。请参阅 :doc:`AJAX 请求 </general/ajax>` 章节，了解如何避免此问题。
 

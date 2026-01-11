@@ -2,9 +2,10 @@
 错误处理
 ##############
 
-CodeIgniter 通过异常机制构建了错误报告系统，既包含 `SPL 集合 <https://www.php.net/manual/en/spl.exceptions.php>`_ 中的异常，也提供了框架专属的异常类型。
+CodeIgniter 通过异常机制为你的系统构建错误报告功能，包括 `SPL 集合 <https://www.php.net/manual/zh/spl.exceptions.php>`_ 以及框架提供的一些异常。
 
-根据运行环境的配置，当发生错误或抛出异常时，默认行为是显示详细错误报告（除非应用处于 ``production`` 环境）。在 ``production`` 环境中，会显示更通用的信息以保持最佳用户体验。
+根据你的环境设置，
+当抛出错误或异常时，默认操作是显示详细的错误报告，除非应用程序运行在 ``production`` 环境中。在 ``production`` 环境中，会显示更通用的消息，以保持用户的最佳体验。
 
 .. contents::
     :local:
@@ -13,32 +14,37 @@ CodeIgniter 通过异常机制构建了错误报告系统，既包含 `SPL 集�
 使用异常
 ================
 
-本节为新手程序员或不熟悉异常使用的开发者提供快速概览。
+本节为新程序员或对使用异常没有经验的开发者提供一个快速概览。
 
 什么是异常
-------------------
+-------------------
 
-异常是当程序 "抛出" 异常时发生的事件。这会中断当前脚本流程，并将执行权转交给错误处理程序以显示相应的错误页面：
+异常只是在异常被"抛出"时发生的事件。这会停止脚本的当前流程，
+然后将执行权发送给错误处理器，错误处理器会显示相应的错误页面：
 
 .. literalinclude:: errors/001.php
 
 捕获异常
 -------------------
 
-当调用可能抛出异常的方法时，可以使用 ``try/catch`` 代码块来捕获异常：
+如果你调用的方法可能会抛出异常，可以使用 ``try/catch`` 来捕获该异常：
 
 .. literalinclude:: errors/002.php
 
-如果 ``$userModel`` 抛出异常，该异常会被捕获并执行 catch 块中的代码。在此示例中，脚本终止并输出 ``UserModel`` 定义的错误信息。
+如果 ``$userModel`` 抛出异常，它会被捕获，catch 块中的代码会被执行。在这个例子中，
+脚本会终止，并输出 ``UserModel`` 定义的错误消息。
 
 捕获特定异常
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-上例中我们捕获所有类型的 Exception。若只需捕获特定类型的异常（如 ``DataException``），可在 catch 参数中指定。其他未被捕获的异常类型将传递给错误处理程序：
+在上面的例子中，我们捕获任何类型的异常。如果我们只想监控特定类型的异常，
+比如 ``DataException``，可以在 catch 参数中指定。任何其他抛出的异常
+如果不是被捕获异常的子类，将被传递给错误处理器：
 
 .. literalinclude:: errors/003.php
 
-这种方式便于自行处理错误或在脚本结束前执行清理操作。若希望错误处理程序按常规方式处理，可在 catch 块中重新抛出异常：
+这对于自己处理错误或在脚本结束前执行清理操作很有用。如果你希望
+错误处理器正常工作，可以在 catch 块中抛出新异常：
 
 .. literalinclude:: errors/004.php
 
@@ -48,30 +54,38 @@ CodeIgniter 通过异常机制构建了错误报告系统，既包含 `SPL 集�
 错误报告
 ---------------
 
-当 PHP ini 设置中的 ``display_errors`` 启用时，CodeIgniter 将显示包含所有错误的详细报告
+当 PHP ini 设置中的 ``display_errors`` 启用时，CodeIgniter 将显示
+包含所有错误的详细错误报告
 
-默认情况下，CodeIgniter 在 ``development`` 和 ``testing`` 环境中显示详细错误报告，在 ``production`` 环境中不显示任何错误。
+因此默认情况下，CodeIgniter 会在 ``development`` 和 ``testing`` 环境中
+显示详细的错误报告，在 ``production`` 环境中不显示任何错误。
 
 .. image:: ../images/error.png
 
-可通过设置 ``CI_ENVIRONMENT`` 变量来更改环境配置，详见 :ref:`setting-environment`。
+你可以通过设置 ``CI_ENVIRONMENT`` 变量来更改你的环境。
+参见 :ref:`setting-environment`。
 
-.. important:: 禁用错误报告不会阻止错误日志的写入。
+.. important:: 禁用错误报告并不会在有错误时停止日志的写入。
 
-.. warning:: 注意 **.env** 文件中的设置会被添加到 ``$_SERVER`` 和 ``$_ENV``。副作用是当显示详细错误报告时，**你的敏感凭证可能被公开暴露**。
+.. warning:: 请注意，**.env** 文件中的设置会被添加到 ``$_SERVER``
+    和 ``$_ENV`` 中。作为副作用，这意味着如果显示了详细的错误报告，
+    **你的安全凭据将被公开暴露**。
 
 异常日志记录
 ------------------
 
-默认情况下，除 "404 - 页面未找到" 异常外，所有异常都会被记录。可通过修改 **app/Config/Exceptions.php** 中的 ``$log`` 值来开关此功能：
+默认情况下，除了 "404 - Page Not Found" 异常之外的所有异常都会被记录。这可以通过
+设置 **app/Config/Exceptions.php** 中的 ``$log`` 值来开启或关闭：
 
 .. literalinclude:: errors/005.php
 
-要忽略其他状态码的日志记录，可在同一文件中设置：
+要忽略对其他状态码的日志记录，可以在同一文件中设置要忽略的状态码：
 
 .. literalinclude:: errors/006.php
 
-.. note:: 如果当前 :ref:`日志设置 <logging-configuration>` 未配置记录 ``critical`` 级别错误（所有异常均按此级别记录），异常可能仍不会被记录。
+.. note:: 如果你当前的 :ref:`日志设置 <logging-configuration>`
+    没有设置为记录 ``critical`` 错误（所有异常都被记录为此级别），
+    异常的日志记录可能仍然不会发生。
 
 .. _logging_deprecation_warnings:
 
@@ -80,33 +94,43 @@ CodeIgniter 通过异常机制构建了错误报告系统，既包含 `SPL 集�
 
 .. versionadded:: 4.3.0
 
-在 v4.3.0 之前，所有通过 ``error_reporting()`` 报告的错误都会被抛出为 ``ErrorException`` 对象。
+在 v4.3.0 之前，所有由 ``error_reporting()`` 报告的错误都会被抛出为
+``ErrorException`` 对象。
 
-随着 PHP 8.1+ 的普及，用户可能会遇到因 `向内部函数的非空参数传递 null 值 <https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg>`_ 导致的异常抛出。
+但随着 PHP 8.1+ 的普及，许多用户可能会看到为
+`向非空内部函数参数传递 null <https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg>`_
+抛出的异常。
 
-为简化迁移到 PHP 8.1 的过程，从 v4.3.0 开始，CodeIgniter 新增了仅记录弃用错误（``E_DEPRECATED`` 和 ``E_USER_DEPRECATED``）而不将其作为异常抛出的功能。
+为了简化向 PHP 8.1 的迁移，从 v4.3.0 开始，CodeIgniter 提供了
+只记录弃用错误（``E_DEPRECATED`` 和 ``E_USER_DEPRECATED``）
+而不将其作为异常抛出的功能。
 
-默认情况下，CodeIgniter 在开发环境中仅记录弃用警告而不抛出异常。在生产环境中，既不记录也不抛出异常。
+默认情况下，CodeIgniter 只在开发环境中记录弃用警告而不抛出异常。
+在生产环境中，不会进行日志记录，也不会抛出异常。
 
 配置
 ^^^^^^^^^^^^^
 
-该功能的配置步骤如下：
-首先确保 **Config\Exceptions** 已更新并包含以下两个新属性：
+此功能的设置如下。
+首先，确保你的 ``Config\Exceptions`` 副本已更新为包含两个新属性，
+并按以下方式设置：
 
 .. literalinclude:: errors/012.php
 
-其次，根据 ``Config\Exceptions::$deprecationLogLevel`` 设置的日志级别，检查 ``Config\Logger::$threshold`` 定义的日志阈值是否涵盖该级别。如未涵盖需相应调整：
+接下来，根据你在 ``Config\Exceptions::$deprecationLogLevel`` 中设置的日志级别，
+检查 ``Config\Logger::$threshold`` 中定义的日志记录器阈值是否覆盖了弃用日志级别。
+如果没有，相应地调整它。
 
 .. literalinclude:: errors/013.php
 
-配置完成后，后续弃用警告将按配置记录而不作为异常抛出。
+之后，后续的弃用警告将按配置记录而不会作为异常抛出。
 
-该功能也支持用户自定义弃用警告：
+此功能也适用于用户弃用：
 
 .. literalinclude:: errors/014.php
 
-测试应用时若需强制抛出弃用警告，可设置环境变量 ``CODEIGNITER_SCREAM_DEPRECATIONS`` 为真值。
+为了测试应用程序，你可能希望总是在弃用时抛出异常。可以通过
+将环境变量 ``CODEIGNITER_SCREAM_DEPRECATIONS`` 设置为真值来配置此功能。
 
 框架异常
 ====================
@@ -116,70 +140,81 @@ CodeIgniter 通过异常机制构建了错误报告系统，既包含 `SPL 集�
 异常设计
 ----------------
 
-自 v4.6.0 起，框架抛出的所有异常类：
+从 v4.6.0 开始，框架抛出的所有异常类：
 
 - 实现 ``CodeIgniter\Exceptions\ExceptionInterface``
 - 继承 ``CodeIgniter\Exceptions\LogicException`` 或 ``CodeIgniter\Exceptions\RuntimeException``
 
-.. note:: 框架仅抛出上述类型异常，但 PHP 或其他使用的库可能抛出其他异常。
+.. note:: 框架只抛出上述类型的异常类，但 PHP
+    或使用的其他库可能会抛出其他异常。
 
-框架抛出的两种基础异常类：
+框架抛出的异常有两个基类：
 
 LogicException
 --------------
 
-``CodeIgniter\Exceptions\LogicException`` 继承自 ``\LogicException``。该异常表示程序逻辑错误，应直接通过修改代码修复。
+``CodeIgniter\Exceptions\LogicException`` 继承 ``\LogicException``。
+此异常表示程序逻辑中的错误。这类异常应该直接导致修复你的代码。
 
 RuntimeException
 ----------------
 
-``CodeIgniter\Exceptions\RuntimeException`` 继承自 ``\RuntimeException``。该异常在运行时发生错误时抛出。
+``CodeIgniter\Exceptions\RuntimeException`` 继承 ``\RuntimeException``。
+如果发生只能在运行时发现的错误，会抛出此异常。
 
-其他可用框架异常：
+框架还提供以下异常：
 
 PageNotFoundException
 ---------------------
 
-用于触发 404 页面未找到错误：
+用于表示 404 Page Not Found 错误：
 
 .. literalinclude:: errors/007.php
 
-可传递自定义消息替代默认的 404 页面信息。默认 404 视图文件位置参见 :ref:`http-status-code-and-error-views`。
+你可以向异常传递消息，该消息将显示在 404 页面上替换默认消息。
 
-如果在 **app/Config/Routing.php** 或 **app/Config/Routes.php** 中配置了 :ref:`404-override`，将调用该覆盖配置而非标准 404 页面。
+有关默认 404 视图文件位置，请参见 :ref:`http-status-code-and-error-views`。
+
+如果在 **app/Config/Routing.php** 或 **app/Config/Routes.php** 中指定了
+:ref:`404-override`，则会调用它而不是标准的 404 页面。
 
 ConfigException
 ---------------
 
-当配置类值无效或配置类类型不符时使用此异常：
+当配置类的值无效，或配置类不是正确的类型等情况时，应使用此异常：
 
 .. literalinclude:: errors/008.php
 
-该异常提供退出码 3。
+该异常提供退出代码 3。
 
 DatabaseException
 -----------------
 
-在数据库连接创建失败或临时丢失等数据库错误时抛出：
+为数据库错误抛出此异常，例如无法创建数据库连接，
+或连接暂时丢失时：
 
 .. literalinclude:: errors/009.php
 
-该异常提供退出码 8。
+该异常提供退出代码 8。
 
 RedirectException
 -----------------
 
-.. note:: 自 v4.4.0 起，``RedirectException`` 的命名空间已变更。原为 ``CodeIgniter\Router\Exceptions\RedirectException``，该旧类已在 v4.6.0 移除。
+.. note:: 从 v4.4.0 开始，``RedirectException`` 的命名空间已更改。
+    之前它是 ``CodeIgniter\Router\Exceptions\RedirectException``。
+    之前的类在 v4.6.0 中已被移除。
 
-此特殊异常允许覆盖其他响应路由并强制重定向到指定 URI：
+此异常是一个特殊情况，允许覆盖所有其他响应路由并强制重定向到特定 URI：
 
 .. literalinclude:: errors/010.php
 
-``$uri`` 是相对于 baseURL 的 URI 路径。可指定替代默认值（``302``，"临时重定向"）的重定向代码：
+``$uri`` 是相对于 baseURL 的 URI 路径。你也可以提供
+重定向代码来代替默认值（``302``，"临时重定向"）：
 
 .. literalinclude:: errors/011.php
 
-自 v4.4.0 起，第一个参数可使用实现 ResponseInterface 的对象。此方案适用于需要添加额外头信息或 cookies 的场景：
+另外，从 v4.4.0 开始，实现 ResponseInterface 的类的对象可以用作第一个参数。
+此解决方案适用于需要在响应中添加额外头部或 Cookie 的情况。
 
 .. literalinclude:: errors/018.php
 
@@ -190,42 +225,52 @@ RedirectException
 
 .. versionadded:: 4.3.0
 
-自 v4.3.0 起，可通过让异常类实现 ``CodeIgniter\Exceptions\HTTPExceptionInterface`` 来指定 HTTP 状态码。
+从 v4.3.0 开始，你可以为你的异常类指定 HTTP 状态码，以实现
+``CodeIgniter\Exceptions\HTTPExceptionInterface``。
 
-当 CodeIgniter 异常处理器捕获到实现 ``HTTPExceptionInterface`` 的异常时，异常代码将作为 HTTP 状态码。
+当实现 ``HTTPExceptionInterface`` 的异常被 CodeIgniter 的异常处理器捕获时，
+异常代码将成为 HTTP 状态码。
 
 .. _http-status-code-and-error-views:
 
-HTTP 状态码与错误视图
-=========================
+HTTP 状态码和错误视图
+================================
 
-异常处理器会显示与 HTTP 状态码对应的错误视图（如果存在）。
+异常处理器显示与 HTTP 状态码对应的错误视图（如果存在）。
 
-例如，``PageNotFoundException`` 实现了 ``HTTPExceptionInterface``，其异常代码 ``404`` 将作为 HTTP 状态码。当该异常被抛出时：
+例如，``PageNotFoundException`` 实现了 ``HTTPExceptionInterface``，
+所以其异常代码 ``404`` 将是 HTTP 状态码。因此如果它被抛出，
+当是 Web 请求时，系统将显示 **app/Views/errors/html** 文件夹中的
+**error_404.php**。如果是通过 CLI 调用，系统将显示
+**app/Views/errors/cli** 文件夹中的 **error_404.php**。
 
-- 网页请求会显示 **app/Views/errors/html** 目录下的 **error_404.php**
-- CLI 请求会显示 **app/Views/errors/cli** 目录下的 **error_404.php**
+如果没有与 HTTP 状态码对应的视图文件，将显示 **production.php**
+或 **error_exception.php**。
 
-若无对应 HTTP 状态码的视图文件，将显示 **production.php** 或 **error_exception.php**。
+.. note:: 如果 PHP ini 设置中的 ``display_errors`` 开启，
+    会选择 **error_exception.php** 并显示详细的错误报告。
 
-.. note:: 若 PHP ini 设置中 ``display_errors`` 开启，将选择 **error_exception.php** 并显示详细错误报告。
+你应该为你的网站自定义 **app/Views/errors/html** 文件夹中的所有错误视图。
 
-建议在 **app/Views/errors/html** 目录下自定义所有错误视图。
+你也可以为特定的 HTTP 状态码创建错误视图。例如，如果你想为
+"400 Bad Request" 创建错误视图，添加 **error_400.php**。
 
-可为特定 HTTP 状态码创建错误视图。例如创建 "400 Bad Request" 错误视图需添加 **error_400.php**。
-
-.. warning:: 若存在对应 HTTP 状态码的错误视图文件，异常处理器将始终显示该文件。必须确保视图文件在生产环境中不会自行显示详细错误信息。
+.. warning:: 如果存在具有相应 HTTP 状态码的错误视图文件，
+    异常处理器将显示该文件，而不管环境如何。
+    视图文件必须以在生产环境中不显示详细错误消息的方式自行实现。
 
 .. _error-specify-exit-code:
 
-在异常中指定退出码
-=============================
+在异常中指定退出代码
+===================================
 
 .. versionadded:: 4.3.0
 
-自 v4.3.0 起，可通过让异常类实现 ``CodeIgniter\Exceptions\HasExitCodeInterface`` 来指定退出码。
+从 v4.3.0 开始，你可以为你的异常类指定退出代码，以实现
+``CodeIgniter\Exceptions\HasExitCodeInterface``。
 
-当 CodeIgniter 异常处理器捕获到实现 ``HasExitCodeInterface`` 的异常时，将从 ``getExitCode()`` 方法获取退出码。
+当实现 ``HasExitCodeInterface`` 的异常被 CodeIgniter 的异常处理器捕获时，
+从 ``getExitCode()`` 方法返回的代码将成为退出代码。
 
 .. _custom-exception-handlers:
 
@@ -234,24 +279,32 @@ HTTP 状态码与错误视图
 
 .. versionadded:: 4.4.0
 
-若需更精细控制异常显示方式，可定义自定义处理器并指定其应用场景。
+如果你需要更多控制异常的显示方式，现在可以定义自己的处理器并
+指定它们何时应用。
 
 定义新处理器
 ------------------------
 
-首先创建实现 ``CodeIgniter\Debug\ExceptionHandlerInterface`` 的新类。也可继承 ``CodeIgniter\Debug\BaseExceptionHandler``，该类包含默认异常处理器使用的实用方法。新处理器需实现 ``handle()`` 方法：
+第一步是创建一个实现 ``CodeIgniter\Debug\ExceptionHandlerInterface`` 的新类。
+你也可以继承 ``CodeIgniter\Debug\BaseExceptionHandler``。
+这个类包含许多默认异常处理器使用的实用方法。
+新处理器必须实现一个方法：``handle()``：
 
 .. literalinclude:: errors/015.php
 
-此示例展示了典型的最小实现：显示视图并以正确退出码终止。``BaseExceptionHandler`` 还提供其他辅助功能和对象。
+这个例子定义了通常需要的最小代码量 - 显示视图并以适当的
+退出代码退出。但是，``BaseExceptionHandler`` 提供了许多其他辅助函数和对象。
 
 配置新处理器
 ---------------------------
 
-在 **app/Config/Exceptions.php** 配置文件的 ``handler()`` 方法中指定使用新异常处理器类：
+告诉 CodeIgniter 使用你的新异常处理器类是在 **app/Config/Exceptions.php**
+配置文件的 ``handler()`` 方法中完成的：
 
 .. literalinclude:: errors/016.php
 
-可使用任意逻辑决定是否处理异常，最常见的是检查 HTTP 状态码或异常类型。若应由自定义类处理，则返回该类实例：
+你可以使用应用程序需要的任何逻辑来确定是否应该处理异常，
+但最常见的是检查 HTTP 状态码或异常类型。如果你的类应该处理它，
+则返回该类的新实例：
 
 .. literalinclude:: errors/017.php
