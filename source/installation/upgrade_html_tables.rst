@@ -8,18 +8,18 @@
 文档
 ==============
 
-- `CodeIgniter 3.x HTML表格文档 <http://codeigniter.com/userguide3/libraries/table.html>`_
-- :doc:`CodeIgniter 4.x HTML表格文档 </outgoing/table>`
+- `CodeIgniter 3.x HTML 表格文档 <https://codeigniter.org.cn/userguide3/libraries/table.html>`_
+- :doc:`CodeIgniter 4.x HTML 表格文档 </outgoing/table>`
 
-变更点
+变更内容
 =====================
-- 只是一些小变化,如方法名称和库的加载。
+- 只改动了少量内容，例如方法名以及类的加载方式。
 
 升级指南
 =============
-1. 在类中,将 ``$this->load->library('table');`` 改为 ``$table = new \CodeIgniter\View\Table();``。
-2. 从那时起,需要将以 ``$this->table`` 开头的每一行改为 ``$table``。例如:``echo $this->table->generate($query);`` 会变成 ``echo $table->generate($query);``
-3. HTML 表格类中的方法可能命名稍有不同。最重要的命名变化是从下划线方法名切换到 camelCase。版本 3 中的方法 ``set_heading()`` 现在命名为 ``setHeading()``,等等。
+1. 在类中，将 ``$this->load->library('table');`` 改为 ``$table = new \CodeIgniter\View\Table();``。
+2. 从这里开始，需要把每一行以 ``$this->table`` 开头的代码替换为 ``$table``。例如：``echo $this->table->generate($query);`` 会变为 ``echo $table->generate($query);``
+3. HTML 表格类中的方法名可能略有不同。最重要的命名变化是由带下划线的方法名改为驼峰命名法。3.x 版本中的 ``set_heading()`` 现在名为 ``setHeading()``，其他方法也是如此。
 
 代码示例
 ============

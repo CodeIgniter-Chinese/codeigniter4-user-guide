@@ -2,51 +2,53 @@
 从 4.3.1 升级到 4.3.2
 ##############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
-- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-重大变更
+破坏性变更
 ****************
 
 base_url()
 ==========
 
-:php:func:`base_url()` 的行为已修复。在以前的版本中,当你调用 ``base_url()`` **不带参数时**,它会返回不带尾部斜杠 (``/``) 的 baseURL。现在它会返回带有尾部斜杠的 baseURL。例如:
+:php:func:`base_url()` 的行为已被修复。此前版本中，当 **不带参数** 调用 ``base_url()`` 时，
+返回的 baseURL 末尾不包含斜杠（``/``）。现在将返回带有末尾斜杠的 baseURL。例如：
 
-- 之前:``http://example.com``
-- 之后:``http://example.com/``
+- 之前：``http://example.com``
+- 现在：``http://example.com/``
 
-如果你有调用不带参数的 ``base_url()`` 的代码,可能需要调整 URL。
+如果你的代码中存在不带参数调用 ``base_url()`` 的情况，可能需要调整相关 URL。
 
 .. _upgrade-432-uri-string:
 
 uri_string()
 ============
 
-:php:func:`uri_string()` 的行为已修复。在以前的版本中,当你导航到 baseURL 时,它会返回 ``/``。现在它返回一个空字符串 (``''``)。
+:php:func:`uri_string()` 的行为已被修复。此前版本中，当你访问 baseURL 时，
+它会返回 ``/``。现在将返回空字符串（``''``）。
 
-如果你有调用 ``uri_string()`` 的代码,可能需要调整它。
+如果你的代码中调用了 ``uri_string()``，可能需要进行相应调整。
 
-.. note:: :php:func:`uri_string()` 返回相对于 baseURL 的 URI 路径。
-    如果 baseURL 包含子文件夹,它不是完整的 URI 路径。
-    如果要用于 HTML 链接,最好与 :php:func:`site_url()` 一起使用,
-    如 ``site_url(uri_string())``。
+.. note:: :php:func:`uri_string()` 返回的是相对于 baseURL 的 URI 路径。
+    如果 baseURL 包含子文件夹，则它不是完整的 URI 路径。
+    如果将其用于 HTML 链接，建议与 :php:func:`site_url()` 结合使用，
+    例如 ``site_url(uri_string())``。
 
-必备文件变更
+必须修改的文件
 **********************
 
 composer.json
 =============
 
-如果你手动安装了 CodeIgnter 并且正在使用或计划使用 Composer,
-请删除以下行:
+如果你是手动安装 CodeIgnter，并且正在使用或计划使用 Composer，
+请移除以下这一行：
 
 .. code-block:: text
 
@@ -64,24 +66,27 @@ composer.json
 项目文件
 *************
 
-**项目空间** 中的一些文件(根目录、app、public、writable)已更新。由于这些文件超出 **系统** 范围,如果不进行干预,它们将不会更改。
+**项目空间** （根目录、app、public、writable）中的部分文件已更新。
+由于这些文件位于 **system** 范围之外，框架不会在没有你介入的情况下自动修改它们。
 
-有一些第三方 CodeIgniter 模块可以协助合并项目空间的更改:`在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
+目前有一些第三方 CodeIgniter 模块可用于协助合并项目空间中的变更：
+`在 Packagist 上浏览 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
-内容更改
+内容变更
 ===============
 
-以下文件已作出重大更改(包括弃用或视觉调整),建议你将更新版本与应用程序合并:
+以下文件发生了较大的改动（包括弃用项或界面调整），建议将更新后的版本合并到你的应用中：
 
 - app/Config/Mimes.php
 - app/Views/errors/html/error_exception.php
 - composer.json
 - public/.htaccess
 
-所有更改
+所有变更
 ===========
 
-这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
+以下是 **项目空间** 中所有发生变更的文件列表；
+其中许多只是简单的注释或格式调整，对运行时没有影响：
 
 - app/Config/App.php
 - app/Config/Mimes.php

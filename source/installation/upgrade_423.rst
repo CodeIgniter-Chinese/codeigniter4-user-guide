@@ -2,11 +2,11 @@
 从 4.2.2 升级到 4.2.3
 #############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
-- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
@@ -15,4 +15,4 @@
 项目文件
 *************
 
-4.2.3 版本是出于安全考虑的内部变更,项目中不需要任何干预。
+4.2.3 版本仅包含用于安全措施的内部更改，不需要你对项目进行任何干预。

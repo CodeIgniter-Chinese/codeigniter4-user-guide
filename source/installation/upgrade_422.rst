@@ -2,45 +2,49 @@
 从 4.2.1 升级到 4.2.2
 #############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
-- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-重大变更
+破坏性变更
 ****************
 
-网页缓存错误修复
+网页缓存 Bug 修复
 ========================
 
-- :doc:`../general/caching` 现在会在 :ref:`after-filters` 执行后缓存 Response 数据。
-- 例如,如果你启用 :ref:`secureheaders`,那么从缓存中获取页面时现在也会发送 Response 头。
+- :doc:`../general/caching` 现在会在 :ref:`after-filters` 执行完成之后，缓存 Response 数据。
+- 例如，如果启用了 :ref:`secureheaders`，当页面来自缓存时，现在也会发送 Response 标头。
 
-.. important:: 如果你编写了 **基于此错误的代码**,假定“after”过滤器中的 Response 更改不会被缓存,那么 **敏感信息可能会被缓存并泄露**。如果是这种情况,请更改代码以禁用对页面的缓存。
+.. important:: 如果你曾 **基于这个 Bug 编写代码**，并假定在 “后置” 过滤器中对 Response 的修改不会被缓存，那么 **敏感信息可能会被缓存并造成泄露风险**。如果存在这种情况，请修改代码，禁用该页面的缓存。
 
-其它
+其他
 ======
 
-- ``Forge::createTable()`` 方法不再执行 ``CREATE TABLE IF NOT EXISTS``。当 ``$ifNotExists`` 为 true 时,如果在 ``$db->tableExists($table)`` 中未找到表,则执行 ``CREATE TABLE``。
-- ``Forge::_createTable()`` 的第二个参数 ``$ifNotExists`` 已被废弃。它不再被使用,将在未来版本中移除。
-- 当使用 :php:func:`random_string()` 的第一个参数为 ``'crypto'`` 时,现在如果把第二个参数 ``$len`` 设置为奇数,会抛出 ``InvalidArgumentException``。请将参数改为偶数。
+- 方法 ``Forge::createTable()`` 不再执行 ``CREATE TABLE IF NOT EXISTS``。当 `$ifNotExists` 为 true 时，如果在 ``$db->tableExists($table)`` 中未找到该表，才会执行 ``CREATE TABLE``。
+- ``Forge::_createTable()`` 的第二个参数 ``$ifNotExists`` 已被弃用。该参数已不再使用，并将在未来版本中移除。
+- 当使用 :php:func:`random_string()` 且第一个参数为 ``'crypto'`` 时，如果将第二个参数 ``$len`` 设为奇数，现在会抛出 ``InvalidArgumentException``。请将该参数改为偶数。
 
-重大增强
+破坏性增强
 *********************
 
 项目文件
 *************
 
-**项目空间** 中的许多文件(根目录、app、public、writable)都已更新。由于这些文件超出 **系统** 范围,如果不进行干预,它们将不会更改。有一些第三方 CodeIgniter 模块可以协助合并项目空间的更改: `在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
+**项目空间** （根目录、app、public、writable）中的部分文件已更新。
+由于这些文件位于 **system** 范围之外，框架不会在没有你介入的情况下自动修改它们。
+目前有一些第三方 CodeIgniter 模块可用于协助合并项目空间中的变更：
+`在 Packagist 上浏览 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
-.. note:: 除非极少数情况进行错误修复,否则对项目空间文件的任何更改都不会破坏你的应用程序。在下一个主要版本之前,这里注明的所有更改都是可选的,强制性更改将在上面部分介绍。
+.. note:: 除了极少数用于修复 Bug 的情况外，对项目空间文件所做的更改不会破坏你的应用。
+    此处列出的所有更改在下一个主版本发布之前都是可选的，任何强制性更改都会在上面的章节中说明。
 
-内容更改
+内容变更
 ===============
 
 * app/Views/errors/html/error_404.php
@@ -48,10 +52,11 @@
 * public/index.php
 * spark
 
-所有更改
+所有变更
 ===========
 
-这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
+以下是 **项目空间** 中所有发生变更的文件列表；
+其中许多只是简单的注释或格式调整，对运行时没有任何影响：
 
 * app/Config/App.php
 * app/Config/Constants.php

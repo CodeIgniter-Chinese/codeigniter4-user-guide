@@ -8,26 +8,24 @@
 文档
 ==============
 
-- `CodeIgniter 3.x Session 库文档 <http://codeigniter.com/userguide3/libraries/sessions.html>`_
-- :doc:`CodeIgniter 4.x Session 库文档 </libraries/sessions>`
+- `CodeIgniter 3.x Session 类文档 <https://codeigniter.org.cn/userguide3/libraries/sessions.html>`_
+- :doc:`CodeIgniter 4.x Session 类文档 </libraries/sessions>`
 
-变更点
+变更内容
 =====================
-
-- 只是一些小变化,如方法名称和库的加载。
-- 在数据库驱动中，Session 表的定义已经发生了变化。
+- 只变更了少量内容，例如方法名和类的加载方式。
+- 数据库驱动中 session 表的定义已变更。
 
 升级指南
 =============
+1. 凡是使用 Session 类的地方，都将 ``$this->load->library('session');`` 替换为 ``$session = session();``。
+2. 从这里开始，凡是以 ``$this->session`` 开头的每一行，都要替换为 ``$session``，并使用新的方法名。
 
-1. 在使用 Session 库的任何地方,用 ``$session = session();`` 替换 ``$this->load->library('session');``。
-2. 从那时起,必须用 ``$session`` 后跟新方法名替换以 ``$this->session`` 开头的每一行。
-
-    - 要访问 Session 数据,请使用 ``$session->item`` 或 ``$session->get('item')`` 语法,而不是 CI3 语法 ``$this->session->name``。
-    - 要设置数据,请使用 ``$session->set($array);`` 代替 ``$this->session->set_userdata($array);``。
-    - 要删除数据,请使用 ``unset($_SESSION['some_name']);`` 或 ``$session->remove('some_name');`` 代替 ``$this->session->unset_userdata('some_name');``。
-    - 要将 Session 数据标记为只在下一个请求中可用的闪存数据,请使用 ``$session->markAsFlashdata('item');`` 代替 ``$this->session->mark_as_flash('item');```
-3. 如果你使用数据库驱动，你需要重新创建 Session 表。参见 :ref:`sessions-databasehandler-driver`。
+    - 访问 session 数据时，使用 ``$session->item`` 或 ``$session->get('item')``，而不要使用 CI3 的语法 ``$this->session->name``。
+    - 设置数据时，使用 ``$session->set($array);``，而不要使用 ``$this->session->set_userdata($array);``。
+    - 移除数据时，使用 ``unset($_SESSION['some_name']);`` 或 ``$session->remove('some_name');``，而不要使用 ``$this->session->unset_userdata('some_name');``。
+    - 将 session 数据标记为 flashdata 时（它只会在下一次请求中可用），使用 ``$session->markAsFlashdata('item');``，而不要使用 ``$this->session->mark_as_flash('item');``。
+3. 如果使用数据库驱动，则需要重新创建 session 表。参见 :ref:`sessions-databasehandler-driver`。
 
 代码示例
 ============

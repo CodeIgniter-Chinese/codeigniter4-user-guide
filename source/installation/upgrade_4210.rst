@@ -2,11 +2,11 @@
 从 4.2.9 升级到 4.2.10
 ##############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
-- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
@@ -17,9 +17,10 @@
 
 4.2.10 版本没有更改项目文件中的任何可执行代码。
 
-所有更改
+所有变更
 ===========
 
-这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
+以下列出了 **项目空间** 中所有已变更的文件；
+其中很多只是注释或格式调整，不会影响运行时行为：
 
 * composer.json

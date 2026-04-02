@@ -2,17 +2,17 @@
 从 4.3.6 升级到 4.3.7
 #############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`使用 Composer 安装的应用程序启动器升级 <app-starter-upgrading>`
-- :ref:`使用 Composer 安装的将 CodeIgniter4 添加到现有项目中升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-重大变更
+破坏性变更
 ****************
 
 .. _upgrade-437-feature-testing:
@@ -20,26 +20,27 @@
 功能测试请求体
 ============================
 
-如果你调用了以下方法：
+如果调用了：
 
 1. :ref:`withBody() <feature-setting-the-body>`
-2. 并且 :ref:`withBodyFormat() <feature-formatting-the-request>`
-3. 并将 ``$params`` 传递给 :ref:`call() <feature-requesting-a-page>` (或简写方法)
+2. 以及 :ref:`withBodyFormat() <feature-formatting-the-request>`
+3. 并将 ``$params`` 传递给 :ref:`call() <feature-requesting-a-page>` （或其简写方法）
 
-则请求体的优先级已更改。如果你的测试代码受到此更改的影响，请进行修改。
+那么请求体的优先级已发生变化。如果测试代码受到影响（这种情况较少见），需要进行修改。
 
-例如，现在使用 ``$params`` 来构建请求体，而不使用 ``$body``::
+例如，现在使用 ``$params`` 来构建请求体，而不会使用 ``$body``::
 
     $this->withBody($body)->withBodyFormat('json')->call('post', $params)
 
-以前，``$body`` 用于请求体。
+在此前版本中，请求体使用的是 ``$body``。
 
 Validation::loadRuleGroup() 的返回值
 ===========================================
 
-``Validation::loadRuleGroup()`` 的返回值已从 "**rules 数组**" 更改为 "**rules 数组** 和 **customErrors 数组**" 的 "**数组**"（``[rules, customErrors]``）。
+``Validation::loadRuleGroup()`` 的返回值已从“**rules 数组**”变更为“包含 **rules 数组** 和 **customErrors 数组** 的 **数组**”
+（``[rules, customErrors]``）。
 
-如果你使用了该方法，请将代码更新如下::
+如果使用了该方法，需要这样更新代码::
 
     $rules = $this->validation->loadRuleGroup($rules);
         ↓
@@ -48,24 +49,27 @@ Validation::loadRuleGroup() 的返回值
 项目文件
 *************
 
-**项目空间** (根目录、app、public、writable) 中的一些文件已经更新。由于这些文件位于 **system** 范围之外，因此不会在没有你干预的情况下进行更改。
+**项目空间** （根目录、app、public、writable）中的部分文件已更新。
+由于这些文件位于 **system** 范围之外，框架不会在没有你介入的情况下自动修改它们。
 
-有一些第三方 CodeIgniter 模块可用于帮助合并对项目空间的更改：`在 Packagist 上查看 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
+目前有一些第三方 CodeIgniter 模块可用于协助合并项目空间中的变更：
+`在 Packagist 上浏览 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
-内容更改
+内容变更
 ===============
 
-以下文件已经进行了重大更改（包括弃用或视觉调整），建议你将更新后的版本与你的应用程序合并：
+以下文件发生了较大的改动（包括弃用项或界面调整），建议将更新后的版本合并到你的应用中：
 
 配置
 ------
 
 - app/Config/Kint.php
 
-所有更改
+所有变更
 ===========
 
-这是 **项目空间** 中所有已更改的文件的列表；其中许多只是注释或格式变化，对运行时没有影响：
+以下列出了 **项目空间** 中所有发生变更的文件；
+其中多数只是注释或格式调整，不会影响运行时行为：
 
 - app/Config/App.php
 - app/Config/Autoload.php
