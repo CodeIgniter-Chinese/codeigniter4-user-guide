@@ -70,7 +70,7 @@
 如果希望使用系统消息的翻译，
 可以采用类似的方式将其添加到项目中。
 
-下载 `最新版本 <https://github.com/codeigniter4/translations/releases/latest>`_。
+下载 `最新版本的翻译文件 <https://github.com/codeigniter4/translations/releases/latest>`_。
 解压下载的 zip 文件，并将其中 **Language** 文件夹的内容
 复制到 **app/Languages** 文件夹中。
 

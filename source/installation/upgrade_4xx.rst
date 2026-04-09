@@ -118,8 +118,8 @@ CodeIgniter 4 项目文件夹开始，
 - 类会在需要时实例化，框架组件由
   :doc:`../concepts/services` 进行管理。
 - :doc:`自动加载器 <../concepts/autoloader>` 会自动处理
-  PSR-4 风格的类定位，适用于 ``App``（即 **app** 文件夹）
-  和 ``CodeIgniter``（即 **system** 文件夹）这两个顶级命名空间，
+  PSR-4 风格的类定位，适用于 ``App`` （即 **app** 文件夹）
+  和 ``CodeIgniter`` （即 **system** 文件夹）这两个顶级命名空间，
   并支持 Composer 自动加载。
 - 你可以配置类加载方式，以支持任何你习惯的应用结构，
   包括 “HMVC” 风格。
@@ -237,7 +237,7 @@ CodeIgniter 4 项目文件夹开始，
   对于这些类，需要寻找新的实现方式。
   包括：
   `日历类 <https://codeigniter.org.cn/userguide3/libraries/calendar.html>`_、
-  `FTP 类<https://codeigniter.org.cn/userguide3/libraries/ftp.html>`_、
+  `FTP 类 <https://codeigniter.org.cn/userguide3/libraries/ftp.html>`_、
   `Javascript 类 <https://codeigniter.org.cn/userguide3/libraries/javascript.html>`_、
   `购物车类 <https://codeigniter.org.cn/userguide3/libraries/cart.html>`_、
   `引用通告类 <https://codeigniter.org.cn/userguide3/libraries/trackback.html>`_、

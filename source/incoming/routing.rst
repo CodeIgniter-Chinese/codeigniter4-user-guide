@@ -28,7 +28,7 @@ CodeIgniter 有两种路由方式：**定义路由** 和 **自动路由**。
 
 .. literalinclude:: routing/001.php
 
-路由接收左侧的 **路由路径**（相对于 BaseURL 的 URI 路径，``/``），并将其映射到右侧的 **路由处理程序**（控制器和方法 ``Home::index``），同时传递应传递给控制器的任何参数。
+路由接收左侧的 **路由路径** （相对于 BaseURL 的 URI 路径，``/``），并将其映射到右侧的 **路由处理程序** （控制器和方法 ``Home::index``），同时传递应传递给控制器的任何参数。
 
 控制器和方法的列出方式应与使用静态方法的方式相同，即用双冒号分隔类和方法，如 ``Users::list``。
 
@@ -41,7 +41,7 @@ CodeIgniter 有两种路由方式：**定义路由** 和 **自动路由**。
 
 以下是一些基本的路由示例。
 
-URL 第一段包含 **journals** 单词，将映射到 ``\App\Controllers\Blogs`` 类和 :ref:`默认方法 <routing-default-method>`（通常为 ``index()``）：
+URL 第一段包含 **journals** 单词，将映射到 ``\App\Controllers\Blogs`` 类和 :ref:`默认方法 <routing-default-method>` （通常为 ``index()``）：
 
 .. literalinclude:: routing/006.php
 

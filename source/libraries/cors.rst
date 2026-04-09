@@ -4,15 +4,17 @@
 
 .. versionadded:: 4.5.0
 
-跨域资源共享 (CORS) 是一种基于 HTTP 头的安全机制，允许服务器指示浏览器应允许从其自身以外的任何来源（域名、协议或端口）加载资源。
+跨域资源共享（CORS）是一种基于 HTTP 标头的安全机制，
+允许服务器声明除自身之外的任何源（域名、协议或端口），浏览器应允许从这些源加载资源。
 
-CORS 通过在 HTTP 请求和响应中添加头来工作，以指示请求的资源是否可以跨不同来源共享，从而帮助防止恶意攻击，如跨站请求伪造 (CSRF) 和数据盗窃。
+CORS 通过向 HTTP 请求和响应中添加标头，以指示所请求的资源是否可以在不同源之间共享，
+这样有助于防止跨站请求伪造（CSRF）和数据窃取等恶意攻击。
 
-如果你不熟悉 CORS 和 CORS 头，请阅读 `MDN 上的 CORS 文档`_。
+若对 CORS 及其标头不熟悉，请先阅读 `MDN CORS 文档`_。
 
-.. _MDN 上的 CORS 文档: https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS#http_%E5%93%8D%E5%BA%94%E6%A0%87%E5%A4%B4%E5%AD%97%E6%AE%B5
+.. _MDN CORS 文档: https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Guides/CORS#http_响应标头字段
 
-CodeIgniter 提供了 CORS 过滤器和 helper 类。
+CodeIgniter 提供了 CORS 过滤器和辅助类。
 
 .. contents::
     :local:
@@ -25,77 +27,79 @@ CodeIgniter 提供了 CORS 过滤器和 helper 类。
 设置默认配置
 ======================
 
-可以通过 **app/Config/Cors.php** 配置 CORS。
+CORS 通过 **app/Config/Cors.php** 进行配置。
 
-至少需要设置 ``$default`` 属性中的以下项目：
+至少需要在 ``$default`` 属性中设置以下项：
 
-- ``allowedOrigins``: 明确列出你想要允许的来源。
-- ``allowedHeaders``: 明确列出你想要允许的 HTTP 头。
-- ``allowedMethods``: 明确列出你想要允许的 HTTP 方法。
+- ``allowedOrigins``：显式列出允许的来源（Origin）。
+- ``allowedHeaders``：显式列出允许的 HTTP 标头。
+- ``allowedMethods``：显式列出允许的 HTTP 方法。
 
-.. warning:: 基于最小特权原则，只应允许必要的最小来源、方法和头。
+.. warning:: 遵循最小权限原则，仅允许必需的 Origin、Methods 和 Headers。
 
-如果你在跨域请求中发送凭证（例如，cookies），请将 ``supportsCredentials`` 设置为 ``true``。
+若跨域请求需要发送凭据（如 Cookie），将 ``supportsCredentials`` 设为 ``true``。
 
 启用 CORS
 =============
 
-要启用 CORS，你需要做两件事：
+启用 CORS 需要完成两项设置：
 
-1. 为允许 CORS 的路由指定 ``cors`` 过滤器。
+1. 在允许 CORS 的路由上指定 ``cors`` 过滤器。
 2. 为 CORS 预检请求添加 **OPTIONS** 路由。
 
-设置路由
+在路由中设置
 ------------------
 
-你可以在 **app/Config/Routes.php** 中为路由设置 ``cors`` 过滤器。
+可在 **app/Config/Routes.php** 中为路由设置 ``cors`` 过滤器。
 
-例如，
+例如：
 
 .. literalinclude:: cors/001.php
 
-不要忘记为预检请求添加 OPTIONS 路由。因为如果路由不存在，控制器过滤器（必需过滤器除外）将不起作用。
+别忘了为预检请求添加 OPTIONS 路由。因为控制器过滤器（除 Required 过滤器外）
+在路由不存在时不会生效。
 
-CORS 过滤器处理所有预检请求，因此通常不会调用 OPTIONS 路由的闭包控制器。
+CORS 过滤器会处理所有预检请求，因此 OPTIONS 路由的闭包控制器通常不会被调用。
 
 在 Config\\Filters 中设置
 -------------------------
 
-或者，你可以在 **app/Config/Filters.php** 中为 URI 路径设置 ``cors`` 过滤器。
+或者，也可在 **app/Config/Filters.php** 中为 URI 路径设置 ``cors`` 过滤器。
 
-例如，
+例如：
 
 .. literalinclude:: cors/002.php
 
-不要忘记为预检请求添加 OPTIONS 路由。因为如果路由不存在，控制器过滤器（必需过滤器除外）将不起作用。
+别忘了为预检请求添加 OPTIONS 路由。因为控制器过滤器（除 Required 过滤器外）
+在路由不存在时不会生效。
 
-例如，
+例如：
 
 .. literalinclude:: cors/003.php
 
-CORS 过滤器处理所有预检请求，因此通常不会调用 OPTIONS 路由的闭包控制器。
+CORS 过滤器会处理所有预检请求，因此 OPTIONS 路由的闭包控制器通常不会被调用。
 
 检查路由和过滤器
 ===========================
 
-配置完成后，你可以使用 :ref:`routing-spark-routes` 命令检查路由和过滤器。
+配置完成后，可使用 :ref:`routing-spark-routes` 命令检查路由和过滤器。
 
 设置其他配置
 ======================
 
-如果你想使用不同于默认配置的配置，请在 **app/Config/Cors.php** 中添加一个属性。
+若需使用默认配置以外的其他配置，请在 **app/Config/Cors.php** 中添加属性。
 
-例如，添加 ``$api`` 属性。
+例如，添加 ``$api`` 属性：
 
 .. literalinclude:: cors/004.php
 
-属性名称（在上述示例中为 ``api``）将成为配置名称。
+属性名称（上例中的 ``api``）将成为配置名称。
 
-然后，像 ``cors:api`` 一样将属性名称指定为过滤器参数：
+然后在过滤器参数中指定该属性名称，如 ``cors:api``：
 
 .. literalinclude:: cors/005.php
 
-你也可以使用 :ref:`filters-filters-filter-arguments`。
+也可使用 :ref:`filters-filters-filter-arguments`。
 
 ***************
 类参考
@@ -112,7 +116,7 @@ CORS 过滤器处理所有预检请求，因此通常不会调用 OPTIONS 路由
     :returns: 响应实例
     :rtype: ResponseInterface
 
-    添加 CORS 的响应头。
+    添加 CORS 响应标头。
 
 .. php:method:: handlePreflightRequest(RequestInterface $request, ResponseInterface $response): ResponseInterface
 
@@ -126,7 +130,7 @@ CORS 过滤器处理所有预检请求，因此通常不会调用 OPTIONS 路由
 .. php:method:: isPreflightRequest(IncomingRequest $request): bool
 
     :param IncomingRequest $request: 请求实例
-    :returns: 如果是预检请求则返回 True。
+    :returns: 若请求为预检请求则返回 true
     :rtype: bool
 
     检查请求是否为预检请求。

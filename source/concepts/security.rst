@@ -155,7 +155,7 @@ CodeIgniter 应对措施
 - :doc:`../libraries/validation` 库
 - :php:func:`esc()` 函数
 - :doc:`HTTP 库 <../incoming/incomingrequest>` 提供 :ref:`输入字段过滤 <incomingrequest-filtering-input-data>`
-- 支持 :ref:`内容安全策略`
+- 支持 :ref:`content-security-policy`
 - :doc:`../database/query_builder`
 - :ref:`数据库转义方法 <database-queries-escaping>`
 - :ref:`数据库查询绑定 <database-queries-query-bindings>`
@@ -266,7 +266,7 @@ OWASP 建议
 CodeIgniter 应对措施
 ----------------------
 
-- 通过 Composer 轻松 :ref:`应用启动器升级`
+- 通过 Composer 轻松 :ref:`app-starter-upgrading`
 
 A07:2021 身份识别和认证失败
 ===================================================

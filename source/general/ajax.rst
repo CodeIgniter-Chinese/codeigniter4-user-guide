@@ -62,4 +62,4 @@ htmx
 
     <body hx-ext="ajax-header">
     ...
-    </body
+    </body>

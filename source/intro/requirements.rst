@@ -35,11 +35,11 @@ PHP 及必需扩展
 
 服务器上建议启用以下 PHP 扩展：
 
-  - `mysqlnd <https://www.php.net/manual/zh/mysqlnd.install.php>`_（如果使用 MySQL）
+  - `mysqlnd <https://www.php.net/manual/zh/mysqlnd.install.php>`_ （如果使用 MySQL）
   - `curl <https://www.php.net/manual/zh/curl.requirements.php>`_（如果使用 :doc:`CURLRequest </libraries/curlrequest>`）
   - `imagick <https://www.php.net/manual/zh/imagick.requirements.php>`_（如果使用 :doc:`图像处理 </libraries/images>` 类的 ImageMagickHandler）
   - `gd <https://www.php.net/manual/zh/image.requirements.php>`_（如果使用 :doc:`图像处理 </libraries/images>` 类的 GDHandler）
-  - `simplexml <https://www.php.net/manual/zh/simplexml.requirements.php>`_（如果需要格式化 XML）
+  - `simplexml <https://www.php.net/manual/zh/simplexml.requirements.php>`_ （如果需要格式化 XML）
 
 当使用缓存服务器时，需要以下 PHP 扩展：
 

@@ -40,7 +40,7 @@
     .. literalinclude:: filesystem_helper/003.php
 
     默认情况下，返回的数组中不会包含隐藏文件，并且会跳过隐藏目录。
-    要覆盖此行为，可以将第三个参数设置为 ``true``（布尔值）：
+    要覆盖此行为，可以将第三个参数设置为 ``true`` （布尔值）：
 
     .. literalinclude:: filesystem_helper/004.php
 

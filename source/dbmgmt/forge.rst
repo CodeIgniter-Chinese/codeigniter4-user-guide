@@ -226,7 +226,7 @@ $forge->addUniqueKey()
 
 .. _creating-a-table:
 
-创建表
+创建一张表
 ================
 
 声明字段和键后，可以使用以下命令创建新表
@@ -249,7 +249,7 @@ $forge->addUniqueKey()
 删除表
 ***************
 
-删除表
+删除一张表
 ================
 
 执行 ``DROP TABLE`` 语句并可选择添加 ``IF EXISTS`` 子句。
@@ -460,7 +460,7 @@ $forge->modifyColumn()
         :returns:  成功时返回查询对象，失败时返回 false
         :rtype:    mixed
 
-        创建新表。用法：参见 `创建表`_。
+        创建新表。用法：参见 `创建一张表`_。
 
     .. php:method:: dropColumn($table, $columnNames)
 
@@ -509,7 +509,7 @@ $forge->modifyColumn()
         :returns:    成功时返回 true，失败时返回 false
         :rtype:    bool
 
-        删除表。用法：参见 `删除表`_。
+        删除表。用法：参见 `删除一张表`_。
 
     .. php:method:: processIndexes($table)
 
