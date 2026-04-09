@@ -1,33 +1,29 @@
 ---
 name: ci-translate
-description: CodeIgniter RST 英译中翻译与审查工具。支持两种模式：translate（完整翻译+自动审查）和 review（仅审查已有译文）。确保出版级质量，RST 结构零破坏。
-argument-hint: <translate|review> <file-path>
+description: CodeIgniter RST 英译中翻译工具。用于翻译用户指南 `.rst` 文档，并在同一流程中完成 guard 校验与审查后再定稿。用户要求翻译 CodeIgniter 文档、章节或页面为中文时应使用此 skill。
+argument-hint: <file-path>
 ---
 
-CodeIgniter 用户指南（Sphinx + reStructuredText）翻译与质量保障工具。
+CodeIgniter 用户指南（Sphinx + reStructuredText）翻译工具，内置质量保障流程。
 
-**工作模式**：
-- `translate`：备份→翻译→guard→审查→按报告修订→guard→覆盖→删除备份
-- `review`：对已有译文进行质量审查（需存在 .en.bak 备份文件）
+**工作方式**：
+- 备份 → 翻译 → guard → 审查 → 按审查结果修订 → guard → 定稿 → 删除备份
 
 **使用方法**：
 ```
-/ci-translate translate source/libraries/caching.rst  # 翻译+审查
-/ci-translate review source/libraries/caching.rst     # 仅审查
+/ci-translate source/libraries/caching.rst
 ```
 
 ---
 
-# 模式判断
+# 参数解析
 
-根据第一个参数判断工作模式：
-- 若 `$ARGUMENTS[0]` = `translate` → 执行【翻译+审查模式】
-- 若 `$ARGUMENTS[0]` = `review` → 执行【仅审查模式】
-- 文件路径为 `$ARGUMENTS[1]`（或 `$ARGUMENTS[0]` 当省略模式时，默认为 translate）
+- 只接受一个参数：待翻译的 `.rst` 文件路径
+- 文件路径为 `$ARGUMENTS`
 
 ---
 
-# 【翻译+审查模式】完整流程
+# 完整流程（翻译 + 审查）
 
 ## 1. 备份原文件
 
@@ -336,28 +332,22 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/validate-rst.py --no-build "$FILE_PATH"
 
 如果失败，检查并修复格式问题后重新执行，直至 guard 通过。
 
-## 8. 自动审查（翻译模式特有）
+## 8. 自动审查（必要步骤）
 
-翻译完成后，自动执行审查流程（参见【审查模式】章节），生成审查报告。
+翻译完成后，立即执行审查流程，生成审查报告。
 
 若报告发现问题：
 1. 按照报告建议逐条修订译文
 2. 修订后再次运行 guard 验证
-3. 如有必要，重新审查直至通过
+3. 重新做一轮审查，直至无 Critical/Major 问题再定稿
 
-## 9. 删除临时文件
+## 9. 审查流程
 
-```bash
-rm $FILE_PATH.en.bak
-```
+对当前翻译结果进行质量审查，作为定稿前的强制验收步骤。
 
----
+**前提条件**：必须存在英文备份文件 `$FILE_PATH.en.bak`，并以其作为英文对照源。
 
-# 【仅审查模式】流程
-
-对已翻译的文件进行质量审查，**不执行翻译**。
-
-**前提条件**：必须存在英文备份文件 `$FILE_PATH.en.bak`
+审查时不要把它当成独立模式，也不要只输出审查报告后结束；审查的目标是驱动修订并完成最终定稿。
 
 ## 审查核心方法：信息点对账 + 可读性重写建议
 
@@ -618,13 +608,11 @@ rm $FILE_PATH.en.bak
 
 # 输出要求
 
-## 翻译模式输出
+## 最终输出
 
-只输出翻译后的中文 .rst 全文，以及审查报告（如有问题）。不要附加解释/点评/对照表。
-
-## 审查模式输出
-
-只输出审查报告（Markdown 格式），不要输出重译全文，不要附加无关解释。
+- 直接在 `$FILE_PATH` 中写入最终定稿的中文 `.rst` 全文
+- 若审查发现问题，先生成审查报告并据此修订，直到无 Critical/Major 问题后再结束
+- 对用户的文字输出保持精简：给出最终中文 `.rst` 全文；如仍有未解决风险，再附审查报告
 
 ---
 

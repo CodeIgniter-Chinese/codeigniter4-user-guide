@@ -6,7 +6,7 @@
 
 **文件**：`source/libraries/caching.rst`
 **审查时间**：2026-04-02 14:30
-**审查代理**：codeigniter-translation-reviewer
+**审查阶段**：ci-translate 审查
 **备份文件**：`source/libraries/caching.rst.en.bak`
 
 ---
@@ -391,16 +391,16 @@ sed -i 's/帮助函数/辅助函数/g' source/libraries/caching.rst
 ---
 
 **审查完成时间**：2026-04-02 14:30
-**审查代理版本**：codeigniter-translation-reviewer v2.0
+**审查阶段版本**：ci-translate review v2.0
 **下一步建议**：
 - 评级 ⚠️ 需修订：修复 1 处 Critical 和 2 处 Major 问题后重新审查
 - 修复后运行：`make html` 验证构建成功
-- 修复后重新审查：`/ci-translate review source/libraries/caching.rst`
+- 修复后重新运行 `/ci-translate source/libraries/caching.rst`，完成翻译流程内的再次审查
 
 ---
 
 **示例说明**：
-本报告展示了如何使用详细模板生成标准化审查报告。实际审查时，审查代理应：
+本报告展示了如何使用详细模板生成标准化审查报告。实际审查时，审查阶段应：
 1. 严格按照模板格式输出
 2. 每个问题提供完整的原文/译文摘录和修复建议
 3. 统计审查覆盖率，量化问题分布
