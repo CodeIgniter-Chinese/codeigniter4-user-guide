@@ -83,7 +83,7 @@ URI::setSegment() 变更
 详见 :ref:`变更记录 <v440-factories>`。
 
 如果存在如下代码 ``model(\Myth\Auth\Models\UserModel::class)``
-或 ``model('Myth\Auth\Models\UserModel')``（可能出现在第三方包中），
+或 ``model('Myth\Auth\Models\UserModel')`` （可能出现在第三方包中），
 且期望加载 ``App\Models\UserModel``，则需要在首次加载该类之前定义要加载的类名::
 
     Factories::define('models', 'Myth\Auth\Models\UserModel', 'App\Models\UserModel');

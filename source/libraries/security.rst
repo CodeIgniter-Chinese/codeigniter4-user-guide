@@ -1,59 +1,63 @@
-########
-安全
-########
+###########
+Security 类
+###########
 
-安全类包含帮助保护你的网站免受跨站请求伪造(CSRF)攻击的方法。
+Security 类提供用于防范跨站请求伪造（CSRF）攻击的方法。
 
 .. contents::
     :local:
     :depth: 3
 
 *******************
-加载库
+加载类
 *******************
 
-如果你加载库的唯一兴趣是处理 CSRF 保护,那么你永远不需要加载它,因为它作为过滤器运行且没有手动交互。
+如仅需通过加载该库来处理 CSRF 防护，则无需手动加载，
+因其以过滤器形式运行，无需手动交互。
 
-但是,如果你发现确实需要直接访问,你可以通过 Services 文件加载它:
+如确有直接访问需求，可通过 Services 文件加载：
 
 .. literalinclude:: security/001.php
 
 .. _cross-site-request-forgery:
 
 *********************************
-跨站请求伪造(CSRF)
+跨站请求伪造（CSRF）
 *********************************
 
-.. warning:: CSRF 保护仅适用于 **POST/PUT/PATCH/DELETE** 请求。不保护其他方法的请求。
+.. warning:: CSRF 防护仅对 **POST/PUT/PATCH/DELETE** 请求有效。
+    其他方法的请求不受保护。
 
-先决条件
+前提条件
 ============
 
-当你使用 CodeIgniter 的 CSRF 保护时,仍需要按如下方式编写代码。否则,CSRF 保护可能会被绕过。
+使用 CodeIgniter 的 CSRF 防护时，仍需按以下方式编码，
+否则 CSRF 防护可能被绕过。
 
-当自动路由被禁用时
+自动路由禁用时
 -----------------------------
 
-执行以下操作之一:
+执行以下操作之一：
 
-1. 不要使用 ``$routes->add()``,并在路由中使用 HTTP 动词。
-2. 在处理之前,在控制器方法中检查请求方法。
+1. 不使用 ``$routes->add()``，路由中使用 HTTP 方法。
+2. 处理前在控制器方法中检查请求方法。
 
-例如::
+示例::
 
     if (! $this->request->is('post')) {
         return $this->response->setStatusCode(405)->setBody('Method Not Allowed');
     }
 
-.. note:: 自 v4.3.0 起,可以使用 :ref:`$this->request->is() <incomingrequest-is>` 方法。
-    在以前的版本中,你需要使用 ``if (strtolower($this->request->getMethod()) !== 'post')``。
+.. note:: :ref:`$this->request->is() <incomingrequest-is>` 方法自 v4.3.0 起可用。
+    早期版本需使用
+    ``if (strtolower($this->request->getMethod()) !== 'post')``。
 
-当自动路由被启用时
+自动路由启用时
 ----------------------------
 
-1. 在处理之前,在控制器方法中检查请求方法。
+1. 处理前在控制器方法中检查请求方法。
 
-例如::
+示例::
 
     if (! $this->request->is('post')) {
         return $this->response->setStatusCode(405)->setBody('Method Not Allowed');
@@ -64,145 +68,156 @@ CSRF 配置
 
 .. _csrf-protection-methods:
 
-CSRF 保护方法
+CSRF 防护方法
 -----------------------
 
-.. warning:: 如果你使用 :doc:`Session <./sessions>`，一定要使用基于 Session 的
-    CSRF 保护。基于 Cookie 的 CSRF 保护无法防止同站攻击。
+.. warning:: 如使用 :doc:`Session <./sessions>`，请务必使用基于 Session 的
+    CSRF 防护。基于 Cookie 的 CSRF 防护无法防止同站攻击。
     详情请参见
     `GHSA-5hm8-vh6r-2cjq <https://github.com/codeigniter4/shield/security/advisories/GHSA-5hm8-vh6r-2cjq>`_ 。
 
-默认情况下,使用基于 Cookie 的 CSRF 保护。它是 OWASP 跨站请求伪造预防备忘单上的
-`双重提交 Cookie <https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie>`_。
+默认使用基于 Cookie 的 CSRF 防护，即 OWASP 跨站请求伪造防护备忘单中的
+`双重提交 Cookie <https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie>`_
+方案。
 
-你也可以使用基于会话的 CSRF 保护。它是
-`同步令牌模式 <https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern>`_。
+也可使用基于 Session 的 CSRF 防护，即
+`同步器令牌模式 <https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern>`_ 。
 
-你可以通过编辑以下配置参数的值在 **app/Config/Security.php** 来设置使用基于会话的 CSRF 保护:
+编辑 **app/Config/Security.php** 中的以下配置参数值，可设置为使用基于 Session 的 CSRF 防护：
 
 .. literalinclude:: security/002.php
 
 令牌随机化
 -------------------
 
-为了缓解像 `BREACH`_ 这样的压缩旁道攻击,并阻止攻击者猜测 CSRF 令牌,你可以配置令牌随机化(默认关闭)。
+为缓解 `BREACH`_ 等压缩旁道攻击，并防止攻击者猜测 CSRF 令牌，可配置令牌随机化（默认关闭）。
 
-如果你启用它,随机掩码会添加到令牌中并用于扰乱它。
+启用后，将为令牌添加随机掩码并对其混淆。
 
 .. _`BREACH`: https://en.wikipedia.org/wiki/BREACH
 
-你可以通过编辑以下配置参数的值在 **app/Config/Security.php** 来启用它:
+编辑 **app/Config/Security.php** 中的以下配置参数值可启用：
 
 .. literalinclude:: security/003.php
 
-令牌再生成
+令牌重新生成
 ------------------
 
-令牌可以在每次提交时重新生成(默认),或者在 Session 或 CSRF Cookie 的整个生命周期内保持不变。
+令牌可在每次提交时重新生成（默认），或
+在 Session 或 CSRF Cookie 的整个生命周期内保持不变。
 
-令牌的默认再生成提供了更严格的安全性,但可能导致可用性问题,因为其他令牌变得无效(后退/前进导航、多个选项卡/窗口、异步操作等)。你可以通过编辑以下配置参数的值在 **app/Config/Security.php** 来更改此行为:
+默认的令牌重新生成提供更强的安全性，但可能导致
+可用性问题，因为其他令牌会失效（后退/前进
+导航、多个标签页/窗口、异步操作等）。编辑 **app/Config/Security.php** 中的以下配置参数值可更改此行为：
 
 .. literalinclude:: security/004.php
 
-.. warning:: 如果你使用基于 Cookie 的 CSRF 保护，并在提交后使用 :php:func:`redirect()`，
-    你必须调用 ``withCookie()`` 来发送重新生成的 CSRF Cookie。详情请参见 :ref:`response-redirect`。
+.. warning:: 如使用基于 Cookie 的 CSRF 防护，并在提交后使用 :php:func:`redirect()`，
+    必须调用 ``withCookie()`` 发送重新生成的 CSRF Cookie。详情请参见 :ref:`response-redirect`。
 
-.. note:: 自 v4.2.3 起,你可以用 ``Security::generateHash()`` 方法手动重新生成 CSRF 令牌。
+.. note:: 自 v4.2.3 起，可使用 ``Security::generateHash()`` 方法手动重新生成 CSRF 令牌。
 
 .. _csrf-redirection-on-failure:
 
 失败时重定向
 ----------------------
 
-从 v4.5.0 开始，当请求未通过 CSRF 验证检查时，在生产环境中，默认情况下用户会被重定向到前一页面；在其他环境中，则会抛出一个 SecurityException。
+自 v4.5.0 起，当请求未通过 CSRF 验证检查时，默认情况下，
+生产环境中用户将被重定向到上一页，其他环境中将抛出 SecurityException。
 
-.. note:: 在生产环境中,当你使用 HTML 表单时,建议启用此重定向以获得更好的用户体验。
+.. note:: 生产环境中使用 HTML 表单时，建议
+    启用此重定向以获得更好的用户体验。
 
-    升级用户应检查他们的配置文件。
+    升级用户应检查其配置文件。
 
-如果你希望将其重定向到前一页面，请在 **app/Config/Security.php** 中将以下配置参数值设置为 ``true``：
+如希望重定向到上一页，在 **app/Config/Security.php** 中将以下配置参数值设为 ``true``：
 
 .. literalinclude:: security/005.php
 
-重定向后,会设置一个 ``error`` 闪存消息,可以使用以下视图代码显示给最终用户::
+重定向时，会设置 ``error`` 闪存消息，可在视图中通过以下代码显示给最终用户::
 
     <?= session()->getFlashdata('error') ?>
 
-这比简单地崩溃提供了更好的体验。
+这比直接崩溃提供了更好的体验。
 
-即使重定向值为 ``true``,AJAX 调用也不会重定向,而会抛出 SecurityException。
+即使 redirect 值为 ``true``，AJAX 调用也不会重定向，而是抛出 SecurityException。
 
 .. _enable-csrf-protection:
 
-启用 CSRF 保护
+启用 CSRF 防护
 ======================
 
-你可以通过更改 **app/Config/Filters.php** 并全局启用 `csrf` 过滤器来启用 CSRF 保护:
+修改 **app/Config/Filters.php** 并全局启用 `csrf` 过滤器，即可启用 CSRF 防护：
 
 .. literalinclude:: security/006.php
 
-可以将某些 URI 从 CSRF 保护中排除(例如期望外部 POST 内容的 API 端点)。你可以通过在过滤器中将它们添加为例外来添加这些 URI:
+特定 URI 可从 CSRF 防护中排除（例如接收外部 POST 内容的 API 端点）。可在过滤器中将其添加为例外：
 
 .. literalinclude:: security/007.php
 
-正则表达式也支持(不区分大小写):
+也支持正则表达式（不区分大小写）：
 
 .. literalinclude:: security/008.php
 
-也可以仅针对特定方法启用 CSRF 过滤器:
+也可仅为特定方法启用 CSRF 过滤器：
 
 .. literalinclude:: security/009.php
 
-.. Warning:: 如果使用 ``$methods`` 过滤器,你应该 :ref:`禁用自动路由(传统) <use-defined-routes-only>`,因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。使用你不期望的方法访问控制器可能会绕过过滤器。
+.. warning:: 如使用 ``$methods`` 过滤器，应 :ref:`禁用自动路由（传统版）<use-defined-routes-only>`，
+    因为 :ref:`auto-routing-legacy` 允许任何 HTTP 方法访问控制器。
+    以意外的方法访问控制器可能绕过过滤器。
 
 HTML 表单
 ==========
 
-如果使用 :doc:`表单辅助函数 <../helpers/form_helper>`,那么 :func:`form_open()` 将自动在你的表单中插入一个隐藏的 csrf 字段。
+如使用 :doc:`表单辅助函数 <../helpers/form_helper>`，
+:func:`form_open()` 会自动在表单中插入隐藏的 csrf 字段。
 
-.. note:: 要使用 CSRF 字段的自动生成,你需要对表单页面打开 CSRF 过滤器。在大多数情况下,它使用 ``GET`` 方法请求。
+.. note:: 要使用 CSRF 字段自动生成功能，需要为表单页面开启 CSRF 过滤器。
+    大多数情况下该页面使用 ``GET`` 方法请求。
 
-如果没有,你可以使用始终可用的 ``csrf_token()`` 和 ``csrf_hash()`` 函数::
+如未使用表单辅助函数，可使用始终可用的 ``csrf_token()`` 和 ``csrf_hash()`` 函数::
 
     <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
 
-另外,你可以使用 ``csrf_field()`` 方法为你生成这个隐藏的输入字段::
+此外，可使用 ``csrf_field()`` 方法生成此隐藏 input 字段::
 
-    // 生成:<input type="hidden" name="{csrf_token}" value="{csrf_hash}" />
+    // 生成：<input type="hidden" name="{csrf_token}" value="{csrf_hash}" />
     <?= csrf_field() ?>
 
-在发送 JSON 请求时,CSRF 令牌也可以作为一个参数传递。
-通过 ``csrf_header()`` 函数可用的下一个传递 CSRF 令牌的方式是特殊的 Http 头。
+发送 JSON 请求时，CSRF 令牌也可作为参数之一传递。
+传递 CSRF 令牌的另一种方式是使用特殊 HTTP 标头，其名称可通过 ``csrf_header()`` 函数获取。
 
-另外,你可以使用 ``csrf_meta()`` 方法为你生成这个方便的 meta 标签::
+此外，可使用 ``csrf_meta()`` 方法生成 meta 标签::
 
-    // 生成:<meta name="{csrf_header}" content="{csrf_hash}" />
+    // 生成：<meta name="{csrf_header}" content="{csrf_hash}" />
     <?= csrf_meta() ?>
 
 用户发送令牌的顺序
-=================================
+================================
 
-检查 CSRF 令牌可用性的顺序如下:
+检查 CSRF 令牌可用性的顺序如下：
 
 1. ``$_POST`` 数组
-2. HTTP 头
-3. ``php://input`` (JSON 请求) - 请记住,这种方法是最慢的,因为我们必须解码 JSON 然后重新编码它
-4. ``php://input`` (原始 body) - 适用于 PUT、PATCH 和 DELETE 类型的请求
+2. HTTP 标头
+3. ``php://input`` （JSON 请求）— 注意此方式最慢，因为需要解码 JSON 然后重新编码
+4. ``php://input`` （原始 body）— 用于 PUT、PATCH 和 DELETE 类型请求
 
-.. note:: 自 v4.4.2 起，会检查 ``php://input`` (原始 body)。
+.. note:: 自 v4.4.2 起，会检查 ``php://input`` （原始 body）。
 
 *********************
-其他有用的方法
+其他实用方法
 *********************
 
-你很少需要直接使用 Security 类中的大多数方法。以下是与 CSRF 保护无关的可能对你有帮助的方法。
+大部分 Security 类方法无需直接使用。以下是一些与 CSRF 防护无关但可能有用的方法。
 
 sanitizeFilename()
 ==================
 
-试图清理文件名以防止目录遍历攻击和其他安全威胁,这对于通过用户输入提供的文件特别有用。第一个参数是要清理的路径。
+尝试清理文件名以防止目录遍历尝试和其他安全威胁，
+对通过用户输入提供的文件特别有用。第一个参数为要清理的路径。
 
-如果用户输入可以包含相对路径,例如 **file/in/some/approved/folder.txt**,你可以将第二个可选参数 ``$relativePath`` 设置为 ``true``。
+如允许用户输入包含相对路径，例如 **file/in/some/approved/folder.txt**，可将第二个可选参数 ``$relativePath`` 设为 ``true``。
 
 .. literalinclude:: security/010.php
 

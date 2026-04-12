@@ -2,7 +2,7 @@
 User Agent 类
 ################
 
-User Agent 类提供了一些有助于识别访问你网站的浏览器、移动设备或机器人的信息的函数。
+User Agent 类提供了一些辅助函数，用于识别访问站点的浏览器、移动设备或爬虫的相关信息。
 
 .. contents::
     :local:
@@ -15,22 +15,22 @@ User Agent 类提供了一些有助于识别访问你网站的浏览器、移动
 初始化类
 ======================
 
-User Agent 类总是可以直接从当前的 :doc:`IncomingRequest </incoming/incomingrequest>` 实例获取。
-默认情况下,在你的控制器中会有一个请求实例,你可以从中获取 User Agent 类:
+User Agent 类始终可直接从当前的 :doc:`IncomingRequest </incoming/incomingrequest>` 实例获取。
+默认情况下，控制器中有一个 request 实例，可从中获取 User Agent 类：
 
 .. literalinclude:: user_agent/001.php
 
 User Agent 定义
 ======================
 
-User Agent 名称定义位于以下配置文件中:**app/Config/UserAgents.php**。
-如果需要的话你可以在各种 User Agent 数组中添加项。
+User Agent 名称定义位于以下配置文件：
+**app/Config/UserAgents.php**。如有需要，可向各个 User Agent 数组中添加条目。
 
 示例
 =======
 
-当 User Agent 类被初始化时,它会试图确定是否正在浏览你的网站的 User Agent 是网页浏览器、移动设备还是机器人。
-如果可用的话,它也会收集平台信息:
+User Agent 类初始化时，会尝试判断访问站点的是网页浏览器、移动设备还是爬虫，
+同时会尝试获取平台信息（如有）：
 
 .. literalinclude:: user_agent/002.php
 
@@ -45,86 +45,86 @@ User Agent 名称定义位于以下配置文件中:**app/Config/UserAgents.php**
     .. php:method:: isBrowser([$key = null])
 
         :param    string    $key: 可选的浏览器名称
-        :returns:    如果 User Agent 是(指定的)浏览器则为 true,否则为 false
+        :returns:    如果 User Agent 是（指定的）浏览器则返回 true，否则返回 false
         :rtype:    bool
 
-        如果 User Agent 是已知的网页浏览器,则返回 true/false(布尔值)。
+        判断 User Agent 是否为已知的网页浏览器，返回布尔值。
 
         .. literalinclude:: user_agent/003.php
 
-        .. note:: 这个示例中的“Safari”字符串是浏览器定义列表中的一个数组键。
-            如果你想添加新浏览器或更改字符串,可以在 **app/Config/UserAgents.php** 文件中找到这个列表。
+        .. note:: 此示例中的字符串 "Safari" 是浏览器定义数组中的键名。
+                  可在 **app/Config/UserAgents.php** 中查找此列表，以便添加新浏览器或修改对应字符串。
 
     .. php:method:: isMobile([$key = null])
 
         :param    string    $key: 可选的移动设备名称
-        :returns:    如果 User Agent 是(指定的)移动设备则为 true,否则为 false
+        :returns:    如果 User Agent 是（指定的）移动设备则返回 true，否则返回 false
         :rtype:    bool
 
-        如果 User Agent 是已知的移动设备,则返回 true/false(布尔值)。
+        判断 User Agent 是否为已知的移动设备，返回布尔值。
 
         .. literalinclude:: user_agent/004.php
 
     .. php:method:: isRobot([$key = null])
 
-        :param    string    $key: 可选的机器人名称
-        :returns:    如果 User Agent 是(指定的)机器人则为 true,否则为 false
+        :param    string    $key: 可选的爬虫名称
+        :returns:    如果 User Agent 是（指定的）爬虫则返回 true，否则返回 false
         :rtype:    bool
 
-        如果 User Agent 是已知的机器人,则返回 true/false(布尔值)。
+        判断 User Agent 是否为已知的爬虫（robot），返回布尔值。
 
-        .. note:: User Agent 库只包含最常见的机器人定义。这不是一个完整的机器人列表。
-            有成百上千个,逐个搜索每一个效率不高。如果你发现一些常访问你网站但列表中缺失的机器人,
-            可以添加到你的 **app/Config/UserAgents.php** 文件中。
+        .. note:: User Agent 库仅包含最常见的爬虫定义，并非完整的爬虫列表。
+                  爬虫数量庞大，逐一搜索效率很低。如果发现访问站点的常见爬虫不在列表中，
+                  可自行添加到 **app/Config/UserAgents.php** 文件。
 
     .. php:method:: isReferral()
 
-        :returns:    如果 User Agent 来自其他网站的推荐则为 true,否则为 false
+        :returns:    如果 User Agent 来自外部站点引用则返回 true，否则返回 false
         :rtype:    bool
 
-        如果 User Agent 来自其他网站的推荐,则返回 true/false(布尔值)。
+        判断 User Agent 是否从其他站点跳转而来，返回布尔值。
 
     .. php:method:: getBrowser()
 
-        :returns:    检测到的浏览器或空字符串
+        :returns:    检测到的浏览器名称或空字符串
         :rtype:    string
 
-        返回查看你网站的网页浏览器的名称字符串。
+        返回访问站点的网页浏览器名称。
 
     .. php:method:: getVersion()
 
-        :returns:    检测到的浏览器版本或空字符串
+        :returns:    检测到的浏览器版本号或空字符串
         :rtype:    string
 
-        返回查看你网站的网页浏览器的版本号字符串。
+        返回访问站点的网页浏览器版本号。
 
     .. php:method:: getMobile()
 
         :returns:    检测到的移动设备品牌或空字符串
         :rtype:    string
 
-        返回查看你网站的移动设备的名称字符串。
+        返回访问站点的移动设备名称。
 
     .. php:method:: getRobot()
 
-        :returns:    检测到的机器人名称或空字符串
+        :returns:    检测到的爬虫名称或空字符串
         :rtype:    string
 
-        返回查看你网站的机器人的名称字符串。
+        返回访问站点的爬虫名称。
 
     .. php:method:: getPlatform()
 
         :returns:    检测到的操作系统或空字符串
         :rtype:    string
 
-        返回查看你网站的平台(Linux、Windows、OS X等)的字符串。
+        返回访问站点的平台信息（Linux、Windows、OS X 等）。
 
     .. php:method:: getReferrer()
 
-        :returns:    检测到的引用网站或空字符串
+        :returns:    检测到的引用来源或空字符串
         :rtype:    string
 
-        如果 User Agent 来自其他网站的推荐,返回推荐网站。通常会像这样测试:
+        若访问请求是从其他站点跳转而来，则返回引用来源（Referrer） 。通常按以下方式测试：
 
         .. literalinclude:: user_agent/005.php
 
@@ -133,13 +133,13 @@ User Agent 名称定义位于以下配置文件中:**app/Config/UserAgents.php**
         :returns:    完整的 User Agent 字符串或空字符串
         :rtype:    string
 
-        返回包含完整 User Agent 字符串的字符串。通常看起来像这样::
+        返回完整的 User Agent 字符串，通常类似如下格式::
 
             Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US; rv:1.8.0.4) Gecko/20060613 Camino/1.0.2
 
     .. php:method:: parse($string)
 
-        :param    string    $string: 自定义 User Agent 字符串
+        :param    string    $string: 自定义的 User Agent 字符串
         :rtype:    void
 
-        解析自定义 User Agent 字符串,不同于当前访问者报告的字符串。
+        解析自定义的 User Agent 字符串，与当前访问者报告的 User Agent 不同。

@@ -395,4 +395,4 @@ URI 的第二分段决定调用控制器中的哪个方法。
 
 键名是模块的第一个 URI 分段，值是控制器命名空间。在上述配置中，**http://localhost:8080/blog/foo/bar** 将被路由到 ``Acme\Blog\Controllers\Foo::getBar()``。
 
-.. note:: 若你定义了 ``$moduleRoutes``，则该模块的路由将 **优先**（被处理）。在上面的示例中，即便你（的应用中）存在 ``App\Controllers\Blog`` 控制器，访问 **http://localhost:8080/blog** 的请求也（仍）将被路由至（模块的）默认控制器 ``Acme\Blog\Controllers\Home``。
+.. note:: 若你定义了 ``$moduleRoutes``，则该模块的路由将 **优先** （被处理）。在上面的示例中，即便你（的应用中）存在 ``App\Controllers\Blog`` 控制器，访问 **http://localhost:8080/blog** 的请求也（仍）将被路由至（模块的）默认控制器 ``Acme\Blog\Controllers\Home``。

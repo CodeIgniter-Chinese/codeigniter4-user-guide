@@ -17,11 +17,15 @@ RST 格式验证脚本
 from __future__ import annotations
 
 import argparse
+import io
 import re
 import subprocess
 import sys
 from pathlib import Path
 from collections import Counter
+
+from docutils.core import publish_doctree
+from docutils import nodes
 
 
 # 关键指令：这些指令如果被删除会导致语义变化
@@ -102,6 +106,117 @@ DIRECTIVE_VERSION_PREFIX = {'versionadded', 'versionchanged', 'deprecated'}
 OPTION_VALUES_MUST_MATCH = {'depth', 'local', 'lines', 'linenos', 'start-after', 'end-before', 'emphasize-lines'}
 
 TITLE_MARKS = set('=-~^"\'`+*#')
+
+# Docutils 原生支持的指令
+DOCUTILS_DIRECTIVES = {
+    'attention', 'caution', 'danger', 'error', 'hint', 'important',
+    'note', 'tip', 'warning', 'admonition',
+    'image', 'figure', 'topic', 'sidebar',
+    'contents', 'rubric', 'table',
+    'math', 'parsed-literal', 'code',
+    'csv-table', 'list-table',
+}
+
+
+# ============================================================
+# AST 解析引擎
+# ============================================================
+
+def _suppress_stderr(func):
+    """在调用会产⽣ system_message 的解析时抑制 stderr"""
+    old_stderr = sys.stderr
+    sys.stderr = io.StringIO()
+    try:
+        return func()
+    finally:
+        sys.stderr = old_stderr
+
+
+def _parse_directive_from_rawsource(rawsource: str) -> str | None:
+    """从 rawsource 中提取指令名称"""
+    match = re.match(r'^\s*\.\.\s+([A-Za-z0-9][A-Za-z0-9:-]*)::', rawsource)
+    if match:
+        return match.group(1)
+    return None
+
+
+def _extract_ast_directives(text: str) -> Counter:
+    """
+    使用 docutils AST 解析 RST 文本，提取所有指令类型。
+
+    处理三种情况：
+    1. docutils 原生指令（warning, note, image 等）→ AST 节点直接遍历
+    2. 未知指令（toctree, literalinclude, php:class 等）→ 从 system_message 的 rawsource 提取
+    3. 静默指令（contents）→ 从原始文本的 rawsource 提取
+
+    返回指令类型计数器。
+    """
+    counts: Counter = Counter()
+
+    def _parse():
+        return publish_doctree(text)
+
+    doctree = _suppress_stderr(_parse)
+
+    # 1. 遍历 AST 找 docutils 原生指令节点
+    for node in doctree.traverse():
+        tagname = getattr(node, 'tagname', '')
+
+        # Admonition 指令
+        if tagname in DOCUTILS_ADMONITIONS:
+            counts[tagname] += 1
+        # image / figure / topic / sidebar
+        elif tagname in ('image', 'figure', 'topic', 'sidebar', 'table'):
+            counts[tagname] += 1
+
+    # 2. 从 system_message 中提取未知指令
+    #    docutils 对未知指令会产生 ERROR/3 system_message，
+    #    其子节点包含一个 literal_block，rawsource 保留原始 RST 文本
+    for msg in doctree.traverse(nodes.system_message):
+        if msg.get('type') == 'ERROR' and msg.get('level') == 3:
+            # 检查段落文本是否包含 "Unknown directive type"
+            for child in msg.children:
+                if isinstance(child, nodes.paragraph):
+                    para_text = child.astext()
+                    if 'Unknown directive type' in para_text or 'Unknown directive' in para_text:
+                        # 从 literal_block 子节点的 rawsource 提取指令名
+                        for lc in msg.children:
+                            if isinstance(lc, nodes.literal_block):
+                                name = _parse_directive_from_rawsource(lc.rawsource)
+                                if name:
+                                    counts[name] += 1
+                                break
+
+    # 3. 从 code-block literal_block 的 classes 识别 code-block
+    for lb in doctree.traverse(nodes.literal_block):
+        classes = lb.get('classes', [])
+        if 'code' in classes:
+            counts['code-block'] += 1
+
+    # 4. 从原始文本提取 contents（静默指令，不在 AST 中留节点）
+    #    用正则匹配 .. contents::
+    for match in re.finditer(r'^\.\.\s+contents::', text, re.MULTILINE):
+        counts['contents'] += 1
+
+    return counts
+
+
+def _extract_ast_roles(text: str) -> Counter:
+    """
+    使用 docutils AST 解析 RST 文本，提取所有角色。
+
+    Sphinx 角色（:doc:、:ref:、:php:class: 等）在 docutils 中会产生
+    problematic 节点和 system_message。从 rawsource 中提取角色名。
+    """
+    counts: Counter = Counter()
+
+    # 方法：从文本中用正则匹配 :name:`...` 或 :domain:name:`...` 模式
+    # docutils 不会正确解析 Sphinx 角色，但 rawsource 保留了原始文本
+    role_pattern = re.compile(r':([A-Za-z][A-Za-z0-9_-]*(?::[A-Za-z][A-Za-z0-9_-]*)?):`')
+    for match in role_pattern.finditer(text):
+        counts[match.group(1)] += 1
+
+    return counts
 
 
 def read_lines(path: Path) -> list[str]:
@@ -293,6 +408,58 @@ def compare_literal_presence(source: list[tuple], translated: list[tuple]) -> li
     return errors
 
 
+def compare_ast_directives(source_text: str, translated_text: str) -> list[str]:
+    """使用 AST 对比源文和译文的指令数量"""
+    errors: list[str] = []
+
+    source_counts = _extract_ast_directives(source_text)
+    translated_counts = _extract_ast_directives(translated_text)
+
+    all_names = set(source_counts.keys()) | set(translated_counts.keys())
+    for name in sorted(all_names):
+        source_count = source_counts.get(name, 0)
+        translated_count = translated_counts.get(name, 0)
+        if source_count != translated_count:
+            if source_count > translated_count:
+                errors.append(
+                    f'🚨 指令 "{name}" 数量不足：源文 {source_count} 个，译文 {translated_count} 个'
+                    f'（缺失 {source_count - translated_count} 个，可能被误译为普通文本）'
+                )
+            else:
+                errors.append(
+                    f'🚨 指令 "{name}" 数量过多：源文 {source_count} 个，译文 {translated_count} 个'
+                    f'（多出 {translated_count - source_count} 个，不能随意添加指令）'
+                )
+
+    return errors
+
+
+def compare_ast_roles(source_text: str, translated_text: str) -> list[str]:
+    """使用 AST 对比源文和译文的交叉引用角色数量"""
+    errors: list[str] = []
+
+    source_counts = _extract_ast_roles(source_text)
+    translated_counts = _extract_ast_roles(translated_text)
+
+    all_names = set(source_counts.keys()) | set(translated_counts.keys())
+    for name in sorted(all_names):
+        source_count = source_counts.get(name, 0)
+        translated_count = translated_counts.get(name, 0)
+        if source_count != translated_count:
+            if source_count > translated_count:
+                errors.append(
+                    f'🚨 角色 :{name}: 数量不足：源文 {source_count} 个，译文 {translated_count} 个'
+                    f'（缺失 {source_count - translated_count} 个）'
+                )
+            else:
+                errors.append(
+                    f'🚨 角色 :{name}: 数量过多：源文 {source_count} 个，译文 {translated_count} 个'
+                    f'（多出 {translated_count - source_count} 个）'
+                )
+
+    return errors
+
+
 def check_spacing_norms(lines: list[str]) -> list[str]:
     """检查中英文间距规范"""
     errors: list[str] = []
@@ -408,29 +575,39 @@ def main():
 
     # 读取文件
     translated_lines = read_lines(file_path)
+    translated_text = '\n'.join(translated_lines)
     translated = extract_structure(translated_lines)
     errors: list[str] = []
 
     # 检查标题装饰线
-    for lineno, title, mark, length, _has_overline in translated['headings']:
+    for lineno, title, mark, length, has_overline in translated['headings']:
         if length < len(title):
             errors.append(
                 f'标题装饰线过短：第 {lineno + 1} 行长度 {length} < 标题长度 {len(title)}（标题：{title!r}，装饰符：{mark!r}）'
             )
 
     # 检查是否有疑似被误译的指令
-    for lineno, directive_name, text in translated['potential_translated_directives']:
+    for lineno, text in translated['potential_translated_directives']:
         errors.append(f'🚨 疑似指令被误译为普通文本（第 {lineno} 行）：{text!r}')
 
     # 检查是否有全角双冒号（段落结尾的 :: 被误译为中文冒号 ：）
-    for lineno, _colon_type, text in translated['fullwidth_double_colons']:
+    for lineno, text in translated['fullwidth_double_colons']:
         errors.append(f'🚨 发现全角双冒号（第 {lineno} 行）：{text!r} - 段落结尾的 RST 代码块标记"::"不能翻译为"："，必须保持半角冒号')
 
     # 如果有备份文件，进行对比
     if backup_path.exists():
         source_lines = read_lines(backup_path)
+        source_text = '\n'.join(source_lines)
         source = extract_structure(source_lines)
 
+        # --- AST 检查层：用 docutils 解析器做结构性校验 ---
+        ast_errors = compare_ast_directives(source_text, translated_text)
+        errors.extend(ast_errors)
+
+        ast_role_errors = compare_ast_roles(source_text, translated_text)
+        errors.extend(ast_role_errors)
+
+        # --- 正则检查层：精确定位和特定检查 ---
         errors.extend(compare_sequence('标题层级', source['heading_levels'], translated['heading_levels']))
         directive_errors = compare_all_directives(source, translated)
         errors.extend(directive_errors)
