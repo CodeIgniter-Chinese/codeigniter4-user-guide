@@ -75,7 +75,7 @@ PHP 及必需扩展
   - 通过 *pdo* 驱动的 Oracle
   - 通过 *pdo* 驱动的 PostgreSQL
   - 通过 *pdo* 驱动的 MSSQL
-  - 通过 *sqlite*（版本 2）和 *pdo* 驱动的 SQLite
+  - 通过 *sqlite* （版本 2）和 *pdo* 驱动的 SQLite
   - 通过 *cubrid* 和 *pdo* 驱动的 CUBRID
   - 通过 *ibase* 和 *pdo* 驱动的 Interbase/Firebird
   - 通过 *odbc* 和 *pdo* 驱动的 ODBC（需要注意，ODBC 实际上是一个抽象层）
