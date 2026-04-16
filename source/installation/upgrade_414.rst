@@ -2,27 +2,31 @@
 从 4.1.3 升级到 4.1.4
 #############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
-- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-此版本专注于代码风格。所有更改(除下面注明的外)都是为了使代码符合新的
-`CodeIgniter 编码标准 <https://github.com/CodeIgniter/coding-standard>`_ (基于 PSR-12)。
+本次版本发布主要聚焦于代码风格。除下文特别说明的变更外，其余改动均为外观层面的调整，
+旨在使代码符合新的
+`CodeIgniter 编码规范 <https://github.com/CodeIgniter/coding-standard>`_
+（基于 PSR-12）。
 
-重大变更
+破坏性变更
 ****************
 
-方法作用域
+方法可见性
 ============
 
-以下方法的作用域从 ``public`` 改为 ``protected``,以匹配其父类方法并更好地与其用法保持一致。
-如果你依赖任何这些方法是 public 的(极少可能),请相应调整你的代码:
+以下方法的可见性已从 ``public`` 调整为 ``protected``，
+以与其父类方法保持一致，并更好地契合其实际用途。
+如果你的代码依赖这些方法为 public（这种情况极少见），
+请相应调整实现：
 
 * ``CodeIgniter\Database\MySQLi\Connection::execute()``
 * ``CodeIgniter\Database\MySQLi\Connection::_fieldData()``
@@ -51,4 +55,7 @@
 项目文件
 *************
 
-项目空间中的所有文件都使用新的编码风格进行了重新格式化。这不会影响现有代码,但是你可能希望将更新的编码风格应用于自己的项目,以使它们与这些文件的框架版本保持一致。
+项目空间中的所有文件均已按照新的编码风格重新格式化。
+这些更改不会影响现有代码的运行，
+但建议你在自己的项目中也应用更新后的编码规范，
+以便和框架里的这些文件风格保持一致。

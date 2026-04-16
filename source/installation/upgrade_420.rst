@@ -2,31 +2,32 @@
 从 4.1.9 升级到 4.2.0
 #############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
-- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-必备文件变更
+必须修改的文件
 **********************
 
-index.php 和 spark
+index.php 与 spark
 ===================
 
-以下文件进行了重大更改,
-**你必须将更新后的版本** 与应用程序合并:
+以下文件发生了重大变更，
+**你必须将更新后的版本合并到你的应用中**：
 
 * ``public/index.php``
 * ``spark``
 
-.. important:: 如果你不更新以上两个文件,在运行 ``composer update`` 后 CodeIgniter 将完全无法工作。
+.. important:: 如果不更新以上两个文件，在运行 ``composer update`` 之后，
+    CodeIgniter 将完全无法工作。
 
-    升级过程例如如下:
+    例如，升级步骤如下：
 
     .. code-block:: console
 
@@ -37,14 +38,22 @@ index.php 和 spark
 Config/Constants.php
 ====================
 
-常量 ``EVENT_PRIORITY_LOW``、``EVENT_PRIORITY_NORMAL`` 和 ``EVENT_PRIORITY_HIGH`` 已被废弃,定义移至 ``app/Config/Constants.php``。如果你使用这些常量,请在 ``app/Config/Constants.php`` 中定义它们。或者使用新的类常量 ``CodeIgniter\Events\Events::PRIORITY_LOW``、``CodeIgniter\Events\Events::PRIORITY_NORMAL`` 和 ``CodeIgniter\Events\Events::PRIORITY_HIGH``。
+常量 ``EVENT_PRIORITY_LOW``、``EVENT_PRIORITY_NORMAL`` 和 ``EVENT_PRIORITY_HIGH`` 已被弃用，
+其定义已移至 ``app/Config/Constants.php``。
+如果你使用了这些常量，请在 ``app/Config/Constants.php`` 中进行定义。
+或者，使用新的类常量
+``CodeIgniter\Events\Events::PRIORITY_LOW``、
+``CodeIgniter\Events\Events::PRIORITY_NORMAL`` 和
+``CodeIgniter\Events\Events::PRIORITY_HIGH``。
 
 composer.json
 =============
 
-.. note:: 此步骤在 v4.5.0 或更高版本中不再需要。
+.. note:: 在 v4.5.0 或更高版本中不再需要此步骤。
 
-如果你使用 Composer,在安装 CodeIgniter v4.1.9 或更早版本时,如果 ``/composer.json`` 的 ``autoload.psr-4`` 中存在类似下面的 ``App\\`` 和 ``Config\\`` 命名空间,你需要删除这些行并运行 ``composer dump-autoload``。
+如果你使用 Composer，并且在安装 CodeIgniter v4.1.9 或更早版本时，
+在 ``/composer.json`` 的 ``autoload.psr-4`` 中包含 ``App\\`` 和 ``Config\\`` 命名空间，
+如下所示，则需要移除这些行，并运行 ``composer dump-autoload``。
 
 .. code-block:: text
 
@@ -59,36 +68,51 @@ composer.json
         ...
     }
 
-重大变更
+破坏性变更
 ****************
 
-- ``system/bootstrap.php`` 文件不再返回 ``CodeIgniter`` 实例,也不再加载 ``.env`` 文件(现在在 ``index.php`` 和 ``spark`` 中处理)。如果你的代码依赖这些行为则不再起作用,必须进行修改。这已更改是为了更易实现 `预加载 <https://www.php.net/manual/zh/opcache.preloading.php>`_。
+- ``system/bootstrap.php`` 文件不再返回 ``CodeIgniter`` 实例，
+  并且也不再加载 ``.env`` 文件（现由 ``index.php`` 和 ``spark`` 处理）。
+  如果你的代码依赖这些行为，将不再生效，必须进行修改。
+  此变更是为了更方便地实现
+  `预加载 <https://www.php.net/manual/zh/opcache.preloading.php>`_。
 
-重大增强
+破坏性增强
 *********************
 
-- ``Validation::setRule()`` 的方法签名已更改。``$rules`` 参数上的 ``string`` 类型提示已移除。扩展类同样应移除参数类型声明,以避免违反LSP。
-- ``CodeIgniter\Database\BaseBuilder::join()`` 和 ``CodeIgniter\Database\*\Builder::join()`` 的方法签名已更改。``$cond`` 参数上的 ``string`` 类型提示已移除。扩展类同样应移除参数类型声明,以避免违反LSP。
+- ``Validation::setRule()`` 的方法签名已更改，移除了 ``$rules`` 参数上的 ``string`` 类型提示。
+  继承该方法的类同样应移除该类型提示，以避免破坏 LSP。
+- ``CodeIgniter\Database\BaseBuilder::join()`` 和
+  ``CodeIgniter\Database\*\Builder::join()`` 的方法签名已更改，
+  移除了 ``$cond`` 参数上的 ``string`` 类型提示。
+  继承该方法的类同样应移除该类型提示，以避免破坏 LSP。
 
 项目文件
 *************
 
-**项目空间** 中的许多文件(根目录、app、public、writable)都已更新。由于这些文件超出 **系统** 范围,如果不进行干预,它们将不会更改。有一些第三方 CodeIgniter 模块可以协助合并项目空间的更改: `在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
+**项目空间** （根目录、app、public、writable）中的部分文件已更新。
+由于这些文件位于 **system** 范围之外，框架不会在没有你介入的情况下自动修改它们。
 
-.. note:: 除非极少数情况进行错误修复,否则对项目空间文件的任何更改都不会破坏你的应用程序。在下一个主要版本之前,这里注明的所有更改都是可选的,强制性更改将在上面部分介绍。
+目前有一些第三方 CodeIgniter 模块可用于协助合并项目空间中的变更：
+`在 Packagist 上浏览 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
-内容更改
+.. note:: 除极少数用于缺陷修复的情况外，对项目空间文件所做的任何修改都不会破坏你的应用。
+    此处列出的所有变更在下一个主版本发布前都是可选的，
+    任何强制性变更都会在上述章节中说明。
+
+内容变更
 ===============
 
-以下文件已作出重大更改(包括弃用或视觉调整),建议你将更新版本与应用程序合并:
+以下文件发生了较大的改动（包括弃用项或界面调整），建议将更新后的版本合并到你的应用中：
 
 * ``app/Config/Routes.php``
-    * 为了使默认配置更安全,默认情况下自动路由已更改为禁用。
+    * 为提高默认配置的安全性，自动路由现已默认禁用。
 
-所有更改
+所有变更
 ===========
 
-这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
+以下是 **项目空间** 中所有发生变更的文件列表；
+其中许多仅为注释或格式调整，不会影响运行时行为：
 
 * app/Config/App.php
 * app/Config/Constants.php

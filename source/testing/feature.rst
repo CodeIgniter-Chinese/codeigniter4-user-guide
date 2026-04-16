@@ -2,7 +2,7 @@
 HTTP 功能测试
 ####################
 
-功能测试允许你查看对应用程序的单次调用的结果。这可能是返回单个网页表单的结果,访问 API 端点等等。这很方便,因为它允许你测试单个请求的整个生命周期,确保路由工作正常,响应格式正确,分析结果等等。
+功能测试用于查看应用程序单次调用的执行结果，涵盖返回单个 Web 表单结果、访问 API 接口等场景。此功能非常实用，支持测试单个请求的完整生命周期，从而确保路由正常工作、响应格式正确，并可对执行结果进行分析。
 
 .. contents::
     :local:
@@ -11,7 +11,7 @@ HTTP 功能测试
 测试类
 ==============
 
-功能测试要求所有测试类使用 ``CodeIgniter\Test\DatabaseTestTrait`` 和 ``CodeIgniter\Test\FeatureTestTrait`` traits。由于这些测试工具依赖于适当的数据库准备,如果实现自己的方法,必须始终确保调用 ``parent::setUp()`` 和 ``parent::tearDown()``。
+进行功能测试时，所有测试类均须使用 ``CodeIgniter\Test\DatabaseTestTrait`` 与 ``CodeIgniter\Test\FeatureTestTrait``。鉴于这些测试工具依赖正确的数据库初始化，若在类中重写了相关方法，务必确保调用 ``parent::setUp()`` 与 ``parent::tearDown()``。
 
 .. literalinclude:: feature/001.php
 
@@ -20,56 +20,63 @@ HTTP 功能测试
 请求页面
 =================
 
-基本上，功能测试允许你调用应用程序上的一个端点，并获取结果返回。
-为此，你可以使用 ``call()`` 方法。
+功能测试本质上就是调用应用上的某个接口并返回结果。为此，可使用 ``call()`` 方法。
 
-1. 第一个参数是要使用的 HTTP 方法（通常是 ``GET`` 或 ``POST``）。
-2. 第二个参数是要测试的站点上的 URI 路径。
-3. 第三个参数 ``$params`` 接受一个数组，用于填充你正在使用的 HTTP 动词的超全局变量。因此，**GET** 方法将填充 ``$_GET`` 变量，而 **POST** 请求将填充 ``$_POST`` 数组。``$params`` 也用于 :ref:`feature-formatting-the-request`。
+1. 第一个参数是要使用的 HTTP 方法（最常用的是 ``GET`` 或 ``POST``）。
+2. 第二个参数是要测试的站点 URI 路径。
+3. 第三个参数 ``$params`` 接受一个数组，用于填充所使用的 HTTP 方法对应的超全局
+   变量。因此，**GET** 方法会填充 ``$_GET`` 变量，而 **POST** 请求则会填充
+   ``$_POST`` 数组。``$params`` 也可用于
+   :ref:`feature-formatting-the-request`。
 
-   .. note:: ``$params`` 数组并不适用于每个 HTTP 动词，但为了保持一致性而包含在内。
+   .. note:: ``$params`` 数组并不适用于所有 HTTP 方法，但为保持一致性而保留。
 
 .. literalinclude:: feature/002.php
    :lines: 2-
 
-缩写方法
+快捷方法
 -----------------
 
-为每个 HTTP 动词提供了缩写方法,以减少输入并增加清晰度:
+为每个 HTTP 方法提供了快捷方法，以简化输入并使意图更清晰：
 
 .. literalinclude:: feature/003.php
    :lines: 2-
 
-设置不同的路由
+设置不同路由
 ------------------------
 
-你可以通过将“routes”数组传递到 ``withRoutes()`` 方法来使用自定义路由集合。这将覆盖系统中的任何现有路由:
+可以通过将路由数组传递给 ``withRoutes()`` 方法来使用自定义路由集合，该方法会覆盖
+系统中任何现有的路由：
 
 .. literalinclude:: feature/004.php
    :lines: 2-
 
-每个“routes”都是一个包含 HTTP 动词(或“add”表示全部)、要匹配的 URI 和路由目的地的 3 元素数组。
+每个「路由」是一个包含 3 个元素的数组，包含 HTTP 方法（或使用 "add" 表示所有）、
+要匹配的 URI 以及路由目标。
 
-设置会话值
+设置 Session 值
 ----------------------
 
-你可以使用 ``withSession()`` 方法在单次测试期间设置自定义会话值。这需要一个键/值对数组,在发出此请求时,它应存在于 ``$_SESSION`` 变量中,或者为 ``null`` 表示应使用 ``$_SESSION`` 的当前值。这在测试认证等方面很有用。
+可以使用 ``withSession()`` 方法在单个测试期间设置自定义 Session 值。该方法接受一个关联数组，
+这些值在发出请求时会存在于 ``$_SESSION`` 变量中；也可传入 ``null``，
+表示使用 ``$_SESSION`` 的当前值。这对于测试认证等场景很有用。
 
 .. literalinclude:: feature/005.php
    :lines: 2-
 
-设置标头
+设置 Header
 ---------------
 
-你可以使用 ``withHeaders()`` 方法设置标头值。这需要一个键/值对数组,它将作为调用中的标头传递:
+使用 ``withHeaders()`` 方法可设置 Header 值。该方法接收一个关联数组，并将其作为 Header 随请求一同发送：
 
 .. literalinclude:: feature/006.php
    :lines: 2-
 
-绕过事件
+跳过事件
 ----------------
 
-事件在应用程序中很有用,但在测试中可能 problematic。特别是用于发送电子邮件的事件。你可以使用 ``skipEvents()`` 方法告诉系统跳过任何事件处理:
+事件在应用中很有用，但在测试期间可能会带来问题。尤其是用于发送邮件的事件。可以
+使用 ``skipEvents()`` 方法告诉系统跳过任何事件处理：
 
 .. literalinclude:: feature/007.php
    :lines: 2-
@@ -79,26 +86,28 @@ HTTP 功能测试
 格式化请求
 -----------------------
 
-你可以使用 ``withBodyFormat()`` 方法设置请求体的格式。目前支持 ``json`` 或 ``xml``。
-这在测试 JSON 或 XML API 时非常有用，因为你可以设置请求的格式，以符合控制器的预期。
+使用 ``withBodyFormat()`` 方法可设置请求体格式，目前支持 ``json`` 与 ``xml``。
+在测试 JSON 或 XML API 时，此功能可按控制器预期的格式构造请求。
 
-这将接收传递给 ``call()``, ``post()``, ``get()``... 的参数，并将它们分配给请求体，以给定的格式。
+该方法会自动将传给 ``call()``、``post()`` 或 ``get()`` 等方法的参数，按指定格式转换并填入请求体。
 
-这还将相应地设置请求的 `Content-Type` 标头。
+同时自动设置相应的 `Content-Type` 标头。
 
 .. literalinclude:: feature/008.php
    :lines: 2-
 
 .. _feature-setting-the-body:
 
-设置 Body
+设置请求体
 ----------------
 
-你可以使用 ``withBody()`` 方法设置请求的 Body。这允许你按照所需的格式设置请求 Body。如果你有更复杂的 XML 需要测试，建议使用此方法。
+可以使用 ``withBody()`` 方法设置请求体，可按需自行格式化请求体。
+如果要测试更复杂的 XML，推荐使用此方法。
 
-这不会为你设置 `Content-Type` 标头。如果需要，你可以使用 ``withHeaders()`` 方法设置它。
+该方法不会自动设置 `Content-Type` 标头。如果需要，可以使用 ``withHeaders()`` 方法设置。
 
 检查响应
 =====================
 
-``FeatureTestTrait::call()`` 返回 ``TestResponse`` 的一个实例。请参阅 :doc:`测试响应 <response>` 以了解如何使用此类在测试用例中执行其他断言和验证。
+``FeatureTestTrait::call()`` 返回一个 ``TestResponse`` 实例。有关如何在测试用例中
+使用此类执行额外断言和验证，请参阅 :doc:`测试响应 <response>`。

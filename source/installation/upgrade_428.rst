@@ -2,11 +2,11 @@
 从 4.2.7 升级到 4.2.8
 #############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
-- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
@@ -15,14 +15,15 @@
 项目文件
 *************
 
-以下文件对代码或行为进行了改变,建议在项目中更新:
+以下文件在代码或行为上发生了更改，建议在你的项目中进行更新：
 
 * app/Views/errors/html/error_exception.php
 
-所有更改
+所有变更
 ===========
 
-这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
+以下是 **项目空间** 中所有发生变更的文件列表；
+其中许多只是简单的注释或格式调整，对运行时没有任何影响：
 
 * app/Config/Logger.php
 * app/Views/errors/html/error_exception.php

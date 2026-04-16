@@ -2,31 +2,31 @@
 从 4.3.4 升级到 4.3.5
 ##############################
 
-请参考与你的安装方法相对应的升级说明。
+请根据你的安装方式参考对应的升级说明。
 
-- :ref:`通过 Composer 安装应用启动器升级 <app-starter-upgrading>`
-- :ref:`通过 Composer 安装到现有项目升级 <adding-codeigniter4-upgrading>`
-- :ref:`手动安装升级 <installing-manual-upgrading>`
+- :ref:`Composer 安装：App Starter 方式的升级说明 <app-starter-upgrading>`
+- :ref:`Composer 安装：将 CodeIgniter4 添加到现有项目的升级说明 <adding-codeigniter4-upgrading>`
+- :ref:`手动安装：升级说明 <installing-manual-upgrading>`
 
 .. contents::
     :local:
     :depth: 2
 
-重大变更
+破坏性变更
 ****************
 
 验证占位符
 =======================
 
-为了安全地使用 :ref:`validation-placeholders`,请记得为你将用作占位符的字段创建一个验证规则。
+要安全地使用 :ref:`validation-placeholders`，请务必为将用作占位符的字段创建对应的验证规则。
 
-例如，如果你有以下代码::
+例如，如果有如下代码::
 
     $validation->setRules([
         'email' => 'required|max_length[254]|valid_email|is_unique[users.email,id,{id}]',
     ]);
 
-你需要为 ``{id}`` 添加规则::
+则需要为 ``{id}`` 添加规则::
 
     $validation->setRules([
         'id'    => 'max_length[19]|is_natural_no_zero', // Add this
@@ -36,33 +36,35 @@
 Session::stop()
 ===============
 
-在 v4.3.5 之前,由于一个错误, ``Session::stop()`` 方法并没有销毁 session。这个方法已被修改为销毁 session,并已不建议使用,因为它与 ``Session::destroy()`` 方法完全相同。所以请使用 :ref:`Session::destroy() <session-destroy>` 方法替代。
+在 v4.3.5 之前，由于一个 bug，``Session::stop()`` 方法并不会销毁会话。该方法已被修改为会销毁会话，并且现在已被弃用，因为它与 ``Session::destroy()`` 方法完全相同。因此，请改用 :ref:`Session::destroy <session-destroy>` 方法。
 
-如果你的代码依赖这个错误,请用 ``session_regenerate_id(true)`` 替换它。
+如果现有代码依赖于该 bug 的行为，请将其替换为 ``session_regenerate_id(true)``。
 
-参见 :ref:`Session 库 <session-stop>`。
+另请参阅 :ref:`Session 库 <session-stop>`。
 
 项目文件
 *************
 
-**项目空间** 中的一些文件(根目录、app、public、writable)已更新。由于这些文件超出 **系统** 范围,如果不进行干预,它们将不会更改。
+**项目空间** （根目录、app、public、writable）中的部分文件已更新。
+由于这些文件位于 **system** 范围之外，框架不会在没有你介入的情况下自动修改它们。
 
-有一些第三方 CodeIgniter 模块可以协助合并项目空间的更改:`在 Packagist 上探索 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
+目前有一些第三方 CodeIgniter 模块可用于协助合并项目空间中的变更：
+`在 Packagist 上浏览 <https://packagist.org/explore/?query=codeigniter4%20updates>`_。
 
-内容更改
+内容变更
 ===============
 
-以下文件已作出重大更改(包括弃用或视觉调整),建议你将更新版本与应用程序合并:
+以下文件发生了较大的改动（包括弃用项或界面调整），建议将更新后的版本合并到你的应用中：
 
 配置
 ------
 
 - app/Config/Generators.php
 
-所有更改
+所有变更
 ===========
 
-这是 **项目空间** 中已更改的所有文件的列表;其中许多仅为注释或格式更改,不会影响运行时:
+以下列出了 **项目空间** 中所有发生变更的文件；其中许多只是简单的注释或格式调整，对运行时没有影响：
 
 - app/Config/App.php
 - app/Config/Generators.php

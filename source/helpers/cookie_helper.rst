@@ -2,7 +2,7 @@
 Cookie 辅助函数
 ###############
 
-Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
+Cookie 辅助函数文件包含协助处理 Cookie 的相关函数。
 
 .. contents::
     :local:
@@ -11,71 +11,82 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
 加载此辅助函数
 ===================
 
-使用以下代码加载此辅助函数:
+使用以下代码加载此辅助函数：
 
 .. literalinclude:: cookie_helper/001.php
 
 可用函数
 ===================
 
-以下函数可用:
+提供以下函数：
 
 .. php:function:: set_cookie($name[, $value = ''[, $expire = 0[, $domain = ''[, $path = '/'[, $prefix = ''[, $secure = false[, $httpOnly = false[, $sameSite = '']]]]]]]])
 
-    :param    array|Cookie|string    $name: Cookie 名称 *或* 此函数可用的所有参数的关联数组 *或* ``CodeIgniter\Cookie\Cookie`` 的实例
+    :param    array|Cookie|string    $name: Cookie 名称 *或* 包含所有可用参数的关联数组 *或* ``CodeIgniter\Cookie\Cookie`` 实例
     :param    string    $value: Cookie 值
-    :param    int    $expire: 到期秒数。如果设置为 ``0`` 则 cookie 仅在浏览器打开时有效
-    :param    string    $domain: Cookie 域名(通常:.yourdomain.com)
+    :param    int    $expire: 过期前的秒数。如果设置为 ``0``，Cookie 仅在浏览器打开期间有效
+    :param    string    $domain: Cookie 域名（通常为：.yourdomain.com）
     :param    string    $path: Cookie 路径
-    :param    string    $prefix: Cookie 名称前缀。如果为 ``''``,则使用 **app/Config/Cookie.php** 中的默认值
-    :param    bool    $secure: 是否仅通过 HTTPS 发送 cookie。如果为 ``null``,则使用 **app/Config/Cookie.php** 中的默认值
-    :param    bool    $httpOnly: 是否从 JavaScript 隐藏 cookie。如果为 ``null``,则使用 **app/Config/Cookie.php** 中的默认值
-    :param    string    $sameSite: SameSite cookie 参数的值。如果为 ``null``,则使用 **app/Config/Cookie.php** 中的默认值
+    :param    string    $prefix: Cookie 名称前缀。如果设置为 ``''``，则使用 **app/Config/Cookie.php** 中的默认值
+    :param    bool    $secure: 是否仅通过 HTTPS 发送 Cookie。如果设置为 ``null``，则使用 **app/Config/Cookie.php** 中的默认值
+    :param    bool    $httpOnly: 是否对 JavaScript 隐藏 Cookie。如果设置为 ``null``，则使用 **app/Config/Cookie.php** 中的默认值
+    :param    string    $sameSite: SameSite Cookie 参数的值。如果设置为 ``null``，则使用 **app/Config/Cookie.php** 中的默认值
     :rtype:    void
 
-    .. note:: 在 v4.2.7 之前,由于一个 bug, ``$secure`` 和 ``$httpOnly`` 的默认值是 ``false``,
-        从不使用 **app/Config/Cookie.php** 中的值。
+    .. note:: 在 v4.2.7 之前，由于一个 bug，``$secure`` 和 ``$httpOnly`` 的默认值为 ``false``，
+        **app/Config/Cookie.php** 中的这些值从未被使用。
 
-    该辅助函数为设置浏览器 cookie 提供了更友好的语法。有关其用法的描述,请参阅
-    :doc:`Response 库 </outgoing/response>`,因为此函数是
-    :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 的别名。
+    此辅助函数提供了更友好的语法来设置浏览器 Cookie。
+    有关其使用的描述，请参阅 :doc:`Response 库 </outgoing/response>`，
+    因为该函数是 :php:meth:`CodeIgniter\\HTTP\\Response::setCookie()` 的别名。
 
-    .. note:: 这个辅助函数只设置全局响应实例的浏览器 Cookie（由 ``Services::response()`` 返回）。所以，如果你创建并返回另一个响应实例（例如，如果你调用 :php:func:`redirect()`），这里设置的 Cookie 不会自动发送。
+    .. note:: 此辅助函数仅将浏览器 Cookie 设置到 ``Services::response()`` 返回的全局 Response
+        实例中。因此，如果你创建并返回另一个 Response 实例（例如，如果你调用 :php:func:`redirect()`），
+        此处设置的 Cookie 将不会自动发送。
 
 .. php:function:: get_cookie($index[, $xssClean = false[, $prefix = '']])
 
     :param    string    $index: Cookie 名称
-    :param    bool    $xssClean: 是否对返回的值应用 XSS 过滤
-    :param    string|null  $prefix: Cookie 名称前缀。如果设置为 ``''``,将使用 **app/Config/Cookie.php** 中的默认值。如果设置为 ``null``,则没有前缀
-    :returns:    cookie 值,如果未找到则为 null
+    :param    bool    $xssClean: 是否对返回值应用 XSS 过滤
+    :param    string|null  $prefix: Cookie 名称前缀。如果设置为 ``''``，将使用 **app/Config/Cookie.php** 中的默认值。如果设置为 ``null``，则不使用前缀
+    :returns:    Cookie 值，如果未找到则返回 null
     :rtype:    mixed
 
-    .. note:: 从 v4.2.1 开始,引入了第三个参数 ``$prefix``,并且由于一个错误修复,行为发生了一些变化。详见 :ref:`升级 <upgrade-421-get_cookie>`。
+    .. note:: 自 v4.2.1 起，引入了第三个参数 ``$prefix``，由于 bug 修复，行为发生了一些变化。详情请参阅 :ref:`升级 <upgrade-421-get_cookie>`。
 
-    这个辅助函数为你提供了更友好的语法来获取浏览器的 Cookie。有关其使用的详细描述，请参考 :doc:`IncomingRequest 库 </incoming/incomingrequest>`，因为这个函数的行为与 :php:meth:`CodeIgniter\\HTTP\\IncomingRequest::getCookie()` 非常相似，只是它还会在前面添加你在 **app/Config/Cookie.php** 文件中设置的 ``Config\Cookie::$prefix``。
+    此辅助函数提供了更友好的语法来获取浏览器 Cookie。
+    有关其使用的详细描述，请参阅 :doc:`IncomingRequest 库 </incoming/incomingrequest>`，
+    因为该函数与 :php:meth:`CodeIgniter\\HTTP\\IncomingRequest::getCookie()` 的行为非常相似，
+    不同之处在于它还会在 **app/Config/Cookie.php** 文件中你设置的
+    ``Config\Cookie::$prefix`` 前面加上前缀。
 
-    .. warning:: 使用 XSS 过滤是一个不好的做法。它不能完美地防止 XSS 攻击。在视图中建议使用正确 ``$context`` 的 :php:func:`esc()`。
+    .. warning:: 使用 XSS 过滤是一种不良实践。它不能完全防止 XSS 攻击。建议在视图中使用正确 ``$context`` 的 :php:func:`esc()` 函数。
 
 .. php:function:: delete_cookie($name[, $domain = ''[, $path = '/'[, $prefix = '']]])
 
     :param string $name: Cookie 名称
-    :param string $domain: Cookie 域名(通常:.yourdomain.com)
+    :param string $domain: Cookie 域名（通常为：.yourdomain.com）
     :param string $path: Cookie 路径
-    :param string $prefix: Cookie 前缀
+    :param string $prefix: Cookie 名称前缀
     :rtype: void
 
-    允许你删除一个 cookie。除非你设置了自定义路径或其他值,否则只需要 cookie 的名称。
+    允许你删除一个 Cookie。除非你设置了自定义路径或其他值，
+    否则只需要 Cookie 的名称即可。
 
     .. literalinclude:: cookie_helper/002.php
 
-    此函数与 :php:func:`set_cookie()` 其他方面相同,只是它没有 ``value`` 和 ``expire`` 参数。
+    此函数在其他方面与 :php:func:`set_cookie()` 完全相同，只是
+    它没有 ``value`` 和 ``expire`` 参数。
 
-    这也只是为删除全局响应实例（由 ``Services::response()`` 返回）的浏览器 Cookie 设置浏览器 Cookie。
+    这也只是将用于删除 Cookie 的浏览器 Cookie 设置到
+    ``Services::response()`` 返回的全局 Response 实例中。
 
-    .. note:: 当你使用 :php:func:`set_cookie()` 时,如果 ``value`` 设置为空字符串且 ``expire`` 设置为 ``0``,则 cookie 将被删除。
-        如果 ``value`` 设置为非空字符串且 ``expire`` 设置为 ``0``,则 cookie 仅在浏览器打开时有效。
+    .. note:: 当你使用 :php:func:`set_cookie()` 时，
+        如果 ``value`` 设置为空字符串且 ``expire`` 设置为 ``0``，则 Cookie 将被删除。
+        如果 ``value`` 设置为非空字符串且 ``expire`` 设置为 ``0``，则 Cookie 仅在浏览器打开期间有效。
 
-    你可以在第一个参数中提交值数组,也可以设置离散参数。
+    你可以在第一个参数中提交一个值数组，
+    也可以设置离散的参数。
 
     .. literalinclude:: cookie_helper/003.php
 
@@ -86,4 +97,6 @@ Cookie 辅助函数文件包含了帮助处理 cookie 的函数。
     :param string $prefix: Cookie 前缀
     :rtype: bool
 
-    检查在全局响应实例中（由 ``Services::response()`` 返回）是否存在同名的 Cookie。这是 :php:meth::`CodeIgniter\\HTTP\\Response::hasCookie()` 的别名。
+    检查在 ``Services::response()`` 返回的全局 Response 实例中
+    是否存在指定名称的 Cookie。这是
+    :php:meth:`CodeIgniter\\HTTP\\Response::hasCookie()` 的别名。

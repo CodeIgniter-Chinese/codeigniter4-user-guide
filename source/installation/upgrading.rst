@@ -1,13 +1,14 @@
 #################################
-从前一版本升级
+从先前版本升级
 #################################
 
-请阅读你需要升级的版本所对应的升级指南。
+请阅读与你当前升级起始版本对应的升级说明。
 
-另请参阅 :doc:`./backward_compatibility_notes`。
+另请参见 :doc:`./backward_compatibility_notes`。
 
-.. note:: 如果你不知道正在运行的 CodeIgniter 版本,可以从 :ref:`调试工具栏 <the-debug-toolbar>` 获取,
-    或者简单地输出常量 ``\CodeIgniter\CodeIgniter::CI_VERSION``。
+.. note:: 如果你不知道当前运行的 CodeIgniter 版本，
+    可在 :ref:`调试工具栏 <the-debug-toolbar>` 中查看，
+    或者直接输出常量 ``\CodeIgniter\CodeIgniter::CI_VERSION``。
 
 .. toctree::
     :titlesonly:

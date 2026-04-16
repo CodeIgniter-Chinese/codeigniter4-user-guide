@@ -2,11 +2,11 @@
 创建核心系统类
 ****************************
 
-每次 CodeIgniter 运行时,都会自动初始化几个基本类作为核心框架的一部分。但是,可以用你自己的版本替换任何核心系统类,或者只是扩展核心版本。
+每次 CodeIgniter 运行时，都会自动加载作为核心框架一部分的基础类。你可以用自己的类替换这些核心类，也可以继承并扩展它们。
 
-**大多数用户都不需要这样做,但对于那些想要显着改变 CodeIgniter 核心的人来说,替换或扩展它们的选项确实存在。**
+**大多数情况下，用户无需进行此类操作。但如果你需要深度定制框架行为，CodeIgniter 也支持对核心类的替换或扩展。**
 
-.. important:: 与核心系统类打交道有很多影响,所以在尝试之前,请确保你知道你在做什么。
+.. important:: 操作核心系统类会产生很多影响，因此在尝试之前，请确保你清楚自己在做什么。
 
 .. contents::
     :local:
@@ -15,7 +15,7 @@
 系统类列表
 =================
 
-以下是每次 CodeIgniter 运行时都会调用的核心系统类列表:
+以下是每次 CodeIgniter 运行时都会调用的核心系统类列表：
 
 *  ``CodeIgniter\Autoloader\Autoloader``
 *  ``CodeIgniter\Autoloader\FileLocator``
@@ -35,10 +35,10 @@
 *  ``CodeIgniter\Debug\Timer``
 *  ``CodeIgniter\Events\Events``
 *  ``CodeIgniter\Filters\Filters``
-*  ``CodeIgniter\HTTP\CLIRequest`` (如果仅从命令行启动)
+*  ``CodeIgniter\HTTP\CLIRequest`` (仅在命令行中启动时)
 *  ``CodeIgniter\HTTP\ContentSecurityPolicy``
 *  ``CodeIgniter\HTTP\Header``
-*  ``CodeIgniter\HTTP\IncomingRequest`` (如果通过 HTTP 启动)
+*  ``CodeIgniter\HTTP\IncomingRequest`` (仅在通过 HTTP 启动时)
 *  ``CodeIgniter\HTTP\Message``
 *  ``CodeIgniter\HTTP\OutgoingRequest``
 *  ``CodeIgniter\HTTP\Request``
@@ -46,7 +46,7 @@
 *  ``CodeIgniter\HTTP\SiteURI``
 *  ``CodeIgniter\HTTP\SiteURIFactory``
 *  ``CodeIgniter\HTTP\URI``
-*  ``CodeIgniter\HTTP\UserAgent`` (如果通过 HTTP 启动)
+*  ``CodeIgniter\HTTP\UserAgent`` (仅在通过 HTTP 启动时)
 *  ``CodeIgniter\Log\Logger``
 *  ``CodeIgniter\Log\Handlers\BaseHandler``
 *  ``CodeIgniter\Log\Handlers\FileHandler``
@@ -58,39 +58,39 @@
 替换核心类
 ======================
 
-要使用自己的系统类代替默认类,请确保:
+要使用你自己的系统类而不是默认类，请确保：
 
-1. :doc:`自动加载器 <../concepts/autoloader>` 可以找到你的类,
-2. 你的新类实现了适当的接口,
-3. 并修改适当的 :doc:`服务 <../concepts/services>` 来加载你的类以替换核心类。
+    1. :doc:`自动加载器 <../concepts/autoloader>` 可以找到你的类，
+    2. 你的新类实现了适当的接口，
+    3. 并修改相应的 :doc:`服务 <../concepts/services>` 以加载你的类来替代核心类。
 
 创建你的类
 -------------------
 
-例如,如果你有一个新的 ``App\Libraries\RouteCollection`` 类,想用它代替核心系统类,你会这样创建你的类:
+例如，如果你有一个新的 ``App\Libraries\RouteCollection`` 类，想用它来替代核心系统类，你可以这样创建你的类：
 
 .. literalinclude:: core_classes/001.php
 
 添加服务
 ------------------
 
-然后你需要在 **app/Config/Services.php** 中添加 ``routes`` 服务来加载你的类:
+然后在 **app/Config/Services.php** 中添加 ``routes`` 服务来加载你的类：
 
 .. literalinclude:: core_classes/002.php
 
 扩展核心类
 ======================
 
-如果你只需要向现有的库中添加一些功能 - 可能是一两个方法 - 那么重新创建整个库就有些过度了。在这种情况下，更好的做法是简单地扩展这个类。扩展类与 `替换核心类`_ 几乎相同，只有一个例外：
+如果只需要向现有库添加一些功能——比如增加一两个方法——那么完全重新创建整个库就过于复杂了。在这种情况下，最好只是简单地扩展该类。扩展类与 `替换核心类`_ 几乎完全相同，只有一个例外：
 
 * 类声明必须扩展父类。
 
-例如,要扩展原生的 ``RouteCollection`` 类,你需要用以下方式声明你的类:
+例如，要扩展原生的 ``RouteCollection`` 类，你可以这样声明你的类：
 
 .. literalinclude:: core_classes/003.php
 
-如果你的类中需要使用构造函数,请确保扩展父类构造函数:
+如果你需要在类中使用构造函数，请确保扩展父类构造函数：
 
 .. literalinclude:: core_classes/004.php
 
-**提示:** 你类中与父类方法同名的任何函数都会代替原生的方法(这被称为“方法重载”)。这允许你大幅改变 CodeIgniter 核心。
+**提示：** 在子类中定义与父类同名的方法会覆盖父类方法，这一机制称为“方法重写”，可用于自定义 CodeIgniter 核心类的行为。

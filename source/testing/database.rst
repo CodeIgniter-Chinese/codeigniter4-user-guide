@@ -9,20 +9,20 @@
 测试类
 **************
 
-为了利用 CodeIgniter 为测试提供的内置数据库工具，你的测试必须扩展 ``CIUnitTestCase`` 并使用 ``DatabaseTestTrait``:
+若要利用 CodeIgniter 提供的内置数据库测试工具，测试类须继承 ``CIUnitTestCase`` 并引入 ``DatabaseTestTrait``：
 
 .. literalinclude:: database/001.php
 
-由于在 ``setUp()`` 和 ``tearDown()`` 阶段执行了特殊功能，所以如果你需要使用这些方法，必须确保调用父类的方法，否则你将失去这里描述的大部分功能：
+由于 ``setUp()`` 和 ``tearDown()`` 阶段会执行特殊功能，如需使用这些方法，务必调用父类方法，否则会丢失此处描述的大部分功能：
 
 .. literalinclude:: database/002.php
 
 设置测试数据库
 **************************
 
-运行数据库测试时,你需要提供可在测试期间使用的数据库。框架提供了特定于 CodeIgniter 的工具,而不是使用 PHPUnit 内置的数据库功能。第一步是确保你在 **app/Config/Database.php** 中设置了 ``tests`` 数据库组。这指定了仅在运行测试时使用的数据库连接,以保持其他数据的安全。
+运行数据库测试时，需准备测试专用数据库。本框架并未采用 PHPUnit 内置的数据库功能，而是提供了一套 CodeIgniter 专属工具。首先，应确保在 **app/Config/Database.php** 中已配置 ``tests`` 数据库组。该配置用于指定仅在运行测试时使用的数据库连接，从而保障其他数据的安全。
 
-如果团队中有多个开发人员,你可能希望将凭证保存在 **.env** 文件中。要这样做,请编辑文件以确保存在以下行并具有正确的信息::
+团队多人协作时，建议将凭据存放在 **.env** 文件中。请编辑该文件，确保包含以下配置且信息准确::
 
     database.tests.hostname = localhost
     database.tests.database = ci4_test
@@ -32,10 +32,10 @@
     database.tests.DBPrefix =
     database.tests.port = 3306
 
-迁移和种子
+迁移与数据填充
 ====================
 
-运行测试时,你需要确保数据库具有正确的 schema 设置并且对每个测试处于已知状态。你可以使用迁移和种子来设置数据库,方法是在测试中添加一些类属性。
+运行测试时，需确保数据库 Schema 正确，且每个测试用例均处于已知状态。只需在测试类中定义几个属性，即可利用迁移和数据填充来初始化数据库。
 
 .. literalinclude:: database/003.php
 
@@ -45,70 +45,70 @@
 $migrate
 ^^^^^^^^
 
-此布尔值确定是否在测试之前运行数据库迁移。默认情况下,始终将数据库迁移到 ``$namespace`` 定义的最新可用状态。如果为 ``false``,则不运行迁移。如果要禁用迁移,请设置为 ``false``。
+此布尔值用于控制是否在测试前运行数据库迁移。默认情况下，系统会根据 ``$namespace`` 的定义，将数据库迁移至最新状态。若设为 ``false``，则不运行迁移；如需禁用迁移，将其设为 ``false`` 即可。
 
 $migrateOnce
 ^^^^^^^^^^^^
 
-此布尔值确定是否只运行一次数据库迁移。如果要在首次测试之前运行一次迁移,请设置为 ``true``。如果不存在或为 ``false``,则在每次测试之前运行迁移。
+此布尔值用于控制数据库迁移是否仅运行一次。如需在执行首个测试前仅运行一次迁移，请设为 ``true``；若未配置或设为 ``false``，则每次测试前均会运行迁移。
 
 $refresh
 ^^^^^^^^
 
-此布尔值确定是否在测试之前完全刷新数据库。如果为 ``true``,则所有迁移都会回滚到版本 0。
+此布尔值用于控制是否在测试前彻底重置数据库。若设为 ``true``，所有迁移都将回滚至版本 0。
 
 $namespace
 ^^^^^^^^^^
 
-默认情况下,CodeIgniter 将在 **tests/_support/Database/Migrations** 中查找在测试期间应运行的迁移。你可以在 ``$namespace`` 属性中指定新命名空间来更改此位置。这不应包括 **Database\\Migrations** 子命名空间,而只是基本命名空间。
+默认情况下，CodeIgniter 会从 **tests/_support/Database/Migrations** 路径下查找并运行测试所需的迁移文件。通过在 ``$namespace`` 属性中指定新命名空间，可更改查找位置。注意此处只需提供基础命名空间，无需包含 **Database\\Migrations** 子命名空间。
 
-.. important:: 如果将此属性设置为 ``null``,则像 ``php spark migrate --all`` 一样从所有可用的命名空间运行迁移。
+.. important:: 若将此属性设为 ``null``，则会运行所有可用命名空间下的迁移，效果等同于执行 ``php spark migrate --all``。
 
-种子
------
+数据填充
+--------
 
 $seed
 ^^^^^
 
-如果存在且非空,则指定在测试运行之前用来向数据库填充测试数据的种子文件的名称。
+若设置了此属性且不为空，则指定在测试运行前用于填充数据库的 Seed 文件名称。
 
 $seedOnce
 ^^^^^^^^^
 
-此布尔值确定是否只运行一次数据库种子。如果要在首次测试之前运行一次数据库种子,请设置为 ``true``。如果不存在或为 ``false``,则在每次测试之前运行数据库种子。
+此布尔值用于控制数据库填充是否仅运行一次。若需在首个测试前仅执行一次填充，请设为 ``true``；若未定义或设为 ``false``，则每次测试前都会执行填充。
 
 $basePath
 ^^^^^^^^^
 
-默认情况下,CodeIgniter 将在 **tests/_support/Database/Seeds** 中查找在测试期间应运行的种子。你可以通过指定 ``$basePath`` 属性来更改此目录。这不应包括 **Seeds** 目录,而是保存子目录的单个目录的路径。
+默认情况下，CodeIgniter 会从 **tests/_support/Database/Seeds** 路径下查找测试所需的填充文件。可通过 ``$basePath`` 属性更改该目录。注意路径中不应包含 **Seeds** 目录，而是指向包含该子目录的父级目录。
 
-帮助方法
+辅助方法
 **************
 
-**DatabaseTestTrait** 类提供了几个帮助方法来帮助测试数据库。
+**DatabaseTestTrait** 类提供了多个辅助方法，以便进行数据库测试。
 
-更改数据库状态
+修改数据库状态
 =======================
 
 regressDatabase()
 -----------------
 
-在上述 ``$refresh`` 期间调用,如果需要手动重置数据库,此方法可用。
+在上述 ``$refresh`` 期间调用。如需手动重置数据库，可使用此方法。
 
 migrateDatabase()
 -----------------
 
-在 ``setUp()`` 期间调用,如果需要手动运行迁移,此方法可用。
+在 ``setUp()`` 期间调用。如需手动运行迁移，可使用此方法。
 
 seed($name)
 -----------
 
-允许你手动将 Seed 加载到数据库中。唯一的参数是要运行的种子的名称。种子必须存在于 ``$basePath`` 中指定的路径内。
+用于手动向数据库加载 Seed。唯一参数是待运行的 Seed 名称。该 Seed 必须位于 ``$basePath`` 指定的路径内。
 
 hasInDatabase($table, $data)
 ----------------------------
 
-将新行插入数据库中。此行在当前测试运行后被删除。``$data`` 是一个包含要插入表中的数据的关联数组。
+向数据库插入新记录。该记录会在当前测试结束后自动移除。``$data`` 为包含待插入数据的关联数组。
 
 .. literalinclude:: database/007.php
 
@@ -118,7 +118,7 @@ hasInDatabase($table, $data)
 grabFromDatabase($table, $column, $criteria)
 --------------------------------------------
 
-返回在行与 ``$criteria`` 匹配的指定表中的 ``$column`` 的值。如果找到多行,它只会返回第一行。
+返回指定表中符合 ``$criteria`` 条件的 ``$column`` 字段的值。若匹配到多条记录，则仅返回第一条记录。
 
 .. literalinclude:: database/006.php
 
@@ -128,20 +128,20 @@ grabFromDatabase($table, $column, $criteria)
 dontSeeInDatabase($table, $criteria)
 ------------------------------------
 
-断言与 ``$criteria`` 中的键/值对匹配的行在数据库中不存在。
+断言数据库中不存在符合 ``$criteria`` 键值对条件的记录。
 
 .. literalinclude:: database/004.php
 
 seeInDatabase($table, $criteria)
 --------------------------------
 
-断言与 ``$criteria`` 中的键/值对匹配的行在数据库中存在。
+断言数据库中存在符合 ``$criteria`` 键值对条件的记录。
 
 .. literalinclude:: database/005.php
 
 seeNumRecords($expected, $table, $criteria)
 -------------------------------------------
 
-断言在数据库中找到的与 ``$criteria`` 匹配的行数。
+断言数据库中符合 ``$criteria`` 条件的记录总数与预期值 ``$expected`` 相符。
 
 .. literalinclude:: database/008.php

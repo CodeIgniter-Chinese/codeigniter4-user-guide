@@ -1,8 +1,8 @@
-##############
+#############
 HTML 辅助函数
-##############
+#############
 
-HTML 辅助函数文件包含了帮助处理 HTML 的函数。
+HTML 辅助函数文件包含用于处理 HTML 的辅助函数。
 
 .. contents::
     :local:
@@ -11,103 +11,104 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
 配置
 =============
 
-从 ``v4.3.0`` 开始, ``html_helper`` 函数中的空 HTML 标签(如 ``<img>``)默认为兼容 HTML5,如果你需要兼容 XHTML,必须在 **app/Config/DocTypes.php** 中将 ``$html5`` 属性设置为 ``false``。
+自 ``v4.3.0`` 起，``html_helper`` 函数中的空 HTML 元素（例如 ``<img>``）默认更改为 HTML5 兼容，如果需要兼容 XHTML，必须将 **app/Config/DocTypes.php** 中的 ``$html5`` 属性设置为 ``false``。
 
 加载此辅助函数
 ===================
 
-使用以下代码加载此辅助函数:
+使用以下代码加载此辅助函数：
 
 .. literalinclude:: html_helper/001.php
 
 可用函数
 ===================
 
-以下函数可用:
+提供以下函数：
 
 .. php:function:: img([$src = ''[, $indexPage = false[, $attributes = '']]])
 
-    :param  string|array  $src: 图像源 URI,或属性和值的数组
-    :param  bool    $indexPage:  是否应该将 ``Config\App::$indexPage`` 添加到源路径中
-    :param  mixed   $attributes: 其他 HTML 属性
-    :returns:   一个 HTML img 标签
+    :param  string|array  $src:  图片源 URI，或属性和值的数组
+    :param  bool    $indexPage:  是否应该在源路径中添加 ``Config\App::$indexPage``
+    :param  mixed   $attributes: 附加 HTML 属性
+    :returns:   HTML 图像元素
     :rtype: string
 
-    允许你创建 HTML ``<img>`` 标签。第一个参数包含图像源。示例:
+    允许你创建 HTML ``<img>`` 元素。第一个参数包含图片源。例如：
 
     .. literalinclude:: html_helper/002.php
 
-    有一个可选的第二个参数，一个 true/false 值，用于指定是否应在创建的地址中添加 ``Config\App::$indexPage`` 到 *src*。假设你在使用一个媒体控制器：
+    有一个可选的第二参数，一个 true/false 值，指定是否应该在创建的地址中添加 ``Config\App::$indexPage``。通常在使用媒体控制器时会用到：
 
     .. literalinclude:: html_helper/003.php
 
-    此外，可以将一个关联数组作为第一个参数传递，以完全控制所有属性和值。如果没有提供 *alt* 属性，CodeIgniter 将生成一个空字符串的 *alt* 属性。
+    此外，可以将关联数组作为第一个参数传递，以完全控制所有属性和值。如果没有提供 *alt* 属性，CodeIgniter 将生成一个空的 alt 属性值。
 
-    示例:
+    例如：
 
     .. literalinclude:: html_helper/004.php
 
 .. php:function:: img_data($path[, $mime = null])
 
-    :param string $path: 图像文件路径
-    :param string|null $mime: 要使用的 MIME 类型,如果为 null 将猜测
-    :returns: base64 编码的二进制图像字符串
+    :param string $path: 图片文件路径
+    :param string|null $mime: 使用的 MIME 类型，或 null 来猜测
+    :returns: base64 编码的二进制图片字符串
     :rtype: string
 
-    使用“数据:”协议从图像生成 src 就绪字符串。示例:
+    使用 "data:" 协议从图片生成可用于 src 的字符串。例如：
 
     .. literalinclude:: html_helper/005.php
 
-    有一个可选的第二个参数来指定 MIME 类型,否则该函数将使用你的 MIME 配置进行猜测:
+    有一个可选的第二参数来指定 MIME 类型，否则函数将使用你的 Mimes 配置来猜测：
 
     .. literalinclude:: html_helper/006.php
 
-    注意 ``$path`` 必须存在并且是一个 ``数据:`` 协议支持的可读图像格式。对于非常大的文件不推荐使用此函数,但它提供了一种方便的方法来从你的应用程序中获取图像,这些图像并非 Web 可访问的(例如在 **public/** 中)。
+    请注意，``$path`` 必须存在并且是 ``data:`` 协议支持的可读图片格式。
+    不建议对非常大的文件使用此函数，但它提供了一种便捷的方式来提供应用程序中无法通过 Web 访问的图片（例如，不在 **public/** 目录中的文件）。
 
 .. php:function:: link_tag([$href = ''[, $rel = 'stylesheet'[, $type = 'text/css'[, $title = ''[, $media = ''[, $indexPage = false[, $hreflang = '']]]]]]])
 
-    :param  string  $href:      链接文件源
+    :param  string  $href:      链接文件的源
     :param  string  $rel:       关系类型
     :param  string  $type:      相关文档的类型
     :param  string  $title:     链接标题
     :param  string  $media:     媒体类型
-    :param  bool    $indexPage: 是否应该将 indexPage 添加到链接路径中
+    :param  bool    $indexPage: 是否应该将 indexPage 添加到链接路径
     :param  string  $hreflang:  Hreflang 类型
-    :returns:   一个 HTML link 标签
+    :returns:   HTML link 元素
     :rtype: string
 
-    允许你创建 HTML ``<link>`` 标签。这对于样式表链接很有用，也用于其他链接。参数是 *href*，可选的 *rel*、*type*、*title*、*media*、*indexPage* 和 *hreflang*。
+    允许你创建 HTML ``<link>`` 元素。这对于样式表链接以及其他链接很有用。参数是 *href*，以及可选的 *rel*、*type*、*title*、*media*、*indexPage* 和 *hreflang*。
 
-    *indexPage* 是一个布尔值，指定 *href* 是否应该添加由 ``$config['indexPage']`` 指定的页面地址。
+    *indexPage* 是一个布尔值，指定是否应该在 *href* 创建的地址中添加由 ``Config\App::$indexPage`` 指定的页面。
 
-    示例:
+    例如：
 
     .. literalinclude:: html_helper/007.php
 
-    更多示例:
+    更多示例：
 
     .. literalinclude:: html_helper/008.php
 
-    或者,可以将关联数组传递给 ``link_tag()`` 函数,以完全控制所有属性和值:
+    或者，可以将关联数组传递给 ``link_tag()`` 函数，以完全控制所有属性和值：
 
     .. literalinclude:: html_helper/009.php
 
 .. php:function:: script_tag([$src = ''[, $indexPage = false]])
 
-    :param  array|string  $src: JavaScript 文件的源名称或 URL,或指定属性的关联数组
+    :param  array|string  $src: JavaScript 文件的源名称或 URL，或指定属性的关联数组
     :param  bool          $indexPage: 是否将 ``$src`` 视为路由的 URI 字符串
-    :returns:   一个 HTML script 标签
+    :returns:   HTML script 元素
     :rtype: string
 
-    允许你创建 HTML ``<script>`` 标签。参数是 *src* 和可选的 *indexPage*。
+    允许你创建 HTML ``<script>`` 元素。参数是 *src* 和可选的 *indexPage*。
 
-    *indexPage* 是一个布尔值,指定 *src* 是否应该添加由 ``$config['indexPage']`` 指定的页面地址。
+    *indexPage* 是一个布尔值，指定是否应该在 *src* 创建的地址中添加由 ``Config\App::$indexPage`` 指定的页面。
 
-    示例:
+    例如：
 
     .. literalinclude:: html_helper/010.php
 
-    或者,可以将关联数组传递给 ``script_tag()`` 函数,以完全控制所有属性和值:
+    或者，可以将关联数组传递给 ``script_tag()`` 函数，以完全控制所有属性和值：
 
     .. literalinclude:: html_helper/011.php
 
@@ -115,14 +116,14 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
 
     :param  array   $list: 列表项
     :param  array   $attributes: HTML 属性
-    :returns:   一个 HTML 无序列表标签
+    :returns:   HTML 无序列表元素
     :rtype: string
 
-    允许你从简单或多维数组生成无序 HTML 列表。示例:
+    允许你从简单或多维数组生成无序 HTML 列表。例如：
 
     .. literalinclude:: html_helper/012.php
 
-    以上代码将生成:
+    上面的代码将生成：
 
     .. code-block:: html
 
@@ -133,11 +134,11 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
             <li>yellow</li>
         </ul>
 
-    这是一个更复杂的示例,使用多维数组:
+    这里是一个更复杂的示例，使用多维数组：
 
     .. literalinclude:: html_helper/013.php
 
-    以上代码将生成:
+    上面的代码将生成：
 
     .. code-block:: html
 
@@ -187,37 +188,37 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
 
     :param  array   $list: 列表项
     :param  array   $attributes: HTML 属性
-    :returns:   一个 HTML 有序列表标签
+    :returns:   HTML 有序列表元素
     :rtype: string
 
-    与 :php:func:`ul()` 相同,只是它生成 ``<ol>`` 标签用于有序列表,而不是 ``<ul>``。
+    与 :php:func:`ul()` 相同，只是它生成 ``<ol>`` 元素用于有序列表而不是 ``<ul>``。
 
 .. php:function:: video($src[, $unsupportedMessage = ''[, $attributes = ''[, $tracks = [][, $indexPage = false]]]])
 
-    :param  mixed   $src:                 源字符串或源数组。参见 :php:func:`source()` 函数
-    :param  string  $unsupportedMessage: 如果浏览器不支持 video 标签应显示的消息
-    :param  string  $attributes:          HTML 属性
-    :param  array   $tracks:              在数组内使用 track 函数。参见 :php:func:`track()` 函数
-    :param  bool    $indexPage:           是否应该将 indexPage 添加到视频源路径中
-    :returns:                             一个 HTML video 标签
+    :param  mixed   $src:                源字符串或源数组。参见 :php:func:`source()` 函数
+    :param  string  $unsupportedMessage: 如果浏览器不支持 video 元素时显示的消息
+    :param  string  $attributes:         HTML 属性
+    :param  array   $tracks:             在数组中使用 track 函数。参见 :php:func:`track()` 函数
+    :param  bool    $indexPage:          是否应该将 indexPage 添加到视频源路径
+    :returns:                            HTML video 元素
     :rtype: string
 
-    允许你从一个源字符串或一个源数组生成一个 HTML video 标签。示例:
+    允许你从源字符串或源数组生成 HTML video 元素。例如：
 
     .. literalinclude:: html_helper/014.php
 
-    以上代码将生成:
+    上面的代码将生成：
 
     .. code-block:: html
 
         <video src="test.mp4" controls>
-          你的浏览器不支持视频标签。
+          Your browser does not support the video tag.
         </video>
 
         <video src="http://www.codeigniter.com/test.mp4" controls>
           <track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian No" />
           <track src="subtitles_yes.vtt" kind="subtitles" srclang="yes" label="Norwegian Yes" />
-          你的浏览器不支持视频标签。
+          Your browser does not support the video tag.
         </video>
 
         <video class="test" controls>
@@ -227,30 +228,30 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
           <source src="movie.ogv" type="video/ogv; codecs=dirac, speex" />
           <track src="subtitles_no.vtt" kind="subtitles" srclang="no" label="Norwegian No" />
           <track src="subtitles_yes.vtt" kind="subtitles" srclang="yes" label="Norwegian Yes" />
-          你的浏览器不支持视频标签。
+          Your browser does not support the video tag.
         </video>
 
 .. php:function:: audio($src[, $unsupportedMessage = ''[, $attributes = ''[, $tracks = [][, $indexPage = false]]]])
 
-    :param  mixed   $src:                 源字符串或源数组。参见 :php:func:`source()` 函数
-    :param  string  $unsupportedMessage: 如果浏览器不支持 audio 标签应显示的消息
+    :param  mixed   $src:                源字符串或源数组。参见 :php:func:`source()` 函数
+    :param  string  $unsupportedMessage: 如果浏览器不支持 audio 元素时显示的消息
     :param  string  $attributes:
-    :param  array   $tracks:              在数组内使用 track 函数。参见 :php:func:`track()` 函数
-    :param  bool    $indexPage:           是否应该将 indexPage 添加到音频源路径中
-    :returns:                             一个 HTML audio 标签
+    :param  array   $tracks:             在数组中使用 track 函数。参见 :php:func:`track()` 函数
+    :param  bool    $indexPage:          是否应该将 indexPage 添加到音频源路径
+    :returns:                            HTML audio 元素
     :rtype: string
 
-    与 :php:func:`video()` 相同,只是它生成 ``<audio>`` 标签而不是 ``<video>``。
+    与 :php:func:`video()` 相同，只是它生成 ``<audio>`` 元素而不是 ``<video>``。
 
 .. php:function:: source($src, $type = 'unknown', $attributes = '', $indexPage = false)
 
-    :param  string  $src:        媒体资源路径
-    :param  bool    $type:       资源的 MIME 类型,可选编解码器参数
+    :param  string  $src:        媒体资源的路径
+    :param  bool    $type:       资源的 MIME 类型，带有可选的解码器参数
     :param  array   $attributes: HTML 属性
-    :returns:   一个 HTML source 标签
+    :returns:   HTML source 元素
     :rtype: string
 
-    允许你创建 HTML ``<source>`` 标签。第一个参数包含资源的路径。示例:
+    允许你创建 HTML ``<source>`` 元素。第一个参数包含资源的路径。例如：
 
     .. literalinclude:: html_helper/015.php
 
@@ -259,11 +260,11 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
     :param  string  $src:        要嵌入的资源路径
     :param  bool    $type:       MIME 类型
     :param  array   $attributes: HTML 属性
-    :param  bool    $indexPage:  是否应该将 indexPage 添加到源路径中
-    :returns:   一个 HTML embed 标签
+    :param  bool    $indexPage:  是否应该将 indexPage 添加到源路径
+    :returns:   HTML embed 元素
     :rtype: string
 
-    允许你创建 HTML ``<embed>`` 标签。第一个参数包含 embed 源。示例:
+    允许你创建 HTML ``<embed>`` 元素。第一个参数包含嵌入源。例如：
 
     .. literalinclude:: html_helper/016.php
 
@@ -272,16 +273,16 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
     :param  string  $data:       资源 URL
     :param  bool    $type:       资源的内容类型
     :param  array   $attributes: HTML 属性
-    :param  bool    $indexPage:  是否应该将 indexPage 添加到资源 URL 中
+    :param  bool    $indexPage:  是否应该将 indexPage 添加到资源 URL
     :param  array   $params:     在数组中使用 param 函数。参见 :php:func:`param()` 函数
-    :returns:   一个 HTML object 标签
+    :returns:   HTML object 元素
     :rtype: string
 
-    允许你创建 HTML ``<object>`` 标签。第一个参数包含对象数据。示例:
+    允许你创建 HTML ``<object>`` 元素。第一个参数包含对象数据。例如：
 
     .. literalinclude:: html_helper/017.php
 
-    以上代码将生成:
+    上面的代码将生成：
 
     .. code-block:: html
 
@@ -294,45 +295,45 @@ HTML 辅助函数文件包含了帮助处理 HTML 的函数。
 
 .. php:function:: param($name, $value[, $type = 'ref'[, $attributes = '']])
 
-    :param  string  $name:       参数名称
-    :param  string  $value:      参数值
+    :param  string  $name:       参数的名称
+    :param  string  $value:      参数的值
     :param  array   $attributes: HTML 属性
-    :returns:   一个 HTML param 标签
+    :returns:   HTML param 元素
     :rtype: string
 
-    允许你创建 HTML ``<param>`` 标签。第一个参数包含 param 源。示例:
+    允许你创建 HTML ``<param>`` 元素。第一个参数包含参数源。例如：
 
     .. literalinclude:: html_helper/018.php
 
 .. php:function:: track($src, $kind, $srcLanguage, $label)
 
-    :param  string $src:         track 文件 (.vtt 文件) 的路径
-    :param  string $kind:        定时 track 的类型
-    :param  string $srcLanguage: 定时 track 的语言
-    :param  string $label:       定时 track 的用户可读标题
-    :returns:   一个 HTML track 标签
+    :param  string $src:         轨道的路径（.vtt 文件）
+    :param  string $kind:        定时轨道的类型
+    :param  string $srcLanguage: 定时轨道的语言
+    :param  string $label:       定时轨道的用户可读标题
+    :returns:   HTML track 元素
     :rtype: string
 
-    生成用于指定定时轨道的 track 标签。轨道以 WebVTT 格式格式化。示例:
+    生成 track 元素以指定定时轨道。轨道以 WebVTT 格式格式化。例如：
 
     .. literalinclude:: html_helper/019.php
 
 .. php:function:: doctype([$type = 'html5'])
 
     :param  string  $type: 文档类型名称
-    :returns:   一个 HTML DocType 标签
+    :returns:   HTML DocType 声明
     :rtype: string
 
-    帮助你生成文档类型声明（DTD）。默认使用 HTML 5，但也有许多其他可用的文档类型。
+    帮助你生成文档类型声明（DTD）。默认使用 HTML 5，但许多文档类型都可用。
 
-    示例:
+    例如：
 
     .. literalinclude:: html_helper/020.php
 
-    以下是预定义的文档类型列表。这些文档类型从 **app/Config/DocTypes.php** 中提取，或者可以在你的 **.env** 配置中重写。
+    以下是预定义文档类型的列表。这些从 **app/Config/DocTypes.php** 中提取，或者可以在你的 **.env** 配置中覆盖。
 
     =============================== =================== ==================================================================================================================================================
-    文档类型                        $type 参数          结果
+    文档类型                        $type 参数          返回值
     =============================== =================== ==================================================================================================================================================
     XHTML 1.1                       xhtml11             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
     XHTML 1.0 Strict                xhtml1-strict       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

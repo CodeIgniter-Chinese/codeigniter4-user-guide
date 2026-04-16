@@ -2,84 +2,77 @@
 通过 CLI 运行控制器
 ###########################
 
-除了通过浏览器的 URL 调用应用程序的 :doc:`控制器 </incoming/controllers>` 外,
-它们也可以通过命令行接口 (CLI) 加载。
+除了通过浏览器中的 URL 调用应用程序的 :doc:`控制器 </incoming/controllers>` 外，还可以通过命令行接口 (CLI) 来加载它们。
 
-.. note:: 建议使用 Spark 命令来编写 CLI 脚本,而不是通过 CLI 调用控制器。
-    有关详细信息,请参阅 :doc:`spark_commands` 和 :doc:`cli_commands` 页面。
+.. note:: 建议为 CLI 脚本使用 Spark 命令，而不是通过 CLI 调用控制器。
+    有关详细信息，请参阅 :doc:`spark_commands` 和 :doc:`cli_commands` 页面。
 
 .. contents::
     :local:
     :depth: 2
 
 **************************
-让我们试一试:Hello World!
+动手试试：Hello World!
 **************************
 
 创建控制器
 ===================
 
-让我们创建一个简单的控制器,这样你就可以看到它的实际效果。使用文本编辑器,
-创建一个名为 Tools.php 的文件,并添加以下代码:
+让我们创建一个简单的控制器，以便你直观地看到它的运行效果。使用你的文本编辑器，创建一个名为 Tools.php 的文件，并将以下代码放入其中：
 
 .. literalinclude:: cli_controllers/001.php
 
-.. note:: 如果使用 :ref:`auto-routing-improved`,请将方法名更改为 ``cliMessage()``。
+.. note:: 如果你使用 :ref:`auto-routing-improved`，请将方法名改为 ``cliMessage()``。
 
-然后将该文件保存到 **app/Controllers/** 目录中。
+然后将文件保存到你的 **app/Controllers/** 目录中。
 
 定义路由
 ==============
 
-如果使用自动路由,请跳过此步骤。
+如果使用自动路由，则可以跳过此步骤。
 
-在 **app/Config/Routes.php** 文件中,你可以轻松创建只能通过 CLI 访问的路由,
-就像创建任何其他路由一样。与使用 ``get()``、``post()``
-或类似的方法不同,你将使用 ``cli()`` 方法。其他所有内容的工作原理与正常的路由定义完全相同:
+在你的 **app/Config/Routes.php** 文件中，可以像创建其他任何路由一样轻松地创建仅可通过 CLI 访问的路由。你不需要使用 ``get()``、``post()`` 或类似的方法，而是使用 ``cli()`` 方法。其他所有内容的工作方式都与普通路由定义完全相同：
 
 .. literalinclude:: cli_controllers/002.php
 
-有关更多信息,请参阅 :ref:`Routes <command-line-only-routes>` 页面。
+有关更多信息，请参阅 :ref:`路由 <command-line-only-routes>` 页面。
 
-.. warning:: 如果启用 :ref:`auto-routing-legacy` 并将命令文件放在 **app/Controllers** 中,
-    任何人都可以在 :ref:`auto-routing-legacy` 的帮助下通过 HTTP 访问该命令。
+.. warning:: 如果你启用了 :ref:`auto-routing-legacy` 并将命令文件放在 **app/Controllers** 目录中，
+    任何人都可以通过 HTTP 并借助 :ref:`auto-routing-legacy` 访问该命令。
 
 通过 CLI 运行
-=================
+=============
 
-通常,你会使用类似于以下内容的 URL 访问站点::
+通常，你会使用类似这样的 URL 访问你的网站::
 
     example.com/index.php/tools/message/to
 
-相反,我们将在 Mac/Linux 上打开终端,或者在 Windows 上转到运行窗口 > “cmd”,
-并导航到 CodeIgniter 项目的 web 根目录。
+相反，我们将在 Mac/Linux 上打开终端，或在 Windows 上打开“运行” > “cmd”，
+在 Windows 中导航到你的 CodeIgniter 项目的 Web 根目录。
 
 .. code-block:: bash
 
     $ cd /path/to/project/public
     $ php index.php tools message
 
-如果你操作正确,应该会看到打印出 “Hello World!”。
+如果操作正确，你应该会看到打印出的 "Hello World!"。
 
 .. code-block:: bash
 
-    $ php index.php tools message “John Smith”
+    $ php index.php tools message "John Smith"
 
-这里我们以参数的方式传递内容,就像 URL 参数的工作方式一样。
-“John Smith” 被作为参数传递,输出是:
+这里我们以与 URL 参数相同的方式传递了一个参数。"John Smith" 作为参数被传递，输出结果为::
 
     Hello John Smith!
 
 ******************
-这就是基础知识!
+基础知识就这些！
 ******************
 
-简而言之,这就是有关命令行上的控制器需要了解的全部内容。
-请记住,这是一个正常的控制器,因此路由和 ``_remap()`` 正常工作。
+总而言之，关于命令行上的控制器，你需要了解的就这些。请记住，这只是一个普通的控制器，因此路由和 ``_remap()`` 方法都能正常工作。
 
-.. note:: ``_remap()`` 在 :ref:`auto-routing-improved` 中不起作用。
+.. note:: ``_remap()`` 与 :ref:`auto-routing-improved` 不兼容。
 
-如果要确保通过 CLI 运行,请检查 :php:func:`is_cli()` 的返回值。
+如果要确认是否通过 CLI 运行，可以检查 :php:func:`is_cli()` 的返回值。
 
-但是,CodeIgniter 提供了其他工具,可以使创建 CLI 可访问的脚本更加愉快,
-包括 CLI 專用路由和一个可以帮助你使用 CLI 專用工具的库。
+然而，CodeIgniter 提供了额外的工具，使创建可通过 CLI 访问的脚本变得更加便捷，包括仅限 CLI 的路由，以及一个帮助你处理仅限 CLI 工具的库。

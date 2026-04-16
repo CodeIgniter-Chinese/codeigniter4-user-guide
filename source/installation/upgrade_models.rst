@@ -8,33 +8,33 @@
 文档
 ==============
 
-- `CodeIgniter 3.x 模型文档 <http://codeigniter.com/userguide3/general/models.html>`_
+- `CodeIgniter 3.x 模型文档 <https://codeigniter.org.cn/userguide3/general/models.html>`_
 - :doc:`CodeIgniter 4.x 模型文档 </models/model>`
 
-变更点
+变更内容
 =====================
 
-- CI4 模型具有更多功能,包括自动数据库连接、基本 CRUD、模型内验证和自动分页。
-- 由于 CodeIgniter 4 添加了命名空间,模型必须进行更改以支持命名空间。
+- CI4 的模型功能丰富得多，包括自动数据库连接、基础 CRUD、模型内验证以及自动分页。
+- 由于 CodeIgniter 4 引入了命名空间，模型必须相应调整以支持命名空间。
 
 升级指南
 =============
 
-1. 首先，将所有模型文件移动到文件夹 **app/Models**。
-2. 在 PHP 标签的开头之后添加这一行：``namespace App\Models;``。
-3. 在 ``namespace App\Models;`` 行的下面添加这一行：``use CodeIgniter\Model;``。
+1. 首先，将所有模型文件移动到 **app/Models** 文件夹中。
+2. 在 <?php 后面紧接着添加这一行：``namespace App\Models;``。
+3. 在 ``namespace App\Models;`` 这一行下面，添加这一行：``use CodeIgniter\Model;``。
 4. 将 ``extends CI_Model`` 替换为 ``extends Model``。
-5. 添加 ``protected $table`` 属性并设置表名。
-6. 添加 ``protected $allowedFields`` 属性并设置允许插入/更新的字段名称数组。
-7. 代替 CI3 的 ``$this->load->model('x');``，你现在应该使用 ``$this->x = new X();``，遵循组件的命名空间约定。或者，你可以使用 :php:func:`model()` 函数：``$this->x = model('X');``。
+5. 添加 ``protected $table`` 属性，并设置表名。
+6. 添加 ``protected $allowedFields`` 属性，并设置允许插入/更新的字段名数组。
+7. 不再使用 CI3 的 ``$this->load->model('x');``，现在应改用 ``$this->x = new X();``，并遵循组件的命名空间约定。或者，也可以使用 :php:func:`model()` 函数：``$this->x = model('X');``。
 
-如果在模型结构中使用子目录,则必须根据情况更改命名空间。
-例如:你有一个版本 3 模型位于 **application/models/users/user_contact.php**,命名空间必须是 ``namespace App\Models\Users;``,版本 4 中的模型路径应如下所示:**app/Models/Users/UserContact.php**
+如果你的模型结构中使用了子目录，则必须据此调整命名空间。
+例如：如果你的 v3 模型位于 **application/models/users/user_contact.php**，则命名空间必须为 ``namespace App\Models\Users;``，而在 v4 中的模型路径应如下所示：**app/Models/Users/UserContact.php**
 
-CI4 中的新 Model 有很多内置方法。例如 ``find($id)`` 方法。使用它可以找到主键等于 ``$id`` 的数据。
-插入数据现在也比以前更简单。在 CI4 中有一个 ``insert($data)`` 方法。你可以选择使用所有这些内置方法,并将代码迁移到新方法。
+CI4 中新的 Model 内置了许多方法。例如 ``find($id)`` 方法，可以用它查找主键等于 ``$id`` 的数据。
+插入数据也比以前更简单了。CI4 提供了 ``insert($data)`` 方法。你可以根据需要使用这些内置方法，并将代码迁移到这些新方法上。
 
-可以在 :doc:`../models/model` 中找到有关这些方法的更多信息。
+有关这些方法的更多信息，请参见 :doc:`../models/model`。
 
 代码示例
 ============
@@ -42,19 +42,20 @@ CI4 中的新 Model 有很多内置方法。例如 ``find($id)`` 方法。使用
 CodeIgniter 3.x 版本
 ------------------------
 
-路径:**application/models**:
+路径：**application/models**：
 
 .. literalinclude:: upgrade_models/ci3sample/001.php
 
 CodeIgniter 4.x 版本
 -----------------------
 
-路径:**app/Models**:
+路径：**app/Models**：
 
 .. literalinclude:: upgrade_models/001.php
 
-上述代码是从 CI3 到 CI4 的直接翻译。它在模型中直接使用了查询构建器。请注意，当你直接使用查询构建器时，你将无法使用 CodeIgniter 模型中的功能。
+以上代码是从 CI3 到 CI4 的直接翻译。它在模型中直接使用了查询构建器。
+请注意，直接使用查询构建器时，将无法使用 CodeIgniter 的模型功能。
 
-如果你想使用 CodeIgniter 模型的功能，代码将是：
+如果你想使用 CodeIgniter 的模型功能，代码应如下所示：
 
 .. literalinclude:: upgrade_models/002.php
