@@ -488,7 +488,7 @@ grep -n "为.*的\|是一个.*的" "$FILE_PATH"                # 潜在的直译
 ## 参考资源
 
 **翻译前必读**：
-1. **`examples/translation-examples.md`** — 翻译正例对照
-2. **`examples/common-errors.md`** — 错误模式库（格式破坏、翻译腔、长句嵌套）
-3. **`templates/detailed-report.md`** — 审查报告模板
-4. **`examples/review-report-example.md`** — 完整审查报告示例
+1. `examples/translation-examples.md` — 翻译正例对照
+2. `examples/common-errors.md` — 错误模式库（格式破坏、翻译腔、长句嵌套）
+3. `templates/detailed-report.md` — 审查报告模板
+4. `examples/review-report-example.md` — 完整审查报告示例

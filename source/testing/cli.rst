@@ -17,11 +17,11 @@
 MockInputOutput
 ===============
 
-**MockInputOutput** 提供了一种简单的方法来编写需要用户输入的命令的测试，例如 ``CLI::prompt()``、``CLI::wait()`` 和 ``CLI::input()``。
+**MockInputOutput** 提供了一种便捷的方式来测试需要用户输入的命令，例如 ``CLI::prompt()``、``CLI::wait()`` 和 ``CLI::input()``。
 
-你可以在测试执行期间用 ``MockInputOutput`` 替换 ``InputOutput`` 类来捕获输入和输出。
+测试执行期间，可用 ``MockInputOutput`` 替换 ``InputOutput`` 类，从而捕获输入和输出。
 
-.. note:: 当你使用 ``MockInputOutput`` 时，你不需要使用
+.. note:: 使用 ``MockInputOutput`` 时，无需再使用
     :ref:`stream-filter-trait`、:ref:`ci-test-stream-filter` 和
     :ref:`php-stream-wrapper`。
 
@@ -31,21 +31,22 @@ MockInputOutput
 getOutput(?int $index = null): string
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-获取输出。
+获取输出内容。
 
-- 如果你像 ``$io->getOutput()`` 这样调用它，它会返回整个输出字符串。
-- 如果你指定 ``0`` 或一个正数，它会返回输出数组项。每个项都有一个 ``CLI::fwrite()`` 调用的输出。
-- 如果你指定一个负数 ``-n``，它会返回输出数组的倒数第 ``n`` 项。
+- 调用 ``$io->getOutput()`` 时，返回完整输出字符串。
+- 指定 ``0`` 或正数时，返回输出数组中对应索引的项。
+  每项是单次 ``CLI::fwrite()`` 调用的输出。
+- 指定负数 ``-n`` 时，返回输出数组倒数第 ``n`` 项。
 
 getOutputs(): array
 ^^^^^^^^^^^^^^^^^^^
 
-返回输出数组。每个项都有一个 ``CLI::fwrite()`` 调用的输出。
+返回输出数组。每项是单次 ``CLI::fwrite()`` 调用的输出。
 
-如何使用
+使用方法
 ==========
 
-- ``CLI::setInputOutput()`` 可以将 ``MockInputOutput`` 实例设置到 ``CLI`` 类。
+- ``CLI::setInputOutput()`` 可将 ``MockInputOutput`` 实例设置到 ``CLI`` 类。
 - ``CLI::resetInputOutput()`` 重置 ``CLI`` 类中的 ``InputOutput`` 实例。
 - ``MockInputOutput::setInputs()`` 设置用户输入数组。
 - ``MockInputOutput::getOutput()`` 获取命令输出。
@@ -70,42 +71,44 @@ StreamFilterTrait
 
 .. versionadded:: 4.3.0
 
-**StreamFilterTrait** 提供了这些辅助方法的替代方案。
+**StreamFilterTrait** 提供了一组替代方法。
 
-你可能需要测试一些难以测试的东西。有时，捕获一个流，比如 PHP 自己的 STDOUT 或 STDERR，可能会有所帮助。``StreamFilterTrait`` 帮助你捕获所选流的输出。
+有些情况测试起来比较困难。此时捕获流（如 PHP 自身的 STDOUT 或 STDERR）可能会有帮助。``StreamFilterTrait`` 可用于捕获指定流的输出。
 
-如何使用
+使用方法
 ^^^^^^^^^^
 
-- ``StreamFilterTrait::getStreamFilterBuffer()`` 从缓冲区获取捕获的数据。
+- ``StreamFilterTrait::getStreamFilterBuffer()`` 获取缓冲区捕获的数据。
 - ``StreamFilterTrait::resetStreamFilterBuffer()`` 重置捕获的数据。
 
-在你的一个测试用例中演示这一点的示例：
+测试用例中的使用示例：
 
 .. literalinclude:: overview/018.php
 
-``StreamFilterTrait`` 有一个自动调用的配置器。
-参见 :ref:`Testing Traits <testing-overview-traits>`。
+``StreamFilterTrait`` 包含一个会自动调用的配置方法。
+详见 :ref:`测试 Trait <testing-overview-traits>`。
 
-如果你在测试中重写了 ``setUp()`` 或 ``tearDown()`` 方法，那么你必须分别调用 ``parent::setUp()`` 和 ``parent::tearDown()`` 方法来配置 ``StreamFilterTrait``。
+如果测试中重写了 ``setUp()`` 或 ``tearDown()`` 方法，则必须分别调用 ``parent::setUp()`` 和
+``parent::tearDown()`` 方法以完成 ``StreamFilterTrait`` 的配置。
 
 .. _ci-test-stream-filter:
 
 CITestStreamFilter
 ------------------
 
-**CITestStreamFilter** 用于手动/单次使用。
+**CITestStreamFilter** 用于手动/单次场景。
 
-如果你只需要在一个测试中捕获流，那么可以手动向流添加过滤器，而不是使用 StreamFilterTrait trait。
+如果只需在单个测试中捕获流，可以不使用 StreamFilterTrait trait，改为手动
+为流添加过滤器。
 
-如何使用
+使用方法
 ^^^^^^^^^^
 
-- ``CITestStreamFilter::registration()`` 过滤器注册。
-- ``CITestStreamFilter::addOutputFilter()`` 向输出流添加过滤器。
-- ``CITestStreamFilter::addErrorFilter()`` 向错误流添加过滤器。
-- ``CITestStreamFilter::removeOutputFilter()`` 从输出流中移除过滤器。
-- ``CITestStreamFilter::removeErrorFilter()`` 从错误流中移除过滤器。
+- ``CITestStreamFilter::registration()`` 注册过滤器。
+- ``CITestStreamFilter::addOutputFilter()`` 为输出流添加过滤器。
+- ``CITestStreamFilter::addErrorFilter()`` 为错误流添加过滤器。
+- ``CITestStreamFilter::removeOutputFilter()`` 从输出流移除过滤器。
+- ``CITestStreamFilter::removeErrorFilter()`` 从错误流移除过滤器。
 
 .. literalinclude:: overview/020.php
 
@@ -121,24 +124,26 @@ PhpStreamWrapper
 
 .. versionadded:: 4.3.0
 
-**PhpStreamWrapper** 提供了一种方法来编写需要用户输入的方法的测试，例如 ``CLI::prompt()``、``CLI::wait()`` 和 ``CLI::input()``。
+**PhpStreamWrapper** 提供了一种方式来测试需要用户输入的方法，
+例如 ``CLI::prompt()``、``CLI::wait()`` 和 ``CLI::input()``。
 
-.. note:: PhpStreamWrapper 是一个流包装类。
-    如果你不了解 PHP 的流包装器，
-    请参见 PHP 手册中的 `The streamWrapper class <https://www.php.net/manual/en/class.streamwrapper.php>`_。
+.. note:: PhpStreamWrapper 是一个流封装类。
+    如果不了解 PHP 的流封装，请参阅 PHP 手册中的
+    `streamWrapper 类 <https://www.php.net/manual/zh/class.streamwrapper.php>`_。
 
-如何使用
+使用方法
 ^^^^^^^^^^
 
 - ``PhpStreamWrapper::register()`` 将 ``PhpStreamWrapper`` 注册到 ``php`` 协议。
-- ``PhpStreamWrapper::restore()`` 将 php 协议包装器恢复为 PHP 内置包装器。
+- ``PhpStreamWrapper::restore()`` 将 php 协议恢复为 PHP 内置的流封装。
 - ``PhpStreamWrapper::setContent()`` 设置输入数据。
 
 .. important:: PhpStreamWrapper 仅用于测试 ``php://stdin``。
-    但是当你注册它时，它会处理所有 `php 协议 <https://www.php.net/manual/en/wrappers.php.php>`_ 流，
+    但注册后，它将处理所有 `php 协议 <https://www.php.net/manual/zh/wrappers.php.php>`_ 流，
     例如 ``php://stdout``、``php://stderr``、``php://memory``。
-    因此强烈建议仅在需要时注册/注销 ``PhpStreamWrapper``。否则，它在注册时会干扰其他内置的 php 流。
+    因此强烈建议仅在需要时注册/取消注册 ``PhpStreamWrapper``。
+    否则，注册期间会干扰其他 PHP 内置流。
 
-在你的一个测试用例中演示这一点的示例：
+测试用例中的使用示例：
 
 .. literalinclude:: overview/019.php

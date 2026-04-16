@@ -233,6 +233,51 @@ def normalize_role_body(body: str) -> str:
     return body
 
 
+def extract_multiline_roles(lines: list[str]) -> list[tuple[int, str, str]]:
+    """
+    检测跨两行的 Sphinx 角色。
+
+    Sphinx 角色可能因行宽限制被拆分为两行，如::
+
+        :doc:`all
+        supported database systems <../intro/requirements>`
+
+    这类角色在逐行扫描时无法被 role_re 匹配。本函数将相邻两行拼接后
+    重新匹配，找到跨行角色后返回（行号为起始行）。
+    """
+    roles: list[tuple[int, str, str]] = []
+    # 匹配 :name:`text` 且 `text` 未闭合（有开头的 ` 但行尾没有对应的 `）
+    open_role_re = re.compile(r':([A-Za-z0-9][A-Za-z0-9:-]*):`(?P<body>[^`]*)$')
+    # 匹配以 ` 结尾的角色体（补全行）
+    close_role_re = re.compile(r'^(?P<prefix>[^`]*)`')
+
+    for i in range(len(lines) - 1):
+        line_curr = lines[i].rstrip()
+        line_next = lines[i + 1].rstrip()
+
+        match = open_role_re.search(line_curr)
+        if match is None:
+            continue
+
+        # 当前行以未闭合的角色开始
+        role_name = match.group(1)
+        body_part1 = match.group('body')
+
+        # 下一行应该有闭合的 `
+        close_match = close_role_re.search(line_next)
+        if close_match is None:
+            continue
+
+        body_part2 = close_match.group('prefix')
+        full_body = body_part1 + body_part2
+
+        # 验证完整角色体是否包含目标引用 <...> 或普通文本
+        lineno = i + 1  # 1-based
+        roles.append((lineno, role_name, normalize_role_body(full_body)))
+
+    return roles
+
+
 def extract_structure(lines: list[str]) -> dict[str, list[tuple]]:
     """提取 RST 文件的结构元素"""
     directive_re = re.compile(r'^(?P<indent>\s*)\.\.\s+(?P<name>[A-Za-z0-9][A-Za-z0-9:-]*)::(?P<arg>.*)$')
@@ -241,6 +286,10 @@ def extract_structure(lines: list[str]) -> dict[str, list[tuple]]:
     role_re = re.compile(r':(?P<name>[A-Za-z0-9][A-Za-z0-9:-]*):`(?P<body>[^`]+)`')
     literal_re = re.compile(r'``([^`\n]+)``')
     substitution_re = re.compile(r'(?<!\|)\|([A-Za-z0-9_.-]+)\|(?!\|)')
+    # 角色行内匹配：用于在选项判断中排除角色
+    inline_role_re = re.compile(r'^\s+:[A-Za-z][A-Za-z0-9_-]*:`')
+    # 列表项提取：有序 (1. 2. 等) 和无序 (* + - 等)
+    list_item_re = re.compile(r'^(?P<indent>\s*)(?P<marker>\d+\.|[*+\-])\s+')
 
     data: dict[str, list[tuple]] = {
         'headings': [],
@@ -251,9 +300,13 @@ def extract_structure(lines: list[str]) -> dict[str, list[tuple]]:
         'roles': [],
         'literals': [],
         'substitutions': [],
+        'list_items': [],
         'potential_translated_directives': [],
         'fullwidth_double_colons': [],  # 检测全角双冒号：
     }
+
+    # 收集所有 literal_block 的行号范围（用于排除代码块内的检查）
+    code_block_ranges: list[tuple[int, int]] = _find_code_block_ranges(lines)
 
     for lineno, line in enumerate(lines, start=1):
         stripped = line.rstrip()
@@ -275,10 +328,11 @@ def extract_structure(lines: list[str]) -> dict[str, list[tuple]]:
 
         option_match = option_re.match(line)
         if option_match:
-            name = option_match.group('name')
-            value = option_match.group('value').strip()
-            key = value if name in OPTION_VALUES_MUST_MATCH else None
-            data['options'].append((lineno, len(option_match.group('indent')), name, key))
+            if not inline_role_re.match(line):
+                name = option_match.group('name')
+                value = option_match.group('value').strip()
+                key = value if name in OPTION_VALUES_MUST_MATCH else None
+                data['options'].append((lineno, len(option_match.group('indent')), name, key))
 
         for match in role_re.finditer(line):
             data['roles'].append((lineno, match.group('name'), normalize_role_body(match.group('body'))))
@@ -289,6 +343,13 @@ def extract_structure(lines: list[str]) -> dict[str, list[tuple]]:
         if not stripped.lstrip().startswith('.. '):
             for match in substitution_re.finditer(line):
                 data['substitutions'].append((lineno, match.group(1)))
+
+        # 提取列表项
+        list_match = list_item_re.match(line)
+        if list_match:
+            indent = len(list_match.group('indent'))
+            marker_type = 'ordered' if list_match.group('marker').endswith('.') else 'unordered'
+            data['list_items'].append((lineno, indent, marker_type))
 
         # 检测可能被误译为普通文本的关键指令
         for directive_name, pattern in CRITICAL_DIRECTIVE_TEXT_PATTERNS.items():
@@ -322,11 +383,106 @@ def extract_structure(lines: list[str]) -> dict[str, list[tuple]]:
         data['headings'].append((index + 1, title, underline[0], len(underline), has_overline))
         data['heading_levels'].append((index + 1, underline[0], has_overline))
 
+    # 存储代码块范围供外部使用
+    data['_code_block_ranges'] = code_block_ranges
+
+    # 补充检测跨两行的角色（逐行扫描无法匹配的情况）
+    multiline_roles = extract_multiline_roles(lines)
+    data['roles'].extend(multiline_roles)
+    # 按行号排序以保持顺序
+    data['roles'].sort(key=lambda t: t[0])
+
     return data
 
 
+def _find_code_block_ranges(lines: list[str]) -> list[tuple[int, int]]:
+    """
+    使用 AST 方式识别所有 literal_block（代码块）的行号范围。
+
+    包括 code-block 指令块和 :: 引导的代码块。
+    返回 [(start_lineno, end_lineno), ...] 列表（1-based）。
+    """
+    ranges: list[tuple[int, int]] = []
+    i = 0
+    n = len(lines)
+
+    while i < n:
+        stripped = lines[i].strip()
+        lineno_0 = i  # 0-based
+
+        # 检测 code-block / literalinclude 等指令
+        if stripped.startswith('.. ') and ('::' in stripped):
+            directive_match = re.match(r'^\.\.\s+([A-Za-z0-9][A-Za-z0-9:-]*)::', stripped)
+            if directive_match:
+                name = directive_match.group(1)
+                if name in ('code-block', 'sourcecode', 'literalinclude'):
+                    # 找到指令起始，继续找指令结束（空行或新指令）
+                    indent_match = re.match(r'^(\s*)', lines[i])
+                    base_indent = len(indent_match.group(1)) if indent_match else 0
+                    # 寻找选项（缩进 > base_indent 的行）
+                    j = i + 1
+                    while j < n:
+                        line_stripped = lines[j].strip()
+                        if not line_stripped:
+                            j += 1
+                            continue
+                        line_indent = len(re.match(r'^\s*', lines[j]).group(0))
+                        if line_indent <= base_indent:
+                            break
+                        j += 1
+                    # 对于 literalinclude，选项之后可能还有内容，但主要是选项部分
+                    # 对于 code-block，选项之后是代码内容（更深缩进）
+                    if name == 'literalinclude':
+                        # literalinclude 没有行内代码，只检查选项
+                        ranges.append((lineno_0 + 1, j))
+                    else:
+                        # code-block 的内容在更深缩进的行中
+                        content_start = j
+                        while j < n:
+                            line_stripped = lines[j].strip()
+                            if not line_stripped:
+                                j += 1
+                                continue
+                            line_indent = len(re.match(r'^\s*', lines[j]).group(0))
+                            # 内容缩进必须比 base_indent + 4 更深（或至少比 base_indent 深）
+                            if line_indent <= base_indent + 3:
+                                break
+                            j += 1
+                        ranges.append((lineno_0 + 1, j))
+                    i = j
+                    continue
+
+        # 检测段落结尾 :: 引导的代码块
+        if stripped.endswith('::') and len(stripped) > 2:
+            # 后续缩进行都是代码
+            j = i + 1
+            while j < n:
+                line_stripped = lines[j].strip()
+                if not line_stripped:
+                    j += 1
+                    continue
+                line_indent = len(re.match(r'^\s*', lines[j]).group(0))
+                if line_indent < 4:
+                    break
+                j += 1
+            if j > i + 1:
+                ranges.append((lineno_0 + 1, j))
+
+        i += 1
+
+    return ranges
+
+
+def _is_in_code_block(lineno_1based: int, ranges: list[tuple[int, int]]) -> bool:
+    """判断给定行号（1-based）是否在代码块范围内"""
+    for start, end in ranges:
+        if start <= lineno_1based <= end:
+            return True
+    return False
+
+
 def compare_sequence(name: str, source: list[tuple], translated: list[tuple]) -> list[str]:
-    """比较序列是否一致"""
+    """比较序列是否一致（适用于有序序列，如标题层级、目标标签）"""
     errors: list[str] = []
 
     if len(source) != len(translated):
@@ -339,6 +495,79 @@ def compare_sequence(name: str, source: list[tuple], translated: list[tuple]) ->
             )
             if len(errors) >= 20:
                 break
+
+    return errors
+
+
+def _compare_heading_underlines(source: dict, translated: dict) -> list[str]:
+    """
+    对比标题装饰线长度是否与源文一致。
+
+    译文装饰线长度应与源文相同，除非译文标题文本本身比源文装饰线更长，
+    此时允许加长以覆盖标题。
+    """
+    errors: list[str] = []
+
+    src_headings = source['headings']
+    dst_headings = translated['headings']
+
+    for (_src_ln, _src_title, _src_mark, src_len, _src_ol), \
+        (dst_ln, dst_title, _dst_mark, dst_len, _dst_ol) in zip(src_headings, dst_headings):
+
+        expected = src_len
+        if len(dst_title) > src_len:
+            expected = len(dst_title)
+
+        if dst_len != expected:
+            if dst_len > expected:
+                errors.append(
+                    f'标题装饰线过长：译文第 {dst_ln + 1} 行长度 {dst_len}，'
+                    f'预期 {expected}（源文长度 {src_len}）'
+                )
+            else:
+                errors.append(
+                    f'标题装饰线过短：译文第 {dst_ln + 1} 行长度 {dst_len}，'
+                    f'预期 {expected}（源文长度 {src_len}）'
+                )
+
+    return errors
+
+
+def compare_set(name: str, source: list[tuple], translated: list[tuple],
+                key_func=None) -> list[str]:
+    """
+    以集合方式对比无序元素（选项、字面量、替换引用等）。
+
+    仅报告真正缺失或多余的项，而非位置错位产生的假阳性。
+
+    Args:
+        source: 源文元素列表
+        translated: 译文元素列表
+        key_func: 从元组中提取对比键的函数，默认使用元组[1:]切片
+    """
+    errors: list[str] = []
+    if key_func is None:
+        key_func = lambda t: t[1:]
+
+    src_set = {key_func(t) for t in source}
+    dst_set = {key_func(t) for t in translated}
+
+    missing = src_set - dst_set
+    extra = dst_set - src_set
+
+    if missing:
+        for item in list(missing)[:20]:
+            src_lineno = next(t[0] for t in source if key_func(t) == item)
+            errors.append(
+                f'{name} 缺失：源文第 {src_lineno} 行包含 {item!r}，译文中未找到'
+            )
+
+    if extra:
+        for item in list(extra)[:20]:
+            dst_lineno = next(t[0] for t in translated if key_func(t) == item)
+            errors.append(
+                f'{name} 多余：译文第 {dst_lineno} 行包含 {item!r}，源文中不存在'
+            )
 
     return errors
 
@@ -460,23 +689,63 @@ def compare_ast_roles(source_text: str, translated_text: str) -> list[str]:
     return errors
 
 
-def check_spacing_norms(lines: list[str]) -> list[str]:
+def compare_literal_presence(source: list[tuple], translated: list[tuple]) -> list[str]:
+    """检查字面量是否存在"""
+    return compare_set('行内字面量', source, translated)
+
+
+def compare_list_items(source: list[tuple], translated: list[tuple]) -> list[str]:
+    """
+    对比列表项结构。
+
+    列表项使用 Counter 比较，既检查类型/缩进是否匹配，
+    也检查数量是否一致。
+    """
+    errors: list[str] = []
+
+    # 提取 (indent, marker_type) 的 Counter
+    src_key = lambda t: (t[1], t[2])
+    dst_key = lambda t: (t[1], t[2])
+
+    from collections import Counter
+    src_counter = Counter(src_key(t) for t in source)
+    dst_counter = Counter(dst_key(t) for t in translated)
+
+    if src_counter != dst_counter:
+        # 找出差异
+        all_keys = set(src_counter.keys()) | set(dst_counter.keys())
+        for key in sorted(all_keys):
+            src_count = src_counter.get(key, 0)
+            dst_count = dst_counter.get(key, 0)
+            if src_count != dst_count:
+                indent, marker_type = key
+                diff = src_count - dst_count
+                if diff > 0:
+                    errors.append(
+                        f'列表项缺失：源文有 {src_count} 个 {marker_type} 列表项（缩进 {indent}），'
+                        f'译文只有 {dst_count} 个'
+                    )
+                else:
+                    errors.append(
+                        f'列表项多余：译文有 {dst_count} 个 {marker_type} 列表项（缩进 {indent}），'
+                        f'源文只有 {src_count} 个'
+                    )
+
+    return errors
+
+
+def check_spacing_norms(lines: list[str], code_block_ranges: list[tuple[int, int]] = None) -> list[str]:
     """检查中英文间距规范"""
     errors: list[str] = []
     chinese_char = r'[\u4e00-\u9fff]'
     english_char = r'[a-zA-Z0-9]'
 
-    in_code_block = False
+    # 确保 ranges 可用
+    if code_block_ranges is None:
+        code_block_ranges = _find_code_block_ranges(lines)
 
     for i, line in enumerate(lines, start=1):
-        # 检测代码块开始/结束
-        if line.strip().startswith('.. code-block::'):
-            in_code_block = True
-        elif in_code_block and line.strip() and not line.startswith('    ') and not line.startswith('\t'):
-            in_code_block = False
-
-        # 跳过代码块内的检查
-        if in_code_block or line.startswith('    ') or line.startswith('\t'):
+        if _is_in_code_block(i, code_block_ranges):
             continue
 
         # 检查中文与英文之间是否有空格
@@ -591,7 +860,9 @@ def main():
         errors.append(f'🚨 疑似指令被误译为普通文本（第 {lineno} 行）：{text!r}')
 
     # 检查是否有全角双冒号（段落结尾的 :: 被误译为中文冒号 ：）
-    for lineno, text in translated['fullwidth_double_colons']:
+    for item in translated['fullwidth_double_colons']:
+        lineno = item[0]
+        text = item[2]  # item[1] is 'fullwidth_double' marker
         errors.append(f'🚨 发现全角双冒号（第 {lineno} 行）：{text!r} - 段落结尾的 RST 代码块标记"::"不能翻译为"："，必须保持半角冒号')
 
     # 如果有备份文件，进行对比
@@ -609,20 +880,27 @@ def main():
 
         # --- 正则检查层：精确定位和特定检查 ---
         errors.extend(compare_sequence('标题层级', source['heading_levels'], translated['heading_levels']))
+        errors.extend(_compare_heading_underlines(source, translated))
         directive_errors = compare_all_directives(source, translated)
         errors.extend(directive_errors)
         errors.extend(compare_sequence('显式目标', source['targets'], translated['targets']))
-        errors.extend(compare_sequence('选项', source['options'], translated['options']))
+
+        errors.extend(compare_set('选项', source['options'], translated['options']))
+
+        # 交叉引用角色：序列对比（角色顺序有意义）
         errors.extend(compare_sequence('交叉引用角色', source['roles'], translated['roles']))
-        errors.extend(compare_literal_presence(source['literals'], translated['literals']))
-        errors.extend(compare_sequence('替换引用', source['substitutions'], translated['substitutions']))
+
+        errors.extend(compare_set('行内字面量', source['literals'], translated['literals']))
+        errors.extend(compare_set('替换引用', source['substitutions'], translated['substitutions']))
+
+        errors.extend(compare_list_items(source['list_items'], translated['list_items']))
 
         critical_errors = compare_critical_directives(source, translated)
         if critical_errors:
             errors = critical_errors + errors
 
     # 检查间距规范（不阻断）
-    spacing_errors = check_spacing_norms(translated_lines)
+    spacing_errors = check_spacing_norms(translated_lines, translated.get('_code_block_ranges', []))
 
     # 输出错误
     if errors:
