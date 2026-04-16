@@ -13,7 +13,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 核心架构
 
 ### 目录结构
-- `source/` — RestructuredText (.rst) 格式的主要文档源文件，按主题分子目录（`libraries/`、`general/`、`database/`、`cli/`、`models/` 等）
+- `source/` — RestructuredText (.rst) 格式的主要文档源文件
+  - `conf.py` — Sphinx 配置（语言、主题、扩展）
+  - `index.rst` — 主入口 toctree
+  - `intro/`、`installation/`、`tutorial/` — 入门指南
+  - `concepts/`、`general/`、`libraries/`、`helpers/` — 核心功能
+  - `incoming/`、`outgoing/`、`database/`、`models/` — 请求/响应/数据库
+  - `testing/`、`cli/`、`extending/`、`changelogs/` — 测试/CLI/扩展/变更日志
+  - `_static/` — 静态资源（CSS、JS、字体、图片、logo）
+  - `_templates/` — Sphinx HTML 模板覆盖
 - `build/` — 生成的文档输出（HTML、PDF），不在版本控制中
 - `.claude/skills/ci-translate/` — AI 翻译 skill，包含翻译工作流、验证脚本和示例
 - `.github/workflows/` — 构建和部署的 CI/CD 自动化
@@ -22,6 +30,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Sphinx 配置**：`source/conf.py` 定义构建设置、中文语言支持（`zh_CN`）、主题和扩展
 - **翻译标准**：记录在 `translation-guide.md` 和 ci-translate skill 中
 - **构建系统**：基于 Makefile，支持 Docker 以保证环境一致性
+
+### Sphinx 配置要点 (`source/conf.py`)
+- **语言**：`zh_CN`，HTML 搜索语言设为 `zh`（使用 jieba 分词）
+- **主题**：`sphinx_rtd_theme`，带暗色模式 CSS 覆盖（`css/citheme_dark.css`）
+- **高亮**：`html+php` + `startinline: True`，Pygments 样式为 `trac`
+- **导航**：`collapse_navigation: False`，`navigation_depth: 2`
+- **PDF**：使用 `xelatex` 引擎 + `ctex` 包支持中文字体
+- **SEO**：HTML 标题针对中文搜索优化
 
 ## 构建命令
 
@@ -46,8 +62,17 @@ make latexpdf
 # 使用 ci-translate skill 翻译单个 .rst 文件
 /ci-translate source/libraries/caching.rst
 
-# 或者手动验证单个 .rst 文件的语法
-python3 .claude/skills/ci-translate/scripts/validate-rst.py source/libraries/caching.rst
+# 或者手动验证单个 .rst 文件的语法（推荐加 --no-build 避免完整 sphinx-build）
+python3 .claude/skills/ci-translate/scripts/validate-rst.py --no-build source/libraries/caching.rst
+```
+
+### 其他常用命令
+```bash
+# 清理构建缓存（遇到奇怪问题时使用）
+make clean
+
+# 列出所有可用的构建目标
+make help
 ```
 
 ### Docker 工作流
@@ -97,6 +122,17 @@ docker run -t --rm -v $(pwd):/ci ci4
 - **消除翻译腔**：删除冗余代词（你/它/这），拆分长句，主动语态
 - **术语一致**：helper → 辅助函数，validation → 验证，controller → 控制器
 
+### 翻译质量检查清单
+翻译完成后快速自查：
+- [ ] 所有 `.. directive::` 和 `:role:` 保持英文
+- [ ] 段落结尾 `::` 未改为中文冒号
+- [ ] 代码块和 ``...`` 字面量完全未翻译
+- [ ] 版本限定（or later / only）、语气强度（must）完整
+- [ ] 条件前提（if/when/unless）完整
+- [ ] helper → 辅助函数，controller → 控制器，validation → 验证
+- [ ] 无"你/你的/它/它们/这/这个"等冗余代词
+- [ ] 中英文间有空格，数字与单位无空格，全角标点
+
 ### 质量标准
 - **格式保留**：RestructuredText 语法必须保持完整
 - **术语一致性**：遵循 `translation-guide.md` 和 ci-translate skill 中的术语表
@@ -107,16 +143,18 @@ docker run -t --rm -v $(pwd):/ci ci4
 
 ### 自动化构建 (.github/workflows/build.yml)
 - **触发条件**：推送到 master 分支
-- **环境**：Ubuntu 22.04 + Python 3.7
+- **环境**：Ubuntu 22.04 + Python 3.7（带 pip 缓存）
+- **子模块**：checkout 时使用 `submodules: recursive`
 - **LaTeX 支持**：使用 XeLaTeX 和中文字体的完整中文排版
-- **输出**：HTML 文档 + PDF 生成
+- **输出**：HTML 文档 + PDF 生成 + ZIP 压缩包
 - **部署**：自动部署到 GitHub Pages（gh-pages 分支）
 
 ### 构建流程
 1. 安装 Python 依赖和中文支持的 LaTeX 包（texlive-xetex、texlive-lang-chinese）
-2. 生成 HTML 和 PDF 文档
-3. 将 HTML 部署到 GitHub Pages 分支
-4. 复制 PDF 到部署目录
+2. 生成 HTML（`make html`）和 PDF（`make latexpdf`）
+3. 将 HTML 复制到 gh-pages 分支，删除 `.buildinfo`，生成 ZIP
+4. 复制 PDF 到 gh-pages 根目录
+5. 提交并推送到 gh-pages 分支
 
 ## 贡献指南
 
@@ -151,6 +189,24 @@ docker run -t --rm -v $(pwd):/ci ci4
 - 在中文字符与英文/数字之间添加适当间距（半角空格）
 - 中文句子使用全角标点（，。！？）
 - 数字与单位之间不加空格（如 50ms）
+
+## 常见问题排查
+
+### Sphinx 构建失败
+- 运行 `make clean` 清理缓存后重新构建
+- 检查 `.rst` 文件中的 reST 语法错误（标题装饰线、指令格式、表格对齐）
+- 使用验证脚本定位问题：`python3 .claude/skills/ci-translate/scripts/validate-rst.py --no-build <file>`
+
+### 翻译后格式异常
+- 检查是否误翻译了 reST 指令（如 `.. note::` → `.. 注意::`）
+- 确认段落尾部的 `::` 未被改为中文冒号
+- 验证代码块缩进与原文一致
+- 检查交叉引用角色（`:doc:`、`:meth:`、`:class:`）保持英文
+
+### 中文字体渲染问题
+- 确保 Sphinx 配置中 `language = 'zh_CN'` 已设置
+- HTML 构建使用 sphinx-rtd-theme 的暗色模式 CSS 覆盖
+- PDF 构建依赖 `texlive-lang-chinese` 和 `ctex` 包
 
 ## 参考资源
 
