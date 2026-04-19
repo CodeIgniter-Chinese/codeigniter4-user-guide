@@ -155,6 +155,35 @@ CodeIgniter 4 内置了一个本地开发服务器，
 
         php spark serve --php /usr/bin/php7.6.5.4
 
+***************************
+FrankenPHP 的 Worker 模式
+***************************
+
+.. versionadded:: 4.7.0
+
+.. important:: Worker 模式目前处于 **实验阶段**。目前官方唯一支持的 Worker 实现为 **FrankenPHP**，该项目由 PHP 基金会支持。
+
+FrankenPHP 是一款支持 Worker 模式的现代 PHP 应用服务器，允许应用程序在同一 PHP 进程中处理多个请求，从而提升性能。
+
+快速上手
+===========
+
+1. 通过 `静态二进制文件 <https://github.com/php/frankenphp/releases>`_ 安装 FrankenPHP
+
+2. 生成 Worker 模式文件：
+
+.. code-block:: console
+
+    php spark worker:install
+
+3. 启动服务器：
+
+.. code-block:: console
+
+    frankenphp run
+
+有关详细配置、性能调优以及状态管理的重要注意事项，请参阅 :doc:`worker_mode`。
+
 *******************
 使用 Apache 托管
 *******************

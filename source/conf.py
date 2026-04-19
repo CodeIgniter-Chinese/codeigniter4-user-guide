@@ -23,10 +23,10 @@ year_now = datetime.date.today().year
 copyright = '2019-' + str(year_now) + ' CodeIgniter 基金会'
 
 # The short X.Y version.
-version = '4.6'
+version = '4.7'
 
 # The full version, including alpha/beta/rc tags.
-release = '4.6.3'
+release = '4.7.2'
 
 # -- General configuration ---------------------------------------------------
 
@@ -83,7 +83,6 @@ html_theme_options = {
 	'navigation_depth': 2,
 	'includehidden': False,
 	'logo_only': True,
-	'display_version': False,
 }
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,

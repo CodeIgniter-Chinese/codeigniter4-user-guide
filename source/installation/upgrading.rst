@@ -1,20 +1,27 @@
 #################################
-从先前版本升级
+从旧版本升级
 #################################
 
-请阅读与你当前升级起始版本对应的升级说明。
+请根据当前使用的版本阅读对应的升级说明。
 
-另请参见 :doc:`./backward_compatibility_notes`。
+另请参阅 :doc:`./backward_compatibility_notes`。
 
-.. note:: 如果你不知道当前运行的 CodeIgniter 版本，
-    可在 :ref:`调试工具栏 <the-debug-toolbar>` 中查看，
-    或者直接输出常量 ``\CodeIgniter\CodeIgniter::CI_VERSION``。
+手册中提到了对 **项目空间** 的更改。执行更新时，需要对比来自 **vendor/codeigniter4/framework** 或 ZIP 压缩包中的原始文件并进行修改。
+
+例如，原始的 **app/Config/App.php** 位于 **vendor/codeigniter4/framework/app/Config/App.php**。此外，也可以直接替换为新文件，并重新添加之前的配置。
+
+.. note:: 如果不确定当前运行的 CodeIgniter 版本，可通过 :ref:`调试工具栏 <the-debug-toolbar>` 查看，或直接输出常量 ``\CodeIgniter\CodeIgniter::CI_VERSION``。
 
 .. toctree::
     :titlesonly:
 
     backward_compatibility_notes
 
+    upgrade_472
+    upgrade_471
+    upgrade_470
+    upgrade_465
+    upgrade_464
     upgrade_463
     upgrade_462
     upgrade_461

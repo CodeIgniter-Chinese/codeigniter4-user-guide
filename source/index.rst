@@ -9,7 +9,7 @@ CodeIgniter4 用户指南
     intro/index
 
 ***************
-开始使用
+入门指南
 ***************
 
 .. toctree::
@@ -18,18 +18,18 @@ CodeIgniter4 用户指南
 
     installation/index
 
-****************************
-创建第一个应用
-****************************
+********
+开发指南
+********
 
 .. toctree::
     :includehidden:
     :titlesonly:
 
-    tutorial/index
+    guides/index
 
 *************************
-概览和常规主题
+概览与常规主题
 *************************
 
 .. toctree::
@@ -57,7 +57,7 @@ CodeIgniter4 用户指南
     outgoing/index
 
 ******************
-数据库
+数据库操作
 ******************
 
 .. toctree::
@@ -76,7 +76,7 @@ CodeIgniter4 用户指南
     dbmgmt/index
 
 *******************
-类库和辅助函数
+类库与辅助函数
 *******************
 
 .. toctree::
@@ -90,7 +90,7 @@ CodeIgniter4 用户指南
     helpers/index
 
 ***************
-高级主题
+进阶主题
 ***************
 
 .. toctree::
@@ -115,7 +115,7 @@ CodeIgniter4 用户指南
     changelogs/index
 
 *****************
-官方包
+官方扩展包
 *****************
 
 .. toctree::

@@ -2,7 +2,7 @@
 命令行使用
 ##################
 
-CodeIgniter 4 也可以与命令行程序一起使用。
+CodeIgniter 4 同样支持通过命令行运行。
 
 .. toctree::
     :titlesonly:
@@ -13,4 +13,5 @@ CodeIgniter 4 也可以与命令行程序一起使用。
     cli_commands
     cli_generators
     cli_library
+    cli_signals
     cli_request

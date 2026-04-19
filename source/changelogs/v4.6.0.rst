@@ -202,9 +202,9 @@ Time::setTimestamp()
 协商器
 ==========
 
-- 新增特性开关 ``Feature::$strictLocaleNegotiation`` 用于启用严格区域匹配。
-  旧版本中，对于 ``Accept-language: en-US,en-GB;q=0.9`` 的请求会返回首个允许的语言 ``en`` （而非精确匹配 ``en-US`` 或 ``en-GB``）。
-  设为 ``true`` 后启用基于语言代码（'en' - ISO 639-1）和区域代码（'en-US' - ISO 639-1 + ISO 3166-1 alpha）的精确匹配。
+- 新增 ``Feature::$strictLocaleNegotiation`` 特性开关，用于启用严格的语言环境匹配。
+  此前，若请求头包含 ``Accept-language: en-US,en-GB;q=0.9``，系统可能会返回首个匹配的语言（如 ``en``），而非精确匹配 ``en-US`` 或 ``en-GB``。
+  将此值设为 ``true`` 后，匹配逻辑将不再仅基于语言代码（'en' - ISO 639-1），还会校验地区代码（'en-US' - ISO 639-1 及 ISO 3166-1 alpha）。
 
 分页
 ==========
@@ -279,14 +279,15 @@ Time::setTimestamp()
 - **File:**
     - 弃用 ``File`` 的 ``getSizeByUnit()`` 方法，改用 ``getSizeByBinaryUnit()`` 或 ``getSizeByMetricUnit()``
 
-************
-已修复的 Bug
-************
+**********
+Bug 修复
+**********
 
 - **Response:**
     - 现在通过 ``Response`` 类设置的响应头将优先覆盖通过 PHP ``header()`` 函数手动设置的响应头
 - **View:** 为 ``View::excerpt()`` 新增多字节字符串支持
 - **Helpers:** 为 ``excerpt()`` 新增多字节字符串支持
 
-完整缺陷修复列表请查阅仓库的
-`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_。
+请查看仓库的
+`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
+以获取完整的 Bug 修复列表。
