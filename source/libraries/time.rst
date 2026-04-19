@@ -311,6 +311,22 @@ setTimestamp()
 
 .. literalinclude:: time/031.php
 
+addCalendarMonths() / subCalendarMonths()
+-----------------------------------------
+
+通过增加或减少完整的日历月份来修改当前 Time。若需确保重复发生的日期不跳过任何日历月份，这些方法将非常有用。下表对比了初始日期为 ``2025-01-31`` 时，``addMonths()`` 与 ``addCalendarMonths()`` 的差异。
+
+======= =========== ===================
+$months addMonths() addCalendarMonths()
+======= =========== ===================
+1       2025-03-03  2025-02-28
+2       2025-03-31  2025-03-31
+3       2025-05-01  2025-04-30
+4       2025-05-31  2025-05-31
+5       2025-07-01  2025-06-30
+6       2025-07-31  2025-07-31
+======= =========== ===================
+
 比较两个时间
 ===================
 
@@ -360,6 +376,30 @@ isAfter()
 与 ``isBefore()`` 工作方式相同，检查时间是否在传入时间之后：
 
 .. literalinclude:: time/037.php
+
+.. _time-comparing-two-times-isPast:
+
+isPast()
+--------
+
+.. versionadded:: 4.7.0
+
+用于判断当前实例的时间相对于“现在”是否为过去。
+返回布尔值 true/false::
+
+.. literalinclude:: time/043.php
+
+.. _time-comparing-two-times-isFuture:
+
+isFuture()
+----------
+
+.. versionadded:: 4.7.0
+
+用于判断当前实例的时间相对于“现在”是否为未来。
+返回布尔值 true/false::
+
+.. literalinclude:: time/044.php
 
 .. _time-viewing-differences:
 

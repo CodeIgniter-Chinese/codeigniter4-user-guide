@@ -60,6 +60,19 @@
 
 .. literalinclude:: csp/013.php
 
+上报指令
+====================
+
+若要指定报告发送的 URL，可使用 ``setReportURI()`` 方法。
+
+.. versionadded:: 4.7.0
+
+CSP Level 3 弃用了 ``report-uri`` 指令，转而推荐使用 ``report-to``。因此，可使用 ``setReportToEndpoint()`` 方法为 CSP 报告设置上报地址。在添加此指令前，请确保已通过 ``addReportingEndpoints()`` 方法定义了上报地址。
+
+.. literalinclude:: csp/015.php
+
+为向后兼容不支持 ``report-to`` 指令的浏览器，在使用 ``setReportToEndpoint()`` 方法时，CodeIgniter4 也会自动设置 ``report-uri`` 指令。
+
 .. _csp-clear-directives:
 
 清除指令

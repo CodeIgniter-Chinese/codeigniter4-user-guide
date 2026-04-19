@@ -54,6 +54,8 @@ HTTP 功能测试
 每个「路由」是一个包含 3 个元素的数组，包含 HTTP 方法（或使用 "add" 表示所有）、
 要匹配的 URI 以及路由目标。
 
+.. _feature-setting-session-values:
+
 设置 Session 值
 ----------------------
 

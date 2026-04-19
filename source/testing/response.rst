@@ -94,6 +94,8 @@ assertStatus(int $code)
 .. literalinclude:: response/010.php
    :lines: 2-
 
+.. _response-session-assertions:
+
 Session 断言
 ==================
 

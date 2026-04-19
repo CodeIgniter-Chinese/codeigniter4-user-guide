@@ -16,6 +16,23 @@ CURLRequest 类
 CURLRequest 配置
 **********************
 
+.. _curlrequest-sharing-connection:
+
+共享连接
+==================
+
+.. versionadded:: 4.7.0
+
+默认情况下，该选项已通过常量 ``CURL_LOCK_DATA_CONNECT`` 和 ``CURL_LOCK_DATA_DNS`` 启用。
+
+若需在请求间共享连接，请在 **app/Config/CURLRequest.php** 中使用数组常量 `CURL_LOCK_DATA_* <https://www.php.net/manual/zh/curl.constants.php#constant.curl-lock-data-connect>`_ 配置 ``$shareConnectionOptions``：
+
+.. literalinclude:: curlrequest/039.php
+
+如需禁用，只需将其更改为空数组：
+
+.. literalinclude:: curlrequest/040.php
+
 .. _curlrequest-sharing-options:
 
 共享选项
@@ -205,6 +222,17 @@ delay
 
 .. literalinclude:: curlrequest/023.php
 
+dns_cache_timeout
+=================
+
+.. versionadded:: 4.7.0
+
+默认情况下，CodeIgniter 不会更改 DNS 缓存超时时间（``120`` 秒）。若需修改此值，可通过 ``dns_cache_timeout`` 选项指定以秒为单位的时间。
+
+.. literalinclude:: curlrequest/037.php
+
+.. note:: 根据 `libcurl <https://curl.se/libcurl/c/CURLOPT_DNS_CACHE_TIMEOUT.html>`__ 文档，可将此值设为 ``0`` 以完全禁用缓存，或设为 ``-1`` 使缓存条目永久有效。
+
 form_params
 ===========
 
@@ -215,6 +243,15 @@ form_params
 .. note:: ``form_params`` 不能与 `multipart`_ 选项同时使用，只能二选一。``form_params`` 用于 ``application/x-www-form-urlencoded`` 请求，``multipart`` 用于 ``multipart/form-data`` 请求。
 
 .. _curlrequest-request-options-headers:
+
+fresh_connect
+=============
+
+.. versionadded:: 4.7.0
+
+默认使用新连接发送请求。可通过 ``fresh_connect`` 选项禁用此行为：
+
+.. literalinclude:: curlrequest/038.php
 
 headers
 =======

@@ -1,24 +1,24 @@
 .. _ci47-rest-part1:
 
-Getting Started with REST APIs
+REST API 入门
 ##############################
 
 .. contents::
     :local:
     :depth: 2
 
-This tutorial walks you through building a simple RESTful API to manage books in CodeIgniter 4. You'll learn to set up a project, configure a database, and create API endpoints, and what makes an API RESTful.
+本教程将介绍如何在 CodeIgniter 4 中构建一个简单的图书管理 RESTful API。内容涵盖项目搭建、数据库配置、API 接口创建，以及 RESTful API 的基本特征。
 
-This tutorial will primarily focus on:
+本教程主要关注：
 
-- Auto-routing (Improved)
-- Creating JSON API endpoints
-- Using the API ResponseTrait for consistent responses
-- Basic database operations with Models
+- 自动路由（改进版）
+- 创建 JSON API 接口
+- 使用 API ResponseTrait 实现一致的响应
+- 使用模型进行基础数据库操作
 
 .. tip::
 
-    While we cover the basics of CodeIgniter, it is assumed that you have at least progressed through the :doc:`First App tutorial <../first-app/index>`.
+    虽然本教程会涉及 CodeIgniter 的基础知识，但建议先完成 :doc:`第一个应用程序教程 <../first-app/index>`。
 
 .. toctree::
     :hidden:
@@ -29,10 +29,10 @@ This tutorial will primarily focus on:
     controller
     conclusion
 
-Getting Up and Running
+准备就绪
 **********************
 
-Installing CodeIgniter
+安装 CodeIgniter
 ======================
 
 .. code-block:: console
@@ -41,39 +41,39 @@ Installing CodeIgniter
     cd books-api
     php spark serve
 
-Open your browser to ``http://localhost:8080`` and you should see the CodeIgniter welcome page.
+在浏览器中访问 ``http://localhost:8080`` 即可看到 CodeIgniter 欢迎页面。
 
 .. note::
 
-    Keep the server running in one terminal. If you prefer, you can stop it anytime with :kbd:`Ctrl+C` and start again with ``php spark serve``.
+    请在终端保持服务器运行。如需停止，可随时按下 :kbd:`Ctrl+C`，之后使用 ``php spark serve`` 重新启动。
 
-Setting Development Mode
+设置开发模式
 ========================
 
-Copy the environment file and enable development settings:
+复制环境配置文件并启用开发设置：
 
 .. code-block:: console
 
     cp env .env
 
-Open **.env** and make sure this line is **uncommented**:
+打开 **.env** 并确保**取消注释**以下行：
 
 .. code-block:: ini
 
     CI_ENVIRONMENT = development
 
-You can also use the spark ``env`` command to set the environment:
+也可以使用 spark ``env`` 命令来设置环境：
 
 .. code-block:: console
 
     php spark env development
 
-Configure SQLite
+配置 SQLite
 ================
 
-We'll use a single-file SQLite database under **writable/** so there's no external setup.
+本教程使用 **writable/** 目录下的单文件 SQLite 数据库，无需进行额外配置。
 
-Open **.env** and **uncomment** the database section, then set:
+打开 **.env**，**取消注释** 数据库部分并进行如下设置：
 
 .. code-block:: ini
 
@@ -85,20 +85,20 @@ Open **.env** and **uncomment** the database section, then set:
     database.default.hostname =
     database.default.port     =
 
-CodeIgniter will automatically create the SQLite database file if it doesn't exist, but you need to ensure that the **writable/** directory is writable by the web server.
+如果该文件不存在，CodeIgniter 会自动创建 SQLite 数据库文件，但需确保 Web 服务器对 **writable/** 目录拥有写入权限。
 
 .. warning::
 
-    On some systems you might need to adjust group/owner or use ``chmod 666`` temporarily during development. Never ship world-writable permissions to production.
+    在某些系统上，可能需要调整用户组/所有者，或在开发期间临时使用 ``chmod 666``。切勿在生产环境中使用全局可写权限。
 
 
-At this point, you have a working CodeIgniter4 project with SQLite configured.
+至此，已完成配置了 SQLite 的 CodeIgniter4 项目。
 
-- The app starts with ``php spark serve``
-- ``CI_ENVIRONMENT`` is set to ``development`` in **.env**
-- **writable/database.db** exists and is writable
+- 应用通过 ``php spark serve`` 启动
+- **.env** 中的 ``CI_ENVIRONMENT`` 已设置为 ``development``
+- **writable/database.db** 已存在且可写
 
-What's Next
+下一步
 ===========
 
-In the next section, we'll enable auto-routing and create a simple JSON endpoint (``/api/pings``) to see how HTTP verbs map to controller methods in CodeIgniter.
+下一部分将启用自动路由并创建一个简单的 JSON 接口（``/api/pings``），以此了解 CodeIgniter 中 HTTP 方法与控制器方法的映射关系。

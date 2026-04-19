@@ -1,8 +1,8 @@
 ######
-Guides
+指南
 ######
 
-This section contains guides to help you get started with CodeIgniter 4 in a project-based way.
+本节包含以项目为导向的指南，旨在帮助快速上手 CodeIgniter 4。
 
 .. toctree::
    :titlesonly:
@@ -11,13 +11,13 @@ This section contains guides to help you get started with CodeIgniter 4 in a pro
    api/index
 
 ****************************
-Build Your First Application
+构建第一个应用程序
 ****************************
 
-This project walks you through building a basic news application. You will begin by writing code that loads static pages. Next, you will create a news section that reads news items from a database. Finally, you'll add a form to create news items in the database. This gives you a good overview of how CodeIgniter works and how to use its main components.
+该项目将引导构建一个基础的新闻应用程序。首先编写加载静态页面的代码。接着创建一个从数据库读取新闻条目的新闻板块。最后，添加一个用于在数据库中创建新闻条目的表单。通过本教程可以全面了解 CodeIgniter 的运行机制以及主要组件的使用方法。
 
 *******************
-Build a RESTful API
+构建 RESTful API
 *******************
 
-This guide helps you build a simple RESTful API using CodeIgniter 4. You will learn how to use auto-routing, set up controllers, and handle requests and responses in a RESTful manner. By the end of this guide, you will have a functional API that can perform CRUD operations on a resource. This introduces you to the basic concepts of a RESTful API and the tools that CodeIgniter provides to facilitate its development.
+本指南将帮助使用 CodeIgniter 4 构建一个简单的 RESTful API。其中包含学习如何使用自动路由、设置控制器以及以 RESTful 方式处理请求和响应。完成本指南后，将拥有一个能够对资源执行 CRUD 操作的功能完备的 API。由此可了解 RESTful API 的基本概念，以及 CodeIgniter 为简化开发所提供的工具。

@@ -1,16 +1,16 @@
-##################
-API 响应 Trait
-##################
+#############
+API 响应
+#############
 
-现代 PHP 开发中，构建 API 已成为常见需求，无论是为 JavaScript 密集型单页应用提供数据，还是作为独立产品。CodeIgniter 提供了 API 响应 Trait，可与任何控制器配合使用，简化常见响应类型的处理，无需记忆不同响应类型应返回的 HTTP 状态码。
+现代 PHP 开发中，构建 API 已成为常见需求，无论是为 JavaScript 驱动的单页应用提供数据，还是作为独立产品。CodeIgniter 提供了若干 Trait，可配合任何控制器使用，以简化常用响应类型的处理，且无需记忆各响应类型对应的 HTTP 状态码。
 
 .. contents::
     :local:
     :depth: 2
 
-*************
-使用示例
-*************
+*****************
+响应示例
+*****************
 
 以下示例展示了控制器中的常见用法模式。
 
@@ -38,6 +38,8 @@ API 响应 Trait
 如需定义所使用的格式化程序，请编辑 **app/Config/Format.php**。``$supportedResponseFormats`` 包含应用可自动格式化的 MIME 类型。系统默认支持 XML 和 JSON 响应格式：
 
 .. literalinclude:: api_responses/003.php
+
+.. note:: 自 ``v4.7.0`` 起，通过编辑 **app/Config/Format.php** 文件可修改默认 JSON 编码深度。``$jsonEncodeDepth`` 值用于定义最大深度，默认值为 ``512``。
 
 进行 :doc:`内容协商 </incoming/content_negotiation>` 时，通过该数组确定返回的响应类型。若客户端请求与支持的格式不匹配，则返回数组中的第一个格式。
 
@@ -91,7 +93,13 @@ API 响应 Trait
 
     若传入 ``$message`` 字符串，将替代响应状态的标准 IANA 原因码。但并非所有客户端都支持自定义原因码，部分客户端仍会使用与状态码匹配的 IANA 标准。
 
-    响应为包含两个元素的数组：``error`` 和 ``messages``。``error`` 元素包含错误状态码，``messages`` 元素包含错误消息数组。格式如下：
+    响应是一个包含三个元素的数组：``status``、``code`` 和 ``messages``。
+
+    - ``status`` 元素包含错误状态码。
+    - ``code`` 元素包含 API 专用的自定义错误代码。
+    - ``messages`` 元素包含错误消息数组。
+
+    根据错误消息的数量，响应示例如下：
 
     .. literalinclude:: api_responses/006.php
 
@@ -211,3 +219,73 @@ API 响应 Trait
     服务器发生错误时设置相应的状态码。
 
     .. literalinclude:: api_responses/017.php
+
+.. _api_response_trait_paginate:
+
+********************
+分页响应
+********************
+
+从 API 端点返回分页结果时，可使用 ``paginate()`` 方法同时返回结果与分页信息。这有助于保持 API 响应的一致性，同时提供客户端进行分页所需的全部信息。
+
+-------------
+使用示例
+-------------
+
+.. literalinclude:: api_responses/018.php
+
+典型响应示例如下：
+
+.. code-block:: json
+
+    {
+        "data": [
+            {
+                "id": 1,
+                "username": "admin",
+                "email": "admin@example.com"
+            },
+            {
+                "id": 2,
+                "username": "user",
+                "email": "user@example.com"
+            }
+        ],
+        "meta": {
+            "page": 1,
+            "perPage": 20,
+            "total": 2,
+            "totalPages": 1
+        },
+        "links": {
+            "self": "http://example.com/users?page=1",
+            "first": "http://example.com/users?page=1",
+            "last": "http://example.com/users?page=1",
+            "next": null,
+            "previous": null
+        }
+    }
+
+``paginate()`` 方法始终将结果封装在 ``data`` 元素中，并包含 ``meta`` 与 ``links`` 元素以辅助客户端翻页。若无结果，``data`` 元素将为空数组，``meta`` 与 ``links`` 元素依然存在，但其值将反映无结果状态。
+
+除了模型，也可传入 Builder 实例，只需确保 Builder 已正确配置表名以及必要的 Join 或 Where 子句。
+
+.. literalinclude:: api_responses/019.php
+
+***************
+类参考
+***************
+
+.. php:method:: paginate(Model|BaseBuilder $resource, int $perPage = 20, ?string $transformWith = null)
+
+    :param Model|BaseBuilder $resource: 要分页的资源，可为模型或 Builder 实例。
+    :param int $perPage: 每页返回的条目数。
+    :param string|null $transformWith: 可选的转换器类名，用于转换结果。
+
+    根据给定资源生成分页响应。资源可为模型或 Builder 实例。该方法会自动从请求的查询参数中确定当前页码。响应将包含分页数据、分页状态元数据以及页面导航链接。
+
+    如果提供包含转换器类名的 ``$transformWith`` 参数，分页结果中的每个条目在返回前都将使用该转换器进行转换。这有助于精确控制 API 响应的结构与内容。有关创建和使用转换器的更多信息，请参阅 :ref:`API 转换器 <api_transformers>`。
+
+    带有转换器的示例：
+
+    .. literalinclude:: api_responses/020.php

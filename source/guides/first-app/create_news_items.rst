@@ -1,190 +1,140 @@
-Create News Items
+创建新闻条目
 #################
 
 .. contents::
     :local:
     :depth: 3
 
-You now know how you can read data from a database using CodeIgniter, but
-you haven't written any information to the database yet. In this section,
-you'll expand your news controller and model created earlier to include
-this functionality.
+目前已掌握如何使用 CodeIgniter 从数据库读取数据，但尚未尝试写入。本节将扩展此前创建的新闻控制器和模型，以实现此功能。
 
-Enable CSRF Filter
+启用 CSRF 过滤器
 ******************
 
-Before creating a form, let's enable the CSRF protection.
+在创建表单前，先启用 CSRF 保护。
 
-Open the **app/Config/Filters.php** file and update the ``$methods`` property like the following:
+打开 **app/Config/Filters.php** 文件，按如下方式更新 ``$methods`` 属性：
 
 .. literalinclude:: create_news_items/001.php
 
-It configures the CSRF filter to be enabled for all **POST** requests.
-You can read more about the CSRF protection in :doc:`Security <../../libraries/security>` library.
+此配置为所有 **POST** 请求启用了 CSRF 过滤器。更多关于 CSRF 保护的信息，请参阅 :doc:`Security <../../libraries/security>` 类文档。
 
-.. Warning:: In general, if you use ``$methods`` filters, you should :ref:`disable Auto Routing (Legacy) <use-defined-routes-only>`
-    because :ref:`auto-routing-legacy` permits any HTTP method to access a controller.
-    Accessing the controller with a method you don't expect could bypass the filter.
+.. warning:: 通常在使用 ``$methods`` 过滤器时，应禁用 :ref:`自动路由（传统版） <use-defined-routes-only>`，因为 :ref:`auto-routing-legacy` 允许通过任何 HTTP 方法访问控制器。如果使用了非预期的 HTTP 方法访问控制器，可能会绕过该过滤器。
 
-Adding Routing Rules
+添加路由规则
 ********************
 
-Before you can start adding news items into your CodeIgniter application
-you have to add an extra rule to **app/Config/Routes.php** file. Make sure your
-file contains the following:
+向 CodeIgniter 应用添加新闻条目前，必须在 **app/Config/Routes.php** 文件中增加一条规则。确保文件中包含以下内容：
 
 .. literalinclude:: create_news_items/004.php
 
-The route directive for ``'news/new'`` is placed before the directive for ``'news/(:segment)'`` to ensure that the form to create a news item is displayed.
+``'news/new'`` 的路由指令需放在 ``'news/(:segment)'`` 之前，以确保能正确显示创建新闻的表单。
 
-The ``$routes->post()`` line defines the router for a POST request. It matches
-only a POST request to the URI path **/news**, and it maps to the ``create()`` method of
-the ``News`` class.
+``$routes->post()`` 行定义了 POST 请求的路由。该路由仅匹配指向 **/news** 的 POST 请求，并将其映射到 ``News`` 类的 ``create()`` 方法。
 
-You can read more about different routing types in :ref:`defined-route-routing`.
+关于不同路由类型的更多信息，请参阅 :ref:`defined-route-routing`。
 
-Create a Form
+创建表单
 *************
 
-Create news/create View File
+创建 news/create 视图文件
 ============================
 
-To input data into the database, you need to create a form where you can
-input the information to be stored. This means you'll be needing a form
-with two fields, one for the title and one for the text. You'll derive
-the slug from our title in the model.
+若要向数据库输入数据，需要创建一个用于输入信息的表单。这意味着需要一个包含两个字段（标题和文本）的表单。Slug 将根据模型中的标题自动生成。
 
-Create a new view at **app/Views/news/create.php**:
+在 **app/Views/news/create.php** 创建新视图：
 
 .. literalinclude:: create_news_items/006.php
 
-There are probably only four things here that look unfamiliar.
+此处可能只有四处内容较为陌生：
 
-The :php:func:`session()` function is used to get the Session object,
-and ``session()->getFlashdata('error')`` is used to display the error related to CSRF protection
-to the user. However, by default, if a CSRF validation check fails, an exception will be thrown,
-so it does not work yet. See :ref:`csrf-redirection-on-failure` for more information.
+使用 :php:func:`session()` 函数获取 Session 对象，并通过 ``session()->getFlashdata('error')`` 向用户显示 CSRF 保护相关的错误。不过默认情况下，若 CSRF 验证失败会抛出异常，因此该功能目前尚不可用。详见 :ref:`csrf-redirection-on-failure`。
 
-The :php:func:`validation_list_errors()` function provided by the :doc:`../../helpers/form_helper`
-is used to report errors related to form validation.
+由 :doc:`../../helpers/form_helper` 提供的 :php:func:`validation_list_errors()` 函数用于报告表单验证错误。
 
-The :php:func:`csrf_field()` function creates a hidden input with a CSRF token that helps protect against some common attacks.
+:php:func:`csrf_field()` 函数会创建一个包含 CSRF 令牌的隐藏输入框，有助于抵御常见攻击。
 
-The :php:func:`set_value()` function provided by the :doc:`../../helpers/form_helper` is used to show
-old input data when errors occur.
+由 :doc:`../../helpers/form_helper` 提供的 :php:func:`set_value()` 函数用于在发生错误时显示之前的输入数据。
 
-News Controller
+News 控制器
 ===============
 
-Go back to your ``News`` controller.
+回到 ``News`` 控制器。
 
-Add News::new() to Display the Form
+添加 News::new() 以显示表单
 -----------------------------------
 
-First, create a method to display the HTML form you have created.
+首先，创建一个方法来显示前面创建的 HTML 表单。
 
 .. literalinclude:: create_news_items/002.php
 
-We load the :doc:`Form helper <../../helpers/form_helper>` with the
-:php:func:`helper()` function. Most helper functions require the helper to be
-loaded before use.
+通过 :php:func:`helper()` 函数加载 :doc:`表单辅助函数 <../../helpers/form_helper>`。大多数辅助函数在使用前都必须先加载。
 
-Then it returns the created form view.
+随后返回创建好的表单视图。
 
-Add News::create() to Create a News Item
+添加 News::create() 以创建新闻条目
 ----------------------------------------
 
-Next, create a method to create a news item from the submitted data.
+接下来，创建一个方法用于处理提交的数据并创建新闻条目。
 
-You're going to do three things here:
+此方法主要执行以下三项操作：
 
-1. checks whether the submitted data passed the validation rules.
-2. saves the news item to the database.
-3. returns a success page.
+1. 检查提交的数据是否通过验证规则。
+2. 将新闻条目保存到数据库。
+3. 返回成功页面。
 
 .. literalinclude:: create_news_items/005.php
 
-The code above adds a lot of functionality.
+上述代码实现了大量功能：
 
-Retrieve the Data
+获取数据
 ^^^^^^^^^^^^^^^^^
 
-First, we use the :doc:`IncomingRequest <../../incoming/incomingrequest>`
-object ``$this->request``, which is set in the controller by the framework.
+首先，使用框架在控制器中设置好的 :doc:`IncomingRequest <../../incoming/incomingrequest>` 对象 ``$this->request``。
 
-We get the necessary items from the **POST** data by the user and set them in the
-``$data`` variable.
+从用户提交的 **POST** 数据中获取必要项，并存入 ``$data`` 变量。
 
-Validate the Data
+验证数据
 ^^^^^^^^^^^^^^^^^
 
-Next, you'll use the Controller-provided helper function
-:ref:`validateData() <controller-validatedata>` to validate the submitted data.
-In this case, the title and body fields are required and in the specific length.
+接着，利用控制器提供的 :ref:`validateData() <controller-validatedata>` 辅助函数验证提交的数据。本例中，标题和内容字段为必填项，且需满足特定长度。
 
-CodeIgniter has a powerful validation library as demonstrated
-above. You can read more about the :doc:`Validation library <../../libraries/validation>`.
+如上所示，CodeIgniter 拥有强大的验证库。详情可参阅 :doc:`Validation 类 <../../libraries/validation>`。
 
-If the validation fails, we call the ``new()`` method you just created and return
-the HTML form.
+如果验证失败，则调用刚才创建的 ``new()`` 方法并重新返回表单。
 
-Save the News Item
+保存新闻条目
 ^^^^^^^^^^^^^^^^^^
 
-If the validation passed all the rules, we get the validated data by
-:ref:`$this->validator->getValidated() <validation-getting-validated-data>` and
-set them in the ``$post`` variable.
+若数据通过所有验证规则，则通过 :ref:`$this->validator->getValidated() <validation-getting-validated-data>` 获取验证后的数据，并存入 ``$post`` 变量。
 
-The ``NewsModel`` is loaded and called. This takes care of passing the news item
-into the model. The :ref:`model-save` method handles inserting or updating the
-record automatically, based on whether it finds an array key matching the primary
-key.
+随后加载并调用 ``NewsModel``，将新闻条目传递给模型。:ref:`model-save` 方法会根据数组中是否存在匹配主键的键值，自动处理记录的插入或更新。
 
-This contains a new function :php:func:`url_title()`. This function -
-provided by the :doc:`URL helper <../../helpers/url_helper>` - strips down
-the string you pass it, replacing all spaces by dashes (``-``) and makes
-sure everything is in lowercase characters. This leaves you with a nice
-slug, perfect for creating URIs.
+此处包含一个新函数 :php:func:`url_title()`。该函数由 :doc:`URL 辅助函数 <../../helpers/url_helper>` 提供，用于处理传入的字符串，将所有空格替换为减号（``-``）并转换为小写，从而生成非常适合 URI 的 Slug。
 
-Return Success Page
+返回成功页面
 ^^^^^^^^^^^^^^^^^^^
 
-After this, view files are loaded and returned to display a success message.
-Create a view at **app/Views/news/success.php** and write a success message.
+完成后，加载并返回视图文件以显示成功信息。在 **app/Views/news/success.php** 创建视图并编写成功提示。
 
-This could be as simple as::
+内容可以很简单::
 
     <p>News item created successfully.</p>
 
-NewsModel Updating
+更新 NewsModel
 ******************
 
-The only thing that remains is ensuring that your model is set up
-to allow data to be saved properly. The ``save()`` method that was
-used will determine whether the information should be inserted
-or if the row already exists and should be updated, based on the presence
-of a primary key. In this case, there is no ``id`` field passed to it,
-so it will insert a new row into it's table, ``news``.
+最后需要确保模型已配置妥当，以便正确保存数据。``save()`` 方法会根据是否存在主键，自动判断执行插入操作还是更新现有记录。在本例中，由于未传递 ``id`` 字段，模型将向 ``news`` 表插入新行。
 
-However, by default the insert and update methods in the Model will
-not actually save any data because it doesn't know what fields are
-safe to be updated. Edit the ``NewsModel`` to provide it a list of updatable
-fields in the ``$allowedFields`` property.
+然而，默认情况下模型中的插入和更新方法不会实际保存数据，因为它不知道哪些字段可以安全更新。需编辑 ``NewsModel``，在 ``$allowedFields`` 属性中提供可更新字段的列表。
 
 .. literalinclude:: create_news_items/003.php
 
-This new property now contains the fields that we allow to be saved to the
-database. Notice that we leave out the ``id``? That's because you will almost
-never need to do that, since it is an auto-incrementing field in the database.
-This helps protect against Mass Assignment Vulnerabilities. If your model is
-handling your timestamps, you would also leave those out.
+该属性现在包含了允许保存到数据库的字段。注意这里漏掉了 ``id``？这是因为 ``id`` 在数据库中是自增字段，几乎不需要手动操作。这有助于防止“批量赋值漏洞”。如果模型负责处理时间戳，也应将其排除在外。
 
-Create a News Item
+创建新闻条目
 ******************
 
-Now point your browser to your local development environment where you
-installed CodeIgniter and add **/news/new** to the URL.
-Add some news and check out the different pages you made.
+现在，在浏览器中访问本地开发环境，并在 URL 后添加 **/news/new**。尝试添加一些新闻并查看创建的各个页面。
 
 .. image:: ../../images/tutorial3.png
     :align: center
@@ -196,34 +146,33 @@ Add some news and check out the different pages you made.
     :height: 415px
     :width: 45%
 
-Congratulations
+恭喜
 ***************
 
-You just completed your first CodeIgniter4 application!
+你刚刚完成了第一个 CodeIgniter 4 应用！
 
-The diagram underneath shows your project's **app** folder, with all of the
-files that you created or modified.
+下图展示了项目的 **app** 目录，以及所有新创建或修改过的文件。
 
 .. code-block:: none
 
     app/
     ├── Config
-    │   ├── Filters.php (Modified)
-    │   └── Routes.php  (Modified)
+    │   ├── Filters.php (已修改)
+    │   └── Routes.php  (已修改)
     ├── Controllers
-    │   ├── News.php
-    │   └── Pages.php
+    │   ├── News.php
+    │   └── Pages.php
     ├── Models
-    │   └── NewsModel.php
+    │   └── NewsModel.php
     └── Views
         ├── news
-        │   ├── create.php
-        │   ├── index.php
-        │   ├── success.php
-        │   └── view.php
+        │   ├── create.php
+        │   ├── index.php
+        │   ├── success.php
+        │   └── view.php
         ├── pages
-        │   ├── about.php
-        │   └── home.php
+        │   ├── about.php
+        │   └── home.php
         └── templates
             ├── footer.php
             └── header.php

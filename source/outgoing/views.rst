@@ -83,17 +83,66 @@ CodeIgniter 会智能处理控制器中对 :php:func:`view()` 的多次调用。
 命名空间视图
 ================
 
-可以将视图存储在命名空间下的 **View** 目录中，然后像使用命名空间一样加载该视图。
+可以将视图存储在命名空间下的 **Views** 目录中，然后像使用命名空间一样加载该视图。
 虽然 PHP 不支持从命名空间加载非类文件，CodeIgniter 提供了此功能，
 使视图可以像模块一样打包，便于复用或分发。
 
 如果 **example/blog** 目录在 :doc:`自动加载器 </concepts/autoloader>` 中配置了 PSR-4 映射，
 命名空间为 ``Example\Blog``，则可以像使用命名空间一样加载视图文件。
 
-按照此示例，可以在 **example/blog/Views** 中加载 **blog_view.php** 文件，
-只需在视图名前加上命名空间前缀：
+参考此示例，通过在视图名称前添加命名空间前缀，即可从 **example/blog/Views** 加载 **blog_view.php** 文件（无需像 ``Example\Blog\Views\`` 这样指定末尾的 ``Views`` 目录）：
 
 .. literalinclude:: views/005.php
+
+.. note:: 引用带命名空间的视图时必须使用反斜杠（``\``），因为 CodeIgniter 借此区分命名空间视图与常规文件路径。正斜杠（``/``）仅用于标准 **app/Views** 文件夹内的子目录。
+
+.. _views-overriding-namespaced-views:
+
+重写命名空间视图
+===========================
+
+.. versionadded:: 4.7.0
+
+通过在应用的 **app/Views** 目录下创建匹配的目录结构，可重写命名空间视图。由此即可在不修改模块或扩展包核心源码的情况下自定义其输出。
+
+配置
+-------------
+
+默认情况下，系统会在 **app/Views/overrides** 目录中查找重写视图。可通过 **app/Config/View.php** 中的 ``$appOverridesFolder`` 属性配置此位置：
+
+.. code-block:: php
+
+    public string $appOverridesFolder = 'overrides';
+
+若希望将命名空间直接映射到 **app/Views** 根目录（不使用子目录），可将此值设为空字符串（``''``）。
+
+示例
+-------
+
+假设有一个名为 **Blog** 的模块，其命名空间为 ``Example\Blog``。原始视图文件位于：
+
+.. code-block:: text
+
+    /modules
+    └── Example
+        └── Blog
+            └── Views
+                └── blog_view.php
+
+要重写此视图（使用默认配置），请在 **app/Views/overrides** 内的匹配路径下创建一个文件：
+
+.. code-block:: text
+
+    /app
+    └── Views
+        └── overrides                 <-- 配置的 $appOverridesFolder
+            └── Example               <-- 匹配命名空间的第一部分
+                └── Blog              <-- 匹配命名空间的第二部分
+                    └── blog_view.php <-- 自定义视图
+
+现在，调用 ``view('Example\Blog\blog_view')`` 时，CodeIgniter 将自动从 **app/Views/overrides/Example/Blog/blog_view.php** 加载自定义视图，而非原始模块视图文件。
+
+.. note:: 重写路径必须与引用视图的方式完全一致。若以 ``view('Example\Blog\blog_view')`` 形式加载视图，则重写路径为 **app/Views/overrides/Example/Blog/blog_view.php**。然而，若在调用时明确包含了 ``Views`` 目录（例如 ``view('Example\Blog\Views\blog_view')``），则重写路径也必须包含该目录：**app/Views/overrides/Example/Blog/Views/blog_view.php**。
 
 .. _caching-views:
 

@@ -32,7 +32,7 @@ $handler
 ========
 
 指定启动缓存引擎时使用的首要处理器名称。
-可用名称包括：dummy、file、memcached、redis、predis、wincache。
+可用名称包括：apcu、dummy、file、memcached、redis、predis、wincache。
 
 $backupHandler
 ==============
@@ -254,6 +254,13 @@ cache:info
 *******
 驱动
 *******
+
+APCu 缓存
+============
+
+APCu 是适用于 PHP 的内存键值存储。
+
+使用此功能需安装 `APCu PHP 扩展 <https://www.php.net/apcu>`_。
 
 基于文件的缓存
 ==================

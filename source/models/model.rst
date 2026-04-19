@@ -302,6 +302,8 @@ $afterUpdateBatch
 +---------------+----------------+---------------------------+
 |``uri``        | URI            | string 类型               |
 +---------------+----------------+---------------------------+
+|``enum``       | Enum           | string/int 类型           |
++---------------+----------------+---------------------------+
 
 csv
 ---
@@ -331,6 +333,18 @@ timestamp
 ---------
 
 创建的 ``Time`` 实例的时区将是默认时区（应用的时区），而不是 UTC。
+
+enum
+----
+
+.. versionadded:: 4.7.0
+
+可将字段转换为 PHP Enum。必须将 Enum 类名指定为参数，例如 ``enum[App\Enums\StatusEnum]``。
+
+Enum 转换支持：
+
+* **Backed Enum** （string 或 int）—— 数据库中存储原始值
+* **Unit Enum** —— 数据库中以字符串形式存储成员名
 
 自定义类型转换
 ==============
@@ -520,6 +534,15 @@ save 方法支持处理自定义类对象，极大简化了相关操作。该方
 
 .. note:: v4.5.0 之前的版本中，日期/时间格式在模型类中硬编码为 ``Y-m-d H:i:s`` 和 ``Y-m-d``。
 
+主键验证
+----------------------
+
+.. versionadded:: 4.7.0
+
+``insert()``、``insertBatch()``（当 `$useAutoIncrement`_ 为 ``false`` 时）、``update()`` 与 ``delete()`` 方法在执行数据库查询前，会先验证主键值。若主键值为 ``null``、``0``、``'0'``、空字符串、布尔值、空数组或嵌套数组等无效值，将抛出带特定错误信息的 ``InvalidArgumentException``。
+
+如需自定义此行为（例如为兼容旧系统而允许将 ``0`` 作为有效主键），可在模型中重写 ``validateID()`` 方法。
+
 删除数据
 =============
 
@@ -625,9 +648,9 @@ purgeDeleted()
 
     .. literalinclude:: model/030.php
 
-.. php:method:: setValidationMessages($fieldMessages)
+.. php:method:: setValidationMessages($validationMessages)
 
-    :param  array   $fieldMessages:
+    :param  array   $validationMessages:
 
     此函数用于设置字段消息。
 
