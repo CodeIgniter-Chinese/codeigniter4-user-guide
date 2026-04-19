@@ -2,75 +2,94 @@
 数据库填充
 ################
 
-数据库填充是一种向数据库添加数据的简单方法。在开发过程中尤其有用，当你需要使用示例数据填充数据库以便进行开发时，但并不仅限于此。填充器可以包含不适合放在迁移中的静态数据，例如国家、地理编码表、事件或设置信息等。
+数据库填充是向数据库添加数据的简便方法。这在开发期间特别有用，可用于填充开发所需的样本数据，但不限于此。数据库填充可包含不希望放入迁移文件中的静态数据，例如国家列表、地理编码表、事件或设置信息等。
 
 .. contents::
     :local:
     :depth: 2
 
 ****************
-数据库填充器
+数据库填充类
 ****************
 
-数据库填充器是简单的类，必须包含一个 ``run()`` 方法，并且继承 ``CodeIgniter\Database\Seeder``。在 ``run()`` 方法中，该类可以创建任何所需的数据。它可以通过 ``$this->db`` 和 ``$this->forge`` 分别访问数据库连接和 Forge。填充文件必须存储在 **app/Database/Seeds** 目录中。文件名必须与类名匹配。
+数据库填充类是必须包含 ``run()`` 方法且继承自 ``CodeIgniter\Database\Seeder`` 的简单类。在 ``run()`` 方法中，该类可以创建所需的任何形式的数据。可分别通过 ``$this->db`` 和 ``$this->forge`` 使用数据库连接和 Forge 类。填充文件必须存放在 **app/Database/Seeds** 目录下，且文件名必须与类名匹配。
 
 .. literalinclude:: seeds/001.php
 
 ***************
-嵌套填充器
+嵌套填充
 ***************
 
-填充器可以通过 ``call()`` 方法调用其他填充器。这允许你轻松地组织一个中心填充器，但将任务分散到单独的填充器文件中：
+可使用 ``call()`` 方法调用其他填充类。由此可轻松组织一个中心填充类，并将具体任务拆分到独立的填充文件中：
 
 .. literalinclude:: seeds/002.php
 
-你也可以在 ``call()`` 方法中使用完全限定的类名，允许你将填充器放在任何自动加载器可以找到的地方。这对于更模块化的项目结构非常有用：
+``call()`` 方法也支持完全限定类名，这样就能将填充类放置在自动加载器可找到的任何位置。这对于模块化代码库非常有用：
 
 .. literalinclude:: seeds/003.php
 
 *************
-使用填充器
+使用填充类
 *************
 
-你可以通过数据库配置类获取主填充器的实例：
+可通过数据库配置类获取主填充类的实例：
 
 .. literalinclude:: seeds/004.php
+
+使用不同的数据库组
+================================
+
+获取填充类实例时，可通过第一个参数指定不同的数据库组名称：
+
+.. literalinclude:: seeds/005.php
+
+使用 ``call()`` 运行子填充类时，数据库连接会自动传递。这意味着除非子填充类显式设置了自身的 ``$DBGroup`` 属性，否则将使用与父类相同的连接。
+
+如果填充类无论父类连接如何都必须使用特定数据库组，可在类中设置 ``$DBGroup`` 属性：
+
+.. literalinclude:: seeds/006.php
+
+连接优先级如下：
+
+1. 若在填充类中设置了 ``$DBGroup``，则始终使用该连接组。
+2. 否则，若传递了连接（来自父类的 ``call()`` 或 ``Database::seeder()``），则使用该连接。
+3. 否则，使用默认连接组。
 
 命令行填充
 ====================
 
-你也可以通过命令行进行数据填充，作为迁移命令行工具的一部分，如果你不想创建一个专用的控制器：
+如果不希望创建专门的控制器，也可作为迁移 CLI 工具的一部分，通过命令行填充数据：
 
 .. code-block:: console
 
     php spark db:seed TestSeeder
 
 *********************
-创建填充器文件
+创建填充文件
 *********************
 
-通过命令行，你可以轻松地生成填充文件：
+使用命令行可轻松生成填充文件：
 
 .. code-block:: console
 
     php spark make:seeder user --suffix
 
-上述命令将输出位于 **app/Database/Seeds** 目录下的 **UserSeeder.php** 文件。
+上述命令将在 **app/Database/Seeds** 目录下生成 **UserSeeder.php** 文件。
 
-你可以通过提供 ``--namespace`` 选项来指定填充文件将存储的 ``root`` 命名空间：
+通过 ``--namespace`` 选项可指定存放填充文件的根命名空间：
 
-对于 Unix 系统：
+Unix 环境：
 
 .. code-block:: console
 
     php spark make:seeder MySeeder --namespace Acme\\Blog
 
-对于 Windows 系统：
+Windows 环境：
 
 .. code-block:: console
 
     php spark make:seeder MySeeder --namespace Acme\Blog
 
-如果 ``Acme\Blog`` 映射到 **app/Blog** 目录，那么此命令将在 **app/Blog/Database/Seeds** 目录生成 **MySeeder.php** 文件。
+若 ``Acme\Blog`` 映射到 **app/Blog** 目录，则此命令将在 **app/Blog/Database/Seeds** 目录下生成 **MySeeder.php**。
 
-提供 ``--force`` 选项将覆盖目标位置的现有文件。
+使用 ``--force`` 选项将覆盖目标位置的现有文件。

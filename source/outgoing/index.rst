@@ -16,6 +16,7 @@
     table
     response
     api_responses
+    api_transformers
     csp
     localization
     alternative_php

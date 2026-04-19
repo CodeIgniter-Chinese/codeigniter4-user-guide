@@ -16,7 +16,7 @@
 
 .. literalinclude:: create_news_items/001.php
 
-此配置为所有 **POST** 请求启用了 CSRF 过滤器。更多关于 CSRF 保护的信息，请参阅 :doc:`Security <../libraries/security>` 类文档。
+此配置为所有 **POST** 请求启用了 CSRF 过滤器。更多关于 CSRF 保护的信息，请参阅 :doc:`Security <../../libraries/security>` 类文档。
 
 .. warning:: 通常在使用 ``$methods`` 过滤器时，应禁用 :ref:`自动路由（传统版） <use-defined-routes-only>`，因为 :ref:`auto-routing-legacy` 允许通过任何 HTTP 方法访问控制器。如果使用了非预期的 HTTP 方法访问控制器，可能会绕过该过滤器。
 
@@ -49,11 +49,11 @@
 
 使用 :php:func:`session()` 函数获取 Session 对象，并通过 ``session()->getFlashdata('error')`` 向用户显示 CSRF 保护相关的错误。不过默认情况下，若 CSRF 验证失败会抛出异常，因此该功能目前尚不可用。详见 :ref:`csrf-redirection-on-failure`。
 
-由 :doc:`../helpers/form_helper` 提供的 :php:func:`validation_list_errors()` 函数用于报告表单验证错误。
+由 :doc:`../../helpers/form_helper` 提供的 :php:func:`validation_list_errors()` 函数用于报告表单验证错误。
 
 :php:func:`csrf_field()` 函数会创建一个包含 CSRF 令牌的隐藏输入框，有助于抵御常见攻击。
 
-由 :doc:`../helpers/form_helper` 提供的 :php:func:`set_value()` 函数用于在发生错误时显示之前的输入数据。
+由 :doc:`../../helpers/form_helper` 提供的 :php:func:`set_value()` 函数用于在发生错误时显示之前的输入数据。
 
 News 控制器
 ===============
@@ -67,7 +67,7 @@ News 控制器
 
 .. literalinclude:: create_news_items/002.php
 
-通过 :php:func:`helper()` 函数加载 :doc:`表单辅助函数 <../helpers/form_helper>`。大多数辅助函数在使用前都必须先加载。
+通过 :php:func:`helper()` 函数加载 :doc:`表单辅助函数 <../../helpers/form_helper>`。大多数辅助函数在使用前都必须先加载。
 
 随后返回创建好的表单视图。
 
@@ -89,7 +89,7 @@ News 控制器
 获取数据
 ^^^^^^^^^^^^^^^^^
 
-首先，使用框架在控制器中设置好的 :doc:`IncomingRequest <../incoming/incomingrequest>` 对象 ``$this->request``。
+首先，使用框架在控制器中设置好的 :doc:`IncomingRequest <../../incoming/incomingrequest>` 对象 ``$this->request``。
 
 从用户提交的 **POST** 数据中获取必要项，并存入 ``$data`` 变量。
 
@@ -98,7 +98,7 @@ News 控制器
 
 接着，利用控制器提供的 :ref:`validateData() <controller-validatedata>` 辅助函数验证提交的数据。本例中，标题和内容字段为必填项，且需满足特定长度。
 
-如上所示，CodeIgniter 拥有强大的验证库。详情可参阅 :doc:`Validation 类 <../libraries/validation>`。
+如上所示，CodeIgniter 拥有强大的验证库。详情可参阅 :doc:`Validation 类 <../../libraries/validation>`。
 
 如果验证失败，则调用刚才创建的 ``new()`` 方法并重新返回表单。
 
@@ -109,7 +109,7 @@ News 控制器
 
 随后加载并调用 ``NewsModel``，将新闻条目传递给模型。:ref:`model-save` 方法会根据数组中是否存在匹配主键的键值，自动处理记录的插入或更新。
 
-此处包含一个新函数 :php:func:`url_title()`。该函数由 :doc:`URL 辅助函数 <../helpers/url_helper>` 提供，用于处理传入的字符串，将所有空格替换为减号（``-``）并转换为小写，从而生成非常适合 URI 的 Slug。
+此处包含一个新函数 :php:func:`url_title()`。该函数由 :doc:`URL 辅助函数 <../../helpers/url_helper>` 提供，用于处理传入的字符串，将所有空格替换为减号（``-``）并转换为小写，从而生成非常适合 URI 的 Slug。
 
 返回成功页面
 ^^^^^^^^^^^^^^^^^^^
@@ -136,12 +136,12 @@ News 控制器
 
 现在，在浏览器中访问本地开发环境，并在 URL 后添加 **/news/new**。尝试添加一些新闻并查看创建的各个页面。
 
-.. image:: ../images/tutorial3.png
+.. image:: ../../images/tutorial3.png
     :align: center
     :height: 415px
     :width: 45%
 
-.. image:: ../images/tutorial4.png
+.. image:: ../../images/tutorial4.png
     :align: center
     :height: 415px
     :width: 45%

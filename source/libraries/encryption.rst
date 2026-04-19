@@ -142,6 +142,51 @@ SHA224      28                   56
     // 或
     encryption.key = base64:<your-base64-encoded-key>
 
+加密密钥轮换
+=======================
+
+.. versionadded:: 4.7.0
+
+基于安全最佳实践或合规要求需轮换加密密钥时，可利用 ``previousKeys`` 配置项。这能在新加密操作使用新密钥的同时，确保仍可解密旧密钥加密的数据。
+
+工作原理
+------------
+
+- **加密** 始终使用当前的 ``key`` 值
+- **解密** 首先尝试当前的 ``key``
+- 解密失败时，程序会自动回退并逐一尝试 ``previousKeys`` 中的密钥
+- 由此可实现无缝密钥轮换，避免数据丢失
+
+配置
+-------------
+
+将旧密钥添加到 **app/Config/Encryption.php** 的 ``$previousKeys`` 属性中：
+
+.. literalinclude:: encryption/014.php
+
+使用 .env 文件
+---------------
+
+亦可在 **.env** 文件（推荐做法）中使用逗号分隔的列表配置旧密钥：
+
+::
+
+    encryption.key = hex2bin:your_new_key
+    encryption.previousKeys = hex2bin:old_key_1,hex2bin:old_key_2
+
+框架会自动将逗号分隔的字符串解析为数组并处理每个密钥。
+
+密钥轮换流程
+---------------------
+
+1. **轮换前**：使用 ``key`` 加密和解密数据。
+2. **开始轮换**：将当前 ``key`` 值移入 ``previousKeys`` 数组，并为 ``key`` 设置新值。
+3. **轮换期间**：新数据由新 ``key`` 加密，旧数据仍可通过 ``previousKeys`` 解密。
+4. **重新加密数据（可选）**：使用新密钥解密并重新加密现有数据。
+5. **完成轮换**：所有数据重新加密后，从 ``previousKeys`` 中移除旧密钥。
+
+.. important:: ``previousKeys`` 特性仅用于 **解密回退**。所有新加密操作始终使用当前的 ``key``。若通过 ``encrypt()`` 或 ``decrypt()`` 的 ``$params`` 参数传递了显式密钥，则不会触发 ``previousKeys`` 回退机制。
+
 填充
 =======
 
@@ -173,9 +218,6 @@ Sodium 说明
 `Sodium <https://www.php.net/manual/zh/book.sodium>`_ 扩展自 PHP 7.2.0 起默认捆绑在 PHP 中。
 
 Sodium 使用 XSalsa20 算法加密、Poly1305 进行 MAC 认证、XS25519 进行密钥交换，用于端到端场景中的秘密消息传输。要使用共享密钥（如对称加密）加密和/或认证字符串，Sodium 使用 XSalsa20 算法加密，HMAC-SHA512 进行认证。
-
-.. note:: CodeIgniter 的 ``SodiumHandler`` 在每个加密或解密会话后使用 ``sodium_memzero``。
-    每次会话后，消息（无论是明文还是密文）和起始密钥都会从缓冲区中清除。开始新会话前可能需要再次提供密钥。
 
 消息长度
 ==============

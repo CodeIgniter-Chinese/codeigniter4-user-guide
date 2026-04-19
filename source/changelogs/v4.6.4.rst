@@ -1,0 +1,53 @@
+#############
+版本 4.6.4
+#############
+
+发布日期：2025 年 12 月 12 日
+
+**CodeIgniter 的 4.6.4 版本发布**
+
+.. contents::
+    :local:
+    :depth: 3
+
+***************
+消息变更
+***************
+
+- 新增 ``Honeypot.noTemplate``、``Honeypot.noNameField`` 及 ``Honeypot.theClientIsABot``。
+
+*******
+变更
+*******
+
+- **Config:** 为 ``Config\Database::$tests`` 增加了 ``synchronous`` 键。仅适用于 SQLite3 驱动。
+
+************
+弃用
+************
+
+- **Exception:**
+    - 弃用 ``CodeIgniter\Honeypot\Exceptions\HoneypotException::forNoHiddenValue()`` 方法。该方法从未被使用。
+
+**********
+Bug 修复
+**********
+
+- **Cache:** 修复了 ``PredisHandler::deleteMatching()`` 在无匹配模式的键时导致 Redis 报错的问题。
+- **Cache:** 修复了 ``RedisHandler::deleteMatching()`` 在无匹配模式的键时返回 ``false`` 而非 ``int`` 的问题。
+- **Database:** 修复了 ``Database::connect()`` 会将非共享连接实例存储在共享缓存中的问题。
+- **Database:** 修复了 ``SQLSRV`` 和 ``OCI8`` 的 ``Connection::getFieldData()`` 在返回列默认值时包含多余字符的问题（仅限这些处理器），现已遵循与其他驱动一致的规范。
+- **Database:** 修复了 ``BaseBuilder::compileOrderBy()`` 可能使用字符串覆盖 ``QBOrderBy`` 而非保持数组形式的问题。该问题会导致类型错误，并阻止追加额外的 ``ORDER BY`` 子句。
+- **Database:** 修复了 ``SQLite3`` 中除非密码参数为空字符串否则会被忽略的问题。
+- **Debug:** 修复了 ``ExceptionHandler`` 在异常堆栈追踪包含资源（如数据库连接）、闭包或循环引用时导致 JSON 编码失败的问题。
+- **Forge:** 修复了 ``Postgre`` 和 ``SQLSRV`` 使用 ``Forge::modifyColumn()`` 方法修改列默认值时产生错误 SQL 语法的问题。
+- **Migrations:** 修复了 Session 表迁移模板中 ``timestamp`` 字段名与 MySQL/MariaDB 保留关键字冲突的问题。
+- **Model:** 修复了 ``Model::replace()`` 无法正确设置 ``created_at`` 字段（如果存在）的问题。
+- **Model:** 修复了 ``Model::insertBatch()`` 和 ``Model::updateBatch()`` 未对插入或更新的值应用类型转换（casts）的问题。
+- **Toolbar:** 修复了 ``Collectors\Logs`` 中导致调试工具栏无法显示 “Logs” 标签页的问题。
+- **Toolbar:** 修复了 ``toolbar.js`` 在某些场景下导致 “Uncaught TypeError” 的问题。
+- **Validation:** 修复了 ``FormatRules::valid_base64()`` 验证规则在检查无效 Base64 字符串时导致 TypeError 的问题。
+
+请查看仓库的
+`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
+以获取完整的 Bug 修复列表。

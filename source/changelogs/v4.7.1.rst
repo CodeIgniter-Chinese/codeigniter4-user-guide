@@ -1,0 +1,63 @@
+#############
+版本 4.7.1
+#############
+
+发布日期：2026 年 3 月 22 日
+
+**CodeIgniter4 的 4.7.1 版本发布**
+
+.. contents::
+    :local:
+    :depth: 3
+
+********
+重大变更
+********
+
+- **数据库：** ``CodeIgniter\Database\SQLite3\Connection::$busyTimeout`` 的类型现已定义为 ``?int``。重写了该属性的自定义子类需要进行相应更新。
+
+***************
+消息变更
+***************
+
+- 已更新 ``Images.unsupportedImageCreate``。
+- 将 ``Validation.valid_cc_num`` 键名更名为 ``Validation.valid_cc_number``。
+
+*******
+变更
+*******
+
+Events
+======
+
+- **Worker 模式：** :php:func:`Events::cleanupForWorkerMode()` 现可接受可选的数组参数 ``$resetEventListeners``，该参数与 ``Config\WorkerMode`` 中新增的 ``$resetEventListeners`` 属性对应。如果在事件回调中注册了监听器，通过此参数可声明需要在请求之间清理的事件名称。参见 :ref:`worker-mode-reset-event-listeners`。
+
+其他
+======
+
+- **builds:** 在 ``builds`` 脚本（用于 ``codeigniter4/appstarter``）中新增了 ``next`` 参数，用于将 ``4.7.x`` 切换至下一个次要版本 ``4.8.x-dev``。参见 :ref:`最新开发版 <switch-to-dev-version>`。
+
+**********
+Bug 修复
+**********
+
+- **ContentSecurityPolicy:** 修复了禁用 CSP 时，生成的 HTML 未能移除自定义 CSP 标签的问题。该方法现可确保移除生成 HTML 中的所有自定义 CSP 标签。
+- **ContentSecurityPolicy:** 修复了 ``generateNonces()`` 因使用未转义的双引号替换 CSP nonce 占位符而导致 JSON 响应损坏的问题。当响应的 Content-Type 为 JSON 时，该方法现会自动对 nonce 属性进行 JSON 转义。
+- **ContentSecurityPolicy:** 修复了 ``getScriptNonce()`` 和 ``getStyleNonce()`` 生成的 nonce 未添加到 ``script-src-elem`` 和 ``style-src-elem`` 指令的问题，这曾导致浏览器在存在这些指令时静默忽略 nonce。
+- **CURLRequest:** 修复了无法正确解析缺少原因短语的 HTTP/2 响应（例如 ``HTTP/2 200``）的问题，曾导致状态码和协议版本被忽略。
+- **Database:** 修复了 ``BaseConnection::callFunction()`` 可能会对已带前缀的函数名重复添加前缀的问题。
+- **Database:** 修复了 ``BasePreparedQuery::prepare()`` 因过度匹配命名占位符而导致带冒号语法的 SQL 处理错误的问题。现已保留 PostgreSQL 的类型转换语法（如 ``::timestamp``）。
+- **Database:** 修复了配置数组中的字符串值（包括 ``.env`` 覆盖项）未针对类型化连接属性进行规范化的问题，这曾导致 SQLite3 的 ``synchronous`` 和 ``busyTimeout`` 等选项被赋予错误类型。
+- **Model:** 修复了当 ``updateOnlyChanged`` 为 ``true`` 且索引字段值未改变时，``BaseModel::updateBatch()`` 抛出异常的问题。
+- **Model:** 修复了 ``Model::chunk()`` 在迭代结束时运行多余数据库查询的问题。此外，若调用 ``chunk()`` 时传入非正数的块大小，现会抛出 ``InvalidArgumentException``。
+- **Session:** 修复了 ``MemcachedHandler`` 构造函数在 ``savePath`` 不为空时错误抛出异常的问题。
+- **Testing:** 修复了 ``FeatureTestTrait::withRoutes()`` 未能正确验证无效 HTTP 方法，导致将其全部传递给 ``RouteCollection`` 的问题。
+- **Toolbar:** 修复了通过 ``?debugbar_time=...`` 加载的独立工具栏页面无法交互的问题。
+- **Toolbar:** 修复了路由面板在悬停时仅将第一个路由参数转换为输入框的问题。
+- **Validation:** 验证规则 ``valid_cc_number`` 现已具备正确的翻译。
+- **Validation:** 修复了在使用通配符字段（如 ``contacts.friends.*.name``）时，规则未能对缺少键名的数组元素生效的问题。
+- **View:** 修复了未定义 ``appOverridesFolder`` 配置属性时 ``View`` 会抛出错误的问题。
+
+请查看仓库的
+`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
+以获取完整的 Bug 修复列表。

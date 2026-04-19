@@ -1,0 +1,384 @@
+#############
+版本 4.7.0
+#############
+
+发布日期：2026 年 2 月 1 日
+
+**CodeIgniter4 的 4.7.0 版本发布**
+
+.. contents::
+    :local:
+    :depth: 3
+
+**********
+内容亮点
+**********
+
+- 将 PHP 最低版本要求提升至 ``8.2``。
+- 新增实验性的 **FrankenPHP Worker 模式** 支持，以提升性能。
+
+********
+重大变更
+********
+
+行为变更
+================
+
+验证规则
+----------------
+
+``regex_match`` 验证规则中的占位符现在必须使用双花括号。
+若此前使用单括号（如 ``regex_match[/^{placeholder}$/]``），则必须
+更新为双括号：``regex_match[/^{{placeholder}}$/]``。
+
+此变更旨在避免与正则表达式本身的语法产生歧义，
+因为单花括号（如 ``{1,3}``）在正则中用于表示量词。
+
+BaseModel
+---------
+
+``insertBatch()`` 与 ``updateBatch()`` 方法现在遵循 ``updateOnlyChanged`` 和 ``allowEmptyInserts`` 等模型设置。
+此变更确保了所有插入与更新操作的处理逻辑保持一致。
+
+主键验证
+^^^^^^^^^^^^^^^^^^^^^^
+
+``insert()``、``insertBatch()`` （禁用 ``useAutoIncrement`` 时）、``update()``
+以及 ``delete()`` 方法现在会在执行数据库查询 **之前** 验证主键值。
+非法的主键值将抛出 ``InvalidArgumentException``，而非 ``DatabaseException``。
+
+**变更内容：**
+
+- **异常类型：** 非法主键现在会抛出带有具体错误信息的 ``InvalidArgumentException``，而非来自数据库层的通用 ``DatabaseException``。
+- **验证时机：**
+    - 对于 ``update()`` 与 ``delete()``：验证发生在 ``beforeUpdate`` / ``beforeDelete``
+      事件 **之前**，且在执行任何数据库查询之前。
+    - 对于 ``insert()`` 与 ``insertBatch()`` （禁用自动增量时）：验证发生在
+      ``beforeInsert`` 事件 **之后**，但在执行数据库查询 **之前**。
+
+- **非法值：** 以下值现在被明确禁止作为主键：
+    - ``null`` （禁用自动增量时的插入操作）
+    - ``0`` （整数零）
+    - ``'0'`` （字符串零）
+    - ``''`` （空字符串）
+    - ``true`` 与 ``false`` （布尔值）
+    - ``[]`` （空数组）
+    - 嵌套数组（如 ``[[1, 2]]``）
+    - 包含上述任何非法值的数组
+
+  **注意：** 在需要使用原始 SQL 表达式的复杂场景下，允许使用 ``RawSql`` 对象作为主键值。
+
+此变更通过提供具体的验证消息（如 “Invalid primary key: 0 is not allowed”）提升了错误报告的准确性，
+并防止非法查询进入数据库。
+
+若主键确需允许上述某些值，可在模型中重写 ``validateID()`` 方法。
+
+实体
+------
+
+``Entity::hasChanged()`` 与 ``Entity::syncOriginal()`` 方法现在对对象和数组执行深层比较，
+而非浅层比较。这意味着：
+
+- **对象与数组** 会经过 JSON 编码及规范化处理后再进行比较，从而能够检测出嵌套结构、对象属性及数组元素的变更。
+- **枚举** （包括 ``BackedEnum`` 和 ``UnitEnum``）会通过其对应的值或成员名进行准确追踪。
+- **DateTime 对象** （``DateTimeInterface``）会使用包含时区信息的 ISO 8601 格式进行比较。
+- **集合** （``Traversable``），如 ``ArrayObject`` 与 ``ArrayIterator``，会转换为数组进行比较。
+- 带有 ``__toString()`` 方法的 **值对象**，在属性不可访问时（私有属性对象的后备方案），将通过其字符串表示进行比较。
+- **嵌套实体** （使用 ``toRawArray()``）、``JsonSerializable`` 对象以及带有 ``toArray()`` 方法的对象，将通过递归规范化实现精确的变更检测。
+- **标量值** （字符串、整数、浮点数、布尔值、null）在所有实体属性均为标量时，将继续使用直接比较优化。
+
+此前，由于仅执行引用比较，修改对象属性或包含对象的数组不会被检测为变更。
+现在，对象或数组内部状态的任何修改都能被正确识别。若代码依赖旧有的浅层比较行为，则需进行相应更新。
+
+当 ``$recursive`` 参数为 ``true`` 时，``Entity::toRawArray()`` 方法现在能正确转换实体数组。
+此前，包含数组的属性不会被递归处理。若依赖数组不被转换的旧有行为，则需更新代码。
+
+实体与 DataCaster
+---------------------
+
+此前，即使未配置类型转换（``$casts = []`` 为空数组），``DataCaster`` 对象也总是会被初始化。
+
+现在 ``DataCaster`` 改为按需创建，在未配置类型转换时将为 ``null``。
+虽然此变更通常不影响常规使用，但开发者需注意 ``$dataCaster`` 在某些情况下可能为 null。
+
+加密处理程序
+-------------------
+
+当通过 ``$params`` 参数传递加密/解密参数时，``OpenSSLHandler`` 与 ``SodiumHandler``
+不再修改处理程序的 ``$key`` 属性。通过 ``$params`` 传递的密钥现在作为局部变量使用，
+确保处理程序的状态不被改变。
+
+**变更内容：**
+
+- 此前，向 ``encrypt()`` 或 ``decrypt()`` 的 ``$params`` 传递密钥会永久修改处理程序的内部 ``$key`` 属性。
+- 现在，处理程序的 ``$key`` 属性仅在通过 ``Config\Encryption`` 创建处理程序时设置。通过 ``$params``
+  传递的密钥仅作为临时局部变量，不会修改处理程序状态。
+- ``SodiumHandler::encrypt()`` 不再调用 ``sodium_memzero($this->key)``。此前该操作会在首次使用后
+  销毁加密密钥，导致处理程序无法复用。
+
+**影响：**
+
+**仅当** 向 ``encrypt()`` 或 ``decrypt()`` 的 ``$params`` 传递了密钥，并期望该密钥在后续操作中
+持续生效时，才会受到影响。大多数用户 **不受影响**：
+
+- **不受影响：** 每次操作都通过 ``$params`` 传递密钥。
+- **不受影响：** 从不使用 ``$params``，始终通过 ``Config\Encryption`` 配置密钥。
+- **受影响：** 仅通过 ``$params`` 传递过一次密钥，并期望该处理程序能记住它。
+
+若受此影响，请通过 ``Config\Encryption`` 正确配置密钥，或向服务传递自定义配置，而非依赖 ``$params`` 的副作用。
+
+**受影响代码示例：**
+
+.. code-block:: php
+
+    $config      = config('Encryption');
+    $config->key = 'your-encryption-key';
+    $handler     = service('encrypter', $config);
+    $handler->encrypt($data, 'temporary-key');
+    // 旧行为：$handler->key 现在变为 'temporary-key'
+    // 新行为：$handler->key 保持不变 ('your-encryption-key')
+
+    $handler->encrypt($moreData);
+    // 旧行为：会使用 'temporary-key'
+    // 新行为：使用默认密钥 ('your-encryption-key')
+
+**迁移说明：**
+
+如需永久使用不同的加密密钥，请在创建服务时传递自定义配置：
+
+.. code-block:: php
+
+    $config      = config('Encryption');
+    $config->key = 'your-custom-encryption-key';
+
+    // 获取使用自定义配置的新处理程序实例（非共享）
+    $handler = service('encrypter', $config, false);
+
+.. _v470-interface-changes:
+
+接口变更
+=================
+
+**注意：** 若自行实现了这些接口，则需更新实现类以包含新方法，从而确保兼容性。
+
+- **Cache：** ``CacheInterface`` 现在包含 ``deleteMatching()`` 方法。
+- **Cache：** ``CacheInterface`` 现在包含 ``remember()`` 方法。所有内置缓存处理器均通过 ``BaseHandler`` 继承此方法，因此无需更改。
+- **Database：** ``QueryInterface`` 现在包含 ``getOriginalQuery()`` 方法。
+- **Images：** ``ImageHandlerInterface`` 现在包含新方法：``clearMetadata()``。
+
+.. _v470-method-signature-changes:
+
+方法签名变更
+========================
+
+- **BaseModel：** ``cleanValidationRules()`` 方法的 ``$row`` 参数类型从 ``?array $row = null`` 变更为 ``array $row``。
+- **PageCache：** ``PageCache`` 过滤器构造函数现在接受可选的 ``Cache`` 配置参数：``__construct(?Cache $config = null)``。由此支持测试时的依赖注入。虽然扩展 ``PageCache`` 类的自定义构造函数在技术上属于重大变更，但由于该参数有默认值，对大多数用户没有影响。
+- 在多个方法中添加了 ``SensitiveParameter`` 属性，以隐藏堆栈跟踪中的敏感信息。受影响的方法包括：
+    - ``CodeIgniter\Encryption\EncrypterInterface::encrypt()``
+    - ``CodeIgniter\Encryption\EncrypterInterface::decrypt()``
+    - ``CodeIgniter\Encryption\Handlers\OpenSSLHandler::encrypt()``
+    - ``CodeIgniter\Encryption\Handlers\OpenSSLHandler::decrypt()``
+    - ``CodeIgniter\Encryption\Handlers\SodiumHandler::encrypt()``
+    - ``CodeIgniter\Encryption\Handlers\SodiumHandler::decrypt()``
+    - ``CodeIgniter\HTTP\CURLRequest::setAuth()``
+    - ``CodeIgniter\HTTP\URI::setUserInfo()``
+    - ``CodeIgniter\Security\Security::derandomize()``
+- 为此前缺失原生类型的 ``CacheInterface`` 方法添加了类型声明：
+    - ``initialize()``
+    - ``save()``
+    - ``delete()``
+    - ``increment()``
+    - ``decrement()``
+    - ``clean()``
+    - ``getCacheInfo()``
+    - ``getMetaData()``
+- 为 ``CodeIgniter\Database\QueryInterface`` 方法添加了原生参数及返回类型：
+    - ``setQuery(string $sql, mixed $binds = null, bool $setEscape = true): self``
+    - ``getQuery(): string``
+    - ``setDuration(float $start, ?float $end = null): self``
+    - ``setError(int $code, string $error): self``
+    - ``swapPrefix(string $orig, string $swap): self``
+- 为 ``CodeIgniter\Debug\Toolbar`` 方法添加了原生返回类型：
+    - ``prepare(): void``
+    - ``respond(): void``
+- 此前带有 ``#[ReturnTypeWillChange]`` 属性的方法已更新，包含原生返回类型：
+    - ``CodeIgniter\Cookie\Cookie::offsetGet($offset): bool|int|string``
+    - ``CodeIgniter\Entity\Entity::jsonSerialize(): array``
+    - ``CodeIgniter\Files\File::getSize(): false|int``
+    - ``CodeIgniter\I18n\TimeLegacy::setTimestamp($timestamp): static``
+    - ``CodeIgniter\I18n\TimeTrait::createFromFormat($format, $time, $timezone = null): static``
+    - ``CodeIgniter\I18n\TimeTrait::setTimezone($timezone): static``
+    - ``CodeIgniter\Session\Handlers\Database\PostgreHandler::gc($max_lifetime): false|int``
+    - ``CodeIgniter\Session\Handlers\ArrayHandler::read($id): string``
+    - ``CodeIgniter\Session\Handlers\ArrayHandler::gc($max_lifetime): int``
+    - ``CodeIgniter\Session\Handlers\DatabaseHandler::read($id): false|string``
+    - ``CodeIgniter\Session\Handlers\DatabaseHandler::gc($max_lifetime): false|int``
+    - ``CodeIgniter\Session\Handlers\FileHandler::read($id): false|string``
+    - ``CodeIgniter\Session\Handlers\FileHandler::gc($max_lifetime): false|int``
+    - ``CodeIgniter\Session\Handlers\MemcachedHandler::read($id): false|string``
+    - ``CodeIgniter\Session\Handlers\MemcachedHandler::gc($max_lifetime): int``
+    - ``CodeIgniter\Session\Handlers\RedisHandler::read($id): false|string``
+    - ``CodeIgniter\Session\Handlers\RedisHandler::gc($max_lifetime): int``
+
+.. _v470-property-signature-changes:
+
+属性签名变更
+==========================
+
+- **实体：** 受保护属性 ``CodeIgniter\Entity\Entity::$dataCaster`` 的类型从 ``DataCaster`` 变更为可为空的 ``?DataCaster``。
+
+.. _v470-removed-deprecated-items:
+
+移除废弃项
+========================
+
+- **BaseModel：** 移除了已废弃的 ``transformDataRowToArray()`` 方法。
+- **Cache：** ``CodeIgniter\Cache\CacheInterface::getMetaData()`` 的废弃返回类型 ``false`` 已替换为 ``null``。
+- **CodeIgniter：** 移除了已废弃的 ``CodeIgniter\CodeIgniter::resolvePlatformExtensions()``。
+- **Entity：** 移除了已废弃的 ``CodeIgniter\Entity\Entity::setAttributes()``。请改用 ``CodeIgniter\Entity\Entity::injectRawData()``。
+- **IncomingRequest：** 移除了以下废弃方法：
+    - ``CodeIgniter\HTTP\IncomingRequest\detectURI()``
+    - ``CodeIgniter\HTTP\IncomingRequest\detectPath()``
+    - ``CodeIgniter\HTTP\IncomingRequest\parseRequestURI()``
+    - ``CodeIgniter\HTTP\IncomingRequest\parseQueryString()``
+- **IncomingRequest：** 移除了 ``CodeIgniter\HTTP\IncomingRequest::setPath()`` 中已废弃的 ``$config`` 参数，并将该方法可见性从 ``public`` 变更为 ``private``。
+- **Session：** 移除了 ``CodeIgniter\Session\Session`` 中以下废弃属性：
+    - ``CodeIgniter\Session\Session::$sessionDriverName``
+    - ``CodeIgniter\Session\Session::$sessionCookieName``
+    - ``CodeIgniter\Session\Session::$sessionExpiration``
+    - ``CodeIgniter\Session\Session::$sessionSavePath``
+    - ``CodeIgniter\Session\Session::$sessionMatchIP``
+    - ``CodeIgniter\Session\Session::$sessionTimeToUpdate``
+    - ``CodeIgniter\Session\Session::$sessionRegenerateDestroy``
+- **Session：** 移除了已废弃的 ``CodeIgniter\Session\Session::stop()`` 方法。
+- **Text 辅助函数：** 移除了 ``random_string()`` 函数中废弃的类型：``basic``、``md5`` 和 ``sha1``。
+
+************
+增强功能
+************
+
+类库
+=========
+
+- **API 转换器：** 提供了一种结构化的方式来为 API 响应转换数据。详见 :ref:`API 转换器 <api_transformers>`。
+- **CLI：** 新增 ``SignalTrait``，为 CLI 命令提供统一的操作系统信号处理。
+- **Cache：** 为 Predis 处理器新增 ``async`` 与 ``persistent`` 配置项。
+- **Cache：** 为 Redis 处理器新增 ``persistent`` 配置项。
+- **Cache：** 为 ``ResponseCache`` 增加了对 HTTP 状态的支持。
+- **Cache：** 新增 ``Config\Cache::$cacheStatusCodes``，用于控制允许被 ``PageCache`` 过滤器缓存的 HTTP 状态码。默认为 ``[]`` （为保持向后兼容，缓存所有状态码）。推荐值：``[200]``，即仅缓存成功响应。详见 :ref:`设置 $cacheStatusCodes <web_page_caching_cache_status_codes>`。
+- **Cache：** 新增 `APCu <https://www.php.net/apcu>`_ 缓存驱动。
+- **CURLRequest：** 新增 ``shareConnection`` 配置项以更改默认共享连接。
+- **CURLRequest：** 新增 ``dns_cache_timeout`` 选项以更改默认 DNS 缓存超时。
+- **CURLRequest：** 新增 ``fresh_connect`` 选项以启用/禁用请求的新连接。
+- **DataConverter：** 为数据库与实体新增 ``EnumCast`` 转换器。
+- **Email：** 新增对 SMTP 认证方法的选择支持。可通过 ``Config\Email::$SMTPAuthMethod`` 选项进行更改。
+- **Encryption：** 新增 ``Config\Encryption::$previousKeys`` 配置选项以支持加密密钥轮换。当使用当前密钥解密失败时，系统会自动尝试使用旧密钥，从而在轮换加密密钥时不会丢失对旧加密数据的访问权。
+- **Image：** ``ImageMagickHandler`` 已重写，现完全依赖 PHP ``imagick`` 扩展。
+- **Image：** 新增 ``ImageMagickHandler::clearMetadata()`` 方法，用于移除图像元数据以保护隐私。
+- **ResponseTrait：** 新增 ``paginate`` 方法以简化分页 API 响应。详见 :ref:`ResponseTrait::paginate() <api_response_trait_paginate>`。
+- **Session：** 为 ``RedisHandler`` 新增 ``persistent`` 配置项。
+- **Session：** 通过 ``PersistsConnection`` Trait 为 Redis 和 Memcached 会话处理器增加了连接持久化，通过在 Worker 模式下跨请求重用连接来提升性能。
+- **Time：** 新增 ``Time::addCalendarMonths()`` 与 ``Time::subCalendarMonths()`` 方法。
+- **Time：** 新增 ``Time::isPast()`` 与 ``Time::isFuture()`` 便捷方法。详见 :ref:`isPast <time-comparing-two-times-isPast>` 与 :ref:`isFuture <time-comparing-two-times-isFuture>`。
+- **Toolbar：** 修复了调试工具栏错误注入到第三方库（如使用原生 PHP 标头而非框架 Response 对象的 Dompdf）生成的响应中的问题。
+- **UserAgents：** 扩展了 ``robots`` 识别列表，涵盖了新的搜索引擎和服务爬虫。
+- **View：** 增加了覆盖命名空间视图（如来自模块/包的视图）的能力，只需在 **app/Views/overrides** 目录下放置匹配的文件结构即可。详见 :ref:`覆盖命名空间视图 <views-overriding-namespaced-views>`。
+
+命令
+========
+
+- 新增 ``php spark worker:install`` 命令，用于生成 FrankenPHP Worker 模式文件（Caddyfile 和 worker 入口点）。
+- 新增 ``php spark worker:uninstall`` 命令，用于移除 Worker 模式文件。
+
+数据库
+========
+
+- **BaseConnection：** 新增 ``ping()`` 方法用于检查数据库连接是否存活。OCI8 使用 ``SELECT 1 FROM DUAL``，其他驱动使用 ``SELECT 1``。
+- **BaseConnection：** ``reconnect()`` 方法现在在重连前会先使用 ``ping()`` 检查连接状态。此前某些驱动总是无条件关闭并重连，而 OCI8 的 ``reconnect()`` 则不执行任何操作。
+- **异常日志：** 所有数据库驱动现在统一记录数据库异常日志。此前各驱动的日志格式不一。
+
+迁移
+----------
+
+- **MigrationRunner：** 增加了分布式锁支持，以防止多进程环境下的并发迁移。可通过 ``Config\Migrations::$lock = true`` 启用。
+
+HTTP
+====
+
+内容安全策略 (CSP)
+-----------------------
+
+- ``script-src`` 与 ``style-src`` 指令现在可以使用 SHA-256、SHA-384 及 SHA-512 摘要作为源表达式。
+- 增加了对 CSP Level 3 新关键字的支持：
+    - ``'strict-dynamic'``
+    - ``'unsafe-hashes'``
+    - ``'report-sample'``
+    - ``'unsafe-allow-redirects'``
+    - ``'wasm-unsafe-eval'``
+    - ``'trusted-types-eval'``
+    - ``'report-sha256'``
+    - ``'report-sha384'``
+    - ``'report-sha512'``
+- 增加了对以下 CSP Level 3 指令的支持：
+    - ``report-to``
+    - ``script-src-elem``
+    - ``script-src-attr``
+    - ``style-src-elem``
+    - ``style-src-attr``
+    - ``worker-src``
+
+  请更新 **app/Config/ContentSecurityPolicy.php** 中的 CSP 配置以包含这些新指令。
+
+其他
+======
+
+- **控制器属性：** 增加了对 PHP 注解的支持，以便在控制器类和方法上定义过滤器及其他元数据。详见 :ref:`控制器注解 <incoming/controller_attributes>`。
+
+***************
+消息变更
+***************
+
+- 新增 ``Email.invalidSMTPAuthMethod``、``Email.failureSMTPAuthMethod``、``CLI.signals.noPcntlExtension``、``CLI.signals.noPosixExtension`` 以及 ``CLI.signals.failedSignal``。
+- 废弃了 ``Email.failedSMTPLogin`` 与 ``Image.libPathInvalid``。
+- 更改了 ``Session.missingDatabaseTable``。
+
+*******
+变更
+*******
+
+- **Boot：** 新增 ``Boot::bootWorker()`` 方法，用于 Worker 的一次性初始化。
+- **CodeIgniter：** 新增 ``CodeIgniter::resetForWorkerMode()`` 方法，用于在 Worker 请求之间重置特定请求的状态。
+- **Config：** 新增 ``app/Config/WorkerMode.php`` 用于 Worker 模式配置（持久化服务、垃圾回收）。
+- **Cookie：** ``CookieInterface::EXPIRES_FORMAT`` 已更改为 ``D, d M Y H:i:s T``，以遵循 RFC 7231 推荐格式。
+- **DatabaseConfig：** 新增 ``Config::reconnectForWorkerMode()`` 与 ``Config::cleanupForWorkerMode()`` 方法，用于 Worker 模式下的数据库连接管理。
+- **Events：** 新增 ``Events::cleanupForWorkerMode()`` 方法。
+- **Format：** 增加了通过 ``Config\Format::$jsonEncodeDepth`` 配置 ``json_encode()`` 最大深度的支持。
+- **Paths：** 增加了通过 ``Paths::$envDirectory`` 属性更改 ``.env`` 文件位置的支持。
+- **Services：** 新增 ``Services::resetForWorkerMode()`` 与 ``Services::reconnectCacheForWorkerMode()`` 方法。
+- **Toolbar：** 在 **app/Config/Toolbar.php** 中新增了 ``$disableOnHeaders`` 属性。
+- **Toolbar：** 新增 ``Toolbar::reset()`` 方法以重置调试工具栏收集器。
+
+************
+弃用
+************
+
+- **ContentSecurityPolicy：**
+    - 废弃了 ``CodeIgniter\HTTP\ContentSecurityPolicy::$nonces`` 属性。该属性从未被使用。
+- **Encryption：**
+    - 废弃了 ``CodeIgniter\Encryption\Handlers\SodiumHandler::parseParams()`` 方法。参数现在直接在 ``encrypt()`` 和 ``decrypt()`` 方法中处理。
+- **Image：**
+    - 废弃了配置属性 ``Config\Image::libraryPath``。不再使用。
+    - 废弃了异常方法 ``CodeIgniter\Images\Exceptions\ImageException::forInvalidImageLibraryPath``。不再使用。
+
+**********
+Bug 修复
+**********
+
+- **Cookie：** ``CookieInterface::SAMESITE_STRICT``、``CookieInterface::SAMESITE_LAX`` 和 ``CookieInterface::SAMESITE_NONE`` 常量现在改为首字母大写风格（ucfirst），以与框架其他部分的用法保持一致。
+- **Cache：** 将 ``WincacheHandler::increment()`` 和 ``WincacheHandler::decrement()`` 的返回类型更改为 ``bool``，而非 ``mixed``。
+- **Entity：** 修复了调用 ``CodeIgniter\Entity\Entity::toArray()`` 时总是将 ``$_cast`` 的值更改为 ``true`` 且不恢复初始值的问题。
+- **Toolbar：** 修复了在启用了调试工具栏的页面上发起类 AJAX 请求（如 HTMX、Turbo、Unpoly 等）时，导致 **Maximum call stack size exceeded** 崩溃的问题。
+
+请查看仓库的
+`CHANGELOG.md <https://github.com/codeigniter4/CodeIgniter4/blob/develop/CHANGELOG.md>`_
+以获取完整的 Bug 修复列表。

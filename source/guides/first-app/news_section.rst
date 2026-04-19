@@ -25,7 +25,7 @@
         UNIQUE slug (slug)
     );
 
-同时添加一些种子记录。目前仅展示创建表所需的 SQL 语句，不过在熟悉 CodeIgniter 后，可以通过编程方式实现。稍后可阅读 :doc:`数据库迁移 <../dbmgmt/migration>` 和 :doc:`数据填充 <../dbmgmt/seeds>` 了解如何构建更高效的数据库方案。
+同时添加一些种子记录。目前仅展示创建表所需的 SQL 语句，不过在熟悉 CodeIgniter 后，可以通过编程方式实现。稍后可阅读 :doc:`数据库迁移 <../../dbmgmt/migration>` 和 :doc:`数据填充 <../../dbmgmt/seeds>` 了解如何构建更高效的数据库方案。
 
 补充一点：在 Web 发布语境下，“slug” 是指用于 URL 中标识并描述资源的、对用户和 SEO 友好的简短文本。
 
@@ -39,7 +39,7 @@
 连接数据库
 ************************
 
-安装 CodeIgniter 时创建的本地配置文件 **.env** 中，应取消数据库属性设置的注释，并根据所用数据库进行正确配置。确保已按照 :doc:`../database/configuration` 中的说明配置好数据库::
+安装 CodeIgniter 时创建的本地配置文件 **.env** 中，应取消数据库属性设置的注释，并根据所用数据库进行正确配置。确保已按照 :doc:`../../database/configuration` 中的说明配置好数据库::
 
     database.default.hostname = localhost
     database.default.database = ci4tutorial
@@ -50,7 +50,7 @@
 设置模型
 *********************
 
-数据库操作不应直接写在控制器中，而应放入模型，以便日后复用。模型用于获取、插入和更新数据库或其他数据存储中的信息。有关详细信息，请参阅 :doc:`../models/model`。
+数据库操作不应直接写在控制器中，而应放入模型，以便日后复用。模型用于获取、插入和更新数据库或其他数据存储中的信息。有关详细信息，请参阅 :doc:`../../models/model`。
 
 创建 NewsModel
 ================
@@ -64,12 +64,12 @@
 添加 NewsModel::getNews() 方法
 ===============================
 
-数据库和模型设置完成后，需要一个从数据库获取所有文章的方法。为此，在 ``CodeIgniter\Model`` 中使用了 CodeIgniter 内置的数据库抽象层——:doc:`查询构建器 <../database/query_builder>`。这使得只需编写一次“查询”，即可在 :doc:`所有受支持的数据库系统 <../intro/requirements>` 上运行。Model 类还简化了查询构建器的使用，并提供了额外的工具来简化数据操作。将以下代码添加到模型中。
+数据库和模型设置完成后，需要一个从数据库获取所有文章的方法。为此，在 ``CodeIgniter\Model`` 中使用了 CodeIgniter 内置的数据库抽象层——:doc:`查询构建器 <../../database/query_builder>`。这使得只需编写一次“查询”，即可在 :doc:`所有受支持的数据库系统 <../../intro/requirements>` 上运行。Model 类还简化了查询构建器的使用，并提供了额外的工具来简化数据操作。将以下代码添加到模型中。
 
 .. literalinclude:: news_section/002.php
     :lines: 11-23
 
-通过这段代码可以执行两种不同的查询：获取所有新闻记录，或根据 Slug 获取特定新闻条目。你可能注意到 ``$slug`` 变量在运行查询前没有经过转义，这是因为 :doc:`查询构建器 <../database/query_builder>` 已自动处理。
+通过这段代码可以执行两种不同的查询：获取所有新闻记录，或根据 Slug 获取特定新闻条目。你可能注意到 ``$slug`` 变量在运行查询前没有经过转义，这是因为 :doc:`查询构建器 <../../database/query_builder>` 已自动处理。
 
 此处使用的 ``findAll()`` 和 ``first()`` 方法由 ``CodeIgniter\Model`` 类提供。它们会根据 ``NewsModel`` 类中设置的 ``$table`` 属性自动识别要操作的表。这些辅助方法利用查询构建器对当前表运行命令，并按选定格式返回结果数组。在本例中，``findAll()`` 返回一个二维数组。
 
@@ -94,11 +94,11 @@
 
 .. literalinclude:: news_section/003.php
 
-观察代码可以发现，它与之前创建的文件非常相似。首先，它继承了 ``BaseController``（后者继承自 CodeIgniter 核心类 ``Controller``）。该核心类提供了一些辅助方法，并确保可以访问当前的 ``Request`` 和 ``Response`` 对象，以及用于将信息保存到磁盘的 ``Logger`` 类。
+观察代码可以发现，它与之前创建的文件非常相似。首先，它继承了 ``BaseController`` （后者继承自 CodeIgniter 核心类 ``Controller``）。该核心类提供了一些辅助方法，并确保可以访问当前的 ``Request`` 和 ``Response`` 对象，以及用于将信息保存到磁盘的 ``Logger`` 类。
 
 接下来定义了两个方法：一个用于查看所有新闻条目，另一个用于查看特定新闻。
 
-随后，使用 :php:func:`model()` 函数创建 ``NewsModel`` 实例。这是一个全局辅助函数。详情请参阅 :doc:`../general/common_functions`。如果不使用该函数，也可以写成 ``$model = new NewsModel();``。
+随后，使用 :php:func:`model()` 函数创建 ``NewsModel`` 实例。这是一个全局辅助函数。详情请参阅 :doc:`../../general/common_functions`。如果不使用该函数，也可以写成 ``$model = new NewsModel();``。
 
 在第二个方法中，``$slug`` 变量被传递给模型方法，模型通过此 Slug 识别并返回对应的新闻条目。
 
@@ -121,7 +121,7 @@
 .. note:: 再次使用 :php:func:`esc()` 来防止 XSS 攻击。
     不过这次增加了第二个参数 "url"。这是因为攻击模式会随输出内容的上下文环境而变化。
 
-此处循环遍历每个新闻条目并展示给用户。可以看到模板中混合使用了 PHP 和 HTML。如果更倾向于使用模板语言，可以使用 CodeIgniter 的 :doc:`视图解析器 </outgoing/view_parser>` 或第三方解析器。
+此处通过循环遍历并显示每条新闻项目。可以看到，模板由 PHP 和 HTML 混写而成。如果倾向于使用模板语言，可以使用 CodeIgniter 的 :doc:`视图解析器 </outgoing/view_parser>` 或第三方解析器。
 
 完善 News::show() 方法
 ============================
@@ -143,5 +143,5 @@
 
 在浏览器中访问新闻页面（例如 **localhost:8080/news**），即可看到新闻列表，点击每条新闻对应的链接可查看全文。
 
-.. image:: ../images/tutorial2.png
+.. image:: ../../images/tutorial2.png
     :align: center

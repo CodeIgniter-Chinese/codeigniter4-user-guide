@@ -27,6 +27,8 @@ spark optimize
 - 启用 `配置缓存`_
 - 启用 `FileLocator 缓存`_
 
+.. warning:: 在 :doc:`worker_mode` 下运行应用时，请勿使用 ``spark optimize``。
+
 Composer 优化
 =====================
 

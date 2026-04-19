@@ -391,7 +391,7 @@ $builder->like()
 
     .. literalinclude:: query_builder/039.php
 
-    如果想控制通配符（**%**）放置的位置，可以使用可选的第三个参数。选项有 ``before``、``after`` 和 ``both`` （默认）。
+    如需控制通配符（**%**）的位置，可使用可选的第三个参数。选项包括 ``none``、``before``、``after`` 以及 ``both`` （默认值）。
 
     .. literalinclude:: query_builder/040.php
 

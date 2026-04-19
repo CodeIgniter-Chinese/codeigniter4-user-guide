@@ -33,9 +33,10 @@ CodeIgniter 的图像处理类支持以下操作：
 - ``gd``      GD/GD2 图像库
 - ``imagick`` ImageMagick 库
 
-如果使用 ImageMagick 库，必须在 **app/Config/Images.php** 中设置服务器的库路径。
+.. note:: ImageMagick Handler 需要安装 imagick 扩展。
 
-.. note:: ImageMagick handler 需要安装 imagick 扩展。
+.. note::
+   在 Windows 平台上，ImageMagick Handler 在加载图像时需要使用 **绝对文件路径** （例如使用 ``WRITEPATH`` 或 ``FCPATH``）。
 
 *******************
 处理图像
@@ -227,4 +228,13 @@ CodeIgniter 的图像处理类支持以下操作：
 - ``fontPath``        要使用的 TTF 字体的完整服务器路径。如未提供，将使用系统字体。
 - ``fontSize``        要使用的字体大小。使用 GD handler 和系统字体时，有效值为 ``1`` 到 ``5``。
 
-.. note:: ImageMagick 驱动程序不识别 fontPath 的完整服务器路径。相反，只需提供要使用的已安装系统字体名称，如 Calibri。
+清除图像元数据
+=======================
+
+此方法用于移除图像中的元数据（EXIF、XMP、ICC、IPTC、注释等）。
+
+.. important:: GD 图像库在处理过程中会自动剥离所有元数据，因此在使用 GD 处理器时，此方法不会产生额外效果。这是 GD 本身的固有行为，且无法修改。
+
+保存操作期间会重新生成显示图像所需的必要技术元数据（如尺寸、色深）。除此之外，所有隐私敏感信息（如 GPS 位置、相机详情和时间戳）都将被彻底移除。
+
+.. literalinclude:: images/015.php

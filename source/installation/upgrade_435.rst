@@ -40,8 +40,6 @@ Session::stop()
 
 如果现有代码依赖于该 bug 的行为，请将其替换为 ``session_regenerate_id(true)``。
 
-另请参阅 :ref:`Session 库 <session-stop>`。
-
 项目文件
 *************
 
