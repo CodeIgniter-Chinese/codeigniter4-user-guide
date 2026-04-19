@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>创建新闻条目 &mdash; CodeIgniter 4.7.2 中文手册|用户手册|用户指南|中文文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=34bb78ad" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/citheme.css?v=9c825943" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/citheme_dark.css?v=2b70fae9" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8538e4be"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+      <script src="../../_static/js/citheme.js?v=e0bcfc84"></script>
+      <script src="../../_static/js/carbon.js?v=b287325f"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="总结" href="conclusion.html" />
+    <link rel="prev" title="新闻版块" href="news_section.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/ci-logo-text.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">欢迎使用 CodeIgniter4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/index.html">欢迎使用 CodeIgniter4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/requirements.html">服务器要求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/credits.html">贡献致谢</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../intro/psr.html">PSR 兼容性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../license.html">许可协议</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation/index.html">安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/installing_composer.html">Composer 安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/installing_manual.html">手动安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/running.html">运行你的应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/worker_mode.html">Worker 模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/troubleshooting.html">故障排除</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/deployment.html">部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelogs/index.html">变更记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/upgrading.html">从旧版本升级</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/repositories.html">CodeIgniter 仓库</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">指南</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">构建第一个应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html">REST API 入门</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/index.html">CodeIgniter4 概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/structure.html">应用程序结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/mvc.html">模型、视图和控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/autoloader.html">自动加载文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/services.html">服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/factories.html">工厂</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/http.html">处理 HTTP 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/security.html">安全指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/goals.html">设计与架构目标</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../general/index.html">常规主题</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../general/configuration.html">配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/urls.html">CodeIgniter URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/helpers.html">辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/common_functions.html">全局函数和常量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/logging.html">日志信息记录</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/errors.html">错误处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/caching.html">网页缓存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/ajax.html">AJAX 请求</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/modules.html">代码模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/managing_apps.html">管理应用程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../general/environments.html">处理多环境</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../incoming/index.html">控制器和路由</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/routing.html">URI 路由</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/controllers.html">控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/filters.html">控制器过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/controller_attributes.html">控制器注解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/auto_routing_improved.html">自动路由（改进版）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/message.html">HTTP 消息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/request.html">Request 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/incomingrequest.html">IncomingRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/content_negotiation.html">内容协商</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/methodspoofing.html">HTTP 方法伪装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../incoming/restful.html">RESTful 资源处理</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../outgoing/index.html">构建响应</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/views.html">视图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/view_renderer.html">视图渲染器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/view_layouts.html">视图布局</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/view_cells.html">视图单元</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/view_parser.html">视图解析器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/view_decorators.html">视图装饰器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/table.html">HTML Table 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/response.html">HTTP 响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/api_responses.html">API 响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/api_transformers.html">API 资源</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/csp.html">内容安全策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/localization.html">本地化</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../outgoing/alternative_php.html">在视图文件中使用 PHP 替代语法</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../database/index.html">数据库操作</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../database/examples.html">快速入门：使用示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/configuration.html">数据库配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/connecting.html">连接数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/queries.html">Running Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/results.html">Generating Query Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/helpers.html">查询辅助方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/query_builder.html">Query Builder Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/metadata.html">Getting Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/call_function.html">自定义函数调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/events.html">数据库事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../database/utilities.html">Database Utilities</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../models/index.html">数据建模</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../models/model.html">使用 CodeIgniter 的模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models/entities.html">使用实体类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dbmgmt/index.html">管理数据库</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../dbmgmt/forge.html">数据库 Forge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dbmgmt/migration.html">数据库迁移</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dbmgmt/seeds.html">数据库填充</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dbmgmt/db_commands.html">数据库命令</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries/index.html">类库参考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/caching.html">缓存驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/cookies.html">Cookie 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/cors.html">跨域资源共享 (CORS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/curlrequest.html">CURLRequest 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/email.html">Email 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/encryption.html">加密服务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/files.html">处理文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/file_collections.html">文件集合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/honeypot.html">Honeypot 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/images.html">图像处理类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/pagination.html">分页</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/publisher.html">Publisher 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/security.html">Security 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/sessions.html">Session 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/throttler.html">Throttler 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/time.html">时间与日期</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/typography.html">Typography 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/uploaded_files.html">处理上传文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/uri.html">处理 URI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/user_agent.html">User Agent 类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../libraries/validation.html">Validation 类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../helpers/index.html">辅助函数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/array_helper.html">数组辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/cookie_helper.html">Cookie 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/date_helper.html">日期辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/filesystem_helper.html">文件系统辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/form_helper.html">表单辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/html_helper.html">HTML 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/inflector_helper.html">Inflector 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/number_helper.html">数字辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/security_helper.html">安全辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/test_helper.html">测试辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/text_helper.html">文本辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/url_helper.html">URL 辅助函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../helpers/xml_helper.html">XML 辅助函数</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../testing/index.html">测试</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/overview.html">入门指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/database.html">数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/fabricator.html">生成数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/controllers.html">测试控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/feature.html">HTTP 测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/response.html">测试响应</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/cli.html">测试 CLI 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/mocking.html">模拟</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/benchmark.html">基准测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/debugging.html">调试应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/session_testing.html">Session 测试</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">命令行使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/cli_overview.html">CLI 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/cli_controllers.html">通过 CLI 运行控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/spark_commands.html">Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/cli_commands.html">创建 Spark 命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/cli_generators.html">CLI 生成器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/cli_library.html">CLI 库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/cli_signals.html">CLI Signals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/cli_request.html">CLIRequest 类</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../extending/index.html">扩展 CodeIgniter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../extending/core_classes.html">创建核心系统类</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extending/common.html">替换通用函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extending/events.html">事件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extending/basecontroller.html">扩展控制器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extending/authentication.html">身份验证</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extending/composer_packages.html">创建 Composer 包</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extending/contributing.html">为 CodeIgniter 做贡献</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries/official_packages.html">官方包</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CodeIgniter</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">指南</a></li>
+          <li class="breadcrumb-item"><a href="index.html">构建第一个应用程序</a></li>
+      <li class="breadcrumb-item active">创建新闻条目</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>创建新闻条目<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<nav class="contents local" id="id2">
+<ul class="simple">
+<li><p><a class="reference internal" href="#csrf" id="id12">启用 CSRF 过滤器</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id13">添加路由规则</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id14">创建表单</a></p>
+<ul>
+<li><p><a class="reference internal" href="#news-create" id="id15">创建 news/create 视图文件</a></p></li>
+<li><p><a class="reference internal" href="#news" id="id16">News 控制器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#news-new" id="id17">添加 News::new() 以显示表单</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id18">添加 News::create() 以创建新闻条目</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#newsmodel" id="id19">更新 NewsModel</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id20">创建新闻条目</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id21">恭喜</a></p></li>
+</ul>
+</nav>
+<p>目前已掌握如何使用 CodeIgniter 从数据库读取数据，但尚未尝试写入。本节将扩展此前创建的新闻控制器和模型，以实现此功能。</p>
+<section id="csrf">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">启用 CSRF 过滤器</a><a class="headerlink" href="#csrf" title="Link to this heading"></a></h2>
+<p>在创建表单前，先启用 CSRF 保护。</p>
+<p>打开 <strong>app/Config/Filters.php</strong> 文件，按如下方式更新 <code class="docutils literal notranslate"><span class="pre">$methods</span></code> 属性：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">Config</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Config\BaseConfig</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Filters</span> <span class="k">extends</span> <span class="nx">BaseConfig</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">array</span> <span class="nv">$methods</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;POST&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;csrf&#39;</span><span class="p">],</span>
+    <span class="p">];</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>此配置为所有 <strong>POST</strong> 请求启用了 CSRF 过滤器。更多关于 CSRF 保护的信息，请参阅 <a class="reference internal" href="../../libraries/security.html"><span class="doc">Security</span></a> 类文档。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>通常在使用 <code class="docutils literal notranslate"><span class="pre">$methods</span></code> 过滤器时，应禁用 <a class="reference internal" href="../../incoming/routing.html#use-defined-routes-only"><span class="std std-ref">自动路由（传统版）</span></a>，因为 <a class="reference internal" href="../../incoming/routing.html#auto-routing-legacy"><span class="std std-ref">自动路由（传统版）</span></a> 允许通过任何 HTTP 方法访问控制器。如果使用了非预期的 HTTP 方法访问控制器，可能会绕过该过滤器。</p>
+</div>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">添加路由规则</a><a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>向 CodeIgniter 应用添加新闻条目前，必须在 <strong>app/Config/Routes.php</strong> 文件中增加一条规则。确保文件中包含以下内容：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">use</span> <span class="nx">App\Controllers\News</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">App\Controllers\Pages</span><span class="p">;</span>
+
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">News</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">]);</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news/new&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">News</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s1">&#39;new&#39;</span><span class="p">]);</span> <span class="c1">// Add this line</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">News</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s1">&#39;create&#39;</span><span class="p">]);</span> <span class="c1">// Add this line</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;news/(:segment)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">News</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s1">&#39;show&#39;</span><span class="p">]);</span>
+
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;pages&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">Pages</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">]);</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;(:segment)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">Pages</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">'news/new'</span></code> 的路由指令需放在 <code class="docutils literal notranslate"><span class="pre">'news/(:segment)'</span></code> 之前，以确保能正确显示创建新闻的表单。</p>
+<p><code class="docutils literal notranslate"><span class="pre">$routes-&gt;post()</span></code> 行定义了 POST 请求的路由。该路由仅匹配指向 <strong>/news</strong> 的 POST 请求，并将其映射到 <code class="docutils literal notranslate"><span class="pre">News</span></code> 类的 <code class="docutils literal notranslate"><span class="pre">create()</span></code> 方法。</p>
+<p>关于不同路由类型的更多信息，请参阅 <a class="reference internal" href="../../incoming/routing.html#defined-route-routing"><span class="std std-ref">设置路由规则</span></a>。</p>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">创建表单</a><a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<section id="news-create">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">创建 news/create 视图文件</a><a class="headerlink" href="#news-create" title="Link to this heading"></a></h3>
+<p>若要向数据库输入数据，需要创建一个用于输入信息的表单。这意味着需要一个包含两个字段（标题和文本）的表单。Slug 将根据模型中的标题自动生成。</p>
+<p>在 <strong>app/Views/news/create.php</strong> 创建新视图：</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;&lt;?=</span> <span class="nx">esc</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+
+<span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">session</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getFlashdata</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+<span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">validation_list_errors</span><span class="p">()</span> <span class="cp">?&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/news&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+    <span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">csrf_field</span><span class="p">()</span> <span class="cp">?&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;title&quot;</span><span class="p">&gt;</span>Title<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;input&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;title&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">set_value</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="s">&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;body&quot;</span><span class="p">&gt;</span>Text<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;body&quot;</span> <span class="na">cols</span><span class="o">=</span><span class="s">&quot;45&quot;</span> <span class="na">rows</span><span class="o">=</span><span class="s">&quot;4&quot;</span><span class="p">&gt;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nx">set_value</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Create news item&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>此处可能只有四处内容较为陌生：</p>
+<p>使用 <a class="reference internal" href="../../general/common_functions.html#session" title="session"><code class="xref php php-func docutils literal notranslate"><span class="pre">session()</span></code></a> 函数获取 Session 对象，并通过 <code class="docutils literal notranslate"><span class="pre">session()-&gt;getFlashdata('error')</span></code> 向用户显示 CSRF 保护相关的错误。不过默认情况下，若 CSRF 验证失败会抛出异常，因此该功能目前尚不可用。详见 <a class="reference internal" href="../../libraries/security.html#csrf-redirection-on-failure"><span class="std std-ref">失败时重定向</span></a>。</p>
+<p>由 <a class="reference internal" href="../../helpers/form_helper.html"><span class="doc">表单辅助函数</span></a> 提供的 <a class="reference internal" href="../../helpers/form_helper.html#validation_list_errors" title="validation_list_errors"><code class="xref php php-func docutils literal notranslate"><span class="pre">validation_list_errors()</span></code></a> 函数用于报告表单验证错误。</p>
+<p><a class="reference internal" href="../../general/common_functions.html#csrf_field" title="csrf_field"><code class="xref php php-func docutils literal notranslate"><span class="pre">csrf_field()</span></code></a> 函数会创建一个包含 CSRF 令牌的隐藏输入框，有助于抵御常见攻击。</p>
+<p>由 <a class="reference internal" href="../../helpers/form_helper.html"><span class="doc">表单辅助函数</span></a> 提供的 <a class="reference internal" href="../../helpers/form_helper.html#set_value" title="set_value"><code class="xref php php-func docutils literal notranslate"><span class="pre">set_value()</span></code></a> 函数用于在发生错误时显示之前的输入数据。</p>
+</section>
+<section id="news">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">News 控制器</a><a class="headerlink" href="#news" title="Link to this heading"></a></h3>
+<p>回到 <code class="docutils literal notranslate"><span class="pre">News</span></code> 控制器。</p>
+<section id="news-new">
+<h4><a class="toc-backref" href="#id17" role="doc-backlink">添加 News::new() 以显示表单</a><a class="headerlink" href="#news-new" title="Link to this heading"></a></h4>
+<p>首先，创建一个方法来显示前面创建的 HTML 表单。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Models\NewsModel</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Exceptions\PageNotFoundException</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">News</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">new</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;templates/header&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Create a news item&#39;</span><span class="p">])</span>
+            <span class="o">.</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;news/create&#39;</span><span class="p">)</span>
+            <span class="o">.</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;templates/footer&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>通过 <a class="reference internal" href="../../general/common_functions.html#helper" title="helper"><code class="xref php php-func docutils literal notranslate"><span class="pre">helper()</span></code></a> 函数加载 <a class="reference internal" href="../../helpers/form_helper.html"><span class="doc">表单辅助函数</span></a>。大多数辅助函数在使用前都必须先加载。</p>
+<p>随后返回创建好的表单视图。</p>
+</section>
+<section id="id5">
+<h4><a class="toc-backref" href="#id18" role="doc-backlink">添加 News::create() 以创建新闻条目</a><a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<p>接下来，创建一个方法用于处理提交的数据并创建新闻条目。</p>
+<p>此方法主要执行以下三项操作：</p>
+<ol class="arabic simple">
+<li><p>检查提交的数据是否通过验证规则。</p></li>
+<li><p>将新闻条目保存到数据库。</p></li>
+<li><p>返回成功页面。</p></li>
+</ol>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Controllers</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">App\Models\NewsModel</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">CodeIgniter\Exceptions\PageNotFoundException</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">News</span> <span class="k">extends</span> <span class="nx">BaseController</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">helper</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
+
+        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">]);</span>
+
+        <span class="c1">// Checks whether the submitted data passed the validation rules.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validateData</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="p">[</span>
+            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[255]|min_length[3]&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;required|max_length[5000]|min_length[10]&#39;</span><span class="p">,</span>
+        <span class="p">]))</span> <span class="p">{</span>
+            <span class="c1">// The validation fails, so returns the form.</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">new</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Gets the validated data.</span>
+        <span class="nv">$post</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">validator</span><span class="o">-&gt;</span><span class="na">getValidated</span><span class="p">();</span>
+
+        <span class="nv">$model</span> <span class="o">=</span> <span class="nx">model</span><span class="p">(</span><span class="nx">NewsModel</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+
+        <span class="nv">$model</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">([</span>
+            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;slug&#39;</span>  <span class="o">=&gt;</span> <span class="nx">url_title</span><span class="p">(</span><span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">),</span>
+            <span class="s1">&#39;body&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">],</span>
+        <span class="p">]);</span>
+
+        <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;templates/header&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Create a news item&#39;</span><span class="p">])</span>
+            <span class="o">.</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;news/success&#39;</span><span class="p">)</span>
+            <span class="o">.</span> <span class="nx">view</span><span class="p">(</span><span class="s1">&#39;templates/footer&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>上述代码实现了大量功能：</p>
+<section id="id6">
+<h5>获取数据<a class="headerlink" href="#id6" title="Link to this heading"></a></h5>
+<p>首先，使用框架在控制器中设置好的 <a class="reference internal" href="../../incoming/incomingrequest.html"><span class="doc">IncomingRequest</span></a> 对象 <code class="docutils literal notranslate"><span class="pre">$this-&gt;request</span></code>。</p>
+<p>从用户提交的 <strong>POST</strong> 数据中获取必要项，并存入 <code class="docutils literal notranslate"><span class="pre">$data</span></code> 变量。</p>
+</section>
+<section id="id7">
+<h5>验证数据<a class="headerlink" href="#id7" title="Link to this heading"></a></h5>
+<p>接着，利用控制器提供的 <a class="reference internal" href="../../incoming/controllers.html#controller-validatedata"><span class="std std-ref">validateData()</span></a> 辅助函数验证提交的数据。本例中，标题和内容字段为必填项，且需满足特定长度。</p>
+<p>如上所示，CodeIgniter 拥有强大的验证库。详情可参阅 <a class="reference internal" href="../../libraries/validation.html"><span class="doc">Validation 类</span></a>。</p>
+<p>如果验证失败，则调用刚才创建的 <code class="docutils literal notranslate"><span class="pre">new()</span></code> 方法并重新返回表单。</p>
+</section>
+<section id="id8">
+<h5>保存新闻条目<a class="headerlink" href="#id8" title="Link to this heading"></a></h5>
+<p>若数据通过所有验证规则，则通过 <a class="reference internal" href="../../libraries/validation.html#validation-getting-validated-data"><span class="std std-ref">$this-&gt;validator-&gt;getValidated()</span></a> 获取验证后的数据，并存入 <code class="docutils literal notranslate"><span class="pre">$post</span></code> 变量。</p>
+<p>随后加载并调用 <code class="docutils literal notranslate"><span class="pre">NewsModel</span></code>，将新闻条目传递给模型。<a class="reference internal" href="../../models/model.html#model-save"><span class="std std-ref">save()</span></a> 方法会根据数组中是否存在匹配主键的键值，自动处理记录的插入或更新。</p>
+<p>此处包含一个新函数 <a class="reference internal" href="../../helpers/url_helper.html#url_title" title="url_title"><code class="xref php php-func docutils literal notranslate"><span class="pre">url_title()</span></code></a>。该函数由 <a class="reference internal" href="../../helpers/url_helper.html"><span class="doc">URL 辅助函数</span></a> 提供，用于处理传入的字符串，将所有空格替换为减号（<code class="docutils literal notranslate"><span class="pre">-</span></code>）并转换为小写，从而生成非常适合 URI 的 Slug。</p>
+</section>
+<section id="id9">
+<h5>返回成功页面<a class="headerlink" href="#id9" title="Link to this heading"></a></h5>
+<p>完成后，加载并返回视图文件以显示成功信息。在 <strong>app/Views/news/success.php</strong> 创建视图并编写成功提示。</p>
+<p>内容可以很简单:</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">News</span> <span class="nx">item</span> <span class="nx">created</span> <span class="nx">successfully</span><span class="o">.&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="newsmodel">
+<h2><a class="toc-backref" href="#id19" role="doc-backlink">更新 NewsModel</a><a class="headerlink" href="#newsmodel" title="Link to this heading"></a></h2>
+<p>最后需要确保模型已配置妥当，以便正确保存数据。<code class="docutils literal notranslate"><span class="pre">save()</span></code> 方法会根据是否存在主键，自动判断执行插入操作还是更新现有记录。在本例中，由于未传递 <code class="docutils literal notranslate"><span class="pre">id</span></code> 字段，模型将向 <code class="docutils literal notranslate"><span class="pre">news</span></code> 表插入新行。</p>
+<p>然而，默认情况下模型中的插入和更新方法不会实际保存数据，因为它不知道哪些字段可以安全更新。需编辑 <code class="docutils literal notranslate"><span class="pre">NewsModel</span></code>，在 <code class="docutils literal notranslate"><span class="pre">$allowedFields</span></code> 属性中提供可更新字段的列表。</p>
+<div class="highlight-html+php notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">CodeIgniter\Model</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">NewsModel</span> <span class="k">extends</span> <span class="nx">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">&#39;news&#39;</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$allowedFields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;slug&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>该属性现在包含了允许保存到数据库的字段。注意这里漏掉了 <code class="docutils literal notranslate"><span class="pre">id</span></code>？这是因为 <code class="docutils literal notranslate"><span class="pre">id</span></code> 在数据库中是自增字段，几乎不需要手动操作。这有助于防止“批量赋值漏洞”。如果模型负责处理时间戳，也应将其排除在外。</p>
+</section>
+<section id="id10">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">创建新闻条目</a><a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<p>现在，在浏览器中访问本地开发环境，并在 URL 后添加 <strong>/news/new</strong>。尝试添加一些新闻并查看创建的各个页面。</p>
+<a class="reference internal image-reference" href="../../_images/tutorial3.png"><img alt="../../_images/tutorial3.png" class="align-center" src="../../_images/tutorial3.png" style="width: 45%; height: 415px;" />
+</a>
+<a class="reference internal image-reference" href="../../_images/tutorial4.png"><img alt="../../_images/tutorial4.png" class="align-center" src="../../_images/tutorial4.png" style="width: 45%; height: 415px;" />
+</a>
+</section>
+<section id="id11">
+<h2><a class="toc-backref" href="#id21" role="doc-backlink">恭喜</a><a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p>你刚刚完成了第一个 CodeIgniter 4 应用！</p>
+<p>下图展示了项目的 <strong>app</strong> 目录，以及所有新创建或修改过的文件。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>app/
+├── Config
+│   ├── Filters.php (已修改)
+│   └── Routes.php  (已修改)
+├── Controllers
+│   ├── News.php
+│   └── Pages.php
+├── Models
+│   └── NewsModel.php
+└── Views
+    ├── news
+    │   ├── create.php
+    │   ├── index.php
+    │   ├── success.php
+    │   └── view.php
+    ├── pages
+    │   ├── about.php
+    │   └── home.php
+    └── templates
+        ├── footer.php
+        └── header.php
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="news_section.html" class="btn btn-neutral float-left" title="新闻版块" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="conclusion.html" class="btn btn-neutral float-right" title="总结" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2019-2026 CodeIgniter 基金会。
+      <span class="lastupdated">最后更新于 2026-04-19.
+      </span></p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+  
+<jinja2.runtime.BlockReference object at 0x7f9b7c502a50>
+
+<div style="margin-top: 16px;">
+  <p>由 <a href="https://codeigniter.org.cn">CodeIgniter 中国开发者社区</a>翻译并制作</p>
+  <p style="margin-bottom: 0;">
+    <a href="https://github.com/CodeIgniter-Chinese/codeigniter4-user-guide" target="_blank">Github 简体中文翻译</a>
+    ·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/codeigniter_user_guide.zip">离线版压缩包下载</a>
+    ·
+    <a href="https://codeigniter-chinese.github.io/codeigniter4-user-guide/CodeIgniter.pdf">PDF 版下载</a>
+  </p>
+</div>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
