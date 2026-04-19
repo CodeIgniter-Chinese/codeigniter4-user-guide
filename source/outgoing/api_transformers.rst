@@ -278,7 +278,7 @@ Transformer 不仅能处理实体，还能处理各种数据类型。
         :returns: 允许的字段名数组，或返回 ``null`` 以允许所有字段
         :rtype: array|null
 
-        重写此方法以限制可通过 ``fields`` 查询参数请求的字段。返回 ``null``（默认值）以允许 ``toArray()`` 中的所有字段。返回字段名数组以创建允许字段的白名单。
+        重写此方法以限制可通过 ``fields`` 查询参数请求的字段。返回 ``null`` （默认值）以允许 ``toArray()`` 中的所有字段。返回字段名数组以创建允许字段的白名单。
 
         .. literalinclude:: api_transformers/022.php
 

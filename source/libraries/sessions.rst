@@ -65,7 +65,7 @@ Session 数据即为与特定 Session ID（Cookie）关联的数组。
 
 如果之前使用过 PHP 的 Session，应该熟悉 PHP 的 `$_SESSION 超全局变量 <https://www.php.net/manual/zh/reserved.variables.session.php>`_ （如果不熟悉，请阅读该链接的内容）。
 
-CodeIgniter 通过相同方式提供对 Session 数据的访问，因为它使用 PHP 提供的 Session 处理机制。使用 Session 数据就像操作（读取、设置和取消设置值）``$_SESSION`` 数组一样简单。
+CodeIgniter 通过相同方式提供对 Session 数据的访问，因为它使用 PHP 提供的 Session 处理机制。使用 Session 数据就像操作（读取、设置和取消设置值） ``$_SESSION`` 数组一样简单。
 
 .. note:: 一般而言，使用全局变量是不好的做法。因此不建议直接使用超全局变量 ``$_SESSION``。
 
@@ -457,7 +457,7 @@ PostgreSQL::
 添加主键
 ^^^^^^^^^^^^^^^^^^
 
-还需要 **根据 ``$matchIP`` 设置** 添加主键。以下示例同时适用于 MySQL 和 PostgreSQL::
+还需要 **根据 $matchIP 设置** 添加主键。以下示例同时适用于 MySQL 和 PostgreSQL::
 
     // 当 $matchIP = true 时
     ALTER TABLE ci_sessions ADD PRIMARY KEY (id, ip_address);

@@ -539,7 +539,7 @@ save 方法支持处理自定义类对象，极大简化了相关操作。该方
 
 .. versionadded:: 4.7.0
 
-``insert()``、``insertBatch()``（当 `$useAutoIncrement`_ 为 ``false`` 时）、``update()`` 与 ``delete()`` 方法在执行数据库查询前，会先验证主键值。若主键值为 ``null``、``0``、``'0'``、空字符串、布尔值、空数组或嵌套数组等无效值，将抛出带特定错误信息的 ``InvalidArgumentException``。
+``insert()``、``insertBatch()`` （当 `$useAutoIncrement`_ 为 ``false`` 时）、``update()`` 与 ``delete()`` 方法在执行数据库查询前，会先验证主键值。若主键值为 ``null``、``0``、``'0'``、空字符串、布尔值、空数组或嵌套数组等无效值，将抛出带特定错误信息的 ``InvalidArgumentException``。
 
 如需自定义此行为（例如为兼容旧系统而允许将 ``0`` 作为有效主键），可在模型中重写 ``validateID()`` 方法。
 

@@ -94,7 +94,7 @@
 
 .. literalinclude:: news_section/003.php
 
-观察代码可以发现，它与之前创建的文件非常相似。首先，它继承了 ``BaseController``（后者继承自 CodeIgniter 核心类 ``Controller``）。该核心类提供了一些辅助方法，并确保可以访问当前的 ``Request`` 和 ``Response`` 对象，以及用于将信息保存到磁盘的 ``Logger`` 类。
+观察代码可以发现，它与之前创建的文件非常相似。首先，它继承了 ``BaseController`` （后者继承自 CodeIgniter 核心类 ``Controller``）。该核心类提供了一些辅助方法，并确保可以访问当前的 ``Request`` 和 ``Response`` 对象，以及用于将信息保存到磁盘的 ``Logger`` 类。
 
 接下来定义了两个方法：一个用于查看所有新闻条目，另一个用于查看特定新闻。
 

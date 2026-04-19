@@ -56,7 +56,7 @@ REST API 入门
 
     cp env .env
 
-打开 **.env** 并确保**取消注释**以下行：
+打开 **.env** 并确保 **取消注释** 以下行：
 
 .. code-block:: ini
 

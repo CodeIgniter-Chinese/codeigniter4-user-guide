@@ -43,7 +43,7 @@ BaseModel
 主键验证
 ^^^^^^^^^^^^^^^^^^^^^^
 
-``insert()``、``insertBatch()``（禁用 ``useAutoIncrement`` 时）、``update()``
+``insert()``、``insertBatch()`` （禁用 ``useAutoIncrement`` 时）、``update()``
 以及 ``delete()`` 方法现在会在执行数据库查询 **之前** 验证主键值。
 非法的主键值将抛出 ``InvalidArgumentException``，而非 ``DatabaseException``。
 
@@ -53,7 +53,7 @@ BaseModel
 - **验证时机：**
     - 对于 ``update()`` 与 ``delete()``：验证发生在 ``beforeUpdate`` / ``beforeDelete``
       事件 **之前**，且在执行任何数据库查询之前。
-    - 对于 ``insert()`` 与 ``insertBatch()``（禁用自动增量时）：验证发生在
+    - 对于 ``insert()`` 与 ``insertBatch()`` （禁用自动增量时）：验证发生在
       ``beforeInsert`` 事件 **之后**，但在执行数据库查询 **之前**。
 
 - **非法值：** 以下值现在被明确禁止作为主键：
@@ -265,7 +265,7 @@ BaseModel
 - **Cache：** 为 Predis 处理器新增 ``async`` 与 ``persistent`` 配置项。
 - **Cache：** 为 Redis 处理器新增 ``persistent`` 配置项。
 - **Cache：** 为 ``ResponseCache`` 增加了对 HTTP 状态的支持。
-- **Cache：** 新增 ``Config\Cache::$cacheStatusCodes``，用于控制允许被 ``PageCache`` 过滤器缓存的 HTTP 状态码。默认为 ``[]``（为保持向后兼容，缓存所有状态码）。推荐值：``[200]``，即仅缓存成功响应。详见 :ref:`设置 $cacheStatusCodes <web_page_caching_cache_status_codes>`。
+- **Cache：** 新增 ``Config\Cache::$cacheStatusCodes``，用于控制允许被 ``PageCache`` 过滤器缓存的 HTTP 状态码。默认为 ``[]`` （为保持向后兼容，缓存所有状态码）。推荐值：``[200]``，即仅缓存成功响应。详见 :ref:`设置 $cacheStatusCodes <web_page_caching_cache_status_codes>`。
 - **Cache：** 新增 `APCu <https://www.php.net/apcu>`_ 缓存驱动。
 - **CURLRequest：** 新增 ``shareConnection`` 配置项以更改默认共享连接。
 - **CURLRequest：** 新增 ``dns_cache_timeout`` 选项以更改默认 DNS 缓存超时。
