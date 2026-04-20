@@ -17,7 +17,7 @@
 
 .. literalinclude:: basecontroller/002.php
 
-任何其他需要加载的组件或需要处理的数据都应添加到构造函数 ``initController()`` 中。例如，如果你的项目大量使用 Session 库，你可能希望在这里初始化它：
+任何其他需要加载的组件或需要处理的数据都应添加到构造函数 ``initController()`` 中。例如，如果你的项目大量使用 Session 类，你可能希望在这里初始化它：
 
 .. literalinclude:: basecontroller/003.php
 
